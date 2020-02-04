@@ -1,0 +1,434 @@
+Name	COSType	Table name	Heading	Table-#-ISO-2017-01-09	Table-#-ISO-2019-08-14	Table-#-Peter	Status	poznamka																						
+White-space characters		Table 1 — White-space characters	7.2.3 Character set	1	1	1																								
+Delimeter Characters		Table 2 — Delimiter characters	7.2.3 Character set	2	2	2																								
+Escape sequences in literal strings		Table 3 — Escape sequences in literal strings	7.3.4.2 Literal strings	3	3	3																								
+Examples of literal names		Table 4 — Examples of literal names	7.3.5 Name objects	4	4	4																								
+Stream	COSStream	Table 5 — Entries common to all stream dictionaries	7.3.8 Stream objects	5	5	5	in progress																							
+StandardFilters	COSName	Table 6 — Standard filters	7.4 Filters	6	6	6	in progress	"nie je to tabulka pre dictionary, vymyslel som tam nejake stlpce, su to possible names pre filtre"																						
+Typical LZW encoding sequence		Table 7 — Typical LZW encoding sequence	7.4.4.2 Details of LZW encoding	7	7	7																								
+FlateDecode	COSDictionary	Table 8 — Optional parameters for LZWDecode and FlateDecode filters	7.4.4 LZWDecode and FlatDecode filters	8	8	8	in progress																							
+LZWDecode	COSDictionary	Table 8 — Optional parameters for LZWDecode and FlateDecode filters	7.4.4 LZWDecode and FlatDecode filters	8	8	8	in progress																							
+PNG predictor algorithms		Table 9 — PNG predictor algorithms	7.4.4.4 LZW and Flate predictor functions	9	9	9																								
+Predictor values		Table 10 — Predictor values	7.4.4.4 LZW and Flate predictor functions	10	10	10																								
+CCITTFAXDecode	COSDictionary	Table 11 – Optional parameters for the CCITTFaxDecode filter	7.4.6 CCITTFaxDecode filter	11	11	11	in progress																							
+JBIG2Decode	COSDictionary	Table 12 — Optional parameter for the JBIG2Decode filter	7.4.7 JBIG2Decode filter	12	12	12	in progress																							
+DCTDecode	COSDictionary	Table 13 – Optional parameter for the DCTDecode filter	7.4.8 DCTDecode filter	13	13	13	in progress																							
+Crypt	COSDictionary	Table 14 — Optional parameters for Crypt filters	7.4.10 Crypt filter	14	14	14	in progress																							
+FileTrailer	COSDictionary	Table 15 — Entries in the file trailer dictionary	7.5.5 File trailer	15	15	15	in progress																							
+ObjectStream	COSStream	Table 16 — Additional entries specific to an object stream dictionary	7.5.7 Object streams	16	16	16	in progress																							
+XReferenceStream	COSStream	Table 17 — Additional entries specific to a cross-reference stream dictionary	7.5.8.2 Cross-reference stream dictionary	17	17	17	in progress																							
+Entries in a cross-reference stream		Table 18 — Entries in a cross-reference stream	7.5.8.3 Cross-reference stream data	18	18	18																								
+HybridRefrenceFileTrailer	COSDictionary	Table 19 — Additional entries in a hybrid-reference file’s trailer dictionary	7.5.8.4 Compatibility with applications that do not support compressed reference streams	19	19	19	in progress																							
+Encryption	COSDictionary	Table 20 — Entries common to all encryption dictionaries	7.6.2 Application of encryption	20	20	20	in progress																							
+EncryptionSSH	COSDictionary	Table 21 — Additional encryption dictionary entries for the standard security handler	7.6.4.2 Standard encryption dictionary	21	21	21	in progress																							
+SSHUserAccessPermissions	COSInteger	Table 22 — Standard security handler user access permissions	7.6.4.2 Standard encryption dictionary	22	22	22	in progress																							
+EncryptionPublicKeySecurityHandlers	COSDictionary	Table 23 — Additional encryption dictionary entries for public-key security handlers	7.6.5.2 Public-key encryption dictionary	23	23	23	in progress	P key - removed in 2020																						
+PublicKeySecurityHandlerUserAccessPermissions	COSInteger	Table 24 — Public-key security handler user access permissions	7.6.5.2 Public-key encryption dictionary	24	24	24	in progress																							
+CryptFilter	COSDictionary	Table 25 — Entries common to all crypt filter dictionaries	7.6.6 Crypt filters.	25	25	25	in progress																							
+Standard crypt filter names		Table 26 — Standard crypt filter names	7.6.6 Crypt filters.	26	26	26																								
+CryptFilterPublicKeySecurityHandlers	COSDictionary	Table 27 — Additional crypt filter dictionary entries for public-key security handlers	7.6.6 Crypt filters.	27	27	27	in progress																							
+EncryptedPayload	COSDictionary	Table 28 — Entries in an encrypted payload dictionary	7.6.7 Unencrypted wrapper document	28	28	28	in progress																							
+Catalog	COSDictionary	Table 29 — Entries in the catalog dictionary	7.7.2 Document catalog dictionary	29	29	29	in progress																							
+PageTree	COSDictionary	Table 30 — Required entries in a page tree node	7.7.3 Page tree	30	30	30	in progress																							
+PageObject	COSDictionary	Table 31 — Entries in a page object	7.7.3.3 Page objects	31	31	31	in progress																							
+Name	COSDictionary	Table 32 — Entries in the name dictionary	7.7.4 Name dictionary	32	32	32	in progress																							
+Compatibility operators		Table 33 — Compatibility operators	7.8.2 Content streams		33	33																								
+Resources	COSDictionary	Table 34 — Entries in a resource dictionary	7.8.3 Resource dictionaries	34	34	34	in progress																							
+PDFDataTypes		Table 35 — PDF data types	7.9 Common data structures		35	35	in progress																							
+NameTreeNodeRoot	COSDictionary	Table 36 — Entries in a name tree node dictionary	7.9.6 Name trees		36.1	36	in progress																							
+NameTreeNodeInter	COSDictionary	Table 36 — Entries in a name tree node dictionary	7.9.6 Name trees		36.2	36	in progress																							
+NameTreeNodeLeaf	COSDictionary	Table 36 — Entries in a name tree node dictionary	7.9.6 Name trees		36.3	36	in progress																							
+NumberTreeNodeRoot	COSDictionary	Table 37 — Entries in a number tree node dictionary	7.9.7 Number trees	37	37.1	37	in progress																							
+NumberTreeNodeInter	COSDictionary	Table 37 — Entries in a number tree node dictionary	7.9.7 Number trees		37.2	37	in progress																							
+NumberTreeNodeLeaf	COSDictionary	Table 37 — Entries in a number tree node dictionary	7.9.7 Number trees		37.3	37	in progress																							
+Function	COSDictionary	Table 38 — Entries common to all function dictionaries	7.10 Functions		38	38	in progress																							
+FunctionType0	COSDictionary	Table 39 — Additional entries specific to a Type 0 function dictionary	7.10.2 Type 0 (sampled) functions		39	39	in progress																							
+FunctionType2	COSDictionary	Table 40 — Additional entries specific to a Type 2 function dictionary	7.10.3 Type 2 (exponential interpolation) functions		40	40	in progress																							
+FunctionType3	COSDictionary	Table 41 — Additional entries specific to a Type 3 function dictionary	7.10.4 Type 3 (stitching) functions		41	41	in progress																							
+FunctionType4	COSDictionary		7.10.5 Type 4 (PostScript calculator) functions		42	42																								
+Operators in Type 4 functions		Table 42 — Operators in Type 4 functions	7.10.5.2 Operators and operands																											
+FileSpecification	COSDictionary	Table 43 — Entries in a file specification dictionary	7.11.3 File specification dictionaries	43	43	43	in progress																							
+EmbeddedFileStream	COSStream	Table 44 — Additional entries in an embedded file stream dictionary	7.11.4 Embedded file streams		44	44	in progress																							
+EmbeddedFileParameter	COSDictionary	Table 45 — Entries in an embedded file parameter dictionary	7.11.4 Embedded file streams		45	45	in progress																							
+CollectionItem	COSDictionary	Table 46 — Entries in a collection item dictionary	7.11.6 Collection items		46	46	in progress																							
+CollectionSubitem	COSDictionary	Table 47 — Entries in a collection subitem dictionary	7.11.6 Collection items		47	47	in progress																							
+Extensions	COSDictionary	Table 48 — Entries in an extensions dictionary	7.12.2 Extensions dictionary	48	48	48	in progress																							
+DevExtensions	COSDictionary	Table 49 — Entries in a developer extensions dictionary	7.12.3 Developer extensions dictionary	49	49	49	in progress																							
+Operator categories		Table 50 — Operator categories	8.2 Graphics objects		50	50																								
+DeviceIndependentGraphicsStateParameters		Table 51 — Device-independent graphics state parameters	8.4 Graphics state		51	51																								
+DeviceDependentGraphicsStateParameters		Table 52 — Device-dependent graphics state parameters	8.4 Graphics state		52	52																								
+Line cap styles		Table 53 — Line cap styles	8.4.3.3 Line cap style		53	53																								
+Line join styles		Table 54 — Line join styles	8.4.3.4 Line join style		54	54																								
+Line dash pattern		Table 55 — Examples of line dash patterns	8.4.3.6 Line dash pattern		55	55																								
+Graphics state operators		Table 56 — Graphics state operators	8.4.4 Graphics state operators		56	56																								
+GraphicsStateParameter	COSDictionary	Table 57 — Entries in a graphics state parameter dictionary	8.4.5 Graphics state parameter	57	57	57																								
+Path construction operators		Table 58 — Path construction operators	8.5.2 Path construction operators		58	58																								
+Path-painting operators		Table 59 — Path-painting operators	8.5.3 Path-painting operators		59	59																								
+Clipping path operators		Table 60 — Clipping path operators	8.5.4 Clipping path operators		60	60																								
+Colour space families		Table 61 — Colour space families	8.6.3 Colour space families		61	61																								
+CalGrayColourSpace	COSDictionary	Table 62 — Entries in a CalGray colour space dictionary	8.6.5.2 CalGray colour spaces		62	62																								
+CalRGBColourSpace	COSDictionary	Table 63 — Entries in a CalRGB colour space dictionary	8.6.5.3 CalRGB colour spaces		63	63																								
+LabColourSpace	COSDictionary	Table 64 — Entries in a Lab colour space dictionary	8.6.5.4 Lab colour spaces		64	64																								
+ICCProfileStream	COSStream	Table 65 — Additional entries specific to an ICC profile stream dictionary	8.6.5.5 ICCBased colour spaces		65	65																								
+ICC Specification versions supported by ICC based colour spaces		Table 66 — ICC Specification versions supported by ICC based colour spaces	8.6.5.5 ICCBased colour spaces		66	66																								
+ICC profile types		Table 67 — ICC profile types	8.6.5.5 ICCBased colour spaces		67	67																								
+Ranges for typical ICC colour spaces		Table 68 — Ranges for typical ICC colour spaces	8.6.5.5 ICCBased colour spaces		68	68																								
+Rendering intents		Table 69 — Rendering intents	8.6.5.8 Rendering intents		69	69																								
+DeviceNColourSpace	COSDictionary	Table 70 — Entries in a DeviceN colour space attributes dictionary	8.6.6.5 DeviceN colour spaces		70	70	in progress																							
+DeviceNProcess	COSDictionary	Table 71 — Entries in a DeviceN process dictionary	8.6.6.5 DeviceN colour spaces		71	71	in progress																							
+DeviceNMixingHints	COSDictionary	Table 72 — Entries in a DeviceN mixing hints dictionary	8.6.6.5 DeviceN colour spaces		72	72	in progress																							
+Colour operators		Table 73 — Colour operators	8.6.8 Colour operators		73	73																								
+PatternType1	COSStream	Table 74 — Additional entries specific to a Type 1 pattern dictionary	8.7.3 Tiling patterns		74	74																								
+PatternType2	COSDictionary	Table 75 — Entries in a Type 2 pattern dictionary	8.7.4 Shading patterns		75	75																								
+Shading operator		Table 76 — Shading operator	8.7.4.2 Shading operator		76	76																								
+Shading		Table 77 — Entries common to all shading dictionaries	8.7.4.3 Shading dictionaries		77	77																								
+ShadingType1		Table 78 — Additional entries specific to a Type 1 shading dictionary	8.7.4.5.2 Type 1 (function-based) shadings		78	78																								
+ShadingType2		Table 79 — Additional entries specific to a Type 2 shading dictionary	8.7.4.5.3 Type 2 (axial) shadings		79	79																								
+ShadingType3		Table 80 — Additional entries specific to a Type 3 shading dictionary	8.7.4.5.4 Type 3 (radial) shadings		80	80																								
+ShadingType4		Table 81 — Additional entries specific to a Type 4 shading dictionary	8.7.4.5.5 Type 4 (free-form Gouraud-shaded triangle mesh) shadings		81	81																								
+ShadingType5		Table 82 — Additional entries specific to a Type 5 shading dictionary	8.7.4.5.6 Type 5 (lattice-form Gouraud-shaded triangle mesh) shadings		82	82																								
+ShadingType6		Table 83 — Additional entries specific to a Type 6 shading dictionary	8.7.4.5.7 Type 6 (Coons patch mesh) shadings		83	83																								
+Data Values in a Coons Patch Mesh		Table 84 — Data Values in a Coons Patch Mesh	8.7.4.5.7 Type 6 (Coons patch mesh) shadings		84	84																								
+ShadingType7			8.7.4.5.8 Type 7 (tensor-product patch mash) shadings																											
+Data values in a tensor-product patch mesh		Table 85 — Data values in a tensor-product patch mesh	8.7.4.5.8 Type 7 (tensor-product patch mesh) shadings		85	85																								
+XObject operator		Table 86 — XObject operator	8.8 External objects		86	86																								
+Image		Table 87 — Additional entries specific to an image dictionary	8.9.5 Image dictionaries		87	87																								
+Default decode arrays		Table 88 — Default decode arrays	8.9.5.2 Decode arrays		88	88																								
+AlternateImage		Table 89 — Entries in an alternate image dictionary	8.9.5.4 Alternate images		89	89																								
+Inline image operators		Table 90 — Inline image operators	8.9.7 Inline images		90	90																								
+Entries in an inline image object		Table 91 — Entries in an inline image object	8.9.7 Inline images		91	91																								
+Additional abbreviations in an inline image object		Table 92 — Additional abbreviations in an inline image object	8.9.7 Inline images		92	92																								
+FormType1	COSStream	Table 93 — Additional entries specific to a Type 1 form dictionary	8.10.2 Form dictionaries	93	93	93																								
+Group		Table 94 — Entries common to all group attributes dictionaries	8.10.3 Group XObjects	94	94	94																								
+Reference		Table 95 — Entries in a reference dictionary	8.10.4 Reference XObjects		95	95																								
+OptContentGroup		Table 96 — Entries in an optional content group dictionary	8.11.2 Optional content groups		96	96																								
+OptContentMembership		Table 97 — Entries in an optional content membership dictionary	8.11.2.2 Optional content membership dictionaries		97	97																								
+OptContentProperties		Table 98 — Entries in the optional content properties dictionary	8.11.4 Configuring optional content	98	98	98																								
+OptContentConfig		Table 99 — Entries in an optional content configuration dictionary	8.11.4.3 Optional content configuration dictionaries	99	99	99																								
+OptContentUsage		Table 100 — Entries in an optional content usage dictionary	8.11.4.4 Usage and usage application dictionaries	100	100	100																								
+OptContentCreatorInfo		Table 100 — Entries in an optional content usage dictionary	8.11.4.4 Usage and usage application dictionaries	100.1	100.1	100																								
+OptContentLanguage		Table 100 — Entries in an optional content usage dictionary	8.11.4.4 Usage and usage application dictionaries	100.2	100.2	100																								
+OptContentExport		Table 100 — Entries in an optional content usage dictionary	8.11.4.4 Usage and usage application dictionaries	100.3	100.3	100																								
+OptContentZoom		Table 100 — Entries in an optional content usage dictionary	8.11.4.4 Usage and usage application dictionaries	100.4	100.4	100																								
+OptContentPrint		Table 100 — Entries in an optional content usage dictionary	8.11.4.4 Usage and usage application dictionaries	100.5	100.5	100																								
+OptContentView		Table 100 — Entries in an optional content usage dictionary	8.11.4.4 Usage and usage application dictionaries	100.6	100.6	100																								
+OptContentUser		Table 100 — Entries in an optional content usage dictionary	8.11.4.4 Usage and usage application dictionaries	100.7	100.7	100																								
+OptContentPageElement		Table 100 — Entries in an optional content usage dictionary	8.11.4.4 Usage and usage application dictionaries	100.8	100.8	100																								
+OptContentUsageApplication		Table 101 — Entries in a usage application dictionary	8.11.4.4 Usage and usage application dictionaries	101	101	101																								
+Text state parameters		Table 102 — Text state parameters	9.3 Text state parameters and operators		102	102																								
+Text state operators		Table 103 — Text state operators	9.3 Text state parameters and operators		103	103																								
+Text rendering modes		Table 104 — Text rendering modes	9.3.6 Text rendering mode		104	104																								
+Text object operators		Table 105 — Text object operators	9.4 Text objects		105	105																								
+Text-positioning operators		Table 106 — Text-positioning operators	9.4.2 Text-positioning operators		106	106																								
+Text-showing operators		Table 107 — Text-showing operators	9.4.3 Text-showing operators		107	107																								
+Font types		Table 108 — Font types	9.5 Introduction to font data structures		108	108																								
+FontType1		Table 109 — Entries in a Type 1 font dictionary	9.6.2 Type 1 fonts		109	109																								
+FontMultipleMaster			9.6.2.3 Multiple master fonts																											
+FontTrueType			9.6.3 TrueType fonts																											
+FontType3		Table 110 — Entries in a Type 3 font dictionary	9.6.4 Type 3 fonts		110	110																								
+Type 3 font operators		Table 111 — Type 3 font operators	9.6.4 Type 3 fonts		111	111																								
+Encoding		Table 112 — Entries in an encoding dictionary	9.6.5 Character encoding		112	112																								
+Additional entries in Mac OS Roman encoding not in MacRomanEncoding		Table 113 — Additional entries in Mac OS Roman encoding not in MacRomanEncoding	9.6.5.4 Encodings for TrueType fonts		113	113																								
+CIDSystemInfo		Table 114 — Entries in a CIDSystemInfo dictionary	9.7.3 CIDSystemInfo dictionaries		114	114																								
+CIDFontType0		Table 115 — Entries in a CIDFont dictionary	9.7.4 CIDFonts		115	115																								
+CIDFontType2			9.7.4 CIDFonts																											
+Predefined CJK CMap names		Table 116 — Predefined CJK CMap names	9.7.5.2 Predefined CMaps		116	116																								
+"Character collections for predefined CMaps, by PDF version"		"Table 117 — Character collections for predefined CMaps, by PDF version"	9.7.5.2 Predefined CMaps		117	117		"prazdna tabulka, aby sa zachovalo cislovanie"																						
+CMap	COSStream	Table 118 — Additional entries in a CMap stream dictionary	9.7.5.3 Embedded CMap files		118	118																								
+FontType0	COSDictionary	Table 119 — Entries in a Type 0 font dictionary	9.7.6 Type 0 font dictionaries		119	119																								
+FontDescriptor	COSDictionary	Table 120 — Entries common to all font descriptors	9.8 Font descriptors		120	120																								
+Font flags		Table 121 — Font flags	9.8.2 Font descriptor flags		121	121																								
+CIDFontDescriptor	COSDictionary	Table 122 — Additional font descriptor entries for CIDFonts	9.8.3 Font descriptors for CIDFonts		122	122																								
+Glyph classes in CJK fonts		Table 123 — Glyph classes in CJK fonts	9.8.3.3 FD		123	123																								
+Embedded font organisation for various font types		Table 124 — Embedded font organisation for various font types	9.9 Embedded font programs		124	124																								
+EmbeddedFont		Table 125 — Additional entries in an embedded font stream dictionary	9.9 Embedded font programs		125	125																								
+Predefined spot functions		Table 126 — Predefined spot functions	10.6.3 Spot functions		126	126																								
+PDF halftone types		Table 127 — PDF halftone types	10.6.5 Halftone dictionaries		127	127																								
+HalftoneType1		Table 128 — Entries in a Type 1 halftone dictionary	10.6.5.2 Type 1 halftones		128	128																								
+HalftoneType6		Table 129 — Additional entries specific to a Type 6 halftone dictionary	10.6.5.3 Type 6 halftones		129	129																								
+HalftoneType10		Table 130 — Additional entries specific to a Type 10 halftone dictionary	10.6.5.4 Type 10 halftones		130	130																								
+HalftoneType16		Table 131 — Additional entries specific to a Type 16 halftone dictionary	10.6.5.5 Type 16 halftones		131	131																								
+HalftoneType5		Table 132 — Entries in a Type 5 halftone dictionary	10.6.5.6 Type 5 halftones		132	132																								
+Variables used in the basic compositing formula		Table 133 — Variables used in the basic compositing formula	11.3.3 Basic compositing formula		133	133																								
+Standard separable blend modes		Table 134 — Standard separable blend modes	11.3.5.2 Separable blend modes		134	134																								
+Standard non-separable blend modes		Table 135 — Standard non-separable blend modes	11.3.5.3 Non-separable blend modes		135	135																								
+Variables used in the source shape and opacity formulas		Table 136 — Variables used in the source shape and opacity formulas	11.3.7.2 Source shape and opacity		136	136																								
+Variables used in the result shape and opacity formulas		Table 137 — Variables used in the result shape and opacity formulas	11.3.7.3 Result shape and opacity		137	137																								
+Revised variables for the basic compositing formulas		Table 138 — Revised variables for the basic compositing formulas	11.4.2 Notation for group compositing computations		138	138																								
+Arguments and results of the group compositing function		Table 139 — Arguments and results of the group compositing function	11.4.4 Group compositing computations		139	139																								
+Variables used in the group compositing formulas		Table 140 — Variables used in the group compositing formulas	11.4.4 Group compositing computations		140	140																								
+Variables used in the page group compositing formulas		Table 141 — Variables used in the page group compositing formulas	11.4.7 Page group		141	141																								
+SoftMask		Table 142 — Entries in a soft-mask dictionary	11.6.5.1 Soft-mask dictionaries		142	142																								
+Restrictions on the entries in a soft-mask image dictionary		Table 143 — Restrictions on the entries in a soft-mask image dictionary	11.6.5.2 Soft-mask images		143	143																								
+SoftMaskImage		Table 144 — Additional entry in a soft-mask image dictionary	11.6.5.2 Soft-mask images		144	144																								
+GroupTransparency		Table 145 — Additional entries specific to a transparency group attributes dictionary	11.6.6 Transparency group XObjects	145	145	145																								
+Overprinting behaviour in the transparent imaging model		Table 146 — Overprinting behaviour in the transparent imaging model	11.7.4.5 Summary of overprinting behavior	146	146	146																								
+ViewerPrefrences		Table 147 — Entries in a viewer preferences dictionary	12.2 Viewer preferences	147	147	147																								
+Enforce		Table 148 — Names defined for an Enforce array	12.2 Viewer preferences		148	148																								
+Destination syntax		Table 149 — Destination syntax	12.3.2.2 Explicit destinations		149	149																								
+Outline		Table 150 — Entries in the outline dictionary	12.3.3 Document outline	150	150	150																								
+OutlineItem		Table 151 — Entries in an outline item dictionary	12.3.3 Document outline	151	151	151																								
+Outline item flags		Table 152 — Outline item flags	12.3.3 Document outline		152	152																								
+Collection		Table 153 — Entries in a collection dictionary	12.3.5 Collections	153	153	153																								
+CollectionSchema		Table 154 — Entries in a collection schema dictionary	12.3.5 Collections	154	154	154																								
+CollectionField		Table 155 — Entries in a collection field dictionary	12.3.5 Collections	155	155	155																								
+CollectionSort		Table 156 — Entries in a collection sort dictionary	12.3.5 Collections	156	156	156																								
+CollectionColors		Table 157 — Entries in a collection colors dictionary	12.3.5 Collections	157	157	157																								
+CollectionSplit		Table 158 — Entries in a collection split dictionary	12.3.5 Collections	158	158	158																								
+Folder		Table 159 — Entries in a folder dictionary	12.3.5.2 Collection hierarchical folders	159	159	159																								
+Navigator		Table 160 — Entries in a navigator dictionary	12.3.6 Navigators	160	160	160																								
+PageLabel		Table 161 — Entries in a page label dictionary	12.4.2 Page labels	161	161	161																								
+Thread		Table 162 — Entries in a thread dictionary	12.4.3 Articles	162	162	162																								
+Bead		Table 163 — Entries in a bead dictionary	12.4.3 Articles	163	163	163																								
+BeadFirst		Table 163 — Entries in a bead dictionary	13.4.3 Articles	163	163	163																								
+Transition		Table 164 — Entries in a transition dictionary	12.4.4 Presentations	164	164	164																								
+NavNode		Table 165 — Entries in a navigation node dictionary	12.4.4.2 Sub-page navigation	165	165	165																								
+Annot		Table 166 — Entries common to all annotation dictionaries	12.5 Annotations	166	166	166																								
+Annotation flags		Table 167 — Annotation flags	12.5.3 Annotation flags	167	167	167																								
+Border		Table 168 — Entries in a border style dictionary	12.5.4 Border styles	168	168	168																								
+BorderEffect		Table 169 — Entries in a border effect dictionary	12.5.4 Border styles	169	169	169																								
+Appearance		Table 170 — Entries in an appearance dictionary	12.5.5 Appearance stream	170	170	170																								
+Annotation types		Table 171 — Annotation types	12.5.6 Annotation types	171	171	171																								
+AnnotMarkup		Table 172 — Additional entries in an annotation dictionary specific to markup annotations	12.5.6.2 Markup annotations	172	172	172																								
+AnnotExternalData		Table 173 — Additional entries in an annotation dictionary specific to external data	12.5.6.2 Markup annotations	173	173	173																								
+ExData		Table 173 — Additional entries in an annotation dictionary specific to external data	13.5.6.2 Markup annotations	173.1	173.1	173.1																								
+Annotation states		Table 174 — Annotation states	12.5.6.3 Annotation states		174	174																								
+AnnotText		Table 175 — Additional entries specific to a text annotation	12.5.6.4 Text annotations		175	175																								
+AnnotLink		Table 176 — Additional entries specific to a link annotation	12.5.6.5 Link annotations		176	176																								
+AnnotFreeText		Table 177 — Additional entries specific to a free text annotation	12.5.6.6 Free text annotations		177	177																								
+AnnotLine		Table 178 — Additional entries specific to a line annotation	12.5.6.7 Line annotations		178	178																								
+Line ending styles		Table 179 — Line ending styles	12.5.6.7 Line annotations		179	179																								
+Additional entries specific to a square or circle annotation		Table 180 — Additional entries specific to a square or circle annotation	12.5.6.8 Square and circle annotations		180	180																								
+Additional entries specific to a polygon or polyline annotation		Table 181 — Additional entries specific to a polygon or polyline annotation	12.5.6.9 Polygon and polyline annotations		181	181																								
+Additional entries specific to text markup annotations		Table 182 — Additional entries specific to text markup annotations	12.5.6.10 Text markup annotations		182	182																								
+Additional entries specific to a caret annotation		Table 183 — Additional entries specific to a caret annotation	12.5.6.11 Caret annotations		183	183																								
+Additional entries specific to a rubber stamp annotation		Table 184 — Additional entries specific to a rubber stamp annotation	12.5.6.12 Rubber stamp annotations		184	184																								
+Additional entries specific to an ink annotation		Table 185 — Additional entries specific to an ink annotation	12.5.6.13 Ink annotations		185	185																								
+Additional entries specific to a popup annotation		Table 186 — Additional entries specific to a popup annotation	12.5.6.14 Popup annotations		186	186																								
+Additional entries specific to a file attachment annotation		Table 187 — Additional entries specific to a file attachment annotation	12.5.6.15 File attachment annotations		187	187																								
+Additional entries specific to a sound annotation		Table 188 — Additional entries specific to a sound annotation	12.5.6.16 Sound annotations		188	188																								
+Additional entries specific to a movie annotation		Table 189 — Additional entries specific to a movie annotation	12.5.6.17 Movie annotations		189	189																								
+Additional entries specific to a screen annotation		Table 190 — Additional entries specific to a screen annotation	12.5.6.18 Screen annotations		190	190																								
+Additional entries specific to a widget annotation		Table 191 — Additional entries specific to a widget annotation	12.5.6.19 Widget annotations		191	191																								
+Entries in an appearance characteristics dictionary		Table 192 — Entries in an appearance characteristics dictionary	12.5.6.19 Widget annotations		192	192																								
+Additional entries specific to a watermark annotation		Table 193 — Additional entries specific to a watermark annotation	12.5.6.22 Watermark annotations		193	193																								
+Entries in a fixed print dictionary		Table 194 — Entries in a fixed print dictionary	12.5.6.22 Watermark annotations		194	194																								
+Additional entries specific to a redaction annotation		Table 195 — Additional entries specific to a redaction annotation	12.5.6.23 Redaction annotations		195	195																								
+Action		Table 196 — Entries common to all action dictionaries	12.6.2 Action Dictionaries	196	196	196																								
+AnnotationsAdditionalActions		Table 197 — Entries in an annotation’s additional-actions dictionary	12.6.3 Trigger events	197	197	197																								
+PageObjectAdditionalActions		Table 198 — Entries in a page object’s additional-actions dictionary	12.6.3 Trigger events	198	198	198																								
+FormFieldAdditionalActions		Table 199 — Entries in a form field’s additional-actions dictionary	12.6.3 Trigger events	199	199	199																								
+CatalogAdditionalActions		Table 200 — Entries in the document catalog’s additional-actions dictionary	12.6.3 Trigger events	200	200	200																								
+Action types		Table 201 — Action types	12.6.4 Action types		201	201																								
+ActionGoTo		Table 202 — Additional entries specific to a go-to action	12.6.4.2 Go-To actions	201	202	202																								
+ActionGoToR		Table 203 — Additional entries specific to a remote go-to action	12.6.4.3 Remote Go-To actions	203	203	203																								
+ActionGoToE		Table 204 — Additional entries specific to an embedded go-to action	12.6.4.4 Embedded Go-To actions	204	204	204																								
+Target		Table 205 — Entries specific to a target dictionary	12.6.4.4 Embedded Go-To actions	205	205	205																								
+ActionGoToDPart		Table 206 — Entries in a GoToDp dictionary	12.6.4.5 GoToDp action	206	206	206																								
+ActionLaunch		Table 207 — Additional entries specific to a launch action	12.6.4.6 Launch actions	207	207	207																								
+MicrosoftWindowsLaunchParam		Table 208 — Entries in a Microsoft WindowsTM launch parameter dictionary	12.6.4.6 Launch actions	208	208	208																								
+ActionThread		Table 209 — Additional entries specific to a thread action	12.6.4.7 Thread actions	209	209	209																								
+ActionURI		Table 210 — Additional entries specific to a URI action	12.6.4.8 URI actions	210	210	210																								
+URI		Table 211 — Entry in a URI dictionary	12.6.4.8 URI actions	211	211	211																								
+ActionSound		Table 212 — Additional entries specific to a sound action	12.6.4.9 Sound actions	212	212	212																								
+ActionMovie		Table 213 — Additional entries specific to a movie action	12.6.4.10 Movie actions	213	213	213																								
+ActionHide		Table 214 — Additional entries specific to a hide action	12.6.4.11 Hide actions	214	214	214																								
+Named actions		Table 215 — Named actions	12.6.4.12 Named actions		215	215																								
+ActionNamed		Table 216 — Additional entries specific to named actions	12.6.4.12 Named actions	216	216	216																								
+ActionSetOCGState		Table 217 — Additional entries specific to a set-OCG-state action	12.6.4.13 Set-OCG-state actions	217	217	217																								
+ActionRendition		Table 218 — Additional entries specific to a rendition action	12.6.4.14 Rendition actions	218	218	218																								
+TransitionAction		Table 219 — Additional entries specific to a transition action	12.6.4.15 Transition actions	219	219	219																								
+ActionGoTo3DView		Table 220 — Additional entries specific to a go-to-3D-view action	12.6.4.16 Go-To-3D-View actions	220	220	220																								
+ActionECMAScript		Table 221 — Additional entries specific to an ECMAScript action	12.6.4.17 ECMAScript actions	221	221	221																								
+ActionRichMediaExecute		Table 222 — Additional entries specific to a rich-media-execute action	12.6.4.18 Rich-Media-Execute actions	222	222	222																								
+RichMediaCommand		Table 223 — Entries in a RichMediaCommand dictionary	12.6.4.18 Rich-Media-Execute actions	223	223	223																								
+InteractiveForm		Table 224 — Entries in the interactive form dictionary	12.7.3 Interactive form dictionary	224	224	224																								
+Signature flags		Table 225 — Signature flags	12.7.3 Interactive form dictionary		225	225																								
+Field		Table 226 — Entries common to all field dictionaries	12.7.4 Field dictionaries		226	226																								
+Field flags common to all field types		Table 227 — Field flags common to all field types	12.7.4 Field dictionaries		227	227																								
+Additional entries common to all fields containing variable text		Table 228 — Additional entries common to all fields containing variable text	12.7.4.3 Variable text		228	228																								
+Field flags specific to button fields		Table 229 — Field flags specific to button fields	12.7.5.2 Button fields		229	229																								
+CheckBoxAndRadioButtonFieldsAdditionalEntries		Table 230 — Additional entry specific to check box and radio button fields	12.7.5.2.3 Check boxes		230	230																								
+Field flags specific to text fields		Table 231 — Field flags specific to text fields	12.7.5.2.4 Radio buttons		231	231																								
+TextFieldAdditionalEntries		Table 232 — Additional entry specific to a text field	12.7.5.3 Text fields		232	232																								
+Field flags specific to choice fields		Table 233 — Field flags specific to choice fields	12.7.5.4 Choice fields		233	233																								
+ChoiceFieldAdditionalEntries		Table 234 — Additional entries specific to a choice field	12.7.5.4 Choice fields		234	234																								
+SignatureFieldAdditionalEntries		Table 235 — Additional entries specific to a signature field	12.7.5.5 Signature fields		235	235																								
+SignatureFieldLock		Table 236 — Entries in a signature field lock dictionary	12.7.5.5 Signature fields		236	236																								
+SignatureFieldSeedValue		Table 237 — Entries in a signature field seed value dictionary	12.7.5.5 Signature fields		237	237																								
+CertificateSeedValue		Table 238 — Entries in a certificate seed value dictionary	12.7.5.5 Signature fields		238	238																								
+ActionSubmitForm		Table 239 — Additional entries specific to a submit-form action	12.7.6.2 Submit-form action	239	239	239																								
+		Table 240 — Flags for submit-form actions	12.7.6.2 Submit-form action		240	240																								
+ActionResetForm		Table 241 — Additional entries specific to a reset-form action	12.7.6.3 Reset-form action	241	241	241																								
+Flag for reset-form actions		Table 242 — Flag for reset-form actions	12.7.6.3 Reset-form action		242	242																								
+ActionImportData		Table 243 — Additional entries specific to an import-data action	12.7.6.4 Import-data action	243	243	243																								
+FDFTrailer		Table 244 — Entry in the FDF trailer dictionary	12.7.8.2.4 FDF trailer		244	244																								
+FDFCatalog		Table 245 — Entries in the FDF catalog dictionary	12.7.8.3 FDF catalog		245	245																								
+FDF		Table 246 — Entries in the FDF dictionary	12.7.8.3 FDF catalog		246	246																								
+EmbeddedFileStreamAdditionalEntriesForEncryptedFDFFile		Table 247 — Additional entry in an embedded file stream dictionary for an encrypted FDF file	12.7.8.3 FDF catalog		247	247																								
+ECMAScript		Table 248 — Entries in the ECMAScript dictionary	12.7.8.3 FDF catalog		248	248																								
+FDFField		Table 249 — Entries in an FDF field dictionary	12.7.8.3.2 FDF fields		249	249																								
+IconFit		Table 250 — Entries in an icon fit dictionary	12.7.8.3.2 FDF fields		250	250																								
+FDFPage		Table 251 — Entries in an FDF page dictionary	12.7.8.3.3 FDF pages		251	251																								
+FDFTemplate		Table 252 — Entries in an FDF template dictionary	12.7.8.3.3 FDF pages		252	252																								
+FDFNamedPageReference		Table 253 — Entries in an FDF named page reference dictionary	12.7.8.3.3 FDF pages		253	253																								
+FDFAnnotationAdditionalEntries		Table 254 — Additional entry for annotation dictionaries in an FDF file	12.7.8.3.4 FDF annotation dictionaries		254	254																								
+Signature		Table 255 — Entries in a signature dictionary	12.8 Digital signatures	255	255	255																								
+SignatureRefrence		Table 256 — Entries in a signature reference dictionary	12.8 Digital signatures	256	256	256																								
+DocMDPTransformParameters		Table 257 — Entries in the DocMDP transform parameters dictionary	12.8.2.2 DocMDP		257	257																								
+URTransformParameters		Table 258 — Entries in the UR transform parameters dictionary	12.8.2.3 UR		258	258																								
+FieldMDPTransformParameters		Table 259 — Entries in the FieldMDP transform parameters dictionary	12.8.2.4 FieldMDP		259	259																								
+SubFilter value algorithm support		Table 260 — SubFilter value algorithm support	12.8.3 Signature interoperability		260	260																								
+DSS		Table 261 — Entries in the document security store (DSS) dictionary	12.8.4.3 Document Security Store (DSS)	261	261	261																								
+VRI		Table 262 — Entries in the signature validation-related information (VRI) dictionary	12.8.4.4 Validation-related information (VRI)		262	262																								
+Perms		Table 263 — Entries in a permissions dictionary	12.8.6 Permissions	263	263	263																								
+LegalAttestation		Table 264 — Entries in a legal attestation dictionary	12.8.7 Legal Content Attestations	264	264	264																								
+Viewport		Table 265 — Entries in a viewport dictionary	12.9 Measurement properties	265	265	265																								
+Measure		Table 266 — Entries in a measure dictionary	12.9 Measurement properties	266	266	266																								
+RectilinearMeasureAdditionalEntries		Table 267 — Additional entries in a rectilinear measure dictionary	12.9 Measurement properties		267	267																								
+NumberFormat		Table 268 — Entries in a number format dictionary	12.9 Measurement properties		268	268																								
+GeospatialMeasureAdditionalEntries		Table 269 — Additional entries in a geospatial measure dictionary	12.10.2 Geospatial measure dictionary		269	269																								
+GeographicCoordinateSystem		Table 270 — Entries in a geographic coordinate system dictionary	12.10.3 Geographic coordinate system dictionary		270	270																								
+ProjectedCoordinateSystem		Table 271 — Entries in a projected coordinate system dictionary	12.10.4 Projected coordinate system dictionary		271	271																								
+PtData		Table 272 — Entries in a point data dictionary	12.10.5 Point data dictionary	272	272	272																								
+Requirements		Table 273 — Entries common to all requirement dictionaries	12.11 Document requirements	273	273	273																								
+RequirementsSpecificTypes		Table 274 — Entries for specific types of requirements	12.11 Document requirements	274	274	274																								
+RequirementsTypes		Table 275 — Requirement types	12.11.2 Requirement types	275	275	275		zly pattern tabulky - prerobit																						
+RequirementsHandler		Table 276 — Entries in a requirement handler dictionary	12.11.5 Reqiurement handlers	276	276	276																								
+Rendition		Table 277 — Entries common to all rendition dictionaries	13.2.3 Renditions		277	277																								
+RenditionMHBE		Table 278 — Entries in a rendition MH/BE dictionary	13.2.3 Renditions		278	278																								
+MediaCriteria		Table 279 — Entries in a media criteria dictionary	13.2.3 Renditions		279	279																								
+MinimumBitDepth		Table 280 — Entries in a minimum bit depth dictionary	13.2.3 Renditions		280	280																								
+MinimumScreenSize		Table 281 — Entries in a minimum screen size dictionary	13.2.3 Renditions		281	281																								
+RenditionMedia		Table 282 — Additional entries in a media rendition dictionary	13.2.3.2 Media renditions		282	282																								
+RenditionSelector		Table 283 — Additional entries specific to a selector rendition dictionary	13.2.3.3 Selector renditions		283	283																								
+MediaClip		Table 284 — Entries common to all media clip dictionaries	13.2.4 Media clip objects		284	284																								
+MediaClipData		Table 285 — Additional entries in a media clip data dictionary	13.2.4.2 Media clip data		285	285																								
+MediaPermissions		Table 286 — Entries in a media permissions dictionary	13.2.4.2 Media clip data		286	286																								
+MediaClipDataMHBE		Table 287 — Entries in a media clip data MH/BE dictionary	13.2.4.2 Media clip data		287	287																								
+MediaClipSectionAdditionalEntries		Table 288 — Additional entries in a media clip section dictionary	13.2.4.3 Media clip section		288	288																								
+MediaClipSectionMHBE		Table 289 — Entries in a media clip section MH/BE dictionary	13.2.4.3 Media clip section		289	289																								
+MediaPlayParameters		Table 290 — Entries in a media play parameters dictionary	13.2.5 Media play parameters		290	290																								
+MediaPlayParametersMHBE		Table 291 — Entries in a media play parameters MH/BE dictionary	13.2.5 Media play parameters		291	291																								
+MediaDuration		Table 292 — Entries in a media duration dictionary	13.2.5 Media play parameters		292	292																								
+MediaScreenParameters		Table 293 — Entries in a media screen parameters dictionary	13.2.6 Media screen parameters		293	293																								
+MediaScreenParametersMHBE		Table 294 — Entries in a media screen parameters MH/BE dictionary	13.2.6 Media screen parameters		294	294																								
+FloatingWindowParameters		Table 295 — Entries in a floating window parameters dictionary	13.2.6 Media screen parameters		295	295																								
+MediaOffset		Table 296 — Entries common to all media offset dictionaries	13.2.6.2 Media offset dictionary		296	296																								
+MediaOffsetTime		Table 297 — Additional entries in a media offset time dictionary	13.2.6.2 Media offset dictionary		297	297																								
+MediaOffsetFrame		Table 298 — Additional entries in a media offset frame dictionary	13.2.6.2 Media offset dictionary		298	298																								
+MediaOffsetMarker		Table 299 — Additional entries in a media offset marker dictionary	13.2.6.2 Media offset dictionary		299	299																								
+Timespan		Table 300 — Entries in a timespan dictionary	13.2.6.3 Timespan dictionary		300	300																								
+MediaPlayers		Table 301 — Entries in a media players dictionary	13.2.7.2 Media players dictionary		301	301																								
+MediaPlayerInfo		Table 302 — Entries in a media player info dictionary	13.2.7.3 Media player info dictionary		302	302																								
+SoftwareIdentifier		Table 303 — Entries in a software identifier dictionary	13.2.7.4 Software identifier dictionary		303	303																								
+Monitor specifier values		Table 304 — Monitor specifier values	13.2.7.5 Monitor specifier		304	304																								
+SoundObjectAdditionalEntries		Table 305 — Additional entries specific to a sound object	13.3 Sounds		305	305																								
+Movie		Table 306 — Entries in a movie dictionary	13.4 Movies		306	306																								
+MovieActivation		Table 307 — Entries in a movie activation dictionary	13.4 Movies		307	307																								
+Slideshow		Table 308 — Entries in a slideshow dictionary	13.5 Alternate presentations		308	308																								
+3D		Table 309 — Additional entries specific to a 3D annotation	13.6.2 3D Annotations	309	309	309																								
+3DActivation		Table 310 — Entries in a 3D activation dictionary	13.6.2 3D Annotations	310	310	310																								
+3DStream		Table 311 — Entries in a 3D stream dictionary	13.6.3 3D streams		311	311																								
+3DAnimationStyle		Table 312 — Entries in an 3D animation style dictionary	13.6.3.2 3D animation style dictionaries		312	312																								
+Animation styles		Table 313 — Animation styles	13.6.3.2 3D animation style dictionaries		313	313																								
+3DRefrence		Table 314 — Entries in a 3D reference dictionary	13.6.3.3 3D reference dictionaries		314	314																								
+3DView		Table 315 — Entries in a 3D view dictionary	13.6.4 3D Views	315	315	315																								
+Projection		Table 316 — Entries in a projection dictionary	13.6.4.2 Projection dictionaries	316	316	316																								
+3DBG		Table 317 — Entries in a 3D background dictionary	13.6.4.3 3D background dictionaries	317	317	317																								
+3DRenderMode		Table 318 — Entries in a render mode dictionary	13.6.4.4 3D render mode dictionaies	318	318	318																								
+Render modes		Table 319 — Render modes	13.6.4.4 3D render mode dictionaies		319	319																								
+3DLightningScheme		Table 320 — Entries in a 3D lighting scheme dictionary	13.6.4.5 3D lightning scheme dictionaries	320	320	320																								
+3D lighting scheme styles		Table 321 — 3D lighting scheme styles	13.6.4.5 3D lightning scheme dictionaries		321	321																								
+3DCrossSection		Table 322 — Entries in a 3D cross section dictionary	13.6.4.6 3D cross section dictionaries	322	322	322																								
+3DNode		Table 323 — Entries in a 3D node dictionary	13.6.7.4 3D node dictionaries	323	323	323																								
+3DMarkupAnnotExData		Table 324 — Entries in an external data dictionary used to markup 3D annotations	13.6.6 3D Markup	324	324	324																								
+3DUnits		Table 325 — Entries in a 3D units dictionary	13.6.7.2 The 3D units dictionary	325	325	325																								
+3DMeasure		Table 326 — Entries in a 3D measurement/markup dictionary common to all markup subtypes	13.6.7.3 3D measurment/markup dictionary	326	326	326																								
+3DMeasureLD3AdditionalEntries		Table 327 — Additional entries in a 3D measurement/markup dictionary for a 3D linear dimension measurement	13.6.7.3 3D measurment/markup dictionary	327	327	327																								
+3DMeasurePD3AdditionalEntries		Table 328 — Additional entries in a 3D measurement/markup dictionary for a 3D perpendicular dimension measurement	13.6.7.3 3D measurment/markup dictionary	328	328	328																								
+3DMeasureAD3AdditionalEntries		Table 329 — Additional entries in a 3D measurement/markup dictionary for a 3D angular dimension measurement	13.6.7.3 3D measurment/markup dictionary	329	329	329																								
+3DMeasure3DRadialAdditionalEntries		Table 330 — Additional entries in a 3D measurement/markup dictionary for a 3D radial dimension measurement	13.6.7.3.5 3D radial dimension		330	330																								
+3DMeasure3DCommentNoteAdditionalEntries		Table 331 — Additional entries in a 3D measurement/markup dictionary for a 3D comment note	13.6.7.3.6 3D comment note		331	331																								
+ProjectionAnnotationExternalData		Table 332 — Entries in the external data dictionary of a projection annotation	13.6.7.4 3D measurements and projection annotations		332	332																								
+RichMediaAnnotationAdditionalEntries		Table 333 — Additional entries specific to a RichMedia annotation	13.7.2 RichMedia annotations		333	333																								
+RichMediaSettings		Table 334 — Entries in a RichMediaSettings dictionary	13.7.2.2 RichMediaSettings dictionary		334	334																								
+RichMediaActivation		Table 335 — Entries in a RichMediaActivation dictionary	13.7.2.2.2 RichMediaActivation dictionary		335	335																								
+RichMediaDeactivation		Table 336 — Entries in a RichMediaDeactivation dictionary	13.7.2.2.3 RichMediaDeactivation dictionary		336	336																								
+RichMediaAnimation		Table 337 — Entries in a RichMediaAnimation dictionary	13.7.2.2.4 RichMediaAnimation dictionary		337	337																								
+RichMediaPresentation		Table 338 — Entries in a RichMediaPresentation dictionary	13.7.2.2.5 RichMediaPresentation dictionary		338	338																								
+RichMediaWindow		Table 339 — Entries in a RichMediaWindow dictionary	13.7.2.2.5 RichMediaWindow dictionary	339	339	339																								
+RichMediaHeight		Table 339 — Entries in a RichMediaWindow dictionary	13.7.2.2.5 RichMediaWindow dictionary	339.1	339.1	339.1																								
+RichMediaWidth		Table 339 — Entries in a RichMediaWindow dictionary	13.7.2.2.5 RichMediaWindow dictionary	339.2	339.2	339.2																								
+RichMediaPosition		Table 340 — Entries in a RichMediaPosition dictionary	13.7.2.2.5 RichMediaWindow dictionary	340	340	340																								
+RichMediaContent		Table 341 — Entries in a RichMediaContent dictionary	13.7.2.3 RichMediaContent dictionary	341	341	341																								
+RichMediaConfiguration		Table 342 — Entries in a RichMediaConfiguration dictionary	13.7.2.3.3 RichMediaConfiguration dictionary		342	342																								
+RichMediaInstance		Table 343 — Entries in a RichMediaInstance dictionary	13.7.2.3.4 RichMediaInstance dictionary		343	343																								
+3DViewAdditionalEntries		Table 344 — Additional entry in a 3D view dictionary	13.7.2.3.5 View dictionary		344	344																								
+ViewParams		Table 345 — Entries in a View Params dictionary	13.7.2.3.6 View params dictionary		345	345																								
+Predefined procedure set		Table 346 — Predefined procedure set	14.2 Procedure sets		346	346																								
+MetadataStreams		Table 347 — Additional entries in a metadata stream dictionary	14.3.2 Metadata Streams	347	347	347																								
+MetadataAdditionalEntries		Table 348 — Additional entry for components having metadata	14.3.2 Metadata Streams	348	348	348																								
+DocInfo		Table 349 — Entries in the document information dictionary	14.3.3 Document information dictionary	349	349	349																								
+PagePiece		Table 350 — Entries in a page-piece dictionary	14.5 Page-piece dictionaries	350	350	350																								
+Data		Table 351 — Entries in a data dictionary	14.5 Page-piece dictionaries	351	351	351																								
+Marked-content operators		Table 352 — Marked-content operators	14.6 Marked content		352	352																								
+MarkInfo		Table 353 — Entries in the mark information dictionary	14.7 Logical structure	353	353	353																								
+StructTreeRoot		Table 354 — Entries in the structure tree root	14.7.2 Structure hierarchy	354	354	354																								
+StructElem		Table 355 — Entries in a structure element dictionary	14.7.2 Structure hierarchy	355	355	355																								
+Namespace		Table 356 — Entries in a namespace dictionary	14.7.4.2 Namespace dictionary		356	356																								
+MarkedContentReference		Table 357 — Entries in a marked-content reference dictionary	14.7.5.2 Marked-content sequences as content items		357	357																								
+ObjectReference		Table 358 — Entries in an object reference dictionary	14.7.5.3 PDF objects as content items		358	358																								
+StructureElementAccessAdditionalEntries		Table 359 — Additional dictionary entries for structure element access	14.7.5.4 Finding structure elements from content items		359	359																								
+AttributeObject		Table 360 — Entries common to all attribute object dictionaries	14.7.6 Structure attributes		360	360																								
+AttributeObjectAdditionalEntriesForUserProperties		Table 361 — Additional entries in an attribute object dictionary for user properties	14.7.6.4 User properties		361	361																								
+UserProperty		Table 362 — Entries in a user property dictionary	14.7.6.4 User properties		362	362																								
+ArtifactsPropertyList		Table 363 — Property list entries for artifacts	14.8.2.2.2 Specification of Artifacts		363	363																								
+Document level structure types		Table 364 — Document level structure types	14.8.4.3 Document level structure types		364	364																								
+Grouping level structure types		Table 365 — Grouping level structure types	14.8.4.4 Grouping level structure types		365	365																								
+Block level structure types		Table 366 — Block level structure types	14.8.4.5 Block level structure types		366	366																								
+Sub-block level structure type		Table 367 — Sub-block level structure type	14.8.4.6 Sub-block level structure type		367	367																								
+General inline level structure types		Table 368 — General inline level structure types	14.8.4.7 Inline level structure types		368	368																								
+Ruby and Warichu structure types		Table 369 — Ruby and Warichu structure types	14.8.4.7.3 Ruby and Warichu elements		369	369																								
+List standard structure types		Table 370 — List standard structure types	14.8.4.8 Other structure types		370	370																								
+Table standard structure types		Table 371 — Table standard structure types	14.8.4.8.3 Table structure types		371	371																								
+Standard structure type Caption		Table 372 — Standard structure type Caption	14.8.4.8.4 Caption structure type		372	372																								
+Standard structure type Figure		Table 373 — Standard structure type Figure	14.8.4.8.5 Figure structure type		373	373																								
+Standard structure type Formula		Table 374 — Standard structure type Formula	14.8.4.8.6 Formula structure type		374	374																								
+Standard structure type Artifact		Table 375 — standard structure type Artifact	14.8.4.8.7 Artifact structure type		375	375		v nazve tabulky je male 'S'																						
+Standard structure attribute owners		Table 376 — Standard structure attribute owners	14.8.5.2 Standard attribute owners		376	376																								
+Standard layout attributes		Table 377 — Standard layout attributes	14.8.5.4 Layout attributes		377	377																								
+Standard layout attributes common to all standard structure types		Table 378 — Standard layout attributes common to all standard structure types	14.8.5.4.2 General layout attributes		378	378																								
+Additional standard layout attributes specific to block-level structure elements		Table 379 — Additional standard layout attributes specific to block-level structure elements	14.8.5.4.3 Layout Attributes for BLSEs		379	379																								
+Standard layout attributes specific to inline-level structure elements		Table 380 — Standard layout attributes specific to inline-level structure elements	14.8.5.4.4 Layout Attributes for ILSEs		380	380																								
+Standard layout attributes specific to inline-level structure elements		Table 381 — Standard layout attributes specific to inline-level structure elements	14.8.5.4.7 Column attributes		381	381																								
+Standard list attributes		Table 382 — Standard list attributes	14.8.5.5 List attributes		382	382																								
+PrintField attributes		Table 383 — PrintField attributes	14.8.5.6 PrintField attributes		383	383																								
+Standard table attributes		Table 384 — Standard table attributes	14.8.5.7 Table attributes		384	384																								
+Standard artifact attributes		Table 385 — Standard artifact attributes	14.8.5.8 Artifact attributes		385	385																								
+WebCaptureInfo		Table 386 — Entries in the Web Capture information dictionary	14.10.2 Web capture information dictionary	386	386	386																								
+Characters with special meaning in destinations and fields and their byte values		Table 387 — Characters with special meaning in destinations and fields and their byte values	14.10.3.4 Unique name generation		387	387																								
+Entries common to all Web Capture content sets		Table 388 — Entries common to all Web Capture content sets	14.10.4.2 Page sets		388	388																								
+Additional entries specific to a Web Capture page set		Table 389 — Additional entries specific to a Web Capture page set	14.10.4.2 Page sets		389	389																								
+Additional entries specific to a Web Capture image set		Table 390 — Additional entries specific to a Web Capture image set	14.10.4.3 Image sets		390	390																								
+Entries in a source information dictionary		Table 391 — Entries in a source information dictionary	14.10.5 Source information		391	391																								
+Entries in a URL alias dictionary		Table 392 — Entries in a URL alias dictionary	14.10.5.2 URL alias dictionaries		392	392																								
+Entries in a Web Capture command dictionary		Table 393 — Entries in a Web Capture command dictionary	14.10.5.3 Command dictionaries		393	393																								
+Web Capture command flags		Table 394 — Web Capture command flags	14.10.5.3 Command dictionaries		394	394																								
+Entries in a Web Capture command settings dictionary		Table 395 — Entries in a Web Capture command settings dictionary	14.10.5.4 Command settings		395	395																								
+BoxColorInfo		Table 396 — Entries in a box colour information dictionary	14.11.2 Page boundries	396	396	396																								
+BoxStyle		Table 397 — Entries in a box style dictionary	14.11.2 Page boundries	397	397	397																								
+Additional entries specific to a printer’s mark annotation		Table 398 — Additional entries specific to a printer’s mark annotation	14.11.3 Printer’s marks		398	398																								
+Additional entries specific to a printer’s mark form dictionary		Table 399 — Additional entries specific to a printer’s mark form dictionary	14.11.3 Printer’s marks		399	399																								
+Separation		Table 400 — Entries in a separation dictionary	14.11.4 Separation	400	400	400																								
+OutputIntents		Table 401 — Entries in an output intent dictionary	14.11.5 Output intents	401	401	401																								
+DestOutputProfileRef		Table 402 — Entries in a DestOutputProfileRef dictionary	14.11.5 Output intents		402	402																								
+TrapNetworkAnnotationAdditionalEntries		Table 403 — Additional entries specific to a trap network annotation	14.11.6.2 Trap network annotations		403	403																								
+TrapNetworkAppearanceStreamAdditionalEntries		Table 404 — Additional entries specific to a trap network appearance stream	14.11.6.3 Trap network appearances		404	404																								
+OPIVersion		Table 405 — Entry in an OPI version dictionary	14.11.7 Open prepress interface (OPI)		405	405																								
+OPIVersion1-3		Table 406 — Entries in a version 1.3 OPI dictionary	14.11.7 Open prepress interface (OPI)		406	406																								
+OPIVersion2-0		Table 407 — Entries in a version 2.0 OPI dictionary	14.11.7 Open prepress interface (OPI)		407	407																								
+DPartRoot		Table 408 — Entries in a DPartRoot dictionary	14.12.4 Data structures	408	408	408																								
+DPart		Table 409 — Entries in a DPart dictionary	14.12.4 Data structures	409	409	409																								
+DocTimeStamp								"toto zatial neviem k comu patri, spomeniem si, zrejme to tak bolo v Adobe gramatike"																						
+								"toto zatial neviem k comu patri, spomeniem si, zrejme to tak bolo v Adobe gramatike"																						

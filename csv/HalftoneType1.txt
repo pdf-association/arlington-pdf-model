@@ -1,0 +1,9 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.2		FALSE	FALSE	Hlaftone				
+HalftoneType	integer	1.2		TRUE	FALSE	1				
+HalftoneName	string	1.2		FALSE	FALSE					
+Frequency	number	1.2		TRUE	FALSE					
+Angle	number	1.2		TRUE	FALSE					
+SpotFunction	function;name;array	1.2		TRUE	FALSE					
+AccurateScreens	boolean	1.2		FALSE	FALSE		FALSE			
+TransferFunction	function;name	1.2		FALSE	FALSE					
