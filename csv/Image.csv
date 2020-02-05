@@ -1,0 +1,31 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.0		FALSE	FALSE	XObject				
+Subtype	name	1.0		TRUE	FALSE	Image				
+Width	integer	1.0		TRUE	FALSE					
+Height	integer	1.0		TRUE	FALSE					
+ColorSpace	name;array	1.0		TRUE	FALSE					
+BitsPerComponent	integer	1.0		TRUE	FALSE					
+Intent	name	1.1		FALSE	FALSE					
+ImageMask	boolean	1.0		FALSE	FALSE		FALSE			
+Mask	stream;array	1.3		FALSE	FALSE					
+Decode	array	1.0		FALSE	FALSE					
+Interpolate	boolean	1.0		FALSE	FALSE		FALSE			
+Alternates	array	1.3		FALSE	FALSE					
+SMask	stream 	1.4		FALSE	FALSE					
+SMaskInData	integer	1.5		FALSE	FALSE					
+Name	name	1.0	2.0	FALSE	FALSE					
+StructParent	integer	1.3		FALSE	FALSE				IsRequired=>ImageIsStructuralContentItem	
+ID	string	1.3		FALSE	FALSE					
+OPI	dictionary	1.2	2.0	FALSE	FALSE					
+Metadata	stream	1.4		FALSE	FALSE					
+OC	dictionary	1.5		FALSE	FALSE					
+AF	array	2.0		FALSE	FALSE					
+Measure	dictionary	2.0		FALSE	FALSE					
+PtData	dictionary	2.0		FALSE	FALSE					
+Length	integer	1.0		TRUE	FALSE					
+Filter	name;array	1.0		FALSE	FALSE					StandardFilters
+DecodeParams	dictionary;array	1.0		FALSE	FALSE					
+F	file specification	1.2		FALSE	FALSE					
+FFilter	name;array	1.0		FALSE	FALSE					StandardFilters
+FDecodeParams	dictionary;array	1.2		FALSE	FALSE					
+DL	integer	1.5		FALSE	FALSE					

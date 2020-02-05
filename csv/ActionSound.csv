@@ -1,0 +1,9 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.2	2.0	FALSE	FALSE	Action				
+S	name	1.2	2.0	TRUE	FALSE	Sound				
+Next	dictionary;array	1.2	2.0	FALSE	FALSE					
+Sound	stream	1.2	2.0	TRUE	FALSE					
+Volume	number	1.2	2.0	FALSE	FALSE		1.0	<-1.0;1.0>		
+Synchronous	boolean	1.2	2.0	FALSE	FALSE		FALSE			
+Repeat	boolean	1.2	2.0	FALSE	FALSE		FALSE			
+Mix	boolean	1.2	2.0	FALSE	FALSE		FALSE			
