@@ -1,6 +1,0 @@
-Key	Type	SinceVersion	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.6	FALSE	FALSE	Requirement				
-S	name	1.6	TRUE	FALSE			Encrypt;DigSig		
-V	name;dictionary	2.0	FALSE	FALSE					IsType:dictionary=>Extensions
-RH	dictionary;array	1.6	FALSE	FALSE		empty array			RequirementsHandler
-Penalty	integer	2.0	FALSE	FALSE		0	<0;100>		
