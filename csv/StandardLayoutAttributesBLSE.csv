@@ -1,0 +1,22 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Placement	name	1.4		FALSE	FALSE			Block;Inline;Before;Start;End	not inheritable	
+WritingMode	name	1.4		FALSE	FALSE		LrTb	LrTb;RlTb;tbRl;TbLr;LrBt;RlBt;BtRl;BtLr	inheritable	
+BackgroundColor	array	1.5		FALSE	FALSE			<0,1>	not inheritable	
+BorderColor	array	1.5		FALSE	FALSE			<0,1>	inheritable	
+BorderStyle	array;name	1.5		FALSE	FALSE		None	None;Hidden;Dotted;Dashed;Solid;Double;Groove;Ridge;Inset;Outset	not inheritable	
+BorderThickness	array;number	1.5		FALSE	FALSE		0		inheritable	
+Padding	array;number	1.5		FALSE	FALSE		0		not inheritable	
+Color	array	1.5		FALSE	FALSE				inheritable	
+SpaceBefore	number	1.4		FALSE	FALSE		0		not inheritable	
+SpaceAfter	number	1.4		FALSE	FALSE		0		not inheritable	
+StartIndent	number	1.4		FALSE	FALSE		0		inheritable	
+EndIndent	number	1.4		FALSE	FALSE		0		inheritable	
+TextIndent	number	1.4		FALSE	FALSE		0		inheritable	
+TextAlign	name	1.4		FALSE	FALSE		Start	Start;Center;End;Justify	inheritable	
+BBox	rectangle	1.4		FALSE	FALSE				not inheritable	
+Width	number;name	1.4		FALSE	FALSE		Auto		not inheritable	
+Height	number;name	1.4		FALSE	FALSE		Auto		not inheritable	
+BlockAlign	name	1.4		FALSE	FALSE		Before	Before;Middle;After;Justify	inheritable	
+InlineAlign	name	1.4		FALSE	FALSE		Start	Start;Center;End	inheritable	
+TborderStyle	array;name	1.5		FALSE	FALSE		None			
+Tpadding	array;integer	1.5		FALSE	FALSE		0			

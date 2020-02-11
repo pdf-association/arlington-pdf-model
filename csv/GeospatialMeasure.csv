@@ -1,0 +1,10 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	2.0		FALSE	FALSE	Measure				
+Subtype	name	2.0		FALSE	FALSE	GEO				
+Bounds	array	2.0		FALSE	FALSE					
+GCS	dictionary	2.0		TRUE	FALSE					GeographicCoordinateSystem
+DCS	dictionary	2.0		FALSE	FALSE					GeographicCoordinateSystem
+PDU	array	2.0		FALSE	FALSE					
+GPTS	array	2.0		TRUE	FALSE					
+LPTS	array	2.0		FALSE	FALSE					
+PCSM	array	2.0		FALSE	FALSE					

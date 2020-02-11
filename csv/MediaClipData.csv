@@ -1,0 +1,11 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.5		FALSE	FALSE	MediaClip				
+S	name	1.5		TRUE	FALSE	MCD				
+N	string	1.5		FALSE	FALSE					
+D	file specification;stream	1.5		TRUE	FALSE					FileSpecification
+CT	string	1.5		FALSE	FALSE					
+P	dictionary	1.5		FALSE	FALSE					Permissions
+Alt	array	1.5		FALSE	FALSE					
+PL	dictionary	1.5		FALSE	FALSE					MediaPermissions
+MH	dictionary	1.5		FALSE	FALSE					MediaDataMH
+BE	dictionary	1.5		FALSE	FALSE					MediaDataBE

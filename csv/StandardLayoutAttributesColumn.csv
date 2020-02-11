@@ -1,0 +1,12 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Placement	name	1.4		FALSE	FALSE			Block;Inline;Before;Start;End	not inheritable	
+WritingMode	name	1.4		FALSE	FALSE		LrTb	LrTb;RlTb;tbRl;TbLr;LrBt;RlBt;BtRl;BtLr	inheritable	
+BackgroundColor	array	1.5		FALSE	FALSE			<0,1>	not inheritable	
+BorderColor	array	1.5		FALSE	FALSE			<0,1>	inheritable	
+BorderStyle	array;name	1.5		FALSE	FALSE		None	None;Hidden;Dotted;Dashed;Solid;Double;Groove;Ridge;Inset;Outset	not inheritable	
+BorderThickness	array;number	1.5		FALSE	FALSE		0		inheritable	
+Padding	array;number	1.5		FALSE	FALSE		0		not inheritable	
+Color	array	1.5		FALSE	FALSE				inheritable	
+ColumnCount	integer	1.6		FALSE	FALSE		1		not inheritable	
+ColumnGap	array;number	1.6		FALSE	FALSE				not inheritable	
+ColumnWidths	array;number	1.6		FALSE	FALSE				not inheritable	

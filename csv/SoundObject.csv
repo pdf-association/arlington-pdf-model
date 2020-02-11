@@ -1,0 +1,15 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.2	2.0	FALSE	FALSE	Sound				
+R	number	1.2	2.0	TRUE	FALSE					
+C	integer	1.2	2.0	FALSE	FALSE		1			
+B	integer	1.2	2.0	FALSE	FALSE		8			
+E	name	1.2	2.0	FALSE	FALSE		Raw	Raw;Signed;muLaw;ALaw		
+CO	name	1.2	2.0	FALSE	FALSE					
+CP	various	1.2	2.0	FALSE	FALSE					
+Length	integer	1.0	2.0	TRUE	FALSE					
+Filter	name;array	1.0	2.0	FALSE	FALSE					StandardFilters
+DecodeParams	dictionary;array	1.0	2.0	FALSE	FALSE					
+F	file specification	1.2	2.0	FALSE	FALSE					
+FFilter	name;array	1.0	2.0	FALSE	FALSE					StandardFilters
+FDecodeParams	dictionary;array	1.2	2.0	FALSE	FALSE					
+DL	integer	1.5	2.0	FALSE	FALSE					

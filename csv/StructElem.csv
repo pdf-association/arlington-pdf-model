@@ -1,20 +1,20 @@
-Key	Type	SinceVersion	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.3	FALSE	FALSE	StructElem				
-S	name	1.3	TRUE	FALSE					
-P	dictionary	1.3	TRUE	TRUE					
-ID	string	1.3	FALSE	FALSE					
-Ref	array	2.0	FALSE	FALSE					
-Pg	dictionary	1.3	FALSE	TRUE					
-K	various	1.3	FALSE	FALSE					
-A	various	1.3	FALSE	FALSE					
-C	array;name	1.3	FALSE	FALSE					
-R	integer	1.3	FALSE	FALSE					
-T	string	1.3	FALSE	FALSE		0	value>=0		
-Lang	string	1.4	FALSE	FALSE					
-Alt	string	1.3	FALSE	FALSE					
-E	string	1.5	FALSE	FALSE					
-ActualText	string	1.4	FALSE	FALSE					
-AF	dictionary;array	2.0	FALSE	FALSE					
-NS	dictionary	2.0	FALSE	FALSE					
-PhoneticAlphabet	name	2.0	FALSE	FALSE					
-Phoneme	string	2.0	FALSE	FALSE					
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.3		FALSE	FALSE	StructElem				
+S	name	1.3		TRUE	FALSE					
+P	dictionary	1.3		TRUE	TRUE					
+ID	string	1.3		FALSE	FALSE					
+Ref	array	2.0		FALSE	FALSE					
+Pg	dictionary	1.3		FALSE	TRUE					
+K	various	1.3		FALSE	FALSE					
+A	various	1.3		FALSE	FALSE					
+C	array;name	1.3		FALSE	FALSE					
+R	integer	1.3		FALSE	FALSE					
+T	string	1.3		FALSE	FALSE		0	value>=0		
+Lang	string	1.4		FALSE	FALSE					
+Alt	string	1.3		FALSE	FALSE					
+E	string	1.5		FALSE	FALSE					
+ActualText	string	1.4		FALSE	FALSE					
+AF	dictionary;array	2.0		FALSE	FALSE					
+NS	dictionary	2.0		FALSE	FALSE					
+PhoneticAlphabet	name	2.0		FALSE	FALSE					
+Phoneme	string	2.0		FALSE	FALSE					
