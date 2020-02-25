@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
             file_name += fd.cFileName;
             CGrammarReader reader(file_name);
             if (!reader.load())
-              ofs << "Can't load grammar file:" << file_name.c_str() << std::endl;
+              ofs << "Can't load grammar file:" << ToUtf8(file_name) << std::endl;
             else reader.check(ofs);
           }
         } while (::FindNextFile(hFind, &fd));

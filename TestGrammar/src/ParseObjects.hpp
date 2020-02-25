@@ -39,12 +39,12 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
   
   CGrammarReader reader(grammar_file);
   if (!reader.load()) {
-    ss << "Can't load grammar file:" << grammar_file.c_str() << std::endl;
+    ss << "Can't load grammar file:" << ToUtf8(grammar_file) << std::endl;
     return;
   }
   std::vector<std::vector<std::string> > data_list = reader.get_data();
   if (data_list.empty())
-    ss << "Empty grammar file:" << grammar_file.c_str() << std::endl;
+    ss << "Empty grammar file:" << ToUtf8(grammar_file) << std::endl;
 
   //auto get_obj_type_str = [](PdsObject *obj) {
   //  std::string str;
@@ -78,7 +78,7 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
 
           // is indirect when needed ?
           if ((vec[5] == "TRUE") && (inner_obj->GetId() == 0)) {
-            ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file.c_str() << ") ";
+            ss << "<<" << obj->GetId() << " 0 obj>> (" << ToUtf8(grammar_file) << ") ";
             ss << vec[0] << " not indirect " << std::endl;
           }
 
@@ -94,7 +94,7 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
           case kPdsDictionary: is_type_ok = (vec[1] == "DICTIONARY"); break;
           }
           if (!is_type_ok) {
-            ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file.c_str() << ") ";
+            ss << "<<" << obj->GetId() << " 0 obj>> (" << ToUtf8(grammar_file) << ") ";
             ss << "key:" << vec[0];
             ss << " wrong type should be:" << vec[1] << " and is " << inner_obj->GetObjectType() << std::endl;
           }
@@ -106,7 +106,7 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
             str.resize(dictObj->GetString(key.c_str(), nullptr, 0));
             dictObj->GetString(key.c_str(), (char*)str.c_str(), (int)str.size());
             if (str != vec[8]) {
-              ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file.c_str() << ") ";
+              ss << "<<" << obj->GetId() << " 0 obj>> (" << ToUtf8(grammar_file) << ") ";
               ss << "key:" << vec[0];
               ss << " wrong value should be:" << vec[8] << " and is " << str << std::endl;
             }
@@ -120,7 +120,7 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
       if (vec[4] == "TRUE") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
         if (inner_obj == nullptr) {
-          ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file.c_str() << ") ";
+          ss << "<<" << obj->GetId() << " 0 obj>> (" << ToUtf8(grammar_file) << ") ";
           ss << vec[0] << " is required but doesn't exist " << std::endl;
         }
       }
@@ -140,7 +140,7 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
       }
   }
   else {
-    ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file.c_str() << ") ";
+    ss << "<<" << obj->GetId() << " 0 obj>> (" << ToUtf8(grammar_file) << ") ";
     ss << " is not dictionary! " << std::endl;
   }
 }
