@@ -24,6 +24,7 @@
 #include "Pdfix.h"
 
 extern std::string ToUtf8(const std::wstring& wstr);
+extern std::string GetAbsolutePath(const std::string& path);
 
 std::wstring utf8ToUtf16(const std::string& utf8Str)
 {
@@ -44,7 +45,7 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
     return;
   }
   
-  std::string file_name = "w:\\Gramatika\\csv\\";
+  std::string file_name = GetAbsolutePath("../../csv/");
   file_name += grammar_file;
   file_name += ".csv";
   CGrammarReader reader(file_name,ss);

@@ -1,12 +1,12 @@
-Key	Type	SinceVersion	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Name	string	1.5	FALSE	FALSE					
-Creator	string	1.5	FALSE	FALSE					
-BaseState	name	1.5	FALSE	FALSE		ON	ON;OFF;Unchanged		
-ON	array	1.5	FALSE	FALSE					
-OFF	array	1.5	FALSE	FALSE					
-Intent	name;array	1.5	FALSE	FALSE		View			
-AS	array	1.5	FALSE	FALSE					
-Order	array	1.5	FALSE	FALSE					
-ListMode	name	1.5	FALSE	FALSE		AllPages	AllPages;VisiblePages		
-RBGroups	array	1.5	FALSE	FALSE					
-Locked	array	1.6	FALSE	FALSE		empty array			
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Name	string	1.5		FALSE	FALSE					
+Creator	string	1.5		FALSE	FALSE					
+BaseState	name	1.5		FALSE	FALSE		ON	ON;OFF;Unchanged		
+ON	array	1.5		FALSE	FALSE					
+OFF	array	1.5		FALSE	FALSE					
+Intent	name;array	1.5		FALSE	FALSE		View			
+AS	array	1.5		FALSE	FALSE					
+Order	array	1.5		FALSE	FALSE					
+ListMode	name	1.5		FALSE	FALSE		AllPages	AllPages;VisiblePages		
+RBGroups	array	1.5		FALSE	FALSE					
+Locked	array	1.6		FALSE	FALSE		empty array			

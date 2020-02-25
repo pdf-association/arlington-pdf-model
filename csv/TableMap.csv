@@ -10,7 +10,7 @@ FlateDecode	COSDictionary	Table 8 — Optional parameters for LZWDecode and FlateD
 LZWDecode	COSDictionary	Table 8 — Optional parameters for LZWDecode and FlateDecode filters	7.4.4 LZWDecode and FlatDecode filters	8	8	8	in progress	
 PNG predictor algorithms		Table 9 — PNG predictor algorithms	7.4.4.4 LZW and Flate predictor functions	9	9	9		
 Predictor values		Table 10 — Predictor values	7.4.4.4 LZW and Flate predictor functions	10	10	10		
-CCITTFAXDecode	COSDictionary	Table 11 – Optional parameters for the CCITTFaxDecode filter	7.4.6 CCITTFaxDecode filter	11	11	11	in progress	
+CCITTFaxDecode	COSDictionary	Table 11 – Optional parameters for the CCITTFaxDecode filter	7.4.6 CCITTFaxDecode filter	11	11	11	in progress	
 JBIG2Decode	COSDictionary	Table 12 — Optional parameter for the JBIG2Decode filter	7.4.7 JBIG2Decode filter	12	12	12	in progress	
 DCTDecode	COSDictionary	Table 13 – Optional parameter for the DCTDecode filter	7.4.8 DCTDecode filter	13	13	13	in progress	
 Crypt	COSDictionary	Table 14 — Optional parameters for Crypt filters	7.4.10 Crypt filter	14	14	14	in progress	
@@ -22,11 +22,11 @@ HybridRefrenceFileTrailer	COSDictionary	Table 19 — Additional entries in a hybri
 Encryption	COSDictionary	Table 20 — Entries common to all encryption dictionaries	7.6.2 Application of encryption	20	20	20	in progress	
 EncryptionSSH	COSDictionary	Table 21 — Additional encryption dictionary entries for the standard security handler	7.6.4.2 Standard encryption dictionary	21	21	21	in progress	
 SSHUserAccessPermissions	COSInteger	Table 22 — Standard security handler user access permissions	7.6.4.2 Standard encryption dictionary	22	22	22	in progress	
-EncryptionPublicKeySecurityHandlers	COSDictionary	Table 23 — Additional encryption dictionary entries for public-key security handlers	7.6.5.2 Public-key encryption dictionary	23	23	23	in progress	P key - removed in 2020
+EncryptionPublicKeySecurityHandler	COSDictionary	Table 23 — Additional encryption dictionary entries for public-key security handlers	7.6.5.2 Public-key encryption dictionary	23	23	23	in progress	P key - removed in 2020
 PublicKeySecurityHandlerUserAccessPermissions	COSInteger	Table 24 — Public-key security handler user access permissions	7.6.5.2 Public-key encryption dictionary	24	24	24	in progress	
 CryptFilter	COSDictionary	Table 25 — Entries common to all crypt filter dictionaries	7.6.6 Crypt filters.	25	25	25	in progress	
 Standard crypt filter names		Table 26 — Standard crypt filter names	7.6.6 Crypt filters.	26	26	26		
-CryptFilterPublicKeySecurityHandlers	COSDictionary	Table 27 — Additional crypt filter dictionary entries for public-key security handlers	7.6.6 Crypt filters.	27	27	27	in progress	
+CryptFilterPublicKeySecurityHandler	COSDictionary	Table 27 — Additional crypt filter dictionary entries for public-key security handlers	7.6.6 Crypt filters.	27	27	27	in progress	
 EncryptedPayload	COSDictionary	Table 28 — Entries in an encrypted payload dictionary	7.6.7 Unencrypted wrapper document	28	28	28	in progress	
 Catalog	COSDictionary	Table 29 — Entries in the catalog dictionary	7.7.2 Document catalog dictionary	29	29	29	in progress	
 PageTree	COSDictionary	Table 30 — Required entries in a page tree node	7.7.3 Page tree	30	30	30	in progress	
@@ -92,7 +92,7 @@ Data Values in a Coons Patch Mesh		Table 84 — Data Values in a Coons Patch Mesh	
 ShadingType7			8.7.4.5.8 Type 7 (tensor-product patch mash) shadings					
 Data values in a tensor-product patch mesh		Table 85 — Data values in a tensor-product patch mesh	8.7.4.5.8 Type 7 (tensor-product patch mesh) shadings		85	85		
 XObject operator		Table 86 — XObject operator	8.8 External objects		86	86		
-Image		Table 87 — Additional entries specific to an image dictionary	8.9.5 Image dictionaries		87	87		
+Image	COSStream	Table 87 — Additional entries specific to an image dictionary	8.9.5 Image dictionaries		87	87		
 Default decode arrays		Table 88 — Default decode arrays	8.9.5.2 Decode arrays		88	88		
 AlternateImage		Table 89 — Entries in an alternate image dictionary	8.9.5.4 Alternate images		89	89		
 Inline image operators		Table 90 — Inline image operators	8.9.7 Inline images		90	90		

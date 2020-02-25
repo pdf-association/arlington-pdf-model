@@ -22,7 +22,7 @@ int main()
   std::wstring resources_dir = GetAbsolutePath(L"../resources");
   std::wstring output_dir = GetAbsolutePath(L"../output");
 
-  std::wstring open_path = resources_dir + L"/test.pdf";        // source PDF document
+  std::wstring open_path = resources_dir + L"\\test.pdf";        // source PDF document
 
   try {
     Initialization(email, key);
