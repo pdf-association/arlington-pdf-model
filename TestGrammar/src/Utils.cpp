@@ -38,6 +38,34 @@ std::string ToUtf8(const std::wstring& str) {
   return myconv.to_bytes(str);
 }
 
+std::wstring utf8ToUtf16(const std::string& utf8Str)
+{
+  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> conv;
+  return conv.from_bytes(utf8Str);
+}
+
+std::string get_path_dir(const std::string& path) {
+  auto pos = path.find_last_of("\\/");
+  if (pos == std::string::npos) return path;
+  std::string dir(path.begin(), path.begin() + pos);
+  return dir;
+}
+
+std::wstring get_path_dir(const std::wstring& path) {
+  auto pos = path.find_last_of(L"\\/");
+  if (pos == std::wstring::npos) return path;
+  std::wstring dir(path.begin(), path.begin() + pos);
+  return dir;
+}
+
+std::string check_folder_path(const std::string& path) {
+  std::string result = path;
+  if (result.back() != '/' && result.back() != '\\')
+    result += "/";
+  return result;
+}
+
+
 std::string GetAbsolutePath(const std::string& path) {
   std::string result;
 #ifndef _WIN32
