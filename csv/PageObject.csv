@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.0		TRUE	FALSE		Page			
-Parent	dictionary	1.0		TRUE	TRUE					
+Parent	dictionary	1.0		TRUE	TRUE					PageTree
 LastModified	date	1.3		FALSE	FALSE				IsPresent:PieceInfo=>Required=TRUE	
 Resources	dictionary	1.0		TRUE	FALSE				Inheritable:Parent	Resources
 MediaBox	rectangle	1.0		TRUE	FALSE				Inheritable:Parent	
@@ -15,13 +15,13 @@ Group	dictionary	1.4		FALSE	FALSE					Group
 Thumb	stream	1.0		FALSE	FALSE					
 B	array	1.1		FALSE	FALSE					
 Dur	number	1.1		FALSE	FALSE					
-Trans	dictionary	1.1		FALSE	FALSE					Trans
+Trans	dictionary	1.1		FALSE	FALSE					Transition
 Annots	array	1.0		FALSE	FALSE					Annot
-AA	dictionary	1.2		FALSE	FALSE					MetadataStream
-Metadata	stream	1.4		FALSE	FALSE					
-PieceInfo	dictionary	1.3		FALSE	FALSE					
+AA	dictionary	1.2		FALSE	FALSE					AddActionPageObject
+Metadata	stream	1.4		FALSE	FALSE					Metadata
+PieceInfo	dictionary	1.3		FALSE	FALSE					PagePiece
 StructParents	integer	1.3		FALSE	FALSE				Required if the page contains structural content items	
-ID	byte string	1.3		FALSE	FALSE					
+ID	string	1.3		FALSE	FALSE					
 PZ	number	1.3		FALSE	FALSE					
 SeparationInfo	dictionary	1.3		FALSE	FALSE					Separation
 Tabs	name	1.5		FALSE	FALSE					

@@ -1,12 +1,12 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 N	integer	1.3		TRUE	FALSE			1;3;4		
 Alternate	array;name	1.3		FALSE	FALSE					
-Range	array 	1.3		FALSE	FALSE		[0.0 1.0 0.0 1.0 … ]			
+Range	array	1.3		FALSE	FALSE		[0.0 1.0 0.0 1.0 … ]			
 Metadata	stream	1.4		FALSE	FALSE					
 Length	integer	1.0		TRUE	FALSE					
-Filter	name;array	1.0		FALSE	FALSE					StandardFilters
-DecodeParams	dictionary;array	1.0		FALSE	FALSE					
+Filter	name;array	1.0		FALSE	FALSE			ASCIIHexDecode;ASCII85Decode;LZWDecode;FlateDecode;RunLengthDecode;CCITTFaxDecode;JBIG2Decode;DCTDecode;JPXDecode;Crypt		
+DecodeParams	dictionary;array	1.0		FALSE	FALSE			LZWDecode;FlatDecode;CCITTFaxDecode;JBIG2Decode;Crypt		
 F	file specification	1.2		FALSE	FALSE					
-FFilter	name;array	1.0		FALSE	FALSE					StandardFilters
-FDecodeParams	dictionary;array	1.2		FALSE	FALSE					
+FFilter	name;array	1.0		FALSE	FALSE			ASCIIHexDecode;ASCII85Decode;LZWDecode;FlateDecode;RunLengthDecode;CCITTFaxDecode;JBIG2Decode;DCTDecode;JPXDecode;Crypt		
+FDecodeParams	dictionary;array	1.2		FALSE	FALSE			LZWDecode;FlatDecode;CCITTFaxDecode;JBIG2Decode;Crypt		
 DL	integer	1.5		FALSE	FALSE					
