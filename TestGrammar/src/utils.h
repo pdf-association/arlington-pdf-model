@@ -25,6 +25,10 @@ std::string check_folder_path(const std::string& path);
 std::string GetAbsolutePath(const std::string& path);
 std::wstring GetAbsolutePath(const std::wstring& path);
 
+//split string into vector
+std::vector<std::string> split(const std::string& s, char seperator);
+
+
 //////////////////////////////////////////////////////////////////////////
 // PdfMatrix utils
 //void PdfMatrixTransform(PdfMatrix& m, PdfPoint& p);

@@ -15,10 +15,6 @@
 #include "Initialization.hpp"
 #include "ParseObjects.hpp"
 
-
-extern std::wstring GetAbsolutePath(const std::wstring& path);
-extern std::string ToUtf8(const std::wstring& wstr);
-
 void show_help() {
   std::cout << "TestGrammar by Normex s.r.o. (c) 2020" << std::endl;
   std::cout << "Validates PDF file against grammar defined by list of CSV files. more info:https://github.com/romantoda/PDF20_Grammar" << std::endl;

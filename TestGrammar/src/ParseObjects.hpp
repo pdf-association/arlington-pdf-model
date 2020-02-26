@@ -42,7 +42,7 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
     ss << "Can't load grammar file:" << ToUtf8(grammar_file) << std::endl;
     return;
   }
-  std::vector<std::vector<std::string> > data_list = reader.get_data();
+  const std::vector<std::vector<std::string>> &data_list = reader.get_data();
   if (data_list.empty())
     ss << "Empty grammar file:" << ToUtf8(grammar_file) << std::endl;
 
@@ -73,7 +73,7 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
 
       //check Type, possible values, indirect
       PdsObject *inner_obj = dictObj->Get(key.c_str());
-      for (std::vector<std::string> vec : data_list)
+      for (auto& vec : data_list)
         if (vec[0] == ToUtf8(key)) {
 
           // is indirect when needed ?
@@ -82,16 +82,33 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
             ss << vec[0] << " not indirect " << std::endl;
           }
 
-          // proper type ?
+          // is the value of proper type ?
+          // one line could have two types "array;dictionary"
+          //todo: or we can have two lines with two different links
           bool is_type_ok = false;
+          std::vector<std::string> allowed_types = split(vec[1], ';');
           switch (inner_obj->GetObjectType()) {
-          case kPdsBoolean: is_type_ok = (vec[1] == "BOOLEAN"); break;
-          case kPdsNumber: is_type_ok = (vec[1] == "NUMBER") || (vec[1] == "INTEGER"); break;
-          case kPdsName: is_type_ok = (vec[1] == "NAME"); break;
-          case kPdsString: is_type_ok = (vec[1] == "STRING") || (vec[1] == "DATE"); break;
-          case kPdsStream: is_type_ok = (vec[1] == "STREAM"); break;
-          case kPdsArray: is_type_ok = (vec[1] == "ARRAY" || (vec[1] == "RECTANGLE")); break;
-          case kPdsDictionary: is_type_ok = (vec[1] == "DICTIONARY"); break;
+          case kPdsBoolean: 
+            is_type_ok = std::any_of(allowed_types.begin(), allowed_types.end(), [](std::string opt) {return (opt == "BOOLEAN"); });
+            break;
+          case kPdsNumber: 
+            is_type_ok = std::any_of(allowed_types.begin(), allowed_types.end(), [](std::string opt) {return  (opt == "NUMBER") || (opt == "INTEGER"); });
+            break;
+          case kPdsName: 
+            is_type_ok = std::any_of(allowed_types.begin(), allowed_types.end(), [](std::string opt) {return  (opt == "NAME"); });
+            break;
+          case kPdsString: 
+            is_type_ok = std::any_of(allowed_types.begin(), allowed_types.end(), [](std::string opt) {return  (opt == "STRING") || (opt == "DATE"); });
+            break;
+          case kPdsStream: 
+            is_type_ok = std::any_of(allowed_types.begin(), allowed_types.end(), [](std::string opt) {return  (opt == "STREAM"); });
+            break;
+          case kPdsArray: 
+            is_type_ok = std::any_of(allowed_types.begin(), allowed_types.end(), [](std::string opt) {return  (opt == "ARRAY") || (opt == "RECTANGLE"); });
+            break;
+          case kPdsDictionary: 
+            is_type_ok = std::any_of(allowed_types.begin(), allowed_types.end(), [](std::string opt) {return  (opt == "DICTIONARY"); });
+            break;
           }
           if (!is_type_ok) {
             ss << "<<" << obj->GetId() << " 0 obj>> (" << ToUtf8(grammar_file) << ") ";
@@ -99,13 +116,14 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
             ss << " wrong type should be:" << vec[1] << " and is " << inner_obj->GetObjectType() << std::endl;
           }
 
-          // possible value
-          //todo: one of many
+          // possible value, could be one of many 
           if (vec[8] != "") {
             std::string str;
             str.resize(dictObj->GetString(key.c_str(), nullptr, 0));
             dictObj->GetString(key.c_str(), (char*)str.c_str(), (int)str.size());
-            if (str != vec[8]) {
+            
+            std::vector<std::string> options = split(vec[8], ';');
+            if (std::none_of(options.begin(), options.end(), [=](std::string opt) {return opt==str; })) {
               ss << "<<" << obj->GetId() << " 0 obj>> (" << ToUtf8(grammar_file) << ") ";
               ss << "key:" << vec[0];
               ss << " wrong value should be:" << vec[8] << " and is " << str << std::endl;
@@ -116,7 +134,7 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
         }
     }
     // check presence of required values
-    for (std::vector<std::string> vec : data_list)
+    for (auto& vec : data_list)
       if (vec[4] == "TRUE") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
         if (inner_obj == nullptr) {
@@ -128,11 +146,12 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
     // now do through containers and process them with new grammar_file
     //todo: arrays also
     //todo: what if there are 2 links?
-    for (std::vector<std::string> vec : data_list)
+    for (auto& vec : data_list)
       if (vec.size()>=11 && vec[10] != "") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
         if (inner_obj != nullptr) {
           std::wstring file_name = get_path_dir(grammar_file);
+          file_name += L"/";
           file_name += FromUtf8(vec[10]);
           file_name += L".csv";
           ProcessObject(inner_obj, ss, mapped, file_name);

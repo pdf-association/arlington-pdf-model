@@ -23,7 +23,7 @@
 {
   std::wstring file_name;
   std::string delimeter;
-  std::vector<std::vector<std::string> > data_list;
+  std::vector<std::vector<std::string>> data_list;
   std::vector<std::string> basic_types = { "BOOLEAN", "NUMBER", "NAME",
     "STRING", "STREAM", "ARRAY", "DICTIONARY", "INTEGER", "DATE", "RECTANGLE" };
 public:
@@ -33,7 +33,7 @@ public:
 
   // Function to fetch data from a CSV File
   bool load();
-  std::vector<std::vector<std::string> > get_data();
+  const std::vector<std::vector<std::string>>& get_data();
   bool check(std::ostream &report_stream);
 };
 
@@ -76,7 +76,7 @@ bool CGrammarReader::load()
 /*
   Returns internal data_list (vector of vector of strings)
 */
-std::vector<std::vector<std::string> > CGrammarReader::get_data()
+const std::vector<std::vector<std::string>>& CGrammarReader::get_data()
 {
   return data_list;
 }
@@ -108,25 +108,15 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     return false;
   }
 
-  // check basic types
+  // check basic types (ignoring first line)
   for (int i = 1; i < data_list.size(); i++) {
     std::vector<std::string> vc = data_list[i];
-
-    auto is_basic_type = [=](std::string str) {
-      return std::find(basic_types.begin(), basic_types.end(), str) != basic_types.end();
-    };
-
     // possible multiple types separated with ";"
-    std::string::size_type prev_pos = 0, pos = 0;
-    while ((pos = vc[1].find(";", pos)) != std::string::npos) {
-      std::string substring(vc[1].substr(prev_pos, pos - prev_pos));
-      if (!is_basic_type(substring))
-        report_stream << "Wrong type:" << substring << " in:" << ToUtf8(file_name) << "::" << vc[0] << std::endl;
-      prev_pos = ++pos;
-    }
-
-    if (!is_basic_type(vc[1].substr(prev_pos, pos - prev_pos)))
-      report_stream << "Wrong type:" << vc[1].substr(prev_pos, pos - prev_pos) << " in:" << ToUtf8(file_name) << "::" << vc[0] << std::endl;
+    // need to compare all of them with basic_types
+    std::vector<std::string> options = split(vc[1], ';');
+    for (auto& opt : options)
+      if (std::find(basic_types.begin(), basic_types.end(), opt) == basic_types.end())
+        report_stream << "Wrong type:" << opt << " in:" << ToUtf8(file_name) << "::" << vc[0] << std::endl;
   }
   return true;
 }
