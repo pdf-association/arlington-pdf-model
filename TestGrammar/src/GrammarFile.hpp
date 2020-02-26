@@ -21,13 +21,13 @@
 
   class CGrammarReader
 {
-  std::wstring file_name;
+  std::string file_name;
   std::string delimeter;
   std::vector<std::vector<std::string>> data_list;
   std::vector<std::string> basic_types = { "BOOLEAN", "NUMBER", "NAME",
     "STRING", "STREAM", "ARRAY", "DICTIONARY", "INTEGER", "DATE", "RECTANGLE" };
 public:
-  CGrammarReader(std::wstring f_name, std::string delm = "\t") :
+  CGrammarReader(std::string f_name, std::string delm = "\t") :
     file_name(f_name), delimeter(delm)
   { }
 
@@ -89,14 +89,14 @@ const std::vector<std::vector<std::string>>& CGrammarReader::get_data()
 */
 bool CGrammarReader::check(std::ostream &report_stream) {
   if (data_list.empty()) {
-    report_stream << "Empty grammar file:" << ToUtf8(file_name) << std::endl;
+    report_stream << "Empty grammar file:" << file_name << std::endl;
     return false;
   }
 
   // check first line (heading)
   std::vector<std::string> vec = data_list[0];
   if (vec.size() < 11) {
-    report_stream << "Wrong number of columns:" << ToUtf8(file_name) << std::endl;
+    report_stream << "Wrong number of columns:" << file_name << std::endl;
     return false;
   }
 
@@ -104,7 +104,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     (vec[3] != "DeprecatedIn") || (vec[4] != "REQUIRED") || (vec[5] != "INDIRECTREFRENCE") ||
     (vec[6] != "RequiredValue") || (vec[7] != "DefaultValue") || (vec[8] != "PossibleValues") ||
     (vec[9] != "SpecialCase") || (vec[10] != "Link")) {
-    report_stream << "Wrong number of columns:" << ToUtf8(file_name) << std::endl;
+    report_stream << "Wrong number of columns:" << file_name << std::endl;
     return false;
   }
 
@@ -116,7 +116,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     std::vector<std::string> options = split(vc[1], ';');
     for (auto& opt : options)
       if (std::find(basic_types.begin(), basic_types.end(), opt) == basic_types.end())
-        report_stream << "Wrong type:" << opt << " in:" << ToUtf8(file_name) << "::" << vc[0] << std::endl;
+        report_stream << "Wrong type:" << opt << " in:" << file_name << "::" << vc[0] << std::endl;
   }
   return true;
 }
