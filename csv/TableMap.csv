@@ -30,6 +30,9 @@ CryptFilterPublicKeySecurityHandler	COSDictionary	Table 27 — Additional crypt fi
 EncryptedPayload	COSDictionary	Table 28 — Entries in an encrypted payload dictionary	7.6.7 Unencrypted wrapper document	28	28	28	in progress	
 Catalog	COSDictionary	Table 29 — Entries in the catalog dictionary	7.7.2 Document catalog dictionary	29	29	29	in progress	
 PageTree	COSDictionary	Table 30 — Required entries in a page tree node	7.7.3 Page tree	30	30	30	in progress	
+PageTreeRoot	COSDictionary	Table 30 — Required entries in a page tree node	7.7.3 Page tree	30.1				
+PageTreeKidsArray								
+PageTreeKidsArrayDecision								
 PageObject	COSDictionary	Table 31 — Entries in a page object	7.7.3.3 Page objects	31	31	31	in progress	
 Name	COSDictionary	Table 32 — Entries in the name dictionary	7.7.4 Name dictionary	32	32	32	in progress	
 Compatibility operators		Table 33 — Compatibility operators	7.8.2 Content streams		33	33		
@@ -231,7 +234,7 @@ ActionGoToR		Table 203 — Additional entries specific to a remote go-to action	12
 ActionGoToE		Table 204 — Additional entries specific to an embedded go-to action	12.6.4.4 Embedded Go-To actions	204	204	204		
 Target		Table 205 — Entries specific to a target dictionary	12.6.4.4 Embedded Go-To actions	205	205	205		
 ActionGoToDp		Table 206 — Entries in a GoToDp dictionary	12.6.4.5 GoToDp action	206	206	206		
-\		Table 207 — Additional entries specific to a launch action	12.6.4.6 Launch actions	207	207	207		
+ActionLaunch		Table 207 — Additional entries specific to a launch action	12.6.4.6 Launch actions	207	207	207		
 MicrosoftWindowsLaunchParam		Table 208 — Entries in a Microsoft WindowsTM launch parameter dictionary	12.6.4.6 Launch actions	208	208	208		
 ActionThread		Table 209 — Additional entries specific to a thread action	12.6.4.7 Thread actions	209	209	209		
 ActionURI		Table 210 — Additional entries specific to a URI action	12.6.4.8 URI actions	210	210	210		
@@ -444,5 +447,8 @@ OPIVersion13		Table 406 — Entries in a version 1.3 OPI dictionary	14.11.7 Open p
 OPIVersion20		Table 407 — Entries in a version 2.0 OPI dictionary	14.11.7 Open prepress interface (OPI)		407	407		
 DPartRoot		Table 408 — Entries in a DPartRoot dictionary	14.12.4 Data structures	408	408	408		
 DPart		Table 409 — Entries in a DPart dictionary	14.12.4 Data structures	409	409	409		
-								toto zatial neviem k comu patri, spomeniem si, zrejme to tak bolo v Adobe gramatike
-								toto zatial neviem k comu patri, spomeniem si, zrejme to tak bolo v Adobe gramatike
+StreamFiltersArray								
+ThreadsArray								toto zatial neviem k comu patri, spomeniem si, zrejme to tak bolo v Adobe gramatike
+OutputIntentsArray								toto zatial neviem k comu patri, spomeniem si, zrejme to tak bolo v Adobe gramatike
+RequirementsArray								
+FileSpecificationArray								

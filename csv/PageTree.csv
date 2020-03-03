@@ -1,5 +1,5 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.0		TRUE	FALSE	Pages				
-Parent	dictionary	1.0		TRUE	TRUE					PageTreeRoot;PageTree
-Kids	array	1.0		TRUE	FALSE					PageObject;PageTree
-Count	integer	1.0		TRUE	FALSE					
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	note
+Type	name	1.0		TRUE	FALSE	Pages					
+Parent	dictionary	1.0		TRUE	TRUE					PageTreeRoot;PageTree	Ako sa rozhodnem tu?
+Kids	array	1.0		TRUE	FALSE					PageTreeKidsArray	
+Count	integer	1.0		TRUE	FALSE						
