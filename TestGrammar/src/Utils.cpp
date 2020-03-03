@@ -65,6 +65,29 @@ std::string check_folder_path(const std::string& path) {
   return result;
 }
 
+bool folder_exists(const std::string& path) {
+  struct stat s;
+  if (stat(path.c_str(), &s) == 0) {
+    if (s.st_mode & S_IFDIR) return true;
+  }
+  return false;
+}
+
+//bool folder_exists(const std::wstring& path) {
+//  return folder_exists(w2utf8(path.c_str()));
+//}
+
+bool file_exists(const std::string& path) {
+  struct stat s;
+  if (stat(path.c_str(), &s) == 0) {
+    if (s.st_mode & S_IFREG) return true;
+  }
+  return false;
+}
+
+//bool file_exists(const std::wstring& path) {
+//  return file_exists(w2utf8(path.c_str()));
+//}
 
 std::string GetAbsolutePath(const std::string& path) {
   std::string result;

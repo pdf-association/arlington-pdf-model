@@ -29,7 +29,17 @@
 #endif
 
 // ProcessObject gets the value of the object.
-void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& mapped, std::string grammar_file) {
+void ProcessObject(PdsObject* obj, 
+  std::ostream& ss, 
+  std::map<PdsObject*, int>& mapped, 
+  std::string grammar_file,
+  std::string context
+  ) {
+
+  //if (obj->GetObjectType() != kPdsDictionary &&
+  //  obj->GetObjectType() != kPdsStream &&
+  //  obj->GetObjectType() != kPdsArray)
+  //  return;
 
   auto found = mapped.find(obj);
   if (found != mapped.end()) {
@@ -39,12 +49,12 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
   
   CGrammarReader reader(grammar_file);
   if (!reader.load()) {
-    ss << "Can't load grammar file:" << grammar_file << std::endl;
+    ss << "Error: Can't load grammar file:" << grammar_file << std::endl;
     return;
   }
   const std::vector<std::vector<std::string>> &data_list = reader.get_data();
   if (data_list.empty())
-    ss << "Empty grammar file:" << grammar_file << std::endl;
+    ss << "Error: Empty grammar file:" << grammar_file << std::endl;
 
   //auto get_obj_type_str = [](PdsObject *obj) {
   //  std::string str;
@@ -61,10 +71,29 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
   //  return str;
   //};
 
+  auto get_full_csv_file = [=](std::string csv_name) {
+    std::string file_name = get_path_dir(grammar_file);
+    file_name += "/";
+    file_name += csv_name;
+    file_name += ".csv";
+    return file_name;
+  };
+
+
   mapped.insert(std::make_pair(obj, 1));
+  //todo: what about stream and array
+  
+  // validating as dictionary:
+  // going through all objects in dictionary 
+  // checking types from the grammar
+  // checking possible values
+  // checking if indirect if required
+  // if we change context based on value we do it
+  // then check presence of required keys
+  // then recursively calling validation for each container with link to other grammar file
+//  if (validate_as == "DICTIONARY") {
   if (obj->GetObjectType() == kPdsDictionary) {
     PdsDictionary* dictObj = (PdsDictionary*)obj;
-
     //validate values first, then process containers
     for (int i = 0; i < (dictObj->GetNumKeys()); i++) {
       std::wstring key;
@@ -72,14 +101,18 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
       dictObj->GetKey(i, (wchar_t*)key.c_str(), (int)key.size());
 
       //check Type, possible values, indirect
+      // todo: ked mame key ktory neni v gramatike
       PdsObject *inner_obj = dictObj->Get(key.c_str());
+      bool found = false;
       for (auto& vec : data_list)
         if (vec[0] == ToUtf8(key)) {
-
           // is indirect when needed ?
           if ((vec[5] == "TRUE") && (inner_obj->GetId() == 0)) {
-            ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file << ") ";
-            ss << vec[0] << " not indirect " << std::endl;
+            ss << "Error: not indirect ";
+            ss << context << "->" << vec[0];
+            ss <<"(" << grammar_file << ")" << std::endl;
+            //ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file << ") ";
+            //ss << vec[0] << " not indirect " << std::endl;
           }
 
           // is the value of proper type ?
@@ -111,57 +144,107 @@ void ProcessObject(PdsObject* obj, std::ostream& ss, std::map<PdsObject*, int>& 
             break;
           }
           if (!is_type_ok) {
-            ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file << ") ";
-            ss << "key:" << vec[0];
-            ss << " wrong type should be:" << vec[1] << " and is " << inner_obj->GetObjectType() << std::endl;
+            ss << "Error:  wrong type ";
+            ss << context << "->" << vec[0];
+            ss << "(" << grammar_file << ")";
+            ss << " should be:" << vec[1] << " and is " << inner_obj->GetObjectType() << std::endl;
           }
 
           // possible value, could be one of many 
+          // if we have more values and also more links, then we shitch context (follow the provided link) 
+          // based on the value
           if (vec[8] != "") {
             std::string str;
             str.resize(dictObj->GetString(key.c_str(), nullptr, 0));
             dictObj->GetString(key.c_str(), (char*)str.c_str(), (int)str.size());
-            
+
+            // if there are links and possible values, then we decide to change context based on value
             std::vector<std::string> options = split(vec[8], ';');
-            if (std::none_of(options.begin(), options.end(), [=](std::string opt) {return opt==str; })) {
-              ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file << ") ";
-              ss << "key:" << vec[0];
-              ss << " wrong value should be:" << vec[8] << " and is " << str << std::endl;
+            std::vector<std::string>::iterator it=std::find(options.begin(), options.end(), str);
+            if (it == options.end()) {
+              ss << "Error:  wrong value ";
+              ss << context << "->" << vec[0];
+              ss << "(" << grammar_file << ")";
+              ss << " should be:" << vec[8] << " and is " << str << std::endl;
+            }
+            else if (vec[10] != "") {
+              // found value and we know we have links so we might need to switch the 
+              // context in which we are (changing csv, while staying in the same dictionary
+              int index = std::distance(options.begin(), it);
+              std::vector<std::string> links = split(vec[10], ';');
+              if (links.size() <= index) {
+                ss << "Error:  can't find link based on value ";
+                ss << context << "->" << vec[0];
+                ss << "(" << grammar_file << ")" << std::endl;
+              }
+              else {
+                mapped.erase(obj);
+                ProcessObject(obj, ss, mapped, get_full_csv_file(links[index]), context);
+              }
             }
           }
-
+          found = true;
           break;
         }
+      // we didn't find key, there may be * we can use to validate
+      if (!found)
+        for (auto& vec : data_list)
+          //todo: mozno treba osetrit aj typ
+          if (vec[0] == "*" && vec[10] != "") {
+            ProcessObject(inner_obj, ss, mapped, get_full_csv_file(vec[10]), context+"->"+ToUtf8(key));
+            break;
+          }
     }
     // check presence of required values
     for (auto& vec : data_list)
       if (vec[4] == "TRUE") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
         if (inner_obj == nullptr) {
-          ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file << ") ";
-          ss << vec[0] << " is required but doesn't exist " << std::endl;
+          ss << "Error:  required key doesn't exists ";
+          ss << context << "->" << vec[0];
+          ss << "(" << grammar_file << ")" << std::endl;
         }
       }
 
     // now do through containers and process them with new grammar_file
     //todo: arrays also
     //todo: what if there are 2 links?
+    //todo: dictionary bez linku
+    //todo: ked sme ich nepretestovali skor (*) 
     for (auto& vec : data_list)
       if (vec.size()>=11 && vec[10] != "") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
-        if (inner_obj != nullptr) {
-          std::string file_name = get_path_dir(grammar_file);
-          file_name += "/";
-          file_name += vec[10];
-          file_name += ".csv";
-          ProcessObject(inner_obj, ss, mapped, file_name);
-        }
+        if ((inner_obj != nullptr) &&
+          (inner_obj->GetObjectType() == kPdsDictionary ||
+            inner_obj->GetObjectType() == kPdsStream ||
+            inner_obj->GetObjectType() == kPdsArray))
+          ProcessObject(inner_obj, ss, mapped, get_full_csv_file(vec[10]), context + "->" + vec[0]);
       }
+    return;
   }
-  else {
-    ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file << ") ";
-    ss << " is not dictionary! " << std::endl;
+
+
+  if (obj->GetObjectType() == kPdsArray) {
+    PdsArray* arrayObj = (PdsArray*)obj;
+    for (int i = 0; i < arrayObj->GetNumObjects(); ++i) {
+      //PdsDictionary* item = arrayObj->GetDictionary(i);
+      PdsObject* item = arrayObj->Get(i);
+      for (auto& vec : data_list)
+        //todo: mozno treba osetrit aj typ
+        if (vec[0] == "*" && vec[10] != "") {
+          ProcessObject(item, ss, mapped, get_full_csv_file(vec[10]), context + "->[]");
+          break;
+        }
+    }
+    return;
   }
+
+  ss << "Error:  can't process ";
+  ss << context;
+  ss << "(" << grammar_file << ")" << std::endl;
+
+  //ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file << ") ";
+  //ss << " is not dictionary! " << std::endl;
 }
 
 // Iterates all documents 
@@ -186,7 +269,7 @@ void ParsePdsObjects(
   std::ofstream ofs;
   ofs.open(save_path);
   std::string grammar_file = grammar_folder + "Catalog.csv";
-  ProcessObject(root, ofs, mapped, grammar_file);
+  ProcessObject(root, ofs, mapped, grammar_file, "Catalog");
   ofs.close();
 
   doc->Close();

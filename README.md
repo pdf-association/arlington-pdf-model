@@ -1,6 +1,6 @@
 # PDF 2.0 Grammar (sort of)
 
-We extracted all tables from PDF 2.0 and represent them in series of CSV files (generated from excel) Each CVS file basically represents specific dictionary in PDF with allowed keys. 
+We extracted all tables from PDF 2.0 and represent them in series of CSV files (generated from excel) Each CSV file basically represents specific dictionary in PDF with allowed keys. 
 
 ## Basic types
 ISO32000-2 defines few basic types, but from inside of the spec we refer "some other" types as well. Therefore we work with following basic types
@@ -26,9 +26,17 @@ SpecialCase	 	- expression
 Link			- name of another csv file for validating "this" container
 
 # Tool / Validator
-This repository contains a commandline tool based on the PDFix library that allows two different tasks:
-- validates CSV files. Check the uniformity (number of columns), if all types are one of basic types etc..
-- validates PDF file. Starting from Catalog, the tool validates 
+This repository contains a commandline tool based on the PDFix library that allows two different tasks
+
+## validates CSV files
+Checks the uniformity of all csv files
+	- number of columns
+	- if all types are one of basic types
+	- if all links to other csv files do exist
+	- if all csv files are reachable from Catalog.csv
+
+## validates PDF file
+Starting from Catalog, the tool validates 
 	- if required keys are present
 	- if values are of proper type
 	- if objects are indirect if required

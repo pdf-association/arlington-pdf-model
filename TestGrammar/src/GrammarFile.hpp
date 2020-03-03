@@ -86,7 +86,8 @@ const std::vector<std::vector<std::string>>& CGrammarReader::get_data()
  - correct # of columns
  - correct headings (first line)
  - correct basic types 1st column
-*/
+ //todo: ked mam possible values a aj link tak musi byt rovnaky pocet
+ */
 bool CGrammarReader::check(std::ostream &report_stream) {
   if (data_list.empty()) {
     report_stream << "Empty grammar file:" << file_name << std::endl;
@@ -104,19 +105,38 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     (vec[3] != "DeprecatedIn") || (vec[4] != "REQUIRED") || (vec[5] != "INDIRECTREFRENCE") ||
     (vec[6] != "RequiredValue") || (vec[7] != "DefaultValue") || (vec[8] != "PossibleValues") ||
     (vec[9] != "SpecialCase") || (vec[10] != "Link")) {
-    report_stream << "Wrong number of columns:" << file_name << std::endl;
+    report_stream << "Wrong headers for columns:" << file_name << std::endl;
     return false;
   }
 
   // check basic types (ignoring first line)
+  // check existing link
+  // check duplicate keys
+  //todo: skontrolovat vyber link podla value (rovnaky pocet musi byt)
+  std::vector<std::string> processed;
   for (int i = 1; i < data_list.size(); i++) {
     std::vector<std::string> vc = data_list[i];
+    if (std::find(processed.begin(), processed.end(), vc[0]) == processed.end())
+      processed.push_back(vc[0]);
+    else
+      report_stream << "Duplicate keys in:" << file_name << "::" << vc[0] << std::endl;
+     
     // possible multiple types separated with ";"
     // need to compare all of them with basic_types
     std::vector<std::string> options = split(vc[1], ';');
     for (auto& opt : options)
       if (std::find(basic_types.begin(), basic_types.end(), opt) == basic_types.end())
         report_stream << "Wrong type:" << opt << " in:" << file_name << "::" << vc[0] << std::endl;
+    
+    // does link exists ?
+    if (vc[10] != "") {
+      std::string new_name = get_path_dir(file_name);
+      new_name += "/";
+      new_name += vc[10];
+      new_name += ".csv";
+      if (!file_exists(new_name))
+        report_stream << "Link doesn't exists:" << vc[10] << " in:" << file_name << "::" << vc[0] << std::endl;
+    }
   }
   return true;
 }
