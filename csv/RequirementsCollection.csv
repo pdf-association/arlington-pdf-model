@@ -1,0 +1,6 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.6		FALSE	FALSE	Requirement				
+S	name	1.6		TRUE	FALSE	Collection				
+V	name;dictionary	2.0		FALSE	FALSE					
+RH	dictionary;array	1.6		FALSE	FALSE		empty array			RequirementsHandler;RequirementsHandlerArray
+Penalty	integer	2.0		FALSE	FALSE		100	<0;100>		
