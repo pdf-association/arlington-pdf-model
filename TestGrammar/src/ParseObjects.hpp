@@ -47,6 +47,8 @@ void ProcessObject(PdsObject* obj,
     return;
   }
   
+  ss << context << std::endl;
+
   CGrammarReader reader(grammar_file);
   if (!reader.load()) {
     ss << "Error: Can't load grammar file:" << grammar_file << std::endl;
@@ -232,7 +234,7 @@ void ProcessObject(PdsObject* obj,
       for (auto& vec : data_list)
         //todo: mozno treba osetrit aj typ
         if (vec[0] == "*" && vec[10] != "") {
-          ProcessObject(item, ss, mapped, get_full_csv_file(vec[10]), context + "->[]");
+          ProcessObject(item, ss, mapped, get_full_csv_file(vec[10]), context + "->["+std::to_string(i)+"]");
           break;
         }
     }
