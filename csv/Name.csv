@@ -1,11 +1,11 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Dests	name tree	1.2		FALSE	FALSE					
-AP	name tree	1.3		FALSE	FALSE					
-JavaScript	name tree	1.3		FALSE	FALSE					
+AP	name tree	1.3		FALSE	FALSE					Appearance
+JavaScript	name tree	1.3		FALSE	FALSE					ActionECMAScript
 Pages	name tree	1.3		FALSE	FALSE					
 Templates	name tree	1.3		FALSE	FALSE					
-IDS	name tree	1.3		FALSE	FALSE					
-URLS	name tree	1.3		FALSE	FALSE					
-EmbeddedFiles	name tree	1.4		FALSE	FALSE					
-AlternatePresentations	name tree	1.4		FALSE	FALSE					
-Renditions	name tree	1.5		FALSE	FALSE					
+IDS	name tree	1.3		FALSE	FALSE					WebCaptureContentSet
+URLS	name tree	1.3		FALSE	FALSE					WebCaptureContentSet
+EmbeddedFiles	name tree	1.4		FALSE	FALSE					EmbeddedFileStream
+AlternatePresentations	name tree	1.4	2.0	FALSE	FALSE					
+Renditions	name tree	1.5		FALSE	FALSE					Rendition
