@@ -27,6 +27,124 @@
 #ifdef GetObject
 #undef GetObject
 #endif
+void ProcessObject(PdsObject* obj,
+  std::ostream& ss,
+  std::map<PdsObject*, int>& mapped,
+  std::string grammar_file,
+  std::string context
+);
+
+
+void ProcessNameTree(PdsDictionary* obj,
+  std::ostream& ss,
+  std::map<PdsObject*, int>& mapped,
+  std::string grammar_file,
+  std::string context
+) {
+  // todo check if Kids doesn't exist together with names etc..
+  PdsObject *kids_obj = obj->Get(L"Kids");
+  PdsObject *names_obj = obj->Get(L"Names");
+  PdsObject *limits_obj = obj->Get(L"Limits");
+  if (names_obj != nullptr) {
+    if (names_obj->GetObjectType() == kPdsArray) {
+      PdsArray* array_obj = (PdsArray*)names_obj;
+      for (int i = 0; i < array_obj->GetNumObjects();) {
+        // we have tupples "name", value. value has to be validated
+        //todo check syntax here
+        std::string str;
+        str.resize(array_obj->GetString(i, nullptr, 0));
+        array_obj->GetString(i, (char*)str.c_str(), (int)str.size());
+        i++;
+        PdsDictionary* item = array_obj->GetDictionary(i);
+        i++;
+        if (item != nullptr) {
+          ProcessObject(item, ss, mapped, grammar_file, context+ "->" + str);
+        }
+        else {
+          //error value isn't dictionary
+        }
+
+      }
+    }
+  }
+  else {
+    //error names isn't array
+  }
+
+  if (kids_obj != nullptr) {
+    if (kids_obj->GetObjectType() == kPdsArray) {
+      PdsArray* array_obj = (PdsArray*)kids_obj;
+      for (int i = 0; i < array_obj->GetNumObjects(); ++i) {
+        PdsDictionary* item = array_obj->GetDictionary(i);
+        if (item != nullptr) {
+          ProcessNameTree(item, ss, mapped, grammar_file, context);
+        }
+        else {
+          //error kid isn't dictionary 
+        }
+      }
+    }
+    else { 
+    //error kids isn't array
+    }
+
+  }
+}
+
+void ProcessNumberTree(PdsDictionary* obj,
+  std::ostream& ss,
+  std::map<PdsObject*, int>& mapped,
+  std::string grammar_file,
+  std::string context
+) {
+  // todo check if Kids doesn't exist together with names etc..
+  PdsObject *kids_obj = obj->Get(L"Kids");
+  PdsObject *nums_obj = obj->Get(L"Nums");
+  PdsObject *limits_obj = obj->Get(L"Limits");
+  if (nums_obj != nullptr) {
+    if (nums_obj->GetObjectType() == kPdsArray) {
+      PdsArray* array_obj = (PdsArray*)nums_obj;
+      for (int i = 0; i < array_obj->GetNumObjects();) {
+        // we have tupples number, value. value has to be validated
+        //todo check syntax here
+        int key = array_obj->GetInteger(i);
+        i++;
+        PdsDictionary* item = array_obj->GetDictionary(i);
+        i++;
+        if (item != nullptr) {
+          ProcessObject(item, ss, mapped, grammar_file, context + "->" + std::to_string(key));
+        }
+        else {
+          //error value isn't dictionary
+        }
+
+      }
+    }
+  }
+  else {
+    //error names isn't array
+  }
+
+  if (kids_obj != nullptr) {
+    if (kids_obj->GetObjectType() == kPdsArray) {
+      PdsArray* array_obj = (PdsArray*)kids_obj;
+      for (int i = 0; i < array_obj->GetNumObjects(); ++i) {
+        PdsDictionary* item = array_obj->GetDictionary(i);
+        if (item != nullptr) {
+          ProcessNumberTree(item, ss, mapped, grammar_file, context);
+        }
+        else {
+          //error kid isn't dictionary 
+        }
+      }
+    }
+    else {
+      //error kids isn't array
+    }
+
+  }
+}
+
 
 // ProcessObject gets the value of the object.
 void ProcessObject(PdsObject* obj, 
@@ -43,6 +161,7 @@ void ProcessObject(PdsObject* obj,
 
   auto found = mapped.find(obj);
   if (found != mapped.end()) {
+//    ss << context << " already processed" <<std::endl;
     found->second++;
     return;
   }
@@ -142,7 +261,7 @@ void ProcessObject(PdsObject* obj,
             is_type_ok = std::any_of(allowed_types.begin(), allowed_types.end(), [](std::string opt) {return  (opt == "ARRAY") || (opt == "RECTANGLE"); });
             break;
           case kPdsDictionary: 
-            is_type_ok = std::any_of(allowed_types.begin(), allowed_types.end(), [](std::string opt) {return  (opt == "DICTIONARY"); });
+            is_type_ok = std::any_of(allowed_types.begin(), allowed_types.end(), [](std::string opt) {return  (opt == "DICTIONARY") || (opt == "NUMBER TREE") || (opt == "NAME TREE"); });
             break;
           }
           if (!is_type_ok) {
@@ -216,11 +335,21 @@ void ProcessObject(PdsObject* obj,
     for (auto& vec : data_list)
       if (vec.size()>=11 && vec[10] != "") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
-        if ((inner_obj != nullptr) &&
-          (inner_obj->GetObjectType() == kPdsDictionary ||
-            inner_obj->GetObjectType() == kPdsStream ||
-            inner_obj->GetObjectType() == kPdsArray))
-          ProcessObject(inner_obj, ss, mapped, get_full_csv_file(vec[10]), context + "->" + vec[0]);
+        if (inner_obj != nullptr) {
+          if (vec[1] == "NUMBER TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
+            ProcessNumberTree((PdsDictionary*)inner_obj, ss, mapped, get_full_csv_file(vec[10]), context + "->" + vec[0]);
+          }
+          else
+            if (vec[1] == "NAME TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
+              ProcessNameTree((PdsDictionary*)inner_obj, ss, mapped, get_full_csv_file(vec[10]), context + "->" + vec[0]);
+            }
+            else if (inner_obj->GetObjectType() == kPdsStream) {
+              ProcessObject(((PdsStream*)inner_obj)->GetStreamDict(), ss, mapped, get_full_csv_file(vec[10]), context + "->" + vec[0]);
+            }
+            else
+              if ((inner_obj->GetObjectType() == kPdsDictionary || inner_obj->GetObjectType() == kPdsArray))
+                ProcessObject(inner_obj, ss, mapped, get_full_csv_file(vec[10]), context + "->" + vec[0]);
+        }
       }
     return;
   }
@@ -234,10 +363,11 @@ void ProcessObject(PdsObject* obj,
       for (auto& vec : data_list)
         //todo: mozno treba osetrit aj typ
         if (vec[0] == "*" && vec[10] != "") {
-          ProcessObject(item, ss, mapped, get_full_csv_file(vec[10]), context + "->["+std::to_string(i)+"]");
+          ProcessObject(item, ss, mapped, get_full_csv_file(vec[10]), context + "["+std::to_string(i)+"]");
           break;
         }
     }
+
     return;
   }
 
