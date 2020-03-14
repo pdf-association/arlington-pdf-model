@@ -10,13 +10,13 @@ OP	boolean	1.2		FALSE	FALSE
 op	boolean	1.3		FALSE	FALSE					
 OPM	integer	1.3		FALSE	FALSE					
 Font	array	1.3		FALSE	FALSE					
-BG	function	1.2		FALSE	FALSE					
-BG2	function;name	1.3		FALSE	FALSE					
-UCR	function	1.2		FALSE	FALSE					
-UCR2	function;name	1.3		FALSE	FALSE					
-TR	function;array;name	1.2	2.0	FALSE	FALSE					
-TR2	function;array;name	1.3		FALSE	FALSE					
-HT	dictionary;stream;name	1.2		FALSE	FALSE					
+BG	dictionary;stream	1.2		FALSE	FALSE					FunctionDecision
+BG2	dictionary;stream;name	1.3		FALSE	FALSE					FunctionDecision
+UCR	dictionary;stream	1.2		FALSE	FALSE					FunctionDecision
+UCR2	dictionary;stream;name	1.3		FALSE	FALSE					FunctionDecision
+TR	dictionary;stream;array;name	1.2	2.0	FALSE	FALSE					FunctionDecision
+TR2	dictionary;stream;name	1.3		FALSE	FALSE					FunctionDecision
+HT	dictionary;stream;name	1.2		FALSE	FALSE					FunctionDecision
 FL	number	1.3		FALSE	FALSE					
 SM	number	1.3		FALSE	FALSE					
 SA	boolean	1.2		FALSE	FALSE					

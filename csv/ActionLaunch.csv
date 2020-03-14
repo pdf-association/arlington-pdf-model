@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DepreactedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	2.0		FALSE	FALSE	Action				
 S	name	2.0		TRUE	FALSE	Launch				
-Next	dictionary;array	1.2		FALSE	FALSE					ActionDecision;ActionArray
+Next	dictionary;array	1.2		FALSE	FALSE					ActionDecision
 F	file specification	1.1		TRUE	FALSE					
 Win	dictionary	1.1	2.0	FALSE	FALSE					MicrosoftWindowsLaunchParam
 Mac		1.1	2.0	FALSE	FALSE					
