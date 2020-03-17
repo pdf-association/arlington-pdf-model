@@ -124,9 +124,13 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     // possible multiple types separated with ";"
     // need to compare all of them with basic_types
     std::vector<std::string> options = split(vc[1], ';');
-    for (auto& opt : options)
+    for (auto& opt : options) {
       if (std::find(basic_types.begin(), basic_types.end(), opt) == basic_types.end())
         report_stream << "Wrong type:" << opt << " in:" << file_name << "::" << vc[0] << std::endl;
+      if (vc[10] == "")
+        if (opt=="DICTIONARY")
+          report_stream << "Dictionary not linked in:" << file_name << "::" << vc[0] << std::endl;
+    }
     
     // does link exists ?
     if (vc[10] != "") {
