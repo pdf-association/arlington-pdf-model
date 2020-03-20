@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2019 PDFix (http://pdfix.net). All Rights Reserved.
+// Copyright (c) 2020 PDFix (http://pdfix.net). All Rights Reserved.
 // This file was generated automatically
 ////////////////////////////////////////////////////////////////////////////////
 #ifndef _Pdfix_h
@@ -7,15 +7,29 @@
 
 #include <stdint.h>
 #include <vector>
+#include <stdexcept>
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
+// Unwanted definition of GetObject macro on Windows
+#ifdef GetObject
+#undef GetObject
+#endif
+#ifndef _NOEXCEPT
+#define _NOEXCEPT throw()
+#endif
 
 #define PDFIX_VERSION_MAJOR 5
-#define PDFIX_VERSION_MINOR 0
-#define PDFIX_VERSION_PATCH 40
+#define PDFIX_VERSION_MINOR 3
+#define PDFIX_VERSION_PATCH 5
 #define MAX_INT 2147483647
 #define MIN_INT -2147483647
 #define _in_
 #define _out_
 #define _callback_
+
+namespace PDFixSDK {
 
 struct PdsObject;
 struct PdsBoolean;
@@ -56,6 +70,7 @@ struct PdfMarkupAnnot;
 struct PdfTextAnnot;
 struct PdfTextMarkupAnnot;
 struct PdfWidgetAnnot;
+struct PdfViewDestination;
 struct PdfBaseDigSig;
 struct PdfDigSig;
 struct PdfCertDigSig;
@@ -71,21 +86,24 @@ struct PdfPage;
 struct PdePageMap;
 struct PdfPageView;
 struct PdfBookmark;
+struct PdfNameTree;
 struct PsRegex;
 struct PsStream;
 struct PsFileStream;
 struct PsMemoryStream;
-struct PsProcStream;
+struct PsCustomStream;
 struct PdsStructElement;
 struct PdsClassMap;
 struct PdsRoleMap;
 struct PdsStructTree;
 struct PsMetadata;
 struct PsEvent;
+struct PsAuthorization;
+struct PsAccountAuthorization;
+struct PsStandardAuthorization;
 struct Pdfix;
 struct PdfixPlugin;
 
-typedef void* PsStreamData;
 typedef int PdfErrorType;
 typedef int PdfAnnotFlags;
 typedef int PdfRemoveAnnotFlags;
@@ -99,6 +117,7 @@ typedef int PdfWordFlags;
 typedef int PdfTextLineFlags;
 typedef int PdfTextRegexFlags;
 typedef int PdfElementFlags;
+typedef int PdfPageInsertFlags;
 
 typedef enum {
   kAuthPlatformWin = 0,
@@ -123,10 +142,12 @@ enum {
   kErrorMethodNotImplemented = 4,
   kErrorPathNotFound = 5,
   kErrorOperationCancelled = 6,
-  kErrorParsingDataFile = 7,
+  kErrorReadingDataFile = 7,
   kErrorInit = 8,
   kErrorIndexOutOfRange = 9,
   kErrorIncompatiblePluginVersion = 10,
+  kErrorPluginInitialization = 11,
+  kErrorWritingDataFile = 12,
   kErrorPdfDocInvalid = 30,
   kErrorPdfDocOpen = 31,
   kErrorPdfDocCreate = 32,
@@ -160,6 +181,8 @@ enum {
   kErrorPdfPageMapAddTags = 182,
   kErrorPdfPageMapTagAttributes = 183,
   kErrorPdfPageMapTagParentTree = 184,
+  kErrorPdfPageMapRecognition = 185,
+  kErrorPdfPageMapAcquire = 186,
   kErrorPdeElementMalformed = 210,
   kErrorPdeTextRunMalformed = 211,
   kErrorPdeWordMalformed = 212,
@@ -196,6 +219,8 @@ enum {
   kErrorPsAuthorizationVersion = 425,
   kErrorPsAuthorizationNumber = 426,
   kErrorPsAuthorizationOsCheck = 427,
+  kErrorPsAuthorizationMaximumConsumptionReached = 428,
+  kErrorPsAuthorizationOption = 429,
   kErrorPsStreamReadProcMissing = 450,
   kErrorPsStreamWriteProcMissing = 451,
   kErrorPsStreamGetSizeProcMissing = 452,
@@ -206,6 +231,7 @@ enum {
   kErrorPdsStructElementNotFound = 511,
   kErrorPdsStructTreeMissing = 512,
   kErrorPdfActionInvalid = 540,
+  kErrorDataFormatInvalid = 570,
 } ;
 
 typedef enum {
@@ -214,13 +240,23 @@ typedef enum {
   kEventDocWillClose = 2,
   kEventDocDidOpen = 3,
   kEventDocDidSave = 4,
-  kEventAnnotWillChange = 5,
-  kEventAnnotDidChange = 6,
-  kEventPageWillAddAnnot = 7,
-  kEventPageWillRemoveAnnot = 8,
-  kEventPageDidAddAnnot = 9,
-  kEventPageDidRemoveAnnot = 10,
-  kEventPageContentsDidChange = 11,
+  kEventDocWillChangePages = 5,
+  kEventDocDidChangePages = 6,
+  kEventDocWillDeletePages = 7,
+  kEventDocDidDeletePages = 8,
+  kEventDocWillInsertPages = 9,
+  kEventDocDidInsertPages = 10,
+  kEventDocWillMovePages = 11,
+  kEventDocDidMovePages = 12,
+  kEventDocWillReplacePages = 13,
+  kEventDocDidReplacePages = 14,
+  kEventAnnotWillChange = 15,
+  kEventAnnotDidChange = 16,
+  kEventPageWillAddAnnot = 17,
+  kEventPageWillRemoveAnnot = 18,
+  kEventPageDidAddAnnot = 19,
+  kEventPageDidRemoveAnnot = 20,
+  kEventPageContentsDidChange = 21,
 } PdfEventType;
 
 typedef enum {
@@ -624,7 +660,8 @@ enum {
   kWordBullet = 0x0002,
   kWordFilling = 0x0008,
   kWordNumber = 0x0010,
-  kWordImage = 0x10000,
+  kWordImage = 0x0020,
+  kWordNoUnicode = 0x0040,
 } ;
 
 enum {
@@ -654,13 +691,14 @@ enum {
   kTextFlagImageCaption = 0x0002,
   kTextFlagChartCaption = 0x0004,
   kTextFlagFilling = 0x008,
-  kTextFlagLabel = 0x0010,
 } ;
 
 enum {
   kElemNoJoin = 0x01,
   kElemNoSplit = 0x02,
   kElemArtifact = 0x04,
+  kElemHeader = 0x08,
+  kElemFooter = 0x10,
 } ;
 
 typedef enum {
@@ -703,6 +741,29 @@ typedef enum {
   kPdsStructKidStreamContent = 3,
   kPdsStructKidObject = 4,
 } PdfStructElementType;
+
+enum {
+  kPageInsertNone = 0x0000,
+  kPageInsertBookmarks = 0x001,
+  kPageInsertAll = 0x0002,
+} ;
+
+typedef enum {
+  kAuthorizationStandard = 0,
+  kAuthorizationAccount = 1,
+} PdfAuthorizationType;
+
+typedef enum {
+  kDestFitUnknown = 0,
+  kDestFitXYZ = 1,
+  kDestFit = 2,
+  kDestFitH = 3,
+  kDestFitV = 4,
+  kDestFitR = 5,
+  kDestFitB = 6,
+  kDestFitBH = 7,
+  kDestFitBV = 8,
+} PdfDestFitType;
 
 
 typedef struct _PdfPageRangeParams {
@@ -898,6 +959,10 @@ typedef struct _PdfPageRenderParams {
   _PdfPageRenderParams() {
     device = 0;
     image = nullptr;
+    clip_box.left = 0;
+    clip_box.right = 0;
+    clip_box.top = 0;
+    clip_box.bottom = 0;
     render_flags = kRenderAnnot;
   }
 } PdfPageRenderParams;
@@ -942,9 +1007,9 @@ typedef struct _PdfWhitespaceParams {
 
 typedef struct _PdfFlattenAnnotsParams {
   PdfPageRangeParams page_range;
-  PdfAnnotSubtype flags;
+  PdfAnnotSubtype subtype;
   _PdfFlattenAnnotsParams() {
-    flags = kAnnotUnknown;
+    subtype = kAnnotUnknown;
   }
 } PdfFlattenAnnotsParams;
 
@@ -970,21 +1035,20 @@ typedef struct _PdfAccessibleParams {
   int accept_tags;
   int embed_fonts;
   int subset_fonts;
-  int create_bookmarks;
   _PdfAccessibleParams() {
     accept_tags = 0;
     embed_fonts = 0;
     subset_fonts = 0;
-    create_bookmarks = 0;
   }
 } PdfAccessibleParams;
 
 typedef int (*PdfCancelProc) (void* data);
 typedef void (*PdfEventProc) (void* data);
 typedef unsigned long (*PdfDigestDataProc) (int buffer_count, const unsigned char* buffer_to_sign[], unsigned long buffer_size[], unsigned char* sign_buff, unsigned long sign_buff_size, void* data);
-typedef int (*PsStreamProc)(char* buffer, int offset, int size, PsStreamData data);
-typedef void (*PsStreamDestroyProc)(PsStreamData data);
-typedef int (*PsStreamGetSizeProc)(PsStreamData data);
+typedef int (*PsStreamReadProc)(uint8_t* buffer, int offset, int size, void* data);
+typedef int (*PsStreamWriteProc)(const uint8_t* buffer, int offset, int size, void* data);
+typedef void (*PsStreamDestroyProc)(void* data);
+typedef int (*PsStreamGetSizeProc)(void* data);
 
 struct PdsObject {
   virtual PdfObjectType GetObjectType() = 0;
@@ -1004,11 +1068,23 @@ struct PdsNumber : PdsObject {
 struct PdsString : PdsObject {
   virtual int GetValue(_out_ char* buffer, int len) = 0;
   virtual int GetText(_out_ wchar_t* buffer, int len) = 0;
+  std::wstring GetText() {
+    std::wstring buffer;
+    buffer.resize(GetText(nullptr, 0));
+    GetText((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdsName : PdsObject {
   virtual int GetValue(_out_ char* buffer, int len) = 0;
   virtual int GetText(_out_ wchar_t* buffer, int len) = 0;
+  std::wstring GetText() {
+    std::wstring buffer;
+    buffer.resize(GetText(nullptr, 0));
+    GetText((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdsArray : PdsObject {
@@ -1023,6 +1099,12 @@ struct PdsArray : PdsObject {
   virtual int GetText(int index, _out_ wchar_t* buffer, int len) = 0;
   virtual double GetNumber(int index) = 0;
   virtual int GetInteger(int index) = 0;
+  std::wstring GetText(int index) {
+    std::wstring buffer;
+    buffer.resize(GetText(index, nullptr, 0));
+    GetText(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdsDictionary : PdsObject {
@@ -1039,6 +1121,18 @@ struct PdsDictionary : PdsObject {
   virtual double GetNumber(const wchar_t* key) = 0;
   virtual int GetInteger(const wchar_t* key, int default_value) = 0;
   virtual bool GetBoolean(const wchar_t* key, bool default_value) = 0;
+  std::wstring GetKey(int index) {
+    std::wstring buffer;
+    buffer.resize(GetKey(index, nullptr, 0));
+    GetKey(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetText(const wchar_t* key) {
+    std::wstring buffer;
+    buffer.resize(GetText(key, nullptr, 0));
+    GetText(key, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdsStream : PdsObject {
@@ -1061,11 +1155,27 @@ struct PdsPageObject {
   virtual PdsObject* GetStructObject(bool struct_parent) = 0;
   virtual PdsContentMark* GetContentMark() = 0;
   virtual PdfPage* GetPage() = 0;
+  PdfRect GetBBox() {
+    PdfRect bbox;
+    GetBBox(&bbox);
+    return bbox;
+  }
 };
 
 struct PdsText : PdsPageObject {
   virtual int GetText(_out_ wchar_t* buffer, int len) = 0;
   virtual bool GetTextState(PdfDoc* doc, _out_ PdfTextState* text_state) = 0;
+  std::wstring GetText() {
+    std::wstring buffer;
+    buffer.resize(GetText(nullptr, 0));
+    GetText((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  PdfTextState GetTextState(PdfDoc* doc) {
+    PdfTextState text_state;
+    GetTextState(doc, &text_state);
+    return text_state;
+  }
 };
 
 struct PdsForm : PdsPageObject {
@@ -1090,6 +1200,12 @@ struct PdsContentMark {
   virtual bool GetTagArtifact() = 0;
   virtual bool AddTag(const char* name, PdsDictionary* object, bool indirect) = 0;
   virtual bool RemoveTag(int index) = 0;
+  std::wstring GetTagName(int index) {
+    std::wstring buffer;
+    buffer.resize(GetTagName(index, nullptr, 0));
+    GetTagName(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdeElement {
@@ -1109,6 +1225,16 @@ struct PdeElement {
   virtual bool SetActualText(const wchar_t* text) = 0;
   virtual int GetFlags() = 0;
   virtual bool SetFlags(int flags) = 0;
+  PdfRect GetBBox() {
+    PdfRect bbox;
+    GetBBox(&bbox);
+    return bbox;
+  }
+  PdfGraphicState GetGraphicState() {
+    PdfGraphicState g_state;
+    GetGraphicState(&g_state);
+    return g_state;
+  }
 };
 
 struct PdeContainer : PdeElement {
@@ -1173,6 +1299,38 @@ struct PdeWord : PdeElement {
   virtual int GetWordFlags() = 0;
   virtual PdeElement* GetBackground() = 0;
   virtual void GetOrigin(_out_ PdfPoint* point) = 0;
+  std::wstring GetText() {
+    std::wstring buffer;
+    buffer.resize(GetText(nullptr, 0));
+    GetText((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  PdfTextState GetTextState() {
+    PdfTextState text_state;
+    GetTextState(&text_state);
+    return text_state;
+  }
+  std::wstring GetCharText(int index) {
+    std::wstring buffer;
+    buffer.resize(GetCharText(index, nullptr, 0));
+    GetCharText(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  PdfTextState GetCharTextState(int index) {
+    PdfTextState text_state;
+    GetCharTextState(index, &text_state);
+    return text_state;
+  }
+  PdfRect GetCharBBox(int index) {
+    PdfRect bbox;
+    GetCharBBox(index, &bbox);
+    return bbox;
+  }
+  PdfPoint GetOrigin() {
+    PdfPoint point;
+    GetOrigin(&point);
+    return point;
+  }
 };
 
 struct PdeTextLine : PdeElement {
@@ -1182,6 +1340,17 @@ struct PdeTextLine : PdeElement {
   virtual int GetNumWords() = 0;
   virtual PdeWord* GetWord(int index) = 0;
   virtual int GetTextLineFlags() = 0;
+  std::wstring GetText() {
+    std::wstring buffer;
+    buffer.resize(GetText(nullptr, 0));
+    GetText((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  PdfTextState GetTextState() {
+    PdfTextState text_state;
+    GetTextState(&text_state);
+    return text_state;
+  }
 };
 
 struct PdeText : PdeElement {
@@ -1198,13 +1367,36 @@ struct PdeText : PdeElement {
   virtual PdfTextRegexFlags GetTextFlags() = 0;
   virtual int GetLabelLevel() = 0;
   virtual bool SetLabelLevel(int level) = 0;
+  std::wstring GetText() {
+    std::wstring buffer;
+    buffer.resize(GetText(nullptr, 0));
+    GetText((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  PdfTextState GetTextState() {
+    PdfTextState text_state;
+    GetTextState(&text_state);
+    return text_state;
+  }
 };
 
 struct PdfAction {
   virtual PdfActionType GetSubtype() = 0;
   virtual int GetJavaScript(_out_ wchar_t* buffer, int len) = 0;
-  virtual int GetURI(_out_ wchar_t* buffer, int len) = 0;
-  virtual int GetDestPageNum(PdfDoc* doc) = 0;
+  virtual int GetDestFile(_out_ wchar_t* buffer, int len) = 0;
+  virtual PdfViewDestination* GetViewDestination() = 0;
+  std::wstring GetJavaScript() {
+    std::wstring buffer;
+    buffer.resize(GetJavaScript(nullptr, 0));
+    GetJavaScript((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetDestFile() {
+    std::wstring buffer;
+    buffer.resize(GetDestFile(nullptr, 0));
+    GetDestFile((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdfAnnot {
@@ -1215,6 +1407,17 @@ struct PdfAnnot {
   virtual bool PointInAnnot(PdfPoint* point) = 0;
   virtual bool RectInAnnot(PdfRect* rect) = 0;
   virtual PdsObject* GetStructObject(bool struct_parent) = 0;
+  virtual PdsDictionary* GetObject() = 0;
+  PdfAnnotAppearance GetAppearance() {
+    PdfAnnotAppearance appearance;
+    GetAppearance(&appearance);
+    return appearance;
+  }
+  PdfRect GetBBox() {
+    PdfRect bbox;
+    GetBBox(&bbox);
+    return bbox;
+  }
 };
 
 struct PdfLinkAnnot : PdfAnnot {
@@ -1223,6 +1426,11 @@ struct PdfLinkAnnot : PdfAnnot {
   virtual bool AddQuad(PdfQuad* quad) = 0;
   virtual bool RemoveQuad(int index) = 0;
   virtual PdfAction* GetAction() = 0;
+  PdfQuad GetQuad(int index) {
+    PdfQuad quad;
+    GetQuad(index, &quad);
+    return quad;
+  }
 };
 
 struct PdfMarkupAnnot : PdfAnnot {
@@ -1233,6 +1441,18 @@ struct PdfMarkupAnnot : PdfAnnot {
   virtual int GetNumReplies() = 0;
   virtual PdfAnnot* GetReply(int index) = 0;
   virtual PdfAnnot* AddReply(const wchar_t* author, const wchar_t* text) = 0;
+  std::wstring GetContents() {
+    std::wstring buffer;
+    buffer.resize(GetContents(nullptr, 0));
+    GetContents((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetAuthor() {
+    std::wstring buffer;
+    buffer.resize(GetAuthor(nullptr, 0));
+    GetAuthor((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdfTextAnnot : PdfMarkupAnnot {
@@ -1243,6 +1463,11 @@ struct PdfTextMarkupAnnot : PdfMarkupAnnot {
   virtual void GetQuad(int index, _out_ PdfQuad* quad) = 0;
   virtual bool AddQuad(PdfQuad* quad) = 0;
   virtual bool RemoveQuad(int index) = 0;
+  PdfQuad GetQuad(int index) {
+    PdfQuad quad;
+    GetQuad(index, &quad);
+    return quad;
+  }
 };
 
 struct PdfWidgetAnnot : PdfAnnot {
@@ -1251,6 +1476,40 @@ struct PdfWidgetAnnot : PdfAnnot {
   virtual PdfAction* GetAction() = 0;
   virtual PdfAction* GetAAction(PdfActionEventType event) = 0;
   virtual PdfFormField* GetFormField() = 0;
+  std::wstring GetCaption() {
+    std::wstring buffer;
+    buffer.resize(GetCaption(nullptr, 0));
+    GetCaption((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetFontName() {
+    std::wstring buffer;
+    buffer.resize(GetFontName(nullptr, 0));
+    GetFontName((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+};
+
+struct PdfViewDestination {
+  virtual int GetPageNum(PdfDoc* doc) = 0;
+  virtual PdfDestFitType GetFitType() = 0;
+  virtual void GetBBox(_out_ PdfRect* bbox) = 0;
+  virtual double GetZoom() = 0;
+  virtual PdfViewDestination* Resolve(PdfDoc* doc) = 0;
+  virtual bool IsNamed() = 0;
+  virtual int GetName(_out_ wchar_t* buffer, int len) = 0;
+  virtual PdsObject* GetObject() = 0;
+  PdfRect GetBBox() {
+    PdfRect bbox;
+    GetBBox(&bbox);
+    return bbox;
+  }
+  std::wstring GetName() {
+    std::wstring buffer;
+    buffer.resize(GetName(nullptr, 0));
+    GetName((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdfBaseDigSig {
@@ -1285,6 +1544,10 @@ struct PdfDoc {
   virtual bool AddWatermarkFromImage(PdfWatermarkParams* params, const wchar_t* path) = 0;
   virtual int GetNumPages() = 0;
   virtual PdfPage* AcquirePage(int page_num) = 0;
+  virtual PdfPage* CreatePage(int index, const PdfRect* media_box) = 0;
+  virtual bool DeletePages(int index_from, int index_to, _callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
+  virtual bool InsertPages(int index, const PdfDoc* doc, int index_from, int index_to, PdfPageInsertFlags insert_flags, _callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
+  virtual bool MovePage(int index_to, int index_from) = 0;
   virtual int GetNumDocumentJavaScripts() = 0;
   virtual int GetDocumentJavaScript(int index, _out_ wchar_t* buffer, int len) = 0;
   virtual int GetDocumentJavaScriptName(int index, _out_ wchar_t* buffer, int len) = 0;
@@ -1324,6 +1587,32 @@ struct PdfDoc {
   virtual void RemoveBookmarks() = 0;
   virtual bool CreateBookmarks(_callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
   virtual bool AddFontMissingUnicode(_callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
+  virtual PdfNameTree* GetNameTree(const wchar_t* name, bool create) = 0;
+  virtual void RemoveNameTree(const wchar_t* name) = 0;
+  std::wstring GetDocumentJavaScript(int index) {
+    std::wstring buffer;
+    buffer.resize(GetDocumentJavaScript(index, nullptr, 0));
+    GetDocumentJavaScript(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetDocumentJavaScriptName(int index) {
+    std::wstring buffer;
+    buffer.resize(GetDocumentJavaScriptName(index, nullptr, 0));
+    GetDocumentJavaScriptName(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetInfo(const wchar_t* key) {
+    std::wstring buffer;
+    buffer.resize(GetInfo(key, nullptr, 0));
+    GetInfo(key, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetLang() {
+    std::wstring buffer;
+    buffer.resize(GetLang(nullptr, 0));
+    GetLang((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdfDocTemplate {
@@ -1335,6 +1624,12 @@ struct PdfDocTemplate {
   virtual bool SetProperty(const wchar_t* name, double value) = 0;
   virtual int GetRegex(const wchar_t* name, _out_ wchar_t* buffer, int len) = 0;
   virtual bool SetRegex(const wchar_t* name, const wchar_t* pattern) = 0;
+  std::wstring GetRegex(const wchar_t* name) {
+    std::wstring buffer;
+    buffer.resize(GetRegex(name, nullptr, 0));
+    GetRegex(name, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdfAlternate {
@@ -1344,6 +1639,24 @@ struct PdfAlternate {
   virtual int GetFileName(_out_ wchar_t* buffer, int len) = 0;
   virtual bool SaveContent(const wchar_t* path) = 0;
   virtual void Release() = 0;
+  std::wstring GetName() {
+    std::wstring buffer;
+    buffer.resize(GetName(nullptr, 0));
+    GetName((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetDescription() {
+    std::wstring buffer;
+    buffer.resize(GetDescription(nullptr, 0));
+    GetDescription((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetFileName() {
+    std::wstring buffer;
+    buffer.resize(GetFileName(nullptr, 0));
+    GetFileName((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdfHtmlAlternate : PdfAlternate {
@@ -1359,6 +1672,29 @@ struct PdfFont {
   virtual bool GetSystemFontBold() = 0;
   virtual bool GetSystemFontItalic() = 0;
   virtual bool SaveToStream(PsStream* stream, PdfFontFormat format) = 0;
+  std::wstring GetFontName() {
+    std::wstring buffer;
+    buffer.resize(GetFontName(nullptr, 0));
+    GetFontName((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetFaceName() {
+    std::wstring buffer;
+    buffer.resize(GetFaceName(nullptr, 0));
+    GetFaceName((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  PdfFontState GetFontState() {
+    PdfFontState font_state;
+    GetFontState(&font_state);
+    return font_state;
+  }
+  std::wstring GetSystemFontName() {
+    std::wstring buffer;
+    buffer.resize(GetSystemFontName(nullptr, 0));
+    GetSystemFontName((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdfFormField {
@@ -1377,6 +1713,57 @@ struct PdfFormField {
   virtual PdfAction* GetAAction(PdfActionEventType event) = 0;
   virtual int GetMaxLength() = 0;
   virtual int GetWidgetExportValue(PdfAnnot* annot, _out_ wchar_t* buffer, int len) = 0;
+  virtual PdsDictionary* GetObject() = 0;
+  virtual int GetNumExportValues() = 0;
+  virtual int GetExportValue(int index, _out_ wchar_t* buffer, int len) = 0;
+  std::wstring GetValue() {
+    std::wstring buffer;
+    buffer.resize(GetValue(nullptr, 0));
+    GetValue((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetDefaultValue() {
+    std::wstring buffer;
+    buffer.resize(GetDefaultValue(nullptr, 0));
+    GetDefaultValue((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetFullName() {
+    std::wstring buffer;
+    buffer.resize(GetFullName(nullptr, 0));
+    GetFullName((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetTooltip() {
+    std::wstring buffer;
+    buffer.resize(GetTooltip(nullptr, 0));
+    GetTooltip((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetOptionValue(int index) {
+    std::wstring buffer;
+    buffer.resize(GetOptionValue(index, nullptr, 0));
+    GetOptionValue(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetOptionCaption(int index) {
+    std::wstring buffer;
+    buffer.resize(GetOptionCaption(index, nullptr, 0));
+    GetOptionCaption(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetWidgetExportValue(PdfAnnot* annot) {
+    std::wstring buffer;
+    buffer.resize(GetWidgetExportValue(annot, nullptr, 0));
+    GetWidgetExportValue(annot, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetExportValue(int index) {
+    std::wstring buffer;
+    buffer.resize(GetExportValue(index, nullptr, 0));
+    GetExportValue(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PsImage {
@@ -1386,6 +1773,12 @@ struct PsImage {
   virtual bool SaveToStream(PsStream* stream, PdfImageParams* params) = 0;
   virtual bool SaveRectToStream(PsStream* stream, PdfImageParams* params, PdfDevRect* dev_rect) = 0;
   virtual void GetPointColor(PdfDevPoint* point, _out_ PdfRGB* color) = 0;
+  virtual bool SaveDataToStream(PsStream* stream) = 0;
+  PdfRGB GetPointColor(PdfDevPoint* point) {
+    PdfRGB color;
+    GetPointColor(point, &color);
+    return color;
+  }
 };
 
 struct PdfPage {
@@ -1405,6 +1798,7 @@ struct PdfPage {
   virtual PdfTextAnnot* AddTextAnnot(int index, PdfRect* rect) = 0;
   virtual PdfLinkAnnot* AddLinkAnnot(int index, PdfRect* rect) = 0;
   virtual PdfTextMarkupAnnot* AddTextMarkupAnnot(int index, PdfRect* rect, PdfAnnotSubtype subtype) = 0;
+  virtual PdfAnnot* AddAnnot(int index, PdfRect* rect, PdfAnnotSubtype subtype) = 0;
   virtual int GetNumAnnotsAtPoint(PdfPoint* point) = 0;
   virtual PdfAnnot* GetAnnotAtPoint(PdfPoint* point, int index) = 0;
   virtual int GetNumAnnotsAtRect(PdfRect* rect) = 0;
@@ -1418,6 +1812,21 @@ struct PdfPage {
   virtual PdfPageContentFlags GetContentFlags() = 0;
   virtual bool SetContent() = 0;
   virtual PdfDoc* GetDoc() = 0;
+  PdfRect GetCropBox() {
+    PdfRect crop_box;
+    GetCropBox(&crop_box);
+    return crop_box;
+  }
+  PdfRect GetMediaBox() {
+    PdfRect media_box;
+    GetMediaBox(&media_box);
+    return media_box;
+  }
+  PdfMatrix GetDefaultMatrix() {
+    PdfMatrix matrix;
+    GetDefaultMatrix(&matrix);
+    return matrix;
+  }
 };
 
 struct PdePageMap {
@@ -1428,6 +1837,11 @@ struct PdePageMap {
   virtual bool AcquireElements(_callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
   virtual PdeElement* CreateElement(PdfElementType type, PdeElement* parent) = 0;
   virtual bool AddTags(PdsStructElement* element, _callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
+  PdfRect GetWhitespace(PdfWhitespaceParams* params, int index) {
+    PdfRect bbox;
+    GetWhitespace(params, index, &bbox);
+    return bbox;
+  }
 };
 
 struct PdfPageView {
@@ -1437,6 +1851,33 @@ struct PdfPageView {
   virtual void GetDeviceMatrix(_out_ PdfMatrix* matrix) = 0;
   virtual void RectToDevice(PdfRect* rect, _out_ PdfDevRect* dev_rect) = 0;
   virtual void PointToDevice(PdfPoint* point, _out_ PdfDevPoint* dev_point) = 0;
+  virtual void RectToPage(PdfDevRect* dev_rect, _out_ PdfRect* rect) = 0;
+  virtual void PointToPage(PdfDevPoint* dev_point, _out_ PdfPoint* point) = 0;
+  PdfMatrix GetDeviceMatrix() {
+    PdfMatrix matrix;
+    GetDeviceMatrix(&matrix);
+    return matrix;
+  }
+  PdfDevRect RectToDevice(PdfRect* rect) {
+    PdfDevRect dev_rect;
+    RectToDevice(rect, &dev_rect);
+    return dev_rect;
+  }
+  PdfDevPoint PointToDevice(PdfPoint* point) {
+    PdfDevPoint dev_point;
+    PointToDevice(point, &dev_point);
+    return dev_point;
+  }
+  PdfRect RectToPage(PdfDevRect* dev_rect) {
+    PdfRect rect;
+    RectToPage(dev_rect, &rect);
+    return rect;
+  }
+  PdfPoint PointToPage(PdfDevPoint* dev_point) {
+    PdfPoint point;
+    PointToPage(dev_point, &point);
+    return point;
+  }
 };
 
 struct PdfBookmark {
@@ -1446,6 +1887,17 @@ struct PdfBookmark {
   virtual int GetNumChildren() = 0;
   virtual PdfBookmark* GetChild(int index) = 0;
   virtual PdfBookmark* GetParent() = 0;
+  std::wstring GetTitle() {
+    std::wstring buffer;
+    buffer.resize(GetTitle(nullptr, 0));
+    GetTitle((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+};
+
+struct PdfNameTree {
+  virtual PdsObject* GetObject() = 0;
+  virtual PdsObject* Lookup(const wchar_t* name) = 0;
 };
 
 struct PsRegex {
@@ -1457,6 +1909,18 @@ struct PsRegex {
   virtual int GetLength() = 0;
   virtual int GetNumMatches() = 0;
   virtual int GetMatchText(int index, _out_ wchar_t* buffer, int len) = 0;
+  std::wstring GetText() {
+    std::wstring buffer;
+    buffer.resize(GetText(nullptr, 0));
+    GetText((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetMatchText(int index) {
+    std::wstring buffer;
+    buffer.resize(GetMatchText(index, nullptr, 0));
+    GetMatchText(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PsStream {
@@ -1478,9 +1942,9 @@ struct PsMemoryStream : PsStream {
   virtual bool Resize(int size) = 0;
 };
 
-struct PsProcStream : PsStream {
-  virtual void SetReadProc(_callback_ PsStreamProc proc) = 0;
-  virtual void SetWriteProc(_callback_ PsStreamProc proc) = 0;
+struct PsCustomStream : PsStream {
+  virtual void SetReadProc(_callback_ PsStreamReadProc proc) = 0;
+  virtual void SetWriteProc(_callback_ PsStreamWriteProc proc) = 0;
   virtual void SetDestroyProc(_callback_ PsStreamDestroyProc proc) = 0;
   virtual void SetGetSizeProc(_callback_ PsStreamGetSizeProc proc) = 0;
 };
@@ -1513,6 +1977,42 @@ struct PdsStructElement {
   virtual void AddAnnot(PdfAnnot* annot, int index) = 0;
   virtual PdsStructTree* GetStructTree() = 0;
   virtual bool SetType(const wchar_t* type) = 0;
+  std::wstring GetType(bool mapped) {
+    std::wstring buffer;
+    buffer.resize(GetType(mapped, nullptr, 0));
+    GetType(mapped, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetActualText() {
+    std::wstring buffer;
+    buffer.resize(GetActualText(nullptr, 0));
+    GetActualText((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetAlt() {
+    std::wstring buffer;
+    buffer.resize(GetAlt(nullptr, 0));
+    GetAlt((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetAbbreviation() {
+    std::wstring buffer;
+    buffer.resize(GetAbbreviation(nullptr, 0));
+    GetAbbreviation((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetTitle() {
+    std::wstring buffer;
+    buffer.resize(GetTitle(nullptr, 0));
+    GetTitle((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetId() {
+    std::wstring buffer;
+    buffer.resize(GetId(nullptr, 0));
+    GetId((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdsClassMap {
@@ -1523,6 +2023,12 @@ struct PdsClassMap {
 struct PdsRoleMap {
   virtual bool DoesMap(const wchar_t* src, const wchar_t* dst) = 0;
   virtual int GetDirectMap(const wchar_t* type, _out_ wchar_t* buffer, int len) = 0;
+  std::wstring GetDirectMap(const wchar_t* type) {
+    std::wstring buffer;
+    buffer.resize(GetDirectMap(type, nullptr, 0));
+    GetDirectMap(type, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdsStructTree {
@@ -1550,18 +2056,36 @@ struct PsEvent {
   virtual PdfAnnot* GetAnnot() = 0;
 };
 
-struct Pdfix {
-  virtual void Destroy() = 0;
-  virtual bool Authorize(const wchar_t* email, const wchar_t* serial_number) = 0;
+struct PsAuthorization {
+  virtual bool SaveToStream(PsStream* stream, PsDataFormat format) = 0;
   virtual bool IsAuthorized() = 0;
   virtual bool IsAuthorizedPlatform(PdfAuthPlatform platform)  = 0;
   virtual bool IsAuthorizedOption(PdfAuthOption option) = 0;
+  virtual PdfAuthorizationType GetType() = 0;
+};
+
+struct PsAccountAuthorization : PsAuthorization {
+  virtual bool Authorize(const wchar_t* email, const wchar_t* serial_number) = 0;
+};
+
+struct PsStandardAuthorization : PsAuthorization {
+  virtual bool Activate(const wchar_t* serial_number) = 0;
+  virtual bool Deactivate() = 0;
+  virtual bool Update() = 0;
+};
+
+struct Pdfix {
+  virtual void Destroy() = 0;
+  virtual PsAuthorization* GetAuthorization() = 0;
+  virtual PsStandardAuthorization* GetStandardAuthorization() = 0;
+  virtual PsAccountAuthorization* GetAccountAuthorization() = 0;
   virtual int GetErrorType() = 0;
   virtual const char* GetError() = 0;
   virtual void SetError(int type, const char* error) = 0;
   virtual int GetVersionMajor() = 0;
   virtual int GetVersionMinor() = 0;
   virtual int GetVersionPatch() = 0;
+  virtual PdfDoc* CreateDoc() = 0;
   virtual PdfDoc* OpenDoc(const wchar_t* path, const wchar_t* password) = 0;
   virtual PdfDoc* OpenDocFromStream(PsStream* stream, const wchar_t* password) = 0;
   virtual PdfDigSig* CreateDigSig() = 0;
@@ -1572,7 +2096,7 @@ struct Pdfix {
   virtual PsRegex* CreateRegex() = 0;
   virtual PsFileStream* CreateFileStream(const wchar_t* path, PsFileMode mode) = 0;
   virtual PsMemoryStream* CreateMemStream() = 0;
-  virtual PsProcStream* CreateCustomStream(_callback_ PsStreamProc read_proc, PsStreamData client_data) = 0;
+  virtual PsCustomStream* CreateCustomStream(_callback_ PsStreamReadProc read_proc, void* client_data) = 0;
   virtual bool RegisterEvent(PdfEventType type, _callback_ PdfEventProc proc, void* data) = 0;
   virtual bool UnregisterEvent(PdfEventType type, PdfEventProc proc, void* data) = 0;
   virtual PsImage* CreateImage(int width, int height, PsImageDIBFormat format) = 0;
@@ -1601,7 +2125,6 @@ Pdfix* GetPdfix();
 #else
 
 #ifdef _WIN32
-#include <Windows.h>
 #define DLL_HANDLE HMODULE
 #define PdfixLoadLibrary LoadLibraryA
 #define PdfixFreeLibrary FreeLibrary
@@ -1624,43 +2147,45 @@ extern void Pdfix_destroy();
 extern DLL_HANDLE g_Pdfix_handle;
 extern GetPdfixProcType GetPdfix;
 
+class PdfixException : public std::exception {
+public:
+  PdfixException(){}
+  const char* what() const _NOEXCEPT override {
+    return (GetPdfix ? GetPdfix()->GetError() : "unknown error");
+  }
+  int code() const {
+    return (GetPdfix ? GetPdfix()->GetErrorType() : 1);
+  }
+};
+
 // static definitions Pdfix (use in the source file)
 #define Pdfix_statics \
+namespace PDFixSDK { \
 GetPdfixProcType GetPdfix = nullptr;\
-DLL_HANDLE g_Pdfix_handle = 0;\
+DLL_HANDLE g_Pdfix_handle = nullptr;\
 void Pdfix_destroy() {\
   if (g_Pdfix_handle) PdfixFreeLibrary(g_Pdfix_handle);\
   g_Pdfix_handle = nullptr;\
-  GetPdfix = 0;\
+  GetPdfix = nullptr;\
 }\
 DLL_HANDLE* Pdfix_init(const char* path) {\
   if (g_Pdfix_handle == nullptr) g_Pdfix_handle = PdfixLoadLibrary(path);   if (!g_Pdfix_handle) return nullptr;\
   GetPdfix = (GetPdfixProcType)PdfixGetProcAddress(g_Pdfix_handle, "GetPdfix");\
-  if (GetPdfix == nullptr) { Pdfix_destroy(); return nullptr; } return &g_Pdfix_handle; }
+  if (GetPdfix == nullptr) { Pdfix_destroy(); return nullptr; } return &g_Pdfix_handle; } \
+} // namespace PDFixSDK
 
 #ifndef Pdfix_MODULE_NAME
 #if defined _WIN32
-#if defined _WIN64
-#define Pdfix_MODULE_NAME "pdfix64.dll"
-#else
 #define Pdfix_MODULE_NAME "pdfix.dll"
-#endif
 #elif defined __linux__
-#if defined __x86_64__
-#define Pdfix_MODULE_NAME "./libpdfix64.so"
-#else
 #define Pdfix_MODULE_NAME "./libpdfix.so"
-#endif
 #elif defined __APPLE__
-#if defined __x86_64__
-#define Pdfix_MODULE_NAME "./libpdfix64.dylib"
-#else
 #define Pdfix_MODULE_NAME "./libpdfix.dylib"
-#endif
 #else
 #error unknown platform
 #endif
 #endif //Pdfix_MODULE_NAME
 
 #endif // PDFIX_STATIC_LIB
+} // namespace PDFixSDK
 #endif //_Pdfix_h

@@ -17,12 +17,9 @@ extern HINSTANCE ghInstance;
 #include <locale>
 #endif
 #include "Pdfix.h"
-#include "PdfToHtml.h"
-#include "OcrTesseract.h"
+using namespace PDFixSDK;
 
 Pdfix_statics;
-PdfToHtml_statics;
-OcrTesseract_statics;
 
 #define kPi 3.1415926535897932384626433832795f
 

@@ -19,14 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\CheckGrammar.cpp" />
+    <ClCompile Include="..\..\src\GrammarFile.cpp" />
     <ClCompile Include="..\..\src\Main.cpp" />
     <ClCompile Include="..\..\src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\OcrTesseract.h" />
     <ClInclude Include="..\..\include\Pdfix.h" />
-    <ClInclude Include="..\..\include\PdfToHtml.h" />
-    <ClInclude Include="..\..\src\GrammarFile.hpp" />
+    <ClInclude Include="..\..\src\CheckGrammar.h" />
+    <ClInclude Include="..\..\src\GrammarFile.h" />
     <ClInclude Include="..\..\src\ParseObjects.hpp" />
     <ClInclude Include="..\..\src\utils.h" />
   </ItemGroup>
@@ -84,25 +85,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\bin\</OutDir>
+    <OutDir>$(ProjectDir)..\..\bin\x86\</OutDir>
     <IntDir>$(ProjectDir)..\..\build\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformShortName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\bin\</OutDir>
+    <OutDir>$(ProjectDir)..\..\bin\x64\</OutDir>
     <IntDir>$(ProjectDir)..\..\build\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformShortName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\bin\</OutDir>
+    <OutDir>$(ProjectDir)..\..\bin\x86\</OutDir>
     <IntDir>$(ProjectDir)..\..\build\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformShortName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\bin\</OutDir>
+    <OutDir>$(ProjectDir)..\..\bin\x64\</OutDir>
     <IntDir>$(ProjectDir)..\..\build\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformShortName)</TargetName>
   </PropertyGroup>

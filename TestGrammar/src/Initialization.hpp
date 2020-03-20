@@ -19,15 +19,12 @@ Example how to initialize PDFix SDK in c++.
 #include <iostream>
 #include "Pdfix.h"
 
-void Initialization(
-  const std::wstring& email,                   // authorization email   
-  const std::wstring& license_key              // authorization license key
-) {
+void Initialization() {
   // initialize Pdfix
-  if (!Pdfix_init(Pdfix_MODULE_NAME))
+  if (!PDFixSDK::Pdfix_init(Pdfix_MODULE_NAME))
     throw std::runtime_error("Pdfix initialization fail");
 
-  Pdfix* pdfix = GetPdfix();
+  PDFixSDK::Pdfix* pdfix = PDFixSDK::GetPdfix();
   if (!pdfix)
     throw std::runtime_error("GetPdfix fail");
 
@@ -36,9 +33,8 @@ void Initialization(
     pdfix->GetVersionPatch() != PDFIX_VERSION_PATCH)
     throw std::runtime_error("Incompatible version");
 
-  if (!pdfix->Authorize(email.c_str(), license_key.c_str()))
-    throw std::runtime_error(std::to_string(GetPdfix()->GetErrorType()));
-
+  //if (!pdfix->Authorize(email.c_str(), license_key.c_str()))
+  //  throw std::runtime_error(std::to_string(GetPdfix()->GetErrorType()));
   // ...
 
   pdfix->Destroy();

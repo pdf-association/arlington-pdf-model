@@ -19,10 +19,12 @@
 #include <memory>
 #include <algorithm> 
 #include <codecvt>
-#include "GrammarFile.hpp"
+#include "GrammarFile.h"
 
 #include "Pdfix.h"
 #include "utils.h"
+
+using namespace PDFixSDK;
 
 #ifdef GetObject
 #undef GetObject
@@ -51,14 +53,14 @@ void ProcessNameTree(PdsDictionary* obj,
       for (int i = 0; i < array_obj->GetNumObjects();) {
         // we have tupples "name", value. value has to be validated
         //todo check syntax here
-        std::string str;
-        str.resize(array_obj->GetString(i, nullptr, 0));
-        array_obj->GetString(i, (char*)str.c_str(), (int)str.size());
+        std::wstring str;
+        str.resize(array_obj->GetText(i, nullptr, 0));
+        array_obj->GetText(i, (wchar_t*)str.c_str(), (int)str.size());
         i++;
         PdsDictionary* item = array_obj->GetDictionary(i);
         i++;
         if (item != nullptr) {
-          ProcessObject(item, ss, mapped, grammar_file, context+ "->" + str);
+          ProcessObject(item, ss, mapped, grammar_file, context+ "->" + ToUtf8(str));
         }
         else {
           //error value isn't dictionary
@@ -272,21 +274,21 @@ void ProcessObject(PdsObject* obj,
           }
 
           // possible value, could be one of many 
-          // if we have more values and also more links, then we shitch context (follow the provided link) 
+          // if we have more values and also more links, then we 4shitch context (follow the provided link) 
           // based on the value
           if (vec[8] != "") {
-            std::string str;
-            str.resize(dictObj->GetString(key.c_str(), nullptr, 0));
-            dictObj->GetString(key.c_str(), (char*)str.c_str(), (int)str.size());
+            std::wstring str;
+            str.resize(dictObj->GetText(key.c_str(), nullptr, 0));
+            dictObj->GetText(key.c_str(), (wchar_t*)str.c_str(), (int)str.size());
 
             // if there are links and possible values, then we decide to change context based on value
             std::vector<std::string> options = split(vec[8], ';');
-            std::vector<std::string>::iterator it=std::find(options.begin(), options.end(), str);
+            std::vector<std::string>::iterator it=std::find(options.begin(), options.end(), ToUtf8(str));
             if (it == options.end()) {
               ss << "Error:  wrong value ";
               ss << context << "->" << vec[0];
               ss << "(" << grammar_file << ")";
-              ss << " should be:" << vec[8] << " and is " << str << std::endl;
+              ss << " should be:" << vec[8] << " and is " << ToUtf8(str) << std::endl;
             }
             else if (vec[10] != "") {
               // found value and we know we have links so we might need to switch the 
