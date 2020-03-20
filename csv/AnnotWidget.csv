@@ -1,27 +1,27 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.0		FALSE	FALSE	Annot				
-Subtype	name	1.0		TRUE	FALSE	Widget				
-Rect	rectangle	1.0		TRUE	FALSE					
-Contents	string	1.0		FALSE	FALSE					
-P	dictionary	1.3		FALSE	FALSE					PageObject
-NM	string	1.4		FALSE	FALSE					
-M	date;string	1.1		FALSE	FALSE					
-F	integer	1.1		FALSE	FALSE					
-AP	dictionary	1.2		FALSE	FALSE					Appearance
-AS	name	1.2		FALSE	FALSE					
-Border	array	1.0		FALSE	FALSE					
-C 	array	1.1		FALSE	FALSE					
-StructParent	integer	1.3		FALSE	FALSE					
-OC	dictionary	1.5		FALSE	FALSE					OptContentGroup;OptContentMembership
-AF	dictionary;array	2.0		FALSE	FALSE					FileSpecification
-ca	number	2.0		FALSE	FALSE					
-CA	number	2.0		FALSE	FALSE					
-BM	name	2.0		FALSE	FALSE					
-Lang	string	2.0		FALSE	FALSE					
-H	name	1.0		FALSE	FALSE		I	N;I;O;P;T		
-MK	dictionary	1.0		FALSE	FALSE					
-A	dictionary	1.1		FALSE	FALSE					
-AA	dictionary	1.2		FALSE	FALSE					
-BS	dictionary	1.2		FALSE	FALSE					Border
-Parent	dictionary	1.0		FALSE	FALSE					
-ExData	dictionary	1.7		FALSE	FALSE					ExData
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	note
+Type	name	1.0		FALSE	FALSE	Annot					
+Subtype	name	1.0		TRUE	FALSE	Widget					
+Rect	rectangle	1.0		TRUE	FALSE						
+Contents	string	1.0		FALSE	FALSE						text string
+P	dictionary	1.3		FALSE	FALSE					PageObject	
+NM	string	1.4		FALSE	FALSE						text string
+M	date;string	1.1		FALSE	FALSE						text string
+F	integer	1.1		FALSE	FALSE		0				
+AP	dictionary	1.2		FALSE	FALSE					Appearance	
+AS	name	1.2		FALSE	FALSE						
+Border	array	1.0		FALSE	FALSE		[0 0 1]				
+C 	array	1.1		FALSE	FALSE			0;1;3;4			
+StructParent	integer	1.3		FALSE	FALSE						
+OC	dictionary	1.5		FALSE	FALSE					OptContentGroup;OptContentMembership	*
+AF	dictionary;array	2.0		FALSE	FALSE					FileSpecification	*
+ca	number	2.0		FALSE	FALSE		1.0				
+CA	number	2.0		FALSE	FALSE						
+BM	name	2.0		FALSE	FALSE						
+Lang	string	2.0		FALSE	FALSE						text string
+H	name	1.0		FALSE	FALSE		I	N;I;O;P;T			
+MK	dictionary	1.5		FALSE	FALSE					AppearanceCharacteristics	
+A	dictionary	1.1		FALSE	FALSE					ActionDecision	
+AA	dictionary	1.2		FALSE	FALSE					AddActionAnnotation	
+BS	dictionary	1.2		FALSE	FALSE					Border	
+Parent	dictionary	1.0		FALSE	FALSE					AnnotDecision	
+ExData	dictionary	1.7		FALSE	FALSE					ExData	
