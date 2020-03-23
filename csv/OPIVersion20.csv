@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.2	2.0	FALSE	FALSE	OPI				
 Version	number	1.2	2.0	TRUE	FALSE	2.0				
-F	file specification	1.2	2.0	TRUE	FALSE					
+F	dictionary;string	1.2	2.0	TRUE	FALSE					FileSpecification
 MainImage	string	1.2	2.0	FALSE	FALSE					
 Tags	array	1.2	2.0	FALSE	FALSE					
 Size	array	1.2	2.0	FALSE	FALSE					

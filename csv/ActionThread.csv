@@ -2,6 +2,6 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	Defau
 Type	name	1.1		FALSE	FALSE	Action				
 S	name	1.1		TRUE	FALSE	Thread				
 Next	dictionary;array	1.2		FALSE	FALSE					ActionDecision
-F	file specification	1.1		FALSE	FALSE					FileSpecification
+F	dictionary;string	1.1		FALSE	FALSE					FileSpecification
 D	dictionary;integer;string	1.1		TRUE	FALSE					Thread
 B	dictionary;integer	1.1		FALSE	FALSE					Bead
