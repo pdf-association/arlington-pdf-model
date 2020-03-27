@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<OBJECT id="Extensions">
+   <ENTRY>
+      <NAME>Type</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Extensions</SHALLBE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>1.0</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>Prefix name</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>DevExtensions</VALIDATE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>1.7</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+</OBJECT>
