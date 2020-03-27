@@ -28,14 +28,18 @@ import org.w3c.dom.Element;
  * @author fero
  */
 public class XMLCreator {
-    private String inputFolder = "/home/fero/Work/PDF 20 - Gramatika/grammar versions/csv/";
-    private String outputFolder = "/home/fero/Work/PDF 20 - Gramatika/grammar versions/xml/";
+    private String inputFolder;
+    private String outputFolder;
     
     private DocumentBuilderFactory domFactory = null;
     private DocumentBuilder domBuilder = null;
     private Document newDoc = null;
 
     public XMLCreator() {
+        this.outputFolder = System.getProperty("user.dir") + "/../xml/";
+        this.inputFolder = System.getProperty("user.dir") + "/../csv/";
+        System.out.println(outputFolder);
+        System.out.println(inputFolder);
         try {
           domFactory = DocumentBuilderFactory.newInstance();
           domBuilder = domFactory.newDocumentBuilder();

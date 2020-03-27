@@ -30,8 +30,8 @@ public class Gcxml {
                         XMLCreator xmlcreator = new XMLCreator();
                         xmlcreator.convertFile(fileName, delimiter);
                     }else if(args.length>1 && "-all".equals(args[1])){
-                        System.out.println(new File(".").getAbsolutePath());
-                        File folder = new File("/home/fero/Work/PDF 20 - Gramatika/grammar versions/csv/");
+                        String inputFolder = inputFolder = System.getProperty("user.dir") + "/../csv/";
+                        File folder = new File(inputFolder);
                         File[] listOfFiles = folder.listFiles();
                         for (File file : listOfFiles) {
                             if (file.isFile() && file.canRead() && file.exists()) {
@@ -40,7 +40,7 @@ public class Gcxml {
                             }
                         }
                     }else{
-                        System.out.println("No file name specified. To convert all files in directory, use *");
+                        System.out.println("No file name specified. To convert all files in directory, use -all");
                     }
                     break;
                 case "--help":
