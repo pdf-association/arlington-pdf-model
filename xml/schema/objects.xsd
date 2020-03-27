@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- definition of simple elements -->
+  <xs:element name="NAME" type="xs:string"/>
+  <xs:element name="TYPE">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="integer"/>
+        <xs:enumeration value="number"/>
+        <xs:enumeration value="name"/>
+        <xs:enumeration value="boolean"/>
+        <xs:enumeration value="string"/>
+        <xs:enumeration value="stream"/>
+        <xs:enumeration value="dictionary"/>
+        <xs:enumeration value="array"/>
+        <xs:enumeration value="rectangle"/>
+        <xs:enumeration value="date"/>
+        <xs:enumeration value="name tree"/>
+        <xs:enumeration value="number tree"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="VALIDATE" type="xs:string"/>
+  <xs:element name="SHALLBE" type="xs:string"/>
+  <xs:element name="REQUIRED" type="xs:boolean"/>
+  <xs:element name="INDIRECTREFRENCE" type="xs:boolean"/>
+  <xs:element name="SINCEVERSION">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="1.0"/>
+        <xs:enumeration value="1.1"/>
+        <xs:enumeration value="1.2"/>
+        <xs:enumeration value="1.3"/>
+        <xs:enumeration value="1.4"/>
+        <xs:enumeration value="1.5"/>
+        <xs:enumeration value="1.6"/>
+        <xs:enumeration value="1.7"/>
+        <xs:enumeration value="2.0"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="DEPRECATEDIN" nillable="true">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value=""/>
+        <xs:enumeration value="1.0"/>
+        <xs:enumeration value="1.1"/>
+        <xs:enumeration value="1.2"/>
+        <xs:enumeration value="1.3"/>
+        <xs:enumeration value="1.4"/>
+        <xs:enumeration value="1.5"/>
+        <xs:enumeration value="1.6"/>
+        <xs:enumeration value="1.7"/>
+        <xs:enumeration value="2.0"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!-- definition of attributes -->
+  <xs:attribute name="id" type="xs:string"/>
+  <xs:attribute name="type">
+    <xs:simpleType>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="dictionary"/>
+            <xs:enumeration value="stream"/>
+            <xs:enumeration value="array"/>
+        </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+
+  <!-- definition of complex elements -->
+  <xs:element name="OBJECT">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ENTRY" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute ref="id"/>
+      <xs:attribute ref="type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ENTRY">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="NAME" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="VALUES" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="REQUIRED" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="INDIRECTREFRENCE" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="SINCEVERSION" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="DEPRECATEDIN" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VALUES">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="VALUE" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VALUE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="TYPE" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="VALIDATE" minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="SHALLBE" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
