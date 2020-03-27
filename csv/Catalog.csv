@@ -11,7 +11,7 @@ PageLayout	name	1.0		FALSE	FALSE		SinglePage	SinglePage;OneColumn;TwoColumnLeft;
 PageMode	name	1.0		FALSE	FALSE		UseNone	UseNone;UseOutlines;UseThumbs;FullScreen;UseOC;UseAttachements			
 Outlines	dictionary	1.0		FALSE	TRUE					Outline	
 Threads	array	1.1		FALSE	TRUE					ThreadsArray	
-OpenAction	dictionary;array	1.1		FALSE	FALSE					ActionDecision	
+OpenAction	dictionary;array	1.1		FALSE	FALSE					[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTrans,ActionGoTo3DView,ActionJavaScript,ActionRichMediaExecute];[ArrayOfActions]	
 AA	dictionary	1.4		FALSE	FALSE					AddActionCatalog	
 URI	dictionary	1.1		FALSE	FALSE					ActionURI	
 AcroForm	dictionary	1.2		FALSE	FALSE					InteractiveForm	
