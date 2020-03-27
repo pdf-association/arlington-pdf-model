@@ -36,10 +36,8 @@ public class XMLCreator {
     private Document newDoc = null;
 
     public XMLCreator() {
-        this.outputFolder = System.getProperty("user.dir") + "/xml/";
+        this.outputFolder = System.getProperty("user.dir") + "/xml/objects/";
         this.inputFolder = System.getProperty("user.dir") + "/csv/";
-        System.out.println(outputFolder);
-        System.out.println(inputFolder);
         try {
           domFactory = DocumentBuilderFactory.newInstance();
           domBuilder = domFactory.newDocumentBuilder();
