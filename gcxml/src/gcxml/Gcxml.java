@@ -30,7 +30,7 @@ public class Gcxml {
                         XMLCreator xmlcreator = new XMLCreator();
                         xmlcreator.convertFile(fileName, delimiter);
                     }else if(args.length>1 && "-all".equals(args[1])){
-                        String inputFolder = inputFolder = System.getProperty("user.dir") + "/../csv/";
+                        String inputFolder = inputFolder = System.getProperty("user.dir") + "/csv/";
                         File folder = new File(inputFolder);
                         File[] listOfFiles = folder.listFiles();
                         for (File file : listOfFiles) {
