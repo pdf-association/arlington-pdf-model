@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<OBJECT id="ActionImportData">
+   <ENTRY>
+      <NAME>S</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>ImportData</SHALLBE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>1.2</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>F</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>FileSpecification</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>string</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>1.2</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+</OBJECT>

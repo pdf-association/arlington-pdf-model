@@ -1,0 +1,5 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.0		TRUE	FALSE	Pages				PageTreeNode,PageObject
+Parent	dictionary	1.0		TRUE	TRUE					[[PageTreeNodeRoot,PageTreeNode]]
+Kids	array	1.0		TRUE	FALSE					[ArrayOfPageTreeNodeKids]
+Count	integer	1.0		TRUE	FALSE					

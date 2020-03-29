@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<OBJECT id="CollectionItem">
+   <ENTRY>
+      <NAME>Type</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>CollectionItem</SHALLBE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>1.7</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>other keys</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
+         </VALUE>
+         <VALUE>
+            <TYPE>date</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>string</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>1.7</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+</OBJECT>
