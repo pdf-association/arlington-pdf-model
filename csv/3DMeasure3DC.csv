@@ -2,11 +2,11 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	Defau
 Type	name	2.0		FALSE	FALSE	3DMeasure				
 Subtype	name	2.0		TRUE	FALSE	3DC				
 TRL	string	2.0		FALSE	FALSE					
-A1	array	2.0		TRUE	FALSE					
+A1	array	2.0		TRUE	FALSE					[]
 N1	string	2.0		FALSE	FALSE					
-TP	array	2.0		TRUE	FALSE					
-TB	array	2.0		FALSE	FALSE					
+TP	array	2.0		TRUE	FALSE					[]
+TB	array	2.0		FALSE	FALSE					[]
 TS	number	2.0		FALSE	FALSE		12			
-C	array	2.0		FALSE	FALSE		[1 1 1]	<0,1>		
+C	array	2.0		FALSE	FALSE		[1 1 1]	<0,1>		[]
 UT	string	2.0		FALSE	FALSE					
-S	dictionary	2.0		FALSE	FALSE					AnnotProjection
+S	dictionary	2.0		FALSE	FALSE					[AnnotProjection]

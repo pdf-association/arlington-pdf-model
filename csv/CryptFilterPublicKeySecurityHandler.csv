@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Recipients	array;string	1.5		TRUE	FALSE					
+Recipients	array;string	1.5		TRUE	FALSE					[];[]
 EncryptMetadata	boolean	1.5		FALSE	FALSE		TRUE			
 Type	name	1.5		FALSE	FALSE	CryptFilter				
 CFM	name	1.5		FALSE	FALSE		None	None;V2;AESV2;AESV3		

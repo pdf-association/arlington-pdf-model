@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 RowSpan	integer	1.4		FALSE	FALSE		1		not inheritable	
 ColSpan	integer	1.4		FALSE	FALSE		1		not inheritable	
-Headers	array	1.4		FALSE	FALSE				not inheritable	
+Headers	array	1.4		FALSE	FALSE				not inheritable	[]
 Scope	name	1.4		FALSE	FALSE			Row;Column;Both	not inheritable	
 Summary	string	1.7		FALSE	FALSE				not inheritable	
 Short	string	2.0		FALSE	FALSE				not inheritable	

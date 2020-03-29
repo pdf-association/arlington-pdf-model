@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-WhitePoint	array	1.1		TRUE	FALSE					
-BlackPoint	array	1.1		FALSE	FALSE		[0.0 0.0 0.0]			
+WhitePoint	array	1.1		TRUE	FALSE					[]
+BlackPoint	array	1.1		FALSE	FALSE		[0.0 0.0 0.0]			[]
 Gamma	number	1.1		FALSE	FALSE		1	n>0		

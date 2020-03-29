@@ -1,10 +1,10 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.7		FALSE	FALSE	Collection				
-Schema	dictionary	1.7		FALSE	FALSE					CollectionSchema
+Schema	dictionary	1.7		FALSE	FALSE					[CollectionSchema]
 D	string	1.7		FALSE	FALSE					
 View	name	1.7		FALSE	FALSE					
-Navigator	dictionary	2.0		FALSE	FALSE					Navigator
-Colors	dictionary	2.0		FALSE	FALSE					CollectionColors
-Sort	dictionary	1.7		FALSE	FALSE					CollectionSort
-Folders	dictionary	2.0		FALSE	FALSE					Folder
-Split	dictionary	2.0		FALSE	FALSE					CollectionSplit
+Navigator	dictionary	2.0		FALSE	FALSE					[Navigator]
+Colors	dictionary	2.0		FALSE	FALSE					[CollectionColors]
+Sort	dictionary	1.7		FALSE	FALSE					[CollectionSort]
+Folders	dictionary	2.0		FALSE	FALSE					[Folder]
+Split	dictionary	2.0		FALSE	FALSE					[CollectionSplit]

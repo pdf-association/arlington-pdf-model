@@ -2,10 +2,10 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	Defau
 Type	name	1.5		FALSE	FALSE	MediaClip				
 S	name	1.5		TRUE	FALSE	MCD				
 N	string	1.5		FALSE	FALSE					
-D	dictionary;string;stream	1.5		TRUE	FALSE					FileSpecification
+D	dictionary;stream;string	1.5		TRUE	FALSE					[FileSpecification];[];[]
 CT	string	1.5		FALSE	FALSE					
-P	dictionary	1.5		FALSE	FALSE					MediaPermissions
-Alt	array	1.5		FALSE	FALSE					
+P	dictionary	1.5		FALSE	FALSE					[MediaPermissions]
+Alt	array	1.5		FALSE	FALSE					[]
 PL	dictionary	1.5		FALSE	FALSE					MediaPlayers
 MH	dictionary	1.5		FALSE	FALSE					MediaDataMH
 BE	dictionary	1.5		FALSE	FALSE					MediaDataBE

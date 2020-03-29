@@ -2,10 +2,10 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	Defau
 BitsPerCoordinate	integer	1.3		TRUE				1;2;4;8;12;16;24;32		
 BitsPerComponent	integer	1.3		TRUE				1;2;4;8;12;16		
 BitsPerFlag	integer	1.3		TRUE						
-Decode	array	1.3		FALSE						
-Function	dictionary;stream;array	1.3		TRUE						FunctionDecision
+Decode	array	1.3		FALSE						[]
+Function	array;dictionary;stream	1.3		TRUE						[];[FunctionDecision];[]
 ShadingType	integer	1.3		TRUE		7				
-ColorSpace	name;array	1.3		TRUE						
-Background	array	1.3		FALSE						
+ColorSpace	array;name	1.3		TRUE						[];[]
+Background	array	1.3		FALSE						[]
 BBox	rectangle	1.3		FALSE						
 AntiAlias	boolean	1.3		FALSE			FALSE			
