@@ -63,7 +63,7 @@ public class XMLCreator {
         
         int rowsCount = -1;
         try {
-          System.out.println("Precessing " + fileName + ".csv ...");
+          System.out.println("Processing " + fileName + ".csv ...");
           // Root element
           Element rootElement = newDoc.createElement("OBJECT");
           rootElement.setAttribute("id", fileName);
@@ -116,7 +116,7 @@ public class XMLCreator {
           if(errorCount == 0){
             System.out.println("Finished succsefully.");
           }else{
-              System.out.println("Proccesing failed! " +errorCount+" errors were encountered while proccesing object.");
+              System.out.println("Processing failed! " +errorCount+" errors were encountered while processing object.");
           }
           csvReader.close();
 
@@ -144,7 +144,7 @@ public class XMLCreator {
             tempElem = newDoc.createElement("NAME");
             tempElem.appendChild(newDoc.createTextNode(colValue));
         }else{
-            System.out.println("\tError proccesing entry: " +currentEntry+ ". Failed to create NAME node. Missing value for key name.");
+            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create NAME node. Missing value for key name.");
             ++errorCount;
         }
         return tempElem;
@@ -156,7 +156,7 @@ public class XMLCreator {
             tempElem = newDoc.createElement("SINCEVERSION");
             tempElem.appendChild(newDoc.createTextNode(colValue));
         }else{
-            System.out.println("\tError proccesing entry: " +currentEntry+ ". Failed to create SINCEVERSION node. Missing value for since version.");
+            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create SINCEVERSION node. Missing value for since version.");
             ++errorCount;
         }
         return tempElem;
@@ -174,7 +174,7 @@ public class XMLCreator {
             tempElem = newDoc.createElement("REQUIRED");
             tempElem.appendChild(newDoc.createTextNode(colValue.toLowerCase()));
         }else{
-            System.out.println("\tError proccesing entry: " +currentEntry+ ". Failed to create REQUIRED node. Missing value for required. Shall be TRUE or FALSE.");
+            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create REQUIRED node. Missing value for required. Shall be TRUE or FALSE.");
             ++errorCount;
         }
         return tempElem;
@@ -186,7 +186,7 @@ public class XMLCreator {
             tempElem = newDoc.createElement("INDIRECTREFRENCE");
             tempElem.appendChild(newDoc.createTextNode(colValue.toLowerCase()));
         }else{
-            System.out.println("\tError proccesing entry: " +currentEntry+ ". Failed to create INDIRECTREFRENCE node. Missing value for indirect refrence. Shall be TRUE or FALSE.");
+            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create INDIRECTREFRENCE node. Missing value for indirect refrence. Shall be TRUE or FALSE.");
             ++errorCount;
         }
         return tempElem;
@@ -216,8 +216,12 @@ public class XMLCreator {
                     valueElem.appendChild(typeElem);
                     if("dictionary".equals(types[i]) || "array".equals(types[i])){
                         Element validateElem = newDoc.createElement("VALIDATE");
-                        validateElem.appendChild(newDoc.createTextNode(temp[j]));
+                        String nodeVal = temp[j];
+                        validateElem.appendChild(newDoc.createTextNode(nodeVal));
                         valueElem.appendChild(validateElem);
+                        if(nodeVal.isBlank()){
+                            System.out.println("\t WARNING. VALIDE node was created but has no value.");
+                        }
                     }
                     if("name".equals(types[i]) && !requiredValue.isEmpty()){
                         Element shallbeElem = newDoc.createElement("SHALLBE");
@@ -229,7 +233,7 @@ public class XMLCreator {
                 }
             }
         }else{
-            System.out.println("\tError proccesing entry: " +currentEntry+ ". Failed to create VALUES node. Types and links do not match.");
+            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create VALUES node. Types and links do not match.");
             ++errorCount;
         }
         return valuesElem;
