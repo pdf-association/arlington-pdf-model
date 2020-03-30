@@ -15,9 +15,12 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
+#include <regex>
+
 #include "GrammarFile.h"
 #include "Pdfix.h"
 #include "utils.h"
+
 
 /*
   Parses through csv file line by line and loads csv data 
@@ -107,30 +110,44 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     // need to compare all of them with basic_types
     std::vector<std::string> types = split(vc[1], ';');
     std::vector<std::string> links = split(vc[10], ';');
-    for (auto type_pos = 0; type_pos < types.size(); type_pos++) {
-      if (std::find(basic_types.begin(), basic_types.end(), types[type_pos]) == basic_types.end())
-        report_stream << "Wrong type:" << types[type_pos] << " in:" << file_name << "::" << vc[0] << std::endl;
-      //rt este treba aj ine type>name tree, number tree, array? stream?
-      if (types[type_pos] == "DICTIONARY" || types[type_pos] == "NUMBER TREE"
-        || types[type_pos] == "NAME TREE" || types[type_pos] == "STREAM"
-        || types[type_pos] == "ARRAY") {
-        if (links.size() <= type_pos)
-          report_stream << "Wrong # of links compared to # of types:" << file_name << "::" << vc[0] << std::endl;
-        else
-          if (links[type_pos] == "[]" || links[type_pos] == "[null]")
-            report_stream << "Type " << types[type_pos] << "not linked in:" << file_name << "::" << vc[0] << std::endl;
+    std::regex regex("^\\[[A-Z,a-z,0-9,\\,]*\\]$");
+
+    // if link exists we check
+    // - number of links and number of types match
+    // - each link follows patter [];[]..
+    // - each dictionary, array etc.. is linked
+    // - each link actuall exists
+    if (vc[10] != "") {
+      if (links.size() != types.size())
+        report_stream << "Wrong # of types vs. # of links " << file_name << "::" << vc[0] << std::endl;
+      for (auto link_pos = 0; link_pos < links.size(); link_pos++) {
+        if (!std::regex_match(links[link_pos], regex))
+          report_stream << "Wrong pattern in links " << file_name << "::" << vc[0] << std::endl;
+        else {
+          if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
+            (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
+              || types[link_pos] == "NAME TREE" || types[link_pos] == "STREAM"
+              || types[link_pos] == "ARRAY"))
+            report_stream << "Type " << types[link_pos] << "not linked in:" << file_name << "::" << vc[0] << std::endl;
+
+          std::vector<std::string> direct_links = split(links[link_pos].substr(1, links[link_pos].size()-2), ',');
+          for (auto lnk:direct_links)
+            if (lnk != "" ) {
+              std::string new_name = get_path_dir(file_name);
+              new_name += "/";
+              new_name += lnk;
+              new_name += ".csv";
+              if (!file_exists(new_name))
+                report_stream << "Link doesn't exist:" << lnk << " in:" << file_name << "::" << vc[0] << std::endl;
+            }
+        }
       }
     }
-    
-    // does link exist?
-    if (vc[10] != "") {
-      std::string new_name = get_path_dir(file_name);
-      new_name += "/";
-      new_name += vc[10];
-      new_name += ".csv";
-      if (!file_exists(new_name))
-        report_stream << "Link doesn't exists:" << vc[10] << " in:" << file_name << "::" << vc[0] << std::endl;
-    }
+
+    //check if each type is ok
+    for (auto type:types)
+      if (std::find(basic_types.begin(), basic_types.end(), type) == basic_types.end())
+        report_stream << "Wrong type:" << type << " in:" << file_name << "::" << vc[0] << std::endl;
   }
   return true;
 }

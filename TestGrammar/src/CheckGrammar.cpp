@@ -28,8 +28,15 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
       for (int i = 1; i < data.size(); i++) {
         std::vector<std::string> vc = data[i];
         // does link exists ?
-        if (vc[10] != "")
-          to_process.push_back(vc[10] + ".csv");
+        // we have to parse pattern [lnk1,lnk2];[lnk3,lnk4];[]
+        if (vc[10] != "") {
+          std::vector<std::string> links = split(vc[10], ';');
+          for (auto type_link : links) {
+            std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ',');
+            for (auto lnk : direct_links)
+              if (lnk!="") to_process.push_back(lnk + ".csv");
+          }
+        }
       }
     }
   }
@@ -45,7 +52,7 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
         std::string str = ToUtf8(fd.cFileName);
         if (std::find(processed.begin(), processed.end(), str) == processed.end()) {
           // file not reachable from Catalog
-          ofs << "Can't reach from Catalog:" << str << std::endl;
+           ofs << "Can't reach from Catalog:" << str << std::endl;
         }
 
         file_name += str;
