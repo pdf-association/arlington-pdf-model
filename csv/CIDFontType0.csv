@@ -2,10 +2,10 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	Defau
 Type	name	1.0		TRUE	FALSE	CIDFont				
 Subtype	name	1.0		TRUE	FALSE	CIDFontType0				
 BaseFont	name	1.0		TRUE	FALSE					
-CIDSystemInfo	dictionary	1.0		TRUE	FALSE					CIDSystemInfo
-FontDescriptor	dictionary	1.0		TRUE	TRUE					
+CIDSystemInfo	dictionary	1.0		TRUE	FALSE					[CIDSystemInfo]
+FontDescriptor	dictionary	1.0		TRUE	TRUE					[]
 DW	number	1.0		FALSE	FALSE		1000			
-W	array	1.0		FALSE	FALSE		none			
-DW2	array	1.0		FALSE	FALSE		[888 -1000]			
-W2	array	1.0		FALSE	FALSE		none			
-CIDtoGIDMap	stream;name	1.0		FALSE	FALSE					
+W	array	1.0		FALSE	FALSE		none			[]
+DW2	array	1.0		FALSE	FALSE		[888 -1000]			[]
+W2	array	1.0		FALSE	FALSE		none			[]
+CIDtoGIDMap	name;stream	1.0		FALSE	FALSE					[];[]

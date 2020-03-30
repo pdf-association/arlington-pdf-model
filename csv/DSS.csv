@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.0		FALSE	FALSE	DSS				
-VRI	dictionary	1.0		FALSE	FALSE					VRI
-Certs	array	1.0		FALSE	FALSE					
-OCSPs	array	1.0		FALSE	FALSE					
-CRLs	array	1.0		FALSE	FALSE					
+VRI	dictionary	1.0		FALSE	FALSE					[VRI]
+Certs	array	1.0		FALSE	FALSE					[]
+OCSPs	array	1.0		FALSE	FALSE					[]
+CRLs	array	1.0		FALSE	FALSE					[]

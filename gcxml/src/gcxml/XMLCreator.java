@@ -31,6 +31,9 @@ public class XMLCreator {
     private String inputFolder;
     private String outputFolder;
     
+    private String currentEntry;
+    private int errorCount;
+    
     private DocumentBuilderFactory domFactory = null;
     private DocumentBuilder domBuilder = null;
     private Document newDoc = null;
@@ -38,6 +41,8 @@ public class XMLCreator {
     public XMLCreator() {
         this.outputFolder = System.getProperty("user.dir") + "/xml/objects/";
         this.inputFolder = System.getProperty("user.dir") + "/csv/";
+        this.currentEntry = "";
+        this.errorCount = 0;
         try {
           domFactory = DocumentBuilderFactory.newInstance();
           domBuilder = domFactory.newDocumentBuilder();
@@ -54,10 +59,11 @@ public class XMLCreator {
     public void convertFile(String fileName, String delimiter) {
         inputFolder += fileName + ".csv"; 
         outputFolder += fileName + ".xml" ; 
+        errorCount = 0;
         
         int rowsCount = -1;
         try {
-          System.out.println("Precessing " + fileName + ".csv ...");
+          System.out.println("Processing " + fileName + ".csv ...");
           // Root element
           Element rootElement = newDoc.createElement("OBJECT");
           rootElement.setAttribute("id", fileName);
@@ -81,6 +87,7 @@ public class XMLCreator {
           while ((curLine = csvReader.readLine()) != null) {
               Element entryElement = newDoc.createElement("ENTRY");
               String[] colValues = curLine.split(delimiter,-1);
+              currentEntry = colValues[0];
               //creates <NAME> node
               Element nameElement = nodeName(colValues[0]);
               // creates <VALUE> node
@@ -93,16 +100,23 @@ public class XMLCreator {
               Element deprecatedinElement = nodeDeprecatedIn(colValues[3]);
               Element requiredElement = nodeRequired(colValues[4]);
               Element indirectrefrenceElement = nodeIndirectRefrence(colValues[5]);
-              //append elements to entry
-              entryElement.appendChild(nameElement);
-              entryElement.appendChild(valuesEntry);
-              entryElement.appendChild(requiredElement);
-              entryElement.appendChild(indirectrefrenceElement);
-              entryElement.appendChild(sinceversionElement);
-              entryElement.appendChild(deprecatedinElement);
-
-              //append entry to root
-              rootElement.appendChild(entryElement);
+              if((nameElement != null) && (valuesEntry != null) && (sinceversionElement != null) &&
+                      (deprecatedinElement != null) && (requiredElement != null) && (indirectrefrenceElement != null)){
+                //append elements to entry
+                entryElement.appendChild(nameElement);
+                entryElement.appendChild(valuesEntry);
+                entryElement.appendChild(requiredElement);
+                entryElement.appendChild(indirectrefrenceElement);
+                entryElement.appendChild(sinceversionElement);
+                entryElement.appendChild(deprecatedinElement);
+                //append entry to root
+                rootElement.appendChild(entryElement);
+              }
+          }
+          if(errorCount == 0){
+            System.out.println("Finished succsefully.");
+          }else{
+              System.out.println("Processing failed! " +errorCount+" errors were encountered while processing object.");
           }
           csvReader.close();
 
@@ -122,18 +136,29 @@ public class XMLCreator {
         } catch (Exception exp) {
           System.err.println(exp.toString());
         }
-        System.out.println(fileName + " was successfully converted");
     }
 
     private Element nodeName(String colValue) {
-        Element tempElem = newDoc.createElement("NAME");
-        tempElem.appendChild(newDoc.createTextNode(colValue));
+        Element tempElem = null;
+        if(!colValue.isBlank()){
+            tempElem = newDoc.createElement("NAME");
+            tempElem.appendChild(newDoc.createTextNode(colValue));
+        }else{
+            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create NAME node. Missing value for key name.");
+            ++errorCount;
+        }
         return tempElem;
     }
 
     private Element nodeSinceVersion(String colValue) {
-        Element tempElem = newDoc.createElement("SINCEVERSION");
-        tempElem.appendChild(newDoc.createTextNode(colValue));
+        Element tempElem = null;
+        if(!colValue.isBlank()){
+            tempElem = newDoc.createElement("SINCEVERSION");
+            tempElem.appendChild(newDoc.createTextNode(colValue));
+        }else{
+            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create SINCEVERSION node. Missing value for since version.");
+            ++errorCount;
+        }
         return tempElem;
     }
 
@@ -144,14 +169,26 @@ public class XMLCreator {
     }
 
     private Element nodeRequired(String colValue) {
-        Element tempElem = newDoc.createElement("REQUIRED");
-        tempElem.appendChild(newDoc.createTextNode(colValue.toLowerCase()));
+        Element tempElem = null;
+        if(!colValue.isBlank()){
+            tempElem = newDoc.createElement("REQUIRED");
+            tempElem.appendChild(newDoc.createTextNode(colValue.toLowerCase()));
+        }else{
+            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create REQUIRED node. Missing value for required. Shall be TRUE or FALSE.");
+            ++errorCount;
+        }
         return tempElem;
     }
 
     private Element nodeIndirectRefrence(String colValue) {
-        Element tempElem = newDoc.createElement("INDIRECTREFRENCE");
-        tempElem.appendChild(newDoc.createTextNode(colValue.toLowerCase()));
+        Element tempElem = null;
+        if(!colValue.isBlank()){
+            tempElem = newDoc.createElement("INDIRECTREFRENCE");
+            tempElem.appendChild(newDoc.createTextNode(colValue.toLowerCase()));
+        }else{
+            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create INDIRECTREFRENCE node. Missing value for indirect refrence. Shall be TRUE or FALSE.");
+            ++errorCount;
+        }
         return tempElem;
     }
 
@@ -166,29 +203,39 @@ public class XMLCreator {
 
         types = type.split(";", -1);
         values = validate.split(";", -1);
-
-        for(int i = 0; i < types.length; i++){
-            int k = 0;
-            String[] temp = values[i].split(",",-1);
-            for(int j = 0; j < temp.length; j++){
-                Element valueElem = newDoc.createElement("VALUE");
-                Element typeElem = newDoc.createElement("TYPE");
-                typeElem.appendChild(newDoc.createTextNode(types[i]));
-                valueElem.appendChild(typeElem);
-                if("dictionary".equals(types[i]) || "array".equals(types[i])){
-                    Element validateElem = newDoc.createElement("VALIDATE");
-                    validateElem.appendChild(newDoc.createTextNode(temp[j]));
-                    valueElem.appendChild(validateElem);
+        
+        
+        if(types.length == values.length){
+            for(int i = 0; i < types.length; i++){
+                int k = 0;
+                String[] temp = values[i].split(",",-1);
+                for(int j = 0; j < temp.length; j++){
+                    Element valueElem = newDoc.createElement("VALUE");
+                    Element typeElem = newDoc.createElement("TYPE");
+                    typeElem.appendChild(newDoc.createTextNode(types[i]));
+                    valueElem.appendChild(typeElem);
+                    if("dictionary".equals(types[i]) || "array".equals(types[i])){
+                        Element validateElem = newDoc.createElement("VALIDATE");
+                        String nodeVal = temp[j];
+                        validateElem.appendChild(newDoc.createTextNode(nodeVal));
+                        valueElem.appendChild(validateElem);
+                        if(nodeVal.isBlank()){
+                            System.out.println("\t WARNING. VALIDE node was created but has no value.");
+                        }
+                    }
+                    if("name".equals(types[i]) && !requiredValue.isEmpty()){
+                        Element shallbeElem = newDoc.createElement("SHALLBE");
+                        shallbeElem.appendChild(newDoc.createTextNode(requiredValue));
+                        valueElem.appendChild(shallbeElem);
+                    }
+                    valuesElem.appendChild(valueElem);
+                    k++;
                 }
-                if("name".equals(types[i]) && !requiredValue.isEmpty()){
-                    Element shallbeElem = newDoc.createElement("SHALLBE");
-                    shallbeElem.appendChild(newDoc.createTextNode(requiredValue));
-                    valueElem.appendChild(shallbeElem);
-                }
-                valuesElem.appendChild(valueElem);
-                k++;
             }
-        }   
+        }else{
+            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create VALUES node. Types and links do not match.");
+            ++errorCount;
+        }
         return valuesElem;
     }
 }

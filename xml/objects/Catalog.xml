@@ -43,7 +43,7 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>PageTreeRoot</VALIDATE>
+            <VALIDATE>PageTreeNodeRoot</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -156,6 +156,10 @@
       <NAME>OpenAction</NAME>
       <VALUES>
          <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfActions</VALIDATE>
+         </VALUE>
+         <VALUE>
             <TYPE>dictionary</TYPE>
             <VALIDATE>ActionGoTo</VALIDATE>
          </VALUE>
@@ -234,10 +238,6 @@
          <VALUE>
             <TYPE>dictionary</TYPE>
             <VALIDATE>ActionRichMediaExecute</VALIDATE>
-         </VALUE>
-         <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE>ArrayOfActions</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

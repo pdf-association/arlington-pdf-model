@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.5		FALSE	FALSE	Action				
 S	name	1.5		TRUE	FALSE	Rendition				
-Next	dictionary;array	1.2		FALSE	FALSE					ActionDecision
-R	dictionary	1.5		FALSE	FALSE					RenditionDecision
-AN	dictionary	1.5		FALSE	FALSE					AnnotScreen
+Next	array;dictionary	1.2		FALSE	FALSE					[];ActionDecision]
+R	dictionary	1.5		FALSE	FALSE					[RenditionDecision]
+AN	dictionary	1.5		FALSE	FALSE					[AnnotScreen]
 OP	integer	1.5		FALSE	FALSE					
-JS	string;stream	1.5		FALSE	FALSE					
+JS	stream;string	1.5		FALSE	FALSE					[];[]

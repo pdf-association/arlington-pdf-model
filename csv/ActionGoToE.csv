@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.6		FALSE	FALSE	Action				
 S	name	1.6		TRUE	FALSE	GoToE				
-Next	dictionary;array	1.2		FALSE	FALSE					ActionDecision
+Next	array;dictionary	1.2		FALSE	FALSE					[];ActionDecision]
 F	file specification	1.6		FALSE	FALSE					FileSpecification
-D	name;string;array	1.6		TRUE	FALSE					
+D	array;name;string	1.6		TRUE	FALSE					[];[];[]
 NewWindow	boolean	1.6		FALSE	FALSE					
-T	dictionary	1.6		TRUE	FALSE				isPresent:F=>Required=False	Target
+T	dictionary	1.6		TRUE	FALSE				isPresent:F=>Required=False	[Target]
