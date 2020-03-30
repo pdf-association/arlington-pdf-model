@@ -1,0 +1,64 @@
+///////////////////////////////////////////////////////////////////////////////
+// CheckGrammar.cpp
+// Copyright (c) 2020 Normex, Pdfix. All Rights Reserved.
+///////////////////////////////////////////////////////////////////////////////
+ 
+#include <exception>
+#include <iostream>
+#include <string>
+
+#include "Pdfix.h"
+#include "CheckGrammar.h"
+#include "GrammarFile.h"
+
+void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
+  // collecting all csv starting from Catalog
+  std::vector<std::string> processed;
+  std::vector<std::string> to_process;
+  to_process.push_back("Catalog.csv");
+  while (!to_process.empty()) {
+    std::string gfile = to_process.back();
+    to_process.pop_back();
+    if (std::find(processed.begin(), processed.end(), gfile) == processed.end()) {
+      processed.push_back(gfile);
+      std::string gf = grammar_folder + gfile;
+      CGrammarReader reader(gf);
+      reader.load();
+      const std::vector<std::vector<std::string>>& data = reader.get_data();
+      for (int i = 1; i < data.size(); i++) {
+        std::vector<std::string> vc = data[i];
+        // does link exists ?
+        if (vc[10] != "")
+          to_process.push_back(vc[10] + ".csv");
+      }
+    }
+  }
+
+  std::wstring search_path = FromUtf8(grammar_folder);
+  search_path += L"*.csv";
+  WIN32_FIND_DATA fd;
+  HANDLE hFind = ::FindFirstFile(search_path.c_str(), &fd);
+  if (hFind != INVALID_HANDLE_VALUE)
+    do {
+      if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+        std::string file_name = grammar_folder;
+        std::string str = ToUtf8(fd.cFileName);
+        if (std::find(processed.begin(), processed.end(), str) == processed.end()) {
+          // file not reachable from Catalog
+          ofs << "Can't reach from Catalog:" << str << std::endl;
+        }
+
+        file_name += str;
+        CGrammarReader reader(file_name);
+        if (!reader.load())
+          ofs << "Can't load grammar file:" << file_name << std::endl;
+        else reader.check(ofs);
+      }
+    } while (::FindNextFile(hFind, &fd));
+    ::FindClose(hFind);
+}
+
+
+void CompareWithAdobe(std::string& adobe_file, std::string& grammar_folder, std::ofstream& ofs){
+
+}
