@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.2		FALSE	FALSE	Action				
 S	name	1.2		TRUE	FALSE	Hide				
-Next	array;dictionary	1.2		FALSE	FALSE					[];ActionDecision]
-T	array;dictionary;string	1.2		TRUE	FALSE					[];[AnnotDecision];[]
+Next	array;dictionary	1.2		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTrans,ActionGoTo3DView,ActionJavaScript,ActionRichMediaExecute]
+T	array;dictionary;string	1.2		TRUE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTrans,ActionGoTo3DView,ActionJavaScript,ActionRichMediaExecute];[]
 H	boolean	1.2		FALSE	FALSE		TRUE			
