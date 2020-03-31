@@ -20,8 +20,8 @@ BM	name	2.0		FALSE	FALSE
 Lang	string	2.0		FALSE	FALSE						text string
 H	name	1.0		FALSE	FALSE		I	N;I;O;P;T			
 MK	dictionary	1.5		FALSE	FALSE					[AppearanceCharacteristics]	
-A	dictionary	1.1		FALSE	FALSE					[ActionDecision]	
+A	dictionary	1.1		FALSE	FALSE					[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTrans,ActionGoTo3DView,ActionJavaScript,ActionRichMediaExecute]	
 AA	dictionary	1.2		FALSE	FALSE					[AddActionAnnotation]	
 BS	dictionary	1.2		FALSE	FALSE					[Border]	
-Parent	dictionary	1.0		FALSE	FALSE					[AnnotDecision]	
+Parent	dictionary	1.0		FALSE	FALSE					[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighLight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWaterMark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
 ExData	dictionary	1.7		FALSE	FALSE					[ExData]	
