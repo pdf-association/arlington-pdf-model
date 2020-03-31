@@ -52,7 +52,7 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
         std::string str = ToUtf8(fd.cFileName);
         if (std::find(processed.begin(), processed.end(), str) == processed.end()) {
           // file not reachable from Catalog
-           ofs << "Can't reach from Catalog:" << str << std::endl;
+          ofs << "Can't reach from Catalog:" << str << std::endl;
         }
 
         file_name += str;

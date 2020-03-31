@@ -209,7 +209,10 @@ bool ProcessObject(PdsObject* obj,
   auto get_full_csv_file = [=](std::string csv_name) {
     std::string file_name = get_path_dir(grammar_file);
     file_name += "/";
-    file_name += csv_name.substr(1, csv_name.size() - 2);
+    if (csv_name.front() == '['  && csv_name.back() == ']')
+      file_name += csv_name.substr(1, csv_name.size() - 2);
+    else 
+      file_name += csv_name;
     file_name += ".csv";
     return file_name;
   };
