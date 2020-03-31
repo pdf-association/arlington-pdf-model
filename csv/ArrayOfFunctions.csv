@@ -1,4 +1,2 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-FunctionType	integer	1.2		TRUE	FALSE	4				
-Domain	array	1.2		TRUE	FALSE					[]
-Range	array	1.2		TRUE	FALSE					[]
+*	dictionary;stream			FALSE	FALSE					[FunctionType1,FunctionType2];[FunctionType0,FunctionType4]
