@@ -195,6 +195,7 @@ bool ProcessObject(PdsObject* obj,
   }
   
   ss << context << std::endl;
+  context = "  " + context;
   mapped.insert(std::make_pair(obj, 1));
 
   CGrammarReader reader(grammar_file);
@@ -203,8 +204,10 @@ bool ProcessObject(PdsObject* obj,
     return false;
   }
   const std::vector<std::vector<std::string>> &data_list = reader.get_data();
-  if (data_list.empty())
+  if (data_list.empty()) {
     ss << "Error: Empty grammar file:" << grammar_file << std::endl;
+    return false;
+  }
 
   auto get_full_csv_file = [=](std::string csv_name) {
     std::string file_name = get_path_dir(grammar_file);
@@ -313,7 +316,7 @@ bool ProcessObject(PdsObject* obj,
       if (vec[4] == "TRUE") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
         if (inner_obj == nullptr) {
-          ss << "Error:  required key doesn't exists ";
+          ss << "Error:  required key doesn't exist ";
           ss << context << "->" << vec[0];
           ss << "(" << grammar_file << ")" << std::endl;
         }
@@ -354,19 +357,20 @@ bool ProcessObject(PdsObject* obj,
     bool to_ret = true;
     PdsArray* arrayObj = (PdsArray*)obj;
     for (int i = 0; i < arrayObj->GetNumObjects(); ++i) {
-      //PdsDictionary* item = arrayObj->GetDictionary(i);
       PdsObject* item = arrayObj->Get(i);
       for (auto& vec : data_list)
         //todo: mozno treba osetrit aj typ
         if (vec[0] == "*" && vec[10] != "" && vec[10] != "[]") {
           std::vector<std::string> direct_links = split(vec[10].substr(1, vec[10].size() - 2), ',');
           to_ret = false;
-          for (auto lnk : direct_links)
+          for (auto lnk : direct_links) {
+            ss << "---Validating as" << lnk << std::endl;
             if (ProcessObject(item, ss, mapped, get_full_csv_file(lnk), context + "[" + std::to_string(i) + "]")) {
-              ss << " XXXXX Validated as " << lnk << std::endl;
+              ss << "---Passed" << lnk << std::endl;
               to_ret = true;
               break;
             }
+          }
           break;
         }
     }

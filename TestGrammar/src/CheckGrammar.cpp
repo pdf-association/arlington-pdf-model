@@ -2,7 +2,7 @@
 // CheckGrammar.cpp
 // Copyright (c) 2020 Normex, Pdfix. All Rights Reserved.
 ///////////////////////////////////////////////////////////////////////////////
- 
+
 #include <exception>
 #include <iostream>
 #include <string>
@@ -34,7 +34,7 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
           for (auto type_link : links) {
             std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ',');
             for (auto lnk : direct_links)
-              if (lnk!="") to_process.push_back(lnk + ".csv");
+              if (lnk != "") to_process.push_back(lnk + ".csv");
           }
         }
       }
@@ -66,6 +66,6 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
 }
 
 
-void CompareWithAdobe(std::string& adobe_file, std::string& grammar_folder, std::ofstream& ofs){
+void CompareWithAdobe(std::string& adobe_file, std::string& grammar_folder, std::ofstream& ofs) {
 
 }
