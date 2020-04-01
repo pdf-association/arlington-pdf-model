@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	note
-N	stream;dictionary	1.2		TRUE	FALSE					XObjectFormType1;AppearanceSubDict	*
-R	stream;dictionary	1.2		FALSE	FALSE		@N			XObjectFormType1;AppearanceSubDict	*
-D	stream;dictionary	1.2		FALSE	FALSE		@N			XObjectFormType1;AppearanceSubDict	*
+N	dictionary;stream	1.2		TRUE	FALSE					[AppearanceSubDict,XObjectFormType1]	*
+R	dictionary;stream	1.2		FALSE	FALSE		@N			[AppearanceSubDict,XObjectFormType1]	*
+D	dictionary;stream	1.2		FALSE	FALSE		@N			[AppearanceSubDict,XObjectFormType1]	*

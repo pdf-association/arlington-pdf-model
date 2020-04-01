@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.2	2.0	FALSE	FALSE	Action				
 S	name	1.2	2.0	TRUE	FALSE	Sound				
-Next	array;dictionary	1.2		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTrans,ActionGoTo3DView,ActionJavaScript,ActionRichMediaExecute]
+Next	array;dictionary	1.2		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
 Sound	stream	1.2	2.0	TRUE	FALSE					[]
 Volume	number	1.2	2.0	FALSE	FALSE		1.0	<-1.0;1.0>		
 Synchronous	boolean	1.2	2.0	FALSE	FALSE		FALSE			

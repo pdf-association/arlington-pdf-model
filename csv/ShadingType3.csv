@@ -1,10 +1,10 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Coords	array	1.3		TRUE						[]
-Domain	array	1.3		FALSE			[0 1]			[]
-Function	array;dictionary;stream	1.3		TRUE						[ArrayOfFunctions];[FunctionType1,FunctionType2];[FunctionType0,FunctionType4]
-Extend	array	1.3		FALSE			[false false]			[]
-ShadingType	integer	1.3		TRUE		3				
-ColorSpace	array;name	1.3		TRUE						[];[]
-Background	array	1.3		FALSE						[]
-BBox	rectangle	1.3		FALSE						
-AntiAlias	boolean	1.3		FALSE			FALSE			
+Coords	array	1.3		TRUE	FALSE					[]
+Domain	array	1.3		FALSE	FALSE		[0 1]			[]
+Function	array;dictionary;stream	1.3		TRUE	FALSE					[ArrayOfFunctions];[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]
+Extend	array	1.3		FALSE	FALSE		[false false]			[]
+ShadingType	integer	1.3		TRUE	FALSE	3				
+ColorSpace	array;name	1.3		TRUE	FALSE					[];[]
+Background	array	1.3		FALSE	FALSE					[]
+BBox	rectangle	1.3		FALSE	FALSE					
+AntiAlias	boolean	1.3		FALSE	FALSE		FALSE			

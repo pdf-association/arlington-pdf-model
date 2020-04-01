@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	2.0		FALSE	FALSE	Namespace				
 NS	string	2.0		TRUE	FALSE					
-Schema	file specification	2.0		FALSE	FALSE					
+Schema	dictionary;string	2.0		FALSE	FALSE					[FileSpecification];[]
 RoleMapNS	dictionary	2.0		FALSE	FALSE					[]

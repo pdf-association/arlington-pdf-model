@@ -1,8 +1,8 @@
-Key	Type	SinceVersion	DepreactedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	2.0		FALSE	FALSE	Action				
 S	name	2.0		TRUE	FALSE	Launch				
-Next	array;dictionary	1.2		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTrans,ActionGoTo3DView,ActionJavaScript,ActionRichMediaExecute]
-F	file specification	1.1		TRUE	FALSE					[FileSpecification]
+Next	array;dictionary	1.2		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
+F	dictionary;string	1.1		TRUE	FALSE					[FileSpecification];[]
 Win	dictionary	1.1	2.0	FALSE	FALSE					[MicrosoftWindowsLaunchParam]
 Mac		1.1	2.0	FALSE	FALSE					
 Unix		1.1	2.0	FALSE	FALSE					

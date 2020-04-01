@@ -144,7 +144,7 @@ public class XMLCreator {
             tempElem = newDoc.createElement("NAME");
             tempElem.appendChild(newDoc.createTextNode(colValue));
         }else{
-            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create NAME node. Missing value for key name.");
+            System.out.println("\tERROR. While processing entry: " +currentEntry+ ". Failed to create NAME node. Missing value for key name.");
             ++errorCount;
         }
         return tempElem;
@@ -156,7 +156,7 @@ public class XMLCreator {
             tempElem = newDoc.createElement("SINCEVERSION");
             tempElem.appendChild(newDoc.createTextNode(colValue));
         }else{
-            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create SINCEVERSION node. Missing value for since version.");
+            System.out.println("\tERROR. While processing entry: " +currentEntry+ ". Failed to create SINCEVERSION node. Missing value for since version.");
             ++errorCount;
         }
         return tempElem;
@@ -174,7 +174,7 @@ public class XMLCreator {
             tempElem = newDoc.createElement("REQUIRED");
             tempElem.appendChild(newDoc.createTextNode(colValue.toLowerCase()));
         }else{
-            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create REQUIRED node. Missing value for required. Shall be TRUE or FALSE.");
+            System.out.println("\tERROR. While processing entry: " +currentEntry+ ". Failed to create REQUIRED node. Missing value for required. Shall be TRUE or FALSE.");
             ++errorCount;
         }
         return tempElem;
@@ -186,7 +186,7 @@ public class XMLCreator {
             tempElem = newDoc.createElement("INDIRECTREFRENCE");
             tempElem.appendChild(newDoc.createTextNode(colValue.toLowerCase()));
         }else{
-            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create INDIRECTREFRENCE node. Missing value for indirect refrence. Shall be TRUE or FALSE.");
+            System.out.println("\tERROR. While processing entry: " +currentEntry+ ". Failed to create INDIRECTREFRENCE node. Missing value for indirect refrence. Shall be TRUE or FALSE.");
             ++errorCount;
         }
         return tempElem;
@@ -220,7 +220,7 @@ public class XMLCreator {
                         validateElem.appendChild(newDoc.createTextNode(nodeVal));
                         valueElem.appendChild(validateElem);
                         if(nodeVal.isBlank()){
-                            System.out.println("\t WARNING. VALIDE node was created but has no value.");
+                            System.out.println("\tWARNING. Missing value in entry: "+currentEntry+ ". VALIDATE node was created but has no value.");
                         }
                     }
                     if("name".equals(types[i]) && !requiredValue.isEmpty()){
@@ -233,7 +233,7 @@ public class XMLCreator {
                 }
             }
         }else{
-            System.out.println("\tError processing entry: " +currentEntry+ ". Failed to create VALUES node. Types and links do not match.");
+            System.out.println("\tERROR. While processing entry: " +currentEntry+ ". Failed to create VALUES node. Types and links do not match.");
             ++errorCount;
         }
         return valuesElem;
