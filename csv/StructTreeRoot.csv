@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.3		TRUE	FALSE	StructTreeRoot				
-K	array;dictionary	1.3		FALSE	FALSE					[];]
+K	array;dictionary	1.3		FALSE	FALSE					[];[]
 IDTree	name tree	1.3		FALSE	FALSE					[StructElem]
 ParentTree	number tree	1.3		FALSE	FALSE					[]
 ParentTreeNextKey	integer	1.3		FALSE	FALSE					
@@ -8,4 +8,4 @@ RoleMap	dictionary	1.3		FALSE	FALSE					[]
 ClassMap	dictionary	1.3		FALSE	FALSE					[]
 Namespaces	array	2.0		FALSE	FALSE					[]
 PronunciationLexicon	array;dictionary;string	2.0		FALSE	FALSE					[];[];[]
-AF	array;dictionary	2.0		FALSE	FALSE					[];]
+AF	array;dictionary	2.0		FALSE	FALSE					[];[]
