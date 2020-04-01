@@ -180,7 +180,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfFileSpecifications</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
@@ -242,7 +242,15 @@
    </ENTRY>
    <ENTRY>
       <NAME>3DD</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>3DReference</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>stream</TYPE>
+         </VALUE>
+      </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
       <SINCEVERSION>1.6</SINCEVERSION>

@@ -144,7 +144,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>ThreadsArray</VALIDATE>
+            <VALIDATE>ArrayOfThreads</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -225,7 +225,7 @@
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>ActionTrans</VALIDATE>
+            <VALIDATE>ActionTransition</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
@@ -233,7 +233,7 @@
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>ActionJavaScript</VALIDATE>
+            <VALIDATE>ActionECMAScript</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
@@ -352,7 +352,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>OutputIntentsArray</VALIDATE>
+            <VALIDATE>ArrayOfOutputIntents</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -417,7 +417,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>RequirementsArray</VALIDATE>
+            <VALIDATE>ArrayOfRequirements</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -468,7 +468,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>FileSpecificationArray</VALIDATE>
+            <VALIDATE>ArrayOfFileSpecifications</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
