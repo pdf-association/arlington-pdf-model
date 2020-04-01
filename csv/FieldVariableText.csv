@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-DA	string	1.2		TRUE	FALSE				Inheritable	
-Q	integer	1.2		FALSE	FALSE		0	0;1;2	Inheritable	
-DS	string	1.5		FALSE	FALSE					
-RV	stream;string	1.5		FALSE	FALSE					[];[]
+DA	string	1,2		PRAVDA	NEPRAVDA				Inheritable	
+Q	integer	1,2		NEPRAVDA	NEPRAVDA		0	0;1;2	Inheritable	
+DS	string	1,5		NEPRAVDA	NEPRAVDA					
+RV	stream;string	1,5		NEPRAVDA	NEPRAVDA					[];[]

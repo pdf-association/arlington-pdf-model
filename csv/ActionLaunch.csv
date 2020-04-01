@@ -1,9 +1,9 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2.0		FALSE	FALSE	Action				
-S	name	2.0		TRUE	FALSE	Launch				
-Next	array;dictionary	1.2		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
-F	dictionary;string	1.1		TRUE	FALSE					[FileSpecification];[]
-Win	dictionary	1.1	2.0	FALSE	FALSE					[MicrosoftWindowsLaunchParam]
-Mac		1.1	2.0	FALSE	FALSE					
-Unix		1.1	2.0	FALSE	FALSE					
-NewWindow	boolean	1.2		FALSE	FALSE					
+Type	name	2,0		NEPRAVDA	NEPRAVDA	Action				
+S	name	2,0		PRAVDA	NEPRAVDA	Launch				
+Next	array;dictionary	1,2		NEPRAVDA	NEPRAVDA					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
+F	dictionary;string	1,1		PRAVDA	NEPRAVDA					[FileSpecification];[]
+Win	dictionary	1,1	2,0	NEPRAVDA	NEPRAVDA					[MicrosoftWindowsLaunchParam]
+Mac		1,1	2,0	NEPRAVDA	NEPRAVDA					
+Unix		1,1	2,0	NEPRAVDA	NEPRAVDA					
+NewWindow	boolean	1,2		NEPRAVDA	NEPRAVDA					

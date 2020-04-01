@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.5		FALSE	FALSE	Action				
-S	name	1.5		TRUE	FALSE	SetOCGState				
-Next	array;dictionary	1.2		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
-State	array	1.5		TRUE	FALSE			ON;OFF;Toggle		[]
-PreserveRB	boolean	1.5		FALSE	FALSE		TRUE			
+Type	name	1,5		NEPRAVDA	NEPRAVDA	Action				
+S	name	1,5		PRAVDA	NEPRAVDA	SetOCGState				
+Next	array;dictionary	1,2		NEPRAVDA	NEPRAVDA					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
+State	array	1,5		PRAVDA	NEPRAVDA			ON;OFF;Toggle		[]
+PreserveRB	boolean	1,5		NEPRAVDA	NEPRAVDA		PRAVDA			

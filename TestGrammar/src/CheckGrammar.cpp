@@ -29,6 +29,9 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
         std::vector<std::string> vc = data[i];
         // does link exists ?
         // we have to parse pattern [lnk1,lnk2];[lnk3,lnk4];[]
+        //if (vc[0] == "*") {
+        //  ofs << "* in" << gfile << std::endl;
+        //}
         if (vc[10] != "") {
           std::vector<std::string> links = split(vc[10], ';');
           for (auto type_link : links) {

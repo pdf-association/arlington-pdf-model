@@ -1,23 +1,23 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.0		TRUE	FALSE	FontDescriptor				
-FontName	name	1.0		TRUE	FALSE					
-FontFamily	string	1.5		FALSE	FALSE					
-FontStretch	name	1.5		FALSE	FALSE			UltraCondensed;ExtraCondensed;Condensed;SemiCondensed;Normal;SemiExpanded;Expanded;ExtraExpanded;UltraExpanded		
-FontWeight	number	1.5		FALSE	FALSE			100;200;300;400;500;600;700;800;900		
-Flags	integer	1.0		TRUE	FALSE					
-FontBBox	rectangle	1.0		TRUE	FALSE				Optional for Type 3 fonts	
-ItalicAngle	number	1.0		TRUE	FALSE					
-Ascent	number	1.0		TRUE	FALSE				Optional for Type 3 fonts	
-Descent	number	1.0		TRUE	FALSE			value<0	Optional for Type 3 fonts	
-Leading	number	1.0		FALSE	FALSE		0			
-CapHeight	number	1.0		FALSE	FALSE					
-XHeight	number	1.0		FALSE	FALSE		0			
-StemV	number	1.0		TRUE	FALSE				Optional for Type 3 fonts	
-StemH	number	1.0		FALSE	FALSE		0			
-AvgWidth	number	1.0		FALSE	FALSE		0			
-MaxWidth	number	1.0		FALSE	FALSE		0			
-MissingWidth	number	1.0		FALSE	FALSE		0			
-FontFile	stream	1.0		FALSE	FALSE					[]
-FontFile2	stream	1.1		FALSE	FALSE					[]
-FontFile3	stream	1.2		FALSE	FALSE					[]
-CharSet	string	1.1	2.0	FALSE	FALSE					
+Type	name	1,0		PRAVDA	NEPRAVDA	FontDescriptor				
+FontName	name	1,0		PRAVDA	NEPRAVDA					
+FontFamily	string	1,5		NEPRAVDA	NEPRAVDA					
+FontStretch	name	1,5		NEPRAVDA	NEPRAVDA			UltraCondensed;ExtraCondensed;Condensed;SemiCondensed;Normal;SemiExpanded;Expanded;ExtraExpanded;UltraExpanded		
+FontWeight	number	1,5		NEPRAVDA	NEPRAVDA			100;200;300;400;500;600;700;800;900		
+Flags	integer	1,0		PRAVDA	NEPRAVDA					
+FontBBox	rectangle	1,0		PRAVDA	NEPRAVDA				Optional for Type 3 fonts	
+ItalicAngle	number	1,0		PRAVDA	NEPRAVDA					
+Ascent	number	1,0		PRAVDA	NEPRAVDA				Optional for Type 3 fonts	
+Descent	number	1,0		PRAVDA	NEPRAVDA			value<0	Optional for Type 3 fonts	
+Leading	number	1,0		NEPRAVDA	NEPRAVDA		0			
+CapHeight	number	1,0		NEPRAVDA	NEPRAVDA					
+XHeight	number	1,0		NEPRAVDA	NEPRAVDA		0			
+StemV	number	1,0		PRAVDA	NEPRAVDA				Optional for Type 3 fonts	
+StemH	number	1,0		NEPRAVDA	NEPRAVDA		0			
+AvgWidth	number	1,0		NEPRAVDA	NEPRAVDA		0			
+MaxWidth	number	1,0		NEPRAVDA	NEPRAVDA		0			
+MissingWidth	number	1,0		NEPRAVDA	NEPRAVDA		0			
+FontFile	stream	1,0		NEPRAVDA	NEPRAVDA					[]
+FontFile2	stream	1,1		NEPRAVDA	NEPRAVDA					[]
+FontFile3	stream	1,2		NEPRAVDA	NEPRAVDA					[]
+CharSet	string	1,1	2,0	NEPRAVDA	NEPRAVDA					

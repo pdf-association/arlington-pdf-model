@@ -1,10 +1,10 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Start	various	1.2	2.0	FALSE	FALSE					
-Duration	various	1.2	2.0	FALSE	FALSE					
-Rate	number	1.2	2.0	FALSE	FALSE		1.0			
-Volume	number	1.2	2.0	FALSE	FALSE		1.0			
-ShowControls	boolean	1.2	2.0	FALSE	FALSE		FALSE			
-Mode	name	1.2	2.0	FALSE	FALSE		Once	Once;Open;Repeat;Palindrome		
-Synchronous	boolean	1.2	2.0	FALSE	FALSE		FALSE			
-FWScale	array	1.2	2.0	FALSE	FALSE					[]
-FWPosition	array	1.2	2.0	FALSE	FALSE		[0.5 0.5]			[]
+Start	various	1,2	2,0	NEPRAVDA	NEPRAVDA					
+Duration	various	1,2	2,0	NEPRAVDA	NEPRAVDA					
+Rate	number	1,2	2,0	NEPRAVDA	NEPRAVDA		1,0			
+Volume	number	1,2	2,0	NEPRAVDA	NEPRAVDA		1,0			
+ShowControls	boolean	1,2	2,0	NEPRAVDA	NEPRAVDA		NEPRAVDA			
+Mode	name	1,2	2,0	NEPRAVDA	NEPRAVDA		Once	Once;Open;Repeat;Palindrome		
+Synchronous	boolean	1,2	2,0	NEPRAVDA	NEPRAVDA		NEPRAVDA			
+FWScale	array	1,2	2,0	NEPRAVDA	NEPRAVDA					[]
+FWPosition	array	1,2	2,0	NEPRAVDA	NEPRAVDA		[0.5 0.5]			[]

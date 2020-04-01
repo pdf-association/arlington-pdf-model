@@ -1,30 +1,30 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.2		FALSE	FALSE	ExtGState				
-LW	number	1.3		FALSE	FALSE					
-LC	integer	1.3		FALSE	FALSE					
-LJ	integer	1.3		FALSE	FALSE					
-ML	number	1.3		FALSE	FALSE					
-D	array	1.3		FALSE	FALSE					[]
-RI	name	1.3		FALSE	FALSE					
-OP	boolean	1.2		FALSE	FALSE					
-op	boolean	1.3		FALSE	FALSE					
-OPM	integer	1.3		FALSE	FALSE					
-Font	array	1.3		FALSE	FALSE					[]
-BG	dictionary;stream	1.2		FALSE	FALSE					[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]
-BG2	dictionary;name;stream	1.3		FALSE	FALSE					[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]
-UCR	dictionary;stream	1.2		FALSE	FALSE					[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]
-UCR2	dictionary;name;stream	1.3		FALSE	FALSE					[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]
-TR	array;dictionary;name;stream	1.2	2.0	FALSE	FALSE					[ArrayOfFunctions];[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]
-TR2	dictionary;name;stream	1.3		FALSE	FALSE					[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]
-HT	dictionary;name;stream	1.2		FALSE	FALSE					[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]
-FL	number	1.3		FALSE	FALSE					
-SM	number	1.3		FALSE	FALSE					
-SA	boolean	1.2		FALSE	FALSE					
-BM	name	1.4		FALSE	FALSE					
-SMask	dictionary;name	1.4		FALSE	FALSE					[];[]
-CA	number	1.4		FALSE	FALSE					
-ca	number	1.4		FALSE	FALSE					
-AIS	boolean	1.4		FALSE	FALSE					
-TK	boolean	1.4		FALSE	FALSE					
-UseBlackPtComp	name	2.0		FALSE	FALSE		Default	OFF;ON:Default		
-HTO	array	2.0		FALSE	FALSE					
+Type	name	1,2		NEPRAVDA	NEPRAVDA	ExtGState				
+LW	number	1,3		NEPRAVDA	NEPRAVDA					
+LC	integer	1,3		NEPRAVDA	NEPRAVDA					
+LJ	integer	1,3		NEPRAVDA	NEPRAVDA					
+ML	number	1,3		NEPRAVDA	NEPRAVDA					
+D	array	1,3		NEPRAVDA	NEPRAVDA					[]
+RI	name	1,3		NEPRAVDA	NEPRAVDA					
+OP	boolean	1,2		NEPRAVDA	NEPRAVDA					
+op	boolean	1,3		NEPRAVDA	NEPRAVDA					
+OPM	integer	1,3		NEPRAVDA	NEPRAVDA					
+Font	array	1,3		NEPRAVDA	NEPRAVDA					[]
+BG	dictionary;stream	1,2		NEPRAVDA	NEPRAVDA					[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]
+BG2	dictionary;name;stream	1,3		NEPRAVDA	NEPRAVDA					[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]
+UCR	dictionary;stream	1,2		NEPRAVDA	NEPRAVDA					[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]
+UCR2	dictionary;name;stream	1,3		NEPRAVDA	NEPRAVDA					[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]
+TR	array;dictionary;name;stream	1,2	2,0	NEPRAVDA	NEPRAVDA					[ArrayOfFunctions];[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]
+TR2	dictionary;name;stream	1,3		NEPRAVDA	NEPRAVDA					[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]
+HT	dictionary;name;stream	1,2		NEPRAVDA	NEPRAVDA					[HalftoneType1];[];[HalftoneType6,HalftoneType10,HalftoneType16]
+FL	number	1,3		NEPRAVDA	NEPRAVDA					
+SM	number	1,3		NEPRAVDA	NEPRAVDA					
+SA	boolean	1,2		NEPRAVDA	NEPRAVDA					
+BM	name	1,4		NEPRAVDA	NEPRAVDA					
+SMask	dictionary;name	1,4		NEPRAVDA	NEPRAVDA					[];[]
+CA	number	1,4		NEPRAVDA	NEPRAVDA					
+ca	number	1,4		NEPRAVDA	NEPRAVDA					
+AIS	boolean	1,4		NEPRAVDA	NEPRAVDA					
+TK	boolean	1,4		NEPRAVDA	NEPRAVDA					
+UseBlackPtComp	name	2,0		NEPRAVDA	NEPRAVDA		Default	OFF;ON:Default		
+HTO	array	2,0		NEPRAVDA	NEPRAVDA					

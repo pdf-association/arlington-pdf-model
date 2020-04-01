@@ -1,18 +1,18 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Placement	name	1.4		FALSE	FALSE			Block;Inline;Before;Start;End	not inheritable	
-WritingMode	name	1.4		FALSE	FALSE		LrTb	LrTb;RlTb;tbRl;TbLr;LrBt;RlBt;BtRl;BtLr	inheritable	
-BackgroundColor	array	1.5		FALSE	FALSE			<0,1>	not inheritable	[]
-BorderColor	array	1.5		FALSE	FALSE			<0,1>	inheritable	[]
-BorderStyle	array;name	1.5		FALSE	FALSE		None	None;Hidden;Dotted;Dashed;Solid;Double;Groove;Ridge;Inset;Outset	not inheritable	[];[]
-BorderThickness	array;number	1.5		FALSE	FALSE		0		inheritable	[];[]
-Padding	array;number	1.5		FALSE	FALSE		0		not inheritable	[];[]
-Color	array	1.5		FALSE	FALSE				inheritable	[]
-BaselineShift	number	1.4		FALSE	FALSE		0		inheritable	
-LineHeight	number;name	1.4		FALSE	FALSE		Normal	Normal;Auto	inheritable	
-TextPosition	name	2.0		FALSE	FALSE		Normal	Sup;Sub;Normal	inheritable	
-TextDecorationColor	array	1.5		FALSE	FALSE				inheritable	[]
-TextDecorationThickness	number	1.5		FALSE	FALSE				inheritable	
-TextDecorationType	name	1.4		FALSE	FALSE		None	None;Underline;Overline;LineThrough	inheritable	
-RubyAlign	name	1.5		FALSE	FALSE		Distribute	Start;Center;End;Justify;Distribute	inheritable	
-RubyPosition	name	1.5		FALSE	FALSE		Before	Before;After;Warichu;Inline	inheritable	
-GlyphOrientationVertical	number;name	1.5		FALSE	FALSE		Auto	Auto;-180;-90;0;90;180;270;360	inheritable	
+Placement	name	1,4		NEPRAVDA	NEPRAVDA			Block;Inline;Before;Start;End	not inheritable	
+WritingMode	name	1,4		NEPRAVDA	NEPRAVDA		LrTb	LrTb;RlTb;tbRl;TbLr;LrBt;RlBt;BtRl;BtLr	inheritable	
+BackgroundColor	array	1,5		NEPRAVDA	NEPRAVDA			<0,1>	not inheritable	[]
+BorderColor	array	1,5		NEPRAVDA	NEPRAVDA			<0,1>	inheritable	[]
+BorderStyle	array;name	1,5		NEPRAVDA	NEPRAVDA		None	None;Hidden;Dotted;Dashed;Solid;Double;Groove;Ridge;Inset;Outset	not inheritable	[];[]
+BorderThickness	array;number	1,5		NEPRAVDA	NEPRAVDA		0		inheritable	[];[]
+Padding	array;number	1,5		NEPRAVDA	NEPRAVDA		0		not inheritable	[];[]
+Color	array	1,5		NEPRAVDA	NEPRAVDA				inheritable	[]
+BaselineShift	number	1,4		NEPRAVDA	NEPRAVDA		0		inheritable	
+LineHeight	number;name	1,4		NEPRAVDA	NEPRAVDA		Normal	Normal;Auto	inheritable	
+TextPosition	name	2,0		NEPRAVDA	NEPRAVDA		Normal	Sup;Sub;Normal	inheritable	
+TextDecorationColor	array	1,5		NEPRAVDA	NEPRAVDA				inheritable	[]
+TextDecorationThickness	number	1,5		NEPRAVDA	NEPRAVDA				inheritable	
+TextDecorationType	name	1,4		NEPRAVDA	NEPRAVDA		None	None;Underline;Overline;LineThrough	inheritable	
+RubyAlign	name	1,5		NEPRAVDA	NEPRAVDA		Distribute	Start;Center;End;Justify;Distribute	inheritable	
+RubyPosition	name	1,5		NEPRAVDA	NEPRAVDA		Before	Before;After;Warichu;Inline	inheritable	
+GlyphOrientationVertical	number;name	1,5		NEPRAVDA	NEPRAVDA		Auto	Auto;-180;-90;0;90;180;270;360	inheritable	

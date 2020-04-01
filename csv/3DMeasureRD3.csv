@@ -1,23 +1,23 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2.0		FALSE	FALSE	3DMeasure				
-Subtype	name	2.0		TRUE	FALSE	RD3				
-TRL	string	2.0		FALSE	FALSE					
-AP	array	2.0		TRUE	FALSE					[]
-A1	array	2.0		TRUE	FALSE					[]
-A2	array	2.0		TRUE	FALSE					[]
-N2	string	2.0		FALSE	FALSE					
-A3	array	2.0		FALSE	FALSE					[]
-A4	array	2.0		FALSE	FALSE					[]
-TP	array	2.0		TRUE	FALSE					[]
-TX	array	2.0		TRUE	FALSE					[]
-TY	array	2.0		TRUE	FALSE					[]
-EL	number	2.0		FALSE	FALSE		60			
-TS	number	2.0		FALSE	FALSE		12			
-C	array	2.0		FALSE	FALSE		[1 1 1]			[]
-V	number	2.0		TRUE	FALSE					
-U	string	2.0		TRUE	FALSE					
-P	integer	2.0		FALSE	FALSE		3			
-UT	string	2.0		FALSE	FALSE					
-SC	boolean	2.0		FALSE	FALSE		FALSE			
-R	boolean	2.0		FALSE	FALSE		TRUE			
-S	dictionary	2.0		FALSE	FALSE					[AnnotProjection]
+Type	name	2,0		NEPRAVDA	NEPRAVDA	3DMeasure				
+Subtype	name	2,0		PRAVDA	NEPRAVDA	RD3				
+TRL	string	2,0		NEPRAVDA	NEPRAVDA					
+AP	array	2,0		PRAVDA	NEPRAVDA					[]
+A1	array	2,0		PRAVDA	NEPRAVDA					[]
+A2	array	2,0		PRAVDA	NEPRAVDA					[]
+N2	string	2,0		NEPRAVDA	NEPRAVDA					
+A3	array	2,0		NEPRAVDA	NEPRAVDA					[]
+A4	array	2,0		NEPRAVDA	NEPRAVDA					[]
+TP	array	2,0		PRAVDA	NEPRAVDA					[]
+TX	array	2,0		PRAVDA	NEPRAVDA					[]
+TY	array	2,0		PRAVDA	NEPRAVDA					[]
+EL	number	2,0		NEPRAVDA	NEPRAVDA		60			
+TS	number	2,0		NEPRAVDA	NEPRAVDA		12			
+C	array	2,0		NEPRAVDA	NEPRAVDA		[1 1 1]			[]
+V	number	2,0		PRAVDA	NEPRAVDA					
+U	string	2,0		PRAVDA	NEPRAVDA					
+P	integer	2,0		NEPRAVDA	NEPRAVDA		3			
+UT	string	2,0		NEPRAVDA	NEPRAVDA					
+SC	boolean	2,0		NEPRAVDA	NEPRAVDA		NEPRAVDA			
+R	boolean	2,0		NEPRAVDA	NEPRAVDA		PRAVDA			
+S	dictionary	2,0		NEPRAVDA	NEPRAVDA					[AnnotProjection]

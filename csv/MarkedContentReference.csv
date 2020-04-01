@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.3		TRUE	FALSE	MCR				
-Pg	dictionary	1.3		FALSE	TRUE					[]
-Stm	stream	1.3		FALSE	TRUE					[]
-StmOwn	any	1.3		FALSE	TRUE					
-MCID	integer	1.3		TRUE	FALSE					
+Type	name	1,3		PRAVDA	NEPRAVDA	MCR				
+Pg	dictionary	1,3		NEPRAVDA	PRAVDA					[]
+Stm	stream	1,3		NEPRAVDA	PRAVDA					[]
+StmOwn	any	1,3		NEPRAVDA	PRAVDA					
+MCID	integer	1,3		PRAVDA	NEPRAVDA					

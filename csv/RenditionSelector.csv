@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.5		FALSE	FALSE	Rendition				
-S	name	1.5		TRUE	FALSE	SR				
-N	string	1.5		FALSE	FALSE					
-MH	dictionary	1.5		FALSE	FALSE					[RenditionMH]
-BE	dictionary	1.5		FALSE	FALSE					[RenditionBE]
-R	array	1.5		TRUE	FALSE					[RenditionSelector,RenditionMedia]
+Type	name	1,5		NEPRAVDA	NEPRAVDA	Rendition				
+S	name	1,5		PRAVDA	NEPRAVDA	SR				
+N	string	1,5		NEPRAVDA	NEPRAVDA					
+MH	dictionary	1,5		NEPRAVDA	NEPRAVDA					[RenditionMH]
+BE	dictionary	1,5		NEPRAVDA	NEPRAVDA					[RenditionBE]
+R	array	1,5		PRAVDA	NEPRAVDA					[RenditionSelector,RenditionMedia]

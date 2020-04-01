@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2.0		FALSE	FALSE	Action				
-S	name	2.0		TRUE	FALSE	RichMediaExecute				
-Next	array;dictionary	1.2		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
-TA	dictionary	2.0		TRUE	TRUE					[AnnotRichMedia]
-TI	dictionary	2.0		FALSE	TRUE					[RichMediaInstances]
-CMD	dictionary	2.0		TRUE	FALSE					[RichMediaCommand]
+Type	name	2,0		NEPRAVDA	NEPRAVDA	Action				
+S	name	2,0		PRAVDA	NEPRAVDA	RichMediaExecute				
+Next	array;dictionary	1,2		NEPRAVDA	NEPRAVDA					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
+TA	dictionary	2,0		PRAVDA	PRAVDA					[AnnotRichMedia]
+TI	dictionary	2,0		NEPRAVDA	PRAVDA					[RichMediaInstances]
+CMD	dictionary	2,0		PRAVDA	NEPRAVDA					[RichMediaCommand]

@@ -118,20 +118,28 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     // - each dictionary, array etc.. is linked
     // - each link actuall exists
     if (vc[10] != "") {
-      if (links.size() != types.size())
+       if (links.size() != types.size())
         report_stream << "Wrong # of types vs. # of links " << file_name << "::" << vc[0] << std::endl;
       for (auto link_pos = 0; link_pos < links.size(); link_pos++) {
-        if (!std::regex_match(links[link_pos], regex))
+        if (!std::regex_match(links[link_pos], regex)) {
           report_stream << "Wrong pattern in links " << file_name << "::" << vc[0] << std::endl;
+        }
         else {
-          //rt - iba nejake typy
-          if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
-            (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
-              || types[link_pos] == "NAME TREE" /*|| types[link_pos] == "STREAM"
-              || types[link_pos] == "ARRAY"*/))
-            report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
+          //if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
+          //  (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
+          //    || types[link_pos] == "NAME TREE" /*|| types[link_pos] == "STREAM"
+          //    || types[link_pos] == "ARRAY"*/))
+          //  report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
 
           std::vector<std::string> direct_links = split(links[link_pos].substr(1, links[link_pos].size()-2), ',');
+
+          // vyberieme vsetky linky ktore su multiple - cize sa budeme musiet rozhodovat ktory pouzijeme na validaciu
+          //if (direct_links.size()>1)
+          //  for (auto lnk : direct_links)
+          //    if (lnk != "") 
+          //      report_stream << lnk << std::endl;
+
+
           for (auto lnk:direct_links)
             if (lnk != "" ) {
               std::string new_name = get_path_dir(file_name);
@@ -139,7 +147,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
               new_name += lnk;
               new_name += ".csv";
               if (!file_exists(new_name))
-                report_stream << "Link doesn't exist:" << lnk << " in:" << file_name << "::" << vc[0] << std::endl;
+               report_stream << "Link doesn't exist:" << lnk << " in:" << file_name << "::" << vc[0] << std::endl;
             }
         }
       }

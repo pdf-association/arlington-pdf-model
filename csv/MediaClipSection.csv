@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.5		FALSE	FALSE	MediaClip				
-S	name	1.5		TRUE	FALSE	MCS				
-N	string	1.5		FALSE	FALSE					
-D	dictionary	1.5		TRUE	FALSE					[FileSpecification]
-Alt	array	1.5		FALSE	FALSE					[]
-MH	dictionary	1.5		FALSE	FALSE					[MediaClipSectionMH]
-BE	dictionary	1.5		FALSE	FALSE					[MediaClipSectionBE]
+Type	name	1,5		NEPRAVDA	NEPRAVDA	MediaClip				
+S	name	1,5		PRAVDA	NEPRAVDA	MCS				
+N	string	1,5		NEPRAVDA	NEPRAVDA					
+D	dictionary	1,5		PRAVDA	NEPRAVDA					[FileSpecification]
+Alt	array	1,5		NEPRAVDA	NEPRAVDA					[]
+MH	dictionary	1,5		NEPRAVDA	NEPRAVDA					[MediaClipSectionMHBE]
+BE	dictionary	1,5		NEPRAVDA	NEPRAVDA					[MediaClipSectionMHBE]

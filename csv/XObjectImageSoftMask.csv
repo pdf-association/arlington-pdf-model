@@ -1,12 +1,12 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.0		FALSE	FALSE	XObject				
-Subtype	name	1.0		TRUE	FALSE	Image				
-Width	integer	1.0		TRUE	FALSE					
-Height	integer	1.0		TRUE	FALSE					
-ColorSpace	array;name	1.0		TRUE	FALSE					[];[]
-BitsPerComponent	integer	1.0		TRUE	FALSE					
-ImageMask	boolean	1.0		FALSE	FALSE		FALSE			
-Decode	array	1.0		FALSE	FALSE					[]
-Interpolate	boolean	1.0		FALSE	FALSE		FALSE			
-SMaskInData	integer	1.5		FALSE	FALSE					
-Matte	array	1.4		FALSE	FALSE					[]
+Type	name	1,0		NEPRAVDA	NEPRAVDA	XObject				
+Subtype	name	1,0		PRAVDA	NEPRAVDA	Image				
+Width	integer	1,0		PRAVDA	NEPRAVDA					
+Height	integer	1,0		PRAVDA	NEPRAVDA					
+ColorSpace	array;name	1,0		PRAVDA	NEPRAVDA					[];[]
+BitsPerComponent	integer	1,0		PRAVDA	NEPRAVDA					
+ImageMask	boolean	1,0		NEPRAVDA	NEPRAVDA		NEPRAVDA			
+Decode	array	1,0		NEPRAVDA	NEPRAVDA					[]
+Interpolate	boolean	1,0		NEPRAVDA	NEPRAVDA		NEPRAVDA			
+SMaskInData	integer	1,5		NEPRAVDA	NEPRAVDA					
+Matte	array	1,4		NEPRAVDA	NEPRAVDA					[]
