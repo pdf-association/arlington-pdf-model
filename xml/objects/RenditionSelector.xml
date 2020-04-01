@@ -69,7 +69,11 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>RenditionDecision</VALIDATE>
+            <VALIDATE>RenditionSelector</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>RenditionMedia</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>

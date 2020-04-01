@@ -29,7 +29,11 @@
       <NAME>Schema</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>file specification</TYPE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>FileSpecification</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>string</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

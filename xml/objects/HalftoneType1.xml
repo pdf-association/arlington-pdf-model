@@ -63,7 +63,29 @@
    </ENTRY>
    <ENTRY>
       <NAME>SpotFunction</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfFunctions</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>FunctionType2</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>FunctionType3</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>stream</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>stream</TYPE>
+         </VALUE>
+      </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
       <SINCEVERSION>1.2</SINCEVERSION>
@@ -86,10 +108,17 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>FunctionDecision</VALIDATE>
+            <VALIDATE>FunctionType2</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>FunctionType3</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>name</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>stream</TYPE>
          </VALUE>
          <VALUE>
             <TYPE>stream</TYPE>

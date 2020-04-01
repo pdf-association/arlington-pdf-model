@@ -68,7 +68,7 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>Resources</VALIDATE>
+            <VALIDATE>Resource</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -178,7 +178,16 @@
    </ENTRY>
    <ENTRY>
       <NAME>OC</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>OptContentGroup</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>OptContentMembership</VALIDATE>
+         </VALUE>
+      </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
       <SINCEVERSION>1.5</SINCEVERSION>
@@ -201,7 +210,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfFileSpecifications</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
