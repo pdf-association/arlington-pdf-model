@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-R	name	1,6		PRAVDA	NEPRAVDA			P;C		
-N	string	1,6		NEPRAVDA	NEPRAVDA					
-P	integer;string	1,6		NEPRAVDA	NEPRAVDA					
-A	integer;string	1,6		NEPRAVDA	NEPRAVDA					
-T	dictionary	1,6		NEPRAVDA	NEPRAVDA					[Target]
+R	name	1.6		TRUE	FALSE			P;C		
+N	string	1.6		FALSE	FALSE					
+P	integer;string	1.6		FALSE	FALSE					
+A	integer;string	1.6		FALSE	FALSE					
+T	dictionary	1.6		FALSE	FALSE					[Target]

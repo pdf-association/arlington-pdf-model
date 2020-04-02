@@ -1,20 +1,20 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	note
-Type	name	1,0		NEPRAVDA	NEPRAVDA	XObject					
-Subtype	name	1,0		PRAVDA	NEPRAVDA	Form					
-FormType	integer	1,0		NEPRAVDA	NEPRAVDA	1		1			
-BBox	rectangle	1,0		PRAVDA	NEPRAVDA						
-Matrix	array	1,0		NEPRAVDA	NEPRAVDA		[1 0 0 1 0 0]			[]	
-Resources	dictionary	1,2		NEPRAVDA	NEPRAVDA					[Resource]	
-Group	dictionary	1,4		NEPRAVDA	NEPRAVDA					[Group]	
-Ref	dictionary	1,4		NEPRAVDA	NEPRAVDA					[Reference]	
-Metadata	stream	1,4		NEPRAVDA	NEPRAVDA					[]	
-PieceInfo	dictionary	1,3		NEPRAVDA	NEPRAVDA					[PagePiece]	
-LastModified	date	1,3		NEPRAVDA	NEPRAVDA				IsRequired=>PieceInfoIsPresent		
-StructParent	integer	1,3		NEPRAVDA	NEPRAVDA						
-StructParents	integer	1,3		NEPRAVDA	NEPRAVDA						
-OPI	dictionary	1,2	2,0	NEPRAVDA	NEPRAVDA					[OPIVersion]	
-OC	dictionary	1,5		NEPRAVDA	NEPRAVDA					[OptContentGroup,OptContentMembership]	*
-Name	name	1,0	2,0	NEPRAVDA	NEPRAVDA						
-AF	array;dictionary	2,0		NEPRAVDA	NEPRAVDA					[ArrayOfFileSpecifications];[FileSpecification]	*
-Measure	dictionary	2,0		NEPRAVDA	NEPRAVDA					[Measure]	
-PtData	dictionary	2,0		NEPRAVDA	NEPRAVDA					[PointData]	
+Type	name	1.0		FALSE	FALSE	XObject					
+Subtype	name	1.0		TRUE	FALSE	Form					
+FormType	integer	1.0		FALSE	FALSE	1		1			
+BBox	rectangle	1.0		TRUE	FALSE						
+Matrix	array	1.0		FALSE	FALSE		[1 0 0 1 0 0]			[]	
+Resources	dictionary	1.2		FALSE	FALSE					[Resource]	
+Group	dictionary	1.4		FALSE	FALSE					[Group]	
+Ref	dictionary	1.4		FALSE	FALSE					[Reference]	
+Metadata	stream	1.4		FALSE	FALSE					[]	
+PieceInfo	dictionary	1.3		FALSE	FALSE					[PagePiece]	
+LastModified	date	1.3		FALSE	FALSE				IsRequired=>PieceInfoIsPresent		
+StructParent	integer	1.3		FALSE	FALSE						
+StructParents	integer	1.3		FALSE	FALSE						
+OPI	dictionary	1.2	2.0	FALSE	FALSE					[OPIVersion]	
+OC	dictionary	1.5		FALSE	FALSE					[OptContentGroup,OptContentMembership]	*
+Name	name	1.0	2.0	FALSE	FALSE						
+AF	array;dictionary	2.0		FALSE	FALSE					[ArrayOfFileSpecifications];[FileSpecification]	*
+Measure	dictionary	2.0		FALSE	FALSE					[Measure]	
+PtData	dictionary	2.0		FALSE	FALSE					[PointData]	

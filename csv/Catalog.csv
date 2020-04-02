@@ -1,33 +1,33 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1,0		PRAVDA	NEPRAVDA	Catalog					
-Version	name	1,4		NEPRAVDA	NEPRAVDA			1.0;1.1;1.2;1.3;1.4;1.5;1.6;1.7;2.0			
-Extension	dictionary	1,0		NEPRAVDA	NEPRAVDA					[Extensions]	
-Pages	dictionary	1,0		PRAVDA	PRAVDA					[PageTreeNodeRoot]	
-PageLabels	number tree	1,3		NEPRAVDA	NEPRAVDA					[PageLabel]	
-Names	dictionary	1,2		NEPRAVDA	NEPRAVDA					[Name]	
-Dests	dictionary	1,1		NEPRAVDA	PRAVDA					[]	link?
-ViewerPrefrences	dictionary	1,2		NEPRAVDA	NEPRAVDA					[ViewerPrefrences]	
-PageLayout	name	1,0		NEPRAVDA	NEPRAVDA		SinglePage	SinglePage;OneColumn;TwoColumnLeft;TwoColumnRight;TwoPageLeft;TwoPageRight			
-PageMode	name	1,0		NEPRAVDA	NEPRAVDA		UseNone	UseNone;UseOutlines;UseThumbs;FullScreen;UseOC;UseAttachements			
-Outlines	dictionary	1,0		NEPRAVDA	PRAVDA					[Outline]	
-Threads	array	1,1		NEPRAVDA	PRAVDA					[ArrayOfThreads]	
-OpenAction	array;dictionary	1,1		NEPRAVDA	NEPRAVDA					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
-AA	dictionary	1,4		NEPRAVDA	NEPRAVDA					[AddActionCatalog]	
-URI	dictionary	1,1		NEPRAVDA	NEPRAVDA					[ActionURI]	
-AcroForm	dictionary	1,2		NEPRAVDA	NEPRAVDA					[InteractiveForm]	
-Metadata	stream	1,4		NEPRAVDA	PRAVDA					[Metadata]	
-StructTreeRoot	dictionary	1,3		NEPRAVDA	NEPRAVDA					[StructTreeRoot]	
-MarkInfo	dictionary	1,4		NEPRAVDA	NEPRAVDA					[MarkInfo]	
-Lang	string	1,4		NEPRAVDA	NEPRAVDA						text string
-SpiderInfo	dictionary	1,3		NEPRAVDA	NEPRAVDA					[WebCaptureInfo]	
-OutputIntents	array	1,4		NEPRAVDA	NEPRAVDA					[ArrayOfOutputIntents]	
-PieceInfo	dictionary	1,4		NEPRAVDA	NEPRAVDA					[PagePiece]	
-OCProperties	dictionary	1,5		NEPRAVDA	NEPRAVDA					[OptContentProperties]	
-Perms	dictionary	1,5		NEPRAVDA	NEPRAVDA					[Permissions]	
-Legal	dictionary	1,5		NEPRAVDA	NEPRAVDA					[LegalAttestation]	
-Requirements	array	1,7		NEPRAVDA	NEPRAVDA					[ArrayOfRequirements]	
-Collection	dictionary	1,7		NEPRAVDA	NEPRAVDA					[Collection]	
-NeedsRendering	boolean	1,0		NEPRAVDA	NEPRAVDA		NEPRAVDA				
-DSS	dictionary	2,0		NEPRAVDA	NEPRAVDA					[DSS]	
-AF	array	2,0		NEPRAVDA	NEPRAVDA					[ArrayOfFileSpecifications]	
-DPartRoot	dictionary	2,0		NEPRAVDA	NEPRAVDA					[DPartRoot]	
+Type	name	1.0		TRUE	FALSE	Catalog					
+Version	name	1.4		FALSE	FALSE			1.0;1.1;1.2;1.3;1.4;1.5;1.6;1.7;2.0			
+Extension	dictionary	1.0		FALSE	FALSE					[Extensions]	
+Pages	dictionary	1.0		TRUE	TRUE					[PageTreeNodeRoot]	
+PageLabels	number tree	1.3		FALSE	FALSE					[PageLabel]	
+Names	dictionary	1.2		FALSE	FALSE					[Name]	
+Dests	dictionary	1.1		FALSE	TRUE					[]	link?
+ViewerPrefrences	dictionary	1.2		FALSE	FALSE					[ViewerPrefrences]	
+PageLayout	name	1.0		FALSE	FALSE		SinglePage	SinglePage;OneColumn;TwoColumnLeft;TwoColumnRight;TwoPageLeft;TwoPageRight			
+PageMode	name	1.0		FALSE	FALSE		UseNone	UseNone;UseOutlines;UseThumbs;FullScreen;UseOC;UseAttachements			
+Outlines	dictionary	1.0		FALSE	TRUE					[Outline]	
+Threads	array	1.1		FALSE	TRUE					[ArrayOfThreads]	
+OpenAction	array;dictionary	1.1		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
+AA	dictionary	1.4		FALSE	FALSE					[AddActionCatalog]	
+URI	dictionary	1.1		FALSE	FALSE					[ActionURI]	
+AcroForm	dictionary	1.2		FALSE	FALSE					[InteractiveForm]	
+Metadata	stream	1.4		FALSE	TRUE					[Metadata]	
+StructTreeRoot	dictionary	1.3		FALSE	FALSE					[StructTreeRoot]	
+MarkInfo	dictionary	1.4		FALSE	FALSE					[MarkInfo]	
+Lang	string	1.4		FALSE	FALSE						text string
+SpiderInfo	dictionary	1.3		FALSE	FALSE					[WebCaptureInfo]	
+OutputIntents	array	1.4		FALSE	FALSE					[ArrayOfOutputIntents]	
+PieceInfo	dictionary	1.4		FALSE	FALSE					[PagePiece]	
+OCProperties	dictionary	1.5		FALSE	FALSE					[OptContentProperties]	
+Perms	dictionary	1.5		FALSE	FALSE					[Permissions]	
+Legal	dictionary	1.5		FALSE	FALSE					[LegalAttestation]	
+Requirements	array	1.7		FALSE	FALSE					[ArrayOfRequirements]	
+Collection	dictionary	1.7		FALSE	FALSE					[Collection]	
+NeedsRendering	boolean	1.0		FALSE	FALSE		FALSE				
+DSS	dictionary	2.0		FALSE	FALSE					[DSS]	
+AF	array	2.0		FALSE	FALSE					[ArrayOfFileSpecifications]	
+DPartRoot	dictionary	2.0		FALSE	FALSE					[DPartRoot]	

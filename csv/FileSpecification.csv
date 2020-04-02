@@ -1,17 +1,17 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,0		NEPRAVDA	NEPRAVDA	Filespec			IsRequired=>IsPresent(EF||EP||RF)	
-FS	name	1,0		NEPRAVDA	NEPRAVDA					
-F 	string	1,0		NEPRAVDA	NEPRAVDA					
-UF	string	1,7		NEPRAVDA	NEPRAVDA					
-DOS	string	1,0	2,0	NEPRAVDA	NEPRAVDA					
-Mac	string	1,0	2,0	NEPRAVDA	NEPRAVDA					
-Unix	string	1,0	2,0	NEPRAVDA	NEPRAVDA					
-ID	array	1,0		NEPRAVDA	NEPRAVDA					[]
-V	boolean	1,2		NEPRAVDA	NEPRAVDA					
-EF	dictionary	1,3		NEPRAVDA	NEPRAVDA					[EmbeddedFileStream]
-RF	dictionary	1,3		NEPRAVDA	NEPRAVDA					[]
-Desc	string	1,6		NEPRAVDA	NEPRAVDA					
-CI	dictionary	1,7		NEPRAVDA	NEPRAVDA					[CollectionItem]
-Thumb	stream	2,0		NEPRAVDA	NEPRAVDA					[]
-AFRelationship	name	2,0		NEPRAVDA	NEPRAVDA					
-EP	dictionary	2,0		NEPRAVDA	NEPRAVDA					[EncryptedPayload]
+Type	name	1.0		FALSE	FALSE	Filespec			IsRequired=>IsPresent(EF||EP||RF)	
+FS	name	1.0		FALSE	FALSE					
+F 	string	1.0		FALSE	FALSE					
+UF	string	1.7		FALSE	FALSE					
+DOS	string	1.0	2.0	FALSE	FALSE					
+Mac	string	1.0	2.0	FALSE	FALSE					
+Unix	string	1.0	2.0	FALSE	FALSE					
+ID	array	1.0		FALSE	FALSE					[]
+V	boolean	1.2		FALSE	FALSE					
+EF	dictionary	1.3		FALSE	FALSE					[EmbeddedFileStream]
+RF	dictionary	1.3		FALSE	FALSE					[]
+Desc	string	1.6		FALSE	FALSE					
+CI	dictionary	1.7		FALSE	FALSE					[CollectionItem]
+Thumb	stream	2.0		FALSE	FALSE					[]
+AFRelationship	name	2.0		FALSE	FALSE				Source;Data;Alternative;Supplement;EncryptedPayload;FormData;Schema;Unspecified	
+EP	dictionary	2.0		FALSE	FALSE					[EncryptedPayload]

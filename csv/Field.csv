@@ -1,11 +1,11 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-FT	name	1,2		NEPRAVDA	NEPRAVDA				Inheritable	
-Parent	dictionary	1,2		NEPRAVDA	NEPRAVDA					[Field]
-Kids	array	1,2		NEPRAVDA	NEPRAVDA					[]
-T	string	1,2		PRAVDA	NEPRAVDA					
-TU	string	1,3		NEPRAVDA	NEPRAVDA					
-TM	string	1,3		NEPRAVDA	NEPRAVDA					
-Ff	integer	1,2		NEPRAVDA	NEPRAVDA				Inheritable	
-V	various	1,2		NEPRAVDA	NEPRAVDA				Inheritable	
-DV	various	1,2		NEPRAVDA	NEPRAVDA				Inheritable	
-AA	dictionary	1,2		NEPRAVDA	NEPRAVDA					[AddActionFormField]
+FT	name	1.2		FALSE	FALSE				Inheritable	
+Parent	dictionary	1.2		FALSE	FALSE					[Field]
+Kids	array	1.2		FALSE	FALSE					[]
+T	string	1.2		TRUE	FALSE					
+TU	string	1.3		FALSE	FALSE					
+TM	string	1.3		FALSE	FALSE					
+Ff	integer	1.2		FALSE	FALSE				Inheritable	
+V	various	1.2		FALSE	FALSE				Inheritable	
+DV	various	1.2		FALSE	FALSE				Inheritable	
+AA	dictionary	1.2		FALSE	FALSE					[AddActionFormField]

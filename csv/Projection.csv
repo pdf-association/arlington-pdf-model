@@ -1,9 +1,9 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Subtype	name	1,6		PRAVDA	NEPRAVDA			O;P		
-CS	name	1,6		NEPRAVDA	NEPRAVDA		ANF	XNF;ANF		
-F	number	1,6		NEPRAVDA	NEPRAVDA					
-N	number	1,6		NEPRAVDA	NEPRAVDA		0	value>=0		
-FOV	number	1,6		NEPRAVDA	NEPRAVDA					
-PS	number;name	1,6		NEPRAVDA	NEPRAVDA					
-OS	number	1,6		NEPRAVDA	NEPRAVDA		1			
-OB	name	1,7		NEPRAVDA	NEPRAVDA		Absolute	W;H;Min;Max;Absolute		
+Subtype	name	1.6		TRUE	FALSE			O;P		
+CS	name	1.6		FALSE	FALSE		ANF	XNF;ANF		
+F	number	1.6		FALSE	FALSE					
+N	number	1.6		FALSE	FALSE		0	value>=0		
+FOV	number	1.6		FALSE	FALSE					
+PS	number;name	1.6		FALSE	FALSE					
+OS	number	1.6		FALSE	FALSE		1			
+OB	name	1.7		FALSE	FALSE		Absolute	W;H;Min;Max;Absolute		

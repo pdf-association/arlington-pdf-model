@@ -1,25 +1,25 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,0		NEPRAVDA	NEPRAVDA	XObject				
-Subtype	name	1,0		PRAVDA	NEPRAVDA	Image				
-Width	integer	1,0		PRAVDA	NEPRAVDA					
-Height	integer	1,0		PRAVDA	NEPRAVDA					
-ColorSpace	array;name	1,0		PRAVDA	NEPRAVDA					[];[]
-BitsPerComponent	integer	1,0		PRAVDA	NEPRAVDA					
-Intent	name	1,1		NEPRAVDA	NEPRAVDA					
-ImageMask	boolean	1,0		NEPRAVDA	NEPRAVDA		NEPRAVDA			
-Mask	array;stream	1,3		NEPRAVDA	NEPRAVDA					[];[]
-Decode	array	1,0		NEPRAVDA	NEPRAVDA					[]
-Interpolate	boolean	1,0		NEPRAVDA	NEPRAVDA		NEPRAVDA			
-Alternates	array	1,3		NEPRAVDA	NEPRAVDA					[ArrayOfImageAlternates]
-SMask	stream	1,4		NEPRAVDA	NEPRAVDA					[]
-SMaskInData	integer	1,5		NEPRAVDA	NEPRAVDA					
-Name	name	1,0	2,0	NEPRAVDA	NEPRAVDA					
-StructParent	integer	1,3		NEPRAVDA	NEPRAVDA				IsRequired=>ImageIsStructuralContentItem	
-ID	string	1,3		NEPRAVDA	NEPRAVDA					
-OPI	dictionary	1,2	2,0	NEPRAVDA	NEPRAVDA					[OPIVersion]
-Metadata	stream	1,4		NEPRAVDA	NEPRAVDA					[Metadata]
-OC	dictionary	1,5		NEPRAVDA	NEPRAVDA					[OptContentGroup,OptContentMembership]
-AF	array;dictionary	2,0		NEPRAVDA	NEPRAVDA					[];[FileSpecification]
-Measure	dictionary	2,0		NEPRAVDA	NEPRAVDA					[Measure]
-PtData	dictionary	2,0		NEPRAVDA	NEPRAVDA					[PointData]
-Image	integer	1,0		PRAVDA	NEPRAVDA					
+Type	name	1.0		FALSE	FALSE	XObject				
+Subtype	name	1.0		TRUE	FALSE	Image				
+Width	integer	1.0		TRUE	FALSE					
+Height	integer	1.0		TRUE	FALSE					
+ColorSpace	array;name	1.0		TRUE	FALSE					[];[]
+BitsPerComponent	integer	1.0		TRUE	FALSE					
+Intent	name	1.1		FALSE	FALSE					
+ImageMask	boolean	1.0		FALSE	FALSE		FALSE			
+Mask	array;stream	1.3		FALSE	FALSE					[];[]
+Decode	array	1.0		FALSE	FALSE					[]
+Interpolate	boolean	1.0		FALSE	FALSE		FALSE			
+Alternates	array	1.3		FALSE	FALSE					[ArrayOfImageAlternates]
+SMask	stream	1.4		FALSE	FALSE					[]
+SMaskInData	integer	1.5		FALSE	FALSE					
+Name	name	1.0	2.0	FALSE	FALSE					
+StructParent	integer	1.3		FALSE	FALSE				IsRequired=>ImageIsStructuralContentItem	
+ID	string	1.3		FALSE	FALSE					
+OPI	dictionary	1.2	2.0	FALSE	FALSE					[OPIVersion]
+Metadata	stream	1.4		FALSE	FALSE					[Metadata]
+OC	dictionary	1.5		FALSE	FALSE					[OptContentGroup,OptContentMembership]
+AF	array;dictionary	2.0		FALSE	FALSE					[];[FileSpecification]
+Measure	dictionary	2.0		FALSE	FALSE					[Measure]
+PtData	dictionary	2.0		FALSE	FALSE					[PointData]
+Image	integer	1.0		TRUE	FALSE					

@@ -1,12 +1,12 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-R	integer	1,0		NEPRAVDA	NEPRAVDA		0			
-BC	array	1,0		NEPRAVDA	NEPRAVDA					[]
-BG	array	1,0		NEPRAVDA	NEPRAVDA					[]
-CA	string	1,0		NEPRAVDA	NEPRAVDA					
-RC	string	1,0		NEPRAVDA	NEPRAVDA					
-AC	string	1,0		NEPRAVDA	NEPRAVDA					
-I	stream	1,0		NEPRAVDA	PRAVDA					[]
-RI	stream	1,0		NEPRAVDA	PRAVDA					[]
-IX	stream	1,0		NEPRAVDA	NEPRAVDA					[]
-IF	dictionary	1,0		NEPRAVDA	NEPRAVDA					[IconFit]
-TP	integer	1,0		NEPRAVDA	NEPRAVDA		0	0;1;2;3;4;5;6		
+R	integer	1.0		FALSE	FALSE		0			
+BC	array	1.0		FALSE	FALSE					[]
+BG	array	1.0		FALSE	FALSE					[]
+CA	string	1.0		FALSE	FALSE					
+RC	string	1.0		FALSE	FALSE					
+AC	string	1.0		FALSE	FALSE					
+I	stream	1.0		FALSE	TRUE					[]
+RI	stream	1.0		FALSE	TRUE					[]
+IX	stream	1.0		FALSE	FALSE					[]
+IF	dictionary	1.0		FALSE	FALSE					[IconFit]
+TP	integer	1.0		FALSE	FALSE		0	0;1;2;3;4;5;6		

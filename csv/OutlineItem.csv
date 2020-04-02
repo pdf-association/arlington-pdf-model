@@ -1,13 +1,13 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Title	string	1,0		PRAVDA	NEPRAVDA					
-Parent	dictionary	1,0		PRAVDA	PRAVDA					[OutlineItem]
-Prev	dictionary	1,0		NEPRAVDA	PRAVDA					[OutlineItem]
-Next	dictionary	1,0		NEPRAVDA	PRAVDA					[OutlineItem]
-First	dictionary	1,0		NEPRAVDA	PRAVDA					[OutlineItem]
-Last	dictionary	1,0		NEPRAVDA	PRAVDA					[OutlineItem]
-Count	integer	1,0		NEPRAVDA	NEPRAVDA					
-Dest	array;name;string	1,0		NEPRAVDA	NEPRAVDA					[];[];[]
-A	dictionary	1,1		NEPRAVDA	NEPRAVDA					[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
-SE	dictionary	1,3		NEPRAVDA	PRAVDA					[StructElem]
-C 	array	1,4		NEPRAVDA	NEPRAVDA		[0.0 0.0 0.0]			[]
-F 	integer	1,4		NEPRAVDA	NEPRAVDA		0			
+Title	string	1.0		TRUE	FALSE					
+Parent	dictionary	1.0		TRUE	TRUE					[OutlineItem]
+Prev	dictionary	1.0		FALSE	TRUE					[OutlineItem]
+Next	dictionary	1.0		FALSE	TRUE					[OutlineItem]
+First	dictionary	1.0		FALSE	TRUE					[OutlineItem]
+Last	dictionary	1.0		FALSE	TRUE					[OutlineItem]
+Count	integer	1.0		FALSE	FALSE					
+Dest	array;name;string	1.0		FALSE	FALSE					[];[];[]
+A	dictionary	1.1		FALSE	FALSE					[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
+SE	dictionary	1.3		FALSE	TRUE					[StructElem]
+C 	array	1.4		FALSE	FALSE		[0.0 0.0 0.0]			[]
+F 	integer	1.4		FALSE	FALSE		0			

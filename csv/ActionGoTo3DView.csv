@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,1		NEPRAVDA	NEPRAVDA	Action				
-S	name	1,1		PRAVDA	NEPRAVDA	GoTo3DView				
-Next	array;dictionary	1,2		NEPRAVDA	NEPRAVDA					[];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
-TA	dictionary	1,6		PRAVDA	NEPRAVDA					[Annot3D]
-V	various	1,6		PRAVDA	NEPRAVDA					
+Type	name	1.1		FALSE	FALSE	Action				
+S	name	1.1		TRUE	FALSE	GoTo3DView				
+Next	array;dictionary	1.2		FALSE	FALSE					[];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
+TA	dictionary	1.6		TRUE	FALSE					[Annot3D]
+V	various	1.6		TRUE	FALSE					

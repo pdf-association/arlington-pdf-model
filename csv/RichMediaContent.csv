@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2,0		NEPRAVDA	NEPRAVDA	RichMediaContent				
-Assets	name tree	2,0		NEPRAVDA	NEPRAVDA					[FileSpecification]
-Confiurations	array	2,0		NEPRAVDA	NEPRAVDA					[]
-Views	array	2,0		NEPRAVDA	NEPRAVDA					[]
+Type	name	2.0		FALSE	FALSE	RichMediaContent				
+Assets	name tree	2.0		FALSE	FALSE					[FileSpecification]
+Confiurations	array	2.0		FALSE	FALSE					[ArrayOfRichMediaConfiguration]
+Views	array	2.0		FALSE	FALSE					[ArrayOf3DView]

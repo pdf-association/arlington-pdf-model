@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,6		NEPRAVDA	NEPRAVDA	ReqHandler				
-S	name	1,6		PRAVDA	NEPRAVDA			JS;NoOp		
-Script	string	1,6		NEPRAVDA	NEPRAVDA					
+Type	name	1.6		FALSE	FALSE	ReqHandler				
+S	name	1.6		TRUE	FALSE			JS;NoOp		
+Script	string	1.6		FALSE	FALSE					

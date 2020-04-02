@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-N	stream;dictionary	1,2	2,0	PRAVDA	NEPRAVDA					
-R	stream;dictionary	1,2	2,0	NEPRAVDA	NEPRAVDA		@N			
-D	stream;dictionary	1,2	2,0	NEPRAVDA	NEPRAVDA		@N			
-PCM	name	1,0	2,0	NEPRAVDA	NEPRAVDA					
-SeparationColorNames	array	1,0	2,0	NEPRAVDA	NEPRAVDA					[]
-TrapRegions	array	1,0	2,0	NEPRAVDA						[]
-TrapStyles	string	1,0	2,0	NEPRAVDA						
+N	stream;dictionary	1.2	2.0	TRUE	FALSE					
+R	stream;dictionary	1.2	2.0	FALSE	FALSE		@N			
+D	stream;dictionary	1.2	2.0	FALSE	FALSE		@N			
+PCM	name	1.0	2.0	FALSE	FALSE					
+SeparationColorNames	array	1.0	2.0	FALSE	FALSE					[]
+TrapRegions	array	1.0	2.0	FALSE						[]
+TrapStyles	string	1.0	2.0	FALSE						

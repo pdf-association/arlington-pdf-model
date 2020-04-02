@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1,0		NEPRAVDA	NEPRAVDA	XObject					
-Subtype	name	1,0		PRAVDA	NEPRAVDA	Image					
-Width	integer	1,0		PRAVDA	NEPRAVDA						
-Height	integer	1,0		PRAVDA	NEPRAVDA						
-ColorSpace	array;name	1,0		PRAVDA	NEPRAVDA						
-BitsPerComponent	integer	1,0		PRAVDA	NEPRAVDA						
-Decode	array	1,0		NEPRAVDA	NEPRAVDA					[]	
+Type	name	1.0		FALSE	FALSE	XObject					
+Subtype	name	1.0		TRUE	FALSE	Image					
+Width	integer	1.0		TRUE	FALSE						
+Height	integer	1.0		TRUE	FALSE						
+ColorSpace	array;name	1.0		TRUE	FALSE						
+BitsPerComponent	integer	1.0		TRUE	FALSE						
+Decode	array	1.0		FALSE	FALSE					[]	

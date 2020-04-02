@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-V	integer	1,5		NEPRAVDA	NEPRAVDA		100			
-C	boolean	1,5		NEPRAVDA	NEPRAVDA		NEPRAVDA			
-F	integer	1,5		NEPRAVDA	NEPRAVDA		5	0;1;2;3;4;5		
-D	dictionary	1,5		NEPRAVDA	NEPRAVDA					[MediaDuration]
-A	boolean	1,5		NEPRAVDA	NEPRAVDA		PRAVDA			
-RC	number	1,5		NEPRAVDA	NEPRAVDA		1,0			
+V	integer	1.5		FALSE	FALSE		100			
+C	boolean	1.5		FALSE	FALSE		FALSE			
+F	integer	1.5		FALSE	FALSE		5	0;1;2;3;4;5		
+D	dictionary	1.5		FALSE	FALSE					[MediaDuration]
+A	boolean	1.5		FALSE	FALSE		TRUE			
+RC	number	1.5		FALSE	FALSE		1.0			

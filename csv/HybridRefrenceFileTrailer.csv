@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-XRefStm	integer	1,5	2,0	NEPRAVDA	NEPRAVDA					
-Size	integer	1,0		PRAVDA	NEPRAVDA					
-Prev	integer	1,0		NEPRAVDA	NEPRAVDA					
-Root	dictionary	1,0		PRAVDA	PRAVDA					[Catalog]
-Encrypt	dictionary	1,1		NEPRAVDA	NEPRAVDA					[Encryption]
-Info	dictionary	1,0		NEPRAVDA	PRAVDA					[DocInfo]
-ID	array	1,1		PRAVDA	NEPRAVDA					[]
+XRefStm	integer	1.5	2.0	FALSE	FALSE					
+Size	integer	1.0		TRUE	FALSE					
+Prev	integer	1.0		FALSE	FALSE					
+Root	dictionary	1.0		TRUE	TRUE					[Catalog]
+Encrypt	dictionary	1.1		FALSE	FALSE					[Encryption]
+Info	dictionary	1.0		FALSE	TRUE					[DocInfo]
+ID	array	1.1		TRUE	FALSE					[]

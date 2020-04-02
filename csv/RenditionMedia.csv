@@ -1,9 +1,9 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,5		NEPRAVDA	NEPRAVDA	Rendition				
-S	name	1,5		PRAVDA	NEPRAVDA	MR				
-N	string	1,5		NEPRAVDA	NEPRAVDA					
-MH	dictionary	1,5		NEPRAVDA	NEPRAVDA					[RenditionMH]
-BE	dictionary	1,5		NEPRAVDA	NEPRAVDA					[RenditionBE]
-C	dictionary	1,5		NEPRAVDA						[MediaClipSection,MediaClipData]
-P	dictionary	1,5		NEPRAVDA					Required=true->C is not present	[MediaPlayParameters]
-SP	dictionary	1,5		NEPRAVDA						[MediaScreenParameters]
+Type	name	1.5		FALSE	FALSE	Rendition				
+S	name	1.5		TRUE	FALSE	MR				
+N	string	1.5		FALSE	FALSE					
+MH	dictionary	1.5		FALSE	FALSE					[RenditionMH]
+BE	dictionary	1.5		FALSE	FALSE					[RenditionBE]
+C	dictionary	1.5		FALSE						[MediaClipSection,MediaClipData]
+P	dictionary	1.5		FALSE					Required=true->C is not present	[MediaPlayParameters]
+SP	dictionary	1.5		FALSE						[MediaScreenParameters]

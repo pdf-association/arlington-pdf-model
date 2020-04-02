@@ -1,9 +1,9 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,6		NEPRAVDA	NEPRAVDA	3D				
-Subtype	name	1,6		PRAVDA	NEPRAVDA			U3D;PRC		
-VA	array	1,6		NEPRAVDA	NEPRAVDA					[3DView]
-DV	dictionary;integer;name;string	1,6		NEPRAVDA	NEPRAVDA		0			[3DView];[];[];[]
-Resources	name tree	1,6		NEPRAVDA	NEPRAVDA					[]
-OnInstantiate	stream	1,6		NEPRAVDA	NEPRAVDA					[]
-AN	dictionary	1,7		NEPRAVDA	NEPRAVDA					[3DAnimationStyle]
-ColorSpace	array;name	2,0		NEPRAVDA	NEPRAVDA					[];[]
+Type	name	1.6		FALSE	FALSE	3D				
+Subtype	name	1.6		TRUE	FALSE			U3D;PRC		
+VA	array	1.6		FALSE	FALSE					[3DView]
+DV	dictionary;integer;name;string	1.6		FALSE	FALSE		0			[3DView];[];[];[]
+Resources	name tree	1.6		FALSE	FALSE					[]
+OnInstantiate	stream	1.6		FALSE	FALSE					[]
+AN	dictionary	1.7		FALSE	FALSE					[3DAnimationStyle]
+ColorSpace	array;name	2.0		FALSE	FALSE					[];[]

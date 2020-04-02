@@ -1,10 +1,10 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name			NEPRAVDA	NEPRAVDA	Pattern				
-PatternType	integer			PRAVDA	NEPRAVDA	1				
-PaintType	integer			PRAVDA	NEPRAVDA			1;2		
-TilingType	integer			PRAVDA	NEPRAVDA			1;2;3		
-BBox	rectangle			PRAVDA	NEPRAVDA					
-XStep	number			PRAVDA	NEPRAVDA					
-YStep	number			PRAVDA	NEPRAVDA					
-Resources	dictionary			PRAVDA	NEPRAVDA					[]
-Matrix	array			NEPRAVDA	NEPRAVDA					[]
+Type	name			FALSE	FALSE	Pattern				
+PatternType	integer			TRUE	FALSE	1				
+PaintType	integer			TRUE	FALSE			1;2		
+TilingType	integer			TRUE	FALSE			1;2;3		
+BBox	rectangle			TRUE	FALSE					
+XStep	number			TRUE	FALSE					
+YStep	number			TRUE	FALSE					
+Resources	dictionary			TRUE	FALSE					[]
+Matrix	array			FALSE	FALSE					[]

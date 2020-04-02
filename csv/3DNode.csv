@@ -1,9 +1,9 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,7		NEPRAVDA	NEPRAVDA	3DNode				
-N	string	1,7		PRAVDA	NEPRAVDA			U3D;PRC		
-O	number	1,7		NEPRAVDA	NEPRAVDA			<0,1>		
-V	boolean	1,7		NEPRAVDA	NEPRAVDA					
-M	array	1,7		NEPRAVDA	NEPRAVDA					[]
-Instance	dictionary	2,0		NEPRAVDA	NEPRAVDA					[RichMediaInstances]
-Data	stream;string	2,0		NEPRAVDA	NEPRAVDA					[];[]
-RM	dictionary	2,0		NEPRAVDA	NEPRAVDA					[3DRenderMode]
+Type	name	1.7		FALSE	FALSE	3DNode				
+N	string	1.7		TRUE	FALSE			U3D;PRC		
+O	number	1.7		FALSE	FALSE			<0,1>		
+V	boolean	1.7		FALSE	FALSE					
+M	array	1.7		FALSE	FALSE					[]
+Instance	dictionary	2.0		FALSE	FALSE					[RichMediaInstances]
+Data	stream;string	2.0		FALSE	FALSE					[];[]
+RM	dictionary	2.0		FALSE	FALSE					[3DRenderMode]

@@ -1,10 +1,10 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,3	2,0	NEPRAVDA	NEPRAVDA	TransformParams				
-Document	array	1,3	2,0	NEPRAVDA	NEPRAVDA					[]
-Msg	string	1,3	2,0	NEPRAVDA	NEPRAVDA					
-V	name	1,3	2,0	NEPRAVDA	NEPRAVDA		2,2			
-Annots	array	1,3	2,0	NEPRAVDA	NEPRAVDA					[]
-Form	array	1,3	2,0	NEPRAVDA	NEPRAVDA					[]
-Signature	array	1,3	2,0	NEPRAVDA	NEPRAVDA					[]
-EF	array	1,6	2,0	NEPRAVDA	NEPRAVDA					[]
-P	boolean	1,6	2,0	NEPRAVDA	NEPRAVDA		NEPRAVDA			
+Type	name	1.3	2.0	FALSE	FALSE	TransformParams				
+Document	array	1.3	2.0	FALSE	FALSE					[]
+Msg	string	1.3	2.0	FALSE	FALSE					
+V	name	1.3	2.0	FALSE	FALSE		2.2			
+Annots	array	1.3	2.0	FALSE	FALSE					[]
+Form	array	1.3	2.0	FALSE	FALSE					[]
+Signature	array	1.3	2.0	FALSE	FALSE					[]
+EF	array	1.6	2.0	FALSE	FALSE					[]
+P	boolean	1.6	2.0	FALSE	FALSE		FALSE			

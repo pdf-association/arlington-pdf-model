@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,3		NEPRAVDA	NEPRAVDA	Pattern				
-PatternType	integer	1,3		PRAVDA	NEPRAVDA	2				
-Shading	dictionary;stream	1,3		PRAVDA	NEPRAVDA					[ShadingType1,ShadingType2,ShadingType3,ShadingType5,ShadingType6];[ShadingType4,ShadingType7]
-Matrix	array	1,3		NEPRAVDA	NEPRAVDA		[1 0 0 1 0 0]			[]
-ExtGState	dictionary	1,3		NEPRAVDA	NEPRAVDA					[GraphicsStateParameter]
+Type	name	1.3		FALSE	FALSE	Pattern				
+PatternType	integer	1.3		TRUE	FALSE	2				
+Shading	dictionary;stream	1.3		TRUE	FALSE					[ShadingType1,ShadingType2,ShadingType3,ShadingType5,ShadingType6];[ShadingType4,ShadingType7]
+Matrix	array	1.3		FALSE	FALSE		[1 0 0 1 0 0]			[]
+ExtGState	dictionary	1.3		FALSE	FALSE					[GraphicsStateParameter]

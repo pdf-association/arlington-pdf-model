@@ -1,9 +1,9 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-T	string	1,1		NEPRAVDA	NEPRAVDA					
-Popup	dictionary	1,3		NEPRAVDA	NEPRAVDA					[]
-RC	stream;string	1,5		NEPRAVDA	NEPRAVDA					[];[]
-CreationDate	date	1,5		NEPRAVDA	NEPRAVDA					
-IRT	dictionary	1,5		NEPRAVDA	NEPRAVDA					[]
-Subj	string	1,5		NEPRAVDA	NEPRAVDA					
-RT	name	1,6		NEPRAVDA	NEPRAVDA		R	R;Group		
-IT	name	1,6		NEPRAVDA	NEPRAVDA					
+T	string	1.1		FALSE	FALSE					
+Popup	dictionary	1.3		FALSE	FALSE					[]
+RC	stream;string	1.5		FALSE	FALSE					[];[]
+CreationDate	date	1.5		FALSE	FALSE					
+IRT	dictionary	1.5		FALSE	FALSE					[]
+Subj	string	1.5		FALSE	FALSE					
+RT	name	1.6		FALSE	FALSE		R	R;Group		
+IT	name	1.6		FALSE	FALSE					

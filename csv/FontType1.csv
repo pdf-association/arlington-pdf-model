@@ -1,11 +1,11 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,0		PRAVDA		Font				
-Subtype	name	1,0		PRAVDA		Type1				
-Name	name	1,0	2,0	NEPRAVDA						
-BaseFont	name	1,0		PRAVDA						
-FirstChar	integer	1,0		PRAVDA						
-LastChar	integer	1,0		PRAVDA						
-Widths	array	1,0		PRAVDA						[]
-FontDescriptor	dictionary	1,0		PRAVDA						[]
-Encoding	dictionary;name	1,0		NEPRAVDA						[];[]
-ToUnicode	stream	1,2		NEPRAVDA						[]
+Type	name	1.0		TRUE		Font				
+Subtype	name	1.0		TRUE		Type1				
+Name	name	1.0	2.0	FALSE						
+BaseFont	name	1.0		TRUE						
+FirstChar	integer	1.0		TRUE						
+LastChar	integer	1.0		TRUE						
+Widths	array	1.0		TRUE						[]
+FontDescriptor	dictionary	1.0		TRUE						[]
+Encoding	dictionary;name	1.0		FALSE						[];[]
+ToUnicode	stream	1.2		FALSE						[]

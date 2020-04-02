@@ -1,13 +1,13 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2,0		NEPRAVDA	NEPRAVDA	Folder				
-ID	integer	2,0		PRAVDA	NEPRAVDA					
-Name	string	2,0		PRAVDA	NEPRAVDA					
-Parent	dictionary	2,0		NEPRAVDA	NEPRAVDA					[]
-Child	dictionary	2,0		NEPRAVDA	NEPRAVDA					[]
-Next	dictionary	2,0		NEPRAVDA	NEPRAVDA					[]
-CI	dictionary	2,0		NEPRAVDA	NEPRAVDA					[CollectionItem]
-Desc	string	2,0		NEPRAVDA	NEPRAVDA					
-CreationDate	date	2,0		NEPRAVDA	NEPRAVDA					
-ModDate	date	2,0		NEPRAVDA	NEPRAVDA					
-Thumb	stream	2,0		NEPRAVDA	NEPRAVDA					[]
-Free	array	2,0		NEPRAVDA	NEPRAVDA					[]
+Type	name	2.0		FALSE	FALSE	Folder				
+ID	integer	2.0		TRUE	FALSE					
+Name	string	2.0		TRUE	FALSE					
+Parent	dictionary	2.0		FALSE	FALSE					[]
+Child	dictionary	2.0		FALSE	FALSE					[]
+Next	dictionary	2.0		FALSE	FALSE					[]
+CI	dictionary	2.0		FALSE	FALSE					[CollectionItem]
+Desc	string	2.0		FALSE	FALSE					
+CreationDate	date	2.0		FALSE	FALSE					
+ModDate	date	2.0		FALSE	FALSE					
+Thumb	stream	2.0		FALSE	FALSE					[]
+Free	array	2.0		FALSE	FALSE					[]

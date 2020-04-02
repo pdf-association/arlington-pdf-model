@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,5		NEPRAVDA	NEPRAVDA	CryptFilter				
-CFM	name	1,5		NEPRAVDA	NEPRAVDA		None	None;V2;AESV2;AESV3		
-AuthEvent	name	1,5		NEPRAVDA	NEPRAVDA		DocOpen	DocOpen;EFOpen		
-Lenght	integer	1,5	2,0	PRAVDA	NEPRAVDA					
+Type	name	1.5		FALSE	FALSE	CryptFilter				
+CFM	name	1.5		FALSE	FALSE		None	None;V2;AESV2;AESV3		
+AuthEvent	name	1.5		FALSE	FALSE		DocOpen	DocOpen;EFOpen		
+Lenght	integer	1.5	2.0	TRUE	FALSE					

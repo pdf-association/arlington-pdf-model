@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2,0		NEPRAVDA	NEPRAVDA	ExData				
-Subtype	name	2,0		PRAVDA	NEPRAVDA	3DM				
-M3DREF	dictionary	2,0		PRAVDA	NEPRAVDA					[AnnotProjection]
+Type	name	2.0		FALSE	FALSE	ExData				
+Subtype	name	2.0		TRUE	FALSE	3DM				
+M3DREF	dictionary	2.0		TRUE	FALSE					[AnnotProjection]

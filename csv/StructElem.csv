@@ -1,20 +1,20 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,3		NEPRAVDA	NEPRAVDA	StructElem				
-S	name	1,3		PRAVDA	NEPRAVDA					
-P	dictionary	1,3		PRAVDA	PRAVDA					[]
-ID	string	1,3		NEPRAVDA	NEPRAVDA					
-Ref	array	2,0		NEPRAVDA	NEPRAVDA					[]
-Pg	dictionary	1,3		NEPRAVDA	PRAVDA					[]
-K	various	1,3		NEPRAVDA	NEPRAVDA					
-A	various	1,3		NEPRAVDA	NEPRAVDA					
-C	array;name	1,3		NEPRAVDA	NEPRAVDA					[];[]
-R	integer	1,3		NEPRAVDA	NEPRAVDA					
-T	string	1,3		NEPRAVDA	NEPRAVDA		0	value>=0		
-Lang	string	1,4		NEPRAVDA	NEPRAVDA					
-Alt	string	1,3		NEPRAVDA	NEPRAVDA					
-E	string	1,5		NEPRAVDA	NEPRAVDA					
-ActualText	string	1,4		NEPRAVDA	NEPRAVDA					
-AF	array;dictionary	2,0		NEPRAVDA	NEPRAVDA					[];[]
-NS	dictionary	2,0		NEPRAVDA	NEPRAVDA					[]
-PhoneticAlphabet	name	2,0		NEPRAVDA	NEPRAVDA					
-Phoneme	string	2,0		NEPRAVDA	NEPRAVDA					
+Type	name	1.3		FALSE	FALSE	StructElem				
+S	name	1.3		TRUE	FALSE					
+P	dictionary	1.3		TRUE	TRUE					[StructElem]
+ID	string	1.3		FALSE	FALSE					
+Ref	array	2.0		FALSE	FALSE					[ArrayOfStructElem]
+Pg	dictionary	1.3		FALSE	TRUE					[PageObject]
+K	dictionary;integer	1.3		FALSE	FALSE					[StructElem,MarkedContentReference,ObjectReference];[]
+A	array;dictionary	1.3		FALSE	FALSE					[ArrayOfAttributes];[StandardLayoutAttributes,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes]
+C	array;name	1.3		FALSE	FALSE					[];[]
+R	integer	1.3		FALSE	FALSE					
+T	string	1.3		FALSE	FALSE		0	value>=0		
+Lang	string	1.4		FALSE	FALSE					
+Alt	string	1.3		FALSE	FALSE					
+E	string	1.5		FALSE	FALSE					
+ActualText	string	1.4		FALSE	FALSE					
+AF	array;dictionary	2.0		FALSE	FALSE					[ArrayOfFileSpecifications];[FileSpecification]
+NS	dictionary	2.0		FALSE	TRUE					[Namespace]
+PhoneticAlphabet	name	2.0		FALSE	FALSE		ipa			
+Phoneme	string	2.0		FALSE	FALSE					

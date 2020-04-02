@@ -1,3 +1,3 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-S	name	1,2		PRAVDA	NEPRAVDA	ImportData				
-F	dictionary;string	1,2		PRAVDA	NEPRAVDA					[FileSpecification];[]
+S	name	1.2		TRUE	FALSE	ImportData				
+F	dictionary;string	1.2		TRUE	FALSE					[FileSpecification];[]

@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1,0		PRAVDA	NEPRAVDA	CMap				
-CMapName	name	1,0		PRAVDA	NEPRAVDA					
-CIDSystemInfo	dictionary	1,0		PRAVDA	NEPRAVDA					[CIDSystemInfo]
-WMode	integer	1,0		NEPRAVDA	NEPRAVDA					
-UseCMap	name;stream	1,0		NEPRAVDA	NEPRAVDA					[];[]
+Type	name	1.0		TRUE	FALSE	CMap				
+CMapName	name	1.0		TRUE	FALSE					
+CIDSystemInfo	dictionary	1.0		TRUE	FALSE					[CIDSystemInfo]
+WMode	integer	1.0		FALSE	FALSE					
+UseCMap	name;stream	1.0		FALSE	FALSE					[];[]

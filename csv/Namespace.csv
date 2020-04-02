@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2,0		NEPRAVDA	NEPRAVDA	Namespace				
-NS	string	2,0		PRAVDA	NEPRAVDA					
-Schema	dictionary;string	2,0		NEPRAVDA	NEPRAVDA					[FileSpecification];[]
-RoleMapNS	dictionary	2,0		NEPRAVDA	NEPRAVDA					[]
+Type	name	2.0		FALSE	FALSE	Namespace				
+NS	string	2.0		TRUE	FALSE					
+Schema	dictionary;string	2.0		FALSE	FALSE					[FileSpecification];[]
+RoleMapNS	dictionary	2.0		FALSE	FALSE					[RoleMap]
