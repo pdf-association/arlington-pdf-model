@@ -15,20 +15,20 @@ EndIndent	number	1.4		FALSE	FALSE		0		inheritable
 TextIndent	number	1.4		FALSE	FALSE		0		inheritable		
 TextAlign	name	1.4		FALSE	FALSE		Start	Start;Center;End;Justify	inheritable		
 BBox	rectangle	1.4		FALSE	FALSE				not inheritable		
-Width	number;name	1.4		FALSE	FALSE		Auto		not inheritable		
-Height	number;name	1.4		FALSE	FALSE		Auto		not inheritable		
+Width	name;number	1.4		FALSE	FALSE		Auto		not inheritable	[];[]	
+Height	name;number	1.4		FALSE	FALSE		Auto		not inheritable	[];[]	
 BlockAlign	name	1.4		FALSE	FALSE		Before	Before;Middle;After;Justify	inheritable		
 InlineAlign	name	1.4		FALSE	FALSE		Start	Start;Center;End	inheritable		
-TBorderStyle	array;name	1.5		FALSE	FALSE		None				*ILSE from here
+TBorderStyle	array;name	1.5		FALSE	FALSE		None			[];[]	*ILSE from here
 BaselineShift	number	1.4		FALSE	FALSE		0		inheritable		
-LineHeight	number;name	1.4		FALSE	FALSE		Normal	Normal;Auto	inheritable		
+LineHeight	name;number	1.4		FALSE	FALSE		Normal	Normal;Auto	inheritable	[];[]	
 TextPosition	name	2.0		FALSE	FALSE		Normal	Sup;Sub;Normal	inheritable		
 TextDecorationColor	array	1.5		FALSE	FALSE				inheritable	[]	
 TextDecorationThickness	number	1.5		FALSE	FALSE				inheritable		
 TextDecorationType	name	1.4		FALSE	FALSE		None	None;Underline;Overline;LineThrough	inheritable		
 RubyAlign	name	1.5		FALSE	FALSE		Distribute	Start;Center;End;Justify;Distribute	inheritable		
 RubyPosition	name	1.5		FALSE	FALSE		Before	Before;After;Warichu;Inline	inheritable		
-GlyphOrientationVertical	number;name	1.5		FALSE	FALSE		Auto	Auto;-180;-90;0;90;180;270;360	inheritable		
+GlyphOrientationVertical	name;number	1.5		FALSE	FALSE		Auto	Auto;-180;-90;0;90;180;270;360	inheritable		
 ColumnCount	integer	1.6		FALSE	FALSE		1		not inheritable		*Column from here
-ColumnGap	array;number	1.6		FALSE	FALSE				not inheritable		
-ColumnWidths	array;number	1.6		FALSE	FALSE				not inheritable		
+ColumnGap	array;number	1.6		FALSE	FALSE				not inheritable	[];[]	
+ColumnWidths	array;number	1.6		FALSE	FALSE				not inheritable	[];[]	

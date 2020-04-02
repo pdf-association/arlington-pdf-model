@@ -2,11 +2,11 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	Defau
 Type	name	1.6		FALSE	FALSE	Measure				
 Subtype	name	1.6		FALSE	FALSE	RL				
 R	string	1.6		TRUE	FALSE					
-X	array	1.6		TRUE	FALSE					[]
-Y	array	1.6		FALSE	FALSE					[]
-D	array	1.6		TRUE	FALSE					[]
-A	array	1.6		TRUE	FALSE					[]
-T	array	1.6		FALSE	FALSE					[]
-S	array	1.6		FALSE	FALSE					[]
+X	array	1.6		TRUE	FALSE					[ArrayOfNumberFormats]
+Y	array	1.6		FALSE	FALSE					[ArrayOfNumberFormats]
+D	array	1.6		TRUE	FALSE					[ArrayOfNumberFormats]
+A	array	1.6		TRUE	FALSE					[ArrayOfNumberFormats]
+T	array	1.6		FALSE	FALSE					[ArrayOfNumberFormats]
+S	array	1.6		FALSE	FALSE					[ArrayOfNumberFormats]
 O	array	1.6		FALSE	FALSE					[]
 CYX	number	1.6		FALSE	FALSE					
