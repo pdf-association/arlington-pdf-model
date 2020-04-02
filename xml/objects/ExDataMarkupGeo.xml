@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="RichMediaInstances">
+<OBJECT id="ExDataMarkupGeo">
    <ENTRY>
       <NAME>Type</NAME>
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
-            <SHALLBE>RichMediaInstance</SHALLBE>
+            <SHALLBE>ExData</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -18,19 +18,7 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>true</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>2.0</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>Asset</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE>FileSpecification</VALIDATE>
+            <SHALLBE>MarkupGeo</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>

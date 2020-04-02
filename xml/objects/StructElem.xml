@@ -30,7 +30,7 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>StructElem</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -55,7 +55,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfStructElem</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -68,7 +68,7 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>PageObject</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -80,7 +80,19 @@
       <NAME>K</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>various</TYPE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>StructElem</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>MarkedContentReference</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>ObjectReference</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>integer</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -92,7 +104,36 @@
       <NAME>A</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>various</TYPE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfAttributes</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>StandardLayoutAttributes</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>StandardTableAttributes</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>StandardListAttributes</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>StandardPrintFieldAttributes</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>StandardArtifactAttributes</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>UserPropertiesAttributes</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>NSOAttributes</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -193,11 +234,11 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfFileSpecifications</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>FileSpecification</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -210,11 +251,11 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>Namespace</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <INDIRECTREFRENCE>true</INDIRECTREFRENCE>
       <SINCEVERSION>2.0</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>

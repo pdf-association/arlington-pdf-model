@@ -1,32 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="HalftoneType5">
+<OBJECT id="ExData3DMarkup">
    <ENTRY>
       <NAME>Type</NAME>
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
-            <SHALLBE>Halftone</SHALLBE>
+            <SHALLBE>ExData</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
+      <SINCEVERSION>1.7</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>HalftoneType</NAME>
+      <NAME>Subtype</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>number</TYPE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Markup3D</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
+      <SINCEVERSION>1.7</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>HalftoneName</NAME>
+      <NAME>3DA</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>Annot3D</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>string</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>1.7</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>3DV</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>3DView</VALIDATE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>1.7</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>MD5</NAME>
       <VALUES>
          <VALUE>
             <TYPE>string</TYPE>
@@ -34,51 +64,7 @@
       </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>any colourant name</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE>HalftoneType1</VALIDATE>
-         </VALUE>
-         <VALUE>
-            <TYPE>stream</TYPE>
-         </VALUE>
-         <VALUE>
-            <TYPE>stream</TYPE>
-         </VALUE>
-         <VALUE>
-            <TYPE>stream</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>true</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>Default</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE>HalftoneType1</VALIDATE>
-         </VALUE>
-         <VALUE>
-            <TYPE>stream</TYPE>
-         </VALUE>
-         <VALUE>
-            <TYPE>stream</TYPE>
-         </VALUE>
-         <VALUE>
-            <TYPE>stream</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>true</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
+      <SINCEVERSION>1.7</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
 </OBJECT>

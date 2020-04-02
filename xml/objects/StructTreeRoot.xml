@@ -18,11 +18,11 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfStructElem</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>StructElem</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -71,7 +71,7 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>RoleMap</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -84,7 +84,7 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ClassMap</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -97,7 +97,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfNamespace</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -110,18 +110,18 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfFileSpecifications</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>FileSpecification</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>string</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <INDIRECTREFRENCE>true</INDIRECTREFRENCE>
       <SINCEVERSION>2.0</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
@@ -130,11 +130,11 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfFileSpecifications</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>FileSpecification</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

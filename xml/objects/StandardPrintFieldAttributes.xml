@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="StandardArtifactAttributes">
+<OBJECT id="StandardPrintFieldAttributes">
    <ENTRY>
       <NAME>O</NAME>
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
-            <SHALLBE>Artifact</SHALLBE>
+            <SHALLBE>PrintField</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -14,7 +14,7 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>Type</NAME>
+      <NAME>Role</NAME>
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
@@ -26,19 +26,19 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>BBox</NAME>
+      <NAME>Checked</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>rectangle</TYPE>
+            <TYPE>name</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.4</SINCEVERSION>
+      <SINCEVERSION>1.7</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>Subtype</NAME>
+      <NAME>Desc</NAME>
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>

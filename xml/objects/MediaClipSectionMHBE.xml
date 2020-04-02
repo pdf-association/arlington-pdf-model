@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="MediaScreenParameters">
+<OBJECT id="MediaClipSectionMHBE">
    <ENTRY>
-      <NAME>Type</NAME>
+      <NAME>B</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>name</TYPE>
-            <SHALLBE>MediaScreenParams</SHALLBE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>MediaOffsetTime</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>MediaOffsetMarker</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>MediaOffsetFrame</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -14,24 +22,19 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>MH</NAME>
+      <NAME>E</NAME>
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>MediaScreenParametersMHBE</VALIDATE>
+            <VALIDATE>MediaOffsetTime</VALIDATE>
          </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>BE</NAME>
-      <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>MediaScreenParametersMHBE</VALIDATE>
+            <VALIDATE>MediaOffsetMarker</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>MediaOffsetFrame</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

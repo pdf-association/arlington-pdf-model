@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<OBJECT id="ArrayOf3DMeasure">
+   <ENTRY>
+      <NAME>*</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>3DMeasure3DC</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>3DMeasureRD3</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>3DMeasureAD3</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>3DMeasurePD3</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>3DMeasureLD3</VALIDATE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>2</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+</OBJECT>
