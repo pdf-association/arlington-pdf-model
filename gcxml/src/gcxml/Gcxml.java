@@ -81,11 +81,19 @@ public class Gcxml {
                         System.out.println("If you want to display all keys and their version use '-all' as parameter.");
                     }
                     break;
+                case "--so":
+                    XMLQuery query = new XMLQuery();
+                    if(query != null){
+                        query.SchizophrenicObjects();
+                    }
+                    break;
                 case "--help":
                     System.out.println("List of available commands");
                     System.out.println("\t--help : shows list of available commands");
                     System.out.println("\t--conv : converts csv to xml");
                     System.out.println("\t--sin : returns all keys introduced in specified PDF version");
+                    System.out.println("\t--dep : returns all keys deprecated in specified PDF version");
+                    System.out.println("\t--so : returns objects that do not have key Type or where it is not required.");
                     break;
             }
         }else{
