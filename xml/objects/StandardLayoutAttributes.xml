@@ -210,7 +210,14 @@
    </ENTRY>
    <ENTRY>
       <NAME>Width</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>name</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+         </VALUE>
+      </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
       <SINCEVERSION>1.4</SINCEVERSION>
@@ -218,7 +225,14 @@
    </ENTRY>
    <ENTRY>
       <NAME>Height</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>name</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+         </VALUE>
+      </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
       <SINCEVERSION>1.4</SINCEVERSION>
@@ -250,7 +264,15 @@
    </ENTRY>
    <ENTRY>
       <NAME>TBorderStyle</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+         </VALUE>
+      </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
       <SINCEVERSION>1.5</SINCEVERSION>
@@ -270,7 +292,14 @@
    </ENTRY>
    <ENTRY>
       <NAME>LineHeight</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>name</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+         </VALUE>
+      </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
       <SINCEVERSION>1.4</SINCEVERSION>
@@ -371,7 +400,15 @@
    </ENTRY>
    <ENTRY>
       <NAME>ColumnGap</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+         </VALUE>
+      </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
       <SINCEVERSION>1.6</SINCEVERSION>
@@ -379,7 +416,15 @@
    </ENTRY>
    <ENTRY>
       <NAME>ColumnWidths</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+         </VALUE>
+      </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
       <SINCEVERSION>1.6</SINCEVERSION>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="ThreadsArray">
+<OBJECT id="ArrayOfArrays">
    <ENTRY>
       <NAME>*</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE>Thread</VALIDATE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfXPTSValues</VALIDATE>
          </VALUE>
       </VALUES>
-      <REQUIRED>true</REQUIRED>
+      <REQUIRED>false</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
       <SINCEVERSION>2.0</SINCEVERSION>
       <DEPRECATEDIN/>

@@ -46,6 +46,10 @@
             <TYPE>dictionary</TYPE>
             <VALIDATE>GeographicCoordinateSystem</VALIDATE>
          </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>ProjectedCoordinateSystem</VALIDATE>
+         </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
@@ -58,6 +62,10 @@
          <VALUE>
             <TYPE>dictionary</TYPE>
             <VALIDATE>GeographicCoordinateSystem</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>ProjectedCoordinateSystem</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

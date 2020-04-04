@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="MediaScreenParametersBE">
+<OBJECT id="SignatureReference">
    <ENTRY>
-      <NAME>W</NAME>
+      <NAME>Type</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>integer</TYPE>
+            <TYPE>name</TYPE>
+            <SHALLBE>SigRef</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -13,10 +14,22 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>B</NAME>
+      <NAME>TransformMethod</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>array</TYPE>
+            <TYPE>name</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>1.5</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>TransformParams</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
             <VALIDATE/>
          </VALUE>
       </VALUES>
@@ -26,10 +39,10 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>O</NAME>
+      <NAME>Data</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>number</TYPE>
+            <TYPE>various</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -38,26 +51,13 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>M</NAME>
+      <NAME>DigestMethod</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>integer</TYPE>
+            <TYPE>name</TYPE>
          </VALUE>
       </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>F</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE>FloatingWindowParameters</VALIDATE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
+      <REQUIRED>true</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
       <SINCEVERSION>1.5</SINCEVERSION>
       <DEPRECATEDIN/>
