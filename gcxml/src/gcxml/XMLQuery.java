@@ -57,6 +57,7 @@ public class XMLQuery {
         this.files = folder.listFiles();
     }
     
+    // show keys that match specified pdf version
     public void SinceVersion(String pdfVersion){
         for (File file : files) {
             if (file.isFile() && file.canRead() && file.exists()) {
@@ -100,7 +101,8 @@ public class XMLQuery {
         }    
     }
     
-        public void SinceVersion(){
+    // show all keys and their 'since version' attribute
+    public void SinceVersion(){
         for (File file : files) {
             if (file.isFile() && file.canRead() && file.exists()) {
                 try{
@@ -137,5 +139,87 @@ public class XMLQuery {
             }
         }    
     }
+    // show deprecated keys that match specified pdf version
+    public void DeprecatedIn(String pdfVersion){
+        for (File file : files) {
+            if (file.isFile() && file.canRead() && file.exists()) {
+                try{
+                String inputFile = inputFolder + file.getName();
+                Document doc = domBuilder.parse(inputFile);
+                doc.getDocumentElement().normalize();
+                
+                XPath xPath =  XPathFactory.newInstance().newXPath();
+                
+                String expression = "/OBJECT/ENTRY";	        
+                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
+                System.out.println("Keys deprecated in PDF version " + pdfVersion +" for object: " + file.getName().substring(0, file.getName().length()-4));
+                int keyCount = 0;
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node nNode = nodeList.item(i);
+                    //System.out.println("\nCurrent Element :" + nNode.getNodeName());
+                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) nNode;
+                        String nodeName = eElement.getElementsByTagName("NAME").item(0).getTextContent();
+                        String nodeDeprecatedIn = eElement.getElementsByTagName("DEPRECATEDIN").item(0).getTextContent();
+                        if(pdfVersion.equals(nodeDeprecatedIn)){
+                            System.out.println(nodeName);
+                            keyCount++;
+                        }
+                    } 
+                }
+                if(keyCount == 0) {
+                    System.out.println("No keys were found in this object.");
+                }
+                System.out.println();
+
+                } catch (SAXException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (XPathExpressionException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }    
+    }
     
+    // show all keys and their 'deprecated in' attribute
+    public void DeprecatedIn(){
+        for (File file : files) {
+            if (file.isFile() && file.canRead() && file.exists()) {
+                try{
+                String inputFile = inputFolder + file.getName();
+                Document doc = domBuilder.parse(inputFile);
+                doc.getDocumentElement().normalize();
+                
+                XPath xPath =  XPathFactory.newInstance().newXPath();
+                
+                String expression = "/OBJECT/ENTRY";	        
+                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
+
+                System.out.println("Deprecated keys for object: " + file.getName().substring(0, file.getName().length()-4));
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node nNode = nodeList.item(i);
+                    //System.out.println("\nCurrent Element :" + nNode.getNodeName());
+                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) nNode;
+                        String nodeName = eElement.getElementsByTagName("NAME").item(0).getTextContent();
+                        String nodeDeprecatedIn = eElement.getElementsByTagName("DEPRECATEDIN").item(0).getTextContent();
+                        if(!nodeDeprecatedIn.isEmpty()){
+                            System.out.println("Key: " + nodeName + " - was deprecated in " + nodeDeprecatedIn);
+                        }
+                    } 
+                }
+                System.out.println();
+
+                } catch (SAXException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (XPathExpressionException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }    
+    }
 }

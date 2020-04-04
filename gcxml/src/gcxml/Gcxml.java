@@ -62,6 +62,25 @@ public class Gcxml {
                         System.out.println("If you want to display all keys and their version use '-all' as parameter.");
                     }
                     break;
+                case "--dep":
+                    if(args.length>1 && !args[1].isEmpty()){
+                        String version = args[1];
+                        if(version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
+                            || version.equals("1.3") || version.equals("1.4") || version.equals("1.5")
+                            || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")){
+                            XMLQuery query = new XMLQuery();
+                            query.DeprecatedIn(version);
+                        }else if(version.equals("-all")){
+                            XMLQuery query = new XMLQuery();
+                            query.DeprecatedIn();
+                        }else{
+                            System.out.println("There is no such PDF version. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0");
+                        }
+                    }else{
+                        System.out.println("PDF version was not specified. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0");
+                        System.out.println("If you want to display all keys and their version use '-all' as parameter.");
+                    }
+                    break;
                 case "--help":
                     System.out.println("List of available commands");
                     System.out.println("\t--help : shows list of available commands");
