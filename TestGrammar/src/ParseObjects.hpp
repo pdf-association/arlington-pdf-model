@@ -29,7 +29,62 @@ using namespace PDFixSDK;
 #ifdef GetObject
 #undef GetObject
 #endif
-bool ProcessObject(PdsObject* obj,
+
+std::string get_full_csv_file(std::string &grammar_file, const std::string &csv_name) {
+  std::string file_name = get_path_dir(grammar_file);
+  file_name += "/";
+  if (csv_name.front() == '['  && csv_name.back() == ']')
+    file_name += csv_name.substr(1, csv_name.size() - 2);
+  else
+    file_name += csv_name;
+  file_name += ".csv";
+  return file_name;
+};
+
+
+// choose one from provided links to validate further
+// the decision is made based on 
+// - 
+int SelectOne(PdsObject* obj, std::string &grammar_file, std::vector<std::string> &links) {
+  int to_ret = -1;
+  for (int i = 0; i < links.size(); i++) {
+    auto lnk = links[i];
+    CGrammarReader reader(get_full_csv_file(grammar_file, lnk));
+    if (!reader.load())
+      continue;
+
+    const std::vector<std::vector<std::string>> &data_list = reader.get_data();
+    if (data_list.empty())
+      continue;
+
+    int to_ret = i;
+    // first need to go through "required" - that may fail the validation right away
+    if (obj->GetObjectType() == kPdsDictionary || obj->GetObjectType() == kPdsStream) {
+      // are all "required" fields with required values?
+      PdsDictionary* dictObj = (PdsDictionary*)obj;
+      for (int i = 1; i < data_list.size(); i++) {
+        auto& vec = data_list[i];
+        if (vec[6] != "") {
+          std::wstring str_value;
+          str_value.resize(dictObj->GetText(utf8ToUtf16(vec[0]).c_str(), nullptr, 0));
+          dictObj->GetText(utf8ToUtf16(vec[0]).c_str(), (wchar_t*)str_value.c_str(), (int)str_value.size());
+          if (vec[6] != ToUtf8(str_value)) {
+            to_ret = -1;
+            break;
+          }
+        }
+      }
+    }
+
+    // if all required are there - return this position in list of links
+    if (to_ret != -1)
+      return to_ret;
+  }
+  return to_ret;
+}
+
+
+void ProcessObject(PdsObject* obj,
   std::ostream& ss,
   std::map<PdsObject*, int>& mapped,
   std::string grammar_file,
@@ -38,7 +93,7 @@ bool ProcessObject(PdsObject* obj,
 );
 
 
-bool ProcessNameTree(PdsDictionary* obj,
+void ProcessNameTree(PdsDictionary* obj,
   std::ostream& ss,
   std::map<PdsObject*, int>& mapped,
   std::string grammar_file,
@@ -49,7 +104,6 @@ bool ProcessNameTree(PdsDictionary* obj,
   PdsObject *kids_obj = obj->Get(L"Kids");
   PdsObject *names_obj = obj->Get(L"Names");
   PdsObject *limits_obj = obj->Get(L"Limits");
-  bool to_ret = true;
   if (names_obj != nullptr) {
     if (names_obj->GetObjectType() == kPdsArray) {
       PdsArray* array_obj = (PdsArray*)names_obj;
@@ -63,7 +117,7 @@ bool ProcessNameTree(PdsDictionary* obj,
         PdsDictionary* item = array_obj->GetDictionary(i);
         i++;
         if (item != nullptr) {
-          to_ret = ProcessObject(item, ss, mapped, grammar_file, context + "->" + ToUtf8(str), indent);
+          ProcessObject(item, ss, mapped, grammar_file, context + "->" + ToUtf8(str), indent);
         }
         else {
           //error value isn't dictionary
@@ -82,7 +136,7 @@ bool ProcessNameTree(PdsDictionary* obj,
       for (int i = 0; i < array_obj->GetNumObjects(); ++i) {
         PdsDictionary* item = array_obj->GetDictionary(i);
         if (item != nullptr) {
-          to_ret = to_ret && ProcessNameTree(item, ss, mapped, grammar_file, context, indent);
+          ProcessNameTree(item, ss, mapped, grammar_file, context, indent);
         }
         else {
           //error kid isn't dictionary 
@@ -93,10 +147,9 @@ bool ProcessNameTree(PdsDictionary* obj,
       //error kids isn't array
     }
   }
-  return to_ret;
 }
 
-bool ProcessNumberTree(PdsDictionary* obj,
+void ProcessNumberTree(PdsDictionary* obj,
   std::ostream& ss,
   std::map<PdsObject*, int>& mapped,
   std::string grammar_file,
@@ -119,7 +172,7 @@ bool ProcessNumberTree(PdsDictionary* obj,
         PdsDictionary* item = array_obj->GetDictionary(i);
         i++;
         if (item != nullptr) {
-          to_ret = ProcessObject(item, ss, mapped, grammar_file, context + "->" + std::to_string(key), indent);
+          ProcessObject(item, ss, mapped, grammar_file, context + "->" + std::to_string(key), indent);
         }
         else {
           //error value isn't dictionary
@@ -138,7 +191,7 @@ bool ProcessNumberTree(PdsDictionary* obj,
       for (int i = 0; i < array_obj->GetNumObjects(); ++i) {
         PdsDictionary* item = array_obj->GetDictionary(i);
         if (item != nullptr) {
-          to_ret = to_ret && ProcessNumberTree(item, ss, mapped, grammar_file, context, indent);
+          ProcessNumberTree(item, ss, mapped, grammar_file, context, indent);
         }
         else {
           //error kid isn't dictionary 
@@ -148,9 +201,7 @@ bool ProcessNumberTree(PdsDictionary* obj,
     else {
       //error kids isn't array
     }
-
   }
-  return to_ret;
 }
 
 // one line could have two types "array;dictionary" 
@@ -178,7 +229,7 @@ int get_type_index(PdsObject *obj, std::string types) {
 }
 
 // ProcessObject gets the value of the object.
-bool ProcessObject(PdsObject* obj,
+void ProcessObject(PdsObject* obj,
   std::ostream& ss,
   std::map<PdsObject*, int>& mapped,
   std::string grammar_file,
@@ -195,7 +246,7 @@ bool ProcessObject(PdsObject* obj,
   if (found != mapped.end()) {
     //    ss << context << " already processed" <<std::endl;
     found->second++;
-    return true;
+    return;
   }
 
   ss << indent << context << std::endl;
@@ -205,41 +256,12 @@ bool ProcessObject(PdsObject* obj,
   CGrammarReader reader(grammar_file);
   if (!reader.load()) {
     ss << indent << "Error: Can't load grammar file:" << grammar_file << std::endl;
-    return true;
+    return;
   }
   const std::vector<std::vector<std::string>> &data_list = reader.get_data();
   if (data_list.empty()) {
     ss << indent << "Error: Empty grammar file:" << grammar_file << std::endl;
-    return true;
-  }
-
-  auto get_full_csv_file = [=](std::string csv_name) {
-    std::string file_name = get_path_dir(grammar_file);
-    file_name += "/";
-    if (csv_name.front() == '['  && csv_name.back() == ']')
-      file_name += csv_name.substr(1, csv_name.size() - 2);
-    else
-      file_name += csv_name;
-    file_name += ".csv";
-    return file_name;
-  };
-
-
-  // first need to go through "required" - that may fail the validation right away
-  if (obj->GetObjectType() == kPdsDictionary || obj->GetObjectType() == kPdsStream) {
-    PdsDictionary* dictObj = (PdsDictionary*)obj;
-    for (int i = 1; i < data_list.size(); i++) {
-      auto& vec = data_list[i];
-      if (vec[6] != "") {
-        std::wstring str_value;
-        str_value.resize(dictObj->GetText(utf8ToUtf16(vec[0]).c_str(), nullptr, 0));
-        dictObj->GetText(utf8ToUtf16(vec[0]).c_str(), (wchar_t*)str_value.c_str(), (int)str_value.size());
-        if (vec[6] != ToUtf8(str_value)) {
-          //todo: error
-          return false;
-        }
-      }
-    }
+    return;
   }
 
   //todo: what about stream and array
@@ -322,9 +344,9 @@ bool ProcessObject(PdsObject* obj,
       // we didn't find key, there may be * we can use to validate
       if (!found)
         for (auto& vec : data_list)
-          //todo: mozno treba osetrit aj typ
+          //todo: mozno treba osetrit aj typ pripadne moze mat viac liniek??
           if (vec[0] == "*" && vec[10] != "") {
-            ProcessObject(inner_obj, ss, mapped, get_full_csv_file(vec[10]), context + "->" + ToUtf8(key), indent);
+            ProcessObject(inner_obj, ss, mapped, get_full_csv_file(grammar_file, vec[10]), context + "->" + ToUtf8(key), indent);
             break;
           }
     }
@@ -340,34 +362,49 @@ bool ProcessObject(PdsObject* obj,
       }
 
     // now go through containers and process them with new grammar_file
-    //todo: arrays also
-    //todo: what if there are 2 links?
-    //todo: dictionary bez linku
     //todo: ked sme ich nepretestovali skor (*) 
     for (auto& vec : data_list)
       if (vec.size() >= 11 && vec[10] != "") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
         if (inner_obj != nullptr) {
           int index = get_type_index(inner_obj, vec[1]);
+          if (index == -1) {
+            ss << indent << "Cannot validate - wrong type:"<<vec[0]<< std::endl;
+            break;
+          }
           std::vector<std::string> opt = split(vec[1], ';');
           std::vector<std::string> links = split(vec[10], ';');
+          if (links[index] == "[]") 
+            continue;
+
           if (opt[index] == "NUMBER TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
-            ProcessNumberTree((PdsDictionary*)inner_obj, ss, mapped, get_full_csv_file(links[index]), context + "->" + vec[0], indent);
+            ProcessNumberTree((PdsDictionary*)inner_obj, ss, mapped, get_full_csv_file(grammar_file,links[index]), context + "->" + vec[0], indent);
           }
           else
             if (opt[index] == "NAME TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
-              ProcessNameTree((PdsDictionary*)inner_obj, ss, mapped, get_full_csv_file(links[index]), context + "->" + vec[0], indent);
+              ProcessNameTree((PdsDictionary*)inner_obj, ss, mapped, get_full_csv_file(grammar_file,links[index]), context + "->" + vec[0], indent);
             }
             else if (inner_obj->GetObjectType() == kPdsStream) {
-              ProcessObject(((PdsStream*)inner_obj)->GetStreamDict(), ss, mapped, get_full_csv_file(links[index]), context + "->" + vec[0], indent);
+              ProcessObject(((PdsStream*)inner_obj)->GetStreamDict(), ss, mapped, get_full_csv_file(grammar_file,links[index]), context + "->" + vec[0], indent);
             }
             else
-              if ((inner_obj->GetObjectType() == kPdsDictionary || inner_obj->GetObjectType() == kPdsArray))
-                //rt moze byt bud empty alebo ich moze byt viac
-                ProcessObject(inner_obj, ss, mapped, get_full_csv_file(links[index]), context + "->" + vec[0], indent);
+              if ((inner_obj->GetObjectType() == kPdsDictionary || inner_obj->GetObjectType() == kPdsArray)) {
+                std::vector<std::string> direct_links = split(links[index].substr(1, links[index].size() - 2), ',');
+                int position = 0;
+                std::string as;
+                if (direct_links.size() > 1) {
+                  position = SelectOne(inner_obj, grammar_file, direct_links);
+                  as = "(as " + direct_links[position] + ")";
+                }
+                if (position == -1)
+                  ss << indent << "Cannot find proper link to validate "<< vec[0] << std::endl;
+                else
+                  //todo: co ked sa dostanem do situacie ze uz som inner_objraz validoval ale pod inou linkou??
+                  ProcessObject(inner_obj, ss, mapped, get_full_csv_file(grammar_file, direct_links[position]), context + "->" + vec[0]+as, indent);
+              }
         }
       }
-    return true;
+    return;
   }
 
   if (obj->GetObjectType() == kPdsArray) {
@@ -376,34 +413,29 @@ bool ProcessObject(PdsObject* obj,
     for (int i = 0; i < arrayObj->GetNumObjects(); ++i) {
       PdsObject* item = arrayObj->Get(i);
       for (auto& vec : data_list)
-        //todo: mozno treba osetrit aj typ
+
+        //todo: mozno treba osetrit aj typ, moze byt viac liniek
         if (vec[0] == "*" && vec[10] != "" && vec[10] != "[]") {
           std::vector<std::string> direct_links = split(vec[10].substr(1, vec[10].size() - 2), ',');
-          to_ret = false;
-          for (auto lnk : direct_links) {
-
-//            najskor vyber - ina funkcia a potom zvaliduj !!
-
-            ss << indent << "Validating [" << std::to_string(i) << "] as " << lnk << std::endl;
-            if (ProcessObject(item, ss, mapped, get_full_csv_file(lnk), context + "[" + std::to_string(i) + "]", indent)) {
-              ss << indent << "Passed" << std::endl;
-              to_ret = true;
-              break;
-            }
-            else ss << indent << "failed as" << lnk << std::endl;
-          }
+         int position=0;
+         if (direct_links.size()>1)
+            position = SelectOne(item, grammar_file, direct_links);
+          if (position == -1)
+            ss << indent << "Cannot find proper link to validate [" << std::to_string(i) << "] " << std::endl;
+          else
+            ProcessObject(item, ss, mapped, 
+              get_full_csv_file(grammar_file, direct_links[position]), 
+              context + "[" + std::to_string(i) + "](as " + direct_links[position] + ")", indent);
           break;
         }
     }
-    return to_ret;
+    return;
   }
 
   ss << indent << "Error: can't process ";
   ss << context;
   ss << "(" << grammar_file << ")" << std::endl;
-  return true;
-  //ss << "<<" << obj->GetId() << " 0 obj>> (" << grammar_file << ") ";
-  //ss << " is not dictionary! " << std::endl;
+  return;
 }
 
 // Iterates all documents 
