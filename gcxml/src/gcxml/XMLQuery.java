@@ -9,7 +9,10 @@ package gcxml;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -320,6 +323,41 @@ public class XMLQuery {
         }    
     }
     
+    public void KeyOccurrenceCount(){
+        
+        HashMap<String, Integer> keyMap = new HashMap<String, Integer>();
+        ArrayList<String> keys = new ArrayList<>();
+        keys = getAllKeys();
+        
+        if(!keys.isEmpty()){
+            Iterator<String> listIterator =  keys.iterator();
+            while(listIterator.hasNext()){
+                String key = listIterator.next();
+                if(keyMap.containsKey(key)){
+                    for (Entry<String, Integer> entry : keyMap.entrySet()) {
+                         if (entry.getKey().equals(key)) {
+                            int count = entry.getValue();
+                            ++count;
+                            keyMap.replace(key, count);
+                    }
+                }
+                }else{
+                    keyMap.put(key, 1);
+                }
+            }
+        }
+        
+        printMap(keyMap);
+    }
+    
+    private void printMap(Map mp) {
+        Iterator it = mp.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            System.out.println(pair.getKey() + " = " + pair.getValue());
+        }
+    }
+    
     private static ArrayList<String> evaluateXPath(Document document, String xpathExpression) throws Exception 
     {
         XPathFactory xpathFactory = XPathFactory.newInstance();
@@ -341,5 +379,45 @@ public class XMLQuery {
             e.printStackTrace();
         }
         return values;
+    }
+
+    private ArrayList<String> getAllKeys() {
+        
+        ArrayList<String> allKeys = new ArrayList<>();
+        
+        for (File file : files) {
+            if (file.isFile() && file.canRead() && file.exists()) {
+                try{
+                String inputFile = inputFolder + file.getName();
+                Document doc = domBuilder.parse(inputFile);
+                doc.getDocumentElement().normalize();
+                
+                XPath xPath =  XPathFactory.newInstance().newXPath();
+                
+                String expression = "/OBJECT/ENTRY/NAME/text()";
+                ArrayList<String> arrListTypes = evaluateXPath(doc, expression);
+                
+                
+                 if(!arrListTypes.isEmpty()){
+                    Iterator<String> listIterator = arrListTypes.iterator();
+                        while(listIterator.hasNext()){
+                        String keyName = listIterator.next();
+                        //System.out.println(keyName);
+                        allKeys.add(keyName);
+                    }
+                }
+
+                } catch (SAXException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (XPathExpressionException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return allKeys;
     }
 }

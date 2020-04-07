@@ -87,6 +87,12 @@ public class Gcxml {
                         query.SchizophrenicObjects();
                     }
                     break;
+                case "--keys":
+                    query = new XMLQuery();
+                    if(query != null){
+                        query.KeyOccurrenceCount();
+                    }
+                    break;
                 case "--help":
                     System.out.println("List of available commands");
                     System.out.println("\t--help : shows list of available commands");
@@ -94,6 +100,7 @@ public class Gcxml {
                     System.out.println("\t--sin : returns all keys introduced in specified PDF version");
                     System.out.println("\t--dep : returns all keys deprecated in specified PDF version");
                     System.out.println("\t--so : returns objects that do not have key Type or where it is not required.");
+                    System.out.println("\t--keys : returns keys and their occurrence count.");
                     break;
             }
         }else{
