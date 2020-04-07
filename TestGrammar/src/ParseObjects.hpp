@@ -60,16 +60,27 @@ int SelectOne(PdsObject* obj, std::string &grammar_file, std::vector<std::string
     int to_ret = i;
     // first need to go through "required" - that may fail the validation right away
     if (obj->GetObjectType() == kPdsDictionary || obj->GetObjectType() == kPdsStream) {
-      // are all "required" fields with required values?
+      // are all "required" fields has to be present
+      // and if required value is defined then has to match with value
       PdsDictionary* dictObj = (PdsDictionary*)obj;
-      for (int i = 1; i < data_list.size(); i++) {
-        auto& vec = data_list[i];
-        if (vec[6] != "") {
+      for (int j = 1; j < data_list.size(); j++) {
+        auto& vec = data_list[j];
+        if (vec[4] == "TRUE") {
           std::wstring str_value;
+          //required value eists?
+          if (!dictObj->Known(utf8ToUtf16(vec[0]).c_str())) {
+            to_ret = -1;
+            break;
+          }
+
           str_value.resize(dictObj->GetText(utf8ToUtf16(vec[0]).c_str(), nullptr, 0));
           dictObj->GetText(utf8ToUtf16(vec[0]).c_str(), (wchar_t*)str_value.c_str(), (int)str_value.size());
-          if (vec[6] != ToUtf8(str_value)) {
+
+          if (vec[6]!="" && vec[6] != ToUtf8(str_value)) {
             to_ret = -1;
+            if (lnk == "StructElem") {
+              to_ret = -1;
+            }
             break;
           }
         }
@@ -97,6 +108,7 @@ void ProcessNameTree(PdsDictionary* obj,
   std::ostream& ss,
   std::map<PdsObject*, int>& mapped,
   std::string grammar_file,
+  std::string links,
   std::string context,
   std::string indent
 ) {
@@ -117,7 +129,22 @@ void ProcessNameTree(PdsDictionary* obj,
         PdsDictionary* item = array_obj->GetDictionary(i);
         i++;
         if (item != nullptr) {
-          ProcessObject(item, ss, mapped, grammar_file, context + "->" + ToUtf8(str), indent);
+
+          std::vector<std::string> direct_links = split(links.substr(1, links.size() - 2), ',');
+          int position = 0;
+          if (direct_links.size() > 1) {
+            position = SelectOne(item, grammar_file, direct_links);
+          }
+          if (position == -1)
+            ss << indent << "Cannot find proper link to validate " << ToUtf8(str) << std::endl;
+          else {
+            std::string as;
+            if (direct_links.size() > 1)
+              as = "(as " + direct_links[position] + ")";
+            //todo: co ked sa dostanem do situacie ze uz som inner_objraz validoval ale pod inou linkou??
+            ProcessObject(item, ss, mapped, get_full_csv_file(grammar_file, direct_links[position]), context + "->" + ToUtf8(str) + as, indent);
+            //ProcessObject(item, ss, mapped, grammar_file, context + "->" + ToUtf8(str), indent);
+          }
         }
         else {
           //error value isn't dictionary
@@ -136,7 +163,7 @@ void ProcessNameTree(PdsDictionary* obj,
       for (int i = 0; i < array_obj->GetNumObjects(); ++i) {
         PdsDictionary* item = array_obj->GetDictionary(i);
         if (item != nullptr) {
-          ProcessNameTree(item, ss, mapped, grammar_file, context, indent);
+          ProcessNameTree(item, ss, mapped, grammar_file, links, context, indent);
         }
         else {
           //error kid isn't dictionary 
@@ -153,6 +180,7 @@ void ProcessNumberTree(PdsDictionary* obj,
   std::ostream& ss,
   std::map<PdsObject*, int>& mapped,
   std::string grammar_file,
+  std::string links,
   std::string context,
   std::string indent
 ) {
@@ -172,7 +200,21 @@ void ProcessNumberTree(PdsDictionary* obj,
         PdsDictionary* item = array_obj->GetDictionary(i);
         i++;
         if (item != nullptr) {
-          ProcessObject(item, ss, mapped, grammar_file, context + "->" + std::to_string(key), indent);
+          std::vector<std::string> direct_links = split(links.substr(1, links.size() - 2), ',');
+          int position = 0;
+          if (direct_links.size() > 1) {
+            position = SelectOne(item, grammar_file, direct_links);
+          }
+          if (position == -1)
+            ss << indent << "Cannot find proper link to validate " << std::to_string(key) << std::endl;
+          else {
+            std::string as;
+            if (direct_links.size() > 1)
+              as = "(as " + direct_links[position] + ")";
+            //todo: co ked sa dostanem do situacie ze uz som inner_objraz validoval ale pod inou linkou??
+            ProcessObject(item, ss, mapped, get_full_csv_file(grammar_file, direct_links[position]), context + "->" + std::to_string(key) + as, indent);
+            //ProcessObject(item, ss, mapped, grammar_file, context + "->" + std::to_string(key), indent);
+          }
         }
         else {
           //error value isn't dictionary
@@ -191,7 +233,7 @@ void ProcessNumberTree(PdsDictionary* obj,
       for (int i = 0; i < array_obj->GetNumObjects(); ++i) {
         PdsDictionary* item = array_obj->GetDictionary(i);
         if (item != nullptr) {
-          ProcessNumberTree(item, ss, mapped, grammar_file, context, indent);
+          ProcessNumberTree(item, ss, mapped, grammar_file,links, context, indent);
         }
         else {
           //error kid isn't dictionary 
@@ -378,11 +420,11 @@ void ProcessObject(PdsObject* obj,
             continue;
 
           if (opt[index] == "NUMBER TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
-            ProcessNumberTree((PdsDictionary*)inner_obj, ss, mapped, get_full_csv_file(grammar_file,links[index]), context + "->" + vec[0], indent);
+            ProcessNumberTree((PdsDictionary*)inner_obj, ss, mapped, grammar_file,links[index], context + "->" + vec[0], indent);
           }
           else
             if (opt[index] == "NAME TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
-              ProcessNameTree((PdsDictionary*)inner_obj, ss, mapped, get_full_csv_file(grammar_file,links[index]), context + "->" + vec[0], indent);
+              ProcessNameTree((PdsDictionary*)inner_obj, ss, mapped, grammar_file,links[index], context + "->" + vec[0], indent);
             }
             else if (inner_obj->GetObjectType() == kPdsStream) {
               ProcessObject(((PdsStream*)inner_obj)->GetStreamDict(), ss, mapped, get_full_csv_file(grammar_file,links[index]), context + "->" + vec[0], indent);
@@ -391,16 +433,21 @@ void ProcessObject(PdsObject* obj,
               if ((inner_obj->GetObjectType() == kPdsDictionary || inner_obj->GetObjectType() == kPdsArray)) {
                 std::vector<std::string> direct_links = split(links[index].substr(1, links[index].size() - 2), ',');
                 int position = 0;
-                std::string as;
                 if (direct_links.size() > 1) {
                   position = SelectOne(inner_obj, grammar_file, direct_links);
-                  as = "(as " + direct_links[position] + ")";
+                  //if (direct_links[position] == "StructElem") {
+                  //  as = as + "XX";
+                  //}
                 }
                 if (position == -1)
                   ss << indent << "Cannot find proper link to validate "<< vec[0] << std::endl;
-                else
-                  //todo: co ked sa dostanem do situacie ze uz som inner_objraz validoval ale pod inou linkou??
-                  ProcessObject(inner_obj, ss, mapped, get_full_csv_file(grammar_file, direct_links[position]), context + "->" + vec[0]+as, indent);
+                else {
+                  std::string as;
+                  if (direct_links.size() > 1)
+                    as = "(as " + direct_links[position] + ")";
+                    //todo: co ked sa dostanem do situacie ze uz som inner_objraz validoval ale pod inou linkou??
+                  ProcessObject(inner_obj, ss, mapped, get_full_csv_file(grammar_file, direct_links[position]), context + "->" + vec[0] + as, indent);
+                }
               }
         }
       }
@@ -421,7 +468,7 @@ void ProcessObject(PdsObject* obj,
          if (direct_links.size()>1)
             position = SelectOne(item, grammar_file, direct_links);
           if (position == -1)
-            ss << indent << "Cannot find proper link to validate [" << std::to_string(i) << "] " << std::endl;
+            ss << indent << "Error: Cannot find proper link to validate [" << std::to_string(i) << "] " << std::endl;
           else
             ProcessObject(item, ss, mapped, 
               get_full_csv_file(grammar_file, direct_links[position]), 

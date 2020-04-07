@@ -1,0 +1,6 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+0	name			TRUE	FALSE	DeviceN				
+1	array			TRUE	FALSE					
+2	array;name			TRUE	FALSE			[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,SeparationColorSpace,DeviceNColorSpace];[]
+3	dictionary;stream			TRUE	FALSE					[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]
+4	dictionary									[DeviceNDict]

@@ -1,11 +1,11 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.3		FALSE	FALSE	StructElem				
 S	name	1.3		TRUE	FALSE					
-P	dictionary	1.3		TRUE	TRUE					[StructElem]
+P	dictionary	1.3		TRUE	TRUE					[StructElem,StructTreeRoot]
 ID	string	1.3		FALSE	FALSE					
 Ref	array	2.0		FALSE	FALSE					[ArrayOfStructElem]
 Pg	dictionary	1.3		FALSE	TRUE					[PageObject]
-K	dictionary;integer	1.3		FALSE	FALSE					[StructElem,MarkedContentReference,ObjectReference];[]
+K	array;dictionary;integer	1.3		FALSE	FALSE					[ArrayOfStructElemKids];[StructElem,MarkedContentReference,ObjectReference];[]
 A	array;dictionary	1.3		FALSE	FALSE					[ArrayOfAttributes];[StandardLayoutAttributes,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes]
 C	array;name	1.3		FALSE	FALSE					[];[]
 R	integer	1.3		FALSE	FALSE					

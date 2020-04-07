@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	note
 ExtGState	dictionary	1.0		FALSE	FALSE					[GraphicsStateParameter]	*
-ColorSpace	dictionary	1.0		FALSE	FALSE					[]	*
+ColorSpace	dictionary	1.0		FALSE	FALSE					[ColorSpaceMap]	*
 Pattern	dictionary	1.0		FALSE	FALSE					[PatternMap]	*
 Shading	dictionary	1.3		FALSE	FALSE					[ShadingMap]	*
 XObject	dictionary	1.0		FALSE	FALSE					[]	*
