@@ -10,29 +10,29 @@
 #include "Pdfix.h"
 
 #include "Initialization.hpp"
-#include "ParseObjects.hpp"
+#include "ParseObjects.h"
 //#include "GrammarFile.h"
 #include "CheckGrammar.h"
 
 
 void show_help() {
   std::cout << "TestGrammar by Normex s.r.o. (c) 2020" << std::endl;
-  std::cout << "Validates PDF file against grammar defined by list of CSV files. more info:https://github.com/romantoda/PDF20_Grammar" << std::endl;
+  std::cout << "Validates PDF file against grammar defined by list of TSV files. more info:https://github.com/romantoda/PDF20_Grammar" << std::endl;
   std::cout << std::endl;
   std::cout << "to validate pdf file:" << std::endl;
   std::cout << "  testgrammar <input_file> <grammar_folder> <report_file>" << std::endl;
   std::cout << std::endl;
   std::cout << "    input_file      - full pathname to input pdf" << std::endl;
-  std::cout << "    output_folder   - folder with csv files representing PDF 2.0 Grammar" << std::endl;
+  std::cout << "    grammar_folder  - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
   std::cout << "    report_file     - file for storing results" << std::endl;
   std::cout << std::endl;
   std::cout << "to checks grammar itself:" << std::endl;
   std::cout << "  testgrammar -v <grammar_folder> <report_file>" << std::endl;
-  std::cout << "    output_folder   - folder with csv files representing PDF 2.0 Grammar" << std::endl;
+  std::cout << "    grammar_folder  - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
   std::cout << "    report_file     - file for storing results" << std::endl;
   std::cout << "to compare with Adobe's grammar:" << std::endl;
   std::cout << "  testgrammar -c <grammar_folder> <report_file> <adobe_grammar_file>" << std::endl;
-  std::cout << "    output_folder       - folder with csv files representing PDF 2.0 Grammar" << std::endl;
+  std::cout << "    grammar_folder      - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
   std::cout << "    report_file         - file for storing results" << std::endl;
   std::cout << "    adobe_grammar_file  - ????" << std::endl;
 }
@@ -74,9 +74,30 @@ int main(int argc, char* argv[]) {
 
     Initialization();
     if (a1 == "-c") CompareWithAdobe(a4, grammar_folder, ofs);
-    else  ParsePdsObjects(input_file, grammar_folder, save_path);
+    else {
+      Pdfix* pdfix = GetPdfix();
+      PdfDoc* doc = nullptr;
 
-    GetPdfix()->Destroy();
+      //open pdf file
+      std::wstring open_file = FromUtf8(input_file);
+      doc = pdfix->OpenDoc(open_file.c_str(), L"");
+      if (!doc)
+        throw std::runtime_error(std::to_string(pdfix->GetErrorType()));
+      //acquire catalog
+      PdsObject* root = doc->GetRootObject();
+      if (!root)
+        throw std::runtime_error(std::to_string(pdfix->GetErrorType()));
+      //open report file
+      std::ofstream ofs;
+      ofs.open(save_path);
+
+      CParsePDF parser(doc, grammar_folder, ofs);
+      parser.parse_object(root,"Catalog", "Catalog");
+      ofs.close();
+      doc->Close();
+      pdfix->Destroy();
+    }
+
   }
   catch (std::exception& ex) {
     std::cout << ex.what() << std::endl;

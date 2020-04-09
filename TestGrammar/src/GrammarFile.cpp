@@ -23,7 +23,7 @@
 
 
 /*
-  Parses through csv file line by line and loads csv data 
+  Parses through tsv file line by line and loads tsv data 
   into data_list (vector of vector of strings)
   if there is wrong structure, returns false, else returns true
 */
@@ -133,7 +133,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
 
           std::vector<std::string> direct_links = split(links[link_pos].substr(1, links[link_pos].size()-2), ',');
 
-          // report all multiple links - all the places where implementer has to decide which one to validate
+          // report all multiple links - all the places where implementor has to decide which one to validate
           //if (direct_links.size()>1)
           //  for (auto lnk : direct_links)
           //    if (lnk != "") 
@@ -145,7 +145,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
               std::string new_name = get_path_dir(file_name);
               new_name += "/";
               new_name += lnk;
-              new_name += ".csv";
+              new_name += ".tsv";
               if (!file_exists(new_name))
                report_stream << "Link doesn't exist:" << lnk << " in:" << file_name << "::" << vc[0] << std::endl;
             }

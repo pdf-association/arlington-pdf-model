@@ -31,7 +31,7 @@ public:
     file_name(f_name), delimeter(delm)
   { }
 
-  // Function to fetch data from a CSV File
+  // Function to fetch data from a TSV File
   bool load();
   const std::vector<std::vector<std::string>>& get_data();
   bool check(std::ostream &report_stream);

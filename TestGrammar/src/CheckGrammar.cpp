@@ -12,10 +12,10 @@
 #include "GrammarFile.h"
 
 void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
-  // collecting all csv starting from Catalog
+  // collecting all tsv starting from Catalog
   std::vector<std::string> processed;
   std::vector<std::string> to_process;
-  to_process.push_back("Catalog.csv");
+  to_process.push_back("Catalog.tsv");
   while (!to_process.empty()) {
     std::string gfile = to_process.back();
     to_process.pop_back();
@@ -37,7 +37,7 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
           for (auto type_link : links) {
             std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ',');
             for (auto lnk : direct_links)
-              if (lnk != "") to_process.push_back(lnk + ".csv");
+              if (lnk != "") to_process.push_back(lnk + ".tsv");
           }
         }
       }
@@ -45,7 +45,7 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
   }
 
   std::wstring search_path = FromUtf8(grammar_folder);
-  search_path += L"*.csv";
+  search_path += L"*.tsv";
   WIN32_FIND_DATA fd;
   HANDLE hFind = ::FindFirstFile(search_path.c_str(), &fd);
   if (hFind != INVALID_HANDLE_VALUE)
@@ -55,7 +55,7 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
         std::string str = ToUtf8(fd.cFileName);
         if (std::find(processed.begin(), processed.end(), str) == processed.end()) {
           // file not reachable from Catalog
-//          ofs << "Can't reach from Catalog:" << str << std::endl;
+          ofs << "Can't reach from Catalog:" << str << std::endl;
         }
 
         file_name += str;
