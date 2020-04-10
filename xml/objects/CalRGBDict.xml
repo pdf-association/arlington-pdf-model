@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="Thread">
+<OBJECT id="CalRGBDict">
    <ENTRY>
-      <NAME>Type</NAME>
+      <NAME>WhitePoint</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>name</TYPE>
-            <SHALLBE>Thread</SHALLBE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>1.1</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>BlackPoint</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -14,11 +27,10 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>I</NAME>
+      <NAME>Gamma</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE>DocInfo</VALIDATE>
+            <TYPE>number</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -27,15 +39,16 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>Metadata</NAME>
+      <NAME>Matrix</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>stream</TYPE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
-      <INDIRECTREFRENCE>true</INDIRECTREFRENCE>
-      <SINCEVERSION>2.0</SINCEVERSION>
+      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <SINCEVERSION>1.1</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
 </OBJECT>

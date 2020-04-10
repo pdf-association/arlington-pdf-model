@@ -32,6 +32,10 @@
             <TYPE>dictionary</TYPE>
             <VALIDATE>StructElem</VALIDATE>
          </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>StructTreeRoot</VALIDATE>
+         </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFRENCE>true</INDIRECTREFRENCE>
@@ -79,6 +83,10 @@
    <ENTRY>
       <NAME>K</NAME>
       <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfStructElemKids</VALIDATE>
+         </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
             <VALIDATE>StructElem</VALIDATE>

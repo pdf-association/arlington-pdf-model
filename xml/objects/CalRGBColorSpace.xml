@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="ArrayOfOutputIntents">
+<OBJECT id="CalRGBColorSpace">
    <ENTRY>
-      <NAME>*</NAME>
+      <NAME>0</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE>OutputIntents</VALIDATE>
+            <TYPE>name</TYPE>
+            <SHALLBE>CalRGB</SHALLBE>
          </VALUE>
       </VALUES>
-      <REQUIRED>false</REQUIRED>
+      <REQUIRED>true</REQUIRED>
       <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.4</SINCEVERSION>
+      <SINCEVERSION>1.1</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
 </OBJECT>
