@@ -82,7 +82,7 @@ public class XMLCreator {
                 colHeaders[i] = colHeaders[i].toUpperCase();
             }
           }
-        // KEY | TYPE | SINCEVERSION | DEPRECATEDIN | REQUIRED | INDIRECTREFRENCE | REQUIRED VALUE | DEFAULT VALUE | POSSIBLE VALUES | SPECIALCASE | LINK
+        // KEY | TYPE | SINCEVERSION | DEPRECATEDIN | REQUIRED | INDIRECTREFERENCE | REQUIRED VALUE | DEFAULT VALUE | POSSIBLE VALUES | SPECIALCASE | LINK
         // read entries
           while ((curLine = csvReader.readLine()) != null) {
               Element entryElement = newDoc.createElement("ENTRY");
@@ -95,18 +95,18 @@ public class XMLCreator {
               // colValues[10] -> link(csv) VALIDATE(xml)
               // colValues[6], colValues[7], colValues[8] -> other values (optional)
               Element valuesEntry = nodeValues(colValues[1], colValues[10], colValues[6], colValues[7], colValues[8]);
-              //creates <SINCEVERSION>, <DEPRECATEDIN>, <REQUIRED>, <INDIRECTREFRENCE>
+              //creates <SINCEVERSION>, <DEPRECATEDIN>, <REQUIRED>, <INDIRECTREFERENCE>
               Element sinceversionElement = nodeSinceVersion(colValues[2]);
               Element deprecatedinElement = nodeDeprecatedIn(colValues[3]);
               Element requiredElement = nodeRequired(colValues[4]);
-              Element indirectrefrenceElement = nodeIndirectRefrence(colValues[5]);
+              Element indirectreferenceElement = nodeIndirectReference(colValues[5]);
               if((nameElement != null) && (valuesEntry != null) && (sinceversionElement != null) &&
-                      (deprecatedinElement != null) && (requiredElement != null) && (indirectrefrenceElement != null)){
+                      (deprecatedinElement != null) && (requiredElement != null) && (indirectreferenceElement != null)){
                 //append elements to entry
                 entryElement.appendChild(nameElement);
                 entryElement.appendChild(valuesEntry);
                 entryElement.appendChild(requiredElement);
-                entryElement.appendChild(indirectrefrenceElement);
+                entryElement.appendChild(indirectreferenceElement);
                 entryElement.appendChild(sinceversionElement);
                 entryElement.appendChild(deprecatedinElement);
                 //append entry to root
@@ -180,13 +180,13 @@ public class XMLCreator {
         return tempElem;
     }
 
-    private Element nodeIndirectRefrence(String colValue) {
+    private Element nodeIndirectReference(String colValue) {
         Element tempElem = null;
         if(!colValue.isBlank()){
-            tempElem = newDoc.createElement("INDIRECTREFRENCE");
+            tempElem = newDoc.createElement("INDIRECTREFERENCE");
             tempElem.appendChild(newDoc.createTextNode(colValue.toLowerCase()));
         }else{
-            System.out.println("\tERROR. While processing entry: " +currentEntry+ ". Failed to create INDIRECTREFRENCE node. Missing value for indirect refrence. Shall be TRUE or FALSE.");
+            System.out.println("\tERROR. While processing entry: " +currentEntry+ ". Failed to create INDIRECTREFERENCE node. Missing value for indirect reference. Shall be TRUE or FALSE.");
             ++errorCount;
         }
         return tempElem;
