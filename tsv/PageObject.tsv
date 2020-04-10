@@ -1,4 +1,4 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectRefrence	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.0		TRUE	FALSE	Page					
 Parent	dictionary	1.0		TRUE	TRUE					[PageTreeNodeRoot,PageTreeNode]	
 LastModified	date	1.3		FALSE	FALSE				IsPresent:PieceInfo=>Required=TRUE		
