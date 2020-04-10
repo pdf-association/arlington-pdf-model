@@ -40,7 +40,7 @@ public class XMLCreator {
 
     public XMLCreator() {
         this.outputFolder = System.getProperty("user.dir") + "/xml/objects/";
-        this.inputFolder = System.getProperty("user.dir") + "/csv/";
+        this.inputFolder = System.getProperty("user.dir") + "/tsv/";
         this.currentEntry = "";
         this.errorCount = 0;
         try {
@@ -57,13 +57,13 @@ public class XMLCreator {
     }
     
     public void convertFile(String fileName, String delimiter) {
-        inputFolder += fileName + ".csv"; 
+        inputFolder += fileName + ".tsv"; 
         outputFolder += fileName + ".xml" ; 
         errorCount = 0;
         
         int rowsCount = -1;
         try {
-          System.out.println("Processing " + fileName + ".csv ...");
+          System.out.println("Processing " + fileName + ".tsv ...");
           // Root element
           Element rootElement = newDoc.createElement("OBJECT");
           rootElement.setAttribute("id", fileName);

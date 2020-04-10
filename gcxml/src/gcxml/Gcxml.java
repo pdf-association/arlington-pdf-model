@@ -30,7 +30,7 @@ public class Gcxml {
                         XMLCreator xmlcreator = new XMLCreator();
                         xmlcreator.convertFile(fileName, delimiter);
                     }else if(args.length>1 && "-all".equals(args[1])){
-                        String inputFolder = inputFolder = System.getProperty("user.dir") + "/csv/";
+                        String inputFolder = inputFolder = System.getProperty("user.dir") + "/tsv/";
                         File folder = new File(inputFolder);
                         File[] listOfFiles = folder.listFiles();
                         for (File file : listOfFiles) {
@@ -96,7 +96,7 @@ public class Gcxml {
                 case "--help":
                     System.out.println("List of available commands");
                     System.out.println("\t--help : shows list of available commands");
-                    System.out.println("\t--conv : converts csv to xml");
+                    System.out.println("\t--conv : converts tsv to xml");
                     System.out.println("\t--sin : returns all keys introduced in specified PDF version");
                     System.out.println("\t--dep : returns all keys deprecated in specified PDF version");
                     System.out.println("\t--so : returns objects that do not have key Type or where it is not required.");
