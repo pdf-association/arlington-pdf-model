@@ -87,7 +87,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
   }
 
   if ((vec[0] != "Key") || (vec[1] != "TYPE") || (vec[2] != "SinceVersion") ||
-    (vec[3] != "DeprecatedIn") || (vec[4] != "REQUIRED") || (vec[5] != "INDIRECTREFRENCE") ||
+    (vec[3] != "DeprecatedIn") || (vec[4] != "REQUIRED") || (vec[5] != "INDIRECTREFERENCE") ||
     (vec[6] != "RequiredValue") || (vec[7] != "DefaultValue") || (vec[8] != "PossibleValues") ||
     (vec[9] != "SpecialCase") || (vec[10] != "Link")) {
     report_stream << "Wrong headers for columns:" << file_name << std::endl;
@@ -125,11 +125,11 @@ bool CGrammarReader::check(std::ostream &report_stream) {
           report_stream << "Wrong pattern in links " << file_name << "::" << vc[0] << std::endl;
         }
         else {
-          if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
-            (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
-              || types[link_pos] == "NAME TREE" /*|| types[link_pos] == "STREAM"
-              || types[link_pos] == "ARRAY"*/))
-            report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
+          //if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
+          //  (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
+          //    || types[link_pos] == "NAME TREE" /*|| types[link_pos] == "STREAM"
+          //    || types[link_pos] == "ARRAY"*/))
+          //  report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
 
           std::vector<std::string> direct_links = split(links[link_pos].substr(1, links[link_pos].size()-2), ',');
 
@@ -138,7 +138,6 @@ bool CGrammarReader::check(std::ostream &report_stream) {
           //  for (auto lnk : direct_links)
           //    if (lnk != "") 
           //      report_stream << lnk << std::endl;
-
 
           for (auto lnk:direct_links)
             if (lnk != "" ) {
@@ -154,9 +153,23 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     }
 
     //check if each type is ok
-    for (auto type:types)
-      if (std::find(basic_types.begin(), basic_types.end(), type) == basic_types.end())
-        report_stream << "Wrong type:" << type << " in:" << file_name << "::" << vc[0] << std::endl;
+    //for (auto type:types)
+    //  if (std::find(basic_types.begin(), basic_types.end(), type) == basic_types.end())
+    //    report_stream << "Wrong type:" << type << " in:" << file_name << "::" << vc[0] << std::endl;
+
+    //if we have more types, check pattern in Required, default and possible values
+    //if (types.size() > 1) {
+    //  if (vc[6] != "")
+    //    report_stream << "More types, but REQUIRED defined in:" << file_name << "::" << vc[0] << std::endl;
+    //  if (vc[7] != "")
+    //    report_stream << "More types, but DEFAULT VALUE defined in:" << file_name << "::" << vc[0] << std::endl;
+    //  if (vc[8] != "")
+    //    report_stream << "More types, but POSSIBLE VALUES defined:"<< vc[8] << " in:"<< file_name << "::" << vc[0] << std::endl;
+    //}
+    //if (vc[8] != "")
+    //  if (vc[8].find(';')!= std::string::npos)
+    //  report_stream << "; in POSSIBLE VALUES defined:"<< vc[8] << " in:"<< file_name << "::" << vc[0] << std::endl;
+
   }
   return true;
 }

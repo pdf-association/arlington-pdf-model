@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.6		FALSE	FALSE	3D				
-Subtype	name	1.6		TRUE	FALSE			U3D;PRC		
+Subtype	name	1.6		TRUE	FALSE			[U3D,PRC]		
 VA	array	1.6		FALSE	FALSE					[3DView]
 DV	dictionary;integer;name;string	1.6		FALSE	FALSE		0			[3DView];[];[];[]
 Resources	name tree	1.6		FALSE	FALSE					[]

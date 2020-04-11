@@ -2,13 +2,13 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	Defa
 Type	name	1.0		TRUE	FALSE	FontDescriptor				
 FontName	name	1.0		TRUE	FALSE					
 FontFamily	string	1.5		FALSE	FALSE					
-FontStretch	name	1.5		FALSE	FALSE			UltraCondensed;ExtraCondensed;Condensed;SemiCondensed;Normal;SemiExpanded;Expanded;ExtraExpanded;UltraExpanded		
-FontWeight	number	1.5		FALSE	FALSE			100;200;300;400;500;600;700;800;900		
+FontStretch	name	1.5		FALSE	FALSE			[UltraCondensed,ExtraCondensed,Condensed,SemiCondensed,Normal,SemiExpanded,Expanded,ExtraExpanded,UltraExpanded]		
+FontWeight	number	1.5		FALSE	FALSE			[100,200,300,400,500,600,700,800,900]		
 Flags	integer	1.0		TRUE	FALSE					
 FontBBox	rectangle	1.0		TRUE	FALSE				Optional for Type 3 fonts	
 ItalicAngle	number	1.0		TRUE	FALSE					
 Ascent	number	1.0		TRUE	FALSE				Optional for Type 3 fonts	
-Descent	number	1.0		TRUE	FALSE			value<0	Optional for Type 3 fonts	
+Descent	number	1.0		TRUE	FALSE			[value<0]	Optional for Type 3 fonts	
 Leading	number	1.0		FALSE	FALSE		0			
 CapHeight	number	1.0		FALSE	FALSE					
 XHeight	number	1.0		FALSE	FALSE		0			

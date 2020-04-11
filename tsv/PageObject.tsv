@@ -10,7 +10,7 @@ TrimBox	rectangle	1.3		FALSE	FALSE		@CropBox
 ArtBox	rectangle	1.3		FALSE	FALSE		@CropBox				
 BoxColorInfo	dictionary	1.4		FALSE	FALSE					[BoxColorInfo]	
 Contents	array;stream	1.0		FALSE	FALSE					[];[]	
-Rotate	integer	1.0		FALSE	FALSE		0	0;90;180;270	Inheritable:Parent		
+Rotate	integer	1.0		FALSE	FALSE		0	[0,90,180,270]	Inheritable:Parent		
 Group	dictionary	1.4		FALSE	FALSE					[Group]	
 Thumb	stream	1.0		FALSE	FALSE					[Thumbnail]	
 B	array	1.1		FALSE	FALSE					[ArrayOfBeads]	
@@ -28,7 +28,7 @@ Tabs	name	1.5		FALSE	FALSE
 TemplateInstantiated	name	1.5		FALSE	FALSE				CreatedFrom:NamedPageObject=>Required=TRUE		
 PresSteps	dictionary	1.5		FALSE	FALSE					[NavNode]	
 UserUnit	number	1.6		FALSE	FALSE						
-VP	array	1.6		FALSE	FALSE		1.0	N*1/72''		[ArrayOfViewports]	
+VP	array	1.6		FALSE	FALSE		1.0	[N*1/72'']		[ArrayOfViewports]	
 AF	array;dictionary	2.0		FALSE	FALSE					[ArrayOfFileSpecifications];[FileSpecification]	
 OutputIntents	array	2.0		FALSE	FALSE					[ArrayOfOutputIntents]	
 DPart	dictionary	2.0		FALSE	FALSE					[DPart]	

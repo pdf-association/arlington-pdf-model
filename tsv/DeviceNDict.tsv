@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Subtype	name	1.6		FALSE	FALSE		DeviceN	DeviceN;NChannel		
+Subtype	name	1.6		FALSE	FALSE		DeviceN	[DeviceN,NChannel]		
 Colorants	dictionary	1.6		FALSE	FALSE				IsRequired=>Subtype==NChannel	[]
 Process	dictionary	1.6		FALSE	FALSE				IsRequired=>Subtype==NChannel	[DeviceNProcess]
 MixingHints	dictionary	1.6		FALSE	FALSE					[DeviceNMixingHints]
