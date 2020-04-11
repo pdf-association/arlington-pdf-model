@@ -105,7 +105,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
       processed.push_back(vc[0]);
     else
       report_stream << "Duplicate keys in:" << file_name << "::" << vc[0] << std::endl;
-     
+
     // possible multiple types separated with ";"
     // need to compare all of them with basic_types
     std::vector<std::string> types = split(vc[1], ';');
@@ -118,7 +118,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     // - each dictionary, array etc.. is linked
     // - each link actuall exists
     if (vc[10] != "") {
-       if (links.size() != types.size())
+      if (links.size() != types.size())
         report_stream << "Wrong # of types vs. # of links " << file_name << "::" << vc[0] << std::endl;
       for (auto link_pos = 0; link_pos < links.size(); link_pos++) {
         if (!std::regex_match(links[link_pos], regex)) {
@@ -131,7 +131,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
           //    || types[link_pos] == "ARRAY"*/))
           //  report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
 
-          std::vector<std::string> direct_links = split(links[link_pos].substr(1, links[link_pos].size()-2), ',');
+          std::vector<std::string> direct_links = split(links[link_pos].substr(1, links[link_pos].size() - 2), ',');
 
           // report all multiple links - all the places where implementor has to decide which one to validate
           //if (direct_links.size()>1)
@@ -139,14 +139,14 @@ bool CGrammarReader::check(std::ostream &report_stream) {
           //    if (lnk != "") 
           //      report_stream << lnk << std::endl;
 
-          for (auto lnk:direct_links)
-            if (lnk != "" ) {
+          for (auto lnk : direct_links)
+            if (lnk != "") {
               std::string new_name = get_path_dir(file_name);
               new_name += "/";
               new_name += lnk;
               new_name += ".tsv";
               if (!file_exists(new_name))
-               report_stream << "Link doesn't exist:" << lnk << " in:" << file_name << "::" << vc[0] << std::endl;
+                report_stream << "Link doesn't exist:" << lnk << " in:" << file_name << "::" << vc[0] << std::endl;
             }
         }
       }
@@ -157,18 +157,27 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     //  if (std::find(basic_types.begin(), basic_types.end(), type) == basic_types.end())
     //    report_stream << "Wrong type:" << type << " in:" << file_name << "::" << vc[0] << std::endl;
 
+    // check if complex type does have possible value
+    //for (int t_pos = 0; t_pos < types.size(); t_pos++)
+    //  if ( (types[t_pos] == "ARRAY" || types[t_pos] == "DICTIONARY" || types[t_pos] == "NUMBER TREE"
+    //        || types[t_pos] == "NAME TREE" || types[t_pos] == "STREAM") && vc[8] != "") {
+    //    std::vector<std::string> def_val = split(vc[8], ';');
+    //    if (def_val[t_pos]!="[]") 
+    //      report_stream << "Complex type does have possible value defined:"<< vc[8] << " in:"<< file_name << "::" << vc[0] << std::endl;
+    //  }
+
     //if we have more types, check pattern in Required, default and possible values
-    //if (types.size() > 1) {
+    if (types.size() > 1) {
     //  if (vc[6] != "")
     //    report_stream << "More types, but REQUIRED defined in:" << file_name << "::" << vc[0] << std::endl;
     //  if (vc[7] != "")
     //    report_stream << "More types, but DEFAULT VALUE defined in:" << file_name << "::" << vc[0] << std::endl;
-    //  if (vc[8] != "")
-    //    report_stream << "More types, but POSSIBLE VALUES defined:"<< vc[8] << " in:"<< file_name << "::" << vc[0] << std::endl;
-    //}
-    //if (vc[8] != "")
-    //  if (vc[8].find(';')!= std::string::npos)
-    //  report_stream << "; in POSSIBLE VALUES defined:"<< vc[8] << " in:"<< file_name << "::" << vc[0] << std::endl;
+      if (vc[8] != "") {
+        std::vector<std::string> poss_val = split(vc[8], ';');
+        if (types.size()!=poss_val.size())
+          report_stream << "Wrong # of types vs. # of possible values " << file_name << "::" << vc[0] << std::endl;
+     }
+    }
 
   }
   return true;
