@@ -32,6 +32,8 @@ using namespace PDFixSDK;
 class CParsePDF
 {
   std::map<PdsObject*, int> mapped;
+  std::map<std::string, std::unique_ptr<CGrammarReader>> grammar_map;
+
   std::string grammar_folder;
   PdfDoc* pdf_doc;
   std::ofstream &output;
@@ -48,5 +50,6 @@ public:
   std::string select_one(PdsObject* obj, const std::string &links_string, std::string &obj_name);
   std::string get_link_for_type(PdsObject* obj, const std::string &types, const std::string &links);
   int get_type_index(PdsObject *obj, std::string types);
+  void check_basics(PdsObject *object, const std::vector<std::string> &vec, std::string &grammar_file);
 };
 
