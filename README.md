@@ -33,14 +33,17 @@ ISO32000-2 defines few basic types, but from inside of the spec we refer "some o
 - "STREAM"
 - "STRING"
 
-One single key in dictionary might be of different types. Common example is that one key might be either a dictionary or an array of dictionaries. In this case Type would be "array;dictionary" Except of basic types, currently we recognize following combinations of allowed types: [click here](All_types.md)
+One single key in dictionary might be of different types. Common example is that one key might be either a dictionary or an array of dictionaries. In this case Type would be "array;dictionary" 
+Except of basic types, currently we recognize following combinations of allowed types: [click here](All_types.md)
 
 Whenever we find other type in the spec(e.g. BYTE STRING) we change that to basic (STRING in this example) and record the decision. For more information [click here](Grammar_vs_ISO32000-2.md).
 
 ## Link
- If specific key requires further validation (represents another dictionary for example) we link this key to another sheet in Link column. Example in PageObject Key=Resources Type=dictionary Link=\[Dictionary]
- If Key could be represented by different types we use following pattern: Type=array;dictionary Link=\[ValidateArray];\[ValidateDictionary]
- Another common example is that one dictionary could be validated based on few different links (Annotation could either be Popup, Stamp etc.) In such case options would be separated with "," like this: Type=array;dictionary Link=\[ArrayOfAnnotations];\[AnnotStamp,AnnotRedact,AnnotPopup]
+If specific key requires further validation (represents another dictionary for example) we link this key to another sheet in Link column. Example in PageObject Key=Resources Type=dictionary Link=\[Dictionary]
+
+If Key could be represented by different types we use following pattern: Type=array;dictionary Link=\[ValidateArray];\[ValidateDictionary]
+
+Another common example is that one dictionary could be validated based on few different links (Annotation could either be Popup, Stamp etc.) In such case options would be separated with "," like this: Type=array;dictionary Link=\[ArrayOfAnnotations];\[AnnotStamp,AnnotRedact,AnnotPopup]
 
 ## PossibleValues
 PossibleValues also follow the same pattern as Links: Type=array;dictionary PossibleValues=\[Value1ForType1,Value2ForType1];\[Value1ForType2,Value2ForType2]
