@@ -95,12 +95,16 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
             ((PdsArray*)obj)->GetText(j-1, (wchar_t*)str_value.c_str(), (int)str_value.size());
           }
           else {
-            if (!((PdsDictionary*)obj)->Known(utf8ToUtf16(vec[0]).c_str())) {
+            PdsDictionary* dictObj = (PdsDictionary*)obj;
+            if (obj->GetObjectType() == kPdsStream)
+              dictObj = ((PdsStream*)obj)->GetStreamDict();
+
+            if (!dictObj->Known(utf8ToUtf16(vec[0]).c_str())) {
               to_ret = -1;
               break;
             }
-            str_value.resize(((PdsDictionary*)obj)->GetText(utf8ToUtf16(vec[0]).c_str(), nullptr, 0));
-            ((PdsDictionary*)obj)->GetText(utf8ToUtf16(vec[0]).c_str(), (wchar_t*)str_value.c_str(), (int)str_value.size());
+            str_value.resize(dictObj->GetText(utf8ToUtf16(vec[0]).c_str(), nullptr, 0));
+            dictObj->GetText(utf8ToUtf16(vec[0]).c_str(), (wchar_t*)str_value.c_str(), (int)str_value.size());
           }
 
           if (vec[6] != "" && vec[6] != ToUtf8(str_value)) {
@@ -162,6 +166,10 @@ int CParsePDF::get_type_index(PdsObject *obj, std::string types) {
 // - possible value
 void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &vec, std::string &grammar_file) {
   // is indirect when needed ?
+  if (vec[0] == "BorderColor") {
+    output << "Tu";
+  }
+
   if ((vec[5] == "TRUE") && (object->GetId() == 0)) {
     output << "Error: not indirect:";
     output << vec[0] << "(" << grammar_file << ")" << std::endl;
@@ -169,11 +177,13 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
 
   // check type
   int index = get_type_index(object, vec[1]);
-  if (index == -1) {
+  if (index == -1 && vec[1]!="ANY") {
+    int index2 = get_type_index(object, vec[1]);
     output << "Error:  wrong type:";
     output << vec[0] << "(" << grammar_file << ")";
     output << " should be:" << vec[1] << " and is " << object->GetObjectType() << std::endl;
   }
+
 
   // possible value, could be one of many 
   // could be a pattern array;name --- [];[name1,name2]
@@ -208,31 +218,32 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
       def = all_defaults[index];
       def = def.substr(1, def.size() - 2);
     }
-    options = split(def, ',');
-
-    bool found = false;
-    for (auto opt : options) {
-      if (object->GetObjectType() == kPdsNumber) {
-        try {
-          auto double_val = std::stod(opt);
-          if (num_value == double_val) {
-            found = true;
+    if (def != "" &&  def.find("value") != std::string::npos &&  def.find("<") != std::string::npos) {
+      options = split(def, ',');
+      bool found = false;
+      for (auto opt : options)
+        if (object->GetObjectType() == kPdsNumber) {
+          try {
+            auto double_val = std::stod(opt);
+            if (num_value == double_val) {
+              found = true;
+              break;
+            }
+          }
+          catch (...) {
             break;
           }
         }
-        catch (...) {
-          break;
-        }
-      } else
-        if (opt == ToUtf8(str_value)) {
+        else
+          if (opt == ToUtf8(str_value)) {
             found = true;
             break;
           }
-    }
-    if (!found) {
-      output << "Error:  wrong value:";
-      output << vec[0] << "(" << grammar_file << ")";
-      output << " should be:" << vec[8] << " and is " << ToUtf8(str_value) << std::endl;
+      if (!found) {
+        output << "Error:  wrong value:";
+        output << vec[0] << "(" << grammar_file << ")";
+        output << " should be:" << vec[8] << " and is " << ToUtf8(str_value) << std::endl;
+      }
     }
   }
 }

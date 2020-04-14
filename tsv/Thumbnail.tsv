@@ -3,6 +3,6 @@ Type	name	1.0		FALSE	FALSE	XObject
 Subtype	name	1.0		TRUE	FALSE	Image					
 Width	integer	1.0		TRUE	FALSE						
 Height	integer	1.0		TRUE	FALSE						
-ColorSpace	array;name	1.0		TRUE	FALSE						
+ColorSpace	array;name	1.0		TRUE	FALSE			[];[DeviceRGB,DeviceGray]		[IndexedColorSpace];[]	Only DeviceGray or DeviceRGB, or an Indexed
 BitsPerComponent	integer	1.0		TRUE	FALSE						
 Decode	array	1.0		FALSE	FALSE					[]	

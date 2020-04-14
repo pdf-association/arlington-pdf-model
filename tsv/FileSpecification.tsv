@@ -13,5 +13,5 @@ RF	dictionary	1.3		FALSE	FALSE					[]
 Desc	string	1.6		FALSE	FALSE					
 CI	dictionary	1.7		FALSE	FALSE					[CollectionItem]
 Thumb	stream	2.0		FALSE	FALSE					[]
-AFRelationship	name	2.0		FALSE	FALSE				Source;Data;Alternative;Supplement;EncryptedPayload;FormData;Schema;Unspecified	
+AFRelationship	name	2.0		FALSE	FALSE			[Source,Data,Alternative,Supplement,EncryptedPayload,FormData,Schema,Unspecified]		
 EP	dictionary	2.0		FALSE	FALSE					[EncryptedPayload]
