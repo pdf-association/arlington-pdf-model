@@ -117,7 +117,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     // - each link follows patter [];[]..
     // - each dictionary, array etc.. is linked
     // - each link actuall exists
-    //report_stream << vc[1] << std::endl;
+ //   report_stream << vc[9] << std::endl;
 
     if (vc[10] != "") {
       if (links.size() != types.size())
@@ -127,11 +127,11 @@ bool CGrammarReader::check(std::ostream &report_stream) {
           report_stream << "Wrong pattern in links " << file_name << "::" << vc[0] << std::endl;
         }
         else {
-          //if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
-          //  (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
-          //    || types[link_pos] == "NAME TREE" /*|| types[link_pos] == "STREAM"
-          //    || types[link_pos] == "ARRAY"*/))
-          //  report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
+          if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
+            (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
+              || types[link_pos] == "NAME TREE" /*|| types[link_pos] == "STREAM"
+              || types[link_pos] == "ARRAY"*/))
+            report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
 
           std::vector<std::string> direct_links = split(links[link_pos].substr(1, links[link_pos].size() - 2), ',');
 
@@ -155,18 +155,18 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     }
 
     //check if each type is ok
-    //for (auto type:types)
-    //  if (std::find(basic_types.begin(), basic_types.end(), type) == basic_types.end())
-    //    report_stream << "Wrong type:" << type << " in:" << file_name << "::" << vc[0] << std::endl;
+    for (auto type:types)
+      if (std::find(basic_types.begin(), basic_types.end(), type) == basic_types.end())
+        report_stream << "Wrong type:" << type << " in:" << file_name << "::" << vc[0] << std::endl;
 
     // check if complex type does have possible value
-    //for (int t_pos = 0; t_pos < types.size(); t_pos++)
-    //  if ( (types[t_pos] == "ARRAY" || types[t_pos] == "DICTIONARY" || types[t_pos] == "NUMBER TREE"
-    //        || types[t_pos] == "NAME TREE" || types[t_pos] == "STREAM") && vc[8] != "") {
-    //    std::vector<std::string> def_val = split(vc[8], ';');
-    //    if (def_val[t_pos]!="[]") 
-    //      report_stream << "Complex type does have possible value defined:"<< vc[8] << " in:"<< file_name << "::" << vc[0] << std::endl;
-    //  }
+    for (int t_pos = 0; t_pos < types.size(); t_pos++)
+      if ( (types[t_pos] == "ARRAY" || types[t_pos] == "DICTIONARY" || types[t_pos] == "NUMBER TREE"
+            || types[t_pos] == "NAME TREE" || types[t_pos] == "STREAM") && vc[8] != "") {
+        std::vector<std::string> def_val = split(vc[8], ';');
+        if (def_val[t_pos]!="[]") 
+          report_stream << "Complex type does have possible value defined:"<< vc[8] << " in:"<< file_name << "::" << vc[0] << std::endl;
+      }
 
     //if we have more types, check pattern in Required, default and possible values
     if (types.size() > 1) {

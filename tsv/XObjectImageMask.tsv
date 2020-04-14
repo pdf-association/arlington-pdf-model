@@ -19,7 +19,7 @@ ID	string	1.3		FALSE	FALSE
 OPI	dictionary	1.2	2.0	FALSE	FALSE					[OPIVersion]
 Metadata	stream	1.4		FALSE	FALSE					[Metadata]
 OC	dictionary	1.5		FALSE	FALSE					[OptContentGroup,OptContentMembership]
-AF	array;dictionary	2.0		FALSE	FALSE					[];[FileSpecification]
+AF	array;dictionary	2.0		FALSE	FALSE					[ArrayOfFileSpecifications];[FileSpecification]
 Measure	dictionary	2.0		FALSE	FALSE					[Measure]
 PtData	dictionary	2.0		FALSE	FALSE					[PointData]
 Image	integer	1.0		TRUE	FALSE					
