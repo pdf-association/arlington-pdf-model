@@ -58,21 +58,30 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
   for (int i = 0; i < links.size(); i++) {
     auto lnk = links[i];
     std::string grammar_file = grammar_folder + lnk + ".tsv";
-    CGrammarReader reader(grammar_file);
-    if (!reader.load())
-      continue;
 
-    const std::vector<std::vector<std::string>> &data_list = reader.get_data();
-    if (data_list.empty())
-      continue;
+
+    const std::vector<std::vector<std::string>> *data_list;
+    auto it = grammar_map.find(lnk);
+    if (it == grammar_map.end()) {
+      std::unique_ptr<CGrammarReader> reader(new CGrammarReader(grammar_file));
+      if (!reader->load())
+        continue;
+      data_list = &reader->get_data();
+      if (data_list->empty())
+        continue;
+      grammar_map.insert(std::make_pair(lnk, std::move(reader)));
+    }
+    else
+      data_list = &it->second->get_data();
+
 
     to_ret = i;
     // first need to go through "required" - that may fail the validation right away
     if (obj->GetObjectType() == kPdsDictionary || obj->GetObjectType() == kPdsStream || obj->GetObjectType() == kPdsArray) {
       // are all "required" fields has to be present
       // and if required value is defined then has to match with value
-      for (int j = 1; j < data_list.size(); j++) {
-        auto& vec = data_list[j];
+      for (int j = 1; j < data_list->size(); j++) {
+        auto &vec = data_list->at(j);
         if (vec[4] == "TRUE") {
           std::wstring str_value;
           //required value eists?
@@ -93,7 +102,6 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
             str_value.resize(((PdsDictionary*)obj)->GetText(utf8ToUtf16(vec[0]).c_str(), nullptr, 0));
             ((PdsDictionary*)obj)->GetText(utf8ToUtf16(vec[0]).c_str(), (wchar_t*)str_value.c_str(), (int)str_value.size());
           }
-
 
           if (vec[6] != "" && vec[6] != ToUtf8(str_value)) {
             to_ret = -1;
@@ -171,7 +179,7 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
   // could be a pattern array;name --- [];[name1,name2]
   // could be single reference -- name1,name2
   // we should cober also sigle reference in brackets [name1,name2]
-  if (vec[8] != "") {
+  if (vec[8] != "" && index!=-1) {
     std::wstring str_value;
     double num_value;
 
@@ -204,11 +212,22 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
 
     bool found = false;
     for (auto opt : options) {
-      if ((object->GetObjectType() == kPdsNumber && num_value == std::stod(opt)) ||
-        (opt == ToUtf8(str_value))) {
-        found = true;
-        break;
-      }
+      if (object->GetObjectType() == kPdsNumber) {
+        try {
+          auto double_val = std::stod(opt);
+          if (num_value == double_val) {
+            found = true;
+            break;
+          }
+        }
+        catch (...) {
+          break;
+        }
+      } else
+        if (opt == ToUtf8(str_value)) {
+            found = true;
+            break;
+          }
     }
     if (!found) {
       output << "Error:  wrong value:";
@@ -338,16 +357,26 @@ void CParsePDF::parse_object(PdsObject *object, std::string link, std::string co
 
   std::string grammar_file = grammar_folder + link + ".tsv";
 
-  CGrammarReader reader(grammar_file);
-  if (!reader.load()) {
-    output << "Error: Can't load grammar file:" << grammar_file << std::endl;
-    return;
+  const std::vector<std::vector<std::string>> *data_list;
+  auto it = grammar_map.find(link);
+  if ( it == grammar_map.end()) {
+    std::unique_ptr<CGrammarReader> reader(new CGrammarReader(grammar_file));
+    if (!reader->load()) {
+      output << "Error: Can't load grammar file:" << grammar_file << std::endl;
+      return;
+    }
+    data_list= &reader->get_data();
+    if (data_list->empty()) {
+      output << "Error: Empty grammar file:" << grammar_file << std::endl;
+      return;
+    }
+    grammar_map.insert(std::make_pair(link, std::move(reader)));
   }
-  const std::vector<std::vector<std::string>> &data_list = reader.get_data();
-  if (data_list.empty()) {
-    output << "Error: Empty grammar file:" << grammar_file << std::endl;
-    return;
-  }
+  else 
+    data_list = &it->second->get_data();
+    
+
+
 
   // validating as dictionary:
   // going through all objects in dictionary 
@@ -368,7 +397,7 @@ void CParsePDF::parse_object(PdsObject *object, std::string link, std::string co
       // checking basis (type,possiblevalue, indirect)
       PdsObject *inner_obj = dictObj->Get(key.c_str());
       bool found = false;
-      for (auto& vec : data_list)
+      for (auto& vec : *data_list)
         if (vec[0] == ToUtf8(key)) {
           check_basics(inner_obj, vec,grammar_file);
           found = true;
@@ -376,7 +405,7 @@ void CParsePDF::parse_object(PdsObject *object, std::string link, std::string co
         }
       // we didn't find the key, there may be * we can use to validate
       if (!found)
-        for (auto& vec : data_list)
+        for (auto& vec : *data_list)
           if (vec[0] == "*" && vec[10] != "") {
             std::string lnk = get_link_for_type(inner_obj, vec[1], vec[10]);
             std::string as = ToUtf8(key);
@@ -386,7 +415,7 @@ void CParsePDF::parse_object(PdsObject *object, std::string link, std::string co
           }
     }
     // check presence of required values
-    for (auto& vec : data_list)
+    for (auto& vec : *data_list)
       if (vec[4] == "TRUE" && vec[0] != "*") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
         if (inner_obj == nullptr) {
@@ -396,7 +425,7 @@ void CParsePDF::parse_object(PdsObject *object, std::string link, std::string co
       }
 
     // now go through containers and Process them with new grammar_file
-    for (auto& vec : data_list)
+    for (auto& vec : *data_list)
       if (vec.size() >= 11 && vec[10] != "") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
         if (inner_obj != nullptr) {
@@ -437,7 +466,7 @@ void CParsePDF::parse_object(PdsObject *object, std::string link, std::string co
     PdsArray* arrayObj = (PdsArray*)object;
     for (int i = 0; i < arrayObj->GetNumObjects(); ++i) {
       PdsObject* item = arrayObj->Get(i);
-      for (auto& vec : data_list)
+      for (auto& vec : *data_list)
         if (vec[0] == std::to_string(i) || vec[0] == "*") {
           // checking basics of the element
           check_basics(item, vec, grammar_file);

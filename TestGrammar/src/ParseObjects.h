@@ -32,6 +32,8 @@ using namespace PDFixSDK;
 class CParsePDF
 {
   std::map<PdsObject*, int> mapped;
+  std::map<std::string, std::unique_ptr<CGrammarReader>> grammar_map;
+
   std::string grammar_folder;
   PdfDoc* pdf_doc;
   std::ofstream &output;

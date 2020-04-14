@@ -99,7 +99,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
   // check duplicate keys
   //todo: skontrolovat vyber link podla value (rovnaky pocet musi byt)
   std::vector<std::string> processed;
-  for (int i = 1; i < data_list.size(); i++) {
+  for (auto i = 1; i < data_list.size(); i++) {
     std::vector<std::string> vc = data_list[i];
     if (std::find(processed.begin(), processed.end(), vc[0]) == processed.end())
       processed.push_back(vc[0]);
@@ -117,6 +117,8 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     // - each link follows patter [];[]..
     // - each dictionary, array etc.. is linked
     // - each link actuall exists
+    //report_stream << vc[1] << std::endl;
+
     if (vc[10] != "") {
       if (links.size() != types.size())
         report_stream << "Wrong # of types vs. # of links " << file_name << "::" << vc[0] << std::endl;
