@@ -2,16 +2,16 @@
 
 We extracted all tables from PDF 2.0 and represent them in series of tables. Every table represents either dictionary,array stream etc.. and contains all necessary to validate real world pdf files.
 
-Our main source is [PDF20Grammar.ods](PDF20Grammar.ods) file (we are using [LibreOffice Calc](libreoffice.org)). There is specific sheet **TableMap** that identifies each sheet in PDF 2.0 specification and thean each sheet is representation of the table in PDF spec. Columns represent following information:
+Our main source is [PDF20Grammar.ods](PDF20Grammar.ods) file (we are using [LibreOffice Calc](libreoffice.org)). There is specific sheet **TableMap** that identifies each sheet in PDF 2.0 specification and then each sheet is representation of the table in PDF spec. Columns represent following information:
 - Key				- key in dictionary, or index into an array
 - Type				- one of [basic types]() or types separated by ";"
 - SinceVersion		- version of PDF this key was introduced in
 - DeprecatedIn		- version of PDF this key was deprecated in
 - Required			- TRUE/FALSE  
-- IndirectRefrence	- TRUE/FALSE
+- IndirectReference	- TRUE/FALSE
 - RequiredValue		- the only possible value
 - DefaultValue		- depends on the type
-- PossibleValues	- list of possible values. 
+- PossibleValues	- list of possible values.
 - SpecialCase	 	- expression
 - Link				- name of another sheet for validating "this" container
 
@@ -33,14 +33,17 @@ ISO32000-2 defines few basic types, but from inside of the spec we refer "some o
 - "STREAM"
 - "STRING"
 
-One single key in dictionary might be of different types. Common example is that one key might be either a dictionary or an array of dictionaries. In this case Type would be "array;dictionary" Except of basic types, currently we recognize following combinations of allowed types: [click here](All_types.md)
+One single key in dictionary might be of different types. Common example is that one key might be either a dictionary or an array of dictionaries. In this case Type would be "array;dictionary"
+Except of basic types, currently we recognize following combinations of allowed types: [click here](All_types.md)
 
 Whenever we find other type in the spec(e.g. BYTE STRING) we change that to basic (STRING in this example) and record the decision. For more information [click here](Grammar_vs_ISO32000-2.md).
 
 ## Link
- If specific key requires further validation (represents another dictionary for example) we link this key to another sheet in Link column. Example in PageObject Key=Resources Type=dictionary Link=\[Dictionary]
- If Key could be represented by different types we use following pattern: Type=array;dictionary Link=\[ValidateArray];\[ValidateDictionary]
- Another common example is that one dictionary could be validated based on few different links (Annotation could either be Popup, Stamp etc.) In such case options would be separated with "," like this: Type=array;dictionary Link=\[ArrayOfAnnotations];\[AnnotStamp,AnnotRedact,AnnotPopup]
+If specific key requires further validation (represents another dictionary for example) we link this key to another sheet in Link column. Example in PageObject Key=Resources Type=dictionary Link=\[Dictionary]
+
+If Key could be represented by different types we use following pattern: Type=array;dictionary Link=\[ValidateArray];\[ValidateDictionary]
+
+Another common example is that one dictionary could be validated based on few different links (Annotation could either be Popup, Stamp etc.) In such case options would be separated with "," like this: Type=array;dictionary Link=\[ArrayOfAnnotations];\[AnnotStamp,AnnotRedact,AnnotPopup]
 
 ## PossibleValues
 PossibleValues also follow the same pattern as Links: Type=array;dictionary PossibleValues=\[Value1ForType1,Value2ForType1];\[Value1ForType2,Value2ForType2]
@@ -55,7 +58,7 @@ TODO
 This repository contains implementations
 
 - TestGrammar (C++)	- test existing pdf file against grammar, validates grammar itself, compares grammar with Adobe grammar
-- gcxml (Java)			- generates xml files that conform schema and uses XPath to query grammar, generates specific reports 
+- gcxml (Java)			- generates xml files that conform schema and uses XPath to query grammar, generates specific reports
 
 
 ## TestGrammar
@@ -71,9 +74,10 @@ The tools allows two different tasks
 - compares grammar with Adobe (TODO)
 
 ## GCXML
-java implementation that converts tsv files into xml files that follows schema:
-
-https://docs.google.com/document/d/11wXQmITNiCFB26fWAdxEq4TGgQ4VPQh1Qwoz1PU4ikY
+command line tool writen in Java that can do two different things:
+- convert all tsv files into xml files that must be valid based on schema - xml/schema/objects.xsd (not the final version, yet)
+- give answers to queries
+ - https://docs.google.com/document/d/11wXQmITNiCFB26fWAdxEq4TGgQ4VPQh1Qwoz1PU4ikY
 
 
 # TODO
