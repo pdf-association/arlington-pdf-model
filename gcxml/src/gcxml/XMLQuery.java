@@ -325,7 +325,8 @@ public class XMLQuery {
     
     public void KeyOccurrenceCount(){
         
-        HashMap<String, Integer> keyMap = new HashMap<String, Integer>();
+        HashMap<String, Integer> keyCountMap = new HashMap<String, Integer>();
+        
         ArrayList<String> keys = new ArrayList<>();
         keys = getAllKeys();
         
@@ -333,21 +334,21 @@ public class XMLQuery {
             Iterator<String> listIterator =  keys.iterator();
             while(listIterator.hasNext()){
                 String key = listIterator.next();
-                if(keyMap.containsKey(key)){
-                    for (Entry<String, Integer> entry : keyMap.entrySet()) {
+                if(keyCountMap.containsKey(key)){
+                    for (Entry<String, Integer> entry : keyCountMap.entrySet()) {
                          if (entry.getKey().equals(key)) {
                             int count = entry.getValue();
                             ++count;
-                            keyMap.replace(key, count);
+                            keyCountMap.replace(key, count);
                     }
                 }
                 }else{
-                    keyMap.put(key, 1);
+                    keyCountMap.put(key, 1);
                 }
             }
         }
         
-        printMap(keyMap);
+        printMap(keyCountMap);
     }
     
     private void printMap(Map mp) {
@@ -355,6 +356,9 @@ public class XMLQuery {
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             System.out.println(pair.getKey() + " = " + pair.getValue());
+            String key = pair.getKey().toString();
+            String dicts = getDictByKey(key);
+            System.out.println("Found in: " + dicts);
         }
     }
     
@@ -419,5 +423,49 @@ public class XMLQuery {
             }
         }
         return allKeys;
+    }
+
+    private String getDictByKey(String key) {
+        String dicts = "";
+        
+        for (File file : files) {
+            if (file.isFile() && file.canRead() && file.exists()) {
+                try{
+                String inputFile = inputFolder + file.getName();
+                Document doc = domBuilder.parse(inputFile);
+                doc.getDocumentElement().normalize();
+                
+                XPath xPath =  XPathFactory.newInstance().newXPath();
+                
+                String expression = "/OBJECT/ENTRY";	        
+                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
+                
+                
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node nNode = nodeList.item(i);
+                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) nNode;
+                        String nodeName = eElement.getElementsByTagName("NAME").item(0).getTextContent();
+                        if(nodeName.equals(key)){
+                           Node rootNode = nNode.getParentNode();
+                           Element rootElem = (Element) rootNode;
+                           String objectName =  rootElem.getAttribute("id");
+                           dicts += objectName + ", ";
+                        }
+                    } 
+                }
+
+                } catch (SAXException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (XPathExpressionException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return dicts;
     }
 }
