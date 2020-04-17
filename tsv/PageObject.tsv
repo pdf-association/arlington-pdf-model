@@ -21,7 +21,7 @@ AA	dictionary	1.2		FALSE	FALSE					[AddActionPageObject]
 Metadata	stream	1.4		FALSE	FALSE					[Metadata]	
 PieceInfo	dictionary	1.3		FALSE	FALSE					[PagePiece]	
 StructParents	integer	1.3		FALSE	FALSE				Required if the page contains structural content items		
-ID	string	1.3		FALSE	FALSE						byte string
+ID	string-byte	1.3		FALSE	FALSE						byte string
 PZ	number	1.3		FALSE	FALSE						
 SeparationInfo	dictionary	1.3		FALSE	FALSE					[Separation]	
 Tabs	name	1.5		FALSE	FALSE						

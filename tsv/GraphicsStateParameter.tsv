@@ -20,7 +20,7 @@ HT	dictionary;name;stream	1.2		FALSE	FALSE					[HalftoneType1];[];[HalftoneType6
 FL	number	1.3		FALSE	FALSE					
 SM	number	1.3		FALSE	FALSE					
 SA	boolean	1.2		FALSE	FALSE					
-BM	name	1.4		FALSE	FALSE					
+BM	array;name	1.4		FALSE	FALSE				$column(Type).value(array).deprecated(2.0)	[];[]
 SMask	dictionary;name	1.4		FALSE	FALSE					[SoftMaskAlpha,SoftMaskLuminosity];[]
 CA	number	1.4		FALSE	FALSE					
 ca	number	1.4		FALSE	FALSE					

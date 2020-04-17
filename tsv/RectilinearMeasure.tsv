@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.6		FALSE	FALSE	Measure				
 Subtype	name	1.6		FALSE	FALSE	RL				
-R	string	1.6		TRUE	FALSE					
+R	string-text	1.6		TRUE	FALSE					
 X	array	1.6		TRUE	FALSE					[ArrayOfNumberFormats]
 Y	array	1.6		FALSE	FALSE					[ArrayOfNumberFormats]
 D	array	1.6		TRUE	FALSE					[ArrayOfNumberFormats]

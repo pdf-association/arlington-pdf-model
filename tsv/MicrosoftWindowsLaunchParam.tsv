@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-F	string			TRUE						
-D	string			FALSE						
-O	string			FALSE			open	[open,print]		
-P	string			FALSE						
+F	string-byte			TRUE						
+D	string-byte			FALSE						
+O	String-ascii			FALSE			open	[open,print]		
+P	string-byte			FALSE						

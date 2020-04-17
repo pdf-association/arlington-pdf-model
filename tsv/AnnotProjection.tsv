@@ -1,29 +1,29 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	note
-Type	name	1.0		FALSE	FALSE	Annot					
-Subtype	name	1.0		TRUE	FALSE	Projection					
-Rect	rectangle	1.0		TRUE	FALSE						
-Contents	string	1.0		FALSE	FALSE						text string
-P	dictionary	1.3		FALSE	FALSE					[PageObject]	
-NM	string	1.4		FALSE	FALSE						text string
-M	date;string	1.1		FALSE	FALSE						text string
-F	integer	1.1		FALSE	FALSE		0				
-AP	dictionary	1.2		FALSE	FALSE					[Appearance]	
-AS	name	1.2		FALSE	FALSE						
-Border	array	1.0		FALSE	FALSE		[0 0 1]			[]	
-C 	array	1.1		FALSE	FALSE					[ArrayOf4NumbersColorAnnotation]	
-StructParent	integer	1.3		FALSE	FALSE						
-OC	dictionary	1.5		FALSE	FALSE					[OptContentGroup,OptContentMembership]	
-AF	array;dictionary	2.0		FALSE	FALSE					[ArrayOfFileSpecifications];[FileSpecification]	
-ca	number	2.0		FALSE	FALSE		1.0				
-CA	number	2.0		FALSE	FALSE						
-BM	name	2.0		FALSE	FALSE						
-Lang	string	2.0		FALSE	FALSE						text string
-T 	string	1.1		FALSE	FALSE						
-Popup	dictionary	1.3		FALSE	FALSE					[AnnotPopup]	
-RC	stream;string	1.5		FALSE	FALSE						text string
-CreationDate	date	1.5		FALSE	FALSE						
-IRT	dictionary	1.5		FALSE	FALSE				Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighLight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWaterMark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
-Subj	string	1.5		FALSE	FALSE						text string
-RT	name	1.6		FALSE	FALSE		R	[R,Group]			
-IT	name	1.6		FALSE	FALSE						
-ExData	dictionary	1.7		FALSE	FALSE					[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.0		FALSE	FALSE	Annot				
+Subtype	name	1.0		TRUE	FALSE	Projection				
+Rect	rectangle	1.0		TRUE	FALSE					
+Contents	string-text	1.0		FALSE	FALSE					
+P	dictionary	1.3		FALSE	FALSE					[PageObject]
+NM	string-text	1.4		FALSE	FALSE					
+M	date;string-text	1.1		FALSE	FALSE					
+F	integer	1.1		FALSE	FALSE		0			
+AP	dictionary	1.2		FALSE	FALSE					[Appearance]
+AS	name	1.2		FALSE	FALSE					
+Border	array	1.0		FALSE	FALSE		[0 0 1]			[]
+C 	array	1.1		FALSE	FALSE					[ArrayOf4NumbersColorAnnotation]
+StructParent	integer	1.3		FALSE	FALSE					
+OC	dictionary	1.5		FALSE	FALSE					[OptContentGroup,OptContentMembership]
+AF	array;dictionary	2.0		FALSE	FALSE					[ArrayOfFileSpecifications];[FileSpecification]
+ca	number	2.0		FALSE	FALSE		1.0			
+CA	number	2.0		FALSE	FALSE					
+BM	name	2.0		FALSE	FALSE					
+Lang	string-text	2.0		FALSE	FALSE					
+T 	string-text	1.1		FALSE	FALSE					
+Popup	dictionary	1.3		FALSE	FALSE					[AnnotPopup]
+RC	stream;string-text	1.5		FALSE	FALSE					
+CreationDate	date	1.5		FALSE	FALSE					
+IRT	dictionary	1.5		FALSE	FALSE				Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighLight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWaterMark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]
+Subj	string-text	1.5		FALSE	FALSE					
+RT	name	1.6		FALSE	FALSE		R	[R,Group]		
+IT	name	1.6		FALSE	FALSE					
+ExData	dictionary	1.7		FALSE	FALSE					[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]

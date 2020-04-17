@@ -1,14 +1,14 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	2.0		FALSE	FALSE	3DMeasure				
 Subtype	name	2.0		TRUE	FALSE	AD3				
-TRL	string	2.0		FALSE	FALSE					
+TRL	string-text	2.0		FALSE	FALSE					
 AP	array	2.0		TRUE	FALSE					[]
 A1	array	2.0		TRUE	FALSE					[]
 D1	array	2.0		TRUE	FALSE					[]
-N1	string	2.0		FALSE	FALSE					
+N1	string-text	2.0		FALSE	FALSE					
 A2	array	2.0		TRUE	FALSE					[]
 D2	array	2.0		TRUE	FALSE					[]
-N2	string	2.0		FALSE	FALSE					
+N2	string-text	2.0		FALSE	FALSE					
 TP	array	2.0		TRUE	FALSE					[]
 TX	array	2.0		TRUE	FALSE					[]
 TY	array	2.0		TRUE	FALSE					[]
@@ -16,6 +16,6 @@ TS	number	2.0		FALSE	FALSE		12
 C	array	2.0		FALSE	FALSE		[1 1 1]			[]
 V	number	2.0		TRUE	FALSE					
 P	integer	2.0		FALSE	FALSE		3			
-UT	string	2.0		FALSE	FALSE					
+UT	string-text	2.0		FALSE	FALSE					
 DR	boolean	2.0		FALSE	FALSE		TRUE			
 S	dictionary	2.0		FALSE	FALSE					[AnnotProjection]
