@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.4		FALSE	FALSE	Group				
 S	name	1.4		TRUE	FALSE	Transparency				
-CS	array;name	1.4		FALSE	FALSE			[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace];[]
+CS	array;name	1.4		FALSE	FALSE			[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,ICCBasedColorSpace];[]
 I	boolean	1.4		FALSE	FALSE		FALSE			
 K 	boolean	1.4		FALSE	FALSE		FALSE			

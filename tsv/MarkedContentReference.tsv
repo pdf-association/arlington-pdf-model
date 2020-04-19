@@ -2,5 +2,5 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	Defa
 Type	name	1.3		TRUE	FALSE	MCR				
 Pg	dictionary	1.3		FALSE	TRUE					[PageObject]
 Stm	stream	1.3		FALSE	TRUE					[]
-StmOwn	any	1.3		FALSE	TRUE					
+StmOwn	array;dictionary;stream	1.3		FALSE	TRUE					[];[];[]
 MCID	integer	1.3		TRUE	FALSE					

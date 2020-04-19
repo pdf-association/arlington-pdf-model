@@ -3,6 +3,6 @@ Type	name	1.6		FALSE	FALSE	Action
 S	name	1.6		TRUE	FALSE	GoToE				
 Next	array;dictionary	1.2		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
 F	dictionary;string	1.1		TRUE	FALSE					[FileSpecification];[]
-D	array;name;string-byte	1.6		TRUE	FALSE					[];[];[]
+D	array;name;string-byte	1.6		TRUE	FALSE					[DestXYZ,Dest0,Dest1,Dest4];[];[]
 NewWindow	boolean	1.6		FALSE	FALSE					
 T	dictionary	1.6		TRUE	FALSE				isPresent:F=>Required=False	[Target]
