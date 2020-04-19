@@ -1,5 +1,5 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-0	name	1.1		TRUE	FALSE	Indexed				
-1	array;name	1.1		TRUE	FALSE			[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace];[]
-2	integer	1.1		TRUE	FALSE					
-3	stream;string	1.1		TRUE	FALSE					
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	
+0	name	1.1		TRUE	FALSE	Indexed					
+1	array;name	1.1		TRUE	FALSE			[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,SeparationColorSpace,DeviceNColorSpace];[]	*cannot be pattern or indexed
+2	integer	1.1		TRUE	FALSE						
+3	stream;string	1.1		TRUE	FALSE						

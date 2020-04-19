@@ -45,7 +45,6 @@ using namespace PDFixSDK;
 // choose one from provided links to validate further
 // the decision is made based on 
 // - 
-// if we had to choose one from more, we update context with (as ChosenLink)
 std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_string, std::string &obj_name) {
   if (links_string == "[]" || links_string == "")
     return "";
@@ -84,7 +83,7 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
         auto &vec = data_list->at(j);
         if (vec[4] == "TRUE") {
           std::wstring str_value;
-          //required value eists?
+          //required value exists?
 
           if (obj->GetObjectType() == kPdsArray) {
             if (j-1 >= ((PdsArray*)obj)->GetNumObjects()) {
@@ -147,9 +146,11 @@ int CParsePDF::get_type_index(PdsObject *obj, std::string types) {
       return i;
     if ((obj->GetObjectType() == kPdsName) && (opt[i] == "NAME"))
       return i;
+    if ((obj->GetObjectType() == kPdsNull) && (opt[i] == "NULL"))
+      return i;
     if ((obj->GetObjectType() == kPdsStream) && (opt[i] == "STREAM"))
       return i;
-    if ((obj->GetObjectType() == kPdsString) && ((opt[i] == "STRING") || (opt[i] == "DATE")))
+    if ((obj->GetObjectType() == kPdsString) && ((opt[i] == "STRING") || (opt[i] == "DATE") || (opt[i] == "STRING-BYTE") || (opt[i] == "STRING-TEXT") || (opt[i] == "STRING-ASCII")))
       return i;
     if ((obj->GetObjectType() == kPdsArray) && ((opt[i] == "ARRAY") || (opt[i] == "RECTANGLE")))
       return i;
@@ -166,9 +167,6 @@ int CParsePDF::get_type_index(PdsObject *obj, std::string types) {
 // - possible value
 void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &vec, std::string &grammar_file) {
   // is indirect when needed ?
-  if (vec[0] == "BorderColor") {
-    output << "Tu";
-  }
 
   if ((vec[5] == "TRUE") && (object->GetId() == 0)) {
     output << "Error: not indirect:";
@@ -177,7 +175,7 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
 
   // check type
   int index = get_type_index(object, vec[1]);
-  if (index == -1 && vec[1]!="ANY") {
+  if (index == -1 /*&& vec[1]!="ANY"*/) {
     int index2 = get_type_index(object, vec[1]);
     output << "Error:  wrong type:";
     output << vec[0] << "(" << grammar_file << ")";
@@ -313,6 +311,9 @@ void CParsePDF::parse_number_tree(PdsDictionary* obj, std::string links, std::st
         // we have tupples number, value. value has to be validated
         //todo check syntax here
         int key = array_obj->GetInteger(i);
+        if (key == 277) {
+          output << "Tu" ;
+        }
         i++;
         PdsDictionary* item = array_obj->GetDictionary(i);
         i++;
