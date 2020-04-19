@@ -4,7 +4,7 @@
       <NAME>URL</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-ascii</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -55,7 +55,7 @@
       <NAME>CT</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-ascii</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -68,6 +68,19 @@
       <VALUES>
          <VALUE>
             <TYPE>string</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.4</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>S</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>WebCaptureCommandSettings</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

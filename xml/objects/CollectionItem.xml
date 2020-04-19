@@ -17,17 +17,17 @@
       <NAME>other keys</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE/>
+            <TYPE>date</TYPE>
          </VALUE>
          <VALUE>
-            <TYPE>date</TYPE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>CollectionSubitem</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>number</TYPE>
          </VALUE>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

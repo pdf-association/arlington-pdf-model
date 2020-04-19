@@ -81,7 +81,7 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>DestsMap</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -90,11 +90,11 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>ViewerPrefrences</NAME>
+      <NAME>ViewerPreferences</NAME>
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>ViewerPrefrences</VALIDATE>
+            <VALIDATE>ViewerPreferences</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -157,7 +157,19 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>ArrayOfActions</VALIDATE>
+            <VALIDATE>DestXYZ</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>Dest0</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>Dest1</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>Dest4</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
@@ -326,7 +338,7 @@
       <NAME>Lang</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

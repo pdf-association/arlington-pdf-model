@@ -18,11 +18,14 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfOCG</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>OptContentGroup</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>null</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

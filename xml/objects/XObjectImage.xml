@@ -208,7 +208,7 @@
       <NAME>ID</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-byte</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -263,7 +263,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfFileSpecifications</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>

@@ -30,7 +30,8 @@
       <NAME>Gamma</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>number</TYPE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -43,7 +44,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>Matrix</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

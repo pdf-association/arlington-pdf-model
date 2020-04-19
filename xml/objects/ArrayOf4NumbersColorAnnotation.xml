@@ -1,53 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="CalRGBColourSpace">
+<OBJECT id="ArrayOf4NumbersColorAnnotation">
    <ENTRY>
-      <NAME>WhitePoint</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>true</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.1</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>BlackPoint</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.1</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>Gamma</NAME>
+      <NAME>0</NAME>
       <VALUES>
          <VALUE>
             <TYPE>number</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.1</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>Matrix</NAME>
+      <NAME>1</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE/>
+            <TYPE>number</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.1</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>2</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>number</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.1</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>3</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>number</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.1</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>

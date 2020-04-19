@@ -5,7 +5,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfOCG</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -18,7 +18,7 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>OptContentConfig</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -31,7 +31,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfOCConfig</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

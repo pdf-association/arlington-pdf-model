@@ -30,7 +30,7 @@
       <NAME>TRL</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -55,7 +55,7 @@
       <NAME>N1</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -106,7 +106,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOf3RGBNumbers</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -118,7 +118,7 @@
       <NAME>UT</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

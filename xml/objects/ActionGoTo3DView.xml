@@ -31,7 +31,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOfActions</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
@@ -136,7 +136,17 @@
       <NAME>V</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>various</TYPE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>3DView</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>integer</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>

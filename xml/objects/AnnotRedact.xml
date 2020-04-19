@@ -42,7 +42,7 @@
       <NAME>Contents</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -67,7 +67,7 @@
       <NAME>NM</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -138,7 +138,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOf4NumbersColorAnnotation</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -232,7 +232,7 @@
       <NAME>Lang</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -244,7 +244,7 @@
       <NAME>T </NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -272,7 +272,7 @@
             <TYPE>stream</TYPE>
          </VALUE>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -409,7 +409,7 @@
       <NAME>Subj</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -459,7 +459,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOf4NumbersColorAnnotation</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -483,7 +483,7 @@
       <NAME>OverlayText</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -507,7 +507,7 @@
       <NAME>DA</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-byte</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

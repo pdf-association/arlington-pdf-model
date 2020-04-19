@@ -52,7 +52,15 @@
    </ENTRY>
    <ENTRY>
       <NAME>ColorSpace</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>IndexedColorSpace</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+         </VALUE>
+      </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.0</SINCEVERSION>

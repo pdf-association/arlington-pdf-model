@@ -124,13 +124,25 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>DestXYZ</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>Dest0</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>Dest1</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>Dest4</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>name</TYPE>
          </VALUE>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-byte</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>

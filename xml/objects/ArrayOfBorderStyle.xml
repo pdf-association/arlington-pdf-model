@@ -1,64 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="SignatureRefrence">
+<OBJECT id="ArrayOfBorderStyle">
    <ENTRY>
-      <NAME>Type</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>name</TYPE>
-            <SHALLBE>SigRef</SHALLBE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>TransformMethod</NAME>
+      <NAME>0</NAME>
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.5</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>TransformParams</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>Data</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>various</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>DigestMethod</NAME>
+      <NAME>1</NAME>
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
-      <INDIRECTREFRENCE>false</INDIRECTREFRENCE>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.5</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>2</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>name</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.5</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>3</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>name</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.5</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>

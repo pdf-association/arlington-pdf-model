@@ -4,7 +4,7 @@
       <NAME>N</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -16,7 +16,23 @@
       <NAME>V</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>any</TYPE>
+            <TYPE>boolean</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE/>
+         </VALUE>
+         <VALUE>
+            <TYPE>integer</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>stream</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>string</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -28,7 +44,7 @@
       <NAME>F</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
