@@ -10,6 +10,9 @@
         <xs:enumeration value="name"/>
         <xs:enumeration value="boolean"/>
         <xs:enumeration value="string"/>
+        <xs:enumeration value="string-ascii"/>
+        <xs:enumeration value="string-byte"/>
+        <xs:enumeration value="string-text"/>
         <xs:enumeration value="stream"/>
         <xs:enumeration value="dictionary"/>
         <xs:enumeration value="array"/>
@@ -17,13 +20,14 @@
         <xs:enumeration value="date"/>
         <xs:enumeration value="name tree"/>
         <xs:enumeration value="number tree"/>
+        <xs:enumeration value="null"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
   <xs:element name="VALIDATE" type="xs:string"/>
   <xs:element name="SHALLBE" type="xs:string"/>
   <xs:element name="REQUIRED" type="xs:boolean"/>
-  <xs:element name="INDIRECTREFRENCE" type="xs:boolean"/>
+  <xs:element name="INDIRECTREFERENCE" type="xs:boolean"/>
   <xs:element name="SINCEVERSION">
     <xs:simpleType>
       <xs:restriction base="xs:string">
