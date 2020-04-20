@@ -94,7 +94,22 @@ public class XMLCreator {
               // colValues[1] -> type
               // colValues[10] -> link(csv) VALIDATE(xml)
               // colValues[6], colValues[7], colValues[8] -> other values (optional)
-              Element valuesEntry = nodeValues(colValues[1], colValues[10], colValues[6], colValues[7], colValues[8]);
+              Element valuesEntry = null;
+              
+              String types = colValues[1];
+              String[] arrtypes = types.split(";", -1);  
+              boolean isLinkable = false;
+              for(int i = 0; i < arrtypes.length; i++){
+                if("dictionary".equals(arrtypes[i]) || "array".equals(arrtypes[i]) ||"stream".equals(arrtypes[i])){
+                    isLinkable = true;
+                }
+              }
+              
+              if(isLinkable == true){
+                  valuesEntry = nodeValuesLinkable(colValues[1], colValues[10]);
+              }else{
+                  valuesEntry = nodeValues(colValues[1], colValues[6], colValues[7], colValues[8]);
+              }
               //creates <SINCEVERSION>, <DEPRECATEDIN>, <REQUIRED>, <INDIRECTREFERENCE>
               Element sinceversionElement = nodeSinceVersion(colValues[2]);
               Element deprecatedinElement = nodeDeprecatedIn(colValues[3]);
@@ -192,7 +207,7 @@ public class XMLCreator {
         return tempElem;
     }
 
-    private Element nodeValues(String type, String validate, String requiredValue, String defaultValue, String possibleValues) {
+    private Element nodeValuesLinkable(String type, String validate) {        
         Element valuesElem = newDoc.createElement("VALUES");
         
         validate = validate.replace("[", "");
@@ -203,39 +218,57 @@ public class XMLCreator {
 
         types = type.split(";", -1);
         values = validate.split(";", -1);
+            
         
-        
-        if(types.length == values.length){
-            for(int i = 0; i < types.length; i++){
-                int k = 0;
-                String[] temp = values[i].split(",",-1);
-                for(int j = 0; j < temp.length; j++){
-                    Element valueElem = newDoc.createElement("VALUE");
-                    Element typeElem = newDoc.createElement("TYPE");
-                    typeElem.appendChild(newDoc.createTextNode(types[i]));
-                    valueElem.appendChild(typeElem);
-                    if("dictionary".equals(types[i]) || "array".equals(types[i])){
-                        Element validateElem = newDoc.createElement("VALIDATE");
-                        String nodeVal = temp[j];
-                        validateElem.appendChild(newDoc.createTextNode(nodeVal));
-                        valueElem.appendChild(validateElem);
-                        if(nodeVal.isBlank()){
-                            System.out.println("\tWARNING. Missing value in entry: "+currentEntry+ ". VALIDATE node was created but has no value.");
-                        }
-                    }
-                    if("name".equals(types[i]) && !requiredValue.isEmpty()){
-                        Element shallbeElem = newDoc.createElement("SHALLBE");
-                        shallbeElem.appendChild(newDoc.createTextNode(requiredValue));
-                        valueElem.appendChild(shallbeElem);
-                    }
-                    valuesElem.appendChild(valueElem);
-                    k++;
+    if(types.length == values.length){
+        for(int i = 0; i < types.length; i++){
+            int k = 0;
+            String[] temp = values[i].split(",",-1);
+            for(int j = 0; j < temp.length; j++){
+            Element valueElem = newDoc.createElement("VALUE");
+            Element typeElem = newDoc.createElement("TYPE");
+            typeElem.appendChild(newDoc.createTextNode(types[i]));
+            valueElem.appendChild(typeElem);
+            if("dictionary".equals(types[i]) || "array".equals(types[i]) || "stream".equals(types[i])){
+                Element validateElem = newDoc.createElement("VALIDATE");
+                String nodeVal = temp[j];
+                validateElem.appendChild(newDoc.createTextNode(nodeVal));
+                valueElem.appendChild(validateElem);
+                if(nodeVal.isBlank()){
+                    System.out.println("\tWARNING. Missing value in entry: "+currentEntry+ ". VALIDATE node was created but has no value.");
                 }
+            }  
+            valuesElem.appendChild(valueElem);
+            k++;
             }
-        }else{
+            }
+    }else{
             System.out.println("\tERROR. While processing entry: " +currentEntry+ ". Failed to create VALUES node. Types and links do not match.");
             ++errorCount;
         }
+    return valuesElem;
+    }
+
+    private Element nodeValues(String type, String requiredValue, String defaultValue, String possibleValues) {
+        Element valuesElem = newDoc.createElement("VALUES");
+        
+        String[] types = null;
+
+        types = type.split(";", -1);
+        
+        for(int i = 0; i < types.length; i++){
+            int k = 0;
+                Element valueElem = newDoc.createElement("VALUE");
+                Element typeElem = newDoc.createElement("TYPE");
+                typeElem.appendChild(newDoc.createTextNode(types[i]));
+                valueElem.appendChild(typeElem);
+                if("name".equals(types[i]) && !requiredValue.isEmpty()){
+                Element shallbeElem = newDoc.createElement("SHALLBE");
+                shallbeElem.appendChild(newDoc.createTextNode(requiredValue));
+                valueElem.appendChild(shallbeElem);
+                }
+                valuesElem.appendChild(valueElem);
+            }
         return valuesElem;
     }
 }
