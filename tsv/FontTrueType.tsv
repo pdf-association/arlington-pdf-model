@@ -1,11 +1,11 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.0		TRUE		Font				
-Subtype	name	1.0		TRUE		TrueType				
-Name	name	1.0	2.0	FALSE						
-BaseFont	name	1.0		TRUE						
-FirstChar	integer	1.0		TRUE						
-LastChar	integer	1.0		TRUE						
-Widths	array	1.0		TRUE						[]
-FontDescriptor	dictionary	1.0		TRUE						[FontDescriptor]
-Encoding	dictionary;name	1.0		FALSE						[Encoding];[]
-ToUnicode	stream	1.2		FALSE						[]
+Type	name	1.0		TRUE	FALSE	Font				
+Subtype	name	1.0		TRUE	FALSE	TrueType				
+Name	name	1.0	2.0	FALSE	FALSE					
+BaseFont	name	1.0		TRUE	FALSE					
+FirstChar	integer	1.0		TRUE	FALSE					
+LastChar	integer	1.0		TRUE	FALSE					
+Widths	array	1.0		TRUE	FALSE					[]
+FontDescriptor	dictionary	1.0		TRUE	FALSE					[FontDescriptor]
+Encoding	dictionary;name	1.0		FALSE	FALSE					[Encoding];[]
+ToUnicode	stream	1.2		FALSE	FALSE					[]

@@ -4,6 +4,6 @@ S	name	1.5		TRUE	FALSE	MR
 N	string-text	1.5		FALSE	FALSE					
 MH	dictionary	1.5		FALSE	FALSE					[RenditionMH]
 BE	dictionary	1.5		FALSE	FALSE					[RenditionBE]
-C	dictionary	1.5		FALSE						[MediaClipSection,MediaClipData]
-P	dictionary	1.5		FALSE					Required=true->C is not present	[MediaPlayParameters]
-SP	dictionary	1.5		FALSE						[MediaScreenParameters]
+C	dictionary	1.5		FALSE	FALSE					[MediaClipSection,MediaClipData]
+P	dictionary	1.5		FALSE	FALSE				Required=true->C is not present	[MediaPlayParameters]
+SP	dictionary	1.5		FALSE	FALSE					[MediaScreenParameters]

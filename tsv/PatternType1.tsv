@@ -1,10 +1,10 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name			FALSE	FALSE	Pattern				
-PatternType	integer			TRUE	FALSE	1				
-PaintType	integer			TRUE	FALSE			[1,2]		
-TilingType	integer			TRUE	FALSE			[1,2,3]		
-BBox	rectangle			TRUE	FALSE					
-XStep	number			TRUE	FALSE					
-YStep	number			TRUE	FALSE					
-Resources	dictionary			TRUE	FALSE					[Resource]
-Matrix	array			FALSE	FALSE					[Matrix]
+Type	name	1.3		FALSE	FALSE	Pattern				
+PatternType	integer	1.3		TRUE	FALSE	1				
+PaintType	integer	1.3		TRUE	FALSE			[1,2]		
+TilingType	integer	1.3		TRUE	FALSE			[1,2,3]		
+BBox	rectangle	1.3		TRUE	FALSE					
+XStep	number	1.3		TRUE	FALSE					
+YStep	number	1.3		TRUE	FALSE					
+Resources	dictionary	1.3		TRUE	FALSE					[Resource]
+Matrix	array	1.3		FALSE	FALSE					[Matrix]

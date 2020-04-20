@@ -14,6 +14,19 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
+      <NAME>F</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>BeadFirst</VALIDATE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFERENCE>true</INDIRECTREFERENCE>
+      <SINCEVERSION>1.1</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
       <NAME>I</NAME>
       <VALUES>
          <VALUE>
@@ -31,6 +44,7 @@
       <VALUES>
          <VALUE>
             <TYPE>stream</TYPE>
+            <VALIDATE>Metadata</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

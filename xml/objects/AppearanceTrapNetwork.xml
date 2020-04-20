@@ -2,7 +2,16 @@
 <OBJECT id="AppearanceTrapNetwork">
    <ENTRY>
       <NAME>N</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE/>
+         </VALUE>
+         <VALUE>
+            <TYPE>stream</TYPE>
+            <VALIDATE/>
+         </VALUE>
+      </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.2</SINCEVERSION>
@@ -10,7 +19,16 @@
    </ENTRY>
    <ENTRY>
       <NAME>R</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE/>
+         </VALUE>
+         <VALUE>
+            <TYPE>stream</TYPE>
+            <VALIDATE/>
+         </VALUE>
+      </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.2</SINCEVERSION>
@@ -18,7 +36,16 @@
    </ENTRY>
    <ENTRY>
       <NAME>D</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE/>
+         </VALUE>
+         <VALUE>
+            <TYPE>stream</TYPE>
+            <VALIDATE/>
+         </VALUE>
+      </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.2</SINCEVERSION>
@@ -42,6 +69,31 @@
          <VALUE>
             <TYPE>array</TYPE>
             <VALIDATE/>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.0</SINCEVERSION>
+      <DEPRECATEDIN>2.0</DEPRECATEDIN>
+   </ENTRY>
+   <ENTRY>
+      <NAME>TrapRegions</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.0</SINCEVERSION>
+      <DEPRECATEDIN>2.0</DEPRECATEDIN>
+   </ENTRY>
+   <ENTRY>
+      <NAME>TrapStyles</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

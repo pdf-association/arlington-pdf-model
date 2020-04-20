@@ -222,6 +222,7 @@
       <VALUES>
          <VALUE>
             <TYPE>stream</TYPE>
+            <VALIDATE/>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -234,6 +235,7 @@
       <VALUES>
          <VALUE>
             <TYPE>stream</TYPE>
+            <VALIDATE/>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -246,6 +248,7 @@
       <VALUES>
          <VALUE>
             <TYPE>stream</TYPE>
+            <VALIDATE/>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -255,7 +258,14 @@
    </ENTRY>
    <ENTRY>
       <NAME>CharSet</NAME>
-      <VALUES/>
+      <VALUES>
+         <VALUE>
+            <TYPE>string-ascii</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>string-byte</TYPE>
+         </VALUE>
+      </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.1</SINCEVERSION>
