@@ -36,13 +36,13 @@ ArrayOfThreads:
 
 Key | Type | Link |
 --- | --- | --- |
-* | dictionary | [Thread]
+\* | dictionary | [Thread]
 
 We may also have a dictionary that serves as a map. Unknown name is associated with other element. Example of such construct is ClassMap or Shading dictionary in Resource dictionary. In such case Shading as a type of dictionary is linked to ShadingMap and ShadingMap looks like this:  
 
 Key |  Type | Link |
 --- | --- | --- |
-* |	dictionary;stream |[ShadingType1,ShadingType2,ShadingType3];\[ShadingType4,ShadingType5,ShadingType6,ShadingType7]
+\* |	dictionary;stream |[ShadingType1,ShadingType2,ShadingType3];\[ShadingType4,ShadingType5,ShadingType6,ShadingType7]
 
 
 ## **Type**
