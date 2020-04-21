@@ -2,12 +2,6 @@
 During the formalising the ISO3200-2 we noticed few misconceptions between standard and common expectations. 
 This file shows small differences between ISO 32000-2 and our grammar. Some of them are straightforward and we did decisions that won't affect implementations.
 
-## Changes made when converting ISO3200-2 to formalized grammar
-
-accross the whole spec:
-- changing type **text string** to **string**  (for example Catalog.Lang)
-- changing type **byte string** to **string**  (for example  PageObject.ID)
-
 ## Open questions
 
 - 12.3.4 Thumbnail images. 
@@ -26,9 +20,9 @@ Subtype is required for all annotations, we don't say anything about value of Su
 
 - 13.7.2.3.3 RichMediaConfiguration dictionary  
 
-Name is of type "text tree"  - should be "name tree". 
+Name is of type "text tree"  - should be "name". 
 
-**Resolution**: "text tree" changed to "name tree"
+**Resolution**: "text tree" changed to "name"
 
 - 13.6.6 3D markup. 
 
@@ -61,6 +55,6 @@ dictionary" However "View" entry is in Rich media activation dictionary (Table 3
 
 - Table 317 Entries in a 3D background dictionary. 
 
-CS entry is name or array, but only valid value is DeviceRGB. what is array here for? what are valid entries in array? is [/DeviceRGB /DeviceRGB] valid?  
+CS entry is name or array, but only valid value is DeviceRGB. Other more complex colorspaces are represented by array, but what is array here for? what are valid entries in array? is [/DeviceRGB /DeviceRGB] valid?
 
-**Resoluion**: array with any number of names is allowed
+**Resoluion**: array is allowed, but not checked further
