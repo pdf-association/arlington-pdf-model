@@ -18,6 +18,20 @@ Our main source is [PDF20Grammar.ods](PDF20Grammar.ods) file (we are using [Libr
 Rows are specific keys in dictionary and characteristics for that key.
 All the "questions/problems/inconsistences" found in the ISO32000-2 during the process are collected [here](Grammar_vs_ISO32000-2.md).
 
+## Key
+Key represents single key in dictionary, index in array or multiple entries.
+Example of single entry in PageObject dictionary: Key=Type	Type=name Required=TRUE RequiredValue=Page
+Example of an array with 3 numbers: 
+Key Type 
+0	number
+1	number
+2	number
+
+Example of an array with unlimited number of elements of the same type. ArrayOfThreads Key=\* Type=dictionary Link=\[Thread] 
+
+We may also have a dictionary that serves as a map. Unknown name is associated with other element. Example of such construct is ClassMap or Shading dictionary in Resource dictionary. In such case Shading as a type of dictionary is linked to ShadingMap and ShadingMap looks like this: Key=\*	Type=dictionary;stream Link=\[ShadingType1,ShadingType2,ShadingType3];\[ShadingType4,ShadingType5,ShadingType6,ShadingType7]
+
+
 ## Type
 ISO32000-2 defines few basic types, but from inside of the spec we refer "some other" types as well. Therefore we work with following basic types:
 - "ARRAY"
@@ -27,21 +41,23 @@ ISO32000-2 defines few basic types, but from inside of the spec we refer "some o
 - "INTEGER"
 - "NAME"
 - "NAME TREE"
+- "NULL"
 - "NUMBER"
 - "NUMBER TREE"
 - "RECTANGLE"
 - "STREAM"
 - "STRING"
+- "STRING-ASCII"
+- "STRING-BYTE"
+- "STRING-TEXT"
 
-One single key in dictionary might be of different types. Common example is that one key might be either a dictionary or an array of dictionaries. In this case Type would be "array;dictionary"
+One single key in dictionary might be of different types. Common example is that one key is either a dictionary or an array of dictionaries. In this case Type would be "array;dictionary"
 Except of basic types, currently we recognize following combinations of allowed types: [click here](All_types.md)
-
-Whenever we find other type in the spec(e.g. BYTE STRING) we change that to basic (STRING in this example) and record the decision. For more information [click here](Grammar_vs_ISO32000-2.md).
 
 ## Link
 If specific key requires further validation (represents another dictionary for example) we link this key to another sheet in Link column. Example in PageObject Key=Resources Type=dictionary Link=\[Dictionary]
 
-If Key could be represented by different types we use following pattern: Type=array;dictionary Link=\[ValidateArray];\[ValidateDictionary]
+If Key is represented by different types we use following pattern: Type=array;dictionary Link=\[ValidateArray];\[ValidateDictionary]
 
 Another common example is that one dictionary could be validated based on few different links (Annotation could either be Popup, Stamp etc.) In such case options would be separated with "," like this: Type=array;dictionary Link=\[ArrayOfAnnotations];\[AnnotStamp,AnnotRedact,AnnotPopup]
 
@@ -53,7 +69,6 @@ Sometimes it's necessary to define formula to cover all possible values: TODO
 ## SpecialCase
 TODO
 
-
 # Implementations
 This repository contains implementations
 
@@ -62,7 +77,7 @@ This repository contains implementations
 
 
 ## TestGrammar
-commandline tool based on the [PDFix library](https://pdfix.net) that works with Grammar in form of tsv files. The easiest way to generate tsv files from [PDF20Grammar.ods](PDF20Grammar.ods) is to use macro from the ods file (or use folder tsv that is synced with the ods file)
+commandline tool based on the [PDFix library](https://pdfix.net/download-free/) that works with Grammar in form of tsv files. The easiest way to generate tsv files from [PDF20Grammar.ods](PDF20Grammar.ods) is to use macro from the ods file (or use folder tsv that is synced with the ods file)
 
 The tools allows two different tasks
 - validates TSV files. Check the uniformity (number of columns), if all types are one of basic types etc..
@@ -73,12 +88,23 @@ The tools allows two different tasks
 	- if value is correct if PossibleValues are defined
 - compares grammar with Adobe (TODO)
 
+### Usage (Windows):
+Download binaries from [bin folder](/TestGrammar/bin) and rund from commandline:
+  to validate single pdf file call TestGrammar_x64.exe <input_file> <grammar_folder> <report_file>
+	input_file      - full pathname to input pdf" 
+	grammar_folder  - folder with tsv files representing PDF 2.0 Grammar"
+	report_file     - file for storing results" 
+
+TestGrammar_x64.exe "C:\Test grammar\test file.pdf" "C:\Grammar folder\tsv\" "c:\temp\test file.txt"
+
+
 ## GCXML
 command line tool writen in Java that can do two different things:
 - convert all tsv files into xml files that must be valid based on schema - xml/schema/objects.xsd (not the final version, yet)
 - give answers to queries
  - https://docs.google.com/document/d/11wXQmITNiCFB26fWAdxEq4TGgQ4VPQh1Qwoz1PU4ikY
 
+### Usage
 
 # TODO
 - finish all unlinked dictionaries, streams and arrays
