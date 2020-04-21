@@ -68,14 +68,27 @@ One single key in dictionary might be of different types. Common example is that
 Except of basic types, currently we recognize following combinations of allowed types: [click here](All_types.md)
 
 ## **Link**
-If specific key requires further validation (represents another dictionary for example) we link this key to another sheet in Link column. Example in PageObject Key=Resources Type=dictionary Link=\[Dictionary]
+If specific key requires further validation (represents another dictionary for example) we link this key to another sheet in Link column. Example in PageObject:  
+- Key=Resources Type=dictionary Link=\[Dictionary]
 
-If Key is represented by different types we use following pattern: Type=array;dictionary Link=\[ValidateArray];\[ValidateDictionary]
+If Key is represented by different types we use following pattern:  
 
-Another common example is that one dictionary could be validated based on few different links (Annotation could either be Popup, Stamp etc.) In such case options would be separated with "," like this: Type=array;dictionary Link=\[ArrayOfAnnotations];\[AnnotStamp,AnnotRedact,AnnotPopup]
+Type | Link |
+--- | --- |
+array<b>;</b>dictionary |[ValidateArray]<b>;</b>[ValidateDictionary]
+
+Another common example is that one dictionary could be validated based on few different links (Annotation could either be Popup, Stamp etc.) In such case options would be separated with "," like this:
+
+Type | Link |
+--- | --- |
+array;dictionary | [ArrayOfAnnotations];[AnnotStamp<b>,</b>AnnotRedact<b>,</b>AnnotPopup]
 
 ## **PossibleValues**
-PossibleValues also follow the same pattern as Links: Type=array;dictionary PossibleValues=\[Value1ForType1,Value2ForType1];\[Value1ForType2,Value2ForType2]
+PossibleValues also follow the same pattern as Links:
+
+Type | PossibleValues |
+--- | --- |
+array;dictionary | [Value1ForType1,Value2ForType1];[Value1ForType2,Value2ForType2]
 
 Sometimes it's necessary to define formula to cover all possible values: TODO
 
@@ -105,10 +118,12 @@ The tools allows two different tasks
 
 #### Usage (Windows):
 Download binaries from [bin folder](/TestGrammar/bin) and run from commandline:  
-to validate single pdf file call TestGrammar_x64.exe \<input_file> \<grammar_folder> \<report_file>     
-	input_file      - full pathname to input pdf"   
-	grammar_folder  - folder with tsv files representing PDF 2.0 Grammar"  
-	report_file     - file for storing results"
+to validate single pdf file call:
+-	TestGrammar_x64.exe \<input_file> \<grammar_folder> \<report_file>
+
+	- input_file      - full pathname to input pdf"   
+	- grammar_folder  - folder with tsv files representing PDF 2.0 Grammar"  
+	- report_file     - file for storing results"
 
 TestGrammar_x64.exe "C:\Test grammar\test file.pdf" "C:\Grammar folder\tsv\" "c:\temp\test file.txt"
 
@@ -124,13 +139,13 @@ To use gcxml tool run the following command from terminal/commandline:
 ```
 java -jar gxml/dist/gcxml.jar <options>  
 ```
-*Note: outputs might be too long to display in terminal, it is recommended to redirect the output to file (eg \<command> > report.txt)*
+>*Note: outputs might be too long to display in terminal, it is recommended to redirect the output to file (eg \<command> > report.txt)*
 
-To represent grammar in XML files (one file = one object), we simply convert TSV files into XML. To do that, use option:  
+To represent grammar in XML files (one file = one object), we convert TSV files into XML. To do that, use option:  
 ```
 --conv -all
 ```
-*Note: 2nd argument '-all' can be replaced with object name (eg. Catalog) to convert only specific object*  
+>*Note: 2nd argument '-all' can be replaced with object name (eg. Catalog) to convert only specific object*  
 
  All of the answers to queries are based on XML files. To get answers from grammar, use option:  
  ```
