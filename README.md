@@ -29,9 +29,9 @@ Example of an array with 3 numbers, such as an RGB value:
 
 Key | Type |   
 --- | --- |      
-0	| number |  
-1	| number |   
-2	| number |
+0 | number |  
+1 | number |   
+2 | number |
 
 Example of an array with unlimited number of elements of the same type.  
 ArrayOfThreads:
@@ -40,7 +40,7 @@ Key | Type | Link |
 --- | --- | --- |
 \* | dictionary | [Thread]
 
-We may also have a dictionary that serves as a map, where an arbitray name is associated with another element. Examples of such constructs are ClassMap or the Shading dictionary in the Resources dictionary. In such case Shading as a type of dictionary is linked to ShadingMap and ShadingMap looks like this:  
+We may also have a dictionary that serves as a map, where an arbitrary name is associated with another element. Examples of such constructs are ClassMap or the Shading dictionary in the Resources dictionary. In such case Shading as a type of dictionary is linked to ShadingMap and ShadingMap looks like this:  
 
 Key |  Type | Link |
 --- | --- | --- |
@@ -159,7 +159,7 @@ To represent grammar in XML files (one file = one object), we convert TSV files 
 # TODO :pushpin:
 - finish all unlinked dictionaries, streams and arrays  
 - identify tables and objects in report (somehow identify table/paragraph etc. in the ISO32000-2 and carry this information in grammar so we can report it back)
-- define language for formulas in PossibleValues (currently we have following intervals: <0,100>, <-1.0,1.0>, <0,1>, <0,2>,	<0.0,1.0> and also some expressions:value>=2, value>=1,value>=0,value>=0,value<0,value>0 and also combinations:<40,128> value*8,<40,128> value*8, <40,128> value*8 plus these: value*90, value*1/72
+- define language for formulas in PossibleValues (currently we have following intervals: <0,100>, <-1.0,1.0>, <0,1>, <0,2>,	<0.0,1.0> and also some expressions: value\>=2, value\>=1, value\>=0, value\<0, value\>0 and also combinations: <40,128> value\*8,<40,128> value\*8, <40,128> value\*8, value\*90, value\*1/72
 - define language for SpecialCase column
 - TableMap is out of sync
 - compare grammar with Adobe DVA
