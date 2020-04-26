@@ -355,7 +355,7 @@ public class XMLQuery {
         Iterator it = mp.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
+            System.out.println("Key /"+pair.getKey() + " = " + pair.getValue());
             String key = pair.getKey().toString();
             String dicts = getDictByKey(key);
             System.out.println("Found in: " + dicts);
@@ -468,4 +468,62 @@ public class XMLQuery {
         }
         return dicts;
     }
+    
+    public void PotentialDicts(String keys){
+        String[] arrKeys = keys.split(",");
+        
+        ArrayList<String> arrListDicts = new ArrayList<>();
+        for (File file : files) {
+            boolean objFits = true;
+            if (file.isFile() && file.canRead() && file.exists()) {
+                try{
+                String inputFile = inputFolder + file.getName();
+                Document doc = domBuilder.parse(inputFile);
+                doc.getDocumentElement().normalize();
+                
+                XPath xPath =  XPathFactory.newInstance().newXPath();
+                
+                String expression = "/OBJECT/ENTRY/NAME/text()";
+                ArrayList<String> arrListKeys = evaluateXPath(doc, expression);
+                
+                if(!arrListKeys.isEmpty()){
+                    for(int i = 0; i < arrKeys.length; i++){
+                        if(!arrListKeys.contains(arrKeys[i].toString())){
+                            objFits = false;
+                            break;
+                        }
+                    }
+                }else{
+                    objFits = false;
+                }
+                
+                if(objFits == true){
+                    String expression2 = "/OBJECT/@id";
+                    ArrayList<String> arrListKeys2 = evaluateXPath(doc, expression2);
+                    if(!arrListKeys2.isEmpty()){
+                        
+                        String dictName = arrListKeys2.get(0).toString();
+                        arrListDicts.add(dictName);
+                    }
+                }              
+                
+                } catch (SAXException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException | XPathExpressionException ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }  
+        int results = arrListDicts.size();
+        System.out.println("Potential objects for given keys - " +keys+ " :\nNumber of potential objects: " +results +"\n");
+        Iterator<String> iterator = arrListDicts.iterator();
+        
+        while(iterator.hasNext()){
+        String dict = iterator.next();
+        System.out.println(dict + ", ");
+        }
+    }
 }
+ 

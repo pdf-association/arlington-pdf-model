@@ -93,6 +93,16 @@ public class Gcxml {
                         query.KeyOccurrenceCount();
                     }
                     break;
+                 case "--po":
+                    if(args.length > 1){
+                        query = new XMLQuery();
+                        if(query != null){
+                            query.PotentialDicts(args[1]);
+                        }
+                    }else{
+                        System.out.println("No keys specified. Expected list of keys, eg.: Key1,Key2,Key3");
+                    }
+                    break;
                 case "--help":
                     System.out.println("List of available commands");
                     System.out.println("\t--help : shows list of available commands");
@@ -101,6 +111,7 @@ public class Gcxml {
                     System.out.println("\t--dep : returns all keys deprecated in specified PDF version");
                     System.out.println("\t--so : returns objects that do not have key Type or where it is not required.");
                     System.out.println("\t--keys : returns keys and their occurrence count.");
+                    System.out.println("\t--po : returns list of potential objects based on given keys.");
                     break;
             }
         }else{
