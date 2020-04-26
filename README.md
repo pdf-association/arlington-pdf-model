@@ -157,29 +157,31 @@ To represent grammar in XML files (one file = one object), we convert TSV files 
  this will list all possible options and description of what they do.
  
 ## Useful Linux commands
-\## Ensure sorting is consistent...
+```
+## Ensure sorting is consistent...
 export LC_ALL=C
 
-\## Confirm column headers across all TSV files
-head -qn1 \*.tsv | sort | uniq | sed -e 's/\t/\\t/g'
+## Confirm column headers across all TSV files
+head -qn1 *.tsv | sort | uniq | sed -e 's/\t/\\t/g'
 
-\## Find files with excessive columns to the right - worth investigating in ODS in case of data in other rows...
-$ grep -P "Link\t\t" \*.tsv | sed -e 's/\t/\\t/g'
+## Find files with excessive columns to the right - worth investigating in ODS in case of data in other rows...
+$ grep -P "Link\t\t" *.tsv | sed -e 's/\t/\\t/g'
 
-\## All "Notes"
-cut -f 12- \*.tsv | sort | uniq
+## All "Notes"
+cut -f 12- *.tsv | sort | uniq
 
-\## Set of all "Links"
-cut -f 11 \*.tsv | sort | uniq
+## Set of all "Links"
+cut -f 11 *.tsv | sort | uniq
 
-\## List all "SpecialCases"
-cut -f 10 \*.tsv | sort | uniq
+## List all "SpecialCases"
+cut -f 10 *.tsv | sort | uniq
 
-\## List all "PossibleValues"
-cut -f 9 \*.tsv | sort | uniq
+## List all "PossibleValues"
+cut -f 9 *.tsv | sort | uniq
 
-\## Unique set of key names (and array indices)
-$ cut -f 1 \*.tsv | sort | uniq
+## Unique set of key names (and array indices)
+$ cut -f 1 *.tsv | sort | uniq
+```
 
 ---
 
