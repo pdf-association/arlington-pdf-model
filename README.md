@@ -155,10 +155,39 @@ To represent grammar in XML files (one file = one object), we convert TSV files 
  --help
  ```
  this will list all possible options and description of what they do.
+ 
+## Useful Linux commands
+```
+## Ensure sorting is consistent...
+export LC_ALL=C
+
+## Confirm column headers across all TSV files
+head -qn1 *.tsv | sort | uniq | sed -e 's/\t/\\t/g'
+
+## Find files with excessive columns to the right - worth investigating in ODS in case of data in other rows...
+$ grep -P "Link\t\t" *.tsv | sed -e 's/\t/\\t/g'
+
+## All "Notes"
+cut -f 12- *.tsv | sort | uniq
+
+## Set of all "Links"
+cut -f 11 *.tsv | sort | uniq
+
+## List all "SpecialCases"
+cut -f 10 *.tsv | sort | uniq
+
+## List all "PossibleValues"
+cut -f 9 *.tsv | sort | uniq
+
+## Unique set of key names (and array indices)
+$ cut -f 1 *.tsv | sort | uniq
+```
+
+---
 
 # TODO :pushpin:
 - finish all unlinked dictionaries, streams and arrays  
-- identify tables and objects in report (somehow identify table/paragraph etc. in the ISO32000-2 and carry this information in grammar so we can report it back)
+- identify tables and objects in report (somehow identify table/paragraph etc. in the ISO/DIS 32000-2 and carry this information in grammar so we can report it back)
 - define language for formulas in PossibleValues (currently we have following intervals: <0,100>, <-1.0,1.0>, <0,1>, <0,2>,	<0.0,1.0> and also some expressions: value\>=2, value\>=1, value\>=0, value\<0, value\>0 and also combinations: <40,128> value\*8,<40,128> value\*8, <40,128> value\*8, value\*90, value\*1/72
 - define language for SpecialCase column
 - TableMap is out of sync
