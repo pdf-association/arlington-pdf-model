@@ -46,23 +46,20 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
   }
 
   std::filesystem::path p(grammar_folder);
-  for (const auto& entry : std::filesystem::directory_iterator(p)) {
-    const auto file_name = entry.path().filename().string();
-    if (entry.is_regular_file()) {
-      std::string str = grammar_folder + file_name;
-      if (std::find(processed.begin(), processed.end(), str) == processed.end()) {
+  for (const auto& entry : std::filesystem::directory_iterator(p)) 
+    if (entry.is_regular_file() && entry.path().extension().string()==".tsv") {
+      const auto file_name = entry.path().filename().string();
+      if (std::find(processed.begin(), processed.end(), file_name) == processed.end()) {
         // file not reachable from Catalog
-        ofs << "Can't reach from Catalog:" << str << std::endl;
+        ofs << "Can't reach from Catalog:" << file_name << std::endl;
       }
-
-      //file_name += str;
-      CGrammarReader reader(file_name);
+      std::string str = grammar_folder + file_name;
+      CGrammarReader reader(str);
       if (!reader.load())
         ofs << "Can't load grammar file:" << file_name << std::endl;
       else reader.check(ofs);
 
     }
-  }
   //std::wstring search_path = FromUtf8(grammar_folder);
   //search_path += L"*.tsv";
   //WIN32_FIND_DATA fd;

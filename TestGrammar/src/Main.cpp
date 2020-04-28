@@ -114,13 +114,12 @@ int main(int argc, char* argv[]) {
 
       if (folder_exists(input_file)) {
         const std::filesystem::path p(input_file);
-        for (const auto& entry : std::filesystem::directory_iterator(p)) {
-          const auto file_name= entry.path().filename().string();
-          if (entry.is_regular_file()) {
+        for (const auto& entry : std::filesystem::directory_iterator(p))
+          if (entry.is_regular_file() && entry.path().extension().string()==".pdf") {
+            const auto file_name = entry.path().filename().string();
             std::string str = input_file + file_name;
             single_pdf(str, save_path + file_name + ".txt");
           }
-        }
         //std::wstring search_path = FromUtf8(input_file);
         //search_path += L"*.pdf";
         //WIN32_FIND_DATA fd;
