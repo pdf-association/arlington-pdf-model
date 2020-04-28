@@ -58,3 +58,11 @@ dictionary" However "View" entry is in Rich media activation dictionary (Table 3
 CS entry is name or array, but only valid value is DeviceRGB. Other more complex colorspaces are represented by array, but what is array here for? what are valid entries in array? is [/DeviceRGB /DeviceRGB] valid?
 
 **Resoluion**: array is allowed, but not checked further
+
+- Table Table 110 — Entries in a Type 3 font dictionary
+
+In PDF 2.0 (incl. ISO 32000-2:2017), FontDescriptor entry says "(Shall be an indirect reference)". 
+In ISO 32000-2:2008 and Adobe PDF 1.7 it says "(Required in Tagged PDF documents; shall be an indirect reference)"
+It is unclear now whether (i) FontDescriptor is required or optional and (ii) if it is required, under what conditions.
+
+**Resolution**: ??? 
