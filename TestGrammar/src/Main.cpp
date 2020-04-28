@@ -1,11 +1,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Main.cpp
-// Copyright (c) 2020 Normex, Pdfix. All Rights Reserved.
+// 2020 Normex, Pdfix
 ///////////////////////////////////////////////////////////////////////////////
- 
+
 #include <exception>
 #include <iostream>
 #include <string>
+#include <filesystem>
 
 #include "Pdfix.h"
 
@@ -16,7 +17,7 @@
 
 
 void show_help() {
-  std::cout << "TestGrammar by Normex s.r.o. (c) 2020" << std::endl;
+  std::cout << "TestGrammar" << std::endl;
   std::cout << "Validates PDF file against grammar defined by list of TSV files. more info:https://github.com/romantoda/PDF20_Grammar" << std::endl;
   std::cout << std::endl;
   std::cout << "to validate single pdf file:" << std::endl;
@@ -24,12 +25,12 @@ void show_help() {
   std::cout << "    input_file      - full pathname to input pdf" << std::endl;
   std::cout << "    grammar_folder  - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
   std::cout << "    report_file     - file for storing results" << std::endl;
-  //std::cout << std::endl;
-  //std::cout << "to validate folder with pdf files:" << std::endl;
-  //std::cout << "  testgrammar <input_folder> <grammar_folder> <report_folder>" << std::endl;
-  //std::cout << "    input_folder      - folder with pdf files" << std::endl;
-  //std::cout << "    grammar_folder  - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
-  //std::cout << "    report_folder     - folder for storing results" << std::endl;
+  std::cout << std::endl;
+  std::cout << "to validate folder with pdf files:" << std::endl;
+  std::cout << "  testgrammar <input_folder> <grammar_folder> <report_folder>" << std::endl;
+  std::cout << "    input_folder      - folder with pdf files" << std::endl;
+  std::cout << "    grammar_folder  - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
+  std::cout << "    report_folder     - folder for storing results" << std::endl;
   std::cout << std::endl;
   std::cout << "to checks grammar itself:" << std::endl;
   std::cout << "  testgrammar -v <grammar_folder> <report_file>" << std::endl;
@@ -44,7 +45,7 @@ void show_help() {
 }
 
 int main(int argc, char* argv[]) {
-  clock_t tStart = clock();
+  //clock_t tStart = clock();
 
   if (argc == 1) {
     show_help();
@@ -89,39 +90,49 @@ int main(int argc, char* argv[]) {
       Pdfix* pdfix = GetPdfix();
       PdfDoc* doc = nullptr;
       auto single_pdf = [&](const std::string &file_name, std::string report_file_name) {
-        std::wstring open_file = FromUtf8(file_name);
-        doc = pdfix->OpenDoc(open_file.c_str(), L"");
-        if (!doc)
-          throw std::runtime_error(std::to_string(pdfix->GetErrorType()));
-        //acquire catalog
-        PdsObject* root = doc->GetRootObject();
-        if (!root)
-          throw std::runtime_error(std::to_string(pdfix->GetErrorType()));
+        std::wstring open_file = utf8ToUtf16(file_name); //FromUtf8(file_name);
         //open report file
         std::ofstream ofs;
         ofs.open(report_file_name);
+        ofs << "BEGIN" << std::endl;
 
-        CParsePDF parser(doc, grammar_folder, ofs);
-        parser.parse_object(root, "Catalog", "Catalog");
-        ofs << "Time:" << (double)(clock() - tStart) / CLOCKS_PER_SEC << std::endl;
+        doc = pdfix->OpenDoc(open_file.c_str(), L"");
+        if (doc != nullptr) {
+          //acquire catalog
+          PdsObject* root = doc->GetRootObject();
+          if (root != nullptr) {
+            CParsePDF parser(doc, grammar_folder, ofs);
+            parser.parse_object(root, "Catalog", "Catalog");
+          }
+          else ofs << "Failed to open:" << file_name << std::endl;
+          doc->Close();
+        }
+        else ofs << "Failed to acquire Catalog in:" << file_name << std::endl;
+        ofs << "END" << std::endl;
         ofs.close();
-        doc->Close();
       };
 
       if (folder_exists(input_file)) {
-        std::wstring search_path = FromUtf8(input_file);
-        search_path += L"*.pdf";
-        WIN32_FIND_DATA fd;
-        HANDLE hFind = ::FindFirstFile(search_path.c_str(), &fd);
-        if (hFind != INVALID_HANDLE_VALUE)
-          do {
-            if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-              std::string str = input_file + ToUtf8(fd.cFileName);
-              single_pdf(str, save_path+ ToUtf8(fd.cFileName)+".txt");
-            }
-          } while (::FindNextFile(hFind, &fd));
-          ::FindClose(hFind);
-
+        const std::filesystem::path p(input_file);
+        for (const auto& entry : std::filesystem::directory_iterator(p)) {
+          const auto file_name= entry.path().filename().string();
+          if (entry.is_regular_file()) {
+            std::string str = input_file + file_name;
+            single_pdf(str, save_path + file_name + ".txt");
+          }
+        }
+        //std::wstring search_path = FromUtf8(input_file);
+        //search_path += L"*.pdf";
+        //WIN32_FIND_DATA fd;
+        //HANDLE hFind = ::FindFirstFile(search_path.c_str(), &fd);
+        //if (hFind != INVALID_HANDLE_VALUE)
+        //  do {
+        //    if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+        //      std::string str = input_file + ToUtf8(fd.cFileName);
+        //      single_pdf(str, save_path + ToUtf8(fd.cFileName) + ".txt");
+        //    }
+        //  } while (::FindNextFile(hFind, &fd));
+        //::FindClose(hFind);
       }
       else single_pdf(input_file, save_path);
 

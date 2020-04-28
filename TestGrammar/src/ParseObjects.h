@@ -50,6 +50,7 @@ public:
   std::string select_one(PdsObject* obj, const std::string &links_string, std::string &obj_name);
   std::string get_link_for_type(PdsObject* obj, const std::string &types, const std::string &links);
   int get_type_index(PdsObject *obj, std::string types);
+  std::string get_type_string(PdsObject *obj);
   void check_basics(PdsObject *object, const std::vector<std::string> &vec, std::string &grammar_file);
 };
 

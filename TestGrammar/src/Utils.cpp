@@ -23,22 +23,105 @@ Pdfix_statics;
 
 #define kPi 3.1415926535897932384626433832795f
 
-// convert UTF-8 string to wstring
-std::wstring FromUtf8(const std::string& str) {
-  std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
-  return myconv.from_bytes(str);
+std::string ToUtf8(const wchar_t unicode) {
+  std::string out;
+  if ((unsigned int)unicode < 0x80) {
+    out.push_back((char)unicode);
+  }
+  else {
+    if ((unsigned int)unicode >= 0x80000000) {
+      return out;
+    }
+    int nbytes = 0;
+    if ((unsigned int)unicode < 0x800) {
+      nbytes = 2;
+    }
+    else if ((unsigned int)unicode < 0x10000) {
+      nbytes = 3;
+    }
+    else if ((unsigned int)unicode < 0x200000) {
+      nbytes = 4;
+    }
+    else if ((unsigned int)unicode < 0x4000000) {
+      nbytes = 5;
+    }
+    else {
+      nbytes = 6;
+    }
+    static uint8_t prefix[] = { 0xc0, 0xe0, 0xf0, 0xf8, 0xfc };
+    int order = 1 << ((nbytes - 1) * 6);
+    int code = unicode;
+    out.push_back(prefix[nbytes - 2] | (code / order));
+    for (int i = 0; i < nbytes - 1; i++) {
+      code = code % order;
+      order >>= 6;
+      out.push_back(0x80 | (code / order));
+    }
+  }
+  return out;
 }
 
-// convert wstring to UTF-8 string
-std::string ToUtf8(const std::wstring& str) {
-  std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
-  return myconv.to_bytes(str);
+std::string ToUtf8(const std::wstring& wstr) {
+  const wchar_t* buffer = wstr.c_str();
+  auto len = wcslen(buffer);
+  std::string out;
+  while (len-- > 0)
+    out.append(ToUtf8(*buffer++));
+  return out;
 }
 
-std::wstring utf8ToUtf16(const std::string& utf8Str)
-{
-  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> conv;
-  return conv.from_bytes(utf8Str);
+std::wstring utf8ToUtf16(const std::string& str) {
+  const char* s = str.c_str();
+  typedef unsigned char byte;
+  struct Level {
+    byte Head, Data, Null;
+    Level(byte h, byte d) {
+      Head = h; // the head shifted to the right
+      Data = d; // number of data bits
+      Null = h << d; // encoded byte with zero data bits
+    }
+    bool encoded(byte b) { return b >> Data == Head; }
+  }; // struct Level
+  Level lev[] = {
+    Level(2, 6),
+    Level(6, 5),
+    Level(14, 4),
+    Level(30, 3),
+    Level(62, 2),
+    Level(126, 1)
+  };
+
+  wchar_t wc = 0;
+  const char* p = s;
+  std::wstring result;
+  while (*p != 0) {
+    byte b = *p++;
+    if (b >> 7 == 0) { // deal with ASCII
+      wc = b;
+      result.push_back(wc);
+      continue;
+    } // ASCII
+    bool found = false;
+    for (int i = 1; i < (sizeof(lev) / sizeof(lev[0])); ++i) {
+      if (lev[i].encoded(b)) {
+        wc = b ^ lev[i].Null; // remove the head
+        wc <<= lev[0].Data * i;
+        for (int j = i; j > 0; --j) { // trailing bytes
+          if (*p == 0) return result; // unexpected
+          b = *p++;
+          if (!lev[0].encoded(b)) // encoding corrupted
+            return result;
+          wchar_t tmp = b ^ lev[0].Null;
+          wc |= tmp << lev[0].Data * (j - 1);
+        } // trailing bytes
+        result.push_back(wc);
+        found = true;
+        break;
+      } // lev[i]
+    }   // for lev
+    if (!found) return result; // encoding incorrect
+  }   // while
+  return result;
 }
 
 std::string get_path_dir(const std::string& path) {
@@ -81,38 +164,6 @@ bool file_exists(const std::string& path) {
   }
   return false;
 }
-
-//bool file_exists(const std::wstring& path) {
-//  return file_exists(w2utf8(path.c_str()));
-//}
-
-std::string GetAbsolutePath(const std::string& path) {
-  std::string result;
-#ifndef _WIN32
-  if (path.length() && path.front() == '/') {
-    result = path;
-  }
-  else {
-    result.resize(PATH_MAX);
-    realpath(path.c_str(), (char*)result.c_str());
-  }
-#else
-  std::string dir;
-  dir.resize(_MAX_PATH);
-  GetModuleFileNameA(NULL, (char*)dir.c_str(), _MAX_PATH);
-  dir.erase(dir.begin() + dir.find_last_of("\\/") + 1, dir.end());
-  SetCurrentDirectoryA(dir.c_str());
-  result.resize(_MAX_PATH);
-  GetFullPathNameA(path.c_str(), _MAX_PATH, (char*)result.c_str(), NULL);
-#endif
-  result.resize(strlen(result.c_str()));
-  return result;
-}
-
-std::wstring GetAbsolutePath(const std::wstring& path) {
-  return FromUtf8(GetAbsolutePath(ToUtf8(path)));
-}
-
 
 //////////////////////////////////////////////////////////////////////////
 // 
