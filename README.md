@@ -5,20 +5,22 @@ We extracted all Tables from PDF 2.0 dated revision (ISO/DIS 32000-2) and repres
 Our main source is [PDF20Grammar.ods](PDF20Grammar.ods) which is a [LibreOffice Calc](https://www.libreoffice.org/) spreadsheet. There is a specific sheet **TableMap** that identifies each worksheet and then each sheet is a representation of a table in the PDF spec. Note that due to the very large number of worksheets, Microsoft Excel cannot be used. 
 
 Columns must be on  the following order:
-- **Key**				- key in dictionary, or index into an array.
+- **Key**				- key in dictionary, or index into an array. "\*" means any key / index.
 - **Type**				- one or more [type](#Type) or types separated by ";".
 - **SinceVersion**		- version of PDF this key was introduced in. Possible values are 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0.
 - **DeprecatedIn**		- version of PDF this key was deprecated in. Blank if not deprecated. Possible values are 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0.
 - **Required**			- whether the key or array element is required (TRUE/FALSE).  
 - **IndirectReference**	- whether the key is required to be an indirect reference (TRUE/FALSE).
-- **RequiredValue**		- the only possible value.
+- **RequiredValue**		- the only possible value. e.g. value of Type key for some dictionaries.
 - **DefaultValue**		- default value as defined in PDF 2.0, depends on the type.
 - **PossibleValues**	- list of possible values.
 - **SpecialCase**	 	- expression (TODO: language is TBD - needs to include required direct object).
-- **Link**				- name of another worksheet(s) for validating the value(s) of this key.
+- **Link**				- name(s) of other worksheet(s) for validating the value(s) of this key.
 
 Rows define specific keys in a dictionary or an element in an array and the characteristics for that key/array element.
 All the "questions/problems/inconsistences" found in the ISO/DIS 32000-2 dated revision during this process are collected [here](Grammar_vs_ISO32000-2.md).
+
+All names are expressed **without** the leading FORWARD-SLASH (/).
 
 ## **Key**
 Key represents a single key in a dictionary, an index in an array, or multiple entries.
@@ -38,13 +40,13 @@ ArrayOfThreads:
 
 Key | Type | Link |
 --- | --- | --- |
-\* | dictionary | [Thread]
+\* | dictionary | \[Thread]
 
 We may also have a dictionary that serves as a map, where an arbitrary name is associated with another element. Examples of such constructs are ClassMap or the Shading dictionary in the Resources dictionary. In such case Shading as a type of dictionary is linked to ShadingMap and ShadingMap looks like this:  
 
 Key |  Type | Link |
 --- | --- | --- |
-\* |	dictionary;stream |[ShadingType1,ShadingType2,ShadingType3];\[ShadingType4,ShadingType5,ShadingType6,ShadingType7]
+\* |	dictionary;stream |\[ShadingType1,ShadingType2,ShadingType3];\[ShadingType4,ShadingType5,ShadingType6,ShadingType7]
 
 
 ## **Type**
@@ -68,7 +70,7 @@ PDF 2.0 defines a few basic types, but within the spec we refer to some other ty
 
 A single key in a dictionary can be of different types. A common examples is when a key is either a dictionary or an array of dictionaries. In this case Type would be defined as "array;dictionary".
 
-Except for basic types, currently we recognize following combinations of allowed types: [click here](All_types.md)
+In addition to the basic types listed above, the data currently has the following combinations of basic types: [click here](All_types.md)
 
 ## **Link**
 If a specific key requires further validation (e.g. represents another dictionary) we link this key to another sheet in Link column. Example in PageObject:  
@@ -78,20 +80,20 @@ If Key is represented by different types we use following pattern:
 
 Type | Link |
 --- | --- |
-array<b>;</b>dictionary |[ValidateArray]<b>;</b>[ValidateDictionary]
+array<b>;</b>dictionary |\[ValidateArray];\[ValidateDictionary]
 
 Another common example is that one dictionary could be validated based on few different links (Annotation could either be Popup, Stamp etc.) In such case options would be separated with "," like this:
 
 Type | Link |
 --- | --- |
-array;dictionary | [ArrayOfAnnotations];[AnnotStamp<b>,</b>AnnotRedact<b>,</b>AnnotPopup]
+array;dictionary | \[ArrayOfAnnotations];\[AnnotStamp<b>,</b>AnnotRedact<b>,</b>AnnotPopup]
 
 ## **PossibleValues**
 PossibleValues also follow the same pattern as Links:
 
 Type | PossibleValues |
 --- | --- |
-array;dictionary | [Value1ForType1,Value2ForType1];[Value1ForType2,Value2ForType2]
+array;dictionary | \[Value1ForType1,Value2ForType1];\[Value1ForType2,Value2ForType2]
 
 Sometimes it's necessary to define formula to cover all possible values: TODO
 
@@ -186,8 +188,8 @@ $ cut -f 1 *.tsv | sort | uniq
 ---
 
 # TODO :pushpin:
-- finish all unlinked dictionaries, streams and arrays  
-- identify tables and objects in report (somehow identify table/paragraph etc. in the ISO/DIS 32000-2 and carry this information in grammar so we can report it back)
+- finish all unlinked dictionaries, streams and arrays. These are often represented by \[] in the current data.  
+- identify Tables and objects in report (somehow identify table/paragraph etc. in the ISO/DIS 32000-2 and carry this information in grammar so we can report it back)
 - define language for formulas in PossibleValues (currently we have following intervals: <0,100>, <-1.0,1.0>, <0,1>, <0,2>,	<0.0,1.0> and also some expressions: value\>=2, value\>=1, value\>=0, value\<0, value\>0 and also combinations: <40,128> value\*8,<40,128> value\*8, <40,128> value\*8, value\*90, value\*1/72
 - define language for SpecialCase column
 - TableMap is out of sync
