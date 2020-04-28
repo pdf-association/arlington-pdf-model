@@ -4,18 +4,19 @@ We extracted all Tables from PDF 2.0 dated revision (ISO/DIS 32000-2) and repres
 
 Our main source is [PDF20Grammar.ods](PDF20Grammar.ods) which is a [LibreOffice Calc](https://www.libreoffice.org/) spreadsheet. There is a specific sheet **TableMap** that identifies each worksheet and then each sheet is a representation of a table in the PDF spec. Note that due to the very large number of worksheets, Microsoft Excel cannot be used. 
 
-Columns must be on  the following order:
-- **Key**				- key in dictionary, or index into an array. "\*" means any key / index.
-- **Type**				- one or more [type](#Type) or types separated by ";".
-- **SinceVersion**		- version of PDF this key was introduced in. Possible values are 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0.
-- **DeprecatedIn**		- version of PDF this key was deprecated in. Blank if not deprecated. Possible values are 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0.
-- **Required**			- whether the key or array element is required (TRUE/FALSE).  
-- **IndirectReference**	- whether the key is required to be an indirect reference (TRUE/FALSE).
-- **RequiredValue**		- the only possible value. e.g. value of Type key for some dictionaries.
-- **DefaultValue**		- default value as defined in PDF 2.0, depends on the type.
-- **PossibleValues**	- list of possible values.
-- **SpecialCase**	 	- expression (TODO: language is TBD - needs to include required direct object).
-- **Link**				- name(s) of other worksheet(s) for validating the value(s) of this key.
+Columns must be in the following order:
+1. **Key**		- key in dictionary, or index into an array. "\*" means any key / index.
+1. **Type**		- one or more [type](#Type) or types separated by ";".
+1. **SinceVersion**	- version of PDF this key was introduced in. Possible values are 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0.
+1. **DeprecatedIn**	- version of PDF this key was deprecated in. Blank if not deprecated. Possible values are 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0.
+1. **Required**	- whether the key or array element is required (TRUE/FALSE).  
+1. **IndirectReference**	- whether the key is required to be an indirect reference (TRUE/FALSE).
+1. **RequiredValue**	- the only possible value. e.g. value of Type key for some dictionaries.
+1. **DefaultValue**	- default value as defined in PDF 2.0, depends on the type.
+1. **PossibleValues**	- list of possible values.
+1. **SpecialCase**	- expression (TODO: language is TBD - needs to include required direct object).
+1. **Link**	- name(s) of other worksheet(s) for validating the value(s) of this key.
+1. **Notes**	- free text for arbitrary notes.
 
 Rows define specific keys in a dictionary or an element in an array and the characteristics for that key/array element.
 All the "questions/problems/inconsistences" found in the ISO/DIS 32000-2 dated revision during this process are collected [here](Grammar_vs_ISO32000-2.md).
