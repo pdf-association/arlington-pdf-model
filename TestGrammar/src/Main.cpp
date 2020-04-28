@@ -6,15 +6,18 @@
 #include <exception>
 #include <iostream>
 #include <string>
-#include <filesystem>
 
+#if defined __linux__
+#include <cstring>
+#endif
+
+#include <filesystem>
 #include "Pdfix.h"
 
 #include "Initialization.hpp"
 #include "ParseObjects.h"
 //#include "GrammarFile.h"
 #include "CheckGrammar.h"
-
 
 void show_help() {
   std::cout << "TestGrammar" << std::endl;

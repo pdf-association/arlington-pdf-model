@@ -15,7 +15,9 @@ extern HINSTANCE ghInstance;
 #include <cstring>
 #include <limits.h>
 #include <locale>
+#include <sys/stat.h>
 #endif
+
 #include "Pdfix.h"
 using namespace PDFixSDK;
 

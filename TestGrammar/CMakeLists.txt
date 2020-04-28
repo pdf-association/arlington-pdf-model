@@ -1,6 +1,7 @@
 cmake_minimum_required (VERSION 3.10)
 SET (CMAKE_CXX_STANDARD 17)
 SET (CMAKE_CXX_STANDARD_REQUIRED ON)
+SET (CMAKE_REQUIRED_LIBRARIES stdc++fs)
 
 PROJECT(TestGrammar)
 
@@ -24,13 +25,11 @@ elseif(UNIX)
         ${CMAKE_SOURCE_DIR}/bin/linux) 
 endif()
 
-include_directories(include)
-
 add_executable(TestGrammar
     src/Main.cpp
 	${SOURCES}
 	)
 
 if (UNIX)
-    target_link_libraries(TestGrammar dl)   
+    target_link_libraries(TestGrammar dl stdc++fs)   
 endif()
