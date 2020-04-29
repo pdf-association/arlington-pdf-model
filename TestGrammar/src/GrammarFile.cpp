@@ -110,14 +110,14 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     // need to compare all of them with basic_types
     std::vector<std::string> types = split(vc[1], ';');
     std::vector<std::string> links = split(vc[10], ';');
-    std::regex regex("^\\[[A-Z,a-z,0-9,\\,]*\\]$");
+    std::regex regex("^\\[[A-Z,a-z,0-9,_,\\,]*\\]$");
 
     // if link exists we check
     // - number of links and number of types match
     // - each link follows patter [];[]..
     // - each dictionary, array etc.. is linked
     // - each link actuall exists
- //   report_stream << vc[9] << std::endl;
+    //report_stream << vc[1] << std::endl;
 
     if (vc[10] != "") {
       if (links.size() != types.size())
@@ -127,11 +127,11 @@ bool CGrammarReader::check(std::ostream &report_stream) {
           report_stream << "Wrong pattern in links " << file_name << "::" << vc[0] << std::endl;
         }
         else {
-          if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
-            (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
-              || types[link_pos] == "NAME TREE" || types[link_pos] == "STREAM"
-              || types[link_pos] == "ARRAY"))
-            report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
+          //if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
+          //  (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
+          //    || types[link_pos] == "NAME TREE" || types[link_pos] == "STREAM"
+          //    || types[link_pos] == "ARRAY"))
+          //  report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
 
           std::vector<std::string> direct_links = split(links[link_pos].substr(1, links[link_pos].size() - 2), ',');
 

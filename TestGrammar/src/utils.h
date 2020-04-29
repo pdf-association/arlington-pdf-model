@@ -12,7 +12,7 @@
 #undef GetObject
 #endif
 
-std::wstring FromUtf8(const std::string& str);
+//std::wstring FromUtf8(const std::string& str);
 std::string ToUtf8(const std::wstring& str);
 std::wstring utf8ToUtf16(const std::string& utf8Str);
 
@@ -26,14 +26,9 @@ std::string check_folder_path(const std::string& path);
 bool folder_exists(const std::string& path);
 //bool folder_exists(const std::wstring& path);
 bool file_exists(const std::string& path);
-//bool file_exists(const std::wstring& path);
-
-std::string GetAbsolutePath(const std::string& path);
-std::wstring GetAbsolutePath(const std::wstring& path);
 
 //split string into vector
 std::vector<std::string> split(const std::string& s, char seperator);
-
 
 //////////////////////////////////////////////////////////////////////////
 // PdfMatrix utils
