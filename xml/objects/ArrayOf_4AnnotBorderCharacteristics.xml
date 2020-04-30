@@ -1,51 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="ArrayOfBorderStyle">
+<OBJECT id="ArrayOf_4AnnotBorderCharacteristics">
    <ENTRY>
       <NAME>0</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>name</TYPE>
+            <TYPE>number</TYPE>
          </VALUE>
       </VALUES>
-      <REQUIRED>true</REQUIRED>
+      <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
+      <SINCEVERSION>1.0</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
       <NAME>1</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>name</TYPE>
+            <TYPE>number</TYPE>
          </VALUE>
       </VALUES>
-      <REQUIRED>true</REQUIRED>
+      <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
+      <SINCEVERSION>1.0</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
       <NAME>2</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>name</TYPE>
+            <TYPE>number</TYPE>
          </VALUE>
       </VALUES>
-      <REQUIRED>true</REQUIRED>
+      <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
+      <SINCEVERSION>1.0</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
       <NAME>3</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>name</TYPE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOf_2DashNumbers</VALIDATE>
          </VALUE>
       </VALUES>
-      <REQUIRED>true</REQUIRED>
+      <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
+      <SINCEVERSION>1.1</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
 </OBJECT>

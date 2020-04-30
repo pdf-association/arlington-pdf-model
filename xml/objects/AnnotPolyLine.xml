@@ -132,7 +132,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOf_4AnnotBorderCharacteristics</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -145,7 +145,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>ArrayOf4NumbersColorAnnotation</VALIDATE>
+            <VALIDATE>ArrayOf_4NumbersColorAnnotation</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -333,7 +333,7 @@
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>AnnotHighLight</VALIDATE>
+            <VALIDATE>AnnotHighlight</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
@@ -389,7 +389,7 @@
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>AnnotWaterMark</VALIDATE>
+            <VALIDATE>AnnotWatermark</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
@@ -455,12 +455,12 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>ArrayOf_2LineEndingsNames</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
+      <SINCEVERSION>1.5</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
@@ -481,7 +481,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>ArrayOf4NumbersColorAnnotation</VALIDATE>
+            <VALIDATE>ArrayOf_4NumbersColorAnnotation</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
