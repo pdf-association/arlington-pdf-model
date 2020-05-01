@@ -42,7 +42,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>ArrayOf3RGBNumbers</VALIDATE>
+            <VALIDATE>ArrayOf_3RGBNumbers</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -55,11 +55,11 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>ArrayOf4BorderColors</VALIDATE>
+            <VALIDATE>ArrayOf_4BorderColors</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>ArrayOf3RGBNumbers</VALIDATE>
+            <VALIDATE>ArrayOf_3RGBNumbers</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -72,7 +72,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>ArrayOfBorderStyle</VALIDATE>
+            <VALIDATE>ArrayOf_4BorderStyleNames</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>name</TYPE>
@@ -120,7 +120,7 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE>ArrayOf3RGBNumbers</VALIDATE>
+            <VALIDATE>ArrayOf_3RGBNumbers</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

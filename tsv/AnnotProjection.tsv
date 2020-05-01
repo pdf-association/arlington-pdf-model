@@ -2,7 +2,7 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	Defa
 Type	name	2.0		FALSE	FALSE	Annot				
 Subtype	name	2.0		TRUE	FALSE	Projection				
 Rect	rectangle	2.0		TRUE	FALSE					
-Contents	string-text	2.0		FALSE	FALSE					[];[]
+Contents	string-text	2.0		FALSE	FALSE					
 P	dictionary	2.0		FALSE	FALSE					[PageObject]
 NM	string-text	2.0		FALSE	FALSE					
 M	date;string-text	2.0		FALSE	FALSE					
@@ -22,7 +22,7 @@ T 	string-text	2.0		FALSE	FALSE
 Popup	dictionary	2.0		FALSE	FALSE					[AnnotPopup]
 RC	stream;string-text	2.0		FALSE	FALSE					[];[]
 CreationDate	date	2.0		FALSE	FALSE					
-IRT	dictionary	2.0		FALSE	FALSE				Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighLight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWaterMark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]
+IRT	dictionary	2.0		FALSE	FALSE				Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]
 Subj	string-text	2.0		FALSE	FALSE					
 RT	name	2.0		FALSE	FALSE		R	[R,Group]		
 IT	name	2.0		FALSE	FALSE					

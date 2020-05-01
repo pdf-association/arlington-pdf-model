@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <OBJECT id="FunctionType3">
    <ENTRY>
+      <NAME>FunctionType</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>integer</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.2</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>Domain</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.2</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>Range</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.2</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
       <NAME>Functions</NAME>
       <VALUES>
          <VALUE>
@@ -37,44 +75,6 @@
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.3</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>FunctionType</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>integer</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>true</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>Domain</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>true</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>Range</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
 </OBJECT>
