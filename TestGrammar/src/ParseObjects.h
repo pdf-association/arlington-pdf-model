@@ -31,12 +31,13 @@ using namespace PDFixSDK;
 
 class CParsePDF
 {
-  std::map<PdsObject*, int> mapped;
+  std::map<PdsObject*, std::string> mapped;
   std::map<std::string, std::unique_ptr<CGrammarReader>> grammar_map;
 
   std::string grammar_folder;
   PdfDoc* pdf_doc;
   std::ofstream &output;
+  const std::vector<std::vector<std::string>>* get_grammar(std::string& link);
 
 public:
   CParsePDF(PdfDoc* doc, std::string tsv_folder, std::ofstream &ofs) :
