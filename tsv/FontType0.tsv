@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.0		TRUE	FALSE	Font				
-SubType	name	1.0		TRUE	FALSE	Type0				
-BaseFont	name	1.0		TRUE	FALSE					
-Encoding	name;stream	1.0		TRUE	FALSE					[];[]
-DescendantFonts	array	1.0		TRUE	FALSE					[]
-ToUnicode	stream	1.0		FALSE	FALSE					[]
+Type	name	1.2		TRUE	FALSE	Font				
+SubType	name	1.2		TRUE	FALSE	Type0				
+BaseFont	name	1.2		TRUE	FALSE					
+Encoding	name;stream	1.2		TRUE	FALSE					[];[CMap]
+DescendantFonts	array	1.2		TRUE	FALSE					[]
+ToUnicode	stream	1.2		FALSE	FALSE					[Stream]

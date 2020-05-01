@@ -6,7 +6,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>p:\test-grammar\bugs\ w:\PDF20_Grammar\tsv\ p:\test-grammar\29-4\</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-v w:\PDF20_Grammar\tsv\ w:\report.txt</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

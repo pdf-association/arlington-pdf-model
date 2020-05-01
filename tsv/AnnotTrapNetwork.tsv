@@ -6,9 +6,9 @@ Contents	string	1.3	2.0	FALSE	FALSE
 P	dictionary	1.3	2.0	FALSE	FALSE					[PageObject]
 NM	string	1.4	2.0	FALSE	FALSE					
 M	date;string	1.3	2.0	FALSE	FALSE					
-F	integer	1.3	2.0	FALSE	FALSE					
-AP	dictionary	1.3	2.0	FALSE	FALSE					[Appearance]
-AS	name	1.3	2.0	FALSE	FALSE					
+F	integer	1.3	2.0	TRUE	FALSE					
+AP	dictionary	1.3	2.0	TRUE	FALSE					[AppearanceTrapNet]
+AS	name	1.3	2.0	TRUE	FALSE					
 Border	array	1.3	2.0	FALSE	FALSE		[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
 C 	array	1.3	2.0	FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
 StructParent	integer	1.3	2.0	FALSE	FALSE					
