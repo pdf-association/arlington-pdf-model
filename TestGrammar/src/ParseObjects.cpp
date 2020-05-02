@@ -41,6 +41,20 @@ using namespace PDFixSDK;
 //  return file_name;
 //};
 
+const std::vector<std::vector<std::string>>* CParsePDF::get_grammar(std::string &link) {
+  auto it = grammar_map.find(link);
+  if (it == grammar_map.end()) {
+    std::string grammar_file = grammar_folder + link + ".tsv";
+    std::unique_ptr<CGrammarReader> reader(new CGrammarReader(grammar_file));
+    reader->load();
+    //if (data_list->empty())
+    //  continue;
+    const std::vector<std::vector<std::string>>* to_ret = &reader->get_data();
+    grammar_map.insert(std::make_pair(link, std::move(reader)));
+    return to_ret;
+  }
+  return &it->second->get_data();
+}
 
 // choose one from provided links to validate further
 // the decision is made based on 
@@ -56,23 +70,7 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
   int to_ret = -1;
   for (int i = 0; i < links.size(); i++) {
     auto lnk = links[i];
-    std::string grammar_file = grammar_folder + lnk + ".tsv";
-
-
-    const std::vector<std::vector<std::string>> *data_list;
-    auto it = grammar_map.find(lnk);
-    if (it == grammar_map.end()) {
-      std::unique_ptr<CGrammarReader> reader(new CGrammarReader(grammar_file));
-      if (!reader->load())
-        continue;
-      data_list = &reader->get_data();
-      if (data_list->empty())
-        continue;
-      grammar_map.insert(std::make_pair(lnk, std::move(reader)));
-    }
-    else
-      data_list = &it->second->get_data();
-
+    const std::vector<std::vector<std::string>>* data_list = get_grammar(lnk);
 
     to_ret = i;
     // first need to go through "required" - that may fail the validation right away
@@ -382,34 +380,21 @@ void CParsePDF::parse_object(PdsObject *object, std::string link, std::string co
   auto found = mapped.find(object);
   if (found != mapped.end()) {
     //    output << context << " already Processed" <<std::endl;
-    found->second++;
+    //found->second ++;
+    if (found->second != link) {
+      output << "Error: object validated in two different context first:" << found->second;
+      output << " second:" << link <<  " in:" << context << std::endl;
+    }
     return;
   }
 
   output << context << std::endl;
   context = "  " + context;
 
-  mapped.insert(std::make_pair(object, 1));
+  mapped.insert(std::make_pair(object, link));
 
   std::string grammar_file = grammar_folder + link + ".tsv";
-
-  const std::vector<std::vector<std::string>> *data_list;
-  auto it = grammar_map.find(link);
-  if ( it == grammar_map.end()) {
-    std::unique_ptr<CGrammarReader> reader(new CGrammarReader(grammar_file));
-    if (!reader->load()) {
-      output << "Error: Can't load grammar file:" << grammar_file << std::endl;
-      return;
-    }
-    data_list= &reader->get_data();
-    if (data_list->empty()) {
-      output << "Error: Empty grammar file:" << grammar_file << std::endl;
-      return;
-    }
-    grammar_map.insert(std::make_pair(link, std::move(reader)));
-  }
-  else 
-    data_list = &it->second->get_data();
+  const std::vector<std::vector<std::string>>* data_list = get_grammar(link);
 
   // validating as dictionary:
   // going through all objects in dictionary 

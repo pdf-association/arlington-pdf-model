@@ -127,11 +127,21 @@ bool CGrammarReader::check(std::ostream &report_stream) {
           report_stream << "Wrong pattern in links " << file_name << "::" << vc[0] << std::endl;
         }
         else {
+          if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
+            (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
+              || types[link_pos] == "NAME TREE" || types[link_pos] == "STREAM"
+              || types[link_pos] == "ARRAY"))
+            report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
+
+          // report all unlinked streams
           //if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
-          //  (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
-          //    || types[link_pos] == "NAME TREE" || types[link_pos] == "STREAM"
-          //    || types[link_pos] == "ARRAY"))
-          //  report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
+          //  (types[link_pos] == "STREAM"))
+          //  report_stream << file_name << "::" << vc[0] << std::endl;
+
+          // report all linked streams
+          //if ((types.size() > link_pos) && (links[link_pos] != "[]") &&
+          //  (types[link_pos] == "STREAM"))
+          //  report_stream << links[link_pos] << std::endl;
 
           std::vector<std::string> direct_links = split(links[link_pos].substr(1, links[link_pos].size() - 2), ',');
 
