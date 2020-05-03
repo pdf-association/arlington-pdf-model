@@ -19,7 +19,6 @@ Columns must be in the following order:
 1. **Notes**	- free text for arbitrary notes.
 
 Rows define specific keys in a dictionary or an element in an array and the characteristics for that key/array element.
-All the "questions/problems/inconsistences" found in the ISO/DIS 32000-2 dated revision during this process are collected [here](Grammar_vs_ISO32000-2.md).
 
 All names are expressed **without** the leading FORWARD-SLASH (/).
 
@@ -52,26 +51,29 @@ Key |  Type | Link |
 
 ## **Type**
 PDF 2.0 defines a few basic types, but within the spec we refer to some other types as well. Therefore we work with following basic types:
-- ARRAY
-- BOOLEAN
-- DATE
-- DICTIONARY
-- INTEGER
-- NAME
-- NAME TREE
-- NULL
-- NUMBER
-- NUMBER TREE
-- RECTANGLE
-- STREAM
-- STRING
-- STRING-ASCII
-- STRING-BYTE
-- STRING-TEXT
+- array
+- boolean
+- date
+- dictionary
+- integer
+- name
+- name tree
+- null
+- number
+- number tree
+- rectangle
+- stream
+- string
+- string-ascii
+- string-byte
+- string-text
 
-A single key in a dictionary can be of different types. A common examples is when a key is either a dictionary or an array of dictionaries. In this case Type would be defined as "array;dictionary".
+A single key in a dictionary can be of different types. A common examples is when a key is either a dictionary or an array of dictionaries. In this case Type would be defined as "array;dictionary". Types are stored in alphabetical order in the 2nd column
 
-In addition to the basic types listed above, the data currently has the following combinations of basic types: [click here](All_types.md)
+This Linux command lists all combinations of these types used throughout PDF:
+```
+cut -f 2 *.tsv | sort | uniq 
+```
 
 ## **Link**
 If a specific key requires further validation (e.g. represents another dictionary) we link this key to another sheet in Link column. Example in PageObject:  
