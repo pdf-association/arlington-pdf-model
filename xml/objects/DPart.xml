@@ -18,7 +18,11 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>DPart</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>DPartRoot</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -44,7 +48,7 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>PageObject</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -57,7 +61,7 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>PageObject</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -96,7 +100,7 @@
       <VALUES>
          <VALUE>
             <TYPE>stream</TYPE>
-            <VALIDATE/>
+            <VALIDATE>Metadata</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

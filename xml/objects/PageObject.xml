@@ -18,11 +18,11 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>PageTreeNodeRoot</VALIDATE>
+            <VALIDATE>PageTreeNode</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>PageTreeNode</VALIDATE>
+            <VALIDATE>PageTreeNodeRoot</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -137,7 +137,7 @@
          </VALUE>
          <VALUE>
             <TYPE>stream</TYPE>
-            <VALIDATE/>
+            <VALIDATE>Stream</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
