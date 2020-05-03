@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 // GrammarFile.cpp
-// Copyright (c) 2020 Normex. All Rights Reserved.
+// 2020 Roman Toda, Normex
 ///////////////////////////////////////////////////////////////////////////////
 
 /*!
@@ -117,7 +117,8 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     // - each link follows patter [];[]..
     // - each dictionary, array etc.. is linked
     // - each link actuall exists
-    //report_stream << vc[1] << std::endl;
+    //if (vc[6]!="" && vc[8]!="")
+//    report_stream << vc[6] << "\t" << vc[8] << std::endl;
 
     if (vc[10] != "") {
       if (links.size() != types.size())
@@ -130,7 +131,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
           if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
             (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
               || types[link_pos] == "NAME TREE" || types[link_pos] == "STREAM"
-              || types[link_pos] == "ARRAY"))
+              /*|| types[link_pos] == "ARRAY"*/))
             report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
 
           // report all unlinked streams

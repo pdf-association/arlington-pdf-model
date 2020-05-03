@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // ParseObjects.cpp
-// Copyright (c) 2020 Normex, Pdfix. All Rights Reserved.
+// 2020 Roman Toda, Normex
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
   Reading the whole PDF starting from specific object and validating against grammar provided via tsv file
@@ -41,7 +41,7 @@ using namespace PDFixSDK;
 //  return file_name;
 //};
 
-const std::vector<std::vector<std::string>>* CParsePDF::get_grammar(std::string &link) {
+const std::vector<std::vector<std::string>>* CParsePDF::get_grammar(const std::string &link) {
   auto it = grammar_map.find(link);
   if (it == grammar_map.end()) {
     std::string grammar_file = grammar_folder + link + ".tsv";
@@ -56,6 +56,65 @@ const std::vector<std::vector<std::string>>* CParsePDF::get_grammar(std::string 
   return &it->second->get_data();
 }
 
+
+bool CParsePDF::check_possible_values(PdsObject* object, const std::string& possible_value_str, int index, std::wstring &real_str_value) {
+  double num_value;
+
+  if (object->GetObjectType() == kPdsBoolean) {
+    if (((PdsBoolean*)object)->GetValue())
+      real_str_value = L"TRUE";
+    else real_str_value = L"FALSE";
+  }
+  if (object->GetObjectType() == kPdsNumber) {
+    num_value = ((PdsNumber*)object)->GetValue();
+    real_str_value = std::to_wstring(num_value);
+  }
+  if (object->GetObjectType() == kPdsName) {
+    real_str_value.resize(((PdsName*)object)->GetText(nullptr, 0));
+    ((PdsName*)object)->GetText((wchar_t*)real_str_value.c_str(), (int)real_str_value.size());
+  }
+  if (object->GetObjectType() == kPdsString) {
+    real_str_value.resize(((PdsString*)object)->GetText(nullptr, 0));
+    ((PdsString*)object)->GetText((wchar_t*)real_str_value.c_str(), (int)real_str_value.size());
+  }
+
+  std::vector<std::string> options;
+  std::string def = possible_value_str;
+  if (def[0] == '[') {
+    std::vector<std::string> all_defaults = split(possible_value_str, ';');
+    def = all_defaults[index];
+    def = def.substr(1, def.size() - 2);
+  }
+  bool is_value = (def.find("value") != std::string::npos) || (def.find("Value") != std::string::npos);
+  bool is_interval = def.find("<") != std::string::npos;
+  if (def != "" && !is_value && !is_interval) {
+    options = split(def, ',');
+    bool found = false;
+    for (auto opt : options)
+      if (object->GetObjectType() == kPdsNumber) {
+        try {
+          auto double_val = std::stod(opt);
+          if (num_value == double_val) {
+            found = true;
+            break;
+          }
+        }
+        catch (...) {
+          break;
+        }
+      }
+      else
+        if (opt == ToUtf8(real_str_value)) {
+          found = true;
+          break;
+        }
+    if (!found)
+      return false;
+  }
+  return true;
+}
+
+
 // choose one from provided links to validate further
 // the decision is made based on 
 // - 
@@ -69,7 +128,7 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
 
   int to_ret = -1;
   for (int i = 0; i < links.size(); i++) {
-    auto lnk = links[i];
+    const auto lnk = links[i];
     const std::vector<std::vector<std::string>>* data_list = get_grammar(lnk);
 
     to_ret = i;
@@ -80,16 +139,15 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
       for (int j = 1; j < data_list->size(); j++) {
         auto &vec = data_list->at(j);
         if (vec[4] == "TRUE") {
-          std::wstring str_value;
-          //required value exists?
+          PdsObject* inner_object = nullptr;
 
+          //required value exists?
           if (obj->GetObjectType() == kPdsArray) {
             if (j-1 >= ((PdsArray*)obj)->GetNumObjects()) {
               to_ret = -1;
               break;
             }
-            str_value.resize(((PdsArray*)obj)->GetText(j-1, nullptr, 0));
-            ((PdsArray*)obj)->GetText(j-1, (wchar_t*)str_value.c_str(), (int)str_value.size());
+            inner_object = ((PdsArray*)obj)->Get(j - 1);
           }
           else {
             PdsDictionary* dictObj = (PdsDictionary*)obj;
@@ -100,11 +158,22 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
               to_ret = -1;
               break;
             }
-            str_value.resize(dictObj->GetText(utf8ToUtf16(vec[0]).c_str(), nullptr, 0));
-            dictObj->GetText(utf8ToUtf16(vec[0]).c_str(), (wchar_t*)str_value.c_str(), (int)str_value.size());
+            inner_object = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
           }
 
-          if (vec[6] != "" && vec[6] != ToUtf8(str_value)) {
+          //have required object, let's check possible values
+          if (inner_object==nullptr)  {
+            to_ret = -1;
+            break;
+          }
+          int index = get_type_index(inner_object, vec[1]);
+          if (index == -1 ) {
+            to_ret = -1;
+            break;
+          }
+          std::wstring str_value;
+          if (vec[8] != "" && !check_possible_values(inner_object, vec[8], index, str_value)) {
+            //            if (vec[6] != "" && vec[6] != ToUtf8(str_value)) {
             to_ret = -1;
             break;
           }
@@ -188,7 +257,7 @@ std::string CParsePDF::get_type_string(PdsObject *obj) {
 // - type
 // - indirect
 // - possible value
-void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &vec, std::string &grammar_file) {
+void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &vec, const std::string &grammar_file) {
   // is indirect when needed ?
 
   if ((vec[5] == "TRUE") && (object->GetId() == 0)) {
@@ -211,65 +280,75 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
   // we should cober also sigle reference in brackets [name1,name2]
   if (vec[8] != "" && index!=-1) {
     std::wstring str_value;
-    double num_value;
-
-    if (object->GetObjectType() == kPdsBoolean) {
-      if (((PdsBoolean*)object)->GetValue())
-        str_value = L"TRUE";
-      else str_value = L"FALSE";
-    }
-    if (object->GetObjectType() == kPdsNumber) {
-      num_value = ((PdsNumber*)object)->GetValue();
-      //      str_value = std::to_wstring(((PdsNumber*)object)->GetValue());
-    }
-    if (object->GetObjectType() == kPdsName) {
-      str_value.resize(((PdsName*)object)->GetText(nullptr, 0));
-      ((PdsName*)object)->GetText((wchar_t*)str_value.c_str(), (int)str_value.size());
-    }
-    if (object->GetObjectType() == kPdsString) {
-      str_value.resize(((PdsString*)object)->GetText(nullptr, 0));
-      ((PdsString*)object)->GetText((wchar_t*)str_value.c_str(), (int)str_value.size());
+    if (!check_possible_values(object,vec[8],index, str_value))
+    {
+      output << "Error:  wrong value:";
+      output << vec[0] << "(" << grammar_file << ")";
+      output << " should be:" << vec[8] << " and is " << ToUtf8(str_value) << std::endl;
     }
 
-    std::vector<std::string> options;
-    std::string def = vec[8];
-    if (def[0] == '[') {
-      std::vector<std::string> all_defaults = split(vec[8], ';');
-      def = all_defaults[index];
-      def = def.substr(1, def.size() - 2);
-    }
-    if (def != "" &&  def.find("value") != std::string::npos &&  def.find("<") != std::string::npos) {
-      options = split(def, ',');
-      bool found = false;
-      for (auto opt : options)
-        if (object->GetObjectType() == kPdsNumber) {
-          try {
-            auto double_val = std::stod(opt);
-            if (num_value == double_val) {
-              found = true;
-              break;
-            }
-          }
-          catch (...) {
-            break;
-          }
-        }
-        else
-          if (opt == ToUtf8(str_value)) {
-            found = true;
-            break;
-          }
-      if (!found) {
-        output << "Error:  wrong value:";
-        output << vec[0] << "(" << grammar_file << ")";
-        output << " should be:" << vec[8] << " and is " << ToUtf8(str_value) << std::endl;
-      }
-    }
+    //std::wstring str_value;
+    //double num_value;
+
+    //if (object->GetObjectType() == kPdsBoolean) {
+    //  if (((PdsBoolean*)object)->GetValue())
+    //    str_value = L"TRUE";
+    //  else str_value = L"FALSE";
+    //}
+    //if (object->GetObjectType() == kPdsNumber) {
+    //  num_value = ((PdsNumber*)object)->GetValue();
+    //  //      str_value = std::to_wstring(((PdsNumber*)object)->GetValue());
+    //}
+    //if (object->GetObjectType() == kPdsName) {
+    //  str_value.resize(((PdsName*)object)->GetText(nullptr, 0));
+    //  ((PdsName*)object)->GetText((wchar_t*)str_value.c_str(), (int)str_value.size());
+    //}
+    //if (object->GetObjectType() == kPdsString) {
+    //  str_value.resize(((PdsString*)object)->GetText(nullptr, 0));
+    //  ((PdsString*)object)->GetText((wchar_t*)str_value.c_str(), (int)str_value.size());
+    //}
+
+    //std::vector<std::string> options;
+    //std::string def = vec[8];
+    //if (def[0] == '[') {
+    //  std::vector<std::string> all_defaults = split(vec[8], ';');
+    //  def = all_defaults[index];
+    //  def = def.substr(1, def.size() - 2);
+    //}
+    //bool is_value = (def.find("value") != std::string::npos) || (def.find("Value") != std::string::npos);
+    //bool is_interval = def.find("<") != std::string::npos;
+    //if (def != "" && !is_value && !is_interval) {
+    //  options = split(def, ',');
+    //  bool found = false;
+    //  for (auto opt : options)
+    //    if (object->GetObjectType() == kPdsNumber) {
+    //      try {
+    //        auto double_val = std::stod(opt);
+    //        if (num_value == double_val) {
+    //          found = true;
+    //          break;
+    //        }
+    //      }
+    //      catch (...) {
+    //        break;
+    //      }
+    //    }
+    //    else
+    //      if (opt == ToUtf8(str_value)) {
+    //        found = true;
+    //        break;
+    //      }
+    //  if (!found) {
+    //    output << "Error:  wrong value:";
+    //    output << vec[0] << "(" << grammar_file << ")";
+    //    output << " should be:" << vec[8] << " and is " << ToUtf8(str_value) << std::endl;
+    //  }
+    //}
   }
 }
 
 
-void CParsePDF::parse_name_tree(PdsDictionary* obj, std::string links, std::string context) {
+void CParsePDF::parse_name_tree(PdsDictionary* obj, const std::string &links, std::string context) {
   // todo check if Kids doesn't exist together with names etc..
   PdsObject *kids_obj = obj->Get(L"Kids");
   PdsObject *names_obj = obj->Get(L"Names");
@@ -320,7 +399,7 @@ void CParsePDF::parse_name_tree(PdsDictionary* obj, std::string links, std::stri
   }
 }
 
-void CParsePDF::parse_number_tree(PdsDictionary* obj, std::string links, std::string context) {
+void CParsePDF::parse_number_tree(PdsDictionary* obj, const std::string &links, std::string context) {
   // todo check if Kids doesn't exist together with names etc..
   PdsObject *kids_obj = obj->Get(L"Kids");
   PdsObject *nums_obj = obj->Get(L"Nums");
@@ -372,7 +451,7 @@ void CParsePDF::parse_number_tree(PdsDictionary* obj, std::string links, std::st
   }
 }
 
-void CParsePDF::parse_object(PdsObject *object, std::string link, std::string context)
+void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::string context)
 {
   if (link == "")
     return;
