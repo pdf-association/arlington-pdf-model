@@ -17,7 +17,7 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
   std::vector<std::string> processed;
   std::vector<std::string> to_process;
   to_process.push_back("Catalog.tsv");
-//  to_process.push_back("FileTrailer.tsv");
+  //to_process.push_back("FileTrailer.tsv");
   while (!to_process.empty()) {
     std::string gfile = to_process.back();
     to_process.pop_back();

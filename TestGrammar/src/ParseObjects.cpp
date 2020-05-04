@@ -86,7 +86,7 @@ bool CParsePDF::check_possible_values(PdsObject* object, const std::string& poss
     def = def.substr(1, def.size() - 2);
   }
   bool is_value = (def.find("value") != std::string::npos) || (def.find("Value") != std::string::npos);
-  bool is_interval = def.find("<") != std::string::npos;
+  bool is_interval = (def.find("<") != std::string::npos) /*&& def.find("<") != std::string::npos*/;
   if (def != "" && !is_value && !is_interval) {
     options = split(def, ',');
     bool found = false;
@@ -221,7 +221,7 @@ int CParsePDF::get_type_index(PdsObject *obj, std::string types) {
       return i;
     if ((obj->GetObjectType() == kPdsArray) && ((opt[i] == "ARRAY") || (opt[i] == "RECTANGLE")))
       return i;
-    if ((obj->GetObjectType() == kPdsDictionary) && ((opt[i] == "DICTIONARY") || (opt[i] == "NUMBER TREE") || (opt[i] == "NAME TREE")))
+    if ((obj->GetObjectType() == kPdsDictionary) && ((opt[i] == "DICTIONARY") || (opt[i] == "NUMBER-TREE") || (opt[i] == "NAME-TREE")))
       return i;
   }
   return -1;
@@ -542,11 +542,11 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
           if (links[index] == "[]")
             continue;
 
-          if (opt[index] == "NUMBER TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
+          if (opt[index] == "NUMBER-TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
             parse_number_tree((PdsDictionary*)inner_obj, links[index], context + "->" + vec[0]);
           }
           else
-            if (opt[index] == "NAME TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
+            if (opt[index] == "NAME-TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
               parse_name_tree((PdsDictionary*)inner_obj, links[index], context + "->" + vec[0]);
             }
             else if (inner_obj->GetObjectType() == kPdsStream) {

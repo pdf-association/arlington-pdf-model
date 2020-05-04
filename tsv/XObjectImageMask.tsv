@@ -18,7 +18,7 @@ OPI	dictionary	1.2	2.0	FALSE	FALSE					[OPIVersion13,OPIVersion20]
 Metadata	stream	1.4		FALSE	FALSE					[Metadata]	
 OC	dictionary	1.5		FALSE	FALSE					[OptContentGroup,OptContentMembership]	
 AF	array;dictionary	2.0		FALSE	FALSE					[ArrayOfFileSpecifications];[FileSpecification]	
-Measure	dictionary	2.0		FALSE	FALSE					[Measure]	
+Measure	dictionary	2.0		FALSE	FALSE					[MeasureRL,MeasureGEO]	
 PtData	dictionary	2.0		FALSE	FALSE					[PointData]	
 Length	integer	1.3		TRUE	FALSE						* from stream
 Filter	array;name	1.3		FALSE	FALSE			[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	

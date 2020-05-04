@@ -1,8 +1,0 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.4		FALSE	FALSE			[SpiderContentSet]		
-S	name	1.4		TRUE	FALSE			[SPS,SIS]		
-ID	string-byte	1.4		TRUE	FALSE					
-O	array	1.4		TRUE	FALSE					[]
-SI	array;dictionary	1.4		TRUE	FALSE					[];[SourceInformation]
-CT	string-ascii	1.4		FALSE	FALSE					
-TS	date	1.4		FALSE	FALSE					

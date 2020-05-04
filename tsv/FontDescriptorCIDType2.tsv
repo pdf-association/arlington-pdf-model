@@ -12,13 +12,13 @@ Descent	number	1.2		TRUE	FALSE			[value<0]	Optional for Type 3 fonts
 Leading	number	1.2		FALSE	FALSE		0			
 CapHeight	number	1.2		FALSE	FALSE					
 XHeight	number	1.2		FALSE	FALSE		0			
-StemV	number	1.2		TRUE	FALSE				Optional for Type 3 fonts	
+CharProcs	number	1.2		TRUE	FALSE				Optional for Type 3 fonts	
 StemH	number	1.2		FALSE	FALSE		0			
 AvgWidth	number	1.2		FALSE	FALSE		0			
 MaxWidth	number	1.2		FALSE	FALSE		0			
 MissingWidth	number	1.2		FALSE	FALSE		0			
-FontFile	stream	1.2		FALSE	FALSE					[]
-FontFile2	stream	1.2		FALSE	FALSE					[]
+FontFile	stream	1.2		FALSE	FALSE					[FontFile]
+FontFile2	stream	1.2		FALSE	FALSE					[FontFile2CIDType2]
 CharSet	string	1.2	2.0	FALSE	FALSE					
 Style	dictionary	1.2		FALSE	FALSE					[StyleDict]
 Lang	name	1.5		FALSE	FALSE					

@@ -5,17 +5,18 @@ FontFamily	string-byte	1.5		FALSE	FALSE
 FontStretch	name	1.5		FALSE	FALSE			[UltraCondensed,ExtraCondensed,Condensed,SemiCondensed,Normal,SemiExpanded,Expanded,ExtraExpanded,UltraExpanded]		
 FontWeight	number	1.5		FALSE	FALSE			[100,200,300,400,500,600,700,800,900]		
 Flags	integer	1.0		TRUE	FALSE					
-FontBBox	rectangle	1.0		TRUE	FALSE				Optional for Type 3 fonts	
+FontBBox	rectangle	1.0		TRUE	FALSE					
 ItalicAngle	number	1.0		TRUE	FALSE					
-Ascent	number	1.0		TRUE	FALSE				Optional for Type 3 fonts	
-Descent	number	1.0		TRUE	FALSE			[value<0]	Optional for Type 3 fonts	
+Ascent	number	1.0		TRUE	FALSE					
+Descent	number	1.0		TRUE	FALSE			[value<0]		
 Leading	number	1.0		FALSE	FALSE		0			
 CapHeight	number	1.0		FALSE	FALSE					
 XHeight	number	1.0		FALSE	FALSE		0			
-StemV	number	1.0		TRUE	FALSE				Optional for Type 3 fonts	
+StemV	number	1.0		TRUE	FALSE					
 StemH	number	1.0		FALSE	FALSE		0			
 AvgWidth	number	1.0		FALSE	FALSE		0			
 MaxWidth	number	1.0		FALSE	FALSE		0			
 MissingWidth	number	1.0		FALSE	FALSE		0			
-FontFile	stream	1.0		FALSE	FALSE					[FontFile]
+FontFile	stream	1.0		FALSE	FALSE					[FontFileType1]
+FontFile3	stream	1.2		FALSE	FALSE					[FontFile3Type1]
 CharSet	string-ascii;string-byte	1.1	2.0	FALSE	FALSE					

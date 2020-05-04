@@ -129,8 +129,8 @@ bool CGrammarReader::check(std::ostream &report_stream) {
         }
         else {
           if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
-            (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER TREE"
-              || types[link_pos] == "NAME TREE" || types[link_pos] == "STREAM"
+            (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER-TREE"
+              || types[link_pos] == "NAME-TREE" || types[link_pos] == "STREAM"
               /*|| types[link_pos] == "ARRAY"*/))
             report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
 
@@ -172,8 +172,8 @@ bool CGrammarReader::check(std::ostream &report_stream) {
 
     // check if complex type does have possible value
     for (int t_pos = 0; t_pos < types.size(); t_pos++)
-      if ( (types[t_pos] == "ARRAY" || types[t_pos] == "DICTIONARY" || types[t_pos] == "NUMBER TREE"
-            || types[t_pos] == "NAME TREE" || types[t_pos] == "STREAM") && vc[8] != "") {
+      if ( (types[t_pos] == "ARRAY" || types[t_pos] == "DICTIONARY" || types[t_pos] == "NUMBER-TREE"
+            || types[t_pos] == "NAME-TREE" || types[t_pos] == "STREAM") && vc[8] != "") {
         std::vector<std::string> def_val = split(vc[8], ';');
         if (def_val[t_pos]!="[]") 
           report_stream << "Complex type does have possible value defined:"<< vc[8] << " in:"<< file_name << "::" << vc[0] << std::endl;

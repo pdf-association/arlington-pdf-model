@@ -4,11 +4,11 @@ Subtype	name	1.0		TRUE	FALSE			[Type3]
 Name	name	1.0		FALSE	FALSE				required in 1.0		
 FontBBox	rectangle	1.0		TRUE	FALSE						
 FontMatrix	array	1.0		TRUE	FALSE					[Matrix]	
-CharProcs	dictionary	1.0		TRUE	FALSE					[]	
+CharProcs	dictionary	1.0		TRUE	FALSE					[CharProcMap]	
 Encoding	dictionary	1.0		TRUE	FALSE					[Encoding]	
 FirstChar	integer	1.0		TRUE	FALSE						
 LastChar	integer	1.0		TRUE	FALSE						
-Widths	array	1.0		TRUE	TRUE					[]	
-FontDescriptor	dictionary	1.0		FALSE	TRUE					[FontDescriptor]	*Not clear if required
+Widths	array	1.0		TRUE	FALSE					[]	
+FontDescriptor	dictionary	1.0		FALSE	TRUE					[FontDescriptor]	*Not clear if required or needed
 Resources	dictionary	1.2		FALSE	FALSE					[Resource]	
 ToUnicode	stream	1.2		FALSE	FALSE					[Stream]	
