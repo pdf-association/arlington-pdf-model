@@ -57,10 +57,10 @@ PDF 2.0 defines a few basic types, but within the spec we refer to some other ty
 - dictionary
 - integer
 - name
-- name tree
+- name-tree
 - null
 - number
-- number tree
+- number-tree
 - rectangle
 - stream
 - string
