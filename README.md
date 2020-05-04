@@ -142,14 +142,16 @@ Command line tool writen in Java that does two different things:
 2. gives answers to queries
  - https://docs.google.com/document/d/11wXQmITNiCFB26fWAdxEq4TGgQ4VPQh1Qwoz1PU4ikY
 
-#### Usage
-To use gcxml tool run the following command from terminal/commandline:  
-```
-java -jar gxml/dist/gcxml.jar <options>  
-```
->*Note: outputs might be too long to display in terminal, it is recommended to redirect the output to file (eg \<command> > report.txt)*
+To compile, run "ant" from gcxml directory or use NetBeans. 
 
-To represent grammar in XML files (one file = one object), we convert TSV files into XML. To do that, use option:  
+#### Usage
+To use gcxml tool run the following command from terminal/commandline in the top-level PDF20_Grammar folder (so that ./tsv/ is a sub-folder):  
+```
+java -jar ./gcxml/dist/gcxml.jar <options>  
+```
+>*Note: output might be too long to display in terminal, it is recommended to redirect the output to file (eg \<command> > report.txt)*
+
+To represent grammar in XML files (one file = one object), we convert TSV files into XML into folder ./xml/objects. To do that, use option:  
 ```
 --conv -all
 ```
