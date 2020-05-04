@@ -252,22 +252,33 @@ public class XMLCreator {
         Element valuesElem = newDoc.createElement("VALUES");
         
         String[] types = null;
-
+        String[] posValues = null;
+        
+        possibleValues = possibleValues.replace("[", "");
+        possibleValues = possibleValues.replace("]", "");
+        
         types = type.split(";", -1);
+        posValues = possibleValues.split(";", -1);
+        
         
         for(int i = 0; i < types.length; i++){
             int k = 0;
+            String[] temp = posValues[i].split(",",-1);
+            for(int j = 0; j < temp.length; j++){
                 Element valueElem = newDoc.createElement("VALUE");
                 Element typeElem = newDoc.createElement("TYPE");
                 typeElem.appendChild(newDoc.createTextNode(types[i]));
                 valueElem.appendChild(typeElem);
-                if("name".equals(types[i]) && !requiredValue.isEmpty()){
-                Element shallbeElem = newDoc.createElement("SHALLBE");
-                shallbeElem.appendChild(newDoc.createTextNode(requiredValue));
-                valueElem.appendChild(shallbeElem);
+                if(!temp[j].isEmpty()){
+                    // SHALLBE -  rename to something more meaningful, eg. ACTUALVALUE
+                    Element shallbeElem = newDoc.createElement("SHALLBE");
+                shallbeElem.appendChild(newDoc.createTextNode(temp[j]));
+                    valueElem.appendChild(shallbeElem);
                 }
                 valuesElem.appendChild(valueElem);
             }
+            }
+         
         return valuesElem;
     }
 }
