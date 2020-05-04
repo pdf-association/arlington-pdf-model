@@ -29,6 +29,27 @@
       <VALUES>
          <VALUE>
             <TYPE>number</TYPE>
+            <SHALLBE>0</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>1</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>2</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>3</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>4</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>5</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -41,6 +62,7 @@
       <VALUES>
          <VALUE>
             <TYPE>integer</TYPE>
+            <SHALLBE>&lt;40..128&gt; value*8</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

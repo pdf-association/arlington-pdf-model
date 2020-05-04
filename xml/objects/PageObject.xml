@@ -150,6 +150,19 @@
       <VALUES>
          <VALUE>
             <TYPE>integer</TYPE>
+            <SHALLBE>0</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>integer</TYPE>
+            <SHALLBE>90</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>integer</TYPE>
+            <SHALLBE>180</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>integer</TYPE>
+            <SHALLBE>270</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -364,6 +377,7 @@
       <VALUES>
          <VALUE>
             <TYPE>number</TYPE>
+            <SHALLBE>value*1/72</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
