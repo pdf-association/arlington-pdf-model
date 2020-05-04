@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.5		TRUE	FALSE	XRef			shall be direct object	
+Type	name	1.5		TRUE	FALSE			[XRef]	shall be direct object	
 Size	integer	1.5		TRUE	FALSE			@FileTrailer.Size	shall be direct object	
 Index	array	1.5		FALSE	FALSE		[0 Size]		shall be direct object	[]
 Prev	integer	1.5		TRUE	FALSE			Value>=0	shall be direct object	

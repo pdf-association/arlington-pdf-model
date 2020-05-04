@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	
-Type	name	1.5		FALSE	FALSE	SigRef					
+Type	name	1.5		FALSE	FALSE			[SigRef]			
 TransformMethod	name	1.5		TRUE	FALSE			[DocMDP,UR,FieldMDP]			
 TransformParams	dictionary	1.5		FALSE	FALSE					[]	
 Data	array;boolean;dictionary;integer;name;stream;string	1.5		FALSE	FALSE				IsRequired:TRUE=>TransformMethod=FieldMDP	[];[];[];[];[];[Stream];[]	*various

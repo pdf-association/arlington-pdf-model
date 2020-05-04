@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.7		FALSE	FALSE	Annot				
-Subtype	name	1.7		TRUE	FALSE	Redact				
+Type	name	1.7		FALSE	FALSE			[Annot]		
+Subtype	name	1.7		TRUE	FALSE			[Redact]		
 Rect	rectangle	1.7		TRUE	FALSE					
 Contents	string-text	1.7		FALSE	FALSE					
 P	dictionary	1.7		FALSE	FALSE					[PageObject]

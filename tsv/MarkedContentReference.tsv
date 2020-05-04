@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.3		TRUE	FALSE	MCR				
+Type	name	1.3		TRUE	FALSE			[MCR]		
 Pg	dictionary	1.3		FALSE	TRUE					[PageObject]
 Stm	stream	1.3		FALSE	TRUE					[Stream]
 StmOwn	array;dictionary;stream	1.3		FALSE	TRUE					[];[];[Stream]

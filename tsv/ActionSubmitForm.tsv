@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-S	name	1.2		TRUE	FALSE	SubmitForm				
+S	name	1.2		TRUE	FALSE			[SubmitForm]		
 F	dictionary;string	1.2		TRUE	FALSE					[FileSpecification];[]
 Fields	array	1.2		FALSE	FALSE					[ArrayOfFieldID]
 Flags	integer	1.2		FALSE	FALSE		0		Inheritable	

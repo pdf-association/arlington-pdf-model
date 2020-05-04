@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2.0		FALSE	FALSE	3DMeasure				
-Subtype	name	2.0		TRUE	FALSE	3DC				
+Type	name	2.0		FALSE	FALSE			[3DMeasure]		
+Subtype	name	2.0		TRUE	FALSE			[3DC]		
 TRL	string-text	2.0		FALSE	FALSE					
 A1	array	2.0		TRUE	FALSE					[]
 N1	string-text	2.0		FALSE	FALSE					
