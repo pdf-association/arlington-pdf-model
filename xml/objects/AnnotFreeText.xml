@@ -430,6 +430,11 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
+            <SHALLBE>R</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Group</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -454,6 +459,15 @@
       <VALUES>
          <VALUE>
             <TYPE>integer</TYPE>
+            <SHALLBE>0</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>integer</TYPE>
+            <SHALLBE>1</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>integer</TYPE>
+            <SHALLBE>2</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -491,6 +505,15 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
+            <SHALLBE>FreeText</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>FreeTextCallout</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>FreeTextTypeWriter</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

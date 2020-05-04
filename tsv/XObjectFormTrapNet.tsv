@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	note
-Type	name	1.0	2.0	FALSE	FALSE	XObject					
-Subtype	name	1.0	2.0	TRUE	FALSE	Form					
-FormType	integer	1.0	2.0	FALSE	FALSE	1		[1]			
+Type	name	1.0	2.0	FALSE	FALSE			[XObject]			
+Subtype	name	1.0	2.0	TRUE	FALSE			[Form]			
+FormType	integer	1.0	2.0	FALSE	FALSE			[1]			
 BBox	rectangle	1.0	2.0	TRUE	FALSE						
 Matrix	array	1.0	2.0	FALSE	FALSE		[1 0 0 1 0 0]			[Matrix]	
 Resources	dictionary	1.2	2.0	FALSE	FALSE					[Resource]	

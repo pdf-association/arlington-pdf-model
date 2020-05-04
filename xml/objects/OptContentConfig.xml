@@ -29,6 +29,15 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
+            <SHALLBE>ON</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>OFF</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Unchanged</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -109,6 +118,11 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
+            <SHALLBE>AllPages</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>VisiblePages</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

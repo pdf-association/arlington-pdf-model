@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.6		FALSE	FALSE	3DRenderMode				
+Type	name	1.6		FALSE	FALSE			[3DRenderMode]		
 Subtype	name	1.6		TRUE	FALSE			[Solid,SolidWireframe,Transparent,TransparentWireframe,BoundingBox,TransparentBoundingBox,TransparentBoundingBoxOutline,Wireframe,ShadedWireframe,Vertices,ShadedVertices,Illustration,SolidOutline,ShadedIllustration]		
 AC	array	1.6		FALSE	FALSE		[/DeviceRGB 0 0 0]			[]
 FC	array;name	1.6		FALSE	FALSE		BG			[];[]

@@ -18,6 +18,11 @@
       <VALUES>
          <VALUE>
             <TYPE>string-text</TYPE>
+            <SHALLBE>U3D</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>string-text</TYPE>
+            <SHALLBE>PRC</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -30,6 +35,7 @@
       <VALUES>
          <VALUE>
             <TYPE>number</TYPE>
+            <SHALLBE>&lt;0..1&gt;</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

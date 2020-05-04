@@ -5,6 +5,19 @@
       <VALUES>
          <VALUE>
             <TYPE>integer</TYPE>
+            <SHALLBE>0</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>integer</TYPE>
+            <SHALLBE>1</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>integer</TYPE>
+            <SHALLBE>2</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>integer</TYPE>
+            <SHALLBE>3</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -30,6 +43,11 @@
       <VALUES>
          <VALUE>
             <TYPE>number</TYPE>
+            <SHALLBE>&lt;0.0</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>1.0&gt;</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

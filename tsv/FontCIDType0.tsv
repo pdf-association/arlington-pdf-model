@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.2		TRUE	FALSE	Font				
-Subtype	name	1.2		TRUE	FALSE	CIDFontType0				
+Type	name	1.2		TRUE	FALSE			[Font]		
+Subtype	name	1.2		TRUE	FALSE			[CIDFontType0]		
 BaseFont	name	1.2		TRUE	FALSE					
 CIDSystemInfo	dictionary	1.2		TRUE	FALSE					[CIDSystemInfo]
 FontDescriptor	dictionary	1.2		TRUE	TRUE					[FontDescriptorCIDType0]

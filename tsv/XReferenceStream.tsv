@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.5		TRUE	FALSE	XRef			shall be direct object	
+Type	name	1.5		TRUE	FALSE			[XRef]	shall be direct object	
 Size	integer	1.5		TRUE	FALSE			@FileTrailer.Size	shall be direct object	
 Index	array	1.5		FALSE	FALSE		[0 Size]		shall be direct object	[]
-Prev	integer	1.5		TRUE	FALSE			Value>=0	shall be direct object	
+Prev	integer	1.5		TRUE	FALSE			[<0..)]	shall be direct object	
 W	array	1.5		TRUE	FALSE				shall be direct object	[]
 Root	dictionary	1.0		TRUE	TRUE					[Catalog]
 Encrypt	dictionary	1.1		FALSE	FALSE					[Encryption]
