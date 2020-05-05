@@ -2,6 +2,6 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	Defa
 Size	integer	1.0		TRUE	FALSE			[(0..)]		
 Prev	integer	1.0		FALSE	FALSE					
 Root	dictionary	1.0		TRUE	TRUE					[Catalog]
-Encrypt	dictionary	1.1		FALSE	FALSE					[Encryption]
+Encrypt	dictionary	1.1		FALSE	FALSE					[EncryptionStandard,EncryptionPublicKey]
 Info	dictionary	1.0		FALSE	TRUE					[DocInfo]
 ID	array	1.1		TRUE	FALSE				IsRequired if  PDF 2.0	[]

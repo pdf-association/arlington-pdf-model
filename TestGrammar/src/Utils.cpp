@@ -147,9 +147,9 @@ std::string check_folder_path(const std::string& path) {
   return result;
 }
 
-bool folder_exists(const std::string& path) {
-  struct stat s;
-  if (stat(path.c_str(), &s) == 0) {
+bool folder_exists(const std::wstring& path) {
+  struct _stat64i32 s;
+  if (_wstat(path.c_str(), &s) == 0) {
     if (s.st_mode & S_IFDIR) return true;
   }
   return false;

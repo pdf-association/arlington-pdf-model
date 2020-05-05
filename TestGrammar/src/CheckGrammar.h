@@ -14,4 +14,4 @@
 #endif
 
 void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs);
-void CompareWithAdobe(std::string& adobe_file, std::string& grammar_folder, std::ofstream& ofs);
+void CompareWithAdobe(std::wstring& adobe_file, std::string& grammar_folder, std::ofstream& ofs);
