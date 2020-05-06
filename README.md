@@ -11,9 +11,9 @@ Columns must be in the following order:
 1. **DeprecatedIn**	- version of PDF this key was deprecated in. Blank if not deprecated. Possible values are 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0.
 1. **Required**	- whether the key or array element is required (TRUE/FALSE).  
 1. **IndirectReference**	- whether the key is required to be an indirect reference (TRUE/FALSE).
-1. **RequiredValue**	- the only possible value. e.g. value of Type key for some dictionaries.
+1. **RequiredValue**	- no longer used. Always blank.
 1. **DefaultValue**	- default value as defined in PDF 2.0, depends on the type.
-1. **PossibleValues**	- list of possible values.
+1. **PossibleValues**	- list of possible values. For Type keys of dictionaries which must have a specific value, this will be a choice of just 1.
 1. **SpecialCase**	- expression (TODO: language is TBD - needs to include required direct object).
 1. **Link**	- name(s) of other worksheet(s) for validating the value(s) of this key.
 1. **Notes**	- free text for arbitrary notes.
