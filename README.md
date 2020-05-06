@@ -1,6 +1,6 @@
-# **PDF 2.0 Grammar (sort of)**
+# **PDF 2.0 DOM Grammar**
 
-We extracted all Tables from PDF 2.0 dated revision (ISO/DIS 32000-2) and represent them in series of worksheets. Each worksheet represents either a dictionary, array, stream, etc. and contains all necessary data to validate real world PDF files.
+We extracted all Tables from PDF 2.0 dated revision (ISO/DIS 32000-2) and represent them in series of worksheets. Each worksheet represents either a dictionary, array, stream, etc. and contains necessary data to validate real world PDF files.
 
 Our main source is [PDF20Grammar.ods](PDF20Grammar.ods) which is a [LibreOffice Calc](https://www.libreoffice.org/) spreadsheet. There is a specific sheet **TableMap** that identifies each worksheet and then each sheet is a representation of a table in the PDF spec. Note that due to the very large number of worksheets, Microsoft Excel cannot be used. 
 
@@ -106,43 +106,64 @@ TODO
 ---
 
 # **Implementations**
-This repository contains implementations
+This repository contains the following Proof-of-Concept implementations:
 
-- TestGrammar (C++)	- test existing pdf file against grammar, validates grammar itself, compares grammar with Adobe grammar (TODO)
-- gcxml (Java)			- generates xml files that conform schema and uses XPath to query grammar, generates specific reports
+- TestGrammar (C++17)	- test existing pdf file against grammar, validates grammar itself, compares grammar with Adobe DVA grammar (TODO).
+- gcxml (Java)			- generates xml files that conform to a schema and uses XPath to query grammar, generates specific reports.
 
+## **Exporting to TSV**
+In LibreOffice Calc, go Tools | Run Macro.. then pick from PDF20Grammar.ods | Standard | Module the macro called "ExportToTSV". This will write out all TSV files into a sub-directory called "./tsv/" from where the PDF20Grammar.ods is stored. Existing TSV files will be overwritten! 
 
 ## **TestGrammar**
-commandline tool based on the [PDFix library](https://pdfix.net/download-free/) that works with Grammar in form of TSV (tab separated values) files. The easiest way to generate tsv files from [PDF20Grammar.ods](PDF20Grammar.ods) is to use macro from the ods file (or use folder tsv that is synced with the ods file)
+Command line tool based on the free [PDFix library](https://pdfix.net/download-free/) that works with Grammar TSV files. See above for how to export to TSV.
 
-The tools allows two different tasks
-1. validates TSV files. Check the uniformity (number of columns), if all types are one of basic types etc..
-2. validates PDF file. Starting from Catalog, the tool validates:
+The tool allows two different tasks
+1. validates all TSV files.
+	- Check the uniformity (number of columns), if all types are one of basic types etc..
+2. validates a PDF file. Starting from Catalog, the tool validates:
 	- if required keys are present
 	- if values are of proper type
 	- if objects are indirect if required
 	- if value is correct if PossibleValues are defined
-3. compares grammar with Adobe (TODO)
+3. compares grammar with Adobe DVA (TODO)
 
-#### Usage (Windows):
-Download binaries from [bin folder](/TestGrammar/bin) and run from command line:  
+#### Building
+
+##### Windows
+Open [/TestGrammar/platform/msvc2019/TestGrammar.sln](/TestGrammar/platform/msvc2019/TestGrammar.sln) with Microsoft Visual Studio 2019 and compile.
+Valid configurations are: 32 or 64 bit, Debug or Release.
+Compiled executables will be in [/TestGrammar/bin/x64](/TestGrammar/bin/x64) (64 bit) and [/TestGrammar/bin/x86](/TestGrammar/bin/x86) (32 bit).
+
+##### Linux
+Note that due to C++17, gcc v8 or later is required. CMake is also required.
+```
+sudo apt install g++-8
+sudo apt install gcc-8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+cd TestGrammar
+cmake .
+make
+```
+Compiled binaries will be in [/TestGrammar/bin/linux](/TestGrammar/bin/linux).
+
+#### Usage (Windows): 
 To validate single PDF file call:
 -	TestGrammar_x64.exe \<input_file> \<grammar_folder> \<report_file>
 
 	- input_file      - full pathname to input pdf   
 	- grammar_folder  - folder with TSV files representing PDF 2.0 Grammar  
-	- report_file     - file for storing results
+	- report_file     - text file for storing results
 
 TestGrammar_x64.exe "C:\Test grammar\test file.pdf" "C:\Grammar folder\tsv\" "c:\temp\test file.txt"
 
 
 ## **GCXML**
 Command line tool writen in Java that does two different things:
-1. converts all TSV files into XML files that must be valid based on [schema](/xml/schema/objects.xsd) (not the final version, yet)
-2. gives answers to queries
+1. converts all TSV files into XML files that must be valid based on [schema](/xml/schema/objects.xsd) 
+1. gives answers to various queries
  - https://docs.google.com/document/d/11wXQmITNiCFB26fWAdxEq4TGgQ4VPQh1Qwoz1PU4ikY
 
-To compile, run "ant" from gcxml directory or use NetBeans. 
+To compile, run "ant" from [/gcxml](/gcxml) directory or use NetBeans. Output JAR is in [/gcxml/dist/gcxml.jar](/gcxml/dist/gcxml.jar).
 
 #### Usage
 To use gcxml tool run the following command from terminal/commandline in the top-level PDF20_Grammar folder (so that ./tsv/ is a sub-folder):  
@@ -168,7 +189,7 @@ To represent grammar in XML files (one file = one object), we convert TSV files 
 ## Ensure sorting is consistent...
 export LC_ALL=C
 
-## Confirm column headers across all TSV files
+## Confirm consistent column headers across all TSV files
 head -qn1 *.tsv | sort | uniq | sed -e 's/\t/\\t/g'
 
 ## Find files with excessive columns to the right - worth investigating in ODS in case of data in other rows...
