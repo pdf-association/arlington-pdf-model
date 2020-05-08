@@ -1,6 +1,16 @@
 /*
  * Gcxml.java
- * 2020 Frantisek Forgac, Normex
+ * Copyright 2020 PDF Association, Inc. https://www.pdfa.org
+ *
+ * This material is based upon work supported by the Defense Advanced
+ * Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+ * Any opinions, findings and conclusions or recommendations expressed
+ * in this material are those of the author(s) and do not necessarily
+ * reflect the views of the Defense Advanced Research Projects Agency
+ * (DARPA). Approved for public release.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * Contributors: Roman Toda, Frantisek Forgac, Normex
  */
 package gcxml;
 
@@ -18,11 +28,17 @@ public class Gcxml {
     public static void main(String[] args) {
         final String delimiter = "\t";
         
+        // version
+        final int MAJOR = 0;
+        final int MINOR = 1;
+        final int PATCH = 0;
+        
         if(args.length > 0){
             String argument = args[0];
 
             switch (argument){
-                case "--conv":   
+                case "--conv":
+                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
                     if(args.length>1 && (!args[1].isEmpty() && !("-all".equals(args[1])))){
                         String fileName = args[1];
 
@@ -43,6 +59,7 @@ public class Gcxml {
                     }
                     break;
                 case "--sin":
+                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
                     if(args.length>1 && !args[1].isEmpty()){
                         String version = args[1];
                         if(version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
@@ -62,6 +79,7 @@ public class Gcxml {
                     }
                     break;
                 case "--dep":
+                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
                     if(args.length>1 && !args[1].isEmpty()){
                         String version = args[1];
                         if(version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
@@ -81,18 +99,21 @@ public class Gcxml {
                     }
                     break;
                 case "--so":
+                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
                     XMLQuery query = new XMLQuery();
                     if(query != null){
                         query.SchizophrenicObjects();
                     }
                     break;
                 case "--keys":
+                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
                     query = new XMLQuery();
                     if(query != null){
                         query.KeyOccurrenceCount();
                     }
                     break;
                  case "--po":
+                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
                     if(args.length > 1){
                         query = new XMLQuery();
                         if(query != null){
@@ -102,15 +123,19 @@ public class Gcxml {
                         System.out.println("No keys specified. Expected list of keys, eg.: Key1,Key2,Key3");
                     }
                     break;
+                 case "--version":
+                     System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
+                     break;
                 case "--help":
-                    System.out.println("List of available commands");
-                    System.out.println("\t--help : shows list of available commands");
-                    System.out.println("\t--conv : converts tsv to xml");
-                    System.out.println("\t--sin : returns all keys introduced in specified PDF version");
-                    System.out.println("\t--dep : returns all keys deprecated in specified PDF version");
-                    System.out.println("\t--so : returns objects that do not have key Type or where it is not required.");
-                    System.out.println("\t--keys : returns keys and their occurrence count.");
-                    System.out.println("\t--po : returns list of potential objects based on given keys.");
+                    System.out.println("List of available commands:");
+                    System.out.println("\t--version : print version information");
+                    System.out.println("\t--help : show list of available commands");
+                    System.out.println("\t--conv : convert tsv to xml");
+                    System.out.println("\t--sin : return all keys introduced in specified PDF version");
+                    System.out.println("\t--dep : return all keys deprecated in specified PDF version");
+                    System.out.println("\t--so : return objects that do not have key Type or where it is not required.");
+                    System.out.println("\t--keys : return keys and their occurrence count.");
+                    System.out.println("\t--po : return list of potential objects based on given keys.");
                     break;
             }
         }else{

@@ -1,6 +1,16 @@
 /*
  * XMLCreator.java
- * 2020 Frantisek Forgac, Normex
+ * Copyright 2020 PDF Association, Inc. https://www.pdfa.org
+ *
+ * This material is based upon work supported by the Defense Advanced
+ * Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+ * Any opinions, findings and conclusions or recommendations expressed
+ * in this material are those of the author(s) and do not necessarily
+ * reflect the views of the Defense Advanced Research Projects Agency
+ * (DARPA). Approved for public release.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * Contributors: Roman Toda, Frantisek Forgac, Normex
  */
 package gcxml;
 
@@ -258,9 +268,10 @@ public class XMLCreator {
         possibleValues = possibleValues.replace("]", "");
         
         types = type.split(";", -1);
+        //posValues = possibleValues.split(";", -1);
+        
+        if(!possibleValues.isBlank()){
         posValues = possibleValues.split(";", -1);
-        
-        
         for(int i = 0; i < types.length; i++){
             int k = 0;
             String[] temp = posValues[i].split(",",-1);
@@ -278,6 +289,16 @@ public class XMLCreator {
                 valuesElem.appendChild(valueElem);
             }
             }
+        }else{
+            for(int i = 0; i < types.length; i++){
+            int k = 0;
+                Element valueElem = newDoc.createElement("VALUE");
+                Element typeElem = newDoc.createElement("TYPE");
+                typeElem.appendChild(newDoc.createTextNode(types[i]));
+                valueElem.appendChild(typeElem);
+                valuesElem.appendChild(valueElem);
+            }
+        }
          
         return valuesElem;
     }
