@@ -55,13 +55,41 @@
       <VALUES>
          <VALUE>
             <TYPE>array</TYPE>
-            <VALIDATE/>
+            <VALIDATE>CalGrayColorSpace</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>CalRGBColorSpace</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>LabColorSpace</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ICCBasedColorSpace</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>IndexedColorSpace</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>SeparationColorSpace</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>DeviceNColorSpace</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>PatternColorSpace</VALIDATE>
          </VALUE>
          <VALUE>
             <TYPE>name</TYPE>
          </VALUE>
       </VALUES>
-      <REQUIRED>true</REQUIRED>
+      <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.0</SINCEVERSION>
       <DEPRECATEDIN/>
@@ -73,7 +101,7 @@
             <TYPE>integer</TYPE>
          </VALUE>
       </VALUES>
-      <REQUIRED>true</REQUIRED>
+      <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.0</SINCEVERSION>
       <DEPRECATEDIN/>
@@ -287,7 +315,11 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>Measure</VALIDATE>
+            <VALIDATE>MeasureRL</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>MeasureGEO</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -306,18 +338,6 @@
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>2.0</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>Image</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>integer</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>true</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>

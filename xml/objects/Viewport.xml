@@ -42,7 +42,11 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>Measure</VALIDATE>
+            <VALIDATE>MeasureRL</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>MeasureGEO</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

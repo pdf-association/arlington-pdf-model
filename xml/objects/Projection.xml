@@ -5,6 +5,11 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
+            <SHALLBE>O</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>P</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -17,6 +22,11 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
+            <SHALLBE>XNF</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>ANF</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -41,6 +51,7 @@
       <VALUES>
          <VALUE>
             <TYPE>number</TYPE>
+            <SHALLBE>&lt;0..)</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -92,6 +103,23 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
+            <SHALLBE>W</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>H</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Min</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Max</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Absolute</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

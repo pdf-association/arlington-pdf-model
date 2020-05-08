@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <OBJECT id="Field">
    <ENTRY>
-      <NAME>FT</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>name</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
       <NAME>Parent</NAME>
       <VALUES>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>FieldTx</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>FieldBtn</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>FieldCh</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>FieldSig</VALIDATE>
+         </VALUE>
          <VALUE>
             <TYPE>dictionary</TYPE>
             <VALIDATE>Field</VALIDATE>
@@ -79,60 +83,6 @@
       <VALUES>
          <VALUE>
             <TYPE>integer</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>V</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE/>
-         </VALUE>
-         <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE/>
-         </VALUE>
-         <VALUE>
-            <TYPE>name</TYPE>
-         </VALUE>
-         <VALUE>
-            <TYPE>stream</TYPE>
-            <VALIDATE/>
-         </VALUE>
-         <VALUE>
-            <TYPE>string</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>DV</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE/>
-         </VALUE>
-         <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE/>
-         </VALUE>
-         <VALUE>
-            <TYPE>name</TYPE>
-         </VALUE>
-         <VALUE>
-            <TYPE>stream</TYPE>
-            <VALIDATE/>
-         </VALUE>
-         <VALUE>
-            <TYPE>string</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

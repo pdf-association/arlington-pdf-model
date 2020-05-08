@@ -68,7 +68,7 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>CharProcMap</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -122,7 +122,7 @@
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
-      <INDIRECTREFERENCE>true</INDIRECTREFERENCE>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.0</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>

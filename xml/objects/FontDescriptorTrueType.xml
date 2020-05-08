@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="CIDFontDescriptor">
+<OBJECT id="FontDescriptorTrueType">
    <ENTRY>
       <NAME>Type</NAME>
       <VALUES>
@@ -29,7 +29,7 @@
       <NAME>FontFamily</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-byte</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -42,6 +42,39 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
+            <SHALLBE>UltraCondensed</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>ExtraCondensed</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Condensed</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>SemiCondensed</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Normal</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>SemiExpanded</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Expanded</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>ExtraExpanded</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>UltraExpanded</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -54,6 +87,39 @@
       <VALUES>
          <VALUE>
             <TYPE>number</TYPE>
+            <SHALLBE>100</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>200</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>300</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>400</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>500</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>600</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>700</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>800</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>number</TYPE>
+            <SHALLBE>900</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -114,6 +180,7 @@
       <VALUES>
          <VALUE>
             <TYPE>number</TYPE>
+            <SHALLBE>value&lt;0</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
@@ -218,37 +285,11 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>FontFile</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>stream</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
       <NAME>FontFile2</NAME>
       <VALUES>
          <VALUE>
             <TYPE>stream</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.1</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>FontFile3</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>stream</TYPE>
-            <VALIDATE/>
+            <VALIDATE>FontFile2TrueType</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -260,63 +301,15 @@
       <NAME>CharSet</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>string-ascii</TYPE>
+         </VALUE>
+         <VALUE>
+            <TYPE>string-byte</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
       <SINCEVERSION>1.1</SINCEVERSION>
-      <DEPRECATEDIN>2.0</DEPRECATEDIN>
-   </ENTRY>
-   <ENTRY>
-      <NAME>Style</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>Lang</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>name</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>FD</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>CIDSet</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>stream</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
       <DEPRECATEDIN>2.0</DEPRECATEDIN>
    </ENTRY>
 </OBJECT>

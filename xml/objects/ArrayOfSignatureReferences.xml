@@ -5,7 +5,19 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>SignatureReference</VALIDATE>
+            <VALIDATE>SignatureReferenceDocMDP</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>SignatureReferenceFieldMDP</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>SignatureReferenceIdentity</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>SignatureReferenceUR</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

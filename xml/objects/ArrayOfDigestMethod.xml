@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="Measure">
+<OBJECT id="ArrayOfDigestMethod">
    <ENTRY>
-      <NAME>Type</NAME>
+      <NAME>*</NAME>
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
-            <SHALLBE>Measure</SHALLBE>
+            <SHALLBE>SHA1</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>SHA256</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>SHA384</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>SHA512</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>RIPEMD160</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.6</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>Subtype</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>name</TYPE>
-            <SHALLBE>RL</SHALLBE>
-         </VALUE>
-         <VALUE>
-            <TYPE>name</TYPE>
-            <SHALLBE>GEO</SHALLBE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.6</SINCEVERSION>
+      <SINCEVERSION>1.5</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
 </OBJECT>

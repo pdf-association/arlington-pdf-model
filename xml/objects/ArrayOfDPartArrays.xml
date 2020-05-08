@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="FieldsArray">
+<OBJECT id="ArrayOfDPartArrays">
    <ENTRY>
       <NAME>*</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE>Field</VALIDATE>
-         </VALUE>
-         <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE>AnnotWidget</VALIDATE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfDParts</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
+      <SINCEVERSION>2.0</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
 </OBJECT>

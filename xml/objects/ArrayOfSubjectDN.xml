@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="OPIVersion">
+<OBJECT id="ArrayOfSubjectDN">
    <ENTRY>
-      <NAME>version number</NAME>
+      <NAME>*</NAME>
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE/>
+            <VALIDATE>SubjectDN</VALIDATE>
          </VALUE>
       </VALUES>
-      <REQUIRED>true</REQUIRED>
+      <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
-      <DEPRECATEDIN>2.0</DEPRECATEDIN>
+      <SINCEVERSION>1.7</SINCEVERSION>
+      <DEPRECATEDIN/>
    </ENTRY>
 </OBJECT>

@@ -225,7 +225,7 @@
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>StemV</NAME>
+      <NAME>CharProcs</NAME>
       <VALUES>
          <VALUE>
             <TYPE>number</TYPE>
@@ -289,7 +289,7 @@
       <VALUES>
          <VALUE>
             <TYPE>stream</TYPE>
-            <VALIDATE/>
+            <VALIDATE>FontFile</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -302,7 +302,7 @@
       <VALUES>
          <VALUE>
             <TYPE>stream</TYPE>
-            <VALIDATE/>
+            <VALIDATE>FontFile2CIDType2</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="ObjectStream">
+<OBJECT id="FontFile2TrueType">
    <ENTRY>
-      <NAME>Type</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>name</TYPE>
-            <SHALLBE>ObjStm</SHALLBE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>true</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>N</NAME>
+      <NAME>Length1</NAME>
       <VALUES>
          <VALUE>
             <TYPE>integer</TYPE>
@@ -22,32 +9,43 @@
       </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
+      <SINCEVERSION>1.1</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>First</NAME>
+      <NAME>Length2</NAME>
       <VALUES>
          <VALUE>
             <TYPE>integer</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>true</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>Extend</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>stream</TYPE>
-            <VALIDATE>ObjectStream</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
+      <SINCEVERSION>1.1</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>Length3</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>integer</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.1</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>Subtype</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>name</TYPE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.1</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>

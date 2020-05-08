@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="CIDFontType0">
+<OBJECT id="MeasureRL">
    <ENTRY>
       <NAME>Type</NAME>
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
-            <SHALLBE>CIDFont</SHALLBE>
+            <SHALLBE>Measure</SHALLBE>
          </VALUE>
       </VALUES>
-      <REQUIRED>true</REQUIRED>
+      <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
+      <SINCEVERSION>1.6</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
@@ -18,54 +18,119 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
-            <SHALLBE>CIDFontType0</SHALLBE>
+            <SHALLBE>RL</SHALLBE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.6</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>R</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>string-text</TYPE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
+      <SINCEVERSION>1.6</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>BaseFont</NAME>
+      <NAME>X</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>name</TYPE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfNumberFormats</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
+      <SINCEVERSION>1.6</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>CIDSystemInfo</NAME>
+      <NAME>Y</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>dictionary</TYPE>
-            <VALIDATE>CIDSystemInfo</VALIDATE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfNumberFormats</VALIDATE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.6</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>D</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfNumberFormats</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
+      <SINCEVERSION>1.6</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>FontDescriptor</NAME>
+      <NAME>A</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>dictionary</TYPE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfNumberFormats</VALIDATE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>true</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.6</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>T</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfNumberFormats</VALIDATE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.6</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>S</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
+            <VALIDATE>ArrayOfNumberFormats</VALIDATE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.6</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>O</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>array</TYPE>
             <VALIDATE/>
          </VALUE>
       </VALUES>
-      <REQUIRED>true</REQUIRED>
-      <INDIRECTREFERENCE>true</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.6</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>DW</NAME>
+      <NAME>CYX</NAME>
       <VALUES>
          <VALUE>
             <TYPE>number</TYPE>
@@ -73,62 +138,7 @@
       </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>W</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>DW2</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>W2</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>array</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>CIDtoGIDMap</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>name</TYPE>
-         </VALUE>
-         <VALUE>
-            <TYPE>stream</TYPE>
-            <VALIDATE/>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.0</SINCEVERSION>
+      <SINCEVERSION>1.6</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
 </OBJECT>

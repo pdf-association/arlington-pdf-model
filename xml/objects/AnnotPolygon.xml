@@ -430,6 +430,11 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
+            <SHALLBE>R</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Group</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -507,6 +512,15 @@
       <VALUES>
          <VALUE>
             <TYPE>name</TYPE>
+            <SHALLBE>PolygonCloud</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>PolyLineDimension</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>PolygonDimension</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
@@ -519,7 +533,11 @@
       <VALUES>
          <VALUE>
             <TYPE>dictionary</TYPE>
-            <VALIDATE>Measure</VALIDATE>
+            <VALIDATE>MeasureRL</VALIDATE>
+         </VALUE>
+         <VALUE>
+            <TYPE>dictionary</TYPE>
+            <VALIDATE>MeasureGEO</VALIDATE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>

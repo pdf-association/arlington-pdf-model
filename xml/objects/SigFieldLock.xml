@@ -1,64 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<OBJECT id="FieldVariableText">
+<OBJECT id="SigFieldLock">
    <ENTRY>
-      <NAME>DA</NAME>
+      <NAME>Type</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>string</TYPE>
+            <TYPE>name</TYPE>
+            <SHALLBE>SigFieldLock</SHALLBE>
+         </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.5</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>Action</NAME>
+      <VALUES>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>All</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Include</SHALLBE>
+         </VALUE>
+         <VALUE>
+            <TYPE>name</TYPE>
+            <SHALLBE>Exclude</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>true</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
+      <SINCEVERSION>1.5</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
    <ENTRY>
-      <NAME>Q</NAME>
+      <NAME>Fields</NAME>
       <VALUES>
          <VALUE>
-            <TYPE>integer</TYPE>
-            <SHALLBE>0</SHALLBE>
+            <TYPE>array</TYPE>
+            <VALIDATE/>
          </VALUE>
+      </VALUES>
+      <REQUIRED>false</REQUIRED>
+      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
+      <SINCEVERSION>1.5</SINCEVERSION>
+      <DEPRECATEDIN/>
+   </ENTRY>
+   <ENTRY>
+      <NAME>P</NAME>
+      <VALUES>
          <VALUE>
-            <TYPE>integer</TYPE>
+            <TYPE>number</TYPE>
             <SHALLBE>1</SHALLBE>
          </VALUE>
          <VALUE>
-            <TYPE>integer</TYPE>
+            <TYPE>number</TYPE>
             <SHALLBE>2</SHALLBE>
          </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.2</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>DS</NAME>
-      <VALUES>
          <VALUE>
-            <TYPE>string-text</TYPE>
+            <TYPE>number</TYPE>
+            <SHALLBE>3</SHALLBE>
          </VALUE>
       </VALUES>
       <REQUIRED>false</REQUIRED>
       <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
-      <DEPRECATEDIN/>
-   </ENTRY>
-   <ENTRY>
-      <NAME>RV</NAME>
-      <VALUES>
-         <VALUE>
-            <TYPE>stream</TYPE>
-            <VALIDATE/>
-         </VALUE>
-         <VALUE>
-            <TYPE>string-text</TYPE>
-         </VALUE>
-      </VALUES>
-      <REQUIRED>false</REQUIRED>
-      <INDIRECTREFERENCE>false</INDIRECTREFERENCE>
-      <SINCEVERSION>1.5</SINCEVERSION>
+      <SINCEVERSION>2.0</SINCEVERSION>
       <DEPRECATEDIN/>
    </ENTRY>
 </OBJECT>
