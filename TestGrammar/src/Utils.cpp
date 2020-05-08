@@ -158,16 +158,20 @@ std::string check_folder_path(const std::string& path) {
 }
 
 bool folder_exists(const std::wstring& path) {
+#ifdef _WIN32
   struct _stat64i32 s;
   if (_wstat(path.c_str(), &s) == 0) {
     if (s.st_mode & S_IFDIR) return true;
   }
-  return false;
-}
+#elif defined __linux__
+  struct stat s;
+  std::string str_path = ToUtf8(path);
+  if (stat(str_path.c_str(), &s) == 0) {
+    if (s.st_mode & S_IFDIR) return true;
+  }
+#endif
 
-//bool folder_exists(const std::wstring& path) {
-//  return folder_exists(w2utf8(path.c_str()));
-//}
+}
 
 bool file_exists(const std::string& path) {
   struct stat s;
