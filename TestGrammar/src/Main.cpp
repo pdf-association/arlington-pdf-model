@@ -58,15 +58,13 @@ void show_help() {
   std::cout << "    adobe_grammar_file  - ????" << std::endl;
 }
 
+#ifdef _WIN32
 int wmain(int argc, wchar_t* argv[]) {
+#elif defined __linux__
+int main(int argc, char* argv[]) {
+#endif
   //clock_t tStart = clock();
-
   if (argc == 1) {
-    show_help();
-    return 0;
-  }
-
-  if (wcscmp(argv[1], L"/?") == 0) {
     show_help();
     return 0;
   }
@@ -74,20 +72,33 @@ int wmain(int argc, wchar_t* argv[]) {
   try {
     std::wstring a1, a2, a3, a4;
     auto i = 1;
+
+#ifdef _WIN32
     if (argc > i) a1 = argv[i++];
     if (argc > i) a2 = argv[i++];
     if (argc > i) a3 = argv[i++];
     if (argc > i) a4 = argv[i++];
+#elif defined __linux__
+    if (argc > i) a1 = utf8ToUtf16(argv[i++]);
+    if (argc > i) a2 = utf8ToUtf16(argv[i++]);
+    if (argc > i) a3 = utf8ToUtf16(argv[i++]);
+    if (argc > i) a4 = utf8ToUtf16(argv[i++]);
+#endif
+
+    if (a1== L"/?") {
+      show_help();
+      return 0;
+    }
 
     std::string grammar_folder = check_folder_path(ToUtf8(a2));
-
     std::wstring save_path = a3; //"w:\\report.txt";
 
     // check grammar itself?
     if (a1 == L"-v") {
       std::ofstream ofs;
-      ofs.open(save_path);
+      ofs.open(ToUtf8(save_path));
       CheckGrammar(grammar_folder, ofs);
+      ofs.close();
       return 0;
     }
 
@@ -97,8 +108,9 @@ int wmain(int argc, wchar_t* argv[]) {
     Initialization();
     if (a1 == L"-c") {
       std::ofstream ofs;
-      ofs.open(save_path);
+      ofs.open(ToUtf8(save_path));
       CompareWithAdobe(a4, grammar_folder, ofs);
+        ofs.close();
     }
     else {
       Pdfix* pdfix = GetPdfix();
@@ -107,7 +119,7 @@ int wmain(int argc, wchar_t* argv[]) {
         std::wstring open_file = file_name;
         //open report file
         std::ofstream ofs;
-        ofs.open(report_file_name);
+        ofs.open(ToUtf8(report_file_name));
         ofs << "BEGIN - TestGrammar ver." << TestGrammar_VERSION << std::endl;
 
         doc = pdfix->OpenDoc(open_file.c_str(), L"");

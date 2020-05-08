@@ -34,7 +34,6 @@ std::string check_folder_path(const std::string& path);
 
 // check folder of file
 bool folder_exists(const std::wstring& path);
-//bool folder_exists(const std::wstring& path);
 bool file_exists(const std::string& path);
 
 //split string into vector
