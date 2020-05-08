@@ -14,7 +14,7 @@ Columns must be in the following order:
 1. **RequiredValue**	- no longer used. Always blank.
 1. **DefaultValue**	- default value as defined in PDF 2.0, depends on the type.
 1. **PossibleValues**	- list of possible values. For Type keys of dictionaries which must have a specific value, this will be a choice of just 1.
-1. **SpecialCase**	- expression [(TODO: language is TBD - needs to include required direct object)](#TODO).
+1. **SpecialCase**	- expression [(TODO: language is TBD - needs to include required direct object)](#todo-pushpin).
 1. **Link**	- name(s) of other worksheet(s) for validating the value(s) of this key.
 1. **Notes**	- free text for arbitrary notes.
 
@@ -103,17 +103,17 @@ Type | PossibleValues |
 --- | --- |
 array;dictionary | \[Value1ForType1,Value2ForType1];\[Value1ForType2,Value2ForType2]
 
-Sometimes it's necessary to define formula to cover all possible values: [TODO](#TODO)
+Sometimes it's necessary to define formula to cover all possible values: [TODO](#todo-pushpin)
 
 ## **SpecialCase**
-[TODO](#TODO)
+[TODO](#todo-pushpin)
 
 ---
 
 # **Implementations**
 This repository contains the following Proof-of-Concept implementations:
 
-- TestGrammar (C++17)	- test existing pdf file against grammar, validates grammar itself, compares grammar with Adobe DVA grammar [TODO](#TODO)
+- TestGrammar (C++17)	- test existing pdf file against grammar, validates grammar itself, compares grammar with Adobe DVA grammar [TODO](#todo-pushpin)
 - gcxml (Java)			- generates xml files that conform to a schema and uses XPath to query grammar, generates specific reports.
 
 ## **Exporting to TSV**
@@ -130,7 +130,7 @@ The tool allows two different tasks
 	- if values are of proper type
 	- if objects are indirect if required
 	- if value is correct if PossibleValues are defined
-3. compares grammar with Adobe DVA [TODO](#TODO)
+3. compares grammar with Adobe DVA [TODO](#todo-pushpin)
 
 #### Building
 
