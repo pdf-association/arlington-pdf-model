@@ -1,6 +1,16 @@
 ///////////////////////////////////////////////////////////////////////////////
 // GrammarFile.cpp
-// 2020 Roman Toda, Normex
+// Copyright 2020 PDF Association, Inc. https://www.pdfa.org
+//
+// This material is based upon work supported by the Defense Advanced
+// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+// Any opinions, findings and conclusions or recommendations expressed
+// in this material are those of the author(s) and do not necessarily
+// reflect the views of the Defense Advanced Research Projects Agency
+// (DARPA). Approved for public release.
+//
+// SPDX-License-Identifier: Apache-2.0
+// Contributors: Roman Toda, Frantisek Forgac, Normex
 ///////////////////////////////////////////////////////////////////////////////
 
 /*!
@@ -131,7 +141,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
           if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
             (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER-TREE"
               || types[link_pos] == "NAME-TREE" || types[link_pos] == "STREAM"
-              /*|| types[link_pos] == "ARRAY"*/))
+              || types[link_pos] == "ARRAY"))
             report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
 
           // report all unlinked streams
@@ -171,7 +181,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
         report_stream << "Wrong type:" << type << " in:" << file_name << "::" << vc[0] << std::endl;
 
     // check if complex type does have possible value
-    for (int t_pos = 0; t_pos < types.size(); t_pos++)
+    for (auto t_pos = 0; t_pos < types.size(); t_pos++)
       if ( (types[t_pos] == "ARRAY" || types[t_pos] == "DICTIONARY" || types[t_pos] == "NUMBER-TREE"
             || types[t_pos] == "NAME-TREE" || types[t_pos] == "STREAM") && vc[8] != "") {
         std::vector<std::string> def_val = split(vc[8], ';');
