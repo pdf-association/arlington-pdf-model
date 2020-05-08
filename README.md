@@ -14,7 +14,7 @@ Columns must be in the following order:
 1. **RequiredValue**	- no longer used. Always blank.
 1. **DefaultValue**	- default value as defined in PDF 2.0, depends on the type.
 1. **PossibleValues**	- list of possible values. For Type keys of dictionaries which must have a specific value, this will be a choice of just 1.
-1. **SpecialCase**	- expression (TODO: language is TBD - needs to include required direct object).
+1. **SpecialCase**	- expression [(TODO: language is TBD - needs to include required direct object)](#TODO).
 1. **Link**	- name(s) of other worksheet(s) for validating the value(s) of this key.
 1. **Notes**	- free text for arbitrary notes.
 
@@ -25,14 +25,16 @@ All names are expressed **without** the leading FORWARD-SLASH (/).
 ## **Key**
 Key represents a single key in a dictionary, an index in an array, or multiple entries.
 Example of a single entry in the PageObject dictionary:  
-- Key=Type	Type=name Required=TRUE RequiredValue=Page  
+Key | Type | Required | PossibleValue |
+--- | --- | --- | --- |
+Type | name | TRUE | \[Page] |
 
 Example of an array with 3 numbers, such as an RGB value:   
 
-Key | Type |   
---- | --- |      
-0 | number |  
-1 | number |   
+Key | Type |
+--- | --- |
+0 | number |
+1 | number |
 2 | number |
 
 Example of an array with unlimited number of elements of the same type.  
@@ -77,7 +79,10 @@ cut -f 2 *.tsv | sort | uniq
 
 ## **Link**
 If a specific key requires further validation (e.g. represents another dictionary) we link this key to another sheet in Link column. Example in PageObject:  
-- Key=Resources Type=dictionary Link=\[Dictionary]
+Key | Type | Link |
+--- | --- | --- |
+Resources  | dictionary | \[Resource] |
+
 
 If Key is represented by different types we use following pattern:  
 
@@ -98,17 +103,17 @@ Type | PossibleValues |
 --- | --- |
 array;dictionary | \[Value1ForType1,Value2ForType1];\[Value1ForType2,Value2ForType2]
 
-Sometimes it's necessary to define formula to cover all possible values: TODO
+Sometimes it's necessary to define formula to cover all possible values: [TODO](#TODO)
 
 ## **SpecialCase**
-TODO
+[TODO](#TODO)
 
 ---
 
 # **Implementations**
 This repository contains the following Proof-of-Concept implementations:
 
-- TestGrammar (C++17)	- test existing pdf file against grammar, validates grammar itself, compares grammar with Adobe DVA grammar (TODO).
+- TestGrammar (C++17)	- test existing pdf file against grammar, validates grammar itself, compares grammar with Adobe DVA grammar [TODO](#TODO)
 - gcxml (Java)			- generates xml files that conform to a schema and uses XPath to query grammar, generates specific reports.
 
 ## **Exporting to TSV**
@@ -125,7 +130,7 @@ The tool allows two different tasks
 	- if values are of proper type
 	- if objects are indirect if required
 	- if value is correct if PossibleValues are defined
-3. compares grammar with Adobe DVA (TODO)
+3. compares grammar with Adobe DVA [TODO](#TODO)
 
 #### Building
 
@@ -148,14 +153,15 @@ Compiled binaries will be in [/TestGrammar/bin/linux](/TestGrammar/bin/linux).
 
 #### Usage (Windows): 
 To validate single PDF file call:
--	TestGrammar_x64.exe \<input_file> \<grammar_folder> \<report_file>
+-	TestGrammar.exe \<input_file> \<grammar_folder> \<report_file>
 
 	- input_file      - full pathname to input pdf   
 	- grammar_folder  - folder with TSV files representing PDF 2.0 Grammar  
 	- report_file     - text file for storing results
 
-TestGrammar_x64.exe "C:\Test grammar\test file.pdf" "C:\Grammar folder\tsv\" "c:\temp\test file.txt"
-
+```
+TestGrammar.exe "C:\Test grammar\test file.pdf" "C:\Grammar folder\tsv\" "c:\temp\test file.txt"
+```
 
 ## **GCXML**
 Command line tool writen in Java that does two different things:
@@ -214,9 +220,13 @@ $ cut -f 1 *.tsv | sort | uniq
 ---
 
 # TODO :pushpin:
-- finish all unlinked dictionaries, streams and arrays. These are often represented by \[] in the current data.  
-- identify Tables and objects in report (somehow identify table/paragraph etc. in the ISO/DIS 32000-2 and carry this information in grammar so we can report it back)
+
+## Grammar
+- complete TableMap and identify Tables and objects in report (somehow identify table/paragraph etc. in the ISO/DIS 32000-2 and carry this information in grammar so we can report it back)
 - define language for formulas in PossibleValues (currently we have following intervals: <0,100>, <-1.0,1.0>, <0,1>, <0,2>,	<0.0,1.0> and also some expressions: value\>=2, value\>=1, value\>=0, value\<0, value\>0 and also combinations: <40,128> value\*8,<40,128> value\*8, <40,128> value\*8, value\*90, value\*1/72
-- define language for SpecialCase column
-- TableMap is out of sync
-- compare grammar with Adobe DVA
+- define language for SpecialCase column, needs to include required direct object, inheritance, special conditions etc..
+- finish all unlinked dictionaries, and arrays. These are often represented by \[] in the current data. Mainly links to ArrayOfStrings, ArrayOfNames etc are missing
+
+## Tools
+- when validating pdf file, check required values in parent dictionaries when inheritance is allowed. 
+- compare grammar with Adobe DVA. 
