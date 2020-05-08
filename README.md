@@ -25,7 +25,7 @@ All names are expressed **without** the leading FORWARD-SLASH (/).
 ## **Key**
 Key represents a single key in a dictionary, an index in an array, or multiple entries.
 Example of a single entry in the PageObject dictionary:  
-Key | Type | Required | PossibleValue |
+Key | Type | Required | PossibleValues |
 --- | --- | --- | --- |
 Type | name | TRUE | \[Page] |
 
