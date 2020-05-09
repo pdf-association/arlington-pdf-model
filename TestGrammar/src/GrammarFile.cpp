@@ -81,7 +81,6 @@ const std::vector<std::vector<std::string>>& CGrammarReader::get_data()
  - correct # of columns
  - correct headings (first line)
  - correct basic types 1st column
- //todo: ked mam possible values a aj link tak musi byt rovnaky pocet
  */
 bool CGrammarReader::check(std::ostream &report_stream) {
   if (data_list.empty()) {
@@ -107,7 +106,6 @@ bool CGrammarReader::check(std::ostream &report_stream) {
   // check basic types (ignoring first line)
   // check existing link
   // check duplicate keys
-  //todo: skontrolovat vyber link podla value (rovnaky pocet musi byt)
   std::vector<std::string> processed;
   for (auto i = 1; i < data_list.size(); i++) {
     std::vector<std::string> vc = data_list[i];
@@ -191,10 +189,6 @@ bool CGrammarReader::check(std::ostream &report_stream) {
 
     //if we have more types, check pattern in Required, default and possible values
     if (types.size() > 1) {
-    //  if (vc[6] != "")
-    //    report_stream << "More types, but REQUIRED defined in:" << file_name << "::" << vc[0] << std::endl;
-    //  if (vc[7] != "")
-    //    report_stream << "More types, but DEFAULT VALUE defined in:" << file_name << "::" << vc[0] << std::endl;
       if (vc[8] != "") {
         std::vector<std::string> poss_val = split(vc[8], ';');
         if (types.size()!=poss_val.size())

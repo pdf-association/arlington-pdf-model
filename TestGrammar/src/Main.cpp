@@ -32,7 +32,7 @@
 
 void show_help() {
   std::cout << "TestGrammar ver." << TestGrammar_VERSION << std::endl;
-  std::cout << "Validates PDF file against grammar defined by list of TSV files. more info:https://github.com/romantoda/PDF20_Grammar" << std::endl;
+  std::cout << "Validates PDF file against grammar defined by list of TSV files." << std::endl;
   std::cout << std::endl;
   std::cout << "to validate single pdf file:" << std::endl;
   std::cout << "  testgrammar <input_file> <grammar_folder> <report_file>" << std::endl;

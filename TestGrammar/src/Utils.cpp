@@ -170,7 +170,7 @@ bool folder_exists(const std::wstring& path) {
     if (s.st_mode & S_IFDIR) return true;
   }
 #endif
-
+  return false;
 }
 
 bool file_exists(const std::string& path) {

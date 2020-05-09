@@ -423,9 +423,6 @@ void CParsePDF::parse_number_tree(PdsDictionary* obj, const std::string &links, 
         // we have tupples number, value. value has to be validated
         //todo check syntax here
        int key = array_obj->GetInteger(i);
-        //if (key == 277) {
-        //  output << "Tu" ;
-        //}
         i++;
         PdsDictionary* item = array_obj->GetDictionary(i);
         i++;
