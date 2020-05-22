@@ -1,0 +1,50 @@
+<html lang="en">
+<!--
+ Copyright 2020 PDF Association, Inc. https://www.pdfa.org
+
+ This material is based upon work supported by the Defense Advanced
+ Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+ Any opinions, findings and conclusions or recommendations expressed
+ in this material are those of the author(s) and do not necessarily
+ reflect the views of the Defense Advanced Research Projects Agency
+ (DARPA). Approved for public release.
+
+ SPDX-License-Identifier: Apache-2.0
+
+ A 3D visualization of the PDF 2.0 DOM
+ See https://github.com/vasturiano/3d-force-graph-vr/
+
+ Author: Peter Wyatt
+-->
+<head>
+  <title>3D visualization of PDF 2.0 DOM</title>
+  <meta charset="UTF-8">
+  <style>
+      body { margin: 0; }
+  </style>
+  <script src="//unpkg.com/3d-force-graph-vr"></script>
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+  <script>
+    const Graph = ForceGraphVR()
+      (document.getElementById('3d-graph'))
+        .jsonUrl('3d-pdfdom.json')
+        .linkAutoColorBy('group')
+        .linkDirectionalArrowLength(3)
+        .linkDirectionalArrowRelPos(1)
+        .linkDirectionalParticles(3)
+        .linkDirectionalParticleSpeed(0.01)
+        .linkWidth(0.75)
+        .linkHoverPrecision(0.3)
+        .linkDesc('desc')
+        .nodeLabel('name')
+        .nodeRelSize(1)
+        .nodeAutoColorBy('group');
+
+	// Spread nodes a little wider
+    Graph.d3Force('charge').strength(-150);
+  </script>
+</body>
+</html>
