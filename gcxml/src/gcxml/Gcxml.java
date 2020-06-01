@@ -39,24 +39,15 @@ public class Gcxml {
             switch (argument){
                 case "--conv":
                     System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
-                    if(args.length>1 && (!args[1].isEmpty() && !("-all".equals(args[1])))){
-                        String fileName = args[1];
-
-                        XMLCreator xmlcreator = new XMLCreator();
-                        xmlcreator.convertFile(fileName, delimiter);
-                    }else if(args.length>1 && "-all".equals(args[1])){
+                    //if(args.length>1 && (!args[1].isEmpty())){
                         String inputFolder = inputFolder = System.getProperty("user.dir") + "/tsv/";
                         File folder = new File(inputFolder);
                         File[] listOfFiles = folder.listFiles();
-                        for (File file : listOfFiles) {
-                            if (file.isFile() && file.canRead() && file.exists()) {
-                                XMLCreator xmlcreator = new XMLCreator();
-                                xmlcreator.convertFile(file.getName().substring(0, file.getName().length()-4), delimiter);
-                            }
-                        }
-                    }else{
-                        System.out.println("No file name specified. To convert all files in directory, use -all");
-                    }
+                                XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter);
+                                xmlcreator.convertFile();
+                    //}else{
+                    //    System.out.println("No file name specified. To convert all files in directory, use -all");
+                    //}
                     break;
                 case "--sin":
                     System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);

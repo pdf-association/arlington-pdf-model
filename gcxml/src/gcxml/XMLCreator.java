@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
@@ -40,6 +41,9 @@ public class XMLCreator {
     private String inputFolder;
     private String outputFolder;
     
+    private File[] list_of_files = null;
+    private String delimiter = "";
+    
     private String currentEntry;
     private int errorCount;
     
@@ -47,9 +51,23 @@ public class XMLCreator {
     private DocumentBuilder domBuilder = null;
     private Document newDoc = null;
 
-    public XMLCreator() {
+    public XMLCreator(File[] list_of_files, String delimiter) {
         this.outputFolder = System.getProperty("user.dir") + "/xml/objects/";
         this.inputFolder = System.getProperty("user.dir") + "/tsv/";
+        
+        // sort files by name alphabetically
+        ArrayList<File> arrFile = new ArrayList<>();
+        for(File file : list_of_files){
+            arrFile.add(file);
+        }
+        arrFile.sort((p1, p2) -> p1.compareTo(p2));
+        this.list_of_files = new File[arrFile.size()];
+        for(int i=0; i < arrFile.size(); i++){
+            this.list_of_files[i] = arrFile.get(i);
+        }
+        
+        //this.list_of_files = list_of_files;
+        this.delimiter = delimiter;
         this.currentEntry = "";
         this.errorCount = 0;
         try {
@@ -65,34 +83,46 @@ public class XMLCreator {
         }
     }
     
-    public void convertFile(String fileName, String delimiter) {
-        inputFolder += fileName + ".tsv"; 
-        outputFolder += fileName + ".xml" ; 
+    public void convertFile() {
+        //inputFolder += fileName + ".tsv"; 
+        outputFolder += "_pdf_grammar" + ".xml" ; 
         errorCount = 0;
         
         int rowsCount = -1;
+        int object_count = 0;
         try {
-          System.out.println("Processing " + fileName + ".tsv ...");
-          // Root element
-          Element rootElement = newDoc.createElement("OBJECT");
-          rootElement.setAttribute("id", fileName);
-          //rootElement.setAttribute("type", "dictionary");
-          newDoc.appendChild(rootElement);
+            // Root element
+            Element rootElement = newDoc.createElement("PDF");
+            rootElement.setAttribute("pdf_version", "2.0" );
+            rootElement.setAttribute("grammar_version", "0.2.0" );
+            rootElement.setAttribute("iso_ref", "ISO-32000" );
+            newDoc.appendChild(rootElement);
 
-          // Read csv file
-          BufferedReader csvReader;
-          csvReader = new BufferedReader(new FileReader(inputFolder));
-          String[] colHeaders = null;
-
-          String curLine = csvReader.readLine();
-          if (curLine != null) {
-            colHeaders = curLine.split(delimiter, -1);
-            for (int i = 0; i < colHeaders.length; i++){
-                colHeaders[i] = colHeaders[i].toUpperCase();
-            }
-          }
+            // Read tsv files
+            for (File file : list_of_files) {
+                object_count++;
+                if (file.isFile() && file.canRead() && file.exists()) {
+                    BufferedReader csvReader;
+                    String path2 = inputFolder;
+                    String fileName = file.getName().substring(0, file.getName().length()-4);
+                    path2 += fileName + ".tsv";
+                    csvReader = new BufferedReader(new FileReader(path2));
+                    String[] colHeaders = null;
+                    
+                    // removes header row
+                    String curLine = csvReader.readLine();
+                    if (curLine != null) {
+                      colHeaders = curLine.split(delimiter, -1);
+                      for (int i = 0; i < colHeaders.length; i++){
+                          colHeaders[i] = colHeaders[i].toUpperCase();
+                      }
+                    }
         // KEY | TYPE | SINCEVERSION | DEPRECATEDIN | REQUIRED | INDIRECTREFERENCE | REQUIRED VALUE | DEFAULT VALUE | POSSIBLE VALUES | SPECIALCASE | LINK
-        // read entries
+        
+        // FUTURE WORK : add/change attributes
+          Element objectElement = newDoc.createElement("OBJECT");
+          objectElement.setAttribute("object_name", fileName);
+          objectElement.setAttribute("object_number", String.format("%03d",object_count));
           while ((curLine = csvReader.readLine()) != null) {
               Element entryElement = newDoc.createElement("ENTRY");
               String[] colValues = curLine.split(delimiter,-1);
@@ -133,8 +163,10 @@ public class XMLCreator {
                 entryElement.appendChild(indirectreferenceElement);
                 entryElement.appendChild(sinceversionElement);
                 entryElement.appendChild(deprecatedinElement);
+                
+                objectElement.appendChild(entryElement);
                 //append entry to root
-                rootElement.appendChild(entryElement);
+                rootElement.appendChild(objectElement);
               }
           }
           if(errorCount == 0){
@@ -143,7 +175,9 @@ public class XMLCreator {
               System.out.println("Processing failed! " +errorCount+" errors were encountered while processing object.");
           }
           csvReader.close();
-
+          
+                }
+          }
           // Save the document to the disk file
           TransformerFactory tranFactory = TransformerFactory.newInstance();
           Transformer aTransformer = tranFactory.newTransformer();
@@ -153,8 +187,6 @@ public class XMLCreator {
           Source src = new DOMSource(newDoc);
           Result result = new StreamResult(new File(outputFolder));
           aTransformer.transform(src, result);
-
-
         } catch (IOException exp) {
           System.err.println(exp.toString());
         } catch (Exception exp) {
@@ -235,14 +267,14 @@ public class XMLCreator {
             String[] temp = values[i].split(",",-1);
             for(int j = 0; j < temp.length; j++){
             Element valueElem = newDoc.createElement("VALUE");
-            Element typeElem = newDoc.createElement("TYPE");
-            typeElem.appendChild(newDoc.createTextNode(types[i]));
-            valueElem.appendChild(typeElem);
+            //Element typeElem = newDoc.createElement("TYPE");
+            //typeElem.appendChild(newDoc.createTextNode(types[i]));
+            valueElem.setAttribute("type", types[i]);
             if("dictionary".equals(types[i]) || "array".equals(types[i]) || "stream".equals(types[i])){
                 Element validateElem = newDoc.createElement("VALIDATE");
                 String nodeVal = temp[j];
-                validateElem.appendChild(newDoc.createTextNode(nodeVal));
-                valueElem.appendChild(validateElem);
+                valueElem.appendChild(newDoc.createTextNode(nodeVal));
+                //valueElem.appendChild(validateElem);
                 if(nodeVal.isBlank()){
                     System.out.println("\tWARNING. Missing value in entry: "+currentEntry+ ". VALIDATE node was created but has no value.");
                 }
@@ -277,14 +309,14 @@ public class XMLCreator {
             String[] temp = posValues[i].split(",",-1);
             for(int j = 0; j < temp.length; j++){
                 Element valueElem = newDoc.createElement("VALUE");
-                Element typeElem = newDoc.createElement("TYPE");
-                typeElem.appendChild(newDoc.createTextNode(types[i]));
-                valueElem.appendChild(typeElem);
+            //Element typeElem = newDoc.createElement("TYPE");
+            //typeElem.appendChild(newDoc.createTextNode(types[i]));
+            valueElem.setAttribute("type", types[i]);
                 if(!temp[j].isEmpty()){
                     // SHALLBE -  rename to something more meaningful, eg. ACTUALVALUE
-                    Element shallbeElem = newDoc.createElement("SHALLBE");
-                shallbeElem.appendChild(newDoc.createTextNode(temp[j]));
-                    valueElem.appendChild(shallbeElem);
+                    //Element shallbeElem = newDoc.createElement("SHALLBE");
+                valueElem.appendChild(newDoc.createTextNode(temp[j]));
+                    //valueElem.appendChild(shallbeElem);
                 }
                 valuesElem.appendChild(valueElem);
             }
@@ -293,9 +325,9 @@ public class XMLCreator {
             for(int i = 0; i < types.length; i++){
             int k = 0;
                 Element valueElem = newDoc.createElement("VALUE");
-                Element typeElem = newDoc.createElement("TYPE");
-                typeElem.appendChild(newDoc.createTextNode(types[i]));
-                valueElem.appendChild(typeElem);
+            //Element typeElem = newDoc.createElement("TYPE");
+            //typeElem.appendChild(newDoc.createTextNode(types[i]));
+            valueElem.setAttribute("type", types[i]);
                 valuesElem.appendChild(valueElem);
             }
         }
