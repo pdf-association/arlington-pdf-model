@@ -30,8 +30,8 @@ public class Gcxml {
         
         // version
         final int MAJOR = 0;
-        final int MINOR = 1;
-        final int PATCH = 0;
+        final int MINOR = 2;
+        final int PATCH = 1;
         
         if(args.length > 0){
             String argument = args[0];
@@ -39,15 +39,16 @@ public class Gcxml {
             switch (argument){
                 case "--conv":
                     System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
-                    //if(args.length>1 && (!args[1].isEmpty())){
+                    if(args.length>1 && (!args[1].isEmpty())){
+                        String grammar_version = args[1];
                         String inputFolder = inputFolder = System.getProperty("user.dir") + "/tsv/";
                         File folder = new File(inputFolder);
                         File[] listOfFiles = folder.listFiles();
-                                XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter);
+                                XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, grammar_version);
                                 xmlcreator.convertFile();
-                    //}else{
-                    //    System.out.println("No file name specified. To convert all files in directory, use -all");
-                    //}
+                    }else{
+                        System.out.println("No version specified. Valid options for pdf versions are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 .");
+                    }
                     break;
                 case "--sin":
                     System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
