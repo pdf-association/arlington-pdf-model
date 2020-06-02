@@ -115,6 +115,8 @@ This repository contains the following Proof-of-Concept implementations:
 
 - TestGrammar (C++17)	- test existing pdf file against grammar, validates grammar itself, compares grammar with Adobe DVA grammar [TODO](#todo-pushpin)
 - gcxml (Java)			- generates xml files that conform to a schema and uses XPath to query grammar, generates specific reports.
+- Linux CLI	- basic data validation and some simple analysis can be achieved by using various Linux commands on the TSV data
+- Python script	- generates a single JSON file of the PDF DOM as well as a 3D/VR visualization (also JSON based) from the TSV files
 
 ## **Exporting to TSV**
 In LibreOffice Calc, go Tools | Run Macro.. then pick from PDF20Grammar.ods | Standard | Module the macro called "ExportToTSV". This will write out all TSV files into a sub-directory called "./tsv/" from where the PDF20Grammar.ods is stored. Existing TSV files will be overwritten! 
@@ -131,6 +133,14 @@ The tool allows two different tasks
 	- if objects are indirect if required
 	- if value is correct if PossibleValues are defined
 3. compares grammar with Adobe DVA [TODO](#todo-pushpin)
+
+Notes: 
+* the utility does NOT currently confirm version validity
+
+* the grammar is based on PDF 2.0 where some previously optional keys are now required (e.g. font dictionary FirstChar, LastChar, Widths) which means that matching legacy PDFs will fail unless these keys are present. A warning such as the following will be issued: 
+```
+Error: Can't select any link from \[FontType1,FontTrueType,FontMultipleMaster,FontType3,FontType0,FontCIDType0,FontCIDType2\] to validate provided object: xxx
+```
 
 #### Building
 
