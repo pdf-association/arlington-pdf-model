@@ -56,7 +56,7 @@ public class XMLCreator {
     private Document new_doc = null;
     
     public XMLCreator(File[] list_of_files, String delimiter, String pdf_version) {
-        this.output_folder = System.getProperty("user.dir") + "/xml/objects/";
+        this.output_folder = System.getProperty("user.dir") + "/xml/";
         this.input_folder = System.getProperty("user.dir") + "/tsv/";
         
         // sort files by name alphabetically
@@ -89,7 +89,7 @@ public class XMLCreator {
     }
     
     public void convertFile() {
-        output_folder += "_pdf_grammar" + pdf_version + ".xml" ;
+        output_folder += "pdf_grammar" + pdf_version + ".xml" ;
         error_count = 0;
         
         int rows_count = -1;
@@ -100,7 +100,7 @@ public class XMLCreator {
             root_elem.setAttribute("pdf_version", pdf_version );
             root_elem.setAttribute("grammar_version", grammar_version );
             root_elem.setAttribute("iso_ref", "ISO-32000" );
-            root_elem.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
+            //root_elem.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
             new_doc.appendChild(root_elem);
             
             // Read tsv files
