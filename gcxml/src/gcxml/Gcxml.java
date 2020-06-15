@@ -25,20 +25,17 @@ public class Gcxml {
     /**
      * @param args the command line arguments
      */
+    public static final String grammar_version = "0.2.1";
+    
     public static void main(String[] args) {
         final String delimiter = "\t";
-        
-        // version
-        final int MAJOR = 0;
-        final int MINOR = 2;
-        final int PATCH = 1;
         
         if(args.length > 0){
             String argument = args[0];
 
             switch (argument){
                 case "--conv":
-                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
+                    System.out.println("gcxml " + grammar_version);
                     if(args.length>1 && (!args[1].isEmpty())){
                         String grammar_version = args[1];
                         String inputFolder = inputFolder = System.getProperty("user.dir") + "/tsv/";
@@ -51,7 +48,7 @@ public class Gcxml {
                     }
                     break;
                 case "--sin":
-                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
+                    System.out.println("gcxml " + grammar_version);
                     if(args.length>1 && !args[1].isEmpty()){
                         String version = args[1];
                         if(version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
@@ -71,7 +68,7 @@ public class Gcxml {
                     }
                     break;
                 case "--dep":
-                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
+                    System.out.println("gcxml " + grammar_version);
                     if(args.length>1 && !args[1].isEmpty()){
                         String version = args[1];
                         if(version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
@@ -91,21 +88,21 @@ public class Gcxml {
                     }
                     break;
                 case "--so":
-                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
+                    System.out.println("gcxml " + grammar_version);
                     XMLQuery query = new XMLQuery();
                     if(query != null){
                         query.SchizophrenicObjects();
                     }
                     break;
                 case "--keys":
-                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
+                    System.out.println("gcxml " + grammar_version);
                     query = new XMLQuery();
                     if(query != null){
                         query.KeyOccurrenceCount();
                     }
                     break;
                  case "--po":
-                    System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
+                    System.out.println("gcxml " + grammar_version);
                     if(args.length > 1){
                         query = new XMLQuery();
                         if(query != null){
@@ -116,7 +113,7 @@ public class Gcxml {
                     }
                     break;
                  case "--version":
-                     System.out.println("gcxml " + MAJOR + "." + MINOR + "." + PATCH);
+                     System.out.println("gcxml " + grammar_version);
                      break;
                 case "--help":
                     System.out.println("List of available commands:");

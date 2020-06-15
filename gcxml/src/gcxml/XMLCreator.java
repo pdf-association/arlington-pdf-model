@@ -39,8 +39,8 @@ import org.w3c.dom.Element;
  */
 public class XMLCreator {
     private String pdf_version = "";
-    private final String grammar_version = "0.2.1";
-    
+    private final String grammar_version = Gcxml.grammar_version;
+
     private String input_folder;
     private String output_folder;
     
@@ -90,7 +90,6 @@ public class XMLCreator {
     
     public void convertFile() {
         output_folder += "pdf_grammar" + pdf_version + ".xml" ;
-        error_count = 0;
         
         int rows_count = -1;
         int object_count = 0;
@@ -106,13 +105,14 @@ public class XMLCreator {
             // Read tsv files
             for (File file : list_of_files) {
                 if (file.isFile() && file.canRead() && file.exists()) {
+                    error_count = 0;
                     BufferedReader tsv_reader;
                     String temp = input_folder;
                     String file_name = file.getName().substring(0, file.getName().length()-4);
                     temp += file_name + ".tsv";
                     tsv_reader = new BufferedReader(new FileReader(temp));
                     String[] column_headers = null;
-                    
+                    System.out.println("Processing " +file_name);
                     // removes header row
                     String current_line = tsv_reader.readLine();
                     if (current_line != null) {
