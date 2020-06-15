@@ -26,7 +26,7 @@ IRT	dictionary	1.7		FALSE	FALSE				Required=True:IsPresent->RT	[AnnotText,AnnotL
 Subj	string-text	1.7		FALSE	FALSE					
 RT	name	1.7		FALSE	FALSE		R	[R,Group]		
 IT	name	1.7		FALSE	FALSE					
-QuadPoints	array	1.7		FALSE	FALSE					
+QuadPoints	array	1.7		FALSE	FALSE					[ArrayOfQuadPoints]
 IC	array	1.7		FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
 RO	stream	1.7		FALSE	FALSE					
 OverlayText	string-text	1.7		FALSE	FALSE					

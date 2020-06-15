@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
 Type	name	1.6		FALSE	FALSE			[3DRenderMode]		
 Subtype	name	1.6		TRUE	FALSE			[Solid,SolidWireframe,Transparent,TransparentWireframe,BoundingBox,TransparentBoundingBox,TransparentBoundingBoxOutline,Wireframe,ShadedWireframe,Vertices,ShadedVertices,Illustration,SolidOutline,ShadedIllustration]		
-AC	array	1.6		FALSE	FALSE		[/DeviceRGB 0 0 0]			[]
-FC	array;name	1.6		FALSE	FALSE		BG			[];[]
+AC	array	1.6		FALSE	FALSE		[/DeviceRGB 0 0 0]			[ArrayOf_4ColourSpaceEntries]
+FC	array;name	1.6		FALSE	FALSE		BG			[ArrayOf_4ColourSpaceEntries];[]
 O	number	1.6		FALSE	FALSE		0.5			
 CV	number	1.6		FALSE	FALSE		45			

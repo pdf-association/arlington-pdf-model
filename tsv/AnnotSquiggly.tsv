@@ -26,5 +26,5 @@ IRT	dictionary	1.5		FALSE	FALSE				Required=True:IsPresent->RT	[AnnotText,AnnotL
 Subj	string-text	1.5		FALSE	FALSE					
 RT	name	1.6		FALSE	FALSE		R	[R,Group]		
 IT	name	1.6		FALSE	FALSE					
-QuadPoints	array	1.4		TRUE	FALSE					[]
+QuadPoints	array	1.4		TRUE	FALSE					[ArrayOfQuadPoints]
 ExData	dictionary	1.7		FALSE	FALSE					[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]
