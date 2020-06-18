@@ -120,12 +120,16 @@ public class Gcxml {
                     System.out.println("\t--version : print version information");
                     System.out.println("\t--help : show list of available commands");
                     System.out.println("\t--conv : convert tsv to xml");
+                    System.out.println("\t--tsv : create tsv files for each pdf version");
                     System.out.println("\t--sin : return all keys introduced in specified PDF version");
                     System.out.println("\t--dep : return all keys deprecated in specified PDF version");
                     System.out.println("\t--so : return objects that do not have key Type or where it is not required.");
                     System.out.println("\t--keys : return keys and their occurrence count.");
                     System.out.println("\t--po : return list of potential objects based on given keys.");
                     break;
+                case "--tsv":
+                   System.out.println("gcxml " + grammar_version);
+                   TSVUpdater tsv = new TSVUpdater();
             }
         }else{
             System.out.println("No arguments specified.\n To see all available commands use --help:");
