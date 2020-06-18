@@ -1,0 +1,10 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Filter	name	1.1		TRUE	FALSE		Standard	Standard		
+EFF	name	1.1		FALSE	FALSE					
+R	number	1.1		TRUE	FALSE			[2,3,4,5,6]		
+O	string	1.1		TRUE	FALSE					
+U	string	1.1		TRUE	FALSE					
+OE	string	1.1		FALSE	FALSE				IsR=6=>Required=TRUE	
+UE	string	1.1		FALSE	FALSE				IsR=6=>Required=TRUE	
+P	integer	1.1		TRUE	FALSE			[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]		
+Perms	string	1.1		FALSE	FALSE				IsR=6=>Required=TRUE	

@@ -1,0 +1,25 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	
+Type	name	1.0		FALSE	FALSE			[XObject]			
+Subtype	name	1.0		TRUE	FALSE			[Image]			
+Width	integer	1.0		TRUE	FALSE						
+Height	integer	1.0		TRUE	FALSE						
+ColorSpace	array;name	1.0		FALSE	FALSE			[];[DeviceCMYK,DeviceRGB,DeviceGray]	required if not JPX	[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]	
+BitsPerComponent	integer	1.0		FALSE	FALSE				required if not JPX		
+Intent	name	1.1		FALSE	FALSE						
+ImageMask	boolean	1.0		FALSE	FALSE		FALSE				
+Mask	array;stream	1.3		FALSE	FALSE					[];[XObjectImageMask]	
+Decode	array	1.0		FALSE	FALSE					[]	
+Interpolate	boolean	1.0		FALSE	FALSE		FALSE				
+Alternates	array	1.3		FALSE	FALSE					[ArrayOfImageAlternates]	
+SMask	stream	1.4		FALSE	FALSE					[XObjectImageSoftMask]	
+Name	name	1.0	2.0	FALSE	FALSE						
+StructParent	integer	1.3		FALSE	FALSE				IsRequired=>ImageIsStructuralContentItem		
+ID	string-byte	1.3		FALSE	FALSE						
+OPI	dictionary	1.2	2.0	FALSE	FALSE					[OPIVersion13,OPIVersion20]	
+Metadata	stream	1.4		FALSE	FALSE					[Metadata]	
+Length	integer	1.3		TRUE	FALSE						* from stream
+Filter	array;name	1.3		FALSE	FALSE			[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
+DecodeParms	array;dictionary	1.3		FALSE	FALSE					[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	
+F 	dictionary;string	1.3		FALSE	FALSE					[FileSpecification];[]	
+FFilter	array;name	1.3		FALSE	FALSE			[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
+FDecodeParms	array;dictionary	1.3		FALSE	FALSE					[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	

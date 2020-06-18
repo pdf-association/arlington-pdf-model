@@ -1,0 +1,18 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+HideToolBar	boolean	1.2		FALSE	FALSE		FALSE			
+HideMenuBar	boolean	1.2		FALSE	FALSE		FALSE			
+HideWindowUI	boolean	1.2		FALSE	FALSE		FALSE			
+FitWindow	boolean	1.2		FALSE	FALSE		FALSE			
+CenterWindow	boolean	1.2		FALSE	FALSE		FALSE			
+DisplayDocTitle	boolean	1.4		FALSE	FALSE		FALSE			
+NonFullScreenPageMode	name	1.2		FALSE	FALSE		UseNone	[UseNone,UseOutlines,UseThumbs,UseOC]		
+Direction	name	1.3		FALSE	FALSE		L2R	[L2R,R2L]		
+ViewArea	name	1.4	2.0	FALSE	FALSE		CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]		
+ViewClip	name	1.4	2.0	FALSE	FALSE		CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]		
+PrintArea	name	1.4	2.0	FALSE	FALSE		CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]		
+PrintClip	name	1.4	2.0	FALSE	FALSE		CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]		
+PrintScaling	name	1.6		FALSE	FALSE		AppDefault	[None,AppDefault]		
+Duplex	name	1.7		FALSE	FALSE		implementation dependent	[Simplex,DuplexFlipShortEdge,DuplexFlipLongEdge]		
+PickTrayByPDFSize	boolean	1.7		FALSE	FALSE		implementation dependent			
+PrintPageRange	array	1.7		FALSE	FALSE		implementation dependent			[]
+NumCopies	integer	1.7		FALSE	FALSE		implementation dependent			

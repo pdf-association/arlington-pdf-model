@@ -1,0 +1,12 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.6		FALSE	FALSE			[NumberFormat]		
+U	string-text	1.6		TRUE	FALSE					
+C	number	1.6		TRUE	FALSE					
+F	name	1.6		FALSE	FALSE		D	[D,F,R,T]		
+D	integer	1.6		FALSE	FALSE					
+FD	boolean	1.6		FALSE	FALSE		16			
+RT	string-text	1.6		FALSE	FALSE					
+RD	string-text	1.6		FALSE	FALSE					
+PS	string-text	1.6		FALSE	FALSE					
+SS	string-text	1.6		FALSE	FALSE					
+O	name	1.6		FALSE	FALSE		S	[S,P]		

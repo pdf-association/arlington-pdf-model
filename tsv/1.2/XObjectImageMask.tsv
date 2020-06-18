@@ -1,0 +1,12 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	
+Type	name	1.0		FALSE	FALSE			[XObject]			
+Subtype	name	1.0		TRUE	FALSE			[Image]			
+Width	integer	1.0		TRUE	FALSE						
+Height	integer	1.0		TRUE	FALSE						
+BitsPerComponent	integer	1.0		FALSE	FALSE			1			
+Intent	name	1.1		FALSE	FALSE						
+ImageMask	boolean	1.0		TRUE	FALSE		TRUE				
+Decode	array	1.0		FALSE	FALSE					[]	
+Interpolate	boolean	1.0		FALSE	FALSE		FALSE				
+Name	name	1.0	2.0	FALSE	FALSE						
+OPI	dictionary	1.2	2.0	FALSE	FALSE					[OPIVersion13,OPIVersion20]	

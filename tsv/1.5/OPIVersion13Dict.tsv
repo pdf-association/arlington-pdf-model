@@ -1,0 +1,19 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.2	2.0	FALSE	FALSE			[OPI]		
+Version	number	1.2	2.0	TRUE	FALSE			[1.3]		
+F	dictionary;string	1.2	2.0	TRUE	FALSE					[FileSpecification];[]
+ID	string-byte	1.2	2.0	FALSE	FALSE					
+Comments	string-text	1.2	2.0	FALSE	FALSE					
+Size	array	1.2	2.0	FALSE	FALSE					[]
+CropRect	rectangle	1.2	2.0	FALSE	FALSE					
+CropFixed	array	1.2	2.0	FALSE	FALSE					[]
+Position	array	1.2	2.0	FALSE	FALSE					[]
+Resolution	array	1.2	2.0	FALSE	FALSE					[]
+ColorType	name	1.2	2.0	FALSE	FALSE					
+Color	array	1.2	2.0	FALSE	FALSE					
+Tint	number	1.2	2.0	FALSE	FALSE					
+Overprint	boolean	1.2	2.0	FALSE	FALSE					
+ImageType	array	1.2	2.0	FALSE	FALSE					
+GrapMap	array	1.2	2.0	FALSE	FALSE					
+Transparency	boolean	1.2	2.0	FALSE	FALSE					
+Tags	array	1.2	2.0	FALSE	FALSE					

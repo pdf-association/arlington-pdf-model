@@ -1,0 +1,12 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.2	2.0	FALSE	FALSE			[OPI]		
+Version	number	1.2	2.0	TRUE	FALSE			[2.0]		
+F	dictionary;string	1.2	2.0	TRUE	FALSE					[FileSpecification];[]
+MainImage	string-byte	1.2	2.0	FALSE	FALSE					
+Tags	array	1.2	2.0	FALSE	FALSE					[]
+Size	array	1.2	2.0	FALSE	FALSE					[]
+CropRect	rectangle	1.2	2.0	FALSE	FALSE					
+Overprint	boolean	1.2	2.0	FALSE	FALSE					
+Inks	array;name	1.2	2.0	FALSE	FALSE					[];[]
+IncludedImageDimensions	array	1.2	2.0	FALSE	FALSE					[]
+IncludedImageQuality	number	1.2	2.0	FALSE	FALSE					

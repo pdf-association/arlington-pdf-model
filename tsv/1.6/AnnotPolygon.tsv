@@ -1,0 +1,28 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.5		FALSE	FALSE			[Annot]		
+Subtype	name	1.5		TRUE	FALSE			[Polygon]		
+Rect	rectangle	1.5		TRUE	FALSE					
+Contents	string-text	1.5		FALSE	FALSE					
+P	dictionary	1.5		FALSE	FALSE					[PageObject]
+NM	string-text	1.5		FALSE	FALSE					
+M	date;string-text	1.5		FALSE	FALSE					
+F	integer	1.5		FALSE	FALSE		0			
+AP	dictionary	1.5		FALSE	FALSE					[Appearance]
+AS	name	1.5		FALSE	FALSE					
+Border	array	1.5		FALSE	FALSE		[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
+C 	array	1.5		FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
+StructParent	integer	1.5		FALSE	FALSE					
+OC	dictionary	1.5		FALSE	FALSE					[OptContentGroup,OptContentMembership]
+T 	string-text	1.5		FALSE	FALSE					
+Popup	dictionary	1.5		FALSE	FALSE					[AnnotPopup]
+RC	stream;string-text	1.5		FALSE	FALSE					[Stream];[]
+CreationDate	date	1.5		FALSE	FALSE					
+IRT	dictionary	1.5		FALSE	FALSE				Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]
+Subj	string-text	1.5		FALSE	FALSE					
+RT	name	1.6		FALSE	FALSE		R	[R,Group]		
+Vertices	array	1.5		TRUE	FALSE					[ArrayOfNumbersGeneral]
+LE	array	1.5		FALSE	FALSE		[/None /None]		meaningful only for polyline annotations	[ArrayOf_2LineEndingsNames]
+BS	dictionary	1.5		FALSE	FALSE					[BorderStyle]
+IC	array	1.5		FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
+BE	dictionary	1.5		FALSE	FALSE				meaningful only for polygon annotations	[BorderEffect]
+IT	name	1.6		FALSE	FALSE			[PolygonCloud,PolyLineDimension,PolygonDimension]		

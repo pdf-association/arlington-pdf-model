@@ -1,0 +1,22 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.4		FALSE	FALSE			[Annot]		
+Subtype	name	1.4		TRUE	FALSE			[PrinterMark]		
+Rect	rectangle	1.4		TRUE	FALSE					
+Contents	string-text	1.4		FALSE	FALSE					
+P	dictionary	1.4		FALSE	FALSE					[PageObject]
+NM	string-text	1.4		FALSE	FALSE					
+M	date;string-text	1.4		FALSE	FALSE					
+F	integer	1.4		TRUE	FALSE		0			
+AP	dictionary	1.4		FALSE	FALSE					[AppearancePrinterMark]
+AS	name	1.4		FALSE	FALSE					
+Border	array	1.4		FALSE	FALSE		[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
+C 	array	1.4		FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
+StructParent	integer	1.4		FALSE	FALSE					
+OC	dictionary	1.5		FALSE	FALSE					[OptContentGroup,OptContentMembership]
+AF	array;dictionary	2.0		FALSE	FALSE					[ArrayOfFileSpecifications];[FileSpecification]
+ca	number	2.0		FALSE	FALSE		1.0			
+CA	number	2.0		FALSE	FALSE					
+BM	name	2.0		FALSE	FALSE					
+Lang	string-text	2.0		FALSE	FALSE					
+MN	name	1.4		FALSE	FALSE			[ColorBar,RegistrationTarget]		
+ExData	dictionary	1.7		FALSE	FALSE					[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]

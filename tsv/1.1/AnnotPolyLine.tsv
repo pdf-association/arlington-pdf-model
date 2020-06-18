@@ -1,0 +1,13 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.0		FALSE	FALSE			[Annot]		
+Subtype	name	1.0		TRUE	FALSE			[PolyLine]		
+Rect	rectangle	1.0		TRUE	FALSE					
+Contents	string-text	1.0		FALSE	FALSE					
+M	date;string-text	1.1		FALSE	FALSE					
+F	integer	1.1		FALSE	FALSE		0			
+Border	array	1.0		FALSE	FALSE		[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
+C 	array	1.1		FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
+T 	string-text	1.1		FALSE	FALSE					
+Vertices	array	1.0		TRUE	FALSE				Required unless a Path key is present, in which case it shall be ignored	[ArrayOfNumbersGeneral]
+BS	dictionary	1.0		FALSE	FALSE					[BorderStyle]
+BE	dictionary	1.0		FALSE	FALSE					[BorderEffect]

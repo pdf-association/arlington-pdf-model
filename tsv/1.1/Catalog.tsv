@@ -1,0 +1,12 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.0		TRUE	FALSE			[Catalog]		
+Extension	dictionary	1.0		FALSE	FALSE					[Extensions]
+Pages	dictionary	1.0		TRUE	TRUE					[PageTreeNodeRoot]
+Dests	dictionary	1.1		FALSE	TRUE					[DestsMap]
+PageLayout	name	1.0		FALSE	FALSE		SinglePage	[SinglePage,OneColumn,TwoColumnLeft,TwoColumnRight,TwoPageLeft,TwoPageRight]		
+PageMode	name	1.0		FALSE	FALSE		UseNone	[UseNone,UseOutlines,UseThumbs,FullScreen,UseOC,UseAttachments]		
+Outlines	dictionary	1.0		FALSE	TRUE					[Outline]
+Threads	array	1.1		FALSE	TRUE					[ArrayOfThreads]
+OpenAction	array;dictionary	1.1		FALSE	FALSE					[DestXYZ,Dest0,Dest1,Dest4];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
+URI	dictionary	1.1		FALSE	FALSE					[URI]
+NeedsRendering	boolean	1.0		FALSE	FALSE		FALSE			

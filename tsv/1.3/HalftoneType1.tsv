@@ -1,0 +1,9 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.2		FALSE	FALSE			[Halftone]		
+HalftoneType	integer	1.2		TRUE	FALSE			[1]		
+HalftoneName	string-byte	1.2		FALSE	FALSE					
+Frequency	number	1.2		TRUE	FALSE					
+Angle	number	1.2		TRUE	FALSE					
+SpotFunction	array;dictionary;name;stream	1.2		TRUE	FALSE					[ArrayOfFunctions];[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]
+AccurateScreens	boolean	1.2		FALSE	FALSE		FALSE			
+TransferFunction	dictionary;name;stream	1.2		FALSE	FALSE					[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]

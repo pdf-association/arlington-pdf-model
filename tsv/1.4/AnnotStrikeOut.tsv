@@ -1,0 +1,17 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.3		FALSE	FALSE			[Annot]		
+Subtype	name	1.3		TRUE	FALSE			[StrikeOut]		
+Rect	rectangle	1.3		TRUE	FALSE					
+Contents	string-text	1.3		FALSE	FALSE					
+P	dictionary	1.3		FALSE	FALSE					[PageObject]
+NM	string-text	1.4		FALSE	FALSE					
+M	date;string-text	1.3		FALSE	FALSE					
+F	integer	1.3		FALSE	FALSE		0			
+AP	dictionary	1.3		FALSE	FALSE					[Appearance]
+AS	name	1.3		FALSE	FALSE					
+Border	array	1.3		FALSE	FALSE		[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
+C 	array	1.3		FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
+StructParent	integer	1.3		FALSE	FALSE					
+T 	string-text	1.3		FALSE	FALSE					
+Popup	dictionary	1.3		FALSE	FALSE					[AnnotPopup]
+QuadPoints	array	1.3		TRUE	FALSE					[ArrayOfQuadPoints]

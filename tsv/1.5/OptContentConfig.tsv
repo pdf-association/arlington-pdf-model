@@ -1,0 +1,11 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+Name	string-text	1.5		FALSE	FALSE					
+Creator	string-text	1.5		FALSE	FALSE					
+BaseState	name	1.5		FALSE	FALSE		ON	[ON,OFF,Unchanged]		
+ON	array	1.5		FALSE	FALSE					[]
+OFF	array	1.5		FALSE	FALSE					[]
+Intent	array;name	1.5		FALSE	FALSE		View			[];[]
+AS	array	1.5		FALSE	FALSE					[ArrayOfOCUsage]
+Order	array	1.5		FALSE	FALSE					[]
+ListMode	name	1.5		FALSE	FALSE		AllPages	[AllPages,VisiblePages]		
+RBGroups	array	1.5		FALSE	FALSE					[]

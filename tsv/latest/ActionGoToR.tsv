@@ -1,0 +1,8 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	
+Type	name	1.1		FALSE	FALSE			[Action]			
+S	name	1.1		TRUE	FALSE			[GoToR]			
+Next	array;dictionary	1.2		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
+F	dictionary;string	1.1		TRUE	FALSE					[FileSpecification];[]	
+D	array;name;string-byte	1.1		TRUE	FALSE					[DestXYZ,Dest0,Dest1,Dest4];[];[]	*must be a pagenumber not Page Object
+SD	array	2.0		FALSE	FALSE					[]	
+NewWindow	boolean	1.2		FALSE	FALSE						
