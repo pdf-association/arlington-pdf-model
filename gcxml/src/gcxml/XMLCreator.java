@@ -57,7 +57,7 @@ public class XMLCreator {
     
     public XMLCreator(File[] list_of_files, String delimiter, String pdf_version) {
         this.output_folder = System.getProperty("user.dir") + "/xml/";
-        this.input_folder = System.getProperty("user.dir") + "/tsv/";
+        this.input_folder = System.getProperty("user.dir") + "/tsv/latest/";
         
         // sort files by name alphabetically
         ArrayList<File> arr_file = new ArrayList<>();

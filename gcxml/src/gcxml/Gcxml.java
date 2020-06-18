@@ -38,7 +38,7 @@ public class Gcxml {
                     System.out.println("gcxml " + grammar_version);
                     if(args.length>1 && (!args[1].isEmpty())){
                         String grammar_version = args[1];
-                        String inputFolder = inputFolder = System.getProperty("user.dir") + "/tsv/";
+                        String inputFolder = inputFolder = System.getProperty("user.dir") + "/tsv/latest/";
                         File folder = new File(inputFolder);
                         File[] listOfFiles = folder.listFiles();
                                 XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, grammar_version);
