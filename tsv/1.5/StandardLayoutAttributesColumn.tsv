@@ -1,0 +1,10 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
+O	name	1.3		TRUE	FALSE			[Layout]		
+Placement	name	1.4		FALSE	FALSE			[Block,Inline,Before,Start,End]	not inheritable	
+WritingMode	name	1.4		FALSE	FALSE		LrTb	[LrTb,RlTb,tbRl,TbLr,LrBt,RlBt,BtRl,BtLr]	inheritable	
+BackgroundColor	array	1.5		FALSE	FALSE				not inheritable	[ArrayOf_3RGBNumbers]
+BorderColor	array	1.5		FALSE	FALSE				inheritable	[ArrayOf_4BorderColors,ArrayOf_3RGBNumbers]
+BorderStyle	array;name	1.5		FALSE	FALSE		None	[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]	not inheritable	[ArrayOf_4BorderStyleNames];[]
+BorderThickness	array;number	1.5		FALSE	FALSE		0		inheritable	[ArrayOf_4Integers];[]
+Padding	array;number	1.5		FALSE	FALSE		0		not inheritable	[ArrayOf_4Integers];[]
+Color	array	1.5		FALSE	FALSE				inheritable	[ArrayOf_3RGBNumbers]

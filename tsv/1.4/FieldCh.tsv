@@ -11,6 +11,6 @@ DV	string-text	1.2		FALSE	FALSE				Inheritable
 AA	dictionary	1.2		FALSE	FALSE					[AddActionFormField]
 DA	string	1.2		TRUE	FALSE				Inheritable	
 Q	integer	1.2		FALSE	FALSE		0	[0,1,2]		
-Opt	array	1.4		FALSE	FALSE				Inheritable	[]
+Opt	array	1.4		FALSE	FALSE				Inheritable	[ArrayOfStringsText,ArrayOfArrays_2StringsText]
 TI	integer	1.2		FALSE	FALSE				Inheritable	
-I	array	1.4		FALSE	FALSE				Inheritable;*sometimes required	[]
+I	array	1.4		FALSE	FALSE				Inheritable;*sometimes required	[ArrayOfIntegersGeneral]

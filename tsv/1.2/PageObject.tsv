@@ -4,7 +4,7 @@ Parent	dictionary	1.0		TRUE	TRUE					[PageTreeNode,PageTreeNodeRoot]
 Resources	dictionary	1.0		TRUE	FALSE				Inheritable:Parent	[Resource]	
 MediaBox	rectangle	1.0		TRUE	FALSE				Inheritable:Parent		
 CropBox	rectangle	1.0		FALSE	FALSE		@MediaBox		Inheritable:Parent		
-Contents	array;stream	1.0		FALSE	FALSE					[];[Stream]	
+Contents	array;stream	1.0		FALSE	FALSE					[ArrayOfStreamsGeneral];[Stream]	
 Rotate	integer	1.0		FALSE	FALSE		0	[0,90,180,270]	Inheritable:Parent		
 Thumb	stream	1.0		FALSE	FALSE					[Thumbnail]	
 B	array	1.1		FALSE	FALSE					[ArrayOfBeads]	

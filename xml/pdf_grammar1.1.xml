@@ -1007,7 +1007,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfStreamsGeneralIR" object_number="019">
+   <OBJECT id="ArrayOfStreamsGeneral" object_number="019">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -1832,7 +1832,7 @@
       <ENTRY>
          <NAME>Certs</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfStreamsGeneralIR</VALUE>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1843,7 +1843,7 @@
       <ENTRY>
          <NAME>OCSPs</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfStreamsGeneralIR</VALUE>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1854,7 +1854,7 @@
       <ENTRY>
          <NAME>CRLs</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfStreamsGeneralIR</VALUE>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3692,7 +3692,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3794,7 +3794,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3896,7 +3896,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -4031,7 +4031,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -4048,7 +4048,7 @@
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
-         <SPECIAL_CASE/>
+         <SPECIAL_CASE>*Not clear if required or needed</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="Gamma" object_number="070">
@@ -4634,7 +4634,7 @@
       <ENTRY>
          <NAME>Contents</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
             <VALUE type="stream">Stream</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -5056,7 +5056,7 @@
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
-         <SPECIAL_CASE/>
+         <SPECIAL_CASE>Only DeviceGray or DeviceRGB, or an Indexed</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>BitsPerComponent</NAME>
@@ -5072,7 +5072,7 @@
       <ENTRY>
          <NAME>Decode</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5195,7 +5195,7 @@
       <ENTRY>
          <NAME>Cert</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5206,7 +5206,7 @@
       <ENTRY>
          <NAME>CRL</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5217,7 +5217,7 @@
       <ENTRY>
          <NAME>OCSP</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5432,7 +5432,7 @@
       <ENTRY>
          <NAME>SeparationColorNames</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfNamesGeneral</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5631,7 +5631,7 @@
       <ENTRY>
          <NAME>Decode</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5743,7 +5743,7 @@
       <ENTRY>
          <NAME>Decode</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5855,7 +5855,7 @@
       <ENTRY>
          <NAME>Decode</NAME>
          <VALUES>
-            <VALUE type="array"/>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>

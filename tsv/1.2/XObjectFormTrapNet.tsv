@@ -1,4 +1,4 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	note
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	
 Type	name	1.0	2.0	FALSE	FALSE			[XObject]			
 Subtype	name	1.0	2.0	TRUE	FALSE			[Form]			
 FormType	integer	1.0	2.0	FALSE	FALSE			[1]			
@@ -8,6 +8,6 @@ Resources	dictionary	1.2	2.0	FALSE	FALSE					[Resource]
 OPI	dictionary	1.2	2.0	FALSE	FALSE					[OPIVersion13,OPIVersion20]	
 Name	name	1.0	2.0	FALSE	FALSE						
 PCM	name	1.0	2.0	FALSE	FALSE						*from trapnet appearance
-SeparationColorNames	array	1.0	2.0	FALSE	FALSE					[]	
+SeparationColorNames	array	1.0	2.0	FALSE	FALSE					[ArrayOfNamesGeneral]	
 TrapRegions	array	1.0	2.0	FALSE	FALSE					[]	
 TrapStyles	string-text	1.0	2.0	FALSE	FALSE						

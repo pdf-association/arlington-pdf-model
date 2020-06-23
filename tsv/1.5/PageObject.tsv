@@ -9,7 +9,7 @@ BleedBox	rectangle	1.3		FALSE	FALSE		@CropBox
 TrimBox	rectangle	1.3		FALSE	FALSE		@CropBox				
 ArtBox	rectangle	1.3		FALSE	FALSE		@CropBox				
 BoxColorInfo	dictionary	1.4		FALSE	FALSE					[BoxColorInfo]	
-Contents	array;stream	1.0		FALSE	FALSE					[];[Stream]	
+Contents	array;stream	1.0		FALSE	FALSE					[ArrayOfStreamsGeneral];[Stream]	
 Rotate	integer	1.0		FALSE	FALSE		0	[0,90,180,270]	Inheritable:Parent		
 Group	dictionary	1.4		FALSE	FALSE					[Group]	
 Thumb	stream	1.0		FALSE	FALSE					[Thumbnail]	

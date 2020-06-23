@@ -4,7 +4,7 @@ LW	number	1.3		FALSE	FALSE			[(0..)]
 LC	integer	1.3		FALSE	FALSE			<0..2>		
 LJ	integer	1.3		FALSE	FALSE			<0..2>		
 ML	number	1.3		FALSE	FALSE			[(0..)]		
-D	array	1.3		FALSE	FALSE					[]
+D	array	1.3		FALSE	FALSE					[ArrayOfGSPDashPatterns]
 RI	name	1.3		FALSE	FALSE			[AbsoluteColorimetric,RelativeColorimetric,Saturation,Perceptual]		
 OP	boolean	1.2		FALSE	FALSE					
 op	boolean	1.3		FALSE	FALSE					
@@ -27,4 +27,4 @@ ca	number	1.4		FALSE	FALSE			<0..1>
 AIS	boolean	1.4		FALSE	FALSE					
 TK	boolean	1.4		FALSE	FALSE					
 UseBlackPtComp	name	2.0		FALSE	FALSE		Default	[OFF,ON,Default]		
-HTO	array	2.0		FALSE	FALSE					[]
+HTO	array	2.0		FALSE	FALSE					[ArrayOf_2Numbers]

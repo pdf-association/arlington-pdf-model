@@ -7,7 +7,7 @@ ColorSpace	array;name	1.0		FALSE	FALSE			[];[DeviceCMYK,DeviceRGB,DeviceGray]	re
 BitsPerComponent	integer	1.0		FALSE	FALSE				required if not JPX		
 Intent	name	1.1		FALSE	FALSE						
 ImageMask	boolean	1.0		FALSE	FALSE		FALSE				
-Decode	array	1.0		FALSE	FALSE					[]	
+Decode	array	1.0		FALSE	FALSE					[ArrayOfNumbersGeneral]	
 Interpolate	boolean	1.0		FALSE	FALSE		FALSE				
 Name	name	1.0	2.0	FALSE	FALSE						
 OPI	dictionary	1.2	2.0	FALSE	FALSE					[OPIVersion13,OPIVersion20]	

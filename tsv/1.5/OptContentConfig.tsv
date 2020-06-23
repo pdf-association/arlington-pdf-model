@@ -2,10 +2,10 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	Defa
 Name	string-text	1.5		FALSE	FALSE					
 Creator	string-text	1.5		FALSE	FALSE					
 BaseState	name	1.5		FALSE	FALSE		ON	[ON,OFF,Unchanged]		
-ON	array	1.5		FALSE	FALSE					[]
-OFF	array	1.5		FALSE	FALSE					[]
-Intent	array;name	1.5		FALSE	FALSE		View			[];[]
+ON	array	1.5		FALSE	FALSE					[ArrayOfOptContentGroups]
+OFF	array	1.5		FALSE	FALSE					[ArrayOfOptContentGroups]
+Intent	array;name	1.5		FALSE	FALSE		View			[ArrayOfNamesGeneral];[]
 AS	array	1.5		FALSE	FALSE					[ArrayOfOCUsage]
-Order	array	1.5		FALSE	FALSE					[]
+Order	array	1.5		FALSE	FALSE				array of arrays of opt content group	[ArrayOfOptContentGroups]
 ListMode	name	1.5		FALSE	FALSE		AllPages	[AllPages,VisiblePages]		
-RBGroups	array	1.5		FALSE	FALSE					[]
+RBGroups	array	1.5		FALSE	FALSE					[ArrayOfArraysRBGroups]
