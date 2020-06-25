@@ -55,7 +55,7 @@ public class XMLQuery {
     private File[] files = null;
         
     public XMLQuery() {
-        this.inputFolder = System.getProperty("user.dir") + "/xml/objects/";
+        this.inputFolder = System.getProperty("user.dir") + "/xml/";
         
         try {
           domFactory = DocumentBuilderFactory.newInstance();
@@ -80,29 +80,37 @@ public class XMLQuery {
                 String inputFile = inputFolder + file.getName();
                 Document doc = domBuilder.parse(inputFile);
                 doc.getDocumentElement().normalize();
-                
+                System.out.println(file.getName());
                 XPath xPath =  XPathFactory.newInstance().newXPath();
                 
-                String expression = "/OBJECT/ENTRY";	        
+                String expression = "/PDF/OBJECT";	        
                 NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
-                System.out.println("Keys introduced in PDF version " + pdfVersion +" for object: " + file.getName().substring(0, file.getName().length()-4));
-                int keyCount = 0;
+                
+               
                 for (int i = 0; i < nodeList.getLength(); i++) {
+                    int keyCount = 0;
                     Node nNode = nodeList.item(i);
-                    //System.out.println("\nCurrent Element :" + nNode.getNodeName());
                     if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                         Element eElement = (Element) nNode;
-                        String nodeName = eElement.getElementsByTagName("NAME").item(0).getTextContent();
-                        String nodeSinceVersion = eElement.getElementsByTagName("SINCEVERSION").item(0).getTextContent();
-                        if(pdfVersion.equals(nodeSinceVersion)){
-                            System.out.println(nodeName);
-                            keyCount++;
+                        String object_name = eElement.getAttribute("id");
+                        NodeList entry_nodes = eElement.getElementsByTagName("ENTRY");
+                        System.out.println("Keys introduced in pdf version " + pdfVersion + " for object " + object_name + ":");                        
+                        for(int j = 0; j < entry_nodes.getLength(); j++){
+                            Node entry = entry_nodes.item(j);
+                            Element entry_elem = (Element) entry;
+                            String nodeName = entry_elem.getElementsByTagName("NAME").item(0).getTextContent();
+                            String nodeSinceVersion = entry_elem.getElementsByTagName("INTRODUCED").item(0).getTextContent();
+                            if(pdfVersion.equals(nodeSinceVersion)){
+                                System.out.println(nodeName);
+                                keyCount++;
+                            }
                         }
-                    } 
+                    }
+                    if(keyCount == 0) {
+                        System.out.println("No keys were found in this object.");
+                    }
                 }
-                if(keyCount == 0) {
-                    System.out.println("No keys were found in this object.");
-                }
+
                 System.out.println();
 
                 } catch (SAXException ex) {
