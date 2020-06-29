@@ -25,7 +25,7 @@ public class Gcxml {
     /**
      * @param args the command line arguments
      */
-    public static final String grammar_version = "0.2.1";
+    public static final String grammar_version = "0.2.5";
     
     public static void main(String[] args) {
         final String delimiter = "\t";
@@ -115,6 +115,14 @@ public class Gcxml {
                  case "--version":
                      System.out.println("gcxml " + grammar_version);
                      break;
+                 case "--tsv":
+                     System.out.println("gcxml " + grammar_version);
+                     TSVUpdater tsv = new TSVUpdater();
+                 case "--sc":
+                     System.out.println("gcxml " + grammar_version);
+                     query = new XMLQuery();
+                     query.getSpecialCases();
+                     break;
                 case "--help":
                     System.out.println("List of available commands:");
                     System.out.println("\t--version : print version information");
@@ -127,9 +135,6 @@ public class Gcxml {
                     System.out.println("\t--keys : return keys and their occurrence count.");
                     System.out.println("\t--po : return list of potential objects based on given keys.");
                     break;
-                case "--tsv":
-                   System.out.println("gcxml " + grammar_version);
-                   TSVUpdater tsv = new TSVUpdater();
             }
         }else{
             System.out.println("No arguments specified.\n To see all available commands use --help:");
