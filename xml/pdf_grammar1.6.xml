@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<PDF grammar_version="0.2.1" iso_ref="ISO-32000" pdf_version="1.6">
+<PDF grammar_version="0.2.5" iso_ref="ISO-32000" pdf_version="1.6">
    <OBJECT id="3DActivation" object_number="000">
       <ENTRY>
          <NAME>A</NAME>
@@ -31670,7 +31670,9 @@
       <ENTRY>
          <NAME>SMaskInData</NAME>
          <VALUES>
-            <VALUE type="integer"/>
+            <VALUE type="integer">0</VALUE>
+            <VALUE type="integer">1</VALUE>
+            <VALUE type="integer">2</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
