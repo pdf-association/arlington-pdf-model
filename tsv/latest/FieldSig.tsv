@@ -1,17 +1,17 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-FT	name	1.3		TRUE	FALSE			[Sig]	Inheritable	
-Parent	dictionary	1.3		FALSE	FALSE					[FieldTx,FieldBtn,FieldCh,FieldSig,Field]
-Kids	array	1.3		FALSE	FALSE					[ArrayOfFields]
-T	string-text	1.3		TRUE	FALSE					
-TU	string-text	1.3		FALSE	FALSE					
-TM	string-text	1.3		FALSE	FALSE					
-Ff	integer	1.3		FALSE	FALSE				Inheritable	
-V	dictionary	1.3		FALSE	FALSE				Inheritable	[Signature,DocTimeStamp]
-DV	dictionary	1.3		FALSE	FALSE				Inheritable	[Signature,DocTimeStamp]
-AA	dictionary	1.3		FALSE	FALSE					[AddActionFormField]
-DA	string	1.3		TRUE	FALSE				Inheritable	
-Q	integer	1.3		FALSE	FALSE		0	[0,1,2]		
-DS	string-text	1.5		FALSE	FALSE					
-RV	stream;string-text	1.5		FALSE	FALSE					[Stream];[]
-Lock	dictionary	1.5		FALSE	FALSE					[SigFieldLock]
-SV	dictionary	1.5		FALSE	FALSE					[SigFieldSeedValue]
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+FT	name	1.3		TRUE	FALSE		[Sig]	Inheritable	
+Parent	dictionary	1.3		FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,FieldSig,Field]
+Kids	array	1.3		FALSE	FALSE				[ArrayOfFields]
+T	string-text	1.3		TRUE	FALSE				
+TU	string-text	1.3		FALSE	FALSE				
+TM	string-text	1.3		FALSE	FALSE				
+Ff	integer	1.3		FALSE	FALSE			Inheritable	
+V	dictionary	1.3		FALSE	FALSE			Inheritable	[Signature,DocTimeStamp]
+DV	dictionary	1.3		FALSE	FALSE			Inheritable	[Signature,DocTimeStamp]
+AA	dictionary	1.3		FALSE	FALSE				[AddActionFormField]
+DA	string	1.3		TRUE	FALSE			Inheritable	
+Q	integer	1.3		FALSE	FALSE	0	[0,1,2]		
+DS	string-text	1.5		FALSE	FALSE				
+RV	stream;string-text	1.5		FALSE	FALSE				[Stream];[]
+Lock	dictionary	1.5		FALSE	FALSE				[SigFieldLock]
+SV	dictionary	1.5		FALSE	FALSE				[SigFieldSeedValue]

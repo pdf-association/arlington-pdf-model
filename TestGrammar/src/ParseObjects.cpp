@@ -183,8 +183,7 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
             break;
           }
           std::wstring str_value;
-          if (vec[8] != "" && !check_possible_values(inner_object, vec[8], index, str_value)) {
-            //            if (vec[6] != "" && vec[6] != ToUtf8(str_value)) {
+          if (vec[7] != "" && !check_possible_values(inner_object, vec[7], index, str_value)) {
             to_ret = -1;
             break;
           }
@@ -289,13 +288,13 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
   // could be a pattern array;name --- [];[name1,name2]
   // could be single reference -- name1,name2
   // we should cober also sigle reference in brackets [name1,name2]
-  if (vec[8] != "" && index!=-1) {
+  if (vec[7] != "" && index!=-1) {
     std::wstring str_value;
-    if (!check_possible_values(object,vec[8],index, str_value))
+    if (!check_possible_values(object,vec[7],index, str_value))
     {
       output << "Error:  wrong value:";
       output << vec[0] << "(" << grammar_file << ")";
-      output << " should be:" << vec[8] << " and is " << ToUtf8(str_value) << std::endl;
+      output << " should be:" << vec[7] << " and is " << ToUtf8(str_value) << std::endl;
     }
 
     //std::wstring str_value;
@@ -320,9 +319,9 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
     //}
 
     //std::vector<std::string> options;
-    //std::string def = vec[8];
+    //std::string def = vec[7];
     //if (def[0] == '[') {
-    //  std::vector<std::string> all_defaults = split(vec[8], ';');
+    //  std::vector<std::string> all_defaults = split(vec[7], ';');
     //  def = all_defaults[index];
     //  def = def.substr(1, def.size() - 2);
     //}
@@ -352,7 +351,7 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
     //  if (!found) {
     //    output << "Error:  wrong value:";
     //    output << vec[0] << "(" << grammar_file << ")";
-    //    output << " should be:" << vec[8] << " and is " << ToUtf8(str_value) << std::endl;
+    //    output << " should be:" << vec[7] << " and is " << ToUtf8(str_value) << std::endl;
     //  }
     //}
   }
@@ -513,8 +512,8 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
         // we didn't find the key, there may be * we can use to validate
         if (!found)
           for (auto& vec : *data_list)
-            if (vec[0] == "*" && vec[10] != "") {
-              std::string lnk = get_link_for_type(inner_obj, vec[1], vec[10]);
+            if (vec[0] == "*" && vec[9] != "") {
+              std::string lnk = get_link_for_type(inner_obj, vec[1], vec[9]);
               std::string as = ToUtf8(key);
               std::string direct_link = select_one(inner_obj, lnk, as);
               parse_object(inner_obj, direct_link, context + "->" + as);
@@ -538,7 +537,7 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
 
     // now go through containers and Process them with new grammar_file
     for (auto& vec : *data_list)
-      if (vec.size() >= 11 && vec[10] != "") {
+      if (vec.size() >= 10 && vec[9] != "") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
         if (inner_obj != nullptr) {
           int index = get_type_index(inner_obj, vec[1]);
@@ -546,7 +545,7 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
           if (index == -1)
             break;
           std::vector<std::string> opt = split(vec[1], ';');
-          std::vector<std::string> links = split(vec[10], ';');
+          std::vector<std::string> links = split(vec[9], ';');
           if (links[index] == "[]")
             continue;
 
@@ -583,7 +582,7 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
           if (vec[0] == std::to_string(i) || vec[0] == "*") {
             // checking basics of the element
             check_basics(item, vec, grammar_file);
-            std::string lnk = get_link_for_type(item, vec[1], vec[10]);
+            std::string lnk = get_link_for_type(item, vec[1], vec[9]);
             std::string as = "[" + std::to_string(i) + "]";
             std::string direct_link = select_one(item, lnk, as);
             //if element does have a link - process it

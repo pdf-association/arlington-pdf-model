@@ -1,17 +1,17 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.6		FALSE	FALSE			[3DView]		
-XN	string-text	1.6		TRUE	FALSE					
-IN	string-text	1.6		FALSE	FALSE			[M,U3D]		
-MS	name	1.6		FALSE	FALSE					
-MA	array	2.0		FALSE	FALSE					[ArrayOf3DMeasure]
-C2W	array	1.6		FALSE	FALSE				Required=TRUE=>MS=M	[ArrayOf_3DTransMatrix]
-U3DPath	array;string-text	1.6		FALSE	FALSE				Required=TRUE=>MS=U3D	[];[]
-CO	number	1.6		FALSE	FALSE					
-P	dictionary	1.6		FALSE	FALSE					[Projection]
-O	stream	1.6		FALSE	FALSE					[XObjectFormType1]
-BG	dictionary	1.6		FALSE	FALSE					[3DBackground]
-RM	dictionary	1.7		FALSE	FALSE					[3DRenderMode]
-LS	dictionary	1.7		FALSE	FALSE					[3DLightningScheme]
-SA	array	1.7		FALSE	FALSE					[ArrayOf3DCrossSection]
-NA	array	1.7		FALSE	FALSE					[ArrayOf3DNode]
-NR	boolean	1.7		FALSE	FALSE		FALSE			
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.6		FALSE	FALSE		[3DView]		
+XN	string-text	1.6		TRUE	FALSE				
+IN	string-text	1.6		FALSE	FALSE		[M,U3D]		
+MS	name	1.6		FALSE	FALSE				
+MA	array	2.0		FALSE	FALSE				[ArrayOf3DMeasure]
+C2W	array	1.6		FALSE	FALSE			Required=TRUE=>MS=M	[ArrayOf3DTransMatrix]
+U3DPath	array;string-text	1.6		FALSE	FALSE			Required=TRUE=>MS=U3D	[];[]
+CO	number	1.6		FALSE	FALSE				
+P	dictionary	1.6		FALSE	FALSE				[Projection]
+O	stream	1.6		FALSE	FALSE				[XObjectFormType1]
+BG	dictionary	1.6		FALSE	FALSE				[3DBackground]
+RM	dictionary	1.7		FALSE	FALSE				[3DRenderMode]
+LS	dictionary	1.7		FALSE	FALSE				[3DLightningScheme]
+SA	array	1.7		FALSE	FALSE				[ArrayOf3DCrossSection]
+NA	array	1.7		FALSE	FALSE				[ArrayOf3DNode]
+NR	boolean	1.7		FALSE	FALSE	FALSE			

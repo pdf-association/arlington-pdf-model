@@ -44,8 +44,8 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
         //if (vc[0] == "*") {
         //  ofs << "* in" << gfile << std::endl;
         //}
-        if (vc[10] != "") {
-          std::vector<std::string> links = split(vc[10], ';');
+        if (vc[9] != "") {
+          std::vector<std::string> links = split(vc[9], ';');
           for (auto type_link : links) {
             std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ',');
             for (auto lnk : direct_links)
