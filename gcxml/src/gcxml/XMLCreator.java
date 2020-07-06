@@ -151,16 +151,16 @@ public class XMLCreator {
                             }
                             
                             if(is_linkable == true){
-                                value_elem = nodeValuesLinkable(column_values[1], column_values[10]);
+                                value_elem = nodeValuesLinkable(column_values[1], column_values[9]);
                             }else{
-                                value_elem = nodeValues(column_values[1], column_values[6], column_values[7], column_values[8]);
+                                value_elem = nodeValues(column_values[1], column_values[6], column_values[7]);
                             }
                             // creates <INTRODUCED>, <DEPRECATED>, <REQUIRED>, <INDIRECTREFERENCE>
                             Element introduced_elem = nodeIntroduced(column_values[2]);
                             Element deprecated_elem = nodeDeprecated(column_values[3]);
                             Element required_elem = nodeRequired(column_values[4]);
                             Element indirect_reference_elem = nodeIndirectReference(column_values[5]);
-                            Element special_case_elem = nodeSpecialCase(column_values[9]);
+                            Element special_case_elem = nodeSpecialCase(column_values[8]);
                             
                             if((name_elem != null) && (value_elem != null) && (introduced_elem != null) &&
                                     (deprecated_elem != null) && (required_elem != null) && (indirect_reference_elem != null) &&
@@ -302,7 +302,7 @@ public class XMLCreator {
         return values_elem;
     }
     
-    private Element nodeValues(String type, String required_value, String default_value, String possible_values) {
+    private Element nodeValues(String type, String default_value, String possible_values) {
         Element values_elem = new_doc.createElement("VALUES");
         
         String[] types = null;

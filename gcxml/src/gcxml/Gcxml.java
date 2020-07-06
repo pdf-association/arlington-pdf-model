@@ -25,7 +25,7 @@ public class Gcxml {
     /**
      * @param args the command line arguments
      */
-    public static final String grammar_version = "0.2.5";
+    public static final String grammar_version = "0.2.6";
     
     public static void main(String[] args) {
         final String delimiter = "\t";
