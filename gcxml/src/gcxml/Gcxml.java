@@ -25,24 +25,33 @@ public class Gcxml {
     /**
      * @param args the command line arguments
      */
-    public static final String grammar_version = "0.2.6";
+    public static final String grammar_version = "0.2.7";
     
     public static void main(String[] args) {
         final String delimiter = "\t";
+        String inputFolder = inputFolder = System.getProperty("user.dir") + "/tsv/latest/";
+        File folder = new File(inputFolder);
+        File[] listOfFiles = folder.listFiles();
         
         if(args.length > 0){
             String argument = args[0];
 
             switch (argument){
+                case "--all":
+                    System.out.println("gcxml " + grammar_version);                   
+                    double[] pdf_versions = {1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0};
+                    for(int i = 0; i < pdf_versions.length; i++ ){
+                        XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, String.valueOf(pdf_versions[i]));
+                        xmlcreator.convertFile();
+                    }
+                    TSVUpdater tsv = new TSVUpdater();
+                    break;
                 case "--conv":
                     System.out.println("gcxml " + grammar_version);
                     if(args.length>1 && (!args[1].isEmpty())){
-                        String grammar_version = args[1];
-                        String inputFolder = inputFolder = System.getProperty("user.dir") + "/tsv/latest/";
-                        File folder = new File(inputFolder);
-                        File[] listOfFiles = folder.listFiles();
-                                XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, grammar_version);
-                                xmlcreator.convertFile();
+                        String pdf_version = args[1];
+                        XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, pdf_version);
+                        xmlcreator.convertFile();
                     }else{
                         System.out.println("No version specified. Valid options for pdf versions are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 .");
                     }
@@ -117,7 +126,7 @@ public class Gcxml {
                      break;
                  case "--tsv":
                      System.out.println("gcxml " + grammar_version);
-                     TSVUpdater tsv = new TSVUpdater();
+                     TSVUpdater tsv2 = new TSVUpdater();
                  case "--sc":
                      System.out.println("gcxml " + grammar_version);
                      query = new XMLQuery();

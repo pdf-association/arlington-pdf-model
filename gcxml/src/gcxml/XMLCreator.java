@@ -335,7 +335,11 @@ public class XMLCreator {
                 values_elem.appendChild(value_elem);
             }
         }
-        
+        if(!default_value.isBlank()){
+            Element default_elem = new_doc.createElement("DEFAULT_VALUE");
+            default_elem.appendChild(new_doc.createTextNode(default_value));
+            values_elem.appendChild(default_elem);
+        }
         return values_elem;
     }
 

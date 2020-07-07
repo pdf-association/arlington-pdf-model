@@ -33,6 +33,7 @@ public class TSVUpdater {
     
     public TSVUpdater(){
         for(double x : pdf_version){
+            deleteContent(x);
             createTSV(x);
         }
     }
@@ -106,6 +107,20 @@ public class TSVUpdater {
                     Logger.getLogger(TSVUpdater.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        }
+    }
+
+    private void deleteContent(double x) {        
+        String path = "";
+        path +=  System.getProperty("user.dir") + "/tsv/";
+        path += x + "/";
+        
+        File[] list_of_files = null;
+        File folder = new File(path);
+        list_of_files = folder.listFiles();
+        
+        for(File file : list_of_files){
+            file.delete();
         }
     }
 }
