@@ -6,7 +6,7 @@ Decode	array	1.3		FALSE	FALSE				[ArrayOfNumbersGeneral]
 Function	array;dictionary;stream	1.3		TRUE	FALSE				[ArrayOfFunctions];[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]	
 ShadingType	integer	1.3		TRUE	FALSE		[7]			
 ColorSpace	array;name	1.3		TRUE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace];[]	except pattern
-Background	array	1.3		FALSE	FALSE				[]	
+Background	array	1.3		FALSE	FALSE				[ArrayOfNumbersGeneral]	
 BBox	rectangle	1.3		FALSE	FALSE					
 AntiAlias	boolean	1.3		FALSE	FALSE	FALSE				
 Length	integer	1.3		TRUE	FALSE					
