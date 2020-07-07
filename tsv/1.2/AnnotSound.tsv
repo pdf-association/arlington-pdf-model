@@ -1,14 +1,14 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.2	2.0	FALSE	FALSE			[Annot]		
-Subtype	name	1.2	2.0	TRUE	FALSE			[Sound]		
-Rect	rectangle	1.2	2.0	TRUE	FALSE					
-Contents	string-text	1.2	2.0	FALSE	FALSE					
-M	date;string-text	1.2	2.0	FALSE	FALSE					
-F	integer	1.2	2.0	FALSE	FALSE		0			
-AP	dictionary	1.2	2.0	FALSE	FALSE					[Appearance]
-AS	name	1.2	2.0	FALSE	FALSE					
-Border	array	1.2		FALSE	FALSE		[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
-C 	array	1.2	2.0	FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
-T 	string-text	1.2	2.0	FALSE	FALSE					
-Sound	stream	1.2	2.0	TRUE	FALSE					[SoundObject]
-Name	name	1.2	2.0	FALSE	FALSE		Speaker			
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.2	2.0	FALSE	FALSE		[Annot]		
+Subtype	name	1.2	2.0	TRUE	FALSE		[Sound]		
+Rect	rectangle	1.2	2.0	TRUE	FALSE				
+Contents	string-text	1.2	2.0	FALSE	FALSE				
+M	date;string-text	1.2	2.0	FALSE	FALSE				
+F	integer	1.2	2.0	FALSE	FALSE	0			
+AP	dictionary	1.2	2.0	FALSE	FALSE				[Appearance]
+AS	name	1.2	2.0	FALSE	FALSE				
+Border	array	1.2		FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
+C 	array	1.2	2.0	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]
+T 	string-text	1.2	2.0	FALSE	FALSE				
+Sound	stream	1.2	2.0	TRUE	FALSE				[SoundObject]
+Name	name	1.2	2.0	FALSE	FALSE	Speaker			

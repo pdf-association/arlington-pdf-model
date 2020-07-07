@@ -1,14 +1,14 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.3		FALSE	FALSE			[Sig]		
-Filter	name	1.3		TRUE	FALSE				Inheritable:Parent	
-SubFilter	name	1.3		FALSE	FALSE					
-Contents	string-byte	1.3		TRUE	FALSE					
-Cert	array;string-byte	1.3		FALSE	FALSE					[ArrayOfStringsByte];[]
-ByteRange	array	1.3		FALSE	FALSE					[ArrayOfIntegersGeneral]
-Changes	array	1.3		FALSE	FALSE					[ArrayOf_3Integers]
-Name	string-text	1.3		FALSE	FALSE					
-M	date	1.3		FALSE	FALSE					
-Location	string-text	1.3		FALSE	FALSE					
-Reason	string-text	1.3		FALSE	FALSE					
-ContactInfo	string-text	1.3		FALSE	FALSE					
-R	integer	1.3		FALSE	FALSE					
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.3		FALSE	FALSE		[Sig]		
+Filter	name	1.3		TRUE	FALSE			Inheritable:Parent	
+SubFilter	name	1.3		FALSE	FALSE				
+Contents	string-byte	1.3		TRUE	FALSE				
+Cert	array;string-byte	1.3		FALSE	FALSE				[ArrayOfStringsByte];[]
+ByteRange	array	1.3		FALSE	FALSE				[ArrayOfIntegersGeneral]
+Changes	array	1.3		FALSE	FALSE				[ArrayOf_3Integers]
+Name	string-text	1.3		FALSE	FALSE				
+M	date	1.3		FALSE	FALSE				
+Location	string-text	1.3		FALSE	FALSE				
+Reason	string-text	1.3		FALSE	FALSE				
+ContactInfo	string-text	1.3		FALSE	FALSE				
+R	integer	1.3		FALSE	FALSE				

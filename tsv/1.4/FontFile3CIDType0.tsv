@@ -1,11 +1,11 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	
-Length1	integer	1.0		FALSE	FALSE						
-Length2	integer	1.0		FALSE	FALSE						
-Length3	integer	1.0		FALSE	FALSE						
-Subtype	name	1.2		FALSE	FALSE			[CIDFontType0C]			
-Length	integer	1.3		TRUE	FALSE						* from stream
-Filter	array;name	1.3		FALSE	FALSE			[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
-DecodeParms	array;dictionary	1.3		FALSE	FALSE					[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	
-F 	dictionary;string	1.3		FALSE	FALSE					[FileSpecification];[]	
-FFilter	array;name	1.3		FALSE	FALSE			[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
-FDecodeParms	array;dictionary	1.3		FALSE	FALSE					[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	
+Length1	integer	1.0		FALSE	FALSE					
+Length2	integer	1.0		FALSE	FALSE					
+Length3	integer	1.0		FALSE	FALSE					
+Subtype	name	1.2		FALSE	FALSE		[CIDFontType0C]			
+Length	integer	1.3		TRUE	FALSE					* from stream
+Filter	array;name	1.3		FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
+DecodeParms	array;dictionary	1.3		FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	
+F 	dictionary;string	1.3		FALSE	FALSE				[FileSpecification];[]	
+FFilter	array;name	1.3		FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
+FDecodeParms	array;dictionary	1.3		FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	

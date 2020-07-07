@@ -1,17 +1,17 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.6		FALSE	FALSE			[Annot]		
-Subtype	name	1.6		TRUE	FALSE			[Watermark]		
-Rect	rectangle	1.6		TRUE	FALSE					
-Contents	string-text	1.6		FALSE	FALSE					
-P	dictionary	1.6		FALSE	FALSE					[PageObject]
-NM	string-text	1.6		FALSE	FALSE					
-M	date;string-text	1.6		FALSE	FALSE			[];[]		
-F	integer	1.6		FALSE	FALSE		0			
-AP	dictionary	1.6		FALSE	FALSE					[Appearance]
-AS	name	1.6		FALSE	FALSE					
-Border	array	1.6		FALSE	FALSE		[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
-C 	array	1.6		FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
-StructParent	integer	1.6		FALSE	FALSE					
-OC	dictionary	1.6		FALSE	FALSE					[OptContentGroup,OptContentMembership]
-FixedPrint	dictionary	1.6		FALSE	FALSE					[FixedPrint]
-ExData	dictionary	1.7		FALSE	FALSE					[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.6		FALSE	FALSE		[Annot]		
+Subtype	name	1.6		TRUE	FALSE		[Watermark]		
+Rect	rectangle	1.6		TRUE	FALSE				
+Contents	string-text	1.6		FALSE	FALSE				
+P	dictionary	1.6		FALSE	FALSE				[PageObject]
+NM	string-text	1.6		FALSE	FALSE				
+M	date;string-text	1.6		FALSE	FALSE		[];[]		
+F	integer	1.6		FALSE	FALSE	0			
+AP	dictionary	1.6		FALSE	FALSE				[Appearance]
+AS	name	1.6		FALSE	FALSE				
+Border	array	1.6		FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
+C 	array	1.6		FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]
+StructParent	integer	1.6		FALSE	FALSE				
+OC	dictionary	1.6		FALSE	FALSE				[OptContentGroup,OptContentMembership]
+FixedPrint	dictionary	1.6		FALSE	FALSE				[FixedPrint]
+ExData	dictionary	1.7		FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]

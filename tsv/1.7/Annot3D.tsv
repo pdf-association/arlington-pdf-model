@@ -1,21 +1,21 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.6		FALSE	FALSE			[Annot]		
-Subtype	name	1.6		TRUE	FALSE			[3D]		
-Rect	rectangle	1.6		TRUE	FALSE					
-Contents	string-text	1.6		FALSE	FALSE					
-P	dictionary	1.6		FALSE	FALSE					[PageObject]
-NM	string-text	1.6		FALSE	FALSE					
-M	date;string-text	1.6		FALSE	FALSE			[];[]		
-F	integer	1.6		FALSE	FALSE		0			
-AP	dictionary	1.6		FALSE	FALSE					[Appearance]
-AS	name	1.6		FALSE	FALSE					
-Border	array	1.6		FALSE	FALSE		[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
-C 	array	1.6		FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
-StructParent	integer	1.6		FALSE	FALSE					
-OC	dictionary	1.6		FALSE	FALSE					[OptContentGroup,OptContentMembership]
-3DD	dictionary;stream	1.6		TRUE	FALSE					[3DReference];[3DStream]
-3DV	dictionary;integer;name;string	1.6		FALSE	FALSE					[3DView];[];[];[]
-3DA	dictionary	1.6		FALSE	FALSE					[3DActivation]
-3DI	boolean	1.6		FALSE	FALSE		TRUE			
-3DB	rectangle	1.6		FALSE	FALSE					
-ExData	dictionary	1.7		FALSE	FALSE					[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.6		FALSE	FALSE		[Annot]		
+Subtype	name	1.6		TRUE	FALSE		[3D]		
+Rect	rectangle	1.6		TRUE	FALSE				
+Contents	string-text	1.6		FALSE	FALSE				
+P	dictionary	1.6		FALSE	FALSE				[PageObject]
+NM	string-text	1.6		FALSE	FALSE				
+M	date;string-text	1.6		FALSE	FALSE		[];[]		
+F	integer	1.6		FALSE	FALSE	0			
+AP	dictionary	1.6		FALSE	FALSE				[Appearance]
+AS	name	1.6		FALSE	FALSE				
+Border	array	1.6		FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
+C 	array	1.6		FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]
+StructParent	integer	1.6		FALSE	FALSE				
+OC	dictionary	1.6		FALSE	FALSE				[OptContentGroup,OptContentMembership]
+3DD	dictionary;stream	1.6		TRUE	FALSE				[3DReference];[3DStream]
+3DV	dictionary;integer;name;string	1.6		FALSE	FALSE				[3DView];[];[];[]
+3DA	dictionary	1.6		FALSE	FALSE				[3DActivation]
+3DI	boolean	1.6		FALSE	FALSE	TRUE			
+3DB	rectangle	1.6		FALSE	FALSE				
+ExData	dictionary	1.7		FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]

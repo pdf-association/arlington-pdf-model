@@ -1,7 +1,7 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.5		FALSE	FALSE			[SVCert]		
-Ff	integer	1.5		FALSE	FALSE		0			
-Subject	array	1.5		FALSE	FALSE					[ArrayOfStringsByte]
-Issuer	array	1.5		FALSE	FALSE					[ArrayOfStringsByte]
-OID	array	1.5		FALSE	FALSE					[ArrayOfStringsByte]
-URL	string-ascii	1.5		FALSE	FALSE					
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.5		FALSE	FALSE		[SVCert]		
+Ff	integer	1.5		FALSE	FALSE	0			
+Subject	array	1.5		FALSE	FALSE				[ArrayOfStringsByte]
+Issuer	array	1.5		FALSE	FALSE				[ArrayOfStringsByte]
+OID	array	1.5		FALSE	FALSE				[ArrayOfStringsByte]
+URL	string-ascii	1.5		FALSE	FALSE				

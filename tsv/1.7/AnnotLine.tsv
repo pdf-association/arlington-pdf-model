@@ -1,35 +1,35 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.3		FALSE	FALSE			[Annot]		
-Subtype	name	1.3		TRUE	FALSE			[Line]		
-Rect	rectangle	1.3		TRUE	FALSE					
-Contents	string-text	1.3		FALSE	FALSE					
-P	dictionary	1.3		FALSE	FALSE					[PageObject]
-NM	string-text	1.4		FALSE	FALSE					
-M	date;string-text	1.3		FALSE	FALSE					
-F	integer	1.3		FALSE	FALSE		0			
-AP	dictionary	1.3		FALSE	FALSE					[Appearance]
-AS	name	1.3		FALSE	FALSE					
-Border	array	1.3		FALSE	FALSE		[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
-C 	array	1.3		FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
-StructParent	integer	1.3		FALSE	FALSE					
-OC	dictionary	1.5		FALSE	FALSE					[OptContentGroup,OptContentMembership]
-T 	string-text	1.3		FALSE	FALSE					
-Popup	dictionary	1.3		FALSE	FALSE					[AnnotPopup]
-RC	stream;string-text	1.5		FALSE	FALSE					[Stream];[]
-CreationDate	date	1.5		FALSE	FALSE					
-IRT	dictionary	1.5		FALSE	FALSE				Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]
-Subj	string-text	1.5		FALSE	FALSE					
-RT	name	1.6		FALSE	FALSE		R	[R,Group]		
-L	array	1.3		TRUE	FALSE					[ArrayOf_4Numbers]
-BS	dictionary	1.3		FALSE	FALSE					[BorderStyle]
-LE	array	1.4		FALSE	FALSE		[/None /None]			[ArrayOf_2LineEndingsNames]
-IC	array	1.4		FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
-LL	number	1.6		FALSE	FALSE		0			
-LLE	number	1.6		FALSE	FALSE		0			
-Cap	boolean	1.6		FALSE	FALSE		FALSE			
-IT	name	1.6		FALSE	FALSE			[LineArrow,LineDimension]		
-LLO	number	1.7		FALSE	FALSE					
-CP	name	1.7		FALSE	FALSE		Inline	[Inline,Top]		
-Measure	dictionary	1.7		FALSE	FALSE					[MeasureRL,MeasureGEO]
-CO	array	1.7		FALSE	FALSE		[0, 0]		meaningful only if Cap is true	[ArrayOf_2Numbers]
-ExData	dictionary	1.7		FALSE	FALSE					[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.3		FALSE	FALSE		[Annot]		
+Subtype	name	1.3		TRUE	FALSE		[Line]		
+Rect	rectangle	1.3		TRUE	FALSE				
+Contents	string-text	1.3		FALSE	FALSE				
+P	dictionary	1.3		FALSE	FALSE				[PageObject]
+NM	string-text	1.4		FALSE	FALSE				
+M	date;string-text	1.3		FALSE	FALSE				
+F	integer	1.3		FALSE	FALSE	0			
+AP	dictionary	1.3		FALSE	FALSE				[Appearance]
+AS	name	1.3		FALSE	FALSE				
+Border	array	1.3		FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
+C 	array	1.3		FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]
+StructParent	integer	1.3		FALSE	FALSE				
+OC	dictionary	1.5		FALSE	FALSE				[OptContentGroup,OptContentMembership]
+T 	string-text	1.3		FALSE	FALSE				
+Popup	dictionary	1.3		FALSE	FALSE				[AnnotPopup]
+RC	stream;string-text	1.5		FALSE	FALSE				[Stream];[]
+CreationDate	date	1.5		FALSE	FALSE				
+IRT	dictionary	1.5		FALSE	FALSE			Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]
+Subj	string-text	1.5		FALSE	FALSE				
+RT	name	1.6		FALSE	FALSE	R	[R,Group]		
+L	array	1.3		TRUE	FALSE				[ArrayOf_4Numbers]
+BS	dictionary	1.3		FALSE	FALSE				[BorderStyle]
+LE	array	1.4		FALSE	FALSE	[/None /None]			[ArrayOf_2LineEndingsNames]
+IC	array	1.4		FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]
+LL	number	1.6		FALSE	FALSE	0			
+LLE	number	1.6		FALSE	FALSE	0			
+Cap	boolean	1.6		FALSE	FALSE	FALSE			
+IT	name	1.6		FALSE	FALSE		[LineArrow,LineDimension]		
+LLO	number	1.7		FALSE	FALSE				
+CP	name	1.7		FALSE	FALSE	Inline	[Inline,Top]		
+Measure	dictionary	1.7		FALSE	FALSE				[MeasureRL,MeasureGEO]
+CO	array	1.7		FALSE	FALSE	[0, 0]		meaningful only if Cap is true	[ArrayOf_2Numbers]
+ExData	dictionary	1.7		FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]

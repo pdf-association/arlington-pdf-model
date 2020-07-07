@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<PDF grammar_version="0.2.5" iso_ref="ISO-32000" pdf_version="2.0">
+<PDF grammar_version="0.2.7" iso_ref="ISO-32000" pdf_version="2.0">
    <OBJECT id="3DActivation" object_number="000">
       <ENTRY>
          <NAME>A</NAME>
@@ -7,6 +7,7 @@
             <VALUE type="name">PO</VALUE>
             <VALUE type="name">PV</VALUE>
             <VALUE type="name">XA</VALUE>
+            <DEFAULT_VALUE>XA</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -19,6 +20,7 @@
          <VALUES>
             <VALUE type="name">I</VALUE>
             <VALUE type="name">L</VALUE>
+            <DEFAULT_VALUE>L</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32,6 +34,7 @@
             <VALUE type="name">PC</VALUE>
             <VALUE type="name">PI</VALUE>
             <VALUE type="name">XD</VALUE>
+            <DEFAULT_VALUE>PI</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -45,6 +48,7 @@
             <VALUE type="name">U</VALUE>
             <VALUE type="name">I</VALUE>
             <VALUE type="name">L</VALUE>
+            <DEFAULT_VALUE>U</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -56,6 +60,7 @@
          <NAME>TB</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -67,6 +72,7 @@
          <NAME>NP</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -79,6 +85,7 @@
          <VALUES>
             <VALUE type="name">Embedded</VALUE>
             <VALUE type="name">Windowed</VALUE>
+            <DEFAULT_VALUE>Embedded</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -101,6 +108,7 @@
          <NAME>Transparent</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -127,6 +135,7 @@
             <VALUE type="name">None</VALUE>
             <VALUE type="name">Linear</VALUE>
             <VALUE type="name">Oscillating</VALUE>
+            <DEFAULT_VALUE>None</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -138,6 +147,7 @@
          <NAME>PC</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -149,6 +159,7 @@
          <NAME>TM</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -173,6 +184,7 @@
          <NAME>Subtype</NAME>
          <VALUES>
             <VALUE type="name">SC</VALUE>
+            <DEFAULT_VALUE>SC</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -208,6 +220,7 @@
          <NAME>EA</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -254,6 +267,7 @@
          <NAME>PO</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0.5</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -276,6 +290,7 @@
          <NAME>IV</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -298,6 +313,7 @@
          <NAME>ST</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -309,6 +325,7 @@
          <NAME>SC</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -434,6 +451,7 @@
          <NAME>TS</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>12</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -623,6 +641,7 @@
          <NAME>TS</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>12</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -656,6 +675,7 @@
          <NAME>P</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>3</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -678,6 +698,7 @@
          <NAME>DR</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -812,6 +833,7 @@
          <NAME>TS</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>12</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -856,6 +878,7 @@
          <NAME>P</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>3</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1012,6 +1035,7 @@
          <NAME>TS</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>12</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1056,6 +1080,7 @@
          <NAME>P</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>3</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1223,6 +1248,7 @@
          <NAME>EL</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>60</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1234,6 +1260,7 @@
          <NAME>TS</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>12</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1278,6 +1305,7 @@
          <NAME>P</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>3</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1300,6 +1328,7 @@
          <NAME>SC</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1311,6 +1340,7 @@
          <NAME>R</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1509,6 +1539,7 @@
          <NAME>O</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0.5</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1520,6 +1551,7 @@
          <NAME>CV</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>45</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1877,7 +1909,7 @@
       <ENTRY>
          <NAME>C2W</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOf_3DTransMatrix</VALUE>
+            <VALUE type="array">ArrayOf3DTransMatrix</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1989,6 +2021,7 @@
          <NAME>NR</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2057,7 +2090,7 @@
       <ENTRY>
          <NAME>C2W</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOf_3DTransMatrix</VALUE>
+            <VALUE type="array">ArrayOf3DTransMatrix</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2169,6 +2202,7 @@
          <NAME>NR</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2794,6 +2828,7 @@
          <NAME>H</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3063,6 +3098,7 @@
             <VALUE type="name">Stop</VALUE>
             <VALUE type="name">Pause</VALUE>
             <VALUE type="name">Resume</VALUE>
+            <DEFAULT_VALUE>Play</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3475,6 +3511,7 @@
          <NAME>PreserveRB</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3552,6 +3589,7 @@
          <NAME>Volume</NAME>
          <VALUES>
             <VALUE type="number">&lt;-1.0..1.0&gt;</VALUE>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3563,6 +3601,7 @@
          <NAME>Synchronous</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3574,6 +3613,7 @@
          <NAME>Repeat</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3585,6 +3625,7 @@
          <NAME>Mix</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3632,6 +3673,7 @@
          <NAME>Flags</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3883,6 +3925,7 @@
          <NAME>IsMap</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -4374,6 +4417,7 @@
          <NAME>DefaultForPrinting</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -4477,6 +4521,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -4567,6 +4612,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -4648,6 +4694,7 @@
          <NAME>3DI</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -4785,6 +4832,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -4875,6 +4923,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5012,6 +5061,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5046,6 +5096,7 @@
          <VALUES>
             <VALUE type="name">P</VALUE>
             <VALUE type="name">None</VALUE>
+            <DEFAULT_VALUE>None</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5150,6 +5201,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5240,6 +5292,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5377,6 +5430,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5536,6 +5590,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5626,6 +5681,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5763,6 +5819,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5800,6 +5857,7 @@
             <VALUE type="name">PushPin</VALUE>
             <VALUE type="name">Paperclip</VALUE>
             <VALUE type="name">Tag</VALUE>
+            <DEFAULT_VALUE>PushPin</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5904,6 +5962,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5994,6 +6053,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -6131,6 +6191,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -6155,6 +6216,7 @@
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -6190,6 +6252,7 @@
             <VALUE type="name">FreeText</VALUE>
             <VALUE type="name">FreeTextCallout</VALUE>
             <VALUE type="name">FreeTextTypeWriter</VALUE>
+            <DEFAULT_VALUE>FreeText</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -6338,6 +6401,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -6428,6 +6492,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -6565,6 +6630,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -6691,6 +6757,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -6781,6 +6848,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -6918,6 +6986,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7066,6 +7135,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7156,6 +7226,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7293,6 +7364,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7348,6 +7420,7 @@
          <NAME>LL</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7359,6 +7432,7 @@
          <NAME>LLE</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7370,6 +7444,7 @@
          <NAME>Cap</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7405,6 +7480,7 @@
          <VALUES>
             <VALUE type="name">Inline</VALUE>
             <VALUE type="name">Top</VALUE>
+            <DEFAULT_VALUE>Inline</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7532,6 +7608,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7622,6 +7699,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7715,6 +7793,7 @@
             <VALUE type="name">I</VALUE>
             <VALUE type="name">O</VALUE>
             <VALUE type="name">P</VALUE>
+            <DEFAULT_VALUE>I</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7852,6 +7931,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -7942,6 +8022,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -8038,7 +8119,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8049,7 +8130,7 @@
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8060,7 +8141,7 @@
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8071,7 +8152,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8082,7 +8163,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8093,7 +8174,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.4</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8105,7 +8186,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8113,10 +8194,11 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8127,7 +8209,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.2</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8138,7 +8220,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.2</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8149,7 +8231,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8160,7 +8242,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8171,7 +8253,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8203,6 +8285,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -8250,7 +8333,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8261,7 +8344,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8340,6 +8423,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -8354,7 +8438,7 @@
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE>Required unless a Path key is present, in which case it shall be ignored</SPECIAL_CASE>
       </ENTRY>
@@ -8376,7 +8460,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8387,7 +8471,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.4</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8398,7 +8482,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -8535,6 +8619,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -8625,6 +8710,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -8762,6 +8848,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -8957,6 +9044,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -9047,6 +9135,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -9231,6 +9320,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -9321,6 +9411,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -9470,6 +9561,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -9560,6 +9652,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -9697,6 +9790,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -9812,6 +9906,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -9902,6 +9997,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -10039,6 +10135,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -10233,6 +10330,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -10323,6 +10421,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -10482,6 +10581,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -10572,6 +10672,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -10772,6 +10873,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -10862,6 +10964,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -10999,6 +11102,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -11032,6 +11136,7 @@
          <NAME>Name</NAME>
          <VALUES>
             <VALUE type="name"/>
+            <DEFAULT_VALUE>Speaker</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -11136,6 +11241,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -11226,6 +11332,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -11363,6 +11470,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -11522,6 +11630,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -11612,6 +11721,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -11749,6 +11859,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -11875,6 +11986,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -11965,6 +12077,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -12102,6 +12215,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -12126,6 +12240,7 @@
             <VALUE type="name">StampSnapshot</VALUE>
             <VALUE type="name">StampImage</VALUE>
             <VALUE type="name">Stamp</VALUE>
+            <DEFAULT_VALUE>Stamp</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -12230,6 +12345,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -12320,6 +12436,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -12457,6 +12574,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -12583,6 +12701,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -12673,6 +12792,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -12810,6 +12930,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -12832,6 +12953,7 @@
          <NAME>Open</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -12849,6 +12971,7 @@
             <VALUE type="name">NewParagraph</VALUE>
             <VALUE type="name">Paragraph</VALUE>
             <VALUE type="name">Insert</VALUE>
+            <DEFAULT_VALUE>Note</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -13233,6 +13356,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -13323,6 +13447,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -13460,6 +13585,7 @@
          <VALUES>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">Group</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -13481,7 +13607,7 @@
       <ENTRY>
          <NAME>QuadPoints</NAME>
          <VALUES>
-            <VALUE type="array">ArayOfQuadPoints</VALUE>
+            <VALUE type="array">ArrayOfQuadPoints</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -13586,6 +13712,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -13676,6 +13803,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -13824,6 +13952,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -13914,6 +14043,7 @@
          <NAME>ca</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -13962,6 +14092,7 @@
             <VALUE type="name">O</VALUE>
             <VALUE type="name">P</VALUE>
             <VALUE type="name">T</VALUE>
+            <DEFAULT_VALUE>I</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -14100,6 +14231,7 @@
          <NAME>R</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -14219,6 +14351,7 @@
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">5</VALUE>
             <VALUE type="integer">6</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -14686,7 +14819,9 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="dictionary">StandardLayoutAttributes</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesBLSE</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesColumn</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesILSE</VALUE>
             <VALUE type="dictionary">StandardTableAttributes</VALUE>
             <VALUE type="dictionary">StandardListAttributes</VALUE>
             <VALUE type="dictionary">StandardPrintFieldAttributes</VALUE>
@@ -16091,8 +16226,8 @@
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
-            <VALUE type="[null"/>
-            <VALUE type="number]"/>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -16103,8 +16238,8 @@
       <ENTRY>
          <NAME>1</NAME>
          <VALUES>
-            <VALUE type="[null"/>
-            <VALUE type="number]"/>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -16115,8 +16250,8 @@
       <ENTRY>
          <NAME>2</NAME>
          <VALUES>
-            <VALUE type="[null"/>
-            <VALUE type="number]"/>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -16929,6 +17064,7 @@
          <VALUES>
             <VALUE type="name">C</VALUE>
             <VALUE type="name">S</VALUE>
+            <DEFAULT_VALUE>S</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -16940,6 +17076,7 @@
          <NAME>I</NAME>
          <VALUES>
             <VALUE type="number">&lt;0..2&gt;</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -16964,6 +17101,7 @@
          <NAME>W</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -16979,6 +17117,7 @@
             <VALUE type="name">D</VALUE>
             <VALUE type="name">I</VALUE>
             <VALUE type="name">U</VALUE>
+            <DEFAULT_VALUE>S</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17060,6 +17199,7 @@
          <NAME>W</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17072,6 +17212,7 @@
          <VALUES>
             <VALUE type="name">S</VALUE>
             <VALUE type="name">D</VALUE>
+            <DEFAULT_VALUE>S</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17173,6 +17314,7 @@
          <NAME>Leading</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17195,6 +17337,7 @@
          <NAME>XHeight</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17217,6 +17360,7 @@
          <NAME>StemH</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17228,6 +17372,7 @@
          <NAME>AvgWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17239,6 +17384,7 @@
          <NAME>MaxWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17250,6 +17396,7 @@
          <NAME>MissingWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17343,6 +17490,7 @@
          <VALUES>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">0</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17506,6 +17654,7 @@
          <NAME>Gamma</NAME>
          <VALUES>
             <VALUE type="number">(0..)</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17690,6 +17839,7 @@
             <VALUE type="name">TwoColumnRight</VALUE>
             <VALUE type="name">TwoPageLeft</VALUE>
             <VALUE type="name">TwoPageRight</VALUE>
+            <DEFAULT_VALUE>SinglePage</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17706,6 +17856,7 @@
             <VALUE type="name">FullScreen</VALUE>
             <VALUE type="name">UseOC</VALUE>
             <VALUE type="name">UseAttachments</VALUE>
+            <DEFAULT_VALUE>UseNone</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17938,6 +18089,7 @@
          <NAME>NeedsRendering</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17995,6 +18147,7 @@
          <NAME>Ff</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18116,6 +18269,7 @@
          <NAME>URLType</NAME>
          <VALUES>
             <VALUE type="name">Browser</VALUE>
+            <DEFAULT_VALUE>Browser</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18141,7 +18295,9 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="dictionary">StandardLayoutAttributes</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesBLSE</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesColumn</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesILSE</VALUE>
             <VALUE type="dictionary">StandardTableAttributes</VALUE>
             <VALUE type="dictionary">StandardListAttributes</VALUE>
             <VALUE type="dictionary">StandardPrintFieldAttributes</VALUE>
@@ -18382,6 +18538,7 @@
          <NAME>V</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18393,6 +18550,7 @@
          <NAME>E</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18544,6 +18702,7 @@
             <VALUE type="date"/>
             <VALUE type="number"/>
             <VALUE type="string-text"/>
+            <DEFAULT_VALUE>none</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18555,6 +18714,7 @@
          <NAME>P</NAME>
          <VALUES>
             <VALUE type="string-text"/>
+            <DEFAULT_VALUE>none</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18603,6 +18763,7 @@
             <VALUE type="name">V2</VALUE>
             <VALUE type="name">AESV2</VALUE>
             <VALUE type="name">AESV3</VALUE>
+            <DEFAULT_VALUE>None</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18615,6 +18776,7 @@
          <VALUES>
             <VALUE type="name">DocOpen</VALUE>
             <VALUE type="name">EFOpen</VALUE>
+            <DEFAULT_VALUE>DocOpen</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18651,6 +18813,7 @@
          <NAME>EncryptMetadata</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18676,6 +18839,7 @@
             <VALUE type="name">V2</VALUE>
             <VALUE type="name">AESV2</VALUE>
             <VALUE type="name">AESV3</VALUE>
+            <DEFAULT_VALUE>None</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18688,6 +18852,7 @@
          <VALUES>
             <VALUE type="name">DocOpen</VALUE>
             <VALUE type="name">EFOpen</VALUE>
+            <DEFAULT_VALUE>DocOpen</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -19366,6 +19531,7 @@
          <VALUES>
             <VALUE type="name">DeviceN</VALUE>
             <VALUE type="name">NChannel</VALUE>
+            <DEFAULT_VALUE>DeviceN</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -19564,6 +19730,7 @@
             <VALUE type="name">True</VALUE>
             <VALUE type="name">False</VALUE>
             <VALUE type="name">Unknown</VALUE>
+            <DEFAULT_VALUE>Unknown</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -19590,6 +19757,7 @@
             <VALUE type="number">1</VALUE>
             <VALUE type="number">2</VALUE>
             <VALUE type="number">3</VALUE>
+            <DEFAULT_VALUE>2</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -19601,6 +19769,7 @@
          <NAME>V</NAME>
          <VALUES>
             <VALUE type="name">1.2</VALUE>
+            <DEFAULT_VALUE>1.2</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -19769,6 +19938,7 @@
          <NAME>V</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -19847,7 +20017,7 @@
       <ENTRY>
          <NAME>Mac</NAME>
          <VALUES>
-            <VALUE type="dictionary"/>
+            <VALUE type="dictionary">Mac</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20106,12 +20276,12 @@
       <ENTRY>
          <NAME>V</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
-            <VALUE type="number">1</VALUE>
-            <VALUE type="number">2</VALUE>
-            <VALUE type="number">3</VALUE>
-            <VALUE type="number">4</VALUE>
-            <VALUE type="number">5</VALUE>
+            <VALUE type="integer">0</VALUE>
+            <VALUE type="integer">1</VALUE>
+            <VALUE type="integer">2</VALUE>
+            <VALUE type="integer">3</VALUE>
+            <VALUE type="integer">4</VALUE>
+            <VALUE type="integer">5</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20123,6 +20293,7 @@
          <NAME>Length</NAME>
          <VALUES>
             <VALUE type="integer">&lt;40..128&gt; value*8</VALUE>
+            <DEFAULT_VALUE>40</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20146,6 +20317,7 @@
          <NAME>StmF</NAME>
          <VALUES>
             <VALUE type="name"/>
+            <DEFAULT_VALUE>Identity</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20157,6 +20329,7 @@
          <NAME>StrF</NAME>
          <VALUES>
             <VALUE type="name"/>
+            <DEFAULT_VALUE>Identity</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20179,6 +20352,7 @@
          <NAME>EncryptMetadata</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20192,6 +20366,7 @@
          <NAME>Filter</NAME>
          <VALUES>
             <VALUE type="name">Standard</VALUE>
+            <DEFAULT_VALUE>Standard</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20213,12 +20388,12 @@
       <ENTRY>
          <NAME>V</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
-            <VALUE type="number">1</VALUE>
-            <VALUE type="number">2</VALUE>
-            <VALUE type="number">3</VALUE>
-            <VALUE type="number">4</VALUE>
-            <VALUE type="number">5</VALUE>
+            <VALUE type="integer">0</VALUE>
+            <VALUE type="integer">1</VALUE>
+            <VALUE type="integer">2</VALUE>
+            <VALUE type="integer">3</VALUE>
+            <VALUE type="integer">4</VALUE>
+            <VALUE type="integer">5</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20230,6 +20405,7 @@
          <NAME>Length</NAME>
          <VALUES>
             <VALUE type="integer">&lt;40..128&gt; value*8</VALUE>
+            <DEFAULT_VALUE>40</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20252,6 +20428,7 @@
          <NAME>StmF</NAME>
          <VALUES>
             <VALUE type="name"/>
+            <DEFAULT_VALUE>Identity</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20263,6 +20440,7 @@
          <NAME>StrF</NAME>
          <VALUES>
             <VALUE type="name"/>
+            <DEFAULT_VALUE>Identity</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20284,11 +20462,11 @@
       <ENTRY>
          <NAME>R</NAME>
          <VALUES>
-            <VALUE type="number">2</VALUE>
-            <VALUE type="number">3</VALUE>
-            <VALUE type="number">4</VALUE>
-            <VALUE type="number">5</VALUE>
-            <VALUE type="number">6</VALUE>
+            <VALUE type="integer">2</VALUE>
+            <VALUE type="integer">3</VALUE>
+            <VALUE type="integer">4</VALUE>
+            <VALUE type="integer">5</VALUE>
+            <VALUE type="integer">6</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20299,7 +20477,7 @@
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
-            <VALUE type="string"/>
+            <VALUE type="string-byte"/>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20310,7 +20488,7 @@
       <ENTRY>
          <NAME>U</NAME>
          <VALUES>
-            <VALUE type="string"/>
+            <VALUE type="string-byte"/>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20321,7 +20499,7 @@
       <ENTRY>
          <NAME>OE</NAME>
          <VALUES>
-            <VALUE type="string"/>
+            <VALUE type="string-byte"/>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20332,7 +20510,7 @@
       <ENTRY>
          <NAME>UE</NAME>
          <VALUES>
-            <VALUE type="string"/>
+            <VALUE type="string-byte"/>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20385,7 +20563,7 @@
       <ENTRY>
          <NAME>Perms</NAME>
          <VALUES>
-            <VALUE type="string"/>
+            <VALUE type="string-byte"/>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20397,6 +20575,7 @@
          <NAME>EncryptMetadata</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20411,7 +20590,7 @@
          <VALUES>
             <VALUE type="name">ExData</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INTRODUCED>1.7</INTRODUCED>
          <DEPRECATED/>
@@ -20469,7 +20648,7 @@
          <VALUES>
             <VALUE type="name">ExData</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INTRODUCED>2.0</INTRODUCED>
          <DEPRECATED/>
@@ -20493,7 +20672,7 @@
          <VALUES>
             <VALUE type="name">ExData</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INTRODUCED>2.0</INTRODUCED>
          <DEPRECATED/>
@@ -20752,6 +20931,7 @@
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -20948,6 +21128,7 @@
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21053,6 +21234,7 @@
          <NAME>V</NAME>
          <VALUES>
             <VALUE type="name">1.2</VALUE>
+            <DEFAULT_VALUE>1.2</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21195,6 +21377,7 @@
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21382,6 +21565,7 @@
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21613,13 +21797,13 @@
       <ENTRY>
          <NAME>Size</NAME>
          <VALUES>
-            <VALUE type="integer">(0..)</VALUE>
+            <VALUE type="integer"/>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
-         <SPECIAL_CASE/>
+         <SPECIAL_CASE>[(0..)]</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Prev</NAME>
@@ -21683,6 +21867,7 @@
          <NAME>K </NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21694,6 +21879,7 @@
          <NAME>EndOfLine</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21705,6 +21891,7 @@
          <NAME>EncodedByteAlign</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21716,6 +21903,7 @@
          <NAME>Columns</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>1728</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21727,6 +21915,7 @@
          <NAME>Rows</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21738,6 +21927,7 @@
          <NAME>EndOfBlock</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21749,6 +21939,7 @@
          <NAME>BlackIs1</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21760,6 +21951,7 @@
          <NAME>DamagedRowsBeforeError</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21784,6 +21976,7 @@
          <NAME>Name</NAME>
          <VALUES>
             <VALUE type="name"/>
+            <DEFAULT_VALUE>Identity</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21855,6 +22048,7 @@
          <NAME>Columns</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21867,6 +22061,7 @@
          <VALUES>
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21937,6 +22132,7 @@
          <NAME>Columns</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21949,6 +22145,7 @@
          <VALUES>
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21984,6 +22181,7 @@
          <NAME>H</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21995,6 +22193,7 @@
          <NAME>V</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22033,6 +22232,7 @@
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
             <VALUE type="integer">3</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22052,6 +22252,7 @@
             <VALUE type="integer">6</VALUE>
             <VALUE type="integer">7</VALUE>
             <VALUE type="integer">8</VALUE>
+            <DEFAULT_VALUE>4</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22065,6 +22266,7 @@
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22076,6 +22278,7 @@
          <NAME>T</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22087,6 +22290,7 @@
          <NAME>UC</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22100,6 +22304,7 @@
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22313,6 +22518,7 @@
          <NAME>DW</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1000</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22437,6 +22643,7 @@
          <NAME>DW</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1000</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22632,6 +22839,7 @@
          <NAME>Leading</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22654,6 +22862,7 @@
          <NAME>XHeight</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22676,6 +22885,7 @@
          <NAME>StemH</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22687,6 +22897,7 @@
          <NAME>AvgWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22698,6 +22909,7 @@
          <NAME>MaxWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22709,6 +22921,7 @@
          <NAME>MissingWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22871,6 +23084,7 @@
          <NAME>Leading</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22893,6 +23107,7 @@
          <NAME>XHeight</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22915,6 +23130,7 @@
          <NAME>StemH</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22926,6 +23142,7 @@
          <NAME>AvgWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22937,6 +23154,7 @@
          <NAME>MaxWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -22948,6 +23166,7 @@
          <NAME>MissingWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23164,6 +23383,7 @@
          <NAME>Leading</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23186,6 +23406,7 @@
          <NAME>XHeight</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23208,6 +23429,7 @@
          <NAME>StemH</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23219,6 +23441,7 @@
          <NAME>AvgWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23230,6 +23453,7 @@
          <NAME>MaxWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23241,6 +23465,7 @@
          <NAME>MissingWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23457,6 +23682,7 @@
          <NAME>Leading</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23479,6 +23705,7 @@
          <NAME>XHeight</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23501,6 +23728,7 @@
          <NAME>StemH</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23512,6 +23740,7 @@
          <NAME>AvgWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23523,6 +23752,7 @@
          <NAME>MaxWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23534,6 +23764,7 @@
          <NAME>MissingWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23696,6 +23927,7 @@
          <NAME>Leading</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23718,6 +23950,7 @@
          <NAME>XHeight</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23740,6 +23973,7 @@
          <NAME>StemH</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23751,6 +23985,7 @@
          <NAME>AvgWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23762,6 +23997,7 @@
          <NAME>MaxWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -23773,6 +24009,7 @@
          <NAME>MissingWidth</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -25194,7 +25431,7 @@
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
-         <SPECIAL_CASE>*Not clear if required or needed</SPECIAL_CASE>
+         <SPECIAL_CASE>required in tagged pdf</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Resources</NAME>
@@ -25287,6 +25524,7 @@
          <VALUES>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">3</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -25677,6 +25915,7 @@
          <NAME>0</NAME>
          <VALUES>
             <VALUE type="number">&lt;0..)</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -25688,6 +25927,7 @@
          <NAME>1</NAME>
          <VALUES>
             <VALUE type="number">&lt;0..)</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -25699,6 +25939,7 @@
          <NAME>2</NAME>
          <VALUES>
             <VALUE type="number">&lt;0..)</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -26086,6 +26327,7 @@
             <VALUE type="name">OFF</VALUE>
             <VALUE type="name">ON</VALUE>
             <VALUE type="name">Default</VALUE>
+            <DEFAULT_VALUE>Default</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -26170,6 +26412,7 @@
          <NAME>I</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -26181,6 +26424,7 @@
          <NAME>K </NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -26357,6 +26601,7 @@
          <NAME>AccurateScreens</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -26745,7 +26990,7 @@
       <ENTRY>
          <NAME>HalftoneType</NAME>
          <VALUES>
-            <VALUE type="number">5</VALUE>
+            <VALUE type="integer">5</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27135,6 +27380,7 @@
             <VALUE type="name">B</VALUE>
             <VALUE type="name">S</VALUE>
             <VALUE type="name">N</VALUE>
+            <DEFAULT_VALUE>A</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27147,6 +27393,7 @@
          <VALUES>
             <VALUE type="name">A</VALUE>
             <VALUE type="name">P</VALUE>
+            <DEFAULT_VALUE>A</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27169,6 +27416,7 @@
          <NAME>FB</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27247,6 +27495,7 @@
          <NAME>NeedAppearances</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27258,6 +27507,7 @@
          <NAME>SigFlags</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27386,6 +27636,7 @@
          <NAME>0</NAME>
          <VALUES>
             <VALUE type="number">value&lt;@1</VALUE>
+            <DEFAULT_VALUE>-100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27397,6 +27648,7 @@
          <NAME>1</NAME>
          <VALUES>
             <VALUE type="number">value&gt;@0</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27408,6 +27660,7 @@
          <NAME>2</NAME>
          <VALUES>
             <VALUE type="number">value&lt;@3</VALUE>
+            <DEFAULT_VALUE>-100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27419,6 +27672,7 @@
          <NAME>3</NAME>
          <VALUES>
             <VALUE type="number">value&gt;@2</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27676,11 +27930,47 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MarkInfo" object_number="294">
+   <OBJECT id="Mac" object_number="294">
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="string"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.3</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Creator</NAME>
+         <VALUES>
+            <VALUE type="string"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.3</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ResFork</NAME>
+         <VALUES>
+            <VALUE type="stream">Stream</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.3</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="MarkInfo" object_number="295">
       <ENTRY>
          <NAME>Marked</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27692,6 +27982,7 @@
          <NAME>UserProperties</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27703,6 +27994,7 @@
          <NAME>Suspects</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -27711,7 +28003,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MarkedContentReference" object_number="295">
+   <OBJECT id="MarkedContentReference" object_number="296">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -27770,7 +28062,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Matrix" object_number="296">
+   <OBJECT id="Matrix" object_number="297">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -27838,7 +28130,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MeasureGEO" object_number="297">
+   <OBJECT id="MeasureGEO" object_number="298">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -27941,7 +28233,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MeasureRL" object_number="298">
+   <OBJECT id="MeasureRL" object_number="299">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28064,7 +28356,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaClipData" object_number="299">
+   <OBJECT id="MediaClipData" object_number="300">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28178,7 +28470,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaClipDataMHBE" object_number="300">
+   <OBJECT id="MediaClipDataMHBE" object_number="301">
       <ENTRY>
          <NAME>BU</NAME>
          <VALUES>
@@ -28191,7 +28483,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaClipSection" object_number="301">
+   <OBJECT id="MediaClipSection" object_number="302">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28271,7 +28563,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaClipSectionMHBE" object_number="302">
+   <OBJECT id="MediaClipSectionMHBE" object_number="303">
       <ENTRY>
          <NAME>B</NAME>
          <VALUES>
@@ -28299,7 +28591,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaCriteria" object_number="303">
+   <OBJECT id="MediaCriteria" object_number="304">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28422,7 +28714,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaDuration" object_number="304">
+   <OBJECT id="MediaDuration" object_number="305">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28459,7 +28751,7 @@
          <SPECIAL_CASE>Required=TRUE=&gt;S=T</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaOffsetFrame" object_number="305">
+   <OBJECT id="MediaOffsetFrame" object_number="306">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28494,7 +28786,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaOffsetMarker" object_number="306">
+   <OBJECT id="MediaOffsetMarker" object_number="307">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28529,7 +28821,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaOffsetTime" object_number="307">
+   <OBJECT id="MediaOffsetTime" object_number="308">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28564,7 +28856,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaPermissions" object_number="308">
+   <OBJECT id="MediaPermissions" object_number="309">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28582,6 +28874,7 @@
             <VALUE type="string-ascii">(TEMPNEVER)</VALUE>
             <VALUE type="string-ascii">(TEMPEXTRACT)</VALUE>
             <VALUE type="string-ascii">(TEMPACCESS)</VALUE>
+            <DEFAULT_VALUE>(TEMPNEVER)</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28590,7 +28883,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaPlayParameters" object_number="309">
+   <OBJECT id="MediaPlayParameters" object_number="310">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28636,11 +28929,12 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaPlayParametersBE" object_number="310">
+   <OBJECT id="MediaPlayParametersBE" object_number="311">
       <ENTRY>
          <NAME>V</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28652,6 +28946,7 @@
          <NAME>C</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28668,6 +28963,7 @@
             <VALUE type="integer">3</VALUE>
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">5</VALUE>
+            <DEFAULT_VALUE>5</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28690,6 +28986,7 @@
          <NAME>A</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28701,6 +28998,7 @@
          <NAME>RC</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28709,11 +29007,12 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaPlayParametersMH" object_number="311">
+   <OBJECT id="MediaPlayParametersMH" object_number="312">
       <ENTRY>
          <NAME>V</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28725,6 +29024,7 @@
          <NAME>C</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28741,6 +29041,7 @@
             <VALUE type="integer">3</VALUE>
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">5</VALUE>
+            <DEFAULT_VALUE>5</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28763,6 +29064,7 @@
          <NAME>A</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28774,6 +29076,7 @@
          <NAME>RC</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28782,7 +29085,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaPlayerInfo" object_number="312">
+   <OBJECT id="MediaPlayerInfo" object_number="313">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28828,7 +29131,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaPlayers" object_number="313">
+   <OBJECT id="MediaPlayers" object_number="314">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28874,7 +29177,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaScreenParameters" object_number="314">
+   <OBJECT id="MediaScreenParameters" object_number="315">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -28909,7 +29212,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MediaScreenParametersMHBE" object_number="315">
+   <OBJECT id="MediaScreenParametersMHBE" object_number="316">
       <ENTRY>
          <NAME>W</NAME>
          <VALUES>
@@ -28917,6 +29220,7 @@
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
             <VALUE type="integer">3</VALUE>
+            <DEFAULT_VALUE>3</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28940,6 +29244,7 @@
          <VALUES>
             <VALUE type="number">&lt;0.0</VALUE>
             <VALUE type="number">1.0&gt;</VALUE>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28951,6 +29256,7 @@
          <NAME>M</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28970,7 +29276,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Metadata" object_number="316">
+   <OBJECT id="Metadata" object_number="317">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -29086,7 +29392,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MicrosoftWindowsLaunchParam" object_number="317">
+   <OBJECT id="MicrosoftWindowsLaunchParam" object_number="318">
       <ENTRY>
          <NAME>F</NAME>
          <VALUES>
@@ -29114,6 +29420,7 @@
          <VALUES>
             <VALUE type="string-ascii">open</VALUE>
             <VALUE type="string-ascii">print</VALUE>
+            <DEFAULT_VALUE>open</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29133,7 +29440,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MinimumBitDepth" object_number="318">
+   <OBJECT id="MinimumBitDepth" object_number="319">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -29166,6 +29473,7 @@
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">5</VALUE>
             <VALUE type="integer">6</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29174,7 +29482,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MinimumScreenSize" object_number="319">
+   <OBJECT id="MinimumScreenSize" object_number="320">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -29207,6 +29515,7 @@
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">5</VALUE>
             <VALUE type="integer">6</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29215,7 +29524,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Movie" object_number="320">
+   <OBJECT id="Movie" object_number="321">
       <ENTRY>
          <NAME>F</NAME>
          <VALUES>
@@ -29243,6 +29552,7 @@
          <NAME>Rotate</NAME>
          <VALUES>
             <VALUE type="integer">value*90</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29263,7 +29573,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MovieActivation" object_number="321">
+   <OBJECT id="MovieActivation" object_number="322">
       <ENTRY>
          <NAME>Start</NAME>
          <VALUES>
@@ -29294,6 +29604,7 @@
          <NAME>Rate</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29305,6 +29616,7 @@
          <NAME>Volume</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29316,6 +29628,7 @@
          <NAME>ShowControls</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29330,6 +29643,7 @@
             <VALUE type="name">Open</VALUE>
             <VALUE type="name">Repeat</VALUE>
             <VALUE type="name">Palindrome</VALUE>
+            <DEFAULT_VALUE>Once</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29341,6 +29655,7 @@
          <NAME>Synchronous</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29371,7 +29686,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="NSOAttributes" object_number="322">
+   <OBJECT id="NSOAttributes" object_number="323">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -29395,7 +29710,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Name" object_number="323">
+   <OBJECT id="Name" object_number="324">
       <ENTRY>
          <NAME>Dests</NAME>
          <VALUES>
@@ -29507,7 +29822,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Namespace" object_number="324">
+   <OBJECT id="Namespace" object_number="325">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -29554,7 +29869,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="NavNode" object_number="325">
+   <OBJECT id="NavNode" object_number="326">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -29660,7 +29975,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Navigator" object_number="326">
+   <OBJECT id="Navigator" object_number="327">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -29685,7 +30000,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="NumberFormat" object_number="327">
+   <OBJECT id="NumberFormat" object_number="328">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -29726,6 +30041,7 @@
             <VALUE type="name">F</VALUE>
             <VALUE type="name">R</VALUE>
             <VALUE type="name">T</VALUE>
+            <DEFAULT_VALUE>D</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29748,6 +30064,7 @@
          <NAME>FD</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>16</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29804,6 +30121,7 @@
          <VALUES>
             <VALUE type="name">S</VALUE>
             <VALUE type="name">P</VALUE>
+            <DEFAULT_VALUE>S</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -29812,7 +30130,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OPIVersion13" object_number="328">
+   <OBJECT id="OPIVersion13" object_number="329">
       <ENTRY>
          <NAME>1.3</NAME>
          <VALUES>
@@ -29825,7 +30143,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OPIVersion13Dict" object_number="329">
+   <OBJECT id="OPIVersion13Dict" object_number="330">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30026,7 +30344,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OPIVersion20" object_number="330">
+   <OBJECT id="OPIVersion20" object_number="331">
       <ENTRY>
          <NAME>2.0</NAME>
          <VALUES>
@@ -30039,7 +30357,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OPIVersion20Dict" object_number="331">
+   <OBJECT id="OPIVersion20Dict" object_number="332">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30164,7 +30482,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ObjectReference" object_number="332">
+   <OBJECT id="ObjectReference" object_number="333">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30201,7 +30519,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ObjectStream" object_number="333">
+   <OBJECT id="ObjectStream" object_number="334">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30339,7 +30657,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentConfig" object_number="334">
+   <OBJECT id="OptContentConfig" object_number="335">
       <ENTRY>
          <NAME>Name</NAME>
          <VALUES>
@@ -30368,6 +30686,7 @@
             <VALUE type="name">ON</VALUE>
             <VALUE type="name">OFF</VALUE>
             <VALUE type="name">Unchanged</VALUE>
+            <DEFAULT_VALUE>ON</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -30436,6 +30755,7 @@
          <VALUES>
             <VALUE type="name">AllPages</VALUE>
             <VALUE type="name">VisiblePages</VALUE>
+            <DEFAULT_VALUE>AllPages</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -30466,7 +30786,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentCreatorInfo" object_number="335">
+   <OBJECT id="OptContentCreatorInfo" object_number="336">
       <ENTRY>
          <NAME>Creator</NAME>
          <VALUES>
@@ -30491,7 +30811,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentExport" object_number="336">
+   <OBJECT id="OptContentExport" object_number="337">
       <ENTRY>
          <NAME>ExportState</NAME>
          <VALUES>
@@ -30505,7 +30825,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentGroup" object_number="337">
+   <OBJECT id="OptContentGroup" object_number="338">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30552,7 +30872,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentLanguage" object_number="338">
+   <OBJECT id="OptContentLanguage" object_number="339">
       <ENTRY>
          <NAME>Lang</NAME>
          <VALUES>
@@ -30569,6 +30889,7 @@
          <VALUES>
             <VALUE type="name">ON</VALUE>
             <VALUE type="name">OFF</VALUE>
+            <DEFAULT_VALUE>OFF</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -30577,7 +30898,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentMembership" object_number="339">
+   <OBJECT id="OptContentMembership" object_number="340">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30609,6 +30930,7 @@
             <VALUE type="name">AnyOn</VALUE>
             <VALUE type="name">AnyOff</VALUE>
             <VALUE type="name">AllOff</VALUE>
+            <DEFAULT_VALUE>AnyOn</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -30628,7 +30950,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentPageElement" object_number="340">
+   <OBJECT id="OptContentPageElement" object_number="341">
       <ENTRY>
          <NAME>Subtype</NAME>
          <VALUES>
@@ -30641,7 +30963,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentPrint" object_number="341">
+   <OBJECT id="OptContentPrint" object_number="342">
       <ENTRY>
          <NAME>Subtype</NAME>
          <VALUES>
@@ -30666,7 +30988,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentProperties" object_number="342">
+   <OBJECT id="OptContentProperties" object_number="343">
       <ENTRY>
          <NAME>OCGs</NAME>
          <VALUES>
@@ -30701,7 +31023,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentUsage" object_number="343">
+   <OBJECT id="OptContentUsage" object_number="344">
       <ENTRY>
          <NAME>CreatorInfo</NAME>
          <VALUES>
@@ -30791,7 +31113,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentUsageApplication" object_number="344">
+   <OBJECT id="OptContentUsageApplication" object_number="345">
       <ENTRY>
          <NAME>Event</NAME>
          <VALUES>
@@ -30828,7 +31150,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentUser" object_number="345">
+   <OBJECT id="OptContentUser" object_number="346">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30854,7 +31176,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentView" object_number="346">
+   <OBJECT id="OptContentView" object_number="347">
       <ENTRY>
          <NAME>ViewState</NAME>
          <VALUES>
@@ -30868,11 +31190,12 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OptContentZoom" object_number="347">
+   <OBJECT id="OptContentZoom" object_number="348">
       <ENTRY>
          <NAME>min</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -30884,6 +31207,7 @@
          <NAME>max</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>infinity</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -30892,7 +31216,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Outline" object_number="348">
+   <OBJECT id="Outline" object_number="349">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30938,7 +31262,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OutlineItem" object_number="349">
+   <OBJECT id="OutlineItem" object_number="350">
       <ENTRY>
          <NAME>Title</NAME>
          <VALUES>
@@ -31089,6 +31413,7 @@
          <NAME>F </NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -31097,7 +31422,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OutputIntents" object_number="350">
+   <OBJECT id="OutputIntents" object_number="351">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -31209,7 +31534,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageLabel" object_number="351">
+   <OBJECT id="PageLabel" object_number="352">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -31251,6 +31576,7 @@
          <NAME>St</NAME>
          <VALUES>
             <VALUE type="integer">&lt;1..)</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -31259,7 +31585,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageObject" object_number="352">
+   <OBJECT id="PageObject" object_number="353">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -31320,6 +31646,7 @@
          <NAME>CropBox</NAME>
          <VALUES>
             <VALUE type="rectangle"/>
+            <DEFAULT_VALUE>@MediaBox</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -31331,6 +31658,7 @@
          <NAME>BleedBox</NAME>
          <VALUES>
             <VALUE type="rectangle"/>
+            <DEFAULT_VALUE>@CropBox</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -31342,6 +31670,7 @@
          <NAME>TrimBox</NAME>
          <VALUES>
             <VALUE type="rectangle"/>
+            <DEFAULT_VALUE>@CropBox</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -31353,6 +31682,7 @@
          <NAME>ArtBox</NAME>
          <VALUES>
             <VALUE type="rectangle"/>
+            <DEFAULT_VALUE>@CropBox</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -31390,6 +31720,7 @@
             <VALUE type="integer">90</VALUE>
             <VALUE type="integer">180</VALUE>
             <VALUE type="integer">270</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -31577,6 +31908,7 @@
          <NAME>UserUnit</NAME>
          <VALUES>
             <VALUE type="number">value*1/72</VALUE>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -31630,7 +31962,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PagePiece" object_number="353">
+   <OBJECT id="PagePiece" object_number="354">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -31643,7 +31975,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageTreeNode" object_number="354">
+   <OBJECT id="PageTreeNode" object_number="355">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -31690,7 +32022,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageTreeNodeRoot" object_number="355">
+   <OBJECT id="PageTreeNodeRoot" object_number="356">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -31725,7 +32057,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PatternColorSpace" object_number="356">
+   <OBJECT id="PatternColorSpace" object_number="357">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -31756,7 +32088,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PatternMap" object_number="357">
+   <OBJECT id="PatternMap" object_number="358">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -31770,7 +32102,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PatternType1" object_number="358">
+   <OBJECT id="PatternType1" object_number="359">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -31966,7 +32298,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PatternType2" object_number="359">
+   <OBJECT id="PatternType2" object_number="360">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32029,7 +32361,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Permissions" object_number="360">
+   <OBJECT id="Permissions" object_number="361">
       <ENTRY>
          <NAME>DocMDP</NAME>
          <VALUES>
@@ -32053,7 +32385,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PointData" object_number="361">
+   <OBJECT id="PointData" object_number="362">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32099,7 +32431,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ProjectedCoordinateSystem" object_number="362">
+   <OBJECT id="ProjectedCoordinateSystem" object_number="363">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32134,7 +32466,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Projection" object_number="363">
+   <OBJECT id="Projection" object_number="364">
       <ENTRY>
          <NAME>Subtype</NAME>
          <VALUES>
@@ -32152,6 +32484,7 @@
          <VALUES>
             <VALUE type="name">XNF</VALUE>
             <VALUE type="name">ANF</VALUE>
+            <DEFAULT_VALUE>ANF</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32174,6 +32507,7 @@
          <NAME>N</NAME>
          <VALUES>
             <VALUE type="number">&lt;0..)</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32208,6 +32542,7 @@
          <NAME>OS</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32223,6 +32558,7 @@
             <VALUE type="name">Min</VALUE>
             <VALUE type="name">Max</VALUE>
             <VALUE type="name">Absolute</VALUE>
+            <DEFAULT_VALUE>Absolute</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32231,7 +32567,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Reference" object_number="364">
+   <OBJECT id="Reference" object_number="365">
       <ENTRY>
          <NAME>F</NAME>
          <VALUES>
@@ -32268,7 +32604,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RenditionBE" object_number="365">
+   <OBJECT id="RenditionBE" object_number="366">
       <ENTRY>
          <NAME>C</NAME>
          <VALUES>
@@ -32281,7 +32617,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RenditionMH" object_number="366">
+   <OBJECT id="RenditionMH" object_number="367">
       <ENTRY>
          <NAME>C</NAME>
          <VALUES>
@@ -32294,7 +32630,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RenditionMedia" object_number="367">
+   <OBJECT id="RenditionMedia" object_number="368">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32385,7 +32721,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RenditionSelector" object_number="368">
+   <OBJECT id="RenditionSelector" object_number="369">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32454,7 +32790,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsAcroFormInteract" object_number="369">
+   <OBJECT id="RequirementsAcroFormInteract" object_number="370">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32505,6 +32841,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32513,7 +32850,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsAction" object_number="370">
+   <OBJECT id="RequirementsAction" object_number="371">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32564,6 +32901,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32572,7 +32910,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsAttachment" object_number="371">
+   <OBJECT id="RequirementsAttachment" object_number="372">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32623,6 +32961,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32631,7 +32970,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsAttachmentEditing" object_number="372">
+   <OBJECT id="RequirementsAttachmentEditing" object_number="373">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32682,6 +33021,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32690,7 +33030,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsCollection" object_number="373">
+   <OBJECT id="RequirementsCollection" object_number="374">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32741,6 +33081,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32749,7 +33090,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsCollectionEditing" object_number="374">
+   <OBJECT id="RequirementsCollectionEditing" object_number="375">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32800,6 +33141,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32808,7 +33150,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsDPartInteract" object_number="375">
+   <OBJECT id="RequirementsDPartInteract" object_number="376">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32859,6 +33201,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32867,7 +33210,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsDigSig" object_number="376">
+   <OBJECT id="RequirementsDigSig" object_number="377">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32918,6 +33261,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -32938,7 +33282,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsDigSigMDP" object_number="377">
+   <OBJECT id="RequirementsDigSigMDP" object_number="378">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32989,6 +33333,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33009,7 +33354,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsDigSigValidation" object_number="378">
+   <OBJECT id="RequirementsDigSigValidation" object_number="379">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33060,6 +33405,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33080,7 +33426,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsEnableJavaScripts" object_number="379">
+   <OBJECT id="RequirementsEnableJavaScripts" object_number="380">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33131,6 +33477,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33139,7 +33486,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsEncryption" object_number="380">
+   <OBJECT id="RequirementsEncryption" object_number="381">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33190,6 +33537,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33210,7 +33558,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsGeospatial2D" object_number="381">
+   <OBJECT id="RequirementsGeospatial2D" object_number="382">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33261,6 +33609,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33269,7 +33618,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsGeospatial3D" object_number="382">
+   <OBJECT id="RequirementsGeospatial3D" object_number="383">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33320,6 +33669,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33328,7 +33678,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsHandler" object_number="383">
+   <OBJECT id="RequirementsHandler" object_number="384">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33364,7 +33714,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsMarkup" object_number="384">
+   <OBJECT id="RequirementsMarkup" object_number="385">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33415,6 +33765,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33423,7 +33774,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsMultimedia" object_number="385">
+   <OBJECT id="RequirementsMultimedia" object_number="386">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33474,6 +33825,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33482,7 +33834,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsNavigation" object_number="386">
+   <OBJECT id="RequirementsNavigation" object_number="387">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33533,6 +33885,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33541,7 +33894,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsOCAutoStates" object_number="387">
+   <OBJECT id="RequirementsOCAutoStates" object_number="388">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33592,6 +33945,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33600,7 +33954,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsOCInteract" object_number="388">
+   <OBJECT id="RequirementsOCInteract" object_number="389">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33651,6 +34005,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33659,7 +34014,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsPRC" object_number="389">
+   <OBJECT id="RequirementsPRC" object_number="390">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33710,6 +34065,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33718,7 +34074,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsRichMedia" object_number="390">
+   <OBJECT id="RequirementsRichMedia" object_number="391">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33769,6 +34125,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33777,7 +34134,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsSeparationSimulation" object_number="391">
+   <OBJECT id="RequirementsSeparationSimulation" object_number="392">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33828,6 +34185,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33836,7 +34194,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsTransitions" object_number="392">
+   <OBJECT id="RequirementsTransitions" object_number="393">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33887,6 +34245,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33895,7 +34254,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RequirementsU3D" object_number="393">
+   <OBJECT id="RequirementsU3D" object_number="394">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33946,6 +34305,7 @@
          <NAME>Penalty</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -33954,7 +34314,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Resource" object_number="394">
+   <OBJECT id="Resource" object_number="395">
       <ENTRY>
          <NAME>ExtGState</NAME>
          <VALUES>
@@ -34044,7 +34404,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaActivation" object_number="395">
+   <OBJECT id="RichMediaActivation" object_number="396">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34062,6 +34422,7 @@
             <VALUE type="name">XA</VALUE>
             <VALUE type="name">PO</VALUE>
             <VALUE type="name">PV</VALUE>
+            <DEFAULT_VALUE>XA</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34114,7 +34475,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaAnimation" object_number="396">
+   <OBJECT id="RichMediaAnimation" object_number="397">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34132,6 +34493,7 @@
             <VALUE type="name">None</VALUE>
             <VALUE type="name">Linear</VALUE>
             <VALUE type="name">Oscillating</VALUE>
+            <DEFAULT_VALUE>None</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34143,6 +34505,7 @@
          <NAME>PlayCount</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>-1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34154,6 +34517,7 @@
          <NAME>Speed</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34162,7 +34526,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaCommand" object_number="397">
+   <OBJECT id="RichMediaCommand" object_number="398">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34189,6 +34553,7 @@
          <NAME>A</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <VALUE type="integer"/>
             <VALUE type="number"/>
             <VALUE type="string-text"/>
          </VALUES>
@@ -34199,7 +34564,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaConfiguration" object_number="398">
+   <OBJECT id="RichMediaConfiguration" object_number="399">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34247,7 +34612,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaContent" object_number="399">
+   <OBJECT id="RichMediaContent" object_number="400">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34293,7 +34658,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaDeactivation" object_number="400">
+   <OBJECT id="RichMediaDeactivation" object_number="401">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34311,6 +34676,7 @@
             <VALUE type="name">XD</VALUE>
             <VALUE type="name">PC</VALUE>
             <VALUE type="name">PI</VALUE>
+            <DEFAULT_VALUE>XD</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34319,11 +34685,12 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaHeight" object_number="401">
+   <OBJECT id="RichMediaHeight" object_number="402">
       <ENTRY>
          <NAME>Default</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>216</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34335,6 +34702,7 @@
          <NAME>Max</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>432</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34346,6 +34714,7 @@
          <NAME>Min</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>72</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34354,7 +34723,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaInstances" object_number="402">
+   <OBJECT id="RichMediaInstances" object_number="403">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34391,7 +34760,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaPosition" object_number="403">
+   <OBJECT id="RichMediaPosition" object_number="404">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34409,6 +34778,7 @@
             <VALUE type="name">Near</VALUE>
             <VALUE type="name">Center</VALUE>
             <VALUE type="name">Far</VALUE>
+            <DEFAULT_VALUE>Far</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34422,6 +34792,7 @@
             <VALUE type="name">Near</VALUE>
             <VALUE type="name">Center</VALUE>
             <VALUE type="name">Far</VALUE>
+            <DEFAULT_VALUE>Near</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34433,6 +34804,7 @@
          <NAME>HOffset</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>18</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34444,6 +34816,7 @@
          <NAME>VOffset</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>18</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34452,7 +34825,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaPresentation" object_number="404">
+   <OBJECT id="RichMediaPresentation" object_number="405">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34469,6 +34842,7 @@
          <VALUES>
             <VALUE type="name">Embedded</VALUE>
             <VALUE type="name">Windowed</VALUE>
+            <DEFAULT_VALUE>Embedded</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34491,6 +34865,7 @@
          <NAME>Transparent</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34502,6 +34877,7 @@
          <NAME>NavigationPane</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34513,6 +34889,7 @@
          <NAME>Toolbar</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34524,6 +34901,7 @@
          <NAME>PassContextClick</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34532,7 +34910,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaSettings" object_number="405">
+   <OBJECT id="RichMediaSettings" object_number="406">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34567,11 +34945,12 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaWidth" object_number="406">
+   <OBJECT id="RichMediaWidth" object_number="407">
       <ENTRY>
          <NAME>Default</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>288</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34583,6 +34962,7 @@
          <NAME>Max</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>576</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34594,6 +34974,7 @@
          <NAME>Min</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>72</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34602,7 +34983,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaWindow" object_number="407">
+   <OBJECT id="RichMediaWindow" object_number="408">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34648,7 +35029,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RoleMap" object_number="408">
+   <OBJECT id="RoleMap" object_number="409">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -34661,7 +35042,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Separation" object_number="409">
+   <OBJECT id="Separation" object_number="410">
       <ENTRY>
          <NAME>Pages</NAME>
          <VALUES>
@@ -34698,7 +35079,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SeparationColorSpace" object_number="410">
+   <OBJECT id="SeparationColorSpace" object_number="411">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -34751,7 +35132,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingMap" object_number="411">
+   <OBJECT id="ShadingMap" object_number="412">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -34770,7 +35151,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType1" object_number="412">
+   <OBJECT id="ShadingType1" object_number="413">
       <ENTRY>
          <NAME>Domain</NAME>
          <VALUES>
@@ -34863,6 +35244,7 @@
          <NAME>AntiAlias</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34871,7 +35253,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType2" object_number="413">
+   <OBJECT id="ShadingType2" object_number="414">
       <ENTRY>
          <NAME>Coords</NAME>
          <VALUES>
@@ -34975,6 +35357,7 @@
          <NAME>AntiAlias</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34983,7 +35366,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType3" object_number="414">
+   <OBJECT id="ShadingType3" object_number="415">
       <ENTRY>
          <NAME>Coords</NAME>
          <VALUES>
@@ -35087,6 +35470,7 @@
          <NAME>AntiAlias</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -35095,7 +35479,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType4" object_number="415">
+   <OBJECT id="ShadingType4" object_number="416">
       <ENTRY>
          <NAME>BitsPerCoordinate</NAME>
          <VALUES>
@@ -35222,6 +35606,7 @@
          <NAME>AntiAlias</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -35322,7 +35707,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType5" object_number="416">
+   <OBJECT id="ShadingType5" object_number="417">
       <ENTRY>
          <NAME>BitsPerCoordinate</NAME>
          <VALUES>
@@ -35449,6 +35834,7 @@
          <NAME>AntiAlias</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -35549,7 +35935,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType6" object_number="417">
+   <OBJECT id="ShadingType6" object_number="418">
       <ENTRY>
          <NAME>BitsPerCoordinate</NAME>
          <VALUES>
@@ -35676,6 +36062,7 @@
          <NAME>AntiAlias</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -35776,7 +36163,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType7" object_number="418">
+   <OBJECT id="ShadingType7" object_number="419">
       <ENTRY>
          <NAME>BitsPerCoordinate</NAME>
          <VALUES>
@@ -35903,6 +36290,7 @@
          <NAME>AntiAlias</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -36003,7 +36391,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SigFieldLock" object_number="419">
+   <OBJECT id="SigFieldLock" object_number="420">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36053,7 +36441,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SigFieldSeedValue" object_number="420">
+   <OBJECT id="SigFieldSeedValue" object_number="421">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36069,6 +36457,7 @@
          <NAME>Ff</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -36211,7 +36600,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Signature" object_number="421">
+   <OBJECT id="Signature" object_number="422">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36371,6 +36760,7 @@
          <NAME>V</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -36412,7 +36802,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SignatureReferenceDocMDP" object_number="422">
+   <OBJECT id="SignatureReferenceDocMDP" object_number="423">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36480,7 +36870,7 @@
          <SPECIAL_CASE> The use of MD5 and SHA1 is deprecated with PDF 2.0.</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SignatureReferenceFieldMDP" object_number="423">
+   <OBJECT id="SignatureReferenceFieldMDP" object_number="424">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36548,7 +36938,7 @@
          <SPECIAL_CASE> The use of MD5 and SHA1 is deprecated with PDF 2.0.</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SignatureReferenceIdentity" object_number="424">
+   <OBJECT id="SignatureReferenceIdentity" object_number="425">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36616,7 +37006,7 @@
          <SPECIAL_CASE> The use of MD5 and SHA1 is deprecated with PDF 2.0.</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SignatureReferenceUR" object_number="425">
+   <OBJECT id="SignatureReferenceUR" object_number="426">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36684,7 +37074,7 @@
          <SPECIAL_CASE> The use of MD5 and SHA1 is deprecated with PDF 2.0.</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SlideShow" object_number="426">
+   <OBJECT id="SlideShow" object_number="427">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36730,7 +37120,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SoftMaskAlpha" object_number="427">
+   <OBJECT id="SoftMaskAlpha" object_number="428">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36780,7 +37170,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SoftMaskLuminosity" object_number="428">
+   <OBJECT id="SoftMaskLuminosity" object_number="429">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36841,7 +37231,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SoftwareIdentifier" object_number="429">
+   <OBJECT id="SoftwareIdentifier" object_number="430">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36879,6 +37269,7 @@
          <NAME>LI</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -36901,6 +37292,7 @@
          <NAME>HI</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -36920,11 +37312,12 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Solidities" object_number="430">
+   <OBJECT id="Solidities" object_number="431">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
             <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -36933,7 +37326,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SoundObject" object_number="431">
+   <OBJECT id="SoundObject" object_number="432">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -36960,6 +37353,7 @@
          <NAME>C</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -36971,6 +37365,7 @@
          <NAME>B</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>8</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -36985,6 +37380,7 @@
             <VALUE type="name">Signed</VALUE>
             <VALUE type="name">muLaw</VALUE>
             <VALUE type="name">ALaw</VALUE>
+            <DEFAULT_VALUE>Raw</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37109,7 +37505,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SourceInformation" object_number="432">
+   <OBJECT id="SourceInformation" object_number="433">
       <ENTRY>
          <NAME>AU</NAME>
          <VALUES>
@@ -37150,6 +37546,7 @@
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37169,7 +37566,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardArtifactAttributes" object_number="433">
+   <OBJECT id="StandardArtifactAttributes" object_number="434">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -37224,7 +37621,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardLayoutAttributesBLSE" object_number="434">
+   <OBJECT id="StandardLayoutAttributesBLSE" object_number="435">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -37262,6 +37659,7 @@
             <VALUE type="name">RlBt</VALUE>
             <VALUE type="name">BtRl</VALUE>
             <VALUE type="name">BtLr</VALUE>
+            <DEFAULT_VALUE>LrTb</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37343,6 +37741,7 @@
          <NAME>SpaceBefore</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37354,6 +37753,7 @@
          <NAME>SpaceAfter</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37365,6 +37765,7 @@
          <NAME>StartIndent</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37376,6 +37777,7 @@
          <NAME>EndIndent</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37387,6 +37789,7 @@
          <NAME>TextIndent</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37401,6 +37804,7 @@
             <VALUE type="name">Center</VALUE>
             <VALUE type="name">End</VALUE>
             <VALUE type="name">Justify</VALUE>
+            <DEFAULT_VALUE>Start</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37424,6 +37828,7 @@
          <VALUES>
             <VALUE type="name"/>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>Auto</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37436,6 +37841,7 @@
          <VALUES>
             <VALUE type="name"/>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>Auto</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37450,6 +37856,7 @@
             <VALUE type="name">Middle</VALUE>
             <VALUE type="name">After</VALUE>
             <VALUE type="name">Justify</VALUE>
+            <DEFAULT_VALUE>Before</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37463,6 +37870,7 @@
             <VALUE type="name">Start</VALUE>
             <VALUE type="name">Center</VALUE>
             <VALUE type="name">End</VALUE>
+            <DEFAULT_VALUE>Start</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37495,7 +37903,7 @@
          <SPECIAL_CASE>inheritable</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardLayoutAttributesColumn" object_number="435">
+   <OBJECT id="StandardLayoutAttributesColumn" object_number="436">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -37533,6 +37941,7 @@
             <VALUE type="name">RlBt</VALUE>
             <VALUE type="name">BtRl</VALUE>
             <VALUE type="name">BtLr</VALUE>
+            <DEFAULT_VALUE>LrTb</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37614,6 +38023,7 @@
          <NAME>ColumnCount</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37646,7 +38056,7 @@
          <SPECIAL_CASE>not inheritable</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardLayoutAttributesILSE" object_number="436">
+   <OBJECT id="StandardLayoutAttributesILSE" object_number="437">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -37684,6 +38094,7 @@
             <VALUE type="name">RlBt</VALUE>
             <VALUE type="name">BtRl</VALUE>
             <VALUE type="name">BtLr</VALUE>
+            <DEFAULT_VALUE>LrTb</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37765,6 +38176,7 @@
          <NAME>BaselineShift</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37778,6 +38190,7 @@
             <VALUE type="name">Normal</VALUE>
             <VALUE type="name">Auto</VALUE>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>Normal</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37791,6 +38204,7 @@
             <VALUE type="name">Sup</VALUE>
             <VALUE type="name">Sub</VALUE>
             <VALUE type="name">Normal</VALUE>
+            <DEFAULT_VALUE>Normal</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37827,6 +38241,7 @@
             <VALUE type="name">Underline</VALUE>
             <VALUE type="name">Overline</VALUE>
             <VALUE type="name">LineThrough</VALUE>
+            <DEFAULT_VALUE>None</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37842,6 +38257,7 @@
             <VALUE type="name">End</VALUE>
             <VALUE type="name">Justify</VALUE>
             <VALUE type="name">Distribute</VALUE>
+            <DEFAULT_VALUE>Distribute</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37856,6 +38272,7 @@
             <VALUE type="name">After</VALUE>
             <VALUE type="name">Warichu</VALUE>
             <VALUE type="name">Inline</VALUE>
+            <DEFAULT_VALUE>Before</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37874,6 +38291,7 @@
             <VALUE type="number">180</VALUE>
             <VALUE type="number">270</VALUE>
             <VALUE type="number">360</VALUE>
+            <DEFAULT_VALUE>Auto</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37882,7 +38300,7 @@
          <SPECIAL_CASE>inheritable</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardListAttributes" object_number="437">
+   <OBJECT id="StandardListAttributes" object_number="438">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -37909,6 +38327,7 @@
             <VALUE type="name">LowerRoman</VALUE>
             <VALUE type="name">UpperAlpha</VALUE>
             <VALUE type="name">LowerAlpha</VALUE>
+            <DEFAULT_VALUE>None</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37920,6 +38339,7 @@
          <NAME>ContinuedList</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37939,7 +38359,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardPrintFieldAttributes" object_number="438">
+   <OBJECT id="StandardPrintFieldAttributes" object_number="439">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -37972,6 +38392,7 @@
             <VALUE type="name">on</VALUE>
             <VALUE type="name">off</VALUE>
             <VALUE type="name">neutral</VALUE>
+            <DEFAULT_VALUE>off</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -37991,7 +38412,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardTableAttributes" object_number="439">
+   <OBJECT id="StandardTableAttributes" object_number="440">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -38007,6 +38428,7 @@
          <NAME>RowSpan</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38018,6 +38440,7 @@
          <NAME>ColSpan</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38072,7 +38495,7 @@
          <SPECIAL_CASE>not inheritable</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Stream" object_number="440">
+   <OBJECT id="Stream" object_number="441">
       <ENTRY>
          <NAME>Length</NAME>
          <VALUES>
@@ -38166,7 +38589,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StructElem" object_number="441">
+   <OBJECT id="StructElem" object_number="442">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38253,7 +38676,9 @@
          <NAME>A</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfAttributes</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributes</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesBLSE</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesColumn</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesILSE</VALUE>
             <VALUE type="dictionary">StandardTableAttributes</VALUE>
             <VALUE type="dictionary">StandardListAttributes</VALUE>
             <VALUE type="dictionary">StandardPrintFieldAttributes</VALUE>
@@ -38283,6 +38708,7 @@
          <NAME>R</NAME>
          <VALUES>
             <VALUE type="integer">&lt;0..)</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38372,6 +38798,7 @@
          <NAME>PhoneticAlphabet</NAME>
          <VALUES>
             <VALUE type="name"/>
+            <DEFAULT_VALUE>ipa</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38391,7 +38818,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StructTreeRoot" object_number="442">
+   <OBJECT id="StructTreeRoot" object_number="443">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38507,7 +38934,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StyleDict" object_number="443">
+   <OBJECT id="StyleDict" object_number="444">
       <ENTRY>
          <NAME>Panose</NAME>
          <VALUES>
@@ -38520,7 +38947,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SubjectDN" object_number="444">
+   <OBJECT id="SubjectDN" object_number="445">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -38533,7 +38960,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Target" object_number="445">
+   <OBJECT id="Target" object_number="446">
       <ENTRY>
          <NAME>R</NAME>
          <VALUES>
@@ -38593,7 +39020,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thread" object_number="446">
+   <OBJECT id="Thread" object_number="447">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38639,7 +39066,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thumbnail" object_number="447">
+   <OBJECT id="Thumbnail" object_number="448">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38656,7 +39083,7 @@
          <VALUES>
             <VALUE type="name">Image</VALUE>
          </VALUES>
-         <REQUIRED>true</REQUIRED>
+         <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
@@ -38811,7 +39238,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="TimeStampDict" object_number="448">
+   <OBJECT id="TimeStampDict" object_number="449">
       <ENTRY>
          <NAME>URL</NAME>
          <VALUES>
@@ -38828,6 +39255,7 @@
          <VALUES>
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38836,7 +39264,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Timespan" object_number="449">
+   <OBJECT id="Timespan" object_number="450">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38871,7 +39299,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Transition" object_number="450">
+   <OBJECT id="Transition" object_number="451">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38898,6 +39326,7 @@
             <VALUE type="name">Cover</VALUE>
             <VALUE type="name">Uncover</VALUE>
             <VALUE type="name">Fade</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38909,6 +39338,7 @@
          <NAME>D</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38921,6 +39351,7 @@
          <VALUES>
             <VALUE type="name">H</VALUE>
             <VALUE type="name">V</VALUE>
+            <DEFAULT_VALUE>H</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38933,6 +39364,7 @@
          <VALUES>
             <VALUE type="name">I</VALUE>
             <VALUE type="name">O</VALUE>
+            <DEFAULT_VALUE>I</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38949,6 +39381,7 @@
             <VALUE type="number">180</VALUE>
             <VALUE type="number">270</VALUE>
             <VALUE type="number">315</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38960,6 +39393,7 @@
          <NAME>SS</NAME>
          <VALUES>
             <VALUE type="number"/>
+            <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38971,6 +39405,7 @@
          <NAME>B</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -38979,7 +39414,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URI" object_number="451">
+   <OBJECT id="URI" object_number="452">
       <ENTRY>
          <NAME>Base</NAME>
          <VALUES>
@@ -38992,7 +39427,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URLAlias" object_number="452">
+   <OBJECT id="URLAlias" object_number="453">
       <ENTRY>
          <NAME>U</NAME>
          <VALUES>
@@ -39016,7 +39451,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamAnnotsArray" object_number="453">
+   <OBJECT id="URTransformParamAnnotsArray" object_number="454">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -39036,7 +39471,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamDocumentArray" object_number="454">
+   <OBJECT id="URTransformParamDocumentArray" object_number="455">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -39049,7 +39484,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamEFArray" object_number="455">
+   <OBJECT id="URTransformParamEFArray" object_number="456">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -39065,7 +39500,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamFormArray" object_number="456">
+   <OBJECT id="URTransformParamFormArray" object_number="457">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -39086,7 +39521,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamSignatureArray" object_number="457">
+   <OBJECT id="URTransformParamSignatureArray" object_number="458">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -39099,7 +39534,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParameters" object_number="458">
+   <OBJECT id="URTransformParameters" object_number="459">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -39137,6 +39572,7 @@
          <NAME>V</NAME>
          <VALUES>
             <VALUE type="name"/>
+            <DEFAULT_VALUE>2.2</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39192,6 +39628,7 @@
          <NAME>P</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39200,7 +39637,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="UserPropertiesAttributes" object_number="459">
+   <OBJECT id="UserPropertiesAttributes" object_number="460">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -39224,7 +39661,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="UserProperty" object_number="460">
+   <OBJECT id="UserProperty" object_number="461">
       <ENTRY>
          <NAME>N</NAME>
          <VALUES>
@@ -39267,6 +39704,7 @@
          <NAME>H</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39275,7 +39713,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="VRI" object_number="461">
+   <OBJECT id="VRI" object_number="462">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -39343,7 +39781,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ViewParams" object_number="462">
+   <OBJECT id="ViewParams" object_number="463">
       <ENTRY>
          <NAME>Instance</NAME>
          <VALUES>
@@ -39368,11 +39806,12 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ViewerPreferences" object_number="463">
+   <OBJECT id="ViewerPreferences" object_number="464">
       <ENTRY>
          <NAME>HideToolBar</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39384,6 +39823,7 @@
          <NAME>HideMenuBar</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39395,6 +39835,7 @@
          <NAME>HideWindowUI</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39406,6 +39847,7 @@
          <NAME>FitWindow</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39417,6 +39859,7 @@
          <NAME>CenterWindow</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39428,6 +39871,7 @@
          <NAME>DisplayDocTitle</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39442,6 +39886,7 @@
             <VALUE type="name">UseOutlines</VALUE>
             <VALUE type="name">UseThumbs</VALUE>
             <VALUE type="name">UseOC</VALUE>
+            <DEFAULT_VALUE>UseNone</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39454,6 +39899,7 @@
          <VALUES>
             <VALUE type="name">L2R</VALUE>
             <VALUE type="name">R2L</VALUE>
+            <DEFAULT_VALUE>L2R</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39469,6 +39915,7 @@
             <VALUE type="name">BleedBox</VALUE>
             <VALUE type="name">TrimBox</VALUE>
             <VALUE type="name">ArtBox</VALUE>
+            <DEFAULT_VALUE>CropBox</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39484,6 +39931,7 @@
             <VALUE type="name">BleedBox</VALUE>
             <VALUE type="name">TrimBox</VALUE>
             <VALUE type="name">ArtBox</VALUE>
+            <DEFAULT_VALUE>CropBox</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39499,6 +39947,7 @@
             <VALUE type="name">BleedBox</VALUE>
             <VALUE type="name">TrimBox</VALUE>
             <VALUE type="name">ArtBox</VALUE>
+            <DEFAULT_VALUE>CropBox</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39514,6 +39963,7 @@
             <VALUE type="name">BleedBox</VALUE>
             <VALUE type="name">TrimBox</VALUE>
             <VALUE type="name">ArtBox</VALUE>
+            <DEFAULT_VALUE>CropBox</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39526,6 +39976,7 @@
          <VALUES>
             <VALUE type="name">None</VALUE>
             <VALUE type="name">AppDefault</VALUE>
+            <DEFAULT_VALUE>AppDefault</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39539,6 +39990,7 @@
             <VALUE type="name">Simplex</VALUE>
             <VALUE type="name">DuplexFlipShortEdge</VALUE>
             <VALUE type="name">DuplexFlipLongEdge</VALUE>
+            <DEFAULT_VALUE>implementation dependent</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39550,6 +40002,7 @@
          <NAME>PickTrayByPDFSize</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>implementation dependent</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39572,6 +40025,7 @@
          <NAME>NumCopies</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>implementation dependent</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39591,7 +40045,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Viewport" object_number="464">
+   <OBJECT id="Viewport" object_number="465">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -39649,7 +40103,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureCommand" object_number="465">
+   <OBJECT id="WebCaptureCommand" object_number="466">
       <ENTRY>
          <NAME>URL</NAME>
          <VALUES>
@@ -39665,6 +40119,7 @@
          <NAME>L</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39676,6 +40131,7 @@
          <NAME>F</NAME>
          <VALUES>
             <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39729,7 +40185,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureCommandSettings" object_number="466">
+   <OBJECT id="WebCaptureCommandSettings" object_number="467">
       <ENTRY>
          <NAME>G</NAME>
          <VALUES>
@@ -39753,7 +40209,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureImageSet" object_number="467">
+   <OBJECT id="WebCaptureImageSet" object_number="468">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -39845,7 +40301,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureInfo" object_number="468">
+   <OBJECT id="WebCaptureInfo" object_number="469">
       <ENTRY>
          <NAME>V</NAME>
          <VALUES>
@@ -39869,7 +40325,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCapturePageSet" object_number="469">
+   <OBJECT id="WebCapturePageSet" object_number="470">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -39971,7 +40427,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Whitepoint" object_number="470">
+   <OBJECT id="Whitepoint" object_number="471">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -40006,7 +40462,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPrinterMark" object_number="471">
+   <OBJECT id="XObjectFormPrinterMark" object_number="472">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40335,7 +40791,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormTrapNet" object_number="472">
+   <OBJECT id="XObjectFormTrapNet" object_number="473">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40685,7 +41141,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormType1" object_number="473">
+   <OBJECT id="XObjectFormType1" object_number="474">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40992,7 +41448,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImage" object_number="474">
+   <OBJECT id="XObjectImage" object_number="475">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -41082,6 +41538,7 @@
          <NAME>ImageMask</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -41116,6 +41573,7 @@
          <NAME>Interpolate</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -41354,7 +41812,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImageMask" object_number="475">
+   <OBJECT id="XObjectImageMask" object_number="476">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -41425,6 +41883,7 @@
          <NAME>ImageMask</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -41447,6 +41906,7 @@
          <NAME>Interpolate</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -41683,7 +42143,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImageSoftMask" object_number="476">
+   <OBJECT id="XObjectImageSoftMask" object_number="477">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -41754,6 +42214,7 @@
          <NAME>ImageMask</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -41776,6 +42237,7 @@
          <NAME>Interpolate</NAME>
          <VALUES>
             <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -41887,7 +42349,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectMap" object_number="477">
+   <OBJECT id="XObjectMap" object_number="478">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>

@@ -1,18 +1,18 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.0		TRUE	FALSE			[FontDescriptor]		
-FontName	name	1.0		TRUE	FALSE					
-Flags	integer	1.0		TRUE	FALSE					
-FontBBox	rectangle	1.0		TRUE	FALSE				Optional for Type 3 fonts	
-ItalicAngle	number	1.0		TRUE	FALSE					
-Ascent	number	1.0		TRUE	FALSE				Optional for Type 3 fonts	
-Descent	number	1.0		TRUE	FALSE			[value<0]	Optional for Type 3 fonts	
-Leading	number	1.0		FALSE	FALSE		0			
-CapHeight	number	1.0		FALSE	FALSE					
-XHeight	number	1.0		FALSE	FALSE		0			
-StemV	number	1.0		TRUE	FALSE				Optional for Type 3 fonts	
-StemH	number	1.0		FALSE	FALSE		0			
-AvgWidth	number	1.0		FALSE	FALSE		0			
-MaxWidth	number	1.0		FALSE	FALSE		0			
-MissingWidth	number	1.0		FALSE	FALSE		0			
-FontFile	stream	1.0		FALSE	FALSE					[FontFile]
-CharSet	string-ascii;string-byte	1.1	2.0	FALSE	FALSE					
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.0		TRUE	FALSE		[FontDescriptor]		
+FontName	name	1.0		TRUE	FALSE				
+Flags	integer	1.0		TRUE	FALSE				
+FontBBox	rectangle	1.0		TRUE	FALSE			Optional for Type 3 fonts	
+ItalicAngle	number	1.0		TRUE	FALSE				
+Ascent	number	1.0		TRUE	FALSE			Optional for Type 3 fonts	
+Descent	number	1.0		TRUE	FALSE		[value<0]	Optional for Type 3 fonts	
+Leading	number	1.0		FALSE	FALSE	0			
+CapHeight	number	1.0		FALSE	FALSE				
+XHeight	number	1.0		FALSE	FALSE	0			
+StemV	number	1.0		TRUE	FALSE			Optional for Type 3 fonts	
+StemH	number	1.0		FALSE	FALSE	0			
+AvgWidth	number	1.0		FALSE	FALSE	0			
+MaxWidth	number	1.0		FALSE	FALSE	0			
+MissingWidth	number	1.0		FALSE	FALSE	0			
+FontFile	stream	1.0		FALSE	FALSE				[FontFile]
+CharSet	string-ascii;string-byte	1.1	2.0	FALSE	FALSE				

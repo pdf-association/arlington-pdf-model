@@ -1,7 +1,7 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2.0		FALSE	FALSE			[RichMediaActivation]		
-Condition	name	2.0		FALSE	FALSE		XA	[XA,PO,PV]		
-Animation	dictionary	2.0		FALSE	FALSE					[RichMediaAnimation]
-View	dictionary	2.0		FALSE	TRUE					[3DViewAddEntries]
-Configuration	dictionary	2.0		FALSE	TRUE					[RichMediaConfiguration]
-Presentation	dictionary	2.0		FALSE	FALSE					[RichMediaPresentation]
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	2.0		FALSE	FALSE		[RichMediaActivation]		
+Condition	name	2.0		FALSE	FALSE	XA	[XA,PO,PV]		
+Animation	dictionary	2.0		FALSE	FALSE				[RichMediaAnimation]
+View	dictionary	2.0		FALSE	TRUE				[3DViewAddEntries]
+Configuration	dictionary	2.0		FALSE	TRUE				[RichMediaConfiguration]
+Presentation	dictionary	2.0		FALSE	FALSE				[RichMediaPresentation]

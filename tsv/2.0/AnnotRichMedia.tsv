@@ -1,23 +1,23 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2.0		FALSE	FALSE			[Annot]		
-Subtype	name	2.0		TRUE	FALSE			[RichMedia]		
-Rect	rectangle	2.0		TRUE	FALSE					
-Contents	string-text	2.0		FALSE	FALSE					
-P	dictionary	2.0		FALSE	FALSE					[PageObject]
-NM	string-text	2.0		FALSE	FALSE					
-M	date;string-text	2.0		FALSE	FALSE					
-F	integer	2.0		FALSE	FALSE		0			
-AP	dictionary	2.0		FALSE	FALSE					[Appearance]
-AS	name	2.0		FALSE	FALSE					
-Border	array	2.0		FALSE	FALSE		[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
-C 	array	2.0		FALSE	FALSE					[ArrayOf_4NumbersColorAnnotation]
-StructParent	integer	2.0		FALSE	FALSE					
-OC	dictionary	2.0		FALSE	FALSE					[OptContentGroup,OptContentMembership]
-AF	array;dictionary	2.0		FALSE	FALSE					[ArrayOfFileSpecifications];[FileSpecification]
-ca	number	2.0		FALSE	FALSE		1.0			
-CA	number	2.0		FALSE	FALSE					
-BM	name	2.0		FALSE	FALSE					
-Lang	string-text	2.0		FALSE	FALSE					
-RichMediaContent	dictionary	2.0		TRUE	FALSE					[RichMediaContent]
-RichMediaSettings	dictionary	2.0		FALSE	FALSE					[RichMediaSettings]
-ExData	dictionary	2.0		FALSE	FALSE					[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	2.0		FALSE	FALSE		[Annot]		
+Subtype	name	2.0		TRUE	FALSE		[RichMedia]		
+Rect	rectangle	2.0		TRUE	FALSE				
+Contents	string-text	2.0		FALSE	FALSE				
+P	dictionary	2.0		FALSE	FALSE				[PageObject]
+NM	string-text	2.0		FALSE	FALSE				
+M	date;string-text	2.0		FALSE	FALSE				
+F	integer	2.0		FALSE	FALSE	0			
+AP	dictionary	2.0		FALSE	FALSE				[Appearance]
+AS	name	2.0		FALSE	FALSE				
+Border	array	2.0		FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
+C 	array	2.0		FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]
+StructParent	integer	2.0		FALSE	FALSE				
+OC	dictionary	2.0		FALSE	FALSE				[OptContentGroup,OptContentMembership]
+AF	array;dictionary	2.0		FALSE	FALSE				[ArrayOfFileSpecifications];[FileSpecification]
+ca	number	2.0		FALSE	FALSE	1.0			
+CA	number	2.0		FALSE	FALSE				
+BM	name	2.0		FALSE	FALSE				
+Lang	string-text	2.0		FALSE	FALSE				
+RichMediaContent	dictionary	2.0		TRUE	FALSE				[RichMediaContent]
+RichMediaSettings	dictionary	2.0		FALSE	FALSE				[RichMediaSettings]
+ExData	dictionary	2.0		FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]

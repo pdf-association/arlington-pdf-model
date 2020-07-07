@@ -1,8 +1,8 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.5		FALSE	FALSE			[Action]		
-S	name	1.5		TRUE	FALSE			[Rendition]		
-Next	array;dictionary	1.5		FALSE	FALSE					[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
-R	dictionary	1.5		FALSE	FALSE					[RenditionSelector,RenditionMedia]
-AN	dictionary	1.5		FALSE	FALSE					[AnnotScreen]
-OP	integer	1.5		FALSE	FALSE					
-JS	stream;string-text	1.5		FALSE	FALSE					[Stream];[]
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.5		FALSE	FALSE		[Action]		
+S	name	1.5		TRUE	FALSE		[Rendition]		
+Next	array;dictionary	1.5		FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
+R	dictionary	1.5		FALSE	FALSE				[RenditionSelector,RenditionMedia]
+AN	dictionary	1.5		FALSE	FALSE				[AnnotScreen]
+OP	integer	1.5		FALSE	FALSE				
+JS	stream;string-text	1.5		FALSE	FALSE				[Stream];[]

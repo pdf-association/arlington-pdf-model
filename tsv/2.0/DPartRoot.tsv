@@ -1,5 +1,5 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2.0		FALSE	FALSE			[DPartRoot]		
-DPartRootNode	dictionary	2.0		FALSE	FALSE					[DPart]
-RecordLevel	integer	2.0		FALSE	FALSE					
-NodeNameList	array	2.0		FALSE	FALSE					[ArrayOfNamesGeneral]
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	2.0		FALSE	FALSE		[DPartRoot]		
+DPartRootNode	dictionary	2.0		FALSE	FALSE				[DPart]
+RecordLevel	integer	2.0		FALSE	FALSE				
+NodeNameList	array	2.0		FALSE	FALSE				[ArrayOfNamesGeneral]

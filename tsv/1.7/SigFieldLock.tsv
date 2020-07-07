@@ -1,4 +1,4 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.5		FALSE	FALSE			[SigFieldLock]		
-Action	name	1.5		TRUE	FALSE			[All,Include,Exclude]		
-Fields	array	1.5		FALSE	FALSE				*required if Action==Include or Exclude	[ArrayOfStringsText]
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.5		FALSE	FALSE		[SigFieldLock]		
+Action	name	1.5		TRUE	FALSE		[All,Include,Exclude]		
+Fields	array	1.5		FALSE	FALSE			*required if Action==Include or Exclude	[ArrayOfStringsText]

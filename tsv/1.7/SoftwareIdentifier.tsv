@@ -1,8 +1,8 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.5		FALSE	FALSE			[SoftwareIdentifier]		
-U	string-ascii	1.5		TRUE	FALSE					
-L	array	1.5		FALSE	FALSE		[0]			[ArrayOfVersions]
-LI	boolean	1.5		FALSE	FALSE		TRUE			
-H	array	1.5		FALSE	FALSE		[]			[ArrayOfVersions]
-HI	boolean	1.5		FALSE	FALSE		TRUE			
-OS	array	1.5		FALSE	FALSE		[]			[ArrayOfStringsByte]
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
+Type	name	1.5		FALSE	FALSE		[SoftwareIdentifier]		
+U	string-ascii	1.5		TRUE	FALSE				
+L	array	1.5		FALSE	FALSE	[0]			[ArrayOfVersions]
+LI	boolean	1.5		FALSE	FALSE	TRUE			
+H	array	1.5		FALSE	FALSE	[]			[ArrayOfVersions]
+HI	boolean	1.5		FALSE	FALSE	TRUE			
+OS	array	1.5		FALSE	FALSE	[]			[ArrayOfStringsByte]

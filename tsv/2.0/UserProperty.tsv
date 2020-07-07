@@ -1,5 +1,5 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	
-N	string-text	1.6		TRUE	FALSE						
-V	boolean;dictionary;integer;name;stream;string	1.6		TRUE	FALSE					[];[];[];[];[Stream];[]	*any
-F	string-text	1.6		FALSE	FALSE						
-H	boolean	1.6		FALSE	FALSE		FALSE				
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	
+N	string-text	1.6		TRUE	FALSE					
+V	boolean;dictionary;integer;name;stream;string	1.6		TRUE	FALSE				[];[];[];[];[Stream];[]	*any
+F	string-text	1.6		FALSE	FALSE					
+H	boolean	1.6		FALSE	FALSE	FALSE				
