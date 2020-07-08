@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
-Pages	array	1.3		TRUE	FALSE				[]
+Pages	array	1.3		TRUE	FALSE				[ArrayOfPages]
 DeviceColorant	name;string	1.3		TRUE	FALSE				
 ColorSpace	array	1.3		FALSE	FALSE				[SeparationColorSpace,DeviceNColorSpace]

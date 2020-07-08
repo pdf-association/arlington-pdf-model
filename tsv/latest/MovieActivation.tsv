@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
-Start	array;integer;string	1.2	2.0	FALSE	FALSE				[];[];[]
-Duration	array;integer;string	1.2	2.0	FALSE	FALSE				[];[];[]
+Start	array;integer;string	1.2	2.0	FALSE	FALSE				[ArrayOfDuration];[];[]
+Duration	array;integer;string	1.2	2.0	FALSE	FALSE				[ArrayOfDuration];[];[]
 Rate	number	1.2	2.0	FALSE	FALSE	1.0			
 Volume	number	1.2	2.0	FALSE	FALSE	1.0			
 ShowControls	boolean	1.2	2.0	FALSE	FALSE	FALSE			

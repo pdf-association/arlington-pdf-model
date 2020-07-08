@@ -8,4 +8,4 @@ Unix	string-byte	1.0	2.0	FALSE	FALSE
 ID	array	1.0		FALSE	FALSE			Required if RF is present; PDF 1.3; amended to include the UF key in PDF 1.7	[ArrayOf_2StringsByte]
 V	boolean	1.2		FALSE	FALSE				
 EF	dictionary	1.3		FALSE	FALSE				[EmbeddedFileStream]
-RF	dictionary	1.3		FALSE	FALSE				[]
+RF	dictionary	1.3		FALSE	FALSE				[FileSpecRF]

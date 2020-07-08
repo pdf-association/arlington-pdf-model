@@ -126,6 +126,10 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     // - each dictionary, array etc.. is linked
     // - each link actuall exists
 
+    //if (vc[0]=="Subtype" && (vc[7]=="" || vc[7]=="[]"))
+    //  report_stream << "Undefined Subtype " << file_name << "::" << vc[0] << std::endl;
+
+
     if (vc[9] != "") {
       if (links.size() != types.size())
         report_stream << "Wrong # of types vs. # of links " << file_name << "::" << vc[0] << std::endl;
@@ -134,21 +138,13 @@ bool CGrammarReader::check(std::ostream &report_stream) {
           report_stream << "Wrong pattern in links " << file_name << "::" << vc[0] << std::endl;
         }
         else {
+          //report all unliked complex types
           if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
             (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER-TREE"
               || types[link_pos] == "NAME-TREE" || types[link_pos] == "STREAM"
               || types[link_pos] == "ARRAY"))
             report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
 
-          // report all unlinked streams
-          //if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
-          //  (types[link_pos] == "STREAM"))
-          //  report_stream << file_name << "::" << vc[0] << std::endl;
-
-          // report all linked streams
-          //if ((types.size() > link_pos) && (links[link_pos] != "[]") &&
-          //  (types[link_pos] == "STREAM"))
-          //  report_stream << links[link_pos] << std::endl;
 
           std::vector<std::string> direct_links = split(links[link_pos].substr(1, links[link_pos].size() - 2), ',');
 
@@ -193,6 +189,15 @@ bool CGrammarReader::check(std::ostream &report_stream) {
           report_stream << "Wrong # of types vs. # of possible values " << file_name << "::" << vc[0] << std::endl;
      }
     }
+
+    //report all possible values
+    //if (vc[7]!="")
+    //  report_stream << vc[7] << std::endl;
+
+    //report all special cases
+    //if (vc[8] != "")
+    //  report_stream << vc[8] << std::endl;
+
   }
   return true;
 }
