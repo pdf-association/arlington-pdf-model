@@ -1,4 +1,4 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
 0	name	1.6		TRUE	FALSE		[DeviceN]			
 1	array	1.6		TRUE	FALSE				[ArrayOfNamesGeneral]	
 2	array;name	1.6		TRUE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace];[]	*can't be pattern,indexed,separation,deviceN

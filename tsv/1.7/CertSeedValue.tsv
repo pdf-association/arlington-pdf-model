@@ -1,10 +1,10 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.5		FALSE	FALSE		[SVCert]		
-Ff	integer	1.5		FALSE	FALSE	0			
-Subject	array	1.5		FALSE	FALSE				[ArrayOfStringsByte]
-SubjectDN	array	1.7		FALSE	FALSE				[ArrayOfSubjectDN]
-KeyUsage	array	1.7		FALSE	FALSE				[ArrayOfStringsASCII]
-Issuer	array	1.5		FALSE	FALSE				[ArrayOfStringsByte]
-OID	array	1.5		FALSE	FALSE				[ArrayOfStringsByte]
-URL	string-ascii	1.5		FALSE	FALSE				
-URLType	name	1.7		FALSE	FALSE	Browser	[Browser]		
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.5		FALSE	FALSE		[SVCert]			
+Ff	integer	1.5		FALSE	FALSE	0				
+Subject	array	1.5		FALSE	FALSE				[ArrayOfStringsByte]	
+SubjectDN	array	1.7		FALSE	FALSE				[ArrayOfSubjectDN]	
+KeyUsage	array	1.7		FALSE	FALSE				[ArrayOfStringsASCII]	
+Issuer	array	1.5		FALSE	FALSE				[ArrayOfStringsByte]	
+OID	array	1.5		FALSE	FALSE				[ArrayOfStringsByte]	
+URL	string-ascii	1.5		FALSE	FALSE					
+URLType	name	1.7		FALSE	FALSE	Browser	[Browser]			

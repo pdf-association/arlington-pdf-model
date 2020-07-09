@@ -1,6 +1,6 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
-Predictor	integer	1.2		FALSE	FALSE		[1,2,10,11,12,13,14,15]		
-Colors	integer	1.2		FALSE	FALSE		[(1..)]	used only if predictor > 1	
-BitsPerComponent	integer	1.2		FALSE	FALSE		[1,2,4,8,16]	used only if predictor > 1	
-Columns	integer	1.2		FALSE	FALSE	1		used only if predictor > 1	
-EarlyChange	integer	1.2		FALSE	FALSE	1	[0,1]		
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Predictor	integer	1.2		FALSE	FALSE		[1,2,10,11,12,13,14,15]			
+Colors	integer	1.2		FALSE	FALSE		[(1..)]	used only if predictor > 1		
+BitsPerComponent	integer	1.2		FALSE	FALSE		[1,2,4,8,16]	used only if predictor > 1		
+Columns	integer	1.2		FALSE	FALSE	1		used only if predictor > 1		
+EarlyChange	integer	1.2		FALSE	FALSE	1	[0,1]			

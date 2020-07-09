@@ -1,7 +1,7 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
-Recipients	array;string	1.5		TRUE	FALSE				[ArrayOfStringsByte];[]
-EncryptMetadata	boolean	1.5		FALSE	FALSE	TRUE			
-Type	name	1.5		FALSE	FALSE		[CryptFilter]		
-CFM	name	1.5		FALSE	FALSE	None	[None,V2,AESV2,AESV3]		
-AuthEvent	name	1.5		FALSE	FALSE	DocOpen	[DocOpen,EFOpen]		
-Length	integer	1.5	2.0	TRUE	FALSE				
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Recipients	array;string	1.5		TRUE	FALSE				[ArrayOfStringsByte];[]	
+EncryptMetadata	boolean	1.5		FALSE	FALSE	TRUE				
+Type	name	1.5		FALSE	FALSE		[CryptFilter]			
+CFM	name	1.5		FALSE	FALSE	None	[None,V2,AESV2,AESV3]			
+AuthEvent	name	1.5		FALSE	FALSE	DocOpen	[DocOpen,EFOpen]			
+Length	integer	1.5	2.0	TRUE	FALSE					

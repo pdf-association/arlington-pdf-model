@@ -1,23 +1,23 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2.0		FALSE	FALSE		[3DMeasure]		
-Subtype	name	2.0		TRUE	FALSE		[RD3]		
-TRL	string-text	2.0		FALSE	FALSE				
-AP	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]
-A1	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]
-A2	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]
-N2	string-text	2.0		FALSE	FALSE				
-A3	array	2.0		FALSE	FALSE				[ArrayOf_3Numbers]
-A4	array	2.0		FALSE	FALSE				[ArrayOf_3Numbers]
-TP	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]
-TX	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]
-TY	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]
-EL	number	2.0		FALSE	FALSE	60			
-TS	number	2.0		FALSE	FALSE	12			
-C	array	2.0		FALSE	FALSE	[1 1 1]			[ArrayOf_3RGBNumbers]
-V	number	2.0		TRUE	FALSE				
-U	string-text	2.0		TRUE	FALSE				
-P	integer	2.0		FALSE	FALSE	3			
-UT	string-text	2.0		FALSE	FALSE				
-SC	boolean	2.0		FALSE	FALSE	FALSE			
-R	boolean	2.0		FALSE	FALSE	TRUE			
-S	dictionary	2.0		FALSE	FALSE				[AnnotProjection]
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	2.0		FALSE	FALSE		[3DMeasure]			
+Subtype	name	2.0		TRUE	FALSE		[RD3]			
+TRL	string-text	2.0		FALSE	FALSE					
+AP	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]	
+A1	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]	
+A2	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]	
+N2	string-text	2.0		FALSE	FALSE					
+A3	array	2.0		FALSE	FALSE				[ArrayOf_3Numbers]	
+A4	array	2.0		FALSE	FALSE				[ArrayOf_3Numbers]	
+TP	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]	
+TX	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]	
+TY	array	2.0		TRUE	FALSE				[ArrayOf_3Numbers]	
+EL	number	2.0		FALSE	FALSE	60				
+TS	number	2.0		FALSE	FALSE	12				
+C	array	2.0		FALSE	FALSE	[1 1 1]			[ArrayOf_3RGBNumbers]	
+V	number	2.0		TRUE	FALSE					
+U	string-text	2.0		TRUE	FALSE					
+P	integer	2.0		FALSE	FALSE	3				
+UT	string-text	2.0		FALSE	FALSE					
+SC	boolean	2.0		FALSE	FALSE	FALSE				
+R	boolean	2.0		FALSE	FALSE	TRUE				
+S	dictionary	2.0		FALSE	FALSE				[AnnotProjection]	

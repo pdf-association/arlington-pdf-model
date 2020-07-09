@@ -1,9 +1,9 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	1.2	2.0	FALSE	FALSE		[Action]		
-S	name	1.2	2.0	TRUE	FALSE		[Sound]		
-Next	array;dictionary	1.2	2.0	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]
-Sound	stream	1.2	2.0	TRUE	FALSE				[Stream]
-Volume	number	1.2	2.0	FALSE	FALSE	1.0	[<-1.0..1.0>]		
-Synchronous	boolean	1.2	2.0	FALSE	FALSE	FALSE			
-Repeat	boolean	1.2	2.0	FALSE	FALSE	FALSE			
-Mix	boolean	1.2	2.0	FALSE	FALSE	FALSE			
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.2	2.0	FALSE	FALSE		[Action]			
+S	name	1.2	2.0	TRUE	FALSE		[Sound]			
+Next	array;dictionary	1.2	2.0	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
+Sound	stream	1.2	2.0	TRUE	FALSE				[Stream]	
+Volume	number	1.2	2.0	FALSE	FALSE	1.0	[<-1.0..1.0>]			
+Synchronous	boolean	1.2	2.0	FALSE	FALSE	FALSE				
+Repeat	boolean	1.2	2.0	FALSE	FALSE	FALSE				
+Mix	boolean	1.2	2.0	FALSE	FALSE	FALSE				
