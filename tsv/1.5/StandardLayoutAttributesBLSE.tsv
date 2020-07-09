@@ -1,22 +1,22 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
 O	name	1.3		TRUE	FALSE		[Layout]			
-Placement	name	1.4		FALSE	FALSE		[Block,Inline,Before,Start,End]	not inheritable		
-WritingMode	name	1.4		FALSE	FALSE	LrTb	[LrTb,RlTb,tbRl,TbLr,LrBt,RlBt,BtRl,BtLr]	inheritable		
-BackgroundColor	array	1.5		FALSE	FALSE			not inheritable	[ArrayOf_3RGBNumbers]	
-BorderColor	array	1.5		FALSE	FALSE			inheritable	[ArrayOf_4BorderColors,ArrayOf_3RGBNumbers]	
-BorderStyle	array;name	1.5		FALSE	FALSE	None	[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]	not inheritable	[ArrayOf_4BorderStyleNames];[]	
-BorderThickness	array;number	1.5		FALSE	FALSE	0		inheritable	[ArrayOf_4Integers];[]	
-Padding	array;number	1.5		FALSE	FALSE	0		not inheritable	[ArrayOf_4Integers];[]	
-Color	array	1.5		FALSE	FALSE			inheritable	[ArrayOf_3RGBNumbers]	
-SpaceBefore	number	1.4		FALSE	FALSE	0		not inheritable		
-SpaceAfter	number	1.4		FALSE	FALSE	0		not inheritable		
-StartIndent	number	1.4		FALSE	FALSE	0		inheritable		
-EndIndent	number	1.4		FALSE	FALSE	0		inheritable		
-TextIndent	number	1.4		FALSE	FALSE	0		inheritable		
-TextAlign	name	1.4		FALSE	FALSE	Start	[Start,Center,End,Justify]	inheritable		
-BBox	rectangle	1.4		FALSE	FALSE			not inheritable		
-Width	name;number	1.4		FALSE	FALSE	Auto		not inheritable		
-Height	name;number	1.4		FALSE	FALSE	Auto		not inheritable		
+Placement	name	1.4		FALSE	FALSE		[Block,Inline,Before,Start,End]			
+WritingMode	name	1.4		FALSE	FALSE	LrTb	[LrTb,RlTb,tbRl,TbLr,LrBt,RlBt,BtRl,BtLr]			
+BackgroundColor	array	1.5		FALSE	FALSE				[ArrayOf_3RGBNumbers]	
+BorderColor	array	1.5		FALSE	FALSE				[ArrayOf_4BorderColors,ArrayOf_3RGBNumbers]	
+BorderStyle	array;name	1.5		FALSE	FALSE	None	[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]		[ArrayOf_4BorderStyleNames];[]	
+BorderThickness	array;number	1.5		FALSE	FALSE	0			[ArrayOf_4Integers];[]	
+Padding	array;number	1.5		FALSE	FALSE	0			[ArrayOf_4Integers];[]	
+Color	array	1.5		FALSE	FALSE				[ArrayOf_3RGBNumbers]	
+SpaceBefore	number	1.4		FALSE	FALSE	0				
+SpaceAfter	number	1.4		FALSE	FALSE	0				
+StartIndent	number	1.4		FALSE	FALSE	0				
+EndIndent	number	1.4		FALSE	FALSE	0				
+TextIndent	number	1.4		FALSE	FALSE	0				
+TextAlign	name	1.4		FALSE	FALSE	Start	[Start,Center,End,Justify]			
+BBox	rectangle	1.4		FALSE	FALSE					
+Width	name;number	1.4		FALSE	FALSE	Auto				
+Height	name;number	1.4		FALSE	FALSE	Auto				
 BlockAlign	name	1.4		FALSE	FALSE	Before	[Before,Middle,After,Justify]	inheritable		
 InlineAlign	name	1.4		FALSE	FALSE	Start	[Start,Center,End]	inheritable		
 TBorderStyle	array;name	1.5		FALSE	FALSE	None		inheritable	[ArrayOf_4BorderStyleNames];[]	

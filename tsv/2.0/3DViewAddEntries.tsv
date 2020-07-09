@@ -4,8 +4,8 @@ XN	string	1.6		TRUE	FALSE
 IN	string	1.6		FALSE	FALSE		[M,U3D]			
 MS	name	1.6		FALSE	FALSE					
 MA	array	2.0		FALSE	FALSE				[ArrayOf3DMeasure]	
-C2W	array	1.6		FALSE	FALSE			Required=TRUE=>MS=M	[ArrayOf3DTransMatrix]	
-U3DPath	array;string	1.6		FALSE	FALSE			Required=TRUE=>MS=U3D	[ArrayOfStringsText];[]	
+C2W	array	1.6		FALSE	FALSE				[ArrayOf3DTransMatrix]	
+U3DPath	array;string	1.6		FALSE	FALSE				[ArrayOfStringsText];[]	
 CO	number	1.6		FALSE	FALSE					
 P	dictionary	1.6		FALSE	FALSE				[Projection]	
 O	stream	1.6		FALSE	FALSE				[XObjectFormType1]	

@@ -3,8 +3,8 @@ Type	name	1.0		FALSE	FALSE		[XObject]
 Subtype	name	1.0		TRUE	FALSE		[Image]			
 Width	integer	1.0		TRUE	FALSE					
 Height	integer	1.0		TRUE	FALSE					
-ColorSpace	array;name	1.0		FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]	required if not JPX	[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]	
-BitsPerComponent	integer	1.0		FALSE	FALSE			required if not JPX		
+ColorSpace	array;name	1.0		FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]	
+BitsPerComponent	integer	1.0		FALSE	FALSE					
 Intent	name	1.1		FALSE	FALSE					
 ImageMask	boolean	1.0		FALSE	FALSE	FALSE				
 Decode	array	1.0		FALSE	FALSE				[ArrayOfNumbersGeneral]	

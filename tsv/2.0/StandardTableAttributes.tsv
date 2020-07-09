@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
 O	name	1.3		TRUE	FALSE		[Table]			
-RowSpan	integer	1.4		FALSE	FALSE	1		not inheritable		
-ColSpan	integer	1.4		FALSE	FALSE	1		not inheritable		
-Headers	array	1.4		FALSE	FALSE			not inheritable	[ArrayOfStringsByte]	
-Scope	name	1.4		FALSE	FALSE		[Row,Column,Both]	not inheritable		
-Summary	string-text	1.7		FALSE	FALSE			not inheritable		
-Short	string-text	2.0		FALSE	FALSE			not inheritable		
+RowSpan	integer	1.4		FALSE	FALSE	1				
+ColSpan	integer	1.4		FALSE	FALSE	1				
+Headers	array	1.4		FALSE	FALSE				[ArrayOfStringsByte]	
+Scope	name	1.4		FALSE	FALSE		[Row,Column,Both]			
+Summary	string-text	1.7		FALSE	FALSE					
+Short	string-text	2.0		FALSE	FALSE					

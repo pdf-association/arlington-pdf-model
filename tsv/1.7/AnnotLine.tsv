@@ -17,7 +17,7 @@ T 	string-text	1.3		FALSE	FALSE
 Popup	dictionary	1.3		FALSE	FALSE				[AnnotPopup]	
 RC	stream;string-text	1.5		FALSE	FALSE				[Stream];[]	
 CreationDate	date	1.5		FALSE	FALSE					
-IRT	dictionary	1.5		FALSE	FALSE			Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
+IRT	dictionary	1.5		FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
 Subj	string-text	1.5		FALSE	FALSE					
 RT	name	1.6		FALSE	FALSE	R	[R,Group]			
 L	array	1.3		TRUE	FALSE				[ArrayOf_4Numbers]	
@@ -31,5 +31,5 @@ IT	name	1.6		FALSE	FALSE		[LineArrow,LineDimension]
 LLO	number	1.7		FALSE	FALSE					
 CP	name	1.7		FALSE	FALSE	Inline	[Inline,Top]			
 Measure	dictionary	1.7		FALSE	FALSE				[MeasureRL,MeasureGEO]	
-CO	array	1.7		FALSE	FALSE	[0, 0]		meaningful only if Cap is true	[ArrayOf_2Numbers]	
+CO	array	1.7		FALSE	FALSE	[0, 0]			[ArrayOf_2Numbers]	
 ExData	dictionary	1.7		FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]	

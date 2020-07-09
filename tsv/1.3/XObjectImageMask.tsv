@@ -10,7 +10,7 @@ Decode	array	1.0		FALSE	FALSE				[ArrayOfNumbersGeneral]
 Interpolate	boolean	1.0		FALSE	FALSE	FALSE				
 Alternates	array	1.3		FALSE	FALSE				[ArrayOfImageAlternates]	
 Name	name	1.0	2.0	FALSE	FALSE					
-StructParent	integer	1.3		FALSE	FALSE			IsRequired=>ImageIsStructuralContentItem		
+StructParent	integer	1.3		FALSE	FALSE					
 ID	string	1.3		FALSE	FALSE					
 OPI	dictionary	1.2	2.0	FALSE	FALSE				[OPIVersion13,OPIVersion20]	
 Length	integer	1.3		TRUE	FALSE					* from stream

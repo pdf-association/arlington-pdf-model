@@ -13,6 +13,6 @@ Border	array	1.3	2.0	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]
 C 	array	1.3	2.0	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
 StructParent	integer	1.3	2.0	FALSE	FALSE					
 LastModified	date	1.4	2.0	FALSE	FALSE					
-Version	array	1.3	2.0	FALSE	FALSE			Required if Version is present; shall be absent if LastModified is present	[_UniversalArray]	
-AnnotStates	array	1.3	2.0	FALSE	FALSE			Required if Version is present; shall be absent if LastModified is present	[ArrayOfAnnotStates]	
+Version	array	1.3	2.0	FALSE	FALSE				[_UniversalArray]	
+AnnotStates	array	1.3	2.0	FALSE	FALSE				[ArrayOfAnnotStates]	
 FontFauxing	array	1.3	2.0	FALSE	FALSE				[ArrayOfFonts]	

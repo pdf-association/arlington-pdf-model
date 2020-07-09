@@ -17,10 +17,10 @@ T 	string-text	1.5		FALSE	FALSE
 Popup	dictionary	1.5		FALSE	FALSE				[AnnotPopup]	
 RC	stream;string-text	1.5		FALSE	FALSE				[Stream];[]	
 CreationDate	date	1.5		FALSE	FALSE					
-IRT	dictionary	1.5		FALSE	FALSE			Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
+IRT	dictionary	1.5		FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
 Subj	string-text	1.5		FALSE	FALSE					
 Vertices	array	1.5		TRUE	FALSE				[ArrayOfNumbersGeneral]	
-LE	array	1.5		FALSE	FALSE	[/None /None]		meaningful only for polyline annotations	[ArrayOf_2LineEndingsNames]	
+LE	array	1.5		FALSE	FALSE	[/None /None]			[ArrayOf_2LineEndingsNames]	
 BS	dictionary	1.5		FALSE	FALSE				[BorderStyle]	
 IC	array	1.5		FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
-BE	dictionary	1.5		FALSE	FALSE			meaningful only for polygon annotations	[BorderEffect]	
+BE	dictionary	1.5		FALSE	FALSE				[BorderEffect]	
