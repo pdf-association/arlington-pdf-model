@@ -1,9 +1,0 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link
-Type	name	2.0		FALSE	FALSE			[DPart]		
-Parent	dictionary	2.0		TRUE	FALSE					[DPart,DPartRoot]
-DParts	array	2.0		FALSE	FALSE				IsRequired=>Start not exist	[ArrayOfDPartArrays]
-Start	dictionary	2.0		FALSE	FALSE				IsRequired=>DParts not exist	[PageObject]
-End	dictionary	2.0		FALSE	TRUE				IsRequired=>Start exists	[PageObject]
-DPM	dictionary	2.0		FALSE	FALSE					[]
-AF	array	2.0		FALSE	FALSE					[ArrayOfFileSpecifications]
-Metadata	stream	2.0		FALSE	TRUE					[Metadata]

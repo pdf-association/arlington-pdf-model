@@ -1,0 +1,11 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.0		FALSE	FALSE		[Filespec]			
+FS	name	1.0		FALSE	FALSE					
+F 	string	1.0		FALSE	FALSE					
+DOS	string-byte	1.0	2.0	FALSE	FALSE					
+Mac	string-byte	1.0	2.0	FALSE	FALSE					
+Unix	string-byte	1.0	2.0	FALSE	FALSE					
+ID	array	1.0		FALSE	FALSE				[ArrayOf_2StringsByte]	
+V	boolean	1.2		FALSE	FALSE					
+EF	dictionary	1.3		FALSE	FALSE				[EmbeddedFileStream]	
+RF	dictionary	1.3		FALSE	FALSE				[FileSpecRF]	

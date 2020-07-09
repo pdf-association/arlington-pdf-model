@@ -1,6 +1,0 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	RequiredValue	DefaultValue	PossibleValues	SpecialCase	Link	
-Type	name	1.5		FALSE	FALSE			[SigRef]			
-TransformMethod	name	1.5		TRUE	FALSE			[DocMDP]			
-TransformParams	dictionary	1.5		FALSE	FALSE					[DocMDPTransformParameters]	
-Data	array;boolean;dictionary;integer;name;stream;string	1.5		FALSE	FALSE					[];[];[];[];[];[Stream];[]	*various
-DigestMethod	name	1.5		FALSE	FALSE			[MD5,SHA1,SHA256,SHA384,SHA512,RIPEMD160]			

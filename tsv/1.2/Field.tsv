@@ -1,0 +1,6 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Parent	dictionary	1.2		FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,FieldSig,Field]	
+Kids	array	1.2		FALSE	FALSE				[ArrayOfFields]	
+T	string-text	1.2		TRUE	FALSE					
+Ff	integer	1.2		FALSE	FALSE					
+AA	dictionary	1.2		FALSE	FALSE				[AddActionFormField]	

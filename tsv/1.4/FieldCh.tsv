@@ -1,0 +1,16 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+FT	name	1.2		TRUE	FALSE		[Ch]			
+Parent	dictionary	1.2		FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,FieldSig,Field]	
+Kids	array	1.2		FALSE	FALSE				[ArrayOfFields]	
+T	string-text	1.2		TRUE	FALSE					
+TU	string-text	1.3		FALSE	FALSE					
+TM	string-text	1.3		FALSE	FALSE					
+Ff	integer	1.2		FALSE	FALSE					
+V	string-text	1.2		FALSE	FALSE					
+DV	string-text	1.2		FALSE	FALSE					
+AA	dictionary	1.2		FALSE	FALSE				[AddActionFormField]	
+DA	string	1.2		TRUE	FALSE			Inheritable		
+Q	integer	1.2		FALSE	FALSE	0	[0,1,2]			
+Opt	array	1.4		FALSE	FALSE			Inheritable	[ArrayOfStringsText,ArrayOfArrays_2StringsText]	
+TI	integer	1.2		FALSE	FALSE			Inheritable		
+I	array	1.4		FALSE	FALSE			Inheritable;*sometimes required	[ArrayOfIntegersGeneral]	

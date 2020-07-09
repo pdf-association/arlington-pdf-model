@@ -125,15 +125,22 @@ int main(int argc, char* argv[]) {
         doc = pdfix->OpenDoc(open_file.c_str(), L"");
         if (doc != nullptr) {
           //acquire catalog
-          PdsObject* root = doc->GetRootObject();
-          if (root != nullptr) {
+          //PdsObject* root = doc->GetRootObject();
+          //if (root != nullptr) {
+          //  CParsePDF parser(doc, grammar_folder, ofs);
+          //  parser.parse_object(root, "Catalog", "Catalog");
+          //}
+          //else ofs << "Failed to open:" << ToUtf8(file_name) << std::endl;
+
+          PdsObject* trailer = doc->GetTrailerObject();
+          if (trailer != nullptr) {
             CParsePDF parser(doc, grammar_folder, ofs);
-            parser.parse_object(root, "Catalog", "Catalog");
-          }
-          else ofs << "Failed to open:" << ToUtf8(file_name) << std::endl;
+            parser.parse_object(trailer, "FileTrailer", "Trailer");
+          } else ofs << "Failed to acquire Trailer in:" << ToUtf8(file_name) << std::endl;
           doc->Close();
         }
-        else ofs << "Failed to acquire Catalog in:" << ToUtf8(file_name) << std::endl;
+        else ofs << "Failed to open:" << ToUtf8(file_name) << std::endl;
+         
         ofs << "END" << std::endl;
         ofs.close();
       };

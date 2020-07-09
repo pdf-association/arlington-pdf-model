@@ -1,0 +1,5808 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<PDF grammar_version="0.2.7" iso_ref="ISO-32000" pdf_version="1.1">
+   <OBJECT id="_UniversalArray" object_number="000">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="array">_UniversalArray</VALUE>
+            <VALUE type="boolean"/>
+            <VALUE type="dictionary">_UniversalDictionary</VALUE>
+            <VALUE type="name"/>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
+            <VALUE type="stream">Stream</VALUE>
+            <VALUE type="string"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="_UniversalDictionary" object_number="001">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="array">_UniversalArray</VALUE>
+            <VALUE type="boolean"/>
+            <VALUE type="dictionary">_UniversalDictionary</VALUE>
+            <VALUE type="name"/>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
+            <VALUE type="stream">Stream</VALUE>
+            <VALUE type="string"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ActionGoTo" object_number="002">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Action</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>S</NAME>
+         <VALUES>
+            <VALUE type="name">GoTo</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>D</NAME>
+         <VALUES>
+            <VALUE type="array">DestXYZ</VALUE>
+            <VALUE type="array">Dest0</VALUE>
+            <VALUE type="array">Dest1</VALUE>
+            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="name"/>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ActionGoToR" object_number="003">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Action</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>S</NAME>
+         <VALUES>
+            <VALUE type="name">GoToR</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>F</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FileSpecification</VALUE>
+            <VALUE type="string"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>D</NAME>
+         <VALUES>
+            <VALUE type="array">DestXYZ</VALUE>
+            <VALUE type="array">Dest0</VALUE>
+            <VALUE type="array">Dest1</VALUE>
+            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="name"/>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ActionLaunch" object_number="004">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Action</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>S</NAME>
+         <VALUES>
+            <VALUE type="name">Launch</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>F</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FileSpecification</VALUE>
+            <VALUE type="string"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Win</NAME>
+         <VALUES>
+            <VALUE type="dictionary">MicrosoftWindowsLaunchParam</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Mac</NAME>
+         <VALUES>
+            <VALUE type="null"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Unix</NAME>
+         <VALUES>
+            <VALUE type="null"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ActionThread" object_number="005">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Action</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>S</NAME>
+         <VALUES>
+            <VALUE type="name">Thread</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>F</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FileSpecification</VALUE>
+            <VALUE type="string"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>D</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Thread</VALUE>
+            <VALUE type="integer"/>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>B</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Bead</VALUE>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ActionURI" object_number="006">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Action</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>S</NAME>
+         <VALUES>
+            <VALUE type="name">URI</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>URI</NAME>
+         <VALUES>
+            <VALUE type="string-ascii"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>IsMap</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="AnnotLink" object_number="007">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Annot</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Link</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Rect</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Contents</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>M</NAME>
+         <VALUES>
+            <VALUE type="date"/>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>F</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Border</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4AnnotBorderCharacteristics</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>C </NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4NumbersColorAnnotation</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>A</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ActionGoTo</VALUE>
+            <VALUE type="dictionary">ActionGoToR</VALUE>
+            <VALUE type="dictionary">ActionGoToE</VALUE>
+            <VALUE type="dictionary">ActionGoToDp</VALUE>
+            <VALUE type="dictionary">ActionLaunch</VALUE>
+            <VALUE type="dictionary">ActionThread</VALUE>
+            <VALUE type="dictionary">ActionURI</VALUE>
+            <VALUE type="dictionary">ActionSound</VALUE>
+            <VALUE type="dictionary">ActionMovie</VALUE>
+            <VALUE type="dictionary">ActionHide</VALUE>
+            <VALUE type="dictionary">ActionNamed</VALUE>
+            <VALUE type="dictionary">ActionSubmitForm</VALUE>
+            <VALUE type="dictionary">ActionResetForm</VALUE>
+            <VALUE type="dictionary">ActionImportData</VALUE>
+            <VALUE type="dictionary">ActionSetOCGState</VALUE>
+            <VALUE type="dictionary">ActionRendition</VALUE>
+            <VALUE type="dictionary">ActionTransition</VALUE>
+            <VALUE type="dictionary">ActionGoTo3DView</VALUE>
+            <VALUE type="dictionary">ActionECMAScript</VALUE>
+            <VALUE type="dictionary">ActionRichMediaExecute</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Dest</NAME>
+         <VALUES>
+            <VALUE type="array">DestXYZ</VALUE>
+            <VALUE type="array">Dest0</VALUE>
+            <VALUE type="array">Dest1</VALUE>
+            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="name"/>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="AnnotText" object_number="008">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Annot</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Text</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Rect</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Contents</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>M</NAME>
+         <VALUES>
+            <VALUE type="date"/>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>F</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Border</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4AnnotBorderCharacteristics</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>C </NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4NumbersColorAnnotation</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>T </NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Open</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Name</NAME>
+         <VALUES>
+            <VALUE type="name">Comment</VALUE>
+            <VALUE type="name">Key</VALUE>
+            <VALUE type="name">Note</VALUE>
+            <VALUE type="name">Help</VALUE>
+            <VALUE type="name">NewParagraph</VALUE>
+            <VALUE type="name">Paragraph</VALUE>
+            <VALUE type="name">Insert</VALUE>
+            <DEFAULT_VALUE>Note</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>State</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="AppearanceCharacteristics" object_number="009">
+      <ENTRY>
+         <NAME>R</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BC</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BG</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CA</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>RC</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>AC</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>I</NAME>
+         <VALUES>
+            <VALUE type="stream">XObjectFormType1</VALUE>
+            <VALUE type="stream">XObjectImage</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>RI</NAME>
+         <VALUES>
+            <VALUE type="stream">XObjectFormType1</VALUE>
+            <VALUE type="stream">XObjectImage</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>IX</NAME>
+         <VALUES>
+            <VALUE type="stream">XObjectFormType1</VALUE>
+            <VALUE type="stream">XObjectImage</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>IF</NAME>
+         <VALUES>
+            <VALUE type="dictionary">IconFit</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TP</NAME>
+         <VALUES>
+            <VALUE type="integer">0</VALUE>
+            <VALUE type="integer">1</VALUE>
+            <VALUE type="integer">2</VALUE>
+            <VALUE type="integer">3</VALUE>
+            <VALUE type="integer">4</VALUE>
+            <VALUE type="integer">5</VALUE>
+            <VALUE type="integer">6</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOf_2DashNumbers" object_number="010">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOf_2StringsByte" object_number="011">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOf_4AnnotBorderCharacteristics" object_number="012">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>3</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_2DashNumbers</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOf_4NumbersColorAnnotation" object_number="013">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="number">&lt;0..1&gt;</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="number">&lt;0..1&gt;</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="number">&lt;0..1&gt;</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>3</NAME>
+         <VALUES>
+            <VALUE type="number">&lt;0..1&gt;</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfActions" object_number="014">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ActionGoTo</VALUE>
+            <VALUE type="dictionary">ActionGoToR</VALUE>
+            <VALUE type="dictionary">ActionGoToE</VALUE>
+            <VALUE type="dictionary">ActionGoToDp</VALUE>
+            <VALUE type="dictionary">ActionLaunch</VALUE>
+            <VALUE type="dictionary">ActionThread</VALUE>
+            <VALUE type="dictionary">ActionURI</VALUE>
+            <VALUE type="dictionary">ActionSound</VALUE>
+            <VALUE type="dictionary">ActionMovie</VALUE>
+            <VALUE type="dictionary">ActionHide</VALUE>
+            <VALUE type="dictionary">ActionNamed</VALUE>
+            <VALUE type="dictionary">ActionSubmitForm</VALUE>
+            <VALUE type="dictionary">ActionResetForm</VALUE>
+            <VALUE type="dictionary">ActionImportData</VALUE>
+            <VALUE type="dictionary">ActionSetOCGState</VALUE>
+            <VALUE type="dictionary">ActionRendition</VALUE>
+            <VALUE type="dictionary">ActionTransition</VALUE>
+            <VALUE type="dictionary">ActionGoTo3DView</VALUE>
+            <VALUE type="dictionary">ActionECMAScript</VALUE>
+            <VALUE type="dictionary">ActionRichMediaExecute</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfAnnots" object_number="015">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotText</VALUE>
+            <VALUE type="dictionary">AnnotLink</VALUE>
+            <VALUE type="dictionary">AnnotFreeText</VALUE>
+            <VALUE type="dictionary">AnnotLine</VALUE>
+            <VALUE type="dictionary">AnnotSquare</VALUE>
+            <VALUE type="dictionary">AnnotCircle</VALUE>
+            <VALUE type="dictionary">AnnotPolygon</VALUE>
+            <VALUE type="dictionary">AnnotPolyLine</VALUE>
+            <VALUE type="dictionary">AnnotHighlight</VALUE>
+            <VALUE type="dictionary">AnnotUnderline</VALUE>
+            <VALUE type="dictionary">AnnotSquiggly</VALUE>
+            <VALUE type="dictionary">AnnotStrikeOut</VALUE>
+            <VALUE type="dictionary">AnnotCaret</VALUE>
+            <VALUE type="dictionary">AnnotStamp</VALUE>
+            <VALUE type="dictionary">AnnotInk</VALUE>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+            <VALUE type="dictionary">AnnotFileAttachment</VALUE>
+            <VALUE type="dictionary">AnnotSound</VALUE>
+            <VALUE type="dictionary">AnnotMovie</VALUE>
+            <VALUE type="dictionary">AnnotScreen</VALUE>
+            <VALUE type="dictionary">AnnotWidget</VALUE>
+            <VALUE type="dictionary">AnnotPrinterMark</VALUE>
+            <VALUE type="dictionary">AnnotTrapNetwork</VALUE>
+            <VALUE type="dictionary">AnnotWatermark</VALUE>
+            <VALUE type="dictionary">Annot3D</VALUE>
+            <VALUE type="dictionary">AnnotRedact</VALUE>
+            <VALUE type="dictionary">AnnotProjection</VALUE>
+            <VALUE type="dictionary">AnnotRichMedia</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfBeads" object_number="016">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">BeadFirst</VALUE>
+            <VALUE type="dictionary">Bead</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfDashPatterns" object_number="017">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfDecodeParams" object_number="018">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FilterLZWDecode</VALUE>
+            <VALUE type="dictionary">FilterFlateDecode</VALUE>
+            <VALUE type="dictionary">FilterCCITTFaxDecode</VALUE>
+            <VALUE type="dictionary">FilterJBIG2Decode</VALUE>
+            <VALUE type="dictionary">FilterDCTDecode</VALUE>
+            <VALUE type="dictionary">FilterCrypt</VALUE>
+            <VALUE type="null"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfDifferences" object_number="019">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfFilterNames" object_number="020">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="name">ASCIIHexDecode</VALUE>
+            <VALUE type="name">ASCII85Decode</VALUE>
+            <VALUE type="name">LZWDecode</VALUE>
+            <VALUE type="name">FlateDecode</VALUE>
+            <VALUE type="name">RunLengthDecode</VALUE>
+            <VALUE type="name">CCITTFaxDecode</VALUE>
+            <VALUE type="name">JBIG2Decode</VALUE>
+            <VALUE type="name">DCTDecode</VALUE>
+            <VALUE type="name">JPXDecode</VALUE>
+            <VALUE type="name">Crypt</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfNamesGeneral" object_number="021">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfNumbersGeneral" object_number="022">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfPages" object_number="023">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PageObject</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfPageTreeNodeKids" object_number="024">
+      <ENTRY>
+         <NAME>c</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PageTreeNode</VALUE>
+            <VALUE type="dictionary">PageObject</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfStreamsGeneral" object_number="025">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="stream">Stream</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfThreads" object_number="026">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Thread</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Bead" object_number="027">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Bead</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>T</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Thread</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>N</NAME>
+         <VALUES>
+            <VALUE type="dictionary">BeadFirst</VALUE>
+            <VALUE type="dictionary">Bead</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>V</NAME>
+         <VALUES>
+            <VALUE type="dictionary">BeadFirst</VALUE>
+            <VALUE type="dictionary">Bead</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>P</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PageObject</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>R</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="BeadFirst" object_number="028">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Bead</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>T</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Thread</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>N</NAME>
+         <VALUES>
+            <VALUE type="dictionary">BeadFirst</VALUE>
+            <VALUE type="dictionary">Bead</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>V</NAME>
+         <VALUES>
+            <VALUE type="dictionary">BeadFirst</VALUE>
+            <VALUE type="dictionary">Bead</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>P</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PageObject</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>R</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Blackpoint" object_number="029">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="number">&lt;0..)</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="number">&lt;0..)</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="number">&lt;0..)</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="BorderStyle" object_number="030">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Border</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>W</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>S</NAME>
+         <VALUES>
+            <VALUE type="name">S</VALUE>
+            <VALUE type="name">B</VALUE>
+            <VALUE type="name">D</VALUE>
+            <VALUE type="name">I</VALUE>
+            <VALUE type="name">U</VALUE>
+            <DEFAULT_VALUE>S</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>D</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfDashPatterns</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="CalGrayColorSpace" object_number="031">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="name">CalGray</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="dictionary">CalGrayDict</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="CalGrayDict" object_number="032">
+      <ENTRY>
+         <NAME>WhitePoint</NAME>
+         <VALUES>
+            <VALUE type="array">Whitepoint</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BlackPoint</NAME>
+         <VALUES>
+            <VALUE type="array">Blackpoint</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Gamma</NAME>
+         <VALUES>
+            <VALUE type="number">(0..)</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="CalRGBColorSpace" object_number="033">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="name">CalRGB</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="dictionary">CalRGBDict</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="CalRGBDict" object_number="034">
+      <ENTRY>
+         <NAME>WhitePoint</NAME>
+         <VALUES>
+            <VALUE type="array">Whitepoint</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BlackPoint</NAME>
+         <VALUES>
+            <VALUE type="array">Blackpoint</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Gamma</NAME>
+         <VALUES>
+            <VALUE type="array">Gamma</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Matrix</NAME>
+         <VALUES>
+            <VALUE type="array">Matrix</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Catalog" object_number="035">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Catalog</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Extension</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Extensions</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Pages</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PageTreeNodeRoot</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Dests</NAME>
+         <VALUES>
+            <VALUE type="dictionary">DestsMap</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>PageLayout</NAME>
+         <VALUES>
+            <VALUE type="name">SinglePage</VALUE>
+            <VALUE type="name">OneColumn</VALUE>
+            <VALUE type="name">TwoColumnLeft</VALUE>
+            <VALUE type="name">TwoColumnRight</VALUE>
+            <VALUE type="name">TwoPageLeft</VALUE>
+            <VALUE type="name">TwoPageRight</VALUE>
+            <DEFAULT_VALUE>SinglePage</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>PageMode</NAME>
+         <VALUES>
+            <VALUE type="name">UseNone</VALUE>
+            <VALUE type="name">UseOutlines</VALUE>
+            <VALUE type="name">UseThumbs</VALUE>
+            <VALUE type="name">FullScreen</VALUE>
+            <VALUE type="name">UseOC</VALUE>
+            <VALUE type="name">UseAttachments</VALUE>
+            <DEFAULT_VALUE>UseNone</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Outlines</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Outline</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Threads</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfThreads</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>OpenAction</NAME>
+         <VALUES>
+            <VALUE type="array">DestXYZ</VALUE>
+            <VALUE type="array">Dest0</VALUE>
+            <VALUE type="array">Dest1</VALUE>
+            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="dictionary">ActionGoTo</VALUE>
+            <VALUE type="dictionary">ActionGoToR</VALUE>
+            <VALUE type="dictionary">ActionGoToE</VALUE>
+            <VALUE type="dictionary">ActionGoToDp</VALUE>
+            <VALUE type="dictionary">ActionLaunch</VALUE>
+            <VALUE type="dictionary">ActionThread</VALUE>
+            <VALUE type="dictionary">ActionURI</VALUE>
+            <VALUE type="dictionary">ActionSound</VALUE>
+            <VALUE type="dictionary">ActionMovie</VALUE>
+            <VALUE type="dictionary">ActionHide</VALUE>
+            <VALUE type="dictionary">ActionNamed</VALUE>
+            <VALUE type="dictionary">ActionSubmitForm</VALUE>
+            <VALUE type="dictionary">ActionResetForm</VALUE>
+            <VALUE type="dictionary">ActionImportData</VALUE>
+            <VALUE type="dictionary">ActionSetOCGState</VALUE>
+            <VALUE type="dictionary">ActionRendition</VALUE>
+            <VALUE type="dictionary">ActionTransition</VALUE>
+            <VALUE type="dictionary">ActionGoTo3DView</VALUE>
+            <VALUE type="dictionary">ActionECMAScript</VALUE>
+            <VALUE type="dictionary">ActionRichMediaExecute</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>URI</NAME>
+         <VALUES>
+            <VALUE type="dictionary">URI</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>NeedsRendering</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="CharProcMap" object_number="036">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="stream">Stream</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="CIDSystemInfo" object_number="037">
+      <ENTRY>
+         <NAME>Registry</NAME>
+         <VALUES>
+            <VALUE type="string-ascii"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Ordering</NAME>
+         <VALUES>
+            <VALUE type="string-ascii"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Supplement</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="CMap" object_number="038">
+      <ENTRY>
+         <NAME>UseCMap</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+            <VALUE type="stream">Stream</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Length</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Filter</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfFilterNames</VALUE>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DecodeParms</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfDecodeParams</VALUE>
+            <VALUE type="dictionary">FilterLZWDecode</VALUE>
+            <VALUE type="dictionary">FilterFlateDecode</VALUE>
+            <VALUE type="dictionary">FilterCCITTFaxDecode</VALUE>
+            <VALUE type="dictionary">FilterJBIG2Decode</VALUE>
+            <VALUE type="dictionary">FilterDCTDecode</VALUE>
+            <VALUE type="dictionary">FilterCrypt</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ColorSpaceMap" object_number="039">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="array">CalGrayColorSpace</VALUE>
+            <VALUE type="array">CalRGBColorSpace</VALUE>
+            <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">ICCBasedColorSpace</VALUE>
+            <VALUE type="array">IndexedColorSpace</VALUE>
+            <VALUE type="array">SeparationColorSpace</VALUE>
+            <VALUE type="array">DeviceNColorSpace</VALUE>
+            <VALUE type="array">PatternColorSpace</VALUE>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Dest0" object_number="040">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PageObject</VALUE>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="name">Fit</VALUE>
+            <VALUE type="name">FitB</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Dest1" object_number="041">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PageObject</VALUE>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="name">FitH</VALUE>
+            <VALUE type="name">FitV</VALUE>
+            <VALUE type="name">FitBH</VALUE>
+            <VALUE type="name">FitBV</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Dest4" object_number="042">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PageObject</VALUE>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="name">FitR</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>3</NAME>
+         <VALUES>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>4</NAME>
+         <VALUES>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="DestDict" object_number="043">
+      <ENTRY>
+         <NAME>D</NAME>
+         <VALUES>
+            <VALUE type="array">DestXYZ</VALUE>
+            <VALUE type="array">Dest0</VALUE>
+            <VALUE type="array">Dest1</VALUE>
+            <VALUE type="array">Dest4</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="DestsMap" object_number="044">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="array">DestXYZ</VALUE>
+            <VALUE type="array">Dest0</VALUE>
+            <VALUE type="array">Dest1</VALUE>
+            <VALUE type="array">Dest4</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="DestXYZ" object_number="045">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PageObject</VALUE>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="name">XYZ</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>3</NAME>
+         <VALUES>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>4</NAME>
+         <VALUES>
+            <VALUE type="null"/>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="DevExtensions" object_number="046">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">DeveloperExtensions</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BaseVersion</NAME>
+         <VALUES>
+            <VALUE type="name">1.0</VALUE>
+            <VALUE type="name">1.1</VALUE>
+            <VALUE type="name">1.2</VALUE>
+            <VALUE type="name">1.3</VALUE>
+            <VALUE type="name">1.4</VALUE>
+            <VALUE type="name">1.5</VALUE>
+            <VALUE type="name">1.6</VALUE>
+            <VALUE type="name">1.7</VALUE>
+            <VALUE type="name">2.0</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ExtensionLevel</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="DocInfo" object_number="047">
+      <ENTRY>
+         <NAME>Title</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Author</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subject</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Keywords</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Creator</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Producer</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CreationDate</NAME>
+         <VALUES>
+            <VALUE type="date"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ModDate</NAME>
+         <VALUES>
+            <VALUE type="date"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="DSS" object_number="048">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">DSS</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>VRI</NAME>
+         <VALUES>
+            <VALUE type="dictionary">VRI</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Certs</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>OCSPs</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CRLs</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="EmbeddedFileStream" object_number="049">
+      <ENTRY>
+         <NAME>Length</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Filter</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfFilterNames</VALUE>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DecodeParms</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfDecodeParams</VALUE>
+            <VALUE type="dictionary">FilterLZWDecode</VALUE>
+            <VALUE type="dictionary">FilterFlateDecode</VALUE>
+            <VALUE type="dictionary">FilterCCITTFaxDecode</VALUE>
+            <VALUE type="dictionary">FilterJBIG2Decode</VALUE>
+            <VALUE type="dictionary">FilterDCTDecode</VALUE>
+            <VALUE type="dictionary">FilterCrypt</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Encoding" object_number="050">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Encoding</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BaseEncoding</NAME>
+         <VALUES>
+            <VALUE type="name">MacRomanEncoding</VALUE>
+            <VALUE type="name">MacExpertEncoding</VALUE>
+            <VALUE type="name">WinAnsiEncoding</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Differences</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfDifferences</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="EncryptedPayload" object_number="051">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">EncryptedPayload</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Version</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="EncryptionPublicKey" object_number="052">
+      <ENTRY>
+         <NAME>Filter</NAME>
+         <VALUES>
+            <VALUE type="name">Adobe.PubSec</VALUE>
+            <VALUE type="name">AdobePPKLite</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CF</NAME>
+         <VALUES>
+            <VALUE type="dictionary">CryptFilter</VALUE>
+            <VALUE type="dictionary">CryptFilterPublicKey</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>EFF</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="EncryptionStandard" object_number="053">
+      <ENTRY>
+         <NAME>Filter</NAME>
+         <VALUES>
+            <VALUE type="name">Standard</VALUE>
+            <DEFAULT_VALUE>Standard</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>EFF</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>R</NAME>
+         <VALUES>
+            <VALUE type="integer">2</VALUE>
+            <VALUE type="integer">3</VALUE>
+            <VALUE type="integer">4</VALUE>
+            <VALUE type="integer">5</VALUE>
+            <VALUE type="integer">6</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>O</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>U</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>OE</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>UE</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>P</NAME>
+         <VALUES>
+            <VALUE type="integer">1</VALUE>
+            <VALUE type="integer">2</VALUE>
+            <VALUE type="integer">3</VALUE>
+            <VALUE type="integer">4</VALUE>
+            <VALUE type="integer">5</VALUE>
+            <VALUE type="integer">6</VALUE>
+            <VALUE type="integer">7</VALUE>
+            <VALUE type="integer">8</VALUE>
+            <VALUE type="integer">9</VALUE>
+            <VALUE type="integer">10</VALUE>
+            <VALUE type="integer">11</VALUE>
+            <VALUE type="integer">12</VALUE>
+            <VALUE type="integer">13</VALUE>
+            <VALUE type="integer">14</VALUE>
+            <VALUE type="integer">15</VALUE>
+            <VALUE type="integer">16</VALUE>
+            <VALUE type="integer">17</VALUE>
+            <VALUE type="integer">18</VALUE>
+            <VALUE type="integer">19</VALUE>
+            <VALUE type="integer">20</VALUE>
+            <VALUE type="integer">21</VALUE>
+            <VALUE type="integer">22</VALUE>
+            <VALUE type="integer">23</VALUE>
+            <VALUE type="integer">24</VALUE>
+            <VALUE type="integer">25</VALUE>
+            <VALUE type="integer">26</VALUE>
+            <VALUE type="integer">27</VALUE>
+            <VALUE type="integer">28</VALUE>
+            <VALUE type="integer">29</VALUE>
+            <VALUE type="integer">30</VALUE>
+            <VALUE type="integer">31</VALUE>
+            <VALUE type="integer">32</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Perms</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FileSpecification" object_number="054">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Filespec</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FS</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>F </NAME>
+         <VALUES>
+            <VALUE type="string"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DOS</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Mac</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Unix</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ID</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_2StringsByte</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FileTrailer" object_number="055">
+      <ENTRY>
+         <NAME>Size</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Prev</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Root</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Catalog</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Encrypt</NAME>
+         <VALUES>
+            <VALUE type="dictionary">EncryptionStandard</VALUE>
+            <VALUE type="dictionary">EncryptionPublicKey</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Info</NAME>
+         <VALUES>
+            <VALUE type="dictionary">DocInfo</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ID</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_2StringsByte</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FilterCCITTFaxDecode" object_number="056">
+      <ENTRY>
+         <NAME>K </NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>EndOfLine</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>EncodedByteAlign</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Columns</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+            <DEFAULT_VALUE>1728</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Rows</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>EndOfBlock</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BlackIs1</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DamagedRowsBeforeError</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FilterDCTDecode" object_number="057">
+      <ENTRY>
+         <NAME>ColorTransform</NAME>
+         <VALUES>
+            <VALUE type="integer">0</VALUE>
+            <VALUE type="integer">1</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FilterLZWDecode" object_number="058">
+      <ENTRY>
+         <NAME>Predictor</NAME>
+         <VALUES>
+            <VALUE type="integer">1</VALUE>
+            <VALUE type="integer">2</VALUE>
+            <VALUE type="integer">10</VALUE>
+            <VALUE type="integer">11</VALUE>
+            <VALUE type="integer">12</VALUE>
+            <VALUE type="integer">13</VALUE>
+            <VALUE type="integer">14</VALUE>
+            <VALUE type="integer">15</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Colors</NAME>
+         <VALUES>
+            <VALUE type="integer">(1..)</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BitsPerComponent</NAME>
+         <VALUES>
+            <VALUE type="integer">1</VALUE>
+            <VALUE type="integer">2</VALUE>
+            <VALUE type="integer">4</VALUE>
+            <VALUE type="integer">8</VALUE>
+            <VALUE type="integer">16</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Columns</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>EarlyChange</NAME>
+         <VALUES>
+            <VALUE type="integer">0</VALUE>
+            <VALUE type="integer">1</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontDescriptor" object_number="059">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">FontDescriptor</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontName</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Flags</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontBBox</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ItalicAngle</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Ascent</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Descent</NAME>
+         <VALUES>
+            <VALUE type="number">value&lt;0</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Leading</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CapHeight</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>XHeight</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>StemV</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>StemH</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>AvgWidth</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>MaxWidth</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>MissingWidth</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontFile</NAME>
+         <VALUES>
+            <VALUE type="stream">FontFile</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CharSet</NAME>
+         <VALUES>
+            <VALUE type="string-ascii"/>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontDescriptorTrueType" object_number="060">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">FontDescriptor</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontName</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Flags</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontBBox</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ItalicAngle</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Ascent</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Descent</NAME>
+         <VALUES>
+            <VALUE type="number">value&lt;0</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Leading</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CapHeight</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>XHeight</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>StemV</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>StemH</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>AvgWidth</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>MaxWidth</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>MissingWidth</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CharSet</NAME>
+         <VALUES>
+            <VALUE type="string-ascii"/>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontDescriptorType1" object_number="061">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">FontDescriptor</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontName</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Flags</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontBBox</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ItalicAngle</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Ascent</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Descent</NAME>
+         <VALUES>
+            <VALUE type="number">value&lt;0</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Leading</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CapHeight</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>XHeight</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>StemV</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>StemH</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>AvgWidth</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>MaxWidth</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>MissingWidth</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontFile</NAME>
+         <VALUES>
+            <VALUE type="stream">FontFileType1</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CharSet</NAME>
+         <VALUES>
+            <VALUE type="string-ascii"/>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontFile" object_number="062">
+      <ENTRY>
+         <NAME>Length1</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Length2</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Length3</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontFile2CIDType2" object_number="063">
+      <ENTRY>
+         <NAME>Length1</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Length2</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Length3</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontFile2TrueType" object_number="064">
+      <ENTRY>
+         <NAME>Length1</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Length2</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Length3</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontFile3CIDType0" object_number="065">
+      <ENTRY>
+         <NAME>Length1</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Length2</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Length3</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontFileType1" object_number="066">
+      <ENTRY>
+         <NAME>Length1</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Length2</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Length3</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontMap" object_number="067">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FontType1</VALUE>
+            <VALUE type="dictionary">FontTrueType</VALUE>
+            <VALUE type="dictionary">FontMultipleMaster</VALUE>
+            <VALUE type="dictionary">FontType3</VALUE>
+            <VALUE type="dictionary">FontType0</VALUE>
+            <VALUE type="dictionary">FontCIDType0</VALUE>
+            <VALUE type="dictionary">FontCIDType2</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontMultipleMaster" object_number="068">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Font</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">MMType1</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Name</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BaseFont</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FirstChar</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>LastChar</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Widths</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontDescriptor</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FontDescriptorType1</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Encoding</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Encoding</VALUE>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontTrueType" object_number="069">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Font</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">TrueType</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Name</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BaseFont</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FirstChar</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>LastChar</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Widths</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontDescriptor</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FontDescriptorTrueType</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Encoding</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Encoding</VALUE>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontType1" object_number="070">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Font</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Type1</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Name</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BaseFont</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FirstChar</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>LastChar</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Widths</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontDescriptor</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FontDescriptorType1</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Encoding</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Encoding</VALUE>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FontType3" object_number="071">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Font</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Type3</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Name</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontBBox</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontMatrix</NAME>
+         <VALUES>
+            <VALUE type="array">Matrix</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CharProcs</NAME>
+         <VALUES>
+            <VALUE type="dictionary">CharProcMap</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Encoding</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Encoding</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FirstChar</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>LastChar</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Widths</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FontDescriptor</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FontDescriptor</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Gamma" object_number="072">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="number">&lt;0..)</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="number">&lt;0..)</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="number">&lt;0..)</VALUE>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="IndexedColorSpace" object_number="073">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="name">Indexed</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="array">CalGrayColorSpace</VALUE>
+            <VALUE type="array">CalRGBColorSpace</VALUE>
+            <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">ICCBasedColorSpace</VALUE>
+            <VALUE type="array">SeparationColorSpace</VALUE>
+            <VALUE type="array">DeviceNColorSpace</VALUE>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="integer">&lt;0</VALUE>
+            <VALUE type="integer">255&gt;</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>3</NAME>
+         <VALUES>
+            <VALUE type="stream">Stream</VALUE>
+            <VALUE type="string"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="LabColorSpace" object_number="074">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="name">Lab</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="dictionary">LabDict</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="LabDict" object_number="075">
+      <ENTRY>
+         <NAME>WhitePoint</NAME>
+         <VALUES>
+            <VALUE type="array">Whitepoint</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BlackPoint</NAME>
+         <VALUES>
+            <VALUE type="array">Blackpoint</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Range</NAME>
+         <VALUES>
+            <VALUE type="array">LabRange</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="LabRange" object_number="076">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="number">value&lt;@1</VALUE>
+            <DEFAULT_VALUE>-100</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="number">value&gt;@0</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="number">value&lt;@3</VALUE>
+            <DEFAULT_VALUE>-100</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>3</NAME>
+         <VALUES>
+            <VALUE type="number">value&gt;@2</VALUE>
+            <DEFAULT_VALUE>100</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Matrix" object_number="077">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>3</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>4</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>5</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="MicrosoftWindowsLaunchParam" object_number="078">
+      <ENTRY>
+         <NAME>F</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>D</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>O</NAME>
+         <VALUES>
+            <VALUE type="string-ascii">open</VALUE>
+            <VALUE type="string-ascii">print</VALUE>
+            <DEFAULT_VALUE>open</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>P</NAME>
+         <VALUES>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Outline" object_number="079">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Outlines</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>First</NAME>
+         <VALUES>
+            <VALUE type="dictionary">OutlineItem</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Last</NAME>
+         <VALUES>
+            <VALUE type="dictionary">OutlineItem</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Count</NAME>
+         <VALUES>
+            <VALUE type="integer">&lt;0..)</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="OutlineItem" object_number="080">
+      <ENTRY>
+         <NAME>Title</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Parent</NAME>
+         <VALUES>
+            <VALUE type="dictionary">OutlineItem</VALUE>
+            <VALUE type="dictionary">Outline</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Prev</NAME>
+         <VALUES>
+            <VALUE type="dictionary">OutlineItem</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Next</NAME>
+         <VALUES>
+            <VALUE type="dictionary">OutlineItem</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>First</NAME>
+         <VALUES>
+            <VALUE type="dictionary">OutlineItem</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Last</NAME>
+         <VALUES>
+            <VALUE type="dictionary">OutlineItem</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Count</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Dest</NAME>
+         <VALUES>
+            <VALUE type="array">DestXYZ</VALUE>
+            <VALUE type="array">Dest0</VALUE>
+            <VALUE type="array">Dest1</VALUE>
+            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="name"/>
+            <VALUE type="string-byte"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>A</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ActionGoTo</VALUE>
+            <VALUE type="dictionary">ActionGoToR</VALUE>
+            <VALUE type="dictionary">ActionGoToE</VALUE>
+            <VALUE type="dictionary">ActionGoToDp</VALUE>
+            <VALUE type="dictionary">ActionLaunch</VALUE>
+            <VALUE type="dictionary">ActionThread</VALUE>
+            <VALUE type="dictionary">ActionURI</VALUE>
+            <VALUE type="dictionary">ActionSound</VALUE>
+            <VALUE type="dictionary">ActionMovie</VALUE>
+            <VALUE type="dictionary">ActionHide</VALUE>
+            <VALUE type="dictionary">ActionNamed</VALUE>
+            <VALUE type="dictionary">ActionSubmitForm</VALUE>
+            <VALUE type="dictionary">ActionResetForm</VALUE>
+            <VALUE type="dictionary">ActionImportData</VALUE>
+            <VALUE type="dictionary">ActionSetOCGState</VALUE>
+            <VALUE type="dictionary">ActionRendition</VALUE>
+            <VALUE type="dictionary">ActionTransition</VALUE>
+            <VALUE type="dictionary">ActionGoTo3DView</VALUE>
+            <VALUE type="dictionary">ActionECMAScript</VALUE>
+            <VALUE type="dictionary">ActionRichMediaExecute</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="PageObject" object_number="081">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Page</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Parent</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PageTreeNode</VALUE>
+            <VALUE type="dictionary">PageTreeNodeRoot</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Resources</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Resource</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>MediaBox</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CropBox</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+            <DEFAULT_VALUE>@MediaBox</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Contents</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
+            <VALUE type="stream">Stream</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Rotate</NAME>
+         <VALUES>
+            <VALUE type="integer">0</VALUE>
+            <VALUE type="integer">90</VALUE>
+            <VALUE type="integer">180</VALUE>
+            <VALUE type="integer">270</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Thumb</NAME>
+         <VALUES>
+            <VALUE type="stream">Thumbnail</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>B</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfBeads</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Dur</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Trans</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Transition</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Annots</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfAnnots</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="PageTreeNode" object_number="082">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Pages</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Parent</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PageTreeNode</VALUE>
+            <VALUE type="dictionary">PageTreeNodeRoot</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Kids</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfPageTreeNodeKids</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Count</NAME>
+         <VALUES>
+            <VALUE type="integer">&lt;0..)</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="PageTreeNodeRoot" object_number="083">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Pages</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Kids</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfPageTreeNodeKids</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Count</NAME>
+         <VALUES>
+            <VALUE type="integer">&lt;0..)</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Resource" object_number="084">
+      <ENTRY>
+         <NAME>ExtGState</NAME>
+         <VALUES>
+            <VALUE type="dictionary">GraphicsStateParameter</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ColorSpace</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ColorSpaceMap</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Pattern</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PatternMap</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>XObject</NAME>
+         <VALUES>
+            <VALUE type="dictionary">XObjectMap</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Font</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FontMap</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ProcSet</NAME>
+         <VALUES>
+            <VALUE type="array">_UniversalArray</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ShadingMap" object_number="085">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ShadingType1</VALUE>
+            <VALUE type="dictionary">ShadingType2</VALUE>
+            <VALUE type="dictionary">ShadingType3</VALUE>
+            <VALUE type="stream">ShadingType4</VALUE>
+            <VALUE type="stream">ShadingType5</VALUE>
+            <VALUE type="stream">ShadingType6</VALUE>
+            <VALUE type="stream">ShadingType7</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="SoundObject" object_number="086">
+      <ENTRY>
+         <NAME>Length</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Filter</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfFilterNames</VALUE>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DecodeParms</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfDecodeParams</VALUE>
+            <VALUE type="dictionary">FilterLZWDecode</VALUE>
+            <VALUE type="dictionary">FilterFlateDecode</VALUE>
+            <VALUE type="dictionary">FilterCCITTFaxDecode</VALUE>
+            <VALUE type="dictionary">FilterJBIG2Decode</VALUE>
+            <VALUE type="dictionary">FilterDCTDecode</VALUE>
+            <VALUE type="dictionary">FilterCrypt</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Stream" object_number="087">
+      <ENTRY>
+         <NAME>Length</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Filter</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfFilterNames</VALUE>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DecodeParms</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfDecodeParams</VALUE>
+            <VALUE type="dictionary">FilterLZWDecode</VALUE>
+            <VALUE type="dictionary">FilterFlateDecode</VALUE>
+            <VALUE type="dictionary">FilterCCITTFaxDecode</VALUE>
+            <VALUE type="dictionary">FilterJBIG2Decode</VALUE>
+            <VALUE type="dictionary">FilterDCTDecode</VALUE>
+            <VALUE type="dictionary">FilterCrypt</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Thread" object_number="088">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Thread</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>F</NAME>
+         <VALUES>
+            <VALUE type="dictionary">BeadFirst</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>I</NAME>
+         <VALUES>
+            <VALUE type="dictionary">DocInfo</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Thumbnail" object_number="089">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">XObject</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Image</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Width</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Height</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ColorSpace</NAME>
+         <VALUES>
+            <VALUE type="array">IndexedColorSpace</VALUE>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BitsPerComponent</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Decode</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Transition" object_number="090">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Trans</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>S</NAME>
+         <VALUES>
+            <VALUE type="name">Split</VALUE>
+            <VALUE type="name">Blinds</VALUE>
+            <VALUE type="name">Box</VALUE>
+            <VALUE type="name">Wipe</VALUE>
+            <VALUE type="name">Dissolve</VALUE>
+            <VALUE type="name">Glitter</VALUE>
+            <VALUE type="name">R</VALUE>
+            <VALUE type="name">Fly</VALUE>
+            <VALUE type="name">Push</VALUE>
+            <VALUE type="name">Cover</VALUE>
+            <VALUE type="name">Uncover</VALUE>
+            <VALUE type="name">Fade</VALUE>
+            <DEFAULT_VALUE>R</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>D</NAME>
+         <VALUES>
+            <VALUE type="number"/>
+            <DEFAULT_VALUE>1</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Dm</NAME>
+         <VALUES>
+            <VALUE type="name">H</VALUE>
+            <VALUE type="name">V</VALUE>
+            <DEFAULT_VALUE>H</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>M</NAME>
+         <VALUES>
+            <VALUE type="name">I</VALUE>
+            <VALUE type="name">O</VALUE>
+            <DEFAULT_VALUE>I</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Di</NAME>
+         <VALUES>
+            <VALUE type="name">None</VALUE>
+            <VALUE type="number">0</VALUE>
+            <VALUE type="number">90</VALUE>
+            <VALUE type="number">180</VALUE>
+            <VALUE type="number">270</VALUE>
+            <VALUE type="number">315</VALUE>
+            <DEFAULT_VALUE>0</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="URI" object_number="091">
+      <ENTRY>
+         <NAME>Base</NAME>
+         <VALUES>
+            <VALUE type="string-ascii"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="VRI" object_number="092">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">VRI</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Cert</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>CRL</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>OCSP</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TU</NAME>
+         <VALUES>
+            <VALUE type="date"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TS</NAME>
+         <VALUES>
+            <VALUE type="stream">Stream</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Whitepoint" object_number="093">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="number">(0..)</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="number">1</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="number">(0..)</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="XObjectFormPrinterMark" object_number="094">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">XObject</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Form</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FormType</NAME>
+         <VALUES>
+            <VALUE type="integer">1</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BBox</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Matrix</NAME>
+         <VALUES>
+            <VALUE type="array">Matrix</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Name</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="XObjectFormTrapNet" object_number="095">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">XObject</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Form</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FormType</NAME>
+         <VALUES>
+            <VALUE type="integer">1</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BBox</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Matrix</NAME>
+         <VALUES>
+            <VALUE type="array">Matrix</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Name</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>PCM</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>SeparationColorNames</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNamesGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TrapRegions</NAME>
+         <VALUES>
+            <VALUE type="array">_UniversalDictionary</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TrapStyles</NAME>
+         <VALUES>
+            <VALUE type="string-text"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="XObjectFormType1" object_number="096">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">XObject</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Form</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>FormType</NAME>
+         <VALUES>
+            <VALUE type="integer">1</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BBox</NAME>
+         <VALUES>
+            <VALUE type="rectangle"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Matrix</NAME>
+         <VALUES>
+            <VALUE type="array">Matrix</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Name</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="XObjectImage" object_number="097">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">XObject</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Image</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Width</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Height</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ColorSpace</NAME>
+         <VALUES>
+            <VALUE type="array">CalGrayColorSpace</VALUE>
+            <VALUE type="array">CalRGBColorSpace</VALUE>
+            <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">ICCBasedColorSpace</VALUE>
+            <VALUE type="array">IndexedColorSpace</VALUE>
+            <VALUE type="array">SeparationColorSpace</VALUE>
+            <VALUE type="array">DeviceNColorSpace</VALUE>
+            <VALUE type="array">PatternColorSpace</VALUE>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BitsPerComponent</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Intent</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ImageMask</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Decode</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Interpolate</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Name</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="XObjectImageMask" object_number="098">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">XObject</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Image</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Width</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Height</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BitsPerComponent</NAME>
+         <VALUES>
+            <VALUE type="integer">1</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Intent</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ImageMask</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>TRUE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Decode</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Interpolate</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Name</NAME>
+         <VALUES>
+            <VALUE type="name"/>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="XObjectImageSoftMask" object_number="099">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">XObject</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Image</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Width</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Height</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ColorSpace</NAME>
+         <VALUES>
+            <VALUE type="name">DeviceGray</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BitsPerComponent</NAME>
+         <VALUES>
+            <VALUE type="integer"/>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ImageMask</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Decode</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Interpolate</NAME>
+         <VALUES>
+            <VALUE type="boolean"/>
+            <DEFAULT_VALUE>FALSE</DEFAULT_VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="XObjectMap" object_number="100">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="stream">XObjectFormType1</VALUE>
+            <VALUE type="stream">XObjectImage</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED/>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+</PDF>

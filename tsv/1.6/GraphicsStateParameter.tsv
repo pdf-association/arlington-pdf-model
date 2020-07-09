@@ -1,0 +1,28 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.2		FALSE	FALSE		[ExtGState]			
+LW	number	1.3		FALSE	FALSE		[(0..)]			
+LC	integer	1.3		FALSE	FALSE		[<0..2>]			
+LJ	integer	1.3		FALSE	FALSE		[<0..2>]			
+ML	number	1.3		FALSE	FALSE		[(0..)]			
+D	array	1.3		FALSE	FALSE				[ArrayOfGSPDashPatterns]	
+RI	name	1.3		FALSE	FALSE		[AbsoluteColorimetric,RelativeColorimetric,Saturation,Perceptual]			
+OP	boolean	1.2		FALSE	FALSE					
+op	boolean	1.3		FALSE	FALSE					
+OPM	integer	1.3		FALSE	FALSE		[<0..1>]			
+Font	array	1.3		FALSE	FALSE				[FontType1,FontTrueType,FontMultipleMaster,FontType3,FontType0,FontCIDType0,FontCIDType2]	
+BG	dictionary;stream	1.2		FALSE	FALSE				[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]	
+BG2	dictionary;name;stream	1.3		FALSE	FALSE				[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]	
+UCR	dictionary;stream	1.2		FALSE	FALSE				[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]	
+UCR2	dictionary;name;stream	1.3		FALSE	FALSE				[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]	
+TR	array;dictionary;name;stream	1.2	2.0	FALSE	FALSE				[ArrayOfFunctions];[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]	
+TR2	dictionary;name;stream	1.3		FALSE	FALSE				[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]	
+HT	dictionary;name;stream	1.2		FALSE	FALSE				[HalftoneType1,HalftoneType5];[];[HalftoneType6,HalftoneType10,HalftoneType16]	
+FL	number	1.3		FALSE	FALSE		[<0..)]			
+SM	number	1.3		FALSE	FALSE		[<0..1>]			
+SA	boolean	1.2		FALSE	FALSE					
+BM	array;name	1.4		FALSE	FALSE				[ArrayOfNamesGeneral];[]	
+SMask	dictionary;name	1.4		FALSE	FALSE				[SoftMaskAlpha,SoftMaskLuminosity];[]	
+CA	number	1.4		FALSE	FALSE		[<0..1>]			
+ca	number	1.4		FALSE	FALSE		[<0..1>]			
+AIS	boolean	1.4		FALSE	FALSE					
+TK	boolean	1.4		FALSE	FALSE					

@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// 2020 PDFix (http://pdfix.net)
+// Copyright (c) 2020 PDFix (http://pdfix.net). All Rights Reserved.
 // This file was generated automatically
 ////////////////////////////////////////////////////////////////////////////////
 #ifndef _Pdfix_h
@@ -21,8 +21,8 @@
 #endif
 
 #define PDFIX_VERSION_MAJOR 5
-#define PDFIX_VERSION_MINOR 4
-#define PDFIX_VERSION_PATCH 6
+#define PDFIX_VERSION_MINOR 6
+#define PDFIX_VERSION_PATCH 0
 #define MAX_INT 2147483647
 #define MIN_INT -2147483647
 #define _in_
@@ -82,7 +82,6 @@ struct PdfAlternate;
 struct PdfHtmlAlternate;
 struct PdfFont;
 struct PdfFormField;
-struct PsImage;
 struct PdfPage;
 struct PdePageMap;
 struct PdfPageView;
@@ -102,10 +101,13 @@ struct PsEvent;
 struct PsAuthorization;
 struct PsAccountAuthorization;
 struct PsStandardAuthorization;
+struct PsCommand;
+struct PsImage;
 struct Pdfix;
 struct PdfixPlugin;
 
 typedef int PdfErrorType;
+typedef int PdfSaveFlags;
 typedef int PdfAnnotFlags;
 typedef int PdfRemoveAnnotFlags;
 typedef int PdfTextStateFlag;
@@ -133,6 +135,8 @@ typedef enum {
   kAuthOptionBasic = 0,
   kAuthOptionProfessional = 1,
   kAuthOptionEnterprise = 2,
+  kAuthOptionDeveloper = 3,
+  kAuthOptionTrial = 4,
 } PdfAuthOption;
 
 enum {
@@ -175,8 +179,10 @@ enum {
   kErrorPdfDigSigUnknownType = 105,
   kErrorPdfDigSigCallback = 106,
   kErrorPdsObjectInvalid = 120,
+  kErrorPdsObjectNotFound = 121,
   kErrorPdfPageInvalidObj = 150,
   kErrorPdfPageInvalidColorSpace = 151,
+  kErrorPdfPageInsert = 152,
   kErrorPdfPageMapAddElement = 180,
   kErrorPdfPageMapInvalidTextObj = 181,
   kErrorPdfPageMapAddTags = 182,
@@ -261,10 +267,12 @@ typedef enum {
   kEventPageContentsDidChange = 21,
 } PdfEventType;
 
-typedef enum {
-  kSaveIncremental = 0,
-  kSaveFull = 1,
-} PdfSaveFlags;
+enum {
+  kSaveIncremental = 0x00,
+  kSaveFull = 0x01,
+  kSaveUncompressed = 0x02,
+  kSaveCompressedStructureOnly = 0x04,
+} ;
 
 typedef enum {
   kDigSigBlank = 0,
@@ -338,6 +346,7 @@ typedef enum {
   kPdeContainerUnknown = 0,
   kPdeContainerPage = 1,
   kPdeContainerArt = 2,
+  kPdeContainerCol = 3,
 } PdfContainerType;
 
 typedef enum {
@@ -706,8 +715,9 @@ enum {
   kTextFlagTableCaption = 0x0001,
   kTextFlagImageCaption = 0x0002,
   kTextFlagChartCaption = 0x0004,
-  kTextFlagFilling = 0x008,
-  kTextFlagAllCaps = 0x010,
+  kTextFlagNoteCaption = 0x0008,
+  kTextFlagFilling = 0x010,
+  kTextFlagAllCaps = 0x020,
 } ;
 
 enum {
@@ -795,6 +805,20 @@ typedef enum {
   kLabelLevel3 = 4,
   kLabelToc = 100,
 } PdfLabelType;
+
+typedef enum {
+  kAVCommandReady = 0,
+  kAVCommandWorking = 1,
+  kAVCommandDone = 2,
+  kAVCommandCanceled = 3,
+  kAVCommandInError = 4,
+} PsCommandStatus;
+
+typedef enum {
+  kAppearanceNormal = 0,
+  kAppearanceRollover = 1,
+  kAppearanceDown = 2,
+} PdfAnnotAppearanceMode;
 
 
 typedef struct _PdfPageRangeParams {
@@ -1066,10 +1090,12 @@ typedef struct _PdfAccessibleParams {
   int accept_tags;
   int embed_fonts;
   int subset_fonts;
+  int create_bookmarks;
   _PdfAccessibleParams() {
     accept_tags = 0;
     embed_fonts = 0;
     subset_fonts = 0;
+    create_bookmarks = 0;
   }
 } PdfAccessibleParams;
 
@@ -1436,6 +1462,7 @@ struct PdfAnnot {
   virtual PdfAnnotSubtype GetSubtype() = 0;
   virtual PdfAnnotFlags GetFlags() = 0;
   virtual void GetAppearance(_out_ PdfAnnotAppearance* appearance) = 0;
+  virtual bool SetAppearanceFromXObject(PdsStream* xobj, PdfAnnotAppearanceMode mode) = 0;
   virtual void GetBBox(_out_ PdfRect* bbox) = 0;
   virtual bool PointInAnnot(PdfPoint* point) = 0;
   virtual bool RectInAnnot(PdfRect* rect) = 0;
@@ -1571,10 +1598,10 @@ struct PdfCustomDigSig : PdfBaseDigSig {
 };
 
 struct PdfDoc {
-  virtual bool Save(const wchar_t* path, PdfSaveFlags flags) = 0;
+  virtual bool Save(const wchar_t* path, PdfSaveFlags save_flags) = 0;
   virtual bool SaveToStream(PsStream* stream, PdfSaveFlags flags) = 0;
   virtual bool Close() = 0;
-  virtual bool AddWatermarkFromImage(PdfWatermarkParams* params, const wchar_t* path) = 0;
+  virtual bool AddWatermarkFromImage(PdfWatermarkParams* params, PdsStream* image_obj) = 0;
   virtual int GetNumPages() = 0;
   virtual PdfPage* AcquirePage(int page_num) = 0;
   virtual PdfPage* CreatePage(int index, const PdfRect* media_box) = 0;
@@ -1604,6 +1631,7 @@ struct PdfDoc {
   virtual bool SetLang(const wchar_t* lang) = 0;
   virtual bool EmbedFonts(bool subset, _callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
   virtual bool MakeAccessible(PdfAccessibleParams* params, _callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
+  virtual PdsDictionary* GetTrailerObject() = 0;
   virtual PdsDictionary* GetRootObject() = 0;
   virtual PdsDictionary* GetInfoObject() = 0;
   virtual PdsDictionary* CreateDictObject(bool indirect) = 0;
@@ -1613,6 +1641,7 @@ struct PdfDoc {
   virtual PdsNumber* CreateIntObject(bool indirect, int value) = 0;
   virtual PdsNumber* CreateNumberObject(bool indirect, double value) = 0;
   virtual PdsStream* CreateStreamObject(bool indirect, PdsDictionary* dict, _in_ const uint8_t* buffer, int size) = 0;
+  virtual PdsStream* CreateXObjectFromImage(PsStream* image_data, PdfImageFormat format) = 0;
   virtual PdsObject* GetObjectById(int obj_id) = 0;
   virtual PdsStructTree* CreateStructTree() = 0;
   virtual PdsStructTree* GetStructTree() = 0;
@@ -1663,6 +1692,7 @@ struct PdfDocPreflight {
   virtual bool SetRegex(const wchar_t* name, const wchar_t* pattern) = 0;
   virtual bool PreflightPage(int page_num) = 0;
   virtual PdfPagePreflight* GetPagePreflight(int page_num) = 0;
+  virtual bool SavePreflightToStream(PsStream* stream, PsDataFormat format) = 0;
   std::wstring GetRegex(const wchar_t* name) {
     std::wstring buffer;
     buffer.resize(GetRegex(name, nullptr, 0));
@@ -1820,21 +1850,6 @@ struct PdfFormField {
     buffer.resize(GetExportValue(index, nullptr, 0));
     GetExportValue(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
     return buffer;
-  }
-};
-
-struct PsImage {
-  virtual void Destroy() = 0;
-  virtual bool Save(const wchar_t* path, PdfImageParams* params) = 0;
-  virtual bool SaveRect(const wchar_t* path, PdfImageParams* params, PdfDevRect* dev_rect) = 0;
-  virtual bool SaveToStream(PsStream* stream, PdfImageParams* params) = 0;
-  virtual bool SaveRectToStream(PsStream* stream, PdfImageParams* params, PdfDevRect* dev_rect) = 0;
-  virtual void GetPointColor(PdfDevPoint* point, _out_ PdfRGB* color) = 0;
-  virtual bool SaveDataToStream(PsStream* stream) = 0;
-  PdfRGB GetPointColor(PdfDevPoint* point) {
-    PdfRGB color;
-    GetPointColor(point, &color);
-    return color;
   }
 };
 
@@ -2102,8 +2117,8 @@ struct PdsStructTree {
 };
 
 struct PsMetadata {
-  virtual bool SaveToStream(PsStream* stream) = 0;
   virtual bool LoadFromStream(PsStream* stream) = 0;
+  virtual bool SaveToStream(PsStream* stream) = 0;
 };
 
 struct PsEvent {
@@ -2129,6 +2144,29 @@ struct PsStandardAuthorization : PsAuthorization {
   virtual bool Activate(const wchar_t* serial_number) = 0;
   virtual bool Deactivate() = 0;
   virtual bool Update() = 0;
+  virtual bool Reset() = 0;
+};
+
+struct PsCommand {
+  virtual void Destroy() = 0;
+  virtual PsCommandStatus Execute(_callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
+  virtual bool LoadFromStream(PsStream* stream, PsDataFormat format) = 0;
+  virtual bool SaveToStream(PsStream* stream, PsDataFormat format) = 0;
+};
+
+struct PsImage {
+  virtual void Destroy() = 0;
+  virtual bool Save(const wchar_t* path, PdfImageParams* params) = 0;
+  virtual bool SaveRect(const wchar_t* path, PdfImageParams* params, PdfDevRect* dev_rect) = 0;
+  virtual bool SaveToStream(PsStream* stream, PdfImageParams* params) = 0;
+  virtual bool SaveRectToStream(PsStream* stream, PdfImageParams* params, PdfDevRect* dev_rect) = 0;
+  virtual void GetPointColor(PdfDevPoint* point, _out_ PdfRGB* color) = 0;
+  virtual bool SaveDataToStream(PsStream* stream) = 0;
+  PdfRGB GetPointColor(PdfDevPoint* point) {
+    PdfRGB color;
+    GetPointColor(point, &color);
+    return color;
+  }
 };
 
 struct Pdfix {
@@ -2157,9 +2195,10 @@ struct Pdfix {
   virtual bool RegisterEvent(PdfEventType type, _callback_ PdfEventProc proc, void* data) = 0;
   virtual bool UnregisterEvent(PdfEventType type, PdfEventProc proc, void* data) = 0;
   virtual PsImage* CreateImage(int width, int height, PsImageDIBFormat format) = 0;
-  virtual void RegisterPlugin(PdfixPlugin* plugin, const wchar_t* name) = 0;
+  virtual bool RegisterPlugin(PdfixPlugin* plugin, const wchar_t* name) = 0;
   virtual PdfixPlugin* GetPluginByName(const wchar_t* name) = 0;
   virtual PsEvent* GetEvent() = 0;
+  virtual PsCommand* CreateCommand(const wchar_t* name) = 0;
 };
 
 struct PdfixPlugin {

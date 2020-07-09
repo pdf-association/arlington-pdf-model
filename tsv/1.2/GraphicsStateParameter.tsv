@@ -1,0 +1,8 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.2		FALSE	FALSE		[ExtGState]			
+OP	boolean	1.2		FALSE	FALSE					
+BG	dictionary;stream	1.2		FALSE	FALSE				[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]	
+UCR	dictionary;stream	1.2		FALSE	FALSE				[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]	
+TR	array;dictionary;name;stream	1.2	2.0	FALSE	FALSE				[ArrayOfFunctions];[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]	
+HT	dictionary;name;stream	1.2		FALSE	FALSE				[HalftoneType1,HalftoneType5];[];[HalftoneType6,HalftoneType10,HalftoneType16]	
+SA	boolean	1.2		FALSE	FALSE					

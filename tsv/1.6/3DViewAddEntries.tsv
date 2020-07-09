@@ -1,0 +1,11 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.6		FALSE	FALSE		[3DView]			
+XN	string	1.6		TRUE	FALSE					
+IN	string	1.6		FALSE	FALSE		[M,U3D]			
+MS	name	1.6		FALSE	FALSE					
+C2W	array	1.6		FALSE	FALSE				[ArrayOf3DTransMatrix]	
+U3DPath	array;string	1.6		FALSE	FALSE				[ArrayOfStringsText];[]	
+CO	number	1.6		FALSE	FALSE					
+P	dictionary	1.6		FALSE	FALSE				[Projection]	
+O	stream	1.6		FALSE	FALSE				[XObjectFormType1]	
+BG	dictionary	1.6		FALSE	FALSE				[3DBackground]	

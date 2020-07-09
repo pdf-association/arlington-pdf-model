@@ -1,0 +1,11 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.5		FALSE	FALSE		[MediaClip]			
+S	name	1.5		TRUE	FALSE		[MCD]			
+N	string	1.5		FALSE	FALSE					
+D	dictionary;stream;string	1.5		TRUE	FALSE				[FileSpecification];[XObjectFormType1];[]	
+CT	string-ascii	1.5		FALSE	FALSE					
+P	dictionary	1.5		FALSE	FALSE				[MediaPermissions]	
+Alt	array	1.5		FALSE	FALSE				[ArrayOfMultiLangText]	
+PL	dictionary	1.5		FALSE	FALSE				[MediaPlayers]	
+MH	dictionary	1.5		FALSE	FALSE				[MediaClipDataMHBE]	
+BE	dictionary	1.5		FALSE	FALSE				[MediaClipDataMHBE]	

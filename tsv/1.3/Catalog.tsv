@@ -1,0 +1,18 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.0		TRUE	FALSE		[Catalog]			
+Extension	dictionary	1.0		FALSE	FALSE				[Extensions]	
+Pages	dictionary	1.0		TRUE	TRUE				[PageTreeNodeRoot]	
+PageLabels	number-tree	1.3		FALSE	FALSE				[PageLabel]	
+Names	dictionary	1.2		FALSE	FALSE				[Name]	
+Dests	dictionary	1.1		FALSE	TRUE				[DestsMap]	
+ViewerPreferences	dictionary	1.2		FALSE	FALSE				[ViewerPreferences]	
+PageLayout	name	1.0		FALSE	FALSE	SinglePage	[SinglePage,OneColumn,TwoColumnLeft,TwoColumnRight,TwoPageLeft,TwoPageRight]			
+PageMode	name	1.0		FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,FullScreen,UseOC,UseAttachments]			
+Outlines	dictionary	1.0		FALSE	TRUE				[Outline]	
+Threads	array	1.1		FALSE	TRUE				[ArrayOfThreads]	
+OpenAction	array;dictionary	1.1		FALSE	FALSE				[DestXYZ,Dest0,Dest1,Dest4];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
+URI	dictionary	1.1		FALSE	FALSE				[URI]	
+AcroForm	dictionary	1.2		FALSE	FALSE				[InteractiveForm]	
+StructTreeRoot	dictionary	1.3		FALSE	FALSE				[StructTreeRoot]	
+SpiderInfo	dictionary	1.3		FALSE	FALSE				[WebCaptureInfo]	
+NeedsRendering	boolean	1.0		FALSE	FALSE	FALSE				

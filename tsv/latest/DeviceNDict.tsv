@@ -1,0 +1,5 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Subtype	name	1.6		FALSE	FALSE	DeviceN	[DeviceN,NChannel]			
+Colorants	dictionary	1.6		FALSE	FALSE				[ColorantsDict]	
+Process	dictionary	1.6		FALSE	FALSE				[DeviceNProcess]	
+MixingHints	dictionary	1.6		FALSE	FALSE				[DeviceNMixingHints]	

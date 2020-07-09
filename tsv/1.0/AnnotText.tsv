@@ -1,0 +1,9 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.0		FALSE	FALSE		[Annot]			
+Subtype	name	1.0		TRUE	FALSE		[Text]			
+Rect	rectangle	1.0		TRUE	FALSE					
+Contents	string-text	1.0		FALSE	FALSE					
+Border	array	1.0		FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
+Open	boolean	1.0		FALSE	FALSE	FALSE				
+Name	name	1.0		FALSE	FALSE	Note	[Comment,Key,Note,Help,NewParagraph,Paragraph,Insert]			
+State	string-text	1.0		FALSE	FALSE					

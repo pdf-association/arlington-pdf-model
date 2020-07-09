@@ -1,0 +1,12 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Name	string-text	1.5		FALSE	FALSE					
+Creator	string-text	1.5		FALSE	FALSE					
+BaseState	name	1.5		FALSE	FALSE	ON	[ON,OFF,Unchanged]			
+ON	array	1.5		FALSE	FALSE				[ArrayOfOptContentGroups]	
+OFF	array	1.5		FALSE	FALSE				[ArrayOfOptContentGroups]	
+Intent	array;name	1.5		FALSE	FALSE	View			[ArrayOfNamesGeneral];[]	
+AS	array	1.5		FALSE	FALSE				[ArrayOfOCUsage]	
+Order	array	1.5		FALSE	FALSE				[ArrayOfOptContentGroups]	
+ListMode	name	1.5		FALSE	FALSE	AllPages	[AllPages,VisiblePages]			
+RBGroups	array	1.5		FALSE	FALSE				[ArrayOfArraysRBGroups]	
+Locked	array	1.6		FALSE	FALSE	[]			[ArrayOfOptContentGroups]	

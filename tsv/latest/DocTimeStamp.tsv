@@ -1,0 +1,19 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.3		TRUE	FALSE		[DocTimeStamp]			
+Filter	name	1.3		TRUE	FALSE					
+SubFilter	name	1.3		FALSE	FALSE		[ETSI.RFC3161]			
+Contents	String-byte	1.3		TRUE	FALSE					
+Cert	array;string-byte	1.3		FALSE	FALSE				[ArrayOfStringsByte];[]	
+ByteRange	array	1.3		FALSE	FALSE				[ArrayOfIntegersGeneral]	
+Reference	array	1.5		FALSE	FALSE				[ArrayOfSignatureReferences]	
+Changes	array	1.3		FALSE	FALSE				[ArrayOf_3Integers]	
+Name	string	1.3		FALSE	FALSE					
+M	date	1.3		FALSE	FALSE					
+Location	string	1.3		FALSE	FALSE					
+Reason	string	1.3		FALSE	FALSE					
+ContactInfo	string	1.3		FALSE	FALSE					
+R	integer	1.3		FALSE	FALSE					
+V	integer	1.5		FALSE	FALSE	0				
+Prop_Build	dictionary	1.5		FALSE	FALSE				[_UniversalDictionary]	
+Prop_AuthTime	integer	1.5		FALSE	FALSE					
+Prop_AuthType	name	1.5		FALSE	FALSE					
