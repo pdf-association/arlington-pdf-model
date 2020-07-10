@@ -1,10 +1,10 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Start	array;integer;string	1.2	2.0	FALSE	FALSE				[ArrayOfDuration];[];[]	
-Duration	array;integer;string	1.2	2.0	FALSE	FALSE				[ArrayOfDuration];[];[]	
-Rate	number	1.2	2.0	FALSE	FALSE	1.0				
-Volume	number	1.2	2.0	FALSE	FALSE	1.0				
-ShowControls	boolean	1.2	2.0	FALSE	FALSE	FALSE				
-Mode	name	1.2	2.0	FALSE	FALSE	Once	[Once,Open,Repeat,Palindrome]			
-Synchronous	boolean	1.2	2.0	FALSE	FALSE	FALSE				
-FWScale	array	1.2	2.0	FALSE	FALSE				[ArrayOf_2Integers]	
-FWPosition	array	1.2	2.0	FALSE	FALSE	[0.5 0.5]			[ArrayOf_2Numbers]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Start	array;integer;string	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOfDuration];[];[]	
+Duration	array;integer;string	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOfDuration];[];[]	
+Rate	number	1.2	2.0	FALSE	FALSE	FALSE	1.0				
+Volume	number	1.2	2.0	FALSE	FALSE	FALSE	1.0				
+ShowControls	boolean	1.2	2.0	FALSE	FALSE	FALSE	FALSE				
+Mode	name	1.2	2.0	FALSE	FALSE	FALSE	Once	[Once,Open,Repeat,Palindrome]			
+Synchronous	boolean	1.2	2.0	FALSE	FALSE	FALSE	FALSE				
+FWScale	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOf_2Integers]	
+FWPosition	array	1.2	2.0	FALSE	FALSE	FALSE	[0.5 0.5]			[ArrayOf_2Numbers]	

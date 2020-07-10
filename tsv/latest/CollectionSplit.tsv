@@ -1,4 +1,4 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	2.0		FALSE	FALSE		[CollectionSplit]			
-Direction	name	2.0		FALSE	FALSE		[H,V,N]			
-Position	number	2.0		FALSE	FALSE		[<0..100>]			
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	2.0		FALSE	FALSE	FALSE		[CollectionSplit]			
+Direction	name	2.0		FALSE	FALSE	FALSE		[H,V,N]			
+Position	number	2.0		FALSE	FALSE	FALSE		[<0..100>]			

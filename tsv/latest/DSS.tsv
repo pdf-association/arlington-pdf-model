@@ -1,6 +1,6 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		FALSE	FALSE		[DSS]			
-VRI	dictionary	1.0		FALSE	FALSE				[VRI]	
-Certs	array	1.0		FALSE	FALSE				[ArrayOfStreamsGeneral]	
-OCSPs	array	1.0		FALSE	FALSE				[ArrayOfStreamsGeneral]	
-CRLs	array	1.0		FALSE	FALSE				[ArrayOfStreamsGeneral]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.0		FALSE	FALSE	FALSE		[DSS]			
+VRI	dictionary	1.0		FALSE	FALSE	FALSE				[VRI]	
+Certs	array	1.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral]	
+OCSPs	array	1.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral]	
+CRLs	array	1.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral]	

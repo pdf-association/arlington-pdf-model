@@ -1,9 +1,9 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.7		FALSE	FALSE		[3DNode]			
-N	string-text	1.7		TRUE	FALSE		[U3D,PRC]			
-O	number	1.7		FALSE	FALSE		[<0..1>]			
-V	boolean	1.7		FALSE	FALSE					
-M	array	1.7		FALSE	FALSE				[ArrayOf3DTransMatrix]	
-Instance	dictionary	2.0		FALSE	FALSE				[RichMediaInstances]	
-Data	stream;string-text	2.0		FALSE	FALSE				[Stream];[]	
-RM	dictionary	2.0		FALSE	FALSE				[3DRenderMode]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.7		FALSE	FALSE	FALSE		[3DNode]			
+N	string-text	1.7		TRUE	FALSE	FALSE		[U3D,PRC]			
+O	number	1.7		FALSE	FALSE	FALSE		[<0..1>]			
+V	boolean	1.7		FALSE	FALSE	FALSE					
+M	array	1.7		FALSE	FALSE	FALSE				[ArrayOf3DTransMatrix]	
+Instance	dictionary	2.0		FALSE	FALSE	FALSE				[RichMediaInstances]	
+Data	stream;string-text	2.0		FALSE	FALSE	FALSE				[Stream];[]	
+RM	dictionary	2.0		FALSE	FALSE	FALSE				[3DRenderMode]	

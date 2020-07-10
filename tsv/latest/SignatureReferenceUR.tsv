@@ -1,6 +1,6 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5	2.0	FALSE	FALSE		[SigRef]			
-TransformMethod	name	1.5	2.0	TRUE	FALSE		[UR]			
-TransformParams	dictionary	1.5	2.0	FALSE	FALSE				[URTransformParameters]	
-Data	array;boolean;dictionary;integer;name;stream;string	1.5	2.0	FALSE	FALSE				[_UniversalArray];[];[_UniversalDictionary];[];[];[Stream];[]	*various
-DigestMethod	name	1.5	2.0	FALSE	FALSE		[MD5,SHA1,SHA256,SHA384,SHA512,RIPEMD160]			
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.5	2.0	FALSE	FALSE	FALSE		[SigRef]			
+TransformMethod	name	1.5	2.0	TRUE	FALSE	FALSE		[UR]			
+TransformParams	dictionary	1.5	2.0	FALSE	FALSE	FALSE				[URTransformParameters]	
+Data	array;boolean;dictionary;integer;name;stream;string	1.5	2.0	FALSE	FALSE	FALSE				[_UniversalArray];[];[_UniversalDictionary];[];[];[Stream];[]	*various
+DigestMethod	name	1.5	2.0	FALSE	FALSE	FALSE		[MD5,SHA1,SHA256,SHA384,SHA512,RIPEMD160]	 The use of MD5 and SHA1 is deprecated with PDF 2.0.		

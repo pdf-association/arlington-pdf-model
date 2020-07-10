@@ -1,7 +1,7 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		FALSE	FALSE		[VRI]			
-Cert	array	1.0		FALSE	FALSE				[ArrayOfStreamsGeneral]	
-CRL	array	1.0		TRUE	FALSE				[ArrayOfStreamsGeneral]	
-OCSP	array	1.0		TRUE	FALSE				[ArrayOfStreamsGeneral]	
-TU	date	1.0		FALSE	FALSE					
-TS	stream	1.0		FALSE	FALSE				[Stream]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.0		FALSE	FALSE	FALSE		[VRI]			
+Cert	array	1.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral]	
+CRL	array	1.0		TRUE	FALSE	FALSE				[ArrayOfStreamsGeneral]	
+OCSP	array	1.0		TRUE	FALSE	FALSE				[ArrayOfStreamsGeneral]	
+TU	date	1.0		FALSE	FALSE	FALSE					
+TS	stream	1.0		FALSE	FALSE	FALSE				[Stream]	

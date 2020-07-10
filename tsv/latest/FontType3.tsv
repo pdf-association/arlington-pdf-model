@@ -1,14 +1,14 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		TRUE	FALSE		[Font]			
-Subtype	name	1.0		TRUE	FALSE		[Type3]			
-Name	name	1.0		FALSE	FALSE					
-FontBBox	rectangle	1.0		TRUE	FALSE					
-FontMatrix	array	1.0		TRUE	FALSE				[Matrix]	
-CharProcs	dictionary	1.0		TRUE	FALSE				[CharProcMap]	
-Encoding	dictionary	1.0		TRUE	FALSE				[Encoding]	
-FirstChar	integer	1.0		TRUE	FALSE					
-LastChar	integer	1.0		TRUE	FALSE					
-Widths	array	1.0		TRUE	FALSE				[ArrayOfIntegersGeneral]	
-FontDescriptor	dictionary	1.0		FALSE	TRUE				[FontDescriptor]	
-Resources	dictionary	1.2		FALSE	FALSE				[Resource]	
-ToUnicode	stream	1.2		FALSE	FALSE				[Stream]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.0		TRUE	FALSE	FALSE		[Font]			
+Subtype	name	1.0		TRUE	FALSE	FALSE		[Type3]			
+Name	name	1.0		FALSE	FALSE	FALSE			required in 1.0		
+FontBBox	rectangle	1.0		TRUE	FALSE	FALSE					
+FontMatrix	array	1.0		TRUE	FALSE	FALSE				[Matrix]	
+CharProcs	dictionary	1.0		TRUE	FALSE	FALSE				[CharProcMap]	
+Encoding	dictionary	1.0		TRUE	FALSE	FALSE				[Encoding]	
+FirstChar	integer	1.0		TRUE	FALSE	FALSE					
+LastChar	integer	1.0		TRUE	FALSE	FALSE					
+Widths	array	1.0		TRUE	FALSE	FALSE				[ArrayOfIntegersGeneral]	
+FontDescriptor	dictionary	1.0		FALSE	TRUE	FALSE			required in tagged pdf	[FontDescriptor]	
+Resources	dictionary	1.2		FALSE	FALSE	FALSE				[Resource]	
+ToUnicode	stream	1.2		FALSE	FALSE	FALSE				[Stream]	

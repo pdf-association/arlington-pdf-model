@@ -149,7 +149,7 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
       // and if required value is defined then has to match with value
       for (auto j = 1; j < data_list->size(); j++) {
         auto &vec = data_list->at(j);
-        if (vec[4] == "TRUE") {
+        if (vec[REQUIRED_COLUMN] == "TRUE") {
           PdsObject* inner_object = nullptr;
 
           //required value exists?
@@ -165,11 +165,11 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
             if (obj->GetObjectType() == kPdsStream)
               dictObj = ((PdsStream*)obj)->GetStreamDict();
 
-            if (!dictObj->Known(utf8ToUtf16(vec[0]).c_str())) {
+            if (!dictObj->Known(utf8ToUtf16(vec[KEY_COLUMN]).c_str())) {
               to_ret = -1;
               break;
             }
-            inner_object = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
+            inner_object = dictObj->Get(utf8ToUtf16(vec[KEY_COLUMN]).c_str());
           }
 
           //have required object, let's check possible values
@@ -177,13 +177,13 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
             to_ret = -1;
             break;
           }
-          int index = get_type_index(inner_object, vec[1]);
+          int index = get_type_index(inner_object, vec[TYPE_COLUMN]);
           if (index == -1 ) {
             to_ret = -1;
             break;
           }
           std::wstring str_value;
-          if (vec[7] != "" && !check_possible_values(inner_object, vec[7], index, str_value)) {
+          if (vec[POSSIBLEVALUES_COLUMN] != "" && !check_possible_values(inner_object, vec[POSSIBLEVALUES_COLUMN], index, str_value)) {
             to_ret = -1;
             break;
           }
@@ -270,31 +270,31 @@ std::string CParsePDF::get_type_string(PdsObject *obj) {
 void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &vec, const std::string &grammar_file) {
   // is indirect when needed ?
 
-  if ((vec[5] == "TRUE") && (object->GetId() == 0)) {
+  if ((vec[INDIRECTREFERENCE_COLUMN] == "TRUE") && (object->GetId() == 0)) {
     output << "Error: not indirect:";
-    output << vec[0] << "(" << grammar_file << ")" << std::endl;
+    output << vec[KEY_COLUMN] << "(" << grammar_file << ")" << std::endl;
   }
 
   // check type
-  int index = get_type_index(object, vec[1]);
-  if (index == -1 /*&& vec[1]!="ANY"*/) {
-    int index2 = get_type_index(object, vec[1]);
+  int index = get_type_index(object, vec[TYPE_COLUMN]);
+  if (index == -1 /*&& vec[TYPE_COLUMN]!="ANY"*/) {
+    int index2 = get_type_index(object, vec[TYPE_COLUMN]);
     output << "Error:  wrong type:";
-    output << vec[0] << "(" << grammar_file << ")";
-    output << " should be:" << vec[1] << " and is " << get_type_string(object)<< std::endl;
+    output << vec[KEY_COLUMN] << "(" << grammar_file << ")";
+    output << " should be:" << vec[TYPE_COLUMN] << " and is " << get_type_string(object)<< std::endl;
   }
 
   // possible value, could be one of many 
   // could be a pattern array;name --- [];[name1,name2]
   // could be single reference -- name1,name2
   // we should cober also sigle reference in brackets [name1,name2]
-  if (vec[7] != "" && index!=-1) {
+  if (vec[POSSIBLEVALUES_COLUMN] != "" && index!=-1) {
     std::wstring str_value;
-    if (!check_possible_values(object,vec[7],index, str_value))
+    if (!check_possible_values(object,vec[POSSIBLEVALUES_COLUMN],index, str_value))
     {
       output << "Error:  wrong value:";
-      output << vec[0] << "(" << grammar_file << ")";
-      output << " should be:" << vec[7] << " and is " << ToUtf8(str_value) << std::endl;
+      output << vec[KEY_COLUMN] << "(" << grammar_file << ")";
+      output << " should be:" << vec[POSSIBLEVALUES_COLUMN] << " and is " << ToUtf8(str_value) << std::endl;
     }
 
     //std::wstring str_value;
@@ -319,9 +319,9 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
     //}
 
     //std::vector<std::string> options;
-    //std::string def = vec[7];
+    //std::string def = vec[POSSIBLEVALUES_COLUMN];
     //if (def[0] == '[') {
-    //  std::vector<std::string> all_defaults = split(vec[7], ';');
+    //  std::vector<std::string> all_defaults = split(vec[POSSIBLEVALUES_COLUMN], ';');
     //  def = all_defaults[index];
     //  def = def.substr(1, def.size() - 2);
     //}
@@ -350,8 +350,8 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
     //      }
     //  if (!found) {
     //    output << "Error:  wrong value:";
-    //    output << vec[0] << "(" << grammar_file << ")";
-    //    output << " should be:" << vec[7] << " and is " << ToUtf8(str_value) << std::endl;
+    //    output << vec[KEY_COLUMN] << "(" << grammar_file << ")";
+    //    output << " should be:" << vec[POSSIBLEVALUES_COLUMN] << " and is " << ToUtf8(str_value) << std::endl;
     //  }
     //}
   }
@@ -504,7 +504,7 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
       if (inner_obj != nullptr) {
         bool found = false;
         for (auto& vec : *data_list)
-          if (vec[0] == ToUtf8(key)) {
+          if (vec[KEY_COLUMN] == ToUtf8(key)) {
             check_basics(inner_obj, vec, grammar_file);
             found = true;
             break;
@@ -512,8 +512,8 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
         // we didn't find the key, there may be * we can use to validate
         if (!found)
           for (auto& vec : *data_list)
-            if (vec[0] == "*" && vec[9] != "") {
-              std::string lnk = get_link_for_type(inner_obj, vec[1], vec[9]);
+            if (vec[KEY_COLUMN] == "*" && vec[LINK_COLUMN] != "") {
+              std::string lnk = get_link_for_type(inner_obj, vec[TYPE_COLUMN], vec[LINK_COLUMN]);
               std::string as = ToUtf8(key);
               std::string direct_link = select_one(inner_obj, lnk, as);
               parse_object(inner_obj, direct_link, context + "->" + as);
@@ -527,43 +527,43 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
 
     // check presence of required values
     for (auto& vec : *data_list)
-      if (vec[4] == "TRUE" && vec[0] != "*") {
-        PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
+      if (vec[REQUIRED_COLUMN] == "TRUE" && vec[KEY_COLUMN] != "*") {
+        PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[KEY_COLUMN]).c_str());
         if (inner_obj == nullptr) {
           output << "Error:  required key doesn't exist:";
-          output << vec[0] << "(" << grammar_file << ")" << std::endl;
+          output << vec[KEY_COLUMN] << "(" << grammar_file << ")" << std::endl;
         }
       }
 
     // now go through containers and Process them with new grammar_file
     for (auto& vec : *data_list)
-      if (vec.size() >= 10 && vec[9] != "") {
-        PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[0]).c_str());
+      if (vec.size() >= NOTE_COLUMN && vec[LINK_COLUMN] != "") {
+        PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[KEY_COLUMN]).c_str());
         if (inner_obj != nullptr) {
-          int index = get_type_index(inner_obj, vec[1]);
+          int index = get_type_index(inner_obj, vec[TYPE_COLUMN]);
           //error already reported before
           if (index == -1)
             break;
-          std::vector<std::string> opt = split(vec[1], ';');
-          std::vector<std::string> links = split(vec[9], ';');
+          std::vector<std::string> opt = split(vec[TYPE_COLUMN], ';');
+          std::vector<std::string> links = split(vec[LINK_COLUMN], ';');
           if (links[index] == "[]")
             continue;
 
           if (opt[index] == "NUMBER-TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
-            parse_number_tree((PdsDictionary*)inner_obj, links[index], context + "->" + vec[0]);
+            parse_number_tree((PdsDictionary*)inner_obj, links[index], context + "->" + vec[KEY_COLUMN]);
           }
           else
             if (opt[index] == "NAME-TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
-              parse_name_tree((PdsDictionary*)inner_obj, links[index], context + "->" + vec[0]);
+              parse_name_tree((PdsDictionary*)inner_obj, links[index], context + "->" + vec[KEY_COLUMN]);
             }
             else if (inner_obj->GetObjectType() == kPdsStream) {
-              std::string as = vec[0];
+              std::string as = vec[KEY_COLUMN];
               std::string direct_link = select_one(((PdsStream*)inner_obj)->GetStreamDict(), links[index], as);
               parse_object(((PdsStream*)inner_obj)->GetStreamDict(), direct_link, context + "->" + as);
             }
             else
               if ((inner_obj->GetObjectType() == kPdsDictionary || inner_obj->GetObjectType() == kPdsArray)) {
-                std::string as = vec[0];
+                std::string as = vec[KEY_COLUMN];
                 std::string direct_link = select_one(inner_obj, links[index], as);
                 parse_object(inner_obj, direct_link, context + "->" + as);
               }
@@ -579,10 +579,10 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
       PdsObject* item = arrayObj->Get(i);
       if (item!=nullptr)
         for (auto& vec : *data_list)
-          if (vec[0] == std::to_string(i) || vec[0] == "*") {
+          if (vec[KEY_COLUMN] == std::to_string(i) || vec[KEY_COLUMN] == "*") {
             // checking basics of the element
             check_basics(item, vec, grammar_file);
-            std::string lnk = get_link_for_type(item, vec[1], vec[9]);
+            std::string lnk = get_link_for_type(item, vec[TYPE_COLUMN], vec[LINK_COLUMN]);
             std::string as = "[" + std::to_string(i) + "]";
             std::string direct_link = select_one(item, lnk, as);
             //if element does have a link - process it

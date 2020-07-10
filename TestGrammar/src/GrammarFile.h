@@ -29,6 +29,19 @@
 #include "Pdfix.h"
 #include "utils.h"
 
+#define KEY_COLUMN 0
+#define TYPE_COLUMN 1
+#define SINCEVERSION_COLUMN 2
+#define DEPRECATEDIN_COLUMN 3
+#define REQUIRED_COLUMN 4
+#define INDIRECTREFERENCE_COLUMN 5
+#define INHERITABLE_COLUMN 6
+#define DEFAULTVALE_COLUMN 7
+#define POSSIBLEVALUES_COLUMN 8
+#define SPECIALCASE_COLUMN 9
+#define LINK_COLUMN 10
+#define NOTE_COLUMN 11
+
 class CGrammarReader
 {
   std::string file_name;

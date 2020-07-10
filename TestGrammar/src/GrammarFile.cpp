@@ -52,15 +52,17 @@ bool CGrammarReader::load()
       prev_pos = ++pos;
     }
     vec.push_back(line.substr(prev_pos, pos - prev_pos)); // Last word
-    // check first line - have to have at least 10 columns
-    if (data_list.empty() && (vec.size() < 10)) {
+
+    // check first line - have to have at least 10 columns (NOTE is optional)
+    if (data_list.empty() && (vec.size() < NOTE_COLUMN)) {
       file.close();
       return false;
     }
     // Type, Required, Indirect - convert to uppercase
-    std::transform(vec[1].begin(), vec[1].end(), vec[1].begin(), ::toupper);
-    std::transform(vec[4].begin(), vec[4].end(), vec[4].begin(), ::toupper);
-    std::transform(vec[5].begin(), vec[5].end(), vec[5].begin(), ::toupper);
+    std::transform(vec[TYPE_COLUMN].begin(), vec[TYPE_COLUMN].end(), vec[TYPE_COLUMN].begin(), ::toupper);
+    std::transform(vec[REQUIRED_COLUMN].begin(), vec[REQUIRED_COLUMN].end(), vec[REQUIRED_COLUMN].begin(), ::toupper);
+    std::transform(vec[INDIRECTREFERENCE_COLUMN].begin(), vec[INDIRECTREFERENCE_COLUMN].end(), vec[INDIRECTREFERENCE_COLUMN].begin(), ::toupper);
+    std::transform(vec[INHERITABLE_COLUMN].begin(), vec[INHERITABLE_COLUMN].end(), vec[INHERITABLE_COLUMN].begin(), ::toupper);
     data_list.push_back(vec);
   }
   // Close the File
@@ -95,10 +97,11 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     return false;
   }
 
-  if ((vec[0] != "Key") || (vec[1] != "TYPE") || (vec[2] != "SinceVersion") ||
-    (vec[3] != "DeprecatedIn") || (vec[4] != "REQUIRED") || (vec[5] != "INDIRECTREFERENCE") ||
-    (vec[6] != "DefaultValue") || (vec[7] != "PossibleValues") ||
-    (vec[8] != "SpecialCase") || (vec[9] != "Link")) {
+  if ((vec[KEY_COLUMN] != "Key") || (vec[TYPE_COLUMN] != "TYPE") || (vec[SINCEVERSION_COLUMN] != "SinceVersion") ||
+    (vec[DEPRECATEDIN_COLUMN] != "DeprecatedIn") || (vec[REQUIRED_COLUMN] != "REQUIRED") || 
+    (vec[INDIRECTREFERENCE_COLUMN] != "INDIRECTREFERENCE") || (vec[INHERITABLE_COLUMN] != "INHERITABLE") ||
+    (vec[DEFAULTVALE_COLUMN] != "DefaultValue") || (vec[POSSIBLEVALUES_COLUMN] != "PossibleValues") ||
+    (vec[SPECIALCASE_COLUMN] != "SpecialCase") || (vec[LINK_COLUMN] != "Link")) {
     report_stream << "Wrong headers for columns:" << file_name << std::endl;
     return false;
   }
@@ -109,15 +112,15 @@ bool CGrammarReader::check(std::ostream &report_stream) {
   std::vector<std::string> processed;
   for (auto i = 1; i < data_list.size(); i++) {
     std::vector<std::string> vc = data_list[i];
-    if (std::find(processed.begin(), processed.end(), vc[0]) == processed.end())
-      processed.push_back(vc[0]);
+    if (std::find(processed.begin(), processed.end(), vc[KEY_COLUMN]) == processed.end())
+      processed.push_back(vc[KEY_COLUMN]);
     else
-      report_stream << "Duplicate keys in:" << file_name << "::" << vc[0] << std::endl;
+      report_stream << "Duplicate keys in:" << file_name << "::" << vc[KEY_COLUMN] << std::endl;
 
     // possible multiple types separated with ";"
     // need to compare all of them with basic_types
-    std::vector<std::string> types = split(vc[1], ';');
-    std::vector<std::string> links = split(vc[9], ';');
+    std::vector<std::string> types = split(vc[TYPE_COLUMN], ';');
+    std::vector<std::string> links = split(vc[LINK_COLUMN], ';');
     std::regex regex("^\\[[A-Z,a-z,0-9,_,\\,]*\\]$");
 
     // if link exists we check
@@ -126,16 +129,15 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     // - each dictionary, array etc.. is linked
     // - each link actuall exists
 
-    //if (vc[0]=="Subtype" && (vc[7]=="" || vc[7]=="[]"))
-    //  report_stream << "Undefined Subtype " << file_name << "::" << vc[0] << std::endl;
+    //if (vc[KEY_COLUMN]=="Subtype" && (vc[POSSIBLEVALUES_COLUMN]=="" || vc[POSSIBLEVALUES_COLUMN]=="[]"))
+    //  report_stream << "Undefined Subtype " << file_name << "::" << vc[KEY_COLUMN] << std::endl;
 
-
-    if (vc[9] != "") {
+    if (vc[LINK_COLUMN] != "") {
       if (links.size() != types.size())
-        report_stream << "Wrong # of types vs. # of links " << file_name << "::" << vc[0] << std::endl;
+        report_stream << "Wrong # of types vs. # of links " << file_name << "::" << vc[KEY_COLUMN] << std::endl;
       for (auto link_pos = 0; link_pos < links.size(); link_pos++) {
         if (!std::regex_match(links[link_pos], regex)) {
-          report_stream << "Wrong pattern in links " << file_name << "::" << vc[0] << std::endl;
+          report_stream << "Wrong pattern in links " << file_name << "::" << vc[KEY_COLUMN] << std::endl;
         }
         else {
           //report all unliked complex types
@@ -143,7 +145,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
             (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER-TREE"
               || types[link_pos] == "NAME-TREE" || types[link_pos] == "STREAM"
               || types[link_pos] == "ARRAY"))
-            report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[0] << std::endl;
+            report_stream << "Type " << types[link_pos] << " not linked in:" << file_name << "::" << vc[KEY_COLUMN] << std::endl;
 
 
           std::vector<std::string> direct_links = split(links[link_pos].substr(1, links[link_pos].size() - 2), ',');
@@ -161,7 +163,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
               new_name += lnk;
               new_name += ".tsv";
               if (!file_exists(new_name))
-                report_stream << "Link doesn't exist:" << lnk << " in:" << file_name << "::" << vc[0] << std::endl;
+                report_stream << "Link doesn't exist:" << lnk << " in:" << file_name << "::" << vc[KEY_COLUMN] << std::endl;
             }
         }
       }
@@ -170,34 +172,36 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     //check if each type is ok
     for (auto type:types)
       if (std::find(basic_types.begin(), basic_types.end(), type) == basic_types.end())
-        report_stream << "Wrong type:" << type << " in:" << file_name << "::" << vc[0] << std::endl;
+        report_stream << "Wrong type:" << type << " in:" << file_name << "::" << vc[KEY_COLUMN] << std::endl;
 
     // check if complex type does have possible value
     for (auto t_pos = 0; t_pos < types.size(); t_pos++)
       if ( (types[t_pos] == "ARRAY" || types[t_pos] == "DICTIONARY" || types[t_pos] == "NUMBER-TREE"
-            || types[t_pos] == "NAME-TREE" || types[t_pos] == "STREAM") && vc[7] != "") {
-        std::vector<std::string> def_val = split(vc[7], ';');
+            || types[t_pos] == "NAME-TREE" || types[t_pos] == "STREAM") && vc[POSSIBLEVALUES_COLUMN] != "") {
+        std::vector<std::string> def_val = split(vc[POSSIBLEVALUES_COLUMN], ';');
         if (def_val[t_pos]!="[]") 
-          report_stream << "Complex type does have possible value defined:"<< vc[7] << " in:"<< file_name << "::" << vc[0] << std::endl;
+          report_stream << "Complex type does have possible value defined:"<< vc[POSSIBLEVALUES_COLUMN] << " in:"<< file_name << "::" << vc[KEY_COLUMN] << std::endl;
       }
 
     //if we have more types, check pattern in Required, default and possible values
     if (types.size() > 1) {
-      if (vc[7] != "") {
-        std::vector<std::string> poss_val = split(vc[7], ';');
+      if (vc[POSSIBLEVALUES_COLUMN] != "") {
+        std::vector<std::string> poss_val = split(vc[POSSIBLEVALUES_COLUMN], ';');
         if (types.size()!=poss_val.size())
-          report_stream << "Wrong # of types vs. # of possible values " << file_name << "::" << vc[0] << std::endl;
+          report_stream << "Wrong # of types vs. # of possible values " << file_name << "::" << vc[KEY_COLUMN] << std::endl;
      }
     }
 
     //report all possible values
-    //if (vc[7]!="")
-    //  report_stream << vc[7] << std::endl;
+    //if (vc[POSSIBLEVALUES_COLUMN]!="")
+    //  report_stream << vc[POSSIBLEVALUES_COLUMN] << std::endl;
 
-    //report all special cases
-    //if (vc[8] != "")
-    //  report_stream << vc[8] << std::endl;
+//    report all special cases
+    //if (vc[SPECIALCASE_COLUMN] != "")
+    //  report_stream << vc[SPECIALCASE_COLUMN] << std::endl;
 
+    if ((vc[INHERITABLE_COLUMN] != "TRUE") && (vc[INHERITABLE_COLUMN] != "FALSE"))
+      report_stream << file_name << "::" << vc[KEY_COLUMN] << std::endl;
   }
   return true;
 }

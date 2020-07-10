@@ -1,5 +1,5 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5		FALSE	FALSE		[MediaPlayers]			
-MU	array	1.5		FALSE	FALSE				[ArrayOfMediaPlayerInfo]	
-A	array	1.5		FALSE	FALSE				[ArrayOfMediaPlayerInfo]	
-NU	array	1.5		FALSE	FALSE				[ArrayOfMediaPlayerInfo]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.5		FALSE	FALSE	FALSE		[MediaPlayers]			
+MU	array	1.5		FALSE	FALSE	FALSE				[ArrayOfMediaPlayerInfo]	
+A	array	1.5		FALSE	FALSE	FALSE				[ArrayOfMediaPlayerInfo]	
+NU	array	1.5		FALSE	FALSE	FALSE				[ArrayOfMediaPlayerInfo]	

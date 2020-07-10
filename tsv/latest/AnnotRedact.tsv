@@ -1,36 +1,36 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.7		FALSE	FALSE		[Annot]			
-Subtype	name	1.7		TRUE	FALSE		[Redact]			
-Rect	rectangle	1.7		TRUE	FALSE					
-Contents	string-text	1.7		FALSE	FALSE					
-P	dictionary	1.7		FALSE	FALSE				[PageObject]	
-NM	string-text	1.7		FALSE	FALSE					
-M	date;string-text	1.7		FALSE	FALSE					
-F	integer	1.7		FALSE	FALSE	0				
-AP	dictionary	1.7		FALSE	FALSE				[Appearance]	
-AS	name	1.7		FALSE	FALSE					
-Border	array	1.7		FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
-C 	array	1.7		FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
-StructParent	integer	1.7		FALSE	FALSE					
-OC	dictionary	1.7		FALSE	FALSE				[OptContentGroup,OptContentMembership]	
-AF	array;dictionary	2.0		FALSE	FALSE				[ArrayOfFileSpecifications];[FileSpecification]	
-ca	number	2.0		FALSE	FALSE	1.0				
-CA	number	2.0		FALSE	FALSE					
-BM	name	2.0		FALSE	FALSE					
-Lang	string-text	2.0		FALSE	FALSE					
-T 	string-text	1.7		FALSE	FALSE					
-Popup	dictionary	1.7		FALSE	FALSE				[AnnotPopup]	
-RC	stream;string-text	1.7		FALSE	FALSE				[Stream];[]	
-CreationDate	date	1.7		FALSE	FALSE					
-IRT	dictionary	1.7		FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
-Subj	string-text	1.7		FALSE	FALSE					
-RT	name	1.7		FALSE	FALSE	R	[R,Group]			
-IT	name	1.7		FALSE	FALSE					
-QuadPoints	array	1.7		FALSE	FALSE				[ArrayOfQuadPoints]	
-IC	array	1.7		FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
-RO	stream	1.7		FALSE	FALSE				[XObjectFormType1]	
-OverlayText	string-text	1.7		FALSE	FALSE					
-Repeat	boolean	1.7		FALSE	FALSE					
-DA	string-byte	1.7		FALSE	FALSE					
-Q	integer	1.7		FALSE	FALSE		[0,1,2]			
-ExData	dictionary	1.7		FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.7		FALSE	FALSE	FALSE		[Annot]			
+Subtype	name	1.7		TRUE	FALSE	FALSE		[Redact]			
+Rect	rectangle	1.7		TRUE	FALSE	FALSE					
+Contents	string-text	1.7		FALSE	FALSE	FALSE					
+P	dictionary	1.7		FALSE	FALSE	FALSE				[PageObject]	
+NM	string-text	1.7		FALSE	FALSE	FALSE					
+M	date;string-text	1.7		FALSE	FALSE	FALSE					
+F	integer	1.7		FALSE	FALSE	FALSE	0				
+AP	dictionary	1.7		FALSE	FALSE	FALSE				[Appearance]	
+AS	name	1.7		FALSE	FALSE	FALSE					
+Border	array	1.7		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
+C 	array	1.7		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
+StructParent	integer	1.7		FALSE	FALSE	FALSE					
+OC	dictionary	1.7		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
+AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications];[FileSpecification]	
+ca	number	2.0		FALSE	FALSE	FALSE	1.0				
+CA	number	2.0		FALSE	FALSE	FALSE					
+BM	name	2.0		FALSE	FALSE	FALSE					
+Lang	string-text	2.0		FALSE	FALSE	FALSE					
+T 	string-text	1.7		FALSE	FALSE	FALSE					
+Popup	dictionary	1.7		FALSE	FALSE	FALSE				[AnnotPopup]	
+RC	stream;string-text	1.7		FALSE	FALSE	FALSE				[Stream];[]	
+CreationDate	date	1.7		FALSE	FALSE	FALSE					
+IRT	dictionary	1.7		FALSE	FALSE	FALSE			Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
+Subj	string-text	1.7		FALSE	FALSE	FALSE					
+RT	name	1.7		FALSE	FALSE	FALSE	R	[R,Group]			
+IT	name	1.7		FALSE	FALSE	FALSE					
+QuadPoints	array	1.7		FALSE	FALSE	FALSE				[ArrayOfQuadPoints]	
+IC	array	1.7		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
+RO	stream	1.7		FALSE	FALSE	FALSE				[XObjectFormType1]	
+OverlayText	string-text	1.7		FALSE	FALSE	FALSE					
+Repeat	boolean	1.7		FALSE	FALSE	FALSE					
+DA	string-byte	1.7		FALSE	FALSE	FALSE					
+Q	integer	1.7		FALSE	FALSE	FALSE		[0,1,2]			
+ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]	

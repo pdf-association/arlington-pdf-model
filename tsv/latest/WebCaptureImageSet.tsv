@@ -1,9 +1,9 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.4		FALSE	FALSE		[SpiderContentSet]			
-S	name	1.4		TRUE	FALSE		[SIS]			
-ID	string	1.4		TRUE	FALSE					
-O	array	1.4		TRUE	FALSE				[_UniversalArray]	
-SI	array;dictionary	1.4		TRUE	FALSE				[ArrayOfSourceInformations];[SourceInformation]	
-CT	string	1.4		FALSE	FALSE					
-TS	date	1.4		FALSE	FALSE					
-R	array;integer	1.4		TRUE	FALSE				[ArrayOfIntegersGeneral];[]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.4		FALSE	FALSE	FALSE		[SpiderContentSet]			
+S	name	1.4		TRUE	FALSE	FALSE		[SIS]			
+ID	string	1.4		TRUE	FALSE	FALSE					
+O	array	1.4		TRUE	FALSE	FALSE				[_UniversalArray]	
+SI	array;dictionary	1.4		TRUE	FALSE	FALSE				[ArrayOfSourceInformations];[SourceInformation]	
+CT	string	1.4		FALSE	FALSE	FALSE					
+TS	date	1.4		FALSE	FALSE	FALSE					
+R	array;integer	1.4		TRUE	FALSE	FALSE				[ArrayOfIntegersGeneral];[]	
