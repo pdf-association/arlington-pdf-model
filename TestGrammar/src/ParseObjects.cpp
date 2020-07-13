@@ -138,7 +138,7 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
     return links[0];
 
   int to_ret = -1;
-  for (auto i = 0; i < links.size(); i++) {
+  for (auto i = 0; i < (int)links.size(); i++) {
     const auto lnk = links[i];
     const std::vector<std::vector<std::string>>* data_list = get_grammar(lnk);
 
@@ -147,7 +147,7 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
     if (obj->GetObjectType() == kPdsDictionary || obj->GetObjectType() == kPdsStream || obj->GetObjectType() == kPdsArray) {
       // are all "required" fields has to be present
       // and if required value is defined then has to match with value
-      for (auto j = 1; j < data_list->size(); j++) {
+      for (auto j = 1; j < (int)data_list->size(); j++) {
         auto &vec = data_list->at(j);
         if (vec[4] == "TRUE") {
           PdsObject* inner_object = nullptr;
@@ -216,7 +216,7 @@ std::string CParsePDF::get_link_for_type(PdsObject* obj, const std::string &type
 // returns -1 if type doesn't exist in string
 int CParsePDF::get_type_index(PdsObject *obj, std::string types) {
   std::vector<std::string> opt = split(types, ';');
-  for (auto i = 0; i < opt.size(); i++) {
+  for (auto i = 0; i < (int)opt.size(); i++) {
     if ((obj->GetObjectType() == kPdsBoolean) && (opt[i] == "BOOLEAN"))
       return i;
     if ((obj->GetObjectType() == kPdsNumber) && ((opt[i] == "NUMBER") || (opt[i] == "INTEGER")))

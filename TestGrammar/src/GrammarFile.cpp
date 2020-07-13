@@ -107,7 +107,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
   // check existing link
   // check duplicate keys
   std::vector<std::string> processed;
-  for (auto i = 1; i < data_list.size(); i++) {
+  for (size_t i = 1; i < data_list.size(); i++) {
     std::vector<std::string> vc = data_list[i];
     if (std::find(processed.begin(), processed.end(), vc[0]) == processed.end())
       processed.push_back(vc[0]);
@@ -133,7 +133,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
     if (vc[9] != "") {
       if (links.size() != types.size())
         report_stream << "Wrong # of types vs. # of links " << file_name << "::" << vc[0] << std::endl;
-      for (auto link_pos = 0; link_pos < links.size(); link_pos++) {
+      for (size_t link_pos = 0; link_pos < links.size(); link_pos++) {
         if (!std::regex_match(links[link_pos], regex)) {
           report_stream << "Wrong pattern in links " << file_name << "::" << vc[0] << std::endl;
         }
@@ -173,7 +173,7 @@ bool CGrammarReader::check(std::ostream &report_stream) {
         report_stream << "Wrong type:" << type << " in:" << file_name << "::" << vc[0] << std::endl;
 
     // check if complex type does have possible value
-    for (auto t_pos = 0; t_pos < types.size(); t_pos++)
+    for (size_t t_pos = 0; t_pos < types.size(); t_pos++)
       if ( (types[t_pos] == "ARRAY" || types[t_pos] == "DICTIONARY" || types[t_pos] == "NUMBER-TREE"
             || types[t_pos] == "NAME-TREE" || types[t_pos] == "STREAM") && vc[7] != "") {
         std::vector<std::string> def_val = split(vc[7], ';');
