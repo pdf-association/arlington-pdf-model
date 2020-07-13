@@ -22,23 +22,23 @@ import java.io.File;
  */
 public class Gcxml {
 
-    /**
-     * @param args the command line arguments
-     */
+	/**
+	 * gcxml version string
+	 */
     public static final String grammar_version = "0.2.7";
-    
+
     public static void main(String[] args) {
         final String delimiter = "\t";
         String inputFolder = inputFolder = System.getProperty("user.dir") + "/tsv/latest/";
         File folder = new File(inputFolder);
         File[] listOfFiles = folder.listFiles();
-        
+
         if(args.length > 0){
             String argument = args[0];
 
             switch (argument){
                 case "--all":
-                    System.out.println("gcxml " + grammar_version);                   
+                    System.out.println("gcxml " + grammar_version);
                     double[] pdf_versions = {1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0};
                     for(int i = 0; i < pdf_versions.length; i++ ){
                         XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, String.valueOf(pdf_versions[i]));
