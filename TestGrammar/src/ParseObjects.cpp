@@ -208,6 +208,8 @@ std::string CParsePDF::get_link_for_type(PdsObject* obj, const std::string &type
   if (index == -1)
     return "[]";
   std::vector<std::string> lnk = split(links, ';');
+  if (index >= lnk.size())  // for ArrayOfDifferences: types is "INTEGER;NAME", links is "" and we get buffer overflow in lnk!
+    return "";
   return lnk[index];
 }
 
