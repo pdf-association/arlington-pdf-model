@@ -1,12 +1,12 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		FALSE	FALSE		[XObject]			
-Subtype	name	1.0		TRUE	FALSE		[Image]			
-Width	integer	1.0		TRUE	FALSE					
-Height	integer	1.0		TRUE	FALSE					
-ColorSpace	array;name	1.0		FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]	
-BitsPerComponent	integer	1.0		FALSE	FALSE					
-Intent	name	1.1		FALSE	FALSE					
-ImageMask	boolean	1.0		FALSE	FALSE	FALSE				
-Decode	array	1.0		FALSE	FALSE				[ArrayOfNumbersGeneral]	
-Interpolate	boolean	1.0		FALSE	FALSE	FALSE				
-Name	name	1.0	2.0	FALSE	FALSE					
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.0		FALSE	FALSE	FALSE		[XObject]			
+Subtype	name	1.0		TRUE	FALSE	FALSE		[Image]			
+Width	integer	1.0		TRUE	FALSE	FALSE					
+Height	integer	1.0		TRUE	FALSE	FALSE					
+ColorSpace	array;name	1.0		FALSE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]	required if not JPX	[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]	
+BitsPerComponent	integer	1.0		FALSE	FALSE	FALSE			required if not JPX		
+Intent	name	1.1		FALSE	FALSE	FALSE					
+ImageMask	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
+Decode	array	1.0		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
+Interpolate	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
+Name	name	1.0	2.0	FALSE	FALSE	FALSE					

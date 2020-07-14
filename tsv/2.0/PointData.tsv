@@ -1,5 +1,5 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	2.0		TRUE	FALSE		[PtData]			
-Subtype	name	2.0		TRUE	FALSE		[Cloud]			
-Names	array	2.0		TRUE	FALSE				[ArrayOfNamesInPtData]	
-XPTS	array	2.0		TRUE	FALSE				[ArrayOfArraysXPTSValues]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	2.0		TRUE	FALSE	FALSE		[PtData]			
+Subtype	name	2.0		TRUE	FALSE	FALSE		[Cloud]			
+Names	array	2.0		TRUE	FALSE	FALSE				[ArrayOfNamesInPtData]	
+XPTS	array	2.0		TRUE	FALSE	FALSE				[ArrayOfArraysXPTSValues]	

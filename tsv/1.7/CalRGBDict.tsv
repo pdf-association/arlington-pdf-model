@@ -1,5 +1,5 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-WhitePoint	array	1.1		TRUE	FALSE				[Whitepoint]	
-BlackPoint	array	1.1		FALSE	FALSE	[0.0 0.0 0.0]			[Blackpoint]	
-Gamma	array	1.1		FALSE	FALSE	[1.0 1.0 1.0]			[Gamma]	
-Matrix	array	1.1		FALSE	FALSE	[1 0 0 0 1 0 0 0 1]			[Matrix]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+WhitePoint	array	1.1		TRUE	FALSE	FALSE				[Whitepoint]	
+BlackPoint	array	1.1		FALSE	FALSE	FALSE	[0.0 0.0 0.0]			[Blackpoint]	
+Gamma	array	1.1		FALSE	FALSE	FALSE	[1.0 1.0 1.0]			[Gamma]	
+Matrix	array	1.1		FALSE	FALSE	FALSE	[1 0 0 0 1 0 0 0 1]			[Matrix]	

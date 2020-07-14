@@ -1,10 +1,10 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		FALSE	FALSE		[XObject]			
-Subtype	name	1.0		TRUE	FALSE		[Image]			
-Width	integer	1.0		TRUE	FALSE					
-Height	integer	1.0		TRUE	FALSE					
-BitsPerComponent	integer	1.0		FALSE	FALSE		[1]			
-ImageMask	boolean	1.0		TRUE	FALSE	TRUE				
-Decode	array	1.0		FALSE	FALSE				[ArrayOfNumbersGeneral]	
-Interpolate	boolean	1.0		FALSE	FALSE	FALSE				
-Name	name	1.0	2.0	FALSE	FALSE					
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.0		FALSE	FALSE	FALSE		[XObject]			
+Subtype	name	1.0		TRUE	FALSE	FALSE		[Image]			
+Width	integer	1.0		TRUE	FALSE	FALSE					
+Height	integer	1.0		TRUE	FALSE	FALSE					
+BitsPerComponent	integer	1.0		FALSE	FALSE	FALSE		[1]			
+ImageMask	boolean	1.0		TRUE	FALSE	FALSE	TRUE				
+Decode	array	1.0		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
+Interpolate	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
+Name	name	1.0	2.0	FALSE	FALSE	FALSE					

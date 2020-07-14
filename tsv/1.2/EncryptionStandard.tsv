@@ -1,10 +1,10 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Filter	name	1.1		TRUE	FALSE	Standard	[Standard]			
-EFF	name	1.1		FALSE	FALSE					
-R	integer	1.1		TRUE	FALSE		[2,3,4,5,6]			
-O	string-byte	1.1		TRUE	FALSE					
-U	string-byte	1.1		TRUE	FALSE					
-OE	string-byte	1.1		FALSE	FALSE					
-UE	string-byte	1.1		FALSE	FALSE					
-P	integer	1.1		TRUE	FALSE		[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]			
-Perms	string-byte	1.1		FALSE	FALSE					
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Filter	name	1.1		TRUE	FALSE	FALSE	Standard	[Standard]			
+EFF	name	1.1		FALSE	FALSE	FALSE					
+R	integer	1.1		TRUE	FALSE	FALSE		[2,3,4,5,6]			
+O	string-byte	1.1		TRUE	FALSE	FALSE					
+U	string-byte	1.1		TRUE	FALSE	FALSE					
+OE	string-byte	1.1		FALSE	FALSE	FALSE			IsR=6=>Required=TRUE		
+UE	string-byte	1.1		FALSE	FALSE	FALSE			IsR=6=>Required=TRUE		
+P	integer	1.1		TRUE	FALSE	FALSE		[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]			
+Perms	string-byte	1.1		FALSE	FALSE	FALSE			IsR=6=>Required=TRUE		

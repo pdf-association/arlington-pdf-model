@@ -1,12 +1,12 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.3		FALSE	FALSE		[StructElem]			
-S	name	1.3		TRUE	FALSE					
-P	dictionary	1.3		TRUE	TRUE				[StructElem,StructTreeRoot]	
-ID	string-byte	1.3		FALSE	FALSE					
-Pg	dictionary	1.3		FALSE	TRUE				[PageObject]	
-K	array;dictionary;integer	1.3		FALSE	FALSE				[ArrayOfStructElemKids];[StructElem,MarkedContentReference,ObjectReference];[]	
-A	array;dictionary	1.3		FALSE	FALSE				[ArrayOfAttributes];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes]	
-C	array;name	1.3		FALSE	FALSE				[ArrayOfNamesGeneral];[]	
-R	integer	1.3		FALSE	FALSE	0	[<0..)]			
-T	string-text	1.3		FALSE	FALSE					
-Alt	string-text	1.3		FALSE	FALSE					
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.3		FALSE	FALSE	FALSE		[StructElem]			
+S	name	1.3		TRUE	FALSE	FALSE					
+P	dictionary	1.3		TRUE	TRUE	FALSE				[StructElem,StructTreeRoot]	
+ID	string-byte	1.3		FALSE	FALSE	FALSE					
+Pg	dictionary	1.3		FALSE	TRUE	FALSE				[PageObject]	
+K	array;dictionary;integer	1.3		FALSE	FALSE	FALSE				[ArrayOfStructElemKids];[StructElem,MarkedContentReference,ObjectReference];[]	
+A	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfAttributes];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes]	
+C	array;name	1.3		FALSE	FALSE	FALSE				[ArrayOfNamesGeneral];[]	
+R	integer	1.3		FALSE	FALSE	FALSE	0	[<0..)]			
+T	string-text	1.3		FALSE	FALSE	FALSE					
+Alt	string-text	1.3		FALSE	FALSE	FALSE					

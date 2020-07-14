@@ -1,10 +1,10 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5		FALSE	FALSE		[SV]			
-Filter	name	1.5		FALSE	FALSE					
-SubFilter	array	1.5		FALSE	FALSE				[ArrayOfNamesGeneral]	
-V	integer	1.5		FALSE	FALSE					
-Cert	dictionary	1.5		FALSE	FALSE				[CertSeedValue]	
-Reasons	array	1.5		FALSE	FALSE				[ArrayOfStringsText]	
-MDP	dictionary	1.6		FALSE	FALSE				[MDPDict]	
-TimeStamp	dictionary	1.6		FALSE	FALSE				[TimeStampDict]	
-LegalAttestation	array	1.6		FALSE	FALSE				[ArrayOfStringsText]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.5		FALSE	FALSE	FALSE		[SV]			
+Filter	name	1.5		FALSE	FALSE	FALSE					
+SubFilter	array	1.5		FALSE	FALSE	FALSE				[ArrayOfNamesGeneral]	
+V	integer	1.5		FALSE	FALSE	FALSE					
+Cert	dictionary	1.5		FALSE	FALSE	FALSE				[CertSeedValue]	
+Reasons	array	1.5		FALSE	FALSE	FALSE				[ArrayOfStringsText]	
+MDP	dictionary	1.6		FALSE	FALSE	FALSE				[MDPDict]	
+TimeStamp	dictionary	1.6		FALSE	FALSE	FALSE				[TimeStampDict]	
+LegalAttestation	array	1.6		FALSE	FALSE	FALSE				[ArrayOfStringsText]	

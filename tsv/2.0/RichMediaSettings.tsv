@@ -1,4 +1,4 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	2.0		FALSE	FALSE		[RichMediaSettings]			
-Activation	dictionary	2.0		FALSE	FALSE				[RichMediaActivation]	
-Deactivation	dictionary	2.0		FALSE	FALSE				[RichMediaDeactivation]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	2.0		FALSE	FALSE	FALSE		[RichMediaSettings]			
+Activation	dictionary	2.0		FALSE	FALSE	FALSE				[RichMediaActivation]	
+Deactivation	dictionary	2.0		FALSE	FALSE	FALSE				[RichMediaDeactivation]	

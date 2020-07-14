@@ -1,8 +1,8 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.4		FALSE	FALSE		[OutputIntent]			
-S	name	1.4		TRUE	FALSE					
-OutputCondition	string-text	1.4		FALSE	FALSE					
-OutputConditionIdentifier	string-text	1.4		TRUE	FALSE					
-RegistryName	string-text	1.4		FALSE	FALSE					
-Info	string-text	1.4		FALSE	FALSE					
-DestOutputProfile	stream	1.4		FALSE	FALSE				[ICCProfileStream]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.4		FALSE	FALSE	FALSE		[OutputIntent]			
+S	name	1.4		TRUE	FALSE	FALSE					
+OutputCondition	string-text	1.4		FALSE	FALSE	FALSE					
+OutputConditionIdentifier	string-text	1.4		TRUE	FALSE	FALSE					
+RegistryName	string-text	1.4		FALSE	FALSE	FALSE					
+Info	string-text	1.4		FALSE	FALSE	FALSE					
+DestOutputProfile	stream	1.4		FALSE	FALSE	FALSE				[ICCProfileStream]	

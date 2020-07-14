@@ -1,16 +1,16 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.2		FALSE	FALSE		[Annot]			
-Subtype	name	1.2		TRUE	FALSE		[Widget]			
-Rect	rectangle	1.2		TRUE	FALSE					
-Contents	string-text	1.2		FALSE	FALSE					
-M	date;string-text	1.2		FALSE	FALSE					
-F	integer	1.2		FALSE	FALSE	0				
-AP	dictionary	1.2		FALSE	FALSE				[Appearance]	
-AS	name	1.2		FALSE	FALSE					
-Border	array	1.2		FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
-C 	array	1.2		FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
-H	name	1.2		FALSE	FALSE	I	[N,I,O,P,T]			
-A	dictionary	1.2		FALSE	FALSE				[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
-AA	dictionary	1.2		FALSE	FALSE				[AddActionAnnotation]	
-BS	dictionary	1.2		FALSE	FALSE				[BorderStyle]	
-Parent	dictionary	1.2		FALSE	FALSE				[Field]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.2		FALSE	FALSE	FALSE		[Annot]			
+Subtype	name	1.2		TRUE	FALSE	FALSE		[Widget]			
+Rect	rectangle	1.2		TRUE	FALSE	FALSE					
+Contents	string-text	1.2		FALSE	FALSE	FALSE					
+M	date;string-text	1.2		FALSE	FALSE	FALSE					
+F	integer	1.2		FALSE	FALSE	FALSE	0				
+AP	dictionary	1.2		FALSE	FALSE	FALSE				[Appearance]	
+AS	name	1.2		FALSE	FALSE	FALSE					
+Border	array	1.2		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
+C 	array	1.2		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
+H	name	1.2		FALSE	FALSE	FALSE	I	[N,I,O,P,T]			
+A	dictionary	1.2		FALSE	FALSE	FALSE				[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
+AA	dictionary	1.2		FALSE	FALSE	FALSE				[AddActionAnnotation]	
+BS	dictionary	1.2		FALSE	FALSE	FALSE				[BorderStyle]	
+Parent	dictionary	1.2		FALSE	FALSE	FALSE				[Field]	

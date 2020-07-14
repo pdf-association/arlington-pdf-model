@@ -1,8 +1,8 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5		FALSE	FALSE		[MediaClip]			
-S	name	1.5		TRUE	FALSE		[MCS]			
-N	string	1.5		FALSE	FALSE					
-D	dictionary	1.5		TRUE	FALSE				[MediaClipSection,MediaClipData]	
-Alt	array	1.5		FALSE	FALSE				[ArrayOfMultiLangText]	
-MH	dictionary	1.5		FALSE	FALSE				[MediaClipSectionMHBE]	
-BE	dictionary	1.5		FALSE	FALSE				[MediaClipSectionMHBE]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.5		FALSE	FALSE	FALSE		[MediaClip]			
+S	name	1.5		TRUE	FALSE	FALSE		[MCS]			
+N	string	1.5		FALSE	FALSE	FALSE					
+D	dictionary	1.5		TRUE	FALSE	FALSE				[MediaClipSection,MediaClipData]	
+Alt	array	1.5		FALSE	FALSE	FALSE				[ArrayOfMultiLangText]	
+MH	dictionary	1.5		FALSE	FALSE	FALSE				[MediaClipSectionMHBE]	
+BE	dictionary	1.5		FALSE	FALSE	FALSE				[MediaClipSectionMHBE]	

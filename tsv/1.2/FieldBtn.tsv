@@ -1,11 +1,11 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-FT	name	1.2		TRUE	FALSE		[Btn]			
-Parent	dictionary	1.2		FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,FieldSig,Field]	
-Kids	array	1.2		FALSE	FALSE				[ArrayOfFields]	
-T	string-text	1.2		TRUE	FALSE					
-Ff	integer	1.2		FALSE	FALSE					
-AA	dictionary	1.2		FALSE	FALSE				[AddActionFormField]	
-DA	string	1.2		TRUE	FALSE					
-Q	integer	1.2		FALSE	FALSE	0	[0,1,2]			
-V	name	1.2		FALSE	FALSE			Inheritable		
-DV	name	1.2		FALSE	FALSE			Inheritable		
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+FT	name	1.2		TRUE	FALSE	TRUE		[Btn]			
+Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,FieldSig,Field]	
+Kids	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFields]	
+T	string-text	1.2		TRUE	FALSE	FALSE					
+Ff	integer	1.2		FALSE	FALSE	TRUE					
+AA	dictionary	1.2		FALSE	FALSE	FALSE				[AddActionFormField]	
+DA	string	1.2		TRUE	FALSE	TRUE					
+Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]			
+V	name	1.2		FALSE	FALSE	TRUE					
+DV	name	1.2		FALSE	FALSE	TRUE					

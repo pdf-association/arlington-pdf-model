@@ -1,12 +1,12 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5		FALSE	FALSE		[MediaCriteria]			
-A	boolean	1.5		FALSE	FALSE					
-C	boolean	1.5		FALSE	FALSE					
-O	boolean	1.5		FALSE	FALSE					
-S	boolean	1.5		FALSE	FALSE					
-R	integer	1.5		FALSE	FALSE					
-D	dictionary	1.5		FALSE	FALSE				[MinimumBitDepth]	
-Z	dictionary	1.5		FALSE	FALSE				[MinimumScreenSize]	
-V	array	1.5		FALSE	FALSE				[ArrayOfSoftwareIdentifiers]	
-P	array	1.5		FALSE	FALSE				[ArrayOfNamesGeneral]	
-L	array	1.5		FALSE	FALSE				[ArrayOfStringsText]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.5		FALSE	FALSE	FALSE		[MediaCriteria]			
+A	boolean	1.5		FALSE	FALSE	FALSE					
+C	boolean	1.5		FALSE	FALSE	FALSE					
+O	boolean	1.5		FALSE	FALSE	FALSE					
+S	boolean	1.5		FALSE	FALSE	FALSE					
+R	integer	1.5		FALSE	FALSE	FALSE					
+D	dictionary	1.5		FALSE	FALSE	FALSE				[MinimumBitDepth]	
+Z	dictionary	1.5		FALSE	FALSE	FALSE				[MinimumScreenSize]	
+V	array	1.5		FALSE	FALSE	FALSE				[ArrayOfSoftwareIdentifiers]	
+P	array	1.5		FALSE	FALSE	FALSE				[ArrayOfNamesGeneral]	
+L	array	1.5		FALSE	FALSE	FALSE				[ArrayOfStringsText]	

@@ -1,7 +1,7 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-HideToolBar	boolean	1.2		FALSE	FALSE	FALSE				
-HideMenuBar	boolean	1.2		FALSE	FALSE	FALSE				
-HideWindowUI	boolean	1.2		FALSE	FALSE	FALSE				
-FitWindow	boolean	1.2		FALSE	FALSE	FALSE				
-CenterWindow	boolean	1.2		FALSE	FALSE	FALSE				
-NonFullScreenPageMode	name	1.2		FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,UseOC]			
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+HideToolBar	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
+HideMenuBar	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
+HideWindowUI	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
+FitWindow	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
+CenterWindow	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
+NonFullScreenPageMode	name	1.2		FALSE	FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,UseOC]			

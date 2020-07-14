@@ -1,15 +1,15 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5		FALSE	FALSE		[SV]			
-Ff	integer	1.7		FALSE	FALSE	0				
-Filter	name	1.5		FALSE	FALSE					
-SubFilter	array	1.5		FALSE	FALSE				[ArrayOfNamesGeneral]	
-DigestMethod	array	1.7		FALSE	FALSE				[ArrayOfDigestMethod]	
-V	integer	1.5		FALSE	FALSE					
-Cert	dictionary	1.5		FALSE	FALSE				[CertSeedValue]	
-Reasons	array	1.5		FALSE	FALSE				[ArrayOfStringsText]	
-MDP	dictionary	1.6		FALSE	FALSE				[MDPDict]	
-TimeStamp	dictionary	1.6		FALSE	FALSE				[TimeStampDict]	
-LegalAttestation	array	1.6		FALSE	FALSE				[ArrayOfStringsText]	
-AddRevInfo	boolean	1.7		FALSE	FALSE					
-LockDocument	name	2.0		FALSE	FALSE		[true,false,auto]			
-AppearanceFilter	string-text	2.0		FALSE	FALSE					
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.5		FALSE	FALSE	FALSE		[SV]			
+Ff	integer	1.7		FALSE	FALSE	FALSE	0				
+Filter	name	1.5		FALSE	FALSE	FALSE					
+SubFilter	array	1.5		FALSE	FALSE	FALSE				[ArrayOfNamesGeneral]	
+DigestMethod	array	1.7		FALSE	FALSE	FALSE				[ArrayOfDigestMethod]	
+V	integer	1.5		FALSE	FALSE	FALSE					
+Cert	dictionary	1.5		FALSE	FALSE	FALSE				[CertSeedValue]	
+Reasons	array	1.5		FALSE	FALSE	FALSE				[ArrayOfStringsText]	
+MDP	dictionary	1.6		FALSE	FALSE	FALSE				[MDPDict]	
+TimeStamp	dictionary	1.6		FALSE	FALSE	FALSE				[TimeStampDict]	
+LegalAttestation	array	1.6		FALSE	FALSE	FALSE				[ArrayOfStringsText]	
+AddRevInfo	boolean	1.7		FALSE	FALSE	FALSE					
+LockDocument	name	2.0		FALSE	FALSE	FALSE		[true,false,auto]			
+AppearanceFilter	string-text	2.0		FALSE	FALSE	FALSE					

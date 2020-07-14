@@ -151,16 +151,17 @@ public class XMLCreator {
                             }
                             
                             if(is_linkable == true){
-                                value_elem = nodeValuesLinkable(column_values[1], column_values[9]);
+                                value_elem = nodeValuesLinkable(column_values[1], column_values[10]);
                             }else{
-                                value_elem = nodeValues(column_values[1], column_values[6], column_values[7]);
+                                value_elem = nodeValues(column_values[1], column_values[7], column_values[8]);
                             }
                             // creates <INTRODUCED>, <DEPRECATED>, <REQUIRED>, <INDIRECTREFERENCE>
                             Element introduced_elem = nodeIntroduced(column_values[2]);
                             Element deprecated_elem = nodeDeprecated(column_values[3]);
                             Element required_elem = nodeRequired(column_values[4]);
                             Element indirect_reference_elem = nodeIndirectReference(column_values[5]);
-                            Element special_case_elem = nodeSpecialCase(column_values[8]);
+                            Element inheritable = nodeInheritable(column_values[6]);
+                            Element special_case_elem = nodeSpecialCase(column_values[9]);
                             
                             if((name_elem != null) && (value_elem != null) && (introduced_elem != null) &&
                                     (deprecated_elem != null) && (required_elem != null) && (indirect_reference_elem != null) &&
@@ -170,6 +171,7 @@ public class XMLCreator {
                                 entry_elem.appendChild(value_elem);
                                 entry_elem.appendChild(required_elem);
                                 entry_elem.appendChild(indirect_reference_elem);
+                                entry_elem.appendChild(inheritable);
                                 entry_elem.appendChild(introduced_elem);
                                 entry_elem.appendChild(deprecated_elem);
                                 entry_elem.appendChild(special_case_elem);
@@ -346,6 +348,18 @@ public class XMLCreator {
     private Element nodeSpecialCase(String col_value) {
         Element temp_elem = new_doc.createElement("SPECIAL_CASE");
         temp_elem.appendChild(new_doc.createTextNode(col_value));
+        return temp_elem;
+    }
+
+    private Element nodeInheritable(String col_value) {
+        Element temp_elem = null;
+        if(!col_value.isBlank()){
+            temp_elem = new_doc.createElement("INHERITABLE");
+            temp_elem.appendChild(new_doc.createTextNode(col_value.toLowerCase()));
+        }else{
+            System.out.println("\tERROR. While processing entry: " +current_entry+ ". Failed to create INHERITABLE node. Missing value for inheritable. Shall be TRUE or FALSE.");
+            ++error_count;
+        }
         return temp_elem;
     }
 }

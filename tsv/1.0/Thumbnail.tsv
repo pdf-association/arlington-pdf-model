@@ -1,8 +1,8 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		FALSE	FALSE		[XObject]			
-Subtype	name	1.0		FALSE	FALSE		[Image]			
-Width	integer	1.0		TRUE	FALSE					
-Height	integer	1.0		TRUE	FALSE					
-ColorSpace	array;name	1.0		TRUE	FALSE		[];[DeviceRGB,DeviceGray]		[IndexedColorSpace];[]	
-BitsPerComponent	integer	1.0		TRUE	FALSE					
-Decode	array	1.0		FALSE	FALSE				[ArrayOfNumbersGeneral]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.0		FALSE	FALSE	FALSE		[XObject]			
+Subtype	name	1.0		FALSE	FALSE	FALSE		[Image]			
+Width	integer	1.0		TRUE	FALSE	FALSE					
+Height	integer	1.0		TRUE	FALSE	FALSE					
+ColorSpace	array;name	1.0		TRUE	FALSE	FALSE		[];[DeviceRGB,DeviceGray]	Only DeviceGray or DeviceRGB, or an Indexed	[IndexedColorSpace];[]	
+BitsPerComponent	integer	1.0		TRUE	FALSE	FALSE					
+Decode	array	1.0		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
