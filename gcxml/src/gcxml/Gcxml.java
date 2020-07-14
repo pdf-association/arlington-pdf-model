@@ -25,7 +25,7 @@ public class Gcxml {
 	/**
 	 * gcxml version string
 	 */
-    public static final String grammar_version = "0.2.7";
+    public static final String grammar_version = "0.2.8";
 
     public static void main(String[] args) {
         final String delimiter = "\t";
@@ -134,15 +134,17 @@ public class Gcxml {
                      break;
                 case "--help":
                     System.out.println("List of available commands:");
-                    System.out.println("\t--version : print version information");
-                    System.out.println("\t--help : show list of available commands");
-                    System.out.println("\t--conv : convert tsv to xml");
-                    System.out.println("\t--tsv : create tsv files for each pdf version");
-                    System.out.println("\t--sin : return all keys introduced in specified PDF version");
-                    System.out.println("\t--dep : return all keys deprecated in specified PDF version");
-                    System.out.println("\t--so : return objects that do not have key Type or where it is not required.");
-                    System.out.println("\t--keys : return keys and their occurrence count.");
-                    System.out.println("\t--po : return list of potential objects based on given keys.");
+                    System.out.println("\t--version : print version information (" + grammar_version + ")");
+                    System.out.println("\t--help    : show list of available commands");
+                    System.out.println("\t--all     : convert latest TSV to XML and TSV for each specific PDF version");
+                    System.out.println("\t--conv version : convert TSV to XML for specified PDF version");
+                    System.out.println("\t--dep [ version | -all ] : return all keys deprecated in a specified PDF version (or -all)");
+                    System.out.println("\t--keys    : return every key name and their occurrence counts for each version of PDF");
+                    System.out.println("\t--po key[,key1,...] : return list of potential objects based on a set of given keys for each version of PDF");
+                    System.out.println("\t--sc      : list special cases for every PDF version");
+                    System.out.println("\t--sin [ version | -all ] : return all keys introduced in (\"since\") a specified PDF version (or -all)");
+                    System.out.println("\t--so      : return objects that are not defined to have key Type, or where the Type key is specified as optional");
+                    System.out.println("\t--tsv     : create TSV files for each PDF version");
                     break;
             }
         }else{
