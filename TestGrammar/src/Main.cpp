@@ -74,6 +74,9 @@ int main(int argc, char* argv[]) {
     auto i = 1;
 
 #ifdef _WIN32
+    // Simplistic attempt at support for folder and filenames from non-std code pages...
+    setlocale(LC_CTYPE, "en_US.UTF-8");
+
     if (argc > i) a1 = argv[i++];
     if (argc > i) a2 = argv[i++];
     if (argc > i) a3 = argv[i++];
