@@ -29,6 +29,19 @@
 #include "Pdfix.h"
 #include "utils.h"
 
+// TSV columns
+#define TSV_KEYNAME         (0)     // "*" means any
+#define TSV_TYPE            (1)     // in alphabetical order of basic_types, "," separated
+#define TSV_SINCEVERSION    (2)     // 1.0, 1.1, ..., 2.0
+#define TSV_DEPRECATEDIN    (3)     // blank or 1.0, 1.1, ..., 2.0
+#define TSV_REQUIRED        (4)     // TRUE or FALSE
+#define TSV_INDIRECTREF     (5)     // TRUE or FALSE
+#define TSV_DEFAULTVALUE    (6)
+#define TSV_POSSIBLEVALUES  (7)
+#define TSV_SPECIALCASE     (8)     // ignore for now...
+#define TSV_LINK            (9)     // ";" separated list of "[xxx]"
+#define TSV_NOTES           (10)    // free text
+
 class CGrammarReader
 {
   std::string file_name;

@@ -41,11 +41,11 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
         std::vector<std::string> vc = data[i];
         // does link exists ?
         // we have to parse pattern [lnk1,lnk2];[lnk3,lnk4];[]
-        //if (vc[0] == "*") {
+        //if (vc[TSV_KEYNAME] == "*") {
         //  ofs << "* in" << gfile << std::endl;
         //}
-        if (vc[9] != "") {
-          std::vector<std::string> links = split(vc[9], ';');
+        if (vc[TSV_LINK] != "") {
+          std::vector<std::string> links = split(vc[TSV_LINK], ';');
           for (auto type_link : links) {
             std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ',');
             for (auto lnk : direct_links)

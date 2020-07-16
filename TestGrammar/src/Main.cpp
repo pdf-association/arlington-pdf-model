@@ -27,7 +27,6 @@
 #include "Initialization.hpp"
 #include "ParseObjects.h"
 #include "CheckGrammar.h"
-#include "CheckGrammar.h"
 #include "TestGrammarVers.h"
 
 void show_help() {
