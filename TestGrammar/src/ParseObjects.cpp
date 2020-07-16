@@ -68,7 +68,13 @@ const std::vector<std::vector<std::string>>* CParsePDF::get_grammar(const std::s
   return &it->second->get_data();
 }
 
-
+//
+// @param object                valid PDFix object
+// @param possible_value_str    string of possible values from TSV data. Cannot be NULL.
+// @param index                 >= 0
+// @param real_str_value        
+//
+// @returns true iff PDF object has the correct type and a valid value.
 bool CParsePDF::check_possible_values(PdsObject* object, const std::string& possible_value_str, int index, std::wstring &real_str_value) {
   double num_value;
 
@@ -76,16 +82,16 @@ bool CParsePDF::check_possible_values(PdsObject* object, const std::string& poss
     if (((PdsBoolean*)object)->GetValue())
       real_str_value = L"TRUE";
     else real_str_value = L"FALSE";
-  }
-  if (object->GetObjectType() == kPdsNumber) {
+  } 
+  else if (object->GetObjectType() == kPdsNumber) {
     num_value = ((PdsNumber*)object)->GetValue();
     real_str_value = std::to_wstring(num_value);
-  }
-  if (object->GetObjectType() == kPdsName) {
+  } 
+  else if(object->GetObjectType() == kPdsName) {
     real_str_value.resize(((PdsName*)object)->GetText(nullptr, 0));
     ((PdsName*)object)->GetText((wchar_t*)real_str_value.c_str(), (int)real_str_value.size());
   }
-  if (object->GetObjectType() == kPdsString) {
+  else if (object->GetObjectType() == kPdsString) {
     real_str_value.resize(((PdsString*)object)->GetText(nullptr, 0));
     ((PdsString*)object)->GetText((wchar_t*)real_str_value.c_str(), (int)real_str_value.size());
   }
@@ -97,7 +103,7 @@ bool CParsePDF::check_possible_values(PdsObject* object, const std::string& poss
     def = all_defaults[index];
     def = def.substr(1, def.size() - 2);
   }
-  bool is_value = (def.find("value") != std::string::npos) || (def.find("Value") != std::string::npos);
+  bool is_value    = (def.find("value") != std::string::npos) || (def.find("Value") != std::string::npos);
   bool is_interval = (def.find("<") != std::string::npos) /*&& def.find("<") != std::string::npos*/;
   if (def != "" && !is_value && !is_interval) {
     options = split(def, ',');
@@ -106,7 +112,9 @@ bool CParsePDF::check_possible_values(PdsObject* object, const std::string& poss
       if (object->GetObjectType() == kPdsNumber) {
         try {
           auto double_val = std::stod(opt);
-          if (num_value == double_val) {
+          // Double-precision comparison often fails because parsed PDF value is not precisely stored
+          // Old PDF specs used to recommend 5 digits so go +/- half of that
+          if (fabs(num_value - double_val) <= 0.000005) {
             found = true;
             break;
           }
@@ -273,6 +281,22 @@ std::string CParsePDF::get_type_string(PdsObject *obj) {
 void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &vec, const std::string &grammar_file) {
   // is indirect when needed ?
 
+  auto ToString = [&](PdsObject* obj) {
+    switch (obj->GetObjectType()) {
+    case kPdsBoolean:   return "Boolean";
+    case kPdsNumber:    return "number";
+    case kPdsName:      return "name";
+    case kPdsNull:      return "null";
+    case kPdsStream:    return "stream";
+    case kPdsString:    return "string";
+    case kPdsArray:     return "array";
+    case kPdsDictionary:return "dictionary";
+    case kPdsReference: return "indirect-ref";
+    case kPdsUnknown:
+    default:            return "!unknown!";
+    }
+  };
+
   if ((vec[TSV_INDIRECTREF] == "TRUE") && (object->GetId() == 0)) {
     output << "Error: not indirect: ";
     output << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
@@ -293,11 +317,12 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
   // we should cover also single reference in brackets [name1,name2]
   if (vec[TSV_POSSIBLEVALUES] != "" && index!=-1) {
     std::wstring str_value;
-    if (!check_possible_values(object,vec[TSV_POSSIBLEVALUES],index, str_value))
+    if (!check_possible_values(object, vec[TSV_POSSIBLEVALUES], index, str_value))
     {
       output << "Error: wrong value: ";
       output << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
-      output << " should be: " << vec[TSV_POSSIBLEVALUES] << " and is " << ToUtf8(str_value) << std::endl;
+      output << " should be: " << vec[TSV_TYPE] << " " << vec[TSV_POSSIBLEVALUES] << " and is ";
+      output << ToString(object) << " (" << ToUtf8(str_value) << ")" << std::endl;
     }
 
     //std::wstring str_value;
@@ -533,8 +558,8 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
       if (vec[TSV_REQUIRED] == "TRUE" && vec[TSV_KEYNAME] != "*") {
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
         if (inner_obj == nullptr) {
-          output << "Error:  required key doesn't exist: ";
-          output << vec[TSV_KEYNAME] << "(" << grammar_file << ")" << std::endl;
+          output << "Error: required key doesn't exist: ";
+          output << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
         }
       }
 
@@ -600,5 +625,4 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
 
   output << "Error: can't process: ";
   output << "(" << grammar_file << ")" << std::endl;
-  return;
 }
