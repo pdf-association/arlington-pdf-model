@@ -1,0 +1,2402 @@
+[
+  {
+    "id": "AnnotLink",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[Annot]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Link]"
+      },
+      "Rect": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Contents": {
+        "Type": "string-text",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Border": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "[0 0 1]",
+        "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
+      },
+      "Dest": {
+        "Type": "array;name;string-byte",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[];[];[]"
+      }
+    }
+  },
+  {
+    "id": "AnnotText",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[Annot]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Text]"
+      },
+      "Rect": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Contents": {
+        "Type": "string-text",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Border": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "[0 0 1]",
+        "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
+      },
+      "Open": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": false
+      },
+      "Name": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "Note",
+        "PossibleValues": "[Comment,Key,Note,Help,NewParagraph,Paragraph,Insert]"
+      },
+      "State": {
+        "Type": "string-text",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "AppearanceCharacteristics",
+    "keys": {
+      "R": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "BC": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfNumbersGeneral]"
+      },
+      "BG": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfNumbersGeneral]"
+      },
+      "CA": {
+        "Type": "string-text",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "RC": {
+        "Type": "string-text",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "AC": {
+        "Type": "string-text",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "I": {
+        "Type": "stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[XObjectFormType1,XObjectImage]"
+      },
+      "RI": {
+        "Type": "stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[XObjectFormType1,XObjectImage]"
+      },
+      "IX": {
+        "Type": "stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[XObjectFormType1,XObjectImage]"
+      },
+      "IF": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[]"
+      },
+      "TP": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0",
+        "PossibleValues": "[0,1,2,3,4,5,6]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfAnnots",
+    "keys": {
+      "*": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[AnnotText,AnnotLink]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfDecodeParams",
+    "keys": {
+      "*": {
+        "Type": "dictionary;null",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[FilterLZWDecode,FilterCCITTFaxDecode,FilterDCTDecode];[]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfDifferences",
+    "keys": {
+      "*": {
+        "Type": "integer;name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOfFilterNames",
+    "keys": {
+      "*": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfNamesGeneral",
+    "keys": {
+      "*": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOfNumbersGeneral",
+    "keys": {
+      "*": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOfPages",
+    "keys": {
+      "*": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[PageObject]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfPageTreeNodeKids",
+    "keys": {
+      "c": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[PageTreeNode,PageObject]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfStreamsGeneral",
+    "keys": {
+      "*": {
+        "Type": "stream",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": true,
+        "Link": "[Stream]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOf_2StringsByte",
+    "keys": {
+      "0": {
+        "Type": "string-byte",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "1": {
+        "Type": "string-byte",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOf_4AnnotBorderCharacteristics",
+    "keys": {
+      "0": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "1": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "2": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "Catalog",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Catalog]"
+      },
+      "Extension": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[]"
+      },
+      "Pages": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": true,
+        "Link": "[PageTreeNodeRoot]"
+      },
+      "PageLayout": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "SinglePage",
+        "PossibleValues": "[SinglePage,OneColumn,TwoColumnLeft,TwoColumnRight,TwoPageLeft,TwoPageRight]"
+      },
+      "PageMode": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "UseNone",
+        "PossibleValues": "[UseNone,UseOutlines,UseThumbs,FullScreen,UseOC,UseAttachments]"
+      },
+      "Outlines": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[Outline]"
+      },
+      "NeedsRendering": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": false
+      }
+    }
+  },
+  {
+    "id": "CharProcMap",
+    "keys": {
+      "*": {
+        "Type": "stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[Stream]"
+      }
+    }
+  },
+  {
+    "id": "CIDSystemInfo",
+    "keys": {
+      "Registry": {
+        "Type": "string-ascii",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Ordering": {
+        "Type": "string-ascii",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Supplement": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "CMap",
+    "keys": {
+      "UseCMap": {
+        "Type": "name;stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[];[Stream]"
+      },
+      "Length": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Filter": {
+        "Type": "array;name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "Link": "[ArrayOfFilterNames];[]"
+      },
+      "DecodeParms": {
+        "Type": "array;dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
+      }
+    }
+  },
+  {
+    "id": "ColorSpaceMap",
+    "keys": {
+      "*": {
+        "Type": "array;name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
+        "Link": "[];[]"
+      }
+    }
+  },
+  {
+    "id": "DevExtensions",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[DeveloperExtensions]"
+      },
+      "BaseVersion": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.7,2.0]"
+      },
+      "ExtensionLevel": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "DocInfo",
+    "keys": {
+      "Author": {
+        "Type": "string-text",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Creator": {
+        "Type": "string-text",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Producer": {
+        "Type": "string-text",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "CreationDate": {
+        "Type": "date",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "DSS",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[DSS]"
+      },
+      "VRI": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[VRI]"
+      },
+      "Certs": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfStreamsGeneral]"
+      },
+      "OCSPs": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfStreamsGeneral]"
+      },
+      "CRLs": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfStreamsGeneral]"
+      }
+    }
+  },
+  {
+    "id": "EmbeddedFileStream",
+    "keys": {
+      "Length": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Filter": {
+        "Type": "array;name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "Link": "[ArrayOfFilterNames];[]"
+      },
+      "DecodeParms": {
+        "Type": "array;dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
+      }
+    }
+  },
+  {
+    "id": "Encoding",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[Encoding]"
+      },
+      "BaseEncoding": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[MacRomanEncoding,MacExpertEncoding,WinAnsiEncoding]"
+      },
+      "Differences": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfDifferences]"
+      }
+    }
+  },
+  {
+    "id": "EncryptedPayload",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[EncryptedPayload]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Version": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "FileSpecification",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[Filespec]"
+      },
+      "FS": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "F ": {
+        "Type": "string",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "DOS": {
+        "Type": "string-byte",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Mac": {
+        "Type": "string-byte",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Unix": {
+        "Type": "string-byte",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "ID": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOf_2StringsByte]"
+      }
+    }
+  },
+  {
+    "id": "FileTrailer",
+    "keys": {
+      "Size": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Prev": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Root": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": true,
+        "Link": "[Catalog]"
+      },
+      "Info": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[DocInfo]"
+      }
+    }
+  },
+  {
+    "id": "FilterCCITTFaxDecode",
+    "keys": {
+      "K ": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "EndOfLine": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": false
+      },
+      "EncodedByteAlign": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": false
+      },
+      "Columns": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "1728"
+      },
+      "Rows": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "EndOfBlock": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": true
+      },
+      "BlackIs1": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": false
+      },
+      "DamagedRowsBeforeError": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      }
+    }
+  },
+  {
+    "id": "FilterDCTDecode",
+    "keys": {
+      "ColorTransform": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[0,1]"
+      }
+    }
+  },
+  {
+    "id": "FilterLZWDecode",
+    "keys": {
+      "Predictor": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[1,2,10,11,12,13,14,15]"
+      },
+      "Colors": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[(1..)]"
+      },
+      "BitsPerComponent": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[1,2,4,8,16]"
+      },
+      "Columns": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "1"
+      },
+      "EarlyChange": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "1",
+        "PossibleValues": "[0,1]"
+      }
+    }
+  },
+  {
+    "id": "FontDescriptor",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[FontDescriptor]"
+      },
+      "FontName": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Flags": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "FontBBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "ItalicAngle": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Ascent": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Descent": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[value<0]"
+      },
+      "Leading": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "CapHeight": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "XHeight": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "StemV": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "StemH": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "AvgWidth": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "MaxWidth": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "MissingWidth": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "FontFile": {
+        "Type": "stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[FontFile]"
+      }
+    }
+  },
+  {
+    "id": "FontDescriptorTrueType",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[FontDescriptor]"
+      },
+      "FontName": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Flags": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "FontBBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "ItalicAngle": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Ascent": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Descent": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[value<0]"
+      },
+      "Leading": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "CapHeight": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "XHeight": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "StemV": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "StemH": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "AvgWidth": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "MaxWidth": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "MissingWidth": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      }
+    }
+  },
+  {
+    "id": "FontDescriptorType1",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[FontDescriptor]"
+      },
+      "FontName": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Flags": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "FontBBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "ItalicAngle": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Ascent": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Descent": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[value<0]"
+      },
+      "Leading": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "CapHeight": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "XHeight": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "StemV": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "StemH": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "AvgWidth": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "MaxWidth": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "MissingWidth": {
+        "Type": "number",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0"
+      },
+      "FontFile": {
+        "Type": "stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[FontFileType1]"
+      }
+    }
+  },
+  {
+    "id": "FontFile",
+    "keys": {
+      "Length1": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Length2": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Length3": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "FontFile2CIDType2",
+    "keys": {
+      "Length1": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Length2": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Length3": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "FontFile3CIDType0",
+    "keys": {
+      "Length1": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Length2": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Length3": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "FontFileType1",
+    "keys": {
+      "Length1": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Length2": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Length3": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "FontMap",
+    "keys": {
+      "*": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[FontType1,FontTrueType,FontMultipleMaster,FontType3]"
+      }
+    }
+  },
+  {
+    "id": "FontMultipleMaster",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Font]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[MMType1]"
+      },
+      "Name": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "BaseFont": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "FirstChar": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "LastChar": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Widths": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[]"
+      },
+      "FontDescriptor": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[FontDescriptorType1]"
+      },
+      "Encoding": {
+        "Type": "dictionary;name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[];[MacRomanEncoding,MacExpertEncoding,WinAnsiEncoding]",
+        "Link": "[Encoding];[]"
+      }
+    }
+  },
+  {
+    "id": "FontTrueType",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Font]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[TrueType]"
+      },
+      "Name": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "BaseFont": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "FirstChar": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "LastChar": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Widths": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[]"
+      },
+      "FontDescriptor": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[FontDescriptorTrueType]"
+      },
+      "Encoding": {
+        "Type": "dictionary;name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[];[MacRomanEncoding,MacExpertEncoding,WinAnsiEncoding]",
+        "Link": "[Encoding];[]"
+      }
+    }
+  },
+  {
+    "id": "FontType1",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Font]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Type1]"
+      },
+      "Name": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "BaseFont": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "FirstChar": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "LastChar": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Widths": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[]"
+      },
+      "FontDescriptor": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[FontDescriptorType1]"
+      },
+      "Encoding": {
+        "Type": "dictionary;name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[];[MacRomanEncoding,MacExpertEncoding,WinAnsiEncoding]",
+        "Link": "[Encoding];[]"
+      }
+    }
+  },
+  {
+    "id": "FontType3",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Font]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Type3]"
+      },
+      "Name": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "FontBBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "FontMatrix": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[]"
+      },
+      "CharProcs": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[CharProcMap]"
+      },
+      "Encoding": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[Encoding]"
+      },
+      "FirstChar": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "LastChar": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Widths": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[]"
+      },
+      "FontDescriptor": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[FontDescriptor]"
+      }
+    }
+  },
+  {
+    "id": "Outline",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[Outlines]"
+      },
+      "First": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[OutlineItem]"
+      },
+      "Last": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[OutlineItem]"
+      },
+      "Count": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[<0..)]"
+      }
+    }
+  },
+  {
+    "id": "OutlineItem",
+    "keys": {
+      "Title": {
+        "Type": "string-text",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Parent": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": true,
+        "Link": "[OutlineItem,Outline]"
+      },
+      "Prev": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[OutlineItem]"
+      },
+      "Next": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[OutlineItem]"
+      },
+      "First": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[OutlineItem]"
+      },
+      "Last": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": true,
+        "Link": "[OutlineItem]"
+      },
+      "Count": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "Dest": {
+        "Type": "array;name;string-byte",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[];[];[]"
+      }
+    }
+  },
+  {
+    "id": "PageObject",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Page]"
+      },
+      "Parent": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": true,
+        "Link": "[PageTreeNode,PageTreeNodeRoot]"
+      },
+      "Resources": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[Resource]"
+      },
+      "MediaBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "CropBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "@MediaBox"
+      },
+      "Contents": {
+        "Type": "array;stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfStreamsGeneral];[Stream]"
+      },
+      "Rotate": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "0",
+        "PossibleValues": "[0,90,180,270]"
+      },
+      "Thumb": {
+        "Type": "stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[Thumbnail]"
+      },
+      "Annots": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfAnnots]"
+      }
+    }
+  },
+  {
+    "id": "PageTreeNode",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Pages]"
+      },
+      "Parent": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": true,
+        "Link": "[PageTreeNode,PageTreeNodeRoot]"
+      },
+      "Kids": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[ArrayOfPageTreeNodeKids]"
+      },
+      "Count": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[<0..)]"
+      }
+    }
+  },
+  {
+    "id": "PageTreeNodeRoot",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Pages]"
+      },
+      "Kids": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[ArrayOfPageTreeNodeKids]"
+      },
+      "Count": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[<0..)]"
+      }
+    }
+  },
+  {
+    "id": "Resource",
+    "keys": {
+      "ExtGState": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[]",
+        "Note": "*"
+      },
+      "ColorSpace": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ColorSpaceMap]",
+        "Note": "*"
+      },
+      "Pattern": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[]",
+        "Note": "*"
+      },
+      "XObject": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[XObjectMap]",
+        "Note": "*"
+      },
+      "Font": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[FontMap]",
+        "Note": "*"
+      },
+      "ProcSet": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[_UniversalArray]",
+        "Note": "*"
+      }
+    }
+  },
+  {
+    "id": "ShadingMap",
+    "keys": {
+      "*": {
+        "Type": "dictionary;stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[];[]"
+      }
+    }
+  },
+  {
+    "id": "SoundObject",
+    "keys": {
+      "Length": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Filter": {
+        "Type": "array;name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "Link": "[ArrayOfFilterNames];[]"
+      },
+      "DecodeParms": {
+        "Type": "array;dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
+      }
+    }
+  },
+  {
+    "id": "Stream",
+    "keys": {
+      "Length": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Filter": {
+        "Type": "array;name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "Link": "[ArrayOfFilterNames];[]"
+      },
+      "DecodeParms": {
+        "Type": "array;dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
+      }
+    }
+  },
+  {
+    "id": "Thumbnail",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[XObject]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[Image]"
+      },
+      "Width": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Height": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "ColorSpace": {
+        "Type": "array;name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[];[DeviceRGB,DeviceGray]",
+        "Link": "[];[]"
+      },
+      "BitsPerComponent": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Decode": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfNumbersGeneral]"
+      }
+    }
+  },
+  {
+    "id": "VRI",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[VRI]"
+      },
+      "Cert": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfStreamsGeneral]"
+      },
+      "CRL": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[ArrayOfStreamsGeneral]"
+      },
+      "OCSP": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "Link": "[ArrayOfStreamsGeneral]"
+      },
+      "TU": {
+        "Type": "date",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "TS": {
+        "Type": "stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[Stream]"
+      }
+    }
+  },
+  {
+    "id": "XObjectFormPrinterMark",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[XObject]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Form]",
+        "Link": "[]"
+      },
+      "FormType": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[1]"
+      },
+      "BBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Matrix": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "[1 0 0 1 0 0]",
+        "Link": "[]"
+      },
+      "Name": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "XObjectFormTrapNet",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[XObject]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Form]"
+      },
+      "FormType": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[1]"
+      },
+      "BBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Matrix": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "[1 0 0 1 0 0]",
+        "Link": "[]"
+      },
+      "Name": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "PCM": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Note": "*from trapnet appearance"
+      },
+      "SeparationColorNames": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfNamesGeneral]"
+      },
+      "TrapRegions": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[_UniversalDictionary]"
+      },
+      "TrapStyles": {
+        "Type": "string-text",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "XObjectFormType1",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[XObject]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Form]"
+      },
+      "FormType": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[1]"
+      },
+      "BBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Matrix": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": "[1 0 0 1 0 0]",
+        "Link": "[]"
+      },
+      "Name": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "XObjectImage",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[XObject]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Image]"
+      },
+      "Width": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Height": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "ColorSpace": {
+        "Type": "array;name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
+        "Link": "[];[]"
+      },
+      "BitsPerComponent": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false
+      },
+      "ImageMask": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": false
+      },
+      "Decode": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfNumbersGeneral]"
+      },
+      "Interpolate": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": false
+      },
+      "Name": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "XObjectImageMask",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[XObject]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Image]"
+      },
+      "Width": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Height": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "BitsPerComponent": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[1]"
+      },
+      "ImageMask": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "DefaultValue": true
+      },
+      "Decode": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfNumbersGeneral]"
+      },
+      "Interpolate": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": false
+      },
+      "Name": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
+        "Required": false,
+        "IndirectReference": false
+      }
+    }
+  },
+  {
+    "id": "XObjectImageSoftMask",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "PossibleValues": "[XObject]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[Image]"
+      },
+      "Width": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "Height": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "ColorSpace": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false,
+        "PossibleValues": "[DeviceGray]"
+      },
+      "BitsPerComponent": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": true,
+        "IndirectReference": false
+      },
+      "ImageMask": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": false
+      },
+      "Decode": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[ArrayOfNumbersGeneral]"
+      },
+      "Interpolate": {
+        "Type": "boolean",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "DefaultValue": false
+      }
+    }
+  },
+  {
+    "id": "XObjectMap",
+    "keys": {
+      "*": {
+        "Type": "stream",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[XObjectFormType1,XObjectImage]"
+      }
+    }
+  },
+  {
+    "id": "_UniversalArray",
+    "keys": {
+      "*": {
+        "Type": "array;boolean;dictionary;name;null;number;stream;string",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[_UniversalArray];[];[_UniversalDictionary];[];[];[];[Stream];[]"
+      }
+    }
+  },
+  {
+    "id": "_UniversalDictionary",
+    "keys": {
+      "*": {
+        "Type": "array;boolean;dictionary;name;null;number;stream;string",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Link": "[_UniversalArray];[];[_UniversalDictionary];[];[];[];[Stream];[]"
+      }
+    }
+  }
+]
