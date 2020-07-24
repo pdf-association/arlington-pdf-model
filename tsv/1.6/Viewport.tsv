@@ -1,5 +1,5 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.6		FALSE	FALSE		[Viewport]			
-BBox	rectangle	1.6		TRUE	FALSE					
-Name	string-text	1.6		FALSE	FALSE					
-Measure	dictionary	1.6		FALSE	FALSE				[MeasureRL,MeasureGEO]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.6		FALSE	FALSE	FALSE		[Viewport]			
+BBox	rectangle	1.6		TRUE	FALSE	FALSE					
+Name	string-text	1.6		FALSE	FALSE	FALSE					
+Measure	dictionary	1.6		FALSE	FALSE	FALSE				[MeasureRL,MeasureGEO]	

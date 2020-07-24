@@ -1,3 +1,3 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Creator	string-text	1.5		FALSE	FALSE					
-Subtype	name	1.5		FALSE	FALSE		[Artwork,Technical]			
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Creator	string-text	1.5		FALSE	FALSE	FALSE					
+Subtype	name	1.5		FALSE	FALSE	FALSE		[Artwork,Technical]			

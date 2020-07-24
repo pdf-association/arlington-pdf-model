@@ -1,26 +1,26 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.2		TRUE	FALSE		[FontDescriptor]			
-FontName	name	1.2		TRUE	FALSE					
-FontFamily	string	1.5		FALSE	FALSE					
-FontStretch	name	1.5		FALSE	FALSE		[UltraCondensed,ExtraCondensed,Condensed,SemiCondensed,Normal,SemiExpanded,Expanded,ExtraExpanded,UltraExpanded]			
-FontWeight	number	1.5		FALSE	FALSE		[100,200,300,400,500,600,700,800,900]			
-Flags	integer	1.2		TRUE	FALSE					
-FontBBox	rectangle	1.2		TRUE	FALSE					
-ItalicAngle	number	1.2		TRUE	FALSE					
-Ascent	number	1.2		TRUE	FALSE					
-Descent	number	1.2		TRUE	FALSE		[value<0]			
-Leading	number	1.2		FALSE	FALSE	0				
-CapHeight	number	1.2		FALSE	FALSE					
-XHeight	number	1.2		FALSE	FALSE	0				
-StemV	number	1.2		TRUE	FALSE					
-StemH	number	1.2		FALSE	FALSE	0				
-AvgWidth	number	1.2		FALSE	FALSE	0				
-MaxWidth	number	1.2		FALSE	FALSE	0				
-MissingWidth	number	1.2		FALSE	FALSE	0				
-FontFile	stream	1.2		FALSE	FALSE				[FontFile]	
-FontFile3	stream	1.2		FALSE	FALSE				[FontFile3CIDType0]	
-CharSet	string	1.2	2.0	FALSE	FALSE					
-Style	dictionary	1.2		FALSE	FALSE				[StyleDict]	
-Lang	name	1.5		FALSE	FALSE					
-FD	dictionary	1.2		FALSE	FALSE				[FDDict]	
-CIDSet	stream	1.2	2.0	FALSE	FALSE				[Stream]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.2		TRUE	FALSE	FALSE		[FontDescriptor]			
+FontName	name	1.2		TRUE	FALSE	FALSE					
+FontFamily	string	1.5		FALSE	FALSE	FALSE					
+FontStretch	name	1.5		FALSE	FALSE	FALSE		[UltraCondensed,ExtraCondensed,Condensed,SemiCondensed,Normal,SemiExpanded,Expanded,ExtraExpanded,UltraExpanded]			
+FontWeight	number	1.5		FALSE	FALSE	FALSE		[100,200,300,400,500,600,700,800,900]			
+Flags	integer	1.2		TRUE	FALSE	FALSE					
+FontBBox	rectangle	1.2		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
+ItalicAngle	number	1.2		TRUE	FALSE	FALSE					
+Ascent	number	1.2		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
+Descent	number	1.2		TRUE	FALSE	FALSE		[value<0]	Optional for Type 3 fonts		
+Leading	number	1.2		FALSE	FALSE	FALSE	0				
+CapHeight	number	1.2		FALSE	FALSE	FALSE					
+XHeight	number	1.2		FALSE	FALSE	FALSE	0				
+StemV	number	1.2		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
+StemH	number	1.2		FALSE	FALSE	FALSE	0				
+AvgWidth	number	1.2		FALSE	FALSE	FALSE	0				
+MaxWidth	number	1.2		FALSE	FALSE	FALSE	0				
+MissingWidth	number	1.2		FALSE	FALSE	FALSE	0				
+FontFile	stream	1.2		FALSE	FALSE	FALSE				[FontFile]	
+FontFile3	stream	1.2		FALSE	FALSE	FALSE				[FontFile3CIDType0]	
+CharSet	string	1.2	2.0	FALSE	FALSE	FALSE					
+Style	dictionary	1.2		FALSE	FALSE	FALSE				[StyleDict]	
+Lang	name	1.5		FALSE	FALSE	FALSE					
+FD	dictionary	1.2		FALSE	FALSE	FALSE				[FDDict]	
+CIDSet	stream	1.2	2.0	FALSE	FALSE	FALSE				[Stream]	

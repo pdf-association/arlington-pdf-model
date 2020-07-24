@@ -1,4 +1,4 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5		FALSE	FALSE		[MediaOffset]			
-S	name	1.5		TRUE	FALSE		[T]			
-T	dictionary	1.5		TRUE	FALSE				[Timespan]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.5		FALSE	FALSE	FALSE		[MediaOffset]			
+S	name	1.5		TRUE	FALSE	FALSE		[T]			
+T	dictionary	1.5		TRUE	FALSE	FALSE				[Timespan]	

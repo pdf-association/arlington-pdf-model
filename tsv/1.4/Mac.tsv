@@ -1,4 +1,4 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Subtype	integer	1.3	2.0	FALSE	FALSE					
-Creator	integer	1.3	2.0	FALSE	FALSE					
-ResFork	stream	1.3	2.0	FALSE	FALSE				[Stream]	
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Subtype	integer	1.3	2.0	FALSE	FALSE	FALSE					
+Creator	integer	1.3	2.0	FALSE	FALSE	FALSE					
+ResFork	stream	1.3	2.0	FALSE	FALSE	FALSE				[Stream]	
