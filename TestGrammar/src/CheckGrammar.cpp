@@ -37,15 +37,15 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
       CGrammarReader reader(gf);
       reader.load();
       const std::vector<std::vector<std::string>>& data = reader.get_data();
-      for (auto i = 1; i < data.size(); i++) {
+      for (size_t i = 1; i < data.size(); i++) {
         std::vector<std::string> vc = data[i];
         // does link exists ?
         // we have to parse pattern [lnk1,lnk2];[lnk3,lnk4];[]
-        //if (vc[KEY_COLUMN] == "*") {
+        //if (vc[TSV_KEYNAME] == "*") {
         //  ofs << "* in" << gfile << std::endl;
         //}
-        if (vc[LINK_COLUMN] != "") {
-          std::vector<std::string> links = split(vc[LINK_COLUMN], ';');
+        if (vc[TSV_LINK] != "") {
+          std::vector<std::string> links = split(vc[TSV_LINK], ';');
           for (auto type_link : links) {
             std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ',');
             for (auto lnk : direct_links)

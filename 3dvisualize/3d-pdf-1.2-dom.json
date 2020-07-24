@@ -1,0 +1,4991 @@
+{
+    "nodes": [
+        {
+            "id": "ActionGoTo",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "ActionGoTo dict"
+        },
+        {
+            "id": "ActionGoToR",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "ActionGoToR dict"
+        },
+        {
+            "id": "ActionHide",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "ActionHide dict"
+        },
+        {
+            "id": "ActionImportData",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "ActionImportData dict"
+        },
+        {
+            "id": "ActionLaunch",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "ActionLaunch dict"
+        },
+        {
+            "id": "ActionMovie",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "ActionMovie dict"
+        },
+        {
+            "id": "ActionNamed",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "ActionNamed dict"
+        },
+        {
+            "id": "ActionResetForm",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "ActionResetForm dict"
+        },
+        {
+            "id": "ActionSound",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "ActionSound dict"
+        },
+        {
+            "id": "ActionSubmitForm",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "ActionSubmitForm dict"
+        },
+        {
+            "id": "ActionThread",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "ActionThread dict"
+        },
+        {
+            "id": "ActionURI",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "ActionURI dict"
+        },
+        {
+            "id": "AddActionAnnotation",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "AddActionAnnotation dict"
+        },
+        {
+            "id": "AddActionPageObject",
+            "val": 4,
+            "group": "dict",
+            "desc": "2 keys",
+            "name": "AddActionPageObject dict"
+        },
+        {
+            "id": "AnnotLink",
+            "val": 169,
+            "group": "dict",
+            "desc": "13 keys",
+            "name": "AnnotLink dict"
+        },
+        {
+            "id": "AnnotMovie",
+            "val": 169,
+            "group": "dict",
+            "desc": "13 keys",
+            "name": "AnnotMovie dict"
+        },
+        {
+            "id": "AnnotSound",
+            "val": 169,
+            "group": "dict",
+            "desc": "13 keys",
+            "name": "AnnotSound dict"
+        },
+        {
+            "id": "AnnotText",
+            "val": 196,
+            "group": "dict",
+            "desc": "14 keys",
+            "name": "AnnotText dict"
+        },
+        {
+            "id": "AnnotWidget",
+            "val": 225,
+            "group": "dict",
+            "desc": "15 keys",
+            "name": "AnnotWidget dict"
+        },
+        {
+            "id": "Appearance",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "Appearance dict"
+        },
+        {
+            "id": "AppearanceCharacteristics",
+            "val": 121,
+            "group": "dict",
+            "desc": "11 keys",
+            "name": "AppearanceCharacteristics dict"
+        },
+        {
+            "id": "AppearanceSubDict",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "AppearanceSubDict map"
+        },
+        {
+            "id": "AppearanceTrapNet",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "AppearanceTrapNet dict"
+        },
+        {
+            "id": "AppearanceTrapNetSubDict",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "AppearanceTrapNetSubDict map"
+        },
+        {
+            "id": "ArrayOfActions",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfActions map"
+        },
+        {
+            "id": "ArrayOfAnnots",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfAnnots map"
+        },
+        {
+            "id": "ArrayOfBeads",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfBeads map"
+        },
+        {
+            "id": "ArrayOfDashPatterns",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfDashPatterns map"
+        },
+        {
+            "id": "ArrayOfDecodeParams",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfDecodeParams map"
+        },
+        {
+            "id": "ArrayOfDescendantFonts",
+            "val": 1,
+            "group": "array",
+            "desc": "1 entries",
+            "name": "ArrayOfDescendantFonts array"
+        },
+        {
+            "id": "ArrayOfDifferences",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfDifferences map"
+        },
+        {
+            "id": "ArrayOfDuration",
+            "val": 4,
+            "group": "array",
+            "desc": "2 entries",
+            "name": "ArrayOfDuration array"
+        },
+        {
+            "id": "ArrayOfFieldID",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfFieldID map"
+        },
+        {
+            "id": "ArrayOfFields",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfFields map"
+        },
+        {
+            "id": "ArrayOfFilterNames",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfFilterNames map"
+        },
+        {
+            "id": "ArrayOfFunctions",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfFunctions map"
+        },
+        {
+            "id": "ArrayOfNamesGeneral",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfNamesGeneral map"
+        },
+        {
+            "id": "ArrayOfNumbersGeneral",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfNumbersGeneral map"
+        },
+        {
+            "id": "ArrayOfOPI13Color",
+            "val": 25,
+            "group": "array",
+            "desc": "5 entries",
+            "name": "ArrayOfOPI13Color array"
+        },
+        {
+            "id": "ArrayOfPages",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfPages map"
+        },
+        {
+            "id": "ArrayOfPageTreeNodeKids",
+            "val": 1,
+            "group": "array",
+            "desc": "1 entries",
+            "name": "ArrayOfPageTreeNodeKids array"
+        },
+        {
+            "id": "ArrayOfStreamsGeneral",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfStreamsGeneral map"
+        },
+        {
+            "id": "ArrayOfTags",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfTags map"
+        },
+        {
+            "id": "ArrayOfThreads",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfThreads map"
+        },
+        {
+            "id": "ArrayOf_2DashNumbers",
+            "val": 4,
+            "group": "array",
+            "desc": "2 entries",
+            "name": "ArrayOf_2DashNumbers array"
+        },
+        {
+            "id": "ArrayOf_2StringsByte",
+            "val": 4,
+            "group": "array",
+            "desc": "2 entries",
+            "name": "ArrayOf_2StringsByte array"
+        },
+        {
+            "id": "ArrayOf_4AnnotBorderCharacteristics",
+            "val": 16,
+            "group": "array",
+            "desc": "4 entries",
+            "name": "ArrayOf_4AnnotBorderCharacteristics array"
+        },
+        {
+            "id": "ArrayOf_4Integers",
+            "val": 16,
+            "group": "array",
+            "desc": "4 entries",
+            "name": "ArrayOf_4Integers array"
+        },
+        {
+            "id": "ArrayOf_4NumbersColorAnnotation",
+            "val": 16,
+            "group": "array",
+            "desc": "4 entries",
+            "name": "ArrayOf_4NumbersColorAnnotation array"
+        },
+        {
+            "id": "ArrayOf_8Numbers",
+            "val": 64,
+            "group": "array",
+            "desc": "8 entries",
+            "name": "ArrayOf_8Numbers array"
+        },
+        {
+            "id": "Bead",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "Bead dict"
+        },
+        {
+            "id": "BeadFirst",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "BeadFirst dict"
+        },
+        {
+            "id": "Blackpoint",
+            "val": 9,
+            "group": "array",
+            "desc": "3 entries",
+            "name": "Blackpoint array"
+        },
+        {
+            "id": "BorderStyle",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "BorderStyle dict"
+        },
+        {
+            "id": "CalGrayColorSpace",
+            "val": 4,
+            "group": "array",
+            "desc": "2 entries",
+            "name": "CalGrayColorSpace array"
+        },
+        {
+            "id": "CalGrayDict",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "CalGrayDict dict"
+        },
+        {
+            "id": "CalRGBColorSpace",
+            "val": 4,
+            "group": "array",
+            "desc": "2 entries",
+            "name": "CalRGBColorSpace array"
+        },
+        {
+            "id": "CalRGBDict",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "CalRGBDict dict"
+        },
+        {
+            "id": "Catalog",
+            "val": 196,
+            "group": "dict",
+            "desc": "14 keys",
+            "color": "red",
+            "name": "Catalog dict"
+        },
+        {
+            "id": "CharProcMap",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "CharProcMap map"
+        },
+        {
+            "id": "CIDFontDescriptorMetrics",
+            "val": 256,
+            "group": "dict",
+            "desc": "16 keys",
+            "name": "CIDFontDescriptorMetrics dict"
+        },
+        {
+            "id": "CIDSystemInfo",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "CIDSystemInfo dict"
+        },
+        {
+            "id": "CMap",
+            "val": 121,
+            "group": "dict",
+            "desc": "11 keys",
+            "name": "CMap dict"
+        },
+        {
+            "id": "ColorSpaceMap",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ColorSpaceMap map"
+        },
+        {
+            "id": "Dest0",
+            "val": 4,
+            "group": "array",
+            "desc": "2 entries",
+            "name": "Dest0 array"
+        },
+        {
+            "id": "Dest1",
+            "val": 9,
+            "group": "array",
+            "desc": "3 entries",
+            "name": "Dest1 array"
+        },
+        {
+            "id": "Dest4",
+            "val": 25,
+            "group": "array",
+            "desc": "5 entries",
+            "name": "Dest4 array"
+        },
+        {
+            "id": "DestDict",
+            "val": 1,
+            "group": "dict",
+            "desc": "1 keys",
+            "name": "DestDict dict"
+        },
+        {
+            "id": "DestsMap",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "DestsMap map"
+        },
+        {
+            "id": "DestXYZ",
+            "val": 25,
+            "group": "array",
+            "desc": "5 entries",
+            "name": "DestXYZ array"
+        },
+        {
+            "id": "DevExtensions",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "DevExtensions dict"
+        },
+        {
+            "id": "DocInfo",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "DocInfo dict"
+        },
+        {
+            "id": "DSS",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "DSS dict"
+        },
+        {
+            "id": "EmbeddedFileStream",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "EmbeddedFileStream dict"
+        },
+        {
+            "id": "Encoding",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "Encoding dict"
+        },
+        {
+            "id": "EncryptedPayload",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "EncryptedPayload dict"
+        },
+        {
+            "id": "EncryptionPublicKey",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "EncryptionPublicKey dict"
+        },
+        {
+            "id": "EncryptionStandard",
+            "val": 81,
+            "group": "dict",
+            "desc": "9 keys",
+            "name": "EncryptionStandard dict"
+        },
+        {
+            "id": "FDDict",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "FDDict map"
+        },
+        {
+            "id": "Field",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "Field dict"
+        },
+        {
+            "id": "FieldBtn",
+            "val": 100,
+            "group": "dict",
+            "desc": "10 keys",
+            "name": "FieldBtn dict"
+        },
+        {
+            "id": "FieldCh",
+            "val": 121,
+            "group": "dict",
+            "desc": "11 keys",
+            "name": "FieldCh dict"
+        },
+        {
+            "id": "FieldTx",
+            "val": 121,
+            "group": "dict",
+            "desc": "11 keys",
+            "name": "FieldTx dict"
+        },
+        {
+            "id": "FileSpecification",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "FileSpecification dict"
+        },
+        {
+            "id": "FileTrailer",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "color": "red",
+            "name": "FileTrailer dict"
+        },
+        {
+            "id": "FilterCCITTFaxDecode",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "FilterCCITTFaxDecode dict"
+        },
+        {
+            "id": "FilterDCTDecode",
+            "val": 1,
+            "group": "dict",
+            "desc": "1 keys",
+            "name": "FilterDCTDecode dict"
+        },
+        {
+            "id": "FilterFlateDecode",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "FilterFlateDecode dict"
+        },
+        {
+            "id": "FilterLZWDecode",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "FilterLZWDecode dict"
+        },
+        {
+            "id": "FontCIDType0",
+            "val": 121,
+            "group": "dict",
+            "desc": "11 keys",
+            "name": "FontCIDType0 dict"
+        },
+        {
+            "id": "FontCIDType2",
+            "val": 121,
+            "group": "dict",
+            "desc": "11 keys",
+            "name": "FontCIDType2 dict"
+        },
+        {
+            "id": "FontDescriptor",
+            "val": 289,
+            "group": "dict",
+            "desc": "17 keys",
+            "name": "FontDescriptor dict"
+        },
+        {
+            "id": "FontDescriptorCIDType0",
+            "val": 441,
+            "group": "dict",
+            "desc": "21 keys",
+            "name": "FontDescriptorCIDType0 dict"
+        },
+        {
+            "id": "FontDescriptorCIDType2",
+            "val": 441,
+            "group": "dict",
+            "desc": "21 keys",
+            "name": "FontDescriptorCIDType2 dict"
+        },
+        {
+            "id": "FontDescriptorTrueType",
+            "val": 289,
+            "group": "dict",
+            "desc": "17 keys",
+            "name": "FontDescriptorTrueType dict"
+        },
+        {
+            "id": "FontDescriptorType1",
+            "val": 324,
+            "group": "dict",
+            "desc": "18 keys",
+            "name": "FontDescriptorType1 dict"
+        },
+        {
+            "id": "FontFile",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "FontFile dict"
+        },
+        {
+            "id": "FontFile2CIDType2",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "FontFile2CIDType2 dict"
+        },
+        {
+            "id": "FontFile2TrueType",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "FontFile2TrueType dict"
+        },
+        {
+            "id": "FontFile3CIDType0",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "FontFile3CIDType0 dict"
+        },
+        {
+            "id": "FontFile3Type1",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "FontFile3Type1 dict"
+        },
+        {
+            "id": "FontFileType1",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "FontFileType1 dict"
+        },
+        {
+            "id": "FontMap",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "FontMap map"
+        },
+        {
+            "id": "FontMultipleMaster",
+            "val": 100,
+            "group": "dict",
+            "desc": "10 keys",
+            "name": "FontMultipleMaster dict"
+        },
+        {
+            "id": "FontTrueType",
+            "val": 100,
+            "group": "dict",
+            "desc": "10 keys",
+            "name": "FontTrueType dict"
+        },
+        {
+            "id": "FontType0",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "FontType0 dict"
+        },
+        {
+            "id": "FontType1",
+            "val": 100,
+            "group": "dict",
+            "desc": "10 keys",
+            "name": "FontType1 dict"
+        },
+        {
+            "id": "FontType3",
+            "val": 169,
+            "group": "dict",
+            "desc": "13 keys",
+            "name": "FontType3 dict"
+        },
+        {
+            "id": "FunctionType0",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "FunctionType0 dict"
+        },
+        {
+            "id": "FunctionType3",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "FunctionType3 dict"
+        },
+        {
+            "id": "Gamma",
+            "val": 9,
+            "group": "array",
+            "desc": "3 entries",
+            "name": "Gamma array"
+        },
+        {
+            "id": "GraphicsStateParameter",
+            "val": 49,
+            "group": "dict",
+            "desc": "7 keys",
+            "name": "GraphicsStateParameter dict"
+        },
+        {
+            "id": "HalftoneType1",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "HalftoneType1 dict"
+        },
+        {
+            "id": "HalftoneType10",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "HalftoneType10 dict"
+        },
+        {
+            "id": "HalftoneType5",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "HalftoneType5 dict"
+        },
+        {
+            "id": "HalftoneType6",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "HalftoneType6 dict"
+        },
+        {
+            "id": "IndexedColorSpace",
+            "val": 16,
+            "group": "array",
+            "desc": "4 entries",
+            "name": "IndexedColorSpace array"
+        },
+        {
+            "id": "InteractiveForm",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "InteractiveForm dict"
+        },
+        {
+            "id": "LabColorSpace",
+            "val": 4,
+            "group": "array",
+            "desc": "2 entries",
+            "name": "LabColorSpace array"
+        },
+        {
+            "id": "LabDict",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "LabDict dict"
+        },
+        {
+            "id": "LabRange",
+            "val": 16,
+            "group": "array",
+            "desc": "4 entries",
+            "name": "LabRange array"
+        },
+        {
+            "id": "Matrix",
+            "val": 36,
+            "group": "array",
+            "desc": "6 entries",
+            "name": "Matrix array"
+        },
+        {
+            "id": "MicrosoftWindowsLaunchParam",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "MicrosoftWindowsLaunchParam dict"
+        },
+        {
+            "id": "Movie",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "Movie dict"
+        },
+        {
+            "id": "MovieActivation",
+            "val": 81,
+            "group": "dict",
+            "desc": "9 keys",
+            "name": "MovieActivation dict"
+        },
+        {
+            "id": "Name",
+            "val": 1,
+            "group": "dict",
+            "desc": "1 keys",
+            "name": "Name dict"
+        },
+        {
+            "id": "OPIVersion13",
+            "val": 1,
+            "group": "dict",
+            "desc": "1 keys",
+            "name": "OPIVersion13 dict"
+        },
+        {
+            "id": "OPIVersion13Dict",
+            "val": 324,
+            "group": "dict",
+            "desc": "18 keys",
+            "name": "OPIVersion13Dict dict"
+        },
+        {
+            "id": "OPIVersion20",
+            "val": 1,
+            "group": "dict",
+            "desc": "1 keys",
+            "name": "OPIVersion20 dict"
+        },
+        {
+            "id": "OPIVersion20Dict",
+            "val": 121,
+            "group": "dict",
+            "desc": "11 keys",
+            "name": "OPIVersion20Dict dict"
+        },
+        {
+            "id": "Outline",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "Outline dict"
+        },
+        {
+            "id": "OutlineItem",
+            "val": 81,
+            "group": "dict",
+            "desc": "9 keys",
+            "name": "OutlineItem dict"
+        },
+        {
+            "id": "PageObject",
+            "val": 169,
+            "group": "dict",
+            "desc": "13 keys",
+            "name": "PageObject dict"
+        },
+        {
+            "id": "PageTreeNode",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "PageTreeNode dict"
+        },
+        {
+            "id": "PageTreeNodeRoot",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "PageTreeNodeRoot dict"
+        },
+        {
+            "id": "PatternColorSpace",
+            "val": 4,
+            "group": "array",
+            "desc": "2 entries",
+            "name": "PatternColorSpace array"
+        },
+        {
+            "id": "Resource",
+            "val": 49,
+            "group": "dict",
+            "desc": "7 keys",
+            "name": "Resource dict"
+        },
+        {
+            "id": "SeparationColorSpace",
+            "val": 16,
+            "group": "array",
+            "desc": "4 entries",
+            "name": "SeparationColorSpace array"
+        },
+        {
+            "id": "ShadingMap",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ShadingMap map"
+        },
+        {
+            "id": "SoundObject",
+            "val": 169,
+            "group": "dict",
+            "desc": "13 keys",
+            "name": "SoundObject dict"
+        },
+        {
+            "id": "Stream",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "Stream dict"
+        },
+        {
+            "id": "StyleDict",
+            "val": 1,
+            "group": "dict",
+            "desc": "1 keys",
+            "name": "StyleDict dict"
+        },
+        {
+            "id": "Thread",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "Thread dict"
+        },
+        {
+            "id": "Thumbnail",
+            "val": 49,
+            "group": "dict",
+            "desc": "7 keys",
+            "name": "Thumbnail dict"
+        },
+        {
+            "id": "Transition",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "Transition dict"
+        },
+        {
+            "id": "URI",
+            "val": 1,
+            "group": "dict",
+            "desc": "1 keys",
+            "name": "URI dict"
+        },
+        {
+            "id": "ViewerPreferences",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "ViewerPreferences dict"
+        },
+        {
+            "id": "VRI",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "VRI dict"
+        },
+        {
+            "id": "Whitepoint",
+            "val": 9,
+            "group": "array",
+            "desc": "3 entries",
+            "name": "Whitepoint array"
+        },
+        {
+            "id": "XObjectFormPrinterMark",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "XObjectFormPrinterMark dict"
+        },
+        {
+            "id": "XObjectFormTrapNet",
+            "val": 144,
+            "group": "dict",
+            "desc": "12 keys",
+            "name": "XObjectFormTrapNet dict"
+        },
+        {
+            "id": "XObjectFormType1",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "XObjectFormType1 dict"
+        },
+        {
+            "id": "XObjectImage",
+            "val": 144,
+            "group": "dict",
+            "desc": "12 keys",
+            "name": "XObjectImage dict"
+        },
+        {
+            "id": "XObjectImageMask",
+            "val": 121,
+            "group": "dict",
+            "desc": "11 keys",
+            "name": "XObjectImageMask dict"
+        },
+        {
+            "id": "XObjectImageSoftMask",
+            "val": 81,
+            "group": "dict",
+            "desc": "9 keys",
+            "name": "XObjectImageSoftMask dict"
+        },
+        {
+            "id": "XObjectMap",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "XObjectMap map"
+        },
+        {
+            "id": "_UniversalArray",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "_UniversalArray map"
+        },
+        {
+            "id": "_UniversalDictionary",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "_UniversalDictionary map"
+        }
+    ],
+    "links": [
+        {
+            "source": "ActionGoTo",
+            "target": "ArrayOfActions",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionGoTo",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionGoToR",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionLaunch",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionThread",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionURI",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionSound",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionMovie",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionHide",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionNamed",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionSubmitForm",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionResetForm",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionImportData",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "DestXYZ",
+            "name": "ActionGoTo::D",
+            "color": "red"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "Dest0",
+            "name": "ActionGoTo::D",
+            "color": "red"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "Dest1",
+            "name": "ActionGoTo::D",
+            "color": "red"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "Dest4",
+            "name": "ActionGoTo::D",
+            "color": "red"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ArrayOfActions",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionGoTo",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionGoToR",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionLaunch",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionThread",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionURI",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionSound",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionMovie",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionHide",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionNamed",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionSubmitForm",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionResetForm",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionImportData",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "FileSpecification",
+            "name": "ActionGoToR::F",
+            "color": "red"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "DestXYZ",
+            "name": "ActionGoToR::D",
+            "color": "red"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "Dest0",
+            "name": "ActionGoToR::D",
+            "color": "red"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "Dest1",
+            "name": "ActionGoToR::D",
+            "color": "red"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "Dest4",
+            "name": "ActionGoToR::D",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ArrayOfActions",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionGoTo",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionGoToR",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionLaunch",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionThread",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionURI",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionSound",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionMovie",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionHide",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionNamed",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionSubmitForm",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionResetForm",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionImportData",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ArrayOfActions",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionGoTo",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionGoToR",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionLaunch",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionThread",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionURI",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionSound",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionMovie",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionHide",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionNamed",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionSubmitForm",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionResetForm",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionImportData",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ArrayOfActions",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionGoTo",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionGoToR",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionLaunch",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionThread",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionURI",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionSound",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionMovie",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionHide",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionNamed",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionSubmitForm",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionResetForm",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionImportData",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "FileSpecification",
+            "name": "ActionImportData::F",
+            "color": "red"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ArrayOfActions",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionGoTo",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionGoToR",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionLaunch",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionThread",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionURI",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionSound",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionMovie",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionHide",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionNamed",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionSubmitForm",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionResetForm",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionImportData",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "FileSpecification",
+            "name": "ActionLaunch::F",
+            "color": "red"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "MicrosoftWindowsLaunchParam",
+            "name": "ActionLaunch::Win"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ArrayOfActions",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionGoTo",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionGoToR",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionLaunch",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionThread",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionURI",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionSound",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionMovie",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionHide",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionNamed",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionSubmitForm",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionResetForm",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionImportData",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "AnnotMovie",
+            "name": "ActionMovie::Annotation"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ArrayOfActions",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionGoTo",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionGoToR",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionLaunch",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionThread",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionURI",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionSound",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionMovie",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionHide",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionNamed",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionSubmitForm",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionResetForm",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionImportData",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ArrayOfActions",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionGoTo",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionGoToR",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionLaunch",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionThread",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionURI",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionSound",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionMovie",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionHide",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionNamed",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionSubmitForm",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionResetForm",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionImportData",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ArrayOfFieldID",
+            "name": "ActionResetForm::Fields"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ArrayOfActions",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionGoTo",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionGoToR",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionLaunch",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionThread",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionURI",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionSound",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionMovie",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionHide",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionNamed",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionSubmitForm",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionResetForm",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionImportData",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "Stream",
+            "name": "ActionSound::Sound",
+            "color": "red"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "FileSpecification",
+            "name": "ActionSubmitForm::F",
+            "color": "red"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ArrayOfFieldID",
+            "name": "ActionSubmitForm::Fields"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ArrayOfActions",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionGoTo",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionGoToR",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionLaunch",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionThread",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionURI",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionSound",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionMovie",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionHide",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionNamed",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionSubmitForm",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionResetForm",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionImportData",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "FileSpecification",
+            "name": "ActionThread::F"
+        },
+        {
+            "source": "ActionThread",
+            "target": "Thread",
+            "name": "ActionThread::D",
+            "color": "red"
+        },
+        {
+            "source": "ActionThread",
+            "target": "Bead",
+            "name": "ActionThread::B"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ArrayOfActions",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionGoTo",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionGoToR",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionLaunch",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionThread",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionURI",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionSound",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionMovie",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionHide",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionNamed",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionSubmitForm",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionResetForm",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionImportData",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionAnnotation::E"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionAnnotation::X"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionAnnotation::D"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionAnnotation::U"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionAnnotation::Fo"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionAnnotation::Bl"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionGoTo",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionGoToR",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionLaunch",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionThread",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionURI",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionSound",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionMovie",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionHide",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionNamed",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionSubmitForm",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionResetForm",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionImportData",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionGoTo",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionGoToR",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionLaunch",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionThread",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionURI",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionSound",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionMovie",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionHide",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionNamed",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionSubmitForm",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionResetForm",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionImportData",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "Appearance",
+            "name": "AnnotLink::AP"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ArrayOf_4AnnotBorderCharacteristics",
+            "name": "AnnotLink::Border"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ArrayOf_4NumbersColorAnnotation",
+            "name": "AnnotLink::C "
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionGoTo",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionGoToR",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionLaunch",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionThread",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionURI",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionSound",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionMovie",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionHide",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionNamed",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionSubmitForm",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionResetForm",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionImportData",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "DestXYZ",
+            "name": "AnnotLink::Dest"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "Dest0",
+            "name": "AnnotLink::Dest"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "Dest1",
+            "name": "AnnotLink::Dest"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "Dest4",
+            "name": "AnnotLink::Dest"
+        },
+        {
+            "source": "AnnotMovie",
+            "target": "Appearance",
+            "name": "AnnotMovie::AP"
+        },
+        {
+            "source": "AnnotMovie",
+            "target": "ArrayOf_4AnnotBorderCharacteristics",
+            "name": "AnnotMovie::Border"
+        },
+        {
+            "source": "AnnotMovie",
+            "target": "ArrayOf_4NumbersColorAnnotation",
+            "name": "AnnotMovie::C "
+        },
+        {
+            "source": "AnnotMovie",
+            "target": "Movie",
+            "name": "AnnotMovie::Movie",
+            "color": "red"
+        },
+        {
+            "source": "AnnotMovie",
+            "target": "MovieActivation",
+            "name": "AnnotMovie::A"
+        },
+        {
+            "source": "AnnotSound",
+            "target": "Appearance",
+            "name": "AnnotSound::AP"
+        },
+        {
+            "source": "AnnotSound",
+            "target": "ArrayOf_4AnnotBorderCharacteristics",
+            "name": "AnnotSound::Border"
+        },
+        {
+            "source": "AnnotSound",
+            "target": "ArrayOf_4NumbersColorAnnotation",
+            "name": "AnnotSound::C "
+        },
+        {
+            "source": "AnnotSound",
+            "target": "SoundObject",
+            "name": "AnnotSound::Sound",
+            "color": "red"
+        },
+        {
+            "source": "AnnotText",
+            "target": "Appearance",
+            "name": "AnnotText::AP"
+        },
+        {
+            "source": "AnnotText",
+            "target": "ArrayOf_4AnnotBorderCharacteristics",
+            "name": "AnnotText::Border"
+        },
+        {
+            "source": "AnnotText",
+            "target": "ArrayOf_4NumbersColorAnnotation",
+            "name": "AnnotText::C "
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "Appearance",
+            "name": "AnnotWidget::AP"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ArrayOf_4AnnotBorderCharacteristics",
+            "name": "AnnotWidget::Border"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ArrayOf_4NumbersColorAnnotation",
+            "name": "AnnotWidget::C "
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionGoTo",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionGoToR",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionLaunch",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionThread",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionURI",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionSound",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionMovie",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionHide",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionNamed",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionSubmitForm",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionResetForm",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionImportData",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "AddActionAnnotation",
+            "name": "AnnotWidget::AA"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "BorderStyle",
+            "name": "AnnotWidget::BS"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "Field",
+            "name": "AnnotWidget::Parent"
+        },
+        {
+            "source": "Appearance",
+            "target": "AppearanceSubDict",
+            "name": "Appearance::N",
+            "color": "red"
+        },
+        {
+            "source": "Appearance",
+            "target": "XObjectFormType1",
+            "name": "Appearance::N",
+            "color": "red"
+        },
+        {
+            "source": "Appearance",
+            "target": "AppearanceSubDict",
+            "name": "Appearance::R"
+        },
+        {
+            "source": "Appearance",
+            "target": "XObjectFormType1",
+            "name": "Appearance::R"
+        },
+        {
+            "source": "Appearance",
+            "target": "AppearanceSubDict",
+            "name": "Appearance::D"
+        },
+        {
+            "source": "Appearance",
+            "target": "XObjectFormType1",
+            "name": "Appearance::D"
+        },
+        {
+            "source": "AppearanceCharacteristics",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "AppearanceCharacteristics::BC"
+        },
+        {
+            "source": "AppearanceCharacteristics",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "AppearanceCharacteristics::BG"
+        },
+        {
+            "source": "AppearanceCharacteristics",
+            "target": "XObjectFormType1",
+            "name": "AppearanceCharacteristics::I"
+        },
+        {
+            "source": "AppearanceCharacteristics",
+            "target": "XObjectImage",
+            "name": "AppearanceCharacteristics::I"
+        },
+        {
+            "source": "AppearanceCharacteristics",
+            "target": "XObjectFormType1",
+            "name": "AppearanceCharacteristics::RI"
+        },
+        {
+            "source": "AppearanceCharacteristics",
+            "target": "XObjectImage",
+            "name": "AppearanceCharacteristics::RI"
+        },
+        {
+            "source": "AppearanceCharacteristics",
+            "target": "XObjectFormType1",
+            "name": "AppearanceCharacteristics::IX"
+        },
+        {
+            "source": "AppearanceCharacteristics",
+            "target": "XObjectImage",
+            "name": "AppearanceCharacteristics::IX"
+        },
+        {
+            "source": "AppearanceSubDict",
+            "target": "XObjectFormType1",
+            "name": "AppearanceSubDict::*"
+        },
+        {
+            "source": "AppearanceTrapNet",
+            "target": "AppearanceTrapNetSubDict",
+            "name": "AppearanceTrapNet::N",
+            "color": "red"
+        },
+        {
+            "source": "AppearanceTrapNet",
+            "target": "XObjectFormTrapNet",
+            "name": "AppearanceTrapNet::N",
+            "color": "red"
+        },
+        {
+            "source": "AppearanceTrapNet",
+            "target": "AppearanceTrapNetSubDict",
+            "name": "AppearanceTrapNet::R"
+        },
+        {
+            "source": "AppearanceTrapNet",
+            "target": "XObjectFormTrapNet",
+            "name": "AppearanceTrapNet::R"
+        },
+        {
+            "source": "AppearanceTrapNet",
+            "target": "AppearanceTrapNetSubDict",
+            "name": "AppearanceTrapNet::D"
+        },
+        {
+            "source": "AppearanceTrapNet",
+            "target": "XObjectFormTrapNet",
+            "name": "AppearanceTrapNet::D"
+        },
+        {
+            "source": "AppearanceTrapNetSubDict",
+            "target": "XObjectFormTrapNet",
+            "name": "AppearanceTrapNetSubDict::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionGoTo",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionGoToR",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionLaunch",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionThread",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionURI",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionSound",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionMovie",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionHide",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionNamed",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionSubmitForm",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionResetForm",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionImportData",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfAnnots",
+            "target": "AnnotText",
+            "name": "ArrayOfAnnots::*"
+        },
+        {
+            "source": "ArrayOfAnnots",
+            "target": "AnnotLink",
+            "name": "ArrayOfAnnots::*"
+        },
+        {
+            "source": "ArrayOfAnnots",
+            "target": "AnnotSound",
+            "name": "ArrayOfAnnots::*"
+        },
+        {
+            "source": "ArrayOfAnnots",
+            "target": "AnnotMovie",
+            "name": "ArrayOfAnnots::*"
+        },
+        {
+            "source": "ArrayOfAnnots",
+            "target": "AnnotWidget",
+            "name": "ArrayOfAnnots::*"
+        },
+        {
+            "source": "ArrayOfBeads",
+            "target": "BeadFirst",
+            "name": "ArrayOfBeads::*"
+        },
+        {
+            "source": "ArrayOfBeads",
+            "target": "Bead",
+            "name": "ArrayOfBeads::*"
+        },
+        {
+            "source": "ArrayOfDecodeParams",
+            "target": "FilterLZWDecode",
+            "name": "ArrayOfDecodeParams::*"
+        },
+        {
+            "source": "ArrayOfDecodeParams",
+            "target": "FilterFlateDecode",
+            "name": "ArrayOfDecodeParams::*"
+        },
+        {
+            "source": "ArrayOfDecodeParams",
+            "target": "FilterCCITTFaxDecode",
+            "name": "ArrayOfDecodeParams::*"
+        },
+        {
+            "source": "ArrayOfDecodeParams",
+            "target": "FilterDCTDecode",
+            "name": "ArrayOfDecodeParams::*"
+        },
+        {
+            "source": "ArrayOfDescendantFonts",
+            "target": "FontCIDType0",
+            "name": "ArrayOfDescendantFonts::0",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfDescendantFonts",
+            "target": "FontCIDType2",
+            "name": "ArrayOfDescendantFonts::0",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfFieldID",
+            "target": "FieldTx",
+            "name": "ArrayOfFieldID::*"
+        },
+        {
+            "source": "ArrayOfFieldID",
+            "target": "FieldBtn",
+            "name": "ArrayOfFieldID::*"
+        },
+        {
+            "source": "ArrayOfFieldID",
+            "target": "FieldCh",
+            "name": "ArrayOfFieldID::*"
+        },
+        {
+            "source": "ArrayOfFieldID",
+            "target": "Field",
+            "name": "ArrayOfFieldID::*"
+        },
+        {
+            "source": "ArrayOfFields",
+            "target": "FieldTx",
+            "name": "ArrayOfFields::*"
+        },
+        {
+            "source": "ArrayOfFields",
+            "target": "FieldBtn",
+            "name": "ArrayOfFields::*"
+        },
+        {
+            "source": "ArrayOfFields",
+            "target": "FieldCh",
+            "name": "ArrayOfFields::*"
+        },
+        {
+            "source": "ArrayOfFields",
+            "target": "Field",
+            "name": "ArrayOfFields::*"
+        },
+        {
+            "source": "ArrayOfFields",
+            "target": "AnnotWidget",
+            "name": "ArrayOfFields::*"
+        },
+        {
+            "source": "ArrayOfFunctions",
+            "target": "FunctionType3",
+            "name": "ArrayOfFunctions::*"
+        },
+        {
+            "source": "ArrayOfFunctions",
+            "target": "FunctionType0",
+            "name": "ArrayOfFunctions::*"
+        },
+        {
+            "source": "ArrayOfPages",
+            "target": "PageObject",
+            "name": "ArrayOfPages::*"
+        },
+        {
+            "source": "ArrayOfPageTreeNodeKids",
+            "target": "PageTreeNode",
+            "name": "ArrayOfPageTreeNodeKids::c"
+        },
+        {
+            "source": "ArrayOfPageTreeNodeKids",
+            "target": "PageObject",
+            "name": "ArrayOfPageTreeNodeKids::c"
+        },
+        {
+            "source": "ArrayOfStreamsGeneral",
+            "target": "Stream",
+            "name": "ArrayOfStreamsGeneral::*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfThreads",
+            "target": "Thread",
+            "name": "ArrayOfThreads::*"
+        },
+        {
+            "source": "ArrayOf_4AnnotBorderCharacteristics",
+            "target": "ArrayOf_2DashNumbers",
+            "name": "ArrayOf_4AnnotBorderCharacteristics::3"
+        },
+        {
+            "source": "Bead",
+            "target": "Thread",
+            "name": "Bead::T"
+        },
+        {
+            "source": "Bead",
+            "target": "BeadFirst",
+            "name": "Bead::N",
+            "color": "red"
+        },
+        {
+            "source": "Bead",
+            "target": "Bead",
+            "name": "Bead::N",
+            "color": "red"
+        },
+        {
+            "source": "Bead",
+            "target": "BeadFirst",
+            "name": "Bead::V",
+            "color": "red"
+        },
+        {
+            "source": "Bead",
+            "target": "Bead",
+            "name": "Bead::V",
+            "color": "red"
+        },
+        {
+            "source": "Bead",
+            "target": "PageObject",
+            "name": "Bead::P",
+            "color": "red"
+        },
+        {
+            "source": "BeadFirst",
+            "target": "Thread",
+            "name": "BeadFirst::T",
+            "color": "red"
+        },
+        {
+            "source": "BeadFirst",
+            "target": "BeadFirst",
+            "name": "BeadFirst::N",
+            "color": "red"
+        },
+        {
+            "source": "BeadFirst",
+            "target": "Bead",
+            "name": "BeadFirst::N",
+            "color": "red"
+        },
+        {
+            "source": "BeadFirst",
+            "target": "BeadFirst",
+            "name": "BeadFirst::V",
+            "color": "red"
+        },
+        {
+            "source": "BeadFirst",
+            "target": "Bead",
+            "name": "BeadFirst::V",
+            "color": "red"
+        },
+        {
+            "source": "BeadFirst",
+            "target": "PageObject",
+            "name": "BeadFirst::P",
+            "color": "red"
+        },
+        {
+            "source": "BorderStyle",
+            "target": "ArrayOfDashPatterns",
+            "name": "BorderStyle::D"
+        },
+        {
+            "source": "CalGrayColorSpace",
+            "target": "CalGrayDict",
+            "name": "CalGrayColorSpace::1",
+            "color": "red"
+        },
+        {
+            "source": "CalGrayDict",
+            "target": "Whitepoint",
+            "name": "CalGrayDict::WhitePoint",
+            "color": "red"
+        },
+        {
+            "source": "CalGrayDict",
+            "target": "Blackpoint",
+            "name": "CalGrayDict::BlackPoint"
+        },
+        {
+            "source": "CalRGBColorSpace",
+            "target": "CalRGBDict",
+            "name": "CalRGBColorSpace::1",
+            "color": "red"
+        },
+        {
+            "source": "CalRGBDict",
+            "target": "Whitepoint",
+            "name": "CalRGBDict::WhitePoint",
+            "color": "red"
+        },
+        {
+            "source": "CalRGBDict",
+            "target": "Blackpoint",
+            "name": "CalRGBDict::BlackPoint"
+        },
+        {
+            "source": "CalRGBDict",
+            "target": "Gamma",
+            "name": "CalRGBDict::Gamma"
+        },
+        {
+            "source": "CalRGBDict",
+            "target": "Matrix",
+            "name": "CalRGBDict::Matrix"
+        },
+        {
+            "source": "Catalog",
+            "target": "PageTreeNodeRoot",
+            "name": "Catalog::Pages",
+            "color": "red"
+        },
+        {
+            "source": "Catalog",
+            "target": "Name",
+            "name": "Catalog::Names"
+        },
+        {
+            "source": "Catalog",
+            "target": "DestsMap",
+            "name": "Catalog::Dests"
+        },
+        {
+            "source": "Catalog",
+            "target": "ViewerPreferences",
+            "name": "Catalog::ViewerPreferences"
+        },
+        {
+            "source": "Catalog",
+            "target": "Outline",
+            "name": "Catalog::Outlines"
+        },
+        {
+            "source": "Catalog",
+            "target": "ArrayOfThreads",
+            "name": "Catalog::Threads"
+        },
+        {
+            "source": "Catalog",
+            "target": "DestXYZ",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "Dest0",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "Dest1",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "Dest4",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionGoTo",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionGoToR",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionLaunch",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionThread",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionURI",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionSound",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionMovie",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionHide",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionNamed",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionSubmitForm",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionResetForm",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionImportData",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "URI",
+            "name": "Catalog::URI"
+        },
+        {
+            "source": "Catalog",
+            "target": "InteractiveForm",
+            "name": "Catalog::AcroForm"
+        },
+        {
+            "source": "CharProcMap",
+            "target": "Stream",
+            "name": "CharProcMap::*"
+        },
+        {
+            "source": "CMap",
+            "target": "CIDSystemInfo",
+            "name": "CMap::CIDSystemInfo",
+            "color": "red"
+        },
+        {
+            "source": "CMap",
+            "target": "Stream",
+            "name": "CMap::UseCMap"
+        },
+        {
+            "source": "CMap",
+            "target": "ArrayOfFilterNames",
+            "name": "CMap::Filter"
+        },
+        {
+            "source": "CMap",
+            "target": "ArrayOfDecodeParams",
+            "name": "CMap::DecodeParms"
+        },
+        {
+            "source": "CMap",
+            "target": "FilterLZWDecode",
+            "name": "CMap::DecodeParms"
+        },
+        {
+            "source": "CMap",
+            "target": "FilterFlateDecode",
+            "name": "CMap::DecodeParms"
+        },
+        {
+            "source": "CMap",
+            "target": "FilterCCITTFaxDecode",
+            "name": "CMap::DecodeParms"
+        },
+        {
+            "source": "CMap",
+            "target": "FilterDCTDecode",
+            "name": "CMap::DecodeParms"
+        },
+        {
+            "source": "CMap",
+            "target": "FileSpecification",
+            "name": "CMap::F "
+        },
+        {
+            "source": "CMap",
+            "target": "ArrayOfFilterNames",
+            "name": "CMap::FFilter"
+        },
+        {
+            "source": "CMap",
+            "target": "ArrayOfDecodeParams",
+            "name": "CMap::FDecodeParms"
+        },
+        {
+            "source": "CMap",
+            "target": "FilterLZWDecode",
+            "name": "CMap::FDecodeParms"
+        },
+        {
+            "source": "CMap",
+            "target": "FilterFlateDecode",
+            "name": "CMap::FDecodeParms"
+        },
+        {
+            "source": "CMap",
+            "target": "FilterCCITTFaxDecode",
+            "name": "CMap::FDecodeParms"
+        },
+        {
+            "source": "CMap",
+            "target": "FilterDCTDecode",
+            "name": "CMap::FDecodeParms"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "CalGrayColorSpace",
+            "name": "ColorSpaceMap::*"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "CalRGBColorSpace",
+            "name": "ColorSpaceMap::*"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "LabColorSpace",
+            "name": "ColorSpaceMap::*"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "IndexedColorSpace",
+            "name": "ColorSpaceMap::*"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "SeparationColorSpace",
+            "name": "ColorSpaceMap::*"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "PatternColorSpace",
+            "name": "ColorSpaceMap::*"
+        },
+        {
+            "source": "Dest0",
+            "target": "PageObject",
+            "name": "Dest0::0",
+            "color": "red"
+        },
+        {
+            "source": "Dest1",
+            "target": "PageObject",
+            "name": "Dest1::0",
+            "color": "red"
+        },
+        {
+            "source": "Dest4",
+            "target": "PageObject",
+            "name": "Dest4::0",
+            "color": "red"
+        },
+        {
+            "source": "DestDict",
+            "target": "DestXYZ",
+            "name": "DestDict::D",
+            "color": "red"
+        },
+        {
+            "source": "DestDict",
+            "target": "Dest0",
+            "name": "DestDict::D",
+            "color": "red"
+        },
+        {
+            "source": "DestDict",
+            "target": "Dest1",
+            "name": "DestDict::D",
+            "color": "red"
+        },
+        {
+            "source": "DestDict",
+            "target": "Dest4",
+            "name": "DestDict::D",
+            "color": "red"
+        },
+        {
+            "source": "DestsMap",
+            "target": "DestXYZ",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
+            "target": "Dest0",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
+            "target": "Dest1",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
+            "target": "Dest4",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestXYZ",
+            "target": "PageObject",
+            "name": "DestXYZ::0",
+            "color": "red"
+        },
+        {
+            "source": "DSS",
+            "target": "VRI",
+            "name": "DSS::VRI"
+        },
+        {
+            "source": "DSS",
+            "target": "ArrayOfStreamsGeneral",
+            "name": "DSS::Certs"
+        },
+        {
+            "source": "DSS",
+            "target": "ArrayOfStreamsGeneral",
+            "name": "DSS::OCSPs"
+        },
+        {
+            "source": "DSS",
+            "target": "ArrayOfStreamsGeneral",
+            "name": "DSS::CRLs"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "ArrayOfFilterNames",
+            "name": "EmbeddedFileStream::Filter"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "ArrayOfDecodeParams",
+            "name": "EmbeddedFileStream::DecodeParms"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "FilterLZWDecode",
+            "name": "EmbeddedFileStream::DecodeParms"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "FilterFlateDecode",
+            "name": "EmbeddedFileStream::DecodeParms"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "FilterCCITTFaxDecode",
+            "name": "EmbeddedFileStream::DecodeParms"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "FilterDCTDecode",
+            "name": "EmbeddedFileStream::DecodeParms"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "FileSpecification",
+            "name": "EmbeddedFileStream::F "
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "ArrayOfFilterNames",
+            "name": "EmbeddedFileStream::FFilter"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "ArrayOfDecodeParams",
+            "name": "EmbeddedFileStream::FDecodeParms"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "FilterLZWDecode",
+            "name": "EmbeddedFileStream::FDecodeParms"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "FilterFlateDecode",
+            "name": "EmbeddedFileStream::FDecodeParms"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "FilterCCITTFaxDecode",
+            "name": "EmbeddedFileStream::FDecodeParms"
+        },
+        {
+            "source": "EmbeddedFileStream",
+            "target": "FilterDCTDecode",
+            "name": "EmbeddedFileStream::FDecodeParms"
+        },
+        {
+            "source": "Encoding",
+            "target": "ArrayOfDifferences",
+            "name": "Encoding::Differences"
+        },
+        {
+            "source": "FDDict",
+            "target": "CIDFontDescriptorMetrics",
+            "name": "FDDict::*"
+        },
+        {
+            "source": "Field",
+            "target": "FieldTx",
+            "name": "Field::Parent"
+        },
+        {
+            "source": "Field",
+            "target": "FieldBtn",
+            "name": "Field::Parent"
+        },
+        {
+            "source": "Field",
+            "target": "FieldCh",
+            "name": "Field::Parent"
+        },
+        {
+            "source": "Field",
+            "target": "Field",
+            "name": "Field::Parent"
+        },
+        {
+            "source": "Field",
+            "target": "ArrayOfFields",
+            "name": "Field::Kids"
+        },
+        {
+            "source": "FieldBtn",
+            "target": "FieldTx",
+            "name": "FieldBtn::Parent"
+        },
+        {
+            "source": "FieldBtn",
+            "target": "FieldBtn",
+            "name": "FieldBtn::Parent"
+        },
+        {
+            "source": "FieldBtn",
+            "target": "FieldCh",
+            "name": "FieldBtn::Parent"
+        },
+        {
+            "source": "FieldBtn",
+            "target": "Field",
+            "name": "FieldBtn::Parent"
+        },
+        {
+            "source": "FieldBtn",
+            "target": "ArrayOfFields",
+            "name": "FieldBtn::Kids"
+        },
+        {
+            "source": "FieldCh",
+            "target": "FieldTx",
+            "name": "FieldCh::Parent"
+        },
+        {
+            "source": "FieldCh",
+            "target": "FieldBtn",
+            "name": "FieldCh::Parent"
+        },
+        {
+            "source": "FieldCh",
+            "target": "FieldCh",
+            "name": "FieldCh::Parent"
+        },
+        {
+            "source": "FieldCh",
+            "target": "Field",
+            "name": "FieldCh::Parent"
+        },
+        {
+            "source": "FieldCh",
+            "target": "ArrayOfFields",
+            "name": "FieldCh::Kids"
+        },
+        {
+            "source": "FieldTx",
+            "target": "FieldTx",
+            "name": "FieldTx::Parent"
+        },
+        {
+            "source": "FieldTx",
+            "target": "FieldBtn",
+            "name": "FieldTx::Parent"
+        },
+        {
+            "source": "FieldTx",
+            "target": "FieldCh",
+            "name": "FieldTx::Parent"
+        },
+        {
+            "source": "FieldTx",
+            "target": "Field",
+            "name": "FieldTx::Parent"
+        },
+        {
+            "source": "FieldTx",
+            "target": "ArrayOfFields",
+            "name": "FieldTx::Kids"
+        },
+        {
+            "source": "FieldTx",
+            "target": "Stream",
+            "name": "FieldTx::V"
+        },
+        {
+            "source": "FieldTx",
+            "target": "Stream",
+            "name": "FieldTx::DV"
+        },
+        {
+            "source": "FileSpecification",
+            "target": "ArrayOf_2StringsByte",
+            "name": "FileSpecification::ID"
+        },
+        {
+            "source": "FileTrailer",
+            "target": "Catalog",
+            "name": "FileTrailer::Root",
+            "color": "red"
+        },
+        {
+            "source": "FileTrailer",
+            "target": "EncryptionStandard",
+            "name": "FileTrailer::Encrypt"
+        },
+        {
+            "source": "FileTrailer",
+            "target": "EncryptionPublicKey",
+            "name": "FileTrailer::Encrypt"
+        },
+        {
+            "source": "FileTrailer",
+            "target": "DocInfo",
+            "name": "FileTrailer::Info"
+        },
+        {
+            "source": "FileTrailer",
+            "target": "ArrayOf_2StringsByte",
+            "name": "FileTrailer::ID",
+            "color": "red"
+        },
+        {
+            "source": "FontCIDType0",
+            "target": "CIDSystemInfo",
+            "name": "FontCIDType0::CIDSystemInfo",
+            "color": "red"
+        },
+        {
+            "source": "FontCIDType0",
+            "target": "FontDescriptorCIDType0",
+            "name": "FontCIDType0::FontDescriptor",
+            "color": "red"
+        },
+        {
+            "source": "FontCIDType0",
+            "target": "_UniversalArray",
+            "name": "FontCIDType0::W"
+        },
+        {
+            "source": "FontCIDType0",
+            "target": "_UniversalArray",
+            "name": "FontCIDType0::W2"
+        },
+        {
+            "source": "FontCIDType0",
+            "target": "Stream",
+            "name": "FontCIDType0::CIDToGIDMap"
+        },
+        {
+            "source": "FontCIDType0",
+            "target": "Stream",
+            "name": "FontCIDType0::ToUnicode"
+        },
+        {
+            "source": "FontCIDType2",
+            "target": "CIDSystemInfo",
+            "name": "FontCIDType2::CIDSystemInfo",
+            "color": "red"
+        },
+        {
+            "source": "FontCIDType2",
+            "target": "FontDescriptorCIDType2",
+            "name": "FontCIDType2::FontDescriptor",
+            "color": "red"
+        },
+        {
+            "source": "FontCIDType2",
+            "target": "_UniversalArray",
+            "name": "FontCIDType2::W"
+        },
+        {
+            "source": "FontCIDType2",
+            "target": "_UniversalArray",
+            "name": "FontCIDType2::W2"
+        },
+        {
+            "source": "FontCIDType2",
+            "target": "Stream",
+            "name": "FontCIDType2::CIDToGIDMap",
+            "color": "red"
+        },
+        {
+            "source": "FontCIDType2",
+            "target": "Stream",
+            "name": "FontCIDType2::ToUnicode"
+        },
+        {
+            "source": "FontDescriptor",
+            "target": "FontFile",
+            "name": "FontDescriptor::FontFile"
+        },
+        {
+            "source": "FontDescriptorCIDType0",
+            "target": "FontFile",
+            "name": "FontDescriptorCIDType0::FontFile"
+        },
+        {
+            "source": "FontDescriptorCIDType0",
+            "target": "FontFile3CIDType0",
+            "name": "FontDescriptorCIDType0::FontFile3"
+        },
+        {
+            "source": "FontDescriptorCIDType0",
+            "target": "StyleDict",
+            "name": "FontDescriptorCIDType0::Style"
+        },
+        {
+            "source": "FontDescriptorCIDType0",
+            "target": "FDDict",
+            "name": "FontDescriptorCIDType0::FD"
+        },
+        {
+            "source": "FontDescriptorCIDType0",
+            "target": "Stream",
+            "name": "FontDescriptorCIDType0::CIDSet"
+        },
+        {
+            "source": "FontDescriptorCIDType2",
+            "target": "FontFile",
+            "name": "FontDescriptorCIDType2::FontFile"
+        },
+        {
+            "source": "FontDescriptorCIDType2",
+            "target": "FontFile2CIDType2",
+            "name": "FontDescriptorCIDType2::FontFile2"
+        },
+        {
+            "source": "FontDescriptorCIDType2",
+            "target": "StyleDict",
+            "name": "FontDescriptorCIDType2::Style"
+        },
+        {
+            "source": "FontDescriptorCIDType2",
+            "target": "FDDict",
+            "name": "FontDescriptorCIDType2::FD"
+        },
+        {
+            "source": "FontDescriptorCIDType2",
+            "target": "Stream",
+            "name": "FontDescriptorCIDType2::CIDSet"
+        },
+        {
+            "source": "FontDescriptorTrueType",
+            "target": "FontFile2TrueType",
+            "name": "FontDescriptorTrueType::FontFile2"
+        },
+        {
+            "source": "FontDescriptorType1",
+            "target": "FontFileType1",
+            "name": "FontDescriptorType1::FontFile"
+        },
+        {
+            "source": "FontDescriptorType1",
+            "target": "FontFile3Type1",
+            "name": "FontDescriptorType1::FontFile3"
+        },
+        {
+            "source": "FontMap",
+            "target": "FontType1",
+            "name": "FontMap::*"
+        },
+        {
+            "source": "FontMap",
+            "target": "FontTrueType",
+            "name": "FontMap::*"
+        },
+        {
+            "source": "FontMap",
+            "target": "FontMultipleMaster",
+            "name": "FontMap::*"
+        },
+        {
+            "source": "FontMap",
+            "target": "FontType3",
+            "name": "FontMap::*"
+        },
+        {
+            "source": "FontMap",
+            "target": "FontType0",
+            "name": "FontMap::*"
+        },
+        {
+            "source": "FontMap",
+            "target": "FontCIDType0",
+            "name": "FontMap::*"
+        },
+        {
+            "source": "FontMap",
+            "target": "FontCIDType2",
+            "name": "FontMap::*"
+        },
+        {
+            "source": "FontMultipleMaster",
+            "target": "FontDescriptorType1",
+            "name": "FontMultipleMaster::FontDescriptor",
+            "color": "red"
+        },
+        {
+            "source": "FontMultipleMaster",
+            "target": "Encoding",
+            "name": "FontMultipleMaster::Encoding"
+        },
+        {
+            "source": "FontMultipleMaster",
+            "target": "Stream",
+            "name": "FontMultipleMaster::ToUnicode"
+        },
+        {
+            "source": "FontTrueType",
+            "target": "FontDescriptorTrueType",
+            "name": "FontTrueType::FontDescriptor",
+            "color": "red"
+        },
+        {
+            "source": "FontTrueType",
+            "target": "Encoding",
+            "name": "FontTrueType::Encoding"
+        },
+        {
+            "source": "FontTrueType",
+            "target": "Stream",
+            "name": "FontTrueType::ToUnicode"
+        },
+        {
+            "source": "FontType0",
+            "target": "CMap",
+            "name": "FontType0::Encoding",
+            "color": "red"
+        },
+        {
+            "source": "FontType0",
+            "target": "ArrayOfDescendantFonts",
+            "name": "FontType0::DescendantFonts",
+            "color": "red"
+        },
+        {
+            "source": "FontType0",
+            "target": "Stream",
+            "name": "FontType0::ToUnicode"
+        },
+        {
+            "source": "FontType1",
+            "target": "FontDescriptorType1",
+            "name": "FontType1::FontDescriptor",
+            "color": "red"
+        },
+        {
+            "source": "FontType1",
+            "target": "Encoding",
+            "name": "FontType1::Encoding"
+        },
+        {
+            "source": "FontType1",
+            "target": "Stream",
+            "name": "FontType1::ToUnicode"
+        },
+        {
+            "source": "FontType3",
+            "target": "Matrix",
+            "name": "FontType3::FontMatrix",
+            "color": "red"
+        },
+        {
+            "source": "FontType3",
+            "target": "CharProcMap",
+            "name": "FontType3::CharProcs",
+            "color": "red"
+        },
+        {
+            "source": "FontType3",
+            "target": "Encoding",
+            "name": "FontType3::Encoding",
+            "color": "red"
+        },
+        {
+            "source": "FontType3",
+            "target": "FontDescriptor",
+            "name": "FontType3::FontDescriptor"
+        },
+        {
+            "source": "FontType3",
+            "target": "Resource",
+            "name": "FontType3::Resources"
+        },
+        {
+            "source": "FontType3",
+            "target": "Stream",
+            "name": "FontType3::ToUnicode"
+        },
+        {
+            "source": "FunctionType0",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "FunctionType0::Domain",
+            "color": "red"
+        },
+        {
+            "source": "FunctionType0",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "FunctionType0::Range",
+            "color": "red"
+        },
+        {
+            "source": "FunctionType0",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "FunctionType0::Encode"
+        },
+        {
+            "source": "FunctionType0",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "FunctionType0::Decode"
+        },
+        {
+            "source": "FunctionType3",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "FunctionType3::Domain",
+            "color": "red"
+        },
+        {
+            "source": "FunctionType3",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "FunctionType3::Range"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "FunctionType3",
+            "name": "GraphicsStateParameter::BG"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "FunctionType0",
+            "name": "GraphicsStateParameter::BG"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "FunctionType3",
+            "name": "GraphicsStateParameter::UCR"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "FunctionType0",
+            "name": "GraphicsStateParameter::UCR"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "ArrayOfFunctions",
+            "name": "GraphicsStateParameter::TR"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "FunctionType3",
+            "name": "GraphicsStateParameter::TR"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "FunctionType0",
+            "name": "GraphicsStateParameter::TR"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "HalftoneType1",
+            "name": "GraphicsStateParameter::HT"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "HalftoneType5",
+            "name": "GraphicsStateParameter::HT"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "HalftoneType6",
+            "name": "GraphicsStateParameter::HT"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "HalftoneType10",
+            "name": "GraphicsStateParameter::HT"
+        },
+        {
+            "source": "HalftoneType1",
+            "target": "ArrayOfFunctions",
+            "name": "HalftoneType1::SpotFunction",
+            "color": "red"
+        },
+        {
+            "source": "HalftoneType1",
+            "target": "FunctionType3",
+            "name": "HalftoneType1::SpotFunction",
+            "color": "red"
+        },
+        {
+            "source": "HalftoneType1",
+            "target": "FunctionType0",
+            "name": "HalftoneType1::SpotFunction",
+            "color": "red"
+        },
+        {
+            "source": "HalftoneType1",
+            "target": "FunctionType3",
+            "name": "HalftoneType1::TransferFunction"
+        },
+        {
+            "source": "HalftoneType1",
+            "target": "FunctionType0",
+            "name": "HalftoneType1::TransferFunction"
+        },
+        {
+            "source": "HalftoneType10",
+            "target": "FunctionType3",
+            "name": "HalftoneType10::TransferFunction"
+        },
+        {
+            "source": "HalftoneType10",
+            "target": "FunctionType0",
+            "name": "HalftoneType10::TransferFunction"
+        },
+        {
+            "source": "HalftoneType5",
+            "target": "HalftoneType1",
+            "name": "HalftoneType5::any colourant name",
+            "color": "red"
+        },
+        {
+            "source": "HalftoneType5",
+            "target": "HalftoneType6",
+            "name": "HalftoneType5::any colourant name",
+            "color": "red"
+        },
+        {
+            "source": "HalftoneType5",
+            "target": "HalftoneType10",
+            "name": "HalftoneType5::any colourant name",
+            "color": "red"
+        },
+        {
+            "source": "HalftoneType5",
+            "target": "HalftoneType1",
+            "name": "HalftoneType5::Default",
+            "color": "red"
+        },
+        {
+            "source": "HalftoneType5",
+            "target": "HalftoneType6",
+            "name": "HalftoneType5::Default",
+            "color": "red"
+        },
+        {
+            "source": "HalftoneType5",
+            "target": "HalftoneType10",
+            "name": "HalftoneType5::Default",
+            "color": "red"
+        },
+        {
+            "source": "HalftoneType6",
+            "target": "FunctionType3",
+            "name": "HalftoneType6::TransferFunction"
+        },
+        {
+            "source": "HalftoneType6",
+            "target": "FunctionType0",
+            "name": "HalftoneType6::TransferFunction"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "CalGrayColorSpace",
+            "name": "IndexedColorSpace::1",
+            "color": "red"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "CalRGBColorSpace",
+            "name": "IndexedColorSpace::1",
+            "color": "red"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "LabColorSpace",
+            "name": "IndexedColorSpace::1",
+            "color": "red"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "SeparationColorSpace",
+            "name": "IndexedColorSpace::1",
+            "color": "red"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "Stream",
+            "name": "IndexedColorSpace::3",
+            "color": "red"
+        },
+        {
+            "source": "InteractiveForm",
+            "target": "ArrayOfFields",
+            "name": "InteractiveForm::Fields",
+            "color": "red"
+        },
+        {
+            "source": "InteractiveForm",
+            "target": "Resource",
+            "name": "InteractiveForm::DR"
+        },
+        {
+            "source": "InteractiveForm",
+            "target": "ArrayOfStreamsGeneral",
+            "name": "InteractiveForm::XFA"
+        },
+        {
+            "source": "InteractiveForm",
+            "target": "Stream",
+            "name": "InteractiveForm::XFA"
+        },
+        {
+            "source": "LabColorSpace",
+            "target": "LabDict",
+            "name": "LabColorSpace::1",
+            "color": "red"
+        },
+        {
+            "source": "LabDict",
+            "target": "Whitepoint",
+            "name": "LabDict::WhitePoint",
+            "color": "red"
+        },
+        {
+            "source": "LabDict",
+            "target": "Blackpoint",
+            "name": "LabDict::BlackPoint"
+        },
+        {
+            "source": "LabDict",
+            "target": "LabRange",
+            "name": "LabDict::Range"
+        },
+        {
+            "source": "Movie",
+            "target": "FileSpecification",
+            "name": "Movie::F",
+            "color": "red"
+        },
+        {
+            "source": "Movie",
+            "target": "XObjectImage",
+            "name": "Movie::Poster"
+        },
+        {
+            "source": "MovieActivation",
+            "target": "ArrayOfDuration",
+            "name": "MovieActivation::Start"
+        },
+        {
+            "source": "MovieActivation",
+            "target": "ArrayOfDuration",
+            "name": "MovieActivation::Duration"
+        },
+        {
+            "source": "Name",
+            "target": "DestDict",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
+            "target": "DestXYZ",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
+            "target": "Dest0",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
+            "target": "Dest1",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
+            "target": "Dest4",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "OPIVersion13",
+            "target": "OPIVersion13Dict",
+            "name": "OPIVersion13::1.3"
+        },
+        {
+            "source": "OPIVersion13Dict",
+            "target": "FileSpecification",
+            "name": "OPIVersion13Dict::F",
+            "color": "red"
+        },
+        {
+            "source": "OPIVersion13Dict",
+            "target": "ArrayOf_4Integers",
+            "name": "OPIVersion13Dict::CropFixed"
+        },
+        {
+            "source": "OPIVersion13Dict",
+            "target": "ArrayOf_8Numbers",
+            "name": "OPIVersion13Dict::Position"
+        },
+        {
+            "source": "OPIVersion13Dict",
+            "target": "ArrayOfOPI13Color",
+            "name": "OPIVersion13Dict::Color"
+        },
+        {
+            "source": "OPIVersion13Dict",
+            "target": "ArrayOfTags",
+            "name": "OPIVersion13Dict::Tags"
+        },
+        {
+            "source": "OPIVersion20",
+            "target": "OPIVersion20Dict",
+            "name": "OPIVersion20::2.0"
+        },
+        {
+            "source": "OPIVersion20Dict",
+            "target": "FileSpecification",
+            "name": "OPIVersion20Dict::F",
+            "color": "red"
+        },
+        {
+            "source": "OPIVersion20Dict",
+            "target": "ArrayOfTags",
+            "name": "OPIVersion20Dict::Tags"
+        },
+        {
+            "source": "OPIVersion20Dict",
+            "target": "_UniversalArray",
+            "name": "OPIVersion20Dict::Inks"
+        },
+        {
+            "source": "Outline",
+            "target": "OutlineItem",
+            "name": "Outline::First"
+        },
+        {
+            "source": "Outline",
+            "target": "OutlineItem",
+            "name": "Outline::Last"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "OutlineItem",
+            "name": "OutlineItem::Parent",
+            "color": "red"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "Outline",
+            "name": "OutlineItem::Parent",
+            "color": "red"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "OutlineItem",
+            "name": "OutlineItem::Prev"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "OutlineItem",
+            "name": "OutlineItem::Next"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "OutlineItem",
+            "name": "OutlineItem::First"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "OutlineItem",
+            "name": "OutlineItem::Last"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "DestXYZ",
+            "name": "OutlineItem::Dest"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "Dest0",
+            "name": "OutlineItem::Dest"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "Dest1",
+            "name": "OutlineItem::Dest"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "Dest4",
+            "name": "OutlineItem::Dest"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionGoTo",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionGoToR",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionLaunch",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionThread",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionURI",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionSound",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionMovie",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionHide",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionNamed",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionSubmitForm",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionResetForm",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionImportData",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "PageObject",
+            "target": "PageTreeNode",
+            "name": "PageObject::Parent",
+            "color": "red"
+        },
+        {
+            "source": "PageObject",
+            "target": "PageTreeNodeRoot",
+            "name": "PageObject::Parent",
+            "color": "red"
+        },
+        {
+            "source": "PageObject",
+            "target": "Resource",
+            "name": "PageObject::Resources",
+            "color": "red"
+        },
+        {
+            "source": "PageObject",
+            "target": "ArrayOfStreamsGeneral",
+            "name": "PageObject::Contents"
+        },
+        {
+            "source": "PageObject",
+            "target": "Stream",
+            "name": "PageObject::Contents"
+        },
+        {
+            "source": "PageObject",
+            "target": "Thumbnail",
+            "name": "PageObject::Thumb"
+        },
+        {
+            "source": "PageObject",
+            "target": "ArrayOfBeads",
+            "name": "PageObject::B"
+        },
+        {
+            "source": "PageObject",
+            "target": "Transition",
+            "name": "PageObject::Trans"
+        },
+        {
+            "source": "PageObject",
+            "target": "ArrayOfAnnots",
+            "name": "PageObject::Annots"
+        },
+        {
+            "source": "PageObject",
+            "target": "AddActionPageObject",
+            "name": "PageObject::AA"
+        },
+        {
+            "source": "PageTreeNode",
+            "target": "PageTreeNode",
+            "name": "PageTreeNode::Parent",
+            "color": "red"
+        },
+        {
+            "source": "PageTreeNode",
+            "target": "PageTreeNodeRoot",
+            "name": "PageTreeNode::Parent",
+            "color": "red"
+        },
+        {
+            "source": "PageTreeNode",
+            "target": "ArrayOfPageTreeNodeKids",
+            "name": "PageTreeNode::Kids",
+            "color": "red"
+        },
+        {
+            "source": "PageTreeNodeRoot",
+            "target": "ArrayOfPageTreeNodeKids",
+            "name": "PageTreeNodeRoot::Kids",
+            "color": "red"
+        },
+        {
+            "source": "PatternColorSpace",
+            "target": "CalGrayColorSpace",
+            "name": "PatternColorSpace::1"
+        },
+        {
+            "source": "PatternColorSpace",
+            "target": "CalRGBColorSpace",
+            "name": "PatternColorSpace::1"
+        },
+        {
+            "source": "PatternColorSpace",
+            "target": "LabColorSpace",
+            "name": "PatternColorSpace::1"
+        },
+        {
+            "source": "PatternColorSpace",
+            "target": "IndexedColorSpace",
+            "name": "PatternColorSpace::1"
+        },
+        {
+            "source": "PatternColorSpace",
+            "target": "SeparationColorSpace",
+            "name": "PatternColorSpace::1"
+        },
+        {
+            "source": "Resource",
+            "target": "GraphicsStateParameter",
+            "name": "Resource::ExtGState"
+        },
+        {
+            "source": "Resource",
+            "target": "ColorSpaceMap",
+            "name": "Resource::ColorSpace"
+        },
+        {
+            "source": "Resource",
+            "target": "XObjectMap",
+            "name": "Resource::XObject"
+        },
+        {
+            "source": "Resource",
+            "target": "FontMap",
+            "name": "Resource::Font"
+        },
+        {
+            "source": "Resource",
+            "target": "_UniversalArray",
+            "name": "Resource::ProcSet"
+        },
+        {
+            "source": "Resource",
+            "target": "_UniversalDictionary",
+            "name": "Resource::Properties"
+        },
+        {
+            "source": "SeparationColorSpace",
+            "target": "CalGrayColorSpace",
+            "name": "SeparationColorSpace::2",
+            "color": "red"
+        },
+        {
+            "source": "SeparationColorSpace",
+            "target": "CalRGBColorSpace",
+            "name": "SeparationColorSpace::2",
+            "color": "red"
+        },
+        {
+            "source": "SeparationColorSpace",
+            "target": "LabColorSpace",
+            "name": "SeparationColorSpace::2",
+            "color": "red"
+        },
+        {
+            "source": "SeparationColorSpace",
+            "target": "FunctionType3",
+            "name": "SeparationColorSpace::3",
+            "color": "red"
+        },
+        {
+            "source": "SeparationColorSpace",
+            "target": "FunctionType0",
+            "name": "SeparationColorSpace::3",
+            "color": "red"
+        },
+        {
+            "source": "SoundObject",
+            "target": "_UniversalArray",
+            "name": "SoundObject::CP"
+        },
+        {
+            "source": "SoundObject",
+            "target": "_UniversalDictionary",
+            "name": "SoundObject::CP"
+        },
+        {
+            "source": "SoundObject",
+            "target": "Stream",
+            "name": "SoundObject::CP"
+        },
+        {
+            "source": "SoundObject",
+            "target": "ArrayOfFilterNames",
+            "name": "SoundObject::Filter"
+        },
+        {
+            "source": "SoundObject",
+            "target": "ArrayOfDecodeParams",
+            "name": "SoundObject::DecodeParms"
+        },
+        {
+            "source": "SoundObject",
+            "target": "FilterLZWDecode",
+            "name": "SoundObject::DecodeParms"
+        },
+        {
+            "source": "SoundObject",
+            "target": "FilterFlateDecode",
+            "name": "SoundObject::DecodeParms"
+        },
+        {
+            "source": "SoundObject",
+            "target": "FilterCCITTFaxDecode",
+            "name": "SoundObject::DecodeParms"
+        },
+        {
+            "source": "SoundObject",
+            "target": "FilterDCTDecode",
+            "name": "SoundObject::DecodeParms"
+        },
+        {
+            "source": "SoundObject",
+            "target": "FileSpecification",
+            "name": "SoundObject::F "
+        },
+        {
+            "source": "SoundObject",
+            "target": "ArrayOfFilterNames",
+            "name": "SoundObject::FFilter"
+        },
+        {
+            "source": "SoundObject",
+            "target": "ArrayOfDecodeParams",
+            "name": "SoundObject::FDecodeParms"
+        },
+        {
+            "source": "SoundObject",
+            "target": "FilterLZWDecode",
+            "name": "SoundObject::FDecodeParms"
+        },
+        {
+            "source": "SoundObject",
+            "target": "FilterFlateDecode",
+            "name": "SoundObject::FDecodeParms"
+        },
+        {
+            "source": "SoundObject",
+            "target": "FilterCCITTFaxDecode",
+            "name": "SoundObject::FDecodeParms"
+        },
+        {
+            "source": "SoundObject",
+            "target": "FilterDCTDecode",
+            "name": "SoundObject::FDecodeParms"
+        },
+        {
+            "source": "Stream",
+            "target": "ArrayOfFilterNames",
+            "name": "Stream::Filter"
+        },
+        {
+            "source": "Stream",
+            "target": "ArrayOfDecodeParams",
+            "name": "Stream::DecodeParms"
+        },
+        {
+            "source": "Stream",
+            "target": "FilterLZWDecode",
+            "name": "Stream::DecodeParms"
+        },
+        {
+            "source": "Stream",
+            "target": "FilterFlateDecode",
+            "name": "Stream::DecodeParms"
+        },
+        {
+            "source": "Stream",
+            "target": "FilterCCITTFaxDecode",
+            "name": "Stream::DecodeParms"
+        },
+        {
+            "source": "Stream",
+            "target": "FilterDCTDecode",
+            "name": "Stream::DecodeParms"
+        },
+        {
+            "source": "Stream",
+            "target": "FileSpecification",
+            "name": "Stream::F "
+        },
+        {
+            "source": "Stream",
+            "target": "ArrayOfFilterNames",
+            "name": "Stream::FFilter"
+        },
+        {
+            "source": "Stream",
+            "target": "ArrayOfDecodeParams",
+            "name": "Stream::FDecodeParms"
+        },
+        {
+            "source": "Stream",
+            "target": "FilterLZWDecode",
+            "name": "Stream::FDecodeParms"
+        },
+        {
+            "source": "Stream",
+            "target": "FilterFlateDecode",
+            "name": "Stream::FDecodeParms"
+        },
+        {
+            "source": "Stream",
+            "target": "FilterCCITTFaxDecode",
+            "name": "Stream::FDecodeParms"
+        },
+        {
+            "source": "Stream",
+            "target": "FilterDCTDecode",
+            "name": "Stream::FDecodeParms"
+        },
+        {
+            "source": "Thread",
+            "target": "BeadFirst",
+            "name": "Thread::F",
+            "color": "red"
+        },
+        {
+            "source": "Thread",
+            "target": "DocInfo",
+            "name": "Thread::I"
+        },
+        {
+            "source": "Thumbnail",
+            "target": "IndexedColorSpace",
+            "name": "Thumbnail::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "Thumbnail",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "Thumbnail::Decode"
+        },
+        {
+            "source": "VRI",
+            "target": "ArrayOfStreamsGeneral",
+            "name": "VRI::Cert"
+        },
+        {
+            "source": "VRI",
+            "target": "ArrayOfStreamsGeneral",
+            "name": "VRI::CRL",
+            "color": "red"
+        },
+        {
+            "source": "VRI",
+            "target": "ArrayOfStreamsGeneral",
+            "name": "VRI::OCSP",
+            "color": "red"
+        },
+        {
+            "source": "VRI",
+            "target": "Stream",
+            "name": "VRI::TS"
+        },
+        {
+            "source": "XObjectFormPrinterMark",
+            "target": "Matrix",
+            "name": "XObjectFormPrinterMark::Matrix"
+        },
+        {
+            "source": "XObjectFormPrinterMark",
+            "target": "Resource",
+            "name": "XObjectFormPrinterMark::Resources"
+        },
+        {
+            "source": "XObjectFormPrinterMark",
+            "target": "OPIVersion13",
+            "name": "XObjectFormPrinterMark::OPI"
+        },
+        {
+            "source": "XObjectFormPrinterMark",
+            "target": "OPIVersion20",
+            "name": "XObjectFormPrinterMark::OPI"
+        },
+        {
+            "source": "XObjectFormTrapNet",
+            "target": "Matrix",
+            "name": "XObjectFormTrapNet::Matrix"
+        },
+        {
+            "source": "XObjectFormTrapNet",
+            "target": "Resource",
+            "name": "XObjectFormTrapNet::Resources"
+        },
+        {
+            "source": "XObjectFormTrapNet",
+            "target": "OPIVersion13",
+            "name": "XObjectFormTrapNet::OPI"
+        },
+        {
+            "source": "XObjectFormTrapNet",
+            "target": "OPIVersion20",
+            "name": "XObjectFormTrapNet::OPI"
+        },
+        {
+            "source": "XObjectFormTrapNet",
+            "target": "ArrayOfNamesGeneral",
+            "name": "XObjectFormTrapNet::SeparationColorNames"
+        },
+        {
+            "source": "XObjectFormTrapNet",
+            "target": "_UniversalDictionary",
+            "name": "XObjectFormTrapNet::TrapRegions"
+        },
+        {
+            "source": "XObjectFormType1",
+            "target": "Matrix",
+            "name": "XObjectFormType1::Matrix"
+        },
+        {
+            "source": "XObjectFormType1",
+            "target": "Resource",
+            "name": "XObjectFormType1::Resources"
+        },
+        {
+            "source": "XObjectFormType1",
+            "target": "OPIVersion13",
+            "name": "XObjectFormType1::OPI"
+        },
+        {
+            "source": "XObjectFormType1",
+            "target": "OPIVersion20",
+            "name": "XObjectFormType1::OPI"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "CalGrayColorSpace",
+            "name": "XObjectImage::ColorSpace"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "CalRGBColorSpace",
+            "name": "XObjectImage::ColorSpace"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "LabColorSpace",
+            "name": "XObjectImage::ColorSpace"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "IndexedColorSpace",
+            "name": "XObjectImage::ColorSpace"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "SeparationColorSpace",
+            "name": "XObjectImage::ColorSpace"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "PatternColorSpace",
+            "name": "XObjectImage::ColorSpace"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "XObjectImage::Decode"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "OPIVersion13",
+            "name": "XObjectImage::OPI"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "OPIVersion20",
+            "name": "XObjectImage::OPI"
+        },
+        {
+            "source": "XObjectImageMask",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "XObjectImageMask::Decode"
+        },
+        {
+            "source": "XObjectImageMask",
+            "target": "OPIVersion13",
+            "name": "XObjectImageMask::OPI"
+        },
+        {
+            "source": "XObjectImageMask",
+            "target": "OPIVersion20",
+            "name": "XObjectImageMask::OPI"
+        },
+        {
+            "source": "XObjectImageSoftMask",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "XObjectImageSoftMask::Decode"
+        },
+        {
+            "source": "XObjectMap",
+            "target": "XObjectFormType1",
+            "name": "XObjectMap::*"
+        },
+        {
+            "source": "XObjectMap",
+            "target": "XObjectImage",
+            "name": "XObjectMap::*"
+        },
+        {
+            "source": "_UniversalArray",
+            "target": "_UniversalArray",
+            "name": "_UniversalArray::*"
+        },
+        {
+            "source": "_UniversalArray",
+            "target": "_UniversalDictionary",
+            "name": "_UniversalArray::*"
+        },
+        {
+            "source": "_UniversalArray",
+            "target": "Stream",
+            "name": "_UniversalArray::*"
+        },
+        {
+            "source": "_UniversalDictionary",
+            "target": "_UniversalArray",
+            "name": "_UniversalDictionary::*"
+        },
+        {
+            "source": "_UniversalDictionary",
+            "target": "_UniversalDictionary",
+            "name": "_UniversalDictionary::*"
+        },
+        {
+            "source": "_UniversalDictionary",
+            "target": "Stream",
+            "name": "_UniversalDictionary::*"
+        }
+    ]
+}
