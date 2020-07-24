@@ -6,7 +6,11 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>-v w:\PDF20_Grammar\tsv\latest\ w:\report.txt</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>w:\a.pdf w:\PDF20_Grammar\tsv\latest\ w:\report.txt</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommandArguments>w:\a.pdf w:\PDF20_Grammar\tsv\latest\ w:\report.txt</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

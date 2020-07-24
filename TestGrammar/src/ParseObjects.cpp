@@ -535,9 +535,15 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
         }
       }
 
+    auto id_r = dictObj->GetId();
+
     // now go through containers and Process them with new grammar_file
     for (auto& vec : *data_list)
       if (vec.size() >= NOTE_COLUMN && vec[LINK_COLUMN] != "") {
+
+        //std::wstring wstr = utf8ToUtf16(vec[KEY_COLUMN]);
+        //auto exists = dictObj->Known(wstr.c_str());
+
         PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[KEY_COLUMN]).c_str());
         if (inner_obj != nullptr) {
           int index = get_type_index(inner_obj, vec[TYPE_COLUMN]);
@@ -582,11 +588,13 @@ void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::st
           if (vec[KEY_COLUMN] == std::to_string(i) || vec[KEY_COLUMN] == "*") {
             // checking basics of the element
             check_basics(item, vec, grammar_file);
-            std::string lnk = get_link_for_type(item, vec[TYPE_COLUMN], vec[LINK_COLUMN]);
-            std::string as = "[" + std::to_string(i) + "]";
-            std::string direct_link = select_one(item, lnk, as);
-            //if element does have a link - process it
-            parse_object(item, direct_link, context + as);
+            if (vec[LINK_COLUMN] != "") {
+              std::string lnk = get_link_for_type(item, vec[TYPE_COLUMN], vec[LINK_COLUMN]);
+              std::string as = "[" + std::to_string(i) + "]";
+              std::string direct_link = select_one(item, lnk, as);
+              //if element does have a link - process it
+              parse_object(item, direct_link, context + as);
+            }
             break;
           }
     }

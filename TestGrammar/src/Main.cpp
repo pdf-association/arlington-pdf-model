@@ -131,6 +131,14 @@ int main(int argc, char* argv[]) {
           //  parser.parse_object(root, "Catalog", "Catalog");
           //}
           //else ofs << "Failed to open:" << ToUtf8(file_name) << std::endl;
+//          PdsObject* obj = doc->GetObjectById(2120);
+          //PdsObject* obj = doc->GetObjectById(5);
+          //if (obj->GetObjectType() == kPdsDictionary) {
+          //  PdsDictionary* dict_obj = (PdsDictionary*)obj;
+          //  auto exists = dict_obj->Known(L"Key");
+          //  PdsObject* inner_obj = dict_obj->Get(L"Key");
+          //}
+     
 
           PdsObject* trailer = doc->GetTrailerObject();
           if (trailer != nullptr) {
