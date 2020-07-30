@@ -127,18 +127,13 @@ int main(int argc, char* argv[]) {
         doc = pdfix->OpenDoc(open_file.c_str(), L"");
         try {
           if (doc != nullptr) {
-            //acquire catalog
-            //PdsObject* root = doc->GetRootObject();
-            //if (root != nullptr) {
-            //  CParsePDF parser(doc, grammar_folder, ofs);
-            //  parser.parse_object(root, "Catalog", "Catalog");
-            //}
-            //else ofs << "Failed to open:" << ToUtf8(file_name) << std::endl;
-
             PdsObject* trailer = doc->GetTrailerObject();
+            PdsObject* root = doc->GetRootObject();
             if (trailer != nullptr) {
+              //grammar parser
               CParsePDF parser(doc, grammar_folder, ofs);
-              parser.parse_object(trailer, "FileTrailer", "Trailer");
+              parser.add_parse_object(trailer, "FileTrailer", "Trailer");
+              parser.parse_object();
             } else {
               ofs << "Failed to acquire Trailer in:" << ToUtf8(file_name) << std::endl;
             }
@@ -158,9 +153,10 @@ int main(int argc, char* argv[]) {
         }
       };
 
+//      auto start = std::chrono::system_clock::now();
       if (folder_exists(input_file)) {
         const std::filesystem::path p(input_file);
-        const std::filesystem::path outdir(save_path);  // manage any trailing slash or slosh as necessary
+        const std::filesystem::path outdir(save_path);  // manage any trailing slash or slash as necessary
         for (const auto& entry : std::filesystem::recursive_directory_iterator(p)) {
           if (entry.is_regular_file() && entry.path().extension().wstring() == L".pdf") {
             std::filesystem::path rptfile(outdir);
@@ -173,6 +169,10 @@ int main(int argc, char* argv[]) {
       }
       else
         single_pdf(input_file, save_path);
+
+      //auto end = std::chrono::system_clock::now();
+      //std::chrono::duration<double> elapsed_seconds = end - start;
+      //std::cout <<  "elapsed time: " << elapsed_seconds.count() << "s\n";
 
       pdfix->Destroy();
     }

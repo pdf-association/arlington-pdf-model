@@ -63,7 +63,8 @@ bool CGrammarReader::load()
     std::transform(vec[TSV_REQUIRED].begin(), vec[TSV_REQUIRED].end(), vec[TSV_REQUIRED].begin(), ::toupper);
     std::transform(vec[TSV_INDIRECTREF].begin(), vec[TSV_INDIRECTREF].end(), vec[TSV_INDIRECTREF].begin(), ::toupper);
     std::transform(vec[TSV_INHERITABLE].begin(), vec[TSV_INHERITABLE].end(), vec[TSV_INHERITABLE].begin(), ::toupper);
-    data_list.push_back(vec);
+    if (header_list.empty()) header_list=vec;
+    else data_list.push_back(vec);
   }
   // Close the File
   file.close();
@@ -84,24 +85,23 @@ const std::vector<std::vector<std::string>>& CGrammarReader::get_data()
  - correct headings (first line)
  - correct basic types 1st column
  */
-bool CGrammarReader::check(std::ostream &report_stream) {
+bool CGrammarReader::check(std::ostream &report_stream) 
+{
   if (data_list.empty()) {
     report_stream << "Empty grammar file:" << file_name << std::endl;
     return false;
   }
 
-  // check first line (heading)
-  std::vector<std::string> vec = data_list[0];
-  if (vec.size() < 10) {
+  if (header_list.size() < 10) {
     report_stream << "Wrong number of columns: " << file_name << std::endl;
     return false;
   }
 
-  if ((vec[TSV_KEYNAME] != "Key") || (vec[TSV_TYPE] != "TYPE") || (vec[TSV_SINCEVERSION] != "SinceVersion") ||
-    (vec[TSV_DEPRECATEDIN] != "DeprecatedIn") || (vec[TSV_REQUIRED] != "REQUIRED") || 
-    (vec[TSV_INDIRECTREF] != "INDIRECTREFERENCE") || (vec[TSV_INHERITABLE] != "INHERITABLE") ||
-    (vec[TSV_DEFAULTVALUE] != "DefaultValue") || (vec[TSV_POSSIBLEVALUES] != "PossibleValues") ||
-    (vec[TSV_SPECIALCASE] != "SpecialCase") || (vec[TSV_LINK] != "Link")) {
+  if ((header_list[TSV_KEYNAME] != "Key") || (header_list[TSV_TYPE] != "TYPE") || (header_list[TSV_SINCEVERSION] != "SinceVersion") ||
+    (header_list[TSV_DEPRECATEDIN] != "DeprecatedIn") || (header_list[TSV_REQUIRED] != "REQUIRED") ||
+    (header_list[TSV_INDIRECTREF] != "INDIRECTREFERENCE") || (header_list[TSV_INHERITABLE] != "INHERITABLE") ||
+    (header_list[TSV_DEFAULTVALUE] != "DefaultValue") || (header_list[TSV_POSSIBLEVALUES] != "PossibleValues") ||
+    (header_list[TSV_SPECIALCASE] != "SpecialCase") || (header_list[TSV_LINK] != "Link")) {
     report_stream << "Wrong headers for columns: " << file_name << std::endl;
     return false;
   }
@@ -110,8 +110,9 @@ bool CGrammarReader::check(std::ostream &report_stream) {
   // check existing link
   // check duplicate keys
   std::vector<std::string> processed;
-  for (size_t i = 1; i < data_list.size(); i++) {
-    std::vector<std::string> vc = data_list[i];
+  for (auto& vc : data_list) {
+  //for (size_t i = 0; i < data_list.size(); i++) {
+  //  std::vector<std::string> vc = data_list[i];
     if (std::find(processed.begin(), processed.end(), vc[TSV_KEYNAME]) == processed.end())
       processed.push_back(vc[TSV_KEYNAME]);
     else

@@ -104,8 +104,8 @@ bool CParsePDF::check_possible_values(PdsObject* object, const std::string& poss
     def = def.substr(1, def.size() - 2);
   }
   bool is_value    = (def.find("value") != std::string::npos) || (def.find("Value") != std::string::npos);
-  bool is_interval = (def.find("<") != std::string::npos) /*&& def.find("<") != std::string::npos*/;
-  if (def != "" && !is_value && !is_interval) {
+  //bool is_interval = (def.find("<") != std::string::npos) /*&& def.find("<") != std::string::npos*/;
+  if (def != "" && !is_value /*&& !is_interval*/) {
     options = split(def, ',');
     bool found = false;
     for (auto opt : options)
@@ -156,8 +156,11 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
     if (obj->GetObjectType() == kPdsDictionary || obj->GetObjectType() == kPdsStream || obj->GetObjectType() == kPdsArray) {
       // are all "required" fields has to be present
       // and if required value is defined then has to match with value
-      for (auto j = 1; j < (int)data_list->size(); j++) {
-        auto &vec = data_list->at(j);
+      auto j = 0;
+      for (auto& vec : *data_list) {
+        j++;
+      //for (auto j = 1; j < (int)data_list->size(); j++) {
+      //  auto &vec = data_list->at(j);
         if (vec[TSV_REQUIRED] == "TRUE") {
           PdsObject* inner_object = nullptr;
 
@@ -405,7 +408,7 @@ void CParsePDF::parse_name_tree(PdsDictionary* obj, const std::string &links, st
         if (item != nullptr) {
           std::string as = ToUtf8(str);
           std::string direct_link = select_one(item, links, as);
-          parse_object(item, direct_link, context+ "->" + as);
+          add_parse_object(item, direct_link, context+ "->" + as);
         }
         else {
           //error value isn't dictionary
@@ -455,7 +458,7 @@ void CParsePDF::parse_number_tree(PdsDictionary* obj, const std::string &links, 
         if (item != nullptr) {
           std::string as = std::to_string(key);
           std::string direct_link = select_one(item, links, as);
-          parse_object(item, direct_link, context + "->" +  as);
+          add_parse_object(item, direct_link, context + "->" +  as);
         }
         else {
           //error value isn't dictionary
@@ -485,149 +488,153 @@ void CParsePDF::parse_number_tree(PdsDictionary* obj, const std::string &links, 
   }
 }
 
-void CParsePDF::parse_object(PdsObject *object, const std::string &link, std::string context)
+void CParsePDF::add_parse_object(PdsObject* object, const std::string& link, std::string context) {
+  to_process.emplace(object,link,context);
+}
+
+void CParsePDF::parse_object() 
 {
-  if (link == "")
-    return;
+  while (!to_process.empty()) {
+    queue_elem elem = to_process.front();
+    to_process.pop();
+    if (elem.link == "")
+      continue;
 
-  auto found = mapped.find(object);
-  if (found != mapped.end()) {
-    //    output << context << " already Processed" <<std::endl;
-    //found->second ++;
-    if (found->second != link) {
-      output << "Error: object validated in two different context first: " << found->second;
-      output << " second: " << link <<  " in: " << context << std::endl;
+    auto found = mapped.find(elem.object);
+    if (found != mapped.end()) {
+      //    output << context << " already Processed" <<std::endl;
+      if (found->second != elem.link) {
+        output << "Error: object validated in two different context first: " << found->second;
+        output << " second: " << elem.link << " in: " << elem.context << std::endl;
+      }
+      continue;
     }
-    return;
-  }
 
-  output << context << std::endl;
-  context = "  " + context;
+    output << elem.context << std::endl;
+    elem.context = "  " + elem.context;
+    //remember visited object with a link used for validation
+    mapped.insert(std::make_pair(elem.object, elem.link));
 
-  mapped.insert(std::make_pair(object, link));
+    std::string grammar_file = grammar_folder + elem.link + ".tsv";
+    const std::vector<std::vector<std::string>>* data_list = get_grammar(elem.link);
 
-  std::string grammar_file = grammar_folder + link + ".tsv";
-  const std::vector<std::vector<std::string>>* data_list = get_grammar(link);
+    // validating as dictionary:
+    // going through all objects in dictionary 
+    // checking basics (type,possiblevalue, indirect)
+    // then check presence of required keys
+    // then recursively calling validation for each container with link to other grammar file
+    if (elem.object->GetObjectType() == kPdsDictionary || elem.object->GetObjectType() == kPdsStream) {
+      PdsDictionary* dictObj = (PdsDictionary*)elem.object;
+      //validate values first, then Process containers
+      if (elem.object->GetObjectType() == kPdsStream)
+        dictObj = ((PdsStream*)elem.object)->GetStreamDict();
 
-  // validating as dictionary:
-  // going through all objects in dictionary 
-  // checking basics (type,possiblevalue, indirect)
-  // then check presence of required keys
-  // then recursively calling validation for each container with link to other grammar file
-  if (object->GetObjectType() == kPdsDictionary || object->GetObjectType() == kPdsStream) {
-    PdsDictionary* dictObj = (PdsDictionary*)object;
-    //validate values first, then Process containers
-    if (object->GetObjectType() == kPdsStream)
-      dictObj = ((PdsStream*)object)->GetStreamDict();
+      for (int i = 0; i < (dictObj->GetNumKeys()); i++) {
+        std::wstring key;
+        key.resize(dictObj->GetKey(i, nullptr, 0));
+        dictObj->GetKey(i, (wchar_t*)key.c_str(), (int)key.size());
 
-    for (int i = 0; i < (dictObj->GetNumKeys()); i++) {
-      std::wstring key;
-      key.resize(dictObj->GetKey(i, nullptr, 0));
-      dictObj->GetKey(i, (wchar_t*)key.c_str(), (int)key.size());
-
-      // checking basis (type,possiblevalue, indirect)
-      PdsObject *inner_obj = dictObj->Get(key.c_str());
-      // might have wrong/malformed object. Key exists but value not
-      if (inner_obj != nullptr) {
-        bool found = false;
-        for (auto& vec : *data_list)
-          if (vec[TSV_KEYNAME] == ToUtf8(key)) {
-            check_basics(inner_obj, vec, grammar_file);
-            found = true;
-            break;
-          }
-        // we didn't find the key, there may be * we can use to validate
-        if (!found)
+        // checking basis (type,possiblevalue, indirect)
+        PdsObject* inner_obj = dictObj->Get(key.c_str());
+        // might have wrong/malformed object. Key exists but value not
+        if (inner_obj != nullptr) {
+          bool found = false;
           for (auto& vec : *data_list)
-            if (vec[TSV_KEYNAME] == "*" && vec[TSV_LINK] != "") {
-              std::string lnk = get_link_for_type(inner_obj, vec[TSV_TYPE], vec[TSV_LINK]);
-              std::string as = ToUtf8(key);
-              std::string direct_link = select_one(inner_obj, lnk, as);
-              parse_object(inner_obj, direct_link, context + "->" + as);
+            if (vec[TSV_KEYNAME] == ToUtf8(key)) {
+              check_basics(inner_obj, vec, grammar_file);
+              found = true;
               break;
             }
-      }
-      else {
-        // malformed file ?
-      }
-    }
-
-    // check presence of required values
-    for (auto& vec : *data_list)
-      if (vec[TSV_REQUIRED] == "TRUE" && vec[TSV_KEYNAME] != "*") {
-        PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
-        if (inner_obj == nullptr) {
-          output << "Error: required key doesn't exist: ";
-          output << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
-        }
-      }
-
-    auto id_r = dictObj->GetId();
-
-    // now go through containers and Process them with new grammar_file
-    for (auto& vec : *data_list)
-      if (vec.size() >= TSV_NOTES && vec[TSV_LINK] != "") {
-        //std::wstring wstr = utf8ToUtf16(vec[KEY_COLUMN]);
-        //auto exists = dictObj->Known(wstr.c_str());
-        PdsObject *inner_obj = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
-        if (inner_obj != nullptr) {
-          int index = get_type_index(inner_obj, vec[TSV_TYPE]);
-          //error already reported before
-          if (index == -1)
-            break;
-          std::vector<std::string> opt = split(vec[TSV_TYPE], ';');
-          std::vector<std::string> links = split(vec[TSV_LINK], ';');
-          if (links[index] == "[]")
-            continue;
-
-          if (opt[index] == "NUMBER-TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
-            parse_number_tree((PdsDictionary*)inner_obj, links[index], context + "->" + vec[TSV_KEYNAME]);
-          }
-          else
-            if (opt[index] == "NAME-TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
-              parse_name_tree((PdsDictionary*)inner_obj, links[index], context + "->" + vec[TSV_KEYNAME]);
-            }
-            else if (inner_obj->GetObjectType() == kPdsStream) {
-              std::string as = vec[TSV_KEYNAME];
-              std::string direct_link = select_one(((PdsStream*)inner_obj)->GetStreamDict(), links[index], as);
-              parse_object(((PdsStream*)inner_obj)->GetStreamDict(), direct_link, context + "->" + as);
-            }
-            else
-              if ((inner_obj->GetObjectType() == kPdsDictionary || inner_obj->GetObjectType() == kPdsArray)) {
-                std::string as = vec[TSV_KEYNAME];
-                std::string direct_link = select_one(inner_obj, links[index], as);
-                parse_object(inner_obj, direct_link, context + "->" + as);
+          // we didn't find the key, there may be * we can use to validate
+          if (!found)
+            for (auto& vec : *data_list)
+              if (vec[TSV_KEYNAME] == "*" && vec[TSV_LINK] != "") {
+                std::string lnk = get_link_for_type(inner_obj, vec[TSV_TYPE], vec[TSV_LINK]);
+                std::string as = ToUtf8(key);
+                std::string direct_link = select_one(inner_obj, lnk, as);
+                add_parse_object(inner_obj, direct_link, elem.context + "->" + as);
+                break;
               }
         }
+        else {
+          // malformed file ?
+        }
       }
-    return;
-  }
 
-  if (object->GetObjectType() == kPdsArray) {
-    bool to_ret = true;
-    PdsArray* arrayObj = (PdsArray*)object;
-    for (int i = 0; i < arrayObj->GetNumObjects(); ++i) {
-      PdsObject* item = arrayObj->Get(i);
-      if (item!=nullptr) {
-        for (auto& vec : *data_list) {
-          if (vec[TSV_KEYNAME] == std::to_string(i) || vec[TSV_KEYNAME] == "*") {
-            // checking basics of the element
-            check_basics(item, vec, grammar_file);
-            if (vec[TSV_LINK] != "") {
-              std::string lnk = get_link_for_type(item, vec[TSV_TYPE], vec[TSV_LINK]);
-              std::string as = "[" + std::to_string(i) + "]";
-              std::string direct_link = select_one(item, lnk, as);
-              //if element does have a link - process it
-              parse_object(item, direct_link, context + as);
+      // check presence of required values
+      for (auto& vec : *data_list)
+        if (vec[TSV_REQUIRED] == "TRUE" && vec[TSV_KEYNAME] != "*") {
+          PdsObject* inner_obj = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
+          if (inner_obj == nullptr) {
+            output << "Error: required key doesn't exist: ";
+            output << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
+          }
+        }
+
+      auto id_r = dictObj->GetId();
+
+      // now go through containers and Process them with new grammar_file
+      for (auto& vec : *data_list)
+        if (vec.size() >= TSV_NOTES && vec[TSV_LINK] != "") {
+          //std::wstring wstr = utf8ToUtf16(vec[KEY_COLUMN]);
+          //auto exists = dictObj->Known(wstr.c_str());
+          PdsObject* inner_obj = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
+          if (inner_obj != nullptr) {
+            int index = get_type_index(inner_obj, vec[TSV_TYPE]);
+            //error already reported before
+            if (index == -1)
+              break;
+            std::vector<std::string> opt = split(vec[TSV_TYPE], ';');
+            std::vector<std::string> links = split(vec[TSV_LINK], ';');
+            if (links[index] == "[]")
+              continue;
+
+            if (opt[index] == "NUMBER-TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
+              parse_number_tree((PdsDictionary*)inner_obj, links[index], elem.context + "->" + vec[TSV_KEYNAME]);
             }
-            break;
+            else
+              if (opt[index] == "NAME-TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
+                parse_name_tree((PdsDictionary*)inner_obj, links[index], elem.context + "->" + vec[TSV_KEYNAME]);
+              }
+              else if (inner_obj->GetObjectType() == kPdsStream) {
+                std::string as = vec[TSV_KEYNAME];
+                std::string direct_link = select_one(((PdsStream*)inner_obj)->GetStreamDict(), links[index], as);
+                add_parse_object(((PdsStream*)inner_obj)->GetStreamDict(), direct_link, elem.context + "->" + as);
+              }
+              else
+                if ((inner_obj->GetObjectType() == kPdsDictionary || inner_obj->GetObjectType() == kPdsArray)) {
+                  std::string as = vec[TSV_KEYNAME];
+                  std::string direct_link = select_one(inner_obj, links[index], as);
+                  add_parse_object(inner_obj, direct_link, elem.context + "->" + as);
+                }
+          }
+        }
+      continue;
+    }
+
+    if (elem.object->GetObjectType() == kPdsArray) {
+      bool to_ret = true;
+      PdsArray* arrayObj = (PdsArray*)elem.object;
+      for (int i = 0; i < arrayObj->GetNumObjects(); ++i) {
+        PdsObject* item = arrayObj->Get(i);
+        if (item != nullptr) {
+          for (auto& vec : *data_list) {
+            if (vec[TSV_KEYNAME] == std::to_string(i) || vec[TSV_KEYNAME] == "*") {
+              // checking basics of the element
+              check_basics(item, vec, grammar_file);
+              if (vec[TSV_LINK] != "") {
+                std::string lnk = get_link_for_type(item, vec[TSV_TYPE], vec[TSV_LINK]);
+                std::string as = "[" + std::to_string(i) + "]";
+                std::string direct_link = select_one(item, lnk, as);
+                //if element does have a link - process it
+                add_parse_object(item, direct_link, elem.context + as);
+              }
+              break;
+            }
           }
         }
       }
+      continue;
     }
-    return;
   }
-
-  output << "Error: can't process: ";
-  output << "(" << grammar_file << ")" << std::endl;
 }

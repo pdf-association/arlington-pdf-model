@@ -14,7 +14,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 /*!
-  A class to read grammar data from a csv file.
+  A class to read grammar data from a tsv file.
 */
 
 #pragma once
@@ -47,6 +47,7 @@ class CGrammarReader
 {
   std::string file_name;
   std::string delimeter;
+  std::vector<std::string> header_list;
   std::vector<std::vector<std::string>> data_list;
   std::vector<std::string> basic_types = { "BOOLEAN", "NUMBER", "NULL", "NAME",
     "STRING", "STRING-BYTE", "STRING-TEXT", "STRING-ASCII", "STREAM", "ARRAY", "DICTIONARY", "INTEGER", "DATE", "RECTANGLE", "NUMBER-TREE", "NAME-TREE" };

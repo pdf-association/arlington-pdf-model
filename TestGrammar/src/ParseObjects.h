@@ -29,6 +29,7 @@
 #include <memory>
 #include <algorithm> 
 #include <codecvt>
+#include <queue>
 
 #include "GrammarFile.h"
 #include "Pdfix.h"
@@ -42,8 +43,22 @@ using namespace PDFixSDK;
 
 class CParsePDF
 {
+  //remembering processed objects (and how they were validated)
   std::map<PdsObject*, std::string> mapped;
+  
+  // cache of loaded grammar files
   std::map<std::string, std::unique_ptr<CGrammarReader>> grammar_map;
+
+  // simulating recursive processing of the PDObjects
+  struct queue_elem {
+    PdsObject* object;
+    std::string link;
+    std::string context;
+    queue_elem(PdsObject* o, const std::string &l, std::string &c)
+      : object(o), link(l), context(c)
+    {}
+  };
+  std::queue<queue_elem> to_process;
 
   std::string grammar_folder;
   PdfDoc* pdf_doc;
@@ -55,7 +70,8 @@ public:
     pdf_doc(doc), grammar_folder(tsv_folder), output(ofs)
   { }
 
-  void parse_object(PdsObject *object, const std::string &link, std::string context);
+  void add_parse_object(PdsObject* object, const std::string& link, std::string context);
+  void parse_object(); 
   void parse_name_tree(PdsDictionary* obj, const std::string &links, std::string context);
   void parse_number_tree(PdsDictionary* obj, const std::string &links, std::string context);
 

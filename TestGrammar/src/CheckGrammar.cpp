@@ -37,8 +37,9 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
       CGrammarReader reader(gf);
       reader.load();
       const std::vector<std::vector<std::string>>& data = reader.get_data();
-      for (size_t i = 1; i < data.size(); i++) {
-        std::vector<std::string> vc = data[i];
+      for (auto& vc : data) {
+      //for (size_t i = 1; i < data.size(); i++) {
+      //  std::vector<std::string> vc = data[i];
         // does link exists ?
         // we have to parse pattern [lnk1,lnk2];[lnk3,lnk4];[]
         //if (vc[TSV_KEYNAME] == "*") {
