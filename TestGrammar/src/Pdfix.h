@@ -22,7 +22,7 @@
 
 #define PDFIX_VERSION_MAJOR 5
 #define PDFIX_VERSION_MINOR 6
-#define PDFIX_VERSION_PATCH 0
+#define PDFIX_VERSION_PATCH 2
 #define MAX_INT 2147483647
 #define MIN_INT -2147483647
 #define _in_
@@ -347,6 +347,7 @@ typedef enum {
   kPdeContainerPage = 1,
   kPdeContainerArt = 2,
   kPdeContainerCol = 3,
+  kPdeContainerRow = 4,
 } PdfContainerType;
 
 typedef enum {
@@ -1170,6 +1171,12 @@ struct PdsDictionary : PdsObject {
   virtual int GetKey(int index, _out_ wchar_t* buffer, int len) = 0;
   virtual PdsObject* Get(const wchar_t* key) = 0;
   virtual bool Put(const wchar_t* key, PdsObject* value) = 0;
+  virtual bool PutBool(const wchar_t* key, bool value) = 0;
+  virtual bool PutName(const wchar_t* key, const wchar_t* value) = 0;
+  virtual bool PutString(const wchar_t* key, const wchar_t* value) = 0;
+  virtual bool PutNumber(const wchar_t* key, double value) = 0;
+  virtual bool PutRect(const wchar_t* key, PdfRect* rect) = 0;
+  virtual bool PutMatrix(const wchar_t* key, PdfMatrix* matrix) = 0;
   virtual PdsDictionary* GetDictionary(const wchar_t* key) = 0;
   virtual PdsArray* GetArray(const wchar_t* key) = 0;
   virtual PdsStream* GetStream(const wchar_t* key) = 0;
@@ -1858,6 +1865,7 @@ struct PdfPage {
   virtual void GetCropBox(_out_ PdfRect* crop_box) = 0;
   virtual void GetMediaBox(_out_ PdfRect* media_box) = 0;
   virtual PdfRotate GetRotate() = 0;
+  virtual bool SetRotate(PdfRotate rotate) = 0;
   virtual PdfRotate GetLogicalRotate() = 0;
   virtual void GetDefaultMatrix(_out_ PdfMatrix* matrix) = 0;
   virtual int GetNumber() = 0;
@@ -1867,10 +1875,12 @@ struct PdfPage {
   virtual int GetNumAnnots() = 0;
   virtual PdfAnnot* GetAnnot(int index) = 0;
   virtual bool RemoveAnnot(int index, PdfRemoveAnnotFlags flags) = 0;
-  virtual PdfTextAnnot* AddTextAnnot(int index, PdfRect* rect) = 0;
-  virtual PdfLinkAnnot* AddLinkAnnot(int index, PdfRect* rect) = 0;
-  virtual PdfTextMarkupAnnot* AddTextMarkupAnnot(int index, PdfRect* rect, PdfAnnotSubtype subtype) = 0;
-  virtual PdfAnnot* AddAnnot(int index, PdfRect* rect, PdfAnnotSubtype subtype) = 0;
+  virtual bool AddAnnot(int index, PdfAnnot* annot) = 0;
+  virtual PdfAnnot* CreateAnnot(PdfAnnotSubtype subtype, PdfRect* rect) = 0;
+  virtual PdfTextAnnot* AddNewTextAnnot(int index, PdfRect* rect) = 0;
+  virtual PdfLinkAnnot* AddNewLinkAnnot(int index, PdfRect* rect) = 0;
+  virtual PdfTextMarkupAnnot* AddNewTextMarkupAnnot(int index, PdfRect* rect, PdfAnnotSubtype subtype) = 0;
+  virtual PdfAnnot* AddNewAnnot(int index, PdfRect* rect, PdfAnnotSubtype subtype) = 0;
   virtual int GetNumAnnotsAtPoint(PdfPoint* point) = 0;
   virtual PdfAnnot* GetAnnotAtPoint(PdfPoint* point, int index) = 0;
   virtual int GetNumAnnotsAtRect(PdfRect* rect) = 0;

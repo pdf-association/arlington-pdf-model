@@ -14,7 +14,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 /*!
-  A class to read grammar data from a csv file.
+  A class to read grammar data from a tsv file.
 */
 
 #pragma once
@@ -29,23 +29,25 @@
 #include "Pdfix.h"
 #include "utils.h"
 
-#define KEY_COLUMN 0
-#define TYPE_COLUMN 1
-#define SINCEVERSION_COLUMN 2
-#define DEPRECATEDIN_COLUMN 3
-#define REQUIRED_COLUMN 4
-#define INDIRECTREFERENCE_COLUMN 5
-#define INHERITABLE_COLUMN 6
-#define DEFAULTVALE_COLUMN 7
-#define POSSIBLEVALUES_COLUMN 8
-#define SPECIALCASE_COLUMN 9
-#define LINK_COLUMN 10
-#define NOTE_COLUMN 11
+// TSV columns
+#define TSV_KEYNAME         (0)     // "*" means any
+#define TSV_TYPE            (1)     // in alphabetical order of basic_types, "," separated
+#define TSV_SINCEVERSION    (2)     // 1.0, 1.1, ..., 2.0
+#define TSV_DEPRECATEDIN    (3)     // blank or 1.0, 1.1, ..., 2.0
+#define TSV_REQUIRED        (4)     // TRUE or FALSE
+#define TSV_INDIRECTREF     (5)     // TRUE or FALSE
+#define TSV_INHERITABLE     (6)
+#define TSV_DEFAULTVALUE    (7)
+#define TSV_POSSIBLEVALUES  (8)
+#define TSV_SPECIALCASE     (9)     // ignore for now...
+#define TSV_LINK            (10)     // ";" separated list of "[xxx]"
+#define TSV_NOTES           (11)    // free text
 
 class CGrammarReader
 {
   std::string file_name;
   std::string delimeter;
+  std::vector<std::string> header_list;
   std::vector<std::vector<std::string>> data_list;
   std::vector<std::string> basic_types = { "BOOLEAN", "NUMBER", "NULL", "NAME",
     "STRING", "STRING-BYTE", "STRING-TEXT", "STRING-ASCII", "STREAM", "ARRAY", "DICTIONARY", "INTEGER", "DATE", "RECTANGLE", "NUMBER-TREE", "NAME-TREE" };

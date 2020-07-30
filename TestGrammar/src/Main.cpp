@@ -27,7 +27,6 @@
 #include "Initialization.hpp"
 #include "ParseObjects.h"
 #include "CheckGrammar.h"
-#include "CheckGrammar.h"
 #include "TestGrammarVers.h"
 
 void show_help() {
@@ -43,7 +42,7 @@ void show_help() {
   std::cout << "to validate folder with pdf files:" << std::endl;
   std::cout << "  testgrammar <input_folder> <grammar_folder> <report_folder>" << std::endl;
   std::cout << "    input_folder      - folder with pdf files" << std::endl;
-  std::cout << "    grammar_folder  - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
+  std::cout << "    grammar_folder    - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
   std::cout << "    report_folder     - folder for storing results" << std::endl;
   std::cout << std::endl;
   std::cout << "to checks grammar itself:" << std::endl;
@@ -74,6 +73,9 @@ int main(int argc, char* argv[]) {
     auto i = 1;
 
 #ifdef _WIN32
+    // Simplistic attempt at support for folder and filenames from non-std code pages...
+    setlocale(LC_CTYPE, "en_US.UTF-8");
+
     if (argc > i) a1 = argv[i++];
     if (argc > i) a2 = argv[i++];
     if (argc > i) a3 = argv[i++];
@@ -102,15 +104,15 @@ int main(int argc, char* argv[]) {
       return 0;
     }
 
-    // init PDFix
     std::wstring input_file = a1;
 
+    // init PDFix
     Initialization();
     if (a1 == L"-c") {
       std::ofstream ofs;
       ofs.open(ToUtf8(save_path));
       CompareWithAdobe(a4, grammar_folder, ofs);
-        ofs.close();
+      ofs.close();
     }
     else {
       Pdfix* pdfix = GetPdfix();
@@ -120,48 +122,63 @@ int main(int argc, char* argv[]) {
         //open report file
         std::ofstream ofs;
         ofs.open(ToUtf8(report_file_name));
-        ofs << "BEGIN - TestGrammar ver." << TestGrammar_VERSION << std::endl;
+        ofs << "BEGIN - TestGrammar ver." << TestGrammar_VERSION << " - \"" << ToUtf8(file_name) << "\"" << std::endl;
 
         doc = pdfix->OpenDoc(open_file.c_str(), L"");
-        if (doc != nullptr) {
-          //acquire catalog
-          //PdsObject* root = doc->GetRootObject();
-          //if (root != nullptr) {
-          //  CParsePDF parser(doc, grammar_folder, ofs);
-          //  parser.parse_object(root, "Catalog", "Catalog");
-          //}
-          //else ofs << "Failed to open:" << ToUtf8(file_name) << std::endl;
-
-          PdsObject* trailer = doc->GetTrailerObject();
-          if (trailer != nullptr) {
-            CParsePDF parser(doc, grammar_folder, ofs);
-            parser.parse_object(trailer, "FileTrailer", "Trailer");
-          } else ofs << "Failed to acquire Trailer in:" << ToUtf8(file_name) << std::endl;
-          doc->Close();
+        try {
+          if (doc != nullptr) {
+            PdsObject* trailer = doc->GetTrailerObject();
+            PdsObject* root = doc->GetRootObject();
+            if (trailer != nullptr) {
+              //grammar parser
+              CParsePDF parser(doc, grammar_folder, ofs);
+              parser.add_parse_object(trailer, "FileTrailer", "Trailer");
+              parser.parse_object();
+            } else {
+              ofs << "Failed to acquire Trailer in:" << ToUtf8(file_name) << std::endl;
+            }
+          }
+          else {
+            ofs << "Failed to open:" << ToUtf8(file_name) << std::endl;
+          }
         }
-        else ofs << "Failed to open:" << ToUtf8(file_name) << std::endl;
-         
+        catch (std::exception& ex) {
+            ofs << "EXCEPTION: " << ex.what() << std::endl;
+        }
+        // Finally...
         ofs << "END" << std::endl;
         ofs.close();
+        if (doc != nullptr) {
+          doc->Close();
+        }
       };
 
+//      auto start = std::chrono::system_clock::now();
       if (folder_exists(input_file)) {
         const std::filesystem::path p(input_file);
-        for (const auto& entry : std::filesystem::directory_iterator(p))
+        const std::filesystem::path outdir(save_path);  // manage any trailing slash or slash as necessary
+        for (const auto& entry : std::filesystem::recursive_directory_iterator(p)) {
           if (entry.is_regular_file() && entry.path().extension().wstring() == L".pdf") {
-            const auto file_name = entry.path().filename().wstring();
-            std::wstring str = input_file + file_name;
-            single_pdf(str, save_path + file_name + L".txt");
+            std::filesystem::path rptfile(outdir);
+            rptfile = rptfile / entry.path().stem();
+            rptfile.replace_extension(".txt"); // change .pdf to .txt 
+            std::cout << "Processing \"" << entry.path().string() << "\" to \"" << rptfile.string() << "\"" << std::endl;
+            single_pdf(entry.path().wstring(), rptfile.wstring());
           }
+        }
       }
       else
         single_pdf(input_file, save_path);
+
+      //auto end = std::chrono::system_clock::now();
+      //std::chrono::duration<double> elapsed_seconds = end - start;
+      //std::cout <<  "elapsed time: " << elapsed_seconds.count() << "s\n";
 
       pdfix->Destroy();
     }
   }
   catch (std::exception & ex) {
-    std::cout << ex.what() << std::endl;
+    std::cerr << "EXCEPTION: " << ex.what() << std::endl;
     return 1;
   }
 
