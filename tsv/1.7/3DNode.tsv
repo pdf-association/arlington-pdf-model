@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.7		FALSE	FALSE	FALSE		[3DNode]			
 N	string-text	1.7		TRUE	FALSE	FALSE		[U3D,PRC]			
-O	number	1.7		FALSE	FALSE	FALSE		[<0..1>]			
+O	number	1.7		FALSE	FALSE	FALSE		[value>=0 && value<=1]			
 V	boolean	1.7		FALSE	FALSE	FALSE					
 M	array	1.7		FALSE	FALSE	FALSE				[ArrayOf3DTransMatrix]	

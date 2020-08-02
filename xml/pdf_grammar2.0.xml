@@ -1506,7 +1506,7 @@
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3871,7 +3871,7 @@
       <ENTRY>
          <NAME>Volume</NAME>
          <VALUES>
-            <VALUE type="number">&lt;-1.0..1.0&gt;</VALUE>
+            <VALUE type="number">value&gt;=-1 &amp;&amp; value&lt;=1</VALUE>
             <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -15520,7 +15520,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -15533,7 +15533,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -15546,7 +15546,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -15560,7 +15560,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -16706,7 +16706,7 @@
    </OBJECT>
    <OBJECT id="ArrayOfPageTreeNodeKids" object_number="130">
       <ENTRY>
-         <NAME>c</NAME>
+         <NAME>*</NAME>
          <VALUES>
             <VALUE type="dictionary">PageTreeNode</VALUE>
             <VALUE type="dictionary">PageObject</VALUE>
@@ -17194,7 +17194,7 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..)</VALUE>
+            <VALUE type="integer">value&gt;=0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17657,7 +17657,7 @@
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17669,7 +17669,7 @@
       <ENTRY>
          <NAME>1</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17681,7 +17681,7 @@
       <ENTRY>
          <NAME>2</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17971,7 +17971,7 @@
       <ENTRY>
          <NAME>1</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17983,7 +17983,7 @@
       <ENTRY>
          <NAME>2</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -17995,7 +17995,7 @@
       <ENTRY>
          <NAME>3</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18109,7 +18109,7 @@
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18121,7 +18121,7 @@
       <ENTRY>
          <NAME>1</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18133,7 +18133,7 @@
       <ENTRY>
          <NAME>2</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18145,7 +18145,7 @@
       <ENTRY>
          <NAME>3</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18483,7 +18483,7 @@
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..)</VALUE>
+            <VALUE type="number">value&gt;=0</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18495,7 +18495,7 @@
       <ENTRY>
          <NAME>1</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..)</VALUE>
+            <VALUE type="number">value&gt;=0</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18507,7 +18507,7 @@
       <ENTRY>
          <NAME>2</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..)</VALUE>
+            <VALUE type="number">value&gt;=0</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -18535,7 +18535,7 @@
       <ENTRY>
          <NAME>I</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..2&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=2</VALUE>
             <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -18555,7 +18555,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -18568,7 +18568,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -18585,7 +18585,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -18597,7 +18597,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -18914,7 +18914,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -18926,7 +18926,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -18938,7 +18938,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -19161,7 +19161,7 @@
       <ENTRY>
          <NAME>Gamma</NAME>
          <VALUES>
-            <VALUE type="number">(0..)</VALUE>
+            <VALUE type="number">value&gt;0</VALUE>
             <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -20267,7 +20267,7 @@
       <ENTRY>
          <NAME>Position</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..100&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -21283,7 +21283,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.7</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -21303,7 +21303,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.7</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -21315,7 +21315,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.7</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -21712,7 +21712,7 @@
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>true:parent</INHERITABLE>
+         <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -22160,7 +22160,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>2.0</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -22172,7 +22172,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>2.0</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -22184,7 +22184,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>2.0</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -22249,7 +22249,7 @@
       <ENTRY>
          <NAME>Length</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;40..128&gt; value*8</VALUE>
+            <VALUE type="integer">value&gt;=40 &amp;&amp; value&lt;=128 &amp;&amp; value mod 8==0</VALUE>
             <DEFAULT_VALUE>40</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -22370,7 +22370,7 @@
       <ENTRY>
          <NAME>Length</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;40..128&gt; value*8</VALUE>
+            <VALUE type="integer">value&gt;=40 &amp;&amp; value&lt;=128 &amp;&amp; value mod 8==0</VALUE>
             <DEFAULT_VALUE>40</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -22699,7 +22699,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.7</INTRODUCED>
+         <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -23697,7 +23697,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE>IsRequired=&gt;IsPresent(EF||EP||RF)</SPECIAL_CASE>
       </ENTRY>
@@ -23709,7 +23709,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -23721,7 +23721,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -23745,7 +23745,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -23757,7 +23757,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -23769,7 +23769,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -23781,7 +23781,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE>Required if RF is present; PDF 1.3; amended to include the UF key in PDF 1.7</SPECIAL_CASE>
       </ENTRY>
@@ -23900,7 +23900,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
-         <SPECIAL_CASE>[(0..)]</SPECIAL_CASE>
+         <SPECIAL_CASE>[value&gt;0]</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Prev</NAME>
@@ -24135,7 +24135,7 @@
       <ENTRY>
          <NAME>Colors</NAME>
          <VALUES>
-            <VALUE type="integer">(1..)</VALUE>
+            <VALUE type="integer">value&gt;=1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -24225,7 +24225,7 @@
       <ENTRY>
          <NAME>Colors</NAME>
          <VALUES>
-            <VALUE type="integer">(1..)</VALUE>
+            <VALUE type="integer">value&gt;=1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -26494,7 +26494,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26506,7 +26506,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26518,7 +26518,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26542,7 +26542,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26555,7 +26555,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26573,7 +26573,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26586,7 +26586,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26599,7 +26599,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26617,7 +26617,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26643,7 +26643,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26655,7 +26655,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26667,7 +26667,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26679,7 +26679,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26691,7 +26691,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26704,7 +26704,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26722,7 +26722,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26735,7 +26735,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26748,7 +26748,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26766,7 +26766,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26792,7 +26792,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26804,7 +26804,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26816,7 +26816,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26840,7 +26840,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26853,7 +26853,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26871,7 +26871,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26884,7 +26884,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26897,7 +26897,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -26915,7 +26915,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -28349,7 +28349,7 @@
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..)</VALUE>
+            <VALUE type="number">value&gt;=0</VALUE>
             <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
@@ -28362,7 +28362,7 @@
       <ENTRY>
          <NAME>1</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..)</VALUE>
+            <VALUE type="number">value&gt;=0</VALUE>
             <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
@@ -28375,7 +28375,7 @@
       <ENTRY>
          <NAME>2</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..)</VALUE>
+            <VALUE type="number">value&gt;=0</VALUE>
             <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
@@ -28440,7 +28440,7 @@
       <ENTRY>
          <NAME>LW</NAME>
          <VALUES>
-            <VALUE type="number">(0..)</VALUE>
+            <VALUE type="number">value&gt;0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28452,7 +28452,7 @@
       <ENTRY>
          <NAME>LC</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..2&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=2</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28464,7 +28464,7 @@
       <ENTRY>
          <NAME>LJ</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..2&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=2</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28476,7 +28476,7 @@
       <ENTRY>
          <NAME>ML</NAME>
          <VALUES>
-            <VALUE type="number">(0..)</VALUE>
+            <VALUE type="number">value&gt;0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28539,7 +28539,7 @@
       <ENTRY>
          <NAME>OPM</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..1&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28681,7 +28681,7 @@
       <ENTRY>
          <NAME>FL</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..)</VALUE>
+            <VALUE type="number">value&gt;=0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28693,7 +28693,7 @@
       <ENTRY>
          <NAME>SM</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28744,7 +28744,7 @@
       <ENTRY>
          <NAME>CA</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -28756,7 +28756,7 @@
       <ENTRY>
          <NAME>ca</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -30014,8 +30014,7 @@
       <ENTRY>
          <NAME>2</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0</VALUE>
-            <VALUE type="integer">255&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=255</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -31951,8 +31950,7 @@
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0.0</VALUE>
-            <VALUE type="number">1.0&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
             <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -32284,7 +32282,7 @@
       <ENTRY>
          <NAME>Rotate</NAME>
          <VALUES>
-            <VALUE type="integer">value*90</VALUE>
+            <VALUE type="integer">value mod 90 == 0</VALUE>
             <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -33980,7 +33978,7 @@
       <ENTRY>
          <NAME>Count</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..)</VALUE>
+            <VALUE type="integer">value&gt;=0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34328,7 +34326,7 @@
       <ENTRY>
          <NAME>St</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;1..)</VALUE>
+            <VALUE type="integer">value&gt;=1</VALUE>
             <DEFAULT_VALUE>1</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -34384,7 +34382,7 @@
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>true:parent</INHERITABLE>
+         <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -34396,7 +34394,7 @@
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>true:parent</INHERITABLE>
+         <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -34409,7 +34407,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>true:parent</INHERITABLE>
+         <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -34489,7 +34487,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>true:parent</INHERITABLE>
+         <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -34689,7 +34687,7 @@
       <ENTRY>
          <NAME>UserUnit</NAME>
          <VALUES>
-            <VALUE type="number">value*1/72</VALUE>
+            <VALUE type="number"/>
             <DEFAULT_VALUE>1.0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -34804,7 +34802,7 @@
       <ENTRY>
          <NAME>Count</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..)</VALUE>
+            <VALUE type="integer">value&gt;=0</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -34842,7 +34840,7 @@
       <ENTRY>
          <NAME>Count</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..)</VALUE>
+            <VALUE type="integer">value&gt;=0</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -35337,7 +35335,7 @@
       <ENTRY>
          <NAME>N</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..)</VALUE>
+            <VALUE type="number">value&gt;=0</VALUE>
             <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -35699,7 +35697,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -35764,7 +35762,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -35829,7 +35827,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -35894,7 +35892,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -35959,7 +35957,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36024,7 +36022,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36089,7 +36087,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36154,7 +36152,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36232,7 +36230,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36310,7 +36308,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36388,7 +36386,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36453,7 +36451,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36531,7 +36529,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36596,7 +36594,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36700,7 +36698,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36765,7 +36763,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36830,7 +36828,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36895,7 +36893,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -36960,7 +36958,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -37025,7 +37023,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -37090,7 +37088,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -37155,7 +37153,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -37220,7 +37218,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -37285,7 +37283,7 @@
       <ENTRY>
          <NAME>Penalty</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..100&gt;</VALUE>
+            <VALUE type="integer">value&gt;=0 &amp;&amp; value&lt;=100</VALUE>
             <DEFAULT_VALUE>100</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -38196,7 +38194,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.3</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -38840,7 +38838,7 @@
       <ENTRY>
          <NAME>VerticesPerRow</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;2..)</VALUE>
+            <VALUE type="integer">value&gt;=2</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -39782,7 +39780,7 @@
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>true:parent</INHERITABLE>
+         <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -40524,7 +40522,7 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="number">&lt;0..1&gt;</VALUE>
+            <VALUE type="number">value&gt;=0 &amp;&amp; value&lt;=1</VALUE>
             <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -40891,7 +40889,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -40923,7 +40921,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -40949,7 +40947,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -40975,7 +40973,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41000,7 +40998,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41013,7 +41011,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41080,7 +41078,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41094,7 +41092,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41108,7 +41106,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41195,7 +41193,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41227,7 +41225,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41253,7 +41251,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41279,7 +41277,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41304,7 +41302,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.6</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41317,7 +41315,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.6</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41330,7 +41328,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.6</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41360,7 +41358,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41392,7 +41390,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41418,7 +41416,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41444,7 +41442,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41739,7 +41737,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41752,7 +41750,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41764,7 +41762,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41778,7 +41776,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41790,7 +41788,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.7</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -41802,7 +41800,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
-         <INHERITABLE>not_true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>2.0</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
@@ -42036,7 +42034,7 @@
       <ENTRY>
          <NAME>R</NAME>
          <VALUES>
-            <VALUE type="integer">&lt;0..)</VALUE>
+            <VALUE type="integer">value&gt;=0</VALUE>
             <DEFAULT_VALUE>0</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -43900,7 +43898,7 @@
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
-            <VALUE type="number">(0..)</VALUE>
+            <VALUE type="number">value&gt;0</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -43924,7 +43922,7 @@
       <ENTRY>
          <NAME>2</NAME>
          <VALUES>
-            <VALUE type="number">(0..)</VALUE>
+            <VALUE type="number">value&gt;0</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -43943,7 +43941,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -43955,7 +43953,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -43967,7 +43965,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -43979,7 +43977,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -43991,7 +43989,7 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>

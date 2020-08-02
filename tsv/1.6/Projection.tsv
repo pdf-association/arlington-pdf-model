@@ -2,7 +2,7 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Subtype	name	1.6		TRUE	FALSE	FALSE		[O,P]			
 CS	name	1.6		FALSE	FALSE	FALSE	ANF	[XNF,ANF]			
 F	number	1.6		FALSE	FALSE	FALSE					
-N	number	1.6		FALSE	FALSE	FALSE	0	[<0..)]			
+N	number	1.6		FALSE	FALSE	FALSE	0	[value>=0]			
 FOV	number	1.6		FALSE	FALSE	FALSE					
 PS	name;number	1.6		FALSE	FALSE	FALSE					
 OS	number	1.6		FALSE	FALSE	FALSE	1				

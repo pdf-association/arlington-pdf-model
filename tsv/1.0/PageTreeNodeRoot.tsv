@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.0		TRUE	FALSE	FALSE		[Pages]			
 Kids	array	1.0		TRUE	FALSE	FALSE				[ArrayOfPageTreeNodeKids]	
-Count	integer	1.0		TRUE	FALSE	FALSE		[<0..)]			
+Count	integer	1.0		TRUE	FALSE	FALSE		[value>=0]			
