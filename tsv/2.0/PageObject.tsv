@@ -24,7 +24,7 @@ StructParents	integer	1.3		FALSE	FALSE	FALSE			Required if the page contains str
 ID	string-byte	1.3		FALSE	FALSE	FALSE					byte string
 PZ	number	1.3		FALSE	FALSE	FALSE					
 SeparationInfo	dictionary	1.3		FALSE	FALSE	FALSE				[Separation]	
-Tabs	name	1.5		FALSE	FALSE	FALSE		[R,C,S]			
+Tabs	name	1.5		FALSE	FALSE	FALSE		[R,C,S,A,W]			
 TemplateInstantiated	name	1.5		FALSE	FALSE	FALSE			CreatedFrom:NamedPageObject=>Required=TRUE		
 PresSteps	dictionary	1.5		FALSE	FALSE	FALSE				[NavNode]	
 UserUnit	number	1.6		FALSE	FALSE	FALSE	1.0				
