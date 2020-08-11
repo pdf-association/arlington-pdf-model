@@ -3,3 +3,7 @@ Type	name	1.0		TRUE	FALSE	FALSE		[Pages]
 Parent	dictionary	1.0		TRUE	TRUE	FALSE				[PageTreeNode,PageTreeNodeRoot]	
 Kids	array	1.0		TRUE	FALSE	FALSE				[ArrayOfPageTreeNodeKids]	
 Count	integer	1.0		TRUE	FALSE	FALSE		[value>=0]			
+Resources	dictionary	1.0		FALSE	FALSE	TRUE				[Resource]	Inheritable from Parent
+MediaBox	rectangle	1.0		FALSE	FALSE	TRUE					Inheritable from Parent
+CropBox	rectangle	1.0		FALSE	FALSE	TRUE	@MediaBox				Inheritable from Parent
+Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[value mod 90 == 0]			Inheritable from Parent

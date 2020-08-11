@@ -22,7 +22,7 @@
 
 #define PDFIX_VERSION_MAJOR 5
 #define PDFIX_VERSION_MINOR 6
-#define PDFIX_VERSION_PATCH 2
+#define PDFIX_VERSION_PATCH 4
 #define MAX_INT 2147483647
 #define MIN_INT -2147483647
 #define _in_
@@ -348,6 +348,7 @@ typedef enum {
   kPdeContainerArt = 2,
   kPdeContainerCol = 3,
   kPdeContainerRow = 4,
+  kPdeContainerSplitter = 5,
 } PdfContainerType;
 
 typedef enum {
@@ -798,13 +799,13 @@ typedef enum {
 } PdfDestFitType;
 
 typedef enum {
-  kLabelUsed = -1,
+  kLabelNo = -1,
   kLabelNone = 0,
   kLabel = 1,
   kLabelLevel1 = 2,
   kLabelLevel2 = 3,
   kLabelLevel3 = 4,
-  kLabelToc = 100,
+  kLabelLevel4 = 5,
 } PdfLabelType;
 
 typedef enum {
