@@ -68,7 +68,7 @@ int main(int argc, char* argv[]) {
     return 0;
   }
 
-  try {
+//  try {
     std::wstring a1, a2, a3, a4;
     auto i = 1;
 
@@ -176,11 +176,11 @@ int main(int argc, char* argv[]) {
 
       pdfix->Destroy();
     }
-  }
-  catch (std::exception & ex) {
-    std::cerr << "EXCEPTION: " << ex.what() << std::endl;
-    return 1;
-  }
+//  }
+  //catch (std::exception & ex) {
+  //  std::cerr << "EXCEPTION: " << ex.what() << std::endl;
+  //  return 1;
+  //}
 
   return 0;
 }
