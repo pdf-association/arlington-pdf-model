@@ -29,6 +29,8 @@
 #include <memory>
 #include <algorithm> 
 #include <codecvt>
+#include <math.h>
+
 #include "GrammarFile.h"
 #include "ParseObjects.h"
 

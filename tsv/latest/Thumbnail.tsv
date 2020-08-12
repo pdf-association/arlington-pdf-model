@@ -4,12 +4,12 @@ Subtype	name	1.0		FALSE	FALSE	FALSE		[Image]
 Width	integer	1.0		TRUE	FALSE	FALSE					
 Height	integer	1.0		TRUE	FALSE	FALSE					
 ColorSpace	array;name	1.0		TRUE	FALSE	FALSE		[];[DeviceRGB,DeviceGray]	Only DeviceGray or DeviceRGB, or an Indexed	[IndexedColorSpace];[]	
-BitsPerComponent	integer	1.0		TRUE	FALSE	FALSE					
+BitsPerComponent	integer	1.0		TRUE	FALSE	FALSE		[1,2,4,8,16]			
 Decode	array	1.0		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
 Length	integer	1.3		TRUE	FALSE	FALSE					
 Filter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
 DecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	
-F 	dictionary;string	1.3		FALSE	FALSE	FALSE				[FileSpecification];[]	
+F	dictionary;string	1.3		FALSE	FALSE	FALSE				[FileSpecification];[]	
 FFilter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
 FDecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	
 DL	integer	1.5		FALSE	FALSE	FALSE					

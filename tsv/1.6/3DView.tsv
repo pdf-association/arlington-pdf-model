@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.6		FALSE	FALSE	FALSE		[3DView]			
 XN	string-text	1.6		TRUE	FALSE	FALSE					
-IN	string-text	1.6		FALSE	FALSE	FALSE		[M,U3D]			
-MS	name	1.6		FALSE	FALSE	FALSE					
+IN	string-text	1.6		FALSE	FALSE	FALSE					
+MS	name	1.6		FALSE	FALSE	FALSE		[M,U3D]			
 C2W	array	1.6		FALSE	FALSE	FALSE			Required=TRUE=>MS=M	[ArrayOf3DTransMatrix]	
 U3DPath	array;string-text	1.6		FALSE	FALSE	FALSE			Required=TRUE=>MS=U3D	[ArrayOfStringsText];[]	
 CO	number	1.6		FALSE	FALSE	FALSE					

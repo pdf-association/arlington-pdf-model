@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.1		FALSE	FALSE	FALSE		[Filespec]	IsRequired=>IsPresent(EF||EP||RF)		
 FS	name	1.1		FALSE	FALSE	FALSE					
-F 	string	1.1		FALSE	FALSE	FALSE					
+F	string	1.1		FALSE	FALSE	FALSE					
 DOS	string-byte	1.1	2.0	FALSE	FALSE	FALSE					
 Mac	string-byte	1.1	2.0	FALSE	FALSE	FALSE					
 Unix	string-byte	1.1	2.0	FALSE	FALSE	FALSE					
