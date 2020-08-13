@@ -162,6 +162,11 @@ int main(int argc, char* argv[]) {
             std::filesystem::path rptfile(outdir);
             rptfile = rptfile / entry.path().stem();
             rptfile.replace_extension(".txt"); // change .pdf to .txt 
+            // If rptfile already exists then try a different filename by appending underscores...
+            while (std::filesystem::exists(rptfile)) {
+              rptfile.replace_filename( rptfile.stem().string() + "_" );
+              rptfile.replace_extension(".txt");
+            }
             std::cout << "Processing \"" << entry.path().string() << "\" to \"" << rptfile.string() << "\"" << std::endl;
             single_pdf(entry.path().wstring(), rptfile.wstring());
           }
