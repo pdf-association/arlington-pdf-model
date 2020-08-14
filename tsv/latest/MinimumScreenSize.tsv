@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.5		FALSE	FALSE	FALSE		[MinScreenSize]			
-V	integer	1.5		TRUE	FALSE	FALSE					
+V	array	1.5		TRUE	FALSE	FALSE		[ArrayOf_2Integers]			
 M	integer	1.5		FALSE	FALSE	FALSE	0	[0,1,2,3,4,5,6]			

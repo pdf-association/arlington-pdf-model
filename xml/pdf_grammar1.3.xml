@@ -5450,6 +5450,8 @@
             <VALUE type="dictionary">StandardArtifactAttributes</VALUE>
             <VALUE type="dictionary">UserPropertiesAttributes</VALUE>
             <VALUE type="dictionary">NSOAttributes</VALUE>
+            <VALUE type="integer"/>
+            <VALUE type="stream">Stream</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -5483,7 +5485,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -5995,7 +5997,7 @@
             <VALUE type="dictionary">StructElem</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
          <DEPRECATED/>
@@ -6109,7 +6111,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -6121,7 +6123,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -7327,7 +7329,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
       <ENTRY>
-         <NAME>Extension</NAME>
+         <NAME>Extensions</NAME>
          <VALUES>
             <VALUE type="dictionary">Extensions</VALUE>
          </VALUES>
@@ -7696,6 +7698,7 @@
             <VALUE type="dictionary">_UniversalDictionary</VALUE>
             <VALUE type="integer"/>
             <VALUE type="name"/>
+            <VALUE type="number"/>
             <VALUE type="stream">Stream</VALUE>
             <VALUE type="string"/>
          </VALUES>
@@ -7935,6 +7938,7 @@
             <VALUE type="array">Dest0</VALUE>
             <VALUE type="array">Dest1</VALUE>
             <VALUE type="array">Dest4</VALUE>
+            <VALUE type="dictionary">DestDict</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -12763,7 +12767,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
-         <SPECIAL_CASE/>
+         <SPECIAL_CASE>type name allowed in 1.7</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>FirstChar</NAME>
@@ -13570,6 +13574,7 @@
       <ENTRY>
          <NAME>TR2</NAME>
          <VALUES>
+            <VALUE type="array">ArrayOfFunctions</VALUE>
             <VALUE type="dictionary">FunctionType2</VALUE>
             <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE type="name"/>
@@ -13580,7 +13585,7 @@
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <DEPRECATED/>
+         <DEPRECATED>2.0</DEPRECATED>
          <SPECIAL_CASE/>
       </ENTRY>
       <ENTRY>
@@ -16681,8 +16686,8 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="dictionary">PatternType1</VALUE>
             <VALUE type="dictionary">PatternType2</VALUE>
+            <VALUE type="stream">PatternType1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -19082,18 +19087,7 @@
       </ENTRY>
       <ENTRY>
          <NAME>A</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOfAttributes</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesBLSE</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesColumn</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesILSE</VALUE>
-            <VALUE type="dictionary">StandardTableAttributes</VALUE>
-            <VALUE type="dictionary">StandardListAttributes</VALUE>
-            <VALUE type="dictionary">StandardPrintFieldAttributes</VALUE>
-            <VALUE type="dictionary">StandardArtifactAttributes</VALUE>
-            <VALUE type="dictionary">UserPropertiesAttributes</VALUE>
-            <VALUE type="dictionary">NSOAttributes</VALUE>
-         </VALUES>
+         <VALUES/>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
@@ -20652,7 +20646,7 @@
       <ENTRY>
          <NAME>Mask</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
+            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
             <VALUE type="stream">XObjectImageMask</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>

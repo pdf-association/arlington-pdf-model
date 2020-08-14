@@ -5,7 +5,7 @@ Name	name	1.0		FALSE	FALSE	FALSE			required in 1.0
 FontBBox	rectangle	1.0		TRUE	FALSE	FALSE					
 FontMatrix	array	1.0		TRUE	FALSE	FALSE				[Matrix]	
 CharProcs	dictionary	1.0		TRUE	FALSE	FALSE				[CharProcMap]	
-Encoding	dictionary	1.0		TRUE	FALSE	FALSE				[Encoding]	
+Encoding	dictionary	1.0		TRUE	FALSE	FALSE			type name allowed in 1.7	[Encoding]	
 FirstChar	integer	1.0		TRUE	FALSE	FALSE					
 LastChar	integer	1.0		TRUE	FALSE	FALSE					
 Widths	array	1.0		TRUE	FALSE	FALSE				[ArrayOfIntegersGeneral]	

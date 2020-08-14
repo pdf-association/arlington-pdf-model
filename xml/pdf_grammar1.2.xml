@@ -2778,7 +2778,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -3135,7 +3135,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -3147,7 +3147,7 @@
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
+         <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED/>
          <SPECIAL_CASE/>
       </ENTRY>
@@ -4191,7 +4191,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
       <ENTRY>
-         <NAME>Extension</NAME>
+         <NAME>Extensions</NAME>
          <VALUES>
             <VALUE type="dictionary">Extensions</VALUE>
          </VALUES>
@@ -4709,6 +4709,7 @@
             <VALUE type="array">Dest0</VALUE>
             <VALUE type="array">Dest1</VALUE>
             <VALUE type="array">Dest4</VALUE>
+            <VALUE type="dictionary">DestDict</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -8651,7 +8652,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED/>
-         <SPECIAL_CASE/>
+         <SPECIAL_CASE>type name allowed in 1.7</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>FirstChar</NAME>

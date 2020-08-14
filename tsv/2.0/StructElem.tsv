@@ -6,7 +6,7 @@ ID	string-byte	1.3		FALSE	FALSE	FALSE
 Ref	array	2.0		FALSE	FALSE	FALSE				[ArrayOfStructElem]	
 Pg	dictionary	1.3		FALSE	TRUE	FALSE				[PageObject]	
 K	array;dictionary;integer	1.3		FALSE	FALSE	FALSE				[ArrayOfStructElemKids];[StructElem,MarkedContentReference,ObjectReference];[]	
-A	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfAttributes];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes]	
+A	array;dictionary,stream	1.3		FALSE	FALSE	FALSE				[ArrayOfAttributes];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes];[Stream]	
 C	array;name	1.3		FALSE	FALSE	FALSE				[ArrayOfNamesGeneral];[]	
 R	integer	1.3		FALSE	FALSE	FALSE	0	[value>=0]			
 T	string-text	1.3		FALSE	FALSE	FALSE					
