@@ -122,10 +122,11 @@ int main(int argc, char* argv[]) {
         //open report file
         std::ofstream ofs;
         ofs.open(ToUtf8(report_file_name));
-        ofs << "BEGIN - TestGrammar ver." << TestGrammar_VERSION << " - \"" << ToUtf8(file_name) << "\"" << std::endl;
+        ofs << "BEGIN - TestGrammar v" << TestGrammar_VERSION << " - \"" << ToUtf8(file_name) << "\" - PDFix v" 
+            << pdfix->GetVersionMajor() << "." << pdfix->GetVersionMinor() << "." << pdfix->GetVersionPatch() << std::endl;
 
-        doc = pdfix->OpenDoc(open_file.c_str(), L"");
         try {
+          doc = pdfix->OpenDoc(open_file.c_str(), L"");
           if (doc != nullptr) {
             PdsObject* trailer = doc->GetTrailerObject();
             PdsObject* root = doc->GetRootObject();
@@ -135,15 +136,15 @@ int main(int argc, char* argv[]) {
               parser.add_parse_object(trailer, "FileTrailer", "Trailer");
               parser.parse_object();
             } else {
-              ofs << "Failed to acquire Trailer in:" << ToUtf8(file_name) << std::endl;
+              ofs << "Error: failed to acquire Trailer in:" << ToUtf8(file_name) << std::endl;
             }
           }
           else {
-            ofs << "Failed to open:" << ToUtf8(file_name) << std::endl;
+            ofs << "Error: Failed to open: \"" << ToUtf8(file_name) << "\" - PDFix GetError(): " << pdfix->GetError() << std::endl;
           }
         }
         catch (std::exception& ex) {
-            ofs << "EXCEPTION: " << ex.what() << std::endl;
+            ofs << "Error: EXCEPTION: " << ex.what() << std::endl;
         }
         // Finally...
         ofs << "END" << std::endl;

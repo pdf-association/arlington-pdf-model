@@ -5,17 +5,18 @@ We extracted all Tables from the latest PDF 2.0 dated revision (ISO/FDIS 32000-2
 Our main source is [PDF20Grammar.ods](PDF20Grammar.ods) which is a [LibreOffice Calc](https://www.libreoffice.org/) spreadsheet. There is a specific worksheet **!TableMap** that identifies each worksheet and then each worksheet is the representation of a PDF object from the PDF spec (most often mapping back to a Table in the PDF spec.) Note that due to the very large number of worksheets (\>490!), Microsoft Excel cannot be used. 
 
 Columns must be in the following order:
-1. **Key**		- key in dictionary, or index into an array. "\*" means any key / index.
-1. **Type**		- one or more [type](#Type) or types separated by ";".
+1. **Key** - key in dictionary, or index into an array. "\*" means any key / index.
+1. **Type**	- one or more [type](#Type) or types separated by ";".
 1. **SinceVersion**	- version of PDF this key was introduced in. Possible values are 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0.
 1. **DeprecatedIn**	- version of PDF this key was deprecated in. Blank if not deprecated. Possible values are 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0.
 1. **Required**	- whether the key or array element is required (TRUE/FALSE).  
-1. **IndirectReference**	- whether the key is required to be an indirect reference (TRUE/FALSE).
-1. **DefaultValue**	- default value as defined in PDF 2.0, depends on the type.
-1. **PossibleValues**	- list of possible values. For Type keys of dictionaries which must have a specific value, this will be a choice of just 1.
+1. **IndirectReference** - whether the key is required to be an indirect reference (TRUE/FALSE).
+1. **Inheritable** - whether the key is inheritable (TRUE/FALSE).
+1. **DefaultValue** - default value of key.
+1. **PossibleValues** - list of possible values. For Type keys of dictionaries which must have a specific value, this will be a choice of just 1.
 1. **SpecialCase**	- expression [(TODO: grammar is TBD - needs to include required direct object)](#todo-pushpin).
 1. **Link**	- name(s) of other worksheet(s) for validating the value(s) of this key.
-1. **Notes**	- free text for arbitrary notes.
+1. **Notes** - free text for arbitrary notes.
 
 Rows define specific keys in a dictionary or an element in an array and the characteristics for that key/array element.
 
@@ -211,44 +212,65 @@ The XML version of the PDF DOM grammar (one XML file per PDF version) is created
 ## Ensure sorting is consistent...
 export LC_ALL=C
 
+## If you have a wide terminal, this helps with TSV display from grep, etc.
+tabs 1,+15,+15,+15,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10
+
 ## Change directory to a specific PDF version or "latest"
 cd ./tsv/latest
 
 ## Confirm consistent column headers across all TSV files
 head -qn1 *.tsv | sort | uniq | sed -e 's/\t/\\t/g'
+## Correct response: Key\tType\tSinceVersion\tDeprecatedIn\tRequired\tIndirectReference\tInheritable\tDefaultValue\tPossibleValues\tSpecialCase\tLink\tNote
 
 ## Find files with column issues - worth investigating in ODS in case of data in other rows...
 grep -P "Link\t\t" *.tsv | sed -e 's/\t/\\t/g'
 grep -P "Note\t\t" *.tsv | sed -e 's/\t/\\t/g'
+# No response is correct!
 
-## Confirm the Type column - alphabetically sorted from Types listed above
+## Confirm the Type column
 cut -f 2 *.tsv | sort | uniq 
+# Correct response: each line only has Types listed above, separated by semi-colons, sorted alphabetically. No blank lines.
 
-## Confirm all "SinceVersion" values (PDF 1.0 - 2.0)
+## Confirm all "SinceVersion" values 
 cut -f 3 *.tsv | sort | uniq
+# Correct response: values 1.0, ..., 2.0, SinceVersion. No blank lines.
 
 ## Confirm all "DeprecatedIn" values
 cut -f 4 *.tsv | sort | uniq
+# Correct response: values 1.0, ..., 2.0, DeprecatedIn. Blank lines OK.
 
-## Confirm all "Required" values (TRUE or FALSE)
+## Confirm all "Required" values
 cut -f 5 *.tsv | sort | uniq
+# Correct response: TRUE, FALSE, Required. No blank lines.
 
 ## Confirm all "IndirectReference" values (TRUE or FALSE)
 cut -f 6 *.tsv | sort | uniq
+# Correct response: TRUE, FALSE, IndirectReference. No blank lines.
 
-## Column 7 is "DefaultValue"
-## Column 8 is "PossibleValues"
+## Column 7 is "Inheritable"
+cut -f 7 *.tsv | sort | uniq
+# Correct response: TRUE, FALSE, Inheritable. No blank lines.
 
-## List all "SpecialCases"
+## Column 8 is "DefaultValue"
+cut -f 8 *.tsv | sort | uniq
+
+## Column 9 is "PossibleValues"
 cut -f 9 *.tsv | sort | uniq
+# Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK if multiples. 
+# Includes some very basic expressions using 'value' as a reserved keyword. Blank lines OK.
 
-## Set of all "Links"
+## Column 10: List all "SpecialCases"
 cut -f 10 *.tsv | sort | uniq
+# WORK-IN-PROGRESS. IGNORE!!
+
+## Column 11: Sets of "Link" to other TSV objects
+cut -f 11 *.tsv | sort | uniq
+# Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK if multiples.
 
 ## All "Notes" (free form text)
-cut -f 11- *.tsv | sort | uniq
+cut -f 12 *.tsv | sort | uniq
 
-## Unique set of key names (and array indices)
+## Unique set of key names (case-sensitive strings), array indices (0-based integers) or '*' for dictionary or array maps
 cut -f 1 *.tsv | sort | uniq
 ```
 
