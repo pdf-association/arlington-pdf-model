@@ -1,3 +1,3 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-min	integer	1.5		FALSE	FALSE	FALSE	0				
-max	integer	1.5		FALSE	FALSE	FALSE	infinity				
+min	number	1.5		FALSE	FALSE	FALSE	0		RequiredIf(NotPresent(@max))		
+max	number	1.5		FALSE	FALSE	FALSE	infinity		RequiredIf(NotPresent(@min))		

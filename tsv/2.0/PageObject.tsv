@@ -12,13 +12,13 @@ BoxColorInfo	dictionary	1.4		FALSE	FALSE	FALSE				[BoxColorInfo]
 Contents	array;stream	1.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral];[Stream]	
 Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[value mod 90 == 0]			Inheritable from Parent
 Group	dictionary	1.4		FALSE	FALSE	FALSE				[Group]	
-Thumb	stream	1.0		FALSE	FALSE	FALSE				[Thumbnail]	
+Thumb	stream	1.0		FALSE	TRUE	FALSE				[Thumbnail]	
 B	array	1.1		FALSE	FALSE	FALSE				[ArrayOfBeads]	
 Dur	number	1.1		FALSE	FALSE	FALSE					
 Trans	dictionary	1.1		FALSE	FALSE	FALSE				[Transition]	
 Annots	array	1.0		FALSE	FALSE	FALSE				[ArrayOfAnnots]	
 AA	dictionary	1.2		FALSE	FALSE	FALSE				[AddActionPageObject]	
-Metadata	stream	1.4		FALSE	FALSE	FALSE				[Metadata]	
+Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]	
 PieceInfo	dictionary	1.3		FALSE	FALSE	FALSE				[PagePiece]	
 StructParents	integer	1.3		FALSE	FALSE	FALSE			Required if the page contains structural content items		
 ID	string-byte	1.3		FALSE	FALSE	FALSE					byte string
@@ -32,3 +32,4 @@ VP	array	1.6		FALSE	FALSE	FALSE				[ArrayOfViewports]
 AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications];[FileSpecification]	
 OutputIntents	array	2.0		FALSE	FALSE	FALSE				[ArrayOfOutputIntents]	
 DPart	dictionary	2.0		FALSE	FALSE	FALSE				[DPart]	
+Hid	boolean	1.1	1.3	FALSE	FALSE	TRUE	FALSE				

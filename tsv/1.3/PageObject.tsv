@@ -10,7 +10,7 @@ TrimBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox
 ArtBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				
 Contents	array;stream	1.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral];[Stream]	
 Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[value mod 90 == 0]			Inheritable from Parent
-Thumb	stream	1.0		FALSE	FALSE	FALSE				[Thumbnail]	
+Thumb	stream	1.0		FALSE	TRUE	FALSE				[Thumbnail]	
 B	array	1.1		FALSE	FALSE	FALSE				[ArrayOfBeads]	
 Dur	number	1.1		FALSE	FALSE	FALSE					
 Trans	dictionary	1.1		FALSE	FALSE	FALSE				[Transition]	
@@ -21,3 +21,4 @@ StructParents	integer	1.3		FALSE	FALSE	FALSE			Required if the page contains str
 ID	string-byte	1.3		FALSE	FALSE	FALSE					byte string
 PZ	number	1.3		FALSE	FALSE	FALSE					
 SeparationInfo	dictionary	1.3		FALSE	FALSE	FALSE				[Separation]	
+Hid	boolean	1.1	1.3	FALSE	FALSE	TRUE	FALSE				
