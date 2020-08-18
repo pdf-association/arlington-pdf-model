@@ -212,6 +212,9 @@ The XML version of the PDF DOM grammar (one XML file per PDF version) is created
 ## Ensure sorting is consistent...
 export LC_ALL=C
 
+## If you have a wide terminal, this helps with TSV display from grep, etc.
+tabs 1,+15,+15,+15,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10
+
 ## Change directory to a specific PDF version or "latest"
 cd ./tsv/latest
 
