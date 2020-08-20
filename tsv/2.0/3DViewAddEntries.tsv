@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.6		FALSE	FALSE	FALSE		[3DView]			
 XN	string	1.6		TRUE	FALSE	FALSE					
-IN	string	1.6		FALSE	FALSE	FALSE		[M,U3D]			
+IN	string	1.6		FALSE	FALSE	FALSE		@XN			
 MS	name	1.6		FALSE	FALSE	FALSE					
 MA	array	2.0		FALSE	FALSE	FALSE				[ArrayOf3DMeasure]	
 C2W	array	1.6		FALSE	FALSE	FALSE			Required=TRUE=>MS=M	[ArrayOf3DTransMatrix]	
