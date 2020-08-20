@@ -207,11 +207,15 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
 
     // if all required are there - return this position in list of links
     if (to_ret != -1) {
-      obj_name += "(as " + links[to_ret] + ")";
+      obj_name += " (as " + links[to_ret] + ")";
       return links[to_ret];
     }
   }
-  output << "Error: Can't select any link from " << links_string <<" to validate provided object:" << obj_name <<  std::endl;
+  output << "Error: Can't select any link from " << links_string <<" to validate provided object: " << obj_name; 
+  if (obj->GetId() != 0) {
+    output << " for object " << obj->GetId();
+  }
+  output << std::endl;
   return "";
 }
 
@@ -301,18 +305,22 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
     }
   };
 
-  if ((vec[TSV_INDIRECTREF] == "TRUE") && (object->GetId() == 0)) {
+  // Treat null object as though the key is not present (i.e. don't report an error)
+  if ((vec[TSV_INDIRECTREF] == "TRUE") && (object->GetId() == 0) && (object->GetObjectType() != kPdsNull)) {
     output << "Error: not indirect: ";
     output << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
   }
 
-  // check type
+  // check type. "null" is always valid and same as not present so ignore.
   int index = get_type_index(object, vec[TSV_TYPE]);
-  if (index == -1 /*&& vec[TSV_TYPE]!="ANY"*/) {
+  if ((object->GetObjectType() != kPdsNull) && (index == -1) /*&& vec[TSV_TYPE]!="ANY"*/) {
     int index2 = get_type_index(object, vec[TSV_TYPE]);
-    output << "Error: wrong type: ";
-    output << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
-    output << " should be: " << vec[TSV_TYPE] << " and is " << get_type_string(object)<< std::endl;
+    output << "Error: wrong type: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
+    output << " should be: " << vec[TSV_TYPE] << " and is " << get_type_string(object);
+    if (object->GetId() != 0) {
+      output << " for object " << object->GetId();
+    }
+    output << std::endl;
   }
 
   // possible value, could be one of many 
@@ -323,10 +331,13 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
     std::wstring str_value;
     if (!check_possible_values(object, vec[TSV_POSSIBLEVALUES], index, str_value))
     {
-      output << "Error: wrong value: ";
-      output << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
+      output << "Error: wrong value: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
       output << " should be: " << vec[TSV_TYPE] << " " << vec[TSV_POSSIBLEVALUES] << " and is ";
-      output << ToString(object) << " (" << ToUtf8(str_value) << ")" << std::endl;
+      output << ToString(object) << " (" << ToUtf8(str_value) << ")";
+      if (object->GetId() != 0) {
+        output << " for object " << object->GetId();
+      }
+      output << std::endl;
     }
 
     //std::wstring str_value;
@@ -381,9 +392,12 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
     //        break;
     //      }
     //  if (!found) {
-    //    output << "Error:  wrong value:";
-    //    output << vec[TSV_KEYNAME] << "(" << grammar_file << ")";
-    //    output << " should be:" << vec[TSV_POSSIBLEVALUES] << " and is " << ToUtf8(str_value) << std::endl;
+    //    output << "Error: wrong value: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
+    //    output << " should be:" << vec[TSV_POSSIBLEVALUES] << " and is " << ToUtf8(str_value);
+    //    if (object->GetId() != 0) {
+    //      output << " for object " << object->GetId();
+    //    }
+    //    output << std::endl;
     //  }
     //}
   }
@@ -504,10 +518,13 @@ void CParsePDF::parse_object()
 
     auto found = mapped.find(elem.object);
     if (found != mapped.end()) {
-      //    output << context << " already Processed" <<std::endl;
-      if (found->second != elem.link) {
-        output << "Error: object validated in two different context first: " << found->second;
-        output << " second: " << elem.link << " in: " << elem.context << std::endl;
+      //    output << context << " already Processed" << std::endl;
+      // "_Universal..." objects match anything so ignore them.
+      if ((found->second != elem.link) && 
+          (((elem.link != "_UniversalDictionary") && (elem.link != "_UniversalArray")) &&
+           ((found->second != "_UniversalDictionary") && (found->second != "_UniversalArray")))) {
+        output << "Error: object validated in two different contexts. First: " << found->second;
+        output << "; second: " << elem.link << " in: " << elem.context << std::endl;
       }
       continue;
     }
@@ -568,8 +585,7 @@ void CParsePDF::parse_object()
         if (vec[TSV_REQUIRED] == "TRUE" && vec[TSV_KEYNAME] != "*") {
           PdsObject* inner_obj = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
           if (inner_obj == nullptr) {
-            output << "Error: required key doesn't exist: ";
-            output << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
+            output << "Error: required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
           }
         }
 
