@@ -136,12 +136,29 @@ The tool allows two different tasks
 	- if values are of correct type
 	- if objects are indirect if required
 	- if value is correct if PossibleValues are defined
-3. compares grammar with Adobe DVA [TODO](#todo-pushpin)
+3. recursively validates a folder containing PDF files.
+    - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting
+4. compares grammar with Adobe DVA 
 
 Notes: 
 * the utility does NOT currently confirm version validity
 
-* the grammar is based on PDF 2.0 where some previously optional keys are now required (e.g. font dictionary FirstChar, LastChar, Widths) which means that matching legacy PDFs will fail unless these keys are present. A warning such as the following will be issued: 
+* all error messages are prefixed with "Error:"
+
+* possible error messages from PDF file validation are as follows. Each error message also provides some context:
+```
+Error: EXCEPTION ...
+Error: Failed to open ...
+Error: failed to acquire Trailer ...
+Error: Can't select any link from ...
+Error: not indirect ...
+Error: wrong type ...
+Error: wrong value ...
+Error: required key doesn't exist ...
+Error: object validated in two different contexts ...
+```
+
+* the grammar is based on PDF 2.0 where some previously optional keys are now required (e.g. font dictionary FirstChar, LastChar, Widths) which means that matching legacy PDFs will fail unless these keys are present. A warning such as the following will be issued (because PDF 2.0 required keys are not present in legacy PDFs so there is no precise match): 
 ```
 Error: Can't select any link from \[FontType1,FontTrueType,FontMultipleMaster,FontType3,FontType0,FontCIDType0,FontCIDType2\] to validate provided object: xxx
 ```
@@ -213,7 +230,7 @@ The XML version of the PDF DOM grammar (one XML file per PDF version) is created
 export LC_ALL=C
 
 ## If you have a wide terminal, this helps with TSV display from grep, etc.
-tabs 1,+15,+15,+15,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10,+10
+tabs 1,20,37,50,64,73,91,103,118,140,158
 
 ## Change directory to a specific PDF version or "latest"
 cd ./tsv/latest
@@ -239,7 +256,7 @@ cut -f 3 *.tsv | sort | uniq
 cut -f 4 *.tsv | sort | uniq
 # Correct response: values 1.0, ..., 2.0, DeprecatedIn. Blank lines OK.
 
-## Confirm all "Required" values
+## Confirm all "Required" values (TRUE or FALSE)
 cut -f 5 *.tsv | sort | uniq
 # Correct response: TRUE, FALSE, Required. No blank lines.
 
@@ -247,7 +264,7 @@ cut -f 5 *.tsv | sort | uniq
 cut -f 6 *.tsv | sort | uniq
 # Correct response: TRUE, FALSE, IndirectReference. No blank lines.
 
-## Column 7 is "Inheritable"
+## Column 7 is "Inheritable" (TRUE or FALSE)
 cut -f 7 *.tsv | sort | uniq
 # Correct response: TRUE, FALSE, Inheritable. No blank lines.
 
@@ -284,5 +301,4 @@ cut -f 1 *.tsv | sort | uniq
 
 ## Tools
 - when validating pdf file, check required values in parent dictionaries when inheritance is allowed. 
-- compare grammar with Adobe DVA. 
-- update 3D/VR to support each PDF version 
+
