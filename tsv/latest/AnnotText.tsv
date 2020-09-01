@@ -29,5 +29,5 @@ IT	name	1.6		FALSE	FALSE	FALSE
 Open	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
 Name	name	1.0		FALSE	FALSE	FALSE	Note	[Comment,Key,Note,Help,NewParagraph,Paragraph,Insert]			
 State	string-text	1.0		FALSE	FALSE	FALSE					
-StateModel	string-text	1.5		FALSE	FALSE	FALSE			Required=True:IsPresent->State		
+StateModel	string-text	1.5		fn:IsRequired(fn:IsPresent(State))	FALSE	FALSE					
 ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]	

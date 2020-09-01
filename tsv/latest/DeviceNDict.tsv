@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Subtype	name	1.6		FALSE	FALSE	FALSE	DeviceN	[DeviceN,NChannel]			
-Colorants	dictionary	1.6		FALSE	FALSE	FALSE			IsRequired=>Subtype==NChannel	[ColorantsDict]	
-Process	dictionary	1.6		FALSE	FALSE	FALSE			IsRequired=>Subtype==NChannel	[DeviceNProcess]	
+Colorants	dictionary	1.6		fn:IsRequired(@Subtype==NChannel)	FALSE	FALSE				[ColorantsDict]	
+Process	dictionary	1.6		fn:IsRequired(@Subtype==NChannel)	FALSE	FALSE				[DeviceNProcess]	
 MixingHints	dictionary	1.6		FALSE	FALSE	FALSE				[DeviceNMixingHints]	
