@@ -182,6 +182,10 @@ make
 ```
 Compiled binaries will be in [/TestGrammar/bin/linux](/TestGrammar/bin/linux).
 
+##### Mac OS/X
+
+
+
 #### Usage (Windows): 
 To validate single PDF file call:
 -	TestGrammar.exe \<input_file> \<grammar_folder> \<report_file>
@@ -225,12 +229,16 @@ List of available commands:
 The XML version of the PDF DOM grammar (one XML file per PDF version) is created from the TSV files and written to ./xml/objects. All of the answers to queries are based on processing the XML files in ./xml/objects. 
  
 ## Useful Linux commands
+
+Basic Linux commands can be used on the PDF DOM TSV data files. 
+Alternatively the EBay TSV-Utils such as tsv-pretty, tsv-filter, etc. can also be used - see https://github.com/eBay/tsv-utils.
+
 ```
 ## Ensure sorting is consistent...
 export LC_ALL=C
 
 ## If you have a wide terminal, this helps with TSV display from grep, etc.
-tabs 1,20,37,50,64,73,91,103,118,140,158
+tabs 1,20,37,50,64,73,91,103,118,140,158,175,190,210,230
 
 ## Change directory to a specific PDF version or "latest"
 cd ./tsv/latest
@@ -247,18 +255,21 @@ grep -P "Note\t\t" *.tsv | sed -e 's/\t/\\t/g'
 ## Confirm the Type column
 cut -f 2 *.tsv | sort | uniq 
 # Correct response: each line only has Types listed above, separated by semi-colons, sorted alphabetically. No blank lines.
+cut -f 2 *.tsv | sed -e 's/;/\n/g' | sort | uniq
+# Correct response: Type, array, boolean, date, dictionary, fn:Deprecated(type,pdf-version), integer, name, name-tree,
+#                   null, number, number-tree, rectangle, stream, string, string-ascii, string-byte, string-text
 
 ## Confirm all "SinceVersion" values 
 cut -f 3 *.tsv | sort | uniq
-# Correct response: values 1.0, ..., 2.0, SinceVersion. No blank lines.
+# Correct response: pdf-version values 1.0, ..., 2.0, SinceVersion. No blank lines.
 
 ## Confirm all "DeprecatedIn" values
 cut -f 4 *.tsv | sort | uniq
-# Correct response: values 1.0, ..., 2.0, DeprecatedIn. Blank lines OK.
+# Correct response: pdf-version values 1.0, ..., 2.0, DeprecatedIn. Blank lines OK.
 
 ## Confirm all "Required" values (TRUE or FALSE)
 cut -f 5 *.tsv | sort | uniq
-# Correct response: TRUE, FALSE, Required. No blank lines.
+# Correct response: TRUE, FALSE, Required, fn:IsRequired(...). No blank lines.
 
 ## Confirm all "IndirectReference" values (TRUE or FALSE)
 cut -f 6 *.tsv | sort | uniq
@@ -286,6 +297,12 @@ cut -f 11 *.tsv | sort | uniq
 
 ## All "Notes" (free form text)
 cut -f 12 *.tsv | sort | uniq
+
+## Set of all unique custom function names (starting "fn:")
+grep -ho "fn:[a-zA-Z]*" *.tsv | sort | uniq
+
+## Custom functions in context
+grep -Pho "fn:[^\t]*" *.tsv | sort | uniq
 
 ## Unique set of key names (case-sensitive strings), array indices (0-based integers) or '*' for dictionary or array maps
 cut -f 1 *.tsv | sort | uniq
