@@ -1,10 +1,10 @@
 # **PDF 2.0 DOM Grammar**
 
-We extracted all Tables from the latest PDF 2.0 dated revision (ISO/FDIS 32000-2) specification and represent them in series of worksheets. Each worksheet represents a single PDF object - either a dictionary, array, stream, map, etc. and contains necessary data to validate real world PDF files.
+We extracted all Tables from the latest PDF 2.0 dated revision (ISO/FDIS 32000-2:2020) specification and represent them in series of tabbed separated values (TSV) files. Each TSV represents a single PDF object - either a dictionary, array, stream, map, etc. and contains necessary data to validate real world PDF files.
 
-Our main source is [PDF20Grammar.ods](PDF20Grammar.ods) which is a [LibreOffice Calc](https://www.libreoffice.org/) spreadsheet. There is a specific worksheet **!TableMap** that identifies each worksheet and then each worksheet is the representation of a PDF object from the PDF spec (most often mapping back to a Table in the PDF spec.) Note that due to the very large number of worksheets (\>490!), Microsoft Excel cannot be used. 
+Previously the main source was [PDF20Grammar.ods](PDF20Grammar.ods) which is a [LibreOffice Calc](https://www.libreoffice.org/) spreadsheet. There is a specific worksheet **!TableMap** that identifies each worksheet and then each worksheet is the representation of a PDF object from the PDF spec (most often mapping back to a Table in the PDF spec.) Note that due to the very large number of worksheets (\>490!), Microsoft Excel cannot be used. However with the introduction of the internal declarative grammar to specify data relationships the **ODS file is no longer being used and the TSV data is now considered the master data!**
 
-Columns must be in the following order:
+TSV columns must be in the following order:
 1. **Key** - key in dictionary, or index into an array. "\*" means any key / index.
 1. **Type**	- one or more [type](#Type) or types separated by ";".
 1. **SinceVersion**	- version of PDF this key was introduced in. Possible values are 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0.
@@ -22,10 +22,10 @@ Rows define specific keys in a dictionary or an element in an array and the char
 
 All names are expressed **without** the leading FORWARD-SLASH (/).
 
-The two special objects \_UniversalArray and \_UniversalDictionary are not defined in the PDF spec and represent a generic PDF array object and generic PDF dictionary object respectively. They are used to resolve Links for a few PDF objects under special circumstances. 
+The two special objects \_UniversalArray and \_UniversalDictionary are not defined in the PDF spec and represent a generic arbitrarily-sized PDF array object and PDF dictionary object respectively. They are used to resolve Links for a few PDF objects under special circumstances. 
 
 ## **Key**
-Key represents a single key in a dictionary, an index in an array, or multiple entries.
+Key represents a single key in a dictionary, an index in an array, or multiple entries (\*). Keys are obviously case sensitive. To locate a key easily using Linux begin a regex with the start-of-line (^).
 Example of a single entry in the PageObject dictionary:  
 Key | Type | Required | PossibleValues |
 --- | --- | --- | --- |
@@ -72,15 +72,26 @@ PDF 2.0 defines a few basic types, but within the spec other types are specified
 - string-byte
 - string-text
 
-A single key in a dictionary can often be of different types. A common example is when a key is either a dictionary or an array of dictionaries. In this case **Type** would be defined as "array;dictionary". Types are always stored in alphabetical order in the 2nd column.
+A single key in a dictionary can often be of different types. A common example is when a key is either a dictionary or an array of dictionaries. In this case **Type** would be defined as "array;dictionary". Types are always stored in alphabetical order in the 2nd column using SEMI-COLON (;) separators.
 
-This Linux command lists all combinations of these types used throughout PDF:
+These Linux commands lists all combinations of types used in PDF:
 ```
 cut -f 2 *.tsv | sort | uniq 
+cut -f 2 *.tsv | sed -e 's/;/\n/g' | sort | uniq
 ```
 
+## **SinceVersion** and **DeprecatedIn**
+These fields define the PDF versions when the relevant key or array element was introduced or deprecated, as described in ISO/FDIS 32000-2:2020. 
+All TSV rows must have a SinceVersion entry. If rows are still valid in PDF 2.0, then DeprecatedIn will be blank.
+
+## **Required**
+This is effectively a boolean field (TRUE or FALSE) but may contain the "fn:IsRequired(...) function. Examples include:
+- when a key changes from optional to required in a particualr PDF version then the expression "fn:IsRequired(fn:SinceVersion(x.y))" is used.
+- if a key/array entry is conditional based on the value of another key then an expression such as "fn:IsRequired(@Filter!=JPXDecode)" can be used. The "@" syntax means "value of key/array index ..."
+- if a key/array entry is conditional based on the presence or absence of another key then the nested expressions "fn:IsRequired(fn:IsPresent(OtherKeyName))" or "fn:IsRequired(fn:NotPresent(OtherKeyName))" can be used.
+
 ## **Link**
-If a specific key requires further validation (e.g. represents another dictionary or array) we link this key to another worksheet via the Link column. Example in PageObject:  
+If a specific key or array element requires further validation (e.g. represents another dictionary or array) we link this key to another TSV via the Link column (it is the TSV filename without any file extension. Links are always encapsulated in \[ and \]. Example in PageObject:  
 Key | Type | Link |
 --- | --- | --- |
 Resources  | dictionary | \[Resource] |
@@ -92,11 +103,13 @@ Type | Link |
 --- | --- |
 array<b>;</b>dictionary |\[ValidateArray];\[ValidateDictionary]
 
-Another common example is that one dictionary could be validated based on few different links (Annotation could either be Popup, Stamp etc.) In such case options would be separated with a COMMA "," separator like this:
+Another common example is that one dictionary could be validated based on few different dictionaries (Annotation could either be Popup, Stamp etc.) In such case options would be separated with a COMMA (",") separator like this:
 
 Type | Link |
 --- | --- |
 array;dictionary | \[ArrayOfAnnotations];\[AnnotStamp<b>,</b>AnnotRedact<b>,</b>AnnotPopup]
+
+Links may also use the "fn:Deprecated()" or "fn:SinceVersion()" functions if a specific type of PDF object has been deprecated or introduced in a particular PDF version. 
 
 ## **PossibleValues**
 PossibleValues also follow the same pattern as Links:
@@ -105,10 +118,23 @@ Type | PossibleValues |
 --- | --- |
 array;dictionary | \[Value1ForType1,Value2ForType1];\[Value1ForType2,Value2ForType2]
 
-Sometimes it's necessary to define formula to cover all possible values: [TODO](#todo-pushpin)
+Often times it is necessary to define a formula (fn:...) to define when values are valid.
 
 ## **SpecialCase**
-[TODO](#todo-pushpin)
+A declarative-style internal grammar is used to define  more advanced kinds of relationships. Every function is always prefixed with "fn:". Current functions in use include:
+
+```
+fn:CreatedFromNamePageObj
+fn:Deprecated
+fn:ImageIsStructContentItem
+fn:IsMeaningful
+fn:IsPresent
+fn:IsRequired
+fn:NotPresent
+fn:PageContainsStructContentItems
+fn:RequiredValue
+fn:SinceVersion
+```
 
 ---
 
@@ -121,6 +147,8 @@ This repository contains the following Proof-of-Concept implementations:
 - Python script	- generates a single JSON file of the PDF DOM as well as a 3D/VR visualization (also JSON based) from the TSV files
 
 ## **Exporting to TSV**
+
+**This information is now obsolete! Do not do this or you will overwrite TSV data with the formulas!** 
 In LibreOffice Calc, go Tools | Run Macro.. then pick from PDF20Grammar.ods | Standard | Module the macro called "ExportToTSV". This will write out all TSV files into a folder tree called "./tsv/latest" from where the PDF20Grammar.ods is stored. Existing TSV files will be overwritten! 
 
 Note that the gcxml utility below can additionally generate TSV files for each specific PDF version into **./tsv/<version>/**.
@@ -130,14 +158,15 @@ Command line tool based on the free [PDFix library](https://pdfix.net/download-f
 
 The tool allows two different tasks
 1. validates all TSV files.
-	- Check the uniformity (number of columns), if all types are one of basic types etc..
+	- Check the uniformity (number of columns), if all types are one of basic types etc.
 2. validates a PDF file. Starting from Trailer, the tool validates:
 	- if all required keys are present
 	- if values are of correct type
 	- if objects are indirect if required
 	- if value is correct if PossibleValues are defined
+    - all error messages are prefixed with "Error:" to enable post-processing
 3. recursively validates a folder containing PDF files.
-    - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting
+    - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting.
 4. compares grammar with Adobe DVA 
 
 Notes: 
@@ -145,7 +174,7 @@ Notes:
 
 * all error messages are prefixed with "Error:"
 
-* possible error messages from PDF file validation are as follows. Each error message also provides some context:
+* possible error messages from PDF file validation are as follows. Each error message also provides some context (e.g. a PDF object number):
 ```
 Error: EXCEPTION ...
 Error: Failed to open ...
@@ -184,16 +213,17 @@ Compiled binaries will be in [/TestGrammar/bin/linux](/TestGrammar/bin/linux).
 
 ##### Mac OS/X
 
+T.B.D. - try Linux instructions???
 
-
-#### Usage (Windows): 
+#### Usage: 
 To validate single PDF file call:
--	TestGrammar.exe \<input_file> \<grammar_folder> \<report_file>
+-	TestGrammar \<input_file> \<grammar_folder> \<report_file>
 
 	- input_file      - full pathname to input pdf   
 	- grammar_folder  - folder with TSV files representing PDF 2.0 Grammar  
 	- report_file     - text file for storing results
 
+Windows usage:
 ```
 TestGrammar.exe "C:\Test grammar\test file.pdf" "C:\Grammar folder\tsv\" "c:\temp\test file.txt"
 ```
@@ -312,10 +342,18 @@ cut -f 1 *.tsv | sort | uniq
 
 # TODO :pushpin:
 
-## Grammar
-- define language for formulas in PossibleValues (currently we have following intervals: <0,100>, <-1.0,1.0>, <0,1>, <0,2>,	<0.0,1.0> and also some expressions: value\>=2, value\>=1, value\>=0, value\<0, value\>0 and also combinations: <40,128> value\*8,<40,128> value\*8, <40,128> value\*8, value\*90, value\*1/72
-- define language for SpecialCase column, needs to include required direct object, inheritance, special conditions etc.
+## Declarative Internal Grammar
+- fully specify our evolving grammar...
 
-## Tools
-- when validating pdf file, check required values in parent dictionaries when inheritance is allowed. 
+## TestGrammar utility
+- when validating the TSV data files, also do a validation on all the internal declarative grammar expressions
+- when validating a PDF file, check required values in parent dictionaries when inheritance is allowed. 
+- extend TestGrammar with new feature to report all keys that are NOT defined in any PDF specification (as this may indicate either proprietary extensions, undocumented legacy extensions or common errors/malformations from PDF writers). 
+
+## gcxml utility
+- confirm that the XML produced from the TSV data with formulas is still valid
+
+## Python script
+- confirm that the JSON produced from the TSV data with formulas is still valid
+- confirm why some PDF objects from later PDF versions end up in earlier versions
 
