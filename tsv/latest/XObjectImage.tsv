@@ -13,7 +13,7 @@ Interpolate	boolean	1.0		FALSE	FALSE	FALSE	FALSE
 Alternates	array	1.3		FALSE	FALSE	FALSE				[ArrayOfImageAlternates]	
 SMask	stream	1.4		FALSE	FALSE	FALSE				[XObjectImageSoftMask]	
 SMaskInData	integer	1.5		FALSE	FALSE	FALSE		[0,1,2]			
-Name	name	1.0	2.0	fn:IsRequired(pdf-version==1.0)	FALSE	FALSE					
+Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
 StructParent	integer	1.3		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					
 ID	string-byte	1.3		FALSE	FALSE	FALSE					
 OPI	dictionary	1.2	2.0	FALSE	FALSE	FALSE				[OPIVersion13,OPIVersion20]	

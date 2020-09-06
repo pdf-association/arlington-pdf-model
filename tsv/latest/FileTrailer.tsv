@@ -4,4 +4,4 @@ Prev	integer	1.0		FALSE	FALSE	FALSE
 Root	dictionary	1.0		TRUE	TRUE	FALSE				[Catalog]	
 Encrypt	dictionary	1.1		FALSE	FALSE	FALSE				[EncryptionStandard,EncryptionPublicKey]	
 Info	dictionary	1.0		FALSE	TRUE	FALSE				[DocInfo]	
-ID	array	1.1		fn:IsRequired(pdf-version==2.0 || fn:IsPresent(Encrypt))	FALSE	FALSE				[ArrayOf_2StringsByte]	
+ID	array	1.1		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	FALSE	FALSE				[ArrayOf_2StringsByte]	
