@@ -8,7 +8,7 @@ Flags	integer	1.2		TRUE	FALSE	FALSE
 FontBBox	rectangle	1.2		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
 ItalicAngle	number	1.2		TRUE	FALSE	FALSE					
 Ascent	number	1.2		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
-Descent	number	1.2		TRUE	FALSE	FALSE		[value<0]	Optional for Type 3 fonts		
+Descent	number	1.2		TRUE	FALSE	FALSE		[fn:Expr(@self<0)]	Optional for Type 3 fonts		
 Leading	number	1.2		FALSE	FALSE	FALSE	0				
 CapHeight	number	1.2		FALSE	FALSE	FALSE					
 XHeight	number	1.2		FALSE	FALSE	FALSE	0				

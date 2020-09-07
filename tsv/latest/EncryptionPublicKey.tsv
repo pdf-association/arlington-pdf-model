@@ -3,7 +3,7 @@ Recipients	array	1.3		FALSE	FALSE	FALSE				[ArrayOfStringsByte]
 Filter	name	1.1		TRUE	FALSE	FALSE		[Adobe.PubSec,AdobePPKLite]			
 SubFilter	name	1.3		FALSE	FALSE	FALSE		[adbe.pkcs7.s3,adbe.pkcs7.s4,adbe.pkcs7.s5]			
 V	integer	1.4		FALSE	FALSE	FALSE		[0,1,2,3,4,5]			
-Length	integer	1.4	2.0	FALSE	FALSE	FALSE	40	[value>=40 && value<=128 && value mod 8==0]			
+Length	integer	1.4	2.0	FALSE	FALSE	FALSE	40	[fn:Expr(@self>=40 && @self<=128 && @self mod 8==0)]			
 CF	dictionary	1.1		FALSE	FALSE	FALSE			fn:IsMeaningful((@V==4 && fn:SinceVersion(1.5)) || (@V==5 && fn:SinceVersion(2.0)))	[CryptFilter,CryptFilterPublicKey]	
 StmF	name	1.5		FALSE	FALSE	FALSE	Identity				
 StrF	name	1.5		FALSE	FALSE	FALSE	Identity				
