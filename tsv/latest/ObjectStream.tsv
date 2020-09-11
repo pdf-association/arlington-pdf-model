@@ -4,9 +4,9 @@ N	integer	1.5		TRUE	FALSE	FALSE
 First	integer	1.5		TRUE	FALSE	FALSE					
 Extends	dictionary	1.5		FALSE	TRUE	FALSE			fn:NoCycle()	[ObjectStream]	forms a directed acyclic graph
 Length	integer	1.5		TRUE	FALSE	FALSE					
-Filter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]		[ArrayOfFilterNames];[]	
+Filter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]		[ArrayOfCompressionFilterNames];[]	
 DecodeParms	array;dictionary	1.5		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
 F	dictionary;string	1.5		FALSE	FALSE	FALSE				[FileSpecification];[]	
-FFilter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]		[ArrayOfFilterNames];[]	
+FFilter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]		[ArrayOfCompressionFilterNames];[]	
 FDecodeParms	array;dictionary	1.5		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
 DL	integer	1.5		FALSE	FALSE	FALSE					
