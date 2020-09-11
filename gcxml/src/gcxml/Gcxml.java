@@ -24,7 +24,7 @@ public class Gcxml {
 	/**
 	 * gcxml version string
 	 */
-    public static final String grammar_version = "0.3.0";
+    public static final String grammar_version = "0.4.0";
 
     /**
      * @param args the command line arguments
