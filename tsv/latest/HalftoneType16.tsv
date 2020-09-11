@@ -8,9 +8,9 @@ Width2	integer	1.3		FALSE	FALSE	FALSE
 Height2	integer	1.3		FALSE	FALSE	FALSE					
 TransferFunction	dictionary;name;stream	1.3		FALSE	FALSE	FALSE				[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]	
 Length	integer	1.3		TRUE	FALSE	FALSE					* from stream
-Filter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
-DecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	
+Filter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]		[ArrayOfFilterNames];[]	
+DecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
 F	dictionary;string	1.3		FALSE	FALSE	FALSE				[FileSpecification];[]	
-FFilter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
-FDecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	
+FFilter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]		[ArrayOfFilterNames];[]	
+FDecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
 DL	integer	1.5		FALSE	FALSE	FALSE					
