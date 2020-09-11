@@ -1,0 +1,5 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+0	name	1.4		TRUE	FALSE	FALSE		[Top,Bottom,Left,Right]			
+1	name	1.4		FALSE	FALSE	FALSE		[Top,Bottom,Left,Right]	fn:Eval(@self != @0)		
+2	name	1.4		FALSE	FALSE	FALSE		[Top,Bottom,Left,Right]	fn:Eval(@self != @0 && @self != @1)		
+3	name	1.4		FALSE	FALSE	FALSE		[Top,Bottom,Left,Right]	fn:Eval(@self != @0 && @self != @1 && @self != @2)		

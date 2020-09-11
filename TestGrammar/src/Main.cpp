@@ -59,7 +59,7 @@ void show_help() {
 
 #ifdef _WIN32
 int wmain(int argc, wchar_t* argv[]) {
-#elif defined __linux__
+#else
 int main(int argc, char* argv[]) {
 #endif
   //clock_t tStart = clock();

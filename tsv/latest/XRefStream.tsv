@@ -1,0 +1,13 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.5		TRUE	FALSE	FALSE		[XRef]			
+Size	integer	1.5		TRUE	FALSE	FALSE					
+Index	array	1.5		FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral]	
+Prev	integer	1.5		FALSE	FALSE	FALSE					
+W	array	1.5		TRUE	FALSE	FALSE				[ArrayOf_3Integers]
+Length	integer	1.5		TRUE	FALSE	FALSE					
+Filter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]		[ArrayOfCompressionFilterNames];[]	
+DecodeParms	array;dictionary	1.5		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
+F	dictionary;string	1.5		FALSE	FALSE	FALSE				[FileSpecification];[]	
+FFilter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]		[ArrayOfCompressionFilterNames];[]	
+FDecodeParms	array;dictionary	1.5		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
+DL	integer	1.5		FALSE	FALSE	FALSE					

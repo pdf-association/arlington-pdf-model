@@ -20,6 +20,9 @@ if (WIN32)
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY 
             ${CMAKE_SOURCE_DIR}/bin/x64)
     endif()
+elseif(APPLE)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY 
+		${CMAKE_SOURCE_DIR}/bin/darwin)
 elseif(UNIX)
    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY 
         ${CMAKE_SOURCE_DIR}/bin/linux) 
@@ -29,7 +32,7 @@ add_executable(TestGrammar
     src/Main.cpp
 	${SOURCES}
 	)
-
-if (UNIX)
+if(APPLE)
+elseif (UNIX)
     target_link_libraries(TestGrammar dl stdc++fs)   
 endif()

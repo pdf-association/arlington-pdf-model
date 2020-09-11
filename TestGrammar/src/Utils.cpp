@@ -18,10 +18,11 @@
 #include <locale.h>
 #include <codecvt>
 #include <math.h>
+#include <regex>
 #ifdef _WIN32
 #include <Windows.h>
 extern HINSTANCE ghInstance;
-#elif defined __linux__
+#else
 #include <cstring>
 #include <limits.h>
 #include <locale>
@@ -183,10 +184,60 @@ bool file_exists(const std::string& path) {
 
 //////////////////////////////////////////////////////////////////////////
 // 
-std::vector<std::string> split(const std::string& s, char seperator) {
+std::vector<std::string> split(const std::string& s, char separator) {
+  //std::regex functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|,]+\\)");
+  //std::smatch match;
+  //if (std::regex_search(s, match, functionStr))
+  //  std::cout << "match: " << match[1] << '\n';
+
+  std::vector<std::string> output;
+  std::string::size_type pos_prev = 0, pos_separator=0, pos_fn = 0, pos=0;
+
+  auto finish = false;
+  while (!finish) {
+    pos_separator = s.find(separator, pos_prev);
+    auto pos1 = s.find("FN:", pos);
+    auto pos2 = s.find("fn:", pos);
+    if (pos1 < pos2)
+      pos_fn = pos1;
+    else
+      pos_fn = pos2;
+
+    if (pos_separator <= pos_fn)
+      pos = pos_separator;
+    else {
+      int num_brackets = 0;
+      bool found = false;
+      while (!found && pos_fn < s.size()) {
+        if (s[pos_fn] == '(') num_brackets++;
+        if (s[pos_fn] == ')') num_brackets--;
+        if ((s[pos_fn] == separator) && (num_brackets == 0))
+          found = true;
+        else pos_fn++;
+      }
+      if (pos_fn == s.size())
+        pos = std::string::npos;
+      else 
+        pos = pos_fn;
+    }
+
+    if (pos == std::string::npos) {
+      output.push_back(s.substr(pos_prev, pos - pos_prev)); // Last word
+      finish = true;
+    } else {
+      std::string substring(s.substr(pos_prev, pos - pos_prev));
+      output.push_back(substring);
+      pos_prev = ++pos;
+    }
+  }
+  
+  return output;
+}
+
+std::vector<std::string> split_old(const std::string& s, char separator) {
   std::vector<std::string> output;
   std::string::size_type prev_pos = 0, pos = 0;
-  while ((pos = s.find(seperator, pos)) != std::string::npos){
+  while ((pos = s.find(separator, pos)) != std::string::npos){
     std::string substring(s.substr(prev_pos, pos - prev_pos));
     output.push_back(substring);
     prev_pos = ++pos;

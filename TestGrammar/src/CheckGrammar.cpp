@@ -27,6 +27,7 @@
 
 using namespace PDFixSDK;
 
+
 void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
   // collecting all tsv starting from Catalog
   std::vector<std::string> processed;
@@ -285,7 +286,7 @@ void process_dict(std::ofstream& ofs) {
       }
 
       if (inner_obj == nullptr) {
-        //rt ofs << "Missing in DVA: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
+        ofs << "Missing in DVA: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
         continue;
       }
       else {
@@ -296,66 +297,66 @@ void process_dict(std::ofstream& ofs) {
         if (inner_obj->GetBoolean(L"MustBeIndirect", false)) indirect = "TRUE";
         std::string required = "FALSE";
         if (inner_obj->GetBoolean(L"Required", false)) required = "TRUE";
-        //if (vec[TSV_INDIRECTREF]!= indirect)
-        //  ofs << "Indirect is different DVA:" << ToUtf8(elem.dva_link) << " OUR:" << elem.link <<"::" << vec[TSV_KEYNAME] << "==" << vec[TSV_INDIRECTREF] << std::endl;
-        //if (vec[TSV_REQUIRED] != required)
-        //  ofs << "Required is different DVA:" << ToUtf8(elem.dva_link) << " OUR:" << elem.link << "::" << vec[TSV_KEYNAME] <<"=="<< vec[TSV_REQUIRED] << std::endl;
+        if (vec[TSV_INDIRECTREF]!= indirect)
+          ofs << "Indirect is different DVA:" << ToUtf8(elem.dva_link) << " OUR:" << elem.link <<"::" << vec[TSV_KEYNAME] << "==" << vec[TSV_INDIRECTREF] << std::endl;
+        if (vec[TSV_REQUIRED] != required)
+          ofs << "Required is different DVA:" << ToUtf8(elem.dva_link) << " OUR:" << elem.link << "::" << vec[TSV_KEYNAME] <<"=="<< vec[TSV_REQUIRED] << std::endl;
 
         //std::string ver = std::to_string(inner_obj->GetInteger(L"PDFMajorVersion", 0)) + "." + std::to_string(inner_obj->GetInteger(L"PDFMinorVersion", 0));
         //if (ver != vec[TSV_SINCEVERSION])
         //  ofs << "Since version is different DVA:" << ToUtf8(elem.dva_link) << " OUR:" << elem.link << "::" << vec[TSV_KEYNAME] << " " << ver << " vs. " << vec[TSV_SINCEVERSION] << std::endl;
 
 //Check Allowed Types
-        //PdsArray* types_array = (PdsArray*)inner_obj->Get(L"ValueType");
-        //if (types_array==nullptr)
-        //  ofs << "Types not defined in DVA:" << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
-        //else {
-        //  std::vector<std::string>types_our = split(vec[TSV_TYPE], ';');
-        //  for (int i = 0; i < types_our.size(); i++) {
-        //    if (types_our[i] == "BOOLEAN") types_our[i] = "CosBool";
-        //    if (types_our[i] == "NAME") types_our[i] = "CosName";
-        //    if (types_our[i] == "NUMBER") { types_our[i] = "CosFixed"; types_our.push_back("CosInteger"); }
-        //    if (types_our[i] == "INTEGER") types_our[i] = "CosInteger";
-        //    if (types_our[i] == "STREAM") types_our[i] = "CosStream";
-        //    if (types_our[i] == "ARRAY" || types_our[i] == "RECTANGLE") types_our[i] = "CosArray";
-        //    if (types_our[i] == "DICTIONARY" || types_our[i] == "NAME-TREE" || types_our[i] == "NUMBER-TREE") types_our[i] = "CosDict";
-        //    if (types_our[i] == "STRING" || types_our[i] == "DATE" || types_our[i] == "STRING-BYTE"
-        //      || types_our[i] == "STRING-TEXT" || types_our[i] == "STRING-ASCII") types_our[i] = "CosString";
-        //  }
-        //  std::vector<std::string> types_dva;
-        //  for (int i = 0; i < types_array->GetNumObjects(); i++) {
-        //    std::wstring new_dva_value;
-        //    new_dva_value.resize(types_array->GetText(i, nullptr, 0));
-        //    types_array->GetText(i, (wchar_t*)new_dva_value.c_str(), (int)new_dva_value.size());
-        //    for (int i = 0; i < types_our.size(); i++) 
-        //      if (types_our[i] == ToUtf8(new_dva_value)) {
-        //        types_our[i] = "";
-        //        new_dva_value = L"";
-        //        break;
-        //      }
-        //    types_dva.push_back(ToUtf8(new_dva_value));
-        //  }
-        //  
-        //  std::string head = "==Key " + ToUtf8(elem.dva_link) +" " + elem.link + "::" + vec[TSV_KEYNAME] + "\n";
-        //  std::string our("");
-        //  for (auto& tpe : types_our)
-        //    if (tpe != "") our += tpe + ",";
-        //  if (our != "") {
-        //    if (head != "") {
-        //      ofs << head; head = "";
-        //    }
-        //    ofs << "\tOUR:" << our << std::endl;
-        //  }
-        //  our = "";
-        //  for (auto& tpe : types_dva)
-        //    if (tpe != "") our += tpe + ",";
-        //  if (our != "") {
-        //    if (head != "") {
-        //      ofs << head; head = "";
-        //    }
-        //    ofs << "\tDVA:" << our << std::endl;
-        //  }
-        //}
+        PdsArray* types_array = (PdsArray*)inner_obj->Get(L"ValueType");
+        if (types_array==nullptr)
+          ofs << "Types not defined in DVA:" << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
+        else {
+          std::vector<std::string>types_our = split(vec[TSV_TYPE], ';');
+          for (int i = 0; i < types_our.size(); i++) {
+            if (types_our[i] == "BOOLEAN") types_our[i] = "CosBool";
+            if (types_our[i] == "NAME") types_our[i] = "CosName";
+            if (types_our[i] == "NUMBER") { types_our[i] = "CosFixed"; types_our.push_back("CosInteger"); }
+            if (types_our[i] == "INTEGER") types_our[i] = "CosInteger";
+            if (types_our[i] == "STREAM") types_our[i] = "CosStream";
+            if (types_our[i] == "ARRAY" || types_our[i] == "RECTANGLE") types_our[i] = "CosArray";
+            if (types_our[i] == "DICTIONARY" || types_our[i] == "NAME-TREE" || types_our[i] == "NUMBER-TREE") types_our[i] = "CosDict";
+            if (types_our[i] == "STRING" || types_our[i] == "DATE" || types_our[i] == "STRING-BYTE"
+              || types_our[i] == "STRING-TEXT" || types_our[i] == "STRING-ASCII") types_our[i] = "CosString";
+          }
+          std::vector<std::string> types_dva;
+          for (int i = 0; i < types_array->GetNumObjects(); i++) {
+            std::wstring new_dva_value;
+            new_dva_value.resize(types_array->GetText(i, nullptr, 0));
+            types_array->GetText(i, (wchar_t*)new_dva_value.c_str(), (int)new_dva_value.size());
+            for (int i = 0; i < types_our.size(); i++) 
+              if (types_our[i] == ToUtf8(new_dva_value)) {
+                types_our[i] = "";
+                new_dva_value = L"";
+                break;
+              }
+            types_dva.push_back(ToUtf8(new_dva_value));
+          }
+          
+          std::string head = "==Key " + ToUtf8(elem.dva_link) +" " + elem.link + "::" + vec[TSV_KEYNAME] + "\n";
+          std::string our("");
+          for (auto& tpe : types_our)
+            if (tpe != "") our += tpe + ",";
+          if (our != "") {
+            if (head != "") {
+              ofs << head; head = "";
+            }
+            ofs << "\tOUR:" << our << std::endl;
+          }
+          our = "";
+          for (auto& tpe : types_dva)
+            if (tpe != "") our += tpe + ",";
+          if (our != "") {
+            if (head != "") {
+              ofs << head; head = "";
+            }
+            ofs << "\tDVA:" << our << std::endl;
+          }
+        }
 
 //Check Possible Value
         PdsDictionary *bounds_dict = (PdsDictionary*)inner_obj->Get(L"Bounds");
@@ -424,7 +425,7 @@ void process_dict(std::ofstream& ofs) {
           ((PdsName*)link_obj)->GetText((wchar_t*)link_str_value.c_str(), (int)link_str_value.size());
           std::vector<std::string> lnk = split(vec[TSV_LINK], ';');
           if (vec[TSV_LINK] == "" || lnk.size() != 1) {
-            //rt ofs << "Wrong link in OUR: " << elem.link << "::" << vec[TSV_KEYNAME] << std::endl;
+            ofs << "Wrong link in OUR: " << elem.link << "::" << vec[TSV_KEYNAME] << std::endl;
           }
           else to_process_checks.emplace(link_str_value, lnk[0].substr(1, lnk[0].size() - 2));
         }
@@ -451,7 +452,6 @@ void process_dict(std::ofstream& ofs) {
             //rt ofs << "TODO: Check link dictionary: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
           }
 
-
           if (link_stream_value != L"" && lnk_stream != "[]")
             to_process_checks.emplace(link_stream_value, lnk_stream.substr(1, lnk_stream.size() - 2));
           else if (!(link_stream_value == L"" && lnk_stream == "[]")) {
@@ -463,8 +463,6 @@ void process_dict(std::ofstream& ofs) {
           else if (!(link_array_value == L"" && lnk_array == "[]")) {
             //rt ofs << "TODO: Check link array: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
           }
-
-
         }
       };
     }
@@ -485,7 +483,7 @@ void process_dict(std::ofstream& ofs) {
           && key != L"ArrayStyle" && key != L"FormalRepOfArray"
           && key != L"GenericKey" && key != L"ConcatWithFormalReps") {
 
-          //rt in_ofs << "Missing in OUR: " << elem.link << "::" << ToUtf8(key) << std::endl;
+          in_ofs << "Missing in OUR: " << elem.link << "::" << ToUtf8(key) << std::endl;
         }
       }
     };
@@ -503,10 +501,8 @@ void process_dict(std::ofstream& ofs) {
 }
 
 void CompareWithAdobe(std::wstring& adobe_file, std::string& grammar_folder, std::ofstream& ofs) {
-
   Pdfix* pdfix = GetPdfix();
   PdfDoc* doc = nullptr;
-
   ofs << "DVA Report - TestGrammar ver." << TestGrammar_VERSION << std::endl;
 
   doc = pdfix->OpenDoc(adobe_file.c_str(), L"");
