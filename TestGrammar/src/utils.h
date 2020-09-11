@@ -37,7 +37,7 @@ bool folder_exists(const std::wstring& path);
 bool file_exists(const std::string& path);
 
 //split string into vector
-std::vector<std::string> split(const std::string& s, char seperator);
+std::vector<std::string> split(const std::string& s, char separator);
 
 //////////////////////////////////////////////////////////////////////////
 // PdfMatrix utils

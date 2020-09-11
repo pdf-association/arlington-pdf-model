@@ -31,6 +31,27 @@
 #include "Pdfix.h"
 #include "utils.h"
 
+template<typename charT>
+
+struct my_equal {
+  my_equal(const std::locale& loc) : loc_(loc) {}
+  bool operator()(charT ch1, charT ch2) {
+    return std::toupper(ch1, loc_) == std::toupper(ch2, loc_);
+  }
+private:
+  const std::locale& loc_;
+};
+
+// find substring (case insensitive)
+template<typename T>
+int ci_find_substr(const T& str1, const T& str2, const std::locale& loc = std::locale())
+{
+  typename T::const_iterator it = std::search(str1.begin(), str1.end(),
+    str2.begin(), str2.end(), my_equal<typename T::value_type>(loc));
+  if (it != str1.end()) return it - str1.begin();
+  else return -1; // not found
+}
+
 
 /*
   Parses through tsv file line by line and loads tsv data 
@@ -58,11 +79,13 @@ bool CGrammarReader::load()
       file.close();
       return false;
     }
+
     // Type, Required, Indirect, Inheritable - convert to uppercase
     std::transform(vec[TSV_TYPE].begin(), vec[TSV_TYPE].end(), vec[TSV_TYPE].begin(), ::toupper);
     std::transform(vec[TSV_REQUIRED].begin(), vec[TSV_REQUIRED].end(), vec[TSV_REQUIRED].begin(), ::toupper);
     std::transform(vec[TSV_INDIRECTREF].begin(), vec[TSV_INDIRECTREF].end(), vec[TSV_INDIRECTREF].begin(), ::toupper);
     std::transform(vec[TSV_INHERITABLE].begin(), vec[TSV_INHERITABLE].end(), vec[TSV_INHERITABLE].begin(), ::toupper);
+
     if (header_list.empty()) header_list=vec;
     else data_list.push_back(vec);
   }
@@ -111,6 +134,28 @@ bool CGrammarReader::check(std::ostream &report_stream)
   // check duplicate keys
   std::vector<std::string> processed;
   for (auto& vc : data_list) {
+    //std::string str2 = "fn:";
+    //if (ci_find_substr(vc[TSV_KEYNAME], str2) != -1)
+    //  report_stream << "TSV_KEYNAME: " << file_name << std::endl;
+    //if (ci_find_substr(vc[TSV_TYPE], str2) != -1)
+    //  report_stream << "TSV_TYPE: " << file_name << std::endl;
+    //if (ci_find_substr(vc[TSV_SINCEVERSION], str2) != -1)
+    //  report_stream << "TSV_SINCEVERSION: " << file_name << std::endl;
+    //if (ci_find_substr(vc[TSV_DEPRECATEDIN], str2) != -1)
+    //  report_stream << "TSV_DEPRECATEDIN: " << file_name << std::endl;
+    //if (ci_find_substr(vc[TSV_REQUIRED], str2) != -1)
+    //  report_stream << "TSV_REQUIRED: " << file_name << std::endl;
+    //if (ci_find_substr(vc[TSV_INDIRECTREF], str2) != -1)
+    //  report_stream << "TSV_INDIRECTREF: " << file_name << std::endl;
+    //if (ci_find_substr(vc[TSV_INHERITABLE], str2) != -1)
+    //  report_stream << "TSV_INHERITABLE: " << file_name << std::endl;
+    //if (ci_find_substr(vc[TSV_DEFAULTVALUE], str2) != -1)
+    //  report_stream << "TSV_DEFAULTVALUE: " << file_name << std::endl;
+    //if (ci_find_substr(vc[TSV_POSSIBLEVALUES], str2) != -1)
+    //  report_stream << "TSV_POSSIBLEVALUES: " << file_name << std::endl;
+    //if (ci_find_substr(vc[TSV_SPECIALCASE], str2) != -1)
+    //  report_stream << "TSV_SPECIALCASE: " << file_name << std::endl;
+
   //for (size_t i = 0; i < data_list.size(); i++) {
   //  std::vector<std::string> vc = data_list[i];
     if (std::find(processed.begin(), processed.end(), vc[TSV_KEYNAME]) == processed.end())
@@ -123,7 +168,7 @@ bool CGrammarReader::check(std::ostream &report_stream)
     std::vector<std::string> types = split(vc[TSV_TYPE], ';');
     std::vector<std::string> links = split(vc[TSV_LINK], ';');
     std::regex regex("^\\[[A-Z,a-z,0-9,_,\\,]*\\]$");
-
+    
     // if link exists we check
     // - number of links and number of types match
     // - each link follows patter [];[]..
@@ -195,12 +240,22 @@ bool CGrammarReader::check(std::ostream &report_stream)
     //if (vc[TSV_POSSIBLEVALUES]!="")
     //  report_stream << vc[TSV_POSSIBLEVALUES] << std::endl;
 
+    //std::string s = vc[TSV_POSSIBLEVALUES];
+    //std::regex functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|,]+\\)");
+    //std::smatch match;
+    //std::string str2 = "fn:";
+    //if (ci_find_substr(vc[TSV_POSSIBLEVALUES], str2) != -1)
+    //  report_stream << "TSV_POSSIBLEVALUES: " << file_name << std::endl;
+
+    //if (std::regex_search(s, match, functionStr))
+    //  std::cout << "match: " << match[1] << '\n';
+
     //report all special cases
     //if (vc[TSV_SPECIALCASE] != "")
     //  report_stream << vc[TSV_SPECIALCASE] << std::endl;
 
-    if ((vc[TSV_INHERITABLE] != "TRUE") && (vc[TSV_INHERITABLE] != "FALSE"))
-      report_stream << file_name << "::" << vc[TSV_KEYNAME] << std::endl;
+    //if ((vc[TSV_INHERITABLE] != "TRUE") && (vc[TSV_INHERITABLE] != "FALSE"))
+    //  report_stream << file_name << "::" << vc[TSV_KEYNAME] << std::endl;
   }
   return true;
 }
