@@ -124,16 +124,28 @@ Often times it is necessary to define a formula (fn:...) to define when values a
 A declarative-style internal grammar is used to define  more advanced kinds of relationships. Every function is always prefixed with "fn:". Current functions in use include:
 
 ```
+fn:BitSet
+fn:BitsClear
+fn:BitsSet
 fn:CreatedFromNamePageObj
 fn:Deprecated
+fn:Expr
 fn:ImageIsStructContentItem
+fn:ImplementationDependent
+fn:IsAssociatedFile
 fn:IsMeaningful
+fn:IsPDFTagged
+fn:IsPDFVersion
 fn:IsPresent
 fn:IsRequired
+fn:KeyNameIsColorant
+fn:MustBeDirect
+fn:NoCycle
 fn:NotPresent
 fn:PageContainsStructContentItems
 fn:RequiredValue
 fn:SinceVersion
+fn:StringLength
 ```
 
 ---
