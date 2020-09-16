@@ -1,0 +1,16 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.5		TRUE	fn:MustBeDirect()	FALSE		[XRef]			
+Size	integer	1.5		TRUE	fn:MustBeDirect()	FALSE					
+Index	array	1.5		FALSE	fn:MustBeDirect()	FALSE				[ArrayOfIntegersGeneral]	
+Prev	integer	1.5		FALSE	fn:MustBeDirect()	FALSE					
+W	array	1.5		TRUE	fn:MustBeDirect()	FALSE				[ArrayOf_3Integers]
+Length	integer	1.5		TRUE	FALSE	FALSE					
+Filter	array;name	1.5		FALSE	fn:MustBeDirect()	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode]		[ArrayOfCompressionFilterNames];[]	
+DecodeParms	array;dictionary	1.5		FALSE	fn:MustBeDirect()	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
+F	dictionary;string	1.5		FALSE	FALSE	FALSE				[FileSpecification];[]	
+FFilter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode]		[ArrayOfCompressionFilterNames];[]	
+FDecodeParms	array;dictionary	1.5		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
+DL	integer	1.5		FALSE	FALSE	FALSE					
+Root	dictionary	1.5		TRUE	TRUE	FALSE				[Catalog]	
+Info	dictionary	1.5		FALSE	TRUE	FALSE				[DocInfo]	
+ID	array	1.5		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE				[ArrayOf_2StringsByte]		

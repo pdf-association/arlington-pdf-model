@@ -3,11 +3,11 @@ Type	name	1.0		FALSE	FALSE	FALSE		[XObject]
 Subtype	name	1.0		TRUE	FALSE	FALSE		[Image]			
 Width	integer	1.0		TRUE	FALSE	FALSE					
 Height	integer	1.0		TRUE	FALSE	FALSE					
-ColorSpace	array;name	1.0		FALSE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]	required if not JPX	[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]	
-BitsPerComponent	integer	1.0		FALSE	FALSE	FALSE		[1,2,4,8,16]	required if not JPX		
+ColorSpace	array;name	1.0		fn:IsRequired(@Filter!=JPXDecode)	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]	
+BitsPerComponent	integer	1.0		fn:IsRequired(@Filter!=JPXDecode || ImageMask==true)	FALSE	FALSE		[fn:RequiredValue(@Filter==CCITTFaxDecode || @Filter==JBIG2Decode,1),2,4,fn:RequiredValue(@Filter==RunLengthDecode || @Filter==DCTDecode,8),fn:SinceVersion(1.5,16)]			
 Intent	name	1.1		FALSE	FALSE	FALSE					
 ImageMask	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
 Decode	array	1.0		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
 Interpolate	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
-Name	name	1.0	2.0	FALSE	FALSE	FALSE					
+Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
 OPI	dictionary	1.2	2.0	FALSE	FALSE	FALSE				[OPIVersion13,OPIVersion20]	

@@ -17,6 +17,6 @@ T	string-text	1.3		FALSE	FALSE	FALSE
 Popup	dictionary	1.3		FALSE	FALSE	FALSE				[AnnotPopup]	
 RC	stream;string-text	1.5		FALSE	FALSE	FALSE				[Stream];[]	
 CreationDate	date	1.5		FALSE	FALSE	FALSE					
-IRT	dictionary	1.5		FALSE	FALSE	FALSE			Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
+IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
 Subj	string-text	1.5		FALSE	FALSE	FALSE					
 Name	name	1.3		FALSE	FALSE	FALSE					

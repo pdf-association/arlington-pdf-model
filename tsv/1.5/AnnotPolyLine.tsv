@@ -17,10 +17,10 @@ T	string-text	1.5		FALSE	FALSE	FALSE
 Popup	dictionary	1.5		FALSE	FALSE	FALSE				[AnnotPopup]	
 RC	stream;string-text	1.5		FALSE	FALSE	FALSE				[Stream];[]	
 CreationDate	date	1.5		FALSE	FALSE	FALSE					
-IRT	dictionary	1.5		FALSE	FALSE	FALSE			Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
+IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
 Subj	string-text	1.5		FALSE	FALSE	FALSE					
-Vertices	array	1.5		TRUE	FALSE	FALSE			Required unless a Path key is present, in which case it shall be ignored	[ArrayOfNumbersGeneral]	
-LE	array	1.5		FALSE	FALSE	FALSE	[/None /None]			[ArrayOf_2LineEndingsNames]	
+Vertices	array	1.5		fn:IsRequired(fn:NotPresent(Path))	FALSE	FALSE			Required unless a Path key is present, in which case it shall be ignored	[ArrayOfNumbersGeneral]	
+LE	array	1.5		FALSE	FALSE	FALSE	[/None /None]		fn:IsMeaningful(@Subtype==Polyline)	[ArrayOf_2LineEndingsNames]	
 BS	dictionary	1.5		FALSE	FALSE	FALSE				[BorderStyle]	
 IC	array	1.5		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
-BE	dictionary	1.5		FALSE	FALSE	FALSE				[BorderEffect]	
+BE	dictionary	1.5		FALSE	FALSE	FALSE			fn:IsMeaningful(@Subtype==Polygon)	[BorderEffect]	

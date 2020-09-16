@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		TRUE	FALSE	FALSE		[Page]			
-Parent	dictionary	1.0		TRUE	TRUE	FALSE				[PageTreeNode,PageTreeNodeRoot]	
-LastModified	date	1.3		FALSE	FALSE	FALSE			IsPresent:PieceInfo=>Required=TRUE		
+Type	name	1.0		TRUE	FALSE	FALSE		[Page,Template]			
+Parent	dictionary	1.0		fn:IsRequired(@Type!=Template)	TRUE	FALSE				[PageTreeNode,PageTreeNodeRoot]	
+LastModified	date	1.3		fn:IsRequired(fn:IsPresent(PieceInfo))	FALSE	FALSE					
 Resources	dictionary	1.0		TRUE	FALSE	TRUE				[Resource]	Inheritable from Parent
 MediaBox	rectangle	1.0		TRUE	FALSE	TRUE					Inheritable from Parent
 CropBox	rectangle	1.0		FALSE	FALSE	TRUE	@MediaBox				Inheritable from Parent
@@ -9,7 +9,7 @@ BleedBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				Inheritable from Parent
 TrimBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				
 ArtBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				
 Contents	array;stream	1.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral];[Stream]	
-Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[value mod 90 == 0]			Inheritable from Parent
+Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Expr(@self mod 90==0)]			Inheritable from Parent
 Thumb	stream	1.0		FALSE	TRUE	FALSE				[Thumbnail]	
 B	array	1.1		FALSE	FALSE	FALSE				[ArrayOfBeads]	
 Dur	number	1.1		FALSE	FALSE	FALSE					
@@ -17,7 +17,7 @@ Trans	dictionary	1.1		FALSE	FALSE	FALSE				[Transition]
 Annots	array	1.0		FALSE	FALSE	FALSE				[ArrayOfAnnots]	
 AA	dictionary	1.2		FALSE	FALSE	FALSE				[AddActionPageObject]	
 PieceInfo	dictionary	1.3		FALSE	FALSE	FALSE				[PagePiece]	
-StructParents	integer	1.3		FALSE	FALSE	FALSE			Required if the page contains structural content items		
+StructParents	integer	1.3		fn:IsRequired(fn:PageContainsStructContentItems())	FALSE	FALSE					
 ID	string-byte	1.3		FALSE	FALSE	FALSE					byte string
 PZ	number	1.3		FALSE	FALSE	FALSE					
 SeparationInfo	dictionary	1.3		FALSE	FALSE	FALSE				[Separation]	

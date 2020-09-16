@@ -1,7 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.0		TRUE	FALSE	FALSE		[Catalog]			
 Version	name	1.4		FALSE	FALSE	FALSE		[1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.7,2.0]			
-Extensions	dictionary	1.0		FALSE	FALSE	FALSE				[Extensions]	
 Pages	dictionary	1.0		TRUE	TRUE	FALSE				[PageTreeNodeRoot]	
 PageLabels	number-tree	1.3		FALSE	FALSE	FALSE				[PageLabel]	
 Names	dictionary	1.2		FALSE	FALSE	FALSE				[Name]	
@@ -22,4 +21,4 @@ Lang	string-text	1.4		FALSE	FALSE	FALSE
 SpiderInfo	dictionary	1.3		FALSE	FALSE	FALSE				[WebCaptureInfo]	
 OutputIntents	array	1.4		FALSE	FALSE	FALSE				[ArrayOfOutputIntents]	
 PieceInfo	dictionary	1.4		FALSE	FALSE	FALSE				[PagePiece]	
-NeedsRendering	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
+NeedsRendering	boolean	1.0	2.0	FALSE	FALSE	FALSE	FALSE				

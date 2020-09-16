@@ -5,4 +5,4 @@ Next	array;dictionary	1.6		FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,Act
 F	dictionary;string	1.6		TRUE	FALSE	FALSE				[FileSpecification];[]	
 D	array;name;string-byte	1.6		TRUE	FALSE	FALSE				[DestXYZ,Dest0,Dest1,Dest4];[];[]	
 NewWindow	boolean	1.6		FALSE	FALSE	FALSE					
-T	dictionary	1.6		TRUE	FALSE	FALSE			isPresent:F=>Required=False	[Target]	
+T	dictionary	1.6		fn:IsRequired(fn:NotPresent(F))	FALSE	FALSE				[Target]	
