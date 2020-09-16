@@ -2,15 +2,15 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 FunctionType	integer	1.2		TRUE	FALSE	FALSE		[0]			
 Domain	array	1.2		TRUE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
 Range	array	1.2		TRUE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
-Size	array	1.2		TRUE	FALSE	FALSE				[ArrayOfIntegersGeneral]	
+Size	array	1.2		TRUE	FALSE	FALSE				[ArrayOfIntegersGeneral]	array of m positive integers
 BitsPerSample	integer	1.2		TRUE	FALSE	FALSE		[1,2,4,8,12,16,24,32]			
 Order	integer	1.2		FALSE	FALSE	FALSE	1	[1,3]			
 Encode	array	1.2		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
 Decode	array	1.2		FALSE	FALSE	FALSE	@Range			[ArrayOfNumbersGeneral]	
 Length	integer	1.3		TRUE	FALSE	FALSE					
-Filter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]		[ArrayOfCompressionFilterNames];[]	
-DecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
+Filter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]		[ArrayOfCompressionFilterNames];[]	
+DecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.5,FilterCrypt)]	
 F	dictionary;string	1.3		FALSE	FALSE	FALSE				[FileSpecification];[]	
-FFilter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]		[ArrayOfCompressionFilterNames];[]	
-FDecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
+FFilter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]		[ArrayOfCompressionFilterNames];[]	
+FDecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.5,FilterCrypt)]	
 DL	integer	1.5		FALSE	FALSE	FALSE					
