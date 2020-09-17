@@ -56,7 +56,10 @@ void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs) {
           for (auto type_link : links) {
             std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ',');
             for (auto lnk : direct_links)
-              if (lnk != "") to_process.push_back(lnk + ".tsv");
+              if (lnk != "") {
+                auto direct_lnk = extract_link(lnk);
+                to_process.push_back(direct_lnk + ".tsv");
+              }
           }
         }
       }
@@ -480,7 +483,7 @@ void process_dict(std::ofstream& ofs) {
         key.resize(a_dict->GetKey(i, nullptr, 0));
         a_dict->GetKey(i, (wchar_t*)key.c_str(), (int)key.size());
         if (!exits_in_our(key) && key != L"FormalRepOf" && key != L"Array"
-          && key != L"ArrayStyle" && key != L"FormalRepOfArray"
+          && key != L"ArrayStyle" && key != L"FormalRepOfArray" && key != L"OR"
           && key != L"GenericKey" && key != L"ConcatWithFormalReps") {
 
           in_ofs << "Missing in OUR: " << elem.link << "::" << ToUtf8(key) << std::endl;

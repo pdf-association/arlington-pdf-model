@@ -39,6 +39,7 @@ bool file_exists(const std::string& path);
 //split string into vector
 std::vector<std::string> split(const std::string& s, char separator);
 
+std::string extract_link(std::string link);
 //////////////////////////////////////////////////////////////////////////
 // PdfMatrix utils
 //void PdfMatrixTransform(PdfMatrix& m, PdfPoint& p);
