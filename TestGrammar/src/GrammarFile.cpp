@@ -167,7 +167,7 @@ bool CGrammarReader::check(std::ostream &report_stream)
     // need to compare all of them with basic_types
     std::vector<std::string> types = split(vc[TSV_TYPE], ';');
     std::vector<std::string> links = split(vc[TSV_LINK], ';');
-    std::regex regex("^\\[[A-Z,a-z,0-9,_,\\,]*\\]$");
+//    std::regex regex("^\\[[A-Z,a-z,0-9,_,\\,]*\\]$");
     
     // if link exists we check
     // - number of links and number of types match
@@ -181,10 +181,10 @@ bool CGrammarReader::check(std::ostream &report_stream)
       if (links.size() != types.size())
         report_stream << "Wrong # of types vs. # of links " << file_name << "::" << vc[TSV_KEYNAME] << std::endl;
       for (size_t link_pos = 0; link_pos < links.size(); link_pos++) {
-        if (!std::regex_match(links[link_pos], regex)) {
-          report_stream << "Wrong pattern in links " << file_name << "::" << vc[TSV_KEYNAME] << std::endl;
-        }
-        else {
+        //if (!std::regex_match(links[link_pos], regex)) {
+        //  report_stream << "Wrong pattern in links " << file_name << "::" << vc[TSV_KEYNAME] << std::endl;
+        //}
+        //else {
           //report all unliked complex types
           if ((types.size() > link_pos) && (links[link_pos] == "[]") &&
             (types[link_pos] == "DICTIONARY" || types[link_pos] == "NUMBER-TREE"
@@ -204,12 +204,13 @@ bool CGrammarReader::check(std::ostream &report_stream)
             if (lnk != "") {
               std::string new_name = get_path_dir(file_name);
               new_name += "/";
-              new_name += lnk;
+              auto direct_lnk = extract_link(lnk);
+              new_name += direct_lnk;
               new_name += ".tsv";
               if (!file_exists(new_name))
                 report_stream << "Link doesn't exist: " << lnk << " in: " << file_name << "::" << vc[TSV_KEYNAME] << std::endl;
             }
-        }
+        //}
       }
     }
 

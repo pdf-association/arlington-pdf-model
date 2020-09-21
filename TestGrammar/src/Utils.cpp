@@ -182,6 +182,19 @@ bool file_exists(const std::string& path) {
   return false;
 }
 
+
+//////////////////////////////////////////////////////////////////////////
+// extract XXXX from such pattern "fn:Name(version, XXXXX)"
+std::string extract_link(std::string link){
+  std::regex functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|.]+");
+  std::smatch match;
+  std::string to_ret = link;
+  if (std::regex_search(link, match, functionStr)) {
+    to_ret = match.suffix();
+    to_ret = to_ret.substr(1, to_ret.size() - 2);
+  }
+  return to_ret;
+}
 //////////////////////////////////////////////////////////////////////////
 // 
 std::vector<std::string> split(const std::string& s, char separator) {
