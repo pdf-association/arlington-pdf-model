@@ -11,12 +11,12 @@ Mask	array;stream	1.3		FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral];[XObjectIma
 Decode	array	1.0		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
 Interpolate	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
 Alternates	array	1.3		FALSE	FALSE	FALSE				[ArrayOfImageAlternates]	
-SMask	stream	1.4		FALSE	FALSE	FALSE				[XObjectImageSoftMask]	
+SMask	stream	1.4		FALSE	TRUE	FALSE				[XObjectImageSoftMask]	
 Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
 StructParent	integer	1.3		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					
 ID	string-byte	1.3		FALSE	FALSE	FALSE					
 OPI	dictionary	1.2	2.0	FALSE	FALSE	FALSE				[OPIVersion13,OPIVersion20]	
-Metadata	stream	1.4		FALSE	FALSE	FALSE				[Metadata]	
+Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]	
 Length	integer	1.3		TRUE	FALSE	FALSE					
 Filter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]		[ArrayOfFilterNames];[]	
 DecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),FilterCCITTFaxDecode,fn:SinceVersion(1.4,FilterJBIG2Decode),FilterDCTDecode,fn:SinceVersion(1.5,FilterCrypt)]	

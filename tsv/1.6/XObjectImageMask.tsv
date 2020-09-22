@@ -9,13 +9,13 @@ ImageMask	boolean	1.4		TRUE	FALSE	FALSE	TRUE
 Decode	array	1.4		FALSE	FALSE	FALSE		[[0 1],[1 0]]		[ArrayOfNumbersGeneral]	
 Interpolate	boolean	1.4		FALSE	FALSE	FALSE	FALSE				
 Alternates	array	1.4		FALSE	FALSE	FALSE				[ArrayOfImageAlternates]	
-SMask	stream	1.4		FALSE	FALSE	FALSE				[XObjectImageSoftMask]	
+SMask	stream	1.4		FALSE	TRUE	FALSE				[XObjectImageSoftMask]	
 SMaskInData	integer	1.5		FALSE	FALSE	FALSE					
 Name	name	1.4	2.0	FALSE	FALSE	FALSE					
 StructParent	integer	1.4		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					
 ID	string	1.4		FALSE	FALSE	FALSE					
 OPI	dictionary	1.4	2.0	FALSE	FALSE	FALSE				[OPIVersion13,OPIVersion20]	
-Metadata	stream	1.4		FALSE	FALSE	FALSE				[Metadata]	
+Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]	
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
 Length	integer	1.4		TRUE	FALSE	FALSE					* from stream
 Filter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]		[ArrayOfFilterNames];[]	
