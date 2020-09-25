@@ -8,5 +8,5 @@ CharProcs	dictionary	1.0		TRUE	FALSE	FALSE				[CharProcMap]
 Encoding	dictionary	1.0		TRUE	FALSE	FALSE			type name allowed in 1.7	[Encoding]	
 FirstChar	integer	1.0		TRUE	FALSE	FALSE					
 LastChar	integer	1.0		TRUE	FALSE	FALSE					
-Widths	array	1.0		TRUE	FALSE	FALSE				[ArrayOfIntegersGeneral]	
+Widths	array	1.0		TRUE	FALSE	FALSE				[]	
 FontDescriptor	dictionary	1.0		fn:IsRequired(fn:IsPDFTagged())	TRUE	FALSE				[FontDescriptor]	

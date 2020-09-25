@@ -17,10 +17,10 @@ OC	dictionary	1.5		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]
 Name	name	1.0	2.0	FALSE	FALSE	FALSE					
 Length	integer	1.4		TRUE	FALSE	FALSE					
 Filter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]		[ArrayOfCompressionFilterNames];[]	
-DecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.5,FilterCrypt)]	
+DecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
 F	dictionary;string	1.4		FALSE	FALSE	FALSE				[FileSpecification];[]	
 FFilter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]		[ArrayOfCompressionFilterNames];[]	
-FDecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.5,FilterCrypt)]	
+FDecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
 DL	integer	1.5		FALSE	FALSE	FALSE					
 MarkStyle	string-text	1.4		FALSE	FALSE	FALSE					*from printer mark form dictionary
 Colorants	dictionary	1.4		FALSE	FALSE	FALSE				[ColorantsDict]	

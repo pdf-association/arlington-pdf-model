@@ -4,16 +4,16 @@ Version	number	1.2	2.0	TRUE	FALSE	FALSE		[1.3]
 F	dictionary;string	1.2	2.0	TRUE	FALSE	FALSE				[FileSpecification];[]	
 ID	string-byte	1.2	2.0	FALSE	FALSE	FALSE					
 Comments	string-text	1.2	2.0	FALSE	FALSE	FALSE					
-Size	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOf_2Integers]	
+Size	array	1.2	2.0	FALSE	FALSE	FALSE				[]	
 CropRect	rectangle	1.2	2.0	FALSE	FALSE	FALSE					
 CropFixed	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOf_4Integers]	
 Position	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOf_8Numbers]	
-Resolution	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOf_2Numbers]	
+Resolution	array	1.2	2.0	FALSE	FALSE	FALSE				[]	
 ColorType	name	1.2	2.0	FALSE	FALSE	FALSE					
 Color	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOfOPI13Color]	
 Tint	number	1.2	2.0	FALSE	FALSE	FALSE					
 Overprint	boolean	1.2	2.0	FALSE	FALSE	FALSE					
-ImageType	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOf_2Integers]	
+ImageType	array	1.2	2.0	FALSE	FALSE	FALSE				[]	
 GrapMap	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral]	
 Transparency	boolean	1.2	2.0	FALSE	FALSE	FALSE					
 Tags	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOfTags]	

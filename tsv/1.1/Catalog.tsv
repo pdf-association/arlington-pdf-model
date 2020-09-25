@@ -6,6 +6,6 @@ PageLayout	name	1.0		FALSE	FALSE	FALSE	SinglePage	[SinglePage,OneColumn,TwoColum
 PageMode	name	1.0		FALSE	FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,FullScreen,UseOC,UseAttachments]			
 Outlines	dictionary	1.0		FALSE	TRUE	FALSE				[Outline]	
 Threads	array	1.1		FALSE	TRUE	FALSE				[ArrayOfThreads]	
-OpenAction	array;dictionary	1.1		FALSE	FALSE	FALSE				[DestXYZ,Dest0,Dest1,Dest4];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
+OpenAction	array;dictionary	1.1		FALSE	FALSE	FALSE				[DestXYZ,Dest0,Dest1,Dest4];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI]	
 URI	dictionary	1.1		FALSE	FALSE	FALSE				[URI]	
 NeedsRendering	boolean	1.0	2.0	FALSE	FALSE	FALSE	FALSE				
