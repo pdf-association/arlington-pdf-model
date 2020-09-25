@@ -889,7 +889,25 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfNumbersGeneral" object_number="014">
+   <OBJECT id="ArrayOfNamesForProcSet" object_number="014">
+      <ENTRY>
+         <NAME>*</NAME>
+         <VALUES>
+            <VALUE type="name">PDF</VALUE>
+            <VALUE type="name">Text</VALUE>
+            <VALUE type="name">ImageB</VALUE>
+            <VALUE type="name">ImageC</VALUE>
+            <VALUE type="name">ImageI</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>1.4</DEPRECATED>
+         <SPECIAL_CASE/>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfNumbersGeneral" object_number="015">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -903,7 +921,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfPageTreeNodeKids" object_number="015">
+   <OBJECT id="ArrayOfPageTreeNodeKids" object_number="016">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -918,7 +936,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfStreamsGeneral" object_number="016">
+   <OBJECT id="ArrayOfStreamsGeneral" object_number="017">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -932,7 +950,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfThreads" object_number="017">
+   <OBJECT id="ArrayOfThreads" object_number="018">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -946,7 +964,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2DashNumbers" object_number="018">
+   <OBJECT id="ArrayOf_2DashNumbers" object_number="019">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -972,7 +990,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2StringsByte" object_number="019">
+   <OBJECT id="ArrayOf_2StringsByte" object_number="020">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -998,7 +1016,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4AnnotBorderCharacteristics" object_number="020">
+   <OBJECT id="ArrayOf_4AnnotBorderCharacteristics" object_number="021">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1048,7 +1066,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4NumbersColorAnnotation" object_number="021">
+   <OBJECT id="ArrayOf_4NumbersColorAnnotation" object_number="022">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1098,7 +1116,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Bead" object_number="022">
+   <OBJECT id="Bead" object_number="023">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -1174,7 +1192,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="BeadFirst" object_number="023">
+   <OBJECT id="BeadFirst" object_number="024">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -1250,7 +1268,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Blackpoint" object_number="024">
+   <OBJECT id="Blackpoint" object_number="025">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1288,7 +1306,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CalGrayColorSpace" object_number="025">
+   <OBJECT id="CalGrayColorSpace" object_number="026">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1314,7 +1332,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CalGrayDict" object_number="026">
+   <OBJECT id="CalGrayDict" object_number="027">
       <ENTRY>
          <NAME>WhitePoint</NAME>
          <VALUES>
@@ -1354,7 +1372,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CalRGBColorSpace" object_number="027">
+   <OBJECT id="CalRGBColorSpace" object_number="028">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1380,7 +1398,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CalRGBDict" object_number="028">
+   <OBJECT id="CalRGBDict" object_number="029">
       <ENTRY>
          <NAME>WhitePoint</NAME>
          <VALUES>
@@ -1433,7 +1451,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Catalog" object_number="029">
+   <OBJECT id="Catalog" object_number="030">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -1591,7 +1609,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CharProcMap" object_number="030">
+   <OBJECT id="CharProcMap" object_number="031">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -1605,7 +1623,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ColorSpaceMap" object_number="031">
+   <OBJECT id="ColorSpaceMap" object_number="032">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -1629,7 +1647,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest0" object_number="032">
+   <OBJECT id="Dest0" object_number="033">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1657,7 +1675,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest1" object_number="033">
+   <OBJECT id="Dest1" object_number="034">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1700,7 +1718,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest4" object_number="034">
+   <OBJECT id="Dest4" object_number="035">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1766,7 +1784,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DestDict" object_number="035">
+   <OBJECT id="DestDict" object_number="036">
       <ENTRY>
          <NAME>D</NAME>
          <VALUES>
@@ -1783,7 +1801,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DestXYZ" object_number="036">
+   <OBJECT id="DestXYZ" object_number="037">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1849,7 +1867,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DestsMap" object_number="037">
+   <OBJECT id="DestsMap" object_number="038">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -1867,7 +1885,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DocInfo" object_number="038">
+   <OBJECT id="DocInfo" object_number="039">
       <ENTRY>
          <NAME>Title</NAME>
          <VALUES>
@@ -1965,7 +1983,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Encoding" object_number="039">
+   <OBJECT id="Encoding" object_number="040">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -2005,7 +2023,7 @@
          <SPECIAL_CASE>should not be used with TrueType fonts</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="EncryptionPublicKey" object_number="040">
+   <OBJECT id="EncryptionPublicKey" object_number="041">
       <ENTRY>
          <NAME>Filter</NAME>
          <VALUES>
@@ -2045,7 +2063,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="EncryptionStandard" object_number="041">
+   <OBJECT id="EncryptionStandard" object_number="042">
       <ENTRY>
          <NAME>Filter</NAME>
          <VALUES>
@@ -2187,7 +2205,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FileSpecification" object_number="042">
+   <OBJECT id="FileSpecification" object_number="043">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -2273,7 +2291,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FileTrailer" object_number="043">
+   <OBJECT id="FileTrailer" object_number="044">
       <ENTRY>
          <NAME>Size</NAME>
          <VALUES>
@@ -2348,7 +2366,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FilterCCITTFaxDecode" object_number="044">
+   <OBJECT id="FilterCCITTFaxDecode" object_number="045">
       <ENTRY>
          <NAME>K</NAME>
          <VALUES>
@@ -2454,7 +2472,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FilterDCTDecode" object_number="045">
+   <OBJECT id="FilterDCTDecode" object_number="046">
       <ENTRY>
          <NAME>ColorTransform</NAME>
          <VALUES>
@@ -2469,7 +2487,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FilterLZWDecode" object_number="046">
+   <OBJECT id="FilterLZWDecode" object_number="047">
       <ENTRY>
          <NAME>Predictor</NAME>
          <VALUES>
@@ -2545,7 +2563,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontDescriptor" object_number="047">
+   <OBJECT id="FontDescriptor" object_number="048">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -2758,7 +2776,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontDescriptorTrueType" object_number="048">
+   <OBJECT id="FontDescriptorTrueType" object_number="049">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -2971,7 +2989,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontDescriptorType1" object_number="049">
+   <OBJECT id="FontDescriptorType1" object_number="050">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3184,7 +3202,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontFile" object_number="050">
+   <OBJECT id="FontFile" object_number="051">
       <ENTRY>
          <NAME>Length1</NAME>
          <VALUES>
@@ -3222,7 +3240,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontFileType1" object_number="051">
+   <OBJECT id="FontFileType1" object_number="052">
       <ENTRY>
          <NAME>Length1</NAME>
          <VALUES>
@@ -3272,7 +3290,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontMap" object_number="052">
+   <OBJECT id="FontMap" object_number="053">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -3292,7 +3310,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontMultipleMaster" object_number="053">
+   <OBJECT id="FontMultipleMaster" object_number="054">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3405,7 +3423,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontTrueType" object_number="054">
+   <OBJECT id="FontTrueType" object_number="055">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3518,7 +3536,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontType1" object_number="055">
+   <OBJECT id="FontType1" object_number="056">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3631,7 +3649,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontType3" object_number="056">
+   <OBJECT id="FontType3" object_number="057">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3765,7 +3783,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Gamma" object_number="057">
+   <OBJECT id="Gamma" object_number="058">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3806,7 +3824,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="IndexedColorSpace" object_number="058">
+   <OBJECT id="IndexedColorSpace" object_number="059">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3865,7 +3883,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabColorSpace" object_number="059">
+   <OBJECT id="LabColorSpace" object_number="060">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3891,7 +3909,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabDict" object_number="060">
+   <OBJECT id="LabDict" object_number="061">
       <ENTRY>
          <NAME>WhitePoint</NAME>
          <VALUES>
@@ -3929,7 +3947,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabRange" object_number="061">
+   <OBJECT id="LabRange" object_number="062">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3983,7 +4001,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Matrix" object_number="062">
+   <OBJECT id="Matrix" object_number="063">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -4057,7 +4075,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MicrosoftWindowsLaunchParam" object_number="063">
+   <OBJECT id="MicrosoftWindowsLaunchParam" object_number="064">
       <ENTRY>
          <NAME>F</NAME>
          <VALUES>
@@ -4109,7 +4127,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Outline" object_number="064">
+   <OBJECT id="Outline" object_number="065">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4159,7 +4177,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OutlineItem" object_number="065">
+   <OBJECT id="OutlineItem" object_number="066">
       <ENTRY>
          <NAME>Title</NAME>
          <VALUES>
@@ -4294,7 +4312,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageObject" object_number="066">
+   <OBJECT id="PageObject" object_number="067">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4458,7 +4476,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageTreeNode" object_number="067">
+   <OBJECT id="PageTreeNode" object_number="068">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4559,7 +4577,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageTreeNodeRoot" object_number="068">
+   <OBJECT id="PageTreeNodeRoot" object_number="069">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4647,7 +4665,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Resource" object_number="069">
+   <OBJECT id="Resource" object_number="070">
       <ENTRY>
          <NAME>ExtGState</NAME>
          <VALUES>
@@ -4711,7 +4729,7 @@
       <ENTRY>
          <NAME>ProcSet</NAME>
          <VALUES>
-            <VALUE type="array">_UniversalArray</VALUE>
+            <VALUE type="array">ArrayOfNamesForProcSet</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -4721,7 +4739,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Stream" object_number="070">
+   <OBJECT id="Stream" object_number="071">
       <ENTRY>
          <NAME>Length</NAME>
          <VALUES>
@@ -4775,7 +4793,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thread" object_number="071">
+   <OBJECT id="Thread" object_number="072">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4813,7 +4831,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thumbnail" object_number="072">
+   <OBJECT id="Thumbnail" object_number="073">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4905,7 +4923,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Transition" object_number="073">
+   <OBJECT id="Transition" object_number="074">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -5002,7 +5020,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URI" object_number="074">
+   <OBJECT id="URI" object_number="075">
       <ENTRY>
          <NAME>Base</NAME>
          <VALUES>
@@ -5016,7 +5034,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Whitepoint" object_number="075">
+   <OBJECT id="Whitepoint" object_number="076">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -5054,7 +5072,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPrinterMark" object_number="076">
+   <OBJECT id="XObjectFormPrinterMark" object_number="077">
       <ENTRY>
          <NAME>Name</NAME>
          <VALUES>
@@ -5068,7 +5086,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormType1" object_number="077">
+   <OBJECT id="XObjectFormType1" object_number="078">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -5143,7 +5161,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImage" object_number="078">
+   <OBJECT id="XObjectImage" object_number="079">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -5293,7 +5311,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectMap" object_number="079">
+   <OBJECT id="XObjectMap" object_number="080">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -5308,7 +5326,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="_UniversalArray" object_number="080">
+   <OBJECT id="_UniversalArray" object_number="081">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
@@ -5329,7 +5347,7 @@
          <SPECIAL_CASE/>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="_UniversalDictionary" object_number="081">
+   <OBJECT id="_UniversalDictionary" object_number="082">
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
