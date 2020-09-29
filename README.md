@@ -124,6 +124,7 @@ Often times it is necessary to define a formula (fn:...) to define when values a
 A declarative-style internal grammar is used to define  more advanced kinds of relationships. Every function is always prefixed with "fn:". Current functions in use include:
 
 ```
+fn:BeforeVersion
 fn:BitSet
 fn:BitsClear
 fn:BitsSet
@@ -295,9 +296,9 @@ grep -P "Note\t\t" *.tsv | sed -e 's/\t/\\t/g'
 # No response is correct!
 
 ## Confirm the Type column
-cut -f 2 *.tsv | sort | uniq 
-# Correct response: each line only has Types listed above, separated by semi-colons, sorted alphabetically. No blank lines.
-cut -f 2 *.tsv | sed -e 's/;/\n/g' | sort | uniq
+cut -f 2 *.tsv | grep -v "fn:" | sort | uniq 
+# Correct response: each line only has Types listed above, separated by semi-colons, sorted alphabetically.
+cut -f 2 *.tsv | grep -v "fn:" | sed -e 's/;/\n/g' | sort | uniq
 # Correct response: Type, array, boolean, date, dictionary, fn:Deprecated(type,pdf-version), integer, name, name-tree,
 #                   null, number, number-tree, rectangle, stream, string, string-ascii, string-byte, string-text
 
@@ -309,17 +310,17 @@ cut -f 3 *.tsv | sort | uniq
 cut -f 4 *.tsv | sort | uniq
 # Correct response: pdf-version values 1.0, ..., 2.0, DeprecatedIn. Blank lines OK.
 
-## Confirm all "Required" values (TRUE or FALSE)
+## Confirm all "Required" values (TRUE, FALSE or fn:IsRequired() function)
 cut -f 5 *.tsv | sort | uniq
 # Correct response: TRUE, FALSE, Required, fn:IsRequired(...). No blank lines.
 
-## Confirm all "IndirectReference" values (TRUE or FALSE)
+## Confirm all "IndirectReference" values (TRUE, FALSE or fn:MustBeDirect() function)
 cut -f 6 *.tsv | sort | uniq
-# Correct response: TRUE, FALSE, IndirectReference. No blank lines.
+# Correct response: TRUE, FALSE, IndirectReference or a fn:MustBeDirect() function. No blank lines.
 
 ## Column 7 is "Inheritable" (TRUE or FALSE)
 cut -f 7 *.tsv | sort | uniq
-# Correct response: TRUE, FALSE, Inheritable. No blank lines.
+# Correct response: TRUE, FALSE, Inheritable. 
 
 ## Column 8 is "DefaultValue"
 cut -f 8 *.tsv | sort | uniq
@@ -327,11 +328,9 @@ cut -f 8 *.tsv | sort | uniq
 ## Column 9 is "PossibleValues"
 cut -f 9 *.tsv | sort | uniq
 # Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK if multiples. 
-# Includes some very basic expressions using 'value' as a reserved keyword. Blank lines OK.
 
 ## Column 10: List all "SpecialCases"
 cut -f 10 *.tsv | sort | uniq
-# WORK-IN-PROGRESS. IGNORE!!
 
 ## Column 11: Sets of "Link" to other TSV objects
 cut -f 11 *.tsv | sort | uniq
