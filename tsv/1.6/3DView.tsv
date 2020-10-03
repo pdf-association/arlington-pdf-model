@@ -3,7 +3,7 @@ Type	name	1.6		FALSE	FALSE	FALSE		[3DView]
 XN	string-text	1.6		TRUE	FALSE	FALSE					
 IN	string-text	1.6		FALSE	FALSE	FALSE					
 MS	name	1.6		FALSE	FALSE	FALSE		[M,U3D]			
-C2W	array	1.6		fn:IsRequired(@MS==M)	FALSE	FALSE				[]	
+C2W	array	1.6		fn:IsRequired(@MS==M)	FALSE	FALSE				[ArrayOf3DTransMatrix]	
 U3DPath	array;string-text	1.6		fn:IsRequired(@MS==U3D)	FALSE	FALSE				[ArrayOfStringsText];[]	
 CO	number	1.6		FALSE	FALSE	FALSE					
 P	dictionary	1.6		FALSE	FALSE	FALSE				[Projection]	

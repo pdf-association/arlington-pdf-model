@@ -10,3 +10,7 @@ ImageMask	boolean	1.0		FALSE	FALSE	FALSE	FALSE
 Decode	array	1.0		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
 Interpolate	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
 Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
+Length	integer	1.0		TRUE	FALSE	FALSE					
+Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]		[ArrayOfFilterNames];[]	
+DecodeParms	array;dictionary	1.0		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterCCITTFaxDecode,FilterDCTDecode]	
+F	dictionary;string	1.0		FALSE	FALSE	FALSE				[FileSpecification];[]	

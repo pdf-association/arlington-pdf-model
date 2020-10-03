@@ -2,5 +2,5 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 O	name	1.3		TRUE	FALSE	FALSE		[Table]			
 RowSpan	integer	1.4		FALSE	FALSE	FALSE	1				
 ColSpan	integer	1.4		FALSE	FALSE	FALSE	1				
-Headers	array	1.4		FALSE	FALSE	FALSE				[]	
+Headers	array	1.4		FALSE	FALSE	FALSE				[ArrayOfStringsByte]	
 Scope	name	1.4		FALSE	FALSE	FALSE		[Row,Column,Both]			

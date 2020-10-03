@@ -1,2 +1,3 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Name	name	1.0	2.0	FALSE	FALSE	FALSE					
+V	number	1.3	2.0	TRUE	FALSE	FALSE					
+C	array	1.3	2.0	FALSE	FALSE	FALSE				[ArrayOfWebCaptureCommands]	
