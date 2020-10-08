@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-0	name	1.1		TRUE	FALSE	FALSE		[Indexed]			
-1	array;name	1.1		TRUE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace];[]	*cannot be pattern or indexed
-2	integer	1.1		TRUE	FALSE	FALSE		[fn:Expr(@self>0 && @self<=255)]			
-3	stream;string	1.1		TRUE	FALSE	FALSE				[Stream];[]	
+0	name	1.0		TRUE	FALSE	FALSE		[Indexed]			
+1	array;name	1.0		TRUE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace];[]	*cannot be pattern or indexed
+2	integer	1.0		TRUE	FALSE	FALSE		[fn:Expr(@self>0 && @self<=255)]			
+3	stream;string	1.0		TRUE	FALSE	FALSE				[Stream];[]	
