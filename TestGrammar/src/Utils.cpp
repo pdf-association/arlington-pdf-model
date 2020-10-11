@@ -1,4 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Utils.cpp
 // Copyright 2020 PDF Association, Inc. https://www.pdfa.org
 //
@@ -30,6 +31,7 @@ extern HINSTANCE ghInstance;
 #endif
 
 #include "Pdfix.h"
+#include "utils.h"
 using namespace PDFixSDK;
 
 Pdfix_statics;
@@ -185,16 +187,44 @@ bool file_exists(const std::string& path) {
 
 //////////////////////////////////////////////////////////////////////////
 // extract XXXX from such pattern "fn:Name(version, XXXXX)"
-std::string extract_link(std::string link){
+std::string extract_function(std::string& value, std::string &function){
   std::regex functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|.]+");
   std::smatch match;
-  std::string to_ret = link;
-  if (std::regex_search(link, match, functionStr)) {
+  function = "";
+  std::string to_ret = value;
+  if (std::regex_search(value, match, functionStr)) {
     to_ret = match.suffix();
     to_ret = to_ret.substr(1, to_ret.size() - 2);
+    for (auto a: match)
+      function += a;
   }
   return to_ret;
 }
+
+//////////////////////////////////////////////////////////////////////////
+// 
+int get_type_index(std::string single_type, std::string types) {
+  std::vector<std::string> opt = split(types, ';');
+  for (auto i = 0; i < (int)opt.size(); i++) {
+    if (opt[i] == single_type)
+      return i;
+  }
+  return -1;
+}
+
+//////////////////////////////////////////////////////////////////////////
+// 
+std::string get_link_for_type(std::string single_type, const std::string& types, const std::string& links) {
+  int index = get_type_index(single_type, types);
+  if (index == -1)
+    return "[]";
+  std::vector<std::string> lnk = split(links, ';');
+  if (index >= lnk.size())  // for ArrayOfDifferences: types is "INTEGER;NAME", links is "" and we get buffer overflow in lnk!
+    return "";
+  return lnk[index];
+}
+
+
 //////////////////////////////////////////////////////////////////////////
 // 
 std::vector<std::string> split(const std::string& s, char separator) {
@@ -247,17 +277,17 @@ std::vector<std::string> split(const std::string& s, char separator) {
   return output;
 }
 
-std::vector<std::string> split_old(const std::string& s, char separator) {
-  std::vector<std::string> output;
-  std::string::size_type prev_pos = 0, pos = 0;
-  while ((pos = s.find(separator, pos)) != std::string::npos){
-    std::string substring(s.substr(prev_pos, pos - prev_pos));
-    output.push_back(substring);
-    prev_pos = ++pos;
-  }
-  output.push_back(s.substr(prev_pos, pos - prev_pos)); // Last word
-  return output;
-}
+//std::vector<std::string> split_old(const std::string& s, char separator) {
+//  std::vector<std::string> output;
+//  std::string::size_type prev_pos = 0, pos = 0;
+//  while ((pos = s.find(separator, pos)) != std::string::npos){
+//    std::string substring(s.substr(prev_pos, pos - prev_pos));
+//    output.push_back(substring);
+//    prev_pos = ++pos;
+//  }
+//  output.push_back(s.substr(prev_pos, pos - prev_pos)); // Last word
+//  return output;
+//}
 
 //////////////////////////////////////////////////////////////////////////
 // PdfMatrix utils

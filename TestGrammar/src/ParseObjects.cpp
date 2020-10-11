@@ -99,19 +99,28 @@ bool CParsePDF::check_possible_values(PdsObject* object, const std::string& poss
   }
 
   std::vector<std::string> options;
-  std::string def = possible_value_str;
-  if (def[0] == '[') {
+  std::string possible_vals = possible_value_str;
+  if (possible_vals[0] == '[') {
     std::vector<std::string> all_defaults = split(possible_value_str, ';');
-    def = all_defaults[index];
-    def = def.substr(1, def.size() - 2);
+    possible_vals = all_defaults[index];
+    possible_vals = possible_vals.substr(1, possible_vals.size() - 2);
   }
-  bool is_value    = (def.find("value") != std::string::npos) || (def.find("Value") != std::string::npos);
+
+  //bool is_value    = (possible_vals.find("value") != std::string::npos) || (possible_vals.find("Value") != std::string::npos);
   //bool is_interval = (def.find("<") != std::string::npos) /*&& def.find("<") != std::string::npos*/;
-  if (def != "" && !is_value /*&& !is_interval*/) {
-    options = split(def, ',');
+  if (possible_vals != "" /*&& !is_value *//*&& !is_interval*/) {
+    options = split(possible_vals, ',');
     bool found = false;
-    for (auto opt : options)
-      if (object->GetObjectType() == kPdsNumber) {
+    int options_tested = 0;
+    for (auto opt : options) {
+      std::string function;
+      opt = extract_function(opt, function);
+
+      if (opt == "") 
+        continue;
+
+      options_tested++;
+      if (object->GetObjectType() == kPdsNumber ) {
         try {
           auto double_val = std::stod(opt);
           // Double-precision comparison often fails because parsed PDF value is not precisely stored
@@ -130,7 +139,8 @@ bool CParsePDF::check_possible_values(PdsObject* object, const std::string& poss
           found = true;
           break;
         }
-    if (!found)
+    }
+    if (!found && (options_tested > 0))
       return false;
   }
   return true;
@@ -150,7 +160,8 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
 
   int to_ret = -1;
   for (auto i = 0; i < (int)links.size(); i++) {
-    const auto lnk = links[i];
+    std::string function;
+    auto lnk = extract_function(links[i], function);
     const std::vector<std::vector<std::string>>* data_list = get_grammar(lnk);
 
     to_ret = i;
@@ -237,6 +248,8 @@ std::string CParsePDF::get_link_for_type(PdsObject* obj, const std::string &type
 int CParsePDF::get_type_index(PdsObject *obj, std::string types) {
   std::vector<std::string> opt = split(types, ';');
   for (auto i = 0; i < (int)opt.size(); i++) {
+    std::string function;
+    opt[i] = extract_function(opt[i], function);
     if ((obj->GetObjectType() == kPdsBoolean) && (opt[i] == "BOOLEAN"))
       return i;
     if ((obj->GetObjectType() == kPdsNumber) && ((opt[i] == "NUMBER") || (opt[i] == "INTEGER")))
@@ -329,8 +342,7 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
   // we should cover also single reference in brackets [name1,name2]
   if (vec[TSV_POSSIBLEVALUES] != "" && index!=-1) {
     std::wstring str_value;
-    if (!check_possible_values(object, vec[TSV_POSSIBLEVALUES], index, str_value))
-    {
+    if (!check_possible_values(object, vec[TSV_POSSIBLEVALUES], index, str_value)) {
       output << "Error: wrong value: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
       output << " should be: " << vec[TSV_TYPE] << " " << vec[TSV_POSSIBLEVALUES] << " and is ";
       output << ToString(object) << " (" << ToUtf8(str_value) << ")";
@@ -606,6 +618,9 @@ void CParsePDF::parse_object()
             std::vector<std::string> links = split(vec[TSV_LINK], ';');
             if (links[index] == "[]")
               continue;
+
+            std::string function;
+            opt[index] = extract_function(opt[index], function);
 
             if (opt[index] == "NUMBER-TREE" && inner_obj->GetObjectType() == kPdsDictionary) {
               parse_number_tree((PdsDictionary*)inner_obj, links[index], elem.context + "->" + vec[TSV_KEYNAME]);
