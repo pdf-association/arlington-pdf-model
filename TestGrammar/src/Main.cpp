@@ -50,11 +50,11 @@ void show_help() {
   std::cout << "    grammar_folder  - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
   std::cout << "    report_file     - file for storing results" << std::endl;
   std::cout << std::endl;
-  std::cout << "to compare with Adobe's grammar (not implemented yet):" << std::endl;
-  std::cout << "  testgrammar -c <grammar_folder> <report_file> <adobe_grammar_file>" << std::endl;
+  std::cout << "to compare with Adobe's DVA grammar (not implemented yet):" << std::endl;
+  std::cout << "  testgrammar -c <grammar_folder> <report_file> <dva_grammar_file>" << std::endl;
   std::cout << "    grammar_folder      - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
   std::cout << "    report_file         - file for storing results" << std::endl;
-  std::cout << "    adobe_grammar_file  - ????" << std::endl;
+  std::cout << "    dva_grammar_file  - ????" << std::endl;
 }
 
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
     if (a1 == L"-v") {
       std::ofstream ofs;
       ofs.open(ToUtf8(save_path));
-      CheckGrammar(grammar_folder, ofs);
+      CheckGrammarFolder(grammar_folder, ofs);
       ofs.close();
       return 0;
     }
@@ -111,7 +111,7 @@ int main(int argc, char* argv[]) {
     if (a1 == L"-c") {
       std::ofstream ofs;
       ofs.open(ToUtf8(save_path));
-      CompareWithAdobe(a4, grammar_folder, ofs);
+      CheckDVA(a4, grammar_folder, ofs);
       ofs.close();
     }
     else {
