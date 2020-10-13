@@ -162,37 +162,41 @@ public class TSVUpdater {
     
     private static String addSinceVersionFuncToLinks(String links, double version){
         String result = "";
-        String function = "fn:SinceVersion";
+        final String function = "fn:SinceVersion";
         
-        String[] links2 = links.split(";"); //split by data types
+        String[] links2 = links.split(";"); // split by data types
         for(int i = 0; i < links2.length; i++){
+            String _links = "";
             links2[i] = links2[i].replace("[", "");
             links2[i] = links2[i].replace("]", "");
-            result += "[";
-            String[] links3 = links2[i].split(","); //split by data values
+            String[] links3 = links2[i].split(","); // split by data values
             for(int j = 0; j < links3.length; j++){
                 if(!links3[j].isBlank()){
                     double object_intro = getObjectVersion(links3[j]);
                     System.out.println("\t\tObject:" + links3[j] + " was added in " + object_intro);
+                    // remove if statement to create functions everywhere
                     if(object_intro>version){
-                        // comment line below to create links without functions
-                        //result += function + "(" +  object_intro + "," + links3[j] +")";
+                        // comment out line below to create links without functions
+                        // _links += function + "(" +  object_intro + "," + links3[j] +")";
                     }else{
-                        result += links3[j];
+                        _links += links3[j];
                     }
                     if(j+1 != links3.length){
-                        result += ",";
+                        _links += ",";
                     }
                 }
-            }
-            result = result.replaceAll("(?<=,),|,*$", "");
+            }       
+            // removes all commas at the beginning of the string,
+            // commas behind commas,
+            // trailing commas
+            _links = _links.replaceAll("^,*|(?<=,),|,*$", "");
+               
             if(i+1 != links2.length){
-                result += "];";
+                result += "["+ _links +"];";
             }else{
-                result += "]";
+                result += "["+ _links +"]";
             }
         }
-                    result.replaceAll("(?<=,),|,*$", "");
         System.out.println("LINK RESULT: " +result +"\n------------");
         return result;
     }
