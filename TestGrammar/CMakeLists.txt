@@ -7,6 +7,7 @@ PROJECT(TestGrammar)
 
 set(SOURCES 
     src/CheckGrammar.cpp
+	src/CheckDVA.cpp
     src/GrammarFile.cpp
     src/ParseObjects.cpp
     src/Utils.cpp

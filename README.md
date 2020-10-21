@@ -167,7 +167,7 @@ In LibreOffice Calc, go Tools | Run Macro.. then pick from PDF20Grammar.ods | St
 Note that the gcxml utility below can additionally generate TSV files for each specific PDF version into **./tsv/<version>/**.
 
 ## **TestGrammar**
-Command line tool based on the free [PDFix library](https://pdfix.net/download-free/) that works with Grammar TSV files. See above for how to export to TSV.
+Command line tool based on the free [PDFix SDK Lite](https://pdfix.net/download-free/) that works with Grammar TSV files. See above for how to export to TSV.
 
 The tool allows two different tasks
 1. validates all TSV files.

@@ -20,9 +20,9 @@
 #define _NOEXCEPT throw()
 #endif
 
-#define PDFIX_VERSION_MAJOR 5
-#define PDFIX_VERSION_MINOR 6
-#define PDFIX_VERSION_PATCH 4
+#define PDFIX_VERSION_MAJOR 6
+#define PDFIX_VERSION_MINOR 1
+#define PDFIX_VERSION_PATCH 0
 #define MAX_INT 2147483647
 #define MIN_INT -2147483647
 #define _in_
@@ -40,10 +40,12 @@ struct PdsArray;
 struct PdsDictionary;
 struct PdsStream;
 struct PdsNull;
+struct PdsContent;
 struct PdsPageObject;
 struct PdsText;
 struct PdsForm;
 struct PdsPath;
+struct PdsPathPoint;
 struct PdsImage;
 struct PdsShading;
 struct PdsContentMark;
@@ -76,8 +78,8 @@ struct PdfDigSig;
 struct PdfCertDigSig;
 struct PdfCustomDigSig;
 struct PdfDoc;
-struct PdfDocPreflight;
-struct PdfPagePreflight;
+struct PdfDocTemplate;
+struct PdfPageTemplate;
 struct PdfAlternate;
 struct PdfHtmlAlternate;
 struct PdfFont;
@@ -121,6 +123,7 @@ typedef int PdfTextLineFlags;
 typedef int PdfTextFlags;
 typedef int PdfElementFlags;
 typedef int PdfPageInsertFlags;
+typedef int PdsContentFlags;
 
 typedef enum {
   kAuthPlatformWin = 0,
@@ -137,110 +140,8 @@ typedef enum {
   kAuthOptionEnterprise = 2,
   kAuthOptionDeveloper = 3,
   kAuthOptionTrial = 4,
+  kAuthOptionFree = 5,
 } PdfAuthOption;
-
-enum {
-  kNoError = 0,
-  kErrorUnknown = 1,
-  kErrorOutOfMemory = 2,
-  kErrorMalformedInput = 3,
-  kErrorMethodNotImplemented = 4,
-  kErrorPathNotFound = 5,
-  kErrorOperationCancelled = 6,
-  kErrorReadingDataFile = 7,
-  kErrorInit = 8,
-  kErrorIndexOutOfRange = 9,
-  kErrorIncompatiblePluginVersion = 10,
-  kErrorPluginInitialization = 11,
-  kErrorWritingDataFile = 12,
-  kErrorPdfDocInvalid = 30,
-  kErrorPdfDocOpen = 31,
-  kErrorPdfDocCreate = 32,
-  kErrorPdfDocSave = 33,
-  kErrorPdfDocXFA = 34,
-  kErrorPdfDocClose = 35,
-  kErrorDocPreflightInvalid = 60,
-  kErrorDocPreflightInvalidValue = 61,
-  kErrorPdfDigSigOpenPfxFile = 90,
-  kErrorPdfDigSigSaveFile = 91,
-  kErrorPdfDigSigReadFile = 92,
-  kErrorPdfDigSigCertOpenSystemStore = 93,
-  kErrorPdfDigSigPFXImportCertStore = 94,
-  kErrorPdfDigSigCertFindInStore = 95,
-  kErrorPdfDigSigPFXImportOpenSSL = 96,
-  kErrorPdfDigSigPFXParseOpenSSL = 97,
-  kErrorPdfDigSigByteRange = 98,
-  kErrorPdfDigSigCryptMemAlloc = 99,
-  kErrorPdfDigSigCryptSignMessage = 100,
-  kErrorPdfDigSigTimeStampMessage = 101,
-  kErrorPdfDigSigTimeStampRequest = 102,
-  kErrorPdfDigSigCryptHash = 103,
-  kErrorPdfDigSigVerifyDetachedMessage = 104,
-  kErrorPdfDigSigUnknownType = 105,
-  kErrorPdfDigSigCallback = 106,
-  kErrorPdsObjectInvalid = 120,
-  kErrorPdsObjectNotFound = 121,
-  kErrorPdfPageInvalidObj = 150,
-  kErrorPdfPageInvalidColorSpace = 151,
-  kErrorPdfPageInsert = 152,
-  kErrorPdfPageMapAddElement = 180,
-  kErrorPdfPageMapInvalidTextObj = 181,
-  kErrorPdfPageMapAddTags = 182,
-  kErrorPdfPageMapTagAttributes = 183,
-  kErrorPdfPageMapTagParentTree = 184,
-  kErrorPdfPageMapRecognition = 185,
-  kErrorPdfPageMapAcquire = 186,
-  kErrorPdeElementMalformed = 210,
-  kErrorPdeTextRunMalformed = 211,
-  kErrorPdeWordMalformed = 212,
-  kErrorPdeLineMalformed = 213,
-  kErrorPdeListMalformed = 214,
-  kErrorPdeTextMalformed = 215,
-  kErrorPdeTextSelectRange = 216,
-  kErrorPdeTableMalformed = 217,
-  kErrorPdeElementCreate = 218,
-  kErrorPdfFontSubstFontMissing = 240,
-  kErrorPdfFontNotEmbedded = 241,
-  kErrorPdfFontSave = 242,
-  kErrorPsImageOpenFile = 270,
-  kErrorPsImageUnsupportedFormat = 271,
-  kErrorPsImageWriteBMP = 272,
-  kErrorPsImageWritePNG = 273,
-  kErrorPsImageWriteJPG = 274,
-  kErrorPsImageInvalidBitmap = 275,
-  kErrorPsImageFormat = 276,
-  kErrorPdfAnnotMalformed = 300,
-  kErrorPdfAnnotInvalidType = 301,
-  kErrorPsRegexDestroy = 330,
-  kErrorPsRegexSearchFail = 331,
-  kErrorPsEventMalformed = 360,
-  kErrorPsEventExists = 361,
-  kErrorPsNoEvent = 362,
-  kErrorPdfBookmarkMalformed = 390,
-  kErrorPdfBookmarkRoot = 391,
-  kErrorPsAuthorizationFailed = 420,
-  kErrorPsAuthorizationNeeded = 421,
-  kErrorPsAuthorizationEmail = 422,
-  kErrorPsAuthorizationPlatform = 423,
-  kErrorPsAuthorizationDate = 424,
-  kErrorPsAuthorizationVersion = 425,
-  kErrorPsAuthorizationNumber = 426,
-  kErrorPsAuthorizationOsCheck = 427,
-  kErrorPsAuthorizationMaximumConsumptionReached = 428,
-  kErrorPsAuthorizationOption = 429,
-  kErrorPsStreamReadProcMissing = 450,
-  kErrorPsStreamWriteProcMissing = 451,
-  kErrorPsStreamGetSizeProcMissing = 452,
-  kErrorPdfAlternateNotFound = 480,
-  kErrorPdfAlternateInvalid = 481,
-  kErrorPdfAlternateResourceNotFound = 482,
-  kErrorPdsStructTreeInvalid = 510,
-  kErrorPdsStructElementNotFound = 511,
-  kErrorPdsStructTreeMissing = 512,
-  kErrorPdfActionInvalid = 540,
-  kErrorDataFormatInvalid = 570,
-  kErrorPdfFormFieldInvalid = 600,
-} ;
 
 typedef enum {
   kEventUnknown = 0,
@@ -822,6 +723,43 @@ typedef enum {
   kAppearanceDown = 2,
 } PdfAnnotAppearanceMode;
 
+typedef enum {
+  kPathLineTo = 0,
+  kPathBezierTo = 1,
+  kPathMoveTo = 2,
+} PdsPathPointType;
+
+typedef enum {
+  kBlendModeNormal = 0,
+  kBlendModeMultiply = 1,
+  kBlendModeScreen = 2,
+  kBlendModeOverlay = 3,
+  kBlendModeDarken = 4,
+  kBlendModeLighten = 5,
+  kBlendModeColorDodge = 6,
+  kBlendModeColorBurn = 7,
+  kBlendModeHardLight = 8,
+  kBlendModeSoftLight = 9,
+  kBlendModeDifference = 10,
+  kBlendModeExclusion = 11,
+  kBlendModeHue = 21,
+  kBlendModeSaturation = 22,
+  kBlendModeColor = 23,
+  kBlendModeLuminosity = 24,
+} PdfBlendMode;
+
+typedef enum {
+  kFillRuleNone = 0,
+  kFillRuleEvenOdd = 1,
+  kFillRuleWinding = 2,
+} PdfFillRule;
+
+enum {
+  kContentToPage = 0x01,
+  kContentToForm = 0x02,
+  kContentToCharproc = 0x04,
+} ;
+
 
 typedef struct _PdfPageRangeParams {
   int start_page;
@@ -973,11 +911,14 @@ typedef struct _PdfGraphicState {
   double miter_limit;
   PdfLineCap line_cap;
   PdfLineJoin line_join;
+  PdfBlendMode blend_mode;
+  PdfMatrix matrix;
   _PdfGraphicState() {
     line_width = 1;
     miter_limit = 0;
     line_cap = kPdfLineCapButt;
     line_join = kPdfLineJoinMiter;
+    blend_mode = kBlendModeNormal;
   }
 } PdfGraphicState;
 
@@ -1101,6 +1042,17 @@ typedef struct _PdfAccessibleParams {
   }
 } PdfAccessibleParams;
 
+typedef struct _PdsContentParams {
+  PdsContentFlags flags;
+  int form_type;
+  PdfRect bbox;
+  PdfMatrix matrix;
+  _PdsContentParams() {
+    flags = 0;
+    form_type = 0;
+  }
+} PdsContentParams;
+
 typedef int (*PdfCancelProc) (void* data);
 typedef void (*PdfEventProc) (void* data);
 typedef unsigned long (*PdfDigestDataProc) (int buffer_count, const unsigned char* buffer_to_sign[], unsigned long buffer_size[], unsigned char* sign_buff, unsigned long sign_buff_size, void* data);
@@ -1150,7 +1102,12 @@ struct PdsArray : PdsObject {
   virtual int GetNumObjects() = 0;
   virtual PdsObject* Get(int index) = 0;
   virtual bool Put(int index, PdsObject* value) = 0;
+  virtual bool PutNumber(int index, double value) = 0;
+  virtual bool PutName(int index, const wchar_t* value) = 0;
   virtual bool Insert(int index, PdsObject* value) = 0;
+  virtual PdsDictionary* InsertDict(int index) = 0;
+  virtual PdsArray* InsertArray(int index) = 0;
+  virtual bool RemoveNth(int index) = 0;
   virtual PdsDictionary* GetDictionary(int index) = 0;
   virtual PdsArray* GetArray(int index) = 0;
   virtual PdsStream* GetStream(int index) = 0;
@@ -1178,6 +1135,8 @@ struct PdsDictionary : PdsObject {
   virtual bool PutNumber(const wchar_t* key, double value) = 0;
   virtual bool PutRect(const wchar_t* key, PdfRect* rect) = 0;
   virtual bool PutMatrix(const wchar_t* key, PdfMatrix* matrix) = 0;
+  virtual PdsDictionary* PutDict(const wchar_t* key) = 0;
+  virtual PdsArray* PutArray(const wchar_t* key) = 0;
   virtual PdsDictionary* GetDictionary(const wchar_t* key) = 0;
   virtual PdsArray* GetArray(const wchar_t* key) = 0;
   virtual PdsStream* GetStream(const wchar_t* key) = 0;
@@ -1212,6 +1171,12 @@ struct PdsStream : PdsObject {
 struct PdsNull : PdsObject {
 };
 
+struct PdsContent {
+  virtual int GetNumObjects() = 0;
+  virtual PdsPageObject* GetObject(int index) = 0;
+  virtual void Release() = 0;
+};
+
 struct PdsPageObject {
   virtual PdfPageObjectType GetObjectType() = 0;
   virtual void GetBBox(_out_ PdfRect* bbox) = 0;
@@ -1220,10 +1185,16 @@ struct PdsPageObject {
   virtual PdsObject* GetStructObject(bool struct_parent) = 0;
   virtual PdsContentMark* GetContentMark() = 0;
   virtual PdfPage* GetPage() = 0;
+  virtual bool GetGState(_out_ PdfGraphicState* g_state) = 0;
   PdfRect GetBBox() {
     PdfRect bbox;
     GetBBox(&bbox);
     return bbox;
+  }
+  PdfGraphicState GetGState() {
+    PdfGraphicState g_state;
+    GetGState(&g_state);
+    return g_state;
   }
 };
 
@@ -1244,14 +1215,27 @@ struct PdsText : PdsPageObject {
 };
 
 struct PdsForm : PdsPageObject {
-  virtual int GetNumPageObjects() = 0;
-  virtual PdsPageObject* GetPageObject (int index) = 0;
+  virtual PdsContent* AcquireContent() = 0;
 };
 
 struct PdsPath : PdsPageObject {
+  virtual int GetNumPathPoints() = 0;
+  virtual PdsPathPoint* GetPathPoint(int index) = 0;
+};
+
+struct PdsPathPoint {
+  virtual PdsPathPointType GetType() = 0;
+  virtual bool GetPoint(_out_ PdfPoint* point) = 0;
+  virtual bool IsClosed() = 0;
+  PdfPoint GetPoint() {
+    PdfPoint point;
+    GetPoint(&point);
+    return point;
+  }
 };
 
 struct PdsImage : PdsPageObject {
+  virtual PdsStream* GetDataStm() = 0;
 };
 
 struct PdsShading : PdsPageObject {
@@ -1470,12 +1454,15 @@ struct PdfAnnot {
   virtual PdfAnnotSubtype GetSubtype() = 0;
   virtual PdfAnnotFlags GetFlags() = 0;
   virtual void GetAppearance(_out_ PdfAnnotAppearance* appearance) = 0;
+  virtual PdsStream* GetAppearanceXObject(PdfAnnotAppearanceMode mode) = 0;
   virtual bool SetAppearanceFromXObject(PdsStream* xobj, PdfAnnotAppearanceMode mode) = 0;
   virtual void GetBBox(_out_ PdfRect* bbox) = 0;
   virtual bool PointInAnnot(PdfPoint* point) = 0;
   virtual bool RectInAnnot(PdfRect* rect) = 0;
   virtual PdsObject* GetStructObject(bool struct_parent) = 0;
   virtual PdsDictionary* GetObject() = 0;
+  virtual void NotifyWillChange(const wchar_t* key) = 0;
+  virtual void NotifyDidChange(const wchar_t* key, int err) = 0;
   PdfAnnotAppearance GetAppearance() {
     PdfAnnotAppearance appearance;
     GetAppearance(&appearance);
@@ -1628,12 +1615,13 @@ struct PdfDoc {
   virtual bool SetInfo(const wchar_t* key, const wchar_t* info) = 0;
   virtual PdfBookmark* GetBookmarkRoot() = 0;
   virtual bool FlattenAnnots(PdfFlattenAnnotsParams* params) = 0;
+  virtual bool ApplyRedaction() = 0;
   virtual int GetNumAlternates() = 0;
   virtual PdfAlternate* AcquireAlternate(int index) = 0;
   virtual PdsObject* CreatePdsObject(PdfObjectType type, bool indirect) = 0;
   virtual bool AddTags(_callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
   virtual bool RemoveTags(_callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
-  virtual PdfDocPreflight* GetDocPreflight() = 0;
+  virtual PdfDocTemplate* GetTemplate() = 0;
   virtual PsMetadata* GetMetadata() = 0;
   virtual int GetLang(_out_ wchar_t* buffer, int len) = 0;
   virtual bool SetLang(const wchar_t* lang) = 0;
@@ -1663,6 +1651,7 @@ struct PdfDoc {
   virtual PdfAnnot* GetAnnotFromObject(PdsObject* annot_dict) = 0;
   virtual PdfAction* GetActionFromObject(PdsObject* action_obj) = 0;
   virtual PdfViewDestination* GetViewDestinationFromObject(PdsObject* dest_obj) = 0;
+  virtual PdsForm* CreateFormFromObject(PdsStream* stream) = 0;
   std::wstring GetDocumentJavaScript(int index) {
     std::wstring buffer;
     buffer.resize(GetDocumentJavaScript(index, nullptr, 0));
@@ -1689,8 +1678,8 @@ struct PdfDoc {
   }
 };
 
-struct PdfDocPreflight {
-  virtual bool PreflightDoc(_callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
+struct PdfDocTemplate {
+  virtual bool Update(_callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
   virtual bool LoadFromStream(PsStream* stream, PsDataFormat format) = 0;
   virtual bool SaveToStream(PsStream* stream, PsDataFormat format) = 0;
   virtual bool SetDefaults() = 0;
@@ -1698,9 +1687,8 @@ struct PdfDocPreflight {
   virtual bool SetProperty(const wchar_t* name, double value) = 0;
   virtual int GetRegex(const wchar_t* name, _out_ wchar_t* buffer, int len) = 0;
   virtual bool SetRegex(const wchar_t* name, const wchar_t* pattern) = 0;
-  virtual bool PreflightPage(int page_num) = 0;
-  virtual PdfPagePreflight* GetPagePreflight(int page_num) = 0;
-  virtual bool SavePreflightToStream(PsStream* stream, PsDataFormat format) = 0;
+  virtual bool AddPage(int page_num, _callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
+  virtual PdfPageTemplate* GetPageTemplate(int page_num) = 0;
   std::wstring GetRegex(const wchar_t* name) {
     std::wstring buffer;
     buffer.resize(GetRegex(name, nullptr, 0));
@@ -1709,7 +1697,7 @@ struct PdfDocPreflight {
   }
 };
 
-struct PdfPagePreflight {
+struct PdfPageTemplate {
   virtual int GetPageNum() = 0;
   virtual PdfRotate GetLogicalRotate() = 0;
   virtual int GetNumColumns() = 0;
@@ -1878,6 +1866,8 @@ struct PdfPage {
   virtual bool RemoveAnnot(int index, PdfRemoveAnnotFlags flags) = 0;
   virtual bool AddAnnot(int index, PdfAnnot* annot) = 0;
   virtual PdfAnnot* CreateAnnot(PdfAnnotSubtype subtype, PdfRect* rect) = 0;
+  virtual PdfTextAnnot* CreateTextAnnot(PdfRect* rect) = 0;
+  virtual PdfTextMarkupAnnot* CreateTextMarkupAnnot(PdfAnnotSubtype subtype, PdfRect* rect) = 0;
   virtual PdfTextAnnot* AddNewTextAnnot(int index, PdfRect* rect) = 0;
   virtual PdfLinkAnnot* AddNewLinkAnnot(int index, PdfRect* rect) = 0;
   virtual PdfTextMarkupAnnot* AddNewTextMarkupAnnot(int index, PdfRect* rect, PdfAnnotSubtype subtype) = 0;
@@ -1887,8 +1877,7 @@ struct PdfPage {
   virtual int GetNumAnnotsAtRect(PdfRect* rect) = 0;
   virtual PdfAnnot* GetAnnotAtRect(PdfRect* rect, int index) = 0;
   virtual bool DrawContent(PdfPageRenderParams* params, _callback_ PdfCancelProc cancel_proc, void* cancel_data) = 0;
-  virtual int GetNumPageObjects() = 0;
-  virtual PdsPageObject* GetPageObject (int index) = 0;
+  virtual PdsContent* GetContent() = 0;
   virtual PdsDictionary* GetResources(const wchar_t* res_type, bool create) = 0;
   virtual PdsDictionary* GetObject() = 0;
   virtual bool FlattenFormXObjects() = 0;
@@ -2038,6 +2027,7 @@ struct PdsStructElement {
   virtual int GetActualText(_out_ wchar_t* buffer, int len) = 0;
   virtual int GetAlt(_out_ wchar_t* buffer, int len) = 0;
   virtual bool SetAlt(const wchar_t* alt) = 0;
+  virtual bool SetTitle(const wchar_t* title) = 0;
   virtual int GetAbbreviation(_out_ wchar_t* buffer, int len) = 0;
   virtual int GetPageNumber() = 0;
   virtual PdsObject* GetAttrObject(int index) = 0;
