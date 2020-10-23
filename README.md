@@ -1,4 +1,6 @@
-# **PDF 2.0 DOM Grammar**
+# **The Arlington PDF Grammar**
+
+The Alrington PDF Grammar is a specification derived, machine-readable definition of the full PDF document object model (DOM). It provides a structured definition of all PDF objects (dictionaries, arrays and map objects) and their relationships beginning with the file trailer using a simple text-based syntax. It currently does not define PDF lexical rules, PDF content streams or cross reference table data. This definition must be used in conjunction with the PDF 2.0 specification document (ISO/FDIS 32000-2:2020) in order to fully understand the PDF DOM.
 
 We extracted all Tables from the latest PDF 2.0 dated revision (ISO/FDIS 32000-2:2020) specification and represent them in series of tabbed separated values (TSV) files. Each TSV represents a single PDF object - either a dictionary, array, stream, map, etc. and contains necessary data to validate real world PDF files.
 
@@ -167,7 +169,7 @@ In LibreOffice Calc, go Tools | Run Macro.. then pick from PDF20Grammar.ods | St
 Note that the gcxml utility below can additionally generate TSV files for each specific PDF version into **./tsv/<version>/**.
 
 ## **TestGrammar**
-Command line tool based on the free [PDFix library](https://pdfix.net/download-free/) that works with Grammar TSV files. See above for how to export to TSV.
+Command line tool based on the free [PDFix SDK Lite](https://pdfix.net/download-free/) that works with Grammar TSV files. See above for how to export to TSV.
 
 The tool allows two different tasks
 1. validates all TSV files.
