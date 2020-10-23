@@ -1,6 +1,6 @@
 # **The Arlington PDF Grammar**
 
-The Alrington PDF Grammar is a specification derived, machine-readable definition of the full PDF document object model (DOM). It provides a structured definition of all PDF objects (dictionaries, arrays and map objects) and their relationships beginning with the file trailer using a simple text-based syntax. It currently does not define PDF lexical rules, PDF content streams or cross reference table data. This definition must be used in conjunction with the PDF 2.0 specification document (ISO/FDIS 32000-2:2020) in order to fully understand the PDF DOM.
+The Arlington PDF Grammar is a specification derived, machine-readable definition of the full PDF document object model (DOM). It provides a structured definition of all PDF objects (dictionaries, arrays and map objects) and their relationships beginning with the file trailer using a simple text-based syntax. It currently does not define PDF lexical rules, PDF content streams or cross reference table data. This definition must be used in conjunction with the PDF 2.0 specification document (ISO/FDIS 32000-2:2020) in order to fully understand the PDF DOM.
 
 We extracted all Tables from the latest PDF 2.0 dated revision (ISO/FDIS 32000-2:2020) specification and represent them in series of tabbed separated values (TSV) files. Each TSV represents a single PDF object - either a dictionary, array, stream, map, etc. and contains necessary data to validate real world PDF files.
 
@@ -24,7 +24,7 @@ Rows define specific keys in a dictionary or an element in an array and the char
 
 All names are expressed **without** the leading FORWARD-SLASH (/).
 
-The two special objects \_UniversalArray and \_UniversalDictionary are not defined in the PDF spec and represent a generic arbitrarily-sized PDF array object and PDF dictionary object respectively. They are used to resolve Links for a few PDF objects under special circumstances. 
+The two special objects \_UniversalArray and \_UniversalDictionary are not defined in the PDF spec and represent a generic arbitrarily-sized PDF array object and PDF dictionary object respectively. They are used to resolve Links for a few PDF objects under special circumstances.
 
 ## **Key**
 Key represents a single key in a dictionary, an index in an array, or multiple entries (\*). Keys are obviously case sensitive. To locate a key easily using Linux begin a regex with the start-of-line (^).
@@ -78,12 +78,12 @@ A single key in a dictionary can often be of different types. A common example i
 
 These Linux commands lists all combinations of types used in PDF:
 ```
-cut -f 2 *.tsv | sort | uniq 
+cut -f 2 *.tsv | sort | uniq
 cut -f 2 *.tsv | sed -e 's/;/\n/g' | sort | uniq
 ```
 
 ## **SinceVersion** and **DeprecatedIn**
-These fields define the PDF versions when the relevant key or array element was introduced or deprecated, as described in ISO/FDIS 32000-2:2020. 
+These fields define the PDF versions when the relevant key or array element was introduced or deprecated, as described in ISO/FDIS 32000-2:2020.
 All TSV rows must have a SinceVersion entry. If rows are still valid in PDF 2.0, then DeprecatedIn will be blank.
 
 ## **Required**
@@ -111,7 +111,7 @@ Type | Link |
 --- | --- |
 array;dictionary | \[ArrayOfAnnotations];\[AnnotStamp<b>,</b>AnnotRedact<b>,</b>AnnotPopup]
 
-Links may also use the "fn:Deprecated()" or "fn:SinceVersion()" functions if a specific type of PDF object has been deprecated or introduced in a particular PDF version. 
+Links may also use the "fn:Deprecated()" or "fn:SinceVersion()" functions if a specific type of PDF object has been deprecated or introduced in a particular PDF version.
 
 ## **PossibleValues**
 PossibleValues also follow the same pattern as Links:
@@ -163,8 +163,8 @@ This repository contains the following Proof-of-Concept implementations:
 
 ## **Exporting to TSV**
 
-**This information is now obsolete! Do not do this or you will overwrite TSV data with the formulas!** 
-In LibreOffice Calc, go Tools | Run Macro.. then pick from PDF20Grammar.ods | Standard | Module the macro called "ExportToTSV". This will write out all TSV files into a folder tree called "./tsv/latest" from where the PDF20Grammar.ods is stored. Existing TSV files will be overwritten! 
+**This information is now obsolete! Do not do this or you will overwrite TSV data with the formulas!**
+In LibreOffice Calc, go Tools | Run Macro.. then pick from PDF20Grammar.ods | Standard | Module the macro called "ExportToTSV". This will write out all TSV files into a folder tree called "./tsv/latest" from where the PDF20Grammar.ods is stored. Existing TSV files will be overwritten!
 
 Note that the gcxml utility below can additionally generate TSV files for each specific PDF version into **./tsv/<version>/**.
 
@@ -182,9 +182,9 @@ The tool allows two different tasks
     - all error messages are prefixed with "Error:" to enable post-processing
 3. recursively validates a folder containing PDF files.
     - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting.
-4. compares grammar with Adobe DVA 
+4. compares grammar with Adobe DVA
 
-Notes: 
+Notes:
 * the utility does NOT currently confirm version validity
 
 * all error messages are prefixed with "Error:"
@@ -202,7 +202,7 @@ Error: required key doesn't exist ...
 Error: object validated in two different contexts ...
 ```
 
-* the grammar is based on PDF 2.0 where some previously optional keys are now required (e.g. font dictionary FirstChar, LastChar, Widths) which means that matching legacy PDFs will fail unless these keys are present. A warning such as the following will be issued (because PDF 2.0 required keys are not present in legacy PDFs so there is no precise match): 
+* the grammar is based on PDF 2.0 where some previously optional keys are now required (e.g. font dictionary FirstChar, LastChar, Widths) which means that matching legacy PDFs will fail unless these keys are present. A warning such as the following will be issued (because PDF 2.0 required keys are not present in legacy PDFs so there is no precise match):
 ```
 Error: Can't select any link from \[FontType1,FontTrueType,FontMultipleMaster,FontType3,FontType0,FontCIDType0,FontCIDType2\] to validate provided object: xxx
 ```
@@ -230,7 +230,7 @@ Compiled binaries will be in [/TestGrammar/bin/linux](/TestGrammar/bin/linux).
 
 T.B.D. - try Linux instructions???
 
-#### Usage: 
+#### Usage:
 To validate single PDF file call:
 -	TestGrammar \<input_file> \<grammar_folder> \<report_file>
 
@@ -245,7 +245,7 @@ TestGrammar.exe "C:\Test grammar\test file.pdf" "C:\Grammar folder\tsv\" "c:\tem
 
 ## **GCXML**
 Command line tool writen in Java that does two different things:
-1. converts all TSV files into XML files that must be valid based on [schema](/xml/schema/objects.xsd) 
+1. converts all TSV files into XML files that must be valid based on [schema](/xml/schema/objects.xsd)
 1. gives answers to various queries
  - https://docs.google.com/document/d/11wXQmITNiCFB26fWAdxEq4TGgQ4VPQh1Qwoz1PU4ikY
 
@@ -271,11 +271,11 @@ List of available commands:
 ```
 >*Note: output might be too long to display in terminal, so it is recommended to redirect the output to file (eg \<command> > report.txt)*
 
-The XML version of the PDF DOM grammar (one XML file per PDF version) is created from the TSV files and written to ./xml/objects. All of the answers to queries are based on processing the XML files in ./xml/objects. 
- 
+The XML version of the PDF DOM grammar (one XML file per PDF version) is created from the TSV files and written to ./xml/objects. All of the answers to queries are based on processing the XML files in ./xml/objects.
+
 ## Useful Linux commands
 
-Basic Linux commands can be used on the PDF DOM TSV data files. 
+Basic Linux commands can be used on the PDF DOM TSV data files.
 Alternatively the EBay TSV-Utils such as tsv-pretty, tsv-filter, etc. can also be used - see https://github.com/eBay/tsv-utils.
 
 ```
@@ -298,13 +298,13 @@ grep -P "Note\t\t" *.tsv | sed -e 's/\t/\\t/g'
 # No response is correct!
 
 ## Confirm the Type column
-cut -f 2 *.tsv | grep -v "fn:" | sort | uniq 
+cut -f 2 *.tsv | grep -v "fn:" | sort | uniq
 # Correct response: each line only has Types listed above, separated by semi-colons, sorted alphabetically.
 cut -f 2 *.tsv | grep -v "fn:" | sed -e 's/;/\n/g' | sort | uniq
 # Correct response: Type, array, boolean, date, dictionary, fn:Deprecated(type,pdf-version), integer, name, name-tree,
 #                   null, number, number-tree, rectangle, stream, string, string-ascii, string-byte, string-text
 
-## Confirm all "SinceVersion" values 
+## Confirm all "SinceVersion" values
 cut -f 3 *.tsv | sort | uniq
 # Correct response: pdf-version values 1.0, ..., 2.0, SinceVersion. No blank lines.
 
@@ -322,14 +322,14 @@ cut -f 6 *.tsv | sort | uniq
 
 ## Column 7 is "Inheritable" (TRUE or FALSE)
 cut -f 7 *.tsv | sort | uniq
-# Correct response: TRUE, FALSE, Inheritable. 
+# Correct response: TRUE, FALSE, Inheritable.
 
 ## Column 8 is "DefaultValue"
 cut -f 8 *.tsv | sort | uniq
 
 ## Column 9 is "PossibleValues"
 cut -f 9 *.tsv | sort | uniq
-# Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK if multiples. 
+# Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK if multiples.
 
 ## Column 10: List all "SpecialCases"
 cut -f 10 *.tsv | sort | uniq
@@ -360,8 +360,8 @@ cut -f 1 *.tsv | sort | uniq
 
 ## TestGrammar utility
 - when validating the TSV data files, also do a validation on all the internal declarative grammar expressions
-- when validating a PDF file, check required values in parent dictionaries when inheritance is allowed. 
-- extend TestGrammar with new feature to report all keys that are NOT defined in any PDF specification (as this may indicate either proprietary extensions, undocumented legacy extensions or common errors/malformations from PDF writers). 
+- when validating a PDF file, check required values in parent dictionaries when inheritance is allowed.
+- extend TestGrammar with new feature to report all keys that are NOT defined in any PDF specification (as this may indicate either proprietary extensions, undocumented legacy extensions or common errors/malformations from PDF writers).
 
 ## gcxml utility
 - confirm that the XML produced from the TSV data with formulas is still valid
@@ -369,4 +369,3 @@ cut -f 1 *.tsv | sort | uniq
 ## Python script
 - confirm that the JSON produced from the TSV data with formulas is still valid
 - confirm why some PDF objects from later PDF versions end up in earlier versions
-
