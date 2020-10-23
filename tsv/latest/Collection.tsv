@@ -1,10 +1,10 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.7		FALSE	FALSE	FALSE		[Collection]			
-Schema	dictionary	1.7		FALSE	FALSE	FALSE				[CollectionSchema]	
+Schema	dictionary	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,CollectionSchema)]	
 D	string-byte	1.7		FALSE	FALSE	FALSE					
 View	name	1.7		FALSE	FALSE	FALSE		[D,T,H,C]			
-Navigator	dictionary	2.0		FALSE	FALSE	FALSE				[Navigator]	
-Colors	dictionary	2.0		FALSE	FALSE	FALSE				[CollectionColors]	
-Sort	dictionary	1.7		FALSE	FALSE	FALSE				[CollectionSort]	
-Folders	dictionary	2.0		FALSE	FALSE	FALSE				[Folder]	
-Split	dictionary	2.0		FALSE	FALSE	FALSE				[CollectionSplit]	
+Navigator	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,Navigator)]	
+Colors	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,CollectionColors)]	
+Sort	dictionary	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,CollectionSort)]	
+Folders	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,Folder)]	
+Split	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,CollectionSplit)]	

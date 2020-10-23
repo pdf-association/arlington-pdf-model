@@ -6,12 +6,12 @@ UF	string-text	1.7		FALSE	FALSE	FALSE
 DOS	string-byte	1.1	2.0	FALSE	FALSE	FALSE					
 Mac	string-byte	1.1	2.0	FALSE	FALSE	FALSE					
 Unix	string-byte	1.1	2.0	FALSE	FALSE	FALSE					
-ID	array	1.1		FALSE	FALSE	FALSE				[ArrayOf_2StringsByte]	
+ID	array	1.1		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_2StringsByte)]	
 V	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-EF	dictionary	1.3		fn:IsRequired(fn:IsPresent(RF))	FALSE	FALSE				[FileSpecRF]	
-RF	dictionary	1.3		FALSE	FALSE	FALSE				[FileSpecRF]	
+EF	dictionary	1.3		fn:IsRequired(fn:IsPresent(RF))	FALSE	FALSE				[fn:SinceVersion(1.3,FileSpecRF)]	
+RF	dictionary	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,FileSpecRF)]	
 Desc	string	1.6		FALSE	FALSE	FALSE					
-CI	dictionary	1.7		FALSE	FALSE	FALSE				[CollectionItem]	
-Thumb	stream	2.0		FALSE	TRUE	FALSE				[Thumbnail]	
+CI	dictionary	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,CollectionItem)]	
+Thumb	stream	2.0		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,Thumbnail)]	
 AFRelationship	name	2.0		FALSE	FALSE	FALSE	[Unspecified]	[Source,Data,Alternative,Supplement,EncryptedPayload,FormData,Schema,Unspecified]			
-EP	dictionary	2.0		FALSE	FALSE	FALSE				[EncryptedPayload]	
+EP	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,EncryptedPayload)]	

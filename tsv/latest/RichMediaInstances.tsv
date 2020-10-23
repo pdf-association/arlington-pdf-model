@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[RichMediaInstance]			
 Subtype	name	2.0		TRUE	FALSE	FALSE		[3D,Sound,Video]			
-Asset	dictionary	2.0		TRUE	FALSE	FALSE				[FileSpecification]	
+Asset	dictionary	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(1.1,FileSpecification)]	

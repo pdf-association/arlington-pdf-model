@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.0		FALSE	FALSE	FALSE		[Encoding]			
 BaseEncoding	name	1.0		FALSE	FALSE	FALSE		[MacRomanEncoding,MacExpertEncoding,WinAnsiEncoding]			
-Differences	array	1.0		FALSE	FALSE	FALSE			should not be used with TrueType fonts	[ArrayOfDifferences]	
+Differences	array	1.0		FALSE	FALSE	FALSE			should not be used with TrueType fonts	[fn:SinceVersion(1.0,ArrayOfDifferences)]	

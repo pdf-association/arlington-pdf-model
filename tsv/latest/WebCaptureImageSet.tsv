@@ -2,8 +2,8 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.3		FALSE	FALSE	FALSE		[SpiderContentSet]			
 S	name	1.3		TRUE	FALSE	FALSE		[SIS]			
 ID	string	1.3		TRUE	FALSE	FALSE					
-O	array	1.3		TRUE	FALSE	FALSE				[_UniversalArray]	
-SI	array;dictionary	1.3		TRUE	FALSE	FALSE				[ArrayOfSourceInformations];[SourceInformation]	
+O	array	1.3		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,_UniversalArray)]	
+SI	array;dictionary	1.3		TRUE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfSourceInformations)];[fn:SinceVersion(1.3,SourceInformation)]	
 CT	string	1.3		FALSE	FALSE	FALSE					
 TS	date	1.3		FALSE	FALSE	FALSE					
-R	array;integer	1.3		TRUE	FALSE	FALSE				[ArrayOfIntegersGeneral];[]	
+R	array;integer	1.3		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfIntegersGeneral)];[]	

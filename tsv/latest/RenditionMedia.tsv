@@ -2,8 +2,8 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.5		FALSE	FALSE	FALSE		[Rendition]			
 S	name	1.5		TRUE	FALSE	FALSE		[MR]			
 N	string-text	1.5		FALSE	FALSE	FALSE					
-MH	dictionary	1.5		FALSE	FALSE	FALSE				[RenditionMH]	
-BE	dictionary	1.5		FALSE	FALSE	FALSE				[RenditionBE]	
-C	dictionary	1.5		FALSE	FALSE	FALSE				[MediaClipSection,MediaClipData]	
-P	dictionary	1.5		fn:IsRequired(fn:NotPresent(C))	FALSE	FALSE				[MediaPlayParameters]	
-SP	dictionary	1.5		FALSE	FALSE	FALSE				[MediaScreenParameters]	
+MH	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,RenditionMH)]	
+BE	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,RenditionBE)]	
+C	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,MediaClipSection),fn:SinceVersion(1.5,MediaClipData)]	
+P	dictionary	1.5		fn:IsRequired(fn:NotPresent(C))	FALSE	FALSE				[fn:SinceVersion(1.5,MediaPlayParameters)]	
+SP	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,MediaScreenParameters)]	

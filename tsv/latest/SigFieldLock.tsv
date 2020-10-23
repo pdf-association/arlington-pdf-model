@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.5		FALSE	FALSE	FALSE		[SigFieldLock]			
 Action	name	1.5		TRUE	FALSE	FALSE		[All,Include,Exclude]			
-Fields	array	1.5		fn:IsRequired(@Action==Include || @Action==Exclude)	FALSE	FALSE				[ArrayOfStringsText]	
+Fields	array	1.5		fn:IsRequired(@Action==Include || @Action==Exclude)	FALSE	FALSE				[fn:SinceVersion(1.4,ArrayOfStringsText)]	
 P	number	2.0		FALSE	FALSE	FALSE		[1,2,3]			

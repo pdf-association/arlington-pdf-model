@@ -2,5 +2,5 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.6		FALSE	FALSE	FALSE		[Viewport]			
 BBox	rectangle	1.6		TRUE	FALSE	FALSE					
 Name	string-text	1.6		FALSE	FALSE	FALSE					
-Measure	dictionary	1.6		FALSE	FALSE	FALSE				[MeasureRL,MeasureGEO]	
-PtData	dictionary	2.0		FALSE	FALSE	FALSE				[PointData]	
+Measure	dictionary	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,MeasureRL),fn:SinceVersion(2.0,MeasureGEO)]	
+PtData	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,PointData)]	

@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-WhitePoint	array	1.1		TRUE	FALSE	FALSE				[Whitepoint]	
-BlackPoint	array	1.1		FALSE	FALSE	FALSE	[0.0 0.0 0.0]			[Blackpoint]	
-Gamma	array	1.1		FALSE	FALSE	FALSE	[1.0 1.0 1.0]			[Gamma]	
-Matrix	array	1.1		FALSE	FALSE	FALSE	[1 0 0 0 1 0 0 0 1]			[Matrix]	
+WhitePoint	array	1.1		TRUE	FALSE	FALSE				[fn:SinceVersion(1.1,Whitepoint)]	
+BlackPoint	array	1.1		FALSE	FALSE	FALSE	[0.0 0.0 0.0]			[fn:SinceVersion(1.1,Blackpoint)]	
+Gamma	array	1.1		FALSE	FALSE	FALSE	[1.0 1.0 1.0]			[fn:SinceVersion(1.1,Gamma)]	
+Matrix	array	1.1		FALSE	FALSE	FALSE	[1 0 0 0 1 0 0 0 1]			[fn:SinceVersion(1.0,Matrix)]	

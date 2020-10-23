@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[RichMediaPresentation]			
 Style	name	2.0		FALSE	FALSE	FALSE	Embedded	[Embedded,Windowed]			
-Window	dictionary	2.0		FALSE	FALSE	FALSE				[RichMediaWindow]	
+Window	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,RichMediaWindow)]	
 Transparent	boolean	2.0		FALSE	FALSE	FALSE	FALSE				
 NavigationPane	boolean	2.0		FALSE	FALSE	FALSE	FALSE				
 Toolbar	boolean	2.0		FALSE	FALSE	FALSE	FALSE				
