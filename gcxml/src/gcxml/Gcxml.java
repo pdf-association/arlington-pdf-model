@@ -152,7 +152,7 @@ public class Gcxml {
         // converting to other formats
         System.out.println("CONVERSIONS:");
         System.out.println("\t-all\t\t\tconvert latest TSV to XML and TSV sub-versions for each specific PDF version");
-        System.out.println("\t-xml <version | -all>\tconvert TSV to XML for specified PDF version (or all)");
+        System.out.println("\t-xml <version>\t\tconvert TSV to XML for specified PDF version (or all if no version is specified)");
         System.out.println("\t-tsv\t\t\tcreate TSV files for each PDF version");
         // grammar queries using the xml files
         System.out.println("QUERIES:");

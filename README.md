@@ -261,7 +261,7 @@ GENERAL:
 	-help			show list of available commands
 CONVERSIONS:
 	-all			convert latest TSV to XML and TSV sub-versions for each specific PDF version
-	-xml <version | -all>	convert TSV to XML for specified PDF version (or all)
+	-xml <version>		convert TSV to XML for specified PDF version (or all if no version is specified)
 	-tsv			create TSV files for each PDF version
 QUERIES:
 	-sin <version | -all>   return all keys introduced in ("since") a specified PDF version (or all)

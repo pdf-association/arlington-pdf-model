@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<PDF grammar_version="0.5.0" iso_ref="ISO-32000" pdf_version="1.0">
+<PDF grammar_version="0.4.9" iso_ref="ISO-32000" pdf_version="1.0">
    <OBJECT id="AnnotLink" object_number="000">
       <ENTRY>
          <NAME>Type</NAME>
@@ -52,7 +52,7 @@
       <ENTRY>
          <NAME>Border</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOf_4AnnotBorderCharacteristics</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOf_4AnnotBorderCharacteristics)</VALUE>
             <DEFAULT_VALUE>[0 0 1]</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -65,10 +65,10 @@
       <ENTRY>
          <NAME>Dest</NAME>
          <VALUES>
-            <VALUE type="array">DestXYZ</VALUE>
-            <VALUE type="array">Dest0</VALUE>
-            <VALUE type="array">Dest1</VALUE>
-            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,DestXYZ)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,Dest0)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,Dest1)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,Dest4)</VALUE>
             <VALUE type="name"/>
             <VALUE type="string-byte"/>
          </VALUES>
@@ -132,7 +132,7 @@
       <ENTRY>
          <NAME>Border</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOf_4AnnotBorderCharacteristics</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOf_4AnnotBorderCharacteristics)</VALUE>
             <DEFAULT_VALUE>[0 0 1]</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -191,34 +191,34 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="dictionary">AnnotText</VALUE>
-            <VALUE type="dictionary">AnnotLink</VALUE>
-            <VALUE type="dictionary">AnnotFreeText</VALUE>
-            <VALUE type="dictionary">AnnotLine</VALUE>
-            <VALUE type="dictionary">AnnotSquare</VALUE>
-            <VALUE type="dictionary">AnnotCircle</VALUE>
-            <VALUE type="dictionary">AnnotPolygon</VALUE>
-            <VALUE type="dictionary">AnnotPolyLine</VALUE>
-            <VALUE type="dictionary">AnnotHighlight</VALUE>
-            <VALUE type="dictionary">AnnotUnderline</VALUE>
-            <VALUE type="dictionary">AnnotSquiggly</VALUE>
-            <VALUE type="dictionary">AnnotStrikeOut</VALUE>
-            <VALUE type="dictionary">AnnotCaret</VALUE>
-            <VALUE type="dictionary">AnnotStamp</VALUE>
-            <VALUE type="dictionary">AnnotInk</VALUE>
-            <VALUE type="dictionary">AnnotPopup</VALUE>
-            <VALUE type="dictionary">AnnotFileAttachment</VALUE>
-            <VALUE type="dictionary">AnnotSound</VALUE>
-            <VALUE type="dictionary">AnnotMovie</VALUE>
-            <VALUE type="dictionary">AnnotScreen</VALUE>
-            <VALUE type="dictionary">AnnotWidget</VALUE>
-            <VALUE type="dictionary">AnnotPrinterMark</VALUE>
-            <VALUE type="dictionary">AnnotTrapNetwork</VALUE>
-            <VALUE type="dictionary">AnnotWatermark</VALUE>
-            <VALUE type="dictionary">Annot3D</VALUE>
-            <VALUE type="dictionary">AnnotRedact</VALUE>
-            <VALUE type="dictionary">AnnotProjection</VALUE>
-            <VALUE type="dictionary">AnnotRichMedia</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,AnnotText)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,AnnotLink)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotFreeText)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotLine)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotSquare)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotCircle)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.5,AnnotPolygon)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.5,AnnotPolyLine)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotHighlight)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotUnderline)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.4,AnnotSquiggly)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotStrikeOut)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.5,AnnotCaret)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotStamp)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotInk)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotPopup)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotFileAttachment)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.2,AnnotSound)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.2,AnnotMovie)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.5,AnnotScreen)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.2,AnnotWidget)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.4,AnnotPrinterMark)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.3,AnnotTrapNetwork)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.6,AnnotWatermark)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.6,Annot3D)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.7,AnnotRedact)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(2.0,AnnotProjection)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(2.0,AnnotRichMedia)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -251,12 +251,12 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="dictionary">FilterLZWDecode</VALUE>
-            <VALUE type="dictionary">FilterFlateDecode</VALUE>
-            <VALUE type="dictionary">FilterCCITTFaxDecode</VALUE>
-            <VALUE type="dictionary">FilterJBIG2Decode</VALUE>
-            <VALUE type="dictionary">FilterDCTDecode</VALUE>
-            <VALUE type="dictionary">FilterCrypt</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FilterLZWDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.2,FilterFlateDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FilterCCITTFaxDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.4,FilterJBIG2Decode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FilterDCTDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.5,FilterCrypt)</VALUE>
             <VALUE type="null"/>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -355,8 +355,8 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="dictionary">PageTreeNode</VALUE>
-            <VALUE type="dictionary">PageObject</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,PageTreeNode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,PageObject)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -370,7 +370,7 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="stream">Stream</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.0,Stream)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -434,7 +434,7 @@
       <ENTRY>
          <NAME>Pages</NAME>
          <VALUES>
-            <VALUE type="dictionary">PageTreeNodeRoot</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,PageTreeNodeRoot)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -482,7 +482,7 @@
       <ENTRY>
          <NAME>Outlines</NAME>
          <VALUES>
-            <VALUE type="dictionary">Outline</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,Outline)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -509,7 +509,7 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="stream">Stream</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.0,Stream)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -523,14 +523,14 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="array">CalGrayColorSpace</VALUE>
-            <VALUE type="array">CalRGBColorSpace</VALUE>
-            <VALUE type="array">LabColorSpace</VALUE>
-            <VALUE type="array">ICCBasedColorSpace</VALUE>
-            <VALUE type="array">IndexedColorSpace</VALUE>
-            <VALUE type="array">SeparationColorSpace</VALUE>
-            <VALUE type="array">DeviceNColorSpace</VALUE>
-            <VALUE type="array">PatternColorSpace</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.1,CalGrayColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.1,CalRGBColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.1,LabColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.3,ICCBasedColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,IndexedColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.2,SeparationColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.6,DeviceNColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.2,PatternColorSpace)</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
@@ -547,7 +547,7 @@
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
-            <VALUE type="dictionary">PageObject</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,PageObject)</VALUE>
             <VALUE type="number"/>
          </VALUES>
          <REQUIRED>true</REQUIRED>
@@ -575,7 +575,7 @@
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
-            <VALUE type="dictionary">PageObject</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,PageObject)</VALUE>
             <VALUE type="number"/>
          </VALUES>
          <REQUIRED>true</REQUIRED>
@@ -618,7 +618,7 @@
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
-            <VALUE type="dictionary">PageObject</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,PageObject)</VALUE>
             <VALUE type="number"/>
          </VALUES>
          <REQUIRED>true</REQUIRED>
@@ -684,7 +684,7 @@
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
-            <VALUE type="dictionary">PageObject</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,PageObject)</VALUE>
             <VALUE type="number"/>
          </VALUES>
          <REQUIRED>true</REQUIRED>
@@ -826,7 +826,7 @@
       <ENTRY>
          <NAME>Differences</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfDifferences</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfDifferences)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -864,7 +864,7 @@
       <ENTRY>
          <NAME>Root</NAME>
          <VALUES>
-            <VALUE type="dictionary">Catalog</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,Catalog)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -876,7 +876,7 @@
       <ENTRY>
          <NAME>Info</NAME>
          <VALUES>
-            <VALUE type="dictionary">DocInfo</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,DocInfo)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -1273,7 +1273,7 @@
       <ENTRY>
          <NAME>FontFile</NAME>
          <VALUES>
-            <VALUE type="stream">FontFile</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.0,FontFile)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1661,7 +1661,7 @@
       <ENTRY>
          <NAME>FontFile</NAME>
          <VALUES>
-            <VALUE type="stream">FontFileType1</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.0,FontFileType1)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -1763,13 +1763,13 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="dictionary">FontType1</VALUE>
-            <VALUE type="dictionary">FontTrueType</VALUE>
-            <VALUE type="dictionary">FontMultipleMaster</VALUE>
-            <VALUE type="dictionary">FontType3</VALUE>
-            <VALUE type="dictionary">FontType0</VALUE>
-            <VALUE type="dictionary">FontCIDType0</VALUE>
-            <VALUE type="dictionary">FontCIDType2</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FontType1)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FontTrueType)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FontMultipleMaster)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FontType3)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.2,FontType0)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.2,FontCIDType0)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.2,FontCIDType2)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1855,7 +1855,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfIntegersGeneral)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1867,7 +1867,7 @@
       <ENTRY>
          <NAME>FontDescriptor</NAME>
          <VALUES>
-            <VALUE type="dictionary">FontDescriptorType1</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FontDescriptorType1)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -1879,7 +1879,7 @@
       <ENTRY>
          <NAME>Encoding</NAME>
          <VALUES>
-            <VALUE type="dictionary">Encoding</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,Encoding)</VALUE>
             <VALUE type="name">MacRomanEncoding</VALUE>
             <VALUE type="name">MacExpertEncoding</VALUE>
             <VALUE type="name">WinAnsiEncoding</VALUE>
@@ -1968,7 +1968,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfIntegersGeneral)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -1980,7 +1980,7 @@
       <ENTRY>
          <NAME>FontDescriptor</NAME>
          <VALUES>
-            <VALUE type="dictionary">FontDescriptorTrueType</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FontDescriptorTrueType)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -1992,7 +1992,7 @@
       <ENTRY>
          <NAME>Encoding</NAME>
          <VALUES>
-            <VALUE type="dictionary">Encoding</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,Encoding)</VALUE>
             <VALUE type="name">MacRomanEncoding</VALUE>
             <VALUE type="name">MacExpertEncoding</VALUE>
             <VALUE type="name">WinAnsiEncoding</VALUE>
@@ -2081,7 +2081,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfIntegersGeneral)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2093,7 +2093,7 @@
       <ENTRY>
          <NAME>FontDescriptor</NAME>
          <VALUES>
-            <VALUE type="dictionary">FontDescriptorType1</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FontDescriptorType1)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2105,7 +2105,7 @@
       <ENTRY>
          <NAME>Encoding</NAME>
          <VALUES>
-            <VALUE type="dictionary">Encoding</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,Encoding)</VALUE>
             <VALUE type="name">MacRomanEncoding</VALUE>
             <VALUE type="name">MacExpertEncoding</VALUE>
             <VALUE type="name">WinAnsiEncoding</VALUE>
@@ -2170,7 +2170,7 @@
       <ENTRY>
          <NAME>FontMatrix</NAME>
          <VALUES>
-            <VALUE type="array">Matrix</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,Matrix)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2182,7 +2182,7 @@
       <ENTRY>
          <NAME>CharProcs</NAME>
          <VALUES>
-            <VALUE type="dictionary">CharProcMap</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,CharProcMap)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2194,7 +2194,7 @@
       <ENTRY>
          <NAME>Encoding</NAME>
          <VALUES>
-            <VALUE type="dictionary">Encoding</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,Encoding)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2230,7 +2230,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfIntegersGeneral)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2242,7 +2242,7 @@
       <ENTRY>
          <NAME>FontDescriptor</NAME>
          <VALUES>
-            <VALUE type="dictionary">FontDescriptor</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FontDescriptor)</VALUE>
          </VALUES>
          <REQUIRED>fn:IsRequired(fn:IsPDFTagged())</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2268,12 +2268,12 @@
       <ENTRY>
          <NAME>1</NAME>
          <VALUES>
-            <VALUE type="array">CalGrayColorSpace</VALUE>
-            <VALUE type="array">CalRGBColorSpace</VALUE>
-            <VALUE type="array">LabColorSpace</VALUE>
-            <VALUE type="array">ICCBasedColorSpace</VALUE>
-            <VALUE type="array">SeparationColorSpace</VALUE>
-            <VALUE type="array">DeviceNColorSpace</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.1,CalGrayColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.1,CalRGBColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.1,LabColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.3,ICCBasedColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.2,SeparationColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.6,DeviceNColorSpace)</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
@@ -2300,7 +2300,7 @@
       <ENTRY>
          <NAME>3</NAME>
          <VALUES>
-            <VALUE type="stream">Stream</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.0,Stream)</VALUE>
             <VALUE type="string"/>
          </VALUES>
          <REQUIRED>true</REQUIRED>
@@ -2401,7 +2401,7 @@
       <ENTRY>
          <NAME>First</NAME>
          <VALUES>
-            <VALUE type="dictionary">OutlineItem</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,OutlineItem)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2413,7 +2413,7 @@
       <ENTRY>
          <NAME>Last</NAME>
          <VALUES>
-            <VALUE type="dictionary">OutlineItem</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,OutlineItem)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2451,8 +2451,8 @@
       <ENTRY>
          <NAME>Parent</NAME>
          <VALUES>
-            <VALUE type="dictionary">OutlineItem</VALUE>
-            <VALUE type="dictionary">Outline</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,OutlineItem)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,Outline)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2464,7 +2464,7 @@
       <ENTRY>
          <NAME>Prev</NAME>
          <VALUES>
-            <VALUE type="dictionary">OutlineItem</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,OutlineItem)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2476,7 +2476,7 @@
       <ENTRY>
          <NAME>Next</NAME>
          <VALUES>
-            <VALUE type="dictionary">OutlineItem</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,OutlineItem)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2488,7 +2488,7 @@
       <ENTRY>
          <NAME>First</NAME>
          <VALUES>
-            <VALUE type="dictionary">OutlineItem</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,OutlineItem)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2500,7 +2500,7 @@
       <ENTRY>
          <NAME>Last</NAME>
          <VALUES>
-            <VALUE type="dictionary">OutlineItem</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,OutlineItem)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2524,10 +2524,10 @@
       <ENTRY>
          <NAME>Dest</NAME>
          <VALUES>
-            <VALUE type="array">DestXYZ</VALUE>
-            <VALUE type="array">Dest0</VALUE>
-            <VALUE type="array">Dest1</VALUE>
-            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,DestXYZ)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,Dest0)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,Dest1)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,Dest4)</VALUE>
             <VALUE type="name"/>
             <VALUE type="string-byte"/>
          </VALUES>
@@ -2556,8 +2556,8 @@
       <ENTRY>
          <NAME>Parent</NAME>
          <VALUES>
-            <VALUE type="dictionary">PageTreeNode</VALUE>
-            <VALUE type="dictionary">PageTreeNodeRoot</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,PageTreeNode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,PageTreeNodeRoot)</VALUE>
          </VALUES>
          <REQUIRED>fn:IsRequired(@Type!=Template)</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2569,7 +2569,7 @@
       <ENTRY>
          <NAME>Resources</NAME>
          <VALUES>
-            <VALUE type="dictionary">Resource</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,Resource)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2606,8 +2606,8 @@
       <ENTRY>
          <NAME>Contents</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfStreamsGeneral</VALUE>
-            <VALUE type="stream">Stream</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfStreamsGeneral)</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.0,Stream)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2632,7 +2632,7 @@
       <ENTRY>
          <NAME>Thumb</NAME>
          <VALUES>
-            <VALUE type="stream">Thumbnail</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.0,Thumbnail)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2644,7 +2644,7 @@
       <ENTRY>
          <NAME>Annots</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfAnnots</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfAnnots)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2670,8 +2670,8 @@
       <ENTRY>
          <NAME>Parent</NAME>
          <VALUES>
-            <VALUE type="dictionary">PageTreeNode</VALUE>
-            <VALUE type="dictionary">PageTreeNodeRoot</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,PageTreeNode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,PageTreeNodeRoot)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -2683,7 +2683,7 @@
       <ENTRY>
          <NAME>Kids</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfPageTreeNodeKids</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfPageTreeNodeKids)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2707,7 +2707,7 @@
       <ENTRY>
          <NAME>Resources</NAME>
          <VALUES>
-            <VALUE type="dictionary">Resource</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,Resource)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2771,7 +2771,7 @@
       <ENTRY>
          <NAME>Kids</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfPageTreeNodeKids</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfPageTreeNodeKids)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2795,7 +2795,7 @@
       <ENTRY>
          <NAME>Resources</NAME>
          <VALUES>
-            <VALUE type="dictionary">Resource</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,Resource)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2847,7 +2847,7 @@
       <ENTRY>
          <NAME>ColorSpace</NAME>
          <VALUES>
-            <VALUE type="dictionary">ColorSpaceMap</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,ColorSpaceMap)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2859,7 +2859,7 @@
       <ENTRY>
          <NAME>XObject</NAME>
          <VALUES>
-            <VALUE type="dictionary">XObjectMap</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,XObjectMap)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2871,7 +2871,7 @@
       <ENTRY>
          <NAME>Font</NAME>
          <VALUES>
-            <VALUE type="dictionary">FontMap</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FontMap)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2883,7 +2883,7 @@
       <ENTRY>
          <NAME>ProcSet</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfNamesForProcSet</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfNamesForProcSet)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2909,7 +2909,7 @@
       <ENTRY>
          <NAME>Filter</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfFilterNames</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfFilterNames)</VALUE>
             <VALUE type="name">ASCIIHexDecode</VALUE>
             <VALUE type="name">ASCII85Decode</VALUE>
             <VALUE type="name">LZWDecode</VALUE>
@@ -2931,13 +2931,13 @@
       <ENTRY>
          <NAME>DecodeParms</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfDecodeParams</VALUE>
-            <VALUE type="dictionary">FilterLZWDecode</VALUE>
-            <VALUE type="dictionary">FilterFlateDecode</VALUE>
-            <VALUE type="dictionary">FilterCCITTFaxDecode</VALUE>
-            <VALUE type="dictionary">FilterJBIG2Decode</VALUE>
-            <VALUE type="dictionary">FilterDCTDecode</VALUE>
-            <VALUE type="dictionary">FilterCrypt</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfDecodeParams)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FilterLZWDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.2,FilterFlateDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FilterCCITTFaxDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.4,FilterJBIG2Decode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FilterDCTDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.5,FilterCrypt)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -2999,7 +2999,7 @@
       <ENTRY>
          <NAME>ColorSpace</NAME>
          <VALUES>
-            <VALUE type="array">IndexedColorSpace</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,IndexedColorSpace)</VALUE>
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
          </VALUES>
@@ -3029,7 +3029,7 @@
       <ENTRY>
          <NAME>Decode</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfNumbersGeneral)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3091,7 +3091,7 @@
       <ENTRY>
          <NAME>Matrix</NAME>
          <VALUES>
-            <VALUE type="array">Matrix</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,Matrix)</VALUE>
             <DEFAULT_VALUE>[1 0 0 1 0 0]</DEFAULT_VALUE>
          </VALUES>
          <REQUIRED>fn:IsRequired(fn:BeforeVersion(1.3))</REQUIRED>
@@ -3128,7 +3128,7 @@
       <ENTRY>
          <NAME>Filter</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfCompressionFilterNames</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfCompressionFilterNames)</VALUE>
             <VALUE type="name">ASCIIHexDecode</VALUE>
             <VALUE type="name">ASCII85Decode</VALUE>
             <VALUE type="name">LZWDecode</VALUE>
@@ -3146,10 +3146,10 @@
       <ENTRY>
          <NAME>DecodeParms</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfDecodeParams</VALUE>
-            <VALUE type="dictionary">FilterLZWDecode</VALUE>
-            <VALUE type="dictionary">FilterFlateDecode</VALUE>
-            <VALUE type="dictionary">FilterCrypt</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfDecodeParams)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FilterLZWDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.2,FilterFlateDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.5,FilterCrypt)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3161,7 +3161,7 @@
       <ENTRY>
          <NAME>XUID</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfIntegersGeneral)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3223,14 +3223,14 @@
       <ENTRY>
          <NAME>ColorSpace</NAME>
          <VALUES>
-            <VALUE type="array">CalGrayColorSpace</VALUE>
-            <VALUE type="array">CalRGBColorSpace</VALUE>
-            <VALUE type="array">LabColorSpace</VALUE>
-            <VALUE type="array">ICCBasedColorSpace</VALUE>
-            <VALUE type="array">IndexedColorSpace</VALUE>
-            <VALUE type="array">SeparationColorSpace</VALUE>
-            <VALUE type="array">DeviceNColorSpace</VALUE>
-            <VALUE type="array">PatternColorSpace</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.1,CalGrayColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.1,CalRGBColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.1,LabColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.3,ICCBasedColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,IndexedColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.2,SeparationColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.6,DeviceNColorSpace)</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.2,PatternColorSpace)</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
@@ -3274,7 +3274,7 @@
       <ENTRY>
          <NAME>Decode</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfNumbersGeneral)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3323,7 +3323,7 @@
       <ENTRY>
          <NAME>Filter</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfFilterNames</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfFilterNames)</VALUE>
             <VALUE type="name">ASCIIHexDecode</VALUE>
             <VALUE type="name">ASCII85Decode</VALUE>
             <VALUE type="name">LZWDecode</VALUE>
@@ -3345,13 +3345,13 @@
       <ENTRY>
          <NAME>DecodeParms</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfDecodeParams</VALUE>
-            <VALUE type="dictionary">FilterLZWDecode</VALUE>
-            <VALUE type="dictionary">FilterFlateDecode</VALUE>
-            <VALUE type="dictionary">FilterCCITTFaxDecode</VALUE>
-            <VALUE type="dictionary">FilterJBIG2Decode</VALUE>
-            <VALUE type="dictionary">FilterDCTDecode</VALUE>
-            <VALUE type="dictionary">FilterCrypt</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,ArrayOfDecodeParams)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FilterLZWDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.2,FilterFlateDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FilterCCITTFaxDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.4,FilterJBIG2Decode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,FilterDCTDecode)</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.5,FilterCrypt)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>false</INDIRECT_REFERENCE>
@@ -3363,7 +3363,7 @@
       <ENTRY>
          <NAME>F</NAME>
          <VALUES>
-            <VALUE type="dictionary">FileSpecification</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.1,FileSpecification)</VALUE>
             <VALUE type="string"/>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -3378,10 +3378,10 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="stream">XObjectFormType1</VALUE>
-            <VALUE type="stream">XObjectImage</VALUE>
-            <VALUE type="stream">XObjectFormPS</VALUE>
-            <VALUE type="stream">XObjectFormPSpassthrough</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.0,XObjectFormType1)</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.0,XObjectImage)</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.1,XObjectFormPS)</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.1,XObjectFormPSpassthrough)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>true</INDIRECT_REFERENCE>
@@ -3395,13 +3395,13 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="array">_UniversalArray</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,_UniversalArray)</VALUE>
             <VALUE type="boolean"/>
-            <VALUE type="dictionary">_UniversalDictionary</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,_UniversalDictionary)</VALUE>
             <VALUE type="name"/>
             <VALUE type="null"/>
             <VALUE type="number"/>
-            <VALUE type="stream">Stream</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.0,Stream)</VALUE>
             <VALUE type="string"/>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -3416,13 +3416,13 @@
       <ENTRY>
          <NAME>*</NAME>
          <VALUES>
-            <VALUE type="array">_UniversalArray</VALUE>
+            <VALUE type="array">fn:SinceVersion(1.0,_UniversalArray)</VALUE>
             <VALUE type="boolean"/>
-            <VALUE type="dictionary">_UniversalDictionary</VALUE>
+            <VALUE type="dictionary">fn:SinceVersion(1.0,_UniversalDictionary)</VALUE>
             <VALUE type="name"/>
             <VALUE type="null"/>
             <VALUE type="number"/>
-            <VALUE type="stream">Stream</VALUE>
+            <VALUE type="stream">fn:SinceVersion(1.0,Stream)</VALUE>
             <VALUE type="string"/>
          </VALUES>
          <REQUIRED>false</REQUIRED>
