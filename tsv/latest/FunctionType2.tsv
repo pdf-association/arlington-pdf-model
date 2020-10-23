@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 FunctionType	integer	1.3		TRUE	FALSE	FALSE		[2]			
-Domain	array	1.3		TRUE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
-Range	array	1.3		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
-C0	array	1.3		FALSE	FALSE	FALSE	[0.0]			[ArrayOfNumbersGeneral]	
-C1	array	1.3		FALSE	FALSE	FALSE	[0.0]			[ArrayOfNumbersGeneral]	
+Domain	array	1.3		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
+Range	array	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
+C0	array	1.3		FALSE	FALSE	FALSE	[0.0]			[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
+C1	array	1.3		FALSE	FALSE	FALSE	[0.0]			[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
 N	number	1.3		TRUE	FALSE	FALSE					

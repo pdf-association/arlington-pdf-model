@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[DPartRoot]			
-DPartRootNode	dictionary	2.0		FALSE	FALSE	FALSE				[DPart]	
+DPartRootNode	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,DPart)]	
 RecordLevel	integer	2.0		FALSE	FALSE	FALSE					
-NodeNameList	array	2.0		FALSE	FALSE	FALSE				[ArrayOfNamesGeneral]	
+NodeNameList	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfNamesGeneral)]	

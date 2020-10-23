@@ -1,9 +1,9 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.0		TRUE	FALSE	FALSE		[Pages]			
-Parent	dictionary	1.0		TRUE	TRUE	FALSE				[PageTreeNode,PageTreeNodeRoot]	
-Kids	array	1.0		TRUE	FALSE	FALSE				[ArrayOfPageTreeNodeKids]	
+Parent	dictionary	1.0		TRUE	TRUE	FALSE				[fn:SinceVersion(1.0,PageTreeNode),fn:SinceVersion(1.0,PageTreeNodeRoot)]	
+Kids	array	1.0		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfPageTreeNodeKids)]	
 Count	integer	1.0		TRUE	FALSE	FALSE		[fn:Expr(@self>=0)]			
-Resources	dictionary	1.0		FALSE	FALSE	TRUE				[Resource]	Inheritable from Parent
+Resources	dictionary	1.0		FALSE	FALSE	TRUE				[fn:SinceVersion(1.0,Resource)]	Inheritable from Parent
 MediaBox	rectangle	1.0		FALSE	FALSE	TRUE					Inheritable from Parent
 CropBox	rectangle	1.0		FALSE	FALSE	TRUE	@MediaBox				Inheritable from Parent
 Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Expr(@self mod 90==0)]			Inheritable from Parent

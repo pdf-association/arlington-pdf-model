@@ -23,12 +23,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author fero
  */
 public class TSVUpdater {
+
     final double[] pdf_version = {1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0};
     static String path_to_tsv_files = "";
     
@@ -169,17 +172,23 @@ public class TSVUpdater {
             String _links = "";
             links2[i] = links2[i].replace("[", "");
             links2[i] = links2[i].replace("]", "");
-            String[] links3 = links2[i].split(","); // split by data values
+            String temp = commaSplit(links2[i]);
+            String[] links3 = temp.split(",,"); // split by data values
             for(int j = 0; j < links3.length; j++){
                 if(!links3[j].isBlank()){
-                    double object_intro = getObjectVersion(links3[j]);
-                    System.out.println("\t\tObject:" + links3[j] + " was added in " + object_intro);
+                    //double object_intro = getObjectVersion(links3[j]);
+                    //System.out.println("\t\tObject:" + links3[j] + " was added in " + object_intro);
                     // remove if statement to create functions everywhere
-                    if(object_intro>version){
+                    String mydata = links3[j];
+                    double ver = getVersion(mydata);
+
+                    String obj = getLink(mydata);
+                    
+                    if(ver>version){
                         // comment out line below to create links without functions
-                        // _links += function + "(" +  object_intro + "," + links3[j] +")";
+                        //_links += function + "(" +  object_intro + "," + links3[j] +")";
                     }else{
-                        _links += links3[j];
+                        _links += obj;
                     }
                     if(j+1 != links3.length){
                         _links += ",";
@@ -241,5 +250,45 @@ public class TSVUpdater {
             }
         }
         return result;
+    }
+    private static String commaSplit(String s) {
+        String result = "";
+        int counter = 0;
+        for(char ch: s.toCharArray()){
+            if(ch == '('){
+                counter++;
+                result += "(";
+            }else if (ch == ')'){
+                counter--;
+                result += ")";
+            }else if (ch == ',' && counter == 0){
+                result += ",,";
+            }else{
+                result += ch;
+            }
+        }
+        return result;
+    } 
+    private static double getVersion(String mydata) {
+        double ver = 1.0;
+        Pattern pattern = Pattern.compile("\\((.*?),");
+        Matcher matcher = pattern.matcher(mydata);
+        if (matcher.find())
+        {
+            System.out.println(matcher.group(1));
+            ver = Double.parseDouble(matcher.group(1));
+        }
+        return ver;
+    }
+    private static String getLink(String mydata) {
+        String link = "";
+        Pattern pattern = Pattern.compile(",(.*?)\\)");
+        Matcher matcher = pattern.matcher(mydata);
+        if (matcher.find())
+        {
+            System.out.println(matcher.group(1));
+            link =matcher.group(1);
+        }
+        return link;
     }
 }

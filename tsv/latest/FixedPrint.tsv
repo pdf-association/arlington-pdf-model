@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.6		TRUE	FALSE	FALSE		[FixedPrint]			
-Matrix	array	1.6		FALSE	FALSE	FALSE	[1 0 0 1 0 0 ]			[Matrix]	
+Matrix	array	1.6		FALSE	FALSE	FALSE	[1 0 0 1 0 0 ]			[fn:SinceVersion(1.0,Matrix)]	
 H	number	1.6		FALSE	FALSE	FALSE	0				
 V	number	1.6		FALSE	FALSE	FALSE	0				

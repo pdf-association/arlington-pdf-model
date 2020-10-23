@@ -2,4 +2,4 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.2		FALSE	FALSE	FALSE		[Border]			
 W	number	1.2		FALSE	FALSE	FALSE	1				
 S	name	1.2		FALSE	FALSE	FALSE	S	[S,B,D,I,U]			
-D	array	1.2		FALSE	FALSE	FALSE	[3]			[ArrayOfDashPatterns]	
+D	array	1.2		FALSE	FALSE	FALSE	[3]			[fn:SinceVersion(1.2,ArrayOfDashPatterns)]	

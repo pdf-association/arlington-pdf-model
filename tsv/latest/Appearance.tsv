@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-N	dictionary;stream	1.2		TRUE	FALSE	FALSE				[AppearanceSubDict];[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]	*
-R	dictionary;stream	1.2		FALSE	FALSE	FALSE	@N			[AppearanceSubDict];[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]	*
-D	dictionary;stream	1.2		FALSE	FALSE	FALSE	@N			[AppearanceSubDict];[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]	*
+N	dictionary;stream	1.2		TRUE	FALSE	FALSE				[fn:SinceVersion(1.3,AppearanceSubDict)];[fn:SinceVersion(1.0,XObjectFormType1),fn:SinceVersion(1.1,XObjectFormPS),fn:SinceVersion(1.1,XObjectFormPSpassthrough)]	*
+R	dictionary;stream	1.2		FALSE	FALSE	FALSE	@N			[fn:SinceVersion(1.3,AppearanceSubDict)];[fn:SinceVersion(1.0,XObjectFormType1),fn:SinceVersion(1.1,XObjectFormPS),fn:SinceVersion(1.1,XObjectFormPSpassthrough)]	*
+D	dictionary;stream	1.2		FALSE	FALSE	FALSE	@N			[fn:SinceVersion(1.3,AppearanceSubDict)];[fn:SinceVersion(1.0,XObjectFormType1),fn:SinceVersion(1.1,XObjectFormPS),fn:SinceVersion(1.1,XObjectFormPSpassthrough)]	*

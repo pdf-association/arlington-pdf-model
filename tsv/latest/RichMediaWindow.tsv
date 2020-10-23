@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[RichMediaWindow]			
-Width	dictionary	2.0		FALSE	FALSE	FALSE				[RichMediaWidth]	
-Height	dictionary	2.0		FALSE	FALSE	FALSE				[RichMediaHeight]	
-Position	dictionary	2.0		FALSE	FALSE	FALSE				[RichMediaPosition]	
+Width	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,RichMediaWidth)]	
+Height	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,RichMediaHeight)]	
+Position	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,RichMediaPosition)]	

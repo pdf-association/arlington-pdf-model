@@ -2,4 +2,4 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	2.0		FALSE	FALSE	FALSE		[RichMediaConfiguration]			
 Subtype	name	2.0		FALSE	FALSE	FALSE		[3D,Sound,Video]			
 Name	string-text	2.0		FALSE	FALSE	FALSE					
-Instances	array	2.0		FALSE	FALSE	FALSE				[RichMediaInstances]	
+Instances	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,RichMediaInstances)]	

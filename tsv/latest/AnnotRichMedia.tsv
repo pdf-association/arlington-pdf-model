@@ -3,21 +3,21 @@ Type	name	2.0		FALSE	FALSE	FALSE		[Annot]
 Subtype	name	2.0		TRUE	FALSE	FALSE		[RichMedia]			
 Rect	rectangle	2.0		TRUE	FALSE	FALSE					
 Contents	string-text	2.0		FALSE	FALSE	FALSE					
-P	dictionary	2.0		FALSE	TRUE	FALSE				[PageObject]	
+P	dictionary	2.0		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,PageObject)]	
 NM	string-text	2.0		FALSE	FALSE	FALSE					
 M	date;string-text	2.0		FALSE	FALSE	FALSE					
 F	integer	2.0		FALSE	FALSE	FALSE	0				
-AP	dictionary	2.0		FALSE	FALSE	FALSE				[Appearance]	
+AP	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,Appearance)]	
 AS	name	2.0		FALSE	FALSE	FALSE					
-Border	array	2.0		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
-C	array	2.0		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
+Border	array	2.0		FALSE	FALSE	FALSE	[0 0 1]			[fn:SinceVersion(1.0,ArrayOf_4AnnotBorderCharacteristics)]	
+C	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_4NumbersColorAnnotation)]	
 StructParent	integer	2.0		FALSE	FALSE	FALSE					
-OC	dictionary	2.0		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
-AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications];[FileSpecification]	
+OC	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,OptContentGroup),fn:SinceVersion(1.5,OptContentMembership)]	
+AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfFileSpecifications)];[fn:SinceVersion(1.1,FileSpecification)]	
 ca	number	2.0		FALSE	FALSE	FALSE	1.0				
 CA	number	2.0		FALSE	FALSE	FALSE					
 BM	name	2.0		FALSE	FALSE	FALSE					
 Lang	string-text	2.0		FALSE	FALSE	FALSE					
-RichMediaContent	dictionary	2.0		TRUE	FALSE	FALSE				[RichMediaContent]	
-RichMediaSettings	dictionary	2.0		FALSE	FALSE	FALSE				[RichMediaSettings]	
-ExData	dictionary	2.0		FALSE	FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]	
+RichMediaContent	dictionary	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(2.0,RichMediaContent)]	
+RichMediaSettings	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,RichMediaSettings)]	
+ExData	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,ExData3DMarkup),fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	

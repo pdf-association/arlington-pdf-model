@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[RichMediaContent]			
-Assets	name-tree	2.0		FALSE	FALSE	FALSE				[FileSpecification]	
-Confiurations	array	2.0		FALSE	FALSE	FALSE				[ArrayOfRichMediaConfiguration]	
-Views	array	2.0		FALSE	FALSE	FALSE				[ArrayOf3DView]	
+Assets	name-tree	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,FileSpecification)]	
+Confiurations	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfRichMediaConfiguration)]	
+Views	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOf3DView)]	

@@ -1,2 +1,2 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-*	array;dictionary	1.5		TRUE	FALSE	FALSE				[ArrayOfOptContentOrders1,ArrayOfOptContentOrders2];[OptContentGroup]	
+*	array;dictionary	1.5		TRUE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfOptContentOrders1),fn:SinceVersion(1.5,ArrayOfOptContentOrders2)];[fn:SinceVersion(1.5,OptContentGroup)]	
