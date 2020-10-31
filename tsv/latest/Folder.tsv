@@ -2,12 +2,12 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	2.0		FALSE	FALSE	FALSE		[Folder]			
 ID	integer	2.0		TRUE	FALSE	FALSE					
 Name	string-text	2.0		TRUE	FALSE	FALSE					
-Parent	dictionary	2.0		FALSE	FALSE	FALSE				[Folder]	
-Child	dictionary	2.0		FALSE	FALSE	FALSE				[Folder]	
-Next	dictionary	2.0		FALSE	FALSE	FALSE				[Folder]	
-CI	dictionary	2.0		FALSE	FALSE	FALSE				[CollectionItem]	
+Parent	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,Folder)]	
+Child	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,Folder)]	
+Next	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,Folder)]	
+CI	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,CollectionItem)]	
 Desc	string-text	2.0		FALSE	FALSE	FALSE					
 CreationDate	date	2.0		FALSE	FALSE	FALSE					
 ModDate	date	2.0		FALSE	FALSE	FALSE					
-Thumb	stream	2.0		FALSE	FALSE	FALSE				[Thumbnail]	
-Free	array	2.0		FALSE	FALSE	FALSE			only used by root folder	[ArrayOfNumbersGeneral]	
+Thumb	stream	2.0		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,Thumbnail)]	
+Free	array	2.0		FALSE	FALSE	FALSE			only used by root folder	[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	

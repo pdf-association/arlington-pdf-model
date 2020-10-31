@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-OCGs	array	1.5		TRUE	FALSE	FALSE				[ArrayOfOCG]	
-D	dictionary	1.5		TRUE	FALSE	FALSE				[OptContentConfig]	
-Configs	array	1.5		FALSE	FALSE	FALSE				[ArrayOfOCConfig]	
+OCGs	array	1.5		TRUE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfOCG)]	
+D	dictionary	1.5		TRUE	FALSE	FALSE				[fn:SinceVersion(1.5,OptContentConfig)]	
+Configs	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfOCConfig)]	

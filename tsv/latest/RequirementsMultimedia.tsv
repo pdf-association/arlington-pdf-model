@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.7		FALSE	FALSE	FALSE		[Requirement]			
 S	name	1.7		TRUE	FALSE	FALSE		[Multimedia]			
-V	dictionary;name	2.0		FALSE	FALSE	FALSE				[Extensions];[]	
-RH	array;dictionary	1.7		FALSE	FALSE	FALSE	[]			[ArrayOfRequirementsHandlers];[RequirementsHandler]	
-Penalty	integer	2.0		FALSE	FALSE	FALSE	100	[value>=0 && value<=100]			
+V	dictionary;name	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,Extensions)];[]	
+RH	array;dictionary	1.7		FALSE	FALSE	FALSE	[]			[fn:SinceVersion(1.7,ArrayOfRequirementsHandlers)];[fn:SinceVersion(1.7,RequirementsHandler)]	
+Penalty	integer	2.0		FALSE	FALSE	FALSE	100	[fn:Expr(@self>=0 && @self<=100)]			

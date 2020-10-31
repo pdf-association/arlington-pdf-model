@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-0	dictionary;number	1.1		TRUE	FALSE	FALSE				[PageObject];[]	
-1	name	1.1		TRUE	FALSE	FALSE		[XYZ]			
-2	null;number	1.1		TRUE	FALSE	FALSE				[];[]	
-3	null;number	1.1		TRUE	FALSE	FALSE				[];[]	
-4	null;number	1.1		TRUE	FALSE	FALSE				[];[]	
+0	dictionary;number	1.0		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,PageObject)];[]	
+1	name	1.0		TRUE	FALSE	FALSE		[XYZ]			
+2	null;number	1.0		TRUE	FALSE	FALSE				[];[]	
+3	null;number	1.0		TRUE	FALSE	FALSE				[];[]	
+4	null;number	1.0		TRUE	FALSE	FALSE				[];[]	

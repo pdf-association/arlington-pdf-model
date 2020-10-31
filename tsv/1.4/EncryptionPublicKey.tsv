@@ -1,9 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Recipients	array	1.3		FALSE	FALSE	FALSE				[ArrayOfStringsByte]	
+Recipients	array	1.3		fn:IsRequired(@SubFilter==adbe.pkcs7.s3 || @SubFilter==adbe.pkcs7.s4)	FALSE	FALSE				[ArrayOfStringsByte]	
 Filter	name	1.1		TRUE	FALSE	FALSE		[Adobe.PubSec,AdobePPKLite]			
 SubFilter	name	1.3		FALSE	FALSE	FALSE		[adbe.pkcs7.s3,adbe.pkcs7.s4,adbe.pkcs7.s5]			
 V	integer	1.4		FALSE	FALSE	FALSE		[0,1,2,3,4,5]			
-Length	integer	1.4	2.0	FALSE	FALSE	FALSE	40	[value>=40 && value<=128 && value mod 8==0]			
-CF	dictionary	1.1		FALSE	FALSE	FALSE			meaningful only when the value of V is 4 (PDF 1.5) or 5 (PDF 2.0)	[CryptFilter,CryptFilterPublicKey]	
+Length	integer	1.4	2.0	FALSE	FALSE	FALSE	40	[fn:Expr(@self>=40 && @self<=128 && @self mod 8==0)]			
 EFF	name	1.1		FALSE	FALSE	FALSE					
 EncryptMetadata	boolean	1.3		FALSE	FALSE	FALSE	TRUE				

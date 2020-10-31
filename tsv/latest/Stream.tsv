@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Length	integer	1.0		TRUE	FALSE	FALSE					
-Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
-DecodeParms	array;dictionary	1.0		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	
-F	dictionary;string	1.2		FALSE	FALSE	FALSE				[FileSpecification];[]	
-FFilter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]		[ArrayOfFilterNames];[]	
-FDecodeParms	array;dictionary	1.2		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode,FilterCrypt]	
+Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]		[fn:SinceVersion(1.0,ArrayOfFilterNames)];[]	
+DecodeParms	array;dictionary	1.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfDecodeParams)];[fn:SinceVersion(1.0,FilterLZWDecode),fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.0,FilterCCITTFaxDecode),fn:SinceVersion(1.4,FilterJBIG2Decode),fn:SinceVersion(1.0,FilterDCTDecode),fn:SinceVersion(1.5,FilterCrypt)]	
+F	dictionary;string	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,FileSpecification)];[]	
+FFilter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]		[fn:SinceVersion(1.0,ArrayOfFilterNames)];[]	
+FDecodeParms	array;dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfDecodeParams)];[fn:SinceVersion(1.0,FilterLZWDecode),fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.0,FilterCCITTFaxDecode),fn:SinceVersion(1.4,FilterJBIG2Decode),fn:SinceVersion(1.0,FilterDCTDecode),fn:SinceVersion(1.5,FilterCrypt)]	
 DL	integer	1.5		FALSE	FALSE	FALSE					

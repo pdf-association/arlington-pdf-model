@@ -141,20 +141,9 @@ public class XMLCreator {
                             // colValues[10] -> link(csv) VALIDATE(xml)
                             // colValues[6], colValues[7], colValues[8] -> other values (optional)
                             Element value_elem = null;
-                            String types = column_values[1];
-                            String[] arr_types = types.split(";", -1);
-                            boolean is_linkable = false;
-                            for(int i = 0; i < arr_types.length; i++){
-                                if("dictionary".equals(arr_types[i]) || "array".equals(arr_types[i]) ||"stream".equals(arr_types[i])){
-                                    is_linkable = true;
-                                }
-                            }
-                            
-                            if(is_linkable == true){
-                                value_elem = nodeValuesLinkable(column_values[1], column_values[10]);
-                            }else{
-                                value_elem = nodeValues(column_values[1], column_values[7], column_values[8]);
-                            }
+
+                            value_elem = nodeValues(column_values[1], column_values[7], column_values[8], column_values[10]);
+
                             // creates <INTRODUCED>, <DEPRECATED>, <REQUIRED>, <INDIRECTREFERENCE>
                             Element introduced_elem = nodeIntroduced(column_values[2]);
                             Element deprecated_elem = nodeDeprecated(column_values[3]);
@@ -244,7 +233,8 @@ public class XMLCreator {
         Element temp_elem = null;
         if(!col_value.isBlank()){
             temp_elem = new_doc.createElement("REQUIRED");
-            temp_elem.appendChild(new_doc.createTextNode(col_value.toLowerCase()));
+            if(!col_value.startsWith("fn:")) col_value = col_value.toLowerCase();
+            temp_elem.appendChild(new_doc.createTextNode(col_value));
         }else{
             System.out.println("\tERROR. While processing entry: " +current_entry+ ". Failed to create REQUIRED node. Missing value for required. Shall be TRUE or FALSE.");
             ++error_count;
@@ -264,77 +254,46 @@ public class XMLCreator {
         return temp_elem;
     }
     
-    private Element nodeValuesLinkable(String type, String validate) {
-        Element values_elem = new_doc.createElement("VALUES");
-        
-        validate = validate.replace("[", "");
-        validate = validate.replace("]", "");
-        
-        String[] types = null;
-        String[] values = null;
-        
-        types = type.split(";", -1);
-        values = validate.split(";", -1);
-        
-        
-        if(types.length == values.length){
-            for(int i = 0; i < types.length; i++){
-                int k = 0;
-                String[] temp = values[i].split(",",-1);
-                for(int j = 0; j < temp.length; j++){
-                    Element value_elem = new_doc.createElement("VALUE");
-                    value_elem.setAttribute("type", types[i]);
-                    if("dictionary".equals(types[i]) || "array".equals(types[i]) || "stream".equals(types[i])){
-                        String node_value = temp[j];
-                        //value_elem.setAttribute("xlink:type", "simple");
-                        //value_elem.setAttribute("xlink:href","_pdf_grammar2.0.xml#xpointer(id(" +node_value+ "))");
-                        value_elem.appendChild(new_doc.createTextNode(node_value));
-                        if(node_value.isBlank()){
-                            System.out.println("\tWARNING. Missing value in entry: "+current_entry+ ". VALUE node was created but has no value.");
-                        }
-                    }
-                    values_elem.appendChild(value_elem);
-                    k++;
-                }
-            }
-        }else{
-            System.out.println("\tERROR. While processing entry: " +current_entry+ ". Failed to create VALUES node. Types and links do not match.");
-            ++error_count;
-        }
-        return values_elem;
-    }
-    
-    private Element nodeValues(String type, String default_value, String possible_values) {
+    private Element nodeValues(String type, String default_value, String possible_values, String links) {
         Element values_elem = new_doc.createElement("VALUES");
         
         String[] types = null;
         String[] pos_values = null;
-        
-        possible_values = possible_values.replace("[", "");
-        possible_values = possible_values.replace("]", "");
+        String[] arr_links = null;
         
         types = type.split(";", -1);
-        
         if(!possible_values.isBlank()){
-            pos_values = possible_values.split(";", -1);
-            for(int i = 0; i < types.length; i++){
-                int k = 0;
-                String[] temp = pos_values[i].split(",",-1);
-                for(int j = 0; j < temp.length; j++){
-                    Element valueElem = new_doc.createElement("VALUE");
-                    valueElem.setAttribute("type", types[i]);
-                    if(!temp[j].isEmpty()){
-                        valueElem.appendChild(new_doc.createTextNode(temp[j]));  
-                    }
-                    values_elem.appendChild(valueElem);
+            pos_values = possible_values.split(";",-1);
+        }
+        arr_links = links.split(";",-1);
+        
+        for(int i = 0; i < types.length; i++){
+            //System.out.println(i);
+            Element value = null;
+            String t = types[i];//getDataType(types[i]);
+            
+           //System.out.println(t);
+            if("array".equals(t) || "dictionary".equals(t) || "stream".equals(t) || types[i].contains("array")){
+                arr_links[i] = commaSplit(arr_links[i]);
+                String[] temp = arr_links[i].split(",,", -1);
+                for (String temp1 : temp) {
+                    value = createNodeValue(t, temp1);
+                    values_elem.appendChild(value);
                 }
-            }
-        }else{
-            for(int i = 0; i < types.length; i++){
-                int k = 0;
-                Element value_elem = new_doc.createElement("VALUE");
-                value_elem.setAttribute("type", types[i]);
-                values_elem.appendChild(value_elem);
+            }else{
+                if(pos_values != null){
+                    //System.out.println(pos_values[i]);
+                    pos_values[i] = commaSplit(pos_values[i]);
+                    String[] temp = pos_values[i].split(",,", -1);
+                    for (String temp1 : temp) {
+                        value = createNodeValue(t, temp1);
+                        values_elem.appendChild(value);
+                    }
+                }else{
+                    //System.out.println("empty array");
+                    value = createNodeValue(t, "");
+                    values_elem.appendChild(value);
+                }
             }
         }
         if(!default_value.isBlank()){
@@ -361,5 +320,101 @@ public class XMLCreator {
             ++error_count;
         }
         return temp_elem;
+    }
+
+    private String commaSplit(String s){
+        s = s.replace("[", "");
+        s = s.replace("]", "");
+        String result = "";
+        int counter = 0;
+        for(char ch: s.toCharArray()){
+            if(ch == '('){
+                counter++;
+                result += "(";
+            }else if (ch == ')'){
+                counter--;
+                result += ")";
+            }else if (ch == ',' && counter == 0){
+                result += ",,";
+            }else{
+                result += ch;
+            }
+        }
+        //for(String e: result.split(",,")) System.out.println(e);
+        return result;
+    }
+
+    private String getDataType(String type) {
+        String result;
+        if(!type.startsWith("fn:")) result = type;
+        else{
+            result = processFn(type);
+        }
+        return result;
+    }
+
+    private String processFn(String s) {
+        String result = ""; 
+        if(s.startsWith("fn:")){
+            int openB = s.indexOf("(");
+            String params = s.substring(openB);
+            String function_name = s.substring(3, openB);
+            //System.out.println(function_name);
+            //System.out.println(params);
+            switch (function_name){
+                case "Deprecated":
+                    //todo
+                    //System.out.println("Deprecated function call");
+                    result = process_func_deprecated(params);
+                    break;
+                case "SinceVersion":
+                    //todo
+                    //System.out.println("SinceVersion function call");
+                    break;
+                case "IsRequired":
+                    //todo
+                    //System.out.println("IsRequired function call");
+                    break;
+                default : System.out.println("unknown function call");
+            }
+                    
+        }
+        return result;
+    }
+
+    private String process_func_deprecated(String params) {
+        String first_arg = "";  // when it was deprecated
+        String second_arg = ""; //what is deprecated
+        
+        String temp =  commaSplit(params);
+        String[] args = temp.split(",,");
+        for(int i = 0; i < args.length; i++){
+            if(i==0){
+                first_arg = "was deprecated in" + args[i];
+            }else if(i==1){
+                if(args[i].startsWith("fn:")){
+                processFn(args[i]);
+            }else{
+                second_arg = args[i];
+            }
+            }
+        }       
+        return second_arg + " " + first_arg;
+    }
+
+    // creates a single <VALUE> node
+    private Element createNodeValue(String t, String value) {
+        Element valueElem = new_doc.createElement("VALUE");
+        value = value.replace("[", "");
+        value = value.replace("]", "");
+        if(!value.isBlank()){
+            valueElem.setAttribute("type", t);
+            valueElem.appendChild(new_doc.createTextNode(value));
+        }else{
+            int k = 0;
+            valueElem.setAttribute("type", t);
+            valueElem.appendChild(new_doc.createTextNode(value));
+        }
+        return valueElem;
     }
 }

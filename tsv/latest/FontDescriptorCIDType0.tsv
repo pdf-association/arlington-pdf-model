@@ -8,7 +8,7 @@ Flags	integer	1.2		TRUE	FALSE	FALSE
 FontBBox	rectangle	1.2		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
 ItalicAngle	number	1.2		TRUE	FALSE	FALSE					
 Ascent	number	1.2		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
-Descent	number	1.2		TRUE	FALSE	FALSE		[value<0]	Optional for Type 3 fonts		
+Descent	number	1.2		TRUE	FALSE	FALSE		[fn:Expr(@self<0)]	Optional for Type 3 fonts		
 Leading	number	1.2		FALSE	FALSE	FALSE	0				
 CapHeight	number	1.2		FALSE	FALSE	FALSE					
 XHeight	number	1.2		FALSE	FALSE	FALSE	0				
@@ -17,10 +17,10 @@ StemH	number	1.2		FALSE	FALSE	FALSE	0
 AvgWidth	number	1.2		FALSE	FALSE	FALSE	0				
 MaxWidth	number	1.2		FALSE	FALSE	FALSE	0				
 MissingWidth	number	1.2		FALSE	FALSE	FALSE	0				
-FontFile	stream	1.2		FALSE	FALSE	FALSE				[FontFile]	
-FontFile3	stream	1.2		FALSE	FALSE	FALSE				[FontFile3CIDType0]	
+FontFile	stream	1.2		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,FontFile)]	
+FontFile3	stream	1.2		FALSE	TRUE	FALSE				[fn:SinceVersion(1.2,FontFile3CIDType0)]	
 CharSet	string	1.2	2.0	FALSE	FALSE	FALSE					
-Style	dictionary	1.2		FALSE	FALSE	FALSE				[StyleDict]	
+Style	dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,StyleDict)]	
 Lang	name	1.5		FALSE	FALSE	FALSE					
-FD	dictionary	1.2		FALSE	FALSE	FALSE				[FDDict]	
-CIDSet	stream	1.2	2.0	FALSE	FALSE	FALSE				[Stream]	
+FD	dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,FDDict)]	
+CIDSet	stream	1.2	2.0	FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,Stream)]	

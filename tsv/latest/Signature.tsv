@@ -3,10 +3,10 @@ Type	name	1.3		FALSE	FALSE	FALSE		[Sig]
 Filter	name	1.3		TRUE	FALSE	TRUE					Inheritable from Parent
 SubFilter	name	1.3		FALSE	FALSE	FALSE					
 Contents	string-byte	1.3		TRUE	FALSE	FALSE					
-Cert	array;string-byte	1.3		FALSE	FALSE	FALSE				[ArrayOfStringsByte];[]	
-ByteRange	array	1.3		FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral]	
-Reference	array	1.5		FALSE	FALSE	FALSE				[ArrayOfSignatureReferences]	
-Changes	array	1.3		FALSE	FALSE	FALSE				[ArrayOf_3Integers]	
+Cert	array;string-byte	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfStringsByte)];[]	
+ByteRange	array	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfIntegersGeneral)]	
+Reference	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfSignatureReferences)]	
+Changes	array	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOf_3Integers)]	
 Name	string-text	1.3		FALSE	FALSE	FALSE					
 M	date	1.3		FALSE	FALSE	FALSE					
 Location	string-text	1.3		FALSE	FALSE	FALSE					
@@ -14,6 +14,6 @@ Reason	string-text	1.3		FALSE	FALSE	FALSE
 ContactInfo	string-text	1.3		FALSE	FALSE	FALSE					
 R	integer	1.3		FALSE	FALSE	FALSE					
 V	integer	1.5		FALSE	FALSE	FALSE	0				
-Prop_Build	dictionary	1.5		FALSE	FALSE	FALSE				[_UniversalDictionary]	
+Prop_Build	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,_UniversalDictionary)]	
 Prop_AuthTime	integer	1.5		FALSE	FALSE	FALSE					
 Prop_AuthType	name	1.5		FALSE	FALSE	FALSE					

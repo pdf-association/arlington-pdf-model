@@ -2,14 +2,14 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.5		FALSE	FALSE	FALSE		[SV]			
 Ff	integer	1.7		FALSE	FALSE	FALSE	0				
 Filter	name	1.5		FALSE	FALSE	FALSE					
-SubFilter	array	1.5		FALSE	FALSE	FALSE				[ArrayOfNamesGeneral]	
-DigestMethod	array	1.7		FALSE	FALSE	FALSE				[ArrayOfDigestMethod]	
+SubFilter	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfNamesGeneral)]	
+DigestMethod	array	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,ArrayOfDigestMethod)]	
 V	integer	1.5		FALSE	FALSE	FALSE					
-Cert	dictionary	1.5		FALSE	FALSE	FALSE				[CertSeedValue]	
-Reasons	array	1.5		FALSE	FALSE	FALSE				[ArrayOfStringsText]	
-MDP	dictionary	1.6		FALSE	FALSE	FALSE				[MDPDict]	
-TimeStamp	dictionary	1.6		FALSE	FALSE	FALSE				[TimeStampDict]	
-LegalAttestation	array	1.6		FALSE	FALSE	FALSE				[ArrayOfStringsText]	
+Cert	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,CertSeedValue)]	
+Reasons	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,ArrayOfStringsText)]	
+MDP	dictionary	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,MDPDict)]	
+TimeStamp	dictionary	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,TimeStampDict)]	
+LegalAttestation	array	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,ArrayOfStringsText)]	
 AddRevInfo	boolean	1.7		FALSE	FALSE	FALSE					
 LockDocument	name	2.0		FALSE	FALSE	FALSE		[true,false,auto]			
 AppearanceFilter	string-text	2.0		FALSE	FALSE	FALSE					

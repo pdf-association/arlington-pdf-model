@@ -4,6 +4,6 @@ HalftoneType	integer	1.2		TRUE	FALSE	FALSE		[1]
 HalftoneName	string-byte	1.2		FALSE	FALSE	FALSE					
 Frequency	number	1.2		TRUE	FALSE	FALSE					
 Angle	number	1.2		TRUE	FALSE	FALSE					
-SpotFunction	array;dictionary;name;stream	1.2		TRUE	FALSE	FALSE				[ArrayOfFunctions];[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]	
+SpotFunction	array;dictionary;name;stream	1.2		TRUE	FALSE	FALSE				[ArrayOfFunctions];[];[];[FunctionType0]	
 AccurateScreens	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-TransferFunction	dictionary;name;stream	1.2		FALSE	FALSE	FALSE				[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]	
+TransferFunction	dictionary;name;stream	1.2		FALSE	FALSE	FALSE				[];[];[FunctionType0]	

@@ -1,6 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.0		TRUE	FALSE	FALSE		[Catalog]			
-Extensions	dictionary	1.0		FALSE	FALSE	FALSE				[Extensions]	
 Pages	dictionary	1.0		TRUE	TRUE	FALSE				[PageTreeNodeRoot]	
 Names	dictionary	1.2		FALSE	FALSE	FALSE				[Name]	
 Dests	dictionary	1.1		FALSE	TRUE	FALSE				[DestsMap]	
@@ -9,7 +8,7 @@ PageLayout	name	1.0		FALSE	FALSE	FALSE	SinglePage	[SinglePage,OneColumn,TwoColum
 PageMode	name	1.0		FALSE	FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,FullScreen,UseOC,UseAttachments]			
 Outlines	dictionary	1.0		FALSE	TRUE	FALSE				[Outline]	
 Threads	array	1.1		FALSE	TRUE	FALSE				[ArrayOfThreads]	
-OpenAction	array;dictionary	1.1		FALSE	FALSE	FALSE				[DestXYZ,Dest0,Dest1,Dest4];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
+OpenAction	array;dictionary	1.1		FALSE	FALSE	FALSE				[DestXYZ,Dest0,Dest1,Dest4];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]	
 URI	dictionary	1.1		FALSE	FALSE	FALSE				[URI]	
 AcroForm	dictionary	1.2		FALSE	FALSE	FALSE				[InteractiveForm]	
-NeedsRendering	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
+NeedsRendering	boolean	1.0	2.0	FALSE	FALSE	FALSE	FALSE				

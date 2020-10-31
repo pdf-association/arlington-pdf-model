@@ -2,5 +2,5 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.2		FALSE	FALSE	FALSE		[Halftone]			
 HalftoneType	integer	1.2		TRUE	FALSE	FALSE		[5]			
 HalftoneName	string-byte	1.2		FALSE	FALSE	FALSE					
-any colourant name	dictionary;stream	1.2		TRUE	FALSE	FALSE				[HalftoneType1];[HalftoneType6,HalftoneType10,HalftoneType16]	
-Default	dictionary;stream	1.2		TRUE	FALSE	FALSE				[HalftoneType1];[HalftoneType6,HalftoneType10,HalftoneType16]	
+*	dictionary;stream	1.2		TRUE	FALSE	FALSE			fn:KeyNameIsColorant()	[HalftoneType1];[HalftoneType6,HalftoneType10]	
+Default	dictionary;stream	1.2		TRUE	FALSE	FALSE				[HalftoneType1];[HalftoneType6,HalftoneType10]	

@@ -8,7 +8,7 @@ Flags	integer	1.0		TRUE	FALSE	FALSE
 FontBBox	rectangle	1.0		TRUE	FALSE	FALSE					
 ItalicAngle	number	1.0		TRUE	FALSE	FALSE					
 Ascent	number	1.0		TRUE	FALSE	FALSE					
-Descent	number	1.0		TRUE	FALSE	FALSE		[value<0]			
+Descent	number	1.0		TRUE	FALSE	FALSE		[fn:Expr(@self<0)]			
 Leading	number	1.0		FALSE	FALSE	FALSE	0				
 CapHeight	number	1.0		FALSE	FALSE	FALSE					
 XHeight	number	1.0		FALSE	FALSE	FALSE	0				
@@ -17,6 +17,6 @@ StemH	number	1.0		FALSE	FALSE	FALSE	0
 AvgWidth	number	1.0		FALSE	FALSE	FALSE	0				
 MaxWidth	number	1.0		FALSE	FALSE	FALSE	0				
 MissingWidth	number	1.0		FALSE	FALSE	FALSE	0				
-FontFile	stream	1.0		FALSE	FALSE	FALSE				[FontFileType1]	
-FontFile3	stream	1.2		FALSE	FALSE	FALSE				[FontFile3Type1]	
+FontFile	stream	1.0		FALSE	TRUE	FALSE				[FontFileType1]	
+FontFile3	stream	1.2		FALSE	TRUE	FALSE				[FontFile3Type1]	
 CharSet	string-ascii;string-byte	1.1	2.0	FALSE	FALSE	FALSE					

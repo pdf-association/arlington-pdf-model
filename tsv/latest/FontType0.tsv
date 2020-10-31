@@ -2,6 +2,6 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.2		TRUE	FALSE	FALSE		[Font]			
 Subtype	name	1.2		TRUE	FALSE	FALSE		[Type0]			
 BaseFont	name	1.2		TRUE	FALSE	FALSE					
-Encoding	name;stream	1.2		TRUE	FALSE	FALSE				[];[CMap]	
-DescendantFonts	array	1.2		TRUE	FALSE	FALSE				[ArrayOfDescendantFonts]	
-ToUnicode	stream	1.2		FALSE	TRUE	FALSE				[Stream]	
+Encoding	name;stream	1.2		TRUE	FALSE	FALSE				[];[fn:SinceVersion(1.2,CMap)]	
+DescendantFonts	array	1.2		TRUE	FALSE	FALSE				[fn:SinceVersion(1.2,ArrayOfDescendantFonts)]	
+ToUnicode	stream	1.2		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,Stream)]	

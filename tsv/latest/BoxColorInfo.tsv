@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-CropBox	dictionary	1.4		FALSE	FALSE	FALSE				[BoxStyle]	
-BleedBox	dictionary	1.4		FALSE	FALSE	FALSE				[BoxStyle]	
-TrimBox	dictionary	1.4		FALSE	FALSE	FALSE				[BoxStyle]	
-ArtBox	dictionary	1.4		FALSE	FALSE	FALSE				[BoxStyle]	
+CropBox	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,BoxStyle)]	
+BleedBox	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,BoxStyle)]	
+TrimBox	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,BoxStyle)]	
+ArtBox	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,BoxStyle)]	

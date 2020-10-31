@@ -24,7 +24,6 @@
 #include <filesystem>
 #include "Pdfix.h"
 
-#include "Initialization.hpp"
 #include "ParseObjects.h"
 #include "CheckGrammar.h"
 #include "TestGrammarVers.h"
@@ -50,16 +49,16 @@ void show_help() {
   std::cout << "    grammar_folder  - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
   std::cout << "    report_file     - file for storing results" << std::endl;
   std::cout << std::endl;
-  std::cout << "to compare with Adobe's grammar (not implemented yet):" << std::endl;
-  std::cout << "  testgrammar -c <grammar_folder> <report_file> <adobe_grammar_file>" << std::endl;
-  std::cout << "    grammar_folder      - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
-  std::cout << "    report_file         - file for storing results" << std::endl;
-  std::cout << "    adobe_grammar_file  - ????" << std::endl;
+  std::cout << "to compare with Adobe's DVA grammar:" << std::endl;
+  std::cout << "  testgrammar -c <grammar_folder> <report_file> <dva_grammar_file>" << std::endl;
+  std::cout << "    grammar_folder    - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
+  std::cout << "    report_file       - file for storing results" << std::endl;
+  std::cout << "    dva_grammar_file  - pdf file containing Formal Representation of PDF (DVA)" << std::endl;
 }
 
 #ifdef _WIN32
 int wmain(int argc, wchar_t* argv[]) {
-#elif defined __linux__
+#else
 int main(int argc, char* argv[]) {
 #endif
   //clock_t tStart = clock();
@@ -67,126 +66,133 @@ int main(int argc, char* argv[]) {
     show_help();
     return 0;
   }
-
-//  try {
-    std::wstring a1, a2, a3, a4;
-    auto i = 1;
+  std::wstring a1, a2, a3, a4;
+  auto i = 1;
 
 #ifdef _WIN32
-    // Simplistic attempt at support for folder and filenames from non-std code pages...
-    setlocale(LC_CTYPE, "en_US.UTF-8");
+  // Simplistic attempt at support for folder and filenames from non-std code pages...
+  setlocale(LC_CTYPE, "en_US.UTF-8");
 
-    if (argc > i) a1 = argv[i++];
-    if (argc > i) a2 = argv[i++];
-    if (argc > i) a3 = argv[i++];
-    if (argc > i) a4 = argv[i++];
-#elif defined __linux__
-    if (argc > i) a1 = utf8ToUtf16(argv[i++]);
-    if (argc > i) a2 = utf8ToUtf16(argv[i++]);
-    if (argc > i) a3 = utf8ToUtf16(argv[i++]);
-    if (argc > i) a4 = utf8ToUtf16(argv[i++]);
+  if (argc > i) a1 = argv[i++];
+  if (argc > i) a2 = argv[i++];
+  if (argc > i) a3 = argv[i++];
+  if (argc > i) a4 = argv[i++];
+#else //if defined __linux__
+  if (argc > i) a1 = utf8ToUtf16(argv[i++]);
+  if (argc > i) a2 = utf8ToUtf16(argv[i++]);
+  if (argc > i) a3 = utf8ToUtf16(argv[i++]);
+  if (argc > i) a4 = utf8ToUtf16(argv[i++]);
 #endif
 
-    if (a1== L"/?") {
-      show_help();
-      return 0;
-    }
+  if (a1 == L"/?") {
+    show_help();
+    return 0;
+  }
 
-    std::string grammar_folder = check_folder_path(ToUtf8(a2));
-    std::wstring save_path = a3; //"w:\\report.txt";
+  std::string grammar_folder = check_folder_path(ToUtf8(a2));
+  std::wstring save_path = a3; //"w:\\report.txt";
 
-    // check grammar itself?
-    if (a1 == L"-v") {
+  // check grammar itself?
+  if (a1 == L"-v") {
+    std::ofstream ofs;
+    ofs.open(ToUtf8(save_path));
+    CheckGrammarFolder(grammar_folder, ofs);
+    ofs.close();
+    return 0;
+  }
+
+  std::wstring input_file = a1;
+
+  // initialize Pdfix
+  std::wstring email = L"PDF Assoc. SafeDocs";
+  std::wstring license_key = L"jgrrknzeuaDobhTt";
+
+  if (!Pdfix_init(Pdfix_MODULE_NAME))
+    throw std::runtime_error("Pdfix: Initialization failed");
+  Pdfix* pdfix = GetPdfix();
+  if (!pdfix)
+    throw std::runtime_error("Pdfix: GetPdfix failed");
+  if (pdfix->GetVersionMajor() != PDFIX_VERSION_MAJOR ||
+    pdfix->GetVersionMinor() != PDFIX_VERSION_MINOR ||
+    pdfix->GetVersionPatch() != PDFIX_VERSION_PATCH)
+    throw std::runtime_error("Pdfix: Incompatible version");
+
+  if (!pdfix->GetAccountAuthorization()->Authorize(email.c_str(), license_key.c_str()))
+    throw std::runtime_error("Pdfix: Authorization failed");
+
+  if (a1 == L"-c") {
+    std::ofstream ofs;
+    ofs.open(ToUtf8(save_path));
+    CheckDVA(a4, grammar_folder, ofs);
+    ofs.close();
+  }
+  else {
+    PdfDoc* doc = nullptr;
+    auto single_pdf = [&](const std::wstring& file_name, std::wstring report_file_name) {
+      std::wstring open_file = file_name;
+      //open report file
       std::ofstream ofs;
-      ofs.open(ToUtf8(save_path));
-      CheckGrammar(grammar_folder, ofs);
-      ofs.close();
-      return 0;
-    }
+      ofs.open(ToUtf8(report_file_name));
+      ofs << "BEGIN - TestGrammar v" << TestGrammar_VERSION << " - \"" << ToUtf8(file_name) << "\" - PDFix v"
+        << pdfix->GetVersionMajor() << "." << pdfix->GetVersionMinor() << "." << pdfix->GetVersionPatch() << std::endl;
 
-    std::wstring input_file = a1;
-
-    // init PDFix
-    Initialization();
-    if (a1 == L"-c") {
-      std::ofstream ofs;
-      ofs.open(ToUtf8(save_path));
-      CompareWithAdobe(a4, grammar_folder, ofs);
-      ofs.close();
-    }
-    else {
-      Pdfix* pdfix = GetPdfix();
-      PdfDoc* doc = nullptr;
-      auto single_pdf = [&](const std::wstring& file_name, std::wstring report_file_name) {
-        std::wstring open_file = file_name;
-        //open report file
-        std::ofstream ofs;
-        ofs.open(ToUtf8(report_file_name));
-        ofs << "BEGIN - TestGrammar v" << TestGrammar_VERSION << " - \"" << ToUtf8(file_name) << "\" - PDFix v" 
-            << pdfix->GetVersionMajor() << "." << pdfix->GetVersionMinor() << "." << pdfix->GetVersionPatch() << std::endl;
-
-        try {
-          doc = pdfix->OpenDoc(open_file.c_str(), L"");
-          if (doc != nullptr) {
-            PdsObject* trailer = doc->GetTrailerObject();
-            PdsObject* root = doc->GetRootObject();
-            if (trailer != nullptr) {
-              //grammar parser
-              CParsePDF parser(doc, grammar_folder, ofs);
-              parser.add_parse_object(trailer, "FileTrailer", "Trailer");
-              parser.parse_object();
-            } else {
-              ofs << "Error: failed to acquire Trailer in:" << ToUtf8(file_name) << std::endl;
-            }
+      try {
+        doc = pdfix->OpenDoc(open_file.c_str(), L"");
+        if (doc != nullptr) {
+          PdsObject* trailer = doc->GetTrailerObject();
+          PdsObject* root = doc->GetRootObject();
+          if (trailer != nullptr) {
+            //grammar parser
+            CParsePDF parser(doc, grammar_folder, ofs);
+            parser.add_parse_object(trailer, "FileTrailer", "Trailer");
+            parser.parse_object();
           }
           else {
-            ofs << "Error: Failed to open: \"" << ToUtf8(file_name) << "\" - PDFix GetError(): " << pdfix->GetError() << std::endl;
+            ofs << "Error: failed to acquire Trailer in:" << ToUtf8(file_name) << std::endl;
           }
         }
-        catch (std::exception& ex) {
-            ofs << "Error: EXCEPTION: " << ex.what() << std::endl;
-        }
-        // Finally...
-        ofs << "END" << std::endl;
-        ofs.close();
-        if (doc != nullptr) {
-          doc->Close();
-        }
-      };
-
-//      auto start = std::chrono::system_clock::now();
-      if (folder_exists(input_file)) {
-        const std::filesystem::path p(input_file);
-        const std::filesystem::path outdir(save_path);  // manage any trailing slash or slash as necessary
-        for (const auto& entry : std::filesystem::recursive_directory_iterator(p)) {
-          if (entry.is_regular_file() && entry.path().extension().wstring() == L".pdf") {
-            std::filesystem::path rptfile(outdir);
-            rptfile = rptfile / entry.path().stem();
-            rptfile.replace_extension(".txt"); // change .pdf to .txt 
-            // If rptfile already exists then try a different filename by appending underscores...
-            while (std::filesystem::exists(rptfile)) {
-              rptfile.replace_filename( rptfile.stem().string() + "_" );
-              rptfile.replace_extension(".txt");
-            }
-            std::cout << "Processing \"" << entry.path().string() << "\" to \"" << rptfile.string() << "\"" << std::endl;
-            single_pdf(entry.path().wstring(), rptfile.wstring());
-          }
+        else {
+          ofs << "Error: Failed to open: \"" << ToUtf8(file_name) << "\" - PDFix GetError(): " << pdfix->GetError() << std::endl;
         }
       }
-      else
-        single_pdf(input_file, save_path);
+      catch (std::exception& ex) {
+        ofs << "Error: EXCEPTION: " << ex.what() << std::endl;
+      }
+      // Finally...
+      ofs << "END" << std::endl;
+      ofs.close();
+      if (doc != nullptr) {
+        doc->Close();
+      }
+    };
 
-      //auto end = std::chrono::system_clock::now();
-      //std::chrono::duration<double> elapsed_seconds = end - start;
-      //std::cout <<  "elapsed time: " << elapsed_seconds.count() << "s\n";
-
-      pdfix->Destroy();
+    //      auto start = std::chrono::system_clock::now();
+    if (folder_exists(input_file)) {
+      const std::filesystem::path p(input_file);
+      const std::filesystem::path outdir(save_path);  // manage any trailing slash or slash as necessary
+      for (const auto& entry : std::filesystem::recursive_directory_iterator(p)) {
+        if (entry.is_regular_file() && entry.path().extension().wstring() == L".pdf") {
+          std::filesystem::path rptfile(outdir);
+          rptfile = rptfile / entry.path().stem();
+          rptfile.replace_extension(".txt"); // change .pdf to .txt 
+          // If rptfile already exists then try a different filename by appending underscores...
+          while (std::filesystem::exists(rptfile)) {
+            rptfile.replace_filename(rptfile.stem().string() + "_");
+            rptfile.replace_extension(".txt");
+          }
+          std::cout << "Processing \"" << entry.path().string() << "\" to \"" << rptfile.string() << "\"" << std::endl;
+          single_pdf(entry.path().wstring(), rptfile.wstring());
+        }
+      }
     }
-//  }
-  //catch (std::exception & ex) {
-  //  std::cerr << "EXCEPTION: " << ex.what() << std::endl;
-  //  return 1;
-  //}
+    else
+      single_pdf(input_file, save_path);
+
+    //auto end = std::chrono::system_clock::now();
+    //std::chrono::duration<double> elapsed_seconds = end - start;
+    //std::cout <<  "elapsed time: " << elapsed_seconds.count() << "s\n";
+  }
+  pdfix->Destroy();
 
   return 0;
 }

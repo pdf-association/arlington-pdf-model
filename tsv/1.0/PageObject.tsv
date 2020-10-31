@@ -1,10 +1,10 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		TRUE	FALSE	FALSE		[Page]			
-Parent	dictionary	1.0		TRUE	TRUE	FALSE				[PageTreeNode,PageTreeNodeRoot]	
+Type	name	1.0		TRUE	FALSE	FALSE		[Page,Template]			
+Parent	dictionary	1.0		fn:IsRequired(@Type!=Template)	TRUE	FALSE				[PageTreeNode,PageTreeNodeRoot]	
 Resources	dictionary	1.0		TRUE	FALSE	TRUE				[Resource]	Inheritable from Parent
 MediaBox	rectangle	1.0		TRUE	FALSE	TRUE					Inheritable from Parent
 CropBox	rectangle	1.0		FALSE	FALSE	TRUE	@MediaBox				Inheritable from Parent
 Contents	array;stream	1.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral];[Stream]	
-Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[value mod 90 == 0]			Inheritable from Parent
+Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Expr(@self mod 90==0)]			Inheritable from Parent
 Thumb	stream	1.0		FALSE	TRUE	FALSE				[Thumbnail]	
 Annots	array	1.0		FALSE	FALSE	FALSE				[ArrayOfAnnots]	

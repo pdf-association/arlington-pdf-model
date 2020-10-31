@@ -2,18 +2,18 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	2.0		FALSE	FALSE	FALSE		[3DMeasure]			
 Subtype	name	2.0		TRUE	FALSE	FALSE		[PD3]			
 TRL	string-text	2.0		FALSE	FALSE	FALSE					
-AP	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
-A1	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
+AP	array	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOf_3Numbers)]	
+A1	array	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOf_3Numbers)]	
 N1	string-text	2.0		FALSE	FALSE	FALSE					
-A2	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
+A2	array	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOf_3Numbers)]	
 N2	string-text	2.0		FALSE	FALSE	FALSE					
-D1	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
-TP	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
-TY	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
+D1	array	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOf_3Numbers)]	
+TP	array	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOf_3Numbers)]	
+TY	array	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOf_3Numbers)]	
 TS	number	2.0		FALSE	FALSE	FALSE	12				
-C	array	2.0		FALSE	FALSE	FALSE	[1 1 1]			[ArrayOf_3RGBNumbers]	
+C	array	2.0		FALSE	FALSE	FALSE	[1 1 1]			[fn:SinceVersion(1.4,ArrayOf_3RGBNumbers)]	
 V	number	2.0		TRUE	FALSE	FALSE					
 U	string-text	2.0		TRUE	FALSE	FALSE					
 P	integer	2.0		FALSE	FALSE	FALSE	3				
 UT	string-text	2.0		FALSE	FALSE	FALSE					
-S	dictionary	2.0		FALSE	FALSE	FALSE				[AnnotProjection]	
+S	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,AnnotProjection)]	

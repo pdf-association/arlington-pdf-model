@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.5		TRUE	FALSE	FALSE		[OCMD]			
-OCGs	array;dictionary;null	1.5		FALSE	FALSE	FALSE				[ArrayOfOCG];[OptContentGroup];[]	
+OCGs	array;dictionary;null	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfOCG)];[fn:SinceVersion(1.5,OptContentGroup)];[]	
 P	name	1.5		FALSE	FALSE	FALSE	AnyOn	[AllOn,AnyOn,AnyOff,AllOff]			
-VE	array	1.6		FALSE	FALSE	FALSE				[_UniversalArray]	
+VE	array	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,_UniversalArray)]	

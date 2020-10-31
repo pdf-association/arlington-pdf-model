@@ -17,13 +17,13 @@ T	string-text	1.3		FALSE	FALSE	FALSE
 Popup	dictionary	1.3		FALSE	FALSE	FALSE				[AnnotPopup]	
 RC	stream;string-text	1.5		FALSE	FALSE	FALSE				[Stream];[]	
 CreationDate	date	1.5		FALSE	FALSE	FALSE					
-IRT	dictionary	1.5		FALSE	FALSE	FALSE			Required=True:IsPresent->RT	[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
+IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D]	
 Subj	string-text	1.5		FALSE	FALSE	FALSE					
 RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]			
 DA	string	1.3		TRUE	FALSE	FALSE					
 Q	integer	1.4		FALSE	FALSE	FALSE	0	[0,1,2]			
 DS	string-text	1.5		FALSE	FALSE	FALSE					
-CL	array	1.6		FALSE	FALSE	FALSE			meaningful only if IT is FreeTextCallout	[ArrayOf_3or4CalloutLineNumbers]	
+CL	array	1.6		FALSE	FALSE	FALSE			fn:IsMeaningful(@IT==FreeTextCallout)	[ArrayOf_3or4CalloutLineNumbers]	
 IT	name	1.6		FALSE	FALSE	FALSE	FreeText	[FreeText,FreeTextCallout,FreeTextTypeWriter]			
 BE	dictionary	1.6		FALSE	FALSE	FALSE				[BorderEffect]	
 RD	rectangle	1.6		FALSE	FALSE	FALSE					

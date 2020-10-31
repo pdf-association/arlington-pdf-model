@@ -1,10 +1,10 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 FT	name	1.2		TRUE	FALSE	TRUE		[Btn]			
-Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,FieldSig,Field]	
+Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,Field]	
 Kids	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFields]	
 T	string-text	1.2		TRUE	FALSE	FALSE					
 Ff	integer	1.2		FALSE	FALSE	TRUE					
-AA	dictionary	1.2		FALSE	FALSE	FALSE				[AddActionFormField]	
+AA	dictionary	1.2		FALSE	FALSE	FALSE				[]	
 DA	string	1.2		TRUE	FALSE	TRUE					
 Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]			
 V	name	1.2		FALSE	FALSE	TRUE					

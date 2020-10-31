@@ -5,8 +5,8 @@ C	boolean	1.5		FALSE	FALSE	FALSE
 O	boolean	1.5		FALSE	FALSE	FALSE					
 S	boolean	1.5		FALSE	FALSE	FALSE					
 R	integer	1.5		FALSE	FALSE	FALSE					
-D	dictionary	1.5		FALSE	FALSE	FALSE				[MinimumBitDepth]	
-Z	dictionary	1.5		FALSE	FALSE	FALSE				[MinimumScreenSize]	
-V	array	1.5		FALSE	FALSE	FALSE				[ArrayOfSoftwareIdentifiers]	
-P	array	1.5		FALSE	FALSE	FALSE				[ArrayOfNamesGeneral]	
-L	array	1.5		FALSE	FALSE	FALSE				[ArrayOfStringsText]	
+D	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,MinimumBitDepth)]	
+Z	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,MinimumScreenSize)]	
+V	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfSoftwareIdentifiers)]	
+P	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfNamesGeneral)]	
+L	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,ArrayOfStringsText)]	

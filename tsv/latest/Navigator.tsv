@@ -1,3 +1,3 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[Navigator]			
-Layout	array;name	2.0		TRUE	FALSE	FALSE		[];[D,T,H,FilmStrip,FreeForm,Linear,Tree]		[ArrayOfNavigatorLayoutNames];[]	
+Layout	array;name	2.0		TRUE	FALSE	FALSE		[];[D,T,H,FilmStrip,FreeForm,Linear,Tree]		[fn:SinceVersion(2.0,ArrayOfNavigatorLayoutNames)];[]	

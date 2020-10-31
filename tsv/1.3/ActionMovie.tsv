@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.2	2.0	FALSE	FALSE	FALSE		[Action]			
 S	name	1.2	2.0	TRUE	FALSE	FALSE		[Movie]			
-Next	array;dictionary	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
+Next	array;dictionary	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]	
 Annotation	dictionary	1.2	2.0	FALSE	FALSE	FALSE				[AnnotMovie]	
 T	string-text	1.2	2.0	FALSE	FALSE	FALSE					
 Operation	name	1.2	2.0	FALSE	FALSE	FALSE	Play	[Play,Stop,Pause,Resume]			

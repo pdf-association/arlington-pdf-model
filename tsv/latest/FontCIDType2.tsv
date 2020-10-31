@@ -2,11 +2,11 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.2		TRUE	FALSE	FALSE		[Font]			
 Subtype	name	1.2		TRUE	FALSE	FALSE		[CIDFontType2]			
 BaseFont	name	1.2		TRUE	FALSE	FALSE					
-CIDSystemInfo	dictionary	1.2		TRUE	FALSE	FALSE				[CIDSystemInfo]	
-FontDescriptor	dictionary	1.2		TRUE	TRUE	FALSE				[FontDescriptorCIDType2]	
+CIDSystemInfo	dictionary	1.2		TRUE	FALSE	FALSE				[fn:SinceVersion(1.2,CIDSystemInfo)]	
+FontDescriptor	dictionary	1.2		TRUE	TRUE	FALSE				[fn:SinceVersion(1.2,FontDescriptorCIDType2)]	
 DW	number	1.2		FALSE	FALSE	FALSE	1000				
-W	array	1.2		FALSE	FALSE	FALSE	none			[_UniversalArray]	
-DW2	array	1.2		FALSE	FALSE	FALSE	[888 -1000]			[ArrayOf_2Numbers]	
-W2	array	1.2		FALSE	FALSE	FALSE	none			[_UniversalArray]	
-CIDToGIDMap	name;stream	1.2		TRUE	FALSE	FALSE				[];[Stream]	
-ToUnicode	stream	1.2		FALSE	TRUE	FALSE				[Stream]	
+W	array	1.2		FALSE	FALSE	FALSE	none			[fn:SinceVersion(1.0,_UniversalArray)]	
+DW2	array	1.2		FALSE	FALSE	FALSE	[888 -1000]			[fn:SinceVersion(1.2,ArrayOf_2Numbers)]	
+W2	array	1.2		FALSE	FALSE	FALSE	none			[fn:SinceVersion(1.0,_UniversalArray)]	
+CIDToGIDMap	name;stream	1.2		TRUE	FALSE	FALSE				[];[fn:SinceVersion(1.0,Stream)]	
+ToUnicode	stream	1.2		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,Stream)]	

@@ -23,5 +23,5 @@
 #undef GetObject
 #endif
 
-void CheckGrammar(std::string& grammar_folder, std::ofstream& ofs);
-void CompareWithAdobe(std::wstring& adobe_file, std::string& grammar_folder, std::ofstream& ofs);
+void CheckGrammarFolder(std::string& grammar_folder, std::ofstream& ofs);
+void CheckDVA(std::wstring& dva_file, std::string& grammar_folder, std::ofstream& ofs);
