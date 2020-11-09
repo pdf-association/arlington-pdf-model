@@ -1,60 +1,5 @@
 [
   {
-    "id": "3DStream",
-    "keys": {
-      "Length": {
-        "Type": "integer",
-        "SinceVersion": "1.3",
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Note": "* from stream"
-      },
-      "Filter": {
-        "Type": "array;name",
-        "SinceVersion": "1.3",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
-      },
-      "DecodeParms": {
-        "Type": "array;dictionary",
-        "SinceVersion": "1.3",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
-      },
-      "F ": {
-        "Type": "dictionary;string",
-        "SinceVersion": "1.3",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[FileSpecification];[]"
-      },
-      "FFilter": {
-        "Type": "array;name",
-        "SinceVersion": "1.3",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
-      },
-      "FDecodeParms": {
-        "Type": "array;dictionary",
-        "SinceVersion": "1.3",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
-      }
-    }
-  },
-  {
     "id": "ActionECMAScript",
     "keys": {
       "Type": {
@@ -507,7 +452,7 @@
         "SinceVersion": "1.2",
         "DeprecatedIn": "2.0",
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       },
@@ -519,7 +464,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "1.0",
-        "PossibleValues": "[value>=-1 && value<=1]"
+        "PossibleValues": "[fn:Expr(@self>=-1 && @self<=1)]"
       },
       "Synchronous": {
         "Type": "boolean",
@@ -693,59 +638,6 @@
     }
   },
   {
-    "id": "AddActionAnnotation",
-    "keys": {
-      "E": {
-        "Type": "dictionary",
-        "SinceVersion": "1.2",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
-      },
-      "X": {
-        "Type": "dictionary",
-        "SinceVersion": "1.2",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
-      },
-      "D": {
-        "Type": "dictionary",
-        "SinceVersion": "1.2",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
-      },
-      "U": {
-        "Type": "dictionary",
-        "SinceVersion": "1.2",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
-      },
-      "Fo": {
-        "Type": "dictionary",
-        "SinceVersion": "1.2",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
-      },
-      "Bl": {
-        "Type": "dictionary",
-        "SinceVersion": "1.2",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
-      }
-    }
-  },
-  {
     "id": "AddActionCatalog",
     "keys": {
       "WC": {
@@ -849,13 +741,66 @@
     }
   },
   {
+    "id": "AddActionWidgetAnnotation",
+    "keys": {
+      "E": {
+        "Type": "dictionary",
+        "SinceVersion": "1.2",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
+      },
+      "X": {
+        "Type": "dictionary",
+        "SinceVersion": "1.2",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
+      },
+      "D": {
+        "Type": "dictionary",
+        "SinceVersion": "1.2",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
+      },
+      "U": {
+        "Type": "dictionary",
+        "SinceVersion": "1.2",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
+      },
+      "Fo": {
+        "Type": "dictionary",
+        "SinceVersion": "1.2",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
+      },
+      "Bl": {
+        "Type": "dictionary",
+        "SinceVersion": "1.2",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
+      }
+    }
+  },
+  {
     "id": "AlternateImage",
     "keys": {
       "Image": {
         "Type": "stream",
         "SinceVersion": "1.3",
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[XObjectImage]"
       },
@@ -906,7 +851,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -956,7 +901,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "Required": false,
@@ -971,7 +916,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.3",
         "Required": false,
@@ -1041,7 +986,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -1091,7 +1036,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "Required": false,
@@ -1106,7 +1051,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.3",
         "Required": false,
@@ -1177,7 +1122,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -1228,7 +1173,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "Required": false,
@@ -1243,7 +1188,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.3",
         "Required": false,
@@ -1313,7 +1258,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -1363,7 +1308,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "Required": false,
@@ -1378,7 +1323,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.3",
         "Required": false,
@@ -1440,7 +1385,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -1490,7 +1435,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "Required": false,
@@ -1505,7 +1450,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.3",
         "Required": false,
@@ -1575,7 +1520,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -1625,7 +1570,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "Required": false,
@@ -1640,7 +1585,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.3",
         "Required": false,
@@ -1678,7 +1623,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[/None /None]",
-        "Link": "[]"
+        "Link": "[ArrayOf_2LineEndingsNames]"
       },
       "IC": {
         "Type": "array",
@@ -1727,7 +1672,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -1777,7 +1722,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.1",
         "Required": false,
@@ -1869,7 +1814,7 @@
         "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -1925,7 +1870,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.2",
         "DeprecatedIn": "2.0",
@@ -2007,7 +1952,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -2057,7 +2002,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "Required": false,
@@ -2126,7 +2071,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -2176,7 +2121,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.4",
         "Required": false,
@@ -2243,7 +2188,7 @@
         "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -2292,13 +2237,14 @@
       "Border": {
         "Type": "array",
         "SinceVersion": "1.2",
+        "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.2",
         "DeprecatedIn": "2.0",
@@ -2315,7 +2261,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.2",
         "DeprecatedIn": "2.0",
@@ -2337,7 +2283,7 @@
         "SinceVersion": "1.2",
         "DeprecatedIn": "2.0",
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[SoundObject]"
       },
@@ -2389,7 +2335,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -2439,7 +2385,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "Required": false,
@@ -2454,7 +2400,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.3",
         "Required": false,
@@ -2524,7 +2470,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -2574,7 +2520,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.4",
         "Required": false,
@@ -2589,7 +2535,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.4",
         "Required": false,
@@ -2651,7 +2597,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -2701,7 +2647,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "Required": false,
@@ -2716,7 +2662,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.3",
         "Required": false,
@@ -2777,7 +2723,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -2827,7 +2773,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "Required": false,
@@ -2842,7 +2788,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.3",
         "Required": false,
@@ -2904,7 +2850,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -2954,7 +2900,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.1",
         "Required": false,
@@ -2969,7 +2915,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.1",
         "Required": false,
@@ -3052,7 +2998,7 @@
         "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -3107,7 +3053,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
@@ -3200,7 +3146,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -3250,7 +3196,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.3",
         "Required": false,
@@ -3265,7 +3211,7 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "T ": {
+      "T": {
         "Type": "string-text",
         "SinceVersion": "1.3",
         "Required": false,
@@ -3327,7 +3273,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
       },
@@ -3377,7 +3323,7 @@
         "DefaultValue": "[0 0 1]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.2",
         "Required": false,
@@ -3401,6 +3347,14 @@
         "DefaultValue": "I",
         "PossibleValues": "[N,I,O,P,T]"
       },
+      "MK": {
+        "Type": "dictionary",
+        "SinceVersion": "1.2",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[AppearanceCharacteristics]"
+      },
       "A": {
         "Type": "dictionary",
         "SinceVersion": "1.2",
@@ -3415,7 +3369,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[AddActionAnnotation]"
+        "Link": "[AddActionWidgetAnnotation]"
       },
       "BS": {
         "Type": "dictionary",
@@ -3444,7 +3398,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[AppearanceSubDict];[XObjectFormType1]",
+        "Link": "[AppearanceSubDict];[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]",
         "Note": "*"
       },
       "R": {
@@ -3454,7 +3408,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "@N",
-        "Link": "[AppearanceSubDict];[XObjectFormType1]",
+        "Link": "[AppearanceSubDict];[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]",
         "Note": "*"
       },
       "D": {
@@ -3464,7 +3418,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "@N",
-        "Link": "[AppearanceSubDict];[XObjectFormType1]",
+        "Link": "[AppearanceSubDict];[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]",
         "Note": "*"
       }
     }
@@ -3474,7 +3428,7 @@
     "keys": {
       "R": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -3482,7 +3436,7 @@
       },
       "BC": {
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -3490,7 +3444,7 @@
       },
       "BG": {
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -3498,28 +3452,28 @@
       },
       "CA": {
         "Type": "string-text",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "RC": {
         "Type": "string-text",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "AC": {
         "Type": "string-text",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "I": {
         "Type": "stream",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
@@ -3527,7 +3481,7 @@
       },
       "RI": {
         "Type": "stream",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
@@ -3535,15 +3489,15 @@
       },
       "IX": {
         "Type": "stream",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[XObjectFormType1,XObjectImage]"
       },
       "IF": {
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -3551,7 +3505,7 @@
       },
       "TP": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -3565,7 +3519,7 @@
     "keys": {
       "N": {
         "Type": "dictionary;stream",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -3573,7 +3527,7 @@
       },
       "R": {
         "Type": "dictionary;stream",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -3582,7 +3536,7 @@
       },
       "D": {
         "Type": "dictionary;stream",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -3596,9 +3550,9 @@
     "keys": {
       "*": {
         "Type": "stream",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[XObjectFormPrinterMark]"
       }
@@ -3609,9 +3563,9 @@
     "keys": {
       "*": {
         "Type": "stream",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[XObjectFormType1]"
       }
@@ -3622,7 +3576,7 @@
     "keys": {
       "N": {
         "Type": "dictionary;stream",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": true,
         "IndirectReference": false,
@@ -3631,7 +3585,7 @@
       },
       "R": {
         "Type": "dictionary;stream",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -3641,7 +3595,7 @@
       },
       "D": {
         "Type": "dictionary;stream",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -3656,10 +3610,10 @@
     "keys": {
       "*": {
         "Type": "stream",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[XObjectFormTrapNet]"
       }
@@ -3670,7 +3624,7 @@
     "keys": {
       "*": {
         "Type": "dictionary",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -3722,7 +3676,7 @@
     "keys": {
       "*": {
         "Type": "array",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -3747,12 +3701,12 @@
     "id": "ArrayOfAttributes",
     "keys": {
       "*": {
-        "Type": "dictionary",
+        "Type": "dictionary;integer;stream",
         "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes]"
+        "Link": "[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes];[];[Stream]"
       }
     }
   },
@@ -3770,11 +3724,24 @@
     }
   },
   {
+    "id": "ArrayOfCompressionFilterNames",
+    "keys": {
+      "*": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]"
+      }
+    }
+  },
+  {
     "id": "ArrayOfDashPatterns",
     "keys": {
       "*": {
         "Type": "number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -3881,7 +3848,7 @@
         "Type": "stream",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[EmbeddedFileStream]"
       }
@@ -3896,7 +3863,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]"
+        "PossibleValues": "[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]"
       }
     }
   },
@@ -3977,10 +3944,25 @@
     "keys": {
       "*": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOfNamesForProcSet",
+    "keys": {
+      "*": {
+        "Type": "name",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "1.4",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[PDF,Text,ImageB,ImageC,ImageI]",
+        "Note": "Table 346"
       }
     }
   },
@@ -3989,7 +3971,7 @@
     "keys": {
       "*": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
@@ -4079,7 +4061,7 @@
     "keys": {
       "*": {
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
@@ -4153,7 +4135,7 @@
     "keys": {
       "*": {
         "Type": "dictionary",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -4171,6 +4153,18 @@
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfStringsByte",
+    "keys": {
+      "*": {
+        "Type": "string-byte",
+        "SinceVersion": "1.3",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
       }
     }
   },
@@ -4193,7 +4187,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[StructElem]"
       }
@@ -4242,7 +4236,7 @@
     "keys": {
       "*": {
         "Type": "string-text",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -4254,7 +4248,7 @@
     "keys": {
       "*": {
         "Type": "dictionary",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": true,
         "IndirectReference": true,
@@ -4302,18 +4296,77 @@
     }
   },
   {
+    "id": "ArrayOf_2Integers",
+    "keys": {
+      "0": {
+        "Type": "integer",
+        "SinceVersion": "1.2",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "1": {
+        "Type": "integer",
+        "SinceVersion": "1.2",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOf_2LineEndingsNames",
+    "keys": {
+      "0": {
+        "Type": "name",
+        "SinceVersion": "1.4",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Square,Circle,Diamond,OpenArrow,ClosedArrow,None,Butt,ROpenArrow,RClosedArrow,Slash]"
+      },
+      "1": {
+        "Type": "name",
+        "SinceVersion": "1.4",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Square,Circle,Diamond,OpenArrow,ClosedArrow,None,Butt,ROpenArrow,RClosedArrow,Slash]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOf_2Numbers",
+    "keys": {
+      "0": {
+        "Type": "number",
+        "SinceVersion": "1.2",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "1": {
+        "Type": "number",
+        "SinceVersion": "1.2",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      }
+    }
+  },
+  {
     "id": "ArrayOf_2StringsByte",
     "keys": {
       "0": {
         "Type": "string-byte",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.1",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "1": {
         "Type": "string-byte",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.1",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -4362,6 +4415,35 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOf_3RGBNumbers",
+    "keys": {
+      "0": {
+        "Type": "number",
+        "SinceVersion": "1.4",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=1)]"
+      },
+      "1": {
+        "Type": "number",
+        "SinceVersion": "1.4",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=1)]"
+      },
+      "2": {
+        "Type": "number",
+        "SinceVersion": "1.4",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=1)]"
       }
     }
   },
@@ -4433,6 +4515,46 @@
     }
   },
   {
+    "id": "ArrayOf_4NamesForAttached",
+    "keys": {
+      "0": {
+        "Type": "name",
+        "SinceVersion": "1.4",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Top,Bottom,Left,Right]"
+      },
+      "1": {
+        "Type": "name",
+        "SinceVersion": "1.4",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Top,Bottom,Left,Right]",
+        "SpecialCase": "fn:Expr(@self != @0)"
+      },
+      "2": {
+        "Type": "name",
+        "SinceVersion": "1.4",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Top,Bottom,Left,Right]",
+        "SpecialCase": "fn:Expr(@self != @0 && @self != @1)"
+      },
+      "3": {
+        "Type": "name",
+        "SinceVersion": "1.4",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Top,Bottom,Left,Right]",
+        "SpecialCase": "fn:Expr(@self != @0 && @self != @1 && @self != @2)"
+      }
+    }
+  },
+  {
     "id": "ArrayOf_4Numbers",
     "keys": {
       "0": {
@@ -4474,7 +4596,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0 && value<=1]"
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=1)]"
       },
       "1": {
         "Type": "number",
@@ -4482,7 +4604,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0 && value<=1]"
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=1)]"
       },
       "2": {
         "Type": "number",
@@ -4490,7 +4612,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0 && value<=1]"
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=1)]"
       },
       "3": {
         "Type": "number",
@@ -4498,7 +4620,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0 && value<=1]"
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=1)]"
       }
     }
   },
@@ -4723,7 +4845,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0]"
+        "PossibleValues": "[fn:Expr(@self>=0)]"
       },
       "1": {
         "Type": "number",
@@ -4731,7 +4853,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0]"
+        "PossibleValues": "[fn:Expr(@self>=0)]"
       },
       "2": {
         "Type": "number",
@@ -4739,7 +4861,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0]"
+        "PossibleValues": "[fn:Expr(@self>=0)]"
       }
     }
   },
@@ -4829,7 +4951,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0.0 0.0 0.0]",
-        "Link": "[]"
+        "Link": "[ArrayOf_3RGBNumbers]"
       },
       "W": {
         "Type": "number",
@@ -4911,7 +5033,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value<0]"
+        "PossibleValues": "[fn:Expr(@self<0)]"
       },
       "Leading": {
         "Type": "number",
@@ -5048,7 +5170,7 @@
       },
       "UseCMap": {
         "Type": "name;stream",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5056,29 +5178,29 @@
       },
       "Length": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Filter": {
         "Type": "array;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.2",
         "Required": false,
@@ -5092,8 +5214,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -5101,7 +5223,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -5153,7 +5275,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "1",
-        "PossibleValues": "[value>0]"
+        "PossibleValues": "[fn:Expr(@self>0)]"
       }
     }
   },
@@ -5236,14 +5358,6 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.7,2.0]"
-      },
-      "Extension": {
-        "Type": "dictionary",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[Extensions]"
       },
       "Pages": {
         "Type": "dictionary",
@@ -5409,6 +5523,7 @@
       "NeedsRendering": {
         "Type": "boolean",
         "SinceVersion": "1.0",
+        "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5423,7 +5538,7 @@
         "Type": "stream",
         "SinceVersion": "1.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -5470,51 +5585,6 @@
     }
   },
   {
-    "id": "DSS",
-    "keys": {
-      "Type": {
-        "Type": "name",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[DSS]"
-      },
-      "VRI": {
-        "Type": "dictionary",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[VRI]"
-      },
-      "Certs": {
-        "Type": "array",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfStreamsGeneral]"
-      },
-      "OCSPs": {
-        "Type": "array",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfStreamsGeneral]"
-      },
-      "CRLs": {
-        "Type": "array",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfStreamsGeneral]"
-      }
-    }
-  },
-  {
     "id": "Data",
     "keys": {
       "LastModified": {
@@ -5525,12 +5595,12 @@
         "Inheritable": false
       },
       "Private": {
-        "Type": "array;boolean;dictionary;integer;name;stream;string",
+        "Type": "array;boolean;dictionary;integer;name;number;stream;string",
         "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray];[];[_UniversalDictionary];[];[];[Stream];[]",
+        "Link": "[_UniversalArray];[];[_UniversalDictionary];[];[];[];[Stream];[]",
         "Note": "*any"
       }
     }
@@ -5540,7 +5610,7 @@
     "keys": {
       "0": {
         "Type": "dictionary;number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5548,11 +5618,11 @@
       },
       "1": {
         "Type": "name",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[Fit,FitB]"
+        "PossibleValues": "[Fit,fn:SinceVersion(1.1,FitB)]"
       }
     }
   },
@@ -5561,7 +5631,7 @@
     "keys": {
       "0": {
         "Type": "dictionary;number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5569,15 +5639,15 @@
       },
       "1": {
         "Type": "name",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[FitH,FitV,FitBH,FitBV]"
+        "PossibleValues": "[FitH,FitV,fn:SinceVersion(1.1,FitBH),fn:SinceVersion(1.1,FitBV)]"
       },
       "2": {
         "Type": "null;number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5590,7 +5660,7 @@
     "keys": {
       "0": {
         "Type": "dictionary;number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5598,7 +5668,7 @@
       },
       "1": {
         "Type": "name",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5606,7 +5676,7 @@
       },
       "2": {
         "Type": "null;number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5614,7 +5684,7 @@
       },
       "3": {
         "Type": "null;number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5622,7 +5692,7 @@
       },
       "4": {
         "Type": "null;number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5648,7 +5718,7 @@
     "keys": {
       "0": {
         "Type": "dictionary;number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5656,7 +5726,7 @@
       },
       "1": {
         "Type": "name",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5664,7 +5734,7 @@
       },
       "2": {
         "Type": "null;number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5672,7 +5742,7 @@
       },
       "3": {
         "Type": "null;number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5680,7 +5750,7 @@
       },
       "4": {
         "Type": "null;number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5692,12 +5762,12 @@
     "id": "DestsMap",
     "keys": {
       "*": {
-        "Type": "array",
+        "Type": "array;dictionary",
         "SinceVersion": "1.1",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[DestXYZ,Dest0,Dest1,Dest4]"
+        "Link": "[DestXYZ,Dest0,Dest1,Dest4];[DestDict]"
       }
     }
   },
@@ -5818,7 +5888,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[];[]"
+        "Link": "[ArrayOfStringsByte];[]"
       },
       "ByteRange": {
         "Type": "array",
@@ -5900,7 +5970,7 @@
       "ModDate": {
         "Type": "date",
         "SinceVersion": "1.3",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsAssociatedFile())",
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -5918,7 +5988,9 @@
         "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:StringLength(16)]",
+        "Note": "MD5 checksum"
       }
     }
   },
@@ -5936,45 +6008,45 @@
       "Subtype": {
         "Type": "name",
         "SinceVersion": "1.3",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsAssociatedFile())",
         "IndirectReference": false,
         "Inheritable": false
       },
       "Params": {
         "Type": "dictionary",
         "SinceVersion": "1.3",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsAssociatedFile())",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[EmbeddedFileParameter]"
       },
       "Length": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Filter": {
         "Type": "array;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -5982,16 +6054,16 @@
       },
       "FFilter": {
         "Type": "array;name",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -6035,10 +6107,10 @@
       "Recipients": {
         "Type": "array",
         "SinceVersion": "1.3",
-        "Required": false,
+        "Required": "fn:IsRequired(@SubFilter==adbe.pkcs7.s3 || @SubFilter==adbe.pkcs7.s4)",
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[]"
+        "Link": "[ArrayOfStringsByte]"
       },
       "Filter": {
         "Type": "name",
@@ -6072,16 +6144,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "40",
-        "PossibleValues": "[value>=40 && value<=128 && value mod 8==0]"
-      },
-      "CF": {
-        "Type": "dictionary",
-        "SinceVersion": "1.1",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "meaningful only when the value of V is 4 (PDF 1.5) or 5 (PDF 2.0)",
-        "Link": "[]"
+        "PossibleValues": "[fn:Expr(@self>=40 && @self<=128 && @self mod 8==0)]"
       },
       "EFF": {
         "Type": "name",
@@ -6121,11 +6184,11 @@
       },
       "V": {
         "Type": "integer",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.1",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[0,1,2,3,4,5]"
+        "PossibleValues": "[fn:Deprecated(1.1,0),fn:Deprecated(2.0,1),fn:Deprecated(2.0,fn:SinceVersion(1.4,2)),fn:Deprecated(2.0,fn:SinceVersion(1.4,3)),fn:Deprecated(2.0,fn:SinceVersion(1.5,4)),fn:SinceVersion(2.0,5)]"
       },
       "Length": {
         "Type": "integer",
@@ -6135,7 +6198,8 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "40",
-        "PossibleValues": "[value>=40 && value<=128 && value mod 8==0]"
+        "PossibleValues": "[fn:Expr(@self>=40 && @self<=128 && @self mod 8==0)]",
+        "SpecialCase": "fn:IsMeaningful(@V==2 || @V==3)"
       },
       "EFF": {
         "Type": "name",
@@ -6150,37 +6214,41 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[2,3,4,5,6]"
+        "PossibleValues": "[fn:Deprecated(2.0,fn:RequiredValue(@V<2,2)),fn:Deprecated(2.0,fn:RequiredValue(@V==2 || @V==3,3)),fn:Deprecated(2.0,fn:RequiredValue(@V==4,4)),fn:Deprecated(2.0,fn:SinceVersion(2.0,5)),fn:SinceVersion(2.0,fn:RequiredValue(@V==5,6))]"
       },
       "O": {
         "Type": "string-byte",
         "SinceVersion": "1.1",
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "fn:Expr(fn:StringLength(@R<=4,32) || fn:StringLength(@R==6, 48))",
+        "Note": "32 bytes long if the value of R is 4 or less and 48 bytes long if the value of R is 6"
       },
       "U": {
         "Type": "string-byte",
         "SinceVersion": "1.1",
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "fn:Expr(fn:StringLength(@R<=4,32) || fn:StringLength(@R==6, 48))",
+        "Note": "32 bytes long if the value of R is 4 or less and 48 bytes long if the value of R is 6"
       },
       "OE": {
         "Type": "string-byte",
         "SinceVersion": "1.1",
-        "Required": false,
+        "Required": "fn:IsRequired(@R==6)",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "IsR=6=>Required=TRUE"
+        "SpecialCase": "fn:StringLength(32)",
+        "Note": "32 byte string"
       },
       "UE": {
         "Type": "string-byte",
         "SinceVersion": "1.1",
-        "Required": false,
+        "Required": "fn:IsRequired(@R==6)",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "IsR=6=>Required=TRUE"
+        "Inheritable": false
       },
       "P": {
         "Type": "integer",
@@ -6188,15 +6256,14 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]"
+        "PossibleValues": "[fn:BitsClear(1,2),3,4,5,6,fn:BitsSet(7,8),9,fn:SinceVersion(2.0,fn:BitSet(10)),11,12,fn:BitsSet(13,32)]"
       },
       "Perms": {
         "Type": "string-byte",
         "SinceVersion": "1.1",
-        "Required": false,
+        "Required": "fn:IsRequired(@R==6)",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "IsR=6=>Required=TRUE"
+        "Inheritable": false
       },
       "EncryptMetadata": {
         "Type": "boolean",
@@ -6205,19 +6272,6 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": true
-      }
-    }
-  },
-  {
-    "id": "Extensions",
-    "keys": {
-      "Type": {
-        "Type": "name",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Extensions]"
       }
     }
   },
@@ -6717,13 +6771,13 @@
   {
     "id": "FileSpecRF",
     "keys": {
-      "*": {
-        "Type": "array",
+      "F": {
+        "Type": "stream",
         "SinceVersion": "1.3",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
-        "Link": "[ArrayOfFileSpecRF]"
+        "Link": "[EmbeddedFileStream]"
       }
     }
   },
@@ -6733,11 +6787,10 @@
       "Type": {
         "Type": "name",
         "SinceVersion": "1.1",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPresent(EF) || fn:IsPresent(EP) || fn:IsPresent(RF))",
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[Filespec]",
-        "SpecialCase": "IsRequired=>IsPresent(EF||EP||RF)"
+        "PossibleValues": "[Filespec]"
       },
       "FS": {
         "Type": "name",
@@ -6746,10 +6799,10 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "F ": {
+      "F": {
         "Type": "string",
         "SinceVersion": "1.1",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:NotPresent(DOS) && fn:NotPresent(Mac) && fn:NotPresent(Unix))",
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -6783,7 +6836,6 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "Required if RF is present; PDF 1.3; amended to include the UF key in PDF 1.7",
         "Link": "[ArrayOf_2StringsByte]"
       },
       "V": {
@@ -6791,15 +6843,16 @@
         "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "DefaultValue": false
       },
       "EF": {
         "Type": "dictionary",
         "SinceVersion": "1.3",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPresent(RF))",
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[EmbeddedFileStream]"
+        "Link": "[FileSpecRF]"
       },
       "RF": {
         "Type": "dictionary",
@@ -6818,15 +6871,15 @@
         "Type": "integer",
         "SinceVersion": "1.0",
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
-        "SpecialCase": "[value>0]"
+        "PossibleValues": "[fn:Expr(@self>0)]"
       },
       "Prev": {
         "Type": "integer",
         "SinceVersion": "1.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false
       },
       "Root": {
@@ -6856,10 +6909,9 @@
       "ID": {
         "Type": "array",
         "SinceVersion": "1.1",
-        "Required": true,
-        "IndirectReference": false,
+        "Required": "fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))",
+        "IndirectReference": "fn:MustBeDirect(fn:IsPresent(Encrypt))",
         "Inheritable": false,
-        "SpecialCase": "Required in PDF 2.0 or if an Encrypt entry is present",
         "Link": "[ArrayOf_2StringsByte]"
       }
     }
@@ -6867,7 +6919,7 @@
   {
     "id": "FilterCCITTFaxDecode",
     "keys": {
-      "K ": {
+      "K": {
         "Type": "integer",
         "SinceVersion": "1.0",
         "Required": false,
@@ -6963,7 +7015,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=1]",
+        "PossibleValues": "[fn:Expr(@self>=1)]",
         "SpecialCase": "used only if predictor > 1",
         "Note": "Valid values are 1 to 4 (PDF 1.0) and 1 or greater (PDF 1.3)."
       },
@@ -7003,7 +7055,7 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -7026,7 +7078,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=1]",
+        "PossibleValues": "[fn:Expr(@self>=1)]",
         "SpecialCase": "used only if predictor > 1"
       },
       "BitsPerComponent": {
@@ -7124,7 +7176,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[888 -1000]",
-        "Link": "[]"
+        "Link": "[ArrayOf_2Numbers]"
       },
       "W2": {
         "Type": "array",
@@ -7147,7 +7199,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -7219,7 +7271,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[888 -1000]",
-        "Link": "[]"
+        "Link": "[ArrayOf_2Numbers]"
       },
       "W2": {
         "Type": "array",
@@ -7242,7 +7294,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -7302,7 +7354,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value<0]",
+        "PossibleValues": "[fn:Expr(@self<0)]",
         "SpecialCase": "Optional for Type 3 fonts"
       },
       "Leading": {
@@ -7440,7 +7492,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value<0]",
+        "PossibleValues": "[fn:Expr(@self<0)]",
         "SpecialCase": "Optional for Type 3 fonts"
       },
       "Leading": {
@@ -7510,7 +7562,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[FontFile]"
       },
@@ -7518,7 +7570,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[FontFile3CIDType0]"
       },
@@ -7551,7 +7603,7 @@
         "SinceVersion": "1.2",
         "DeprecatedIn": "2.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -7611,7 +7663,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value<0]",
+        "PossibleValues": "[fn:Expr(@self<0)]",
         "SpecialCase": "Optional for Type 3 fonts"
       },
       "Leading": {
@@ -7681,7 +7733,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[FontFile]"
       },
@@ -7689,7 +7741,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[FontFile2CIDType2]"
       },
@@ -7722,7 +7774,7 @@
         "SinceVersion": "1.2",
         "DeprecatedIn": "2.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -7782,7 +7834,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value<0]",
+        "PossibleValues": "[fn:Expr(@self<0)]",
         "SpecialCase": "Optional for Type 3 fonts"
       },
       "Leading": {
@@ -7848,11 +7900,19 @@
         "Inheritable": false,
         "DefaultValue": "0"
       },
+      "FontFile": {
+        "Type": "stream",
+        "SinceVersion": "1.1",
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[FontFileType1]"
+      },
       "FontFile2": {
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[FontFile2TrueType]"
       },
@@ -7918,7 +7978,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value<0]"
+        "PossibleValues": "[fn:Expr(@self<0)]"
       },
       "Leading": {
         "Type": "number",
@@ -7986,7 +8046,7 @@
         "Type": "stream",
         "SinceVersion": "1.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[FontFileType1]"
       },
@@ -7994,7 +8054,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[FontFile3Type1]"
       },
@@ -8054,8 +8114,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -8063,9 +8123,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -8079,8 +8139,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -8088,7 +8148,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -8137,8 +8197,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -8146,9 +8206,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.2",
         "Required": false,
@@ -8162,8 +8222,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -8171,7 +8231,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -8220,8 +8280,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -8229,9 +8289,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.2",
         "Required": false,
@@ -8245,8 +8305,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -8254,7 +8314,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -8304,8 +8364,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -8313,9 +8373,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.2",
         "Required": false,
@@ -8329,8 +8389,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -8338,7 +8398,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -8388,8 +8448,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -8397,9 +8457,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -8413,8 +8473,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -8422,7 +8482,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -8471,8 +8531,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -8480,9 +8540,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -8496,8 +8556,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -8505,7 +8565,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -8545,10 +8605,9 @@
         "Type": "name",
         "SinceVersion": "1.0",
         "DeprecatedIn": "2.0",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPDFVersion(1.0))",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "required in 1.0, optional 1.1-1.7"
+        "Inheritable": false
       },
       "BaseFont": {
         "Type": "name",
@@ -8586,7 +8645,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.0",
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "SpecialCase": "optional in 1.0-1.7 for Base14",
         "Link": "[FontDescriptorType1]"
@@ -8604,7 +8663,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -8633,10 +8692,9 @@
         "Type": "name",
         "SinceVersion": "1.0",
         "DeprecatedIn": "2.0",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPDFVersion(1.0))",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "required in 1.0, optional 1.1-1.7"
+        "Inheritable": false
       },
       "BaseFont": {
         "Type": "name",
@@ -8674,7 +8732,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.0",
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "SpecialCase": "optional in 1.0-1.7 for Base14",
         "Link": "[FontDescriptorTrueType]"
@@ -8692,7 +8750,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -8744,7 +8802,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -8773,10 +8831,9 @@
         "Type": "name",
         "SinceVersion": "1.0",
         "DeprecatedIn": "2.0",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPDFVersion(1.0))",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "required in 1.0, optional 1.1-1.7"
+        "Inheritable": false
       },
       "BaseFont": {
         "Type": "name",
@@ -8814,7 +8871,7 @@
         "Type": "dictionary",
         "SinceVersion": "1.0",
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "SpecialCase": "optional in 1.0-1.7 for Base14",
         "Link": "[FontDescriptorType1]"
@@ -8832,7 +8889,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -8860,10 +8917,9 @@
       "Name": {
         "Type": "name",
         "SinceVersion": "1.0",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPDFVersion(1.0))",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "required in 1.0"
+        "Inheritable": false
       },
       "FontBBox": {
         "Type": "rectangle",
@@ -8894,6 +8950,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "type name allowed in 1.7",
         "Link": "[Encoding]"
       },
       "FirstChar": {
@@ -8921,10 +8978,9 @@
       "FontDescriptor": {
         "Type": "dictionary",
         "SinceVersion": "1.0",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPDFTagged())",
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "required in tagged pdf",
         "Link": "[FontDescriptor]"
       },
       "Resources": {
@@ -8939,7 +8995,7 @@
         "Type": "stream",
         "SinceVersion": "1.2",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -8978,7 +9034,8 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfIntegersGeneral]"
+        "Link": "[ArrayOfIntegersGeneral]",
+        "Note": "array of m positive integers"
       },
       "BitsPerSample": {
         "Type": "integer",
@@ -9027,8 +9084,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -9036,9 +9093,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -9052,8 +9109,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -9061,7 +9118,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -9124,7 +9181,7 @@
     "keys": {
       "FunctionType": {
         "Type": "integer",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -9132,7 +9189,7 @@
       },
       "Domain": {
         "Type": "array",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -9140,7 +9197,7 @@
       },
       "Range": {
         "Type": "array",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -9212,8 +9269,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -9221,9 +9278,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -9237,8 +9294,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -9246,7 +9303,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -9260,7 +9317,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "1",
-        "PossibleValues": "[value>=0]"
+        "PossibleValues": "[fn:Expr(@self>=0)]"
       },
       "1": {
         "Type": "number",
@@ -9269,7 +9326,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "1",
-        "PossibleValues": "[value>=0]"
+        "PossibleValues": "[fn:Expr(@self>=0)]"
       },
       "2": {
         "Type": "number",
@@ -9278,7 +9335,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "1",
-        "PossibleValues": "[value>=0]"
+        "PossibleValues": "[fn:Expr(@self>=0)]"
       }
     }
   },
@@ -9299,7 +9356,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>0]"
+        "PossibleValues": "[fn:Expr(@self>0)]"
       },
       "LC": {
         "Type": "integer",
@@ -9307,7 +9364,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0 && value<=2]"
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=2)]"
       },
       "LJ": {
         "Type": "integer",
@@ -9315,7 +9372,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0 && value<=2]"
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=2)]"
       },
       "ML": {
         "Type": "number",
@@ -9323,7 +9380,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>0]"
+        "PossibleValues": "[fn:Expr(@self>0)]"
       },
       "D": {
         "Type": "array",
@@ -9361,7 +9418,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0 && value<=1]"
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=1)]"
       },
       "Font": {
         "Type": "array",
@@ -9385,6 +9442,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "DefaultValue": "[Default]",
         "Link": "[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]"
       },
       "UCR": {
@@ -9401,6 +9459,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "DefaultValue": "[Default]",
         "Link": "[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]"
       },
       "TR": {
@@ -9413,12 +9472,14 @@
         "Link": "[ArrayOfFunctions];[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]"
       },
       "TR2": {
-        "Type": "dictionary;name;stream",
+        "Type": "array;dictionary;name;stream",
         "SinceVersion": "1.3",
+        "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]"
+        "DefaultValue": "[Default]",
+        "Link": "[ArrayOfFunctions];[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]"
       },
       "HT": {
         "Type": "dictionary;name;stream",
@@ -9434,7 +9495,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0]"
+        "PossibleValues": "[fn:Expr(@self>0)]"
       },
       "SM": {
         "Type": "number",
@@ -9442,7 +9503,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0 && value<=1]"
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=1)]"
       },
       "SA": {
         "Type": "boolean",
@@ -9452,12 +9513,12 @@
         "Inheritable": false
       },
       "BM": {
-        "Type": "array;name",
+        "Type": "fn:Deprecated(2.0,array);name",
         "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "$column(Type).value(array).deprecated(2.0)",
+        "PossibleValues": "[];[fn:Deprecated(2.0,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]",
         "Link": "[ArrayOfNamesGeneral];[]"
       },
       "SMask": {
@@ -9466,6 +9527,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "PossibleValues": "[];[None]",
         "Link": "[SoftMaskAlpha,SoftMaskLuminosity];[]"
       },
       "CA": {
@@ -9474,7 +9536,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0 && value<=1]"
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=1)]"
       },
       "ca": {
         "Type": "number",
@@ -9482,7 +9544,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0 && value<=1]"
+        "PossibleValues": "[fn:Expr(@self>=0 && @self<=1)]"
       },
       "AIS": {
         "Type": "boolean",
@@ -9497,6 +9559,28 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      },
+      "HTP": {
+        "Type": "array",
+        "SinceVersion": "1.2",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_2Integers]"
+      }
+    }
+  },
+  {
+    "id": "GraphicsStateParameterMap",
+    "keys": {
+      "*": {
+        "Type": "dictionary",
+        "SinceVersion": "1.2",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[GraphicsStateParameter]"
       }
     }
   },
@@ -9557,7 +9641,7 @@
         "Inheritable": false,
         "DefaultValue": false
       },
-      "K ": {
+      "K": {
         "Type": "boolean",
         "SinceVersion": "1.4",
         "Required": false,
@@ -9567,7 +9651,7 @@
       },
       "Length": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -9575,24 +9659,24 @@
       },
       "Filter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -9600,20 +9684,20 @@
       },
       "FFilter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -9745,8 +9829,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -9754,9 +9838,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -9770,8 +9854,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -9779,7 +9863,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -9859,8 +9943,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -9868,9 +9952,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -9884,8 +9968,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -9893,7 +9977,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -9923,12 +10007,13 @@
         "IndirectReference": false,
         "Inheritable": false
       },
-      "any colourant name": {
+      "*": {
         "Type": "dictionary;stream",
         "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "fn:KeyNameIsColorant()",
         "Link": "[HalftoneType1];[HalftoneType6,HalftoneType10,HalftoneType16]"
       },
       "Default": {
@@ -10003,8 +10088,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -10012,9 +10097,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -10028,8 +10113,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -10037,7 +10122,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -10056,7 +10141,7 @@
         "Type": "stream",
         "SinceVersion": "1.3",
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[ICCProfileStream]"
       }
@@ -10095,7 +10180,7 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Metadata]"
       },
@@ -10112,18 +10197,18 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
-      "DecodeParms": {
+      "DestOutputProfile": {
         "Type": "array;dictionary",
         "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -10137,8 +10222,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -10146,7 +10231,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -10178,7 +10263,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0.5 0.5]",
-        "Link": "[]"
+        "Link": "[ArrayOf_2Numbers]"
       }
     }
   },
@@ -10187,7 +10272,7 @@
     "keys": {
       "0": {
         "Type": "name",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -10195,7 +10280,7 @@
       },
       "1": {
         "Type": "array;name",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -10205,15 +10290,15 @@
       },
       "2": {
         "Type": "integer",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0 && value<=255]"
+        "PossibleValues": "[fn:Expr(@self>0 && @self<=255)]"
       },
       "3": {
         "Type": "stream;string",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -10350,7 +10435,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "-100",
-        "PossibleValues": "[value<@1]"
+        "PossibleValues": "[fn:Expr(@self<@1)]"
       },
       "1": {
         "Type": "number",
@@ -10359,7 +10444,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "100",
-        "PossibleValues": "[value>@0]"
+        "PossibleValues": "[fn:Expr(@self>@0]"
       },
       "2": {
         "Type": "number",
@@ -10368,7 +10453,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "-100",
-        "PossibleValues": "[value<@3]"
+        "PossibleValues": "[fn:Expr(@self<@3)]"
       },
       "3": {
         "Type": "number",
@@ -10377,7 +10462,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "100",
-        "PossibleValues": "[value>@2]"
+        "PossibleValues": "[fn:Expr(@self>@2)]"
       }
     }
   },
@@ -10405,7 +10490,7 @@
         "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
       }
@@ -10416,7 +10501,7 @@
     "keys": {
       "Marked": {
         "Type": "boolean",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -10473,42 +10558,42 @@
     "keys": {
       "0": {
         "Type": "number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "1": {
         "Type": "number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "2": {
         "Type": "number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "3": {
         "Type": "number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "4": {
         "Type": "number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "5": {
         "Type": "number",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
@@ -10536,31 +10621,31 @@
       },
       "Length": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Filter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -10568,20 +10653,20 @@
       },
       "FFilter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -10643,7 +10728,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[]"
+        "Link": "[ArrayOf_2Numbers]"
       },
       "Rotate": {
         "Type": "integer",
@@ -10653,7 +10738,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "PossibleValues": "[value mod 90 == 0]"
+        "PossibleValues": "[fn:Expr(@self mod 90==0)]"
       },
       "Poster": {
         "Type": "boolean;stream",
@@ -10740,7 +10825,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[]"
+        "Link": "[ArrayOf_2Integers]"
       },
       "FWPosition": {
         "Type": "array",
@@ -10750,7 +10835,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0.5 0.5]",
-        "Link": "[]"
+        "Link": "[ArrayOf_2Numbers]"
       }
     }
   },
@@ -10771,7 +10856,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[XObjectFormType1]"
+        "Link": "[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]"
       },
       "JavaScript": {
         "Type": "name-tree",
@@ -10899,7 +10984,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[]"
+        "Link": "[ArrayOf_2Integers]"
       },
       "CropRect": {
         "Type": "rectangle",
@@ -10934,7 +11019,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[]"
+        "Link": "[ArrayOf_2Numbers]"
       },
       "ColorType": {
         "Type": "name",
@@ -10976,7 +11061,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[]"
+        "Link": "[ArrayOf_2Integers]"
       },
       "GrapMap": {
         "Type": "array",
@@ -11074,7 +11159,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[]"
+        "Link": "[ArrayOf_2Numbers]"
       },
       "CropRect": {
         "Type": "rectangle",
@@ -11108,7 +11193,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[]"
+        "Link": "[ArrayOf_2Integers]"
       },
       "IncludedImageQuality": {
         "Type": "number",
@@ -11182,7 +11267,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0]"
+        "PossibleValues": "[fn:Expr(@self>=0)]"
       }
     }
   },
@@ -11267,16 +11352,16 @@
         "Inheritable": false,
         "Link": "[StructElem]"
       },
-      "C ": {
+      "C": {
         "Type": "array",
         "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0.0 0.0 0.0]",
-        "Link": "[]"
+        "Link": "[ArrayOf_3RGBNumbers]"
       },
-      "F ": {
+      "F": {
         "Type": "integer",
         "SinceVersion": "1.4",
         "Required": false,
@@ -11336,7 +11421,7 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[ICCProfileStream]"
       }
@@ -11375,7 +11460,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "1",
-        "PossibleValues": "[value>=1]"
+        "PossibleValues": "[fn:Expr(@self>=1)]"
       }
     }
   },
@@ -11388,12 +11473,12 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[Page]"
+        "PossibleValues": "[Page,Template]"
       },
       "Parent": {
         "Type": "dictionary",
         "SinceVersion": "1.0",
-        "Required": true,
+        "Required": "fn:IsRequired(@Type!=Template)",
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageTreeNode,PageTreeNodeRoot]"
@@ -11401,10 +11486,9 @@
       "LastModified": {
         "Type": "date",
         "SinceVersion": "1.3",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPresent(PieceInfo))",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "IsPresent:PieceInfo=>Required=TRUE"
+        "Inheritable": false
       },
       "Resources": {
         "Type": "dictionary",
@@ -11480,7 +11564,7 @@
         "IndirectReference": false,
         "Inheritable": true,
         "DefaultValue": "0",
-        "PossibleValues": "[0,90,180,270]",
+        "PossibleValues": "[fn:Expr(@self mod 90==0)]",
         "Note": "Inheritable from Parent"
       },
       "Group": {
@@ -11495,7 +11579,7 @@
         "Type": "stream",
         "SinceVersion": "1.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Thumbnail]"
       },
@@ -11542,7 +11626,7 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Metadata]"
       },
@@ -11557,10 +11641,9 @@
       "StructParents": {
         "Type": "integer",
         "SinceVersion": "1.3",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:PageContainsStructContentItems())",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "Required if the page contains structural content items"
+        "Inheritable": false
       },
       "ID": {
         "Type": "string-byte",
@@ -11584,6 +11667,15 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Separation]"
+      },
+      "Hid": {
+        "Type": "boolean",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": false
       }
     }
   },
@@ -11633,7 +11725,43 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0]"
+        "PossibleValues": "[fn:Expr(@self>=0)]"
+      },
+      "Resources": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "Link": "[Resource]",
+        "Note": "Inheritable from Parent"
+      },
+      "MediaBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "Note": "Inheritable from Parent"
+      },
+      "CropBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "@MediaBox",
+        "Note": "Inheritable from Parent"
+      },
+      "Rotate": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "0",
+        "PossibleValues": "[fn:Expr(@self mod 90==0)]",
+        "Note": "Inheritable from Parent"
       }
     }
   },
@@ -11662,7 +11790,43 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=0]"
+        "PossibleValues": "[fn:Expr(@self>=0)]"
+      },
+      "Resources": {
+        "Type": "dictionary",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "Link": "[Resource]",
+        "Note": "Inheritable from Parent"
+      },
+      "MediaBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "Note": "Inheritable from Parent"
+      },
+      "CropBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "@MediaBox",
+        "Note": "Inheritable from Parent"
+      },
+      "Rotate": {
+        "Type": "integer",
+        "SinceVersion": "1.0",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "0",
+        "PossibleValues": "[fn:Expr(@self mod 90==0)]",
+        "Note": "Inheritable from Parent"
       }
     }
   },
@@ -11692,12 +11856,12 @@
     "id": "PatternMap",
     "keys": {
       "*": {
-        "Type": "dictionary",
-        "SinceVersion": "1.3",
+        "Type": "dictionary;stream",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[PatternType1,PatternType2]"
+        "Link": "[PatternType2];[PatternType1]"
       }
     }
   },
@@ -11706,7 +11870,7 @@
     "keys": {
       "Type": {
         "Type": "name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -11714,7 +11878,7 @@
       },
       "PatternType": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -11722,7 +11886,7 @@
       },
       "PaintType": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -11730,7 +11894,7 @@
       },
       "TilingType": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -11738,28 +11902,28 @@
       },
       "BBox": {
         "Type": "rectangle",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "XStep": {
         "Type": "number",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "YStep": {
         "Type": "number",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Resources": {
         "Type": "dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -11767,7 +11931,7 @@
       },
       "Matrix": {
         "Type": "array",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -11775,31 +11939,31 @@
       },
       "Length": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Filter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -11807,20 +11971,29 @@
       },
       "FFilter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
+      },
+      "XUID": {
+        "Type": "array",
+        "SinceVersion": "1.2",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfIntegersGeneral]"
       }
     }
   },
@@ -11903,11 +12076,11 @@
     "keys": {
       "ExtGState": {
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[GraphicsStateParameter]",
+        "Link": "[GraphicsStateParameterMap]",
         "Note": "*"
       },
       "ColorSpace": {
@@ -11921,7 +12094,7 @@
       },
       "Pattern": {
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -11962,8 +12135,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]",
-        "Note": "*"
+        "Link": "[ArrayOfNamesForProcSet]",
+        "Note": "*, Clause 14.2 says deprecated in 1.4"
       },
       "Properties": {
         "Type": "dictionary",
@@ -12157,7 +12330,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0.0 1.0]",
-        "Link": "[]"
+        "Link": "[ArrayOf_2Numbers]"
       },
       "Function": {
         "Type": "array;dictionary;stream",
@@ -12237,7 +12410,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 1]",
-        "Link": "[]"
+        "Link": "[ArrayOf_2Numbers]"
       },
       "Function": {
         "Type": "array;dictionary;stream",
@@ -12395,8 +12568,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -12404,9 +12577,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -12420,8 +12593,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -12429,7 +12602,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -12458,7 +12631,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>=2]"
+        "PossibleValues": "[fn:Expr(@self>=2)]"
       },
       "Decode": {
         "Type": "array",
@@ -12530,8 +12703,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -12539,9 +12712,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -12555,8 +12728,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -12564,7 +12737,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -12664,8 +12837,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -12673,9 +12846,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -12689,8 +12862,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -12698,7 +12871,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -12798,8 +12971,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -12807,9 +12980,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -12823,8 +12996,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -12832,7 +13005,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -12875,7 +13048,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[];[]"
+        "Link": "[ArrayOfStringsByte];[]"
       },
       "ByteRange": {
         "Type": "array",
@@ -13000,7 +13173,7 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[GroupTransparency]"
       },
@@ -13037,7 +13210,7 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[GroupTransparency]"
       },
@@ -13127,29 +13300,29 @@
       },
       "Length": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Filter": {
         "Type": "array;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.2",
         "Required": false,
@@ -13163,8 +13336,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -13172,7 +13345,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -13181,7 +13354,7 @@
     "keys": {
       "AU": {
         "Type": "dictionary;string-ascii",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -13189,21 +13362,21 @@
       },
       "TS": {
         "Type": "date",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "E": {
         "Type": "date",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "S": {
         "Type": "integer",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -13212,7 +13385,7 @@
       },
       "C": {
         "Type": "dictionary",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
@@ -13225,7 +13398,7 @@
     "keys": {
       "O": {
         "Type": "name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -13245,6 +13418,14 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      },
+      "Attached": {
+        "Type": "array",
+        "SinceVersion": "1.4",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_4NamesForAttached]"
       }
     }
   },
@@ -13274,7 +13455,7 @@
         "IndirectReference": false,
         "Inheritable": true,
         "DefaultValue": "LrTb",
-        "PossibleValues": "[LrTb,RlTb,tbRl,TbLr,LrBt,RlBt,BtRl,BtLr]"
+        "PossibleValues": "[LrTb,RlTb,TbRl,TbLr,LrBt,RlBt,BtRl,BtLr]"
       },
       "SpaceBefore": {
         "Type": "number",
@@ -13530,7 +13711,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[]"
+        "Link": "[ArrayOfStringsByte]"
       },
       "Scope": {
         "Type": "name",
@@ -13558,7 +13739,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
@@ -13569,7 +13750,7 @@
         "Inheritable": false,
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.2",
         "Required": false,
@@ -13583,7 +13764,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "FDecodeParms": {
@@ -13646,12 +13827,12 @@
         "Link": "[ArrayOfStructElemKids];[StructElem,MarkedContentReference,ObjectReference];[]"
       },
       "A": {
-        "Type": "array;dictionary",
+        "Type": "array;dictionary;stream",
         "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfAttributes];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes]"
+        "Link": "[ArrayOfAttributes];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes];[Stream]"
       },
       "C": {
         "Type": "array;name",
@@ -13668,7 +13849,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "PossibleValues": "[value>=0]"
+        "PossibleValues": "[fn:Expr(@self>=0)]"
       },
       "T": {
         "Type": "string-text",
@@ -13841,7 +14022,6 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceRGB,DeviceGray]",
-        "SpecialCase": "Only DeviceGray or DeviceRGB, or an Indexed",
         "Link": "[IndexedColorSpace];[]"
       },
       "BitsPerComponent": {
@@ -13849,7 +14029,8 @@
         "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[1,2,4,8,16]"
       },
       "Decode": {
         "Type": "array",
@@ -13872,7 +14053,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
@@ -13883,7 +14064,7 @@
         "Inheritable": false,
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -13897,7 +14078,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "FDecodeParms": {
@@ -13984,14 +14165,14 @@
     "keys": {
       "U": {
         "Type": "string-ascii",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "C": {
         "Type": "array",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14000,61 +14181,9 @@
     }
   },
   {
-    "id": "VRI",
-    "keys": {
-      "Type": {
-        "Type": "name",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[VRI]"
-      },
-      "Cert": {
-        "Type": "array",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfStreamsGeneral]"
-      },
-      "CRL": {
-        "Type": "array",
-        "SinceVersion": "1.0",
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfStreamsGeneral]"
-      },
-      "OCSP": {
-        "Type": "array",
-        "SinceVersion": "1.0",
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfStreamsGeneral]"
-      },
-      "TU": {
-        "Type": "date",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "TS": {
-        "Type": "stream",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[Stream]"
-      }
-    }
-  },
-  {
     "id": "ViewerPreferences",
     "keys": {
-      "HideToolBar": {
+      "HideToolbar": {
         "Type": "boolean",
         "SinceVersion": "1.2",
         "Required": false,
@@ -14062,7 +14191,7 @@
         "Inheritable": false,
         "DefaultValue": false
       },
-      "HideMenuBar": {
+      "HideMenubar": {
         "Type": "boolean",
         "SinceVersion": "1.2",
         "Required": false,
@@ -14167,14 +14296,14 @@
     "keys": {
       "URL": {
         "Type": "string-ascii",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "L": {
         "Type": "integer",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14182,7 +14311,7 @@
       },
       "F": {
         "Type": "integer",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14190,7 +14319,7 @@
       },
       "P": {
         "Type": "stream;string",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14198,21 +14327,21 @@
       },
       "CT": {
         "Type": "string-ascii",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "H": {
         "Type": "string",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "S": {
         "Type": "dictionary",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14225,7 +14354,7 @@
     "keys": {
       "G": {
         "Type": "dictionary",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14233,7 +14362,7 @@
       },
       "C": {
         "Type": "dictionary",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14246,7 +14375,7 @@
     "keys": {
       "Type": {
         "Type": "name",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14254,7 +14383,7 @@
       },
       "S": {
         "Type": "name",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14262,14 +14391,14 @@
       },
       "ID": {
         "Type": "string",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "O": {
         "Type": "array",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14277,7 +14406,7 @@
       },
       "SI": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14285,21 +14414,21 @@
       },
       "CT": {
         "Type": "string",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "TS": {
         "Type": "date",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "R": {
         "Type": "array;integer",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14312,7 +14441,7 @@
     "keys": {
       "V": {
         "Type": "number",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": true,
         "IndirectReference": false,
@@ -14320,7 +14449,7 @@
       },
       "C": {
         "Type": "array",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14334,7 +14463,7 @@
     "keys": {
       "Type": {
         "Type": "name",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14342,7 +14471,7 @@
       },
       "S": {
         "Type": "name",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14350,14 +14479,14 @@
       },
       "ID": {
         "Type": "string-byte",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "O": {
         "Type": "array",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14365,7 +14494,7 @@
       },
       "SI": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14373,28 +14502,28 @@
       },
       "CT": {
         "Type": "string-ascii",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "TS": {
         "Type": "date",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "T": {
         "Type": "string-text",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "TID": {
         "Type": "string-byte",
-        "SinceVersion": "1.4",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
@@ -14410,7 +14539,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>0]"
+        "PossibleValues": "[fn:Expr(@self>0)]"
       },
       "1": {
         "Type": "number",
@@ -14426,7 +14555,229 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[value>0]"
+        "PossibleValues": "[fn:Expr(@self>0)]"
+      }
+    }
+  },
+  {
+    "id": "XObjectFormPS",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[XObject]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[PS]"
+      },
+      "Level1": {
+        "Type": "stream",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[Stream]"
+      },
+      "Length": {
+        "Type": "integer",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Note": "* from stream"
+      },
+      "Filter": {
+        "Type": "array;name",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
+      },
+      "DecodeParms": {
+        "Type": "array;dictionary",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
+      },
+      "F": {
+        "Type": "dictionary;string",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[FileSpecification];[]"
+      },
+      "FFilter": {
+        "Type": "array;name",
+        "SinceVersion": "1.2",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
+      },
+      "FDecodeParms": {
+        "Type": "array;dictionary",
+        "SinceVersion": "1.2",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
+      }
+    }
+  },
+  {
+    "id": "XObjectFormPSpassthrough",
+    "keys": {
+      "Type": {
+        "Type": "name",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[XObject]"
+      },
+      "Subtype": {
+        "Type": "name",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[PS]"
+      },
+      "Subtype2": {
+        "Type": "name",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[PS]"
+      },
+      "Level1": {
+        "Type": "stream",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[Stream]"
+      },
+      "PS": {
+        "Type": "stream",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": true,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[Stream]"
+      },
+      "FormType": {
+        "Type": "integer",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": "fn:IsRequired(fn:BeforeVersion(1.3))",
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[1]"
+      },
+      "BBox": {
+        "Type": "rectangle",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[0 0 0 0]"
+      },
+      "Matrix": {
+        "Type": "array",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": "fn:IsRequired(fn:BeforeVersion(1.3))",
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[1 0 0 1 0 0]",
+        "Link": "[Matrix]"
+      },
+      "Length": {
+        "Type": "integer",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Note": "* from stream"
+      },
+      "Filter": {
+        "Type": "array;name",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
+      },
+      "DecodeParms": {
+        "Type": "array;dictionary",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
+      },
+      "F": {
+        "Type": "dictionary;string",
+        "SinceVersion": "1.1",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[FileSpecification];[]"
+      },
+      "FFilter": {
+        "Type": "array;name",
+        "SinceVersion": "1.2",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
+      },
+      "FDecodeParms": {
+        "Type": "array;dictionary",
+        "SinceVersion": "1.2",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
@@ -14435,7 +14786,7 @@
     "keys": {
       "Type": {
         "Type": "name",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14443,7 +14794,7 @@
       },
       "Subtype": {
         "Type": "name",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14452,7 +14803,7 @@
       },
       "FormType": {
         "Type": "integer",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14460,14 +14811,14 @@
       },
       "BBox": {
         "Type": "rectangle",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Matrix": {
         "Type": "array",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14476,7 +14827,7 @@
       },
       "Resources": {
         "Type": "dictionary",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14502,13 +14853,13 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Metadata]"
       },
       "PieceInfo": {
         "Type": "dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14516,29 +14867,28 @@
       },
       "LastModified": {
         "Type": "date",
-        "SinceVersion": "1.3",
-        "Required": false,
+        "SinceVersion": "1.4",
+        "Required": "fn:IsRequired(fn:IsPresent(PieceInfo))",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "IsRequired=>PieceInfoIsPresent"
+        "Inheritable": false
       },
       "StructParent": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "StructParents": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "OPI": {
         "Type": "dictionary",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.4",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14547,7 +14897,7 @@
       },
       "Name": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.4",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14555,31 +14905,31 @@
       },
       "Length": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Filter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14587,20 +14937,20 @@
       },
       "FFilter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "MarkStyle": {
         "Type": "string-text",
@@ -14625,7 +14975,7 @@
     "keys": {
       "Type": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14634,7 +14984,7 @@
       },
       "Subtype": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": true,
         "IndirectReference": false,
@@ -14643,7 +14993,7 @@
       },
       "FormType": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14652,7 +15002,7 @@
       },
       "BBox": {
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": true,
         "IndirectReference": false,
@@ -14660,7 +15010,7 @@
       },
       "Matrix": {
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14670,7 +15020,7 @@
       },
       "Resources": {
         "Type": "dictionary",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14700,7 +15050,7 @@
         "SinceVersion": "1.4",
         "DeprecatedIn": "2.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Metadata]"
       },
@@ -14717,10 +15067,9 @@
         "Type": "date",
         "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPresent(PieceInfo))",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "IsRequired=>PieceInfoIsPresent"
+        "Inheritable": false
       },
       "StructParent": {
         "Type": "integer",
@@ -14740,7 +15089,7 @@
       },
       "OPI": {
         "Type": "dictionary",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14749,7 +15098,7 @@
       },
       "Name": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14770,8 +15119,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
@@ -14780,9 +15129,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
@@ -14798,8 +15147,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
@@ -14808,11 +15157,11 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "PCM": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14821,7 +15170,7 @@
       },
       "SeparationColorNames": {
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14830,7 +15179,7 @@
       },
       "TrapRegions": {
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14839,7 +15188,7 @@
       },
       "TrapStyles": {
         "Type": "string-text",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -14869,7 +15218,7 @@
       "FormType": {
         "Type": "integer",
         "SinceVersion": "1.0",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:BeforeVersion(1.3))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[1]"
@@ -14884,7 +15233,7 @@
       "Matrix": {
         "Type": "array",
         "SinceVersion": "1.0",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:BeforeVersion(1.3))",
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[1 0 0 1 0 0]",
@@ -14893,7 +15242,7 @@
       "Resources": {
         "Type": "dictionary",
         "SinceVersion": "1.2",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:SinceVersion(1.2))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Resource]"
@@ -14918,7 +15267,7 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Metadata]"
       },
@@ -14933,10 +15282,9 @@
       "LastModified": {
         "Type": "date",
         "SinceVersion": "1.3",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPresent(PieceInfo))",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "IsRequired=>PieceInfoIsPresent"
+        "Inheritable": false
       },
       "StructParent": {
         "Type": "integer",
@@ -14965,13 +15313,13 @@
         "Type": "name",
         "SinceVersion": "1.0",
         "DeprecatedIn": "2.0",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:BeforeVersion(1.3))",
         "IndirectReference": false,
         "Inheritable": false
       },
       "Length": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14979,24 +15327,24 @@
       },
       "Filter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15004,20 +15352,29 @@
       },
       "FFilter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
-        "Link": "[ArrayOfFilterNames];[]"
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
+      },
+      "XUID": {
+        "Type": "array",
+        "SinceVersion": "1.0",
+        "DeprecatedIn": "1.3",
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfIntegersGeneral]"
       }
     }
   },
@@ -15057,20 +15414,19 @@
       "ColorSpace": {
         "Type": "array;name",
         "SinceVersion": "1.0",
-        "Required": false,
+        "Required": "fn:IsRequired(@Filter!=JPXDecode)",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
-        "SpecialCase": "required if not JPX",
         "Link": "[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,PatternColorSpace];[]"
       },
       "BitsPerComponent": {
         "Type": "integer",
         "SinceVersion": "1.0",
-        "Required": false,
+        "Required": "fn:IsRequired(@Filter!=JPXDecode || ImageMask==true)",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "required if not JPX"
+        "PossibleValues": "[fn:RequiredValue(@Filter==CCITTFaxDecode || @Filter==JBIG2Decode,1),2,4,fn:RequiredValue(@Filter==RunLengthDecode || @Filter==DCTDecode,8),fn:SinceVersion(1.5,16)]"
       },
       "Intent": {
         "Type": "name",
@@ -15093,7 +15449,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfStreamsGeneral];[XObjectImageMask]"
+        "Link": "[ArrayOfIntegersGeneral];[XObjectImageMask]"
       },
       "Decode": {
         "Type": "array",
@@ -15123,7 +15479,7 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[XObjectImageSoftMask]"
       },
@@ -15131,17 +15487,16 @@
         "Type": "name",
         "SinceVersion": "1.0",
         "DeprecatedIn": "2.0",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPDFVersion(1.0))",
         "IndirectReference": false,
         "Inheritable": false
       },
       "StructParent": {
         "Type": "integer",
         "SinceVersion": "1.3",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:ImageIsStructContentItem())",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "IsRequired=>ImageIsStructuralContentItem"
+        "Inheritable": false
       },
       "ID": {
         "Type": "string-byte",
@@ -15163,38 +15518,37 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Metadata]"
       },
       "Length": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.0",
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false,
-        "Note": "* from stream"
+        "Inheritable": false
       },
       "Filter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.0",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15202,16 +15556,16 @@
       },
       "FFilter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.2",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15224,7 +15578,7 @@
     "keys": {
       "Type": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15232,7 +15586,7 @@
       },
       "Subtype": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15240,21 +15594,21 @@
       },
       "Width": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Height": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "BitsPerComponent": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15262,14 +15616,14 @@
       },
       "Intent": {
         "Type": "name",
-        "SinceVersion": "1.1",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "ImageMask": {
         "Type": "boolean",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15277,15 +15631,16 @@
       },
       "Decode": {
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "PossibleValues": "[[0 1],[1 0]]",
         "Link": "[ArrayOfNumbersGeneral]"
       },
       "Interpolate": {
         "Type": "boolean",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15303,13 +15658,13 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[XObjectImageSoftMask]"
       },
       "Name": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -15318,10 +15673,9 @@
       "StructParent": {
         "Type": "integer",
         "SinceVersion": "1.3",
-        "Required": false,
+        "Required": "fn:IsRequired(fn:ImageIsStructContentItem())",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "IsRequired=>ImageIsStructuralContentItem"
+        "Inheritable": false
       },
       "ID": {
         "Type": "string",
@@ -15332,7 +15686,7 @@
       },
       "OPI": {
         "Type": "dictionary",
-        "SinceVersion": "1.2",
+        "SinceVersion": "1.3",
         "DeprecatedIn": "2.0",
         "Required": false,
         "IndirectReference": false,
@@ -15343,7 +15697,7 @@
         "Type": "stream",
         "SinceVersion": "1.4",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Metadata]"
       },
@@ -15361,7 +15715,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
@@ -15372,7 +15726,7 @@
         "Inheritable": false,
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
         "SinceVersion": "1.3",
         "Required": false,
@@ -15386,7 +15740,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "FDecodeParms": {
@@ -15404,7 +15758,7 @@
     "keys": {
       "Type": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15412,7 +15766,7 @@
       },
       "Subtype": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15420,21 +15774,21 @@
       },
       "Width": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Height": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "ColorSpace": {
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15442,14 +15796,14 @@
       },
       "BitsPerComponent": {
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "ImageMask": {
         "Type": "boolean",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15457,7 +15811,7 @@
       },
       "Decode": {
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15465,7 +15819,7 @@
       },
       "Interpolate": {
         "Type": "boolean",
-        "SinceVersion": "1.0",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15481,31 +15835,31 @@
       },
       "Length": {
         "Type": "integer",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Filter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterJBIG2Decode,FilterDCTDecode]"
       },
-      "F ": {
+      "F": {
         "Type": "dictionary;string",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15513,16 +15867,16 @@
       },
       "FFilter": {
         "Type": "array;name",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,JBIG2Decode,DCTDecode,JPXDecode,Crypt]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "FDecodeParms": {
         "Type": "array;dictionary",
-        "SinceVersion": "1.3",
+        "SinceVersion": "1.4",
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15537,9 +15891,9 @@
         "Type": "stream",
         "SinceVersion": "1.0",
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
-        "Link": "[XObjectFormType1,XObjectImage]"
+        "Link": "[XObjectFormType1,XObjectImage,XObjectFormPS,XObjectFormPSpassthrough]"
       }
     }
   },

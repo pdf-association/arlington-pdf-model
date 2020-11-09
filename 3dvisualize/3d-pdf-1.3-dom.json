@@ -1,13 +1,6 @@
 {
     "nodes": [
         {
-            "id": "3DStream",
-            "val": 36,
-            "group": "dict",
-            "desc": "6 keys",
-            "name": "3DStream dict"
-        },
-        {
             "id": "ActionECMAScript",
             "val": 16,
             "group": "dict",
@@ -99,13 +92,6 @@
             "name": "ActionURI dict"
         },
         {
-            "id": "AddActionAnnotation",
-            "val": 36,
-            "group": "dict",
-            "desc": "6 keys",
-            "name": "AddActionAnnotation dict"
-        },
-        {
             "id": "AddActionFormField",
             "val": 16,
             "group": "dict",
@@ -118,6 +104,13 @@
             "group": "dict",
             "desc": "2 keys",
             "name": "AddActionPageObject dict"
+        },
+        {
+            "id": "AddActionWidgetAnnotation",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "AddActionWidgetAnnotation dict"
         },
         {
             "id": "AlternateImage",
@@ -240,9 +233,9 @@
         },
         {
             "id": "AnnotWidget",
-            "val": 289,
+            "val": 324,
             "group": "dict",
-            "desc": "17 keys",
+            "desc": "18 keys",
             "name": "AnnotWidget dict"
         },
         {
@@ -258,20 +251,6 @@
             "group": "dict",
             "desc": "11 keys",
             "name": "AppearanceCharacteristics dict"
-        },
-        {
-            "id": "AppearancePrinterMark",
-            "val": 9,
-            "group": "dict",
-            "desc": "3 keys",
-            "name": "AppearancePrinterMark dict"
-        },
-        {
-            "id": "AppearancePrinterMarkSubDict",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "AppearancePrinterMarkSubDict map"
         },
         {
             "id": "AppearanceSubDict",
@@ -323,6 +302,13 @@
             "name": "ArrayOfArraysInkList map"
         },
         {
+            "id": "ArrayOfArraysURLStrings",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfArraysURLStrings map"
+        },
+        {
             "id": "ArrayOfAttributes",
             "val": 1,
             "group": "map",
@@ -335,6 +321,13 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfBeads map"
+        },
+        {
+            "id": "ArrayOfCompressionFilterNames",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfCompressionFilterNames map"
         },
         {
             "id": "ArrayOfDashPatterns",
@@ -442,6 +435,13 @@
             "name": "ArrayOfIntegersGeneral map"
         },
         {
+            "id": "ArrayOfNamesForProcSet",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfNamesForProcSet map"
+        },
+        {
             "id": "ArrayOfNamesGeneral",
             "val": 1,
             "group": "map",
@@ -484,11 +484,25 @@
             "name": "ArrayOfQuadPoints array"
         },
         {
+            "id": "ArrayOfSourceInformations",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfSourceInformations map"
+        },
+        {
             "id": "ArrayOfStreamsGeneral",
             "val": 1,
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfStreamsGeneral map"
+        },
+        {
+            "id": "ArrayOfStringsByte",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfStringsByte map"
         },
         {
             "id": "ArrayOfStructElem",
@@ -519,6 +533,20 @@
             "name": "ArrayOfThreads map"
         },
         {
+            "id": "ArrayOfURLStrings",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfURLStrings map"
+        },
+        {
+            "id": "ArrayOfWebCaptureCommands",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfWebCaptureCommands map"
+        },
+        {
             "id": "ArrayOf_2Booleans",
             "val": 4,
             "group": "array",
@@ -531,6 +559,20 @@
             "group": "array",
             "desc": "2 entries",
             "name": "ArrayOf_2DashNumbers array"
+        },
+        {
+            "id": "ArrayOf_2Integers",
+            "val": 4,
+            "group": "array",
+            "desc": "2 entries",
+            "name": "ArrayOf_2Integers array"
+        },
+        {
+            "id": "ArrayOf_2Numbers",
+            "val": 4,
+            "group": "array",
+            "desc": "2 entries",
+            "name": "ArrayOf_2Numbers array"
         },
         {
             "id": "ArrayOf_2StringsByte",
@@ -667,9 +709,9 @@
         },
         {
             "id": "Catalog",
-            "val": 289,
+            "val": 256,
             "group": "dict",
-            "desc": "17 keys",
+            "desc": "16 keys",
             "color": "red",
             "name": "Catalog dict"
         },
@@ -693,13 +735,6 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ColorSpaceMap map"
-        },
-        {
-            "id": "DSS",
-            "val": 25,
-            "group": "dict",
-            "desc": "5 keys",
-            "name": "DSS dict"
         },
         {
             "id": "Data",
@@ -787,24 +822,17 @@
         },
         {
             "id": "EncryptionPublicKey",
-            "val": 36,
+            "val": 25,
             "group": "dict",
-            "desc": "6 keys",
+            "desc": "5 keys",
             "name": "EncryptionPublicKey dict"
         },
         {
             "id": "EncryptionStandard",
-            "val": 121,
+            "val": 144,
             "group": "dict",
-            "desc": "11 keys",
+            "desc": "12 keys",
             "name": "EncryptionStandard dict"
-        },
-        {
-            "id": "Extensions",
-            "val": 1,
-            "group": "dict",
-            "desc": "1 keys",
-            "name": "Extensions dict"
         },
         {
             "id": "FDDict",
@@ -851,9 +879,9 @@
         {
             "id": "FileSpecRF",
             "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "FileSpecRF map"
+            "group": "dict",
+            "desc": "1 keys",
+            "name": "FileSpecRF dict"
         },
         {
             "id": "FileSpecification",
@@ -935,9 +963,9 @@
         },
         {
             "id": "FontDescriptorTrueType",
-            "val": 289,
+            "val": 324,
             "group": "dict",
-            "desc": "17 keys",
+            "desc": "18 keys",
             "name": "FontDescriptorTrueType dict"
         },
         {
@@ -1068,17 +1096,17 @@
         },
         {
             "id": "GraphicsStateParameter",
-            "val": 441,
+            "val": 484,
             "group": "dict",
-            "desc": "21 keys",
+            "desc": "22 keys",
             "name": "GraphicsStateParameter dict"
         },
         {
-            "id": "GroupTransparency",
-            "val": 36,
-            "group": "dict",
-            "desc": "6 keys",
-            "name": "GroupTransparency dict"
+            "id": "GraphicsStateParameterMap",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "GraphicsStateParameterMap map"
         },
         {
             "id": "HalftoneType1",
@@ -1104,9 +1132,9 @@
         {
             "id": "HalftoneType5",
             "val": 25,
-            "group": "dict",
-            "desc": "5 keys",
-            "name": "HalftoneType5 dict"
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "HalftoneType5 map"
         },
         {
             "id": "HalftoneType6",
@@ -1179,13 +1207,6 @@
             "name": "Mac dict"
         },
         {
-            "id": "MarkInfo",
-            "val": 1,
-            "group": "dict",
-            "desc": "1 keys",
-            "name": "MarkInfo dict"
-        },
-        {
             "id": "MarkedContentReference",
             "val": 25,
             "group": "dict",
@@ -1198,13 +1219,6 @@
             "group": "array",
             "desc": "6 entries",
             "name": "Matrix array"
-        },
-        {
-            "id": "Metadata",
-            "val": 36,
-            "group": "dict",
-            "desc": "6 keys",
-            "name": "Metadata dict"
         },
         {
             "id": "MicrosoftWindowsLaunchParam",
@@ -1292,9 +1306,9 @@
         },
         {
             "id": "PageObject",
-            "val": 484,
+            "val": 529,
             "group": "dict",
-            "desc": "22 keys",
+            "desc": "23 keys",
             "name": "PageObject dict"
         },
         {
@@ -1306,16 +1320,16 @@
         },
         {
             "id": "PageTreeNode",
-            "val": 16,
+            "val": 64,
             "group": "dict",
-            "desc": "4 keys",
+            "desc": "8 keys",
             "name": "PageTreeNode dict"
         },
         {
             "id": "PageTreeNodeRoot",
-            "val": 9,
+            "val": 49,
             "group": "dict",
-            "desc": "3 keys",
+            "desc": "7 keys",
             "name": "PageTreeNodeRoot dict"
         },
         {
@@ -1334,9 +1348,9 @@
         },
         {
             "id": "PatternType1",
-            "val": 225,
+            "val": 256,
             "group": "dict",
-            "desc": "15 keys",
+            "desc": "16 keys",
             "name": "PatternType1 dict"
         },
         {
@@ -1445,11 +1459,11 @@
             "name": "SoundObject dict"
         },
         {
-            "id": "StandardArtifactAttributes",
-            "val": 1,
+            "id": "SourceInformation",
+            "val": 25,
             "group": "dict",
-            "desc": "1 keys",
-            "name": "StandardArtifactAttributes dict"
+            "desc": "5 keys",
+            "name": "SourceInformation dict"
         },
         {
             "id": "StandardLayoutAttributesBLSE",
@@ -1550,11 +1564,11 @@
             "name": "URI dict"
         },
         {
-            "id": "VRI",
-            "val": 36,
+            "id": "URLAlias",
+            "val": 4,
             "group": "dict",
-            "desc": "6 keys",
-            "name": "VRI dict"
+            "desc": "2 keys",
+            "name": "URLAlias dict"
         },
         {
             "id": "ViewerPreferences",
@@ -1564,6 +1578,41 @@
             "name": "ViewerPreferences dict"
         },
         {
+            "id": "WebCaptureCommand",
+            "val": 49,
+            "group": "dict",
+            "desc": "7 keys",
+            "name": "WebCaptureCommand dict"
+        },
+        {
+            "id": "WebCaptureCommandSettings",
+            "val": 4,
+            "group": "dict",
+            "desc": "2 keys",
+            "name": "WebCaptureCommandSettings dict"
+        },
+        {
+            "id": "WebCaptureImageSet",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "WebCaptureImageSet dict"
+        },
+        {
+            "id": "WebCaptureInfo",
+            "val": 4,
+            "group": "dict",
+            "desc": "2 keys",
+            "name": "WebCaptureInfo dict"
+        },
+        {
+            "id": "WebCapturePageSet",
+            "val": 81,
+            "group": "dict",
+            "desc": "9 keys",
+            "name": "WebCapturePageSet dict"
+        },
+        {
             "id": "Whitepoint",
             "val": 9,
             "group": "array",
@@ -1571,11 +1620,18 @@
             "name": "Whitepoint array"
         },
         {
-            "id": "XObjectFormPrinterMark",
-            "val": 324,
+            "id": "XObjectFormPS",
+            "val": 81,
             "group": "dict",
-            "desc": "18 keys",
-            "name": "XObjectFormPrinterMark dict"
+            "desc": "9 keys",
+            "name": "XObjectFormPS dict"
+        },
+        {
+            "id": "XObjectFormPSpassthrough",
+            "val": 196,
+            "group": "dict",
+            "desc": "14 keys",
+            "name": "XObjectFormPSpassthrough dict"
         },
         {
             "id": "XObjectFormTrapNet",
@@ -1586,9 +1642,9 @@
         },
         {
             "id": "XObjectFormType1",
-            "val": 324,
+            "val": 361,
             "group": "dict",
-            "desc": "18 keys",
+            "desc": "19 keys",
             "name": "XObjectFormType1 dict"
         },
         {
@@ -1604,13 +1660,6 @@
             "group": "dict",
             "desc": "20 keys",
             "name": "XObjectImageMask dict"
-        },
-        {
-            "id": "XObjectImageSoftMask",
-            "val": 225,
-            "group": "dict",
-            "desc": "15 keys",
-            "name": "XObjectImageSoftMask dict"
         },
         {
             "id": "XObjectMap",
@@ -1635,71 +1684,6 @@
         }
     ],
     "links": [
-        {
-            "source": "3DStream",
-            "target": "ArrayOfDecodeParams",
-            "name": "3DStream::DecodeParms"
-        },
-        {
-            "source": "3DStream",
-            "target": "FilterLZWDecode",
-            "name": "3DStream::DecodeParms"
-        },
-        {
-            "source": "3DStream",
-            "target": "FilterFlateDecode",
-            "name": "3DStream::DecodeParms"
-        },
-        {
-            "source": "3DStream",
-            "target": "FilterCCITTFaxDecode",
-            "name": "3DStream::DecodeParms"
-        },
-        {
-            "source": "3DStream",
-            "target": "FilterDCTDecode",
-            "name": "3DStream::DecodeParms"
-        },
-        {
-            "source": "3DStream",
-            "target": "FileSpecification",
-            "name": "3DStream::F "
-        },
-        {
-            "source": "3DStream",
-            "target": "ArrayOfDecodeParams",
-            "name": "3DStream::FDecodeParms"
-        },
-        {
-            "source": "3DStream",
-            "target": "FilterLZWDecode",
-            "name": "3DStream::FDecodeParms"
-        },
-        {
-            "source": "3DStream",
-            "target": "FilterFlateDecode",
-            "name": "3DStream::FDecodeParms"
-        },
-        {
-            "source": "3DStream",
-            "target": "FilterCCITTFaxDecode",
-            "name": "3DStream::FDecodeParms"
-        },
-        {
-            "source": "3DStream",
-            "target": "FilterDCTDecode",
-            "name": "3DStream::FDecodeParms"
-        },
-        {
-            "source": "3DStream",
-            "target": "ArrayOfFilterNames",
-            "name": "3DStream::FFilter"
-        },
-        {
-            "source": "3DStream",
-            "target": "ArrayOfFilterNames",
-            "name": "3DStream::Filter"
-        },
         {
             "source": "ActionECMAScript",
             "target": "Stream",
@@ -2745,396 +2729,6 @@
             "name": "ActionURI::Next"
         },
         {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoTo",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoToR",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionLaunch",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionThread",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionURI",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSound",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionMovie",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionHide",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionNamed",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSubmitForm",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionResetForm",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionImportData",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionECMAScript",
-            "name": "AddActionAnnotation::Bl"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoTo",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoToR",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionLaunch",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionThread",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionURI",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSound",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionMovie",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionHide",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionNamed",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSubmitForm",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionResetForm",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionImportData",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionECMAScript",
-            "name": "AddActionAnnotation::D"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoTo",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoToR",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionLaunch",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionThread",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionURI",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSound",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionMovie",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionHide",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionNamed",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSubmitForm",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionResetForm",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionImportData",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionECMAScript",
-            "name": "AddActionAnnotation::E"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoTo",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoToR",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionLaunch",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionThread",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionURI",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSound",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionMovie",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionHide",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionNamed",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSubmitForm",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionResetForm",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionImportData",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionECMAScript",
-            "name": "AddActionAnnotation::Fo"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoTo",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoToR",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionLaunch",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionThread",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionURI",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSound",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionMovie",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionHide",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionNamed",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSubmitForm",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionResetForm",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionImportData",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionECMAScript",
-            "name": "AddActionAnnotation::U"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoTo",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionGoToR",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionLaunch",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionThread",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionURI",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSound",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionMovie",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionHide",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionNamed",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionSubmitForm",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionResetForm",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionImportData",
-            "name": "AddActionAnnotation::X"
-        },
-        {
-            "source": "AddActionAnnotation",
-            "target": "ActionECMAScript",
-            "name": "AddActionAnnotation::X"
-        },
-        {
             "source": "AddActionFormField",
             "target": "ActionECMAScript",
             "name": "AddActionFormField::C"
@@ -3285,6 +2879,396 @@
             "name": "AddActionPageObject::O"
         },
         {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionECMAScript",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionECMAScript",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionECMAScript",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionECMAScript",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionECMAScript",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoTo",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionGoToR",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionThread",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionURI",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSound",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionMovie",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionHide",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNamed",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSubmitForm",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionResetForm",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionImportData",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionECMAScript",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
             "source": "AlternateImage",
             "target": "XObjectImage",
             "name": "AlternateImage::Image",
@@ -3308,7 +3292,7 @@
         {
             "source": "AnnotCircle",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotCircle::C "
+            "name": "AnnotCircle::C"
         },
         {
             "source": "AnnotCircle",
@@ -3333,7 +3317,7 @@
         {
             "source": "AnnotFileAttachment",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotFileAttachment::C "
+            "name": "AnnotFileAttachment::C"
         },
         {
             "source": "AnnotFileAttachment",
@@ -3364,7 +3348,7 @@
         {
             "source": "AnnotFreeText",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotFreeText::C "
+            "name": "AnnotFreeText::C"
         },
         {
             "source": "AnnotFreeText",
@@ -3389,7 +3373,7 @@
         {
             "source": "AnnotHighlight",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotHighlight::C "
+            "name": "AnnotHighlight::C"
         },
         {
             "source": "AnnotHighlight",
@@ -3425,7 +3409,7 @@
         {
             "source": "AnnotInk",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotInk::C "
+            "name": "AnnotInk::C"
         },
         {
             "source": "AnnotInk",
@@ -3461,7 +3445,7 @@
         {
             "source": "AnnotLine",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotLine::C "
+            "name": "AnnotLine::C"
         },
         {
             "source": "AnnotLine",
@@ -3557,7 +3541,7 @@
         {
             "source": "AnnotLink",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotLink::C "
+            "name": "AnnotLink::C"
         },
         {
             "source": "AnnotLink",
@@ -3607,7 +3591,7 @@
         {
             "source": "AnnotMovie",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotMovie::C "
+            "name": "AnnotMovie::C"
         },
         {
             "source": "AnnotMovie",
@@ -3633,7 +3617,7 @@
         {
             "source": "AnnotPopup",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotPopup::C "
+            "name": "AnnotPopup::C"
         },
         {
             "source": "AnnotPopup",
@@ -3733,7 +3717,7 @@
         {
             "source": "AnnotSound",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotSound::C "
+            "name": "AnnotSound::C"
         },
         {
             "source": "AnnotSound",
@@ -3769,7 +3753,7 @@
         {
             "source": "AnnotSquare",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotSquare::C "
+            "name": "AnnotSquare::C"
         },
         {
             "source": "AnnotSquare",
@@ -3794,7 +3778,7 @@
         {
             "source": "AnnotStamp",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotStamp::C "
+            "name": "AnnotStamp::C"
         },
         {
             "source": "AnnotStamp",
@@ -3819,7 +3803,7 @@
         {
             "source": "AnnotStrikeOut",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotStrikeOut::C "
+            "name": "AnnotStrikeOut::C"
         },
         {
             "source": "AnnotStrikeOut",
@@ -3850,7 +3834,7 @@
         {
             "source": "AnnotText",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotText::C "
+            "name": "AnnotText::C"
         },
         {
             "source": "AnnotText",
@@ -3881,7 +3865,7 @@
         {
             "source": "AnnotTrapNetwork",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotTrapNetwork::C "
+            "name": "AnnotTrapNetwork::C"
         },
         {
             "source": "AnnotTrapNetwork",
@@ -3911,7 +3895,7 @@
         {
             "source": "AnnotUnderline",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotUnderline::C "
+            "name": "AnnotUnderline::C"
         },
         {
             "source": "AnnotUnderline",
@@ -3996,7 +3980,7 @@
         },
         {
             "source": "AnnotWidget",
-            "target": "AddActionAnnotation",
+            "target": "AddActionWidgetAnnotation",
             "name": "AnnotWidget::AA"
         },
         {
@@ -4017,7 +4001,12 @@
         {
             "source": "AnnotWidget",
             "target": "ArrayOf_4NumbersColorAnnotation",
-            "name": "AnnotWidget::C "
+            "name": "AnnotWidget::C"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "AppearanceCharacteristics",
+            "name": "AnnotWidget::MK"
         },
         {
             "source": "AnnotWidget",
@@ -4041,6 +4030,16 @@
         },
         {
             "source": "Appearance",
+            "target": "XObjectFormPS",
+            "name": "Appearance::D"
+        },
+        {
+            "source": "Appearance",
+            "target": "XObjectFormPSpassthrough",
+            "name": "Appearance::D"
+        },
+        {
+            "source": "Appearance",
             "target": "AppearanceSubDict",
             "name": "Appearance::N",
             "color": "red"
@@ -4048,6 +4047,18 @@
         {
             "source": "Appearance",
             "target": "XObjectFormType1",
+            "name": "Appearance::N",
+            "color": "red"
+        },
+        {
+            "source": "Appearance",
+            "target": "XObjectFormPS",
+            "name": "Appearance::N",
+            "color": "red"
+        },
+        {
+            "source": "Appearance",
+            "target": "XObjectFormPSpassthrough",
             "name": "Appearance::N",
             "color": "red"
         },
@@ -4059,6 +4070,16 @@
         {
             "source": "Appearance",
             "target": "XObjectFormType1",
+            "name": "Appearance::R"
+        },
+        {
+            "source": "Appearance",
+            "target": "XObjectFormPS",
+            "name": "Appearance::R"
+        },
+        {
+            "source": "Appearance",
+            "target": "XObjectFormPSpassthrough",
             "name": "Appearance::R"
         },
         {
@@ -4105,43 +4126,6 @@
             "source": "AppearanceCharacteristics",
             "target": "XObjectImage",
             "name": "AppearanceCharacteristics::RI"
-        },
-        {
-            "source": "AppearancePrinterMark",
-            "target": "AppearancePrinterMarkSubDict",
-            "name": "AppearancePrinterMark::D"
-        },
-        {
-            "source": "AppearancePrinterMark",
-            "target": "XObjectFormPrinterMark",
-            "name": "AppearancePrinterMark::D"
-        },
-        {
-            "source": "AppearancePrinterMark",
-            "target": "AppearancePrinterMarkSubDict",
-            "name": "AppearancePrinterMark::N",
-            "color": "red"
-        },
-        {
-            "source": "AppearancePrinterMark",
-            "target": "XObjectFormPrinterMark",
-            "name": "AppearancePrinterMark::N",
-            "color": "red"
-        },
-        {
-            "source": "AppearancePrinterMark",
-            "target": "AppearancePrinterMarkSubDict",
-            "name": "AppearancePrinterMark::R"
-        },
-        {
-            "source": "AppearancePrinterMark",
-            "target": "XObjectFormPrinterMark",
-            "name": "AppearancePrinterMark::R"
-        },
-        {
-            "source": "AppearancePrinterMarkSubDict",
-            "target": "XObjectFormPrinterMark",
-            "name": "AppearancePrinterMarkSubDict::*"
         },
         {
             "source": "AppearanceSubDict",
@@ -4342,6 +4326,12 @@
             "color": "red"
         },
         {
+            "source": "ArrayOfArraysURLStrings",
+            "target": "ArrayOfURLStrings",
+            "name": "ArrayOfArraysURLStrings::*",
+            "color": "red"
+        },
+        {
             "source": "ArrayOfAttributes",
             "target": "StandardLayoutAttributesBLSE",
             "name": "ArrayOfAttributes::*"
@@ -4373,7 +4363,7 @@
         },
         {
             "source": "ArrayOfAttributes",
-            "target": "StandardArtifactAttributes",
+            "target": "Stream",
             "name": "ArrayOfAttributes::*"
         },
         {
@@ -4560,6 +4550,12 @@
             "name": "ArrayOfPages::*"
         },
         {
+            "source": "ArrayOfSourceInformations",
+            "target": "SourceInformation",
+            "name": "ArrayOfSourceInformations::*",
+            "color": "red"
+        },
+        {
             "source": "ArrayOfStreamsGeneral",
             "target": "Stream",
             "name": "ArrayOfStreamsGeneral::*",
@@ -4589,6 +4585,12 @@
             "source": "ArrayOfThreads",
             "target": "Thread",
             "name": "ArrayOfThreads::*"
+        },
+        {
+            "source": "ArrayOfWebCaptureCommands",
+            "target": "WebCaptureCommand",
+            "name": "ArrayOfWebCaptureCommands::*",
+            "color": "red"
         },
         {
             "source": "ArrayOf_4AnnotBorderCharacteristics",
@@ -4694,18 +4696,8 @@
         },
         {
             "source": "CMap",
-            "target": "FilterCCITTFaxDecode",
-            "name": "CMap::DecodeParms"
-        },
-        {
-            "source": "CMap",
-            "target": "FilterDCTDecode",
-            "name": "CMap::DecodeParms"
-        },
-        {
-            "source": "CMap",
             "target": "FileSpecification",
-            "name": "CMap::F "
+            "name": "CMap::F"
         },
         {
             "source": "CMap",
@@ -4724,22 +4716,12 @@
         },
         {
             "source": "CMap",
-            "target": "FilterCCITTFaxDecode",
-            "name": "CMap::FDecodeParms"
-        },
-        {
-            "source": "CMap",
-            "target": "FilterDCTDecode",
-            "name": "CMap::FDecodeParms"
-        },
-        {
-            "source": "CMap",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "CMap::FFilter"
         },
         {
             "source": "CMap",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "CMap::Filter"
         },
         {
@@ -4800,11 +4782,6 @@
             "source": "Catalog",
             "target": "DestsMap",
             "name": "Catalog::Dests"
-        },
-        {
-            "source": "Catalog",
-            "target": "Extensions",
-            "name": "Catalog::Extension"
         },
         {
             "source": "Catalog",
@@ -4914,6 +4891,11 @@
         },
         {
             "source": "Catalog",
+            "target": "WebCaptureInfo",
+            "name": "Catalog::SpiderInfo"
+        },
+        {
+            "source": "Catalog",
             "target": "StructTreeRoot",
             "name": "Catalog::StructTreeRoot"
         },
@@ -4968,11 +4950,6 @@
             "name": "ClassMap::*"
         },
         {
-            "source": "ClassMap",
-            "target": "StandardArtifactAttributes",
-            "name": "ClassMap::*"
-        },
-        {
             "source": "ColorSpaceMap",
             "target": "CalGrayColorSpace",
             "name": "ColorSpaceMap::*"
@@ -5006,26 +4983,6 @@
             "source": "ColorSpaceMap",
             "target": "PatternColorSpace",
             "name": "ColorSpaceMap::*"
-        },
-        {
-            "source": "DSS",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "DSS::CRLs"
-        },
-        {
-            "source": "DSS",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "DSS::Certs"
-        },
-        {
-            "source": "DSS",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "DSS::OCSPs"
-        },
-        {
-            "source": "DSS",
-            "target": "VRI",
-            "name": "DSS::VRI"
         },
         {
             "source": "Data",
@@ -5111,9 +5068,19 @@
             "name": "DestsMap::*"
         },
         {
+            "source": "DestsMap",
+            "target": "DestDict",
+            "name": "DestsMap::*"
+        },
+        {
             "source": "DocTimeStamp",
             "target": "ArrayOfIntegersGeneral",
             "name": "DocTimeStamp::ByteRange"
+        },
+        {
+            "source": "DocTimeStamp",
+            "target": "ArrayOfStringsByte",
+            "name": "DocTimeStamp::Cert"
         },
         {
             "source": "DocTimeStamp",
@@ -5153,7 +5120,7 @@
         {
             "source": "EmbeddedFileStream",
             "target": "FileSpecification",
-            "name": "EmbeddedFileStream::F "
+            "name": "EmbeddedFileStream::F"
         },
         {
             "source": "EmbeddedFileStream",
@@ -5193,12 +5160,19 @@
         {
             "source": "EmbeddedFileStream",
             "target": "EmbeddedFileParameter",
-            "name": "EmbeddedFileStream::Params"
+            "name": "EmbeddedFileStream::Params",
+            "color": "red"
         },
         {
             "source": "Encoding",
             "target": "ArrayOfDifferences",
             "name": "Encoding::Differences"
+        },
+        {
+            "source": "EncryptionPublicKey",
+            "target": "ArrayOfStringsByte",
+            "name": "EncryptionPublicKey::Recipients",
+            "color": "red"
         },
         {
             "source": "FDDict",
@@ -5412,13 +5386,14 @@
         },
         {
             "source": "FileSpecRF",
-            "target": "ArrayOfFileSpecRF",
-            "name": "FileSpecRF::*"
+            "target": "EmbeddedFileStream",
+            "name": "FileSpecRF::F"
         },
         {
             "source": "FileSpecification",
-            "target": "EmbeddedFileStream",
-            "name": "FileSpecification::EF"
+            "target": "FileSpecRF",
+            "name": "FileSpecification::EF",
+            "color": "red"
         },
         {
             "source": "FileSpecification",
@@ -5470,6 +5445,11 @@
         },
         {
             "source": "FontCIDType0",
+            "target": "ArrayOf_2Numbers",
+            "name": "FontCIDType0::DW2"
+        },
+        {
+            "source": "FontCIDType0",
             "target": "FontDescriptorCIDType0",
             "name": "FontCIDType0::FontDescriptor",
             "color": "red"
@@ -5500,6 +5480,11 @@
             "target": "Stream",
             "name": "FontCIDType2::CIDToGIDMap",
             "color": "red"
+        },
+        {
+            "source": "FontCIDType2",
+            "target": "ArrayOf_2Numbers",
+            "name": "FontCIDType2::DW2"
         },
         {
             "source": "FontCIDType2",
@@ -5579,6 +5564,11 @@
         },
         {
             "source": "FontDescriptorTrueType",
+            "target": "FontFileType1",
+            "name": "FontDescriptorTrueType::FontFile"
+        },
+        {
+            "source": "FontDescriptorTrueType",
             "target": "FontFile2TrueType",
             "name": "FontDescriptorTrueType::FontFile2"
         },
@@ -5609,18 +5599,8 @@
         },
         {
             "source": "FontFile2CIDType2",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFile2CIDType2::DecodeParms"
-        },
-        {
-            "source": "FontFile2CIDType2",
-            "target": "FilterDCTDecode",
-            "name": "FontFile2CIDType2::DecodeParms"
-        },
-        {
-            "source": "FontFile2CIDType2",
             "target": "FileSpecification",
-            "name": "FontFile2CIDType2::F "
+            "name": "FontFile2CIDType2::F"
         },
         {
             "source": "FontFile2CIDType2",
@@ -5639,22 +5619,12 @@
         },
         {
             "source": "FontFile2CIDType2",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFile2CIDType2::FDecodeParms"
-        },
-        {
-            "source": "FontFile2CIDType2",
-            "target": "FilterDCTDecode",
-            "name": "FontFile2CIDType2::FDecodeParms"
-        },
-        {
-            "source": "FontFile2CIDType2",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFile2CIDType2::FFilter"
         },
         {
             "source": "FontFile2CIDType2",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFile2CIDType2::Filter"
         },
         {
@@ -5674,18 +5644,8 @@
         },
         {
             "source": "FontFile2TrueType",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFile2TrueType::DecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "FilterDCTDecode",
-            "name": "FontFile2TrueType::DecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
             "target": "FileSpecification",
-            "name": "FontFile2TrueType::F "
+            "name": "FontFile2TrueType::F"
         },
         {
             "source": "FontFile2TrueType",
@@ -5704,22 +5664,12 @@
         },
         {
             "source": "FontFile2TrueType",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFile2TrueType::FDecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "FilterDCTDecode",
-            "name": "FontFile2TrueType::FDecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFile2TrueType::FFilter"
         },
         {
             "source": "FontFile2TrueType",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFile2TrueType::Filter"
         },
         {
@@ -5739,18 +5689,8 @@
         },
         {
             "source": "FontFile3CIDType0",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFile3CIDType0::DecodeParms"
-        },
-        {
-            "source": "FontFile3CIDType0",
-            "target": "FilterDCTDecode",
-            "name": "FontFile3CIDType0::DecodeParms"
-        },
-        {
-            "source": "FontFile3CIDType0",
             "target": "FileSpecification",
-            "name": "FontFile3CIDType0::F "
+            "name": "FontFile3CIDType0::F"
         },
         {
             "source": "FontFile3CIDType0",
@@ -5769,22 +5709,12 @@
         },
         {
             "source": "FontFile3CIDType0",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFile3CIDType0::FDecodeParms"
-        },
-        {
-            "source": "FontFile3CIDType0",
-            "target": "FilterDCTDecode",
-            "name": "FontFile3CIDType0::FDecodeParms"
-        },
-        {
-            "source": "FontFile3CIDType0",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFile3CIDType0::FFilter"
         },
         {
             "source": "FontFile3CIDType0",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFile3CIDType0::Filter"
         },
         {
@@ -5804,18 +5734,8 @@
         },
         {
             "source": "FontFile3Type1",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFile3Type1::DecodeParms"
-        },
-        {
-            "source": "FontFile3Type1",
-            "target": "FilterDCTDecode",
-            "name": "FontFile3Type1::DecodeParms"
-        },
-        {
-            "source": "FontFile3Type1",
             "target": "FileSpecification",
-            "name": "FontFile3Type1::F "
+            "name": "FontFile3Type1::F"
         },
         {
             "source": "FontFile3Type1",
@@ -5834,22 +5754,12 @@
         },
         {
             "source": "FontFile3Type1",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFile3Type1::FDecodeParms"
-        },
-        {
-            "source": "FontFile3Type1",
-            "target": "FilterDCTDecode",
-            "name": "FontFile3Type1::FDecodeParms"
-        },
-        {
-            "source": "FontFile3Type1",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFile3Type1::FFilter"
         },
         {
             "source": "FontFile3Type1",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFile3Type1::Filter"
         },
         {
@@ -5869,18 +5779,8 @@
         },
         {
             "source": "FontFile",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFile::DecodeParms"
-        },
-        {
-            "source": "FontFile",
-            "target": "FilterDCTDecode",
-            "name": "FontFile::DecodeParms"
-        },
-        {
-            "source": "FontFile",
             "target": "FileSpecification",
-            "name": "FontFile::F "
+            "name": "FontFile::F"
         },
         {
             "source": "FontFile",
@@ -5899,22 +5799,12 @@
         },
         {
             "source": "FontFile",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFile::FDecodeParms"
-        },
-        {
-            "source": "FontFile",
-            "target": "FilterDCTDecode",
-            "name": "FontFile::FDecodeParms"
-        },
-        {
-            "source": "FontFile",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFile::FFilter"
         },
         {
             "source": "FontFile",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFile::Filter"
         },
         {
@@ -5934,18 +5824,8 @@
         },
         {
             "source": "FontFileType1",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFileType1::DecodeParms"
-        },
-        {
-            "source": "FontFileType1",
-            "target": "FilterDCTDecode",
-            "name": "FontFileType1::DecodeParms"
-        },
-        {
-            "source": "FontFileType1",
             "target": "FileSpecification",
-            "name": "FontFileType1::F "
+            "name": "FontFileType1::F"
         },
         {
             "source": "FontFileType1",
@@ -5964,22 +5844,12 @@
         },
         {
             "source": "FontFileType1",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FontFileType1::FDecodeParms"
-        },
-        {
-            "source": "FontFileType1",
-            "target": "FilterDCTDecode",
-            "name": "FontFileType1::FDecodeParms"
-        },
-        {
-            "source": "FontFileType1",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFileType1::FFilter"
         },
         {
             "source": "FontFileType1",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FontFileType1::Filter"
         },
         {
@@ -6115,7 +5985,8 @@
         {
             "source": "FontType3",
             "target": "FontDescriptor",
-            "name": "FontType3::FontDescriptor"
+            "name": "FontType3::FontDescriptor",
+            "color": "red"
         },
         {
             "source": "FontType3",
@@ -6161,16 +6032,6 @@
         },
         {
             "source": "FunctionType0",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FunctionType0::DecodeParms"
-        },
-        {
-            "source": "FunctionType0",
-            "target": "FilterDCTDecode",
-            "name": "FunctionType0::DecodeParms"
-        },
-        {
-            "source": "FunctionType0",
             "target": "ArrayOfNumbersGeneral",
             "name": "FunctionType0::Domain",
             "color": "red"
@@ -6183,7 +6044,7 @@
         {
             "source": "FunctionType0",
             "target": "FileSpecification",
-            "name": "FunctionType0::F "
+            "name": "FunctionType0::F"
         },
         {
             "source": "FunctionType0",
@@ -6202,22 +6063,12 @@
         },
         {
             "source": "FunctionType0",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FunctionType0::FDecodeParms"
-        },
-        {
-            "source": "FunctionType0",
-            "target": "FilterDCTDecode",
-            "name": "FunctionType0::FDecodeParms"
-        },
-        {
-            "source": "FunctionType0",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FunctionType0::FFilter"
         },
         {
             "source": "FunctionType0",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FunctionType0::Filter"
         },
         {
@@ -6299,16 +6150,6 @@
         },
         {
             "source": "FunctionType4",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FunctionType4::DecodeParms"
-        },
-        {
-            "source": "FunctionType4",
-            "target": "FilterDCTDecode",
-            "name": "FunctionType4::DecodeParms"
-        },
-        {
-            "source": "FunctionType4",
             "target": "ArrayOfNumbersGeneral",
             "name": "FunctionType4::Domain",
             "color": "red"
@@ -6316,7 +6157,7 @@
         {
             "source": "FunctionType4",
             "target": "FileSpecification",
-            "name": "FunctionType4::F "
+            "name": "FunctionType4::F"
         },
         {
             "source": "FunctionType4",
@@ -6335,22 +6176,12 @@
         },
         {
             "source": "FunctionType4",
-            "target": "FilterCCITTFaxDecode",
-            "name": "FunctionType4::FDecodeParms"
-        },
-        {
-            "source": "FunctionType4",
-            "target": "FilterDCTDecode",
-            "name": "FunctionType4::FDecodeParms"
-        },
-        {
-            "source": "FunctionType4",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FunctionType4::FFilter"
         },
         {
             "source": "FunctionType4",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "FunctionType4::Filter"
         },
         {
@@ -6466,6 +6297,11 @@
         },
         {
             "source": "GraphicsStateParameter",
+            "target": "ArrayOf_2Integers",
+            "name": "GraphicsStateParameter::HTP"
+        },
+        {
+            "source": "GraphicsStateParameter",
             "target": "ArrayOfFunctions",
             "name": "GraphicsStateParameter::TR"
         },
@@ -6491,6 +6327,11 @@
         },
         {
             "source": "GraphicsStateParameter",
+            "target": "ArrayOfFunctions",
+            "name": "GraphicsStateParameter::TR2"
+        },
+        {
+            "source": "GraphicsStateParameter",
             "target": "FunctionType2",
             "name": "GraphicsStateParameter::TR2"
         },
@@ -6550,69 +6391,9 @@
             "name": "GraphicsStateParameter::UCR2"
         },
         {
-            "source": "GroupTransparency",
-            "target": "ArrayOfDecodeParams",
-            "name": "GroupTransparency::DecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterLZWDecode",
-            "name": "GroupTransparency::DecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterFlateDecode",
-            "name": "GroupTransparency::DecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterCCITTFaxDecode",
-            "name": "GroupTransparency::DecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterDCTDecode",
-            "name": "GroupTransparency::DecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FileSpecification",
-            "name": "GroupTransparency::F "
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "ArrayOfDecodeParams",
-            "name": "GroupTransparency::FDecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterLZWDecode",
-            "name": "GroupTransparency::FDecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterFlateDecode",
-            "name": "GroupTransparency::FDecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterCCITTFaxDecode",
-            "name": "GroupTransparency::FDecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterDCTDecode",
-            "name": "GroupTransparency::FDecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "ArrayOfFilterNames",
-            "name": "GroupTransparency::FFilter"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "ArrayOfFilterNames",
-            "name": "GroupTransparency::Filter"
+            "source": "GraphicsStateParameterMap",
+            "target": "GraphicsStateParameter",
+            "name": "GraphicsStateParameterMap::*"
         },
         {
             "source": "HalftoneType10",
@@ -6627,22 +6408,12 @@
         {
             "source": "HalftoneType10",
             "target": "FilterFlateDecode",
-            "name": "HalftoneType10::DecodeParms"
-        },
-        {
-            "source": "HalftoneType10",
-            "target": "FilterCCITTFaxDecode",
-            "name": "HalftoneType10::DecodeParms"
-        },
-        {
-            "source": "HalftoneType10",
-            "target": "FilterDCTDecode",
             "name": "HalftoneType10::DecodeParms"
         },
         {
             "source": "HalftoneType10",
             "target": "FileSpecification",
-            "name": "HalftoneType10::F "
+            "name": "HalftoneType10::F"
         },
         {
             "source": "HalftoneType10",
@@ -6661,22 +6432,12 @@
         },
         {
             "source": "HalftoneType10",
-            "target": "FilterCCITTFaxDecode",
-            "name": "HalftoneType10::FDecodeParms"
-        },
-        {
-            "source": "HalftoneType10",
-            "target": "FilterDCTDecode",
-            "name": "HalftoneType10::FDecodeParms"
-        },
-        {
-            "source": "HalftoneType10",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "HalftoneType10::FFilter"
         },
         {
             "source": "HalftoneType10",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "HalftoneType10::Filter"
         },
         {
@@ -6716,18 +6477,8 @@
         },
         {
             "source": "HalftoneType16",
-            "target": "FilterCCITTFaxDecode",
-            "name": "HalftoneType16::DecodeParms"
-        },
-        {
-            "source": "HalftoneType16",
-            "target": "FilterDCTDecode",
-            "name": "HalftoneType16::DecodeParms"
-        },
-        {
-            "source": "HalftoneType16",
             "target": "FileSpecification",
-            "name": "HalftoneType16::F "
+            "name": "HalftoneType16::F"
         },
         {
             "source": "HalftoneType16",
@@ -6746,22 +6497,12 @@
         },
         {
             "source": "HalftoneType16",
-            "target": "FilterCCITTFaxDecode",
-            "name": "HalftoneType16::FDecodeParms"
-        },
-        {
-            "source": "HalftoneType16",
-            "target": "FilterDCTDecode",
-            "name": "HalftoneType16::FDecodeParms"
-        },
-        {
-            "source": "HalftoneType16",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "HalftoneType16::FFilter"
         },
         {
             "source": "HalftoneType16",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "HalftoneType16::Filter"
         },
         {
@@ -6837,49 +6578,49 @@
         {
             "source": "HalftoneType5",
             "target": "HalftoneType1",
-            "name": "HalftoneType5::Default",
+            "name": "HalftoneType5::*",
             "color": "red"
         },
         {
             "source": "HalftoneType5",
             "target": "HalftoneType6",
-            "name": "HalftoneType5::Default",
+            "name": "HalftoneType5::*",
             "color": "red"
         },
         {
             "source": "HalftoneType5",
             "target": "HalftoneType10",
-            "name": "HalftoneType5::Default",
+            "name": "HalftoneType5::*",
             "color": "red"
         },
         {
             "source": "HalftoneType5",
             "target": "HalftoneType16",
-            "name": "HalftoneType5::Default",
+            "name": "HalftoneType5::*",
             "color": "red"
         },
         {
             "source": "HalftoneType5",
             "target": "HalftoneType1",
-            "name": "HalftoneType5::any colourant name",
+            "name": "HalftoneType5::Default",
             "color": "red"
         },
         {
             "source": "HalftoneType5",
             "target": "HalftoneType6",
-            "name": "HalftoneType5::any colourant name",
+            "name": "HalftoneType5::Default",
             "color": "red"
         },
         {
             "source": "HalftoneType5",
             "target": "HalftoneType10",
-            "name": "HalftoneType5::any colourant name",
+            "name": "HalftoneType5::Default",
             "color": "red"
         },
         {
             "source": "HalftoneType5",
             "target": "HalftoneType16",
-            "name": "HalftoneType5::any colourant name",
+            "name": "HalftoneType5::Default",
             "color": "red"
         },
         {
@@ -6899,18 +6640,8 @@
         },
         {
             "source": "HalftoneType6",
-            "target": "FilterCCITTFaxDecode",
-            "name": "HalftoneType6::DecodeParms"
-        },
-        {
-            "source": "HalftoneType6",
-            "target": "FilterDCTDecode",
-            "name": "HalftoneType6::DecodeParms"
-        },
-        {
-            "source": "HalftoneType6",
             "target": "FileSpecification",
-            "name": "HalftoneType6::F "
+            "name": "HalftoneType6::F"
         },
         {
             "source": "HalftoneType6",
@@ -6929,22 +6660,12 @@
         },
         {
             "source": "HalftoneType6",
-            "target": "FilterCCITTFaxDecode",
-            "name": "HalftoneType6::FDecodeParms"
-        },
-        {
-            "source": "HalftoneType6",
-            "target": "FilterDCTDecode",
-            "name": "HalftoneType6::FDecodeParms"
-        },
-        {
-            "source": "HalftoneType6",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "HalftoneType6::FFilter"
         },
         {
             "source": "HalftoneType6",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "HalftoneType6::Filter"
         },
         {
@@ -7001,32 +6722,22 @@
         {
             "source": "ICCProfileStream",
             "target": "ArrayOfDecodeParams",
-            "name": "ICCProfileStream::DecodeParms"
+            "name": "ICCProfileStream::DestOutputProfile"
         },
         {
             "source": "ICCProfileStream",
             "target": "FilterLZWDecode",
-            "name": "ICCProfileStream::DecodeParms"
+            "name": "ICCProfileStream::DestOutputProfile"
         },
         {
             "source": "ICCProfileStream",
             "target": "FilterFlateDecode",
-            "name": "ICCProfileStream::DecodeParms"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterCCITTFaxDecode",
-            "name": "ICCProfileStream::DecodeParms"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterDCTDecode",
-            "name": "ICCProfileStream::DecodeParms"
+            "name": "ICCProfileStream::DestOutputProfile"
         },
         {
             "source": "ICCProfileStream",
             "target": "FileSpecification",
-            "name": "ICCProfileStream::F "
+            "name": "ICCProfileStream::F"
         },
         {
             "source": "ICCProfileStream",
@@ -7045,28 +6756,23 @@
         },
         {
             "source": "ICCProfileStream",
-            "target": "FilterCCITTFaxDecode",
-            "name": "ICCProfileStream::FDecodeParms"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterDCTDecode",
-            "name": "ICCProfileStream::FDecodeParms"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "ICCProfileStream::FFilter"
         },
         {
             "source": "ICCProfileStream",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "ICCProfileStream::Filter"
         },
         {
             "source": "ICCProfileStream",
             "target": "ArrayOfNumbersGeneral",
             "name": "ICCProfileStream::Range"
+        },
+        {
+            "source": "IconFit",
+            "target": "ArrayOf_2Numbers",
+            "name": "IconFit::A"
         },
         {
             "source": "IndexedColorSpace",
@@ -7183,69 +6889,9 @@
             "name": "MarkedContentReference::StmOwn"
         },
         {
-            "source": "Metadata",
-            "target": "ArrayOfDecodeParams",
-            "name": "Metadata::DecodeParms"
-        },
-        {
-            "source": "Metadata",
-            "target": "FilterLZWDecode",
-            "name": "Metadata::DecodeParms"
-        },
-        {
-            "source": "Metadata",
-            "target": "FilterFlateDecode",
-            "name": "Metadata::DecodeParms"
-        },
-        {
-            "source": "Metadata",
-            "target": "FilterCCITTFaxDecode",
-            "name": "Metadata::DecodeParms"
-        },
-        {
-            "source": "Metadata",
-            "target": "FilterDCTDecode",
-            "name": "Metadata::DecodeParms"
-        },
-        {
-            "source": "Metadata",
-            "target": "FileSpecification",
-            "name": "Metadata::F "
-        },
-        {
-            "source": "Metadata",
-            "target": "ArrayOfDecodeParams",
-            "name": "Metadata::FDecodeParms"
-        },
-        {
-            "source": "Metadata",
-            "target": "FilterLZWDecode",
-            "name": "Metadata::FDecodeParms"
-        },
-        {
-            "source": "Metadata",
-            "target": "FilterFlateDecode",
-            "name": "Metadata::FDecodeParms"
-        },
-        {
-            "source": "Metadata",
-            "target": "FilterCCITTFaxDecode",
-            "name": "Metadata::FDecodeParms"
-        },
-        {
-            "source": "Metadata",
-            "target": "FilterDCTDecode",
-            "name": "Metadata::FDecodeParms"
-        },
-        {
-            "source": "Metadata",
-            "target": "ArrayOfFilterNames",
-            "name": "Metadata::FFilter"
-        },
-        {
-            "source": "Metadata",
-            "target": "ArrayOfFilterNames",
-            "name": "Metadata::Filter"
+            "source": "Movie",
+            "target": "ArrayOf_2Numbers",
+            "name": "Movie::Aspect"
         },
         {
             "source": "Movie",
@@ -7265,12 +6911,32 @@
         },
         {
             "source": "MovieActivation",
+            "target": "ArrayOf_2Numbers",
+            "name": "MovieActivation::FWPosition"
+        },
+        {
+            "source": "MovieActivation",
+            "target": "ArrayOf_2Integers",
+            "name": "MovieActivation::FWScale"
+        },
+        {
+            "source": "MovieActivation",
             "target": "ArrayOfDuration",
             "name": "MovieActivation::Start"
         },
         {
             "source": "Name",
             "target": "XObjectFormType1",
+            "name": "Name::AP"
+        },
+        {
+            "source": "Name",
+            "target": "XObjectFormPS",
+            "name": "Name::AP"
+        },
+        {
+            "source": "Name",
+            "target": "XObjectFormPSpassthrough",
             "name": "Name::AP"
         },
         {
@@ -7300,6 +6966,16 @@
         },
         {
             "source": "Name",
+            "target": "WebCaptureImageSet",
+            "name": "Name::IDS"
+        },
+        {
+            "source": "Name",
+            "target": "WebCapturePageSet",
+            "name": "Name::IDS"
+        },
+        {
+            "source": "Name",
             "target": "ActionECMAScript",
             "name": "Name::JavaScript"
         },
@@ -7312,6 +6988,16 @@
             "source": "Name",
             "target": "_UniversalDictionary",
             "name": "Name::Templates"
+        },
+        {
+            "source": "Name",
+            "target": "WebCaptureImageSet",
+            "name": "Name::URLS"
+        },
+        {
+            "source": "Name",
+            "target": "WebCapturePageSet",
+            "name": "Name::URLS"
         },
         {
             "source": "OPIVersion13",
@@ -7341,8 +7027,23 @@
         },
         {
             "source": "OPIVersion13Dict",
+            "target": "ArrayOf_2Integers",
+            "name": "OPIVersion13Dict::ImageType"
+        },
+        {
+            "source": "OPIVersion13Dict",
             "target": "ArrayOf_8Numbers",
             "name": "OPIVersion13Dict::Position"
+        },
+        {
+            "source": "OPIVersion13Dict",
+            "target": "ArrayOf_2Numbers",
+            "name": "OPIVersion13Dict::Resolution"
+        },
+        {
+            "source": "OPIVersion13Dict",
+            "target": "ArrayOf_2Integers",
+            "name": "OPIVersion13Dict::Size"
         },
         {
             "source": "OPIVersion13Dict",
@@ -7362,8 +7063,18 @@
         },
         {
             "source": "OPIVersion20Dict",
+            "target": "ArrayOf_2Integers",
+            "name": "OPIVersion20Dict::IncludedImageDimensions"
+        },
+        {
+            "source": "OPIVersion20Dict",
             "target": "_UniversalArray",
             "name": "OPIVersion20Dict::Inks"
+        },
+        {
+            "source": "OPIVersion20Dict",
+            "target": "ArrayOf_2Numbers",
+            "name": "OPIVersion20Dict::Size"
         },
         {
             "source": "OPIVersion20Dict",
@@ -7612,10 +7323,20 @@
             "color": "red"
         },
         {
+            "source": "PageTreeNode",
+            "target": "Resource",
+            "name": "PageTreeNode::Resources"
+        },
+        {
             "source": "PageTreeNodeRoot",
             "target": "ArrayOfPageTreeNodeKids",
             "name": "PageTreeNodeRoot::Kids",
             "color": "red"
+        },
+        {
+            "source": "PageTreeNodeRoot",
+            "target": "Resource",
+            "name": "PageTreeNodeRoot::Resources"
         },
         {
             "source": "PatternColorSpace",
@@ -7649,12 +7370,12 @@
         },
         {
             "source": "PatternMap",
-            "target": "PatternType1",
+            "target": "PatternType2",
             "name": "PatternMap::*"
         },
         {
             "source": "PatternMap",
-            "target": "PatternType2",
+            "target": "PatternType1",
             "name": "PatternMap::*"
         },
         {
@@ -7670,22 +7391,12 @@
         {
             "source": "PatternType1",
             "target": "FilterFlateDecode",
-            "name": "PatternType1::DecodeParms"
-        },
-        {
-            "source": "PatternType1",
-            "target": "FilterCCITTFaxDecode",
-            "name": "PatternType1::DecodeParms"
-        },
-        {
-            "source": "PatternType1",
-            "target": "FilterDCTDecode",
             "name": "PatternType1::DecodeParms"
         },
         {
             "source": "PatternType1",
             "target": "FileSpecification",
-            "name": "PatternType1::F "
+            "name": "PatternType1::F"
         },
         {
             "source": "PatternType1",
@@ -7704,22 +7415,12 @@
         },
         {
             "source": "PatternType1",
-            "target": "FilterCCITTFaxDecode",
-            "name": "PatternType1::FDecodeParms"
-        },
-        {
-            "source": "PatternType1",
-            "target": "FilterDCTDecode",
-            "name": "PatternType1::FDecodeParms"
-        },
-        {
-            "source": "PatternType1",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "PatternType1::FFilter"
         },
         {
             "source": "PatternType1",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "PatternType1::Filter"
         },
         {
@@ -7732,6 +7433,11 @@
             "target": "Resource",
             "name": "PatternType1::Resources",
             "color": "red"
+        },
+        {
+            "source": "PatternType1",
+            "target": "ArrayOfIntegersGeneral",
+            "name": "PatternType1::XUID"
         },
         {
             "source": "PatternType2",
@@ -7792,7 +7498,7 @@
         },
         {
             "source": "Resource",
-            "target": "GraphicsStateParameter",
+            "target": "GraphicsStateParameterMap",
             "name": "Resource::ExtGState"
         },
         {
@@ -7807,7 +7513,7 @@
         },
         {
             "source": "Resource",
-            "target": "_UniversalArray",
+            "target": "ArrayOfNamesForProcSet",
             "name": "Resource::ProcSet"
         },
         {
@@ -8049,6 +7755,11 @@
         },
         {
             "source": "ShadingType2",
+            "target": "ArrayOf_2Numbers",
+            "name": "ShadingType2::Domain"
+        },
+        {
+            "source": "ShadingType2",
             "target": "ArrayOf_2Booleans",
             "name": "ShadingType2::Extend"
         },
@@ -8128,6 +7839,11 @@
             "target": "ArrayOf_6Numbers",
             "name": "ShadingType3::Coords",
             "color": "red"
+        },
+        {
+            "source": "ShadingType3",
+            "target": "ArrayOf_2Numbers",
+            "name": "ShadingType3::Domain"
         },
         {
             "source": "ShadingType3",
@@ -8227,18 +7943,8 @@
         },
         {
             "source": "ShadingType4",
-            "target": "FilterCCITTFaxDecode",
-            "name": "ShadingType4::DecodeParms"
-        },
-        {
-            "source": "ShadingType4",
-            "target": "FilterDCTDecode",
-            "name": "ShadingType4::DecodeParms"
-        },
-        {
-            "source": "ShadingType4",
             "target": "FileSpecification",
-            "name": "ShadingType4::F "
+            "name": "ShadingType4::F"
         },
         {
             "source": "ShadingType4",
@@ -8257,22 +7963,12 @@
         },
         {
             "source": "ShadingType4",
-            "target": "FilterCCITTFaxDecode",
-            "name": "ShadingType4::FDecodeParms"
-        },
-        {
-            "source": "ShadingType4",
-            "target": "FilterDCTDecode",
-            "name": "ShadingType4::FDecodeParms"
-        },
-        {
-            "source": "ShadingType4",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "ShadingType4::FFilter"
         },
         {
             "source": "ShadingType4",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "ShadingType4::Filter"
         },
         {
@@ -8368,18 +8064,8 @@
         },
         {
             "source": "ShadingType5",
-            "target": "FilterCCITTFaxDecode",
-            "name": "ShadingType5::DecodeParms"
-        },
-        {
-            "source": "ShadingType5",
-            "target": "FilterDCTDecode",
-            "name": "ShadingType5::DecodeParms"
-        },
-        {
-            "source": "ShadingType5",
             "target": "FileSpecification",
-            "name": "ShadingType5::F "
+            "name": "ShadingType5::F"
         },
         {
             "source": "ShadingType5",
@@ -8398,22 +8084,12 @@
         },
         {
             "source": "ShadingType5",
-            "target": "FilterCCITTFaxDecode",
-            "name": "ShadingType5::FDecodeParms"
-        },
-        {
-            "source": "ShadingType5",
-            "target": "FilterDCTDecode",
-            "name": "ShadingType5::FDecodeParms"
-        },
-        {
-            "source": "ShadingType5",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "ShadingType5::FFilter"
         },
         {
             "source": "ShadingType5",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "ShadingType5::Filter"
         },
         {
@@ -8509,18 +8185,8 @@
         },
         {
             "source": "ShadingType6",
-            "target": "FilterCCITTFaxDecode",
-            "name": "ShadingType6::DecodeParms"
-        },
-        {
-            "source": "ShadingType6",
-            "target": "FilterDCTDecode",
-            "name": "ShadingType6::DecodeParms"
-        },
-        {
-            "source": "ShadingType6",
             "target": "FileSpecification",
-            "name": "ShadingType6::F "
+            "name": "ShadingType6::F"
         },
         {
             "source": "ShadingType6",
@@ -8539,22 +8205,12 @@
         },
         {
             "source": "ShadingType6",
-            "target": "FilterCCITTFaxDecode",
-            "name": "ShadingType6::FDecodeParms"
-        },
-        {
-            "source": "ShadingType6",
-            "target": "FilterDCTDecode",
-            "name": "ShadingType6::FDecodeParms"
-        },
-        {
-            "source": "ShadingType6",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "ShadingType6::FFilter"
         },
         {
             "source": "ShadingType6",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "ShadingType6::Filter"
         },
         {
@@ -8650,18 +8306,8 @@
         },
         {
             "source": "ShadingType7",
-            "target": "FilterCCITTFaxDecode",
-            "name": "ShadingType7::DecodeParms"
-        },
-        {
-            "source": "ShadingType7",
-            "target": "FilterDCTDecode",
-            "name": "ShadingType7::DecodeParms"
-        },
-        {
-            "source": "ShadingType7",
             "target": "FileSpecification",
-            "name": "ShadingType7::F "
+            "name": "ShadingType7::F"
         },
         {
             "source": "ShadingType7",
@@ -8680,22 +8326,12 @@
         },
         {
             "source": "ShadingType7",
-            "target": "FilterCCITTFaxDecode",
-            "name": "ShadingType7::FDecodeParms"
-        },
-        {
-            "source": "ShadingType7",
-            "target": "FilterDCTDecode",
-            "name": "ShadingType7::FDecodeParms"
-        },
-        {
-            "source": "ShadingType7",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "ShadingType7::FFilter"
         },
         {
             "source": "ShadingType7",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "ShadingType7::Filter"
         },
         {
@@ -8735,6 +8371,11 @@
         },
         {
             "source": "Signature",
+            "target": "ArrayOfStringsByte",
+            "name": "Signature::Cert"
+        },
+        {
+            "source": "Signature",
             "target": "ArrayOf_3Integers",
             "name": "Signature::Changes"
         },
@@ -8770,18 +8411,8 @@
         },
         {
             "source": "SoundObject",
-            "target": "FilterCCITTFaxDecode",
-            "name": "SoundObject::DecodeParms"
-        },
-        {
-            "source": "SoundObject",
-            "target": "FilterDCTDecode",
-            "name": "SoundObject::DecodeParms"
-        },
-        {
-            "source": "SoundObject",
             "target": "FileSpecification",
-            "name": "SoundObject::F "
+            "name": "SoundObject::F"
         },
         {
             "source": "SoundObject",
@@ -8800,23 +8431,24 @@
         },
         {
             "source": "SoundObject",
-            "target": "FilterCCITTFaxDecode",
-            "name": "SoundObject::FDecodeParms"
-        },
-        {
-            "source": "SoundObject",
-            "target": "FilterDCTDecode",
-            "name": "SoundObject::FDecodeParms"
-        },
-        {
-            "source": "SoundObject",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "SoundObject::FFilter"
         },
         {
             "source": "SoundObject",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "SoundObject::Filter"
+        },
+        {
+            "source": "SourceInformation",
+            "target": "URLAlias",
+            "name": "SourceInformation::AU",
+            "color": "red"
+        },
+        {
+            "source": "SourceInformation",
+            "target": "WebCaptureCommand",
+            "name": "SourceInformation::C"
         },
         {
             "source": "Stream",
@@ -8846,7 +8478,7 @@
         {
             "source": "Stream",
             "target": "FileSpecification",
-            "name": "Stream::F "
+            "name": "Stream::F"
         },
         {
             "source": "Stream",
@@ -8920,7 +8552,7 @@
         },
         {
             "source": "StructElem",
-            "target": "StandardArtifactAttributes",
+            "target": "Stream",
             "name": "StructElem::A"
         },
         {
@@ -9065,7 +8697,7 @@
         {
             "source": "Thumbnail",
             "target": "FileSpecification",
-            "name": "Thumbnail::F "
+            "name": "Thumbnail::F"
         },
         {
             "source": "Thumbnail",
@@ -9103,116 +8735,188 @@
             "name": "Thumbnail::Filter"
         },
         {
-            "source": "VRI",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "VRI::CRL",
-            "color": "red"
+            "source": "URLAlias",
+            "target": "ArrayOfArraysURLStrings",
+            "name": "URLAlias::C"
         },
         {
-            "source": "VRI",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "VRI::Cert"
-        },
-        {
-            "source": "VRI",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "VRI::OCSP",
-            "color": "red"
-        },
-        {
-            "source": "VRI",
+            "source": "WebCaptureCommand",
             "target": "Stream",
-            "name": "VRI::TS"
+            "name": "WebCaptureCommand::P"
         },
         {
-            "source": "XObjectFormPrinterMark",
+            "source": "WebCaptureCommand",
+            "target": "WebCaptureCommandSettings",
+            "name": "WebCaptureCommand::S"
+        },
+        {
+            "source": "WebCaptureCommandSettings",
+            "target": "_UniversalDictionary",
+            "name": "WebCaptureCommandSettings::C"
+        },
+        {
+            "source": "WebCaptureCommandSettings",
+            "target": "_UniversalDictionary",
+            "name": "WebCaptureCommandSettings::G"
+        },
+        {
+            "source": "WebCaptureImageSet",
+            "target": "_UniversalArray",
+            "name": "WebCaptureImageSet::O",
+            "color": "red"
+        },
+        {
+            "source": "WebCaptureImageSet",
+            "target": "ArrayOfIntegersGeneral",
+            "name": "WebCaptureImageSet::R",
+            "color": "red"
+        },
+        {
+            "source": "WebCaptureImageSet",
+            "target": "ArrayOfSourceInformations",
+            "name": "WebCaptureImageSet::SI",
+            "color": "red"
+        },
+        {
+            "source": "WebCaptureImageSet",
+            "target": "SourceInformation",
+            "name": "WebCaptureImageSet::SI",
+            "color": "red"
+        },
+        {
+            "source": "WebCaptureInfo",
+            "target": "ArrayOfWebCaptureCommands",
+            "name": "WebCaptureInfo::C"
+        },
+        {
+            "source": "WebCapturePageSet",
+            "target": "_UniversalArray",
+            "name": "WebCapturePageSet::O",
+            "color": "red"
+        },
+        {
+            "source": "WebCapturePageSet",
+            "target": "ArrayOfSourceInformations",
+            "name": "WebCapturePageSet::SI",
+            "color": "red"
+        },
+        {
+            "source": "WebCapturePageSet",
+            "target": "SourceInformation",
+            "name": "WebCapturePageSet::SI",
+            "color": "red"
+        },
+        {
+            "source": "XObjectFormPS",
             "target": "ArrayOfDecodeParams",
-            "name": "XObjectFormPrinterMark::DecodeParms"
+            "name": "XObjectFormPS::DecodeParms"
         },
         {
-            "source": "XObjectFormPrinterMark",
+            "source": "XObjectFormPS",
             "target": "FilterLZWDecode",
-            "name": "XObjectFormPrinterMark::DecodeParms"
+            "name": "XObjectFormPS::DecodeParms"
         },
         {
-            "source": "XObjectFormPrinterMark",
+            "source": "XObjectFormPS",
             "target": "FilterFlateDecode",
-            "name": "XObjectFormPrinterMark::DecodeParms"
+            "name": "XObjectFormPS::DecodeParms"
         },
         {
-            "source": "XObjectFormPrinterMark",
-            "target": "FilterCCITTFaxDecode",
-            "name": "XObjectFormPrinterMark::DecodeParms"
-        },
-        {
-            "source": "XObjectFormPrinterMark",
-            "target": "FilterDCTDecode",
-            "name": "XObjectFormPrinterMark::DecodeParms"
-        },
-        {
-            "source": "XObjectFormPrinterMark",
+            "source": "XObjectFormPS",
             "target": "FileSpecification",
-            "name": "XObjectFormPrinterMark::F "
+            "name": "XObjectFormPS::F"
         },
         {
-            "source": "XObjectFormPrinterMark",
+            "source": "XObjectFormPS",
             "target": "ArrayOfDecodeParams",
-            "name": "XObjectFormPrinterMark::FDecodeParms"
+            "name": "XObjectFormPS::FDecodeParms"
         },
         {
-            "source": "XObjectFormPrinterMark",
+            "source": "XObjectFormPS",
             "target": "FilterLZWDecode",
-            "name": "XObjectFormPrinterMark::FDecodeParms"
+            "name": "XObjectFormPS::FDecodeParms"
         },
         {
-            "source": "XObjectFormPrinterMark",
+            "source": "XObjectFormPS",
             "target": "FilterFlateDecode",
-            "name": "XObjectFormPrinterMark::FDecodeParms"
+            "name": "XObjectFormPS::FDecodeParms"
         },
         {
-            "source": "XObjectFormPrinterMark",
-            "target": "FilterCCITTFaxDecode",
-            "name": "XObjectFormPrinterMark::FDecodeParms"
+            "source": "XObjectFormPS",
+            "target": "ArrayOfCompressionFilterNames",
+            "name": "XObjectFormPS::FFilter"
         },
         {
-            "source": "XObjectFormPrinterMark",
-            "target": "FilterDCTDecode",
-            "name": "XObjectFormPrinterMark::FDecodeParms"
+            "source": "XObjectFormPS",
+            "target": "ArrayOfCompressionFilterNames",
+            "name": "XObjectFormPS::Filter"
         },
         {
-            "source": "XObjectFormPrinterMark",
-            "target": "ArrayOfFilterNames",
-            "name": "XObjectFormPrinterMark::FFilter"
+            "source": "XObjectFormPS",
+            "target": "Stream",
+            "name": "XObjectFormPS::Level1"
         },
         {
-            "source": "XObjectFormPrinterMark",
-            "target": "ArrayOfFilterNames",
-            "name": "XObjectFormPrinterMark::Filter"
+            "source": "XObjectFormPSpassthrough",
+            "target": "ArrayOfDecodeParams",
+            "name": "XObjectFormPSpassthrough::DecodeParms"
         },
         {
-            "source": "XObjectFormPrinterMark",
+            "source": "XObjectFormPSpassthrough",
+            "target": "FilterLZWDecode",
+            "name": "XObjectFormPSpassthrough::DecodeParms"
+        },
+        {
+            "source": "XObjectFormPSpassthrough",
+            "target": "FilterFlateDecode",
+            "name": "XObjectFormPSpassthrough::DecodeParms"
+        },
+        {
+            "source": "XObjectFormPSpassthrough",
+            "target": "FileSpecification",
+            "name": "XObjectFormPSpassthrough::F"
+        },
+        {
+            "source": "XObjectFormPSpassthrough",
+            "target": "ArrayOfDecodeParams",
+            "name": "XObjectFormPSpassthrough::FDecodeParms"
+        },
+        {
+            "source": "XObjectFormPSpassthrough",
+            "target": "FilterLZWDecode",
+            "name": "XObjectFormPSpassthrough::FDecodeParms"
+        },
+        {
+            "source": "XObjectFormPSpassthrough",
+            "target": "FilterFlateDecode",
+            "name": "XObjectFormPSpassthrough::FDecodeParms"
+        },
+        {
+            "source": "XObjectFormPSpassthrough",
+            "target": "ArrayOfCompressionFilterNames",
+            "name": "XObjectFormPSpassthrough::FFilter"
+        },
+        {
+            "source": "XObjectFormPSpassthrough",
+            "target": "ArrayOfCompressionFilterNames",
+            "name": "XObjectFormPSpassthrough::Filter"
+        },
+        {
+            "source": "XObjectFormPSpassthrough",
+            "target": "Stream",
+            "name": "XObjectFormPSpassthrough::Level1"
+        },
+        {
+            "source": "XObjectFormPSpassthrough",
             "target": "Matrix",
-            "name": "XObjectFormPrinterMark::Matrix"
+            "name": "XObjectFormPSpassthrough::Matrix",
+            "color": "red"
         },
         {
-            "source": "XObjectFormPrinterMark",
-            "target": "OPIVersion13",
-            "name": "XObjectFormPrinterMark::OPI"
-        },
-        {
-            "source": "XObjectFormPrinterMark",
-            "target": "OPIVersion20",
-            "name": "XObjectFormPrinterMark::OPI"
-        },
-        {
-            "source": "XObjectFormPrinterMark",
-            "target": "PagePiece",
-            "name": "XObjectFormPrinterMark::PieceInfo"
-        },
-        {
-            "source": "XObjectFormPrinterMark",
-            "target": "Resource",
-            "name": "XObjectFormPrinterMark::Resources"
+            "source": "XObjectFormPSpassthrough",
+            "target": "Stream",
+            "name": "XObjectFormPSpassthrough::PS",
+            "color": "red"
         },
         {
             "source": "XObjectFormTrapNet",
@@ -9227,22 +8931,12 @@
         {
             "source": "XObjectFormTrapNet",
             "target": "FilterFlateDecode",
-            "name": "XObjectFormTrapNet::DecodeParms"
-        },
-        {
-            "source": "XObjectFormTrapNet",
-            "target": "FilterCCITTFaxDecode",
-            "name": "XObjectFormTrapNet::DecodeParms"
-        },
-        {
-            "source": "XObjectFormTrapNet",
-            "target": "FilterDCTDecode",
             "name": "XObjectFormTrapNet::DecodeParms"
         },
         {
             "source": "XObjectFormTrapNet",
             "target": "FileSpecification",
-            "name": "XObjectFormTrapNet::F "
+            "name": "XObjectFormTrapNet::F"
         },
         {
             "source": "XObjectFormTrapNet",
@@ -9261,22 +8955,12 @@
         },
         {
             "source": "XObjectFormTrapNet",
-            "target": "FilterCCITTFaxDecode",
-            "name": "XObjectFormTrapNet::FDecodeParms"
-        },
-        {
-            "source": "XObjectFormTrapNet",
-            "target": "FilterDCTDecode",
-            "name": "XObjectFormTrapNet::FDecodeParms"
-        },
-        {
-            "source": "XObjectFormTrapNet",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "XObjectFormTrapNet::FFilter"
         },
         {
             "source": "XObjectFormTrapNet",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "XObjectFormTrapNet::Filter"
         },
         {
@@ -9331,18 +9015,8 @@
         },
         {
             "source": "XObjectFormType1",
-            "target": "FilterCCITTFaxDecode",
-            "name": "XObjectFormType1::DecodeParms"
-        },
-        {
-            "source": "XObjectFormType1",
-            "target": "FilterDCTDecode",
-            "name": "XObjectFormType1::DecodeParms"
-        },
-        {
-            "source": "XObjectFormType1",
             "target": "FileSpecification",
-            "name": "XObjectFormType1::F "
+            "name": "XObjectFormType1::F"
         },
         {
             "source": "XObjectFormType1",
@@ -9361,28 +9035,19 @@
         },
         {
             "source": "XObjectFormType1",
-            "target": "FilterCCITTFaxDecode",
-            "name": "XObjectFormType1::FDecodeParms"
-        },
-        {
-            "source": "XObjectFormType1",
-            "target": "FilterDCTDecode",
-            "name": "XObjectFormType1::FDecodeParms"
-        },
-        {
-            "source": "XObjectFormType1",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "XObjectFormType1::FFilter"
         },
         {
             "source": "XObjectFormType1",
-            "target": "ArrayOfFilterNames",
+            "target": "ArrayOfCompressionFilterNames",
             "name": "XObjectFormType1::Filter"
         },
         {
             "source": "XObjectFormType1",
             "target": "Matrix",
-            "name": "XObjectFormType1::Matrix"
+            "name": "XObjectFormType1::Matrix",
+            "color": "red"
         },
         {
             "source": "XObjectFormType1",
@@ -9402,7 +9067,13 @@
         {
             "source": "XObjectFormType1",
             "target": "Resource",
-            "name": "XObjectFormType1::Resources"
+            "name": "XObjectFormType1::Resources",
+            "color": "red"
+        },
+        {
+            "source": "XObjectFormType1",
+            "target": "ArrayOfIntegersGeneral",
+            "name": "XObjectFormType1::XUID"
         },
         {
             "source": "XObjectImage",
@@ -9412,37 +9083,44 @@
         {
             "source": "XObjectImage",
             "target": "CalGrayColorSpace",
-            "name": "XObjectImage::ColorSpace"
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
         },
         {
             "source": "XObjectImage",
             "target": "CalRGBColorSpace",
-            "name": "XObjectImage::ColorSpace"
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
         },
         {
             "source": "XObjectImage",
             "target": "LabColorSpace",
-            "name": "XObjectImage::ColorSpace"
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
         },
         {
             "source": "XObjectImage",
             "target": "ICCBasedColorSpace",
-            "name": "XObjectImage::ColorSpace"
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
         },
         {
             "source": "XObjectImage",
             "target": "IndexedColorSpace",
-            "name": "XObjectImage::ColorSpace"
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
         },
         {
             "source": "XObjectImage",
             "target": "SeparationColorSpace",
-            "name": "XObjectImage::ColorSpace"
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
         },
         {
             "source": "XObjectImage",
             "target": "PatternColorSpace",
-            "name": "XObjectImage::ColorSpace"
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
         },
         {
             "source": "XObjectImage",
@@ -9477,7 +9155,7 @@
         {
             "source": "XObjectImage",
             "target": "FileSpecification",
-            "name": "XObjectImage::F "
+            "name": "XObjectImage::F"
         },
         {
             "source": "XObjectImage",
@@ -9516,7 +9194,7 @@
         },
         {
             "source": "XObjectImage",
-            "target": "ArrayOfStreamsGeneral",
+            "target": "ArrayOfIntegersGeneral",
             "name": "XObjectImage::Mask"
         },
         {
@@ -9572,7 +9250,7 @@
         {
             "source": "XObjectImageMask",
             "target": "FileSpecification",
-            "name": "XObjectImageMask::F "
+            "name": "XObjectImageMask::F"
         },
         {
             "source": "XObjectImageMask",
@@ -9620,76 +9298,6 @@
             "name": "XObjectImageMask::OPI"
         },
         {
-            "source": "XObjectImageSoftMask",
-            "target": "ArrayOfNumbersGeneral",
-            "name": "XObjectImageSoftMask::Decode"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "ArrayOfDecodeParams",
-            "name": "XObjectImageSoftMask::DecodeParms"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "FilterLZWDecode",
-            "name": "XObjectImageSoftMask::DecodeParms"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "FilterFlateDecode",
-            "name": "XObjectImageSoftMask::DecodeParms"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "FilterCCITTFaxDecode",
-            "name": "XObjectImageSoftMask::DecodeParms"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "FilterDCTDecode",
-            "name": "XObjectImageSoftMask::DecodeParms"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "FileSpecification",
-            "name": "XObjectImageSoftMask::F "
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "ArrayOfDecodeParams",
-            "name": "XObjectImageSoftMask::FDecodeParms"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "FilterLZWDecode",
-            "name": "XObjectImageSoftMask::FDecodeParms"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "FilterFlateDecode",
-            "name": "XObjectImageSoftMask::FDecodeParms"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "FilterCCITTFaxDecode",
-            "name": "XObjectImageSoftMask::FDecodeParms"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "FilterDCTDecode",
-            "name": "XObjectImageSoftMask::FDecodeParms"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "ArrayOfFilterNames",
-            "name": "XObjectImageSoftMask::FFilter"
-        },
-        {
-            "source": "XObjectImageSoftMask",
-            "target": "ArrayOfFilterNames",
-            "name": "XObjectImageSoftMask::Filter"
-        },
-        {
             "source": "XObjectMap",
             "target": "XObjectFormType1",
             "name": "XObjectMap::*"
@@ -9697,6 +9305,16 @@
         {
             "source": "XObjectMap",
             "target": "XObjectImage",
+            "name": "XObjectMap::*"
+        },
+        {
+            "source": "XObjectMap",
+            "target": "XObjectFormPS",
+            "name": "XObjectMap::*"
+        },
+        {
+            "source": "XObjectMap",
+            "target": "XObjectFormPSpassthrough",
             "name": "XObjectMap::*"
         },
         {

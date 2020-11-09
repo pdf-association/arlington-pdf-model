@@ -15,18 +15,18 @@
             "name": "AnnotText dict"
         },
         {
-            "id": "AppearanceCharacteristics",
-            "val": 121,
-            "group": "dict",
-            "desc": "11 keys",
-            "name": "AppearanceCharacteristics dict"
-        },
-        {
             "id": "ArrayOfAnnots",
             "val": 1,
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfAnnots map"
+        },
+        {
+            "id": "ArrayOfCompressionFilterNames",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfCompressionFilterNames map"
         },
         {
             "id": "ArrayOfDecodeParams",
@@ -50,11 +50,18 @@
             "name": "ArrayOfFilterNames map"
         },
         {
-            "id": "ArrayOfNamesGeneral",
+            "id": "ArrayOfIntegersGeneral",
             "val": 1,
             "group": "map",
             "desc": "(unspecified)",
-            "name": "ArrayOfNamesGeneral map"
+            "name": "ArrayOfIntegersGeneral map"
+        },
+        {
+            "id": "ArrayOfNamesForProcSet",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfNamesForProcSet map"
         },
         {
             "id": "ArrayOfNumbersGeneral",
@@ -71,25 +78,11 @@
             "name": "ArrayOfPageTreeNodeKids map"
         },
         {
-            "id": "ArrayOfPages",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "ArrayOfPages map"
-        },
-        {
             "id": "ArrayOfStreamsGeneral",
             "val": 1,
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfStreamsGeneral map"
-        },
-        {
-            "id": "ArrayOf_2StringsByte",
-            "val": 4,
-            "group": "array",
-            "desc": "2 entries",
-            "name": "ArrayOf_2StringsByte array"
         },
         {
             "id": "ArrayOf_4AnnotBorderCharacteristics",
@@ -99,17 +92,10 @@
             "name": "ArrayOf_4AnnotBorderCharacteristics array"
         },
         {
-            "id": "CMap",
-            "val": 16,
-            "group": "dict",
-            "desc": "4 keys",
-            "name": "CMap dict"
-        },
-        {
             "id": "Catalog",
-            "val": 49,
+            "val": 36,
             "group": "dict",
-            "desc": "7 keys",
+            "desc": "6 keys",
             "color": "red",
             "name": "Catalog dict"
         },
@@ -128,11 +114,32 @@
             "name": "ColorSpaceMap map"
         },
         {
-            "id": "DSS",
+            "id": "Dest0",
+            "val": 4,
+            "group": "array",
+            "desc": "2 entries",
+            "name": "Dest0 array"
+        },
+        {
+            "id": "Dest1",
+            "val": 9,
+            "group": "array",
+            "desc": "3 entries",
+            "name": "Dest1 array"
+        },
+        {
+            "id": "Dest4",
             "val": 25,
-            "group": "dict",
-            "desc": "5 keys",
-            "name": "DSS dict"
+            "group": "array",
+            "desc": "5 entries",
+            "name": "Dest4 array"
+        },
+        {
+            "id": "DestXYZ",
+            "val": 25,
+            "group": "array",
+            "desc": "5 entries",
+            "name": "DestXYZ array"
         },
         {
             "id": "DocInfo",
@@ -142,25 +149,11 @@
             "name": "DocInfo dict"
         },
         {
-            "id": "EmbeddedFileStream",
-            "val": 9,
-            "group": "dict",
-            "desc": "3 keys",
-            "name": "EmbeddedFileStream dict"
-        },
-        {
             "id": "Encoding",
             "val": 9,
             "group": "dict",
             "desc": "3 keys",
             "name": "Encoding dict"
-        },
-        {
-            "id": "Extensions",
-            "val": 1,
-            "group": "dict",
-            "desc": "1 keys",
-            "name": "Extensions dict"
         },
         {
             "id": "FileTrailer",
@@ -262,6 +255,20 @@
             "name": "FontType3 dict"
         },
         {
+            "id": "IndexedColorSpace",
+            "val": 16,
+            "group": "array",
+            "desc": "4 entries",
+            "name": "IndexedColorSpace array"
+        },
+        {
+            "id": "Matrix",
+            "val": 36,
+            "group": "array",
+            "desc": "6 entries",
+            "name": "Matrix array"
+        },
+        {
             "id": "Outline",
             "val": 16,
             "group": "dict",
@@ -284,31 +291,24 @@
         },
         {
             "id": "PageTreeNode",
-            "val": 16,
+            "val": 64,
             "group": "dict",
-            "desc": "4 keys",
+            "desc": "8 keys",
             "name": "PageTreeNode dict"
         },
         {
             "id": "PageTreeNodeRoot",
-            "val": 9,
+            "val": 49,
             "group": "dict",
-            "desc": "3 keys",
+            "desc": "7 keys",
             "name": "PageTreeNodeRoot dict"
         },
         {
             "id": "Resource",
-            "val": 36,
+            "val": 16,
             "group": "dict",
-            "desc": "6 keys",
+            "desc": "4 keys",
             "name": "Resource dict"
-        },
-        {
-            "id": "SoundObject",
-            "val": 9,
-            "group": "dict",
-            "desc": "3 keys",
-            "name": "SoundObject dict"
         },
         {
             "id": "Stream",
@@ -325,53 +325,18 @@
             "name": "Thumbnail dict"
         },
         {
-            "id": "VRI",
-            "val": 36,
-            "group": "dict",
-            "desc": "6 keys",
-            "name": "VRI dict"
-        },
-        {
-            "id": "XObjectFormPrinterMark",
-            "val": 1,
-            "group": "dict",
-            "desc": "1 keys",
-            "name": "XObjectFormPrinterMark dict"
-        },
-        {
-            "id": "XObjectFormTrapNet",
+            "id": "XObjectFormType1",
             "val": 100,
             "group": "dict",
             "desc": "10 keys",
-            "name": "XObjectFormTrapNet dict"
-        },
-        {
-            "id": "XObjectFormType1",
-            "val": 36,
-            "group": "dict",
-            "desc": "6 keys",
             "name": "XObjectFormType1 dict"
         },
         {
             "id": "XObjectImage",
-            "val": 100,
+            "val": 196,
             "group": "dict",
-            "desc": "10 keys",
+            "desc": "14 keys",
             "name": "XObjectImage dict"
-        },
-        {
-            "id": "XObjectImageMask",
-            "val": 81,
-            "group": "dict",
-            "desc": "9 keys",
-            "name": "XObjectImageMask dict"
-        },
-        {
-            "id": "XObjectImageSoftMask",
-            "val": 81,
-            "group": "dict",
-            "desc": "9 keys",
-            "name": "XObjectImageSoftMask dict"
         },
         {
             "id": "XObjectMap",
@@ -402,49 +367,29 @@
             "name": "AnnotLink::Border"
         },
         {
+            "source": "AnnotLink",
+            "target": "DestXYZ",
+            "name": "AnnotLink::Dest"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "Dest0",
+            "name": "AnnotLink::Dest"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "Dest1",
+            "name": "AnnotLink::Dest"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "Dest4",
+            "name": "AnnotLink::Dest"
+        },
+        {
             "source": "AnnotText",
             "target": "ArrayOf_4AnnotBorderCharacteristics",
             "name": "AnnotText::Border"
-        },
-        {
-            "source": "AppearanceCharacteristics",
-            "target": "ArrayOfNumbersGeneral",
-            "name": "AppearanceCharacteristics::BC"
-        },
-        {
-            "source": "AppearanceCharacteristics",
-            "target": "ArrayOfNumbersGeneral",
-            "name": "AppearanceCharacteristics::BG"
-        },
-        {
-            "source": "AppearanceCharacteristics",
-            "target": "XObjectFormType1",
-            "name": "AppearanceCharacteristics::I"
-        },
-        {
-            "source": "AppearanceCharacteristics",
-            "target": "XObjectImage",
-            "name": "AppearanceCharacteristics::I"
-        },
-        {
-            "source": "AppearanceCharacteristics",
-            "target": "XObjectFormType1",
-            "name": "AppearanceCharacteristics::IX"
-        },
-        {
-            "source": "AppearanceCharacteristics",
-            "target": "XObjectImage",
-            "name": "AppearanceCharacteristics::IX"
-        },
-        {
-            "source": "AppearanceCharacteristics",
-            "target": "XObjectFormType1",
-            "name": "AppearanceCharacteristics::RI"
-        },
-        {
-            "source": "AppearanceCharacteristics",
-            "target": "XObjectImage",
-            "name": "AppearanceCharacteristics::RI"
         },
         {
             "source": "ArrayOfAnnots",
@@ -482,50 +427,10 @@
             "name": "ArrayOfPageTreeNodeKids::*"
         },
         {
-            "source": "ArrayOfPages",
-            "target": "PageObject",
-            "name": "ArrayOfPages::*"
-        },
-        {
             "source": "ArrayOfStreamsGeneral",
             "target": "Stream",
             "name": "ArrayOfStreamsGeneral::*",
             "color": "red"
-        },
-        {
-            "source": "CMap",
-            "target": "ArrayOfDecodeParams",
-            "name": "CMap::DecodeParms"
-        },
-        {
-            "source": "CMap",
-            "target": "FilterLZWDecode",
-            "name": "CMap::DecodeParms"
-        },
-        {
-            "source": "CMap",
-            "target": "FilterCCITTFaxDecode",
-            "name": "CMap::DecodeParms"
-        },
-        {
-            "source": "CMap",
-            "target": "FilterDCTDecode",
-            "name": "CMap::DecodeParms"
-        },
-        {
-            "source": "CMap",
-            "target": "ArrayOfFilterNames",
-            "name": "CMap::Filter"
-        },
-        {
-            "source": "CMap",
-            "target": "Stream",
-            "name": "CMap::UseCMap"
-        },
-        {
-            "source": "Catalog",
-            "target": "Extensions",
-            "name": "Catalog::Extension"
         },
         {
             "source": "Catalog",
@@ -544,49 +449,33 @@
             "name": "CharProcMap::*"
         },
         {
-            "source": "DSS",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "DSS::CRLs"
+            "source": "ColorSpaceMap",
+            "target": "IndexedColorSpace",
+            "name": "ColorSpaceMap::*"
         },
         {
-            "source": "DSS",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "DSS::Certs"
+            "source": "Dest0",
+            "target": "PageObject",
+            "name": "Dest0::0",
+            "color": "red"
         },
         {
-            "source": "DSS",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "DSS::OCSPs"
+            "source": "Dest1",
+            "target": "PageObject",
+            "name": "Dest1::0",
+            "color": "red"
         },
         {
-            "source": "DSS",
-            "target": "VRI",
-            "name": "DSS::VRI"
+            "source": "Dest4",
+            "target": "PageObject",
+            "name": "Dest4::0",
+            "color": "red"
         },
         {
-            "source": "EmbeddedFileStream",
-            "target": "ArrayOfDecodeParams",
-            "name": "EmbeddedFileStream::DecodeParms"
-        },
-        {
-            "source": "EmbeddedFileStream",
-            "target": "FilterLZWDecode",
-            "name": "EmbeddedFileStream::DecodeParms"
-        },
-        {
-            "source": "EmbeddedFileStream",
-            "target": "FilterCCITTFaxDecode",
-            "name": "EmbeddedFileStream::DecodeParms"
-        },
-        {
-            "source": "EmbeddedFileStream",
-            "target": "FilterDCTDecode",
-            "name": "EmbeddedFileStream::DecodeParms"
-        },
-        {
-            "source": "EmbeddedFileStream",
-            "target": "ArrayOfFilterNames",
-            "name": "EmbeddedFileStream::Filter"
+            "source": "DestXYZ",
+            "target": "PageObject",
+            "name": "DestXYZ::0",
+            "color": "red"
         },
         {
             "source": "Encoding",
@@ -646,6 +535,12 @@
             "color": "red"
         },
         {
+            "source": "FontMultipleMaster",
+            "target": "ArrayOfIntegersGeneral",
+            "name": "FontMultipleMaster::Widths",
+            "color": "red"
+        },
+        {
             "source": "FontTrueType",
             "target": "Encoding",
             "name": "FontTrueType::Encoding"
@@ -657,6 +552,12 @@
             "color": "red"
         },
         {
+            "source": "FontTrueType",
+            "target": "ArrayOfIntegersGeneral",
+            "name": "FontTrueType::Widths",
+            "color": "red"
+        },
+        {
             "source": "FontType1",
             "target": "Encoding",
             "name": "FontType1::Encoding"
@@ -665,6 +566,12 @@
             "source": "FontType1",
             "target": "FontDescriptorType1",
             "name": "FontType1::FontDescriptor",
+            "color": "red"
+        },
+        {
+            "source": "FontType1",
+            "target": "ArrayOfIntegersGeneral",
+            "name": "FontType1::Widths",
             "color": "red"
         },
         {
@@ -682,7 +589,26 @@
         {
             "source": "FontType3",
             "target": "FontDescriptor",
-            "name": "FontType3::FontDescriptor"
+            "name": "FontType3::FontDescriptor",
+            "color": "red"
+        },
+        {
+            "source": "FontType3",
+            "target": "Matrix",
+            "name": "FontType3::FontMatrix",
+            "color": "red"
+        },
+        {
+            "source": "FontType3",
+            "target": "ArrayOfIntegersGeneral",
+            "name": "FontType3::Widths",
+            "color": "red"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "Stream",
+            "name": "IndexedColorSpace::3",
+            "color": "red"
         },
         {
             "source": "Outline",
@@ -693,6 +619,26 @@
             "source": "Outline",
             "target": "OutlineItem",
             "name": "Outline::Last"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "DestXYZ",
+            "name": "OutlineItem::Dest"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "Dest0",
+            "name": "OutlineItem::Dest"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "Dest1",
+            "name": "OutlineItem::Dest"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "Dest4",
+            "name": "OutlineItem::Dest"
         },
         {
             "source": "OutlineItem",
@@ -783,10 +729,20 @@
             "color": "red"
         },
         {
+            "source": "PageTreeNode",
+            "target": "Resource",
+            "name": "PageTreeNode::Resources"
+        },
+        {
             "source": "PageTreeNodeRoot",
             "target": "ArrayOfPageTreeNodeKids",
             "name": "PageTreeNodeRoot::Kids",
             "color": "red"
+        },
+        {
+            "source": "PageTreeNodeRoot",
+            "target": "Resource",
+            "name": "PageTreeNodeRoot::Resources"
         },
         {
             "source": "Resource",
@@ -800,38 +756,13 @@
         },
         {
             "source": "Resource",
-            "target": "_UniversalArray",
+            "target": "ArrayOfNamesForProcSet",
             "name": "Resource::ProcSet"
         },
         {
             "source": "Resource",
             "target": "XObjectMap",
             "name": "Resource::XObject"
-        },
-        {
-            "source": "SoundObject",
-            "target": "ArrayOfDecodeParams",
-            "name": "SoundObject::DecodeParms"
-        },
-        {
-            "source": "SoundObject",
-            "target": "FilterLZWDecode",
-            "name": "SoundObject::DecodeParms"
-        },
-        {
-            "source": "SoundObject",
-            "target": "FilterCCITTFaxDecode",
-            "name": "SoundObject::DecodeParms"
-        },
-        {
-            "source": "SoundObject",
-            "target": "FilterDCTDecode",
-            "name": "SoundObject::DecodeParms"
-        },
-        {
-            "source": "SoundObject",
-            "target": "ArrayOfFilterNames",
-            "name": "SoundObject::Filter"
         },
         {
             "source": "Stream",
@@ -860,40 +791,46 @@
         },
         {
             "source": "Thumbnail",
+            "target": "IndexedColorSpace",
+            "name": "Thumbnail::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "Thumbnail",
             "target": "ArrayOfNumbersGeneral",
             "name": "Thumbnail::Decode"
         },
         {
-            "source": "VRI",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "VRI::CRL",
+            "source": "XObjectFormType1",
+            "target": "ArrayOfDecodeParams",
+            "name": "XObjectFormType1::DecodeParms"
+        },
+        {
+            "source": "XObjectFormType1",
+            "target": "FilterLZWDecode",
+            "name": "XObjectFormType1::DecodeParms"
+        },
+        {
+            "source": "XObjectFormType1",
+            "target": "ArrayOfCompressionFilterNames",
+            "name": "XObjectFormType1::Filter"
+        },
+        {
+            "source": "XObjectFormType1",
+            "target": "Matrix",
+            "name": "XObjectFormType1::Matrix",
             "color": "red"
         },
         {
-            "source": "VRI",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "VRI::Cert"
+            "source": "XObjectFormType1",
+            "target": "ArrayOfIntegersGeneral",
+            "name": "XObjectFormType1::XUID"
         },
         {
-            "source": "VRI",
-            "target": "ArrayOfStreamsGeneral",
-            "name": "VRI::OCSP",
+            "source": "XObjectImage",
+            "target": "IndexedColorSpace",
+            "name": "XObjectImage::ColorSpace",
             "color": "red"
-        },
-        {
-            "source": "VRI",
-            "target": "Stream",
-            "name": "VRI::TS"
-        },
-        {
-            "source": "XObjectFormTrapNet",
-            "target": "ArrayOfNamesGeneral",
-            "name": "XObjectFormTrapNet::SeparationColorNames"
-        },
-        {
-            "source": "XObjectFormTrapNet",
-            "target": "_UniversalDictionary",
-            "name": "XObjectFormTrapNet::TrapRegions"
         },
         {
             "source": "XObjectImage",
@@ -901,14 +838,29 @@
             "name": "XObjectImage::Decode"
         },
         {
-            "source": "XObjectImageMask",
-            "target": "ArrayOfNumbersGeneral",
-            "name": "XObjectImageMask::Decode"
+            "source": "XObjectImage",
+            "target": "ArrayOfDecodeParams",
+            "name": "XObjectImage::DecodeParms"
         },
         {
-            "source": "XObjectImageSoftMask",
-            "target": "ArrayOfNumbersGeneral",
-            "name": "XObjectImageSoftMask::Decode"
+            "source": "XObjectImage",
+            "target": "FilterLZWDecode",
+            "name": "XObjectImage::DecodeParms"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "FilterCCITTFaxDecode",
+            "name": "XObjectImage::DecodeParms"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "FilterDCTDecode",
+            "name": "XObjectImage::DecodeParms"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "ArrayOfFilterNames",
+            "name": "XObjectImage::Filter"
         },
         {
             "source": "XObjectMap",

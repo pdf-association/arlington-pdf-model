@@ -88,8 +88,14 @@ for obj in pdfdom:
         # print("\tProcessing key %s" % pdfkey)
         if ('Link' in obj['keys'][pdfkey]):
             newlnks = obj['keys'][pdfkey]['Link'];
-            # print('\t\tProcessing Links %s' % newlnks)
+            ## print('\t\tProcessing Links %s' % newlnks)
+            # Need to support our declarative functions ("fn:SinceVersion(x.y,...)") in Links
+            # This Linux command can confirm all functions in Links:
+            #   cut -f 11 ../tsv/latest/*.tsv | grep -ho "fn:[a-zA-Z]*" | sort | uniq
+            newlnks = re.sub(r"fn\:SinceVersion\(\d\.\d,", "", newlnks)
+            newlnks = re.sub(r"\)", "", newlnks)
             pdflinks = re.split('\;|\,|\]|\[', newlnks)
+            ## print('\t\t\pdfLinks %s\n' % pdflinks)
             for ln in pdflinks:
                 if (len(ln) > 0):
                     # print("\t\tProcessing Link for '%s'" % ln)
