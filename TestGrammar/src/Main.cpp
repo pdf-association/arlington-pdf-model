@@ -145,6 +145,7 @@ int main(int argc, char* argv[]) {
             //grammar parser
             CParsePDF parser(doc, grammar_folder, ofs);
             parser.add_parse_object(trailer, "FileTrailer", "Trailer");
+            //parser.add_parse_object(trailer, "XRefStream", "Trailer");
             parser.parse_object();
           }
           else {

@@ -441,7 +441,6 @@ void CParsePDF::parse_name_tree(PdsDictionary* obj, const std::string &links, st
         else {
           //error value isn't dictionary
         }
-
       }
     }
   }
@@ -516,8 +515,19 @@ void CParsePDF::parse_number_tree(PdsDictionary* obj, const std::string &links, 
   }
 }
 
+// Removes declarative functions around individual links
+// Supports "fn:SinceVersion(x.y,"
+void CParsePDF::cleanup(std::string& lnk) {
+  std::size_t fn_start = lnk.find("fn:SinceVersion(");
+  if (fn_start != std::string::npos) {
+    lnk.erase(fn_start, 20); // 20 = length of "fn:SinceVersion(x.y,"
+    fn_start = lnk.find(")");
+    lnk.erase(fn_start, 1); // 1 = length of ")"
+  }
+}
+
 void CParsePDF::add_parse_object(PdsObject* object, const std::string& link, std::string context) {
-  to_process.emplace(object,link,context);
+  to_process.emplace(object, link, context);
 }
 
 void CParsePDF::parse_object() 
@@ -528,10 +538,14 @@ void CParsePDF::parse_object()
     if (elem.link == "")
       continue;
 
+    // Need to clean up the elem.link due to declarative functions "fn:SinceVersion(x,y, ...)"
+    cleanup(elem.link);
+
     auto found = mapped.find(elem.object);
     if (found != mapped.end()) {
-      //    output << context << " already Processed" << std::endl;
+      //  output << elem.context << " already Processed" << std::endl;
       // "_Universal..." objects match anything so ignore them.
+      cleanup(found->second); // remove declarative functions to match clean elem.link
       if ((found->second != elem.link) && 
           (((elem.link != "_UniversalDictionary") && (elem.link != "_UniversalArray")) &&
            ((found->second != "_UniversalDictionary") && (found->second != "_UniversalArray")))) {
@@ -551,7 +565,7 @@ void CParsePDF::parse_object()
 
     // validating as dictionary:
     // going through all objects in dictionary 
-    // checking basics (type,possiblevalue, indirect)
+    // checking basics (Type, PossibleValue, indirect)
     // then check presence of required keys
     // then recursively calling validation for each container with link to other grammar file
     if (elem.object->GetObjectType() == kPdsDictionary || elem.object->GetObjectType() == kPdsStream) {
@@ -567,6 +581,7 @@ void CParsePDF::parse_object()
 
         // checking basis (type,possiblevalue, indirect)
         PdsObject* inner_obj = dictObj->Get(key.c_str());
+        // std::cout << "Looking for " << elem.link << " /" << ToUtf8(key) << std::endl;
         // might have wrong/malformed object. Key exists but value not
         if (inner_obj != nullptr) {
           bool found = false;
@@ -576,6 +591,7 @@ void CParsePDF::parse_object()
               found = true;
               break;
             }
+          // std::cout << "Found? /" << ToUtf8(key) << ": " << (found ? "true" : "false") << std::endl;
           // we didn't find the key, there may be * we can use to validate
           if (!found)
             for (auto& vec : *data_list)
@@ -589,6 +605,7 @@ void CParsePDF::parse_object()
         }
         else {
           // malformed file ?
+          // std::cout << "NOT found " << ToUtf8(key) << std::endl;
         }
       }
 
