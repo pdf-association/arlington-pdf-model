@@ -187,7 +187,7 @@ bool file_exists(const std::string& path) {
 
 //////////////////////////////////////////////////////////////////////////
 // extract XXXX from such pattern "fn:Name(version, XXXXX)"
-std::string extract_function(std::string& value, std::string &function){
+std::string extract_function(const std::string& value, std::string &function){
   std::regex functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|.]+");
   std::smatch match;
   function = "";

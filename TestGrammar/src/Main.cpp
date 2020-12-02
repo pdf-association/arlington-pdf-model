@@ -139,13 +139,17 @@ int main(int argc, char* argv[]) {
       try {
         doc = pdfix->OpenDoc(open_file.c_str(), L"");
         if (doc != nullptr) {
-          PdsObject* trailer = doc->GetTrailerObject();
-          PdsObject* root = doc->GetRootObject();
+          PdsDictionary* trailer = (PdsDictionary*)doc->GetTrailerObject();
+          //PdsObject* root = doc->GetRootObject();
           if (trailer != nullptr) {
             //grammar parser
             CParsePDF parser(doc, grammar_folder, ofs);
-            parser.add_parse_object(trailer, "FileTrailer", "Trailer");
-            //parser.add_parse_object(trailer, "XRefStream", "Trailer");
+            PdsObject* type_key = trailer->Get(L"Type");
+            //if Type exists we are working with XRefStream
+            if (type_key == nullptr)
+              parser.add_parse_object(trailer, "FileTrailer", "Trailer");
+            else
+              parser.add_parse_object(trailer, "XRefStream", "Trailer");
             parser.parse_object();
           }
           else {

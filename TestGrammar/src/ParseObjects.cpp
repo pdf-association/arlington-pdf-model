@@ -540,11 +540,18 @@ void CParsePDF::parse_object()
 
     // Need to clean up the elem.link due to declarative functions "fn:SinceVersion(x,y, ...)"
     cleanup(elem.link);
-
+    /*
+    std::string function;
+    elem.link = extract_function(elem.link, function);
+    */
     auto found = mapped.find(elem.object);
     if (found != mapped.end()) {
       //  output << elem.context << " already Processed" << std::endl;
       // "_Universal..." objects match anything so ignore them.
+
+      cleanup(found->second);
+      //found->second = extract_function(found->second, function);
+
       cleanup(found->second); // remove declarative functions to match clean elem.link
       if ((found->second != elem.link) && 
           (((elem.link != "_UniversalDictionary") && (elem.link != "_UniversalArray")) &&
