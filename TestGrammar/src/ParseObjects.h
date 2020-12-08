@@ -71,7 +71,6 @@ public:
   { }
 
   void add_parse_object(PdsObject* object, const std::string& link, std::string context);
-  void cleanup(std::string& lnk);
   void parse_object();
   void parse_name_tree(PdsDictionary* obj, const std::string &links, std::string context);
   void parse_number_tree(PdsDictionary* obj, const std::string &links, std::string context);
