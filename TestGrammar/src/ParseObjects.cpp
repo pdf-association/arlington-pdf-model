@@ -515,17 +515,6 @@ void CParsePDF::parse_number_tree(PdsDictionary* obj, const std::string &links, 
   }
 }
 
-// Removes declarative functions around individual links
-// Supports "fn:SinceVersion(x.y,"
-void CParsePDF::cleanup(std::string& lnk) {
-  std::size_t fn_start = lnk.find("fn:SinceVersion(");
-  if (fn_start != std::string::npos) {
-    lnk.erase(fn_start, 20); // 20 = length of "fn:SinceVersion(x.y,"
-    fn_start = lnk.find(")");
-    lnk.erase(fn_start, 1); // 1 = length of ")"
-  }
-}
-
 void CParsePDF::add_parse_object(PdsObject* object, const std::string& link, std::string context) {
   to_process.emplace(object, link, context);
 }
@@ -539,20 +528,17 @@ void CParsePDF::parse_object()
       continue;
 
     // Need to clean up the elem.link due to declarative functions "fn:SinceVersion(x,y, ...)"
-    cleanup(elem.link);
-    /*
     std::string function;
     elem.link = extract_function(elem.link, function);
-    */
+    
     auto found = mapped.find(elem.object);
     if (found != mapped.end()) {
       //  output << elem.context << " already Processed" << std::endl;
       // "_Universal..." objects match anything so ignore them.
 
-      cleanup(found->second);
-      //found->second = extract_function(found->second, function);
+      // remove declarative functions to match clean elem.link
+      found->second = extract_function(found->second, function);
 
-      cleanup(found->second); // remove declarative functions to match clean elem.link
       if ((found->second != elem.link) && 
           (((elem.link != "_UniversalDictionary") && (elem.link != "_UniversalArray")) &&
            ((found->second != "_UniversalDictionary") && (found->second != "_UniversalArray")))) {
