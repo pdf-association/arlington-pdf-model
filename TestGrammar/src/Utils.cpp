@@ -194,7 +194,10 @@ std::string extract_function(const std::string& value, std::string &function){
   std::string to_ret = value;
   if (std::regex_search(value, match, functionStr)) {
     to_ret = match.suffix();
-    to_ret = to_ret.substr(1, to_ret.size() - 2);
+    if (to_ret.size() >= 2)
+      to_ret = to_ret.substr(1, to_ret.size() - 2);
+    else
+      to_ret = "";
     for (auto a: match)
       function += a;
   }
