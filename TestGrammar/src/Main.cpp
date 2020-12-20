@@ -16,12 +16,12 @@
 #include <exception>
 #include <iostream>
 #include <string>
+#include <filesystem>
 
 #if defined __linux__
 #include <cstring>
 #endif
 
-#include <filesystem>
 #include "Pdfix.h"
 
 #include "ParseObjects.h"
@@ -30,30 +30,30 @@
 
 void show_help() {
   std::cout << "TestGrammar ver." << TestGrammar_VERSION << std::endl;
-  std::cout << "Validates PDF file against grammar defined by list of TSV files." << std::endl;
+  std::cout << "Validates PDF file against Arlington grammar defined by set of TSV files." << std::endl;
   std::cout << std::endl;
-  std::cout << "to validate single pdf file:" << std::endl;
+  std::cout << "Validate a single PDF file against the Arlington grammar:" << std::endl;
   std::cout << "  testgrammar <input_file> <grammar_folder> <report_file>" << std::endl;
-  std::cout << "    input_file      - full pathname to input pdf" << std::endl;
-  std::cout << "    grammar_folder  - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
+  std::cout << "    input_file      - full pathname to input PDF file " << std::endl;
+  std::cout << "    grammar_folder  - folder with TSV files representing Arlington Grammar" << std::endl;
   std::cout << "    report_file     - file for storing results" << std::endl;
   std::cout << std::endl;
-  std::cout << "to validate folder with pdf files:" << std::endl;
+  std::cout << "Recursively validate a folder with PDF files against the Arlington grammar:" << std::endl;
   std::cout << "  testgrammar <input_folder> <grammar_folder> <report_folder>" << std::endl;
-  std::cout << "    input_folder      - folder with pdf files" << std::endl;
-  std::cout << "    grammar_folder    - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
+  std::cout << "    input_folder      - folder with PDF files" << std::endl;
+  std::cout << "    grammar_folder    - folder with TSV files representing Arlington Grammar" << std::endl;
   std::cout << "    report_folder     - folder for storing results" << std::endl;
   std::cout << std::endl;
-  std::cout << "to checks grammar itself:" << std::endl;
+  std::cout << "Check Arlington grammar itself:" << std::endl;
   std::cout << "  testgrammar -v <grammar_folder> <report_file>" << std::endl;
-  std::cout << "    grammar_folder  - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
+  std::cout << "    grammar_folder  - folder with TSV files representing Arlington Grammar" << std::endl;
   std::cout << "    report_file     - file for storing results" << std::endl;
   std::cout << std::endl;
-  std::cout << "to compare with Adobe's DVA grammar:" << std::endl;
+  std::cout << "Compare Arlington with Adobe's DVA grammar:" << std::endl;
   std::cout << "  testgrammar -c <grammar_folder> <report_file> <dva_grammar_file>" << std::endl;
-  std::cout << "    grammar_folder    - folder with tsv files representing PDF 2.0 Grammar" << std::endl;
+  std::cout << "    grammar_folder    - folder with TSV files representing Arlington Grammar" << std::endl;
   std::cout << "    report_file       - file for storing results" << std::endl;
-  std::cout << "    dva_grammar_file  - pdf file containing Formal Representation of PDF (DVA)" << std::endl;
+  std::cout << "    dva_grammar_file  - PDF file containing Adobe DVA Formal Representation" << std::endl;
 }
 
 #ifdef _WIN32

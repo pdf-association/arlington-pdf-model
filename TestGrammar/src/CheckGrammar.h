@@ -19,9 +19,5 @@
 #include "Pdfix.h"
 #include "utils.h"
 
-#ifdef GetObject
-#undef GetObject
-#endif
-
 void CheckGrammarFolder(std::string& grammar_folder, std::ofstream& ofs);
 void CheckDVA(std::wstring& dva_file, std::string& grammar_folder, std::ofstream& ofs);
