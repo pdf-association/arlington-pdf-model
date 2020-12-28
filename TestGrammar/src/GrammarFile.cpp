@@ -16,8 +16,6 @@
 /*!
   A class to read grammar data from a csv file.
 */
- 
-#pragma once
 
 #include <string>
 #include <iostream>

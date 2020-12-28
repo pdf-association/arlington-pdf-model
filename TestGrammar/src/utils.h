@@ -18,11 +18,6 @@
 #include <string>
 #include "Pdfix.h"
 
-#ifdef GetObject
-#undef GetObject
-#endif
-
-//std::wstring FromUtf8(const std::string& str);
 std::string ToUtf8(const std::wstring& str);
 std::wstring utf8ToUtf16(const std::string& utf8Str);
 
@@ -43,12 +38,3 @@ std::vector<std::string> split(const std::string& s, char separator);
 std::string extract_function(const std::string& value, std::string& function);
 int get_type_index(std::string single_type, std::string types);
 std::string get_link_for_type(std::string single_type, const std::string& types, const std::string& links);
-
-
-//////////////////////////////////////////////////////////////////////////
-// PdfMatrix utils
-//void PdfMatrixTransform(PdfMatrix& m, PdfPoint& p);
-//void PdfMatrixConcat(PdfMatrix& m, PdfMatrix& m1, bool prepend);
-//void PdfMatrixRotate(PdfMatrix& m, double radian, bool prepend);
-//void PdfMatrixScale(PdfMatrix& m, double sx, double sy, bool prepend);
-//void PdfMatrixTranslate(PdfMatrix& m, double x, double y, bool prepend);

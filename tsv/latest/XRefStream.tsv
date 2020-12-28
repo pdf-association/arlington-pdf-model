@@ -14,3 +14,4 @@ DL	integer	1.5		FALSE	FALSE	FALSE
 Root	dictionary	1.5		TRUE	TRUE	FALSE				[fn:SinceVersion(1.0,Catalog)]	
 Info	dictionary	1.5		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,DocInfo)]	
 ID	array	1.5		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE				[fn:SinceVersion(1.1,ArrayOf_2StringsByte)]	
+Encrypt	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,EncryptionStandard),fn:SinceVersion(1.1,EncryptionPublicKey)]	

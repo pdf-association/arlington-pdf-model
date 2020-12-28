@@ -16,9 +16,12 @@
 #include <exception>
 #include <iostream>
 #include <string>
+#include <iterator>
 #include <filesystem>
 #include <queue>
 #include <map>
+#include <algorithm>
+#include <cctype>
 
 #include "Pdfix.h"
 #include "CheckGrammar.h"
@@ -56,9 +59,10 @@ int ci_find_substr(const T& str1, const T& str2, const std::locale& loc = std::l
  */
 bool check_grammar(CGrammarReader& reader, std::ostream& report_stream)
 {
+  std::string function;
   auto data_list = reader.get_data();
   if (data_list.empty()) {
-    report_stream << "Empty grammar file:" << reader.file_name << std::endl;
+    report_stream << "Empty grammar file: " << reader.file_name << std::endl;
     return false;
   }
 
@@ -83,30 +87,6 @@ bool check_grammar(CGrammarReader& reader, std::ostream& report_stream)
   std::vector<std::string> processed;
   for (auto& vc : data_list) {
     
-    //Report all functions
-    //
-    //std::string str2 = "fn:";
-    //if (ci_find_substr(vc[TSV_KEYNAME], str2) != -1)
-    //  report_stream << "TSV_KEYNAME: " << reader.file_name << std::endl;
-    //if (ci_find_substr(vc[TSV_TYPE], str2) != -1)
-    //  report_stream << "TSV_TYPE: " << reader.file_name << std::endl;
-    //if (ci_find_substr(vc[TSV_SINCEVERSION], str2) != -1)
-    //  report_stream << "TSV_SINCEVERSION: " << reader.file_name << std::endl;
-    //if (ci_find_substr(vc[TSV_DEPRECATEDIN], str2) != -1)
-    //  report_stream << "TSV_DEPRECATEDIN: " << reader.file_name << std::endl;
-    //if (ci_find_substr(vc[TSV_REQUIRED], str2) != -1)
-    //  report_stream << "TSV_REQUIRED: " << reader.file_name << std::endl;
-    //if (ci_find_substr(vc[TSV_INDIRECTREF], str2) != -1)
-    //  report_stream << "TSV_INDIRECTREF: " << reader.file_name << std::endl;
-    //if (ci_find_substr(vc[TSV_INHERITABLE], str2) != -1)
-    //  report_stream << "TSV_INHERITABLE: " << reader.file_name << std::endl;
-    //if (ci_find_substr(vc[TSV_DEFAULTVALUE], str2) != -1)
-    //  report_stream << "TSV_DEFAULTVALUE: " << reader.file_name << std::endl;
-    //if (ci_find_substr(vc[TSV_POSSIBLEVALUES], str2) != -1)
-    //  report_stream << "TSV_POSSIBLEVALUES: " << reader.file_name << std::endl;
-    //if (ci_find_substr(vc[TSV_SPECIALCASE], str2) != -1)
-    //  report_stream << "TSV_SPECIALCASE: " << reader.file_name << std::endl;
-
     if (std::find(processed.begin(), processed.end(), vc[TSV_KEYNAME]) == processed.end())
       processed.push_back(vc[TSV_KEYNAME]);
     else
@@ -117,7 +97,6 @@ bool check_grammar(CGrammarReader& reader, std::ostream& report_stream)
     std::vector<std::string> types = split(vc[TSV_TYPE], ';');
     std::vector<std::string> links = split(vc[TSV_LINK], ';');
     std::vector<std::string> possible_val = split(vc[TSV_POSSIBLEVALUES], ';');
-
 
     // if link exists we check
     // - number of links and number of types match
@@ -151,7 +130,6 @@ bool check_grammar(CGrammarReader& reader, std::ostream& report_stream)
           if (lnk != "") {
             std::string new_name = get_path_dir(reader.file_name);
             new_name += "/";
-            std::string function;
             auto direct_lnk = extract_function(lnk, function);
             //check if all links are encapsulated in a function
             //if (function=="")
@@ -164,17 +142,26 @@ bool check_grammar(CGrammarReader& reader, std::ostream& report_stream)
       }
     }
 
-    //check if each type is ok
-    for (auto type : types)
-      if (std::find(reader.basic_types.begin(), reader.basic_types.end(), type) == reader.basic_types.end())
-        report_stream << "Wrong type:" << type << " in:" << reader.file_name << "::" << vc[TSV_KEYNAME] << std::endl;
+    // Check if each Type is ok
+    for (auto type : types) {
+      if ((std::find(reader.basic_types.begin(), reader.basic_types.end(), type)) == reader.basic_types.end()) {
+        // A few types are also wrapped in declarative functions, but these have already been converted to uppercase
+        // Need to transpose back to lowercase to use extract_function() then back to uppercase to match.
+        std::transform(type.begin(), type.end(), type.begin(), [](unsigned char c) { return std::tolower(c); });
+        auto t = extract_function(type, function);
+        std::transform(t.begin(), t.end(), t.begin(), [](unsigned char c) { return std::toupper(c); });
+        if ((std::find(reader.basic_types.begin(), reader.basic_types.end(), t)) == reader.basic_types.end()) {
+          report_stream << "Wrong type: " << type << " in:" << reader.file_name << "::" << vc[TSV_KEYNAME] << std::endl;
+        }
+      }
+    }
 
     // check if complex type does have possible value
     for (size_t t_pos = 0; t_pos < types.size(); t_pos++)
       if ((types[t_pos] == "ARRAY" || types[t_pos] == "DICTIONARY" || types[t_pos] == "NUMBER-TREE"
         || types[t_pos] == "NAME-TREE" || types[t_pos] == "STREAM") && vc[TSV_POSSIBLEVALUES] != "") {
         if (possible_val[t_pos] != "[]")
-          report_stream << "Complex type does have possible value defined:" << vc[TSV_POSSIBLEVALUES] << " in:" << reader.file_name << "::" << vc[TSV_KEYNAME] << std::endl;
+          report_stream << "Complex type does have possible value defined: " << vc[TSV_POSSIBLEVALUES] << " in:" << reader.file_name << "::" << vc[TSV_KEYNAME] << std::endl;
       }
 
     //check pattern in possible values
@@ -258,12 +245,12 @@ void CheckGrammarFolder(std::string& grammar_folder, std::ofstream& ofs) {
       const auto file_name = entry.path().filename().string();
       if (std::find(processed.begin(), processed.end(), file_name) == processed.end()) {
         // file not reachable from Catalog
-        ofs << "Can't reach from Trailer:" << file_name << std::endl;
+        ofs << "Can't reach from Trailer: " << file_name << std::endl;
       }
       std::string str = grammar_folder + file_name;
       CGrammarReader reader(str);
       if (!reader.load())
-        ofs << "Can't load grammar file:" << file_name << std::endl;
+        ofs << "Can't load grammar file: " << file_name << std::endl;
       else check_grammar(reader, ofs);
     }
 }
