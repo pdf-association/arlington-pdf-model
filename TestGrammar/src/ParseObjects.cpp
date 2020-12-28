@@ -148,8 +148,14 @@ bool CParsePDF::check_possible_values(PdsObject* object, const std::string& poss
 
 
 // choose one from provided links to validate further
-// the decision is made based on 
-// - 
+// we select a link with all required values and with matching possible values 
+// sometimes required values are missing, are inherited etc. 
+// we use scoring mechanism
+// +1 = if required key is missing
+// +1 = if required key is different type
+// +1 = if required key value doesn't correspond with possible value
+// +5 = if possible value doesn't match and key is Type or Subtype
+// grammar file with the lowest score is our selected link
 std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_string, std::string &obj_name) {
   if (links_string == "[]" || links_string == "")
     return "";
@@ -159,73 +165,69 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
     return links[0];
 
   int to_ret = -1;
+  int min_score = 1000;
+   // checking all links to see which one is suitable for provided object 
   for (auto i = 0; i < (int)links.size(); i++) {
     std::string function;
     auto lnk = extract_function(links[i], function);
     const std::vector<std::vector<std::string>>* data_list = get_grammar(lnk);
 
-    to_ret = i;
-    // first need to go through "required" - that may fail the validation right away
+    auto j = 0;
+    auto link_score = 0;
     if (obj->GetObjectType() == kPdsDictionary || obj->GetObjectType() == kPdsStream || obj->GetObjectType() == kPdsArray) {
       // are all "required" fields has to be present
-      // and if required value is defined then has to match with value
-      auto j = 0;
+      // and if required value is defined then has to match with possible value
       for (auto& vec : *data_list) {
         j++;
-      //for (auto j = 1; j < (int)data_list->size(); j++) {
-      //  auto &vec = data_list->at(j);
-        if (vec[TSV_REQUIRED] == "TRUE") {
-          PdsObject* inner_object = nullptr;
+        // only checking required keys
+        if (vec[TSV_REQUIRED] != "TRUE")
+          continue;
 
-          //required value exists?
-          if (obj->GetObjectType() == kPdsArray) {
-            if (j-1 >= ((PdsArray*)obj)->GetNumObjects()) {
-              to_ret = -1;
-              break;
-            }
+        PdsObject* inner_object = nullptr;
+        //required value exists?
+        if (obj->GetObjectType() == kPdsArray) {
+          if (j-1 < ((PdsArray*)obj)->GetNumObjects())
             inner_object = ((PdsArray*)obj)->Get(j - 1);
-          }
-          else {
-            PdsDictionary* dictObj = (PdsDictionary*)obj;
-            if (obj->GetObjectType() == kPdsStream)
-              dictObj = ((PdsStream*)obj)->GetStreamDict();
-
-            if (!dictObj->Known(utf8ToUtf16(vec[TSV_KEYNAME]).c_str())) {
-              to_ret = -1;
-              break;
-            }
-            inner_object = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
-          }
-
-          //have required object, let's check possible values
-          if (inner_object==nullptr)  {
-            to_ret = -1;
-            break;
-          }
-          int index = get_type_index(inner_object, vec[TSV_TYPE]);
-          if (index == -1 ) {
-            to_ret = -1;
-            break;
-          }
-          std::wstring str_value;
-          if (vec[TSV_POSSIBLEVALUES] != "" && !check_possible_values(inner_object, vec[TSV_POSSIBLEVALUES], index, str_value)) {
-            to_ret = -1;
-            break;
-          }
         }
-      }
+        else {
+          PdsDictionary* dictObj = (PdsDictionary*)obj;
+          if (obj->GetObjectType() == kPdsStream)
+            dictObj = ((PdsStream*)obj)->GetStreamDict();
+          if (dictObj->Known(utf8ToUtf16(vec[TSV_KEYNAME]).c_str()))
+            inner_object = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
+        }
+
+        //have required object, let's check possible values and compute score
+        if (inner_object != nullptr) {
+          int index = get_type_index(inner_object, vec[TSV_TYPE]);
+          if (index != -1 ) {
+            std::wstring str_value;
+            if (vec[TSV_POSSIBLEVALUES] != "" && !check_possible_values(inner_object, vec[TSV_POSSIBLEVALUES], index, str_value))
+              if (vec[TSV_KEYNAME] == "Type" || vec[TSV_KEYNAME] == "Subtype")
+                link_score += 5;
+              else link_score++;
+          } else link_score++;
+        } else link_score++;
+      } // for each key in grammar file
     }
 
-    // if all required are there - return this position in list of links
-    if (to_ret != -1) {
-      obj_name += " (as " + links[to_ret] + ")";
-      return links[to_ret];
+    // remembering the lowest score
+    if (min_score > link_score) {
+      to_ret = i;
+      min_score = link_score;
     }
   }
-  output << "Error: Can't select any link from " << links_string <<" to validate provided object: " << obj_name; 
-  if (obj->GetId() != 0) {
-    output << " for object " << obj->GetId();
+  // if all required are there - return this position in list of links
+  if (to_ret != -1) {
+    std::string function;
+    auto lnk = extract_function(links[to_ret], function);
+    obj_name += " (as " + lnk + ")";
+    return links[to_ret];
   }
+
+  output << "Error: Can't select any link from " << links_string <<" to validate provided object: " << obj_name; 
+  if (obj->GetId() != 0)
+    output << " for object " << obj->GetId();
   output << std::endl;
   return "";
 }

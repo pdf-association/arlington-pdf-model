@@ -200,6 +200,14 @@ bool check_grammar(CGrammarReader& reader, std::ostream& report_stream)
     //report all irregular inheritables
     //if ((vc[TSV_INHERITABLE] != "TRUE") && (vc[TSV_INHERITABLE] != "FALSE"))
     //  report_stream << file_name << "::" << vc[TSV_KEYNAME] << std::endl;
+
+    //report all required fields that are inheritable
+    //if ((vc[TSV_INHERITABLE] == "TRUE") && (vc[TSV_REQUIRED] == "TRUE"))
+    //  report_stream << reader.file_name << "::" << vc[TSV_KEYNAME] << std::endl;
+
+    //report all required fields that have possible value
+    //if ((vc[TSV_POSSIBLEVALUES] != "") && (vc[TSV_REQUIRED] == "TRUE"))
+    //  report_stream << reader.file_name << "::" << vc[TSV_KEYNAME] << "  "<< vc[TSV_POSSIBLEVALUES]  <<std::endl;
   }
   return true;
 }
@@ -211,7 +219,7 @@ void CheckGrammarFolder(std::string& grammar_folder, std::ofstream& ofs) {
   std::vector<std::string> to_process;
   //to_process.push_back("Catalog.tsv");
   to_process.push_back("FileTrailer.tsv");
-  while (!to_process.empty()) {
+  while (!to_process.empty()) { 
     std::string gfile = to_process.back();
     to_process.pop_back();
     if (std::find(processed.begin(), processed.end(), gfile) == processed.end()) {
