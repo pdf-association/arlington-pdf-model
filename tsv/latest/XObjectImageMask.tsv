@@ -4,9 +4,9 @@ Subtype	name	1.3		TRUE	FALSE	FALSE		[Image]
 Width	integer	1.3		TRUE	FALSE	FALSE					
 Height	integer	1.3		TRUE	FALSE	FALSE					
 BitsPerComponent	integer	1.3		FALSE	FALSE	FALSE		[1]			
-Intent	name	1.3		FALSE	FALSE	FALSE					
+Intent	name	1.3		FALSE	FALSE	FALSE			fn:Ignore()		
 ImageMask	boolean	1.3		TRUE	FALSE	FALSE	TRUE				
-Decode	array	1.3		FALSE	FALSE	FALSE		[[0 1],[1 0]]		[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
+Decode	array	1.3		FALSE	FALSE	FALSE	[0,1]	[[0 1],[1 0]]		[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
 Interpolate	boolean	1.3		FALSE	FALSE	FALSE	FALSE				
 Alternates	array	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfImageAlternates)]	
 SMask	stream	1.4		FALSE	TRUE	FALSE				[fn:SinceVersion(1.4,XObjectImageSoftMask)]	
@@ -14,7 +14,7 @@ SMaskInData	integer	1.5		FALSE	FALSE	FALSE
 Name	name	1.3	2.0	FALSE	FALSE	FALSE					
 StructParent	integer	1.3		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					
 ID	string	1.3		FALSE	FALSE	FALSE					
-OPI	dictionary	1.3	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,OPIVersion13),fn:SinceVersion(1.2,OPIVersion20)]	
+OPI	dictionary	1.3	2.0	FALSE	FALSE	FALSE			fn:Ignore()	[fn:SinceVersion(1.2,OPIVersion13),fn:SinceVersion(1.2,OPIVersion20)]	
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[fn:SinceVersion(1.4,Metadata)]	
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,OptContentGroup),fn:SinceVersion(1.5,OptContentMembership)]	
 AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfFileSpecifications)];[fn:SinceVersion(1.1,FileSpecification)]	

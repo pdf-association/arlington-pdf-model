@@ -4,7 +4,7 @@ Subtype	name	1.4		TRUE	FALSE	FALSE		[Image]
 Width	integer	1.4		TRUE	FALSE	FALSE					
 Height	integer	1.4		TRUE	FALSE	FALSE					
 ColorSpace	name	1.4		TRUE	FALSE	FALSE		[DeviceGray]			
-BitsPerComponent	integer	1.4		TRUE	FALSE	FALSE					
+BitsPerComponent	integer	1.4		TRUE	FALSE	FALSE		[fn:RequiredValue(@Filter==CCITTFaxDecode || @Filter==JBIG2Decode,1),2,4,fn:RequiredValue(@Filter==RunLengthDecode || @Filter==DCTDecode,8),fn:SinceVersion(1.5,16)]			
 ImageMask	boolean	1.4		FALSE	FALSE	FALSE	FALSE				
 Decode	array	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
 Interpolate	boolean	1.4		FALSE	FALSE	FALSE	FALSE				
