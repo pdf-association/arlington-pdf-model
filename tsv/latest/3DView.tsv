@@ -8,10 +8,10 @@ C2W	array	1.6		fn:IsRequired(@MS==M)	FALSE	FALSE				[fn:SinceVersion(1.6,ArrayOf
 U3DPath	array;string-text	1.6		fn:IsRequired(@MS==U3D)	FALSE	FALSE				[fn:SinceVersion(1.4,ArrayOfStringsText)];[]	
 CO	number	1.6		FALSE	FALSE	FALSE					
 P	dictionary	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,Projection)]	
-O	stream	1.6		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,XObjectFormType1)]	
+O	stream	1.6		FALSE	TRUE	FALSE			fn:IsMeaningful(fn:IsPresent(MS) && fn:IsPresent(P))	[fn:SinceVersion(1.0,XObjectFormType1)]	
 BG	dictionary	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,3DBackground)]	
 RM	dictionary	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,3DRenderMode)]	
 LS	dictionary	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,3DLightingScheme)]	
 SA	array	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,ArrayOf3DCrossSection)]	
-NA	array	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,ArrayOf3DNode)]	
+NA	array	1.7		FALSE	FALSE	FALSE			fn:IsMeaningful(fn:IsPresent(NR))	[fn:SinceVersion(1.7,ArrayOf3DNode)]	
 NR	boolean	1.7		FALSE	FALSE	FALSE	FALSE				

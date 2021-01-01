@@ -18,4 +18,4 @@ AvgWidth	number	1.0		FALSE	FALSE	FALSE	0
 MaxWidth	number	1.0		FALSE	FALSE	FALSE	0				
 MissingWidth	number	1.0		FALSE	FALSE	FALSE	0				
 FontFile	stream	1.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,FontFile)]	
-CharSet	string-ascii;string-byte	1.1	2.0	FALSE	FALSE	FALSE					
+CharSet	string-ascii;string-byte	1.1	2.0	FALSE	FALSE	FALSE			fn:IsMeaningful(fn:IsType1Font())		
