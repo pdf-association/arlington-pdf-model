@@ -24,12 +24,12 @@ RC	stream;string-text	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,Stream)];[]
 CreationDate	date	1.5		FALSE	FALSE	FALSE					
 IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[fn:SinceVersion(1.0,AnnotText),fn:SinceVersion(1.0,AnnotLink),fn:SinceVersion(1.3,AnnotFreeText),fn:SinceVersion(1.3,AnnotLine),fn:SinceVersion(1.3,AnnotSquare),fn:SinceVersion(1.3,AnnotCircle),fn:SinceVersion(1.5,AnnotPolygon),fn:SinceVersion(1.3,AnnotHighlight),fn:SinceVersion(1.3,AnnotUnderline),fn:SinceVersion(1.4,AnnotSquiggly),fn:SinceVersion(1.3,AnnotStrikeOut),fn:SinceVersion(1.5,AnnotCaret),fn:SinceVersion(1.3,AnnotStamp),fn:SinceVersion(1.3,AnnotInk),fn:SinceVersion(1.3,AnnotPopup),fn:SinceVersion(1.3,AnnotFileAttachment),fn:SinceVersion(1.2,AnnotSound),fn:SinceVersion(1.2,AnnotMovie),fn:SinceVersion(1.5,AnnotScreen),fn:SinceVersion(1.2,AnnotWidget),fn:SinceVersion(1.4,AnnotPrinterMark),fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 Subj	string-text	1.5		FALSE	FALSE	FALSE					
-RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	fn:IsMeaningful(fn:IsPresent(IRT))		
+RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 Vertices	array	1.5		fn:IsRequired(fn:NotPresent(Path))	FALSE	FALSE			Required unless a Path key is present, in which case it shall be ignored	[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
-LE	array	1.5		FALSE	FALSE	FALSE	[/None /None]		fn:IsMeaningful(@Subtype==Polyline)	[fn:SinceVersion(1.4,ArrayOf_2LineEndingsNames)]	
+LE	array	1.5		FALSE	FALSE	FALSE	[/None /None]		[fn:IsMeaningful(@Subtype==Polyline)]	[fn:SinceVersion(1.4,ArrayOf_2LineEndingsNames)]	
 BS	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,BorderStyle)]	
 IC	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_4NumbersColorAnnotation)]	
-BE	dictionary	1.5		FALSE	FALSE	FALSE			fn:IsMeaningful(@Subtype==Polygon)	[fn:SinceVersion(1.5,BorderEffect)]	
+BE	dictionary	1.5		FALSE	FALSE	FALSE			[fn:IsMeaningful(@Subtype==Polygon)]	[fn:SinceVersion(1.5,BorderEffect)]	
 IT	name	1.6		FALSE	FALSE	FALSE		[PolygonCloud,fn:SinceVersion(1.7,PolyLineDimension),fn:SinceVersion(1.7,PolygonDimension)]			
 Measure	dictionary	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,MeasureRL),fn:SinceVersion(2.0,MeasureGEO)]	
 Path	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfArraysPaths)]	
