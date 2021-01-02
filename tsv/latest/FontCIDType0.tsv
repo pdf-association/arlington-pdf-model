@@ -5,8 +5,8 @@ BaseFont	name	1.2		TRUE	FALSE	FALSE
 CIDSystemInfo	dictionary	1.2		TRUE	FALSE	FALSE				[fn:SinceVersion(1.2,CIDSystemInfo)]	
 FontDescriptor	dictionary	1.2		TRUE	TRUE	FALSE				[fn:SinceVersion(1.2,FontDescriptorCIDType0)]	
 DW	number	1.2		FALSE	FALSE	FALSE	1000				
-W	array	1.2		FALSE	FALSE	FALSE	none			[fn:SinceVersion(1.0,_UniversalArray)]	
-DW2	array	1.2		FALSE	FALSE	FALSE	[888 -1000]			[fn:SinceVersion(1.2,ArrayOf_2Numbers)]	
-W2	array	1.2		FALSE	FALSE	FALSE	none			[fn:SinceVersion(1.0,_UniversalArray)]	
+W	array	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,_UniversalArray)]	
+DW2	array	1.2		FALSE	FALSE	FALSE	[880 -1000]			[fn:SinceVersion(1.2,ArrayOf_2Numbers)]	
+W2	array	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,_UniversalArray)]	
 CIDToGIDMap	name;stream	1.2		FALSE	FALSE	FALSE				[];[fn:SinceVersion(1.0,Stream)]	
 ToUnicode	stream	1.2		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,Stream)]	

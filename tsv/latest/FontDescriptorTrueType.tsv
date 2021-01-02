@@ -10,12 +10,12 @@ ItalicAngle	number	1.0		TRUE	FALSE	FALSE
 Ascent	number	1.0		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
 Descent	number	1.0		TRUE	FALSE	FALSE		[fn:Expr(@self<0)]	Optional for Type 3 fonts		
 Leading	number	1.0		FALSE	FALSE	FALSE	0				
-CapHeight	number	1.0		FALSE	FALSE	FALSE					
+CapHeight	number	1.0		fn:IsRequired(fn:FontHasLatinChars())	FALSE	FALSE					
 XHeight	number	1.0		FALSE	FALSE	FALSE	0				
 StemV	number	1.0		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
 StemH	number	1.0		FALSE	FALSE	FALSE	0				
 AvgWidth	number	1.0		FALSE	FALSE	FALSE	0				
 MaxWidth	number	1.0		FALSE	FALSE	FALSE	0				
 MissingWidth	number	1.0		FALSE	FALSE	FALSE	0				
-FontFile	stream	1.1		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,FontFileType1)]	
-FontFile2	stream	1.2		FALSE	TRUE	FALSE				[fn:SinceVersion(1.2,FontFile2TrueType)]	
+FontFile	stream	1.1		FALSE	TRUE	FALSE			[fn:NotPresent(FontFile2) && fn:NotPresent(FontFile3)]	[fn:SinceVersion(1.0,FontFileType1)]	
+FontFile2	stream	1.2		FALSE	TRUE	FALSE			[fn:NotPresent(FontFile) && fn:NotPresent(FontFile3)]	[fn:SinceVersion(1.2,FontFile2TrueType)]	
