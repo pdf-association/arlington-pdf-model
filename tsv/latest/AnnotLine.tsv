@@ -34,7 +34,7 @@ LLE	number	1.6		FALSE	FALSE	FALSE	0
 Cap	boolean	1.6		FALSE	FALSE	FALSE	FALSE				
 IT	name	1.6		FALSE	FALSE	FALSE		[LineArrow,LineDimension]			
 LLO	number	1.7		FALSE	FALSE	FALSE					
-CP	name	1.7		FALSE	FALSE	FALSE	Inline	[Inline,Top]	[fn:IsMeaningful(Cap==true)]		
+CP	name	1.7		FALSE	FALSE	FALSE	Inline	[Inline,Top]	[fn:IsMeaningful(@Cap==true)]		
 Measure	dictionary	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,MeasureRL),fn:SinceVersion(2.0,MeasureGEO)]	
-CO	array	1.7		FALSE	FALSE	FALSE	[0, 0]		[fn:IsMeaningful(Cap==true)]	[fn:SinceVersion(1.2,ArrayOf_2Numbers)]	
+CO	array	1.7		FALSE	FALSE	FALSE	[0, 0]		[fn:IsMeaningful(@Cap==true)]	[fn:SinceVersion(1.2,ArrayOf_2Numbers)]	
 ExData	dictionary	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,ExData3DMarkup),fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	

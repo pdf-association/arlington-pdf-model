@@ -2,9 +2,9 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.6		FALSE	FALSE	FALSE		[NumberFormat]			
 U	string-text	1.6		TRUE	FALSE	FALSE					
 C	number	1.6		TRUE	FALSE	FALSE					
-F	name	1.6		FALSE	FALSE	FALSE	D	[D,F,R,T]	fn:IsMeaningful(fn:IsLastInNumberFormatArray())		
-D	integer	1.6		FALSE	FALSE	FALSE			fn:IsMeaningful(fn:IsLastInNumberFormatArray())		
-FD	boolean	1.6		FALSE	FALSE	FALSE	16		fn:IsMeaningful(fn:IsLastInNumberFormatArray())		
+F	name	1.6		FALSE	FALSE	FALSE	D	[D,F,R,T]	[fn:IsMeaningful(fn:IsLastInNumberFormatArray())]		
+D	integer	1.6		FALSE	FALSE	FALSE			[fn:IsMeaningful(fn:IsLastInNumberFormatArray())]		
+FD	boolean	1.6		FALSE	FALSE	FALSE	16		[fn:IsMeaningful(fn:IsLastInNumberFormatArray())]		
 RT	string-text	1.6		FALSE	FALSE	FALSE					
 RD	string-text	1.6		FALSE	FALSE	FALSE					
 PS	string-text	1.6		FALSE	FALSE	FALSE					
