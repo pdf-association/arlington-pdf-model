@@ -195,6 +195,7 @@ bool check_grammar(CGrammarReader& reader, std::ostream& report_stream)
     //report all required fields that have possible value
     //if ((vc[TSV_POSSIBLEVALUES] != "") && (vc[TSV_REQUIRED] == "TRUE"))
     //  report_stream << reader.file_name << "::" << vc[TSV_KEYNAME] << "  "<< vc[TSV_POSSIBLEVALUES]  <<std::endl;
+    report_stream.flush();
   }
   return true;
 }
