@@ -6,17 +6,17 @@ Contents	string-text	1.0		FALSE	FALSE	FALSE
 P	dictionary	1.3		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,PageObject)]	
 NM	string-text	1.4		FALSE	FALSE	FALSE					
 M	date;string-text	1.1		FALSE	FALSE	FALSE					
-F	integer	1.1		FALSE	FALSE	FALSE	0				
+F	integer	1.1		FALSE	FALSE	FALSE	0		[fn:IsPDFVersion(1.0,fn:BitsClear(2,32), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]		
 AP	dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,Appearance)]	
-AS	name	1.2		FALSE	FALSE	FALSE					
-Border	array	1.0		FALSE	FALSE	FALSE	[0 0 1]			[fn:SinceVersion(1.0,ArrayOf_4AnnotBorderCharacteristics)]	
+AS	name	1.2		fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))	FALSE	FALSE					
+Border	array	1.0		FALSE	FALSE	FALSE	[0 0 1]		[fn:Ignore(BS)]	[fn:SinceVersion(1.0,ArrayOf_4AnnotBorderCharacteristics)]	
 C	array	1.1		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_4NumbersColorAnnotation)]	
 StructParent	integer	1.3		FALSE	FALSE	FALSE					
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,OptContentGroup),fn:SinceVersion(1.5,OptContentMembership)]	
 AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfFileSpecifications)];[fn:SinceVersion(1.1,FileSpecification)]	
-ca	number	2.0		FALSE	FALSE	FALSE	1.0				
-CA	number	2.0		FALSE	FALSE	FALSE					
-BM	name	2.0		FALSE	FALSE	FALSE					
+ca	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval(@self>=0.0 && @self<1.0)]			
+CA	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval(@self>=0.0 && @self<1.0)]			
+BM	name	2.0		FALSE	FALSE	FALSE	Normal	[fn:Deprecated(2.0,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]			
 Lang	string-text	2.0		FALSE	FALSE	FALSE					
 A	dictionary	1.1		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ActionGoTo),fn:SinceVersion(1.1,ActionGoToR),fn:SinceVersion(1.6,ActionGoToE),fn:SinceVersion(2.0,ActionGoToDp),fn:SinceVersion(1.1,ActionLaunch),fn:SinceVersion(1.1,ActionThread),fn:SinceVersion(1.1,ActionURI),fn:SinceVersion(1.2,ActionSound),fn:SinceVersion(1.2,ActionMovie),fn:SinceVersion(1.2,ActionHide),fn:SinceVersion(1.2,ActionNamed),fn:SinceVersion(1.2,ActionSubmitForm),fn:SinceVersion(1.2,ActionResetForm),fn:SinceVersion(1.2,ActionImportData),fn:SinceVersion(1.5,ActionSetOCGState),fn:SinceVersion(1.5,ActionRendition),fn:SinceVersion(1.5,ActionTransition),fn:SinceVersion(1.6,ActionGoTo3DView),fn:SinceVersion(1.3,ActionECMAScript),fn:SinceVersion(2.0,ActionRichMediaExecute)]	
 Dest	array;name;string-byte	1.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,DestXYZ),fn:SinceVersion(1.0,Dest0),fn:SinceVersion(1.0,Dest1),fn:SinceVersion(1.0,Dest4)];[];[]	

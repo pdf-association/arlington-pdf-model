@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-0	number	1.0		FALSE	FALSE	FALSE					
-1	number	1.0		FALSE	FALSE	FALSE					
-2	number	1.0		FALSE	FALSE	FALSE					
-3	array	1.1		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_2DashNumbers)]	
+0	number	1.0		TRUE	FALSE	FALSE		[fn:Eval(@self>=0)]			horizontal corner radius
+1	number	1.0		TRUE	FALSE	FALSE		[fn:Eval(@self>=0)]			vertical corner radius
+2	number	1.0		TRUE	FALSE	FALSE		[fn:Eval(@self>=0)]			border width
+3	array	1.1		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_2DashNumbers)]	dash array

@@ -1,3 +1,3 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 S	name	1.5		FALSE	FALSE	FALSE	S	[C,S]			
-I	number	1.5		FALSE	FALSE	FALSE	0	[fn:Expr(@self>=0 && @self<=2)]			
+I	number	1.5		FALSE	FALSE	FALSE	0	[fn:Expr(@self>=0.0 && @self<=2.0)]	[fn:Ignore(@S!=C)]		
