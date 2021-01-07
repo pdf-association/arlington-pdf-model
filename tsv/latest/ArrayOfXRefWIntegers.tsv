@@ -1,0 +1,4 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+0	integer	1.3		TRUE	FALSE	FALSE		[fn:Eval(@self>=0)]			
+1	integer	1.3		TRUE	FALSE	FALSE		[fn:Eval(@self>0)]			
+2	integer	1.3		TRUE	FALSE	FALSE		[fn:Eval(@self>=0)]			

@@ -1,2 +1,3 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-*	array	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfPaths)]	
+0	array	2.0		TRUE	FALSE	FALSE			[fn:Eval(fn:ArrayLength()==2)]	[fn:SinceVersion(2.0,ArrayOfPaths)]	must be moveto
+*	array	2.0		TRUE	FALSE	FALSE			[fn:Eval((fn:ArrayLength()==2) || (fn:ArrayLength()==6))]	[fn:SinceVersion(2.0,ArrayOfPaths)]	must be lineto or curveto

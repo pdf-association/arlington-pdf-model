@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 FunctionType	integer	1.2		TRUE	FALSE	FALSE		[0]			
-Domain	array	1.2		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
-Range	array	1.2		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
+Domain	array	1.2		TRUE	FALSE	FALSE			[fn:Eval((fn:ArrayLength() mod 2)==0)]	[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
+Range	array	1.2		TRUE	FALSE	FALSE			[fn:Eval((fn:ArrayLength() mod 2)==0)]	[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
 Size	array	1.2		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfIntegersGeneral)]	array of m positive integers
 BitsPerSample	integer	1.2		TRUE	FALSE	FALSE		[1,2,4,8,12,16,24,32]			
 Order	integer	1.2		FALSE	FALSE	FALSE	1	[1,3]			
