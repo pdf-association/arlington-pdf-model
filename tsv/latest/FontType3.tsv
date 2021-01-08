@@ -8,7 +8,7 @@ CharProcs	dictionary	1.0		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,CharProcMap)]
 Encoding	dictionary	1.0		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,Encoding)]	
 FirstChar	integer	1.0		TRUE	FALSE	FALSE					
 LastChar	integer	1.0		TRUE	FALSE	FALSE					
-Widths	array	1.0		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfIntegersGeneral)]	
+Widths	array	1.0		TRUE	FALSE	FALSE			[fn:Eval(fn:ArrayLength()==(@LastChar-@FirstChar+1))]	[fn:SinceVersion(1.0,ArrayOfIntegersGeneral)]	
 FontDescriptor	dictionary	1.0		fn:IsRequired(fn:IsPDFTagged())	TRUE	FALSE				[fn:SinceVersion(1.0,FontDescriptorType3)]	
 Resources	dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,Resource)]	
 ToUnicode	stream	1.2		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,Stream)]	
