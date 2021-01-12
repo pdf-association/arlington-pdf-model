@@ -10,8 +10,8 @@ Ref	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,Reference)]
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[fn:SinceVersion(1.4,Metadata)]	
 PieceInfo	dictionary	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,PagePiece)]	
 LastModified	date	1.3		fn:IsRequired(fn:IsPresent(PieceInfo))	FALSE	FALSE					
-StructParent	integer	1.3		FALSE	FALSE	FALSE			[fn:IsNotPresent(StructParents)]		
-StructParents	integer	1.3		FALSE	FALSE	FALSE			[fn:IsNotPresent(StructParent)]		
+StructParent	integer	1.3		FALSE	FALSE	FALSE			[fn:NotPresent(StructParents)]		
+StructParents	integer	1.3		FALSE	FALSE	FALSE			[fn:NotPresent(StructParent)]		
 OPI	dictionary	1.2	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,OPIVersion13),fn:SinceVersion(1.2,OPIVersion20)]	
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,OptContentGroup),fn:SinceVersion(1.5,OptContentMembership)]	
 Name	name	1.0	2.0	fn:IsRequired(fn:BeforeVersion(1.3))	FALSE	FALSE					
