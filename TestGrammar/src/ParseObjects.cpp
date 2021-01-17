@@ -69,8 +69,15 @@ bool CParsePDF::check_possible_values(PdsObject* object, const std::string& poss
     else real_str_value = L"FALSE";
   } 
   else if (object->GetObjectType() == kPdsNumber) {
-    num_value = ((PdsNumber*)object)->GetValue();
-    real_str_value = std::to_wstring(num_value);
+    PdsNumber *numobj = (PdsNumber*)object;
+    if (numobj->IsIntegerValue())
+    {
+      int ivalue = numobj->GetIntegerValue();
+      real_str_value = std::to_wstring(ivalue);
+    } else {
+      num_value = numobj->GetValue();
+      real_str_value = std::to_wstring(num_value);
+    }
   } 
   else if(object->GetObjectType() == kPdsName) {
     real_str_value.resize(((PdsName*)object)->GetText(nullptr, 0));
@@ -103,7 +110,7 @@ bool CParsePDF::check_possible_values(PdsObject* object, const std::string& poss
         continue;
 
       options_tested++;
-      if (object->GetObjectType() == kPdsNumber ) {
+      if ((object->GetObjectType() == kPdsNumber) && (!((PdsNumber*)object)->IsIntegerValue())) {
         try {
           auto double_val = std::stod(opt);
           // Double-precision comparison often fails because parsed PDF value is not precisely stored
@@ -256,27 +263,29 @@ int CParsePDF::get_type_index(PdsObject *obj, std::string types) {
 }
 
 std::string CParsePDF::get_type_string(PdsObject *obj) {
-  if (obj==nullptr)
+  if (obj == nullptr)
     return "UNKNOWN";
-  
-  if (obj->GetObjectType() == kPdsBoolean)
-    return "BOOLEAN";
-  if (obj->GetObjectType() == kPdsNumber)
-    return "NUMBER";
-  if (obj->GetObjectType() == kPdsName)
-    return "NAME";
-  if (obj->GetObjectType() == kPdsNull)
-    return "NULL OBJECT";
-  if (obj->GetObjectType() == kPdsStream)
-    return "STREAM";
-  if (obj->GetObjectType() == kPdsString)
-    return "STRING";
-  if (obj->GetObjectType() == kPdsArray)
-    return "ARRAY";
-  if (obj->GetObjectType() == kPdsDictionary)
-    return "DICTIONARY";
-  
-  return "UNDEFINED";
+
+  switch (obj->GetObjectType())
+  { 
+  case kPdsNumber:
+    {
+      PdsNumber *numobj = (PdsNumber *)obj;
+      if (numobj->IsIntegerValue())
+        return "INTEGER";
+      else
+        return "NUMBER";
+    }
+  case kPdsBoolean:     return "BOOLEAN";
+  case kPdsName:        return "NAME";
+  case kPdsNull:        return "NULL OBJECT";
+  case kPdsStream:      return "STREAM";
+  case kPdsString:      return "STRING";
+  case kPdsArray:       return "ARRAY";
+  case kPdsDictionary:  return "DICTIONARY";
+  case kPdsReference:   return "INDIRECT-REF";
+  default:              return "UNDEFINED";
+  }
 }
 
 
@@ -286,22 +295,6 @@ std::string CParsePDF::get_type_string(PdsObject *obj) {
 // - indirect
 // - possible value
 void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &vec, const std::string &grammar_file) {
-  // is indirect when needed ?
-  auto ToString = [&](PdsObject* obj) {
-    switch (obj->GetObjectType()) {
-    case kPdsBoolean:   return "Boolean";
-    case kPdsNumber:    return "number";
-    case kPdsName:      return "name";
-    case kPdsNull:      return "null";
-    case kPdsStream:    return "stream";
-    case kPdsString:    return "string";
-    case kPdsArray:     return "array";
-    case kPdsDictionary:return "dictionary";
-    case kPdsReference: return "indirect-ref";
-    case kPdsUnknown:
-    default:            return "!unknown!";
-    }
-  };
 
   // Treat null object as though the key is not present (i.e. don't report an error)
   if ((vec[TSV_INDIRECTREF] == "TRUE") && (object->GetId() == 0) && (object->GetObjectType() != kPdsNull)) {
@@ -330,7 +323,7 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
     if (!check_possible_values(object, vec[TSV_POSSIBLEVALUES], index, str_value)) {
       output << "Error: wrong value: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
       output << " should be: " << vec[TSV_TYPE] << " " << vec[TSV_POSSIBLEVALUES] << " and is ";
-      output << ToString(object) << " (" << ToUtf8(str_value) << ")";
+      output << get_type_string(object) << " (" << ToUtf8(str_value) << ")";
       if (object->GetId() != 0) {
         output << " for object " << object->GetId();
       }
