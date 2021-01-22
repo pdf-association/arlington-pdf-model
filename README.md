@@ -22,7 +22,7 @@ TSV columns must be in the following order:
 
 Rows define specific keys in a dictionary or an element in an array and the characteristics for that key/array element.
 
-All names are expressed **without** the leading FORWARD-SLASH (/).
+All PDF names are awlays expressed **without** the leading FORWARD-SLASH (/).
 
 The two special objects \_UniversalArray and \_UniversalDictionary are not defined in the PDF spec and represent a generic arbitrarily-sized PDF array object and PDF dictionary object respectively. They are used to resolve Links for a few PDF objects under special circumstances.
 
@@ -58,10 +58,12 @@ Key |  Type | Link |
 ## **Type**
 PDF 2.0 defines a few basic types, but within the spec other types are specified. Therefore we work with following basic types:
 - array
+- bitmask
 - boolean
 - date
 - dictionary
 - integer
+- matrix
 - name
 - name-tree
 - null
