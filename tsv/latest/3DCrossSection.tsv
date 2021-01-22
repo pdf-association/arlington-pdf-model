@@ -3,8 +3,8 @@ Type	name	1.7		FALSE	FALSE	FALSE		[3DCrossSection]
 C	array	1.7		FALSE	FALSE	FALSE	[0 0 0]			[fn:SinceVersion(1.7,ArrayOf_3CenterOfRotationNumbers)]	
 O	array	1.7		TRUE	FALSE	FALSE	[null 0 0]			[fn:SinceVersion(1.7,ArrayOf_3OrientationNumbers)]	
 PO	number	1.7		FALSE	FALSE	FALSE	0.5				
-PC	array	1.7		FALSE	FALSE	FALSE	[/DeviceRGB 1 1 1]			[fn:SinceVersion(1.7,ArrayOf_4ColourSpaceEntries)]	
+PC	array	1.7		FALSE	FALSE	FALSE	[DeviceRGB 1 1 1]			[fn:SinceVersion(1.7,ArrayOf_4ColourSpaceEntries)]	
 IV	boolean	1.7		FALSE	FALSE	FALSE	FALSE				
-IC	array	1.7		FALSE	FALSE	FALSE	[/DeviceRGB 0 1 0]		[fn:IsMeaningful(@IV==true)]	[fn:SinceVersion(1.7,ArrayOf_4ColourSpaceEntries)]	
+IC	array	1.7		FALSE	FALSE	FALSE	[DeviceRGB 0 1 0]		[fn:IsMeaningful(@IV==true)]	[fn:SinceVersion(1.7,ArrayOf_4ColourSpaceEntries)]	
 ST	boolean	2.0		FALSE	FALSE	FALSE	FALSE				
 SC	boolean	2.0		FALSE	FALSE	FALSE	FALSE				

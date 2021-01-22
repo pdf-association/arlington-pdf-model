@@ -27,7 +27,7 @@ Subj	string-text	1.5		FALSE	FALSE	FALSE
 RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 L	array	1.3		TRUE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOf_4Numbers)]	
 BS	dictionary	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,BorderStyle)]	
-LE	array	1.4		FALSE	FALSE	FALSE	[/None /None]			[fn:SinceVersion(1.4,ArrayOf_2LineEndingsNames)]	
+LE	array	1.4		FALSE	FALSE	FALSE	[None None]			[fn:SinceVersion(1.4,ArrayOf_2LineEndingsNames)]	
 IC	array	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_4NumbersColorAnnotation)]	
 LL	number	1.6		fn:IsRequired(fn:IsPresent(LLE))	FALSE	FALSE	0				
 LLE	number	1.6		FALSE	FALSE	FALSE	0	[fn:Eval(@self>0)]			

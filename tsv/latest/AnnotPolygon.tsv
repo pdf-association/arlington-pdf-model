@@ -26,7 +26,7 @@ IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[fn:SinceVers
 Subj	string-text	1.5		FALSE	FALSE	FALSE					
 RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 Vertices	array	1.5		fn:IsRequired(fn:NotPresent(Path))	FALSE	FALSE			[fn:Ignore(fn:IsPresent(Path))]	[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
-LE	array	1.5		FALSE	FALSE	FALSE	[/None /None]		[fn:IsMeaningful(@Subtype==Polyline)]	[fn:SinceVersion(1.4,ArrayOf_2LineEndingsNames)]	
+LE	array	1.5		FALSE	FALSE	FALSE	[None None]		[fn:IsMeaningful(@Subtype==Polyline)]	[fn:SinceVersion(1.4,ArrayOf_2LineEndingsNames)]	
 BS	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,BorderStyle)]	
 IC	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_4NumbersColorAnnotation)]	
 BE	dictionary	1.5		FALSE	FALSE	FALSE			[fn:IsMeaningful(@Subtype==Polygon)]	[fn:SinceVersion(1.5,BorderEffect)]	
