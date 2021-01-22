@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.5		FALSE	FALSE	FALSE		[SV]			
-Ff	integer	1.7		FALSE	FALSE	FALSE	0				
+Ff	bitmask	1.7		FALSE	FALSE	FALSE	0				
 Filter	name	1.5		FALSE	FALSE	FALSE					
 SubFilter	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfNamesGeneral)]	
 DigestMethod	array	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,ArrayOfDigestMethod)]	
