@@ -52,7 +52,7 @@ public:
   std::vector<std::string> header_list;
   std::vector<std::vector<std::string>> data_list;
   std::vector<std::string> basic_types = { "BOOLEAN", "NUMBER", "NULL", "NAME",
-    "STRING", "STRING-BYTE", "STRING-TEXT", "STRING-ASCII", "STREAM", "ARRAY", "DICTIONARY", "INTEGER", "DATE", "RECTANGLE", "NUMBER-TREE", "NAME-TREE" };
+    "STRING", "STRING-BYTE", "STRING-TEXT", "STRING-ASCII", "STREAM", "ARRAY", "DICTIONARY", "INTEGER", "DATE", "RECTANGLE", "NUMBER-TREE", "NAME-TREE", "MATRIX", "BITMASK" };
 
   CGrammarReader(std::string f_name, std::string delm = "\t") :
     file_name(f_name), delimeter(delm)

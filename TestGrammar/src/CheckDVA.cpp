@@ -246,9 +246,9 @@ void process_dict(std::ofstream& ofs) {
             if (types_our[i] == "BOOLEAN") types_our[i] = "CosBool";
             if (types_our[i] == "NAME") types_our[i] = "CosName";
             if (types_our[i] == "NUMBER") { types_our[i] = "CosFixed"; types_our.push_back("CosInteger"); }
-            if (types_our[i] == "INTEGER") types_our[i] = "CosInteger";
+            if (types_our[i] == "INTEGER" || types_our[i] == "BITMASK") types_our[i] = "CosInteger";
             if (types_our[i] == "STREAM") types_our[i] = "CosStream";
-            if (types_our[i] == "ARRAY" || types_our[i] == "RECTANGLE") types_our[i] = "CosArray";
+            if (types_our[i] == "ARRAY" || types_our[i] == "RECTANGLE" || types_our[i] == "MATRIX") types_our[i] = "CosArray";
             if (types_our[i] == "DICTIONARY" || types_our[i] == "NAME-TREE" || types_our[i] == "NUMBER-TREE") types_our[i] = "CosDict";
             if (types_our[i] == "STRING" || types_our[i] == "DATE" || types_our[i] == "STRING-BYTE"
               || types_our[i] == "STRING-TEXT" || types_our[i] == "STRING-ASCII") types_our[i] = "CosString";

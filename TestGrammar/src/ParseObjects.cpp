@@ -244,7 +244,7 @@ int CParsePDF::get_type_index(PdsObject *obj, std::string types) {
     opt[i] = extract_function(opt[i], function);
     if ((obj->GetObjectType() == kPdsBoolean) && (opt[i] == "BOOLEAN"))
       return i;
-    if ((obj->GetObjectType() == kPdsNumber) && ((opt[i] == "NUMBER") || (opt[i] == "INTEGER")))
+    if ((obj->GetObjectType() == kPdsNumber) && ((opt[i] == "NUMBER") || (opt[i] == "INTEGER") || (opt[i] == "BITMASK")))
       return i;
     if ((obj->GetObjectType() == kPdsName) && (opt[i] == "NAME"))
       return i;
@@ -254,7 +254,7 @@ int CParsePDF::get_type_index(PdsObject *obj, std::string types) {
       return i;
     if ((obj->GetObjectType() == kPdsString) && ((opt[i] == "STRING") || (opt[i] == "DATE") || (opt[i] == "STRING-BYTE") || (opt[i] == "STRING-TEXT") || (opt[i] == "STRING-ASCII")))
       return i;
-    if ((obj->GetObjectType() == kPdsArray) && ((opt[i] == "ARRAY") || (opt[i] == "RECTANGLE")))
+    if ((obj->GetObjectType() == kPdsArray) && ((opt[i] == "ARRAY") || (opt[i] == "RECTANGLE") || (opt[i] == "MATRIX")))
       return i;
     if ((obj->GetObjectType() == kPdsDictionary) && ((opt[i] == "DICTIONARY") || (opt[i] == "NUMBER-TREE") || (opt[i] == "NAME-TREE")))
       return i;

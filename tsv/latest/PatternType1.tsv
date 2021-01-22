@@ -7,7 +7,7 @@ BBox	rectangle	1.2		TRUE	FALSE	FALSE
 XStep	number	1.2		TRUE	FALSE	FALSE					
 YStep	number	1.2		TRUE	FALSE	FALSE					
 Resources	dictionary	1.2		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,Resource)]	
-Matrix	array	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,Matrix)]	
+Matrix	matrix	1.2		FALSE	FALSE	FALSE					
 Length	integer	1.2		TRUE	FALSE	FALSE					
 Filter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]		[fn:SinceVersion(1.0,ArrayOfCompressionFilterNames)];[]	
 DecodeParms	array;dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfDecodeParams)];[fn:SinceVersion(1.0,FilterLZWDecode),fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.5,FilterCrypt)]	
