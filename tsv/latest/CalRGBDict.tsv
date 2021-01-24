@@ -2,4 +2,4 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 WhitePoint	array	1.1		TRUE	FALSE	FALSE				[fn:SinceVersion(1.1,Whitepoint)]	
 BlackPoint	array	1.1		FALSE	FALSE	FALSE	[0.0 0.0 0.0]			[fn:SinceVersion(1.1,Blackpoint)]	
 Gamma	array	1.1		FALSE	FALSE	FALSE	[1.0 1.0 1.0]			[fn:SinceVersion(1.1,Gamma)]	
-Matrix	array	1.1		FALSE	FALSE	FALSE	[1 0 0 0 1 0 0 0 1]			[fn:SinceVersion(1.0,ArrayOf_9Numbers)]	
+Matrix	array	1.1		FALSE	FALSE	FALSE	[1 0 0 0 1 0 0 0 1]			[ArrayOf_9Numbers]	

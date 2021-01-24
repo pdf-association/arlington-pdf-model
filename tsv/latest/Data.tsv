@@ -1,3 +1,3 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 LastModified	date	1.3		TRUE	FALSE	FALSE					
-Private	array;boolean;dictionary;integer;name;number;stream;string	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,_UniversalArray)];[];[fn:SinceVersion(1.0,_UniversalDictionary)];[];[];[];[fn:SinceVersion(1.0,Stream)];[]	*any
+Private	array;boolean;dictionary;integer;name;number;stream;string	1.3		FALSE	FALSE	FALSE				[_UniversalArray];[];[_UniversalDictionary];[];[];[];[Stream];[]	*any

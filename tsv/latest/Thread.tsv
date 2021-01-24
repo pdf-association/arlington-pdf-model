@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.1		FALSE	FALSE	FALSE		[Thread]			
 F	dictionary	1.1		TRUE	TRUE	FALSE				[fn:SinceVersion(1.1,BeadFirst)]	
-I	dictionary	1.1		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,DocInfo)]	
+I	dictionary	1.1		FALSE	FALSE	FALSE				[DocInfo]	
 Metadata	stream	2.0		FALSE	TRUE	FALSE				[fn:SinceVersion(1.4,Metadata)]	

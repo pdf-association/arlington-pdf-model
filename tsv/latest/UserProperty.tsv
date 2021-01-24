@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 N	string-text	1.6		TRUE	FALSE	FALSE					
-V	boolean;dictionary;integer;name;stream;string	1.6		TRUE	FALSE	FALSE				[];[fn:SinceVersion(1.0,_UniversalDictionary)];[];[];[fn:SinceVersion(1.0,Stream)];[]	*any
+V	boolean;dictionary;integer;name;stream;string	1.6		TRUE	FALSE	FALSE				[];[_UniversalDictionary];[];[];[Stream];[]	*any
 F	string-text	1.6		FALSE	FALSE	FALSE					
 H	boolean	1.6		FALSE	FALSE	FALSE	FALSE				

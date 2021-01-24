@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[DSS]			
 VRI	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,VRI)]	
-Certs	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfStreamsGeneral)]	
-OCSPs	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfStreamsGeneral)]	
-CRLs	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfStreamsGeneral)]	
+Certs	array	2.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral]	
+OCSPs	array	2.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral]	
+CRLs	array	2.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral]	

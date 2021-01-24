@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 F	dictionary;string	1.4		TRUE	FALSE	FALSE				[fn:SinceVersion(1.1,FileSpecification)];[]	
-Page	integer;string-text	1.4		TRUE	FALSE	FALSE	[fn:Eval(@self>=0)];[]				
+Page	integer;string-text	1.4		TRUE	FALSE	FALSE	[fn:Eval(@Page>=0)];[]				
 ID	array	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_2StringsByte)]	

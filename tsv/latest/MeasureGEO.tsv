@@ -1,10 +1,10 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[Measure]			
 Subtype	name	2.0		FALSE	FALSE	FALSE		[GEO]			
-Bounds	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
+Bounds	array	2.0		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
 GCS	dictionary	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(2.0,GeographicCoordinateSystem),fn:SinceVersion(2.0,ProjectedCoordinateSystem)]	
 DCS	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,GeographicCoordinateSystem),fn:SinceVersion(2.0,ProjectedCoordinateSystem)]	
 PDU	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOf_3Names)]	
-GPTS	array	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
-LPTS	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)]	
+GPTS	array	2.0		TRUE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
+LPTS	array	2.0		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
 PCSM	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,ArrayOf3DTransMatrix)]	

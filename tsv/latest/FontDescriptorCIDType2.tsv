@@ -8,7 +8,7 @@ Flags	bitmask	1.2		TRUE	FALSE	FALSE
 FontBBox	rectangle	1.2		TRUE	FALSE	FALSE					
 ItalicAngle	number	1.2		TRUE	FALSE	FALSE					
 Ascent	number	1.2		TRUE	FALSE	FALSE					
-Descent	number	1.2		TRUE	FALSE	FALSE		[fn:Expr(@self<0)]			
+Descent	number	1.2		TRUE	FALSE	FALSE		[fn:Expr(@Descent<0)]			
 Leading	number	1.2		FALSE	FALSE	FALSE	0				
 CapHeight	number	1.2		fn:IsRequired(fn:FontHasLatinChars())	FALSE	FALSE					
 XHeight	number	1.2		FALSE	FALSE	FALSE	0				
@@ -17,9 +17,9 @@ StemH	number	1.2		FALSE	FALSE	FALSE	0
 AvgWidth	number	1.2		FALSE	FALSE	FALSE	0				
 MaxWidth	number	1.2		FALSE	FALSE	FALSE	0				
 MissingWidth	number	1.2		FALSE	FALSE	FALSE	0				
-FontFile	stream	1.2		FALSE	TRUE	FALSE			[fn:NotPresent(FontFile2) && fn:NotPresent(FontFile3)]	[fn:SinceVersion(1.0,FontFile)]	
+FontFile	stream	1.2		FALSE	TRUE	FALSE			[fn:NotPresent(FontFile2) && fn:NotPresent(FontFile3)]	[FontFile]	
 FontFile2	stream	1.2		FALSE	TRUE	FALSE			[fn:NotPresent(FontFile) && fn:NotPresent(FontFile3)]	[fn:SinceVersion(1.2,FontFile2CIDType2)]	
 Style	dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,StyleDict)]	
 Lang	name	1.5		FALSE	FALSE	FALSE					
 FD	dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,FDDict)]	
-CIDSet	stream	1.2	2.0	FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,Stream)]	
+CIDSet	stream	1.2	2.0	FALSE	TRUE	FALSE				[Stream]	

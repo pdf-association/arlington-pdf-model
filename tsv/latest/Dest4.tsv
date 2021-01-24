@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-0	dictionary;number	1.0		TRUE	FALSE	FALSE		[];[fnEval(@self>=0)]		[fn:SinceVersion(1.0,PageObject)];[]	page
+0	dictionary;number	1.0		TRUE	FALSE	FALSE		[];[fnEval(@0>=0)]		[PageObject];[]	page
 1	name	1.0		TRUE	FALSE	FALSE		[FitR]			
 2	null;number	1.0		TRUE	FALSE	FALSE				[];[]	left
 3	null;number	1.0		TRUE	FALSE	FALSE				[];[]	bottom

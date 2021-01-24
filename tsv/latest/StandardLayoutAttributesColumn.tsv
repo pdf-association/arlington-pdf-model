@@ -9,5 +9,5 @@ BorderThickness	array;number	1.5		FALSE	FALSE	TRUE	0			[fn:SinceVersion(1.2,Arra
 Padding	array;number	1.5		FALSE	FALSE	FALSE	0			[fn:SinceVersion(1.2,ArrayOf_4Integers)];[]	
 Color	array	1.5		FALSE	FALSE	TRUE				[fn:SinceVersion(1.4,ArrayOf_3RGBNumbers)]	
 ColumnCount	integer	1.6		FALSE	FALSE	FALSE	1				
-ColumnGap	array;number	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)];[]	
-ColumnWidths	array;number	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfNumbersGeneral)];[]	
+ColumnGap	array;number	1.6		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral];[]	
+ColumnWidths	array;number	1.6		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral];[]	

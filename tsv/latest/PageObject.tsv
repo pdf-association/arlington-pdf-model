@@ -1,22 +1,22 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.0		TRUE	FALSE	FALSE		[Page,Template]			
-Parent	dictionary	1.0		fn:IsRequired(@Type!=Template)	TRUE	FALSE				[fn:SinceVersion(1.0,PageTreeNode),fn:SinceVersion(1.0,PageTreeNodeRoot)]	
+Parent	dictionary	1.0		fn:IsRequired(@Type!=Template)	TRUE	FALSE				[PageTreeNode,PageTreeNodeRoot]	
 LastModified	date	1.3		fn:IsRequired(fn:IsPresent(PieceInfo))	FALSE	FALSE					
-Resources	dictionary	1.0		TRUE	FALSE	TRUE				[fn:SinceVersion(1.0,Resource)]	Inheritable from Parent
+Resources	dictionary	1.0		TRUE	FALSE	TRUE				[Resource]	Inheritable from Parent
 MediaBox	rectangle	1.0		TRUE	FALSE	TRUE					Inheritable from Parent
 CropBox	rectangle	1.0		FALSE	FALSE	TRUE	@MediaBox				Inheritable from Parent
 BleedBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				Inheritable from Parent
 TrimBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				
 ArtBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				
 BoxColorInfo	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,BoxColorInfo)]	
-Contents	array;stream	1.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfStreamsGeneral)];[fn:SinceVersion(1.0,Stream)]	
-Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Expr(@self mod 90==0)]			Inheritable from Parent
+Contents	array;stream	1.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral];[Stream]	
+Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Expr(@Rotate mod 90==0)]			Inheritable from Parent
 Group	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,Group)]	
-Thumb	stream	1.0		FALSE	TRUE	FALSE				[fn:SinceVersion(1.0,Thumbnail)]	
+Thumb	stream	1.0		FALSE	TRUE	FALSE				[Thumbnail]	
 B	array	1.1		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOfBeads)]	
 Dur	number	1.1		FALSE	FALSE	FALSE					
 Trans	dictionary	1.1		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,Transition)]	
-Annots	array	1.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,ArrayOfAnnots)]	
+Annots	array	1.0		FALSE	FALSE	FALSE				[ArrayOfAnnots]	
 AA	dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,AddActionPageObject)]	
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[fn:SinceVersion(1.4,Metadata)]	
 PieceInfo	dictionary	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,PagePiece)]	

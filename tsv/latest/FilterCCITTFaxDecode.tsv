@@ -2,8 +2,8 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 K	integer	1.0		FALSE	FALSE	FALSE	0				
 EndOfLine	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
 EncodedByteAlign	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
-Columns	integer	1.0		FALSE	FALSE	FALSE	1728	[fn:Eval(@self>=0)]			
-Rows	integer	1.0		FALSE	FALSE	FALSE	0	[fn:Eval(@self>=0)]			
+Columns	integer	1.0		FALSE	FALSE	FALSE	1728	[fn:Eval(@Columns>=0)]			
+Rows	integer	1.0		FALSE	FALSE	FALSE	0	[fn:Eval(@Rows>=0)]			
 EndOfBlock	boolean	1.0		FALSE	FALSE	FALSE	TRUE				
 BlackIs1	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
-DamagedRowsBeforeError	integer	1.0		FALSE	FALSE	FALSE	0	[fn:Eval(@self>=0)]	[fn:Ignore((@EndOfLine==false) || (@K<0))]		
+DamagedRowsBeforeError	integer	1.0		FALSE	FALSE	FALSE	0	[fn:Eval(@DamagedRowsBeforeError>=0)]	[fn:Ignore((@EndOfLine==false) || (@K<0))]		

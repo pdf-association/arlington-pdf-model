@@ -1,9 +1,9 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.7		FALSE	FALSE	FALSE		[3DNode]			
 N	string	1.7		TRUE	FALSE	FALSE					
-O	number	1.7		FALSE	FALSE	FALSE		[fn:Expr(@self>=0 && @self<=1)]			
+O	number	1.7		FALSE	FALSE	FALSE		[fn:Expr(@O>=0 && @O<=1)]			
 V	boolean	1.7		FALSE	FALSE	FALSE					
 M	array	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,ArrayOf3DTransMatrix)]	
 Instance	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,RichMediaInstances)]	
-Data	stream;string-text	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.0,Stream)];[]	
+Data	stream;string-text	2.0		FALSE	FALSE	FALSE				[Stream];[]	
 RM	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,3DRenderMode)]	
