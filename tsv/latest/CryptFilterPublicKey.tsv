@@ -4,4 +4,4 @@ EncryptMetadata	boolean	1.5		FALSE	FALSE	FALSE	TRUE
 Type	name	1.5		FALSE	FALSE	FALSE		[CryptFilter]			
 CFM	name	1.5		FALSE	FALSE	FALSE	None	[None,V2,AESV2,AESV3]			
 AuthEvent	name	1.5		FALSE	FALSE	FALSE	DocOpen	[DocOpen,EFOpen]			
-Length	integer	1.5	2.0	TRUE	FALSE	FALSE		[fn:RequiredValue(@CFM==AESV2,128) || fn:RequiredValue(@CFM==AESV3,256) || fn:Expr(@Length>=40 && @Length<=128 && @Length mod 8==0)]			
+Length	integer	1.5	2.0	TRUE	FALSE	FALSE		[fn:RequiredValue(@CFM==AESV2,128) || fn:RequiredValue(@CFM==AESV3,256) || fn:Eval(@Length>=40 && @Length<=128 && @Length mod 8==0)]			

@@ -8,7 +8,7 @@ Flags	bitmask	1.2		TRUE	FALSE	FALSE
 FontBBox	rectangle	1.2		TRUE	FALSE	FALSE					
 ItalicAngle	number	1.2		TRUE	FALSE	FALSE					
 Ascent	number	1.2		TRUE	FALSE	FALSE					
-Descent	number	1.2		TRUE	FALSE	FALSE		[fn:Expr(@Descent<0)]			
+Descent	number	1.2		TRUE	FALSE	FALSE		[fn:Eval(@Descent<0)]			
 Leading	number	1.2		FALSE	FALSE	FALSE	0				
 CapHeight	number	1.2		fn:IsRequired(fn:FontHasLatinChars())	FALSE	FALSE					
 XHeight	number	1.2		FALSE	FALSE	FALSE	0				

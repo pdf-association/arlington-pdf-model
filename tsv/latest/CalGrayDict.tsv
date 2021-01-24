@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 WhitePoint	array	1.1		TRUE	FALSE	FALSE				[fn:SinceVersion(1.1,Whitepoint)]	
 BlackPoint	array	1.1		FALSE	FALSE	FALSE	[0.0 0.0 0.0]			[fn:SinceVersion(1.1,Blackpoint)]	
-Gamma	number	1.1		FALSE	FALSE	FALSE	1	[fn:Expr(@Gamma>0)]			
+Gamma	number	1.1		FALSE	FALSE	FALSE	1	[fn:Eval(@Gamma>0)]			
