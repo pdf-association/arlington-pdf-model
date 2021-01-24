@@ -10,9 +10,9 @@ Decode	array	1.4		FALSE	FALSE	FALSE	[[0,1]]			[ArrayOfNumbersGeneral]
 Interpolate	boolean	1.4		FALSE	FALSE	FALSE	FALSE				
 Matte	array	1.4		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
 Length	integer	1.4		TRUE	FALSE	FALSE					
-Filter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]		[ArrayOfFilterNames];[]	
-DecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),FilterCCITTFaxDecode,fn:SinceVersion(1.4,FilterJBIG2Decode),FilterDCTDecode,fn:SinceVersion(1.5,FilterCrypt)]	
+Filter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(DecodeParms) == fn:ArrayLength(Filter))]	[ArrayOfFilterNames];[]	
+DecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms) == fn:ArrayLength(Filter))]	[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),FilterCCITTFaxDecode,fn:SinceVersion(1.4,FilterJBIG2Decode),FilterDCTDecode,fn:SinceVersion(1.5,FilterCrypt)]	
 F	dictionary;string	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,FileSpecification)];[]	
-FFilter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]		[ArrayOfFilterNames];[]	
-FDecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),FilterCCITTFaxDecode,fn:SinceVersion(1.4,FilterJBIG2Decode),FilterDCTDecode,fn:SinceVersion(1.5,FilterCrypt)]	
-DL	integer	1.5		FALSE	FALSE	FALSE					
+FFilter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(FDecodeParms) == fn:ArrayLength(FFilter))]	[ArrayOfFilterNames];[]	
+FDecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms) == fn:ArrayLength(FFilter))]	[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),FilterCCITTFaxDecode,fn:SinceVersion(1.4,FilterJBIG2Decode),FilterDCTDecode,fn:SinceVersion(1.5,FilterCrypt)]	
+DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(@DL>=0)]		
