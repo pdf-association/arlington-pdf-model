@@ -5,14 +5,14 @@ FontFamily	string-byte	1.5		FALSE	FALSE	FALSE
 FontStretch	name	1.5		FALSE	FALSE	FALSE		[UltraCondensed,ExtraCondensed,Condensed,SemiCondensed,Normal,SemiExpanded,Expanded,ExtraExpanded,UltraExpanded]			
 FontWeight	number	1.5		FALSE	FALSE	FALSE		[100,200,300,400,500,600,700,800,900]			
 Flags	bitmask	1.0		TRUE	FALSE	FALSE					
-FontBBox	rectangle	1.0		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
+FontBBox	rectangle	1.0		TRUE	FALSE	FALSE					
 ItalicAngle	number	1.0		TRUE	FALSE	FALSE					
-Ascent	number	1.0		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
-Descent	number	1.0		TRUE	FALSE	FALSE		[fn:Eval(@Descent<0)]	Optional for Type 3 fonts		
+Ascent	number	1.0		TRUE	FALSE	FALSE					
+Descent	number	1.0		TRUE	FALSE	FALSE		[fn:Eval(@Descent<0)]			
 Leading	number	1.0		FALSE	FALSE	FALSE	0				
 CapHeight	number	1.0		fn:IsRequired(fn:FontHasLatinChars())	FALSE	FALSE					
 XHeight	number	1.0		FALSE	FALSE	FALSE	0				
-StemV	number	1.0		TRUE	FALSE	FALSE			Optional for Type 3 fonts		
+StemV	number	1.0		TRUE	FALSE	FALSE					
 StemH	number	1.0		FALSE	FALSE	FALSE	0				
 AvgWidth	number	1.0		FALSE	FALSE	FALSE	0				
 MaxWidth	number	1.0		FALSE	FALSE	FALSE	0				
