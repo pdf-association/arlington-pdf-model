@@ -6,7 +6,7 @@ ID	string-byte	1.3		FALSE	FALSE	FALSE
 Ref	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfStructElem)]	
 Pg	dictionary	1.3		FALSE	TRUE	FALSE				[PageObject]	
 K	array;dictionary;integer	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfStructElemKids)];[fn:SinceVersion(1.3,StructElem),fn:SinceVersion(1.3,MarkedContentReference),fn:SinceVersion(1.3,ObjectReference)];[]	
-A	array;dictionary;stream	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfAttributes)];[fn:SinceVersion(1.3,StandardLayoutAttributesBLSE),fn:SinceVersion(1.3,StandardLayoutAttributesColumn),fn:SinceVersion(1.3,StandardLayoutAttributesILSE),fn:SinceVersion(1.3,StandardTableAttributes),fn:SinceVersion(1.3,StandardListAttributes),fn:SinceVersion(1.3,StandardPrintFieldAttributes),fn:SinceVersion(1.4,StandardArtifactAttributes),fn:SinceVersion(1.6,UserPropertiesAttributes),fn:SinceVersion(1.6,NSOAttributes)];[Stream]	
+A	array;dictionary;stream	1.3		FALSE	[FALSE];[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.3,ArrayOfAttributes)];[fn:SinceVersion(1.3,StandardLayoutAttributesBLSE),fn:SinceVersion(1.3,StandardLayoutAttributesColumn),fn:SinceVersion(1.3,StandardLayoutAttributesILSE),fn:SinceVersion(1.3,StandardTableAttributes),fn:SinceVersion(1.3,StandardListAttributes),fn:SinceVersion(1.3,StandardPrintFieldAttributes),fn:SinceVersion(1.4,StandardArtifactAttributes),fn:SinceVersion(1.6,UserPropertiesAttributes),fn:SinceVersion(1.6,NSOAttributes)];[Stream]	
 C	array;name	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfNamesGeneral)];[]	
 R	integer	1.3		FALSE	FALSE	FALSE	0	[fn:Eval(@R>=0)]			
 T	string-text	1.3		FALSE	FALSE	FALSE					

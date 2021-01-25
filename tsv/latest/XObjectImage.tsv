@@ -7,7 +7,7 @@ ColorSpace	array;name	1.0		fn:IsRequired(@Filter!=JPXDecode)	FALSE	FALSE	fn:NotP
 BitsPerComponent	integer	1.0		fn:IsRequired(@Filter!=JPXDecode || ImageMask==true)	FALSE	FALSE		[fn:RequiredValue(@Filter==CCITTFaxDecode || @Filter==JBIG2Decode || @ImageMask==true,1),2,4,fn:RequiredValue(@Filter==RunLengthDecode || @Filter==DCTDecode,8),fn:SinceVersion(1.5,16)]			
 Intent	name	1.1		FALSE	FALSE	FALSE					
 ImageMask	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
-Mask	array;stream	1.3		FALSE	FALSE	FALSE			fn:NotPresent(fn:IsPresent(ImageMask))	[ArrayOfIntegersGeneral];[fn:SinceVersion(1.3,XObjectImageMask)]	
+Mask	array;stream	1.3		FALSE	[FALSE];[TRUE]	FALSE			fn:NotPresent(fn:IsPresent(ImageMask))	[ArrayOfIntegersGeneral];[fn:SinceVersion(1.3,XObjectImageMask)]	
 Decode	array	1.0		FALSE	FALSE	FALSE			fn:Ignore(@Filter==JPXDecode && fn:NotPresent(@ColorSpace) && @ImageMask==false)	[ArrayOfNumbersGeneral]	
 Interpolate	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
 Alternates	array	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfImageAlternates)]	

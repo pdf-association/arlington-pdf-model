@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-N	dictionary;stream	1.3	2.0	TRUE	FALSE	FALSE				[fn:SinceVersion(1.3,AppearanceTrapNetSubDict)];[fn:SinceVersion(1.3,XObjectFormTrapNet)]	
-R	dictionary;stream	1.3	2.0	FALSE	FALSE	FALSE	@N			[fn:SinceVersion(1.3,AppearanceTrapNetSubDict)];[fn:SinceVersion(1.3,XObjectFormTrapNet)]	
-D	dictionary;stream	1.3	2.0	FALSE	FALSE	FALSE	@N			[fn:SinceVersion(1.3,AppearanceTrapNetSubDict)];[fn:SinceVersion(1.3,XObjectFormTrapNet)]	
+N	dictionary;stream	1.3	2.0	TRUE	[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.3,AppearanceTrapNetSubDict)];[fn:SinceVersion(1.3,XObjectFormTrapNet)]	
+R	dictionary;stream	1.3	2.0	FALSE	[FALSE];[TRUE]	FALSE	@N			[fn:SinceVersion(1.3,AppearanceTrapNetSubDict)];[fn:SinceVersion(1.3,XObjectFormTrapNet)]	
+D	dictionary;stream	1.3	2.0	FALSE	[FALSE];[TRUE]	FALSE	@N			[fn:SinceVersion(1.3,AppearanceTrapNetSubDict)];[fn:SinceVersion(1.3,XObjectFormTrapNet)]	

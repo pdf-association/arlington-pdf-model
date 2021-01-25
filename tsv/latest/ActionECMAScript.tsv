@@ -2,4 +2,4 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.3		FALSE	FALSE	FALSE		[Action]			
 S	name	1.3		TRUE	FALSE	FALSE		[JavaScript]			
 Next	array;dictionary	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,ArrayOfActions)];[fn:SinceVersion(1.1,ActionGoTo),fn:SinceVersion(1.1,ActionGoToR),fn:SinceVersion(1.6,ActionGoToE),fn:SinceVersion(2.0,ActionGoToDp),fn:SinceVersion(1.1,ActionLaunch),fn:SinceVersion(1.1,ActionThread),fn:SinceVersion(1.1,ActionURI),fn:SinceVersion(1.2,ActionSound),fn:SinceVersion(1.2,ActionMovie),fn:SinceVersion(1.2,ActionHide),fn:SinceVersion(1.2,ActionNamed),fn:SinceVersion(1.2,ActionSubmitForm),fn:SinceVersion(1.2,ActionResetForm),fn:SinceVersion(1.2,ActionImportData),fn:SinceVersion(1.5,ActionSetOCGState),fn:SinceVersion(1.5,ActionRendition),fn:SinceVersion(1.5,ActionTransition),fn:SinceVersion(1.6,ActionGoTo3DView),fn:SinceVersion(1.3,ActionECMAScript),fn:SinceVersion(2.0,ActionRichMediaExecute)]	
-JS	stream;string-text	1.3		TRUE	FALSE	FALSE				[Stream];[]	
+JS	stream;string-text	1.3		TRUE	[TRUE];[FALSE]	FALSE				[Stream];[]	
