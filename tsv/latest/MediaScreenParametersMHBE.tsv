@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 W	integer	1.5		FALSE	FALSE	FALSE	3	[0,1,2,3]			
 B	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,ArrayOf_3RGBNumbers)]	
-O	number	1.5		FALSE	FALSE	FALSE	1.0	[fn:Eval(@O=0 && @O<=1)]			
+O	number	1.5		FALSE	FALSE	FALSE	1.0	[fn:Eval((@O>=0.0) && (@O<=1.0))]			
 M	integer	1.5		FALSE	FALSE	FALSE	0				
 F	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,FloatingWindowParameters)]	
