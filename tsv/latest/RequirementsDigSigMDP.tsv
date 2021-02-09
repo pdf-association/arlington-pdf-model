@@ -2,6 +2,6 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.7		FALSE	FALSE	FALSE		[Requirement]			
 S	name	1.7		TRUE	FALSE	FALSE		[DigSigMDP]			
 V	dictionary;name	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,Extensions)];[]	
-RH	array;dictionary	1.7		FALSE	FALSE	FALSE	[]			[fn:SinceVersion(1.7,ArrayOfRequirementsHandlers)];[fn:SinceVersion(1.7,RequirementsHandler)]	
+RH	array;dictionary	1.7		FALSE	FALSE	FALSE	[[]];[]			[fn:SinceVersion(1.7,ArrayOfRequirementsHandlers)];[fn:SinceVersion(1.7,RequirementsHandler)]	
 Penalty	integer	2.0		FALSE	FALSE	FALSE	100	[fn:Eval(@Penalty>=0 && @Penalty<=100)]			
 DigSig	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,Signature),fn:SinceVersion(1.3,DocTimeStamp)]	

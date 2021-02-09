@@ -3,13 +3,13 @@ Type	name	1.0		FALSE	FALSE	FALSE		[XObject]
 Subtype	name	1.0		TRUE	FALSE	FALSE		[Image]			
 Width	integer	1.0		TRUE	FALSE	FALSE					
 Height	integer	1.0		TRUE	FALSE	FALSE					
-ColorSpace	array;name	1.0		fn:IsRequired(@Filter!=JPXDecode)	FALSE	FALSE	fn:NotPresent(@ImageMask==true)	[];[DeviceCMYK,DeviceRGB,DeviceGray]		[fn:SinceVersion(1.1,CalGrayColorSpace),fn:SinceVersion(1.1,CalRGBColorSpace),fn:SinceVersion(1.1,LabColorSpace),fn:SinceVersion(1.3,ICCBasedColorSpace),IndexedColorSpace,fn:SinceVersion(1.2,SeparationColorSpace),fn:SinceVersion(1.6,DeviceNColorSpace),fn:SinceVersion(1.2,PatternColorSpace)];[]	
+ColorSpace	array;name	1.0		fn:IsRequired(@Filter!=JPXDecode)	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]	[fn:NotPresent(@ImageMask==true)]	[fn:SinceVersion(1.1,CalGrayColorSpace),fn:SinceVersion(1.1,CalRGBColorSpace),fn:SinceVersion(1.1,LabColorSpace),fn:SinceVersion(1.3,ICCBasedColorSpace),IndexedColorSpace,fn:SinceVersion(1.2,SeparationColorSpace),fn:SinceVersion(1.6,DeviceNColorSpace),fn:SinceVersion(1.2,PatternColorSpace)];[]	
 BitsPerComponent	integer	1.0		fn:IsRequired(@Filter!=JPXDecode || ImageMask==true)	FALSE	FALSE		[fn:RequiredValue(@Filter==CCITTFaxDecode || @Filter==JBIG2Decode || @ImageMask==true,1),2,4,fn:RequiredValue(@Filter==RunLengthDecode || @Filter==DCTDecode,8),fn:SinceVersion(1.5,16)]			
 Intent	name	1.1		FALSE	FALSE	FALSE					
-ImageMask	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
+ImageMask	boolean	1.0		FALSE	FALSE	FALSE	false				
 Mask	array;stream	1.3		FALSE	[FALSE];[TRUE]	FALSE			fn:NotPresent(fn:IsPresent(ImageMask))	[ArrayOfIntegersGeneral];[fn:SinceVersion(1.3,XObjectImageMask)]	
 Decode	array	1.0		FALSE	FALSE	FALSE			fn:Ignore(@Filter==JPXDecode && fn:NotPresent(@ColorSpace) && @ImageMask==false)	[ArrayOfNumbersGeneral]	
-Interpolate	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
+Interpolate	boolean	1.0		FALSE	FALSE	FALSE	false				
 Alternates	array	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfImageAlternates)]	
 SMask	stream	1.4		FALSE	TRUE	FALSE			fn:NotPresent(@SMaskInData>0)	[fn:SinceVersion(1.4,XObjectImageSoftMask)]	
 SMaskInData	integer	1.5		FALSE	FALSE	FALSE		[0,1,2]			

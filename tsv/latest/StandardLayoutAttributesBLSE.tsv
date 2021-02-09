@@ -4,9 +4,9 @@ Placement	name	1.4		FALSE	FALSE	FALSE		[Block,Inline,Before,Start,End]
 WritingMode	name	1.4		FALSE	FALSE	TRUE	LrTb	[LrTb,RlTb,TbRl,TbLr,LrBt,RlBt,BtRl,BtLr]			
 BackgroundColor	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,ArrayOf_3RGBNumbers)]	
 BorderColor	array	1.5		FALSE	FALSE	TRUE				[fn:SinceVersion(1.5,ArrayOf_4BorderColors),fn:SinceVersion(1.4,ArrayOf_3RGBNumbers)]	
-BorderStyle	array;name	1.5		FALSE	FALSE	FALSE	None	[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]		[fn:SinceVersion(1.5,ArrayOf_4BorderStyleNames)];[]	
-BorderThickness	array;number	1.5		FALSE	FALSE	TRUE	0			[fn:SinceVersion(1.2,ArrayOf_4Integers)];[]	
-Padding	array;number	1.5		FALSE	FALSE	FALSE	0			[fn:SinceVersion(1.2,ArrayOf_4Integers)];[]	
+BorderStyle	array;name	1.5		FALSE	FALSE	FALSE	[];[None]	[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]		[fn:SinceVersion(1.5,ArrayOf_4BorderStyleNames)];[]	
+BorderThickness	array;number	1.5		FALSE	FALSE	TRUE	[];[0]			[fn:SinceVersion(1.2,ArrayOf_4Integers)];[]	
+Padding	array;number	1.5		FALSE	FALSE	FALSE	[];[0]			[fn:SinceVersion(1.2,ArrayOf_4Integers)];[]	
 Color	array	1.5		FALSE	FALSE	TRUE				[fn:SinceVersion(1.4,ArrayOf_3RGBNumbers)]	
 SpaceBefore	number	1.4		FALSE	FALSE	FALSE	0				
 SpaceAfter	number	1.4		FALSE	FALSE	FALSE	0				
@@ -15,9 +15,9 @@ EndIndent	number	1.4		FALSE	FALSE	TRUE	0
 TextIndent	number	1.4		FALSE	FALSE	TRUE	0				
 TextAlign	name	1.4		FALSE	FALSE	TRUE	Start	[Start,Center,End,Justify]			
 BBox	rectangle	1.4		FALSE	FALSE	FALSE					
-Width	name;number	1.4		FALSE	FALSE	FALSE	Auto				
-Height	name;number	1.4		FALSE	FALSE	FALSE	Auto				
+Width	name;number	1.4		FALSE	FALSE	FALSE	[Auto];[]				
+Height	name;number	1.4		FALSE	FALSE	FALSE	[Auto];[]				
 BlockAlign	name	1.4		FALSE	FALSE	TRUE	Before	[Before,Middle,After,Justify]			
 InlineAlign	name	1.4		FALSE	FALSE	TRUE	Start	[Start,Center,End]			
-TBorderStyle	array;name	1.5		FALSE	FALSE	TRUE	None			[fn:SinceVersion(1.5,ArrayOf_4BorderStyleNames)];[]	
-TPadding	array;integer	1.5		FALSE	FALSE	TRUE	0			[fn:SinceVersion(1.2,ArrayOf_4Integers)];[]	
+TBorderStyle	array;name	1.5		FALSE	FALSE	TRUE	[];[None]			[fn:SinceVersion(1.5,ArrayOf_4BorderStyleNames)];[]	
+TPadding	array;integer	1.5		FALSE	FALSE	TRUE	[];[0]			[fn:SinceVersion(1.2,ArrayOf_4Integers)];[]	

@@ -3,8 +3,8 @@ Start	array;integer;string	1.2	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,Arr
 Duration	array;integer;string	1.2	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,ArrayOfDuration)];[];[]	
 Rate	number	1.2	2.0	FALSE	FALSE	FALSE	1.0				
 Volume	number	1.2	2.0	FALSE	FALSE	FALSE	1.0				
-ShowControls	boolean	1.2	2.0	FALSE	FALSE	FALSE	FALSE				
+ShowControls	boolean	1.2	2.0	FALSE	FALSE	FALSE	false				
 Mode	name	1.2	2.0	FALSE	FALSE	FALSE	Once	[Once,Open,Repeat,Palindrome]			
-Synchronous	boolean	1.2	2.0	FALSE	FALSE	FALSE	FALSE				
+Synchronous	boolean	1.2	2.0	FALSE	FALSE	FALSE	false				
 FWScale	array	1.2	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,ArrayOf_2Integers)]	
 FWPosition	array	1.2	2.0	FALSE	FALSE	FALSE	[0.5 0.5]			[fn:SinceVersion(1.2,ArrayOf_2Numbers)]	

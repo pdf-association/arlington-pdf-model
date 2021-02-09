@@ -14,4 +14,4 @@ OE	string-byte	1.1		fn:IsRequired(@R==6)	FALSE	FALSE			[fn:StringLength(32)]		32
 UE	string-byte	1.1		fn:IsRequired(@R==6)	FALSE	FALSE					
 P	bitmask	1.1		TRUE	FALSE	FALSE		[fn:BitsClear(1,2),3,4,5,6,fn:BitsSet(7,8),9,fn:SinceVersion(2.0,fn:BitSet(10)),11,12,fn:BitsSet(13,32)]			
 Perms	string-byte	1.1		fn:IsRequired(@R==6)	FALSE	FALSE					
-EncryptMetadata	boolean	1.3		FALSE	FALSE	FALSE	TRUE		[fn:IsMeaningful((@V==4 && fn:SinceVersion(1.5)) || (@V==5 && fn:SinceVersion(2.0)))]		
+EncryptMetadata	boolean	1.3		FALSE	FALSE	FALSE	true		[fn:IsMeaningful((@V==4 && fn:SinceVersion(1.5)) || (@V==5 && fn:SinceVersion(2.0)))]		

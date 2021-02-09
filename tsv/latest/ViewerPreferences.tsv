@@ -1,10 +1,10 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-HideToolbar	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-HideMenubar	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-HideWindowUI	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-FitWindow	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-CenterWindow	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-DisplayDocTitle	boolean	1.4		FALSE	FALSE	FALSE	FALSE				
+HideToolbar	boolean	1.2		FALSE	FALSE	FALSE	false				
+HideMenubar	boolean	1.2		FALSE	FALSE	FALSE	false				
+HideWindowUI	boolean	1.2		FALSE	FALSE	FALSE	false				
+FitWindow	boolean	1.2		FALSE	FALSE	FALSE	false				
+CenterWindow	boolean	1.2		FALSE	FALSE	FALSE	false				
+DisplayDocTitle	boolean	1.4		FALSE	FALSE	FALSE	false				
 NonFullScreenPageMode	name	1.2		FALSE	FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,UseOC]	[fn:IsMeaningful(Catalog::@PageMode==FullScreen)]		
 Direction	name	1.3		FALSE	FALSE	FALSE	L2R	[L2R,R2L]			
 ViewArea	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			
@@ -13,7 +13,7 @@ PrintArea	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,Trim
 PrintClip	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			
 PrintScaling	name	1.6		FALSE	FALSE	FALSE	AppDefault	[None,AppDefault]			
 Duplex	name	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[Simplex,DuplexFlipShortEdge,DuplexFlipLongEdge]			
-PickTrayByPDFSize	boolean	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()				
+PickTrayByPDFSize	boolean	1.7		FALSE	FALSE	FALSE	false				
 PrintPageRange	array	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()			[ArrayOfIntegersGeneral]	
 NumCopies	integer	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()				
 Enforce	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfNamesForEnforce)]	

@@ -4,7 +4,7 @@ Creator	string-text	1.5		FALSE	FALSE	FALSE
 BaseState	name	1.5		FALSE	FALSE	FALSE	ON	[ON,OFF,Unchanged]			
 ON	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfOptContentGroups)]	
 OFF	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfOptContentGroups)]	
-Intent	array;name	1.5		FALSE	FALSE	FALSE	View	[];[All,Design,View]		[fn:SinceVersion(1.3,ArrayOfNamesGeneral)];[]	
+Intent	array;name	1.5		FALSE	FALSE	FALSE	[];[View]	[];[All,Design,View]		[fn:SinceVersion(1.3,ArrayOfNamesGeneral)];[]	
 AS	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfOCUsage)]	
 Order	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfOptContentGroups)]	
 ListMode	name	1.5		FALSE	FALSE	FALSE	AllPages	[AllPages,VisiblePages]			
