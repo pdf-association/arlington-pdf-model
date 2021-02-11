@@ -10,7 +10,7 @@ Padding	array;number	1.5		FALSE	FALSE	FALSE	[];[0]			[fn:SinceVersion(1.2,ArrayO
 Color	array	1.5		FALSE	FALSE	TRUE				[fn:SinceVersion(1.4,ArrayOf_3RGBNumbers)]	
 BaselineShift	number	1.4		FALSE	FALSE	TRUE	0				
 LineHeight	name;number	1.4		FALSE	FALSE	TRUE	[Normal];[]	[Normal,Auto];[]			
-TextPosition	name	2.0		FALSE	FALSE	TRUE	[Normal];[]	[Sup,Sub,Normal]			
+TextPosition	name	2.0		FALSE	FALSE	TRUE	Normal	[Sup,Sub,Normal]			
 TextDecorationColor	array	1.5		FALSE	FALSE	TRUE				[fn:SinceVersion(1.4,ArrayOf_3RGBNumbers)]	
 TextDecorationThickness	number	1.5		FALSE	FALSE	TRUE					
 TextDecorationType	name	1.4		FALSE	FALSE	TRUE	None	[None,Underline,Overline,LineThrough]			
