@@ -13,5 +13,5 @@ FDecodeParms	array;dictionary	1.5		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(F
 DL	integer	1.5		FALSE	FALSE	FALSE		[fn:Eval(@DL>=0)]	[fn:Eval(@DL>=0)]		
 Root	dictionary	1.5		TRUE	TRUE	FALSE				[Catalog]	
 Info	dictionary	1.5		FALSE	TRUE	FALSE				[DocInfo]	
-ID	array	1.5		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	[fn:MustBeDirect(fn:IsPresent(Encrypt)) && fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1)]	FALSE				[fn:SinceVersion(1.1,ArrayOf_2StringsByte)]	
+ID	array	1.5		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt)) && fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1)	FALSE				[fn:SinceVersion(1.1,ArrayOf_2StringsByte)]	
 Encrypt	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,EncryptionStandard),fn:SinceVersion(1.1,EncryptionPublicKey)]	
