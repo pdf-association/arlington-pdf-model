@@ -40,7 +40,8 @@ class ArlingtonFnLexer(Lexer):
         GE,           LE,           GT,           LT,
         LOGICAL_AND,  LOGICAL_OR,   REAL,         INTEGER,
         PLUS,         MINUS,        TIMES,        DIVIDE,
-        LPAREN,       RPAREN,       COMMA
+        LPAREN,       RPAREN,       COMMA,        ARRAY_START,
+        ARRAY_END,    ELLIPSIS,     PDF_TRUE,     PDF_FALSE, PDF_STRING
     }
 
     # Precedence rules
@@ -55,15 +56,23 @@ class ArlingtonFnLexer(Lexer):
     ignore       = ' '
 
     # Regular expression rules for tokens
+    # Longer rules need to be at the top
     FUNC_NAME    = r'fn\:[A-Z][a-zA-Z0-9]+\('
+    PDF_TRUE     = r'(true)|(TRUE)'
+    PDF_FALSE    = r'(false)|(FALSE)'
+    PDF_STRING   = r'\([a-zA-Z]+\)'
     MOD          = r'mod'
+    ELLIPSIS     = r'\.\.\.'
     KEY_VALUE    = r'@(\*|[0-9]+|[0-9]+\*|[a-zA-Z0-9_\.\-]+)'
+    # Key name is both a PDF name or a TSV filename
     # Key name of just '*' is ambiguous TIMES (multiply) operator.
     # Key name which is numeric array index (0-9*) is ambiguous with integers.
     # Array indices are integers, or integer followed by ASTERISK (wildcard) - need to use SPACEs to disambiguate
     KEY_PATH     = r'(parent::)?(([a-zA-Z]|[a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[a-zA-Z])[a-zA-Z0-9_\.\-]*::)+'
-    KEY_NAME     = r'([a-zA-Z]|[a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[a-zA-Z])[a-zA-Z0-9_\.\-]*'
+    KEY_NAME     = r'([_a-zA-Z]|[_a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[_a-zA-Z])[a-zA-Z0-9_\.\-]*'
     PDF_PATH     = r'::'
+    ARRAY_START  = r'\['
+    ARRAY_END    = r'\]'
     EQ           = r'=='
     NE           = r'!='
     GE           = r'>='
@@ -92,12 +101,12 @@ class ArlingtonFnLexer(Lexer):
         t.value = int(t.value)
         return t
 
-    @_(r'false')
+    @_(r'(false)|(FALSE)')
     def PDF_FALSE(self, t):
         t.value = False
         return t
 
-    @_(r'true')
+    @_(r'(true)|(TRUE)')
     def PDF_TRUE(self, t):
         t.value = True
         return t
@@ -118,9 +127,11 @@ class Arlington:
 
     # Only strip off outer "[...]" as inner square brackets may exist for PDF arrays
     def _StripSquareBackets(self, li):
-        if (isinstance(li, str)):
+        if (li == None):
+            return None
+        elif (isinstance(li, str)):
             # Single string
-            if ((li[0] == r'[') and (li[len(li)-1] == r']')):
+            if ((li[0] == r'[') and (li[-1] == r']')):
                 return li[1 : len(li)-1]
             else:
                 return li
@@ -130,13 +141,13 @@ class Arlington:
             for i in li:
                 if (i == r'[]'):
                     l.append(None)
-                elif ((i[0] == r'[') and (i[len(i)-1] == r']')):
+                elif ((i[0] == r'[') and (i[-1] == r']')):
                     l.append(i[1 : len(i)-1])
                 else:
                     l.append(i)
             return l
         else:
-            raise TypeError("Unexpected type when removing square brackets")
+            raise TypeError("Unexpected type (%s) when removing square brackets" % type(li))
 
 
     # Convert spreadsheet booleans to Python: "FALSE" to False, "TRUE" to True
@@ -164,30 +175,80 @@ class Arlington:
             raise TypeError("Unexpected type for converting booleans")
 
 
-    # Process declarative functions in Link
-    # Parses strings such as "FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),FilterCCITTFaxDecode,fn:SinceVersion(1.4,FilterJBIG2Decode)"
-    # into: [ 'FilterLZWDecode', 'fn:SinceVersion(1.2,FilterFlateDecode)', 'FilterCCITTFaxDecode', 'fn:SinceVersion(1.4,FilterJBIG2Decode)' ]
-    def _ConvertLinks(self, links):
-        m = re.findall("(fn:[a-zA-Z]*\(\d\.\d\,[^)]*\))|([a-zA-Z0-9_\-]*)", links)
-        # Returns pairs: function with link in-situ, non-function links
-        # Separating commas are parsed as ('', '') so need to be skipped over
-        lnk = []
-        for i,j in m:
-            if (i != ''):
-                lnk.append(i)
-            elif (j != ''):
-                lnk.append(j)
-        return lnk
+    # Recurse through the Types list structure seeing if 'typ' is present
+    # (incliding anywhere in a declarative functions). This is NOT smart.
+    def _FindType(self, typ, typelist):
+        if (typ not in self._known_types):
+            logging.error("%s is not a well known type!" % typ)
+
+        for i, t in enumerate(typelist):
+            if isinstance(t, str) and (t == typ):
+                return i
+            elif isinstance(t, list):
+                if (self._FindType(typ, t) != -1):
+                    return i
+        return -1
 
 
-    # Use Sly to parse a declaractive function
+    # Assumes a fully valid parse tree with fully bracketed "( .. )" expressions
+    # Also nests PDF array objects "[ ... ]"
+    # Recursive
+    def _ToNestedAST(self, stk, idx=0):
+        ast = []
+        i = idx
+
+        while (i < len(stk)):
+            if (stk[i].type == 'FUNC_NAME'):
+                j, k = self._ToNestedAST(stk, i+1)
+                k = [ stk[i] ] + [ k ]  # Insert the func name at the start
+                ast.append(k)
+                i = j
+            elif (stk[i].type == 'LPAREN') or (stk[i].type == 'ARRAY_START'):
+                j, k = self._ToNestedAST(stk, i+1)
+                ast.append(k)
+                i = j
+            elif (stk[i].type == 'RPAREN') or (stk[i].type == 'ARRAY_END'):
+                # go up recursion 1 level
+                return i+1, ast
+            elif (stk[i].type == 'COMMA'):
+                # skip COMMAs
+                i = i + 1
+            else:
+                ast.append( stk[i] )
+                i = i + 1
+        logging.debug(pprint.pformat(ast))
+        return i, ast
+
+
+    # De-tokenize for all the simple PDF stuff (integers, numbers, true/false keywords)
+    # Recursive
+    def _FlattenAST(self, ast):
+        i = 0
+        while (i < len(ast)):
+            if not isinstance(ast[i], list):
+                if (ast[i].type in ('REAL', 'INTEGER', 'PDF_TRUE', 'PDF_FALSE', 'KEY_NAME', 'PDF_STRING')):
+                    ast[i] = ast[i].value
+            else:
+                self._FlattenAST(ast[i])
+            i = i + 1
+
+
+    # Use Sly to parse any string with TSV names, PDF names or declaractive functions
     # Sly will raise exceptions if there are errors
-    # Returns the series of tokens as a Python list
-    def _CheckFunction(self, func):
-        fn = []
+    # Returns a Python list with top level TSV names or PDF names as strings and functions as lists
+    def _ParseFunctions(self, func, col, obj, key):
+        logging.debug("In row['%s'] %s::%s: '%s'" % (col, obj, key, func))
+        stk = []
         for tok in self.__lexer.tokenize(func):
-            fn.append(tok)
-        return fn
+            stk.append(tok)
+        num_toks = len(stk)
+        i, ast = self._ToNestedAST(stk)
+        logging.debug("AST: %s" % pprint.pformat(ast))
+        self._FlattenAST(ast)
+        if (num_toks == 1):
+            ast = ast[0]
+        logging.debug("Out: %s" % pprint.pformat(ast))
+        return ast
 
 
     # Constructor - takes a TSV directory as a parameter
@@ -214,26 +275,39 @@ class Arlington:
                     if (keyname == ''):
                         raise TypeError("Key name field cannot be empty")
 
-                    # Make multi-type fields into arrays (aka Python lists) and empty fields into None
+                    # Make multi-type fields into arrays (aka Python lists)
                     if (r';' in row['Type']):
-                        i = re.split(r';', row['Type'])
-                        row['Type'] = i
+                        row['Type'] = re.split(r';', row['Type'])
                     else:
                         row['Type'] = [ row['Type'] ]
+                    for i, v in enumerate(row['Type']):
+                        if (r'fn:' in v):
+                            row['Type'][i] = self._ParseFunctions(v, 'Type', obj_name, keyname)
 
-                    # Must be FALSE or TRUE
-                    row['Required'] = self._ConvertBooleans(row['Required'])
+                    row['Required'] = self._ParseFunctions(row['Required'], 'Required', obj_name, keyname)
+                    if (row['Required'] != None) and not isinstance(row['Required'], list):
+                        row['Required'] = [ row['Required'] ]
 
                     # Optional, but must be a known PDF version
                     if (row['DeprecatedIn'] == ''):
                         row['DeprecatedIn'] = None
 
                     if (r';' in row['IndirectReference']):
-                        row['IndirectReference'] = self._ConvertBooleans(self._StripSquareBackets(re.split(r';', row['IndirectReference'])))
+                        row['IndirectReference'] = self._StripSquareBackets(re.split(r';', row['IndirectReference']))
+                        for i, v in enumerate(row['IndirectReference']):
+                            if (v != None):
+                                row['IndirectReference'][i] = self._ParseFunctions(v, 'IndirectReference', obj_name, keyname)
                     else:
-                        row['IndirectReference'] = self._ConvertBooleans(row['IndirectReference'])
+                        row['IndirectReference'] = self._ParseFunctions(row['IndirectReference'], 'IndirectReference', obj_name, keyname)
+                    if not isinstance(row['IndirectReference'], list):
+                        row['IndirectReference'] = [ row['IndirectReference'] ]
+                    # For conciseness in some cases a single FALSE/TRUE is used in place of an expanded array [];[];[]
+                    # Expand this out so direct indexing is always possible
+                    if (len(row['Type']) > len(row['IndirectReference'])) and (len(row['IndirectReference']) == 1):
+                        for i in range(len(row['Type']) - len(row['IndirectReference'])):
+                            row['IndirectReference'].append( row['IndirectReference'][0] );
 
-                    # Must be FALSE or TRUE
+                    # Must be FALSE or TRUE (uppercase only!)
                     row['Inheritable'] = self._ConvertBooleans(row['Inheritable'])
 
                     # Can only be one value for Key, but Key can be multi-typed
@@ -241,111 +315,57 @@ class Arlington:
                         row['DefaultValue'] = None
                     elif (r';' in row['DefaultValue']):
                         row['DefaultValue'] = self._StripSquareBackets(re.split(r';', row['DefaultValue']))
+                        for i, v in enumerate(row['DefaultValue']):
+                            if (v != None):
+                                row['DefaultValue'][i] = self._ParseFunctions(v, 'DefaultValue', obj_name, keyname)
                     else:
-                        if ('array' in row['Type']):
-                            # PDF array values stored as Python strings that start with "[" and end with "]"
-                            row['DefaultValue'] = [ row['DefaultValue'] ]
-                        else:
-                            row['DefaultValue'] = [ self._StripSquareBackets(row['DefaultValue']) ]
-
-                    if (row['DefaultValue'] != None):
-                        dv = False
-                        for i, t in enumerate(row['Type']):
-                            if (isinstance(row['DefaultValue'][i], str) and (r'fn:' not in row['DefaultValue'][i])):
-                                if ((t.find(r'integer') != -1) or (t.find(r'bitmask') != -1)):
-                                    if (dv):
-                                        logging.error("DefaultValue already processed for %s::%s!" % (obj_name, keyname))
-                                    row['DefaultValue'][i] = int(row['DefaultValue'][i], base=10)
-                                    dv = True
-                                elif (t.find(r'number') != -1):
-                                    if (dv):
-                                        logging.error("DefaultValue already processed for %s::%s!" % (obj_name, keyname))
-                                    row['DefaultValue'][i] = float(row['DefaultValue'][i])
-                                    dv = True
-                                elif (t.find(r'boolean') != -1):
-                                    if ('true' == row['DefaultValue'][i]):
-                                        if (dv):
-                                            logging.error("DefaultValue already processed for %s::%s!" % (obj_name, keyname))
-                                        row['DefaultValue'][i] = True
-                                        dv = True
-                                    elif ('false' == row['DefaultValue'][i]):
-                                        if (dv):
-                                            logging.error("DefaultValue already processed for %s::%s!" % (obj_name, keyname))
-                                        row['DefaultValue'][i] = False
-                                        dv = True
-                                    else:
-                                        logging.error("Boolean DefaultValue '%s' not recognized for %s::%s!" % (row['DefaultValue'][i], obj_name, keyname))
-
+                        row['DefaultValue'] = self._ParseFunctions(row['DefaultValue'], 'DefaultValue', obj_name, keyname)
+                    if (row['DefaultValue'] != None) and not isinstance(row['DefaultValue'], list):
+                        row['DefaultValue'] = [ row['DefaultValue'] ]
                     if (row['PossibleValues'] == ''):
                         row['PossibleValues'] = None
-                    else:
-                        if (r';' in row['PossibleValues']):
-                            row['PossibleValues'] = self._StripSquareBackets(re.split(r';', row['PossibleValues']))
-                        else:
-                            row['PossibleValues'] = [ self._StripSquareBackets(row['PossibleValues']) ]
-
-                        # Break COMMA-separated possible values into a list (avoiding functions for now!)
+                    elif (r';' in row['PossibleValues']):
+                        row['PossibleValues'] = self._StripSquareBackets(re.split(r';', row['PossibleValues']))
                         for i, pv in enumerate(row['PossibleValues']):
-                            if (isinstance(pv, str) and (r',' in pv) and (r"fn:" not in pv)):
-                                row['PossibleValues'][i] = re.split(r',', pv)
+                            if (pv != None):
+                                row['PossibleValues'][i] = self._ParseFunctions(pv, 'PossibleValues', obj_name, keyname)
+                    else:
+                        row['PossibleValues'] = self._ParseFunctions(row['PossibleValues'], 'PossibleValues', obj_name, keyname)
+                    if (row['PossibleValues'] != None) and not isinstance(row['PossibleValues'], list):
+                        row['PossibleValues'] = [ row['PossibleValues'] ]
 
-                    if (row['PossibleValues'] != None):
-                        for i, t in enumerate(row['Type']):
-                            if (isinstance(row['PossibleValues'][i], str) and (r"fn:" not in row['PossibleValues'][i])):
-                                if ((t.find('integer') != -1) or (t.find('bitmask') != -1)):
-                                    row['PossibleValues'][i] = int(row['PossibleValues'][i], base=10)
-                                elif (t.find('number') != -1):
-                                    row['PossibleValues'][i] = float(row['PossibleValues'][i])
-                                elif (t.find(r'boolean') != -1):
-                                    if ('true' == row['PossibleValues'][i]):
-                                        row['PossibleValues'][i] = True
-                                    elif ('false' == row['PossibleValues'][i]):
-                                        row['PossibleValues'][i] = False
-                                    else:
-                                        logging.error("Boolean PossibleValues '%s' not recognized for %s::%s!" % (row['PossibleValues'][i], obj_name, keyname))
-                            elif (isinstance(row['PossibleValues'][i], list)):
-                                for j, pv in enumerate(row['PossibleValues'][i]):
-                                    if (r"fn:" not in pv):
-                                        if ((t.find('integer') != -1) or (t.find('bitmask') != -1)):
-                                            row['PossibleValues'][i][j] = int(pv, base=10)
-                                        elif (t.find('number') != -1):
-                                            row['PossibleValues'][i][j] = float(pv)
-                                        elif (t.find(r'boolean') != -1):
-                                            if ('true' == pv):
-                                                row['PossibleValues'][i][j] = True
-                                            elif ('false' == pv):
-                                                row['PossibleValues'][i][j] = False
-                                            else:
-                                                logging.error("Boolean PossibleValues '%s' not recognized for %s::%s!" % (pv, obj_name, keyname))
+                    # This is hack because a few PDF key values look like floats but are really names.
+                    # Sly parsing here does not use any hints from other rows
+                    # See /Version key and DocMDPTransformParameters::V
+                    if (row['DefaultValue'] != None) and isinstance(row['DefaultValue'][0], float) and (row['Type'][0] == 'name'):
+                        row['DefaultValue'][0] = str(row['DefaultValue'][0])
+                        if (row['PossibleValues'] != None):
+                            row['PossibleValues'][0] = str(row['PossibleValues'][0])
 
                     if (row['SpecialCase'] == ''):
                         row['SpecialCase'] = None
                     elif (r';' in row['SpecialCase']):
                         row['SpecialCase'] = self._StripSquareBackets(re.split(r';', row['SpecialCase']))
+                        for i, v in enumerate(row['SpecialCase']):
+                            if (v != None):
+                                row['SpecialCase'][i] = self._ParseFunctions(v, 'SpecialCase', obj_name, keyname)
                     else:
-                        row['SpecialCase'] = [ self._StripSquareBackets(row['SpecialCase']) ]
+                        row['SpecialCase'] = self._ParseFunctions(row['SpecialCase'], 'SpecialCase', obj_name, keyname)
+                    if (row['SpecialCase'] != None) and not isinstance(row['SpecialCase'], list):
+                        row['SpecialCase'] = [ row['SpecialCase'] ]
 
                     if (row['Link'] == ''):
                         row['Link'] = None
                     else:
                         if (r';' in row['Link']):
                             row['Link'] = self._StripSquareBackets(re.split(r';', row['Link']))
+                            for i, v in enumerate(row['Link']):
+                                if (v != None):
+                                    row['Link'][i] = self._ParseFunctions(v, 'Link', obj_name, keyname)
                         else:
-                            row['Link'] = [ self._StripSquareBackets(row['Link']) ]
-
-                        for i, lnk in enumerate(row['Link']):
-                            if (isinstance(lnk, str)):
-                                if not (r"fn:" in lnk):
-                                    row['Link'][i] = re.split(r'\,', lnk)
-                                else:
-                                    row['Link'][i] = self._ConvertLinks(lnk)
-                            elif (isinstance(lnk, list)):
-                                for j, l in enumerate(lnk):
-                                    if (isinstance(l, str)):
-                                        if not (r"fn:" in l):
-                                            row['Link'][i][j] = re.split(r'\,', l)
-                                        else:
-                                            row['Link'][i][j] = self._ConvertLinks(l)
+                            row['Link'] = self._ParseFunctions(row['Link'], 'Link', obj_name, keyname)
+                    if (row['Link'] != None) and not isinstance(row['Link'], list):
+                        row['Link'] = [ row['Link'] ]
 
                     if (row['Note'] == ''):
                         row['Note'] = None
@@ -357,7 +377,7 @@ class Arlington:
             logging.error("There were no TSV files in directory '%s'!" % self.__directory)
             return
 
-        logging.info('%d TSV files processed from %s' % (self.__filecount, self.__directory))
+        logging.info("%d TSV files processed from %s" % (self.__filecount, self.__directory))
 
 
     # Does a detailed Validation of the in-memory Python data structure
@@ -384,175 +404,84 @@ class Arlington:
                 if (m == None):
                     logging.error("Key '%s' in object %s has unexpected characters" % (keyname, obj_name))
 
+                # Check if Types are sorted alphabetically
+                sorted = all(isinstance(row['Type'][i], str) and isinstance(row['Type'][i+1], str) and (row['Type'][i] <= row['Type'][i+1]) for i in range(len(row['Type'])-1))
+                if not sorted:
+                    logging.error("Types '%s' are not sorted alphabetically for %s::%s" % (row['Type'], obj_name, keyname))
+
                 if (row['SinceVersion'] not in self._pdf_versions):
                     logging.error("SinceVersion '%s' in %s::%s has unexpected value!" % (row['SinceVersion'], obj_name, keyname))
 
                 if (row['DeprecatedIn'] != None) and (row['DeprecatedIn'] not in self._pdf_versions):
                     logging.error("DeprecatedIn '%s' in %s::%s has unexpected value!" % (row['DeprecatedIn'], obj_name, keyname))
 
-                if not ((row['Required'] == True) or (row['Required'] == False) or row['Required'].startswith("fn:IsRequired(")):
-                    logging.error("Required %s '%s' in %s::%s is not FALSE, TRUE or fn:IsRequired!" % (type(row['Required']), row['Required'], obj_name, keyname))
+                for v in row['Required']:
+                    if isinstance(v, list):
+                        if (v[0].type != 'FUNC_NAME') and (v[0].value != 'fn:IsRequired('):
+                            logging.error("Required function '%s' does not start with 'fn:IsRequired' for %s::%s" % (row['Required'], obj_name, keyname))
+                    if (r'*' in keyname) and isinstance(v, bool) and (v != False):
+                        logging.error("Required needs to be FALSE for wildcard key '%s' in %s!" % (keyname, obj_name))
 
-                if  (isinstance(row['Required'], str) and (r'fn:' in row['Required'])):
-                    fn = self._CheckFunction(row['Required'])
-
-                if (r'*' in keyname) and (row['Required'] != False):
-                    logging.error("Required needs to be FALSE for wildcard key '%s' in %s!" % (keyname, obj_name))
-
-                if (isinstance(row['IndirectReference'], list)):
+                if (isinstance(row['IndirectReference'], list) and (len(row['IndirectReference']) > 1)):
                     if (len(row['Type']) != len(row['IndirectReference'])):
                         logging.error("Incorrect number of elements between Type (%d) and IndirectReference (%d) for %s::%s" % (len(row['Type']), len(row['IndirectReference']), obj_name, keyname))
-                    for i, t in enumerate(row['Type']):
-                        if ('stream' in t):
-                            if (row['IndirectReference'][i] != True):
-                                logging.error("Type 'stream' requires IndirectReference to be TRUE for %s::%s" % (obj_name, keyname))
-                else:
-                    if ('stream' in row['Type']):
-                        if (row['IndirectReference'] != True):
-                            logging.error("Type 'stream' requires IndirectReference to be TRUE for %s::%s" % (obj_name, keyname))
-                    if not ((row['IndirectReference'] == True) or (row['IndirectReference'] == False) or (r"fn:MustBeDirect(" in row['IndirectReference'])):
-                        logging.error("IndirectReference %s '%s' in %s::%s is not FALSE, TRUE or fn:MustBeDirect!" % (type(row['IndirectReference']), row['IndirectReference'], obj_name, keyname))
 
-                if  (isinstance(row['IndirectReference'], str) and (r'fn:' in row['IndirectReference'])):
-                    fn = self._CheckFunction(row['IndirectReference'])
+                i = self._FindType('stream', row['Type'])
+                if (i != -1):
+                    if (row['IndirectReference'][i] != True):
+                        logging.error("Type 'stream' requires IndirectReference (%s) to be TRUE for %s::%s" % (row['IndirectReference'][i], obj_name, keyname))
 
                 if not ((row['Inheritable'] == True) or (row['Inheritable'] == False)):
                     logging.error("Inheritable %s '%s' in %s::%s is not FALSE or TRUE!" % (type(row['Inheritable']), row['Inheritable'], obj_name, keyname))
 
+                if (row['DefaultValue'] != None):
+                    if (len(row['Type']) != len(row['DefaultValue'])):
+                        logging.error("Incorrect number of elements between Type and DefaultValue for %s::%s" % (obj_name, keyname))
 
                 # Validate all types are known and match DefaultValue into PossibleValues
-                found_dv = False
-                dv = None
-                for t in row['Type']:
-                    if (r"fn:" in t):
-                        # Only "fn:SinceVersion(" or "fn:Deprecated(" allowed
-                        if not (t.startswith(r"fn:SinceVersion(") or t.startswith(r"fn:Deprecated(")):
-                            logging.error("Unknown function '%s' for %s::%s!" % (t, obj_name, keyname))
-                        fn = self._CheckFunction(t)
-                        found = False
-                        for i in self._known_types:
-                            if (i in t):
-                                found = True
-                        if not found:
-                            logging.error("No known Arlington type in function '%s' for %s::%s!" % (t, obj_name, keyname))
-                    elif (t not in self._known_types):
-                        logging.error("Unknown type '%s' for %s::%s!" % (t, obj_name, keyname))
+                for i, t in enumerate(row['Type']):
+                    if isinstance(t, str):
+                        if (t not in self._known_types):
+                            logging.error("Unknown Arlington type '%s' for %s::%s!" % (t, obj_name, keyname))
 
-                    # Check specific syntaxes for array and strings of default values
-                    if (row['DefaultValue'] != None):
-                        if (len(row['Type']) != len(row['DefaultValue'])):
-                            logging.error("Incorrect number of elements between Type and DefaultValue for %s::%s" % (obj_name, keyname))
+                        # Check if type and DefaultValue match in data type
+                        if (row['DefaultValue'] != None) and (row['DefaultValue'][i] != None):
+                            if (t == 'name') and not isinstance(row['DefaultValue'][i], str):
+                                logging.error("DefaultValue '%s' is not a name for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
+                            elif ((t == 'array') and not isinstance(row['DefaultValue'][i], list)):
+                                logging.error("DefaultValue '%s' is not an array for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
+                            elif (t == 'boolean') and not isinstance(row['DefaultValue'][i], bool):
+                                logging.error("DefaultValue '%s' is not a boolean for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
+                            elif (t == 'number') and not isinstance(row['DefaultValue'][i], (int, float)):
+                                logging.error("DefaultValue '%s' is not a number for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
+                            elif (t == 'integer') and not isinstance(row['DefaultValue'][i], int):
+                                logging.error("DefaultValue '%s' is not an integer for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
+                            elif ('string' in t):
+                                if not isinstance(row['DefaultValue'][i], str):
+                                    logging.error("DefaultValue '%s' is not a string for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
+                                elif (row['DefaultValue'][i][0] != '('):
+                                    logging.error("DefaultValue '%s' does not start with '(' for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
+                                elif (row['DefaultValue'][i][-1] != ')'):
+                                    logging.error("DefaultValue '%s' does not end with ')' for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
 
-                        for i, t in enumerate(row['Type']):
-                            if (row['DefaultValue'][i] != None):
-                                if isinstance(dv, str):
-                                    if (dv.find(r'fn:') == -1):
-                                        if ("FALSE" in dv) or ("TRUE" in dv):
-                                            logging.error("DefaultValue '%s' has incorrect FALSE/TRUE for PDF boolean for %s::%s" % (dv, obj_name, keyname))
-
-                                        dv = row['DefaultValue'][i]
-                                        if (t.find(r'array') != -1):
-                                            if (dv[0] != r'['):
-                                                logging.error("Default array '%s' does not start with '[' for %s::%s" % (dv, obj_name, keyname))
-                                            if (dv[len(dv)-1] != r']'):
-                                                logging.error("Default array '%s' does not end with ']' for %s::%s" % (dv, obj_name, keyname))
-                                        elif (t.find(r'string') != -1):
-                                            if (dv[0] != r'('):
-                                                logging.error("Default string '%s' does not start with '(' for %s::%s" % (dv, obj_name, keyname))
-                                            if (dv[len(dv)-1] != r')'):
-                                                logging.error("Default string '%s' does not end with ')' for %s::%s" % (dv, obj_name, keyname))
-                                    else:
-                                        fn = self._CheckFunction(dv)
-                                elif (isinstance(dv, (bool, int, float))):
-                                   dv = row['DefaultValue'][i]
-
-                    # Check specific syntaxes for array and strings of possible values
-                    if (row['PossibleValues'] != None):
-                        if (len(row['Type']) != len(row['PossibleValues'])):
-                            logging.error("Incorrect number of elements between Type and PossibleValues for %s::%s" % (obj_name, keyname))
-
-                        for i, t in enumerate(row['Type']):
-                            if isinstance(row['PossibleValues'][i], str):
-                                if (row['PossibleValues'][i].find(r'fn:') == -1):
-                                    if (dv != None) and (not found_dv) and (row['PossibleValues'][i].find(str(dv)) != -1):
-                                        found_dv = True
-
-                                    if ("FALSE" in row['PossibleValues'][i]) or ("TRUE" in row['PossibleValues'][i]):
-                                        logging.error("PossibleValues '%s' has incorrect FALSE/TRUE for PDF boolean for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
-
-                                    # allow for functions which wrap a pre-defined type: e.g. fn:Deprecated(x.y,array)
-                                    if (t.find(r'array') != -1):
-                                        if (row['PossibleValues'][i][0] != r'['):
-                                            logging.error("PossibleValues array '%s' does not start with '[' for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
-                                        if (row['PossibleValues'][i][len(row['PossibleValues'][i]) - 1] != r']'):
-                                            logging.error("PossibleValues array '%s' does not end with ']' for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
-                                    elif (t.find(r'string') != -1):
-                                        if (row['PossibleValues'][i][0] != r'('):
-                                            logging.error("PossibleValues string '%s' does not start with '(' for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
-                                        if (row['PossibleValues'][i][len(row['PossibleValues'][i]) - 1] != r')'):
-                                            logging.error("PossibleValues string '%s' does not end with ')' for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
-                                else:
-                                    fn = self._CheckFunction(row['PossibleValues'][i])
-                            elif (isinstance(row['PossibleValues'][i], list)):
-                                for j, pv in enumerate(row['PossibleValues'][i]):
-                                    if (isinstance(pv, str) and (pv.find(r'fn:') == -1)):
-                                        if (dv != None) and (not found_dv) and (pv.find(str(dv)) != -1):
-                                            found_dv = True
-
-                                        if ("FALSE" in pv) or ("TRUE" in pv):
-                                            logging.error("PossibleValues '%s' has incorrect FALSE/TRUE for PDF boolean for %s::%s" % (pv, obj_name, keyname))
-
-                                        if (t.find(r'array') != -1):
-                                            if (pv[0] != r'['):
-                                                logging.error("PossibleValues array '%s' does not start with '[' for %s::%s" % (pv, obj_name, keyname))
-                                            if (pv[len(pv)-1] != r']'):
-                                                logging.error("PossibleValues array '%s' does not end with ']' for %s::%s" % (pv, obj_name, keyname))
-                                        elif (t.find(r'string') != -1):
-                                            if (pv[0] != r'('):
-                                                logging.error("PossibleValues string '%s' does not start with '(' for %s::%s" % (pv, obj_name, keyname))
-                                            if (pv[len(pv)-1] != r')'):
-                                                logging.error("PossibleValues string '%s' does not end with ')' for %s::%s" % (pv, obj_name, keyname))
-                                    elif (isinstance(pv, (bool,int,float))):
-                                        if (dv != None) and (not found_dv) and (str(pv).find(str(dv)) != -1):
-                                            found_dv = True
-                                    elif (isinstance(pv, list)):
-                                        if (dv != None) and (not found_dv) and (dv in pv):
-                                            found_dv = True
-
-
-                    # Check links
-                    if (row['Link'] != None):
-                        if (len(row['Type']) != len(row['Link'])):
-                            logging.error("Incorrect number of elements between Type and Links for %s::%s" % (obj_name, keyname))
-
-                    for i, t in enumerate(row['Type']):
-                        if (t in self._links_required):
-                            # Links are required!
-                            if (row['Link'][i] == None):
-                                logging.error("Link is missing for type %s in %s::%s" % (t, obj_name, keyname))
-                            else:
-                                if (r"fn:" in row['Link'][i]):
-                                    fn = self._CheckFunction(row['Link'][i])
-                                    if not ((r"fn:SinceVersion(" in row['Link'][i]) or (r"fn:BeforeVersion(" in row['Link'][i]) or (r"fn:IsPDFVersion(" in row['Link'][i])):
-                                        logging.error("Bad function '%s' for type %s in %s::%s" % (row['Link'][i], t, obj_name, keyname))
-                                else:
-                                    for l in row['Link'][i]:
-                                        if (r"fn:" in l):
-                                            fn = self._CheckFunction(l)
-                                        elif (r"fn:" not in l):
-                                            lnk = self.__pdfdom[l]
-                                            if (lnk == None):
-                                                logging.error("Broken link to '%s' for type %s in %s::%s" % (l, t, obj_name, keyname))
-                                        elif not ((r"fn:SinceVersion(" in l) or (r"fn:BeforeVersion(" in l) or (r"fn:IsPDFVersion(" in l)):
-                                            logging.error("Bad function '%s' for type %s in %s::%s" % (l, t, obj_name, keyname))
+                    elif isinstance(t, list):
+                        if not isinstance(t[0], list):
+                            # Only "fn:SinceVersion(" or "fn:Deprecated(" allowed
+                            if (t[0].type != 'FUNC_NAME') and (t[0].value not in ("fn:SinceVersion(", "fn:Deprecated(")):
+                                logging.error("Unknown function '%s' for Type in %s::%s!" % (t, obj_name, keyname))
+                            if not isinstance(t[1][1], str) or (t[1][1] not in self._known_types):
+                                logging.error("Unknown type inside function '%s' for Type in %s::%s!" % (t, obj_name, keyname))
                         else:
-                            # Links are NOT wanted - should be None
-                            if (row['Link'] != None) and (row['Link'][i] != None):
-                                logging.error("Link '%s' is present for type %s in %s::%s" % (row['Link'][i], t, obj_name, keyname))
+                            # Only "fn:SinceVersion(" or "fn:Deprecated(" allowed
+                            if (t[0][0].type != 'FUNC_NAME') and (t[0][0].value not in ("fn:SinceVersion(", "fn:Deprecated(")):
+                                logging.error("Unknown function '%s' for Type in %s::%s!" % (t, obj_name, keyname))
+                            if not isinstance(t[0][1][1], str) or (t[0][1][1] not in self._known_types):
+                                logging.error("Unknown type inside function '%s' for Type in %s::%s!" % (t, obj_name, keyname))
+                        # Cannot check much else for functions
 
-                # Check if DefaultValue was in any PossibleValues
-                if (row['PossibleValues'] != None) and (dv != None) and (not found_dv):
-                    logging.error("DefaultValue (%s %s) not in PossibleValues (%s) for %s::%s" % (type(dv), dv, row['PossibleValues'], obj_name, keyname))
+#                    # Check specific syntaxes for array and strings of possible values
+#                    # Check links
+#                    # Check if DefaultValue was in any PossibleValues
 
 
     # Pretty-print the DOM as JSON to a  file
@@ -581,12 +510,12 @@ if __name__ == '__main__':
     print("Loading...")
     arl = Arlington(cli.tsvdir)
 
-    if (cli.validate):
-        print("Validating...")
-        arl.ValidateDOM()
-
     if (cli.json is not None):
         print("Saving JSON to '%s'..." % cli.json)
         arl.SaveDOMtoJSON(cli.json)
+
+    if (cli.validate):
+        print("Validating...")
+        arl.ValidateDOM()
 
     print("Done.")

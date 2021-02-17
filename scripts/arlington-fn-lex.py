@@ -24,6 +24,7 @@
 # See https://sly.readthedocs.io/en/latest/sly.html
 #
 import fileinput
+import pprint
 from sly import Lexer
 
 ##############################################################################################
@@ -55,8 +56,8 @@ class ArlingtonFnLexer(Lexer):
 
     # Regular expression rules for tokens
     FUNC_NAME    = r'fn\:[A-Z][a-zA-Z0-9]+\('
-    PDF_FALSE    = r'false'
-    PDF_TRUE     = r'true'
+    PDF_TRUE     = r'(true)|(TRUE)'
+    PDF_FALSE    = r'(false)|(FALSE)'
     MOD          = r'mod'
     KEY_VALUE    = r'@(\*|[0-9]+|[0-9]+\*|[a-zA-Z0-9_\.\-]+)'
     # Key name of just '*' is ambiguous TIMES (multiply) operator.
@@ -93,22 +94,61 @@ class ArlingtonFnLexer(Lexer):
         t.value = int(t.value)
         return t
 
-    @_(r'false')
+    @_(r'(false)|(FALSE)')
     def PDF_FALSE(self, t):
         t.value = False
         return t
 
-    @_(r'true')
+    @_(r'(true)|(TRUE)')
     def PDF_TRUE(self, t):
         t.value = True
         return t
+
+# Assumes a fully valid parse tree with fully bracketed "( .. )" expressions
+# Recursive
+def ToNestedAST(stk, idx=0):
+    ast = []
+    i = idx
+
+    while (i < len(stk)):
+        if (stk[i].type == 'FUNC_NAME'):
+            ast.append( stk[i] )
+            j, k = ToNestedAST(stk, i+1)
+            ast.append(k)
+            i = j
+        elif (stk[i].type == 'LPAREN'):
+            j, k = ToNestedAST(stk, i+1)
+            ast.append(k)
+            i = j
+        elif (stk[i].type == 'RPAREN'):
+            # go up recursion 1 level
+            return i+1, ast
+        elif (stk[i].type == 'COMMA'):
+            # skip COMMA
+            i = i + 1
+        else:
+            ast.append( stk[i] )
+            i = i + 1
+    return i, ast
+
 
 if __name__ == '__main__':
     lexer  = ArlingtonFnLexer()
 
     for line in fileinput.input():
-        print(line, end='')
-        for tok in lexer.tokenize(line):
-            #print(tok)
-            print('type=%20r,  value=%26r' % (tok.type, tok.value))
-        print()
+        # Skip blank lines and those starting with '#' (comments)
+        if (line != '') and (line[0] != '#'):
+            stk = []
+            print(line, end='')
+            for tok in lexer.tokenize(line):
+                #print('type=%20r,  value=%26r' % (tok.type, tok.value))
+                stk.append(tok)
+            print()
+            i, ast = ToNestedAST(stk)
+            # pprint.pprint(ast)
+            for i, a in enumerate(ast):
+                # De-tokenize only the top level PDF keynames
+                if (type(a) != list) and (a.type == 'KEY_NAME'):
+                    ast[i] = a.value
+            pprint.pprint(ast)
+            print()
