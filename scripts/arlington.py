@@ -27,10 +27,10 @@ import argparse
 import pprint
 import logging
 import json
-from sly import Lexer
+import sly
 
 
-class ArlingtonFnLexer(Lexer):
+class ArlingtonFnLexer(sly.Lexer):
     #debugfile = 'parser.out'
 
     # Set of token names.   This is always required.
@@ -41,7 +41,8 @@ class ArlingtonFnLexer(Lexer):
         LOGICAL_AND,  LOGICAL_OR,   REAL,         INTEGER,
         PLUS,         MINUS,        TIMES,        DIVIDE,
         LPAREN,       RPAREN,       COMMA,        ARRAY_START,
-        ARRAY_END,    ELLIPSIS,     PDF_TRUE,     PDF_FALSE, PDF_STRING
+        ARRAY_END,    ELLIPSIS,     PDF_TRUE,     PDF_FALSE,
+        PDF_STRING
     }
 
     # Precedence rules
@@ -60,7 +61,7 @@ class ArlingtonFnLexer(Lexer):
     FUNC_NAME    = r'fn\:[A-Z][a-zA-Z0-9]+\('
     PDF_TRUE     = r'(true)|(TRUE)'
     PDF_FALSE    = r'(false)|(FALSE)'
-    PDF_STRING   = r'\([a-zA-Z]+\)'
+    PDF_STRING   = r'\([a-zA-Z0-9_\-]+\)'
     MOD          = r'mod'
     ELLIPSIS     = r'\.\.\.'
     KEY_VALUE    = r'@(\*|[0-9]+|[0-9]+\*|[a-zA-Z0-9_\.\-]+)'
@@ -111,6 +112,10 @@ class ArlingtonFnLexer(Lexer):
         t.value = True
         return t
 
+## Terse version of sly.lex.Token.__str__/__repr__ dunder methods
+def MyTokenStr(self):
+    return "TOKEN(type='%s', value='%s')" % (self.type, self.value)
+
 
 class Arlington:
 
@@ -125,23 +130,24 @@ class Arlington:
     # Current set of versions for the SinceVersion and Deprecated columns, as well as some functions
     _pdf_versions = [ '1.0', '1.1', '1.2', '1.3', '1.4', '1.5', '1.6', '1.7', '2.0' ]
 
+
     # Only strip off outer "[...]" as inner square brackets may exist for PDF arrays
     def _StripSquareBackets(self, li):
         if (li == None):
             return None
-        elif (isinstance(li, str)):
+        elif isinstance(li, str):
             # Single string
-            if ((li[0] == r'[') and (li[-1] == r']')):
+            if (li[0] == r'[') and (li[-1] == r']'):
                 return li[1 : len(li)-1]
             else:
                 return li
-        elif (isinstance(li, list)):
+        elif isinstance(li, list):
             # Was SEMI-COLON separated, now a Python list
             l = []
             for i in li:
                 if (i == r'[]'):
                     l.append(None)
-                elif ((i[0] == r'[') and (i[-1] == r']')):
+                elif (i[0] == r'[') and (i[-1] == r']'):
                     l.append(i[1 : len(i)-1])
                 else:
                     l.append(i)
@@ -154,32 +160,32 @@ class Arlington:
     #   (lowercase "false"/"true" are retained as PDF keywords)
     # Note also that declarative functions may be used in place of Booleans!!
     def _ConvertBooleans(self, obj):
-        if (isinstance(obj, str)):
-            if ((obj == r'FALSE') or (obj == r'[FALSE]')):
+        if isinstance(obj, str):
+            if (obj == r'FALSE') or (obj == r'[FALSE]'):
                 return False
-            elif ((obj == r'TRUE') or (obj == r'[TRUE]')):
+            elif (obj == r'TRUE') or (obj == r'[TRUE]'):
                 return True
             else:
                 return obj
-        elif (isinstance(obj, list)):
+        elif isinstance(obj, list):
             l = []
             for o in obj:
-                if ((o == r'FALSE') or (o == r'[FALSE]')):
+                if (o == r'FALSE') or (o == r'[FALSE]'):
                     l.append(False)
-                elif ((o == r'TRUE') or (o == r'[TRUE]')):
+                elif (o == r'TRUE') or (o == r'[TRUE]'):
                     l.append(True)
                 else:
                     l.append(o)
             return l
         else:
-            raise TypeError("Unexpected type for converting booleans")
+            raise TypeError("Unexpected type '%s' for converting booleans!" % obj)
 
 
     # Recurse through the Types list structure seeing if 'typ' is present
     # (incliding anywhere in a declarative functions). This is NOT smart.
     def _FindType(self, typ, typelist):
         if (typ not in self._known_types):
-            logging.error("%s is not a well known type!" % typ)
+            logging.error("'%s' is not a well known Arlington type!" % typ)
 
         for i, t in enumerate(typelist):
             if isinstance(t, str) and (t == typ):
@@ -212,15 +218,14 @@ class Arlington:
                 return i+1, ast
             elif (stk[i].type == 'COMMA'):
                 # skip COMMAs
-                i = i + 1
+                i += 1
             else:
                 ast.append( stk[i] )
-                i = i + 1
-        logging.debug(pprint.pformat(ast))
+                i += 1
         return i, ast
 
 
-    # De-tokenize for all the simple PDF stuff (integers, numbers, true/false keywords)
+    # De-tokenize for all the base PDF stuff (integers, numbers, true/false keywords, strings)
     # Recursive
     def _FlattenAST(self, ast):
         i = 0
@@ -230,39 +235,45 @@ class Arlington:
                     ast[i] = ast[i].value
             else:
                 self._FlattenAST(ast[i])
-            i = i + 1
+            i += 1
 
 
     # Use Sly to parse any string with TSV names, PDF names or declaractive functions
     # Sly will raise exceptions if there are errors
     # Returns a Python list with top level TSV names or PDF names as strings and functions as lists
     def _ParseFunctions(self, func, col, obj, key):
-        logging.debug("In row['%s'] %s::%s: '%s'" % (col, obj, key, func))
+        # logging.debug("In row['%s'] %s::%s: '%s'" % (col, obj, key, func))
         stk = []
         for tok in self.__lexer.tokenize(func):
             stk.append(tok)
         num_toks = len(stk)
         i, ast = self._ToNestedAST(stk)
-        logging.debug("AST: %s" % pprint.pformat(ast))
+        # logging.debug("AST: %s" % pprint.pformat(ast))
         self._FlattenAST(ast)
-        if (num_toks == 1):
+        if (num_toks == 1) and (stk[0].type not in ('FUNC_NAME','KEY_VALUE')):
             ast = ast[0]
-        logging.debug("Out: %s" % pprint.pformat(ast))
+        # logging.debug("Out: %s" % pprint.pformat(ast))
         return ast
 
 
     # Constructor - takes a TSV directory as a parameter
     # Reads in TSV file-by-file and converts to Pythonesque
-    def __init__(self, dir="."):
+    def __init__(self, dir=".", pdfver="2.0"):
         self.__directory = dir
         self.__filecount = 0
+        self.__pdfver = pdfver
         self.__pdfdom = {}
+
+        # "Monkey patch" sly.lex.Token __str__ and __repr__ dunder methods to make JSON nicer
+        # Don't do this if we want to read the JSON back in!
+        sly.lex.Token.__str__  = MyTokenStr
+        sly.lex.Token.__repr__ = MyTokenStr
         self.__lexer  = ArlingtonFnLexer()
 
         # Load Arlington into Python
         for filepath in glob.iglob(os.path.join(dir, r"*.tsv")):
             obj_name = os.path.splitext(os.path.basename(filepath))[0]
-            self.__filecount = self.__filecount + 1
+            self.__filecount += 1
             logging.debug('Reading %s' % obj_name)
             with open(filepath, newline='') as csvfile:
                 tsvreader = csv.DictReader(csvfile, delimiter='\t')
@@ -273,7 +284,7 @@ class Arlington:
                         logging.error("%s::%s does not have 12 columns!" % (obj_name, keyname))
                     row.pop('Key')
                     if (keyname == ''):
-                        raise TypeError("Key name field cannot be empty")
+                        raise TypeError("Key name field cannot be empty!")
 
                     # Make multi-type fields into arrays (aka Python lists)
                     if (r';' in row['Type']):
@@ -334,13 +345,18 @@ class Arlington:
                     if (row['PossibleValues'] != None) and not isinstance(row['PossibleValues'], list):
                         row['PossibleValues'] = [ row['PossibleValues'] ]
 
-                    # This is hack because a few PDF key values look like floats but are really names.
-                    # Sly parsing here does not use any hints from other rows
-                    # See /Version key and DocMDPTransformParameters::V
-                    if (row['DefaultValue'] != None) and isinstance(row['DefaultValue'][0], float) and (row['Type'][0] == 'name'):
-                        row['DefaultValue'][0] = str(row['DefaultValue'][0])
+                    # Below is a hack(!!!) because a few PDF key values look like floats or keywords but are really names.
+                    # Sly-based parsing in Python does not use any hints from other rows so it will convert to int/float/bool as it sees fit
+                    # See Catalog::Version, DocMDPTransformParameters::V, DevExtensions::BaseVersion, SigFieldSeedValue::LockDocument
+                    if (row['Type'][0] == 'name'):
+                        if (row['DefaultValue'] != None) and isinstance(row['DefaultValue'][0], (int,float)):
+                            logging.info("Converting DefaultValue int/float/bool '%s' back to name for %s::%s" % (str(row['DefaultValue'][0]), obj_name, keyname))
+                            row['DefaultValue'][0] = str(row['DefaultValue'][0])
                         if (row['PossibleValues'] != None):
-                            row['PossibleValues'][0] = str(row['PossibleValues'][0])
+                            for i, v in enumerate(row['PossibleValues'][0]):
+                                if isinstance(v, (int,float)):
+                                    logging.info("Converting PossibleValues int/float/bool '%s' back to name for %s::%s" % (str(v), obj_name, keyname))
+                                    row['PossibleValues'][0][i] = str(v)
 
                     if (row['SpecialCase'] == ''):
                         row['SpecialCase'] = None
@@ -381,12 +397,13 @@ class Arlington:
 
 
     # Does a detailed Validation of the in-memory Python data structure
-    def ValidateDOM(self):
-        if ((self.__filecount == 0) or (len(self.__pdfdom) == 0)):
+    def ValidateDOM(self, pdfver="2.0"):
+        if (self.__filecount == 0) or (len(self.__pdfdom) == 0):
             logging.error("There is no Arlington DOM to validate!")
             return
 
         for obj_name in self.__pdfdom:
+            logging.debug("Validating %s" % obj_name)
             obj = self.__pdfdom[obj_name]
 
             # Check if object contain any duplicate keys or has no keys
@@ -446,23 +463,108 @@ class Arlington:
 
                         # Check if type and DefaultValue match in data type
                         if (row['DefaultValue'] != None) and (row['DefaultValue'][i] != None):
-                            if (t == 'name') and not isinstance(row['DefaultValue'][i], str):
+                            # nested lists below represent declarative functions - but they are NOT checked to see
+                            # if the first element is a FUNC_NAME!!
+                            if (t == 'name') and not isinstance(row['DefaultValue'][i], (str, list)):
                                 logging.error("DefaultValue '%s' is not a name for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
-                            elif ((t == 'array') and not isinstance(row['DefaultValue'][i], list)):
+                            elif (t == 'array') and not isinstance(row['DefaultValue'][i], (list)):
                                 logging.error("DefaultValue '%s' is not an array for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
-                            elif (t == 'boolean') and not isinstance(row['DefaultValue'][i], bool):
+                            elif (t == 'boolean') and not isinstance(row['DefaultValue'][i], (bool, list)):
                                 logging.error("DefaultValue '%s' is not a boolean for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
-                            elif (t == 'number') and not isinstance(row['DefaultValue'][i], (int, float)):
+                            elif (t == 'number') and not isinstance(row['DefaultValue'][i], (int, float, list)):
                                 logging.error("DefaultValue '%s' is not a number for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
-                            elif (t == 'integer') and not isinstance(row['DefaultValue'][i], int):
+                            elif (t == 'integer') and not isinstance(row['DefaultValue'][i], (int, list)):
                                 logging.error("DefaultValue '%s' is not an integer for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
                             elif ('string' in t):
-                                if not isinstance(row['DefaultValue'][i], str):
+                                if not isinstance(row['DefaultValue'][i], (str, list)):
                                     logging.error("DefaultValue '%s' is not a string for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
-                                elif (row['DefaultValue'][i][0] != '('):
-                                    logging.error("DefaultValue '%s' does not start with '(' for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
-                                elif (row['DefaultValue'][i][-1] != ')'):
-                                    logging.error("DefaultValue '%s' does not end with ')' for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
+                                elif isinstance(row['DefaultValue'][i], str):
+                                    if (row['DefaultValue'][i][0] != '('):
+                                        logging.error("DefaultValue '%s' does not start with '(' for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
+                                    elif (row['DefaultValue'][i][-1] != ')'):
+                                        logging.error("DefaultValue '%s' does not end with ')' for %s::%s" % (row['DefaultValue'][i], obj_name, keyname))
+
+                        # Check if type and PossibleValues match in data type
+                        # PossibleValues are SETS of values!
+                        if (row['PossibleValues'] != None) and (row['PossibleValues'][i] != None):
+                            if (t == 'name'):
+                                if isinstance(row['PossibleValues'][i], list):
+                                    for j, v in enumerate(row['PossibleValues'][i]):
+                                        if not isinstance(row['PossibleValues'][i][j], (str, list)):
+                                            logging.error("PossibleValues '%s' is not a name for %s::%s" % (row['PossibleValues'][i][j], obj_name, keyname))
+                                elif not isinstance(row['PossibleValues'][i], str):
+                                    logging.error("PossibleValues '%s' is not a name for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
+                            elif (t == 'array'):
+                                if isinstance(row['PossibleValues'][i], list):
+                                    for j, v in enumerate(row['PossibleValues'][i]):
+                                        if not isinstance(row['PossibleValues'][i][j], (list)):
+                                            logging.error("PossibleValues '%s' is not an array for %s::%s" % (row['PossibleValues'][i][j], obj_name, keyname))
+                                else:
+                                    logging.error("PossibleValues '%s' is not an array for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
+                            elif (t == 'boolean'):
+                                if isinstance(row['PossibleValues'][i], list):
+                                    for j, v in enumerate(row['PossibleValues'][i]):
+                                        if not isinstance(row['PossibleValues'][i][j], (bool, list)):
+                                            logging.error("PossibleValues '%s' is not a boolean for %s::%s" % (row['PossibleValues'][i][j], obj_name, keyname))
+                                elif not isinstance(row['PossibleValues'][i], bool):
+                                    logging.error("PossibleValues '%s' is not a boolean for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
+                            elif (t == 'number'):
+                                if isinstance(row['PossibleValues'][i], list):
+                                    for j, v in enumerate(row['PossibleValues'][i]):
+                                        if not isinstance(row['PossibleValues'][i][j], (int, float, list)):
+                                            logging.error("PossibleValues '%s' is not a number for %s::%s" % (row['PossibleValues'][i][j], obj_name, keyname))
+                                elif not isinstance(row['PossibleValues'][i], (int, float)):
+                                    logging.error("PossibleValues '%s' is not a number for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
+                            elif (t == 'integer'):
+                                if isinstance(row['PossibleValues'][i], list):
+                                    for j, v in enumerate(row['PossibleValues'][i]):
+                                        if not isinstance(row['PossibleValues'][i][j], (int, list)):
+                                            logging.error("PossibleValues '%s' is not an integer for %s::%s" % (row['PossibleValues'][i][j], obj_name, keyname))
+                                elif not isinstance(row['PossibleValues'][i], int):
+                                    logging.error("PossibleValues '%s' is not an integer for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
+                            elif ('string' in t):
+                                if isinstance(row['PossibleValues'][i], list):
+                                    for j, v in enumerate(row['PossibleValues'][i]):
+                                        if not isinstance(row['PossibleValues'][i][j], (str, list)):
+                                            logging.error("PossibleValues '%s' is not a string for %s::%s" % (row['PossibleValues'][i][j], obj_name, keyname))
+                                        elif isinstance(row['PossibleValues'][i][j], str):
+                                            if (row['PossibleValues'][i][j][0] != '('):
+                                                logging.error("PossibleValues '%s' does not start with '(' for %s::%s" % (row['PossibleValues'][i][j], obj_name, keyname))
+                                            elif (row['PossibleValues'][i][j][-1] != ')'):
+                                                logging.error("PossibleValues '%s' does not end with ')' for %s::%s" % (row['PossibleValues'][i][j], obj_name, keyname))
+                                elif isinstance(row['PossibleValues'][i], str):
+                                    if (row['PossibleValues'][i][0] != '('):
+                                        logging.error("PossibleValues '%s' does not start with '(' for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
+                                    elif (row['DefaultValue'][i][-1] != ')'):
+                                        logging.error("PossibleValues '%s' does not end with ')' for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
+                                else:
+                                    logging.error("PossibleValues '%s' is not a str for %s::%s" % (row['PossibleValues'][i], obj_name, keyname))
+
+                        if (row['Link'] != None):
+                            if (t in self._links_required):
+                                if (row['Link'][i] == None):
+                                    logging.error("Link '%s' is missing for type %s in %s::%s" % (row['Link'][i], t, obj_name, keyname))
+                                elif not isinstance(row['Link'][i], (str, list)):
+                                    logging.error("Link '%s' is not a list for type %s in %s::%s" % (row['Link'][i], t, obj_name, keyname))
+                                else:
+                                    if isinstance(row['Link'][i], str):
+                                        lnk = row['Link'][i]
+                                        lnkobj = self.__pdfdom[lnk]
+                                        if (lnkobj == None):
+                                            logging.error("Bad link '%s' in %s::%s" % (row['Link'][i], obj_name, keyname))
+                                    else: # list
+                                        for j, v in enumerate(row['Link'][i]):
+                                            if isinstance(row['Link'][i][j], str):
+                                                lnk = row['Link'][i][j]
+                                                lnkobj = self.__pdfdom[lnk]
+                                                if (lnkobj == None):
+                                                    logging.error("Bad link '%s' in %s::%s" % (row['Link'][i][j], obj_name, keyname))
+                                            elif not isinstance(row['Link'][i][j], list):
+                                                logging.error("Link '%s' is not a function for type %s in %s::%s" % (row['Link'][i][j], t, obj_name, keyname))
+                            else:
+                                # Confirm explicitly NO links
+                                if (row['Link'][i] != None):
+                                    logging.error("Link '%s' exists for type %s in %s::%s" % (row['Link'][i], t, obj_name, keyname))
 
                     elif isinstance(t, list):
                         if not isinstance(t[0], list):
@@ -477,15 +579,41 @@ class Arlington:
                                 logging.error("Unknown function '%s' for Type in %s::%s!" % (t, obj_name, keyname))
                             if not isinstance(t[0][1][1], str) or (t[0][1][1] not in self._known_types):
                                 logging.error("Unknown type inside function '%s' for Type in %s::%s!" % (t, obj_name, keyname))
-                        # Cannot check much else for functions
 
-#                    # Check specific syntaxes for array and strings of possible values
-#                    # Check links
-#                    # Check if DefaultValue was in any PossibleValues
+                    # Check if DefaultValue is valid in any PossibleValues
+                    # T.B.D.
+
+            # Check for incoming links to this object (obj_name)
+            found = 0
+            for i in self.__pdfdom:
+                lnkobj = self.__pdfdom[i]
+                for k in lnkobj:
+                    r = lnkobj[k]
+                    if (r['Link'] != None):
+                        if isinstance(r['Link'], str) and (r['Link'] == obj_name):
+                            found += 1 # Should never happen!
+                        elif isinstance(r['Link'], list):
+                            for v in r['Link']:
+                                if isinstance(v, str) and (v == obj_name):
+                                    found += 1
+                                elif isinstance(v, list):
+                                    for j in v:
+                                        if isinstance(j, str) and (j == obj_name):
+                                            found += 1
+                                        elif isinstance(j, list):
+                                            for x in j:
+                                                if isinstance(x, str) and (x == obj_name):
+                                                    found += 1
+                                                elif isinstance(x, list):
+                                                    for y in x:
+                                                        if isinstance(y, str) and (y == obj_name):
+                                                            found += 1
+            logging.debug("Found %d links to '%s'" % (found, obj_name))
+            if (found == 0):
+                logging.error("Unlinked object %s!" % obj_name)
 
 
-    # Pretty-print the DOM as JSON to a  file
-    # Pretty-print helps readability for debugging
+    # Pretty-print the DOM as JSON to a  file (helps readability for debugging)
     def SaveDOMtoJSON(self, json_file):
         with open(json_file, r'w') as f:
             pprint.pprint(self.__pdfdom, f, compact=True, width=200)
@@ -502,7 +630,7 @@ if __name__ == '__main__':
 
     logging.basicConfig(level=cli.loglevel)
 
-    if ((cli.tsvdir == None) or not os.path.isdir(cli.tsvdir)):
+    if (cli.tsvdir == None) or not os.path.isdir(cli.tsvdir):
         print("'%s' is not a directory" % cli.tsvdir)
         cli_parser.print_help()
         quit()
