@@ -33,18 +33,19 @@ class ArlingtonFnLexer(Lexer):
 
     # Set of token names.   This is always required.
     tokens = {
-        FUNC_NAME,    KEY_VALUE,       KEY_NAME,     KEY_PATH,
-        MOD,          PDF_PATH,     PDF_FALSE,       PDF_TRUE,
-        EQUALITY,     INEQUALITY,   GREATER_THAN_EQ, LESS_THAN_EQ,
-        LOGICAL_AND,  LOGICAL_OR,   GREATER_THAN,    LESS_THAN,
-        REAL,         INTEGER,      PLUS,            MINUS,
-        TIMES,        DIVIDE,       LPAREN,          RPAREN,
-        COMMA
+        FUNC_NAME,    KEY_VALUE,    KEY_NAME,     KEY_PATH,
+        MOD,          PDF_PATH,     EQ,           NE,
+        GE,           LE,           GT,           LT,
+        LOGICAL_AND,  LOGICAL_OR,   REAL,         INTEGER,
+        PLUS,         MINUS,        TIMES,        DIVIDE,
+        LPAREN,       RPAREN,       COMMA,        ARRAY_START,
+        ARRAY_END,    ELLIPSIS,     PDF_TRUE,     PDF_FALSE,
+        PDF_STRING
     }
 
     # Precedence rules
     precedence = (
-          ('nonassoc', EQUALITY, INEQUALITY, LESS_THAN_EQ, GREATER_THAN_EQ, LESS_THAN, GREATER_THAN),  # Non-associative operators
+          ('nonassoc', EQ, NE, LE, GE, LT, GT),  # Non-associative operators
           ('left', PLUS, MINUS),
           ('left', TIMES, DIVIDE, MOD),
           ('left', LOGICAL_AND, LOGICAL_OR)
@@ -58,22 +59,27 @@ class ArlingtonFnLexer(Lexer):
     FUNC_NAME    = r'fn\:[A-Z][a-zA-Z0-9]+\('
     PDF_TRUE     = r'(true)|(TRUE)'
     PDF_FALSE    = r'(false)|(FALSE)'
+    PDF_STRING   = r'\([a-zA-Z0-9_\-]+\)'
     MOD          = r'mod'
+    ELLIPSIS     = r'\.\.\.'
     KEY_VALUE    = r'@(\*|[0-9]+|[0-9]+\*|[a-zA-Z0-9_\.\-]+)'
+    # Key name is both a PDF name or a TSV filename
     # Key name of just '*' is ambiguous TIMES (multiply) operator.
     # Key name which is numeric array index (0-9*) is ambiguous with integers.
     # Array indices are integers, or integer followed by ASTERISK (wildcard) - need to use SPACEs to disambiguate
     KEY_PATH     = r'(parent::)?(([a-zA-Z]|[a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[a-zA-Z])[a-zA-Z0-9_\.\-]*::)+'
-    KEY_NAME     = r'([a-zA-Z]|[a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[a-zA-Z])[a-zA-Z0-9_\.\-]*'
+    KEY_NAME     = r'([_a-zA-Z]|[_a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[_a-zA-Z])[a-zA-Z0-9_\.\-]*'
     PDF_PATH     = r'::'
-    EQUALITY     = r'=='
-    INEQUALITY   = r'!='
-    GREATER_THAN_EQ = r'>='
-    LESS_THAN_EQ = r'<='
+    ARRAY_START  = r'\['
+    ARRAY_END    = r'\]'
+    EQ           = r'=='
+    NE           = r'!='
+    GE           = r'>='
+    LE           = r'<='
     LOGICAL_AND  = r'\&\&'
     LOGICAL_OR   = r'\|\|'
-    GREATER_THAN = r'>'
-    LESS_THAN    = r'<'
+    GT           = r'>'
+    LT           = r'<'
     REAL         = r'\-?\d+\.\d+'
     INTEGER      = r'\-?\d+'
     PLUS         = r'\+'
