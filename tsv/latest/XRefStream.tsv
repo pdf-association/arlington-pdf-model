@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.5		TRUE	fn:MustBeDirect()	FALSE		[XRef]			
 Size	integer	1.5		TRUE	fn:MustBeDirect()	FALSE		[fn:Eval(@Size>1)]			
-Index	array	1.5		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval((fn:ArrayLength() mod 2)==0) && fn:ArraySortAscending()]	[ArrayOfIntegersGeneral]	must be even array length
+Index	array	1.5		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval((fn:ArrayLength(Index) mod 2)==0) && fn:ArraySortAscending()]	[ArrayOfIntegersGeneral]	must be even array length
 Prev	integer	1.5		FALSE	fn:MustBeDirect()	FALSE		[fn:Eval(@Prev>=0 && @Prev<=fn:FileSize())]			
 W	array	1.5		TRUE	fn:MustBeDirect()	FALSE				[fn:SinceVersion(1.5,ArrayOfXRefWIntegers)]	
 Length	integer	1.5		TRUE	FALSE	FALSE		[fn:Eval(@Length>=0)]			
