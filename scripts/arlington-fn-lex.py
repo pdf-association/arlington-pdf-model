@@ -33,22 +33,17 @@ class ArlingtonFnLexer(Lexer):
 
     # Set of token names.   This is always required.
     tokens = {
-        FUNC_NAME,    KEY_VALUE,    KEY_NAME,     KEY_PATH,
-        MOD,          PDF_PATH,     EQ,           NE,
-        GE,           LE,           GT,           LT,
-        LOGICAL_AND,  LOGICAL_OR,   REAL,         INTEGER,
-        PLUS,         MINUS,        TIMES,        DIVIDE,
-        LPAREN,       RPAREN,       COMMA,        ARRAY_START,
-        ARRAY_END,    ELLIPSIS,     PDF_TRUE,     PDF_FALSE,
-        PDF_STRING
+        FUNC_NAME, KEY_VALUE, KEY_NAME, KEY_PATH, MOD, PDF_PATH, EQ, NE, GE, LE, GT, LT,
+        LOGICAL_AND, LOGICAL_OR, REAL, INTEGER, PLUS, MINUS, TIMES, DIVIDE, LPAREN,
+        RPAREN, COMMA, ARRAY_START, ARRAY_END, ELLIPSIS, PDF_TRUE, PDF_FALSE, PDF_STRING
     }
 
     # Precedence rules
     precedence = (
-          ('nonassoc', EQ, NE, LE, GE, LT, GT),  # Non-associative operators
-          ('left', PLUS, MINUS),
-          ('left', TIMES, DIVIDE, MOD),
-          ('left', LOGICAL_AND, LOGICAL_OR)
+        ('nonassoc', EQ, NE, LE, GE, LT, GT),  # Non-associative operators
+        ('left', PLUS, MINUS),
+        ('left', TIMES, DIVIDE, MOD),
+        ('left', LOGICAL_AND, LOGICAL_OR)
     )
 
     # String containing ignored characters between tokens (just SPACE)
@@ -110,15 +105,21 @@ class ArlingtonFnLexer(Lexer):
         t.value = True
         return t
 
-# Assumes a fully valid parse tree with fully bracketed "( .. )" expressions
-# Recursive
 def ToNestedAST(stk, idx=0):
+    """
+    Assumes a fully valid parse tree with fully bracketed "( .. )" expressions.
+    Recursive.
+
+    @param  stk: stack of sly.lex.Tokens
+    @param  idx: token index into stk
+    @returns:  index to next token in token stack, AST
+    """
     ast = []
     i = idx
 
     while (i < len(stk)):
         if (stk[i].type == 'FUNC_NAME'):
-            ast.append( stk[i] )
+            ast.append(stk[i])
             j, k = ToNestedAST(stk, i+1)
             ast.append(k)
             i = j
@@ -133,7 +134,7 @@ def ToNestedAST(stk, idx=0):
             # skip COMMA
             i = i + 1
         else:
-            ast.append( stk[i] )
+            ast.append(stk[i])
             i = i + 1
     return i, ast
 
@@ -154,7 +155,7 @@ if __name__ == '__main__':
             # pprint.pprint(ast)
             for i, a in enumerate(ast):
                 # De-tokenize only the top level PDF keynames
-                if (type(a) != list) and (a.type == 'KEY_NAME'):
+                if (not isinstance(a, list)) and (a.type == 'KEY_NAME'):
                     ast[i] = a.value
             pprint.pprint(ast)
             print()
