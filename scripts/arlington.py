@@ -18,8 +18,12 @@
 # (i.e. mistakes in the TSV data) but there is also a validate_pdf_dom() method that will
 # perform other checks.
 #
-# Requires Python 3 and sly: pip3 install sly
-# See https://sly.readthedocs.io/en/latest/sly.html
+# Requires:
+# - Python 3
+# - sly, pikepdf: pip3 install sly
+#   see https://sly.readthedocs.io/en/latest/sly.html
+# - pikepdf (wrapper around qpdf)
+#   see https://pikepdf.readthedocs.io/en/latest/api/main.html
 #
 
 import sys
@@ -31,12 +35,15 @@ import argparse
 import pprint
 import logging
 import sly
+import typing
+import decimal
+import pikepdf
 
 
 class ArlingtonFnLexer(sly.Lexer):
-    #debugfile = 'parser.out'
+    #debugfile = 'arlington-parser.out'
 
-    # Set of token names.   This is always required.
+    # Set of token names. This is always required.
     tokens = {
         FUNC_NAME, KEY_VALUE, KEY_NAME, KEY_PATH, MOD, PDF_PATH, EQ, NE, GE, LE, GT, LT,
         LOGICAL_AND, LOGICAL_OR, REAL, INTEGER, PLUS, MINUS, TIMES, DIVIDE, LPAREN,
@@ -64,9 +71,9 @@ class ArlingtonFnLexer(sly.Lexer):
     ELLIPSIS     = r'\.\.\.'
     KEY_VALUE    = r'@(\*|[0-9]+|[0-9]+\*|[a-zA-Z0-9_\.\-]+)'
     # Key name is both a PDF name or a TSV filename
-    # Key name of just '*' is ambiguous TIMES (multiply) operator.
-    # Key name which is numeric array index (0-9*) is ambiguous with integers.
-    # Array indices are integers, or integer followed by ASTERISK (wildcard) - need to use SPACEs to disambiguate
+    # Key name of just '*' is potentially ambiguous with TIMES (multiply) operator.
+    # Key name which is numeric array index ([0-9+) and is potentially ambiguous with integers.
+    # Array indices are integers, or integer followed by ASTERISK (wildcard) - need to use SPACEs to disambiguate with TIMES
     KEY_PATH     = r'(parent::)?(([a-zA-Z]|[a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[a-zA-Z])[a-zA-Z0-9_\.\-]*::)+'
     KEY_NAME     = r'([_a-zA-Z]|[_a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[_a-zA-Z])[a-zA-Z0-9_\.\-]*'
     PDF_PATH     = r'::'
@@ -117,28 +124,273 @@ def MyTokenStr(self):
 
 class Arlington:
     """
-    Wrapper class around a set of Arlington TSV definition files
+    Wrapper class around a set of Arlington TSV PDF definition files
     """
 
     # All the Arlington pre-defined types (pre-sorted alphabetically)
-    _known_types = [ 'array', 'bitmask', 'boolean', 'date', 'dictionary', 'integer',
+    __known_types = frozenset([ 'array', 'bitmask', 'boolean', 'date', 'dictionary', 'integer',
                      'matrix', 'name', 'name-tree', 'null', 'number', 'number-tree',
-                     'rectangle', 'stream', 'string', 'string-ascii', 'string-byte', 'string-text' ]
+                     'rectangle', 'stream', 'string', 'string-ascii', 'string-byte', 'string-text' ])
 
-    # Types for which a valid Link is required
-    _links_required = [ 'array', 'dictionary', 'name-tree', 'number-tree', 'stream' ]
+    # Arlington 'Types' for which a valid Link is required
+    __links_required = frozenset([ 'array', 'dictionary', 'name-tree', 'number-tree', 'stream' ])
 
     # Current set of versions for the SinceVersion and Deprecated columns, as well as some functions
-    _pdf_versions = [ '1.0', '1.1', '1.2', '1.3', '1.4', '1.5', '1.6', '1.7', '2.0' ]
+    __pdf_versions = frozenset([ '1.0', '1.1', '1.2', '1.3', '1.4', '1.5', '1.6', '1.7', '2.0' ])
 
-    # Base PDF tokens that will get flattened away in AST
-    _basePDFtokens = ('REAL', 'INTEGER', 'PDF_TRUE', 'PDF_FALSE', 'KEY_NAME', 'PDF_STRING')
+    # Base PDF tokens that will get "flattened away" during declarative function AST processing
+    __basePDFtokens = frozenset(['REAL', 'INTEGER', 'PDF_TRUE', 'PDF_FALSE', 'KEY_NAME', 'PDF_STRING'])
 
+    # Mathematical comparison operators for declarative functions
+    __comparison_ops = frozenset(['EQ', 'NE', 'GE', 'LE', 'GT', 'LT'])
+
+
+    AST = typing.List[sly.lex.Token]
+
+
+    def validate_fn_array_length(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid 'fn:ArrayLength' function. False otherwise
+        """
+        if (len(ast) == 1) and (ast[0].type in ('KEY_NAME','INTEGER')):
+            return True
+        return False
+
+
+    def validate_fn_void(self, ast: AST) -> bool:
+        """
+        Validates declarative functions that do not take any parameters
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 0):
+            return True
+        return False
+
+
+    def validate_fn_version(self, ast: AST) -> bool:
+        """
+        Validates a declarative function with a first argument that is a PDF version string and optional
+        second argument.
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if ((len(ast) in [1,2]) and (ast[0].type == 'REAL') and (str(ast[0].value) in self.__pdf_versions)):
+            return True
+        return False
+
+
+    def validate_fn_bit(self, ast: AST) -> bool:
+        """
+        Validates a single bit set/clear declarative function with a single bit position argument (1-32 inclusive)
+        @param ast: AST to be validated.
+        @returns: True if a valid 'fn:BitSet/Clear(' function. False otherwise
+        """
+        if (len(ast) == 1) and (ast[0].type == 'INTEGER') and (ast[0].value >= 1) and (ast[0].value <= 32):
+            return True
+        return False
+
+
+    def validate_fn_bits(self, ast: AST) -> bool:
+        """
+        Validates a bit range set/clear declarative function with a two bit position arguments (each 1-32
+        inclusive). The first argument must be less than the second argument to form a valid bit range.
+        @param ast: AST to be validated.
+        @returns: True if a valid 'fn:BitsSet/Clear(' function. False otherwise
+        """
+        if ((len(ast) == 2) and
+            (ast[0].type == 'INTEGER') and (ast[0].value >= 1) and (ast[0].value <= 32) and
+            (ast[1].type == 'INTEGER') and (ast[1].value >= 1) and (ast[1].value <= 32) and
+            (ast[0].value < ast[1].value)):
+            return True
+        return False
+
+
+    def validate_fn_eval(self, ast: AST) -> bool:
+        """
+        Validates the very generic fn:Eval() functions. Any number of arguments!!
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        return True #########################
+
+
+    def validate_fn_ignore(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 0) or isinstance(ast[0], list):
+            return True
+        if (len(ast) == 1) and (ast[0].type in ('KEY_NAME','INTEGER')):
+            return True
+        if (len(ast) == 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+            return True
+        return False
+
+
+    def validate_fn_in_map(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 2) and (ast[0].type == 'KEY_PATH') and (ast[1].type in ('KEY_NAME','INTEGER')):
+            return True
+        return False
+
+
+    def validate_fn_is_meaningful(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 0) or isinstance(ast[0], list):
+            return True
+        if (len(ast) == 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+            return True
+        return False
+
+
+    def validate_fn_is_required(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 0) or isinstance(ast[0], list):
+            return True
+        if (len(ast) == 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+            return True
+        if (len(ast) == 4) and (ast[0].type == 'KEY_PATH') and (ast[1].type in ('KEY_NAME','KEY_VALUE')) and (ast[2].type in self.__comparison_ops):
+            return True
+        return False
+
+
+    def validate_fn_must_be_direct(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 0) or isinstance(ast[0], list):
+            return True
+        if (len(ast) == 1) and (ast[0].type == 'KEY_VALUE'):
+            return True
+        if (len(ast) == 2) and (ast[0].type == 'KEY_PATH') and (ast[1].type in ('KEY_NAME','INTEGER')):
+            return True
+        return False
+
+
+    def validate_fn_not_present(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 0) or isinstance(ast[0], list):
+            return True
+        if (len(ast) == 1) and (ast[0].type in ('KEY_NAME','INTEGER')):
+            return True
+        if (len(ast) == 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+            return True
+        return False
+
+
+    def validate_fn_rect(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid 'fn:RectWidth(' function. False otherwise
+        """
+        if (len(ast) == 1) and (ast[0].type in ('KEY_NAME','INTEGER')):
+            return True
+        return False
+
+
+    def validate_fn_required_value(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 4) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+            return True
+        return False
+
+
+    def validate_fn_is_present(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid 'fn:IsPresent(' function. False otherwise
+        """
+        if (len(ast) == 1) and (ast[0].type in ('KEY_NAME','INTEGER')):
+            return True
+        if (len(ast) >= 2) and (ast[0].type in ('KEY_PATH','KEY_NAME','INTEGER')):
+            return True
+        return False
+
+
+    def validate_fn_stream_length(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        return True ####################################
+
+
+    def validate_fn_string_length(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 1) and (ast[0].type in 'INTEGER'):
+            return True
+        if (len(ast) > 1) and (ast[0].type == 'KEY_VALUE') and (ast[-1].type in 'INTEGER'):
+            return True
+        return False
+
+
+    # Validation functions for every Arlington declarative function
+    __validate_fns = {
+        'fn:ArrayLength(': validate_fn_array_length,
+        'fn:ArraySortAscending(': validate_fn_void,
+        'fn:BeforeVersion(': validate_fn_version,
+        'fn:BitClear(': validate_fn_bit,
+        'fn:BitSet(': validate_fn_bit,
+        'fn:BitsClear(': validate_fn_bits,
+        'fn:BitsSet(': validate_fn_bits,
+        'fn:CreatedFromNamePageObj(': validate_fn_void,
+        'fn:Deprecated(': validate_fn_version,
+        'fn:Eval(': validate_fn_eval,
+        'fn:FileSize(': validate_fn_void,
+        'fn:FontHasLatinChars(': validate_fn_void,
+        'fn:Ignore(': validate_fn_ignore,
+        'fn:ImageIsStructContentItem(': validate_fn_void,
+        'fn:ImplementationDependent(': validate_fn_void,
+        'fn:InMap(': validate_fn_in_map,
+        'fn:IsAssociatedFile(': validate_fn_void,
+        'fn:IsEncryptedWrapper(': validate_fn_void,
+        'fn:IsLastInNumberFormatArray(': validate_fn_void,
+        'fn:IsMeaningful(': validate_fn_is_meaningful,
+        'fn:IsPDFTagged(': validate_fn_void,
+        'fn:IsPDFVersion(': validate_fn_version,
+        'fn:IsPresent(': validate_fn_is_present,
+        'fn:IsRequired(': validate_fn_is_required,
+        'fn:KeyNameIsColorant(': validate_fn_void,
+        'fn:MustBeDirect(': validate_fn_must_be_direct,
+        'fn:NoCycle(': validate_fn_void,
+        'fn:NotPresent(': validate_fn_not_present,
+        'fn:NotStandard14Font(': validate_fn_void,
+        'fn:PageContainsStructContentItems(': validate_fn_void,
+        'fn:RectHeight(': validate_fn_rect,
+        'fn:RectWidth(': validate_fn_rect,
+        'fn:RequiredValue(': validate_fn_required_value,
+        'fn:SinceVersion(': validate_fn_version,
+        'fn:StreamLength(': validate_fn_stream_length,
+        'fn:StringLength(': validate_fn_string_length
+        }
 
     @staticmethod
-    def strip_square_brackets(li):
+    def __strip_square_brackets(li):
         """
         Only strip off outer "[...]" as inner square brackets may exist for PDF arrays
+        @param li: a string or nested list of strings/lists
         """
         if (li is None):
             return None
@@ -164,12 +416,11 @@ class Arlington:
 
 
     @staticmethod
-    def convert_booleans(obj):
+    def __convert_booleans(obj) -> typing.Any:
         """
         Convert spreadsheet booleans to Python: "FALSE" to False, "TRUE" to True
         (lowercase "false"/"true" are retained as PDF keywords)
         Note also that declarative functions may be used in place of Booleans!
-
         @param obj: the Python object (str or list) to convert
         @returns:   an updated object of the same type that was passed in
         """
@@ -194,25 +445,74 @@ class Arlington:
             raise TypeError("Unexpected type '%s' for converting booleans!" % obj)
 
 
-    def _find_pdf_type(self, typ, typelist):
+    def __reduce_linkslist(self, linkslist: list, reduced_list: list = []) -> list:
         """
-        Recurse through the Types list structure seeing if 'typ' is present
-        (incliding anywhere in a declarative functions). This is NOT smart.
+        Reduces a 'Link' list of strings (potentially including declarative functions) to a
+        simple list of Arlington TSV links in the same order as the original list.
+        Recursive function.
+        @param typelist: list of Arlington 'Links' (TSV filenames) including declarative functions
+        @param typelist: reduced list of just Arlington 'Link' TSV names (appended to)
+        @returns: reduced list (of at least length 1)
         """
-        if (typ not in self._known_types):
-            logging.error("'%s' is not a well known Arlington type!", typ)
+        if (linkslist is None):
+            return None
 
-        for i, t in enumerate(typelist):
-            if isinstance(t, str) and (t == typ):
-                return i
+        for l in linkslist:
+            if isinstance(l, str):
+                reduced_list.append(l)
+            elif isinstance(l, list):
+                # Declarative functions are lists so recurse
+                reduced_list = self.__reduce_linkslist(l, reduced_list)
+        return reduced_list
+
+
+    def __reduce_typelist(self, typelist: list, reduced_list: list = []) -> list:
+        """
+        Reduces a 'Types' list of strings (potentially including declarative functions) to a simple
+        alphabetically sorted list of Arlington type strings in the same order as TSV.
+        Recursive function.
+        @param typelist: list of Arlington Types
+        @param reduced_list: reduced list of Arlington Types (appended to)
+        @returns: reduced list (of at least length 1)
+        """
+        for t in typelist:
+            if isinstance(t, str):
+                if (t in self.__known_types):
+                    reduced_list.append(t)
             elif isinstance(t, list):
-                if (self._find_pdf_type(typ, t) != -1):
+                # Declarative functions are lists so recurse
+                reduced_list = self.__reduce_typelist(t, reduced_list)
+        return reduced_list
+
+
+    def __find_pdf_type(self, types, typelist: list) -> int:
+        """
+        Recurse through a 'Types' list of strings seeing if one of a string in 'types' list
+        is present (including anywhere in a declarative functions). This is NOT smart and
+        does not process/understand declarative functions!
+        @param types: a list of known Arlington 'Type' strings
+        @param typelist: list of Arlington Types
+        @returns: index into typelist if a type in 'types' is found, -1 otherwise
+        """
+        for i, t in enumerate(typelist):
+            if isinstance(t, str):
+                if (t not in self.__known_types):
+                    logging.critical("'%s' is not a well known Arlington type!", t)
+                if isinstance(types, list):
+                    for ea in types:
+                        if isinstance(ea, str) and (ea in t):
+                            return i
+                    return -1
+                elif isinstance(types, str) and (types in t):
+                    return i
+            elif isinstance(t, list):
+                # Declarative functions are lists so recurse on the function
+                if (self.__find_pdf_type(types, t) != -1):
                     return i
         return -1
 
 
-    @staticmethod
-    def to_nested_AST(stk, idx=0):
+    def to_nested_AST(self, stk: AST, idx : int =0) -> typing.Tuple[int, AST]:
         """
         Assumes a fully valid parse tree with fully bracketed "( .. )" expressions
         Also nests PDF array objects "[ ... ]". Recursive.
@@ -225,12 +525,16 @@ class Arlington:
 
         while (i < len(stk)):
             if (stk[i].type == 'FUNC_NAME'):
-                j, k = Arlington.to_nested_AST(stk, i+1)
-                k = [ stk[i] ] + [ k ]  # Insert the func name at the start
+                j, k = self.to_nested_AST(stk, i+1)
+                if (self.__validating) and (stk[i].value in self.__validate_fns):
+                    fn_ok = self.__validate_fns[stk[i].value](self, k)
+                    if not fn_ok:
+                        logging.error("Invalid declarative function %s: %s", stk[i].value, k)
+                k = [stk[i]] + [k]  # Insert the func name at the start
                 ast.append(k)
                 i = j
             elif (stk[i].type == 'LPAREN') or (stk[i].type == 'ARRAY_START'):
-                j, k = Arlington.to_nested_AST(stk, i+1)
+                j, k = self.to_nested_AST(stk, i+1)
                 ast.append(k)
                 i = j
             elif (stk[i].type == 'RPAREN') or (stk[i].type == 'ARRAY_END'):
@@ -245,7 +549,7 @@ class Arlington:
         return i, ast
 
 
-    def _flatten_ast(self, ast):
+    def __flatten_ast(self, ast: AST) -> None:
         """
         De-tokenize for all the base PDF stuff (integers, numbers, true/false keywords, strings)
         Recursive.
@@ -254,17 +558,21 @@ class Arlington:
         i = 0
         while (i < len(ast)):
             if not isinstance(ast[i], list):
-                if (ast[i].type in self._basePDFtokens):
+                if (ast[i].type in self.__basePDFtokens):
                     ast[i] = ast[i].value
             else:
-                self._flatten_ast(ast[i])
+                self.__flatten_ast(ast[i])
             i += 1
 
 
-    def _parse_functions(self, func, col, obj, key):
+    def _parse_functions(self, func: str, col: str, obj: str, key: str) -> AST:
         """
         Use Sly to parse any string with TSV names, PDF names or declaractive functions.
         Sly will raise exceptions if there are errors.
+        @param func: string from a TSV column that contains a 'fn:' declarative function
+        @param col: column name from TSV file (just for error messages)
+        @param obj: object name (TSV filename) for this function (just for error messages)
+        @param key: name of the key on 'obj' for this function (just for error messages)
         @returns: Python list with top level TSV names or PDF names as strings and functions as lists
         """
         # logging.debug("In row['%s'] %s::%s: '%s'", col, obj, key, func)
@@ -272,16 +580,16 @@ class Arlington:
         for tok in self.__lexer.tokenize(func):
             stk.append(tok)
         num_toks = len(stk)
-        i, ast = Arlington.to_nested_AST(stk)
+        i, ast = self.to_nested_AST(stk)
         # logging.debug("AST: %s", pprint.pformat(ast))
-        self._flatten_ast(ast)
+        self.__flatten_ast(ast)
         if (num_toks == 1) and (stk[0].type not in ('FUNC_NAME','KEY_VALUE')):
             ast = ast[0]
         # logging.debug("Out: %s", pprint.pformat(ast))
         return ast
 
 
-    def __init__(self, dir=".", pdfver="2.0"):
+    def __init__(self, dir : str = ".", pdfver : str = "2.0", validating : bool = False):
         """
         Constructor. Reads TSV set file-by-file and converts to Pythonese
         @param  dir:  directory folder contain TSV files
@@ -291,156 +599,170 @@ class Arlington:
         self.__filecount = 0
         self.__pdfver = pdfver
         self.__pdfdom = {}
+        self.__validating = validating
 
         # "Monkey patch" sly.lex.Token __str__ and __repr__ dunder methods to make JSON nicer
         # Don't do this if we want to read the JSON back in!
+        self.__old_str = sly.lex.Token.__str__
         sly.lex.Token.__str__  = MyTokenStr
+        self.__old_repr = sly.lex.Token.__repr__
         sly.lex.Token.__repr__ = MyTokenStr
         self.__lexer  = ArlingtonFnLexer()
 
-        # Load Arlington into Python
-        for filepath in glob.iglob(os.path.join(dir, r"*.tsv")):
-            obj_name = os.path.splitext(os.path.basename(filepath))[0]
-            self.__filecount += 1
-            logging.debug('Reading %s', obj_name)
-            with open(filepath, newline='') as csvfile:
-                tsvreader = csv.DictReader(csvfile, delimiter='\t')
-                tsvobj = {}
-                for row in tsvreader:
-                    keyname = row['Key']
-                    if (len(row) != 12):
-                        logging.error("%s::%s does not have 12 columns!", obj_name, keyname)
-                    row.pop('Key')
-                    if (keyname == ''):
-                        raise TypeError("Key name field cannot be empty!")
+        try:
+            # Load Arlington into Python
+            for filepath in glob.iglob(os.path.join(dir, r"*.tsv")):
+                obj_name = os.path.splitext(os.path.basename(filepath))[0]
+                self.__filecount += 1
+                logging.debug("Reading '%s'", obj_name)
+                with open(filepath, newline='') as csvfile:
+                    tsvreader = csv.DictReader(csvfile, delimiter='\t')
+                    tsvobj = {}
+                    for row in tsvreader:
+                        keyname = row['Key']
+                        if (len(row) != 12):
+                            logging.error("%s::%s does not have 12 columns!", obj_name, keyname)
+                        row.pop('Key')
+                        if (keyname == ''):
+                            raise TypeError("Key name field cannot be empty!")
 
-                    # Make multi-type fields into arrays (aka Python lists)
-                    if (r';' in row['Type']):
-                        row['Type'] = re.split(r';', row['Type'])
-                    else:
-                        row['Type'] = [ row['Type'] ]
-                    for i, v in enumerate(row['Type']):
-                        if (r'fn:' in v):
-                            row['Type'][i] = self._parse_functions(v, 'Type', obj_name, keyname)
-
-                    row['Required'] = self._parse_functions(row['Required'], 'Required', obj_name, keyname)
-                    if (row['Required'] is not None) and not isinstance(row['Required'], list):
-                        row['Required'] = [ row['Required'] ]
-
-                    # Optional, but must be a known PDF version
-                    if (row['DeprecatedIn'] == ''):
-                        row['DeprecatedIn'] = None
-
-                    if (r';' in row['IndirectReference']):
-                        row['IndirectReference'] = Arlington.strip_square_brackets(re.split(r';', row['IndirectReference']))
-                        for i, v in enumerate(row['IndirectReference']):
-                            if (v is not None):
-                                row['IndirectReference'][i] = self._parse_functions(v, 'IndirectReference', obj_name, keyname)
-                    else:
-                        row['IndirectReference'] = self._parse_functions(row['IndirectReference'], 'IndirectReference', obj_name, keyname)
-                    if not isinstance(row['IndirectReference'], list):
-                        row['IndirectReference'] = [ row['IndirectReference'] ]
-                    # For conciseness in some cases a single FALSE/TRUE is used in place of an expanded array [];[];[]
-                    # Expand this out so direct indexing is always possible
-                    if (len(row['Type']) > len(row['IndirectReference'])) and (len(row['IndirectReference']) == 1):
-                        for i in range(len(row['Type']) - len(row['IndirectReference'])):
-                            row['IndirectReference'].append( row['IndirectReference'][0] );
-
-                    # Must be FALSE or TRUE (uppercase only!)
-                    row['Inheritable'] = Arlington.convert_booleans(row['Inheritable'])
-
-                    # Can only be one value for Key, but Key can be multi-typed
-                    if (row['DefaultValue'] == ''):
-                        row['DefaultValue'] = None
-                    elif (r';' in row['DefaultValue']):
-                        row['DefaultValue'] = Arlington.strip_square_brackets(re.split(r';', row['DefaultValue']))
-                        for i, v in enumerate(row['DefaultValue']):
-                            if (v is not None):
-                                row['DefaultValue'][i] = self._parse_functions(v, 'DefaultValue', obj_name, keyname)
-                    else:
-                        row['DefaultValue'] = self._parse_functions(row['DefaultValue'], 'DefaultValue', obj_name, keyname)
-                    if (row['DefaultValue'] is not None) and not isinstance(row['DefaultValue'], list):
-                        row['DefaultValue'] = [ row['DefaultValue'] ]
-                    if (row['PossibleValues'] == ''):
-                        row['PossibleValues'] = None
-                    elif (r';' in row['PossibleValues']):
-                        row['PossibleValues'] = self.strip_square_brackets(re.split(r';', row['PossibleValues']))
-                        for i, pv in enumerate(row['PossibleValues']):
-                            if (pv is not None):
-                                row['PossibleValues'][i] = self._parse_functions(pv, 'PossibleValues', obj_name, keyname)
-                    else:
-                        row['PossibleValues'] = self._parse_functions(row['PossibleValues'], 'PossibleValues', obj_name, keyname)
-                    if (row['PossibleValues'] is not None) and not isinstance(row['PossibleValues'], list):
-                        row['PossibleValues'] = [ row['PossibleValues'] ]
-
-                    # Below is a hack(!!!) because a few PDF key values look like floats or keywords but are really names.
-                    # Sly-based parsing in Python does not use any hints from other rows so it will convert to int/float/bool as it sees fit
-                    # See Catalog::Version, DocMDPTransformParameters::V, DevExtensions::BaseVersion, SigFieldSeedValue::LockDocument
-                    if (row['Type'][0] == 'name'):
-                        if (row['DefaultValue'] is not None) and isinstance(row['DefaultValue'][0], (int,float)):
-                            logging.info("Converting DefaultValue int/float/bool '%s' back to name for %s::%s", str(row['DefaultValue'][0]), obj_name, keyname)
-                            row['DefaultValue'][0] = str(row['DefaultValue'][0])
-                        if (row['PossibleValues'] is not None):
-                            for i, v in enumerate(row['PossibleValues'][0]):
-                                if isinstance(v, (int,float)):
-                                    logging.info("Converting PossibleValues int/float/bool '%s' back to name for %s::%s", str(v), obj_name, keyname)
-                                    row['PossibleValues'][0][i] = str(v)
-
-                    if (row['SpecialCase'] == ''):
-                        row['SpecialCase'] = None
-                    elif (r';' in row['SpecialCase']):
-                        row['SpecialCase'] = self.strip_square_brackets(re.split(r';', row['SpecialCase']))
-                        for i, v in enumerate(row['SpecialCase']):
-                            if (v is not None):
-                                row['SpecialCase'][i] = self._parse_functions(v, 'SpecialCase', obj_name, keyname)
-                    else:
-                        row['SpecialCase'] = self._parse_functions(row['SpecialCase'], 'SpecialCase', obj_name, keyname)
-                    if (row['SpecialCase'] is not None) and not isinstance(row['SpecialCase'], list):
-                        row['SpecialCase'] = [ row['SpecialCase'] ]
-
-                    if (row['Link'] == ''):
-                        row['Link'] = None
-                    else:
-                        if (r';' in row['Link']):
-                            row['Link'] = self.strip_square_brackets(re.split(r';', row['Link']))
-                            for i, v in enumerate(row['Link']):
-                                if (v is not None):
-                                    row['Link'][i] = self._parse_functions(v, 'Link', obj_name, keyname)
+                        # Make multi-type fields into arrays (aka Python lists)
+                        if (r';' in row['Type']):
+                            row['Type'] = re.split(r';', row['Type'])
                         else:
-                            row['Link'] = self._parse_functions(row['Link'], 'Link', obj_name, keyname)
-                    if (row['Link'] is not None) and not isinstance(row['Link'], list):
-                        row['Link'] = [ row['Link'] ]
+                            row['Type'] = [ row['Type'] ]
+                        for i, v in enumerate(row['Type']):
+                            if (r'fn:' in v):
+                                row['Type'][i] = self._parse_functions(v, 'Type', obj_name, keyname)
 
-                    if (row['Note'] == ''):
-                        row['Note'] = None
+                        row['Required'] = self._parse_functions(row['Required'], 'Required', obj_name, keyname)
+                        if (row['Required'] is not None) and not isinstance(row['Required'], list):
+                            row['Required'] = [ row['Required'] ]
 
-                    tsvobj[keyname] = row
-                self.__pdfdom[obj_name] = tsvobj
+                        # Optional, but must be a known PDF version
+                        if (row['DeprecatedIn'] == ''):
+                            row['DeprecatedIn'] = None
 
-        if (self.__filecount == 0):
-            logging.error("There were no TSV files in directory '%s'!", self.__directory)
-            return
+                        if (r';' in row['IndirectReference']):
+                            row['IndirectReference'] = Arlington.__strip_square_brackets(re.split(r';', row['IndirectReference']))
+                            for i, v in enumerate(row['IndirectReference']):
+                                if (v is not None):
+                                    row['IndirectReference'][i] = self._parse_functions(v, 'IndirectReference', obj_name, keyname)
+                        else:
+                            row['IndirectReference'] = self._parse_functions(row['IndirectReference'], 'IndirectReference', obj_name, keyname)
+                        if not isinstance(row['IndirectReference'], list):
+                            row['IndirectReference'] = [ row['IndirectReference'] ]
+                        # For conciseness in some cases a single FALSE/TRUE is used in place of an expanded array [];[];[]
+                        # Expand this out so direct indexing is always possible
+                        if (len(row['Type']) > len(row['IndirectReference'])) and (len(row['IndirectReference']) == 1):
+                            for i in range(len(row['Type']) - len(row['IndirectReference'])):
+                                row['IndirectReference'].append( row['IndirectReference'][0] );
 
-        logging.info("%d TSV files processed from %s", self.__filecount, self.__directory)
+                        # Must be FALSE or TRUE (uppercase only!)
+                        row['Inheritable'] = Arlington.__convert_booleans(row['Inheritable'])
+
+                        # Can only be one value for Key, but Key can be multi-typed
+                        if (row['DefaultValue'] == ''):
+                            row['DefaultValue'] = None
+                        elif (r';' in row['DefaultValue']):
+                            row['DefaultValue'] = self.__strip_square_brackets(re.split(r';', row['DefaultValue']))
+                            for i, v in enumerate(row['DefaultValue']):
+                                if (v is not None):
+                                    row['DefaultValue'][i] = self._parse_functions(v, 'DefaultValue', obj_name, keyname)
+                        else:
+                            row['DefaultValue'] = self._parse_functions(row['DefaultValue'], 'DefaultValue', obj_name, keyname)
+                        if (row['DefaultValue'] is not None) and not isinstance(row['DefaultValue'], list):
+                            row['DefaultValue'] = [ row['DefaultValue'] ]
+                        if (row['PossibleValues'] == ''):
+                            row['PossibleValues'] = None
+                        elif (r';' in row['PossibleValues']):
+                            row['PossibleValues'] = self.__strip_square_brackets(re.split(r';', row['PossibleValues']))
+                            for i, pv in enumerate(row['PossibleValues']):
+                                if (pv is not None):
+                                    row['PossibleValues'][i] = self._parse_functions(pv, 'PossibleValues', obj_name, keyname)
+                        else:
+                            row['PossibleValues'] = self._parse_functions(row['PossibleValues'], 'PossibleValues', obj_name, keyname)
+                        if (row['PossibleValues'] is not None) and not isinstance(row['PossibleValues'], list):
+                            row['PossibleValues'] = [ row['PossibleValues'] ]
+
+                        # Below is a hack(!!!) because a few PDF key values look like floats or keywords but are really names.
+                        # Sly-based parsing in Python does not use any hints from other rows so it will convert to int/float/bool as it sees fit
+                        # See Catalog::Version, DocMDPTransformParameters::V, DevExtensions::BaseVersion, SigFieldSeedValue::LockDocument
+                        if (row['Type'][0] == 'name'):
+                            if (row['DefaultValue'] is not None) and isinstance(row['DefaultValue'][0], (int,float)):
+                                logging.info("Converting DefaultValue int/float/bool '%s' back to name for %s::%s", str(row['DefaultValue'][0]), obj_name, keyname)
+                                row['DefaultValue'][0] = str(row['DefaultValue'][0])
+                            if (row['PossibleValues'] is not None):
+                                for i, v in enumerate(row['PossibleValues'][0]):
+                                    if isinstance(v, (int,float)):
+                                        logging.info("Converting PossibleValues int/float/bool '%s' back to name for %s::%s", str(v), obj_name, keyname)
+                                        row['PossibleValues'][0][i] = str(v)
+
+                        if (row['SpecialCase'] == ''):
+                            row['SpecialCase'] = None
+                        elif (r';' in row['SpecialCase']):
+                            row['SpecialCase'] = self.__strip_square_brackets(re.split(r';', row['SpecialCase']))
+                            for i, v in enumerate(row['SpecialCase']):
+                                if (v is not None):
+                                    row['SpecialCase'][i] = self._parse_functions(v, 'SpecialCase', obj_name, keyname)
+                        else:
+                            row['SpecialCase'] = self._parse_functions(row['SpecialCase'], 'SpecialCase', obj_name, keyname)
+                        if (row['SpecialCase'] is not None) and not isinstance(row['SpecialCase'], list):
+                            row['SpecialCase'] = [ row['SpecialCase'] ]
+
+                        if (row['Link'] == ''):
+                            row['Link'] = None
+                        else:
+                            if (r';' in row['Link']):
+                                row['Link'] = self.__strip_square_brackets(re.split(r';', row['Link']))
+                                for i, v in enumerate(row['Link']):
+                                    if (v is not None):
+                                        row['Link'][i] = self._parse_functions(v, 'Link', obj_name, keyname)
+                            else:
+                                row['Link'] = self._parse_functions(row['Link'], 'Link', obj_name, keyname)
+                        if (row['Link'] is not None) and not isinstance(row['Link'], list):
+                            row['Link'] = [ row['Link'] ]
+
+                        if (row['Note'] == ''):
+                            row['Note'] = None
+
+                        tsvobj[keyname] = row
+                    self.__pdfdom[obj_name] = tsvobj
+                    csvfile.close()
+
+            if (self.__validating):
+                self.__validate_pdf_dom()
+
+            if (self.__filecount == 0):
+                logging.critical("There were no TSV files in directory '%s'!", self.__directory)
+                return
+
+            logging.info("%d TSV files processed from %s", self.__filecount, self.__directory)
+            self.__validating = False
+        except Exception as e:
+            logging.critical(e)
 
 
-    def validate_pdf_dom(self, pdfver="2.0"):
+    def __validate_pdf_dom(self) -> None:
         """
-        Does a detailed Validation of the in-memory Python data structure
+        Does a detailed Validation of the in-memory Python data structure of the
+        Arlington TSV data files.
         """
         if (self.__filecount == 0) or (len(self.__pdfdom) == 0):
-            logging.error("There is no Arlington DOM to validate!")
+            logging.critical("There is no Arlington DOM to validate!")
             return
 
+
+        #logging.info("Validating against PDF version %s", self.__pdfver)
         for obj_name in self.__pdfdom:
             logging.debug("Validating '%s'", obj_name)
             obj = self.__pdfdom[obj_name]
 
             # Check if object contain any duplicate keys or has no keys
             if (len(obj) != len(set(obj))):
-                logging.error("Duplicate keys in '%s'!", obj_name)
+                logging.critical("Duplicate keys in '%s'!", obj_name)
             if (len(obj) == 0):
-                logging.error("Object '%s' has no keys/array entries!", obj_name)
+                logging.critical("Object '%s' has no keys/array entries!", obj_name)
 
             for keyname in obj:
                 row = obj[keyname]
@@ -452,14 +774,15 @@ class Arlington:
                     logging.error("Key '%s' in object %s has unexpected characters", keyname, obj_name)
 
                 # Check if Types are sorted alphabetically
-                is_sorted = all(isinstance(row['Type'][i], str) and isinstance(row['Type'][i+1], str) and (row['Type'][i] <= row['Type'][i+1]) for i in range(len(row['Type'])-1))
+                reduced_types = self.__reduce_typelist(row['Type'], [])
+                is_sorted = all((reduced_types[i] <= reduced_types[i+1]) for i in range(len(reduced_types)-1))
                 if not is_sorted:
                     logging.error("Types '%s' are not sorted alphabetically for %s::%s", row['Type'], obj_name, keyname)
 
-                if (row['SinceVersion'] not in self._pdf_versions):
+                if (row['SinceVersion'] not in self.__pdf_versions):
                     logging.error("SinceVersion '%s' in %s::%s has unexpected value!", row['SinceVersion'], obj_name, keyname)
 
-                if (row['DeprecatedIn'] is not None) and (row['DeprecatedIn'] not in self._pdf_versions):
+                if (row['DeprecatedIn'] is not None) and (row['DeprecatedIn'] not in self.__pdf_versions):
                     logging.error("DeprecatedIn '%s' in %s::%s has unexpected value!", row['DeprecatedIn'], obj_name, keyname)
 
                 for v in row['Required']:
@@ -474,7 +797,7 @@ class Arlington:
                         logging.error("Incorrect number of elements between Type (%d) and IndirectReference (%d) for %s::%s",
                             len(row['Type']), len(row['IndirectReference']), obj_name, keyname)
 
-                i = self._find_pdf_type('stream', row['Type'])
+                i = self.__find_pdf_type('stream', row['Type'])
                 if (i != -1):
                     if (row['IndirectReference'][i] != True):
                         logging.error("Type 'stream' requires IndirectReference (%s) to be TRUE for %s::%s", row['IndirectReference'][i], obj_name, keyname)
@@ -489,7 +812,7 @@ class Arlington:
                 # Validate all types are known and match DefaultValue into PossibleValues
                 for i, t in enumerate(row['Type']):
                     if isinstance(t, str):
-                        if (t not in self._known_types):
+                        if (t not in self.__known_types):
                             logging.error("Unknown Arlington type '%s' for %s::%s!", t, obj_name, keyname)
 
                         # Check if type and DefaultValue match in data type
@@ -572,7 +895,7 @@ class Arlington:
                                     logging.error("PossibleValues '%s' is not a str for %s::%s", row['PossibleValues'][i], obj_name, keyname)
 
                         if (row['Link'] is not None):
-                            if (t in self._links_required):
+                            if (t in self.__links_required):
                                 if (row['Link'][i] is None):
                                     logging.error("Link '%s' is missing for type %s in %s::%s", row['Link'][i], t, obj_name, keyname)
                                 elif not isinstance(row['Link'][i], (str, list)):
@@ -602,13 +925,13 @@ class Arlington:
                             # Only "fn:SinceVersion(" or "fn:Deprecated(" allowed
                             if (t[0].type != 'FUNC_NAME') and (t[0].value not in ("fn:SinceVersion(", "fn:Deprecated(")):
                                 logging.error("Unknown function '%s' for Type in %s::%s!", t, obj_name, keyname)
-                            if not isinstance(t[1][1], str) or (t[1][1] not in self._known_types):
+                            if not isinstance(t[1][1], str) or (t[1][1] not in self.__known_types):
                                 logging.error("Unknown type inside function '%s' for Type in %s::%s!", t, obj_name, keyname)
                         else:
                             # Only "fn:SinceVersion(" or "fn:Deprecated(" allowed
                             if (t[0][0].type != 'FUNC_NAME') and (t[0][0].value not in ("fn:SinceVersion(", "fn:Deprecated(")):
                                 logging.error("Unknown function '%s' for Type in %s::%s!", t, obj_name, keyname)
-                            if not isinstance(t[0][1][1], str) or (t[0][1][1] not in self._known_types):
+                            if not isinstance(t[0][1][1], str) or (t[0][1][1] not in self.__known_types):
                                 logging.error("Unknown type inside function '%s' for Type in %s::%s!", t, obj_name, keyname)
 
                     # Check if DefaultValue is valid in any PossibleValues
@@ -644,21 +967,489 @@ class Arlington:
                 logging.error("Unlinked object %s!", obj_name)
 
 
-    def save_dom_to_json(self, json_file):
+    def process_matrix(self, mtx : pikepdf.Array, pth : str) -> None:
         """
-        Pretty-print the DOM as JSON to a  file (helps readability for debugging)
+        Process a matrix (6 element pikepdf.Array) object
+        @param mtx: the pikepdf.Array matrix object
+        @param pth: the text string of the path to the matrix
+        """
+        print("=" + pth + ("=[ %.5f %.5f %.5f %.5f %.5f %.5f ] <as matrix>" % (mtx[0], mtx[1], mtx[2], mtx[3], mtx[4], mtx[5])))
+
+
+    def process_rect(self, rct : pikepdf.Array, pth : str) -> None:
+        """
+        Process a rectangle (4 element pikepdf.Array) object
+        @param rct: the pikepdf.Array rectangle object
+        @param pth: the text string of the path to the rectangle
+        """
+        print("=" + pth + ("=[ %.5f %.5f %.5f %.5f ] <as rectangle>" % (rct[0], rct[1], rct[2], rct[3])))
+
+
+    def process_dict(self, dct : pikepdf.Dictionary, arlnames : list, pth : str) -> None:
+        """
+        Recursively process keys in a pikepdf.Dictionary object
+        @param dct: a pikepdf.Dictionary object
+        @param arlnames: list of possible Arlington TSV objects that might match the PDF dictionary
+        @param pth: the text string of the path to the dict
+        """
+        if (arlnames is not None):
+            rlinks = self.__reduce_linkslist(arlnames, [])
+            arlobj = self.__pdfdom[rlinks[0]]
+            wildcard = (r'*' in arlobj)
+        else:
+            rlinks = None
+            arlobj = None
+            wildcard = False
+
+        for k in sorted(dct.as_dict()):
+            row = None
+            child = None
+            childlinks = None
+            if (wildcard):
+                row = arlobj[r'*']
+                status = '='
+            elif (arlobj is not None) and (k[1:] in arlobj):
+                # Key 'k' is in both Arlington and PDF!
+                # Remove leading slash from pikepdf Name to match Arlington Name
+                row = arlobj[k[1:]]
+                status = '?'
+            else:
+                # Key 'k' is ONLY in the PDF and not Arlington
+                status = '+'
+
+            p = pth + "%s" % k
+            p1 = ''
+            o = dct.get(k)
+            if isinstance(o, pikepdf.Dictionary):
+                if (row is not None):
+                    idx = self.__find_pdf_type(['dictionary','name-tree','number-tree'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                        childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                if (o.objgen != (0, 0)):
+                    if (o.objgen in self.__visited):
+                        print(status + p + (" ** already visited dict %s!" % str(o.objgen)))
+                        continue
+                    else:
+                        self.__visited.append(o.objgen)
+                        p1 = " %s" % str(o.objgen)
+                print(status + p + p1 + (" <as %s>" % childlinks))
+                self.process_dict(o, childlinks, p)
+            elif isinstance(o, pikepdf.Stream):
+                if (row is not None):
+                    idx = self.__find_pdf_type('stream', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                        childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                if (o.objgen != (0, 0)):
+                    if (o.objgen in self.__visited):
+                        print(status + p + (" ** already visited stm %s!" % str(o.objgen)))
+                        continue
+                    else:
+                        self.__visited.append(o.objgen)
+                        p1 = " %s" % str(o.objgen)
+                print(status + p + p1 + (" <as %s>" % childlinks))
+                self.process_stream(o, childlinks, p)
+            elif isinstance(o, pikepdf.Array):
+                is_matrix = False
+                is_rect = False
+                if (row is not None):
+                    idx = self.__find_pdf_type(['array','matrix','rectangle'], row['Type'])
+                    if (idx != -1):
+                        # matrix and rectangle don't have links even though they are arrays
+                        status = "="
+                        if  ('array' == row['Type'][idx]):
+                            childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                        elif  ('matrix' == row['Type'][idx]):
+                            is_matrix = True
+                        if  ('rectangle' == row['Type'][idx]):
+                            is_rect = True
+                if (o.objgen != (0, 0)):
+                    if (o.objgen in self.__visited):
+                        print(status + p + (" ** already visited array %s!" % str(o.objgen)))
+                        continue
+                    else:
+                        self.__visited.append(o.objgen)
+                        p1 = " %s" % str(o.objgen)
+                if (is_matrix):
+                    self.process_matrix(o, status + p + p1)
+                elif (is_rect):
+                    self.process_rect(o, status + p + p1)
+                else:
+                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    self.process_array(o, childlinks, p)
+            elif isinstance(o, pikepdf.Name):
+                if (row is not None):
+                    idx = self.__find_pdf_type('name', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + ("=%s" % o))
+            elif isinstance(o, (pikepdf.String, str)):
+                if (row is not None):
+                    idx = self.__find_pdf_type(['string','date'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + ("=(%s)" % o))
+            elif isinstance(o, bool):
+                if (row is not None):
+                    idx = self.__find_pdf_type(['boolean'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                if (o):
+                    print(status + p + "=true")
+                else:
+                    print(status + p + "=false")
+            elif isinstance(o, int):
+                s = str(o)
+                if (row is not None):
+                    idx = self.__find_pdf_type(['integer','number','bitmask'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                        if ('number' == row['Type'][idx]):
+                           s = "%.5f" % float(o)
+                        elif ('bitmask' == row['Type'][idx]):
+                            s = "%d <bitmask>" % o
+                print(status + p + "=%s" % s)
+            elif isinstance(o, (float, decimal.Decimal)):
+                if (row is not None):
+                    idx = self.__find_pdf_type('number', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + ("=%.5f" % o))
+            elif (o is None):
+                if (row is not None):
+                    idx = self.__find_pdf_type('null', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + "=null")
+            else:
+                logging.critical("Unexpected type '%s' processing dictionary! ", o.__class__)
+                sys.exit()
+
+
+    def process_stream(self, dct : pikepdf.Stream, arlnames : list, pth : str) -> None:
+        """
+        Recursively process keys in a pikepdf.Stream object
+        @param dct: a pikepdf.Stream object
+        @param arlnames: list of possible Arlington TSV objects that might match the PDF stream
+        @param pth: the text string of the path to the stream
+        """
+        if (arlnames is not None):
+            rlinks = self.__reduce_linkslist(arlnames, [])
+            arlobj = self.__pdfdom[rlinks[0]]
+            wildcard = (r'*' in arlobj)
+        else:
+            rlinks = None
+            arlobj = None
+            wildcard = False
+
+        for k in sorted(dct.stream_dict.as_dict()):
+            row = None
+            child = None
+            childlinks = None
+            if (wildcard):
+                row = arlobj[r'*']
+                status = '='
+            elif (arlobj is not None) and (k[1:] in arlobj):
+                # Key 'k' is in both Arlington and PDF!
+                # Remove leading slash from pikepdf Name to match Arlington Name
+                row = arlobj[k[1:]]
+                status = '?'
+            else:
+                # Key 'k' is ONLY in the PDF and not Arlington
+                status = '+'
+
+            p = pth + "%s" % k
+            p1 = ''
+            o = dct.get(k)
+            if isinstance(o, pikepdf.Dictionary):
+                if (row is not None):
+                    idx = self.__find_pdf_type(['dictionary','name-tree','number-tree'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                        childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                if (o.objgen != (0, 0)):
+                    if (o.objgen in self.__visited):
+                        print(status + p + (" ** already visited dict %s!" % str(o.objgen)))
+                        continue
+                    else:
+                        self.__visited.append(o.objgen)
+                        p1 = " %s" % str(o.objgen)
+                print(status + p + p1 + (" <as %s>" % childlinks))
+                self.process_dict(o, childlinks, p)
+            elif isinstance(o, pikepdf.Stream):
+                if (row is not None):
+                    idx = self.__find_pdf_type('stream', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                        childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                if (o.objgen != (0, 0)):
+                    if (o.objgen in self.__visited):
+                        print(status + p + (" ** already visited stm %s!" % str(o.objgen)))
+                        continue
+                    else:
+                        self.__visited.append(o.objgen)
+                        p1 = " %s" % str(o.objgen)
+                print(status + p + p1 + (" <as %s>" % childlinks))
+                self.process_stream(o, childlinks, p)
+            elif isinstance(o, pikepdf.Array):
+                is_matrix = False
+                is_rect = False
+                if (row is not None):
+                    idx = self.__find_pdf_type(['array','matrix','rectangle'], row['Type'])
+                    if (idx != -1):
+                        # matrix and rectangle don't have links even though they are arrays
+                        status = "="
+                        if ('array' == row['Type'][idx]):
+                            childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                        elif  ('matrix' == row['Type'][idx]):
+                            is_matrix = True
+                        if  ('rectangle' == row['Type'][idx]):
+                            is_rect = True
+                if (o.objgen != (0, 0)):
+                    if (o.objgen in self.__visited):
+                        print(status + p + (" ** already visited array %s!" % str(o.objgen)))
+                        continue
+                    else:
+                        self.__visited.append(o.objgen)
+                        p1 = " %s" % str(o.objgen)
+                if (is_matrix):
+                    self.process_matrix(o, status + p + p1)
+                elif (is_rect):
+                    self.process_rect(o, status + p + p1)
+                else:
+                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    self.process_array(o, childlinks, p)
+            elif isinstance(o, pikepdf.Name):
+                if (row is not None):
+                    idx = self.__find_pdf_type('name', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + ("=%s" % o))
+            elif isinstance(o, (pikepdf.String, str)):
+                if (row is not None):
+                    idx = self.__find_pdf_type(['string','date'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + ("=(%s)" % o))
+            elif isinstance(o, bool):
+                if (row is not None):
+                    idx = self.__find_pdf_type(['boolean'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                if (o):
+                    print(status + p + "=true")
+                else:
+                    print(status + p + "=false")
+            elif isinstance(o, int):
+                s = str(o)
+                if (row is not None):
+                    idx = self.__find_pdf_type(['integer','number','bitmask'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                        if ('number' == row['Type'][idx]):
+                           s = "%.5f" % float(o)
+                        elif ('bitmask' == row['Type'][idx]):
+                            s = "%d <bitmask>" % o
+                print(status + p + "=%s" % s)
+            elif isinstance(o, (float, decimal.Decimal)):
+                if (row is not None):
+                    idx = self.__find_pdf_type('number', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + ("=%.5f" % o))
+            elif (o is None):
+                if (row is not None):
+                    idx = self.__find_pdf_type('null', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + "=null")
+            else:
+                logging.critical("Unexpected type '%s' processing stream! ", o.__class__)
+                sys.exit()
+
+
+    def process_array(self, ary : pikepdf.Array, arlnames : list, pth : str) -> None:
+        """
+        Recursively process array elements (by numeric index) in a pikepdf.Array object
+        @param ary: a pikepdf.Array object
+        @param arlnames: list of possible Arlington TSV objects that might match the PDF dictionary
+        @param pth: the text string of the path to ary
+        """
+        if (arlnames is not None):
+            rlinks = self.__reduce_linkslist(arlnames, [])
+            arlobj = self.__pdfdom[rlinks[0]]
+            wildcard = (r'*' in arlobj)
+        else:
+            rlinks = None
+            arlobj = None
+            wildcard = False
+
+        for i, o in enumerate(ary):
+            row = None
+            child = None
+            childlinks = None
+            if (wildcard):
+                row = arlobj[r'*']
+                status = '='
+            elif (arlobj is not None) and (i < len(arlobj)):
+                row = arlobj[str(i)]
+                status = '?'
+            else:
+                status = '+'
+
+            p = pth + "[%d]" % i
+            p1 = ''
+            if isinstance(o, pikepdf.Dictionary):
+                if (row is not None):
+                    idx = self.__find_pdf_type(['dictionary','name-tree','number-tree'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                        childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                if (o.objgen != (0, 0)):
+                    if (o.objgen in self.__visited):
+                        print(status + p + (" ** already visited dict %s!" % str(o.objgen)))
+                        continue
+                    else:
+                        self.__visited.append(o.objgen)
+                        p1 = " %s" % str(o.objgen)
+                print(status + p + p1 + (" <as %s>" % childlinks))
+                self.process_dict(o, childlinks, p)
+            elif isinstance(o, pikepdf.Stream):
+                if (row is not None):
+                    idx = self.__find_pdf_type('stream', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                        childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                if (o.objgen != (0, 0)):
+                    if (o.objgen in self.__visited):
+                        print(status + p + (" ** already visited stm %s!" % str(o.objgen)))
+                        continue
+                    else:
+                        self.__visited.append(o.objgen)
+                        p1 = " %s" % str(o.objgen)
+                print(status + p + p1 + (" <as %s>" % childlinks))
+                self.process_stream(o, childlinks, p)
+            elif isinstance(o, pikepdf.Array):
+                is_matrix = False
+                is_rect = False
+                if (row is not None):
+                    idx = self.__find_pdf_type(['array','matrix','rectangle'], row['Type'])
+                    if (idx != -1):
+                        # matrix and rectangle don't have links even though they are technically arrays
+                        status = "="
+                        if ('array' == row['Type'][idx]):
+                            childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                        elif  ('matrix' == row['Type'][idx]):
+                            is_matrix = True
+                        if  ('rectangle' == row['Type'][idx]):
+                            is_rect = True
+                if (o.objgen != (0, 0)):
+                    if (o.objgen in self.__visited):
+                        print(status + p + (" ** already visited array %s!" % str(o.objgen)))
+                        continue
+                    else:
+                        self.__visited.append(o.objgen)
+                        p1 = " %s" % str(o.objgen)
+                if (is_matrix):
+                    self.process_matrix(o, status + p + p1)
+                elif (is_rect):
+                    self.process_rect(o, status + p + p1)
+                else:
+                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    self.process_array(o, childlinks, p)
+            elif isinstance(o, pikepdf.Name):
+                if (row is not None):
+                    idx = self.__find_pdf_type('name', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + ("=%s" % o))
+            elif isinstance(o, (pikepdf.String, str)):
+                if (row is not None):
+                    idx = self.__find_pdf_type(['string','date'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + ("=(%s)" % o))
+            elif isinstance(o, bool):
+                if (row is not None):
+                    idx = self.__find_pdf_type(['boolean'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                if (o):
+                    print(status + p + "=true")
+                else:
+                    print(status + p + "=false")
+            elif isinstance(o, int):
+                s = str(o)
+                if (row is not None):
+                    idx = self.__find_pdf_type(['integer','number','bitmask'], row['Type'])
+                    if (idx != -1):
+                        status = "="
+                        if ('number' == row['Type'][idx]):
+                           s = "%.5f" % float(o)
+                        elif ('bitmask' == row['Type'][idx]):
+                            s = "%d <bitmask>" % o
+                print(status + p + "=%s" % s)
+            elif isinstance(o, (float, decimal.Decimal)):
+                if (row is not None):
+                    idx = self.__find_pdf_type('number', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + "=%.5f" % o)
+            elif (o is None):
+                if (row is not None):
+                    idx = self.__find_pdf_type('null', row['Type'])
+                    if (idx != -1):
+                        status = "="
+                print(status + p + "=null")
+            else:
+                logging.critical("Unexpected type '%s' processing array! ", o.__class__)
+                sys.exit()
+
+
+    def validate_pdf_file(self, pdf_file : str) -> None:
+        """
+        Reads in a PDF file and compares to the Arlington DOM
+        @param  pdf_file: filename of PDF file
+        """
+        pdf = pikepdf.Pdf.open(pdf_file, suppress_warnings=False)
+        wrns = pdf.get_warnings()
+        if (len(wrns) > 0):
+            logging.debug(wrns)
+        self.__visited = []
+
+        # Simplistic method to determine of modern or legacy xref
+        pdfobj = pdf.trailer.as_dict().get('/Type')
+        if (pdfobj is not None):
+            if (str(pdfobj) == '/XRef'):
+                print("Processing as XRefStream")
+                self.process_dict(pdf.trailer, ['XRefStream'], "/trailer")
+            else:
+                print("Processing as file trailer")
+                self.process_dict(pdf.trailer, ['FileTrailer'], "/trailer")
+        else:
+            logging.critical("Could not obtain PDF trailer for '%s'!" % pdf_file)
+        pdf.close()
+
+
+    def save_dom_to_json(self, json_file : str) -> None:
+        """
+        Pretty-print the DOM as JSON to a file (helps readability for debugging)
+        @param: json_file: file name for JSON output. Will be overwritten.
         """
         with open(json_file, r'w') as f:
             pprint.pprint(self.__pdfdom, f, compact=True, width=200)
+            f.close()
 
 
 if __name__ == '__main__':
     cli_parser = argparse.ArgumentParser()
     cli_parser.add_argument('-t', '--tsvdir', help='directory containing Alrington TSV file set', dest="tsvdir")
     cli_parser.add_argument('-j', '--json',   help="save Arlington DOM as JSON file", default=None, dest="json")
-    cli_parser.add_argument('-v', '--validate', help="Detailed validation on the Arlington DOM", action='store_true', default=False, dest="validate")
-    cli_parser.add_argument('-d', '--debug',  help="Enable debug logging", action="store_const", dest="loglevel", const=logging.DEBUG, default=logging.WARNING)
-    cli_parser.add_argument('-i', '--info',   help="Enable informative logging", action="store_const", dest="loglevel", const=logging.INFO)
+    cli_parser.add_argument('-v', '--validate', help="detailed validation on the Arlington DOM", action='store_true', default=False, dest="validate")
+    cli_parser.add_argument('-d', '--debug',  help="enable debug logging", action="store_const", dest="loglevel", const=logging.DEBUG, default=logging.WARNING)
+    cli_parser.add_argument('-i', '--info',   help="enable informative logging", action="store_const", dest="loglevel", const=logging.INFO)
+    cli_parser.add_argument('-p', '--pdf',    help="input PDF file", default=None, dest="pdffile")
     cli = cli_parser.parse_args()
 
     logging.basicConfig(level=cli.loglevel)
@@ -668,15 +1459,22 @@ if __name__ == '__main__':
         cli_parser.print_help()
         sys.exit()
 
-    print("Loading...")
-    arl = Arlington(cli.tsvdir)
+    if (cli.validate):
+        print("Loading and validating...")
+    else:
+        print("Loading...")
+    arl = Arlington(cli.tsvdir, validating=cli.validate)
 
     if (cli.json is not None):
         print("Saving JSON to '%s'..." % cli.json)
         arl.save_dom_to_json(cli.json)
 
-    if (cli.validate):
-        print("Validating...")
-        arl.validate_pdf_dom()
+    if (cli.pdffile is not None):
+        if os.path.isfile(cli.pdffile):
+            print("Processing '%s'..." % cli.pdffile)
+            arl.validate_pdf_file(cli.pdffile)
+        else:
+            print("'%s' is not a valid file!" % cli.pdffile)
+            sys.exit()
 
     print("Done.")
