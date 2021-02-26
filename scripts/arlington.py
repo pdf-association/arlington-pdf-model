@@ -714,9 +714,11 @@ class Arlington:
                             row['Link'] = None
                         else:
                             if (r';' in row['Link']):
-                                row['Link'] = self.__strip_square_brackets(re.split(r';', row['Link']))
+                                row['Link'] = re.split(r';', row['Link'])
                                 for i, v in enumerate(row['Link']):
-                                    if (v is not None):
+                                    if (v == '[]'):
+                                        row['Link'][i] = None
+                                    else:
                                         row['Link'][i] = self._parse_functions(v, 'Link', obj_name, keyname)
                             else:
                                 row['Link'] = self._parse_functions(row['Link'], 'Link', obj_name, keyname)
@@ -937,34 +939,22 @@ class Arlington:
                     # Check if DefaultValue is valid in any PossibleValues
                     # T.B.D.
 
-            # Check for incoming links to this object (obj_name)
+            # Check for incoming links to this object (obj_name) from every other object
             found = 0
             for i in self.__pdfdom:
                 lnkobj = self.__pdfdom[i]
                 for k in lnkobj:
                     r = lnkobj[k]
                     if (r['Link'] is not None):
-                        if isinstance(r['Link'], str) and (r['Link'] == obj_name):
-                            found += 1 # Should never happen!
-                        elif isinstance(r['Link'], list):
-                            for v in r['Link']:
-                                if isinstance(v, str) and (v == obj_name):
-                                    found += 1
-                                elif isinstance(v, list):
-                                    for j in v:
-                                        if isinstance(j, str) and (j == obj_name):
-                                            found += 1
-                                        elif isinstance(j, list):
-                                            for x in j:
-                                                if isinstance(x, str) and (x == obj_name):
-                                                    found += 1
-                                                elif isinstance(x, list):
-                                                    for y in x:
-                                                        if isinstance(y, str) and (y == obj_name):
-                                                            found += 1
+                        rd = self.__reduce_linkslist(r['Link'], [])
+                        for v in rd:
+                            if isinstance(v, str) and (v == obj_name):
+                                found += 1 
+                                logging.debug("Found %s for %s::%s", obj_name, i, k)
+
             logging.debug("Found %d links to '%s'", found, obj_name)
             if (found == 0):
-                logging.error("Unlinked object %s!", obj_name)
+                logging.critical("Unlinked object %s!", obj_name)
 
 
     def process_matrix(self, mtx : pikepdf.Array, pth : str) -> None:
@@ -1021,11 +1011,13 @@ class Arlington:
             p1 = ''
             o = dct.get(k)
             if isinstance(o, pikepdf.Dictionary):
+                is_tree = False
                 if (row is not None):
                     idx = self.__find_pdf_type(['dictionary','name-tree','number-tree'], row['Type'])
                     if (idx != -1):
                         status = "="
                         childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                        is_tree = (row['Type'][idx] in ['name-tree','number-tree'])
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
                         print(status + p + (" ** already visited dict %s!" % str(o.objgen)))
@@ -1033,8 +1025,11 @@ class Arlington:
                     else:
                         self.__visited.append(o.objgen)
                         p1 = " %s" % str(o.objgen)
-                print(status + p + p1 + (" <as %s>" % childlinks))
-                self.process_dict(o, childlinks, p)
+                if (not is_tree):
+                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    self.process_dict(o, childlinks, p)
+                else:            
+                    print(status + p + p1 + " <as name/number-tree>")
             elif isinstance(o, pikepdf.Stream):
                 if (row is not None):
                     idx = self.__find_pdf_type('stream', row['Type'])
@@ -1163,11 +1158,13 @@ class Arlington:
             p1 = ''
             o = dct.get(k)
             if isinstance(o, pikepdf.Dictionary):
+                is_tree = False
                 if (row is not None):
                     idx = self.__find_pdf_type(['dictionary','name-tree','number-tree'], row['Type'])
                     if (idx != -1):
                         status = "="
                         childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                        is_tree = (row['Type'][idx] in ['name-tree','number-tree'])
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
                         print(status + p + (" ** already visited dict %s!" % str(o.objgen)))
@@ -1175,8 +1172,11 @@ class Arlington:
                     else:
                         self.__visited.append(o.objgen)
                         p1 = " %s" % str(o.objgen)
-                print(status + p + p1 + (" <as %s>" % childlinks))
-                self.process_dict(o, childlinks, p)
+                if (not is_tree):
+                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    self.process_dict(o, childlinks, p)
+                else:            
+                    print(status + p + p1 + " <as name/number-tree>")
             elif isinstance(o, pikepdf.Stream):
                 if (row is not None):
                     idx = self.__find_pdf_type('stream', row['Type'])
@@ -1301,11 +1301,13 @@ class Arlington:
             p = pth + "[%d]" % i
             p1 = ''
             if isinstance(o, pikepdf.Dictionary):
+                is_tree = False
                 if (row is not None):
                     idx = self.__find_pdf_type(['dictionary','name-tree','number-tree'], row['Type'])
                     if (idx != -1):
                         status = "="
                         childlinks = self.__reduce_linkslist(row['Link'][idx], [])
+                        is_tree = (row['Type'][idx] in ['name-tree','number-tree'])
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
                         print(status + p + (" ** already visited dict %s!" % str(o.objgen)))
@@ -1313,8 +1315,11 @@ class Arlington:
                     else:
                         self.__visited.append(o.objgen)
                         p1 = " %s" % str(o.objgen)
-                print(status + p + p1 + (" <as %s>" % childlinks))
-                self.process_dict(o, childlinks, p)
+                if (not is_tree):
+                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    self.process_dict(o, childlinks, p)
+                else:            
+                    print(status + p + p1 + " <as name/number-tree>")
             elif isinstance(o, pikepdf.Stream):
                 if (row is not None):
                     idx = self.__find_pdf_type('stream', row['Type'])
@@ -1438,7 +1443,7 @@ class Arlington:
         @param: json_file: file name for JSON output. Will be overwritten.
         """
         with open(json_file, r'w') as f:
-            pprint.pprint(self.__pdfdom, f, compact=True, width=200)
+            pprint.pprint(self.__pdfdom, f, compact=False, width=200)
             f.close()
 
 
