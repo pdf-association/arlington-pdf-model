@@ -34,6 +34,7 @@ import re
 import argparse
 import pprint
 import logging
+import json
 import sly
 import typing
 import decimal
@@ -120,6 +121,13 @@ class ArlingtonFnLexer(sly.Lexer):
 ## Terse version of sly.lex.Token.__str__/__repr__ dunder methods
 def MyTokenStr(self):
     return "TOKEN(type='%s', value='%s')" % (self.type, self.value)
+
+
+## Functional to JSON-ify sly.lex.Token objects
+def sly_lex_Token_to_json(self):
+    if isinstance(self, sly.lex.Token):
+        return { 'object': 'sly.lex.Token', 'type': self.type, 'value': self.value }
+    return { 'error': '!not a sly.lex.Token!' }
 
 
 class Arlington:
@@ -949,7 +957,7 @@ class Arlington:
                         rd = self.__reduce_linkslist(r['Link'], [])
                         for v in rd:
                             if isinstance(v, str) and (v == obj_name):
-                                found += 1 
+                                found += 1
                                 logging.debug("Found %s for %s::%s", obj_name, i, k)
 
             logging.debug("Found %d links to '%s'", found, obj_name)
@@ -1028,7 +1036,7 @@ class Arlington:
                 if (not is_tree):
                     print(status + p + p1 + (" <as %s>" % childlinks))
                     self.process_dict(o, childlinks, p)
-                else:            
+                else:
                     print(status + p + p1 + " <as name/number-tree>")
             elif isinstance(o, pikepdf.Stream):
                 if (row is not None):
@@ -1175,7 +1183,7 @@ class Arlington:
                 if (not is_tree):
                     print(status + p + p1 + (" <as %s>" % childlinks))
                     self.process_dict(o, childlinks, p)
-                else:            
+                else:
                     print(status + p + p1 + " <as name/number-tree>")
             elif isinstance(o, pikepdf.Stream):
                 if (row is not None):
@@ -1318,7 +1326,7 @@ class Arlington:
                 if (not is_tree):
                     print(status + p + p1 + (" <as %s>" % childlinks))
                     self.process_dict(o, childlinks, p)
-                else:            
+                else:
                     print(status + p + p1 + " <as name/number-tree>")
             elif isinstance(o, pikepdf.Stream):
                 if (row is not None):
@@ -1437,22 +1445,35 @@ class Arlington:
         pdf.close()
 
 
-    def save_dom_to_json(self, json_file : str) -> None:
+    def save_dom_to_pretty_file(self, filenm : str) -> None:
         """
-        Pretty-print the DOM as JSON to a file (helps readability for debugging)
-        @param: json_file: file name for JSON output. Will be overwritten.
+        Pretty-print the DOM to a file (helps readability for debugging)
+        This file is NOT JSON and cannot be processed by jq or other JSON aware tools!
+        @param: filenm: file name. Will be overwritten.
         """
-        with open(json_file, r'w') as f:
+        with open(filenm, r'w') as f:
             pprint.pprint(self.__pdfdom, f, compact=False, width=200)
             f.close()
 
 
+    def save_dom_to_json(self, filenm : str) -> None:
+        """
+        Save DOM to a JSON file
+        @param: filenm: file name. Will be overwritten.
+        """
+        with open(filenm, r'w') as f:
+            json.dump(self.__pdfdom, f, indent=4, sort_keys=True, default=sly_lex_Token_to_json)
+            f.close()
+
+
+
 if __name__ == '__main__':
     cli_parser = argparse.ArgumentParser()
-    cli_parser.add_argument('-t', '--tsvdir', help='directory containing Alrington TSV file set', dest="tsvdir")
-    cli_parser.add_argument('-j', '--json',   help="save Arlington DOM as JSON file", default=None, dest="json")
-    cli_parser.add_argument('-v', '--validate', help="detailed validation on the Arlington DOM", action='store_true', default=False, dest="validate")
-    cli_parser.add_argument('-d', '--debug',  help="enable debug logging", action="store_const", dest="loglevel", const=logging.DEBUG, default=logging.WARNING)
+    cli_parser.add_argument('-t', '--tsvdir', help='folder containing Arlington TSV file set', dest="tsvdir")
+    cli_parser.add_argument('-s', '--save',   help="save pretty Arlington model to a file (Python pretty print)", default=None, dest="save")
+    cli_parser.add_argument('-j', '--json',   help="save Arlington model to JSON", default=None, dest="json")
+    cli_parser.add_argument('-v', '--validate', help="validate the Arlington model", action='store_true', default=False, dest="validate")
+    cli_parser.add_argument('-d', '--debug',  help="enable debug logging (verbose!)", action="store_const", dest="loglevel", const=logging.DEBUG, default=logging.WARNING)
     cli_parser.add_argument('-i', '--info',   help="enable informative logging", action="store_const", dest="loglevel", const=logging.INFO)
     cli_parser.add_argument('-p', '--pdf',    help="input PDF file", default=None, dest="pdffile")
     cli = cli_parser.parse_args()
@@ -1469,6 +1490,10 @@ if __name__ == '__main__':
     else:
         print("Loading...")
     arl = Arlington(cli.tsvdir, validating=cli.validate)
+
+    if (cli.save is not None):
+        print("Saving pretty Python data to '%s'..." % cli.save)
+        arl.save_dom_to_pretty_file(cli.save)
 
     if (cli.json is not None):
         print("Saving JSON to '%s'..." % cli.json)
