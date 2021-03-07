@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.0		TRUE	FALSE	FALSE		[FontDescriptor]			
-FontName	name	1.0		TRUE	FALSE	FALSE		[fn:Eval(@FontName==parent::@BaseFont)]			
+FontName	name	1.0		FALSE	FALSE	FALSE			[fn:Eval(@FontName==parent::@Name)]		
 FontFamily	string-byte	1.5		FALSE	FALSE	FALSE					
 FontStretch	name	1.5		FALSE	FALSE	FALSE		[UltraCondensed,ExtraCondensed,Condensed,SemiCondensed,Normal,SemiExpanded,Expanded,ExtraExpanded,UltraExpanded]			
 FontWeight	number	1.5		FALSE	FALSE	FALSE		[100,200,300,400,500,600,700,800,900]			

@@ -4,6 +4,6 @@ S	name	1.1		FALSE	FALSE	FALSE	R	[Split,Blinds,Box,Wipe,Dissolve,Glitter,R,Fly,Pu
 D	number	1.1		FALSE	FALSE	FALSE	1	[fn:Eval(@D>=0)]			
 Dm	name	1.1		FALSE	FALSE	FALSE	H	[H,V]	[fn:IsMeaningful(@D==Split || @D==Blinds)]		
 M	name	1.1		FALSE	FALSE	FALSE	I	[I,O]	[fn:IsMeaningful(@D==Split || @D==Box || @D==Fly)]		
-Di	name;number	1.1		FALSE	FALSE	FALSE	[];[0]	[None];[0,90,180,270,315]	[fn:Eval(((@Di==None) && (@S==Fly) && (@SS!=1.0)) || ((@Di==315) && (@S==Glitter)) || ((@Di==90 || @Di==180) && @S==Wipe))]		
+Di	name;integer	1.1		FALSE	FALSE	FALSE	[];[0]	[None];[0,90,180,270,315]	[fn:Eval(((@Di==None) && (@S==Fly) && (@SS!=1.0)) || ((@Di==315) && (@S==Glitter)) || ((@Di==90 || @Di==180) && @S==Wipe))]		
 SS	number	1.5		FALSE	FALSE	FALSE	1.0		[fn:IsMeaningful(@D==Fly)]		
 B	boolean	1.5		FALSE	FALSE	FALSE	false		[fn:IsMeaningful(@D==Fly)]		
