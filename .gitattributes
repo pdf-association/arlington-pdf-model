@@ -1,0 +1,11 @@
+# Set the default behavior, in case people don't have core.autocrlf set
+* text=auto
+
+# Force LF checkout for TSV files so EBay and other Linux tools work reliably (even in WSL2)
+*.tsv text eol=lf
+
+# Windows specific files
+*.sln text eol=crlf
+
+# Ensure PDFs always stay as binary
+*.pdf binary
