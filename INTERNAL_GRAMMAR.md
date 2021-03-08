@@ -1,8 +1,6 @@
-# Arlington TSV Grammar Validation Rules
+# Arlington PDF Model Grammar Validation Rules
 
-This document describes some strict rules for the Arlington PDF model, for both the data and the
-custom declarative functions. Only some of these rules are currently implemented, but everything
-is precisely documented here
+This document describes some strict rules for the Arlington PDF model, for both the data and the custom declarative functions (`fn:`). Only some of these rules are currently implemented by various PoCs, but everything is precisely documented here.
 
 
 ## TSV file rules
@@ -11,13 +9,14 @@ is precisely documented here
 *   They are TSV, not CSV.
 *   No quotes (single or double quotes) are required
 *   Every TSV file needs to have the same identical header row as first line in file
-*   EOL rules depend on platform/Git options -
-    *   If you use LF then you can also use the [Ebay TSV utilities](https://github.com/eBay/tsv-utils)
+*   EOL rules for TSV are now set by .gitattributes to be LF -
+    *   standard Linux CLI works including under Windows WSL2: `cut`, `grep`, `sed`, etc.
+    *   this means you can also use all the [Ebay TSV utilities](https://github.com/eBay/tsv-utils) even under Windows
     *   [GNU datamash](https://www.gnu.org/software/datamash/) can also be used
 *   Every TSV file needs to have the full set of TABS (for all columns)
 *   Last row in TSV needs EOL after last TAB
 *   TSV file names are case sensitive
-*   TSV file extensions are always `.tsv` (lowercase)
+*   TSV file extensions are always `.tsv` (lowercase) but are not present in the TSV data itself
 
 
 ## PDF Object conventions
@@ -32,7 +31,7 @@ is precisely documented here
 *   Expressions with integers need to use integers
 *   Leading `@` indicates "value of" a key or array element
 *   PDF booleans are `true` and `false` lowercase.
-    *   Uppercase `TRUE`/`FALSE` are reserved for boolean TSV data fields such as the Required field.
+    *   Uppercase `TRUE`/`FALSE` are reserved for boolean TSV data fields such as the "Required" field.
 
 
 ## Column 1 - Key Name
@@ -44,21 +43,21 @@ is precisely documented here
 *   Only alphanumeric, `.`, `-`, `_` or ASTERISK characters (no whitespace or other special chars)
     *   PDF names might use `#`-escaping in the future (but the PDF specification never specifies any such
         keys so this is allowing for future-proofing)
-*   If dictionary, then Key name must start with alpha (and with no spaces) or just an ASTERISK `*`
+*   If dictionary, then "Key" name must start with alpha (and with no spaces) or just an ASTERISK `*`
 *   If ASTERISK `*` by itself then must be last row in TSV file
-*   If ASTERISK `*` by itself then Required column must be FALSE
+*   If ASTERISK `*` by itself then "Required" column must be FALSE
 *   If expressing a PDF array, then "Key" name is an integer array index. Zero-based increasing (always by 1)
     integers always starting at ZERO (0), with an optional ASTERISK appended after the digit (indicating repeat)
      - or just an ASTERISK `*`
 *   If expressing a PDF array with `integer+ASTERISK` and then all rows must be `integer+ASTERISK` (indicating a
     repeating group of _N_ (numbered 0 to _N_-1) array elements).
-*   If expressing a PDF array with `integer+ASTERISK` (and all rows are the same) then the Required column should
+*   If expressing a PDF array with `integer+ASTERISK` (and all rows are the same) then the "Required" column should
     be TRUE if all _N_ entries must always be repeated as a full set.
 *   In the future:
-    *   Key names with `#`-escapes
+    *   "Key" names with `#`-escapes
     *   _How should we define malforms???_ e.g. /type vs /Type; /SubType vs /Subtype; /BlackIs1 (uppercase i) vs
         /Blackls1 (lowercase L). Are these separate rows in a TSV, a "SpecialCase" column or wrapped in a declarative
-       function in the Key column? (e.g. `Type;fn:Malform(type, ...)`). Need to consider impact on Linux CLI processing, such as grep.
+       function in the "Key" column? (e.g. `Type;fn:Malform(type, ...)`). Need to consider impact on Linux CLI processing, such as grep.
 *   **Python pretty-print/JSON**
     *   String (as JSON dictionary key)
 *   **Linux CLI tests:**
@@ -148,7 +147,7 @@ is precisely documented here
     *   Single word: `FALSE` or `TRUE` (uppercase only)
     *   The declarative function `fn:IsRequired(...)` - no SQUARE BRACKETS!
         *   This may then have further nested functions (e.g. `fn:SinceVersion`, `fn:IsPresent`, `fn:NotPresent`)
-*   If Key column contains ASTERISK, then "Required" field must be FALSE
+*   If "Key" column contains ASTERISK, then "Required" field must be FALSE
     *   Cannot require an infinite number of keys! If need at least one element, then have explicit first rows
         with "Required"==`TRUE` followed by ASTERISK with "Required"==`FALSE`)
 *   **Python pretty-print/JSON:**
@@ -217,7 +216,7 @@ is precisely documented here
     *   If list, then length always matches length of "Type"
     *   If list element is also a list then it is either:
         *   Declarative function with 1st element being a FUNC_NAME token
-        *   Key value (@key) with 1st element being a KEY_VALUE token
+        *   "Key" value (`@key`) with 1st element being a KEY_VALUE token
         *   A PDF array (1st token is anything else) - including an empty PDF array
     *   `grep -o "'DefaultValue': .*" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
@@ -256,7 +255,7 @@ is precisely documented here
 ## Column 11 - Link
 
 
-*   Can be blank (for when Type is a single fundamental type)
+*   Can be blank (for when "Type" is a single basic type)
 *   If non-blank, always uses SQUARE-BRACKETS
 *   SEMI-COLON separated, SQUARE-BRACKETS expressions that exactly match the number of items in "Type" column
 *   Valid "Links" must exist for these selected object types only:
@@ -312,7 +311,7 @@ is precisely documented here
 *   `null` (all lowercase) is the PDF null object (_Note: it is a valid type_)
 *   Change to use PDFPath ([https://github.com/pdf-association/PDFPath](https://github.com/pdf-association/PDFPath))
     *   Paths to objects are separated by `::` (double COLONs)
-        *   e.g. parent::@Key. Object::Key, Object::&lt;0-based integer>
+        *   e.g. `parent::@Key`. `Object::Key`, `Object::&lt;0-based integer>`
     *   `Key`_means `key is present` (Key is case-sensitive match)
     *   `@Key` means `value of key` (Key is case-sensitive match)
 *   `true` and `false` (all lowercase) are the PDF keywords (required for explicit comparison with `@key`) - uppercase `TRUE` and `FALSE` **never** get used in functions
@@ -335,7 +334,7 @@ is precisely documented here
 ## Linux CLI voodoo
 
 
-List all declarative function names
+List all declarative function names:
 
 
 ```
@@ -344,7 +343,7 @@ $ grep --color=always -ho "fn:[[:alnum:]]*." *.tsv | sort | uniq
 
 
 
-List all declarative functions that take no parameters
+List all declarative functions that take no parameters:
 
 
 ```
@@ -353,7 +352,7 @@ $ grep --color=always -Pho "fn:[[:alnum:]]*\(\)" *.tsv | sort | uniq
 
 
 
-List all parameter lists (but not function names) and a few PDF strings too!
+List all parameter lists (but not function names) (and a few PDF strings too!):
 
 
 ```
@@ -362,12 +361,60 @@ $ grep --color=always -Pho "\((?>[^()]|(?R))*\)" *.tsv | sort | uniq
 
 
 
-List all declarative functions with their arguments
+List all declarative functions with their arguments:
 
 
 ```
 $ grep --color=always -Pho "fn:[[:alnum:]]*\([^\t\]\;]*" *.tsv | sort | uniq
 ```
+
+
+## EBay TSV Utilities
+
+Pretty column-ized output:
+```
+tsv-pretty Catalog.tsv
+```
+
+Find all keys that are of "Type" 'string-byte':
+```
+tsv-filter -H --str-eq Type:string-byte *.tsv
+```
+
+Only precisely 'string-byte':
+```
+tsv-filter -H --str-eq Type:string-byte --ge SinceVersion:1.5 *.tsv
+```
+
+Any string type (using string-based regex):
+```
+tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
+```
+
+"Type" includes 'string-byte':
+```
+tsv-filter -H --regex Type:.\*string-byte\* --ge SinceVersion:1.5 *.tsv
+```
+
+# Program Output
+
+A reliable (i.e. easy to grep: `grep "^xx" output.txt`) and repeatable method to highlight class of
+difference between an extant PDF file and the Arlington definition for a specific PDF version indicated
+by a 2 character prefix at the start of each output line. Each output line is assumed to be a single key
+or array element in a PDF file, as is currently output by arlington.py and TestGrammar (C++17).
+
+The first character in the prefix represents the key / array index
+
+The second character in the prefix represents the value of the key or array element.
+
+| Prefix | Description |
+| ------ | ----------- |
+| `==` | Key/array element and value are fully within the Arlington definition for the required specific PDF version and all data is validated (including "Key", "Type", "PossibleValues", "IndirectReference"/`fn:MustBeDirect`, etc). All declarative functions are also all validated. _This assumes that the reporting applications implements all declarative functions_! |
+| `=?` | The Key is in the Arlington definition for the required specific version of PDF but there is a data error (such as with "Type", "PossibleValues", "IndirectReference"/`fn:MustBeDirect`, etc. or with one or more of the declarative functions being invalidated). _This assumes that the reporting applications implements all declarative functions_! |
+| `--` | An Arlington required ("Required"==FALSE) Key for the required specific version of PDF is missing in the PDF (i.e. NOT in the PDF) but is specified in Arlington. |
+| `-?` | An Arlington optional Key for the required specific version of PDF is missing in the PDF but is specified in Arlington. _This won't be reported unless an additional option is specified as it would otherwise be too verbose._ |
+| `++` | Key is in the PDF, but is not known to Arlington for any version of PDF (i.e. it is not unrecognized by Arlington at all). |
+| `+?` | Key is in the PDF, but is not known to Arlington for this specific version of PDF (i.e. it is in the Arlington definition for some future definition of PDF). _This assumes the reporting application is PDF version aware_! |
 
 
 
