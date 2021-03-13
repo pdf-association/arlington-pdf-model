@@ -1437,11 +1437,9 @@ class Arlington:
             if (str(pdfobj) == '/XRef'):
                 print("Processing as XRefStream")
                 self.process_dict(pdf.trailer, ['XRefStream'], "/trailer")
-            else:
-                print("Processing as file trailer")
-                self.process_dict(pdf.trailer, ['FileTrailer'], "/trailer")
         else:
-            logging.critical("Could not obtain PDF trailer for '%s'!" % pdf_file)
+            print("Processing as file trailer")
+            self.process_dict(pdf.trailer, ['FileTrailer'], "/trailer")
         pdf.close()
 
 
