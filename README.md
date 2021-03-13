@@ -31,18 +31,22 @@ tsvreader = csv.DictReader(file, delimiter='\t')
 
 Each row defines a specific key in a dictionary or an array element in an array. All the characteristics captured in the TSV for that key/array element are defined in the PDF 2.0 specification.
 
-All PDF names are always expressed **without** the leading FORWARD-SLASH (`/`).
-PDF strings are required to have `(` and `)`.
-PDF array objects must also have `[` and `]` and, of course do **not** use commas between array elements.
+- All PDF names are always expressed **without** the leading FORWARD-SLASH (`/`).
+- PDF strings are required to have `(` and `)`.
+- PDF array objects must also have `[` and `]` and, of course do **not** use commas between array elements.
+- PDF boolean (keywords) are always lowercase `true` and `false`.
+- Logical boolean values related to the description of PDF objects in the Arlington data model are always uppercase `TRUE`/`FALSE`.
+- TSV column names are shown double-quoted (`"`) to hopefully avoid confusion.
 
-TSV columns must always be in the following order and tabs for all columns must always be present:
+TSV columns are always in the following order and tabs must exist for all columns:
+
 1. [**Key**](#Key) - key in dictionary, or integer index into an array. ASTERISK (`*`) represents a wildcard and means any key/index.
 1. [**Type**](#Type) - one or more Arlington types separated by SEMI-COLON `;`.
 1. [**SinceVersion**](#SinceVersion-and-DeprecatedIn) - version of PDF this key was introduced in.
 1. [**DeprecatedIn**](#SinceVersion-and-DeprecatedIn) - version of PDF this key was deprecated in. Empty if not deprecated.
-1. [**Required**](#Required) - whether the key or array element is required (TRUE/FALSE).
-1. **IndirectReference** - whether the key is required to be an indirect reference (TRUE/FALSE) or if it must be a direct object (`fn:MustBeDirect`).
-1. **Inheritable** - whether the key is inheritable (TRUE/FALSE).
+1. [**Required**](#Required) - whether the key or array element is required.
+1. **IndirectReference** - whether the key is required to be an indirect reference (`TRUE`/`FALSE`) or if it must be a direct object (`fn:MustBeDirect`).
+1. **Inheritable** - whether the key is inheritable (`TRUE`/`FALSE`).
 1. **DefaultValue** - optional default value of key.
 1. [**PossibleValues**](#PossibleValues) - list of possible values. For dictionary `/Type` keys that must have a specific value, this will be a choice of just 1.
 1. [**SpecialCase**](#SpecialCase)  - declarative functions defining additional relationships.
@@ -53,21 +57,22 @@ The two special objects [\_UniversalArray](tsv/latest/_UniversalArray.tsv) and [
 
 ## TSV Field Summary
 
-A very precise definition of all syntax rules for the Arlington PDF model is in [INTERNAL_GRAMMAR.md](INTERNAL_GRAMMAR.md). A summary is provided below. Note also that not all TSV columns are shown the examples below. And normally things are conveniently hyperlinked to actual TSV files either!
+A very precise definition of all syntax rules for the Arlington PDF model as well as Python equivalent data structure descriptions and useful Linux commands is in [INTERNAL_GRAMMAR.md](INTERNAL_GRAMMAR.md). Only a _simplified summary_ is provided below to get started. Note that not all TSV columns (fields) are shown in the examples below. And normally "Links" are not conveniently hyperlinked to actual TSV files either!
 
 
 ### Key
 
 "Key" represents a single key in a dictionary, an index into an array, or multiple entries (`*`). Dictionary keys are obviously case sensitive and array indices are integers. To locate a key easily using Linux begin a regex with the start-of-line (`^`). For a precise match end the regex with a TAB (`\t`).
 
-Example of a single entry in a dictionary with a `/Type` key:
+[Example](tsv/latest/3DBackground.tsv) of a single entry in a dictionary with a `/Type` key:
+
 
 Key | Type | Required | ...
---- | --- | --- | --- | ---
+--- | --- | --- | ---
 Type | name | TRUE | ...
 
 
-Example of an array requiring 3 floating-point numbers, such as an RGB value:
+Example of an [array requiring 3 floating-point numbers](tsv/latest/ArrayOf_3RGBNumbers.tsv), such as RGB values:
 
 Key | Type | ...
 --- | --- | ---
@@ -76,14 +81,14 @@ Key | Type | ...
 2 | number | ...
 
 
-Example of an array with unlimited number of elements of the same type: ArrayOfThreads:
+Example of an array with unlimited number of elements of the same type [ArrayOfThreads](tsv/latest/ArrayOfThreads.tsv):
 
 Key | Type | ... |Link
 --- | --- | --- | ---
 \* | dictionary | ... | \[[Thread](tsv/latest/Thread.tsv)]
 
 
-Dictionaries can also serve as maps, where an arbitrary name is associated with another element. Examples include ClassMap or the Shading dictionary in the Resources dictionary. In such case Shading as a type of dictionary is linked to ShadingMap and ShadingMap looks like this:
+Dictionaries can also serve as maps, where an arbitrary name is associated with another element. Examples include ClassMap or the Shading dictionary in the Resources dictionary. In such cases the Shading key is linked to ShadingMap and [ShadingMap](tsv/latest/ShadingMap.tsv) looks like this:
 
 Key |  Type | ... | Link
 --- | --- | --- | ---
@@ -115,7 +120,7 @@ PDF 2.0 formally defines 9 basic types of object, but within the specification o
 
 A single key in a dictionary can often be of different types. A common example is when a key is either a dictionary or an array of dictionaries. In this case **Type** would be defined as `array;dictionary`. Types are always stored in alphabetical order in the 2nd column using SEMI-COLON (`;`) separators.
 
-These Linux commands lists all combinations of "Types" used in PDF:
+These Linux commands lists all combinations of the Arlington types used in PDF:
 
 ```
 cut -f 2 *.tsv | sort | uniq
@@ -142,11 +147,12 @@ This is effectively a boolean field (`TRUE`/`FALSE`) but may also contain a `fn:
 
 PossibleValues also follow the same pattern as Links:
 
-Type | PossibleValues
---- | ---
-array;dictionary | \[Value1ForType1,Value2ForType1];\[Value1ForType2,Value2ForType2]
+Type | PossibleValues | ...
+--- | --- | ---
+array;dictionary | \[Value1ForType1,Value2ForType1];\[Value1ForType2,Value2ForType2] | ---
 
-Often times it is necessary to define a declarative function (`fn:`) for when values are valid.
+
+Often times it is necessary to define a declarative function (`fn:`) for situations when values are valid.
 
 
 ### SpecialCase
@@ -183,7 +189,7 @@ fn:StringLength
 
 If a specific key or array element requires further definition (i.e. represents another dictionary, stream or array) the key is linked to another TSV via the "Link" column. It is the name of another TSV file without any file extension. Links are always encapsulated in `[` and `]`.
 
-Example in PageObject:
+Example in [PageObject](tsv/latest/PageObject.tsv):
 
 Key | Type | ... | Link
 --- | --- | --- | ---
