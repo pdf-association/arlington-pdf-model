@@ -49,11 +49,11 @@ TSV columns must always be in the following order and tabs for all columns must 
 1. [**Link**](#Link) - name(s) of other TSV files for validating the values of this key for dictionaries, arrays and streams.
 1. **Notes** - free text for arbitrary notes.
 
-The two special objects \_UniversalArray and \_UniversalDictionary are not formally defined in the PDF 2.0 specification and represent generic an arbitrarily-sized PDF array and PDF dictionary respectively. They are used to resolve "Links" to generic objects for a few PDF objects.
+The two special objects [\_UniversalArray](tsv/latest/_UniversalArray.tsv) and [\_UniversalDictionary](tsv/latest/_UniversalDictionary.tsv) are not formally defined in the PDF 2.0 specification and represent generic an arbitrarily-sized PDF array and PDF dictionary respectively. They are used to resolve "Links" to generic objects for a few PDF objects.
 
 ## TSV Field Summary
 
-A very precise definition of the syntax rules for the Arlington PDF model is in (/INTERNAL_GRAMMAR.md)
+A very precise definition of all syntax rules for the Arlington PDF model is in [INTERNAL_GRAMMAR.md](INTERNAL_GRAMMAR.md). A summary is provided below. Note also that not all TSV columns are shown the examples below. And normally things are conveniently hyperlinked to actual TSV files either!
 
 
 ### Key
@@ -62,9 +62,10 @@ A very precise definition of the syntax rules for the Arlington PDF model is in 
 
 Example of a single entry in a dictionary with a `/Type` key:
 
-Key | Type | Required | PossibleValues | ...
+Key | Type | Required | ...
 --- | --- | --- | --- | ---
-Type | name | TRUE | \[Page] | ...
+Type | name | TRUE | ...
+
 
 Example of an array requiring 3 floating-point numbers, such as an RGB value:
 
@@ -72,18 +73,21 @@ Key | Type | ...
 --- | --- | ---
 0 | number | ...
 1 | number | ...
-2 | number | ... |
+2 | number | ...
+
+
 Example of an array with unlimited number of elements of the same type: ArrayOfThreads:
 
 Key | Type | ... |Link
 --- | --- | --- | ---
-\* | dictionary | ... | \[Thread]
+\* | dictionary | ... | \[[Thread](tsv/latest/Thread.tsv)]
+
 
 Dictionaries can also serve as maps, where an arbitrary name is associated with another element. Examples include ClassMap or the Shading dictionary in the Resources dictionary. In such case Shading as a type of dictionary is linked to ShadingMap and ShadingMap looks like this:
 
 Key |  Type | ... | Link
 --- | --- | --- | ---
-\* | dictionary;stream | ... | \[ShadingType1,ShadingType2,ShadingType3];\[ShadingType4,ShadingType5,ShadingType6,ShadingType7]
+\* | dictionary;stream | ... | \[[ShadingType1](tsv/latest/ShadingType1.tsv),[ShadingType2](tsv/latest/ShadingType2),[ShadingType3](tsv/latest/ShadingType3.tsv)];\[[ShadingType4](tsv/latest/ShadingType4.tsv),[ShadingType5](tsv/latest/ShadingType5.tsv),[ShadingType6](tsv/latest/ShadingType6.tsv),[ShadingType7](tsv/latest/ShadingType7.tsv)]
 
 
 ### Type
@@ -109,9 +113,10 @@ PDF 2.0 formally defines 9 basic types of object, but within the specification o
 - string-byte
 - string-text
 
-A single key in a dictionary can often be of different types. A common example is when a key is either a dictionary or an array of dictionaries. In this case **Type** would be defined as "array;dictionary". Types are always stored in alphabetical order in the 2nd column using SEMI-COLON (`;`) separators.
+A single key in a dictionary can often be of different types. A common example is when a key is either a dictionary or an array of dictionaries. In this case **Type** would be defined as `array;dictionary`. Types are always stored in alphabetical order in the 2nd column using SEMI-COLON (`;`) separators.
 
 These Linux commands lists all combinations of "Types" used in PDF:
+
 ```
 cut -f 2 *.tsv | sort | uniq
 cut -f 2 *.tsv | sed -e 's/;/\n/g' | sort | uniq
@@ -124,7 +129,7 @@ All TSV rows must have a valid (non-empty) "SinceVersion" entry. If keys are sti
 
 ### Required
 
-This is effectively a boolean field (TRUE/FALSE) but may also contain a `fn:IsRequired(...)` declarative function. Examples include:
+This is effectively a boolean field (`TRUE`/`FALSE`) but may also contain a `fn:IsRequired(...)` declarative function. Examples include:
 
 - when a key changes from optional to required in a particualr PDF version then the expression `fn:IsRequired(fn:SinceVersion(x.y))` is used.
 
@@ -132,19 +137,21 @@ This is effectively a boolean field (TRUE/FALSE) but may also contain a `fn:IsRe
 
 - if a key/array entry is conditional based on the presence or absence of another key then the nested expressions `fn:IsRequired(fn:IsPresent(OtherKeyName))` or `fn:IsRequired(fn:NotPresent(OtherKeyName))` can be used.
 
+
 ### PossibleValues
 
 PossibleValues also follow the same pattern as Links:
 
-Type | PossibleValues |
---- | --- |
+Type | PossibleValues
+--- | ---
 array;dictionary | \[Value1ForType1,Value2ForType1];\[Value1ForType2,Value2ForType2]
 
-Often times it is necessary to define a formula (fn:...) to define when values are valid.
+Often times it is necessary to define a declarative function (`fn:`) for when values are valid.
+
 
 ### SpecialCase
 
-A set of declarative function is used to define more advanced kinds of relationships. Every function is always prefixed with `fn:`. Current functions in use include:
+A set of declarative functions is used to define more advanced kinds of relationships. Every function is always prefixed with `fn:`. Current functions in use include (_subject to change!_:
 
 ```
 fn:BeforeVersion
@@ -180,7 +187,7 @@ Example in PageObject:
 
 Key | Type | ... | Link
 --- | --- | --- | ---
-Resources  | dictionary | ... | \[Resource]
+Resources  | dictionary | ... | \[[Resource](tsv/latest/Resource.tsv)]
 
 
 If "Key" is represented by different types we use following pattern with SEMI-COLON ";" separators:
@@ -189,13 +196,15 @@ Type | ... | Link
 --- | --- | ---
 array<b>;</b>dictionary | ... | \[ValidateArray];\[ValidateDictionary]
 
+
 Another common example is that one dictionary could be based on few different dictionaries. For example an Annotation might be Popup, Stamp, etc. In such cases the TSV filenames are separated with COMMA (",") separators like this:
 
 Type | ... | Link
 --- | --- | ---
-array;dictionary | ... | \[ArrayOfAnnotations];\[AnnotStamp<b>,</b>AnnotRedact<b>,</b>AnnotPopup]
+array;dictionary | ... | \[[ArrayOfAnnots](tsv/latest/ArrayOfAnnots.tsv)];\[[AnnotStamp](tsv/latest/AnnotStamp.tsv),[AnnotRedact](tsv/latest/AnnotRedact.tsv),[AnnotPopup](tsv/latest/AnnotPopup.tsv)]
 
-Links may also use the `fn:Deprecated` or `fn:SinceVersion` declarative functions if a specific type of PDF object has been deprecated or introduced in specific PDF versions.
+
+Links may also be wrapped in the `fn:Deprecated` or `fn:SinceVersion` declarative functions if a specific type of PDF object has been deprecated or introduced in specific PDF versions.
 
 ---
 
