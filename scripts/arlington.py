@@ -67,7 +67,7 @@ class ArlingtonFnLexer(sly.Lexer):
     FUNC_NAME    = r'fn\:[A-Z][a-zA-Z0-9]+\('
     PDF_TRUE     = r'(true)|(TRUE)'
     PDF_FALSE    = r'(false)|(FALSE)'
-    PDF_STRING   = r'\([a-zA-Z0-9_\-]+\)'
+    PDF_STRING   = r'\([a-zA-Z0-9_\-\.]+\)'
     MOD          = r'mod'
     ELLIPSIS     = r'\.\.\.'
     KEY_VALUE    = r'@(\*|[0-9]+|[0-9]+\*|[a-zA-Z0-9_\.\-]+)'
@@ -158,10 +158,16 @@ class Arlington:
 
     def validate_fn_array_length(self, ast: AST) -> bool:
         """
+        fn:ArrayLength( <key-name/key-path/array-index> ) <condition-op> <integer>
+
         @param ast: AST to be validated.
         @returns: True if a valid 'fn:ArrayLength' function. False otherwise
         """
         if (len(ast) == 1) and (ast[0].type in ('KEY_NAME','INTEGER')):
+            return True
+        elif (len(ast) > 1) and isinstance(ast[0], list):
+            return True
+        elif (len(ast) > 1) and (ast[0].type == 'KEY_PATH') and (ast[1].type == 'KEY_NAME'):
             return True
         return False
 
@@ -224,6 +230,16 @@ class Arlington:
         return True #########################
 
 
+    def validate_fn_is_get_page_number(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 1) and (ast[0].type == 'KEY_VALUE'):
+            return True
+        return False
+
+
     def validate_fn_ignore(self, ast: AST) -> bool:
         """
         @param ast: AST to be validated.
@@ -233,7 +249,7 @@ class Arlington:
             return True
         if (len(ast) == 1) and (ast[0].type in ('KEY_NAME','INTEGER')):
             return True
-        if (len(ast) == 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+        if (len(ast) >= 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
             return True
         return False
 
@@ -255,7 +271,9 @@ class Arlington:
         """
         if (len(ast) == 0) or isinstance(ast[0], list):
             return True
-        if (len(ast) == 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+        elif (len(ast) >= 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+            return True
+        elif (len(ast) >= 4) and (ast[0].type == 'KEY_PATH') and (ast[1].type == 'KEY_VALUE') and (ast[2].type in self.__comparison_ops):
             return True
         return False
 
@@ -267,9 +285,9 @@ class Arlington:
         """
         if (len(ast) == 0) or isinstance(ast[0], list):
             return True
-        if (len(ast) == 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+        if (len(ast) >= 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
             return True
-        if (len(ast) == 4) and (ast[0].type == 'KEY_PATH') and (ast[1].type in ('KEY_NAME','KEY_VALUE')) and (ast[2].type in self.__comparison_ops):
+        if (len(ast) >= 4) and (ast[0].type == 'KEY_PATH') and (ast[1].type in ('KEY_NAME','KEY_VALUE')) and (ast[2].type in self.__comparison_ops):
             return True
         return False
 
@@ -283,6 +301,16 @@ class Arlington:
             return True
         if (len(ast) == 1) and (ast[0].type == 'KEY_VALUE'):
             return True
+        if (len(ast) == 2) and (ast[0].type == 'KEY_PATH') and (ast[1].type in ('KEY_NAME','INTEGER')):
+            return True
+        return False
+
+
+    def validate_fn_not_in_map(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
         if (len(ast) == 2) and (ast[0].type == 'KEY_PATH') and (ast[1].type in ('KEY_NAME','INTEGER')):
             return True
         return False
@@ -317,7 +345,7 @@ class Arlington:
         @param ast: AST to be validated.
         @returns: True if a valid function. False otherwise
         """
-        if (len(ast) == 4) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+        if (len(ast) >= 4) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
             return True
         return False
 
@@ -344,12 +372,15 @@ class Arlington:
 
     def validate_fn_string_length(self, ast: AST) -> bool:
         """
+        fn:StringLength(<key-name/array-index> , [ <condition> ] ) <comparison-op> <integer>
+
         @param ast: AST to be validated.
         @returns: True if a valid function. False otherwise
         """
-        if (len(ast) == 1) and (ast[0].type in 'INTEGER'):
+        if (len(ast) == 1) and (ast[0].type in ('KEY_NAME','INTEGER')):
             return True
-        if (len(ast) > 1) and (ast[0].type == 'KEY_VALUE') and (ast[-1].type in 'INTEGER'):
+        elif (len(ast) > 1) and (ast[0].type in ('KEY_NAME','INTEGER')):
+            # ToDo: validate optional <condition> statement
             return True
         return False
 
@@ -368,6 +399,7 @@ class Arlington:
         'fn:Eval(': validate_fn_eval,
         'fn:FileSize(': validate_fn_void,
         'fn:FontHasLatinChars(': validate_fn_void,
+        'fn:GetPageNumber(': validate_fn_is_get_page_number,
         'fn:Ignore(': validate_fn_ignore,
         'fn:ImageIsStructContentItem(': validate_fn_void,
         'fn:ImplementationDependent(': validate_fn_void,
@@ -376,6 +408,7 @@ class Arlington:
         'fn:IsEncryptedWrapper(': validate_fn_void,
         'fn:IsLastInNumberFormatArray(': validate_fn_void,
         'fn:IsMeaningful(': validate_fn_is_meaningful,
+        'fn:IsPageNumber(': validate_fn_is_get_page_number,
         'fn:IsPDFTagged(': validate_fn_void,
         'fn:IsPDFVersion(': validate_fn_version,
         'fn:IsPresent(': validate_fn_is_present,
@@ -383,8 +416,10 @@ class Arlington:
         'fn:KeyNameIsColorant(': validate_fn_void,
         'fn:MustBeDirect(': validate_fn_must_be_direct,
         'fn:NoCycle(': validate_fn_void,
+        'fn:NotInMap(': validate_fn_not_in_map,
         'fn:NotPresent(': validate_fn_not_present,
         'fn:NotStandard14Font(': validate_fn_void,
+        'fn:NumberOfPages(': validate_fn_void,
         'fn:PageContainsStructContentItems(': validate_fn_void,
         'fn:RectHeight(': validate_fn_rect,
         'fn:RectWidth(': validate_fn_rect,
@@ -534,10 +569,13 @@ class Arlington:
         while (i < len(stk)):
             if (stk[i].type == 'FUNC_NAME'):
                 j, k = self.to_nested_AST(stk, i+1)
-                if (self.__validating) and (stk[i].value in self.__validate_fns):
-                    fn_ok = self.__validate_fns[stk[i].value](self, k)
-                    if not fn_ok:
-                        logging.error("Invalid declarative function %s: %s", stk[i].value, k)
+                if (self.__validating):
+                    if (stk[i].value in self.__validate_fns):
+                        fn_ok = self.__validate_fns[stk[i].value](self, k)
+                        if not fn_ok:
+                            logging.error("Invalid declarative function %s: %s", stk[i].value, k)
+                    else:
+                        logging.error("Unknown declarative function %s: %s", stk[i].value, k)
                 k = [stk[i]] + [k]  # Insert the func name at the start
                 ast.append(k)
                 i = j
@@ -750,7 +788,7 @@ class Arlington:
             logging.info("%d TSV files processed from %s", self.__filecount, self.__directory)
             self.__validating = False
         except Exception as e:
-            logging.critical(e)
+            logging.critical("Exception: " + e)
 
 
     def __validate_pdf_dom(self) -> None:
