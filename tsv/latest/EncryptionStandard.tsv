@@ -8,9 +8,9 @@ StmF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful((@V==4 && fn:SinceVe
 StrF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful((@V==4 && fn:SinceVersion(1.5)) || (@V==5 && fn:SinceVersion(2.0)))]		
 EFF	name	1.1		FALSE	FALSE	FALSE			[fn:IsMeaningful((@V==4 && fn:SinceVersion(1.5)) || (@V==5 && fn:SinceVersion(2.0)))]		
 R	integer	1.1		TRUE	FALSE	FALSE		[fn:Deprecated(2.0,fn:RequiredValue(@V<2,2)),fn:Deprecated(2.0,fn:RequiredValue(@V==2 || @V==3,3)),fn:Deprecated(2.0,fn:RequiredValue(@V==4,4)),fn:Deprecated(2.0,fn:SinceVersion(2.0,5)),fn:SinceVersion(2.0,fn:RequiredValue(@V==5,6))]			
-O	string-byte	1.1		TRUE	FALSE	FALSE			[fn:Eval(fn:StringLength(@R<=4,32) || fn:StringLength(@R==6, 48))]		32 bytes long if the value of R is 4 or less and 48 bytes long if the value of R is 6
-U	string-byte	1.1		TRUE	FALSE	FALSE			[fn:Eval(fn:StringLength(@R<=4,32) || fn:StringLength(@R==6, 48))]		32 bytes long if the value of R is 4 or less and 48 bytes long if the value of R is 6
-OE	string-byte	1.1		fn:IsRequired(@R==6)	FALSE	FALSE			[fn:StringLength(32)]		32 byte string
+O	string-byte	1.1		TRUE	FALSE	FALSE			[fn:Eval(fn:StringLength(O,@R<=4)==32 || fn:StringLength(O,@R==6)==48)]		32 bytes long if the value of R is 4 or less and 48 bytes long if the value of R is 6
+U	string-byte	1.1		TRUE	FALSE	FALSE			[fn:Eval(fn:StringLength(U,@R<=4)==32 || fn:StringLength(U,@R==6)==48)]		32 bytes long if the value of R is 4 or less and 48 bytes long if the value of R is 6
+OE	string-byte	1.1		fn:IsRequired(@R==6)	FALSE	FALSE			[fn:Eval(fn:StringLength(OE)==32)]		32 byte string
 UE	string-byte	1.1		fn:IsRequired(@R==6)	FALSE	FALSE					
 P	bitmask	1.1		TRUE	FALSE	FALSE		[fn:BitsClear(1,2),3,4,5,6,fn:BitsSet(7,8),9,fn:SinceVersion(2.0,fn:BitSet(10)),11,12,fn:BitsSet(13,32)]			
 Perms	string-byte	1.1		fn:IsRequired(@R==6)	FALSE	FALSE					

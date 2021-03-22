@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[RichMediaCommand]			
 C	string-text	2.0		TRUE	FALSE	FALSE					
-A	boolean;integer;number;string-text	2.0		FALSE	FALSE	FALSE					
+A	array;boolean;integer;number;string-text	2.0		FALSE	FALSE	FALSE				[RichMediaCommandArray];[];[];[];[]	
