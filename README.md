@@ -2,6 +2,16 @@
 
 <img src="resources/ArlingtonPDFSymbol300x300.png" width="150">
 
+![GitHub](https://img.shields.io/github/license/pdf-association/arlington-pdf-model)
+&nbsp;&nbsp;&nbsp;
+![PDF support](https://img.shields.io/badge/PDF-2.0-blue)
+&nbsp;&nbsp;&nbsp;
+![LinkedIn](https://img.shields.io/static/v1?style=social&label=LinkedIn&logo=linkedin&message=PDF-Association)
+&nbsp;&nbsp;&nbsp;
+![Twitter Follow](https://img.shields.io/twitter/follow/PDFAssociation?style=social)
+&nbsp;&nbsp;&nbsp;
+![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCJL_M0VH2lm65gvGVarUTKQ?style=social)
+
 ## Background
 
 The Arlington PDF Model is a specification-derived, machine-readable definition of the full PDF document object model (DOM) as defined by the PDF 2.0 specification [ISO 32000-2:2020](https://www.iso.org/standard/75839.html) and its [related resolved errata](https://www.pdfa.org/pdf-issues/). It provides an easy-to-process structured definition of all formally defined PDF objects (dictionaries, arrays and map objects) and their relationships beginning with the file trailer using a simple text-based syntax and a small set of declarative functions. The Arlington PDF Model is applicable to both parsers (PDF readers) and unparsers (PDF writers).
