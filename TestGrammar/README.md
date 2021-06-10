@@ -148,7 +148,7 @@ where `Configuration` can be either `Debug` or `Release`, and `Platform` can be 
 
 ### Linux
 
-Note that due to C++17, gcc v8 or later is required. CMake is also required.
+Note that due to C++17, gcc/g++ v8 or later is required. CMake is also required.
 
 ```bash
 cd TestGrammar
