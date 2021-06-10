@@ -1,5 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // Utils.cpp
 // Copyright 2020 PDF Association, Inc. https://www.pdfa.org
 //
@@ -11,7 +10,8 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex
+// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt
+// 
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <string>
@@ -30,14 +30,14 @@ extern HINSTANCE ghInstance;
 #include <sys/stat.h>
 #endif
 
-#include "Pdfix.h"
+
 #include "utils.h"
-using namespace PDFixSDK;
 
-Pdfix_statics;
-
-#define kPi 3.1415926535897932384626433832795f
-
+///
+/// @brief Converts a Unicode string to UTF8
+/// @param[in] unicode Unicode input
+/// @return equivalent UTF8 string
+/// 
 std::string ToUtf8(const wchar_t unicode) {
   std::string out;
   if ((unsigned int)unicode < 0x80) {
@@ -76,15 +76,23 @@ std::string ToUtf8(const wchar_t unicode) {
   return out;
 }
 
+///
+/// @brief Converts a Unicode string to UTF8
+/// @param[in] unicode Unicode input
+/// @return equivalent UTF8 string
+///
 std::string ToUtf8(const std::wstring& wstr) {
-  const wchar_t* buffer = wstr.c_str();
-  auto len = wcslen(buffer);
-  std::string out;
-  while (len-- > 0)
-    out.append(ToUtf8(*buffer++));
-  return out;
+    const wchar_t* buffer = wstr.c_str();
+    auto len = wcslen(buffer);
+    std::string out;
+    while (len-- > 0)
+        out.append(ToUtf8(*buffer++));
+    return out;
 }
 
+/// @brief 
+/// @param str 
+/// @return 
 std::wstring utf8ToUtf16(const std::string& str) {
   const char* s = str.c_str();
   typedef unsigned char byte;
@@ -139,13 +147,21 @@ std::wstring utf8ToUtf16(const std::string& str) {
   return result;
 }
 
+/// @brief 
+/// 
+/// @param path 
+/// @return 
 std::string get_path_dir(const std::string& path) {
   auto pos = path.find_last_of("\\/");
-  if (pos == std::string::npos) return path;
+  if (pos == std::string::npos) 
+    return path;
   std::string dir(path.begin(), path.begin() + pos);
   return dir;
 }
 
+/// @brief 
+/// @param path 
+/// @return 
 std::wstring get_path_dir(const std::wstring& path) {
   auto pos = path.find_last_of(L"\\/");
   if (pos == std::wstring::npos) return path;
@@ -153,55 +169,51 @@ std::wstring get_path_dir(const std::wstring& path) {
   return dir;
 }
 
-std::string check_folder_path(const std::string& path) {
-  std::string result = path;
-  if (result.back() != '/' && result.back() != '\\')
-    result += "/";
-  return result;
-}
 
-bool folder_exists(const std::wstring& path) {
-#ifdef _WIN32
-  struct _stat64i32 s;
-  if (_wstat(path.c_str(), &s) == 0) {
-    if (s.st_mode & S_IFDIR) return true;
-  }
-#elif defined __linux__
-  struct stat s;
-  std::string str_path = ToUtf8(path);
-  if (stat(str_path.c_str(), &s) == 0) {
-    if (s.st_mode & S_IFDIR) return true;
-  }
-#endif
-  return false;
-}
 
-bool file_exists(const std::string& path) {
-  struct stat s;
-  if (stat(path.c_str(), &s) == 0) {
-    if (s.st_mode & S_IFREG) return true;
-  }
-  return false;
+
+/// @brief   Checks if a path is a folder (directory)
+/// @param   p[in]  path 
+/// @return  true if path p is a folder
+bool is_folder(const std::filesystem::path& p)
+{
+    std::filesystem::file_status    st(std::filesystem::status(p));
+
+    return (std::filesystem::is_directory(st));
 }
 
 
-//////////////////////////////////////////////////////////////////////////
-// extract XXXX from such pattern "fn:Name(version, XXXXX)"
-std::string extract_function(const std::string& value, std::string &function){
-  std::regex functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|.]+");
-  std::smatch match;
-  function = "";
-  std::string to_ret = value;
-  if (std::regex_search(value, match, functionStr)) {
-    to_ret = match.suffix();
-    if (to_ret.size() >= 2)
-      to_ret = to_ret.substr(1, to_ret.size() - 2);
-    else
-      to_ret = "";
-    for (auto a: match)
-      function += a;
-  }
-  return to_ret;
+/// @brief   Checks if a path is a file (not a folder)
+/// @param   p[in]  path 
+/// @return  true if path p is a regular file
+bool is_file(const std::filesystem::path& p)
+{
+    std::filesystem::file_status    st(std::filesystem::status(p));
+
+    return (std::filesystem::is_regular_file(st));
+}
+
+
+/// @brief   
+/// @param value 
+/// @param function 
+/// @return 
+std::string extract_function(const std::string& value, std::string &function) {
+    std::regex      functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|.]+");
+    std::smatch     match;
+    std::string     to_ret = value;
+    function = "";
+
+    if (std::regex_search(value, match, functionStr)) {
+        to_ret = match.suffix();
+        if (to_ret.size() >= 2)
+            to_ret = to_ret.substr(1, to_ret.size() - 2);
+        else
+            to_ret = "";
+        for (auto a: match)
+            function += a;
+    }
+    return to_ret;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -218,11 +230,11 @@ int get_type_index(std::string single_type, std::string types) {
 //////////////////////////////////////////////////////////////////////////
 // 
 std::string get_link_for_type(std::string single_type, const std::string& types, const std::string& links) {
-  int index = get_type_index(single_type, types);
+  int  index = get_type_index(single_type, types);
   if (index == -1)
     return "[]";
   std::vector<std::string> lnk = split(links, ';');
-  if (index >= lnk.size())  // for ArrayOfDifferences: types is "INTEGER;NAME", links is "" and we get buffer overflow in lnk!
+  if (index >= (int)lnk.size())  // for ArrayOfDifferences: types is "INTEGER;NAME", links is "" and we get buffer overflow in lnk!
     return "";
   return lnk[index];
 }

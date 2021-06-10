@@ -1,6 +1,6 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // utils.h
-// Copyright 2020 PDF Association, Inc. https://www.pdfa.org
+// Copyright 2020-2021 PDF Association, Inc. https://www.pdfa.org
 //
 // This material is based upon work supported by the Defense Advanced
 // Research Projects Agency (DARPA) under Contract No. HR001119C0079.
@@ -10,28 +10,27 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex
+// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt
+// 
 ///////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 
 #include <string>
-#include "Pdfix.h"
+#include <filesystem>
 
-std::string ToUtf8(const std::wstring& str);
+std::string  ToUtf8(const std::wstring& str);
 std::wstring utf8ToUtf16(const std::string& utf8Str);
 
 // gets folder from provided filename
-std::string get_path_dir(const std::string& path);
+std::string  get_path_dir(const std::string& path);
 std::wstring get_path_dir(const std::wstring& path);
-// returns folder path with trailing backslash
-std::string check_folder_path(const std::string& path);
 
-// check folder of file
-bool folder_exists(const std::wstring& path);
-bool file_exists(const std::string& path);
+// check if a folder, or if a file, or if file/folder already exists
+bool is_folder(const std::filesystem::path& p);
+bool is_file(const std::filesystem::path& p);
 
-//split string into vector
+// split string into vector
 std::vector<std::string> split(const std::string& s, char separator);
 
 //std::string extract_link(std::string link);

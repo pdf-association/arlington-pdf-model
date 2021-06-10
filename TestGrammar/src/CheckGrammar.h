@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // CheckGrammar.h
 // Copyright 2020 PDF Association, Inc. https://www.pdfa.org
 //
@@ -10,14 +10,18 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex
+// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 
+#include <iostream>
 #include <string>
-#include "Pdfix.h"
-#include "utils.h"
+#include <filesystem>
 
-void CheckGrammarFolder(std::string& grammar_folder, std::ofstream& ofs);
-void CheckDVA(std::wstring& dva_file, std::string& grammar_folder, std::ofstream& ofs);
+// Validate the Arlington PDF model grammar
+void ValidateGrammarFolder(const std::filesystem::path& grammar_folder, std::ostream& ofs);
+
+// Check DVA vs Arlington
+void CheckDVA(const std::filesystem::path& dva_file, const std::filesystem::path& grammar_folder, std::ostream& ofs);
