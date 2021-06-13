@@ -173,6 +173,7 @@ std::string CParsePDF::select_one(PdsObject* obj, const std::string &links_strin
         if (vec[TSV_REQUIRED] != "TRUE")
           continue;
 
+		
         PdsObject* inner_object = nullptr;
         //required value exists?
         if (obj->GetObjectType() == kPdsArray) {
@@ -294,6 +295,8 @@ std::string CParsePDF::get_type_string(PdsObject *obj) {
 // - type
 // - indirect
 // - possible value
+//void CParsePDF::getObject(){
+//}
 void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &vec, const std::string &grammar_file) {
 
   // Treat null object as though the key is not present (i.e. don't report an error)
@@ -301,9 +304,10 @@ void CParsePDF::check_basics(PdsObject *object, const std::vector<std::string> &
     output << "Error: not indirect: ";
     output << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
   }
-
+  
   // check type. "null" is always valid and same as not present so ignore.
   int index = get_type_index(object, vec[TSV_TYPE]);
+ 
   if ((object->GetObjectType() != kPdsNull) && (index == -1) /*&& vec[TSV_TYPE]!="ANY"*/) {
     int index2 = get_type_index(object, vec[TSV_TYPE]);
     output << "Error: wrong type: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
@@ -414,7 +418,8 @@ void CParsePDF::parse_name_tree(PdsDictionary* obj, const std::string &links, st
         if (item != nullptr) {
           std::string as = ToUtf8(str);
           std::string direct_link = select_one(item, links, as);
-          add_parse_object(item, direct_link, context+ "->" + as);
+          std::vector<PdsObject*> empty;
+          add_parse_object(item, direct_link, context+ "->" + as, empty);
         }
         else {
           //error value isn't dictionary
@@ -463,7 +468,8 @@ void CParsePDF::parse_number_tree(PdsDictionary* obj, const std::string &links, 
         if (item != nullptr) {
           std::string as = std::to_string(key);
           std::string direct_link = select_one(item, links, as);
-          add_parse_object(item, direct_link, context + "->" +  as);
+          std::vector<PdsObject*> empty;
+          add_parse_object(item, direct_link, context + "->" +  as, empty) ;
         }
         else {
           //error value isn't dictionary
@@ -493,14 +499,16 @@ void CParsePDF::parse_number_tree(PdsDictionary* obj, const std::string &links, 
   }
 }
 
-void CParsePDF::add_parse_object(PdsObject* object, const std::string& link, std::string context) {
-  to_process.emplace(object, link, context);
-}
+void CParsePDF::add_parse_object(PdsObject* object, const std::string& link, std::string context, std::vector<PdsObject*> &parentObjects) {
+  
+  to_process.emplace(object, link, context, parentObjects);
+  
+} 
 
 void CParsePDF::parse_object() 
 {
   while (!to_process.empty()) {
-    queue_elem elem = to_process.front();
+    queue_elem2 elem = to_process.front();
     to_process.pop();
     if (elem.link == "")
       continue;
@@ -533,7 +541,7 @@ void CParsePDF::parse_object()
 
     std::string grammar_file = grammar_folder + elem.link + ".tsv";
     const std::vector<std::vector<std::string>>* data_list = get_grammar(elem.link);
-
+    //parsedObjects.push_back(elem.object);
     // validating as dictionary:
     // going through all objects in dictionary 
     // checking basics (Type, PossibleValue, indirect)
@@ -541,6 +549,18 @@ void CParsePDF::parse_object()
     // then recursively calling validation for each container with link to other grammar file
     if (elem.object->GetObjectType() == kPdsDictionary || elem.object->GetObjectType() == kPdsStream) {
       PdsDictionary* dictObj = (PdsDictionary*)elem.object;
+      for (int i=0; i< (dictObj->GetNumKeys()); i++){
+        //std::wstring key;
+        //key.resize(dictObj->GetKey(i, nullptr, 0));
+        //dictObj->GetKey(i, (wchar_t*)key.c_str(), (int)key.size());
+		//std::cout << key.c_str() << std::endl;
+        // checking basis (type,possiblevalue, indirect)
+       // PdsObject* inner_obj = dictObj->Get(key.c_str());
+       // if (inner_obj->GetObjectType() == kPdsString){
+        
+        //	std::cout << ((PdsString*) inner_obj)->GetText().c_str()<< std::endl;	
+       // }
+      }
       //validate values first, then Process containers
       if (elem.object->GetObjectType() == kPdsStream)
         dictObj = ((PdsStream*)elem.object)->GetStreamDict();
@@ -570,7 +590,9 @@ void CParsePDF::parse_object()
                 std::string lnk = get_link_for_type(inner_obj, vec[TSV_TYPE], vec[TSV_LINK]);
                 std::string as = ToUtf8(key);
                 std::string direct_link = select_one(inner_obj, lnk, as);
-                add_parse_object(inner_obj, direct_link, elem.context + "->" + as);
+               // std::vector<PdsObject*> parents = *elem.parentObjects;
+             //   parents.push_back(elem.object);
+                add_parse_object(inner_obj, direct_link, elem.context + "->" + as, elem.parentObjects);
                 break;
               }
         }
@@ -581,13 +603,37 @@ void CParsePDF::parse_object()
       }
 
       // check presence of required values
-      for (auto& vec : *data_list)
-        if (vec[TSV_REQUIRED] == "TRUE" && vec[TSV_KEYNAME] != "*") {
+      for (auto& vec : *data_list) {
+        if (vec[TSV_REQUIRED]=="TRUE" && vec[TSV_INHERITABLE]=="TRUE"){
+        //If key is not found in object, check all referenced parents 
+         PdsObject* inner_obj = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
+         if (inner_obj == nullptr) {
+		    std::vector<PdsObject*> parents = elem.parentObjects;
+			bool found=false;
+	        for (PdsObject* obj: parents ){                      	
+	          if (obj->GetObjectType() == kPdsDictionary){
+	            PdsDictionary* dictObj = (PdsDictionary*)obj;
+	            PdsObject* inherited = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
+	            if (inherited != nullptr){
+	              found=true;
+	              break;
+	            }
+	          }
+            }  
+            if (!found){          
+         	  output << "Error: required key doesn't exist in object or parents: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
+           }
+         } else {
+         	output << "Found key " << vec[TSV_KEYNAME] << std:: endl;
+         }
+        }
+        else if (vec[TSV_REQUIRED] == "TRUE" && vec[TSV_KEYNAME] != "*") {
           PdsObject* inner_obj = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
           if (inner_obj == nullptr) {
             output << "Error: required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
           }
         }
+      }
 
       auto id_r = dictObj->GetId();
 
@@ -620,13 +666,18 @@ void CParsePDF::parse_object()
               else if (inner_obj->GetObjectType() == kPdsStream) {
                 std::string as = vec[TSV_KEYNAME];
                 std::string direct_link = select_one(((PdsStream*)inner_obj)->GetStreamDict(), links[index], as);
-                add_parse_object(((PdsStream*)inner_obj)->GetStreamDict(), direct_link, elem.context + "->" + as);
+               // std::vector<PdsObject*> parents = *elem.parentObjects;
+               // parents.push_back(elem.object);
+                add_parse_object(((PdsStream*)inner_obj)->GetStreamDict(), direct_link, elem.context + "->" + as, elem.parentObjects);
               }
               else
                 if ((inner_obj->GetObjectType() == kPdsDictionary || inner_obj->GetObjectType() == kPdsArray)) {
                   std::string as = vec[TSV_KEYNAME];
                   std::string direct_link = select_one(inner_obj, links[index], as);
-                  add_parse_object(inner_obj, direct_link, elem.context + "->" + as);
+                  std::vector<PdsObject*> parents = elem.parentObjects;
+                  parents.push_back(elem.object);
+               //   std::cout << "PUSHING " << parents.size() << std::endl;
+                  add_parse_object(inner_obj, direct_link, elem.context + "->" + as, parents);
                 }
           }
         }
@@ -648,7 +699,9 @@ void CParsePDF::parse_object()
                 std::string as = "[" + std::to_string(i) + "]";
                 std::string direct_link = select_one(item, lnk, as);
                 //if element does have a link - process it
-                add_parse_object(item, direct_link, elem.context + as);
+              //  std::vector<PdsObject*> parents = *elem.parentObjects;
+             //   parents.push_back(elem.object);
+                add_parse_object(item, direct_link, elem.context + as, elem.parentObjects);
               }
               break;
             }

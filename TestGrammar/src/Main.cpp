@@ -145,11 +145,13 @@ int main(int argc, char* argv[]) {
             //grammar parser
             CParsePDF parser(doc, grammar_folder, ofs);
             PdsObject* type_key = trailer->Get(L"Type");
+            std::vector<PdsObject*> empty;
+            empty.reserve(100);
             //if Type exists we are working with XRefStream
             if (type_key == nullptr)
-              parser.add_parse_object(trailer, "FileTrailer", "Trailer");
+              parser.add_parse_object(trailer, "FileTrailer", "Trailer", empty);
             else
-              parser.add_parse_object(trailer, "XRefStream", "Trailer");
+              parser.add_parse_object(trailer, "XRefStream", "Trailer", empty);
             parser.parse_object();
           }
           else {
