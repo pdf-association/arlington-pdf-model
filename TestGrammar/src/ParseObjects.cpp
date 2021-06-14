@@ -623,9 +623,6 @@ void CParsePDF::parse_object()
             if (!found){          
          	  output << "Error: required key doesn't exist in object or parents: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
            }
-         } else {
-         	output << "Found key " << vec[TSV_KEYNAME] << std:: endl;
-         }
         }
         else if (vec[TSV_REQUIRED] == "TRUE" && vec[TSV_KEYNAME] != "*") {
           PdsObject* inner_obj = dictObj->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
