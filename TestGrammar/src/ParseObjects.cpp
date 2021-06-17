@@ -372,7 +372,6 @@ void CParsePDF::check_basics(ArlPDFObject *object, const std::vector<std::string
     int index = get_type_index(object, vec[TSV_TYPE]);
     if ((object->get_object_type() != PDFObjectType::ArlPDFObjTypeNull) && (index == -1) /*&& vec[TSV_TYPE]!="ANY"*/) 
     {
-        int index2 = get_type_index(object, vec[TSV_TYPE]);
         output << "Error: wrong type: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
         output << " should be: " << vec[TSV_TYPE] << " and is " << get_type_string(object);
         if (object->get_object_number() != 0) {
@@ -411,7 +410,7 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
     /// @todo check if Kids doesn't exist together with names etc.
     ArlPDFObject *kids_obj   = obj->get_value(L"Kids");
     ArlPDFObject *names_obj  = obj->get_value(L"Names");
-    ArlPDFObject *limits_obj = obj->get_value(L"Limits");
+    //ArlPDFObject *limits_obj = obj->get_value(L"Limits");
     if ((names_obj != nullptr) && (names_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
         ArlPDFArray *array_obj = (ArlPDFArray*)names_obj;
         for (int i = 0; i < array_obj->get_num_elements(); i += 2) {
@@ -463,8 +462,8 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &link
     /// @todo check if Kids doesn't exist together with names etc..
     ArlPDFObject *kids_obj   = obj->get_value(L"Kids");
     ArlPDFObject *nums_obj   = obj->get_value(L"Nums");
-    ArlPDFObject *limits_obj = obj->get_value(L"Limits");
-    bool to_ret = true;
+    //ArlPDFObject *limits_obj = obj->get_value(L"Limits");
+
     if (nums_obj != nullptr) {
         if (nums_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
             ArlPDFArray *array_obj = (ArlPDFArray*)nums_obj;
@@ -567,9 +566,9 @@ void CParsePDF::parse_object()
         // - checking basics (Type, PossibleValue, indirect)
         // - then check presence of required keys
         // - then recursively calling validation for each container with link to other grammar file
-        if (elem.object->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary || 
-            elem.object->get_object_type() == PDFObjectType::ArlPDFObjTypeStream) 
-        {
+        PDFObjectType obj_type = elem.object->get_object_type();
+
+        if (obj_type == PDFObjectType::ArlPDFObjTypeDictionary ||obj_type == PDFObjectType::ArlPDFObjTypeStream) {
             ArlPDFDictionary* dictObj = (ArlPDFDictionary*)elem.object;
             //validate values first, then Process containers
             ////if (elem.object->get_object_type() == PDFObjectType::ArlPDFObjTypeStream)
@@ -583,16 +582,16 @@ void CParsePDF::parse_object()
 
                 // might have wrong/malformed object. Key exists but value not
                 if (inner_obj != nullptr) {
-                    bool found = false;
+                    bool is_found = false;
                     for (auto& vec : *data_list)
                         if (vec[TSV_KEYNAME] == ToUtf8(key)) {
                             check_basics(inner_obj, vec, grammar_file.filename().string());
-                            found = true;
+                            is_found = true;
                             break;
                         }
                         // std::cout << "Found? /" << ToUtf8(key) << ": " << (found ? "true" : "false") << std::endl;
                         // we didn't find the key, there may be * we can use to validate
-                        if (!found)
+                        if (!is_found)
                             for (auto& vec : *data_list)
                                 if (vec[TSV_KEYNAME] == "*" && vec[TSV_LINK] != "") {
                                     std::string lnk = get_link_for_type(inner_obj, vec[TSV_TYPE], vec[TSV_LINK]);
@@ -618,8 +617,6 @@ void CParsePDF::parse_object()
                 }
             } // for
 
-            auto id_r = dictObj->get_object_number();
-
             // now go through containers and Process them with new grammar_file
             for (auto& vec : *data_list) {
                 if (vec.size() >= TSV_NOTES && vec[TSV_LINK] != "") {
@@ -636,8 +633,8 @@ void CParsePDF::parse_object()
                         if (links[index] == "[]")
                             continue;
 
-                        std::string function;
-                        opt[index] = extract_function(opt[index], function);
+                        std::string fn;
+                        opt[index] = extract_function(opt[index], fn);
 
                         if ((opt[index] == "number-tree") && (inner_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
                             parse_number_tree((ArlPDFDictionary*)inner_obj, links[index], elem.context + "->" + vec[TSV_KEYNAME]);
@@ -656,10 +653,7 @@ void CParsePDF::parse_object()
                 }
                 continue;
             } // for
-        }
-
-        if (elem.object->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
-            bool to_ret = true;
+        } else if (obj_type == PDFObjectType::ArlPDFObjTypeArray) {
             ArlPDFArray* arrayObj = (ArlPDFArray*)elem.object;
             for (int i = 0; i < arrayObj->get_num_elements(); ++i) {
                 ArlPDFObject* item = arrayObj->get_value(i);
@@ -679,8 +673,8 @@ void CParsePDF::parse_object()
                         }
                     } // for
                 }
-            } // for
+            } // for array elements
             continue;
-        }
+        } // if obj_tyoe
     }
 }

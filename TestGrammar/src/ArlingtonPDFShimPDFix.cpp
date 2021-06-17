@@ -112,8 +112,8 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 }
 
 
-/// @brief 
-/// @return 
+/// @brief  Returns the PDF object type of an object 
+/// @return PDFObjectType enum value
 PDFObjectType ArlPDFObject::get_object_type()
 {
     assert(object != nullptr);
@@ -122,16 +122,36 @@ PDFObjectType ArlPDFObject::get_object_type()
 
     switch (obj->GetObjectType())
     {
-        case kPdsBoolean:   retval = PDFObjectType::ArlPDFObjTypeBoolean;
-        case kPdsNumber:    retval = PDFObjectType::ArlPDFObjTypeNumber;    // Integer or Real (or bitmask)
-        case kPdsString:    retval = PDFObjectType::ArlPDFObjTypeString;    // Any type of string
-        case kPdsName:      retval = PDFObjectType::ArlPDFObjTypeName;
-        case kPdsArray:     retval = PDFObjectType::ArlPDFObjTypeArray;     // incl. rectangle or matrix
-        case kPdsDictionary: retval = PDFObjectType::ArlPDFObjTypeDictionary;
-        case kPdsStream:    retval = PDFObjectType::ArlPDFObjTypeStream;
-        case kPdsNull:      retval = PDFObjectType::ArlPDFObjTypeNull;
-        case kPdsReference: retval = PDFObjectType::ArlPDFObjTypeReference;
-        default:            retval = PDFObjectType::ArlPDFObjTypeUnknown;
+        case kPdsBoolean:   
+            retval = PDFObjectType::ArlPDFObjTypeBoolean; 
+            break;
+        case kPdsNumber:    
+            retval = PDFObjectType::ArlPDFObjTypeNumber;    // Integer or Real (or bitmask)
+            break;
+        case kPdsString:    
+            retval = PDFObjectType::ArlPDFObjTypeString;    // Any type of string
+            break;
+        case kPdsName:      
+            retval = PDFObjectType::ArlPDFObjTypeName;
+            break;
+        case kPdsArray:     
+            retval = PDFObjectType::ArlPDFObjTypeArray;     // incl. rectangle or matrix
+            break;
+        case kPdsDictionary: 
+            retval = PDFObjectType::ArlPDFObjTypeDictionary;
+            break;
+        case kPdsStream:    
+            retval = PDFObjectType::ArlPDFObjTypeStream;
+            break;
+        case kPdsNull:      
+            retval = PDFObjectType::ArlPDFObjTypeNull;
+            break;
+        case kPdsReference: 
+            retval = PDFObjectType::ArlPDFObjTypeReference;
+            break;
+        default:            
+            retval = PDFObjectType::ArlPDFObjTypeUnknown;
+            break;
     }
     if (ArlingtonPDFShim::debugging) {
         std::cout << __FUNCTION__ << "(): " << PDFObjectType_strings[(int)retval] << std::endl;

@@ -347,8 +347,8 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs) {
                             new_dva_value.resize(possible_array->GetText(i, nullptr, 0));
                             possible_array->GetText(i, (wchar_t*)new_dva_value.c_str(), (int)new_dva_value.size());
                             for (size_t j = 0; j < possible_our.size(); j++) {
-                                std::string function;
-                                possible_our[j] = extract_function(possible_our[j], function);
+                                std::string fn;
+                                possible_our[j] = extract_function(possible_our[j], fn);
                                 if (possible_our[j] == ToUtf8(new_dva_value)) {
                                     possible_our[j] = "";
                                     new_dva_value = L"";

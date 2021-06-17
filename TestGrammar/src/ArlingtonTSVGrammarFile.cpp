@@ -54,7 +54,7 @@ bool CArlingtonTSVGrammarFile::load()
             header_list = vec;
         else
             data_list.push_back(vec);
-    }
+    } // while
 
     // Close the TSV file
     file.close();

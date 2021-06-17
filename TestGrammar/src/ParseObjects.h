@@ -41,7 +41,7 @@ class CParsePDF
     // remembering processed objects (and how they were validated)
     std::map<ArlPDFObject*, std::string>      mapped;
   
-    // cache of loaded grammar files
+    // the Arlington PDF model (cache of loaded grammar files)
     std::map<std::string, std::unique_ptr<CArlingtonTSVGrammarFile>>  grammar_map;
 
     // simulating recursive processing of the ArlPDFObjects

@@ -66,11 +66,11 @@ std::string ToUtf8(const wchar_t unicode) {
     static uint8_t prefix[] = { 0xc0, 0xe0, 0xf0, 0xf8, 0xfc };
     int order = 1 << ((nbytes - 1) * 6);
     int code = unicode;
-    out.push_back(prefix[nbytes - 2] | (code / order));
+    out.push_back((char)(prefix[nbytes - 2] | (code / order)));
     for (int i = 0; i < nbytes - 1; i++) {
       code = code % order;
       order >>= 6;
-      out.push_back(0x80 | (code / order));
+      out.push_back((char)(0x80 | (code / order)));
     }
   }
   return out;
@@ -195,14 +195,14 @@ bool is_file(const std::filesystem::path& p)
 
 
 /// @brief   
-/// @param value 
-/// @param function 
-/// @return 
+/// @param value[in] Arlington TSV field that might contain a predicate function 
+/// @param function[out] the predicate function, if any. Otherwise function.clear()
+/// @return the Arlington value with any predicates stripped off
 std::string extract_function(const std::string& value, std::string &function) {
-    std::regex      functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|.]+");
+    std::regex      functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|.]+");  // matches "fn:<predicate-name>(
     std::smatch     match;
     std::string     to_ret = value;
-    function = "";
+    function.clear();
 
     if (std::regex_search(value, match, functionStr)) {
         to_ret = match.suffix();
