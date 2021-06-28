@@ -24,6 +24,9 @@
 #include "utils.h"
 
 using namespace PDFixSDK;
+
+Pdfix_statics;
+
 namespace fs = std::filesystem;
 
 // simulating recursive processing of the PDObjects

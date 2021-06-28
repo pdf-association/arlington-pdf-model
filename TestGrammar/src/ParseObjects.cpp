@@ -268,6 +268,7 @@ std::string CParsePDF::get_link_for_type(ArlPDFObject* obj, const std::string &t
 /// @param types[in]  alphabetically-sorted, semi-colon separated string of known Arlington types 
 /// @return  array index into the Arlington TSV data or -1 if no match
 int CParsePDF::get_type_index(ArlPDFObject *obj, std::string types) {
+    types = types + ";";
     std::vector<std::string> opt = split(types, ';');
     for (auto i = 0; i < (int)opt.size(); i++) {
         switch (obj->get_object_type()) {
@@ -359,10 +360,15 @@ std::string CParsePDF::get_type_string(ArlPDFObject *obj) {
 // - possible value
 void CParsePDF::check_basics(ArlPDFObject *object, const std::vector<std::string> &vec, const std::string &grammar_file) {
 
+    auto obj_type = object->get_object_type();
+    if (ArlingtonPDFShim::debugging) {
+        std::cout << __FUNCTION__ << "(" << vec[TSV_KEYNAME] << ":" << vec[TSV_TYPE] << ", " << grammar_file << ")" << std::endl;
+    }    
+
     // Treat null object as though the key is not present (i.e. don't report an error)
     if ((vec[TSV_INDIRECTREF] == "TRUE") && 
-        // (object->get_object_number() == 0) && 
-        (object->get_object_type() != PDFObjectType::ArlPDFObjTypeNull)) 
+        (object->get_object_number() == 0) || 
+        ((obj_type != PDFObjectType::ArlPDFObjTypeNull) || (obj_type != PDFObjectType::ArlPDFObjTypeReference)))
     {
         output << "Error: not indirect: ";
         output << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
@@ -370,7 +376,7 @@ void CParsePDF::check_basics(ArlPDFObject *object, const std::vector<std::string
 
     // check type. "null" is always valid and same as not present so ignore.
     int index = get_type_index(object, vec[TSV_TYPE]);
-    if ((object->get_object_type() != PDFObjectType::ArlPDFObjTypeNull) && (index == -1) /*&& vec[TSV_TYPE]!="ANY"*/) 
+    if ((obj_type != PDFObjectType::ArlPDFObjTypeNull) && (index == -1) /*&& vec[TSV_TYPE]!="ANY"*/)
     {
         output << "Error: wrong type: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
         output << " should be: " << vec[TSV_TYPE] << " and is " << get_type_string(object);

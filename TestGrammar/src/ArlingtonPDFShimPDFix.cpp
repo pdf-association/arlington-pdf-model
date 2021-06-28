@@ -27,8 +27,6 @@
 using namespace ArlingtonPDFShim;
 using namespace PDFixSDK;
 
-Pdfix_statics;
-
 
 /// @brief Initialize the PDF SDK. May throw exceptions.
 void ArlingtonPDFSDK::initialize(bool enable_debugging)
@@ -101,9 +99,18 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
         {
             ArlPDFTrailer* trailer_obj = new ArlPDFTrailer(trailer);
 
-            // if /Type key exists, then working with XRefStream
+            // if /Type key exists, then assume working with XRefStream
             PdsObject* type_key = trailer->Get(L"Type");
             trailer_obj->set_xrefstm(type_key != nullptr);
+
+            int id = trailer->GetId();
+            PdsObject* root_key = trailer->Get(L"Root");
+            PdfObjectType ot = root_key->GetObjectType();
+            id = root_key->GetId();
+
+            PdsObject* info_key = trailer->Get(L"Info");
+            ot = info_key->GetObjectType();
+            id = info_key->GetId();
 
             return trailer_obj;
         }
@@ -116,7 +123,13 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 /// @return PDFObjectType enum value
 PDFObjectType ArlPDFObject::get_object_type()
 {
-    assert(object != nullptr);
+    if (object == nullptr) {
+        if (ArlingtonPDFShim::debugging) {
+            std::cout << __FUNCTION__ << "(nullptr): PDFObjectType::ArlPDFObjTypeNull" << std::endl;
+        }
+        return PDFObjectType::ArlPDFObjTypeNull;
+    }
+
     PdsObject *obj = (PdsObject *)object;
     PDFObjectType retval;
 
@@ -154,7 +167,7 @@ PDFObjectType ArlPDFObject::get_object_type()
             break;
     }
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): " << PDFObjectType_strings[(int)retval] << std::endl;
+        std::cout << __FUNCTION__ << "(" << object << "): " << PDFObjectType_strings[(int)retval] << std::endl;
     }
     return retval;
 }
@@ -167,7 +180,7 @@ bool ArlPDFObject::is_indirect_ref()
     assert(object != nullptr);
     bool retval = (((PdsObject*)object)->GetObjectType() == kPdsReference);
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): " << (retval ? "true" : "false") << std::endl;
     }
     return retval;
 }
@@ -180,7 +193,7 @@ int ArlPDFObject::get_object_number()
     assert(object != nullptr);
     int retval = ((PdsObject*)object)->GetId();
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
     }
     return retval;
 }
@@ -195,7 +208,7 @@ bool ArlPDFBoolean::get_value()
     PdsBoolean* obj = (PdsBoolean *)object;
     bool retval = obj->GetValue();
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
     }
     return retval;
 }
@@ -210,7 +223,7 @@ bool ArlPDFNumber::is_integer_value()
     PdsNumber* obj = (PdsNumber*)object;
     bool retval = obj->IsIntegerValue();
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): " << (retval ? "true" : "false") << std::endl;
     }
     return retval;
 }
@@ -226,7 +239,7 @@ int ArlPDFNumber::get_integer_value()
     assert(obj->IsIntegerValue());
     int retval = obj->GetIntegerValue();
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
     }
     return retval;
 }
@@ -242,7 +255,7 @@ double ArlPDFNumber::get_value()
     PdsNumber* obj = (PdsNumber*)object;
     double retval = obj->GetValue();
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
     }
     return retval;
 }
@@ -257,7 +270,7 @@ std::wstring ArlPDFString::get_value()
     PdsString* obj = (PdsString*)object;
     std::wstring retval = obj->GetText();
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): '" << retval.c_str() << "'" << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): '" << retval << "'" << std::endl;
     }
     return retval;
 }
@@ -272,7 +285,7 @@ std::wstring ArlPDFName::get_value()
     PdsName* obj = (PdsName*)object;
     std::wstring retval = obj->GetText();
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): '" << retval.c_str() << "'" << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): '" << retval << "'" << std::endl;
     }
     return retval;
 }
@@ -287,7 +300,7 @@ int ArlPDFArray::get_num_elements()
     PdsArray* obj = (PdsArray*)object;
     int retval = obj->GetNumObjects();
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
     }
     return retval;
 }
@@ -299,12 +312,13 @@ int ArlPDFArray::get_num_elements()
 ArlPDFObject* ArlPDFArray::get_value(int idx)
 {
     assert(object != nullptr);
+    assert(idx >= 0);
     assert(((PdsObject*)object)->GetObjectType() == kPdsArray);
     PdsArray* obj = (PdsArray*)object;
 
     ArlPDFObject *retval = new ArlPDFObject(obj->Get(idx));
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(" << idx << "): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << idx << "): " << retval << std::endl;
     }
     return retval;
 }
@@ -319,7 +333,7 @@ int ArlPDFDictionary::get_num_keys()
     PdsDictionary* obj = (PdsDictionary*)object;
     int retval = obj->GetNumKeys();
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
     }
     return retval;
 }
@@ -335,7 +349,7 @@ bool ArlPDFDictionary::has_key(std::wstring key)
     PdsDictionary* obj = (PdsDictionary*)object;
     bool retval = obj->Known(key.c_str());
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(" << key.c_str() << "): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << key << "): " << (retval ? "true" : "false") << std::endl;
     }
     return retval;
 }
@@ -352,7 +366,7 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
 
     ArlPDFObject* retval = new ArlPDFObject(obj->Get(key.c_str()));
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(" << key.c_str() << "): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << key << "): " << retval << std::endl;
     }
     return retval;
 }
@@ -364,11 +378,12 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
 std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 {
     assert(object != nullptr);
+    assert(index >= 0);
     assert(((PdsObject*)object)->GetObjectType() == kPdsDictionary);
     PdsDictionary* obj = (PdsDictionary*)object;
     std::wstring retval = obj->GetKey(index);
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(" << index << "): '" << retval.c_str() << "'" << std::endl;
+        std::wcout << __FUNCTION__ << "(" << index << "): '" << retval << "'" << std::endl;
     }
     return retval;
 }
@@ -385,7 +400,7 @@ int ArlPDFStream::get_num_keys()
     assert(stm_dict != nullptr);
     int retval = stm_dict->GetNumKeys();
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
     }
     return retval;
 }
@@ -403,7 +418,7 @@ bool ArlPDFStream::has_key(std::wstring key)
     assert(stm_dict != nullptr);
     bool retval = stm_dict->Known(key.c_str());
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(" << key.c_str() << "): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << key << "): " << (retval ? "true" : "false") << std::endl;
     }
     return retval;
 }
@@ -421,7 +436,7 @@ ArlPDFObject* ArlPDFStream::get_value(std::wstring key)
     assert(stm_dict != nullptr);
     ArlPDFObject * retval = new ArlPDFObject(stm_dict->Get(key.c_str()));
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(" << key.c_str() << "): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << key << "): " << retval << std::endl;
     }
     return retval;
 }
@@ -433,13 +448,14 @@ ArlPDFObject* ArlPDFStream::get_value(std::wstring key)
 std::wstring ArlPDFStream::get_key_name_by_index(int index)
 {
     assert(object != nullptr);
+    assert(index >= 0);
     assert(((PdsObject*)object)->GetObjectType() == kPdsStream);
     PdsStream* obj = (PdsStream*)object;
     PdsDictionary* stm_dict = obj->GetStreamDict();
     assert(stm_dict != nullptr);
     std::wstring retval = stm_dict->GetKey(index);
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(" << index << "): '" << retval.c_str() << "'" << std::endl;
+        std::wcout << __FUNCTION__ << "(" << index << "): '" << retval << "'" << std::endl;
     }
     return retval;
 }

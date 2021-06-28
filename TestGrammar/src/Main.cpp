@@ -39,7 +39,7 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
 {
     try
     {
-        ofs << "BEGIN - TestGrammar " << TestGrammar_VERSION << pdfsdk.get_version_string() << std::endl;
+        ofs << "BEGIN - TestGrammar " << TestGrammar_VERSION << " " << pdfsdk.get_version_string() << std::endl;
         ofs << "Arlington TSV data: " << fs::absolute(tsv_folder) << std::endl;
         ofs << "PDF: " << fs::absolute(pdf_file_name) << std::endl;
 
