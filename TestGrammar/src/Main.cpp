@@ -13,7 +13,7 @@
 // Contributors: Roman Toda, Frantisek Forgac, Normex
 ///////////////////////////////////////////////////////////////////////////////
 
-#define _CRT_SECURE_NO_WARNINGS
+//#define _CRT_SECURE_NO_WARNINGS
 
 #include <exception>
 #include <iostream>
@@ -26,7 +26,7 @@
 #include "ParseObjects.h"
 #include "CheckGrammar.h"
 #include "TestGrammarVers.h"
-#include "Sarge/src/sarge.h"
+#include "Sarge/sarge.h"
 
 using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
