@@ -13,7 +13,7 @@ set(SOURCES
     src/CheckGrammar.cpp
     src/ParseObjects.cpp
     src/Utils.cpp
-    src/Sarge/src/sarge.cpp
+    src/sarge/sarge.cpp
     )
 
 if (WIN32)

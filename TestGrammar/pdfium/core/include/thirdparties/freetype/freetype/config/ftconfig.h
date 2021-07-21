@@ -437,7 +437,7 @@ FT_BEGIN_HEADER
 #define FT_MULFIX_ASSEMBLER  FT_MulFix_i386
 
   /* documentation is in freetype.h */
-
+#pragma warning(disable:5033)
   static __inline FT_Int32
   FT_MulFix_i386( FT_Int32  a,
                   FT_Int32  b )

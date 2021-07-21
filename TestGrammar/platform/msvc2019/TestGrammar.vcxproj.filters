@@ -15,11 +15,14 @@
     <Filter Include="Source Files\pdfium_win">
       <UniqueIdentifier>{113e8812-66d7-4bcf-a756-8083f96db103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\sarge">
+      <UniqueIdentifier>{bbb34277-a9fc-45e3-a664-f6ec0a1616e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PDFix">
+      <UniqueIdentifier>{4ca62a4c-2d7e-4cbd-a6c1-b8d791fd9fc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Sarge\sarge.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1043,11 +1046,11 @@
     <ClCompile Include="..\..\src\ArlingtonPDFShimPDFium.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\sarge\sarge.cpp">
+      <Filter>Source Files\sarge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\Sarge\sarge.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\ArlingtonPDFShim.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -1064,9 +1067,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\utils.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Pdfix.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\pdfium\core\include\fpdftext\fpdf_text.h">
@@ -1752,6 +1752,12 @@
     </ClInclude>
     <ClInclude Include="..\..\pdfium\core\src\reflow\layoutprovider_taggedpdf.h">
       <Filter>Source Files\pdfium</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sarge\sarge.h">
+      <Filter>Source Files\sarge</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Pdfix.h">
+      <Filter>Source Files\PDFix</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

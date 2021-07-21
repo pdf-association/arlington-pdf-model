@@ -353,6 +353,9 @@
     <ClCompile Include="..\..\pdfium\core\src\reflow\reflowedpage.cpp" />
     <ClCompile Include="..\..\pdfium\core\src\reflow\reflowedtextpage.cpp" />
     <ClCompile Include="..\..\pdfium\core\src\reflow\reflowengine.cpp" />
+    <ClCompile Include="..\..\sarge\sarge.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level4</WarningLevel>
+    </ClCompile>
     <ClCompile Include="..\..\src\ArlingtonPDFShimPDFium.cpp" />
     <ClCompile Include="..\..\src\ArlingtonTSVGrammarFile.cpp" />
     <ClCompile Include="..\..\src\CheckDVA.cpp" />
@@ -361,7 +364,6 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Include="..\..\src\ParseObjects.cpp" />
-    <ClCompile Include="..\..\src\Sarge\sarge.cpp" />
     <ClCompile Include="..\..\src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -593,12 +595,12 @@
     <ClInclude Include="..\..\pdfium\core\src\reflow\layoutprovider_taggedpdf.h" />
     <ClInclude Include="..\..\pdfium\core\src\reflow\reflowedpage.h" />
     <ClInclude Include="..\..\pdfium\core\src\reflow\reflowedtextpage.h" />
+    <ClInclude Include="..\..\sarge\sarge.h" />
     <ClInclude Include="..\..\src\ArlingtonPDFShim.h" />
     <ClInclude Include="..\..\src\ArlingtonTSVGrammarFile.h" />
     <ClInclude Include="..\..\src\CheckGrammar.h" />
     <ClInclude Include="..\..\src\ParseObjects.h" />
     <ClInclude Include="..\..\src\Pdfix.h" />
-    <ClInclude Include="..\..\src\Sarge\sarge.h" />
     <ClInclude Include="..\..\src\TestGrammarVers.h" />
     <ClInclude Include="..\..\src\utils.h" />
   </ItemGroup>
@@ -681,14 +683,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -698,14 +699,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -715,14 +715,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -735,14 +734,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>

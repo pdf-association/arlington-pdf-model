@@ -1234,6 +1234,7 @@ CMSAPI cmsStageSignature CMSEXPORT cmsStageType(const cmsStage* mpe);
 CMSAPI void*             CMSEXPORT cmsStageData(const cmsStage* mpe);
 
 // Sampling
+#pragma warning(disable:5033)
 typedef cmsInt32Number (* cmsSAMPLER16)   (register const cmsUInt16Number In[],
                                             register cmsUInt16Number Out[],
                                             register void * Cargo);
