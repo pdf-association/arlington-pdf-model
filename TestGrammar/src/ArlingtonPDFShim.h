@@ -146,12 +146,13 @@ namespace ArlingtonPDFShim {
     class ArlingtonPDFSDK {
     public:
         // Untyped PDF SDK context object 
-        void    *ctx;
+        static void    *ctx;
 
         // Constructor
-        explicit ArlingtonPDFSDK() 
-            : ctx(nullptr) 
-            { /* constructor */ };
+        explicit ArlingtonPDFSDK()
+        { /* constructor */
+          ctx = nullptr;
+        };
 
         // Initialize the PDF SDK. Throws exceptions on error.
         void initialize(bool enable_debugging);

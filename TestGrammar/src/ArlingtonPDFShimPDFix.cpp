@@ -27,6 +27,15 @@
 using namespace ArlingtonPDFShim;
 using namespace PDFixSDK;
 
+void* ArlingtonPDFSDK::ctx;
+struct pdfix_context {
+  Pdfix* pdfix;
+  PdfDoc* doc = nullptr;
+  ~pdfix_context() {
+    if (doc) doc->Close();
+    pdfix->Destroy();
+  }
+};
 
 /// @brief Initialize the PDF SDK. May throw exceptions.
 void ArlingtonPDFSDK::initialize(bool enable_debugging)
@@ -56,7 +65,10 @@ void ArlingtonPDFSDK::initialize(bool enable_debugging)
     ArlingtonPDFShim::debugging = enable_debugging;
 
     // Assign to void context 
-    ctx = pdfix;
+    auto pdfix_ctx = new pdfix_context;
+    pdfix_ctx->pdfix = pdfix;
+
+    ctx = pdfix_ctx;
 }
 
 
@@ -64,8 +76,9 @@ void ArlingtonPDFSDK::initialize(bool enable_debugging)
 void ArlingtonPDFSDK::shutdown()
 {
     if (ctx != nullptr) {
-        ((Pdfix *)ctx)->Destroy();
-        ctx = nullptr;
+      auto pdfix_ctx = (pdfix_context*)ctx;
+      delete (pdfix_ctx);
+      ctx = nullptr;
     }
 }
 
@@ -75,7 +88,7 @@ void ArlingtonPDFSDK::shutdown()
 std::string ArlingtonPDFSDK::get_version_string()
 {
     assert(ctx != nullptr);
-    Pdfix* pdfix = (Pdfix *)ctx;
+    Pdfix* pdfix = ((pdfix_context*)ctx)->pdfix;
     return "PDFix v" + std::to_string(pdfix->GetVersionMajor()) + "." 
                      + std::to_string(pdfix->GetVersionMinor()) + "." 
                      + std::to_string(pdfix->GetVersionPatch());
@@ -88,13 +101,17 @@ std::string ArlingtonPDFSDK::get_version_string()
 ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 {
     assert(ctx != nullptr);
+    auto pdfix_ctx = (pdfix_context*)ctx;
+    if (pdfix_ctx->doc) {
+      pdfix_ctx->doc->Close();
+      pdfix_ctx->doc = nullptr;
+    }
 
-    Pdfix* pdfix = (Pdfix*)ctx;
-    PdfDoc* doc = pdfix->OpenDoc(pdf_filename.wstring().data(), L"");
+    pdfix_ctx->doc = pdfix_ctx->pdfix->OpenDoc(pdf_filename.wstring().data(), L"");
 
-    if (doc != nullptr) 
+    if (pdfix_ctx->doc != nullptr)
     {
-        PdsDictionary* trailer = doc->GetTrailerObject();
+        PdsDictionary* trailer = pdfix_ctx->doc->GetTrailerObject();
         if (trailer != nullptr) 
         {
             ArlPDFTrailer* trailer_obj = new ArlPDFTrailer(trailer);
@@ -108,6 +125,7 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
             PdfObjectType ot = root_key->GetObjectType();
             id = root_key->GetId();
 
+            //todo: what if Info doesn't exist?
             PdsObject* info_key = trailer->Get(L"Info");
             ot = info_key->GetObjectType();
             id = info_key->GetId();

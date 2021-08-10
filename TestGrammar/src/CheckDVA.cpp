@@ -16,6 +16,7 @@
 #include <exception>
 #include <queue>
 #include <map>
+#include <string>
 
 #include "Pdfix.h"
 #include "CheckGrammar.h"
