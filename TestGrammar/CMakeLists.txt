@@ -395,9 +395,9 @@ endif()
 add_executable(TestGrammar
     src/Main.cpp
     ${SOURCES}
-	${SRC_PDFIX}
-	#${SRC_PDFIUM}
-	#${SRC_PDFIUM_PLATFORM}	
+	#${SRC_PDFIX}
+	${SRC_PDFIUM}
+	${SRC_PDFIUM_PLATFORM}	
     )
 
 set_target_properties(TestGrammar PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
