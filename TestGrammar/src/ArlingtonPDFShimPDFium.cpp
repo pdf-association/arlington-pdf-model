@@ -124,6 +124,19 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 }
 
 
+ArlPDFObject::ArlPDFObject(void* obj):object(obj)
+{
+  is_indirect = false;
+  if (object == nullptr)
+    return;
+  CPDF_Object* pdf_obj = (CPDF_Object*)object;
+  if (pdf_obj->GetType() == PDFOBJ_REFERENCE) {
+    object = ((pdfium_context*)ArlingtonPDFSDK::ctx)->parser->GetDocument()->GetIndirectObject(((CPDF_Reference*)object)->GetRefObjNum());
+    is_indirect = true;
+  } 
+}
+
+
 /// @brief  Returns the PDF object type of an object 
 /// @return PDFObjectType enum value
 PDFObjectType ArlPDFObject::get_object_type()
@@ -165,7 +178,6 @@ PDFObjectType ArlPDFObject::get_object_type()
             retval = PDFObjectType::ArlPDFObjTypeNull;
             break;
         case PDFOBJ_REFERENCE:
-            //TODO: can't immediately change the indiret to direct
              object = ((pdfium_context*)ArlingtonPDFSDK::ctx)->parser->GetDocument()->GetIndirectObject(((CPDF_Reference*)object)->GetRefObjNum());
              retval = get_object_type(); // PDFObjectType::ArlPDFObjTypeReference;
             break;
@@ -184,12 +196,10 @@ PDFObjectType ArlPDFObject::get_object_type()
 /// @return  true if an indirect reference. false otherwise (direct object)
 bool ArlPDFObject::is_indirect_ref()
 {
-    assert(object != nullptr);
-    bool retval = (((CPDF_Object*)object)->GetType() == PDFOBJ_REFERENCE);
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): " << (retval ? "true" : "false") << std::endl;
-    }
-    return retval;
+  if (ArlingtonPDFShim::debugging) {
+    std::wcout << __FUNCTION__ << "(" << object << "): " << (is_indirect ? "true" : "false") << std::endl;
+  }
+  return is_indirect;
 }
 
 

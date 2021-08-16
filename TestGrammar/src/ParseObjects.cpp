@@ -368,8 +368,8 @@ void CParsePDF::check_basics(ArlPDFObject *object, const std::vector<std::string
     // Treat null object as though the key is not present (i.e. don't report an error)
     //todo: is that good condition?
     if ((vec[TSV_INDIRECTREF] == "TRUE") && 
-        ((object->get_object_number() == 0) || 
-        ((obj_type != PDFObjectType::ArlPDFObjTypeNull) || (obj_type != PDFObjectType::ArlPDFObjTypeReference))))
+        (!object->is_indirect_ref() &&
+        obj_type != PDFObjectType::ArlPDFObjTypeNull && obj_type != PDFObjectType::ArlPDFObjTypeReference))
     {
         output << "Error: not indirect: ";
         output << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;

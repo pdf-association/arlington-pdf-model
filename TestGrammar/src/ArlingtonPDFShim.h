@@ -64,10 +64,9 @@ namespace ArlingtonPDFShim {
     class ArlPDFObject {
     protected:
         void* object;
+        bool is_indirect;
     public:
-        explicit ArlPDFObject(void *obj) 
-            : object(obj) 
-            { /* constructor */ std::cout << "ArlPDFObject called: obj=" << obj << std::endl; };
+      explicit ArlPDFObject(void* obj);
         PDFObjectType get_object_type();
         int   get_object_number();
         bool  is_indirect_ref();

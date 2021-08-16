@@ -196,7 +196,7 @@ PDFObjectType ArlPDFObject::get_object_type()
 bool ArlPDFObject::is_indirect_ref()
 {
     assert(object != nullptr);
-    bool retval = (((PdsObject*)object)->GetObjectType() == kPdsReference);
+    bool retval = (get_object_number() == 0); //(((PdsObject*)object)->GetObjectType() == kPdsReference);
     if (ArlingtonPDFShim::debugging) {
         std::wcout << __FUNCTION__ << "(" << object << "): " << (retval ? "true" : "false") << std::endl;
     }
