@@ -104,23 +104,40 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
     if (err_code)
       return nullptr;
 
-    ArlPDFTrailer* trailer_obj = new ArlPDFTrailer(pdfium_ctx->parser->GetTrailer());
-    // if /Type key exists, then assume working with XRefStream
-    ArlPDFObject* type_key= trailer_obj->get_value(L"Type");
-    trailer_obj->set_xrefstm(type_key != nullptr);
+    CPDF_Dictionary* trailr = pdfium_ctx->parser->GetTrailer();
+    if (trailr != NULL) {
+        ArlPDFTrailer* trailer_obj = new ArlPDFTrailer(trailr);
+        // if /Type key exists, then assume working with XRefStream
+        ArlPDFObject* type_key= trailer_obj->get_value(L"Type");
+        trailer_obj->set_xrefstm(type_key != nullptr);
 
-
-    //FX_DWORD  GetObjNum() const
-    //FX_DWORD  GetGenNum() const
-    int id = pdfium_ctx->parser->GetTrailer()->GetObjNum();
-    CPDF_Object* root_key = (CPDF_Object*)trailer_obj->get_value(L"Root");
-    id = root_key->GetObjNum();
-
-    //todo: what if Info doesn't exist?
-    CPDF_Object* info_key = (CPDF_Object*)trailer_obj->get_value(L"Info");
-    id = info_key->GetObjNum();
-
-    return trailer_obj;
+        //FX_DWORD  GetObjNum() const
+        //FX_DWORD  GetGenNum() const
+        int id = trailr->GetObjNum();
+        CPDF_Object* root_key = (CPDF_Object*)trailer_obj->get_value(L"Root");
+        if (root_key != NULL) {
+            id = root_key->GetObjNum();
+        
+            CPDF_Object* info_key = (CPDF_Object*)trailer_obj->get_value(L"Info");
+            if (info_key != NULL) {
+                id = info_key->GetObjNum();
+            }
+            else {
+                if (ArlingtonPDFShim::debugging) {
+                    std::cout << __FUNCTION__ << " trailer Info key could not be found!" << std::endl;
+                }
+            }
+        
+            return trailer_obj;
+        }
+        if (ArlingtonPDFShim::debugging) {
+            std::cout << __FUNCTION__ << " trailer Root key could not be found!" << std::endl;
+        }
+    }
+    if (ArlingtonPDFShim::debugging) {
+        std::cout << __FUNCTION__ << " trailer could not be found!" << std::endl;
+    }
+    return nullptr;
 }
 
 
