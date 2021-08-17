@@ -380,9 +380,14 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
 {
     assert(object != nullptr);
     assert(((CPDF_Object*)object)->GetType() == PDFOBJ_DICTIONARY);
+    ArlPDFObject* retval = nullptr;
     CPDF_Dictionary* obj = ((CPDF_Dictionary*)object);
 
-    ArlPDFObject* retval = new ArlPDFObject(obj->GetElement(CFX_ByteString::FromUnicode(key.c_str())));
+    CPDF_Object* type_key = obj->GetElement(CFX_ByteString::FromUnicode(key.c_str()));
+    if (type_key != NULL) {
+        retval = new ArlPDFObject(type_key);
+    }
+
     if (ArlingtonPDFShim::debugging) {
         std::wcout << __FUNCTION__ << "(" << key << "): " << retval << std::endl;
     }
