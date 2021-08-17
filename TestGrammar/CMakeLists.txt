@@ -12,26 +12,26 @@ set(SOURCES
     src/CheckGrammar.cpp
     src/ParseObjects.cpp
     src/Utils.cpp
-    src/sarge/sarge.cpp
+    sarge/sarge.cpp
     )
 
 #=========== pdfix ===========
 set (SRC_PDFIX
-	src/arlingtonpdfshimpdfix.cpp
+    src/ArlingtonPDFShimPDFix.cpp
 )
 
 #=========== pdfium ===========
 if(MSVC)
-	#add_compile_options(/W3 /WX-)
-	#add_compile_definitions(BUILD_WINDOWS)
+    #add_compile_options(/W3 /WX-)
+    #add_compile_definitions(BUILD_WINDOWS)
 else()
 endif()
 
-add_compile_definitions(PNG_PREFIX PNG_USE_READ_MACROS OPJ_STATIC PNG_INTEL_SSE_OPT=1 NOMINMAX _CRT_NONSTDC_NO_DEPRECATE) 
+add_compile_definitions(PNG_PREFIX PNG_USE_READ_MACROS OPJ_STATIC PNG_INTEL_SSE_OPT=1 NOMINMAX _CRT_NONSTDC_NO_DEPRECATE)
 add_compile_definitions(register=) #mac doesn't compile lcms with C++17
 
 set(SRC_PDFIUM
-	src/ArlingtonPDFShimPDFium.cpp
+    src/ArlingtonPDFShimPDFium.cpp
     pdfium/core/src/fdrm/crypto/fx_crypt.cpp
     pdfium/core/src/fdrm/crypto/fx_crypt_aes.cpp
     pdfium/core/src/fdrm/crypto/fx_crypt_sha.cpp
@@ -360,23 +360,23 @@ set(SRC_PDFIUM
 )
 
 if (WIN32)
-	set(SRC_PDFIUM_PLATFORM	
-	pdfium/core/src/fxge/win32/fx_win32_device.cpp
-	pdfium/core/src/fxge/win32/fx_win32_dib.cpp
-	pdfium/core/src/fxge/win32/fx_win32_dwrite.cpp
-	pdfium/core/src/fxge/win32/fx_win32_gdipext.cpp
-	pdfium/core/src/fxge/win32/fx_win32_print.cpp
-	)
+    set(SRC_PDFIUM_PLATFORM
+    pdfium/core/src/fxge/win32/fx_win32_device.cpp
+    pdfium/core/src/fxge/win32/fx_win32_dib.cpp
+    pdfium/core/src/fxge/win32/fx_win32_dwrite.cpp
+    pdfium/core/src/fxge/win32/fx_win32_gdipext.cpp
+    pdfium/core/src/fxge/win32/fx_win32_print.cpp
+    )
 elseif(APPLE)
-	set(SRC_PDFIUM_PLATFORM	
+    set(SRC_PDFIUM_PLATFORM
     pdfium/core/src/fxge/apple/fx_apple_platform.cpp
     pdfium/core/src/fxge/apple/fx_mac_imp.cpp
     pdfium/core/src/fxge/apple/fx_quartz_device.cpp
-	)
+    )
 elseif(UNIX)
-	set(SRC_PDFIUM_PLATFORM	
+    set(SRC_PDFIUM_PLATFORM
       pdfium/core/src/fxge/ge/fx_ge_linux.cpp
-	)
+    )
 endif()
 
 # =========== common ===========
@@ -395,25 +395,25 @@ endif()
 add_executable(TestGrammar
     src/Main.cpp
     ${SOURCES}
-	#${SRC_PDFIX}
-	${SRC_PDFIUM}
-	${SRC_PDFIUM_PLATFORM}	
+    #${SRC_PDFIX}
+    ${SRC_PDFIUM}
+    ${SRC_PDFIUM_PLATFORM}
     )
 
 set_target_properties(TestGrammar PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 
-target_include_directories(TestGrammar 
+target_include_directories(TestGrammar
 PUBLIC
-	"${CMAKE_CURRENT_SOURCE_DIR}/src"
-	"${CMAKE_CURRENT_SOURCE_DIR}/sarge"
-	"${CMAKE_CURRENT_SOURCE_DIR}/pdfium"
-) 
+    "${CMAKE_CURRENT_SOURCE_DIR}/src"
+    "${CMAKE_CURRENT_SOURCE_DIR}/sarge"
+    "${CMAKE_CURRENT_SOURCE_DIR}/pdfium"
+)
 if(APPLE)
     target_link_libraries(TestGrammar dl
     "-framework CoreFoundation"
     "-framework CoreGraphics"
-	"-framework CoreText"
-	)
+    "-framework CoreText"
+    )
 elseif (UNIX)
     target_link_libraries(TestGrammar dl stdc++fs)
 endif()
