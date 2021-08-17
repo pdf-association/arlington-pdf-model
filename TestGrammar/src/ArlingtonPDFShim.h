@@ -70,6 +70,7 @@ namespace ArlingtonPDFShim {
         PDFObjectType get_object_type();
         int   get_object_number();
         bool  is_indirect_ref();
+        std::string get_hash_id();
     };
 
     class ArlPDFBoolean : public ArlPDFObject {
@@ -120,15 +121,16 @@ namespace ArlingtonPDFShim {
         std::wstring get_key_name_by_index(int index);
     };
 
-    class ArlPDFStream : public ArlPDFDictionary {
-        using ArlPDFDictionary::ArlPDFDictionary;
+    class ArlPDFStream : public ArlPDFObject {
+        using ArlPDFObject::ArlPDFObject;
     public:
-        // For keys by name...
-        bool          has_key(std::wstring key);
-        ArlPDFObject* get_value(std::wstring key);
-        // For iterating keys...
-        int get_num_keys();
-        std::wstring get_key_name_by_index(int index);
+      ArlPDFDictionary* get_dictionary();
+        //// For keys by name...
+        //bool          has_key(std::wstring key);
+        //ArlPDFObject* get_value(std::wstring key);
+        //// For iterating keys...
+        //int get_num_keys();
+        //std::wstring get_key_name_by_index(int index);
     };
 
     // The trailer object of a PDF document (file)

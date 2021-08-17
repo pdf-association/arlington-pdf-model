@@ -39,7 +39,8 @@ using namespace ArlingtonPDFShim;
 class CParsePDF
 {
     // remembering processed objects (and how they were validated)
-    std::map<ArlPDFObject*, std::string>      mapped;
+    // storing hash_id of object and link with which we validated the object 
+    std::map<std::string, std::string>      mapped;
   
     // the Arlington PDF model (cache of loaded grammar files)
     std::map<std::string, std::unique_ptr<CArlingtonTSVGrammarFile>>  grammar_map;

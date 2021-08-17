@@ -203,9 +203,9 @@ std::string CParsePDF::select_one(ArlPDFObject* obj, const std::string &links_st
                     break;
                 case PDFObjectType::ArlPDFObjTypeStream:
                     {
-                        ArlPDFStream* stmObj = (ArlPDFStream*)obj;
-                        if (stmObj->has_key(utf8ToUtf16(vec[TSV_KEYNAME])))
-                            inner_object = stmObj->get_value(utf8ToUtf16(vec[TSV_KEYNAME]));
+                        ArlPDFDictionary* stmDictObj = ((ArlPDFStream*)obj)->get_dictionary();
+                        if (stmDictObj->has_key(utf8ToUtf16(vec[TSV_KEYNAME])))
+                            inner_object = stmDictObj->get_value(utf8ToUtf16(vec[TSV_KEYNAME]));
                     }
                     break;
                 }
@@ -540,29 +540,32 @@ void CParsePDF::parse_object()
         // Need to clean up the elem.link due to declarative functions "fn:SinceVersion(x,y, ...)"
         std::string function;
         elem.link = extract_function(elem.link, function);
-    
-        auto found = mapped.find(elem.object);
-        if (found != mapped.end()) {
+
+        if (elem.object->is_indirect_ref())
+        {
+          auto found = mapped.find(elem.object->get_hash_id());
+          if (found != mapped.end()) {
             //  output << elem.context << " already Processed" << std::endl;
             // "_Universal..." objects match anything so ignore them.
 
             // remove predicates to match clean elem.link
             found->second = extract_function(found->second, function);
 
-            if ((found->second != elem.link) && 
-                (((elem.link != "_UniversalDictionary") && (elem.link != "_UniversalArray")) &&
-                 ((found->second != "_UniversalDictionary") && (found->second != "_UniversalArray")))) 
+            if ((found->second != elem.link) &&
+              (((elem.link != "_UniversalDictionary") && (elem.link != "_UniversalArray")) &&
+                ((found->second != "_UniversalDictionary") && (found->second != "_UniversalArray"))))
             {
-                output << "Error: object validated in two different contexts. First: " << found->second;
-                output << "; second: " << elem.link << " in: " << elem.context << std::endl;
+              output << "Error: object validated in two different contexts. First: " << found->second;
+              output << "; second: " << elem.link << " in: " << elem.context << std::endl;
             }
             continue;
+          }
+          // remember visited object with a link used for validation
+          mapped.insert(std::make_pair(elem.object->get_hash_id(), elem.link));
         }
 
         output << elem.context << std::endl;
         elem.context = "  " + elem.context;
-        // remember visited object with a link used for validation
-        mapped.insert(std::make_pair(elem.object, elem.link));
 
         fs::path  grammar_file = grammar_folder;
         grammar_file /= elem.link + ".tsv";
@@ -575,11 +578,14 @@ void CParsePDF::parse_object()
         // - then recursively calling validation for each container with link to other grammar file
         PDFObjectType obj_type = elem.object->get_object_type();
 
-        if (obj_type == PDFObjectType::ArlPDFObjTypeDictionary ||obj_type == PDFObjectType::ArlPDFObjTypeStream) {
-            ArlPDFDictionary* dictObj = (ArlPDFDictionary*)elem.object;
-            //validate values first, then Process containers
-            ////if (elem.object->get_object_type() == PDFObjectType::ArlPDFObjTypeStream)
-            ////    dictObj = ((ArlPDFStream*)elem.object)->GetStreamDict();
+        if (obj_type == PDFObjectType::ArlPDFObjTypeDictionary || obj_type == PDFObjectType::ArlPDFObjTypeStream) {
+          ArlPDFDictionary* dictObj; //= (ArlPDFDictionary*)elem.object;
+            
+          //validate values first, then Process containers
+          if (elem.object->get_object_type() == PDFObjectType::ArlPDFObjTypeStream)
+            dictObj = ((ArlPDFStream*)elem.object)->get_dictionary();
+            else dictObj = (ArlPDFDictionary*)elem.object;
+
 
             for (int i = 0; i < (dictObj->get_num_keys()); i++) {
                 std::wstring key = dictObj->get_key_name_by_index(i);

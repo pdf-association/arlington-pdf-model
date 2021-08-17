@@ -111,31 +111,48 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 
     if (pdfix_ctx->doc != nullptr)
     {
-        PdsDictionary* trailer = pdfix_ctx->doc->GetTrailerObject();
-        if (trailer != nullptr) 
-        {
-            ArlPDFTrailer* trailer_obj = new ArlPDFTrailer(trailer);
+      PdsDictionary* trailer = pdfix_ctx->doc->GetTrailerObject();
+      if (trailer != nullptr)
+      {
+        ArlPDFTrailer* trailer_obj = new ArlPDFTrailer(trailer);
 
-            // if /Type key exists, then assume working with XRefStream
-            PdsObject* type_key = trailer->Get(L"Type");
-            trailer_obj->set_xrefstm(type_key != nullptr);
+        // if /Type key exists, then assume working with XRefStream
+        PdsObject* type_key = trailer->Get(L"Type");
+        trailer_obj->set_xrefstm(type_key != nullptr);
 
-            int id = trailer->GetId();
-            PdsObject* root_key = trailer->Get(L"Root");
-            PdfObjectType ot = root_key->GetObjectType();
-            id = root_key->GetId();
-
-            //todo: what if Info doesn't exist?
-            PdsObject* info_key = trailer->Get(L"Info");
-            ot = info_key->GetObjectType();
+        int id = trailer->GetId();
+        PdsObject* root_key = trailer->Get(L"Root");
+        if (root_key != nullptr) {
+          id = root_key->GetId();
+          PdsObject* info_key = trailer->Get(L"Info");
+          if (info_key != nullptr) {
             id = info_key->GetId();
-
-            return trailer_obj;
+          }
+          else {
+            if (ArlingtonPDFShim::debugging) {
+              std::cout << __FUNCTION__ << " trailer Info key could not be found!" << std::endl;
+            }
+          }
+          return trailer_obj;
         }
+        if (ArlingtonPDFShim::debugging) {
+          std::cout << __FUNCTION__ << " trailer Root key could not be found!" << std::endl;
+        }
+      }
+      if (ArlingtonPDFShim::debugging) {
+        std::cout << __FUNCTION__ << " trailer could not be found!" << std::endl;
+      }
     }
     return nullptr;
 }
 
+ArlPDFObject::ArlPDFObject(void* obj) :object(obj)
+{
+  is_indirect = false;
+  if (object == nullptr)
+    return;
+  is_indirect = (get_object_number() != 0); 
+}
 
 /// @brief  Returns the PDF object type of an object 
 /// @return PDFObjectType enum value
@@ -196,11 +213,18 @@ PDFObjectType ArlPDFObject::get_object_type()
 bool ArlPDFObject::is_indirect_ref()
 {
     assert(object != nullptr);
-    bool retval = (get_object_number() == 0); //(((PdsObject*)object)->GetObjectType() == kPdsReference);
     if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): " << (retval ? "true" : "false") << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): " << (is_indirect ? "true" : "false") << std::endl;
     }
-    return retval;
+    return is_indirect;
+}
+
+/// @brief   generates unique identifier for every object
+/// @return  for indirect objects it returns the unique identifier (object number)
+std::string ArlPDFObject::get_hash_id()
+{
+  assert(object != nullptr);
+  return std::to_string(((PdsObject*)object)->GetId());
 }
 
 
@@ -333,8 +357,11 @@ ArlPDFObject* ArlPDFArray::get_value(int idx)
     assert(idx >= 0);
     assert(((PdsObject*)object)->GetObjectType() == kPdsArray);
     PdsArray* obj = (PdsArray*)object;
+    PdsObject* type_obj = obj->Get(idx);
+    ArlPDFObject* retval = nullptr;
+    if (type_obj!=nullptr)
+     retval = new ArlPDFObject(type_obj);
 
-    ArlPDFObject *retval = new ArlPDFObject(obj->Get(idx));
     if (ArlingtonPDFShim::debugging) {
         std::wcout << __FUNCTION__ << "(" << idx << "): " << retval << std::endl;
     }
@@ -382,7 +409,11 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
     assert(((PdsObject*)object)->GetObjectType() == kPdsDictionary);
     PdsDictionary* obj = (PdsDictionary*)object;
 
-    ArlPDFObject* retval = new ArlPDFObject(obj->Get(key.c_str()));
+    PdsObject* type_obj = obj->Get(key.c_str());
+    ArlPDFObject* retval = nullptr;
+    if (type_obj != nullptr)
+      retval = new ArlPDFObject(type_obj);
+
     if (ArlingtonPDFShim::debugging) {
         std::wcout << __FUNCTION__ << "(" << key << "): " << retval << std::endl;
     }
@@ -406,74 +437,90 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
     return retval;
 }
 
-
-/// @brief Returns the number of keys in a PDF stream 
-/// @return Number of keys (>= 0)
-int ArlPDFStream::get_num_keys()
+/// @brief  Gets the dictionary associated with the PDF stream
+/// @return the PDF dictionary object 
+ArlPDFDictionary* ArlPDFStream::get_dictionary()
 {
-    assert(object != nullptr);
-    assert(((PdsObject*)object)->GetObjectType() == kPdsStream);
-    PdsStream* obj = (PdsStream*)object;
-    PdsDictionary* stm_dict = obj->GetStreamDict();
-    assert(stm_dict != nullptr);
-    int retval = stm_dict->GetNumKeys();
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
-    }
-    return retval;
+  assert(object != nullptr);
+  assert(((PdsObject*)object)->GetObjectType() == kPdsStream);
+  PdsStream* obj = (PdsStream*)object;
+  PdsDictionary* stm_dict = obj->GetStreamDict();
+  assert(stm_dict != nullptr);
+  ArlPDFDictionary* retval = new ArlPDFDictionary(stm_dict);
+  if (ArlingtonPDFShim::debugging) {
+    std::wcout << __FUNCTION__ << retval << std::endl;
+  }
+  return retval;
 }
 
 
-/// @brief  Checks whether a PDF stream object has a specific key
-/// @param key the key name
-/// @return true if the dictionary has the specified key
-bool ArlPDFStream::has_key(std::wstring key)
-{
-    assert(object != nullptr);
-    assert(((PdsObject*)object)->GetObjectType() == kPdsStream);
-    PdsStream* obj = (PdsStream*)object;
-    PdsDictionary* stm_dict = obj->GetStreamDict();
-    assert(stm_dict != nullptr);
-    bool retval = stm_dict->Known(key.c_str());
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << key << "): " << (retval ? "true" : "false") << std::endl;
-    }
-    return retval;
-}
-
-
-/// @brief  Gets the object associated with the key from a PDF stream
-/// @param key the key name
-/// @return the PDF object value of key
-ArlPDFObject* ArlPDFStream::get_value(std::wstring key)
-{
-    assert(object != nullptr);
-    assert(((PdsObject*)object)->GetObjectType() == kPdsStream);
-    PdsStream* obj = (PdsStream*)object;
-    PdsDictionary* stm_dict = obj->GetStreamDict();
-    assert(stm_dict != nullptr);
-    ArlPDFObject * retval = new ArlPDFObject(stm_dict->Get(key.c_str()));
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << key << "): " << retval << std::endl;
-    }
-    return retval;
-}
-
-
-/// @brief Returns the key name of i-th stream key
-/// @param index[in] dictionary key index 
-/// @return Key name
-std::wstring ArlPDFStream::get_key_name_by_index(int index)
-{
-    assert(object != nullptr);
-    assert(index >= 0);
-    assert(((PdsObject*)object)->GetObjectType() == kPdsStream);
-    PdsStream* obj = (PdsStream*)object;
-    PdsDictionary* stm_dict = obj->GetStreamDict();
-    assert(stm_dict != nullptr);
-    std::wstring retval = stm_dict->GetKey(index);
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << index << "): '" << retval << "'" << std::endl;
-    }
-    return retval;
-}
+///// @brief Returns the number of keys in a PDF stream 
+///// @return Number of keys (>= 0)
+//int ArlPDFStream::get_num_keys()
+//{
+//    assert(object != nullptr);
+//    assert(((PdsObject*)object)->GetObjectType() == kPdsStream);
+//    PdsStream* obj = (PdsStream*)object;
+//    PdsDictionary* stm_dict = obj->GetStreamDict();
+//    assert(stm_dict != nullptr);
+//    int retval = stm_dict->GetNumKeys();
+//    if (ArlingtonPDFShim::debugging) {
+//        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
+//    }
+//    return retval;
+//}
+//
+//
+///// @brief  Checks whether a PDF stream object has a specific key
+///// @param key the key name
+///// @return true if the dictionary has the specified key
+//bool ArlPDFStream::has_key(std::wstring key)
+//{
+//    assert(object != nullptr);
+//    assert(((PdsObject*)object)->GetObjectType() == kPdsStream);
+//    PdsStream* obj = (PdsStream*)object;
+//    PdsDictionary* stm_dict = obj->GetStreamDict();
+//    assert(stm_dict != nullptr);
+//    bool retval = stm_dict->Known(key.c_str());
+//    if (ArlingtonPDFShim::debugging) {
+//        std::wcout << __FUNCTION__ << "(" << key << "): " << (retval ? "true" : "false") << std::endl;
+//    }
+//    return retval;
+//}
+//
+//
+///// @brief  Gets the object associated with the key from a PDF stream
+///// @param key the key name
+///// @return the PDF object value of key
+//ArlPDFObject* ArlPDFStream::get_value(std::wstring key)
+//{
+//    assert(object != nullptr);
+//    assert(((PdsObject*)object)->GetObjectType() == kPdsStream);
+//    PdsStream* obj = (PdsStream*)object;
+//    PdsDictionary* stm_dict = obj->GetStreamDict();
+//    assert(stm_dict != nullptr);
+//    ArlPDFObject * retval = new ArlPDFObject(stm_dict->Get(key.c_str()));
+//    if (ArlingtonPDFShim::debugging) {
+//        std::wcout << __FUNCTION__ << "(" << key << "): " << retval << std::endl;
+//    }
+//    return retval;
+//}
+//
+//
+///// @brief Returns the key name of i-th stream key
+///// @param index[in] dictionary key index 
+///// @return Key name
+//std::wstring ArlPDFStream::get_key_name_by_index(int index)
+//{
+//    assert(object != nullptr);
+//    assert(index >= 0);
+//    assert(((PdsObject*)object)->GetObjectType() == kPdsStream);
+//    PdsStream* obj = (PdsStream*)object;
+//    PdsDictionary* stm_dict = obj->GetStreamDict();
+//    assert(stm_dict != nullptr);
+//    std::wstring retval = stm_dict->GetKey(index);
+//    if (ArlingtonPDFShim::debugging) {
+//        std::wcout << __FUNCTION__ << "(" << index << "): '" << retval << "'" << std::endl;
+//    }
+//    return retval;
+//}
