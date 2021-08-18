@@ -10,7 +10,7 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt
+// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -37,3 +37,6 @@ std::vector<std::string> split(const std::string& s, char separator);
 std::string extract_function(const std::string& value, std::string& function);
 int get_type_index(std::string single_type, std::string types);
 std::string get_link_for_type(std::string single_type, const std::string& types, const std::string& links);
+
+// Strip leading whitespace
+std::string& strip_leading_whitespace(std::string& str);

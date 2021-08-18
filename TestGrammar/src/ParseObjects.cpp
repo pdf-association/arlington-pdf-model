@@ -9,7 +9,7 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt
+// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -75,13 +75,11 @@ bool CParsePDF::check_possible_values(ArlPDFObject* object, const std::string& p
         case PDFObjectType::ArlPDFObjTypeNumber: 
             {
                 ArlPDFNumber *numobj = (ArlPDFNumber*)object;
-                if (numobj->is_integer_value())
-                {
+                if (numobj->is_integer_value()) {
                     int ivalue = numobj->get_integer_value();
                     real_str_value = std::to_wstring(ivalue);
                 } 
-                else 
-                {
+                else {
                     num_value = numobj->get_value();
                     real_str_value = std::to_wstring(num_value);
                 }
@@ -243,7 +241,7 @@ std::string CParsePDF::select_one(ArlPDFObject* obj, const std::string &links_st
 
     output << "Error: Can't select any link from " << links_string <<" to validate provided object: " << obj_name; 
     if (obj->get_object_number() != 0)
-        output << " for object " << obj->get_object_number();
+        output << " for object #" << obj->get_object_number();
     output << std::endl;
     return "";
 }
@@ -336,7 +334,7 @@ std::string CParsePDF::get_type_string(ArlPDFObject *obj) {
     {
         ArlPDFNumber *numobj = (ArlPDFNumber *)obj;
         if (numobj->is_integer_value())
-            return "integer";   // or "bitmask"
+            return "integer";                                           // or "bitmask"
         else
             return "number";
     }
@@ -362,27 +360,23 @@ void CParsePDF::check_basics(ArlPDFObject *object, const std::vector<std::string
 
     auto obj_type = object->get_object_type();
     if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(" << vec[TSV_KEYNAME] << ":" << vec[TSV_TYPE] << ", " << grammar_file << ")" << std::endl;
+        std::cout << __FUNCTION__ << "(" << vec[TSV_KEYNAME] << ":" << vec[TSV_TYPE] << ", " << fs::path(grammar_file).stem() << ")" << std::endl;
     }    
 
     // Treat null object as though the key is not present (i.e. don't report an error)
     //todo: is that good condition?
     if ((vec[TSV_INDIRECTREF] == "TRUE") && 
-        (!object->is_indirect_ref() &&
-        obj_type != PDFObjectType::ArlPDFObjTypeNull && obj_type != PDFObjectType::ArlPDFObjTypeReference))
-    {
-        output << "Error: not indirect: ";
-        output << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
+        (!object->is_indirect_ref() && obj_type != PDFObjectType::ArlPDFObjTypeNull && obj_type != PDFObjectType::ArlPDFObjTypeReference)) {
+        output << "Error: not an indirect reference as required: " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")" << std::endl;
     }
 
     // check type. "null" is always valid and same as not present so ignore.
     int index = get_type_index(object, vec[TSV_TYPE]);
-    if ((obj_type != PDFObjectType::ArlPDFObjTypeNull) && (index == -1) /*&& vec[TSV_TYPE]!="ANY"*/)
-    {
-        output << "Error: wrong type: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
+    if ((obj_type != PDFObjectType::ArlPDFObjTypeNull) && (index == -1) /*&& vec[TSV_TYPE]!="ANY"*/) {
+        output << "Error: wrong type: " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")";
         output << " should be: " << vec[TSV_TYPE] << " and is " << get_type_string(object);
         if (object->get_object_number() != 0) {
-            output << " for object " << object->get_object_number();
+            output << " for object #" << object->get_object_number();
         }
         output << std::endl;
     }
@@ -391,17 +385,14 @@ void CParsePDF::check_basics(ArlPDFObject *object, const std::vector<std::string
     // could be a pattern array;name --- [];[name1,name2]
     // could be single reference -- name1,name2
     // we should cover also single reference in brackets [name1,name2]
-    if ((vec[TSV_POSSIBLEVALUES] != "") && (index != -1)) 
-    {
+    if ((vec[TSV_POSSIBLEVALUES] != "") && (index != -1)) {
         std::wstring str_value;
-        if (!check_possible_values(object, vec[TSV_POSSIBLEVALUES], index, str_value)) 
-        {
-            output << "Error: wrong value: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")";
-            output << " should be: " << vec[TSV_TYPE] << " " << vec[TSV_POSSIBLEVALUES] << " and is ";
+        if (!check_possible_values(object, vec[TSV_POSSIBLEVALUES], index, str_value)) {
+            output << "Error: wrong value: " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")";
+            output << " should be: " << vec[TSV_TYPE] << " (" << vec[TSV_POSSIBLEVALUES] << ") and is ";
             output << get_type_string(object) << " (" << ToUtf8(str_value) << ")";
-            if (object->get_object_number() != 0) 
-            {
-                output << " for object " << object->get_object_number();
+            if (object->get_object_number() != 0) {
+                output << " for object #" << object->get_object_number();
             }
             output << std::endl;
         }
@@ -541,8 +532,7 @@ void CParsePDF::parse_object()
         std::string function;
         elem.link = extract_function(elem.link, function);
 
-        if (elem.object->is_indirect_ref())
-        {
+        if (elem.object->is_indirect_ref()) {
           auto found = mapped.find(elem.object->get_hash_id());
           if (found != mapped.end()) {
             //  output << elem.context << " already Processed" << std::endl;
@@ -556,7 +546,7 @@ void CParsePDF::parse_object()
                 ((found->second != "_UniversalDictionary") && (found->second != "_UniversalArray"))))
             {
               output << "Error: object validated in two different contexts. First: " << found->second;
-              output << "; second: " << elem.link << " in: " << elem.context << std::endl;
+              output << "; second: " << elem.link << " in: " << strip_leading_whitespace(elem.context) << std::endl;
             }
             continue;
           }
@@ -579,13 +569,13 @@ void CParsePDF::parse_object()
         PDFObjectType obj_type = elem.object->get_object_type();
 
         if (obj_type == PDFObjectType::ArlPDFObjTypeDictionary || obj_type == PDFObjectType::ArlPDFObjTypeStream) {
-          ArlPDFDictionary* dictObj; //= (ArlPDFDictionary*)elem.object;
+            ArlPDFDictionary* dictObj; //= (ArlPDFDictionary*)elem.object;
             
-          //validate values first, then Process containers
-          if (elem.object->get_object_type() == PDFObjectType::ArlPDFObjTypeStream)
-            dictObj = ((ArlPDFStream*)elem.object)->get_dictionary();
-            else dictObj = (ArlPDFDictionary*)elem.object;
-
+            //validate values first, then Process containers
+            if (elem.object->get_object_type() == PDFObjectType::ArlPDFObjTypeStream)
+                dictObj = ((ArlPDFStream*)elem.object)->get_dictionary();
+            else 
+                dictObj = (ArlPDFDictionary*)elem.object;
 
             for (int i = 0; i < (dictObj->get_num_keys()); i++) {
                 std::wstring key = dictObj->get_key_name_by_index(i);
@@ -625,7 +615,12 @@ void CParsePDF::parse_object()
                 if (vec[TSV_REQUIRED] == "TRUE" && vec[TSV_KEYNAME] != "*") {
                     ArlPDFObject* inner_obj = dictObj->get_value(utf8ToUtf16(vec[TSV_KEYNAME]));
                     if (inner_obj == nullptr) {
-                        output << "Error: required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << grammar_file << ")" << std::endl;
+                        if (vec[TSV_INHERITABLE] == "FALSE") {
+                            output << "Error: non-inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")" << std::endl;
+                        } else {
+                            //@todo support inheritance
+                            output << "Error: required key doesn't exist (inheritance not checked): " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")" << std::endl;
+                        }
                     }
                 }
             } // for

@@ -10,15 +10,16 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt
+// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <string>
 #include <iostream>
-#include <locale.h>
+#include <locale>
 #include <codecvt>
 #include <math.h>
+#include <algorithm>
 #include <regex>
 #ifdef _WIN32
 #include <Windows.h>
@@ -290,4 +291,11 @@ std::vector<std::string> split(const std::string& s, char separator) {
   }
   
   return output;
+}
+
+//@brief Strip leading whitespace from a string (e.g. the indented PDF path)
+std::string& strip_leading_whitespace(std::string& str) {
+    auto it2 = std::find_if(str.begin(), str.end(), [](char ch) { return !std::isspace<char>(ch, std::locale::classic()); });
+    str.erase(str.begin(), it2);
+    return str;
 }

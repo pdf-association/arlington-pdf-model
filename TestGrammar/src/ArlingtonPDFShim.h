@@ -10,7 +10,7 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Peter Wyatt
+// Contributors: Peter Wyatt, PDF Association
 //
 ///////////////////////////////////////////////////////////////////////////////
 

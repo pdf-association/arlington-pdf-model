@@ -10,7 +10,8 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex
+// Contributors: Roman Toda, Frantisek Forgac, Normex; Peter Wyatt, PDF Association
+// 
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifdef _MSC_VER
@@ -44,8 +45,8 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
     try
     {
         ofs << "BEGIN - TestGrammar " << TestGrammar_VERSION << " " << pdfsdk.get_version_string() << std::endl;
-        ofs << "Arlington TSV data: " << fs::absolute(tsv_folder) << std::endl;
-        ofs << "PDF: " << fs::absolute(pdf_file_name) << std::endl;
+        ofs << "Arlington TSV data: " << fs::absolute(tsv_folder).lexically_normal() << std::endl;
+        ofs << "PDF: " << fs::absolute(pdf_file_name).lexically_normal() << std::endl;
 
         ArlPDFTrailer* trailer = pdfsdk.get_trailer(pdf_file_name.wstring());
         if (trailer != nullptr) {
@@ -54,14 +55,14 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
                 ofs << "XRefStream detected" << std::endl;
                 parser.add_parse_object(trailer, "XRefStream", "Trailer");
             } else {
-                ofs << "Trailer detected" << std::endl;
+                ofs << "Traditional trailer dictionary detected" << std::endl;
                 parser.add_parse_object(trailer, "FileTrailer", "Trailer");
             }
             parser.parse_object();
         }
         else
         {
-            ofs << "Error: failed to acquire Trailer in: '" << pdf_file_name.string() << "'" << std::endl;
+            ofs << "Error: failed to acquire Trailer in: " << fs::absolute(pdf_file_name).lexically_normal() << std::endl;
         }
     }
     catch (std::exception& ex) {
