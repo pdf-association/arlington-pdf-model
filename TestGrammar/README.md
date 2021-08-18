@@ -19,13 +19,13 @@ It performs a number of functions:
 
 1. validates all TSV files in an Arlington TSV file set.
     - Check the uniformity (number of columns), if all types are one of Arlington types, etc.
-    - Does NOT check declarative functions
+    - Does **NOT** yet check or validate predicates (declarative functions)
 2. validates a PDF file against an Arlington TSV file set. Starting from trailer, the tool validates:
-    - if all required keys are present
-    - if values are of correct type
-    - if objects are indirect if required
-    - if value is correct if PossibleValues are defined
-    - all error messages are prefixed with "Error:" to enable post-processing
+    - if all required keys are present (_inheritance is currently not implemented_)
+    - if values are of correct type (_processing of predicates (declarative functions) are not supported_) 
+    - if objects are indirect if required (_requires pdfium PDF SDK to be used_) 
+    - if value is correct if `PossibleValues` are defined (_processing of predicates (declarative functions) are not supported_)
+    - all error messages are prefixed with `Error:` to enable post-processing
 3. recursively validates a folder containing many PDF files.
     - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting.
 4. compares the Arlington PDF model grammar with the Adobe DVA FormalRep
@@ -52,14 +52,14 @@ Options:
 -v, --validate   validate the Arlington PDF model.
 -d, --debug      output additional debugging information (verbose!)
 
-Built using PDFix v x.y.z
+Built using some-PDF-SDK v x.y.z
 ```
 
 ## Notes
 
 * TestGrammar PoC does NOT currently confirm PDF version validity, understand any predicates (declarative functions), or support inheritance
 
-* all error messages from validating PDF files are prefixed with "Error:" to make regex easier
+* all error messages from validating PDF files are prefixed with `^Error:` to make regex-based post processing easier
 
 * possible error messages from PDF file validation are as follows. Each error message also provides some context (e.g. a PDF object number):
 
@@ -68,11 +68,12 @@ Error: EXCEPTION ...
 Error: Failed to open ...
 Error: failed to acquire Trailer ...
 Error: Can't select any link from ...
-Error: not indirect ...
-Error: wrong type ...
-Error: wrong value ...
-Error: required key doesn't exist ...
-Error: object validated in two different contexts ...
+Error: not an indirect reference as required: ...
+Error: wrong type: ...
+Error: wrong value: ...
+Error: non-inheritable required key doesn't exist
+Error: Error: required key doesn't exist (inheritance not checked) ...
+Error: object validated in two different contexts. First: ...
 ```
 
 * the Arlington PDF model is based on PDF 2.0 (ISO 32000-2:2020) where some previously optional keys are now required
@@ -83,43 +84,68 @@ A warning such as the following will be issued (because PDF 2.0 required keys ar
 Error: Can't select any link from \[FontType1,FontTrueType,FontMultipleMaster,FontType3,FontType0,FontCIDType0,FontCIDType2\] to validate provided object: xxx
 ```
 
-
 ## Coding Conventions
 
-* platform independent C++17 with STL and minimal other dependencies (no Boost!)
+* platform independent C++17 with STL and minimal other dependencies (_no Boost please!_)
 * no tabs. 4 space indents
+* wstrings need to be used for many things (such as PDF names and strings) - don't assume ASCII or UTF-8!
 * liberal comments with code readability
 * everything has Doxygen style `///` comments (as supported by Visual Studio IDE)
 * zero warnings on all builds and all platforms
-* all error messages start with "Error:" (i.e. case sensitive regex)
-* do not create unncessary dependencies on specific PDF SDKs - isolate through a layer
-* performance and memory is not critical (this is just a PoC!) - so long as a full Arlington model can be processed and reasonably-sized PDFs can be checked
+* all error messages matched with `^Error:` (i.e. case sensitive regex at start of a line)
+* do not create unncessary dependencies on specific PDF SDKs - isolate through a shim layer
+* performance and memory is **not** critical (this is just a PoC!) - so long as a full Arlington model can be processed and reasonably-sized PDFs can be checked
 
+## PDF SDK Requirements
+
+Checking PDF files requires a PDF SDK with certain key features (_we shouldn't need to write yet-another PDF parser!_). Key features required of a PDF SDK are:
+* able to iterate over all keys in PDF dictionaries and arrays, including any additional keys not defined in the PDF spec
+* able to test if a specific key name exists in a PDF dictionary
+* able to report the true number of array elements  
+* able to report key value type against the 9 PDF basic object types
+* able to report if a key value is direct or an indirect reference - **this is a limiting factor for many PDF SDKs!**  
+* able to treat the trailer as a PDF dictionary and report if key values are direct or indirect references - **this is a limiting factor for many PDF SDKs!**  
+* able to report PDF object and generation numbers for objects that are not direct - **this is a limiting factor for some PDF SDKs!**  
+* not confuse values, such as integer and real numbers, so that they are expressed exactly as they appear in a PDF file - **this is a limiting factor for some PDF SDKs!**
+* return the raw bytes from the PDF file for PDF name and string objects 
+* not do any PDF version based processing while parsing
+
+All code for a specific PDF SDK should be kept isolated in a single shim layer CPP file so that all Arlington specific logic and validation checks can be performed against the minimally simple API defined in `ArlingtonPDFShim.h`.
 
 ## Source code dependencies
 
 TestGrammar has the following module dependencies:
 
+* PDFium: OSS PDF SDK
+  - this is the **default PDF SDK used** as it provides the most functionality, has source code, and is debuggable if things don't work as expected
+  - reduced source code located in `./pdfium`
+  -  PDFium is slightly modified in order to validate whether key values are direct or indirect references in trailer and normal PDF objects
+  - see `src/ArlingtonPDFShimPDFium.cpp`
+
 * PDFix: a free PDF SDK
+  - see `src/ArlingtonPDFShimPDFix.cpp`
   - single .h dependency [src/Pdfix.h](src/Pdfix.h)
   - see https://pdfix.net/ with SDK documentation at https://pdfix.github.io/pdfix_sdk_builds/
+  - cannot report whether trailer keys are direct or indirect
   - necessary runtime dynamic libraries/DLLs are in `TestGrammar/bin/...`
   - there are no debug symbols so when things go wrong it can be difficult to know what and why
 
 * Sarge: a light-weight C++ command line parser
-  - place in `src\Sarge`
-  - see https://github.com/MayaPosch/Sarge
-  - slightly modified to support wide-string command lines and remove compiler warnings
+  - command line options are kept aligned with Python PoCs
+  - modified source code located in `./sarge`
+  - originally from https://github.com/MayaPosch/Sarge
+  - slightly modified to support wide-string command lines and remove compiler warnings across all platforms and buids  
 
 * QPDF: an OSS PDF SDK
+  - still work-in-progress
   - download `qpdf-10.x.y-bin-msvc64.zip` from https://github.com/qpdf/qpdf/releases
-  - unzip into `src\qpdf`
+  - place into `./qpdf`
 
 ## Building
 
 ### Windows Visual Studio
 
-After installing the dependencies, open [/TestGrammar/platform/msvc2019/TestGrammar.sln](/TestGrammar/platform/msvc2019/TestGrammar.sln) with Microsoft Visual Studio 2019 and compile. Valid configurations are: 32 or 64 bit, Debug or Release. Compiled executables will be in [/TestGrammar/bin/x64](/TestGrammar/bin/x64) (64 bit) and [/TestGrammar/bin/x86](/TestGrammar/bin/x86) (32 bit).
+Open [/TestGrammar/platform/msvc2019/TestGrammar.sln](/TestGrammar/platform/msvc2019/TestGrammar.sln) with Microsoft Visual Studio 2019 and compile. Valid configurations are: 32 (`x86`) or 64 (`x64`) bit, Debug or Release. Compiled executables will be in [/TestGrammar/bin/x64](/TestGrammar/bin/x64) (64 bit) and [/TestGrammar/bin/x86](/TestGrammar/bin/x86) (32 bit).
 
 To build via `msbuild` command line in a Visual Studio Native Tools command prompt:
 
@@ -151,7 +177,6 @@ where `Configuration` can be either `Debug` or `Release`, and `Platform` can be 
 Note that due to C++17, gcc/g++ v8 or later is required. CMake is also required.
 
 ```bash
-cd TestGrammar
 mkdir LinDebug
 cd LinDebug
 cmake -DCMAKE_BUILD_TYPE=Debug ..
@@ -174,7 +199,6 @@ Follow the instructions for Linux. Compiled binaries will be in [/TestGrammar/bi
 ---
 
 # TODO :pushpin:
-
 
 - when validating the TSV data files, also do a validation on the predicate (declarative function) expressions
 
