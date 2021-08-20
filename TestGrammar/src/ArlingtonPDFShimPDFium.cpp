@@ -35,7 +35,7 @@ void* ArlingtonPDFSDK::ctx;
 
 struct pdfium_context {
   CPDF_Parser* parser=nullptr;
-  CCodec_ModuleMgr* codecModule;
+  CCodec_ModuleMgr* codecModule=nullptr;
   ~pdfium_context() {
     if (parser) delete(parser);
     codecModule->Destroy();

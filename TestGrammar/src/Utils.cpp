@@ -211,7 +211,7 @@ std::string extract_function(const std::string& value, std::string &function) {
             to_ret = to_ret.substr(1, to_ret.size() - 2);
         else
             to_ret = "";
-        for (auto a: match)
+        for (const auto &a: match)
             function += a;
     }
     return to_ret;
