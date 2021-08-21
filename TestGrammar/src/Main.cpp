@@ -32,6 +32,7 @@
 #include "CheckGrammar.h"
 #include "TestGrammarVers.h"
 #include "sarge.h"
+#include "utils.h"
 
 using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
@@ -76,7 +77,15 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
 
 
 #if defined(_WIN32) || defined(WIN32)
+#include <crtdbg.h>
+
 int wmain(int argc, wchar_t* argv[]) {
+    // Suppress windows dialogs for assertions and errors - send to stderr instead during batch CLI processing
+    _CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_FILE);
+    _CrtSetReportFile(_CRT_ERROR, _CRTDBG_FILE_STDERR);
+    _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
+    _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);
+
     // Convert wchar_t* to char* for command line processing
     mbstate_t   state;
     char        **mbcsargv = new char*[argc];
