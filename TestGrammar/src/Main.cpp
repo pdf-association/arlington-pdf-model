@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
     sarge.setUsage("TestGrammar --tsvdir <dir> [--out <fname|dir>] [--debug] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
     sarge.setArgument("h", "help",     "This usage message.", false);
     sarge.setArgument("t", "tsvdir",   "[required] folder containing Arlington PDF model TSV file set.", true);
-    sarge.setArgument("o", "out",      "output file or folder. Default is stdout. Existing files will be overwritten.", true);
+    sarge.setArgument("o", "out",      "output file or folder. Default is stdout. Existing files will NOT be overwritten.", true);
     sarge.setArgument("p", "pdf",      "input PDF file or folder.", true);
     sarge.setArgument("c", "checkdva", "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
     sarge.setArgument("v", "validate", "validate the Arlington PDF model.", false);
@@ -140,6 +140,7 @@ int main(int argc, char* argv[]) {
     fs::path        input_file;         // input PDF or Adobe DVA
     std::ofstream   ofs;                // output filestream
     bool            debug_mode = sarge.exists("debug");
+    bool            do_nothing = sarge.exists("do-nothing");
 
     // --tsvdir is required option
     if (!sarge.getFlag("tsvdir", s)) {
@@ -199,8 +200,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Compare Adobe DVA vs Arlington PDF Model
-    if (sarge.getFlag("checkdva", s))
-    {
+    if (sarge.getFlag("checkdva", s)) {
         input_file = s;
         if (is_file(input_file) && fs::exists(input_file)) {
             if (!save_path.empty()) {
@@ -235,39 +235,48 @@ int main(int argc, char* argv[]) {
     // single PDF file or folder of files?
     if (is_folder(input_file))
     {
-        fs::path   rptfile;
+        fs::path        rptfile;
+        std::error_code ec;
 
-        for (const auto& entry : fs::recursive_directory_iterator(input_file))
-        {
-            if (entry.is_regular_file() && entry.path().extension().wstring() == L".pdf")
-            {
-                rptfile = save_path / entry.path().stem();
-                rptfile.replace_extension(".txt"); // change .pdf to .txt
-                // if rptfile already exists then try a different filename by continuously appending underscores...
-                while (fs::exists(rptfile))
-                {
-                    rptfile.replace_filename(rptfile.stem().string() + "_");
-                    rptfile.replace_extension(".txt");
+        for (const auto& entry : fs::recursive_directory_iterator(input_file)) {
+            try {
+                // To avoid file permission access errors, check filename extension first to skip over system files
+                if (iequals(entry.path().extension().string(), ".pdf") && entry.is_regular_file()) {
+                    rptfile = save_path / entry.path().stem();
+                    rptfile.replace_extension(".txt"); // change .pdf to .txt
+                    // if rptfile already exists then try a different filename by continuously appending underscores...
+                    while (fs::exists(rptfile)) {
+                        rptfile.replace_filename(rptfile.stem().string() + "_");
+                        rptfile.replace_extension(".txt");
+                    }
+                    std::cout << "Processing " << entry.path() << " to " << rptfile << std::endl;
+                    ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
+                    process_single_pdf(entry.path(), grammar_folder, pdf_io, ofs);
+                    ofs.close();
                 }
-                ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
-                std::cout << "Processing " << entry.path() << " to " << rptfile << std::endl;
-                process_single_pdf(entry.path(), grammar_folder, pdf_io, ofs);
-                ofs.close();
+            }
+            catch (const std::exception& e) {
+                std::cerr << "EXCEPTION: " << e.what() << std::endl;
             }
         }
     }
     else {
-        // Just a single PDF file to evaluate...
+        // Just a single PDF file (doesn't have to be a regular file!) to try and process ...
         if (fs::exists(input_file)) {
             if (!save_path.empty()) {
-                if (!is_folder(save_path)) {
-                    ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
+                if (is_folder(save_path)) {
+                    save_path /= input_file.stem();
+                    save_path.replace_extension(".txt"); // change extension to .txt
                 }
-                else {
-                    save_path /= "report.txt";
-                    ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
+                // if output file already exists then try a different filename by continuously appending underscores...
+                while (fs::exists(save_path)) {
+                    save_path.replace_filename(save_path.stem().string() + "_");
+                    save_path.replace_extension(".txt");
                 }
+                // Don't output message if going to stdout
+                std::cout << "Processing " << input_file << " to " << save_path << std::endl;
             }
+            ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
             process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs));
             ofs.close();
         }
