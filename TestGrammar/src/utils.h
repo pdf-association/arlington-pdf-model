@@ -40,3 +40,6 @@ std::string get_link_for_type(std::string single_type, const std::string& types,
 
 // Strip leading whitespace
 std::string& strip_leading_whitespace(std::string& str);
+
+// Case insensitive comparison of two strings
+bool iequals(const std::string& a, const std::string& b);

@@ -293,9 +293,19 @@ std::vector<std::string> split(const std::string& s, char separator) {
   return output;
 }
 
-//@brief Strip leading whitespace from a string (e.g. the indented PDF path)
+///@brief Strip leading whitespace from a string (e.g. the indented PDF path)
 std::string& strip_leading_whitespace(std::string& str) {
     auto it2 = std::find_if(str.begin(), str.end(), [](char ch) { return !std::isspace<char>(ch, std::locale::classic()); });
     str.erase(str.begin(), it2);
     return str;
+}
+
+/// @brief Case INsensitive comparison of two strings
+bool iequals(const std::string& a, const std::string& b)
+{
+    return std::equal(a.begin(), a.end(),
+        b.begin(), b.end(),
+        [](char a, char b) {
+            return tolower(a) == tolower(b);
+        });
 }
