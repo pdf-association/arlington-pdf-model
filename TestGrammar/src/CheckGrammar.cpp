@@ -21,13 +21,12 @@
 #include <cctype>
 #include <iostream>
 
-#include "Pdfix.h"
 #include "utils.h"
 #include "CheckGrammar.h"
 #include "ArlingtonTSVGrammarFile.h"
 #include "TestGrammarVers.h"
 
-using namespace PDFixSDK;
+
 namespace fs = std::filesystem;
 
 template<typename charT>
