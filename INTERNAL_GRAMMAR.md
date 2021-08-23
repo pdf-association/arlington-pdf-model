@@ -3,7 +3,7 @@
 This document describes some strict rules for the Arlington PDF model, for both the data and the custom declarative functions (`fn:`). Only some of these rules are currently implemented by various PoCs, but everything is precisely documented here.
 
 
-## TSV file rules
+# TSV file rules
 
 
 *   They are TSV, not CSV.
@@ -19,7 +19,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   TSV file extensions are always `.tsv` (lowercase) but are not present in the TSV data itself
 
 
-## PDF Object conventions
+# PDF Object conventions
 
 
 *   There are NO leading SLASHES for PDF names (_ever_!)
@@ -33,6 +33,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   PDF booleans are `true` and `false` lowercase.
     *   Uppercase `TRUE`/`FALSE` are reserved for boolean TSV data fields such as the "Required" field.
 
+# TSV Data Fields
 
 ## Column 1 - Key Name
 
@@ -61,8 +62,10 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   **Python pretty-print/JSON**
     *   String (as JSON dictionary key)
 *   **Linux CLI tests:**
-    *   `cut -f 1 *.tsv | sort | uniq`
-    *   `cut -f 1 *.tsv | sort | uniq | grep "\*"`
+    ```shell
+    cut -f 1 *.tsv | sort | uniq
+    cut -f 1 *.tsv | sort | uniq | grep "\*"
+    ```
 
 
 ## Column 2 - Type
@@ -100,8 +103,10 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   _Not to be confused with "/Type" keys which is why the `[` is included in this grep!_
     *   `grep "'Type': \[" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
-    *   `cut -f 2 *.tsv | sort | uniq`
-    *   `cut -f 2 *.tsv | sed -e "s/;/\n/g" | sort | uniq`
+    ```shell
+    cut -f 2 *.tsv | sort | uniq
+    cut -f 2 *.tsv | sed -e "s/;/\n/g" | sort | uniq
+    ```
 
 
 ## Column 3 - SinceVersion
@@ -121,7 +126,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   Value is one of the values listed above
     *   `grep "'SinceVersion'" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
-    *   `cut -f 3 *.tsv | sort | uniq`
+    ```shell
+    cut -f 3 *.tsv | sort | uniq
+    ```
 
 
 ## Column 4 - Deprecated
@@ -136,8 +143,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   Value is one of the values listed above
     *   `grep "'Deprecated': " dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
-    *   `cut -f 4 *.tsv | sort | uniq`
-
+    ```shell
+    cut -f 4 *.tsv | sort | uniq`
+    ```
 
 ## Column 5 - Required
 
@@ -158,7 +166,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
         *   Python list for functions which must be `fn:IsRequired(`
     *   `grep "'Required': " dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
-    *   `cut -f 5 *.tsv | sort | uniq`
+    ```shell
+    cut -f 5 *.tsv | sort | uniq
+    ```
 
 
 ## Column 6 - IndirectReference
@@ -183,7 +193,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
             an optional argument for a condition
     *   `grep "'IndirectReference':" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
-    *   `cut -f 6 *.tsv | sort | uniq`
+    ```shell
+    cut -f 6 *.tsv | sort | uniq
+    ```
 
 
 ## Column 7 - Inheritable
@@ -195,7 +207,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   Always a boolean
     *   `grep "'Inheritable'" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
-    *   `cut -f 7 *.tsv | sort | uniq`
+    ```shell
+    cut -f 7 *.tsv | sort | uniq
+    ```
 
 
 ## Column 8 - DefaultValue
@@ -220,9 +234,11 @@ This document describes some strict rules for the Arlington PDF model, for both 
         *   A PDF array (1st token is anything else) - including an empty PDF array
     *   `grep -o "'DefaultValue': .*" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
-    *   `cut -f 8 *.tsv | sort | uniq `
-    *   `cut -f 2,8 *.tsv | sort | uniq | grep -P "\t[[:graph:]]+.*"`
-    *   `cut -f 1,2,8 *.tsv | sort | uniq | grep -P "\t[[:graph:]]*\t[[:graph:]]+.*$"`
+    ```shell
+    cut -f 8 *.tsv | sort | uniq
+    cut -f 2,8 *.tsv | sort | uniq | grep -P "\t[[:graph:]]+.*"
+    cut -f 1,2,8 *.tsv | sort | uniq | grep -P "\t[[:graph:]]*\t[[:graph:]]+.*$"
+    ```
 
 
 ## Column 9 - PossibleValues
@@ -234,7 +250,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   A list or `None`
     *   If list, then length always matches length of "Type"
         *   Elements can be anything, including `None`
-    *   `grep -o "'PossibleValues': .*" dom.json | sed -e 's/^ *//' | sort | uniq`
+    ```shell
+    grep -o "'PossibleValues': .*" dom.json | sed -e 's/^ *//' | sort | uniq
+    ```
 *   _Issues:_
     *   _inconsistent use of [] for Possible Values - cf. CalGrayDict vs Whitepoint_
 
@@ -249,7 +267,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   A list or `None`
     *   If list, then length always matches length of "Type"
         *   Elements can be anything, including `None`
-    *   `grep -o "'SpecialCase': .*" dom.json | sed -e 's/^ *//' | sort | uniq`
+    ```shell
+    grep -o "'SpecialCase': .*" dom.json | sed -e 's/^ *//' | sort | uniq
+    ```
 
 
 ## Column 11 - Link
@@ -290,7 +310,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
         *   List elements can be `None`
         *   Validity of list elements aligns with indexed "Type" data
 *   **Linux CLI test:**
-    *   `cut -f 11 *.tsv | sort | uniq | grep -o "fn:[a-zA-Z]*" | sort | uniq`
+    ```shell
+    cut -f 11 *.tsv | sort | uniq | grep -o "fn:[a-zA-Z]*" | sort | uniq
+    ```
 
 
 ## Column 12- Notes
@@ -303,7 +325,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   A string or `None`
 
 
-## Validation of declarative functions
+# Validation of declarative functions
 
 
 
@@ -311,7 +333,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   `null` (all lowercase) is the PDF null object (_Note: it is a valid type_)
 *   Change to use PDFPath ([https://github.com/pdf-association/PDFPath](https://github.com/pdf-association/PDFPath))
     *   Paths to objects are separated by `::` (double COLONs)
-        *   e.g. `parent::@Key`. `Object::Key`, `Object::&lt;0-based integer>`
+        *   e.g. `parent::@Key`. `Object::Key`, `Object::&lt;0-based integer&gt;`
     *   `Key`_means `key is present` (Key is case-sensitive match)
     *   `@Key` means `value of key` (Key is case-sensitive match)
 *   `true` and `false` (all lowercase) are the PDF keywords (required for explicit comparison with `@key`) - uppercase `TRUE` and `FALSE` **never** get used in functions
@@ -322,77 +344,72 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   Arguments always within `(...)`
     *   Functions can nest (as arguments of other functions)
 *   Support two C/C++ style boolean operators: && (logical and), || (logical or)
-*   Support six C/C++ style comparison operators: &lt;. &lt;=, >, >=, ==, !=
+*   Support six C/C++ style comparison operators: &lt;. &lt;=, &gt;, &gt;=, ==, !=
 *   NO bit-wise operators - _use declarative functions instead_
 *   NO unary NOT (`!`) operator (_implement as a new declarative function `fn:Notxxxx`_)
 *   All expressions MUST be fully bracketed between Boolean operators (_to avoid defining precedence rules_)
 *   NO conditional if/then, switch or loop style statements _ - its declarative!_
 *   NO local variables_ - its declarative!_
-*   Does using comparison operators always require the expression to be wrapped in fn:Eval(...)? We are currently inconsistent - and I don't like this **AT ALL** as it is functional programming verboseness, not declarative style!!! Need to be more precise about when fn:Eval is needed vs not. e.g. in "Required" column (#5) do not require as this is more than sufficient: `fn:IsRequired(parent::@S==Luminosity)`. Will it be needed in "SinceVersion" column if we want to express both an official PDF version and an extension?
+*   Does using comparison operators always require the expression to be wrapped in fn:Eval(...)? We are currently inconsistent - and I don't like this **AT ALL** as it is functional programming verboseness, not declarative style!!! Need to be more precise about when `fn:Eval` is needed vs not. e.g. in "Required" column (#5) do not require as this is more than sufficient: `fn:IsRequired(parent::@S==Luminosity)`. Will it be needed in "SinceVersion" column if we want to express both an official PDF version and an extension?
 
 
-## Linux CLI voodoo
-
+# Linux CLI voodoo
 
 List all declarative function names:
 
-
+```shell
+grep --color=always -ho "fn:[[:alnum:]]*." *.tsv | sort | uniq
 ```
-$ grep --color=always -ho "fn:[[:alnum:]]*." *.tsv | sort | uniq
+
+List all predicates and their Arguments
+
+```shell
+grep -Pho "fn:[a-zA-Z]+\((?:[^)(]+|(?R))*+\)" *.tsv | sort | uniq
 ```
-
-
 
 List all declarative functions that take no parameters:
 
-
+```shell
+grep --color=always -Pho "fn:[[:alnum:]]*\(\)" *.tsv | sort | uniq
 ```
-$ grep --color=always -Pho "fn:[[:alnum:]]*\(\)" *.tsv | sort | uniq
-```
-
-
 
 List all parameter lists (but not function names) (and a few PDF strings too!):
 
-
+```shell
+grep --color=always -Pho "\((?>[^()]|(?R))*\)" *.tsv | sort | uniq
 ```
-$ grep --color=always -Pho "\((?>[^()]|(?R))*\)" *.tsv | sort | uniq
-```
-
-
 
 List all declarative functions with their arguments:
 
-
+```shell
+grep --color=always -Pho "fn:[[:alnum:]]*\([^\t\]\;]*" *.tsv | sort | uniq
 ```
-$ grep --color=always -Pho "fn:[[:alnum:]]*\([^\t\]\;]*" *.tsv | sort | uniq
-```
 
 
-## EBay TSV Utilities
+# EBay TSV Utilities
 
 Pretty column-ized output:
-```
+```shell
 tsv-pretty Catalog.tsv
 ```
 
 Find all keys that are of "Type" 'string-byte':
-```
+```shell
 tsv-filter -H --str-eq Type:string-byte *.tsv
 ```
 
 Only precisely 'string-byte':
-```
+```shell
 tsv-filter -H --str-eq Type:string-byte --ge SinceVersion:1.5 *.tsv
 ```
 
 Any string type (using string-based regex):
-```
+```shell
 tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 ```
 
 "Type" includes 'string-byte':
-```
+```shell
 tsv-filter -H --regex Type:.\*string-byte\* --ge SinceVersion:1.5 *.tsv
 ```
 
