@@ -226,10 +226,6 @@ std::string extract_function(const std::string& value, std::string &function) {
             function += a;
     }
 
-std::cerr << "IN  " << value << std::endl;
-std::cerr << "OUT " << to_ret << std::endl;
-std::cerr << std::endl;
-
     return to_ret;
 }
 
