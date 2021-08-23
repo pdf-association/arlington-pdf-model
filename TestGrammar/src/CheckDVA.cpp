@@ -440,17 +440,19 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary* 
                             std::vector<std::string>    possible_dva;
                             ArlPDFArray*                possible_array = (ArlPDFArray*)tmp_obj;
 
-                            // Arlington PossibleValues can be COMMA-separated, complex ([a,b,c];[d,e,f];[g,h,i];...) and with predicates
-                            /// @todo For now reduce to just a single continuous COMMA-separated list (a,b,c,d,e,f,g,h,i) since we are not type-matching
-                            //  Split by ";" first to remove predicates as they use COMMAs as argument separators. Then split again by ","
+                            // Arlington PossibleValues (column 9) can be COMMA-separated, complex ([a,fn:A(b),c];[d,fn:B(1,2,fn:C(3,4,e)),f];[g,h,i];...) which
+                            // includes nested predicates that also use COMMAs. Sigh!
+                            // Split by ";" first to remove predicates as they use COMMAs as argument separators. 
+                            /// @todo Spliting again by "," will not work properly as some predicates use COMMA!!! Hence garbled output sometimes.
+                            /// For now use remove_type_predicates() which removes fn:SinceVersion and fn:IsDeprecated predicates only.
                             std::vector<std::vector<std::string>>   possible_our;
                             {
                                 std::vector<std::string> pv_typed = split(vec[TSV_POSSIBLEVALUES], ';');
-                                std::string fn;
                                 std::string s;
                                 for (size_t i = 0; i < pv_typed.size(); i++) {
-                                    s = extract_function(pv_typed[i], fn);
-                                    s = s.substr(1, s.size() - 2); // strip off [ and ]
+                                    s = remove_type_predicates(pv_typed[i]);  // removes fn:SinceVersion and fn:IsDeprecated predicates only
+                                    if (s[0] == '[')
+                                        s = s.substr(1, s.size() - 2); // strip off [ and ]
                                     pv_typed[i] = s;
                                     possible_our.push_back(split(pv_typed[i], ','));
                                 } // for
