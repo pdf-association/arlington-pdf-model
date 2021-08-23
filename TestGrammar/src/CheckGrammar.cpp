@@ -137,7 +137,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream
                 for (auto lnk : direct_links) {
                     if (lnk != "") {
                         fs::path        new_name = reader.get_tsv_dir();
-                        auto            direct_lnk = extract_function(lnk, function);
+                        auto            direct_lnk = remove_link_predicates(lnk);
                         new_name /= direct_lnk + ".tsv";
                         if (!fs::exists(new_name)) {
                             report_stream << "Link " << lnk << " doesn't exist in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
@@ -151,7 +151,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream
         // Check if each Type is a known Arlington pre-defined type
         for (auto type : types) {
             if ((std::find(reader.arl_all_types.begin(), reader.arl_all_types.end(), type)) == reader.arl_all_types.end()) {
-                auto t = extract_function(type, function);
+                auto t = remove_type_predicates(type);
                 if ((std::find(reader.arl_all_types.begin(), reader.arl_all_types.end(), t)) == reader.arl_all_types.end()) {
                     report_stream << "Unknown type " << type << " in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
                     retval = false;
@@ -216,8 +216,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, std::ostream& ofs) {
                         std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ',');
                         for (auto lnk : direct_links) {
                             if (lnk != "") {
-                                std::string function;
-                                auto direct_lnk = extract_function(lnk, function);
+                                auto direct_lnk = remove_link_predicates(lnk);
                                 to_process.push_back(direct_lnk + ".tsv");
                             } 
                         } // for

@@ -34,8 +34,10 @@ bool is_file(const std::filesystem::path& p);
 // split string into vector
 std::vector<std::string> split(const std::string& s, char separator);
 
-//std::string extract_link(std::string link);
+std::string remove_link_predicates(const std::string& link_in);
+std::string remove_type_predicates(const std::string& types_in);
 std::string extract_function(const std::string& value, std::string& function);
+
 int get_type_index(std::string single_type, std::string types);
 std::string get_link_for_type(std::string single_type, const std::string& types, const std::string& links);
 

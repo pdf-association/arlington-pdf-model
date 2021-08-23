@@ -206,6 +206,32 @@ bool is_file(const std::filesystem::path& p)
 }
 
 
+/// @brief  Removes all Alington predicates (declarative functions) from the "Link" column.
+///         Only "fn:SinceVersion(x.y,zzz)" is expected - which will reduce to zzz.
+/// @param link_in[in]  Arlington TSV Link field (column 11) that might contain a predicate function 
+/// @return             the Arlington "Links" field with all fn:SinceVersion(x.y,zzz) removed
+std::string remove_link_predicates(const std::string& link_in) {
+    std::regex      r_sinceVersion("fn:SinceVersion\\([1-9]\\.[0-9]\\,([A-Za-z0-9-_.]+)\\)");
+    std::string     to_ret;
+
+    to_ret = std::regex_replace(link_in, r_sinceVersion, "$1");
+    return to_ret;
+}
+
+/// @brief  Removes all Alington predicates (declarative functions) from the "Type" column.
+///         Only "fn:SinceVersion(x.y,zzz)" and "fn:IsDeprecated(x.y,zzz)" is expected - which both reduce to zzz.
+/// @param types_in[in] Arlington TSV Type field (column 11) that might contain a predicate function 
+/// @return             the Arlington "Type" field with all fn:SinceVersion(x.y,zzz) and fn:IsDeprecated(x.y,zzz) removed
+std::string remove_type_predicates(const std::string& types_in) {
+    std::regex      r_sinceVersion("fn:SinceVersion\\([1-9]\\.[0-9]\\,([A-Za-z0-9-_.]+)\\)");
+    std::regex      r_isDeprecated("fn:IsDeprecated\\([1-9]\\.[0-9]\\,([A-Za-z0-9-_.]+)\\)");
+    std::string     to_ret;
+
+    to_ret = std::regex_replace(types_in, r_sinceVersion, "$1");
+    to_ret = std::regex_replace(to_ret, r_isDeprecated, "$1");
+    return to_ret;
+}
+
 /// @brief  Strips off any Alington predicates (declarative functions) 
 /// @param value[in]      Arlington TSV field that might contain a predicate function 
 /// @param function[out]  the predicate function, if any. Otherwise function.clear()

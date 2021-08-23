@@ -167,8 +167,7 @@ std::string CParsePDF::select_one(ArlPDFObject* obj, const std::string &links_st
     int min_score = 1000;
     // checking all links to see which one is suitable for provided object 
     for (auto i = 0; i < (int)links.size(); i++) {
-        std::string     function;
-        auto            lnk = extract_function(links[i], function);
+        auto            lnk = remove_link_predicates(links[i]);
         const std::vector<std::vector<std::string>>* data_list = get_grammar(lnk);
 
         auto j = 0;
@@ -233,8 +232,7 @@ std::string CParsePDF::select_one(ArlPDFObject* obj, const std::string &links_st
     }
     // if all required are there - return this position in list of links
     if (to_ret != -1) {
-        std::string function;
-        auto lnk = extract_function(links[to_ret], function);
+        auto lnk = remove_link_predicates(links[to_ret]);
         obj_name += " (as " + lnk + ")";
         return links[to_ret];
     }
@@ -529,8 +527,7 @@ void CParsePDF::parse_object()
             continue;
 
         // Need to clean up the elem.link due to declarative functions "fn:SinceVersion(x,y, ...)"
-        std::string function;
-        elem.link = extract_function(elem.link, function);
+        elem.link = remove_link_predicates(elem.link);
 
         if (elem.object->is_indirect_ref()) {
           auto found = mapped.find(elem.object->get_hash_id());
@@ -539,7 +536,7 @@ void CParsePDF::parse_object()
             // "_Universal..." objects match anything so ignore them.
 
             // remove predicates to match clean elem.link
-            found->second = extract_function(found->second, function);
+            found->second = remove_link_predicates(found->second);
 
             if ((found->second != elem.link) &&
               (((elem.link != "_UniversalDictionary") && (elem.link != "_UniversalArray")) &&

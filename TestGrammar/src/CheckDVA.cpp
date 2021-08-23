@@ -157,14 +157,13 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary* 
         if (elem.link == "")
             continue;
 
+        elem.link = remove_link_predicates(elem.link);
         std::vector<std::string> links = split(elem.link, ',');
         if (links.size() > 1) {
             //for (auto lnk : links)
             //  to_process_checks.emplace(elem.dva_link, lnk);
             continue;
         }
-        std::string function;
-        elem.link = extract_function(elem.link, function);
 
         auto found = mapped.find(elem.link);
         if (found != mapped.end()) {
