@@ -10,11 +10,12 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt
+// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "ArlingtonPDFShim.h"
 
 #include <iostream>
 #include <string>
@@ -23,5 +24,5 @@
 // Validate the Arlington PDF model grammar
 void ValidateGrammarFolder(const std::filesystem::path& grammar_folder, std::ostream& ofs);
 
-// Check DVA vs Arlington
-void CheckDVA(const std::filesystem::path& dva_file, const std::filesystem::path& grammar_folder, std::ostream& ofs);
+// Check Adobe DVA vs Arlington PDF model
+void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK& pdfsdk, const std::filesystem::path& dva_file, const std::filesystem::path& grammar_folder, std::ostream& ofs);

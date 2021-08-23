@@ -14,6 +14,9 @@
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
+#define  _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNINGS
+#define  _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+
 #include <string>
 #include <iostream>
 #include <locale>
@@ -148,6 +151,14 @@ std::wstring utf8ToUtf16(const std::string& str) {
   return result;
 }
 
+
+std::wstring ToWString(const std::string& s)
+{
+    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+    std::wstring wide = converter.from_bytes(s);
+    return wide;
+}
+
 /// @brief 
 /// 
 /// @param path 
@@ -195,9 +206,9 @@ bool is_file(const std::filesystem::path& p)
 }
 
 
-/// @brief   
-/// @param value[in] Arlington TSV field that might contain a predicate function 
-/// @param function[out] the predicate function, if any. Otherwise function.clear()
+/// @brief  Strips off any Alington predicates (declarative functions) 
+/// @param value[in]      Arlington TSV field that might contain a predicate function 
+/// @param function[out]  the predicate function, if any. Otherwise function.clear()
 /// @return the Arlington value with any predicates stripped off
 std::string extract_function(const std::string& value, std::string &function) {
     std::regex      functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|.]+");  // matches "fn:<predicate-name>(
@@ -214,6 +225,11 @@ std::string extract_function(const std::string& value, std::string &function) {
         for (const auto &a: match)
             function += a;
     }
+
+std::cerr << "IN  " << value << std::endl;
+std::cerr << "OUT " << to_ret << std::endl;
+std::cerr << std::endl;
+
     return to_ret;
 }
 

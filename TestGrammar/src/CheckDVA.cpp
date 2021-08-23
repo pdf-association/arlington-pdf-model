@@ -10,27 +10,26 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex
+// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
+// 
 ///////////////////////////////////////////////////////////////////////////////
+
+#include "ArlingtonPDFShim.h"
 
 #include <exception>
 #include <queue>
 #include <map>
 #include <string>
 
-#include "Pdfix.h"
 #include "CheckGrammar.h"
 #include "ArlingtonTSVGrammarFile.h"
 #include "TestGrammarVers.h"
 #include "utils.h"
 
-using namespace PDFixSDK;
-
-Pdfix_statics;
-
+using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
 
-// simulating recursive processing of the PDObjects
+// simulating recursive processing of the PDF Objects
 struct to_process_elem {
     std::wstring  dva_link;
     std::wstring  dva_link2;
@@ -43,12 +42,12 @@ struct to_process_elem {
         { /* constructor */ }
 };
 
+
 std::queue<to_process_elem> to_process_checks;
-PdsDictionary*              map_dict;
 
+void process_dict(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary* map) {
+    ArlPDFDictionary* map_dict = map;
 
-
-void process_dict(const fs::path &tsv_dir, std::ostream& ofs) {
     int count = 0;
     std::map<std::string, std::wstring>   mapped;
 
@@ -148,7 +147,12 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs) {
     to_process_checks.emplace(L"Annot", L"Annot3D", "Annot3D");
 
     while (!to_process_checks.empty()) {
+        ArlPDFObject* tmp_obj = nullptr;
+
         to_process_elem elem = to_process_checks.front();
+        if (ArlingtonPDFShim::debugging) {
+            ofs << "Processing DVA " << ToUtf8(elem.dva_link) << "/" << ToUtf8(elem.dva_link2) << " vs Arlington '" << elem.link << "'" << std::endl;
+        }
         to_process_checks.pop();
         if (elem.link == "")
             continue;
@@ -174,100 +178,176 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs) {
         mapped.insert(std::make_pair(elem.link, elem.dva_link));
 
         // locate dict in DVA
-        PdsDictionary* dict = (PdsDictionary*)map_dict->Get(elem.dva_link.c_str());
+        ArlPDFDictionary* dict = (ArlPDFDictionary*)map_dict->get_value(elem.dva_link);
         if (dict == nullptr) {
-            ofs << "DVA problem: " << ToUtf8(elem.dva_link) << std::endl;
-            return;
+            ofs << "ERROR: Adobe DVA problem (dictionary not found): " << ToUtf8(elem.dva_link) << std::endl;
+            continue;
         }
 
         // load Arlington definition (TSV file)
         std::unique_ptr<CArlingtonTSVGrammarFile> reader(new CArlingtonTSVGrammarFile(tsv_dir / (elem.link + ".tsv")));
-        reader->load();
+        if (!reader->load()) {
+            ofs << "ERROR: loading Arlington TSV file " << (tsv_dir / (elem.link + ".tsv")) << std::endl;
+            continue;
+        }
         const std::vector<std::vector<std::string>>* data_list = &reader->get_data();
-        ofs << std::endl << count++ << ": Comparing Arlington:" << elem.link << " vs. DVA:" << ToUtf8(elem.dva_link) << std::endl;
+        ofs << std::endl << count++ << ": Comparing Arlington:" << elem.link << " vs DVA:" << ToUtf8(elem.dva_link) << std::endl;
 
         // what Arlington has and Adobe DVA doesn't
         for (auto& vec : *data_list) {
-            PdsDictionary* inner_obj = nullptr;
-            if (vec[TSV_KEYNAME] == "*") {
-                inner_obj = (PdsDictionary*)dict->Get(L"GenericKey");
-                if (inner_obj == nullptr) {
-                    PdsArray* inner_array = (PdsArray*)dict->Get(L"Array");
-                    if (inner_array == nullptr || inner_array->GetNumObjects() > 1) {
-                        //rt  ofs << "TODO: Array - either not linked or multiple links: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
-                    }
-                    else 
-                        inner_obj = (PdsDictionary*)inner_array->Get(0);
-                }
-            } else 
-                inner_obj = (PdsDictionary*)dict->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
+            ArlPDFDictionary* inner_obj = nullptr;
 
-            // could be in "ConcatWithFormalReps"
+            // Arlington wildcard key name or array elements
+            ///@todo support repeating array index sets in Arlington 
+            if (vec[TSV_KEYNAME] == "*") {
+                tmp_obj = dict->get_value(L"GenericKey");
+                if (tmp_obj != nullptr) {
+                    switch (tmp_obj->get_object_type()) {
+                        case PDFObjectType::ArlPDFObjTypeDictionary: 
+                        {
+                            inner_obj = (ArlPDFDictionary*)tmp_obj;
+                            if (inner_obj == nullptr) {
+                                ArlPDFArray* inner_array = (ArlPDFArray*)dict->get_value(L"Array");
+                                if ((inner_array == nullptr) || (inner_array->get_num_elements() != 1)) {
+                                    ofs << "ERROR: Arlington wildcard key vs DVA Array - either not linked or multiple links: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << std::endl;
+                                }
+                                else {
+                                    tmp_obj = inner_array->get_value(0);
+                                    if ((tmp_obj != nullptr) && (tmp_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                                        inner_obj = (ArlPDFDictionary*)tmp_obj;
+                                    }
+                                    else {
+                                        ofs << "ERROR: Adobe DVA " << ToUtf8(elem.dva_link) <<"/GenericKey/Array[0] entry was not a dictionary" << std::endl;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                        default: {
+                            ofs << "ERROR: Adobe DVA GenericKey dictionary expected but different object type found" << std::endl;
+                        }
+                    } // switch
+                }
+                else {
+                    ofs << "Arlington wildcard in " << elem.link << " did not have matching GenericKey entry in DVA: " << ToUtf8(elem.dva_link) << std::endl;
+                }
+            } else {
+                tmp_obj = dict->get_value(ToWString(vec[TSV_KEYNAME]));
+                if ((tmp_obj != nullptr) && (tmp_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                    inner_obj = (ArlPDFDictionary*)tmp_obj;
+                }
+            }
+
+            // could be in "ConcatWithFormalReps" (elements in array are names)
             if (inner_obj == nullptr) {
-                PdsArray* inner_array = (PdsArray*)dict->Get(L"ConcatWithFormalReps");
+                ArlPDFArray* inner_array = (ArlPDFArray*)dict->get_value(L"ConcatWithFormalReps");
                 if (inner_array != nullptr) {
-                    std::wstring new_dva_value;
-                    new_dva_value.resize(inner_array->GetText(0, nullptr, 0));
-                    inner_array->GetText(0, (wchar_t*)new_dva_value.c_str(), (int)new_dva_value.size());
-                    inner_obj = (PdsDictionary*)((PdsDictionary*)map_dict->Get(new_dva_value.c_str()))->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
-                } else if (elem.dva_link2!=L"") 
-                    inner_obj = (PdsDictionary*)((PdsDictionary*)map_dict->Get(elem.dva_link2.c_str()))->Get(utf8ToUtf16(vec[TSV_KEYNAME]).c_str());
+                    ArlPDFObject *o = inner_array->get_value(0);
+                    if ((o != nullptr) && (o->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
+                        ArlPDFName* nm = (ArlPDFName*)o;
+                        std::wstring new_dva_value = nm->get_value();
+                        ArlPDFDictionary *d = (ArlPDFDictionary*)map_dict->get_value(new_dva_value);
+                        if (d != nullptr)
+                            inner_obj = (ArlPDFDictionary*)d->get_value(ToWString(vec[TSV_KEYNAME]));
+                        else {
+                            ofs << "ERROR: DVA ConcatWithFormalReps target missing for " << ToUtf8(new_dva_value) << " - " << ToUtf8(elem.dva_link) << std::endl;
+                        }
+                    }
+                } else if (elem.dva_link2 != L"") {
+                    ArlPDFDictionary* d = (ArlPDFDictionary*)map_dict->get_value(elem.dva_link2);
+                    inner_obj = (ArlPDFDictionary*)d->get_value(ToWString(vec[TSV_KEYNAME]));
+                }
             }
 
             if (inner_obj == nullptr) {
                 // Avoid reporting all the PDF 2.0 new stuff...
                 if (vec[TSV_SINCEVERSION] != "2.0") {
-                    ofs << "Missing in DVA: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << " (" << vec[TSV_SINCEVERSION] << ")" << std::endl;
+                    ofs << "Missing key in DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << " (" << vec[TSV_SINCEVERSION] << ")" << std::endl;
                 }
                 continue;
             }
             else {
                 // Arlington IndirectReference can also have predicate "fn:MustBeDirect(...)" or be complex ([];[];[];...)
                 // Linux CLI:  cut -f 6 *.tsv | sort | uniq
-                if (inner_obj->Known(L"MustBeIndirect")) {
+                // Arlington field is UPPERCASE
+                if (inner_obj->has_key(L"MustBeIndirect")) {
                     std::string indirect = "FALSE";
-                    if (inner_obj->GetBoolean(L"MustBeIndirect", false)) 
-                        indirect = "TRUE";
-
-                    if (vec[TSV_INDIRECTREF] != indirect)
-                        ofs << "Indirect is different DVA: " << ToUtf8(elem.dva_link) << " Arlington:" << elem.link << "::" << vec[TSV_KEYNAME] << "==" << vec[TSV_INDIRECTREF] << std::endl;
+                    ArlPDFObject* indr = inner_obj->get_value(L"MustBeIndirect");
+                    if ((indr != nullptr) && (indr->get_object_type() == PDFObjectType::ArlPDFObjTypeBoolean)) {
+                        ArlPDFBoolean* indr_b = (ArlPDFBoolean*)indr;
+                        if (indr_b->get_value())
+                            indirect = "TRUE";
+                        if (vec[TSV_INDIRECTREF] != indirect) {
+                            ofs << "Indirect is different in DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << "==" << indirect;
+                            ofs << " vs Arlington: " << elem.link << "/" << vec[TSV_KEYNAME] << "==" << vec[TSV_INDIRECTREF] << std::endl;
+                        }
+                    }
+                    else {
+                        ofs << "ERROR: DVA MustBeIndirect is not a Boolean " << ToUtf8(elem.dva_link) << std::endl;
+                    }
                 }
                 else {
                     // Not reported as too noisy
                     // ofs << "DVA does not specify MustBeIndirect for " << ToUtf8(elem.dva_link) << std::endl;
                 }
 
-                // Arlington Required can also have predicate "fn:IsRequired(...)"
+                // Arlington Required can also have predicate "fn:IsRequired(...)" or be complex ([];[];[];...)
                 // Linux CLI:  cut -f 5 *.tsv | sort | uniq
-                if (inner_obj->Known(L"Required")) {
+                // Arlington field is UPPERCASE
+                if (inner_obj->has_key(L"Required")) {
                     std::string required = "FALSE";
-                    if (inner_obj->GetBoolean(L"Required", false))
-                    required = "TRUE";
-
-                    if (vec[TSV_REQUIRED] != required)
-                        ofs << "Required is different DVA: " << ToUtf8(elem.dva_link) << " Arlington:" << elem.link << "::" << vec[TSV_KEYNAME] <<"=="<< vec[TSV_REQUIRED] << std::endl;
-                } else {
-                    ofs << "DVA does not specify Required for " << ToUtf8(elem.dva_link) << std::endl;
+                    ArlPDFObject* req = inner_obj->get_value(L"Required");
+                    if ((req != nullptr) && (req->get_object_type() == PDFObjectType::ArlPDFObjTypeBoolean)) {
+                        ArlPDFBoolean *req_b = (ArlPDFBoolean *)req;
+                        if (req_b->get_value())
+                            required = "TRUE";
+                        if (vec[TSV_REQUIRED] != required) {
+                            ofs << "Required is different DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << "==" << required;
+                            ofs << " vs Arlington: " << elem.link << "/" << vec[TSV_KEYNAME] << "==" << vec[TSV_REQUIRED] << std::endl;
+                        }
+                    }
+                    else {
+                        ofs << "ERROR: DVA Required is not a Boolean " << ToUtf8(elem.dva_link) << std::endl;
+                    }
+                } 
+                else {
+                    ofs << "ERROR: DVA does not specify Required for " << ToUtf8(elem.dva_link) << std::endl;
                 }
 
                 // Arlington SinceVersion (1.0, 1.1, ..., 2.0)
                 // Linux CLI: cut -f 3 *.tsv | sort | uniq
-                if (inner_obj->Known(L"PDFMajorVersion") && inner_obj->Known(L"PDFMinorVersion")) {
-                    std::string ver = std::to_string(inner_obj->GetInteger(L"PDFMajorVersion", 0)) + "." + std::to_string(inner_obj->GetInteger(L"PDFMinorVersion", 0));
-                    if (ver != vec[TSV_SINCEVERSION]) {
-                        ofs << "SinceVersion is different DVA: " << ToUtf8(elem.dva_link) << " (" << ver << ") ";
-                        ofs << "Arlington:" << elem.link << "::" << vec[TSV_KEYNAME] << " (" << vec[TSV_SINCEVERSION] << ")" << std::endl;
+                if (inner_obj->has_key(L"PDFMajorVersion") && inner_obj->has_key(L"PDFMinorVersion")) {
+                    ArlPDFObject *major = inner_obj->get_value(L"PDFMajorVersion");
+                    ArlPDFObject* minor = inner_obj->get_value(L"PDFMinorVersion");
+                    if ((major != nullptr) && (minor != nullptr) &&
+                        (major->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber) && 
+                        (minor->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber)) {
+                        int   pdf_major = ((ArlPDFNumber*)major)->get_integer_value();
+                        int   pdf_minor = ((ArlPDFNumber *)minor)->get_integer_value();
+                        std::string ver = std::to_string(pdf_major) + "." + std::to_string(pdf_minor);
+                        if (ver != vec[TSV_SINCEVERSION]) {
+                            ofs << "SinceVersion is different in DVA: " << ToUtf8(elem.dva_link) << " (" << ver << ") ";
+                            ofs << " vs Arlington: " << elem.link << "/" << vec[TSV_KEYNAME] << " (" << vec[TSV_SINCEVERSION] << ")" << std::endl;
+                        }
+                    }
+                    else {
+                        ofs << "ERROR: DVA PDFMajorVersion/PDFMinorVersion is invalid for " << ToUtf8(elem.dva_link) << std::endl;
                     }
                 }
 
                 // Check allowed Types
-                PdsArray* types_array = (PdsArray*)inner_obj->Get(L"ValueType");
-                if (types_array == nullptr) {
-                    ofs << "No Types defined in DVA: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
-                } else {
-                    std::vector<std::string>        types_our = split(vec[TSV_TYPE], ';');
+                tmp_obj = inner_obj->get_value(L"ValueType");
+                if (tmp_obj == nullptr) {
+                    ofs << "ERROR: No ValueType defined for DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << std::endl;
+                } 
+                else if (tmp_obj->get_object_type() != PDFObjectType::ArlPDFObjTypeArray) {
+                    ofs << "ERROR: ValueType is not an array for DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << std::endl;
+                }
+                else {
+                    ArlPDFArray*                types_array = (ArlPDFArray*)tmp_obj;
+                    std::vector<std::string>    types_our   = split(vec[TSV_TYPE], ';');
 
-                    // Map Arlington types to Adobe DVA types
+                    // Map Arlington types (always lowercase) to Adobe DVA types ("CosXxxx")
                     for (size_t i = 0; i < types_our.size(); i++) {
                         if (types_our[i] == "boolean") 
                             types_our[i] = "CosBool";
@@ -289,168 +369,276 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs) {
                             types_our[i] = "CosString";
                     } // for
           
+                    // DVA types are stored as names
                     std::vector<std::string> types_dva;
-                    for (int i = 0; i < types_array->GetNumObjects(); i++) {
+                    for (int i = 0; i < types_array->get_num_elements(); i++) {
                         std::wstring    new_dva_value;
-                        new_dva_value.resize(types_array->GetText(i, nullptr, 0));
-                        types_array->GetText(i, (wchar_t*)new_dva_value.c_str(), (int)new_dva_value.size());
-                        for (size_t j = 0; j < types_our.size(); j++) {
-                            if (types_our[j] == ToUtf8(new_dva_value)) {
-                                types_our[j] = "";
-                                new_dva_value = L"";
-                                break;
-                            }
+                        ArlPDFObject    *obj = types_array->get_value(i);
+                        if ((obj != nullptr) && (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
+                            ArlPDFName *nm = (ArlPDFName *)obj;
+                            new_dva_value = nm->get_value();
+                            for (size_t j = 0; j < types_our.size(); j++) {
+                                if (types_our[j] == ToUtf8(new_dva_value)) {
+                                    types_our[j] = "";
+                                    new_dva_value = L"";
+                                    break;
+                                }
+                            } // for
+                            types_dva.push_back(ToUtf8(new_dva_value));
                         }
-                        types_dva.push_back(ToUtf8(new_dva_value));
+                        else {
+                            ofs << "ERROR: DVA ValueType array element is not a name object" << std::endl;
+                        }
                     } // for
           
-                    std::string head = "==Key DVA: " + ToUtf8(elem.dva_link) +" Arlington: " + elem.link + "::" + vec[TSV_KEYNAME] + "\n";
+                    std::string head = "==Key DVA: " + ToUtf8(elem.dva_link) +" vs Arlington: " + elem.link + "/" + vec[TSV_KEYNAME] + "\n";
                     std::string our("");
                     for (auto& tpe : types_our)
-                        if (tpe != "") 
-                            our += tpe + ",";
+                        if (tpe != "") {
+                            if (our == "")
+                                our = tpe;
+                            else
+                                our += ", " + tpe;
+                        }
 
                     if (our != "") {
-                        ofs << head << "\tArlington:" << our << std::endl;
+                        ofs << head << "\tArlington: " << our << std::endl;
                         head = "";
                     }
 
                     our = "";
                     for (auto& tpe : types_dva)
-                        if (tpe != "") 
-                            our += tpe + ",";
+                        if (tpe != "") {
+                            if (our == "")
+                                our = tpe;
+                            else
+                                our += ", " + tpe;
+                        }
           
                     if (our != "") {
-                        if (head != "") {
+                        if (head != "") 
                             ofs << head; 
-                            head = "";
-                        }
-                        ofs << "\tDVA:" << our << std::endl;
+                        ofs << "\tDVA: " << our << std::endl;
                     }
                 }
 
-                // Check Possible Value
-                PdsDictionary *bounds_dict = (PdsDictionary*)inner_obj->Get(L"Bounds");
-                std::string possible = "";
-                if (vec[TSV_POSSIBLEVALUES] != "")
-                    possible = vec[TSV_POSSIBLEVALUES].substr(1, vec[TSV_POSSIBLEVALUES].size() - 2); // strip off [ and ]
+                // Check Arlington PossibleValue vs DVA Bounds
+                tmp_obj = inner_obj->get_value(L"Bounds");
+                if ((tmp_obj != nullptr) && (tmp_obj->get_object_type() != PDFObjectType::ArlPDFObjTypeDictionary)) {
+                    ofs << "ERROR: Bounds is not a dictionary for DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << std::endl;
+                } 
+                else if (vec[TSV_POSSIBLEVALUES] != "") {
+                    ArlPDFDictionary *bounds_dict = (ArlPDFDictionary*)tmp_obj;
+                    std::string possible = "";
 
-                if (bounds_dict == nullptr ) {
-                    if (possible != "")
-                        ofs << "Bounds not defined in DVA, but PossibleValue defined in Arlington: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
-                } else {
-                    PdsArray*                   possible_array = (PdsArray*)bounds_dict->Get(L"Equals");
-                    std::vector<std::string>    possible_our = split(possible, ',');
-                    if (possible_array == nullptr) {
-                        if (possible != "") 
-                            ofs << "Bounds/Equal not defined DVA, but PossibleValue defined in Arlington: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
-                    } else {
-                        std::vector<std::string>    possible_dva;
-                        for (int i = 0; i < possible_array->GetNumObjects(); i++) {
-                            std::wstring new_dva_value;
-                            new_dva_value.resize(possible_array->GetText(i, nullptr, 0));
-                            possible_array->GetText(i, (wchar_t*)new_dva_value.c_str(), (int)new_dva_value.size());
-                            for (size_t j = 0; j < possible_our.size(); j++) {
+                    if (bounds_dict == nullptr) {
+                        ofs << "Bounds not defined in DVA for " << ToUtf8(elem.dva_link) << ", but PossibleValue defined in Arlington: ";
+                        ofs << elem.link << "/" << vec[TSV_KEYNAME] << "==" << vec[TSV_POSSIBLEVALUES] << std::endl;
+                    } 
+                    else {
+                        tmp_obj = bounds_dict->get_value(L"Equals");
+                        if ((tmp_obj != nullptr) && (tmp_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
+                            std::vector<std::string>    possible_dva;
+                            ArlPDFArray*                possible_array = (ArlPDFArray*)tmp_obj;
+
+                            // Arlington PossibleValues can be COMMA-separated, complex ([a,b,c];[d,e,f];[g,h,i];...) and with predicates
+                            /// @todo For now reduce to just a single continuous COMMA-separated list (a,b,c,d,e,f,g,h,i) since we are not type-matching
+                            //  Split by ";" first to remove predicates as they use COMMAs as argument separators. Then split again by ","
+                            std::vector<std::vector<std::string>>   possible_our;
+                            {
+                                std::vector<std::string> pv_typed = split(vec[TSV_POSSIBLEVALUES], ';');
                                 std::string fn;
-                                possible_our[j] = extract_function(possible_our[j], fn);
-                                if (possible_our[j] == ToUtf8(new_dva_value)) {
-                                    possible_our[j] = "";
-                                    new_dva_value = L"";
-                                    break;
-                                } 
-                            } // for
-                            possible_dva.push_back(ToUtf8(new_dva_value));
-                        } // for
-
-                        std::string head = "==PossibleValue " + ToUtf8(elem.dva_link) + " " + elem.link + "::" + vec[TSV_KEYNAME] + "\n";
-                        std::string our("");
-                        for (auto& tpe : possible_our)
-                            if (tpe != "") 
-                                our += tpe + ",";
-
-                        if (our != "") {
-                            ofs << head << "\tArlington:" << our << std::endl;
-                            head = "";
-                        } 
-
-                        our = "";
-                        for (auto& tpe : possible_dva)
-                            if (tpe != "") 
-                                our += tpe + ",";
-
-                        if (our != "") {
-                            if (head != "") {
-                                ofs << head; 
-                                head = "";
+                                std::string s;
+                                for (size_t i = 0; i < pv_typed.size(); i++) {
+                                    s = extract_function(pv_typed[i], fn);
+                                    s = s.substr(1, s.size() - 2); // strip off [ and ]
+                                    pv_typed[i] = s;
+                                    possible_our.push_back(split(pv_typed[i], ','));
+                                } // for
                             }
-                            ofs << "\tDVA:" << our << std::endl;
+
+                            ArlPDFObject*  obj;
+                            for (int i = 0; i < possible_array->get_num_elements(); i++) {
+                                std::wstring   new_dva_value = L"";
+
+                                // Bounds array elements can be any basic type
+                                // Convert to string for simplistic text comparison
+                                obj = possible_array->get_value(i);
+                                if (obj != nullptr) {
+                                    switch (obj->get_object_type()) {
+                                        case PDFObjectType::ArlPDFObjTypeBoolean: {
+                                                ArlPDFBoolean* b = (ArlPDFBoolean*)obj;
+                                                new_dva_value = (b->get_value() ? L"true" : L"false");
+                                            }
+                                            break;
+                                        case PDFObjectType::ArlPDFObjTypeName: {
+                                                ArlPDFName* nm = (ArlPDFName*)obj;
+                                                new_dva_value = nm->get_value();
+                                            }
+                                            break;
+                                        case PDFObjectType::ArlPDFObjTypeNumber: {
+                                                ArlPDFNumber* num = (ArlPDFNumber*)obj;
+                                                if (num->is_integer_value()) {
+                                                    new_dva_value = std::to_wstring(num->get_integer_value());
+                                                }
+                                                else {
+                                                    new_dva_value = std::to_wstring(num->get_value());
+                                                }
+                                            }
+                                            break;
+                                        case PDFObjectType::ArlPDFObjTypeString: {
+                                                ArlPDFString* str = (ArlPDFString*)obj;
+                                                new_dva_value = str->get_value();
+                                            }
+                                            break;
+                                        default:
+                                            ofs << "ERROR: DVA Bounds/Equal[" << i << "] was an unexpected type for " << ToUtf8(elem.dva_link) << std::endl;
+                                            break;
+                                    } // switch
+
+                                    // Find if there is a match in PossibleValues 
+                                    if (new_dva_value != L"") {
+                                        for (size_t j = 0; j < possible_our.size(); j++) { // split by ';'
+                                            for (size_t k = 0; k < possible_our[j].size(); k++) { // split by ','
+                                                if (possible_our[j][k] == ToUtf8(new_dva_value)) {
+                                                    possible_our[j][k] = "";
+                                                    new_dva_value = L"";
+                                                    break;
+                                                } 
+                                            }
+                                        } // for
+                                        if (new_dva_value != L"") 
+                                            possible_dva.push_back(ToUtf8(new_dva_value));
+                                    }
+                                } else {
+                                    ofs << "ERROR: DVA Bounds/Equal[" << i << "] was a null object for " << ToUtf8(elem.dva_link) << std::endl;
+                                }// if
+                            } // for
+
+                            std::string head = "==PossibleValue DVA: " + ToUtf8(elem.dva_link) + " vs Arlington: " + elem.link + "/" + vec[TSV_KEYNAME] + "\n";
+                            std::string our = "";
+                            for (size_t j = 0; j < possible_our.size(); j++) { // split by ';'
+                                for (size_t k = 0; k < possible_our[j].size(); k++) { // split by ','
+                                    if (possible_our[j][k] != "") {
+                                        if (our == "")
+                                            our = possible_our[j][k];
+                                        else
+                                            our += ", " + possible_our[j][k];
+                                    }
+                                }
+                            }        
+
+                            if (our != "") {
+                                ofs << head << "\tArlington: " << our << std::endl;
+                                head = "";
+                            } 
+
+                            our = "";
+                            for (auto& tpe : possible_dva)
+                                if (tpe != "") {
+                                    if (our == "")
+                                        our = tpe;
+                                    else
+                                        our += ", " + tpe;
+                                }
+
+                            if (our != "") {
+                                if (head != "")
+                                    ofs << head; 
+                                ofs << "\tDVA: " << our << std::endl;
+                            }
+                        }
+                        else {
+                            ofs << "ERROR: DVA Bounds/Equal was not an array for " << ToUtf8(elem.dva_link) << std::endl;
                         }
                     }
                 }
             }
 
-            PdsObject* link_obj = inner_obj->Get(L"VerifyAtFormalRep"); // 0-dict, 1-stream, 2-array
-            PdsObject* recursion_obj = inner_obj->Get(L"RecursionParams");
-            if (recursion_obj != nullptr) {
-                // ofs << "TODO: RecursionParams - special validation required: " << elem.link << "::" << vec[TSV_KEYNAME] << std::endl;
-                link_obj = ((PdsDictionary*)recursion_obj)->Get(L"VerifyAtFormalRep"); // 0-dict, 1-stream, 2-array
+            ArlPDFObject* link_obj = inner_obj->get_value(L"VerifyAtFormalRep"); // 0-dict, 1-stream, 2-array
+
+            ArlPDFObject* recursion_obj = inner_obj->get_value(L"RecursionParams");
+            if ((recursion_obj != nullptr) && (recursion_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                // ofs << "TODO: RecursionParams - special validation required: " << elem.link << "/" << vec[TSV_KEYNAME] << std::endl;
+                link_obj = ((ArlPDFDictionary*)recursion_obj)->get_value(L"VerifyAtFormalRep"); // 0-dict, 1-stream, 2-array
             }
 
             if (link_obj != nullptr) {
                 // Should be array or name
-                switch (link_obj->GetObjectType()) {
-                    case kPdsName: 
+                switch (link_obj->get_object_type()) {
+                    case PDFObjectType::ArlPDFObjTypeName:
                         {
-                            std::wstring        link_str_value;
-                            link_str_value.resize(((PdsName*)link_obj)->GetText(nullptr, 0));
-                            ((PdsName*)link_obj)->GetText((wchar_t*)link_str_value.c_str(), (int)link_str_value.size());
-                            std::vector<std::string> lnk = split(vec[TSV_LINK], ';');
-                            if (vec[TSV_LINK] == "" || lnk.size() != 1) {
-                                ofs << "Wrong link in Arlington: " << elem.link << "::" << vec[TSV_KEYNAME] << std::endl;
+                            ArlPDFName* nm = (ArlPDFName*)link_obj;
+                            std::wstring  dva_link_str_value = nm->get_value();
+                            if (vec[TSV_LINK] == "") {
+                                ofs << "No link in Arlington: " << elem.link << "/" << vec[TSV_KEYNAME] << " (" << vec[TSV_TYPE] << ")" << std::endl;
                             }
-                            else 
-                                to_process_checks.emplace(link_str_value, lnk[0].substr(1, lnk[0].size() - 2));
+                            else {
+                                std::vector<std::string> lnk = split(vec[TSV_LINK], ';');
+                                for (std::string s : lnk) {
+                                    if (s.size() > 3) {                 // Link is not just "[]"     
+                                        s = s.substr(1, s.size() - 2);  // strip off [ and ] to make an Arlington TSV filename
+                                        to_process_checks.emplace(dva_link_str_value, s);
+                                    }
+                                }
+                            }
                         }
                         break;
-                    case kPdsArray: 
+                    case PDFObjectType::ArlPDFObjTypeArray:
                         {
-                            std::wstring link_dict_value;
-                            link_dict_value.resize(((PdsArray*)link_obj)->GetText(0, nullptr, 0));
-                            ((PdsArray*)link_obj)->GetText(0, (wchar_t*)link_dict_value.c_str(), (int)link_dict_value.size());
+                            std::wstring  link_dict_value = L"";
+                            std::wstring  link_stream_value = L"";
+                            std::wstring  link_array_value = L"";
+                            ArlPDFArray* arr = (ArlPDFArray*)link_obj;
+                            ArlPDFObject* obj;
+                            ArlPDFString* str;
 
-                            std::wstring link_stream_value;
-                            link_stream_value.resize(((PdsArray*)link_obj)->GetText(1, nullptr, 0));
-                            ((PdsArray*)link_obj)->GetText(1, (wchar_t*)link_stream_value.c_str(), (int)link_stream_value.size());
+                            // dictionary
+                            obj = arr->get_value(0);
+                            if ((obj != nullptr) && (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeString)) {
+                                str = (ArlPDFString*)obj;
+                                link_dict_value = str->get_value();
+                            }
 
-                            std::wstring link_array_value;
-                            link_array_value.resize(((PdsArray*)link_obj)->GetText(2, nullptr, 0));
-                            ((PdsArray*)link_obj)->GetText(2, (wchar_t*)link_array_value.c_str(), (int)link_array_value.size());
+                            // stream
+                            obj = arr->get_value(1);
+                            if ((obj != nullptr) && (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeString)) {
+                                str = (ArlPDFString*)obj;
+                                link_stream_value = str->get_value();
+                            }
 
-                            std::string lnk_dict = get_link_for_type("dictionary", vec[TSV_TYPE], vec[TSV_LINK]);
-                            std::string lnk_stream = get_link_for_type("stream", vec[TSV_TYPE], vec[TSV_LINK]);
-                            std::string lnk_array = get_link_for_type("array", vec[TSV_TYPE], vec[TSV_LINK]);
+                            // array
+                            obj = arr->get_value(2);
+                            if ((obj != nullptr) && (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeString)) {
+                                str = (ArlPDFString*)obj;
+                                link_array_value = str->get_value();
+                            }
+
+                            std::string lnk_dict   = get_link_for_type("dictionary", vec[TSV_TYPE], vec[TSV_LINK]);
+                            std::string lnk_stream = get_link_for_type("stream",     vec[TSV_TYPE], vec[TSV_LINK]);
+                            std::string lnk_array  = get_link_for_type("array",      vec[TSV_TYPE], vec[TSV_LINK]);
 
                             if (link_dict_value != L"" && lnk_dict != "[]")
                                 to_process_checks.emplace(link_dict_value, lnk_dict.substr(1, lnk_dict.size() - 2));
                             else if (!(link_dict_value == L"" && lnk_dict == "[]")) {
-                                //rt ofs << "TODO: Check link dictionary: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
+                                //rt ofs << "TODO: Check link dictionary: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << std::endl;
                             }
 
                             if (link_stream_value != L"" && lnk_stream != "[]")
                                 to_process_checks.emplace(link_stream_value, lnk_stream.substr(1, lnk_stream.size() - 2));
                             else if (!(link_stream_value == L"" && lnk_stream == "[]")) {
-                                //rt ofs << "TODO: Check link stream: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
+                                //rt ofs << "TODO: Check link stream: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << std::endl;
                             }
 
                             if (link_array_value != L"" && lnk_array != "[]")
                                 to_process_checks.emplace(link_array_value, lnk_array.substr(1, lnk_array.size() - 2));
                             else if (!(link_array_value == L"" && lnk_array == "[]")) {
-                                //rt ofs << "TODO: Check link array: " << ToUtf8(elem.dva_link) << "::" << vec[TSV_KEYNAME] << std::endl;
+                                //rt ofs << "TODO: Check link array: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << std::endl;
                             }
                         }
                         break;
                 default:
-                    ofs << "Unexpected DVA type for VerifyAtFormalRep" << std::endl;
+                    ofs << "ERROR: Unexpected DVA type for VerifyAtFormalRep!" << std::endl;
                     break;
                 } // switch
             } // if
@@ -460,7 +648,7 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs) {
         /// @brief Checks if a key name exists in Arlington
         /// @param key[in] key name (string)   
         /// @returns true if key exists in Arlington
-        auto exits_in_our = [=](auto key) {
+        auto exists_in_our = [=](auto key) {
             for (auto& vec : *data_list)
                 if (vec[TSV_KEYNAME] == ToUtf8(key))
                     return true;
@@ -471,49 +659,101 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs) {
         /// @brief Iterates through all keys in a DVA PDF dictionary to see if they are in Arlington
         /// @param a_dict[in]   the DVA PDF dictionary
         /// @param in_ofs[in]   report stream 
-        auto check_dict = [=](PdsDictionary* a_dict, std::ostream& in_ofs) {
-            for (int i = 0; i < (a_dict->GetNumKeys()); i++) {
-                std::wstring key;
-                key.resize(a_dict->GetKey(i, nullptr, 0));
-                a_dict->GetKey(i, (wchar_t*)key.c_str(), (int)key.size());
-                if (!exits_in_our(key) && key != L"FormalRepOf" && key != L"Array"
-                    && key != L"ArrayStyle" && key != L"FormalRepOfArray" && key != L"OR"
-                    && key != L"GenericKey" && key != L"ConcatWithFormalReps") {
-                    in_ofs << "Key missing in Arlington: " << elem.link << "::" << ToUtf8(key) << std::endl;
+        auto check_dict = [=](ArlPDFDictionary* a_dict, std::ostream& in_ofs) {
+            for (int i = 0; i < (a_dict->get_num_keys()); i++) {
+                std::wstring key = a_dict->get_key_name_by_index(i);
+                if (!exists_in_our(key) && (key != L"FormalRepOf") && (key != L"Array)")
+                    && (key != L"ArrayStyle") && (key != L"FormalRepOfArray") && (key != L"OR")
+                    && (key != L"GenericKey") && (key != L"ConcatWithFormalReps")) {
+                    in_ofs << "Missing key in Arlington: " << elem.link << "/" << ToUtf8(key) << std::endl;
                 }
             }
         }; // auto
 
         check_dict(dict, ofs);
 
-        PdsArray* inner_array = (PdsArray*)dict->Get(L"ConcatWithFormalReps");
-        if (inner_array != nullptr) {
-            std::wstring    new_dva_value;
-            new_dva_value.resize(inner_array->GetText(0, nullptr, 0));
-            inner_array->GetText(0, (wchar_t*)new_dva_value.c_str(), (int)new_dva_value.size());
-            check_dict((PdsDictionary*)map_dict->Get(new_dva_value.c_str()), ofs);
+        tmp_obj = dict->get_value(L"ConcatWithFormalReps");
+        if ((tmp_obj != nullptr) && (tmp_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
+            ArlPDFArray* inner_array = (ArlPDFArray*)tmp_obj;
+            ArlPDFObject *obj = inner_array->get_value(0);
+            if (obj != nullptr) {
+                switch (obj->get_object_type()) {
+                    case PDFObjectType::ArlPDFObjTypeString:
+                        {
+                            ArlPDFString *concat = (ArlPDFString*)obj;
+                            std::wstring  new_dva_value = concat->get_value();
+                            tmp_obj = map_dict->get_value(new_dva_value);
+                            if ((tmp_obj != nullptr) && (tmp_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                                check_dict((ArlPDFDictionary*)tmp_obj, ofs);
+                            }
+                            else {
+                                ofs << "ERROR: DVA "<< ToUtf8(elem.dva_link) << " ConcatWithFormalReps[0]/(" << ToUtf8(concat->get_value()) << ") string was not a dictionary" << std::endl;
+                            }
+                        }
+                        break;
+                    case PDFObjectType::ArlPDFObjTypeName:
+                        {
+                            ArlPDFName* concat = (ArlPDFName*)obj;
+                            std::wstring  new_dva_value = concat->get_value();
+                            tmp_obj = map_dict->get_value(new_dva_value);
+                            if ((tmp_obj != nullptr) && (tmp_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                                check_dict((ArlPDFDictionary*)tmp_obj, ofs);
+                            }
+                            else {
+                                ofs << "ERROR: DVA " << ToUtf8(elem.dva_link) << " ConcatWithFormalReps[0]/" << ToUtf8(concat->get_value()) << " name was not a dictionary" << std::endl;
+                            }
+                        }
+                        break;
+                    default: 
+                        {
+                            ofs << "ERROR: DVA " << ToUtf8(elem.dva_link) << " ConcatWithFormalReps[0] was an unexpected type" << std::endl;
+                        }
+                        break;
+                } // switch
+            }
+            else {
+                ofs << "ERROR: DVA " << ToUtf8(elem.dva_link) << " ConcatWithFormalReps[0] did not exist" << std::endl;
+            }
         }
     }
 }
 
 
-/// @brief  Compares Arlington TSV file set against Adobe DVA (as defined by 
-/// @param dva_file[in]   the Adobe DVA PDF file with the FormalRep tree 
-/// @param grammar_folder[in]   the Arlington PDF model folder with TSV file set 
-/// @param ofs[in] report stream 
-void CheckDVA(const std::filesystem::path& dva_file, const fs::path& grammar_folder, std::ostream& ofs) {
-    ofs << "Arlington vs DVA Report - TestGrammar ver." << TestGrammar_VERSION << std::endl;
-    ofs << "Arlington TSV data: " << fs::absolute(grammar_folder) << std::endl;
-    ofs << "Adobe DVA FormalRep: " << fs::absolute(dva_file) << std::endl;
+/// @brief  Compares Arlington TSV file set against Adobe DVA formal representation PDF
+/// @param pdfsdk              already instantiated PDF SDK Arlington shim object
+/// @param dva_file[in]        the Adobe DVA PDF file with the FormalRep tree 
+/// @param grammar_folder[in]  the Arlington PDF model folder with TSV file set 
+/// @param ofs[in]             report stream 
+void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK &pdfsdk, const std::filesystem::path& dva_file, const fs::path& grammar_folder, std::ostream& ofs) {
+    try {
+        ofs << "BEGIN - Arlington vs Adobe DVA Report - TestGrammar " << TestGrammar_VERSION << " " << pdfsdk.get_version_string() << std::endl;
+        ofs << "Arlington TSV data: " << fs::absolute(grammar_folder).lexically_normal() << std::endl;
+        ofs << "Adobe DVA FormalRep file: " << fs::absolute(dva_file).lexically_normal() << std::endl;
 
-    Pdfix*     pdfix = GetPdfix();
-    PdfDoc*    doc = pdfix->OpenDoc(dva_file.wstring().data(), L"");
-    PdsObject* root = doc->GetRootObject();
-    map_dict = (PdsDictionary*)((PdsDictionary*)root)->Get(L"FormalRepTree");
-    
-    process_dict(grammar_folder, ofs);
+        ArlPDFTrailer* trailer = pdfsdk.get_trailer(dva_file.wstring());
+        if (trailer != nullptr) {
+            ArlPDFObject* root = trailer->get_value(L"Root");
+            if ((root != nullptr) && (root->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                ArlPDFObject* formal_rep = ((ArlPDFDictionary *)root)->get_value(L"FormalRepTree");
+                if ((formal_rep != nullptr) && (formal_rep->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                     process_dict(grammar_folder, ofs, (ArlPDFDictionary*)formal_rep);
+                } 
+                else {
+                    ofs << "Error: failed to acquire Trailer/Root/FormalRepTree" << std::endl;
+                }
+            } 
+            else {
+                ofs << "Error: failed to acquire Trailer/Root" << std::endl;
+            }
+        }
+        else {
+            ofs << "Error: failed to acquire Trailer" << std::endl;
+        }
+    }
+    catch (std::exception& ex) {
+        ofs << "Error: EXCEPTION: " << ex.what() << std::endl;
+    }
 
+    // Finally...
     ofs << "END" << std::endl;
-    if (doc != nullptr)
-        doc->Close();
 }

@@ -223,7 +223,7 @@ int main(int argc, char* argv[]) {
             }
             if (!ofs.is_open())
                 std::cout << std::endl;
-            CheckDVA(input_file, grammar_folder, (save_path.empty() ? std::cout : ofs));
+            CheckDVA(pdf_io, input_file, grammar_folder, (save_path.empty() ? std::cout : ofs));
             ofs.close();
             pdf_io.shutdown();
             return 0;

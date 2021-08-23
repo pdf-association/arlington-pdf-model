@@ -21,6 +21,7 @@
 
 std::string  ToUtf8(const std::wstring& str);
 std::wstring utf8ToUtf16(const std::string& utf8Str);
+std::wstring ToWString(const std::string& s);
 
 // gets folder from provided filename
 std::string  get_path_dir(const std::string& path);

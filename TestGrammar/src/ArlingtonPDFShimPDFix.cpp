@@ -18,10 +18,12 @@
 /// Arlington PDF Model proof-of-concept C++ application. Replace just this C++ file 
 /// for alternate PDF SDKs. Performance overhead issues are considered irrelevant. 
 
+#include "ArlingtonPDFShim.h"
+
+#ifdef ARL_PDFSDK_PDFIX
 #include <string>
 #include <cassert>
 
-#include "ArlingtonPDFShim.h"
 #include "Pdfix.h"
 
 using namespace ArlingtonPDFShim;
@@ -454,8 +456,8 @@ ArlPDFDictionary* ArlPDFStream::get_dictionary()
 }
 
 
-///// @brief Returns the number of keys in a PDF stream 
-///// @return Number of keys (>= 0)
+/// @brief Returns the number of keys in a PDF stream 
+/// @return Number of keys (>= 0)
 //int ArlPDFStream::get_num_keys()
 //{
 //    assert(object != nullptr);
@@ -524,3 +526,5 @@ ArlPDFDictionary* ArlPDFStream::get_dictionary()
 //    }
 //    return retval;
 //}
+
+#endif // ARL_PDFSDK_PDFIX

@@ -19,6 +19,12 @@
 
 #pragma once
 
+// Choose which PDF SDK you want to use. Some may have more functionality than others
+#define ARL_PDFSDK_PDFIUM
+#undef ARL_PDFSDK_PDFIX
+#undef ARL_PDFSDK_QPDF
+
+
 #include <iostream>
 #include <filesystem>
 
