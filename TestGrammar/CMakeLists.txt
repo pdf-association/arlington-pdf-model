@@ -20,6 +20,11 @@ set (SRC_PDFIX
     src/ArlingtonPDFShimPDFix.cpp
 )
 
+#=========== QPDF ===========
+set (SRC_QPDF
+    src/ArlingtonPDFShimQPDF.cpp
+)
+
 #=========== pdfium ===========
 if(MSVC)
     #add_compile_options(/W3 /WX-)
@@ -396,6 +401,7 @@ add_executable(TestGrammar
     src/Main.cpp
     ${SOURCES}
     #${SRC_PDFIX}
+    #${SRC_QPDF}
     ${SRC_PDFIUM}
     ${SRC_PDFIUM_PLATFORM}
     )
@@ -407,6 +413,8 @@ PUBLIC
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
     "${CMAKE_CURRENT_SOURCE_DIR}/sarge"
     "${CMAKE_CURRENT_SOURCE_DIR}/pdfium"
+    "${CMAKE_CURRENT_SOURCE_DIR}/pdfix"
+    "${CMAKE_CURRENT_SOURCE_DIR}/qpdf"
 )
 if(APPLE)
     target_link_libraries(TestGrammar dl
