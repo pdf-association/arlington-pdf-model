@@ -74,8 +74,8 @@ public:
     void parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context);
 
     std::string select_one(ArlPDFObject* obj, const std::string &links_string, std::string &obj_name);
-    std::string get_link_for_type(ArlPDFObject* obj, const std::string &types, const std::string &links);
-    int get_type_index(ArlPDFObject*obj, std::string types);
+    std::string get_link_for_object(ArlPDFObject* obj, const std::string &types, const std::string &links);
+    int get_type_index_for_object(ArlPDFObject*obj, std::string types);
     std::string get_type_string(ArlPDFObject*obj);
     void check_basics(ArlPDFObject * ArlPDFObject, const std::vector<std::string> &vec, const std::string &grammar_file);
     bool check_possible_values(ArlPDFObject* object, const std::string& possible_value_str, int index, std::wstring& real_str_value);
