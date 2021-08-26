@@ -30,18 +30,17 @@ extern HINSTANCE ghInstance;
 #else
 #include <cstring>
 #include <limits.h>
-#include <locale>
 #include <sys/stat.h>
 #endif
 
 
 #include "utils.h"
 
-///
 /// @brief Converts a Unicode string to UTF8
-/// @param[in] unicode Unicode input
-/// @return equivalent UTF8 string
 /// 
+/// @param[in] unicode Unicode input
+/// 
+/// @returns equivalent UTF8 string
 std::string ToUtf8(const wchar_t unicode) {
   std::string out;
   if ((unsigned int)unicode < 0x80) {
@@ -80,11 +79,11 @@ std::string ToUtf8(const wchar_t unicode) {
   return out;
 }
 
-///
-/// @brief Converts a Unicode string to UTF8
+/// @brief Converts a Unicode wide string to UTF8
+/// 
 /// @param[in] unicode Unicode input
-/// @return equivalent UTF8 string
-///
+/// 
+/// @returns equivalent UTF8 string
 std::string ToUtf8(const std::wstring& wstr) {
     const wchar_t* buffer = wstr.c_str();
     auto len = wcslen(buffer);
@@ -94,9 +93,11 @@ std::string ToUtf8(const std::wstring& wstr) {
     return out;
 }
 
-/// @brief 
-/// @param str 
-/// @return 
+/// @brief Converts UTF8 input string to UTF16 wide string
+/// 
+/// @param[in] str  input string (assumed valid UTF8)
+///  
+/// @returns  UTF16 equivalent wide string 
 std::wstring utf8ToUtf16(const std::string& str) {
   const char* s = str.c_str();
   typedef unsigned char byte;
@@ -152,6 +153,11 @@ std::wstring utf8ToUtf16(const std::string& str) {
 }
 
 
+/// @brief Converts a std::string to std::wstring
+/// 
+/// @param[in] s input string 
+/// 
+/// @returns   wide string equivalent  of the input string
 std::wstring ToWString(const std::string& s)
 {
     std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
@@ -159,57 +165,35 @@ std::wstring ToWString(const std::string& s)
     return wide;
 }
 
-/// @brief 
-/// 
-/// @param path 
-/// @return 
-std::string get_path_dir(const std::string& path) {
-  auto pos = path.find_last_of("\\/");
-  if (pos == std::string::npos) 
-    return path;
-  std::string dir(path.begin(), path.begin() + pos);
-  return dir;
-}
-
-/// @brief 
-/// @param path 
-/// @return 
-std::wstring get_path_dir(const std::wstring& path) {
-  auto pos = path.find_last_of(L"\\/");
-  if (pos == std::wstring::npos) return path;
-  std::wstring dir(path.begin(), path.begin() + pos);
-  return dir;
-}
-
-
-
 
 /// @brief   Checks if a path is a folder (directory)
-/// @param   p[in]  path 
-/// @return  true if path p is a folder
+/// 
+/// @param[in] p  path 
+/// 
+/// @returns true if path p is a folder
 bool is_folder(const std::filesystem::path& p)
 {
     std::filesystem::file_status    st(std::filesystem::status(p));
-
     return (std::filesystem::is_directory(st));
 }
 
 
 /// @brief   Checks if a path is a file (not a folder)
-/// @param   p[in]  path 
-/// @return  true if path p is a regular file
+/// 
+/// @param[in]   p  path 
+/// 
+/// @returns true if path p is a regular file
 bool is_file(const std::filesystem::path& p)
 {
     std::filesystem::file_status    st(std::filesystem::status(p));
-
     return (std::filesystem::is_regular_file(st));
 }
 
 
 /// @brief  Removes all Alington predicates (declarative functions) from the "Link" column.
-///         Only "fn:SinceVersion(x.y,zzz)" is expected - which will reduce to zzz.
+///         Only "fn:SinceVersion(x.y,zzz)" is expected - which will reduce to 'zzz'.
 /// @param link_in[in]  Arlington TSV Link field (column 11) that might contain a predicate function 
-/// @return             the Arlington "Links" field with all fn:SinceVersion(x.y,zzz) removed
+/// @returns            the Arlington "Links" field with all fn:SinceVersion(x.y,zzz) removed
 std::string remove_link_predicates(const std::string& link_in) {
     std::regex      r_sinceVersion("fn:SinceVersion\\([1-9]\\.[0-9]\\,([A-Za-z0-9-_.]+)\\)");
     std::string     to_ret;
@@ -218,10 +202,11 @@ std::string remove_link_predicates(const std::string& link_in) {
     return to_ret;
 }
 
+
 /// @brief  Removes all Alington predicates (declarative functions) from the "Type" column.
 ///         Only "fn:SinceVersion(x.y,zzz)" and "fn:IsDeprecated(x.y,zzz)" is expected - which both reduce to zzz.
-/// @param types_in[in] Arlington TSV Type field (column 11) that might contain a predicate function 
-/// @return             the Arlington "Type" field with all fn:SinceVersion(x.y,zzz) and fn:IsDeprecated(x.y,zzz) removed
+/// @param[in] types_in Arlington TSV Type field (column 11) that might contain a predicate function 
+/// @returns   the Arlington "Type" field with all fn:SinceVersion(x.y,zzz) and fn:IsDeprecated(x.y,zzz) removed
 std::string remove_type_predicates(const std::string& types_in) {
     std::regex      r_sinceVersion("fn:SinceVersion\\([1-9]\\.[0-9]\\,([A-Za-z0-9-_.]+)\\)");
     std::regex      r_isDeprecated("fn:IsDeprecated\\([1-9]\\.[0-9]\\,([A-Za-z0-9-_.]+)\\)");
@@ -232,12 +217,16 @@ std::string remove_type_predicates(const std::string& types_in) {
     return to_ret;
 }
 
+
 /// @brief  Strips off any Alington predicates (declarative functions) 
-/// @param value[in]      Arlington TSV field that might contain a predicate function 
-/// @param function[out]  the predicate function, if any. Otherwise function.clear()
-/// @return the Arlington value with any predicates stripped off
+/// @todo  This doesn't work well for nesting predicates!
+/// 
+/// @param[in] value      Arlington TSV field that might contain a predicate function 
+/// @param[out] function  the predicate function, if any. Otherwise function.clear()
+/// 
+/// @returns the Arlington value with any predicates stripped off
 std::string extract_function(const std::string& value, std::string &function) {
-    std::regex      functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|.]+");  // matches "fn:<predicate-name>(
+    std::regex      functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&\\|\\.\\-]+");  // matches "fn:<predicate-name>(
     std::smatch     match;
     std::string     to_ret = value;
     function.clear();
@@ -255,27 +244,40 @@ std::string extract_function(const std::string& value, std::string &function) {
     return to_ret;
 }
 
-//////////////////////////////////////////////////////////////////////////
-// 
+
+/// @brief  Works out if an Arlington type is in the list of Arlington Types from the TSV data. Supports predicates.
+/// 
+/// @param[in] single_type a single Arlington predefined type (e.g. array, bitmask, rectangle, matrix, etc)
+/// @param[in] types       an Arlington Types field (alphabetically sorted; SEMI-COLON separated)
+/// 
+/// @returns -1 if single_type is not types, otherwise the index into the types array (when separated by SEMI-COLON)
 int get_type_index(std::string single_type, std::string types) {
-  std::vector<std::string> opt = split(types, ';');
-  for (auto i = 0; i < (int)opt.size(); i++) {
-    if (opt[i] == single_type)
-      return i;
-  }
-  return -1;
+    std::vector<std::string> opt = split(remove_type_predicates(types), ';');
+    for (auto i = 0; i < (int)opt.size(); i++) {
+        if (opt[i] == single_type)
+            return i;
+    }
+    return -1;
 }
 
-//////////////////////////////////////////////////////////////////////////
-// 
+
+
+/// @brief  Looks up a single Arlington type in the Types field, and then matches across to the Links field.
+///         Predicates are NOT stripped and retained in the result. 
+/// 
+/// @param[in] single type  a single Arlington predefined type (e.g. array, bitmask, rectangle, matrix, etc)
+/// @param[in] types    Arlington Types field (alphabetically sorted, SEMI-COLON separated)
+/// @param[in] links    Arlington Links field (enclosed in [] and semi-colon separated)
+/// 
+/// @returns  either a set of Arlington Links (incl. possibly predicates) in "[]", or the empty list "[]" if no type match
 std::string get_link_for_type(std::string single_type, const std::string& types, const std::string& links) {
-  int  index = get_type_index(single_type, types);
-  if (index == -1)
-    return "[]";
-  std::vector<std::string> lnk = split(links, ';');
-  if (index >= (int)lnk.size())  // for ArrayOfDifferences: types is "INTEGER;NAME", links is "" and we get buffer overflow in lnk!
-    return "";
-  return lnk[index];
+    int  index = get_type_index(single_type, types);
+    if (index == -1)
+        return "[]";
+    std::vector<std::string> lnk = split(links, ';');
+    if (index >= (int)lnk.size())  // for ArrayOfDifferences: types is "integer;name", links is "" and we get buffer overflow in lnk!
+        return "[]";
+    return lnk[index];
 }
 
 
@@ -293,12 +295,7 @@ std::vector<std::string> split(const std::string& s, char separator) {
   auto finish = false;
   while (!finish) {
     pos_separator = s.find(separator, pos_prev);
-    auto pos1 = s.find("FN:", pos);
-    auto pos2 = s.find("fn:", pos);
-    if (pos1 < pos2)
-      pos_fn = pos1;
-    else
-      pos_fn = pos2;
+    pos_fn = s.find("fn:", pos);
 
     if (pos_separator <= pos_fn)
       pos = pos_separator;
@@ -331,14 +328,25 @@ std::vector<std::string> split(const std::string& s, char separator) {
   return output;
 }
 
-///@brief Strip leading whitespace from a string (e.g. the indented PDF path)
+
+/// @brief Strip leading whitespace from a string (e.g. the indented PDF path)
+/// 
+/// @param[in] str   the string
+/// 
+/// @returns    the input string with all leading whitespace removed
 std::string& strip_leading_whitespace(std::string& str) {
     auto it2 = std::find_if(str.begin(), str.end(), [](char ch) { return !std::isspace<char>(ch, std::locale::classic()); });
     str.erase(str.begin(), it2);
     return str;
 }
 
+
 /// @brief Case INsensitive comparison of two strings
+/// 
+/// @param[in] a   string one
+/// @param[in] b   string two
+/// 
+/// @returns true if the two strings are a case-insensitive match  
 bool iequals(const std::string& a, const std::string& b)
 {
     return std::equal(a.begin(), a.end(),

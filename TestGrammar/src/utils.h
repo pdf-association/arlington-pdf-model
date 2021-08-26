@@ -19,21 +19,19 @@
 #include <string>
 #include <filesystem>
 
+// string conversion to/from wide strings needed by PDF files
 std::string  ToUtf8(const std::wstring& str);
 std::wstring utf8ToUtf16(const std::string& utf8Str);
 std::wstring ToWString(const std::string& s);
 
-// gets folder from provided filename
-std::string  get_path_dir(const std::string& path);
-std::wstring get_path_dir(const std::wstring& path);
-
-// check if a folder, or if a file, or if file/folder already exists
+// check if a folder, or if a file
 bool is_folder(const std::filesystem::path& p);
 bool is_file(const std::filesystem::path& p);
 
-// split string into vector
+// split Arlington-style strings into vector based on separator character
 std::vector<std::string> split(const std::string& s, char separator);
 
+// Arlington predicate support
 std::string remove_link_predicates(const std::string& link_in);
 std::string remove_type_predicates(const std::string& types_in);
 std::string extract_function(const std::string& value, std::string& function);
