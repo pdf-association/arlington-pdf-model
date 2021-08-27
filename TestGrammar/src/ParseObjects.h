@@ -38,14 +38,15 @@ using namespace ArlingtonPDFShim;
 
 class CParsePDF
 {
-    // remembering processed objects (and how they were validated)
-    // storing hash_id of object and link with which we validated the object 
+private:
+    /// @brief Remembering processed PDF objects (and how they were validated).
+    //  Storing hash_id of object and link with which we validated the object.
     std::map<std::string, std::string>      mapped;
   
-    /// the Arlington PDF model (cache of loaded TSV grammar files)
+    /// @brief the Arlington PDF model (cache of loaded TSV grammar files)
     std::map<std::string, std::unique_ptr<CArlingtonTSVGrammarFile>>  grammar_map;
 
-    /// simulating recursive processing of the ArlPDFObjects
+    /// @brief simulating recursive processing of the ArlPDFObjects
     struct queue_elem {
         ArlPDFObject* object;
         std::string   link;
@@ -61,7 +62,7 @@ class CParsePDF
     std::filesystem::path   grammar_folder;
     std::ostream            &output;
   
-    const std::vector<std::vector<std::string>>* get_grammar(const std::string& link);
+    const ArlTSVmatrix& get_grammar(const std::string& link);
 
 public:
     CParsePDF(const std::filesystem::path& tsv_folder, std::ostream &ofs)
@@ -75,11 +76,11 @@ public:
 
     std::string select_one(ArlPDFObject* obj, const std::string &links_string, std::string &obj_name);
     std::string get_link_for_object(ArlPDFObject* obj, const std::string &types, const std::string &links);
-    int get_type_index_for_object(ArlPDFObject*obj, const std::string &types);
-    std::string get_type_string(ArlPDFObject*obj);
-    void check_basics(ArlPDFObject * ArlPDFObject, const std::vector<std::string> &vec, const fs::path &grammar_file);
-    bool check_possible_values(ArlPDFObject* object, const std::string &possible_value_str, int index, std::wstring &real_str_value);
-    bool is_required_key(ArlPDFObject* obj, std::string reqd);
+    int get_type_index_for_object(ArlPDFObject* obj, const std::string &types);
+    std::string get_type_string(ArlPDFObject* obj);
+    void check_basics(ArlPDFObject* obj, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path &grammar_file);
+    bool check_possible_values(ArlPDFObject* object, int key_idx, const ArlTSVmatrix& tsv_data, const int index, std::wstring &real_str_value);
+    bool is_required_key(ArlPDFObject* obj, const std::string &reqd);
 };
 
 #endif // ParseObjects_h

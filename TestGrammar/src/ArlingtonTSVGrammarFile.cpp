@@ -10,7 +10,7 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex; Peter Wyatt
+// Contributors: Roman Toda, Frantisek Forgac, Normex; Peter Wyatt, PDF Association
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -21,6 +21,70 @@
 #include <iterator>
 
 #include "ArlingtonTSVGrammarFile.h"
+
+    /// @brief All Arlington pre-defined types (alphabetically sorted)
+const std::vector<std::string>  CArlingtonTSVGrammarFile::arl_all_types = {
+        "array",
+        "bitmask",
+        "boolean",
+        "date",
+        "dictionary",
+        "integer",
+        "matrix",
+        "name",
+        "name-tree",
+        "null",
+        "number",
+        "number-tree",
+        "rectangle",
+        "stream",
+        "string",
+        "string-ascii",
+        "string-byte",
+        "string-text"
+};
+
+/// @brief Arlingon pre-defined types which REQUIRE a Link - aka "Complex types" (alphabetically sorted)
+const std::vector<std::string>  CArlingtonTSVGrammarFile::arl_complex_types = {
+    "array",
+    "dictionary",
+    "name-tree",
+    "number-tree",
+    "stream"
+};
+
+/// @brief Arlington pre-defined types that must NOT have Links - aka "Non-complex types" (alphabetically sorted)
+const std::vector<std::string>  CArlingtonTSVGrammarFile::arl_non_complex_types = {
+    "array",
+    "bitmask",
+    "boolean",
+    "date",
+    "integer",
+    "matrix",
+    "name",
+    "null",
+    "number",
+    "rectangle",
+    "string",
+    "string-ascii",
+    "string-byte",
+    "string-text"
+};
+
+
+// @brief Arlington PDF versions
+const std::vector<std::string>  CArlingtonTSVGrammarFile::arl_pdf_versions = {
+    "1.0",
+    "1.1",
+    "1.2",
+    "1.3",
+    "1.4",
+    "1.5",
+    "1.6",
+    "1.7",
+    "2.0",
+};
+
 
 /// @brief  Parses through a TSV file line by line and loads TSV data into data_list
 /// @return returns false if TSV data is malformed, else returns true
@@ -50,6 +114,7 @@ bool CArlingtonTSVGrammarFile::load()
             return false;
         }
 
+        // Move header row separately, so data is pure
         if (header_list.empty())
             header_list = vec;
         else
@@ -62,7 +127,7 @@ bool CArlingtonTSVGrammarFile::load()
 }
 
 /// @brief  Returns the name of the TSV without folder or file extension
-/// @return just the TSV filename (no folder, no extension)
+/// @return just the TSV filename (no folder, no extension) as a string
 std::string CArlingtonTSVGrammarFile::get_tsv_name()
 {
     return tsv_file_name.stem().string();
@@ -80,7 +145,7 @@ fs::path CArlingtonTSVGrammarFile::get_tsv_dir()
 
 /// @brief   Returns raw TSV data as a vector of vector of strings
 /// @return  internal data_list (vector of vector of strings)
-const std::vector<std::vector<std::string>>& CArlingtonTSVGrammarFile::get_data()
+const ArlTSVmatrix& CArlingtonTSVGrammarFile::get_data()
 {
     return data_list;
 }

@@ -19,10 +19,12 @@
 
 #pragma once
 
-// Choose which PDF SDK you want to use. Some may have more functionality than others
+// Choose which PDF SDK you want to use. Some may have more functionality than others. pdfium is default
+#if !defined(ARL_PDFSDK_PDFIUM) && !defined(ARL_PDFSDK_PDFIX) && !defined(ARL_PDFSDK_QPDF)
 #define ARL_PDFSDK_PDFIUM
 #undef ARL_PDFSDK_PDFIX
 #undef ARL_PDFSDK_QPDF
+#endif
 
 
 #include <iostream>

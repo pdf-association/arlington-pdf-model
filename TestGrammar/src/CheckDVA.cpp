@@ -189,7 +189,7 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary* 
             ofs << "ERROR: loading Arlington TSV file " << (tsv_dir / (elem.link + ".tsv")) << std::endl;
             continue;
         }
-        const std::vector<std::vector<std::string>>* data_list = &reader->get_data();
+        const ArlTSVmatrix* data_list = &reader->get_data();
         ofs << std::endl << count++ << ": Comparing Arlington:" << elem.link << " vs DVA:" << ToUtf8(elem.dva_link) << std::endl;
 
         // what Arlington has and Adobe DVA doesn't

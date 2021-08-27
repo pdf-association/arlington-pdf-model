@@ -80,12 +80,6 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
 #include <crtdbg.h>
 
 int wmain(int argc, wchar_t* argv[]) {
-    // Suppress windows dialogs for assertions and errors - send to stderr instead during batch CLI processing
-    _CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_FILE);
-    _CrtSetReportFile(_CRT_ERROR, _CRTDBG_FILE_STDERR);
-    _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
-    _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);
-
     // Convert wchar_t* to char* for command line processing
     mbstate_t   state;
     char        **mbcsargv = new char*[argc];
@@ -120,6 +114,7 @@ int main(int argc, char* argv[]) {
     sarge.setArgument("c", "checkdva", "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
     sarge.setArgument("v", "validate", "validate the Arlington PDF model.", false);
     sarge.setArgument("d", "debug",    "output additional debugging information (verbose!)", false);
+    sarge.setArgument("b", "batchmode", "stop popup error dialog windows - redirect errors to console", false);
 
 #if defined(_WIN32) || defined(WIN32)
     if (!sarge.parseArguments(argc, mbcsargv)) {
@@ -149,7 +144,17 @@ int main(int argc, char* argv[]) {
     fs::path        input_file;         // input PDF or Adobe DVA
     std::ofstream   ofs;                // output filestream
     bool            debug_mode = sarge.exists("debug");
-    bool            do_nothing = sarge.exists("do-nothing");
+
+#if defined(_WIN32) || defined(WIN32)
+    if (sarge.exists("batchmode")) {
+        // Suppress windows dialogs for assertions and errors - send to stderr instead during batch CLI processing
+        _CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_FILE);
+        _CrtSetReportFile(_CRT_ERROR, _CRTDBG_FILE_STDERR);
+        _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
+        _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);
+    }
+#endif
+
 
     // --tsvdir is required option
     if (!sarge.getFlag("tsvdir", s)) {

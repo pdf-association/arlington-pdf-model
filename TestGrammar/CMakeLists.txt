@@ -11,6 +11,7 @@ set(SOURCES
     src/CheckDVA.cpp
     src/CheckGrammar.cpp
     src/ParseObjects.cpp
+    src/PredicateProcessor.cpp
     src/Utils.cpp
     sarge/sarge.cpp
     )

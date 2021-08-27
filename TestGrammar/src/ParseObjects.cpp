@@ -25,24 +25,24 @@
 #include <algorithm> 
 #include <codecvt>
 #include <math.h>
-#include <assert.h>
+#include <cassert>
 #include <regex>
 #include <algorithm>
 
 #include "ArlingtonTSVGrammarFile.h"
 #include "ParseObjects.h"
-#include "ArlingtonPDFShim.h"
+#include "PredicateProcessor.h"
 #include "utils.h"
 
 using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
 
-/// @brief Locates or reads in a single Arlington TSV grammar file. The input data is not altered or validated.
+/// @brief Locates or reads in a single Arlington TSV grammar file. The input data is not altered or validated. 
 /// 
-/// @param[in] link   the name of the Arlington TSV grammar file without ".tsv" extension
+/// @param[in] link   the stub name of an Arlington TSV grammar file from the TSV data (i.e. without folder or ".tsv" extension)
 /// 
 /// @returns          a row/column matrix (vector of vector) of raw strings directly from the TSV file
-const std::vector<std::vector<std::string>>* CParsePDF::get_grammar(const std::string &link) 
+const ArlTSVmatrix& CParsePDF::get_grammar(const std::string &link)
 {
     auto it = grammar_map.find(link);
     if (it == grammar_map.end()) 
@@ -51,11 +51,11 @@ const std::vector<std::vector<std::string>>* CParsePDF::get_grammar(const std::s
         grammar_file /= link + ".tsv";
         std::unique_ptr<CArlingtonTSVGrammarFile> reader(new CArlingtonTSVGrammarFile(grammar_file));
         reader->load();
-        const std::vector<std::vector<std::string>>* to_ret = &reader->get_data();
+        const ArlTSVmatrix& to_ret = reader->get_data();
         grammar_map.insert(std::make_pair(link, std::move(reader)));
         return to_ret;
     }
-    return &it->second->get_data();
+    return it->second->get_data();
 }
 
 
@@ -64,14 +64,17 @@ const std::vector<std::vector<std::string>>* CParsePDF::get_grammar(const std::s
 /// @todo Arlington predicates in the PossibleValues are NOT currently supported
 /// 
 /// @param[in] object                a valid PDF object
-/// @param[in] possible_value_str    string of possible values from Arlington TSV data. Cannot be NULL. 
-/// @param[in] index                 >= 0. Index into PossibleValues if it is a complex type ([];[];[])
+/// @param[in] key_idx               >= 0. Index into the TSV data for thsi key/array element.
+/// @param[in] tsv_data              full Arlington TSV data for this PDF object. 
+/// @param[in] index                 >= 0. Index into Types field supporting complex types ([];[];[])
 /// @param[out] real_str_value       the key value converted to a string representation
 ///
 /// @returns true if and only if PDF object has the correct type and a valid value according to PossibleValues.
-bool CParsePDF::check_possible_values(ArlPDFObject* object, const std::string& possible_value_str, int index, std::wstring &real_str_value) {
+bool CParsePDF::check_possible_values(ArlPDFObject* object, int key_idx, const ArlTSVmatrix &tsv_data, const int index, std::wstring &real_str_value) {
     double num_value;
     assert(object != nullptr);
+    assert(key_idx >= 0);
+    assert(key_idx < tsv_data.size());
     assert(index >= 0);
 
     switch (object->get_object_type())
@@ -109,13 +112,25 @@ bool CParsePDF::check_possible_values(ArlPDFObject* object, const std::string& p
             break;
     } // switch
 
+    // Need to cope with wildcard keys "*" in TSV data as key_idx might be beyond rows in tsv_data
+    if (key_idx >= tsv_data.size()) {
+        if (tsv_data[0][TSV_KEYNAME] == "*")
+            key_idx = 0;
+        else if (tsv_data[tsv_data.size() - 1][TSV_KEYNAME] == "*")
+            key_idx = (int)tsv_data.size() - 1;
+        else {
+            /// @todo Arlington has more complex repetition patterns which are not supported 
+            return false;
+        }
+    }
+
     /// possible_value_str might be something like: [a,fn:A(b),c];[];[d,fn:C(xx,fn:B(yyy,e)),f]
 
-    if (possible_value_str == "") {
+    if (tsv_data[key_idx][TSV_POSSIBLEVALUES] == "") {
         return true; // no PossibleValues defined at all in Arlington so any value is OK   
     }    
     else {
-        std::vector<std::string>    options = split(possible_value_str, ';');
+        std::vector<std::string>    options = split(tsv_data[key_idx][TSV_POSSIBLEVALUES], ';');
         assert(index < options.size());
 
         std::string  possible_vals = options[index];
@@ -174,7 +189,7 @@ bool CParsePDF::check_possible_values(ArlPDFObject* object, const std::string& p
 ///  e.g. fn:IsRequired(fn:IsPresent(Solidities)); fn:IsRequired(@SubFilter==adbe.pkcs7.s3 || @SubFilter==adbe.pkcs7.s4)
 ///
 /// @returns true if the key is required. false if the key is not required or the predicate is too complex
-bool CParsePDF::is_required_key(ArlPDFObject* obj, std::string reqd) {
+bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd) {
     assert(obj != nullptr);
 
     if (reqd == "TRUE")
@@ -299,7 +314,7 @@ std::string CParsePDF::select_one(ArlPDFObject* obj, const std::string &links_st
     int min_score = 1000;
     // checking all links to see which one is suitable for provided object 
     for (auto i = 0; i < (int)links.size(); i++) {
-        const std::vector<std::vector<std::string>>* data_list = get_grammar(links[i]);
+        const ArlTSVmatrix& data_list = get_grammar(links[i]);
 
         auto j = 0;
         auto link_score = 0;
@@ -309,7 +324,7 @@ std::string CParsePDF::select_one(ArlPDFObject* obj, const std::string &links_st
             (obj_type == PDFObjectType::ArlPDFObjTypeArray)) {
             // Are all "required" fields has to be present?
             // and if required value is defined then does it match with possible value?
-            for (auto& vec : *data_list) {
+            for (auto& vec : data_list) {
                 j++;
                 if (is_required_key(obj, vec[TSV_REQUIRED])) {
                     ArlPDFObject* inner_object = nullptr;
@@ -341,7 +356,7 @@ std::string CParsePDF::select_one(ArlPDFObject* obj, const std::string &links_st
                         if (index != -1) {
                             if (vec[TSV_POSSIBLEVALUES] != "") {
                                 std::wstring str_value;
-                                if (check_possible_values(inner_object, vec[TSV_POSSIBLEVALUES], index, str_value)) {
+                                if (check_possible_values(inner_object, j-1, data_list, index, str_value)) {
                                     if (vec[TSV_KEYNAME] == "Type" || vec[TSV_KEYNAME] == "Subtype")
                                         link_score -= 10; // Type or Subtype key with a correct value!! 
                                     else 
@@ -506,25 +521,39 @@ std::string CParsePDF::get_type_string(ArlPDFObject *obj) {
 ///   - indirect
 ///   - possible value
 /// 
-/// @param[in]   object  the PDF object to validate
-/// @param[in]   vec     the Arlington PDF model definition read from a TSV
+/// @param[in]   object        the PDF object to check
+/// @param[in]   key_idx       >= 0. Index into TSV data for this PDF object
+/// @param[in]   tsv_data      the full Arlington PDF model definition read from a TSV
 /// @param[in]   grammar_file  the name Arlington PDF model filename (object name) used for error messages
-void CParsePDF::check_basics(ArlPDFObject *object, const std::vector<std::string> &vec, const fs::path &grammar_file) {
+void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path &grammar_file) {
     assert(object != nullptr);
+    assert(key_idx >= 0);
     auto obj_type = object->get_object_type();
+
+    // Need to cope with wildcard keys "*" in TSV data as key_idx might be beyond rows in tsv_data
+    if (key_idx >= tsv_data.size()) {
+        if (tsv_data[0][TSV_KEYNAME] == "*") 
+            key_idx = 0;
+        else if (tsv_data[tsv_data.size()-1][TSV_KEYNAME] == "*")
+            key_idx = (int)tsv_data.size() - 1;
+        else {
+            /// @todo Arlington has more complex repetition patterns which are not supported 
+            return;
+        }
+    }
 
     // Treat null object as though the key is not present (i.e. don't report an error)
     /// @todo: is that good condition?
-    if ((vec[TSV_INDIRECTREF] == "TRUE") && 
+    if ((tsv_data[key_idx][TSV_INDIRECTREF] == "TRUE") &&
         (!object->is_indirect_ref() && (obj_type != PDFObjectType::ArlPDFObjTypeNull) && (obj_type != PDFObjectType::ArlPDFObjTypeReference))) {
-        output << "Error: not an indirect reference as required: " << vec[TSV_KEYNAME] << " (" << grammar_file.stem() << ")" << std::endl;
+        output << "Error: not an indirect reference as required: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")" << std::endl;
     }
 
     // check type. "null" is always valid and same as not present so ignore.
-    int index = get_type_index_for_object(object, vec[TSV_TYPE]);
+    int index = get_type_index_for_object(object, tsv_data[key_idx][TSV_TYPE]);
     if ((obj_type != PDFObjectType::ArlPDFObjTypeNull) && (index == -1) /*&& vec[TSV_TYPE]!="ANY"*/) {
-        output << "Error: wrong type: " << vec[TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
-        output << " should be: " << vec[TSV_TYPE] << " and is " << get_type_string(object);
+        output << "Error: wrong type: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
+        output << " should be: " << tsv_data[key_idx][TSV_TYPE] << " and is " << get_type_string(object);
         if (object->get_object_number() != 0) {
             output << " for object #" << object->get_object_number();
         }
@@ -535,11 +564,11 @@ void CParsePDF::check_basics(ArlPDFObject *object, const std::vector<std::string
     // could be a pattern array;name --- [];[name1,name2]
     // could be single reference -- name1,name2
     // we should cover also single reference in brackets [name1,name2]
-    if ((vec[TSV_POSSIBLEVALUES] != "") && (index != -1)) {
+    if ((tsv_data[key_idx][TSV_POSSIBLEVALUES] != "") && (index != -1)) {
         std::wstring str_value;
-        if (!check_possible_values(object, vec[TSV_POSSIBLEVALUES], index, str_value)) {
-            output << "Error: wrong value: " << vec[TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
-            output << " should be: " << vec[TSV_TYPE] << " " << vec[TSV_POSSIBLEVALUES] << " and is ";
+        if (!check_possible_values(object, key_idx, tsv_data, index, str_value)) {
+            output << "Error: wrong value: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
+            output << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES] << " and is ";
             output << get_type_string(object) << "==" << ToUtf8(str_value);
             if (object->get_object_number() != 0) {
                 output << " for object #" << object->get_object_number();
@@ -708,7 +737,7 @@ void CParsePDF::parse_object()
 
         fs::path  grammar_file = grammar_folder;
         grammar_file /= elem.link + ".tsv";
-        const std::vector<std::vector<std::string>>* data_list = get_grammar(elem.link);
+        const ArlTSVmatrix &data_list = get_grammar(elem.link);
 
         // Validating as dictionary:
         // - going through all objects in dictionary 
@@ -735,15 +764,18 @@ void CParsePDF::parse_object()
                 // might have wrong/malformed object. Key exists but value does not
                 if (inner_obj != nullptr) {
                     bool is_found = false;
-                    for (auto& vec : *data_list)
+                    int key_idx = -1;
+                    for (auto& vec : data_list) {
+                        key_idx++; 
                         if (vec[TSV_KEYNAME] == ToUtf8(key)) {
-                            check_basics(inner_obj, vec, grammar_file.filename());
+                            /// @todo check result????
+                            check_basics(inner_obj, key_idx, data_list, grammar_file.filename());
                             is_found = true;
                             break;
                         }
                         // we didn't find the key, there may be * we can use to validate
                         if (!is_found)
-                            for (auto& vec : *data_list)
+                            for (auto& vec : data_list)
                                 if ((vec[TSV_KEYNAME] == "*") && (vec[TSV_LINK] != "")) {
                                     std::string lnk = get_link_for_object(inner_obj, vec[TSV_TYPE], vec[TSV_LINK]);
                                     std::string as = ToUtf8(key);
@@ -751,6 +783,7 @@ void CParsePDF::parse_object()
                                     add_parse_object(inner_obj, direct_link, elem.context + "->" + as);
                                     break;
                                 }
+                    } // for
                 }
                 else {
                   // malformed file ?
@@ -759,7 +792,7 @@ void CParsePDF::parse_object()
             } // for
 
             // check presence of required values in object first, then parents if inheritable
-            for (auto& vec : *data_list) {
+            for (auto& vec : data_list) {
                 if (is_required_key(elem.object, vec[TSV_REQUIRED]) && (vec[TSV_KEYNAME] != "*")) {
                     ArlPDFObject* inner_obj = dictObj->get_value(ToWString(vec[TSV_KEYNAME]));
                     if (inner_obj == nullptr) {
@@ -774,7 +807,7 @@ void CParsePDF::parse_object()
             } // for
 
             // now go through containers and Process them with new grammar_file
-            for (auto& vec : *data_list) {
+            for (auto& vec : data_list) {
                 if (vec.size() >= TSV_NOTES && vec[TSV_LINK] != "") {
                     ArlPDFObject* inner_obj = dictObj->get_value(ToWString(vec[TSV_KEYNAME]));
                     if (inner_obj != nullptr) {
@@ -812,10 +845,10 @@ void CParsePDF::parse_object()
             for (int i = 0; i < arrayObj->get_num_elements(); ++i) {
                 ArlPDFObject* item = arrayObj->get_value(i);
                 if (item != nullptr) {
-                    for (auto& vec : *data_list) {
+                    for (auto& vec : data_list) {
                         if (vec[TSV_KEYNAME] == std::to_string(i) || vec[TSV_KEYNAME] == "*") {
                             // checking basics of the element
-                            check_basics(item, vec, grammar_file.filename());
+                            check_basics(item, i, data_list, grammar_file.filename());
                             if (vec[TSV_LINK] != "") {
                                 std::string lnk = get_link_for_object(item, vec[TSV_TYPE], vec[TSV_LINK]);
                                 std::string as = "[" + std::to_string(i) + "]";

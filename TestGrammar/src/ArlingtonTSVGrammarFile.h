@@ -28,95 +28,63 @@
 
 namespace fs = std::filesystem;
 
-// Arlington TSV column titles and numbers
+
+/// @brief  Representation of raw Arlington TSV string data (rows and columns)
+typedef std::vector<std::vector<std::string>> ArlTSVmatrix;
+
+
+/// @brief Arlington TSV column titles and numbers
 enum ArlingtonTSVColumns {
      TSV_KEYNAME         = 0,     // "*" means any
      TSV_TYPE            = 1,     // in alphabetical order of basic_types, "," separated
      TSV_SINCEVERSION    = 2,     // 1.0, 1.1, ..., 2.0
      TSV_DEPRECATEDIN    = 3,     // blank or 1.0, 1.1, ..., 2.0
-     TSV_REQUIRED        = 4,     // TRUE or FALSE
-     TSV_INDIRECTREF     = 5,     // TRUE or FALSE
+     TSV_REQUIRED        = 4,     // TRUE or FALSE or predicates
+     TSV_INDIRECTREF     = 5,     // TRUE or FALSE or predicates
      TSV_INHERITABLE     = 6,
      TSV_DEFAULTVALUE    = 7,
-     TSV_POSSIBLEVALUES  = 8,
+     TSV_POSSIBLEVALUES  = 8,     // predicates!!
      TSV_SPECIALCASE     = 9,     // ignore for now...
-     TSV_LINK            = 10,    // ";" separated list of "[xxx]"
+     TSV_LINK            = 10,    // ";" separated list of "[xxx]" with predicates
      TSV_NOTES           = 11     // free text
 };
 
 
 class CArlingtonTSVGrammarFile
 {
+private:
+    fs::path                    tsv_file_name;
+    ArlTSVmatrix                data_list;
+
 public:
     /// @brief All Arlington pre-defined types (alphabetically sorted)
-    const std::vector<std::string>  arl_all_types =
-        {
-            "array",
-            "bitmask",
-            "boolean",
-            "date",
-            "dictionary",
-            "integer",
-            "matrix",
-            "name",
-            "name-tree",
-            "null",
-            "number",
-            "number-tree",
-            "rectangle",
-            "stream",
-            "string",
-            "string-ascii",
-            "string-byte",
-            "string-text"
-         };
+    static const std::vector<std::string>  arl_all_types;
 
     /// @brief Arlingon pre-defined types which REQUIRE a Link - aka "Complex types" (alphabetically sorted)
-    const std::vector<std::string>  arl_complex_types =
-    {
-        "array",
-        "dictionary",
-        "name-tree",
-        "number-tree",
-        "stream"
-    };
+    static const std::vector<std::string>  arl_complex_types;
 
     /// @brief Arlington pre-defined types that must NOT have Links - aka "Non-complex types" (alphabetically sorted)
-    const std::vector<std::string>  arl_non_complex_types =
-    {
-        "array",
-        "bitmask",
-        "boolean",
-        "date",
-        "integer",
-        "matrix",
-        "name",
-        "null",
-        "number",
-        "rectangle",
-        "string",
-        "string-ascii",
-        "string-byte",
-        "string-text"
-    };
+    static const std::vector<std::string>  arl_non_complex_types;
 
-    fs::path                              tsv_file_name;
-    std::vector<std::vector<std::string>> data_list;
-    std::vector<std::string>              header_list;
+    // @brief Arlington PDF versions
+    static const std::vector<std::string>  arl_pdf_versions;
+
+    /// @brief TSV header row - public only so can validating all Arlington grammar files
+    std::vector<std::string>    header_list;
 
     CArlingtonTSVGrammarFile(fs::path tsv_name) :
         tsv_file_name(tsv_name)
     { /* constructor */ }
 
-    /// Function to fetch data from a TSV File
+    /// @brief Function to fetch data from a TSV File
     bool load();
 
-    // Returns the name of the TSV file (without path or extension)
+    /// @brief  Returns the name of the TSV file (without path or extension)
     std::string get_tsv_name();
 
-    // Returns the folder containing the TSV files (without any filename or extension)
+    /// @brief Returns the folder containing the TSV files (without any filename or extension)
     fs::path    get_tsv_dir();
 
-    /// Returns the raw TSV data
-    const std::vector<std::vector<std::string>>& get_data();
+    /// @brief Returns a reference to the raw TSV data from the TSV file
+    const ArlTSVmatrix& get_data();
 };

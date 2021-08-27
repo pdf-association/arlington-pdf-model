@@ -366,6 +366,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Include="..\..\src\ParseObjects.cpp" />
+    <ClCompile Include="..\..\src\PredicateProcessor.cpp" />
     <ClCompile Include="..\..\src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -603,6 +604,7 @@
     <ClInclude Include="..\..\src\CheckGrammar.h" />
     <ClInclude Include="..\..\src\ParseObjects.h" />
     <ClInclude Include="..\..\src\Pdfix.h" />
+    <ClInclude Include="..\..\src\PredicateProcessor.h" />
     <ClInclude Include="..\..\src\TestGrammarVers.h" />
     <ClInclude Include="..\..\src\utils.h" />
   </ItemGroup>

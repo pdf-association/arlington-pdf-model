@@ -22,8 +22,8 @@ It performs a number of functions:
     - Does **NOT** yet check or validate predicates (declarative functions)
 2. validates a PDF file against an Arlington TSV file set. Starting from trailer, the tool validates:
     - if all required keys are present (_inheritance is currently not implemented_)
-    - if values are of correct type (_processing of predicates (declarative functions) are not supported_) 
-    - if objects are indirect if required (_requires pdfium PDF SDK to be used_) 
+    - if values are of correct type (_processing of predicates (declarative functions) are not supported_)
+    - if objects are indirect if required (_requires pdfium PDF SDK to be used_)
     - if value is correct if `PossibleValues` are defined (_processing of predicates (declarative functions) are not supported_)
     - all error messages are prefixed with `Error:` to enable post-processing
 3. recursively validates a folder containing many PDF files.
@@ -57,7 +57,7 @@ Built using some-PDF-SDK v x.y.z
 
 ## Notes
 
-* TestGrammar PoC does NOT currently confirm PDF version validity, understand any predicates (declarative functions), or support inheritance
+* TestGrammar PoC does NOT currently confirm PDF version validity, understand most predicates (declarative functions), or support inheritance. So there will be a lot of false "Error:" messages!!!!
 
 * all error messages from validating PDF files are prefixed with `^Error:` to make regex-based post processing easier
 
@@ -71,8 +71,8 @@ Error: Can't select any link from ...
 Error: not an indirect reference as required: ...
 Error: wrong type: ...
 Error: wrong value: ...
-Error: non-inheritable required key doesn't exist
-Error: Error: required key doesn't exist (inheritance not checked) ...
+Error: non-inheritable required key doesn't exist ...
+Error: required key doesn't exist (inheritance not checked) ...
 Error: object validated in two different contexts. First: ...
 ```
 
@@ -84,16 +84,20 @@ A warning such as the following will be issued (because PDF 2.0 required keys ar
 Error: Can't select any link from \[FontType1,FontTrueType,FontMultipleMaster,FontType3,FontType0,FontCIDType0,FontCIDType2\] to validate provided object: xxx
 ```
 
+* all output should have a final line "END" (`grep --files-without-match "^END"`) - if not then something nasty has happened!
+
 ## Coding Conventions
 
 * platform independent C++17 with STL and minimal other dependencies (_no Boost please!_)
 * no tabs. 4 space indents
-* wstrings need to be used for many things (such as PDF names and strings) - don't assume ASCII or UTF-8!
+* std::wstrings need to be used for many things (such as PDF names and strings from PDF files) - don't assume ASCII or UTF-8!
+* can assume Arlington TSV data is ASCII/UTF-8
 * liberal comments with code readability
-* everything has Doxygen style `///` comments (as supported by Visual Studio IDE)
-* zero warnings on all builds and all platforms
+* classes and methods use Doxygen style `///` comments (as supported by Visual Studio IDE)
+* zero warnings on all builds and all platforms (excepting PDF SDKs)
 * all error messages matched with `^Error:` (i.e. case sensitive regex at start of a line)
-* do not create unncessary dependencies on specific PDF SDKs - isolate through a shim layer
+* do not create unnecessary dependencies on specific PDF SDKs - isolate through a shim layer
+* liberal use of asserts with the Arlington PDF model, which can be assumed to be correct (but never for data from PDF files!)
 * performance and memory is **not** critical (this is just a PoC!) - so long as a full Arlington model can be processed and reasonably-sized PDFs can be checked
 
 ## PDF SDK Requirements
@@ -102,15 +106,15 @@ Checking PDF files requires a PDF SDK with certain key features (_we shouldn't n
 * able to iterate over all keys in PDF dictionaries and arrays, including any additional keys not defined in the PDF spec
 * able to test if a specific key name exists in a PDF dictionary
 * able to report the true number of array elements  
-* able to report key value type against the 9 PDF basic object types
-* able to report if a key value is direct or an indirect reference - **this is a limiting factor for many PDF SDKs!**  
-* able to treat the trailer as a PDF dictionary and report if key values are direct or indirect references - **this is a limiting factor for many PDF SDKs!**  
-* able to report PDF object and generation numbers for objects that are not direct - **this is a limiting factor for some PDF SDKs!**  
+* able to report key value type against the 9 PDF basic object types (integer, number, boolean, name, string, dictionary, stream, array, null)
+* able to report if a key value is direct or an indirect reference - **this is a big limiting factor for many PDF SDKs!**  
+* able to treat the trailer as a PDF dictionary and report if key values are direct or indirect references - **this is a big limiting factor for many PDF SDKs!**  
+* able to report PDF object number for objects that are not direct - **this is a limiting factor for some PDF SDKs!**  
 * not confuse values, such as integer and real numbers, so that they are expressed exactly as they appear in a PDF file - **this is a limiting factor for some PDF SDKs!**
-* return the raw bytes from the PDF file for PDF name and string objects 
+* return the raw bytes from the PDF file for PDF name and string objects
 * not do any PDF version based processing while parsing
 
-All code for a specific PDF SDK should be kept isolated in a single shim layer CPP file so that all Arlington specific logic and validation checks can be performed against the minimally simple API defined in `ArlingtonPDFShim.h`.
+All code for a specific PDF SDK should be kept isolated in a single shim layer CPP file so that all Arlington specific logic and validation checks can be performed against the minimally simple API defined in `ArlingtonPDFShim.h`. There are #defines to select which PDF SDK to build with.
 
 ## Source code dependencies
 
@@ -137,7 +141,7 @@ TestGrammar has the following module dependencies:
   - slightly modified to support wide-string command lines and remove compiler warnings across all platforms and buids  
 
 * QPDF: an OSS PDF SDK
-  - still work-in-progress
+  - still work-in-progress / incomplete - **DO NOT USE**
   - download `qpdf-10.x.y-bin-msvc64.zip` from https://github.com/qpdf/qpdf/releases
   - place into `./qpdf`
 

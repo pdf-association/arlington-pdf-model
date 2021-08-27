@@ -208,7 +208,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, std::ostream& ofs) {
             gf = grammar_folder / gfile;
             CArlingtonTSVGrammarFile reader(gf);
             reader.load();
-            const std::vector<std::vector<std::string>>& data = reader.get_data();
+            const ArlTSVmatrix &data = reader.get_data();
             for (auto& vc : data) {
                 if (vc[TSV_LINK] != "") {
                     std::vector<std::string> links = split(vc[TSV_LINK], ';');
