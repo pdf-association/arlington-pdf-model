@@ -22,51 +22,138 @@ using namespace ArlingtonPDFShim;
 
 class PredicateProcessor {
 protected:
+    /// @brief Single field from a row in an Arlington TSV grammar file
     std::string     tsv_field;
 public:
     PredicateProcessor(std::string s) : 
         tsv_field(s)
         { /* constructor */ };
-    virtual bool ValidateSyntax() = 0;
+    virtual bool ValidateRowSyntax() = 0;
+};
+
+
+/// @brief Implements predicate support for the Arlington "Key" field (column 1) 
+/// - No COMMAs or SEMI-COLONs
+/// - any alphanumeric or "." or "-" or "_"
+/// - any integer (array index)
+/// - wildcard "*" - must be last row
+/// - all rows are integer + "*" for a repeating set of N array elements
+class KeyPredicateProcessor : public PredicateProcessor {
+public:
+    KeyPredicateProcessor(std::string s) :
+        PredicateProcessor(s)
+        { /* constructor */ };
+    virtual bool ValidateRowSyntax();
 };
 
 
 /// @brief Implements predicate support for the Arlington "Type" field (column 2) 
-/// fn:SinceVersion(x.y,type)
-/// fn:Deprecated(x.y,type)
-/// fn:BeforeVersion(x.y,type)
-/// fn:IsPDFVersion(x.y,type)
+/// - SEMI-COLON separated, alphabetically sorted
+/// - fn:SinceVersion(x.y,type)
+/// - fn:Deprecated(x.y,type)
+/// - fn:BeforeVersion(x.y,type)
+/// - fn:IsPDFVersion(x.y,type)
 class TypePredicateProcessor : public PredicateProcessor {
 public:
     TypePredicateProcessor(std::string s) : 
         PredicateProcessor(s)
         { /* constructor */ };
-    virtual bool ValidateSyntax();
-    std::string Process(const std::string pdf_version);
+    virtual bool ValidateRowSyntax();
+    std::string ReduceRow(const std::string pdf_version);
+};
+
+
+/// @brief Implements predicate support for the Arlington "SinceVersion" field (column 3) 
+/// - only "1.0" or "1.1" or ... or "1.7 or "2.0"
+class SinceVersionPredicateProcessor : public PredicateProcessor {
+public:
+    SinceVersionPredicateProcessor(std::string s) :
+        PredicateProcessor(s)
+        { /* constructor */ };
+    virtual bool ValidateRowSyntax();
+    bool ReduceRow(const std::string pdf_version);
+};
+
+
+/// @brief Implements predicate support for the Arlington "DeprecatedIn" field (column 4) 
+/// - only blank ("") or "1.0" or "1.1" or ... or "1.7 or "2.0"
+class DeprecatedInPredicateProcessor : public PredicateProcessor {
+public:
+    DeprecatedInPredicateProcessor(std::string s) :
+        PredicateProcessor(s)
+        { /* constructor */ };
+    virtual bool ValidateRowSyntax();
+    bool ReduceRow(const std::string pdf_version);
 };
 
 
 /// @brief Implements predicate support for the Arlington "Required" field (column 5) 
-/// - never [];[];[]
-/// - fn:IsRequired(...) is always the outer predicate.
-/// Inner predicates include the following (incl. && and || multiple expressions):
-/// - fn:NotPresent(key), fn:IsPresent(key)
-/// - fn:SinceVersion(x.y)
-/// - @key==value, @key!=value 
+/// - either TRUE, FALSE or fn:IsRequired(...)
+/// - inner can be very flexible, including logical " && " and " || " expressions:
+///   . fn:BeforeVersion(x.y), fn:IsPDFVersion(x.y)
+///   . fn:IsPresent(key) or fn:NotPresent(key)
+///   . @key==... or @key!=...
+///   . use of Arlington-PDF-Path "::", "parent::"
+///   . various highly specialized predicates: fn:IsEncryptedWrapper(), fn:NotStandard14Font(), ...
 class RequiredPredicateProcessor : public PredicateProcessor {
-
+public:
+    RequiredPredicateProcessor(std::string s) :
+        PredicateProcessor(s)
+    { /* constructor */
+    };
+    virtual bool ValidateRowSyntax();
+    bool ReduceRow(const std::string pdf_version, ArlPDFObject* obj);
 };
+
 
 
 /// @brief Implements predicate support for the Arlington "IndirectReference" field (column 6) 
 /// - [];[];[]
 /// - fn:MustBeDirect()
-/// - fn:MustBeDirect(fn:IsPresent(Encrypt))
+/// - fn:MustBeDirect(fn:IsPresent(key))
 class IndirectRefPredicateProcessor : public PredicateProcessor {
 public:
     IndirectRefPredicateProcessor(std::string s) :
         PredicateProcessor(s)
         { /* constructor */ };
-    virtual bool ValidateSyntax();
-    bool Process(ArlPDFObject* obj);
+    virtual bool ValidateRowSyntax();
 };
+
+
+/// @brief Implements predicate support for the Arlington "Inheritable" field (column 7)
+/// -- TRUE or FALSE only
+class InheritablePredicateProcessor : public PredicateProcessor {
+public:
+    InheritablePredicateProcessor(std::string s) :
+        PredicateProcessor(s)
+        { /* constructor */ };
+    virtual bool ValidateRowSyntax();
+    bool ReduceRow();
+};
+
+
+/// @brief Implements predicate support for the Arlington "DefaultValue" field (column 8)
+
+
+/// @brief Implements predicate support for the Arlington "PossibleValues" field (column 9)
+
+
+/// @brief Implements predicate support for the Arlington "SpecialCase" field (column 10)
+
+
+/// @brief Implements predicate support for the Arlington "Links" field (column 11) 
+/// - [];[];[]
+/// - fn:SinceVersion(x.y,type)
+/// - fn:Deprecated(x.y,type)
+/// - fn:BeforeVersion(x.y,type)
+/// - fn:IsPDFVersion(x.y,type)
+class LinkPredicateProcessor : public PredicateProcessor {
+public:
+    LinkPredicateProcessor(std::string s) :
+        PredicateProcessor(s)
+        { /* constructor */ };
+    virtual bool ValidateRowSyntax();
+    std::string LinkPredicateProcessor::ReduceRow(const std::string pdf_version);
+};
+
+/// Arlington "Notes" field (column 12) - free form text so no support required
