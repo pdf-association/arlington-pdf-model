@@ -42,10 +42,10 @@ class CParsePDF
     // storing hash_id of object and link with which we validated the object 
     std::map<std::string, std::string>      mapped;
   
-    // the Arlington PDF model (cache of loaded grammar files)
+    /// the Arlington PDF model (cache of loaded TSV grammar files)
     std::map<std::string, std::unique_ptr<CArlingtonTSVGrammarFile>>  grammar_map;
 
-    // simulating recursive processing of the ArlPDFObjects
+    /// simulating recursive processing of the ArlPDFObjects
     struct queue_elem {
         ArlPDFObject* object;
         std::string   link;
@@ -75,10 +75,11 @@ public:
 
     std::string select_one(ArlPDFObject* obj, const std::string &links_string, std::string &obj_name);
     std::string get_link_for_object(ArlPDFObject* obj, const std::string &types, const std::string &links);
-    int get_type_index_for_object(ArlPDFObject*obj, std::string types);
+    int get_type_index_for_object(ArlPDFObject*obj, const std::string &types);
     std::string get_type_string(ArlPDFObject*obj);
-    void check_basics(ArlPDFObject * ArlPDFObject, const std::vector<std::string> &vec, const std::string &grammar_file);
-    bool check_possible_values(ArlPDFObject* object, const std::string& possible_value_str, int index, std::wstring& real_str_value);
+    void check_basics(ArlPDFObject * ArlPDFObject, const std::vector<std::string> &vec, const fs::path &grammar_file);
+    bool check_possible_values(ArlPDFObject* object, const std::string &possible_value_str, int index, std::wstring &real_str_value);
+    bool is_required_key(ArlPDFObject* obj, std::string reqd);
 };
 
 #endif // ParseObjects_h
