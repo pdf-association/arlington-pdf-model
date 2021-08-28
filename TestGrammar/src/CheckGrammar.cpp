@@ -92,7 +92,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream
         (reader.header_list[TSV_SPECIALCASE]      != "SpecialCase") || 
         (reader.header_list[TSV_LINK]             != "Link") ||
         (reader.header_list[TSV_NOTES]            != "Note")) {
-        report_stream << "Wrong column headers for file: " << reader.get_tsv_name() << std::endl;
+        report_stream << "Error: wrong column headers for file: " << reader.get_tsv_name() << std::endl;
         retval = false;
     }
 
@@ -102,49 +102,49 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream
 
         KeyPredicateProcessor *key_validator = new KeyPredicateProcessor(vc[TSV_KEYNAME]);
         if (!key_validator->ValidateRowSyntax()) {
-            report_stream << "KeyName field validation error " << reader.get_tsv_name() << " for key " << vc[TSV_KEYNAME] << std::endl;
+            report_stream << "Error: KeyName field validation error " << reader.get_tsv_name() << " for key " << vc[TSV_KEYNAME] << std::endl;
             retval = false;
         }
         delete key_validator;
 
         SinceVersionPredicateProcessor* sincever_validator = new SinceVersionPredicateProcessor(vc[TSV_SINCEVERSION]);
         if (!sincever_validator->ValidateRowSyntax()) {
-            report_stream << "SinceVersion field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SINCEVERSION] << std::endl;
+            report_stream << "Error: SinceVersion field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SINCEVERSION] << std::endl;
             retval = false;
         }
         delete sincever_validator;
 
         DeprecatedInPredicateProcessor* depver_validator = new DeprecatedInPredicateProcessor(vc[TSV_DEPRECATEDIN]);
         if (!depver_validator->ValidateRowSyntax()) {
-            report_stream << "DeprecatedIn field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_DEPRECATEDIN] << std::endl;
+            report_stream << "Error: DeprecatedIn field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_DEPRECATEDIN] << std::endl;
             retval = false;
         }
         delete depver_validator;
 
         RequiredPredicateProcessor* reqd_validator = new RequiredPredicateProcessor(vc[TSV_REQUIRED]);
         if (!reqd_validator->ValidateRowSyntax()) {
-            report_stream << "Required field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_REQUIRED] << std::endl;
+            report_stream << "Error: Required field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_REQUIRED] << std::endl;
             retval = false;
         }
         delete reqd_validator;
 
         IndirectRefPredicateProcessor* ir_validator = new IndirectRefPredicateProcessor(vc[TSV_INDIRECTREF]);
         if (!ir_validator->ValidateRowSyntax()) {
-            report_stream << "IndirectRef field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INDIRECTREF] << std::endl;
+            report_stream << "Error: IndirectRef field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INDIRECTREF] << std::endl;
             retval = false;
         }
         delete ir_validator;
 
         InheritablePredicateProcessor* inherit_validator = new InheritablePredicateProcessor(vc[TSV_INHERITABLE]);
         if (!inherit_validator->ValidateRowSyntax()) {
-            report_stream << "Inheritable field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INHERITABLE] << std::endl;
+            report_stream << "Error: Inheritable field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INHERITABLE] << std::endl;
             retval = false;
         }
         delete inherit_validator;
 
         LinkPredicateProcessor* links_validator = new LinkPredicateProcessor(vc[TSV_LINK]);
         if (!links_validator->ValidateRowSyntax()) {
-            report_stream << "Link field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_LINK] << std::endl;
+            report_stream << "Error: Link field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_LINK] << std::endl;
             retval = false;
         }
         delete links_validator;
@@ -158,7 +158,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream
 
         if (vc[TSV_LINK] != "") {
             if (links.size() != types.size()) {
-                report_stream << "Wrong # of Types vs. # of links " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
+                report_stream << "Error: wrong # of Types vs. # of links " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
                 retval = false;
             }
             else {
@@ -173,18 +173,18 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream
                                   type) != CArlingtonTSVGrammarFile::arl_non_complex_types.end()) {
                         // type is a simple type - Links NOT expected
                         if (links[j] != "[]")  
-                            report_stream << "Basic type " << type << " should not be linked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << links[j] << std::endl;
+                            report_stream << "Error: basic type " << type << " should not be linked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << links[j] << std::endl;
                     }
                     else if (std::find(CArlingtonTSVGrammarFile::arl_complex_types.begin(),
                                        CArlingtonTSVGrammarFile::arl_complex_types.end(),
                                        type) != CArlingtonTSVGrammarFile::arl_complex_types.end()) {
                         // type is a complex type - Links are REQUIRED
                         if (links[j] == "[]")
-                            report_stream << "Complex type " << type << " is unlinked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
+                            report_stream << "Error: complex type " << type << " is unlinked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
                     }
                     else {
                         // unexpected type!
-                        report_stream << "Unexpected type " << type << " in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
+                        report_stream << "Error: unexpected type " << type << " in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
                     }
                 } // for 
             }
@@ -192,14 +192,14 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream
 
         if (vc[TSV_DEFAULTVALUE] != "") {
             if (types.size() != default_val.size()) {
-                report_stream << "Wrong # of types vs. # of DefaultValue " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
+                report_stream << "Error: wrong # of types vs. # of DefaultValue " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
                 retval = false;
             }
         }
 
         if (vc[TSV_POSSIBLEVALUES] != "") {
             if (types.size() != possible_vals.size()) {
-                report_stream << "Wrong # of types vs. # of PossibleValues " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
+                report_stream << "Error: wrong # of types vs. # of PossibleValues " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
                 retval = false;
             }
         }
@@ -278,17 +278,15 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, std::ostream& ofs) {
                 if (all_links != "") {
                     std::vector<std::string> links = split(all_links, ';');
                     for (auto type_link : links)
-                        if ((type_link != "") && (type_link != "[]")) {
+                        if ((type_link != "") && (type_link != "[]")) 
                             if ((type_link[0] == '[') && type_link[type_link.size()-1] == ']') {
                                 std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ','); // strip [ and ] then split by COMMA
                                 for (auto lnk : direct_links)
                                     if (lnk != "") 
                                         to_process.push_back(lnk + ".tsv");
                             }
-                            else {
+                            else 
                                 ofs << "Error: " << gfile << " has bad link '" << type_link << "' - missing enclosing [ ]" << std::endl;
-                            }
-                        }
                 }
             } // for
         } // if
@@ -298,9 +296,8 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, std::ostream& ofs) {
     for (const auto& entry : fs::directory_iterator(grammar_folder)) {
         if (entry.is_regular_file() && entry.path().extension().string() == ".tsv") {
             const auto tsv = entry.path().filename().string();
-            if (std::find(processed.begin(), processed.end(), tsv) == processed.end()) {
+            if (std::find(processed.begin(), processed.end(), tsv) == processed.end()) 
                 ofs << "Error: can't reach " << tsv << " from Trailer or XRefStream" << std::endl;
-            }
             gf = grammar_folder / tsv;
             CArlingtonTSVGrammarFile reader(gf);
             if (!reader.load())
