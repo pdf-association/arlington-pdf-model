@@ -39,6 +39,7 @@ import sly
 import typing
 import decimal
 import pikepdf
+import traceback
 
 
 class ArlingtonFnLexer(sly.Lexer):
@@ -345,8 +346,15 @@ class Arlington:
         @param ast: AST to be validated.
         @returns: True if a valid function. False otherwise
         """
-        if (len(ast) >= 4) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
-            return True
+        if not isinstance(ast[0], list):
+            if (len(ast) >= 4) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+                return True
+        else:
+            if ((len(ast) >= 3) and
+                ((ast[0][0].type == 'KEY_VALUE') and (ast[0][1].type in self.__comparison_ops)) and
+                (ast[1].type in ('LOGICAL_OR', 'LOGICAL_AND')) and
+                ((ast[2][0].type == 'KEY_VALUE') and (ast[2][1].type in self.__comparison_ops))):
+                return True;
         return False
 
 
@@ -788,7 +796,8 @@ class Arlington:
             logging.info("%d TSV files processed from %s", self.__filecount, self.__directory)
             self.__validating = False
         except Exception as e:
-            logging.critical("Exception: " + e)
+            logging.critical("Exception: " + str(e))
+            traceback.print_exception(type(e), e, e.__traceback__)
 
 
     def __validate_pdf_dom(self) -> None:
