@@ -8,15 +8,15 @@ BitsPerComponent	integer	1.0		fn:IsRequired((@Filter!=JPXDecode) || (ImageMask==
 Intent	name	1.1		FALSE	FALSE	FALSE					
 ImageMask	boolean	1.0		FALSE	FALSE	FALSE	false				
 Mask	array;stream	1.3		FALSE	[FALSE];[TRUE]	FALSE			fn:NotPresent(fn:IsPresent(ImageMask))	[ArrayOfIntegersGeneral];[fn:SinceVersion(1.3,XObjectImageMask)]	
-Decode	array	1.0		FALSE	FALSE	FALSE			fn:Ignore(@Filter==JPXDecode && fn:NotPresent(ColorSpace) && @ImageMask==false)	[ArrayOfNumbersGeneral]	
+Decode	array	1.0		FALSE	FALSE	FALSE			[fn:Ignore((@Filter==JPXDecode) && fn:NotPresent(ColorSpace) && (@ImageMask==false))]	[ArrayOfNumbersGeneral]	
 Interpolate	boolean	1.0		FALSE	FALSE	FALSE	false				
 Alternates	array	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfImageAlternates)]	
-SMask	stream	1.4		FALSE	TRUE	FALSE			fn:NotPresent(@SMaskInData>0)	[fn:SinceVersion(1.4,XObjectImageSoftMask)]	
+SMask	stream	1.4		FALSE	TRUE	FALSE			[fn:NotPresent(@SMaskInData>0)]	[fn:SinceVersion(1.4,XObjectImageSoftMask)]	
 SMaskInData	integer	1.5		FALSE	FALSE	FALSE		[0,1,2]			
 Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
 StructParent	integer	1.3		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					
 ID	string-byte	1.3		FALSE	FALSE	FALSE					
-OPI	dictionary	1.2	2.0	FALSE	FALSE	FALSE			fn:Ignore(@ImageMask==true)	[fn:SinceVersion(1.2,OPIVersion13),fn:SinceVersion(1.2,OPIVersion20)]	
+OPI	dictionary	1.2	2.0	FALSE	FALSE	FALSE			[fn:Ignore(@ImageMask==true)]	[fn:SinceVersion(1.2,OPIVersion13),fn:SinceVersion(1.2,OPIVersion20)]	
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[fn:SinceVersion(1.4,Metadata)]	
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,OptContentGroup),fn:SinceVersion(1.5,OptContentMembership)]	
 AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfFileSpecifications)];[fn:SinceVersion(1.1,FileSpecification)]	
