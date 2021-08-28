@@ -444,13 +444,13 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary* 
                             // includes nested predicates that also use COMMAs. Sigh!
                             // Split by ";" first to remove predicates as they use COMMAs as argument separators. 
                             /// @todo Spliting again by "," will not work properly as some predicates use COMMA!!! Hence garbled output sometimes.
-                            /// For now use remove_type_predicates() which removes fn:SinceVersion and fn:IsDeprecated predicates only.
+                            /// For now use remove_type_predicates() which removes fn:SinceVersion and fn:Deprecated predicates only.
                             std::vector<std::vector<std::string>>   possible_our;
                             {
                                 std::vector<std::string> pv_typed = split(vec[TSV_POSSIBLEVALUES], ';');
                                 std::string s;
                                 for (size_t i = 0; i < pv_typed.size(); i++) {
-                                    s = remove_type_predicates(pv_typed[i]);  // removes fn:SinceVersion and fn:IsDeprecated predicates only
+                                    s = remove_type_predicates(pv_typed[i]);  // removes fn:SinceVersion and fn:Deprecated predicates only
                                     if (s[0] == '[')
                                         s = s.substr(1, s.size() - 2); // strip off [ and ]
                                     pv_typed[i] = s;

@@ -48,7 +48,7 @@ public:
 
 
 /// @brief Implements predicate support for the Arlington "Type" field (column 2) 
-/// - SEMI-COLON separated, alphabetically sorted
+/// - SEMI-COLON separated, alphabetically sorted, but no [ ] brackets
 /// - fn:SinceVersion(x.y,type)
 /// - fn:Deprecated(x.y,type)
 /// - fn:BeforeVersion(x.y,type)
@@ -99,12 +99,10 @@ class RequiredPredicateProcessor : public PredicateProcessor {
 public:
     RequiredPredicateProcessor(std::string s) :
         PredicateProcessor(s)
-    { /* constructor */
-    };
+        { /* constructor */ };
     virtual bool ValidateRowSyntax();
     bool ReduceRow(const std::string pdf_version, ArlPDFObject* obj);
 };
-
 
 
 /// @brief Implements predicate support for the Arlington "IndirectReference" field (column 6) 
@@ -133,12 +131,20 @@ public:
 
 
 /// @brief Implements predicate support for the Arlington "DefaultValue" field (column 8)
+/// - can be [];[];[]
+/// - constants 
+/// 
 
 
 /// @brief Implements predicate support for the Arlington "PossibleValues" field (column 9)
+/// - can be [];[];[]
+/// - complex expressions
 
 
 /// @brief Implements predicate support for the Arlington "SpecialCase" field (column 10)
+/// - inconsistent [] or no [] at all
+/// - NO SEMI-COLONS
+/// - complex expressions
 
 
 /// @brief Implements predicate support for the Arlington "Links" field (column 11) 
@@ -156,4 +162,5 @@ public:
     std::string LinkPredicateProcessor::ReduceRow(const std::string pdf_version);
 };
 
-/// Arlington "Notes" field (column 12) - free form text so no support required
+/// Arlington "Notes" field (column 12) 
+/// - free form text so no support required

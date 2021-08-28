@@ -55,7 +55,6 @@ const std::vector<std::string>  CArlingtonTSVGrammarFile::arl_complex_types = {
 
 /// @brief Arlington pre-defined types that must NOT have Links - aka "Non-complex types" (alphabetically sorted)
 const std::vector<std::string>  CArlingtonTSVGrammarFile::arl_non_complex_types = {
-    "array",
     "bitmask",
     "boolean",
     "date",

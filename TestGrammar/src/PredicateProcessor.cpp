@@ -50,7 +50,7 @@ bool TypePredicateProcessor::ValidateRowSyntax() {
     if (tsv_field.find("fn:") == std::string::npos)
         return true;
 
-    std::regex      r_Types("fn:(SinceVersion|IsDeprecated|BeforeVersion|IsPDFVersion)\\(([1-9]\\.[0-9])\\,([a-z\\-]+)\\)");
+    std::regex      r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(([1-9]\\.[0-9])\\,([a-z\\-]+)\\)");
 
     std::vector<std::string> type_list = split(tsv_field, ';');
     for (auto t : type_list) {
@@ -71,8 +71,8 @@ bool TypePredicateProcessor::ValidateRowSyntax() {
 
             // m[3] = Arlington type
             valid = false;
-            for (auto t : CArlingtonTSVGrammarFile::arl_all_types) {
-                if (m[3] == t) {
+            for (auto arlt : CArlingtonTSVGrammarFile::arl_all_types) {
+                if (m[3] == arlt) {
                     valid = true;
                     break;
                 }
@@ -80,6 +80,19 @@ bool TypePredicateProcessor::ValidateRowSyntax() {
             if (!valid)
                 return false;
         }
+        else if (t.find("fn:") == std::string::npos) {
+            bool valid = false;
+            for (auto arlt : CArlingtonTSVGrammarFile::arl_all_types) {
+                if (t == arlt) {
+                    valid = true;
+                    break;
+                }
+            }
+            if (!valid)
+                return false;
+        }
+        else
+            return false;
     } // for    
     return true;
 }
@@ -98,7 +111,7 @@ std::string TypePredicateProcessor::ReduceRow(const std::string pdf_version) {
     if (tsv_field.find("fn:") == std::string::npos)
         return tsv_field;
 
-    std::regex      r_Types("fn:(SinceVersion|IsDeprecated|BeforeVersion|IsPDFVersion)\\(([1-9]\\.[0-9])\\,([a-z\\-]+)\\)");
+    std::regex      r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(([1-9]\\.[0-9])\\,([a-z\\-]+)\\)");
     std::string     to_ret = "";
 
     assert(pdf_version.size() == 3);
@@ -115,7 +128,7 @@ std::string TypePredicateProcessor::ReduceRow(const std::string pdf_version) {
             if (((m[1] == "SinceVersion")  && (pdf_v >= arl_v)) ||
                 ((m[1] == "BeforeVersion") && (pdf_v <  arl_v)) ||
                 ((m[1] == "IsPDFVersion")  && (pdf_v == arl_v)) ||
-                ((m[1] == "IsDeprecated")  && (pdf_v <  arl_v))) {
+                ((m[1] == "Deprecated")    && (pdf_v <  arl_v))) {
                 // m[3] = Arlington type
                 for (auto a : CArlingtonTSVGrammarFile::arl_all_types) {
                     if (m[3] == a) {
@@ -134,7 +147,7 @@ std::string TypePredicateProcessor::ReduceRow(const std::string pdf_version) {
                 to_ret = t;
             else
                 to_ret += ";" + t;
-        }
+        } 
     } // for
 
     assert(to_ret != "");
@@ -202,17 +215,21 @@ bool DeprecatedInPredicateProcessor::ReduceRow(const std::string pdf_version) {
 
 /// @brief Validates an Arlington "Required" field (column 5) 
 /// - either TRUE, FALSE or fn:IsRequired(...)
-/// - inner can be very flexible, including logical " && " and " || " expressions:
+/// - inner can be very flexible expressions, including logical operators " && " and " || ":
 ///   . fn:BeforeVersion(x.y), fn:IsPDFVersion(x.y)
 ///   . fn:IsPresent(key) or fn:NotPresent(key)
-///   . @key==... or @key!=...
-///   . use of Arlington-PDF-Path "::", "parent::"
+///   . @key==value or @key!=value
+///   . use of Arlington-PDF-Path key syntax "::", "parent::"
 ///   . various highly specialized predicates: fn:IsEncryptedWrapper(), fn:NotStandard14Font(), ...
 bool RequiredPredicateProcessor::ValidateRowSyntax() {
     if ((tsv_field == "TRUE") || (tsv_field == "FALSE"))
         return true;
+    else if ((tsv_field.find(";") != std::string::npos) ||
+             (tsv_field.find("[") != std::string::npos) ||
+             (tsv_field.find("]") != std::string::npos))
+        return false;
     else if ((tsv_field.find("fn:IsRequired(") == 0) && (tsv_field[tsv_field.size()-1] == ')')) {
-        std::string inner = tsv_field.substr(14, tsv_field.size()-15);
+        std::string expr = tsv_field.substr(14, tsv_field.size()-15);
         //////////////////////////////////////////////////////////////////////////////
         /// @todo
         //////////////////////////////////////////////////////////////////////////////
@@ -224,6 +241,7 @@ bool RequiredPredicateProcessor::ValidateRowSyntax() {
 
 /// @brief Reduces an Arlington "Required" field (column 5) for a given PDF version and PDF object 
 /// - either TRUE, FALSE or fn:IsRequired(...)
+/// - NO SEMI-COLONs or [ ]
 /// - inner can be very flexible, including logical && and || expressions:
 ///   . fn:BeforeVersion(x.y), fn:IsPDFVersion(x.y)
 ///   . fn:IsPresent(key) or fn:NotPresent(key)
@@ -238,6 +256,7 @@ bool RequiredPredicateProcessor::ReduceRow(const std::string pdf_version, ArlPDF
     else if (tsv_field == "FALSE")
         return false;
     else {
+        std::string expr = tsv_field.substr(14, tsv_field.size() - 15);
         //////////////////////////////////////////////////////////////////////////////
         /// @todo
         //////////////////////////////////////////////////////////////////////////////
