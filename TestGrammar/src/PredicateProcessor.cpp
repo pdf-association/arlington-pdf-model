@@ -24,6 +24,130 @@
 #include "PredicateProcessor.h"
 #include "utils.h"
 
+/// @brief Integer
+const std::string ArlInt = "(\\+|\\-)?[0-9]+";
+
+/// @brief Number (requires at least 1 decimal place either side of decimal point)
+const std::string ArlNum = ArlInt + "\\.[0-9]+";
+
+/// @brief Arlington key or array index regex, including path separator "::" and wildcards
+/// Examples: SomeKey, 3, parent::SomeKey, SomeKeyA::someKeyB::3, 
+const std::string  ArlKey      = "([a-zA-Z0-9_\\.\\-]+\\:\\:)?([a-zA-Z0-9_\\.\\-]+\\:\\:)?[a-zA-Z0-9_\\.\\-\\*]+";
+const std::string  ArlKeyValue = "([a-zA-Z0-9_\\.\\-]+\\:\\:)?([a-zA-Z0-9_\\.\\-]+\\:\\:)?@[a-zA-Z0-9_\\.\\-\\*]+";
+
+/// @brief Arlington PDF version regex (1.0, 1.1, ... 1.7, 2.0)
+const std::string  ArlPDFVersion = "(1\\.0|1\\.1|1\\.2|1\\.3|1\\.4|1\\.5|1\\.6|1\\.7|2\\.0)";
+
+/// @brief Arlington Type or Link (TSV filename)
+const std::string ArlTypeOrLink = "[a-zA-Z0-9_\\-\\.]+";
+
+/// @brief Arlington math comparisons and operators
+const std::string ArlMathComp = "(==|!=|>=|<=|>|<)";
+const std::string ArlMathOp   = " (mod|\\*) ";
+
+/// @brief Arlington logical operators
+const std::string ArlLogicalOp = " (&&|\\|\\||==) ";
+
+/// @brief Arlington PDF boolean keywords
+const std::string ArlBooleans = "(true|false)";
+
+/// @brief Arlington predicate without any parameters
+const std::string ArlPredicateNoArgs = "fn:[a-zA-Z14]+\\(\\)";
+
+/// @brief Ordered list of regex matches that should reduce well-formed predicates down to nothing (i.e. an empty string)
+const std::vector<std::regex> AllPredicateFunctions = {
+    // Bracketed expression components
+    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicateNoArgs + "\\)"),
+    std::regex("\\(" + ArlKeyValue + "==" + ArlBooleans + "\\)"),
+    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKeyValue + "\\)"),
+    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKey + "\\)"),
+    std::regex("\\(" + ArlKey + ArlMathComp + ArlKeyValue + "\\)"),
+    std::regex("\\(" + ArlKeyValue + " mod 90==0\\)"),
+    // Parameterless predicates - easy match
+    std::regex(ArlPredicateNoArgs),
+    // single PDF version arguments
+    std::regex("fn:SinceVersion\\(" + ArlPDFVersion + "\\)"),
+    std::regex("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\)"),
+    std::regex("fn:BeforeVersion\\(" + ArlPDFVersion + "\\)"),
+    std::regex("fn:Deprecated\\(" + ArlPDFVersion + "\\)"),
+    // 2 arguments: PDF version and type/link
+    //  - Not required as pre-processed via remove_type_predicates()
+    // Single integer arguments
+    std::regex("fn:BitClear\\(" + ArlInt + "\\)"),
+    std::regex("fn:BitSet\\(" + ArlInt + "\\)"),
+    // 2 integer arguments
+    std::regex("fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)"),
+    std::regex("fn:BitsSet\\(" + ArlInt + "," + ArlInt + "\\)"),
+    // single key / array index arguments
+    std::regex("fn:RectHeight\\(" + ArlKey + "\\)"),
+    std::regex("fn:RectWidth\\(" + ArlKey + "\\)"),
+    std::regex("fn:StringLength\\(" + ArlKey + "\\)==" + ArlInt),
+    std::regex("fn:ArrayLength\\(" + ArlKey + "\\)==" + ArlInt),
+    std::regex("fn:ArrayLength\\(" + ArlKey + "\\) == fn:ArrayLength\\(" + ArlKey + "\\)"),
+    std::regex("\\(fn:ArrayLength\\(" + ArlKey + "\\) mod 2\\)==0"),
+    std::regex("fn:Ignore\\(" + ArlKey + "\\)"),
+    std::regex("fn:InMap\\(" + ArlKey + "\\)"),
+    std::regex("fn:NotInMap\\(" + ArlKey + "\\)"),
+    std::regex("fn:IsPageNumber\\(" + ArlKeyValue + "\\)"),
+    std::regex("fn:IsPresent\\(" + ArlKey + "\\)"),
+    std::regex("fn:NotPresent\\(" + ArlKey + "\\)"),
+    std::regex("fn:MustBeDirect\\(" + ArlKey + "\\)"),
+    // More complex...
+    std::regex("fn:IsPresent\\(" + ArlKey + "," + ArlKey + "\\)"),
+    std::regex("fn:StringLength\\(" + ArlKey + "," + ArlKeyValue + ArlMathOp + ArlKey + "\\)" + ArlMathComp + ArlInt),
+    std::regex("fn:Required\\(" + ArlKeyValue + ArlMathComp + ArlKey + "," + ArlKey + "\\)"),
+    // unbracketed expression components
+    std::regex(ArlKeyValue + "==" + ArlBooleans),
+    std::regex(ArlKeyValue + ArlMathComp + ArlKeyValue),
+    std::regex(ArlKeyValue + ArlMathComp + ArlKey),
+    std::regex(ArlKey + ArlMathComp + ArlKeyValue),
+    // Logical operators after math operations stripped away
+    std::regex("\\(" + ArlLogicalOp + "\\)"),
+    std::regex(ArlLogicalOp),
+    // predicates with complex arguments (incl. nested functions) do last as previous regexes should have soaked up everything
+    std::regex(ArlPredicateNoArgs),
+    std::regex("^fn:Ignore"),
+    std::regex("^fn:IsMeaningful"),
+    std::regex("^fn:IsRequired"),
+    std::regex("^fn:NotPresent"),
+    std::regex("^fn:Eval")
+};
+
+
+/// @brief  Validates an Arlington predicate by regex-match search & replace-with-nothing removal.
+///         VERY INEFFICIENT and VER SLOW!!
+/// 
+/// @param[in] fn    the Arlington input containing predicates 
+/// @return          true if the predicate is reduced to the empty string, false otherwise
+bool ValidationByConsumption(const std::string& fn)
+{
+    bool ret_val = true;
+    std::regex    bad_result("[^a-zA-Z0-9_.\\-\\,]");
+    std::vector<std::string>  list = split(fn, ';');
+
+    for (auto& l : list) {
+        std::string s = l;
+        if ((s[0] == '[') && (s[s.size()-1] == ']'))    // Strip [ and ]
+            s = s.substr(1, s.size()-2);
+
+        // Keeps the type/link value so nested other predicates still match
+        s = remove_type_predicates(s);
+
+        for (auto r : AllPredicateFunctions) {
+            s = std::regex_replace(s, r, "");
+            // Remove any leading COMMA that was potentially between predicates that just got stripped
+            if ((s.size() > 0) && (s[0] == ','))
+                s = s.substr(1, s.size() - 1);
+        }
+        if (std::regex_search(s, bad_result)) {
+            std::cout << "\tIn:  '" << l << "'" << std::endl;
+            std::cout << "\tOut: '" << s << "'" << std::endl;
+            ret_val = false;
+        }
+    }
+    return ret_val;
+}
+
 
 /// @brief Validates an Arlington "Key" field (column 1) 
 /// - No COMMAs or SEMI-COLONs
@@ -33,14 +157,16 @@
 /// - integer + "*" for a repeating set of N array elements - all rows (cannot be checked here)
 bool KeyPredicateProcessor::ValidateRowSyntax() {
     std::regex      r_Keys("(\\*|[0-9]+|[0-9]+\\*|[a-zA-Z0-9\\-\\._]+)");
-    if (std::regex_search(tsv_field,r_Keys)) {
+    if (std::regex_search(tsv_field,r_Keys)) 
         return true;
-    }
     return false;
 }
 
 
+const std::regex r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(" + ArlPDFVersion + "\\,([a-z\\-]+)\\)");
+
 /// @brief Validates an Arlington "Type" field (column 2) 
+/// Arlington types are all lowercase.
 ///  - fn:SinceVersion(x.y,type)
 ///  - fn:Deprecated(x.y,type)
 ///  - fn:BeforeVersion(x.y,type)
@@ -50,10 +176,9 @@ bool TypePredicateProcessor::ValidateRowSyntax() {
     if (tsv_field.find("fn:") == std::string::npos)
         return true;
 
-    std::regex      r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(([1-9]\\.[0-9])\\,([a-z\\-]+)\\)");
 
     std::vector<std::string> type_list = split(tsv_field, ';');
-    for (auto t : type_list) {
+    for (auto& t : type_list) {
         std::smatch     m;
         if (std::regex_search(t, m, r_Types) && m.ready() && (m.size() == 4)) {
             // m[1] = predicate function name (no "fn:")
@@ -82,7 +207,7 @@ bool TypePredicateProcessor::ValidateRowSyntax() {
         }
         else if (t.find("fn:") == std::string::npos) {
             bool valid = false;
-            for (auto arlt : CArlingtonTSVGrammarFile::arl_all_types) {
+            for (auto& arlt : CArlingtonTSVGrammarFile::arl_all_types) {
                 if (t == arlt) {
                     valid = true;
                     break;
@@ -98,6 +223,7 @@ bool TypePredicateProcessor::ValidateRowSyntax() {
 }
 
 /// @brief Reduces an Arlington "Type" field (column 2) based on a PDF version
+/// Arlington types are always lowercase
 /// - [];[];[]
 /// - fn:SinceVersion(x.y,type)
 /// - fn:Deprecated(x.y,type)
@@ -111,13 +237,12 @@ std::string TypePredicateProcessor::ReduceRow(const std::string pdf_version) {
     if (tsv_field.find("fn:") == std::string::npos)
         return tsv_field;
 
-    std::regex      r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(([1-9]\\.[0-9])\\,([a-z\\-]+)\\)");
     std::string     to_ret = "";
 
     assert(pdf_version.size() == 3);
 
     std::vector<std::string> type_list = split(tsv_field, ';');
-    for (auto t : type_list) {
+    for (auto& t : type_list) {
         std::smatch     m;
         if (std::regex_search(t, m, r_Types) && m.ready() && (m.size() == 4)) {
             // m[1] = predicate function name (no "fn:")
@@ -130,7 +255,7 @@ std::string TypePredicateProcessor::ReduceRow(const std::string pdf_version) {
                 ((m[1] == "IsPDFVersion")  && (pdf_v == arl_v)) ||
                 ((m[1] == "Deprecated")    && (pdf_v <  arl_v))) {
                 // m[3] = Arlington type
-                for (auto a : CArlingtonTSVGrammarFile::arl_all_types) {
+                for (auto& a : CArlingtonTSVGrammarFile::arl_all_types) {
                     if (m[3] == a) {
                         if (to_ret == "")
                             to_ret = a;
@@ -160,7 +285,7 @@ std::string TypePredicateProcessor::ReduceRow(const std::string pdf_version) {
 /// - only "1.0" or "1.1" or ... or "1.7 or "2.0"
 bool SinceVersionPredicateProcessor::ValidateRowSyntax() {
     if (tsv_field.size() == 3) {
-        for (auto v : CArlingtonTSVGrammarFile::arl_pdf_versions)
+        for (auto& v : CArlingtonTSVGrammarFile::arl_pdf_versions)
             if (tsv_field == v) 
                 return true;
     }
@@ -188,7 +313,7 @@ bool DeprecatedInPredicateProcessor::ValidateRowSyntax() {
     if (tsv_field == "")
         return true;
     else if (tsv_field.size() == 3) {
-        for (auto v : CArlingtonTSVGrammarFile::arl_pdf_versions)
+        for (auto& v : CArlingtonTSVGrammarFile::arl_pdf_versions)
             if (tsv_field == v)
                 return true;
     }
@@ -234,7 +359,7 @@ bool RequiredPredicateProcessor::ValidateRowSyntax() {
         /// @todo
         //////////////////////////////////////////////////////////////////////////////
         return true;
-    }
+    } 
     return false;
 }
 
@@ -275,7 +400,7 @@ bool IndirectRefPredicateProcessor::ValidateRowSyntax() {
         return true;
 
     std::vector<std::string> indirect_list = split(tsv_field, ';');
-    for (auto ir : indirect_list) {
+    for (auto& ir : indirect_list) {
         if ((ir != "TRUE") && (ir != "FALSE") && (ir != "fn:MustBeDirect()") && (ir != "fn:MustBeDirect(fn:IsPresent(Encrypt))"))
             return false;
     } // for    
@@ -305,6 +430,8 @@ bool InheritablePredicateProcessor::ReduceRow() {
 
 
 
+const std::regex  r_Links("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(" + ArlPDFVersion + "\\,([a-zA-Z0-9_.\\-]+)\\)");
+
 /// @brief Validates an Arlington "Links" field (column 11) 
 ///  - fn:SinceVersion(x.y,link)
 ///  - fn:Deprecated(x.y,link)
@@ -315,17 +442,15 @@ bool LinkPredicateProcessor::ValidateRowSyntax() {
     if (tsv_field.find("fn:") == std::string::npos)
         return true;
 
-    std::regex      r_Links("fn:(SinceVersion|IsDeprecated|BeforeVersion|IsPDFVersion)\\(([1-9]\\.[0-9])\\,([a-z_0-9]+)\\)");
-
     std::vector<std::string> link_list = split(tsv_field, ';');
-    for (auto lnk : link_list) {
+    for (auto& lnk : link_list) {
         std::smatch     m;
         if (std::regex_search(lnk, m, r_Links) && m.ready() && (m.size() == 4)) {
             // m[1] = predicate function name (no "fn:")
 
             // m[2] = PDF version "x.y"
             bool valid = false;
-            for (auto v : CArlingtonTSVGrammarFile::arl_pdf_versions) {
+            for (auto& v : CArlingtonTSVGrammarFile::arl_pdf_versions) {
                 if (m[2] == v) {
                     valid = true;
                     break;
@@ -336,6 +461,8 @@ bool LinkPredicateProcessor::ValidateRowSyntax() {
 
             // m[3] = Arlington link (TSV filename)
         }
+        else if (lnk.find("fn:") != std::string::npos)
+            return false;
     } // for    
     return true;
 }
@@ -348,8 +475,6 @@ bool LinkPredicateProcessor::ValidateRowSyntax() {
 /// 
 /// @returns an Arlington Links field with all predicates removed. May be empty string "".
 std::string LinkPredicateProcessor::ReduceRow(const std::string pdf_version) {
-    std::regex      r_Links("fn:(SinceVersion|IsDeprecated|BeforeVersion|IsPDFVersion)\\(([1-9]\\.[0-9])\\,([a-z_0-9]+)\\)");
-
     // Nothing to do?
     if (tsv_field.find("fn:") == std::string::npos)
         return tsv_field;
@@ -367,7 +492,7 @@ std::string LinkPredicateProcessor::ReduceRow(const std::string pdf_version) {
             if (((m[1] == "SinceVersion")  && (pdf_v >= arl_v)) ||
                 ((m[1] == "BeforeVersion") && (pdf_v <  arl_v)) ||
                 ((m[1] == "IsPDFVersion")  && (pdf_v == arl_v)) ||
-                ((m[1] == "IsDeprecated")  && (pdf_v <  arl_v))) {
+                ((m[1] == "Deprecated")  && (pdf_v <  arl_v))) {
                 // m[3] = Arlington link
                 if (to_ret == "")
                     to_ret = m[3];

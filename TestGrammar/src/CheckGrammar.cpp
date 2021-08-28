@@ -64,7 +64,7 @@ int ci_find_substr(const T& str1, const T& str2, const std::locale& loc = std::l
 /// @param[in,out]  report_stream  open output stream to report errors
 /// 
 /// @return trues if Arlington TSV file is valid, false if there were any errors
-bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream)
+bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream& report_stream)
 {
     bool                        retval = true;
     auto                        data_list = reader.get_data();
@@ -94,6 +94,14 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream
         (reader.header_list[TSV_NOTES]            != "Note")) {
         report_stream << "Error: wrong column headers for file: " << reader.get_tsv_name() << std::endl;
         retval = false;
+    }
+
+    // SLOW!!! Use heavy regexes to reduce predicates to nothing if they are well formed...
+    if (verbose) {
+        for (auto& vc : data_list)
+            for (auto& col : vc)
+                if (col.find("fn:") != std::string::npos)
+                    ValidationByConsumption(col);
     }
 
     std::vector<std::string>    keys_list;
@@ -165,7 +173,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream
                 // Assumes same number of elements in both Types and Links vectors!
                 // Check basic types which must NOT have any Links and complex types which REQUIRE Links.
                 int j = -1;
-                for (auto type : types) {
+                for (auto& type : types) {
                     j++;
                     type = remove_type_predicates(type);
                     if (std::find(CArlingtonTSVGrammarFile::arl_non_complex_types.begin(), 
@@ -225,7 +233,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream
     std::regex      r_intWild("([0-9]+)\\*");
     bool            started_seq = false;
     int             next_int = 0;
-    for (auto k : keys_list) {
+    for (auto& k : keys_list) {
         std::smatch     m;
         if (std::regex_search(k, m, r_intWild) && m.ready() && (m.size() == 2)) {
             if (next_int != atoi(m[1].str().c_str())) {
@@ -249,7 +257,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::ostream& report_stream
 /// 
 /// @param[in] grammar_folder   folder containing a set of TSV files
 /// @param[in] ofs              open output stream 
-void ValidateGrammarFolder(const fs::path& grammar_folder, std::ostream& ofs) {
+void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::ostream& ofs) {
     // collecting all tsv starting from Trailer (traditional and XRefStream)
     std::vector<std::string>  processed;
     std::vector<std::string>  to_process;
@@ -257,6 +265,8 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, std::ostream& ofs) {
 
     ofs << "BEGIN - Arlington Validation Report - TestGrammar " << TestGrammar_VERSION << std::endl;
     ofs << "Arlington TSV data: " << fs::absolute(grammar_folder).lexically_normal() << std::endl;
+    if (verbose)
+        ofs << "Predicate reduction by regular expression is being attempted." << std::endl;
 
     // Dual entry points into the latest Arlington grammars.
     // Will report errors in PDF sets prior to PDF 1.5.
@@ -303,7 +313,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, std::ostream& ofs) {
             if (!reader.load())
                 ofs << "Error: can't load Arlington TSV grammar file " << gf << std::endl;
             else 
-                check_grammar(reader, ofs);
+                check_grammar(reader, verbose, ofs);
         } // if
     } // for
 

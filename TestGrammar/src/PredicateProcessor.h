@@ -20,6 +20,8 @@
 
 using namespace ArlingtonPDFShim;
 
+bool ValidationByConsumption(const std::string& fn);
+
 class PredicateProcessor {
 protected:
     /// @brief Single field from a row in an Arlington TSV grammar file

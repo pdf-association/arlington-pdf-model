@@ -205,9 +205,7 @@ int main(int argc, char* argv[]) {
                 ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
             }
         }
-        if (!ofs.is_open())
-            std::cout << std::endl;
-        ValidateGrammarFolder(grammar_folder, (save_path.empty() ? std::cout : ofs));
+        ValidateGrammarFolder(grammar_folder, debug_mode, (save_path.empty() ? std::cout : ofs));
         ofs.close();
         pdf_io.shutdown();
         return 0;
