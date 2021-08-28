@@ -52,26 +52,35 @@ const std::string ArlLogicalOp = " (&&|\\|\\||==) ";
 const std::string ArlBooleans = "(true|false)";
 
 /// @brief Arlington predicate without any parameters
-const std::string ArlPredicateNoArgs = "fn:[a-zA-Z14]+\\(\\)";
+const std::string ArlPredicate0Arg  = "fn:[a-zA-Z14]+\\(\\)";
+const std::string ArlPredicate1Arg  = "fn:[a-zA-Z14]+\\(" + ArlKey + "\\)";
+const std::string ArlPredicate1ArgV = "fn:[a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
 
 /// @brief Ordered list of regex matches that should reduce well-formed predicates down to nothing (i.e. an empty string)
 const std::vector<std::regex> AllPredicateFunctions = {
     // Bracketed expression components
-    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicateNoArgs + "\\)"),
+    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate0Arg + "\\)"),
+    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate1Arg + "\\)"),
+    std::regex("\\(" + ArlPredicate1Arg + ArlMathComp + ArlPredicate1Arg + "\\)"),
+    std::regex("\\(" + ArlPredicate1ArgV + ArlMathComp + ArlInt + "\\)"),
+    std::regex("\\(" + ArlPredicate1Arg + ArlMathComp + ArlInt + "\\)"),
     std::regex("\\(" + ArlKeyValue + "==" + ArlBooleans + "\\)"),
     std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKeyValue + "\\)"),
     std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKey + "\\)"),
     std::regex("\\(" + ArlKey + ArlMathComp + ArlKeyValue + "\\)"),
-    std::regex("\\(" + ArlKeyValue + " mod 90==0\\)"),
+    std::regex("\\(" + ArlKeyValue + " mod (90|8)==0\\)"),
     // Parameterless predicates - easy match
-    std::regex(ArlPredicateNoArgs),
+    std::regex(ArlPredicate0Arg),
     // single PDF version arguments
     std::regex("fn:SinceVersion\\(" + ArlPDFVersion + "\\)"),
     std::regex("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\)"),
     std::regex("fn:BeforeVersion\\(" + ArlPDFVersion + "\\)"),
     std::regex("fn:Deprecated\\(" + ArlPDFVersion + "\\)"),
     // 2 arguments: PDF version and type/link
-    //  - Not required as pre-processed via remove_type_predicates()
+    //  - Mostly not required as pre-processed via remove_type_predicates()
+    std::regex("fn:IsPDFVersion\\(1.0,fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)\\)"),
+    std::regex("fn:SinceVersion\\(2.0,fn:BitSet\\(" + ArlInt + "\\)\\)"),
+    std::regex("fn:SinceVersion\\(" + ArlPDFVersion + ",fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)\\)"),
     // Single integer arguments
     std::regex("fn:BitClear\\(" + ArlInt + "\\)"),
     std::regex("fn:BitSet\\(" + ArlInt + "\\)"),
@@ -81,9 +90,10 @@ const std::vector<std::regex> AllPredicateFunctions = {
     // single key / array index arguments
     std::regex("fn:RectHeight\\(" + ArlKey + "\\)"),
     std::regex("fn:RectWidth\\(" + ArlKey + "\\)"),
-    std::regex("fn:StringLength\\(" + ArlKey + "\\)==" + ArlInt),
-    std::regex("fn:ArrayLength\\(" + ArlKey + "\\)==" + ArlInt),
-    std::regex("fn:ArrayLength\\(" + ArlKey + "\\) == fn:ArrayLength\\(" + ArlKey + "\\)"),
+    std::regex("fn:StringLength\\(" + ArlKey + "," + ArlKeyValue + ArlMathOp + ArlInt + "\\)"),
+    std::regex("fn:StringLength\\(" + ArlKey + "\\)" + ArlMathComp + ArlInt),
+    std::regex("fn:ArrayLength\\(" + ArlKey + "\\)" + ArlMathComp + ArlInt),
+    std::regex("fn:ArrayLength\\(" + ArlKey + "\\) " + ArlMathComp + " fn:ArrayLength\\(" + ArlKey + "\\)"),
     std::regex("\\(fn:ArrayLength\\(" + ArlKey + "\\) mod 2\\)==0"),
     std::regex("fn:Ignore\\(" + ArlKey + "\\)"),
     std::regex("fn:InMap\\(" + ArlKey + "\\)"),
@@ -105,7 +115,7 @@ const std::vector<std::regex> AllPredicateFunctions = {
     std::regex("\\(" + ArlLogicalOp + "\\)"),
     std::regex(ArlLogicalOp),
     // predicates with complex arguments (incl. nested functions) do last as previous regexes should have soaked up everything
-    std::regex(ArlPredicateNoArgs),
+    std::regex(ArlPredicate0Arg),
     std::regex("^fn:Ignore"),
     std::regex("^fn:IsMeaningful"),
     std::regex("^fn:IsRequired"),
@@ -119,10 +129,11 @@ const std::vector<std::regex> AllPredicateFunctions = {
 /// 
 /// @param[in] fn    the Arlington input containing predicates 
 /// @return          true if the predicate is reduced to the empty string, false otherwise
-bool ValidationByConsumption(const std::string& fn)
+bool ValidationByConsumption(const std::string& tsv_file, const std::string& fn, std::ostream& ofs)
 {
     bool ret_val = true;
-    std::regex    bad_result("[^a-zA-Z0-9_.\\-\\,]");
+    bool show_tsv = false;
+    std::regex    bad_result("[^a-zA-Z0-9_. \\-\\,\\(\\)]");
     std::vector<std::string>  list = split(fn, ';');
 
     for (auto& l : list) {
@@ -140,8 +151,12 @@ bool ValidationByConsumption(const std::string& fn)
                 s = s.substr(1, s.size() - 1);
         }
         if (std::regex_search(s, bad_result)) {
-            std::cout << "\tIn:  '" << l << "'" << std::endl;
-            std::cout << "\tOut: '" << s << "'" << std::endl;
+            if (!show_tsv) {
+                ofs << "   " << tsv_file << ":" << std::endl;
+                show_tsv = true;
+            }
+            ofs << "\tIn:  '" << l << "'" << std::endl;
+            ofs << "\tOut: '" << s << "'" << std::endl;
             ret_val = false;
         }
     }

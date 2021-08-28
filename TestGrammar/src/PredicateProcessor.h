@@ -15,12 +15,13 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include <iostream>
 #include "ArlingtonTSVGrammarFile.h"
 #include "ArlingtonPDFShim.h"
 
 using namespace ArlingtonPDFShim;
 
-bool ValidationByConsumption(const std::string& fn);
+bool ValidationByConsumption(const std::string& tsv_file, const std::string& fn, std::ostream& ofs);
 
 class PredicateProcessor {
 protected:

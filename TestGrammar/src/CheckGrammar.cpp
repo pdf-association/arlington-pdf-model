@@ -101,7 +101,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
         for (auto& vc : data_list)
             for (auto& col : vc)
                 if (col.find("fn:") != std::string::npos)
-                    ValidationByConsumption(col);
+                    ValidationByConsumption(reader.get_tsv_name(), col, report_stream);
     }
 
     std::vector<std::string>    keys_list;
