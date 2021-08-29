@@ -16,12 +16,13 @@
 
 #include <exception>
 #include <iterator>
+#include <algorithm>
+#include <regex>
+#include <string>
 #include <queue>
 #include <map>
-#include <algorithm>
 #include <cctype>
 #include <iostream>
-#include <regex>
 
 #include "utils.h"
 #include "CheckGrammar.h"
@@ -68,6 +69,8 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
 {
     bool                        retval = true;
     auto                        data_list = reader.get_data();
+    std::vector<std::string>    keys_list;
+    std::vector<std::string>    vars_list;
 
     if (data_list.empty()) {
         report_stream << "Error: empty Arlington TSV grammar file: " << reader.get_tsv_name() << std::endl;
@@ -99,12 +102,21 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
     // SLOW!!! Use heavy regexes to reduce predicates to nothing if they are well formed...
     if (verbose) {
         for (auto& vc : data_list)
-            for (auto& col : vc)
+            for (auto& col : vc) {
                 if (col.find("fn:") != std::string::npos)
                     ValidationByConsumption(reader.get_tsv_name(), col, report_stream);
+
+                // Locate all local variables (@xxx) to see if they are also keys in this object
+                // Variables in other objects (yyy::@xxx) are NOT checked
+                std::smatch  m;
+                const std::regex   r_KeyValue("[^:]@([a-zA-Z0-9_]+)");
+                if (std::regex_search(col, m, r_KeyValue) && m.ready() && (m.size() > 0)) {
+                    for (int i = 1; i < m.size(); i += 2)
+                        vars_list.push_back(m[i].str());    
+                }
+            }
     }
 
-    std::vector<std::string>    keys_list;
     for (auto& vc : data_list) {
         keys_list.push_back(vc[TSV_KEYNAME]);
 
@@ -214,6 +226,13 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
 
         report_stream.flush();
     } // for
+
+    // Check if all local variables (@xxx) match a key in this object definition
+    if (vars_list.size() > 0) {
+        for (auto v : vars_list) 
+            if (std::find(keys_list.begin(), keys_list.end(), v) == keys_list.end())
+                report_stream << "Warning: referenced variable @" << v << " not a key in " << reader.get_tsv_name() << std::endl;
+    }
 
     // Check for duplicate keys in this TSV file
     auto it = std::unique(keys_list.begin(), keys_list.end());
