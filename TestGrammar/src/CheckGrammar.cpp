@@ -102,22 +102,30 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
     // SLOW!!! Use heavy regexes to reduce predicates to nothing if they are well formed...
     if (verbose) {
         for (auto& vc : data_list)
-            for (auto& col : vc) {
+            for (auto& col : vc)
                 if (col.find("fn:") != std::string::npos)
                     ValidationByConsumption(reader.get_tsv_name(), col, report_stream);
-
-                // Locate all local variables (@xxx) to see if they are also keys in this object
-                // Variables in other objects (yyy::@xxx) are NOT checked
-                std::smatch  m;
-                const std::regex   r_KeyValue("[^:]@([a-zA-Z0-9_]+)");
-                if (std::regex_search(col, m, r_KeyValue) && m.ready() && (m.size() > 0)) {
-                    for (int i = 1; i < m.size(); i += 2)
-                        vars_list.push_back(m[i].str());    
-                }
-            }
     }
 
+    // Check brackets are all balanced
     for (auto& vc : data_list) {
+        for (auto& col : vc) {
+            if (std::count(col.begin(), col.end(), '(') != std::count(col.begin(), col.end(), ')')) 
+                report_stream << "Error: mismatched number of open '(' and close ')' brackets '" << col << "' for " << reader.get_tsv_name() << std::endl;
+
+            if (std::count(col.begin(), col.end(), '[') != std::count(col.begin(), col.end(), ']'))
+                report_stream << "Error: mismatched number of open '[' and close ']' set brackets '" << col << "' for " << reader.get_tsv_name() << std::endl;
+
+            // Locate all local variables (@xxx) to see if they are also keys in this object
+            // Variables in other objects (yyy::@xxx) are purposely NOT checked
+            std::smatch  m;
+            const std::regex   r_LocalKeyValue("[^:]@([a-zA-Z0-9_]+)");
+            if (std::regex_search(col, m, r_LocalKeyValue) && m.ready() && (m.size() > 0)) {
+                for (int i = 1; i < m.size(); i += 2)
+                    vars_list.push_back(m[i].str());
+            }
+        } // for col
+
         keys_list.push_back(vc[TSV_KEYNAME]);
 
         KeyPredicateProcessor *key_validator = new KeyPredicateProcessor(vc[TSV_KEYNAME]);

@@ -50,7 +50,7 @@ const std::string ArlMathOp   = " (mod|\\*|\\+|\\-) ";
 /// @brief Arlington logical operators. Require SPACE either side. Also expect bracketed expressions either side or predicate:
 /// e.g. ...) || (... or ...) || fn:...  
 const std::string ArlLogicalOp = " (&&|\\|\\|) ";
-const std::regex  r_LogicalBracketing("\\)" + ArlLogicalOp + "(\\(|fn\\:)");
+const std::regex  r_LogicalBracketing("(..)(&&|\\|\\|)(..)");
 
 /// @brief Arlington PDF boolean keywords
 const std::string ArlBooleans = "(true|false)";
@@ -151,15 +151,26 @@ bool ValidationByConsumption(const std::string& tsv_file, const std::string& fn,
         // Keeps the type/link value so nested other predicates still match
         s = remove_type_predicates(s);
 
-        if ((s.find("&&") != std::string::npos) || (s.find("\\|\\|") != std::string::npos)) {
-            // Logical expression - expect bracketed expressions either side or predicate:
-            /// e.g. ...) || (... or ...) || fn:...
-            if (!std::regex_search(s, r_LogicalBracketing)) {
+        // Logical expression - expect bracketed expressions either side or predicate:
+        /// e.g. ...) || (... or ...) || fn:...
+        if ((s.find("&&") != std::string::npos) || (s.find("||") != std::string::npos)) {
+            std::smatch  m;
+            if (!std::regex_search(s, m, r_LogicalBracketing)) {
                 if (!show_tsv) {
                     ofs << "   " << tsv_file << ":" << std::endl;
                         show_tsv = true;
                 }
-                ofs << "\tBad logical expression bracketing: '" << l << "'" << std::endl;
+                ofs << "Error: bad logical expression bracketing: '" << l << "'" << std::endl;
+            } 
+            else {
+                for (int i = 1; i < m.size() ; i += 4)
+                    if ((m[i] != ") ") || ((m[i+2] != " (") && (m[i+2] != " f"))) {
+                        if (!show_tsv) {
+                            ofs << "   " << tsv_file << ":" << std::endl;
+                            show_tsv = true;
+                        }
+                        ofs << "Error: incorrect logical expression bracketing: '" << l << "'" << std::endl;
+                    }
             }
         }
 
