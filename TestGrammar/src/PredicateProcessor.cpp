@@ -24,8 +24,8 @@
 #include "PredicateProcessor.h"
 #include "utils.h"
 
-/// @brief Integer
-const std::string ArlInt = "(\\+|\\-)?[0-9]+";
+/// @brief Integer - only optinoal leading negative sign supported
+const std::string ArlInt = "(\\-)?[0-9]+";
 
 /// @brief Number (requires at least 1 decimal place either side of decimal point)
 const std::string ArlNum = ArlInt + "\\.[0-9]+";
@@ -41,22 +41,27 @@ const std::string  ArlPDFVersion = "(1\\.0|1\\.1|1\\.2|1\\.3|1\\.4|1\\.5|1\\.6|1
 /// @brief Arlington Type or Link (TSV filename)
 const std::string ArlTypeOrLink = "[a-zA-Z0-9_\\-\\.]+";
 
-/// @brief Arlington math comparisons and operators
+/// @brief Arlington math comparisons - currently NOT required to have SPACE either side
 const std::string ArlMathComp = "(==|!=|>=|<=|>|<)";
-const std::string ArlMathOp   = " (mod|\\*) ";
 
-/// @brief Arlington logical operators
-const std::string ArlLogicalOp = " (&&|\\|\\||==) ";
+/// @brief Arlington math operators - required explicit SPACE either side
+const std::string ArlMathOp   = " (mod|\\*|\\+|\\-) ";
+
+/// @brief Arlington logical operators. Require SPACE either side. Also expect bracketed expressions either side or predicate:
+/// e.g. ...) || (... or ...) || fn:...  
+const std::string ArlLogicalOp = " (&&|\\|\\|) ";
+const std::regex  r_LogicalBracketing("\\)" + ArlLogicalOp + "(\\(|fn\\:)");
 
 /// @brief Arlington PDF boolean keywords
 const std::string ArlBooleans = "(true|false)";
 
-/// @brief Arlington predicate without any parameters
+/// @brief Arlington predicate with zero or one parameter
 const std::string ArlPredicate0Arg  = "fn:[a-zA-Z14]+\\(\\)";
 const std::string ArlPredicate1Arg  = "fn:[a-zA-Z14]+\\(" + ArlKey + "\\)";
 const std::string ArlPredicate1ArgV = "fn:[a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
 
 /// @brief Ordered list of regex matches that should reduce well-formed predicates down to nothing (i.e. an empty string)
+/// @todo Mathematical expressions are currently NOT supported (+, -, *, /, multi-term expressions, etc).
 const std::vector<std::regex> AllPredicateFunctions = {
     // Bracketed expression components
     std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate0Arg + "\\)"),
@@ -69,8 +74,8 @@ const std::vector<std::regex> AllPredicateFunctions = {
     std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKey + "\\)"),
     std::regex("\\(" + ArlKey + ArlMathComp + ArlKeyValue + "\\)"),
     std::regex("\\(" + ArlKeyValue + " mod (90|8)==0\\)"),
-    // Parameterless predicates - easy match
-    std::regex(ArlPredicate0Arg),
+    // IsRequired is always outer function and starting for "Required" field
+    std::regex("^fn:IsRequired\\(.*\\)"),
     // single PDF version arguments
     std::regex("fn:SinceVersion\\(" + ArlPDFVersion + "\\)"),
     std::regex("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\)"),
@@ -87,7 +92,9 @@ const std::vector<std::regex> AllPredicateFunctions = {
     // 2 integer arguments
     std::regex("fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)"),
     std::regex("fn:BitsSet\\(" + ArlInt + "," + ArlInt + "\\)"),
-    // single key / array index arguments
+    // Parameterless predicates - RUINS math expressions!
+    std::regex(ArlPredicate0Arg),
+    // single key / array index arguments - RUINS math expressions!
     std::regex("fn:RectHeight\\(" + ArlKey + "\\)"),
     std::regex("fn:RectWidth\\(" + ArlKey + "\\)"),
     std::regex("fn:StringLength\\(" + ArlKey + "," + ArlKeyValue + ArlMathOp + ArlInt + "\\)"),
@@ -125,7 +132,7 @@ const std::vector<std::regex> AllPredicateFunctions = {
 
 
 /// @brief  Validates an Arlington predicate by regex-match search & replace-with-nothing removal.
-///         VERY INEFFICIENT and VER SLOW!!
+///         VERY INEFFICIENT and VERY SLOW!!
 /// 
 /// @param[in] fn    the Arlington input containing predicates 
 /// @return          true if the predicate is reduced to the empty string, false otherwise
@@ -143,6 +150,18 @@ bool ValidationByConsumption(const std::string& tsv_file, const std::string& fn,
 
         // Keeps the type/link value so nested other predicates still match
         s = remove_type_predicates(s);
+
+        if ((s.find("&&") != std::string::npos) || (s.find("\\|\\|") != std::string::npos)) {
+            // Logical expression - expect bracketed expressions either side or predicate:
+            /// e.g. ...) || (... or ...) || fn:...
+            if (!std::regex_search(s, r_LogicalBracketing)) {
+                if (!show_tsv) {
+                    ofs << "   " << tsv_file << ":" << std::endl;
+                        show_tsv = true;
+                }
+                ofs << "\tBad logical expression bracketing: '" << l << "'" << std::endl;
+            }
+        }
 
         for (auto r : AllPredicateFunctions) {
             s = std::regex_replace(s, r, "");

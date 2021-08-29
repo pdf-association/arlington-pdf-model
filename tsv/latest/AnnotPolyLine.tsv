@@ -14,8 +14,8 @@ C	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_4NumbersColorAnno
 StructParent	integer	1.5		FALSE	FALSE	FALSE					
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,OptContentGroup),fn:SinceVersion(1.5,OptContentMembership)]	
 AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfFileSpecifications)];[fn:SinceVersion(1.1,FileSpecification)]	
-ca	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval(@ca>=0.0 && @ca<1.0)]			
-CA	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval(@CA>=0.0 && @CA<1.0)]			
+ca	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval((@ca>=0.0) && (@ca<1.0))]			
+CA	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && (@CA<1.0))]			
 BM	name	2.0		FALSE	FALSE	FALSE	Normal	[fn:Deprecated(2.0,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]			
 Lang	string-text	2.0		FALSE	FALSE	FALSE					
 T	string-text	1.5		FALSE	FALSE	FALSE					

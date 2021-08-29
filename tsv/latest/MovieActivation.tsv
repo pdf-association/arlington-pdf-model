@@ -6,5 +6,5 @@ Volume	number	1.2	2.0	FALSE	FALSE	FALSE	1.0
 ShowControls	boolean	1.2	2.0	FALSE	FALSE	FALSE	false				
 Mode	name	1.2	2.0	FALSE	FALSE	FALSE	Once	[Once,Open,Repeat,Palindrome]			
 Synchronous	boolean	1.2	2.0	FALSE	FALSE	FALSE	false				
-FWScale	array	1.2	2.0	FALSE	FALSE	FALSE			[fn:Eval(FWScale::@0>0 && FWScale::@1>0)]	[ArrayOf_2Integers]	
-FWPosition	array	1.2	2.0	FALSE	FALSE	FALSE	[0.5 0.5]		[fn:Eval(FWPosition::@0>=0.0 && FWPosition::@0<=1.0 && FWPosition::@1>=0.0 && FWPosition::@1<=1.0)]	[ArrayOf_2Numbers]	
+FWScale	array	1.2	2.0	FALSE	FALSE	FALSE			[fn:Eval((FWScale::@0>0) && (FWScale::@1>0))]	[ArrayOf_2Integers]	
+FWPosition	array	1.2	2.0	FALSE	FALSE	FALSE	[0.5 0.5]		[fn:Eval((FWPosition::@0>=0.0) && (FWPosition::@0<=1.0) && (FWPosition::@1>=0.0) && (FWPosition::@1<=1.0))]	[ArrayOf_2Numbers]	

@@ -10,7 +10,7 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt
+// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -58,8 +58,13 @@ private:
         { /* */ }
     };
 
+    /// @brief The list of PDF objects to process
     std::queue<queue_elem>  to_process;
+
+    /// @brief The folder with an Arlington TSV file set
     std::filesystem::path   grammar_folder;
+
+    /// @brief Output stream to write results to. Already open
     std::ostream            &output;
   
     const ArlTSVmatrix& get_grammar(const std::string& link);
@@ -67,7 +72,7 @@ private:
 public:
     CParsePDF(const std::filesystem::path& tsv_folder, std::ostream &ofs)
         : grammar_folder(tsv_folder), output(ofs)
-    { /* constructor */ }
+        { /* constructor */ }
 
     void add_parse_object(ArlPDFObject* object, const std::string& link, std::string context);
     void parse_object();

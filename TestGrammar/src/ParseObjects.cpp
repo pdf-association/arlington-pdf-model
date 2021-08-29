@@ -197,9 +197,11 @@ bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd) {
     else if (reqd == "FALSE")
         return false;
     else {
-        std::regex      r_isRequired("fn:IsRequired\\((.+)\\)");
-        std::regex      r_isPresent("fn:IsPresent\\((.+)\\)");
-        std::regex      r_notPresent("fn:NotPresent\\((.+)\\)");
+        const std::string  ArlKey = "([a-zA-Z0-9_\\.\\-]+\\:\\:)?([a-zA-Z0-9_\\.\\-]+\\:\\:)?[a-zA-Z0-9_\\.\\-\\*]+";
+        const std::string  ArlKeyValue = "([a-zA-Z0-9_\\.\\-]+\\:\\:)?([a-zA-Z0-9_\\.\\-]+\\:\\:)?@[a-zA-Z0-9_\\.\\-\\*]+";
+        const std::regex   r_isRequired("^fn:IsRequired\\((.+)\\)");
+        const std::regex   r_isPresent("fn:IsPresent\\(([^\\)\\)]+)\\)");
+        const std::regex   r_notPresent("fn:NotPresent\\(([^\\)\\)]+)\\)");
         std::regex      r_keyValueEquals("@(.+)==(.+)");
         std::regex      r_keyValueNotEquals("@(.+)!=(.+)");
         std::string     inner;
@@ -207,7 +209,7 @@ bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd) {
         std::smatch     m;
         ArlPDFObject*   val;
 
-        // Strip off outer predicate "fn:IsRequired( ... )"
+        // Strip off outer predicate "^fn:IsRequired( ... )"
         inner = std::regex_replace(reqd, r_isRequired, "$1");
 
         /// @todo don't currently support multi-term predicates or paths to other objects, so assume not required
