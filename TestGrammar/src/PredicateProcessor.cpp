@@ -556,3 +556,508 @@ std::string LinkPredicateProcessor::ReduceRow(const std::string pdf_version) {
     assert(to_ret.find("fn:") == std::string::npos);
     return to_ret;
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Predicate implementations
+//   - return true if predicate makes sense, false otherwise
+//   - 1st argument is the PDF object in question
+//   - first set of arguments are function specific
+//   - last argument(s) are the return (out) parameters
+//
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/// @brief   Check if the value of a key is in a dictionary and matches a given set
+/// @param[in] dict     dictionary object
+/// @param[in] key      the key name or array index
+/// @param[in] values   a set of values to match
+/// @return true if the key value matches something in the values set
+bool check_key_value(ArlPDFDictionary* dict, const std::wstring& key, const std::vector<std::wstring> values)
+{
+    assert(dict != nullptr);
+    ArlPDFObject *val_obj = dict->get_value(key);
+
+    if (val_obj != nullptr) {
+        std::wstring  val;
+        switch (val_obj->get_object_type()) {
+            case PDFObjectType::ArlPDFObjTypeString:
+                val = ((ArlPDFString*)val_obj)->get_value();
+                for (auto& i : values)
+                    if (val == i)
+                        return true;
+                break;
+            case PDFObjectType::ArlPDFObjTypeName:
+                val = ((ArlPDFName *)val_obj)->get_value();
+                for (auto& i : values)
+                    if (val == i)
+                        return true;
+                break;
+        } // switch
+    }
+    return false;
+}
+
+
+bool fn_ArrayLength(ArlPDFObject* obj, int *arr_len) {
+    assert(obj != nullptr);
+    assert(arr_len != nullptr);
+    if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
+        ArlPDFArray *arr = (ArlPDFArray *)obj;
+        *arr_len = arr->get_num_elements();
+        return true;
+    }
+    return false;
+}
+
+
+bool fn_ArraySortAscending(ArlPDFObject* obj, bool *sorted) {
+    assert(obj != nullptr);
+    assert(sorted != nullptr);
+    *sorted = false;
+
+    if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
+        ArlPDFArray* arr = (ArlPDFArray*)obj;
+        if (arr->get_num_elements() > 0) {
+            // Make sure all array elements are a consistent numeric type
+            PDFObjectType obj_type = arr->get_value(0)->get_object_type();
+            if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
+                double       last_elem_val = ((ArlPDFNumber *)arr->get_value(0))->get_value();
+                double       this_elem_val;
+                for (int i = 1; i < arr->get_num_elements(); i++) {
+                    obj_type = arr->get_value(i)->get_object_type();
+                    if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
+                        this_elem_val = ((ArlPDFNumber*)arr->get_value(i))->get_value();
+                        if (last_elem_val > this_elem_val) 
+                            return false; // was not sorted!
+                        last_elem_val = this_elem_val;
+                    }
+                    else
+                        return false; // inconsistent array element types
+                }
+                *sorted = true;
+                return true;
+            }
+            else
+               return false; // not a numeric array 
+        }
+        else {
+            *sorted = true;
+            return true; // empty array is always sorted by definition
+        }
+    }
+    return false; // wasn't an array
+}
+
+
+bool fn_BitClear(ArlPDFObject* obj, int bit, bool *bit_was_clear) {
+    assert(obj != nullptr);
+    assert((bit >= 1) && (bit <= 32));
+    assert(bit_was_clear != nullptr);
+
+    *bit_was_clear = false;
+    PDFObjectType obj_type = obj->get_object_type();
+    if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
+        ArlPDFNumber *num_obj = (ArlPDFNumber *)obj;
+        if (num_obj->is_integer_value()) {
+            int bitmask = 1 << (bit - 1);
+            int val = num_obj->get_integer_value();
+            *bit_was_clear = ((val & bitmask) == 0);
+            return true;
+        }
+        else
+            return false;  // wasn't an integer
+    }
+    else
+        return false; // wasn't a number
+}
+
+
+bool fn_BitSet(ArlPDFObject* obj, int bit, bool* bit_was_set) {
+    assert(obj != nullptr);
+    assert((bit >= 1) && (bit <= 32));
+    assert(bit_was_set != nullptr);
+
+    *bit_was_set = false;
+    PDFObjectType obj_type = obj->get_object_type();
+    if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
+        ArlPDFNumber* num_obj = (ArlPDFNumber *)obj;
+        if (num_obj->is_integer_value()) {
+            int bitmask = 1 << (bit - 1);
+            int val = num_obj->get_integer_value();
+            *bit_was_set = ((val & bitmask) == 1);
+            return true;
+        }
+        else
+            return false;  // wasn't an integer
+    }
+    else
+        return false; // wasn't a number
+}
+
+
+bool fn_BitsClear(ArlPDFObject* obj, int low_bit, int high_bit, bool *all_bits_clear) {
+    assert(obj != nullptr);
+    assert((low_bit >= 1) && (low_bit <= 32));
+    assert((high_bit >= 1) && (high_bit <= 32));
+    assert(low_bit < high_bit);
+
+    *all_bits_clear = false;
+    PDFObjectType obj_type = obj->get_object_type();
+    if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
+        ArlPDFNumber* num_obj = (ArlPDFNumber*)obj;
+        if (num_obj->is_integer_value()) {
+            int val = num_obj->get_integer_value();
+            for (int bit = low_bit; bit <= high_bit; bit ++) {
+                int bitmask = 1 << (bit - 1);
+                *all_bits_clear = *all_bits_clear && ((val & bitmask) == 0);
+            }
+            return true;
+        }
+        else
+            return false;  // wasn't an integer
+    }
+    else
+        return false; // wasn't a number
+}
+
+
+bool fn_BitsSet(ArlPDFObject* obj, int low_bit, int high_bit, bool* all_bits_set) {
+    assert(obj != nullptr);
+    assert((low_bit >= 1) && (low_bit <= 32));
+    assert((high_bit >= 1) && (high_bit <= 32));
+    assert(low_bit < high_bit);
+
+    *all_bits_set = false;
+    PDFObjectType obj_type = obj->get_object_type();
+    if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
+        ArlPDFNumber* num_obj = (ArlPDFNumber*)obj;
+        if (num_obj->is_integer_value()) {
+            int val = num_obj->get_integer_value();
+            for (int bit = low_bit; bit <= high_bit; bit++) {
+                int bitmask = 1 << (bit - 1);
+                *all_bits_set = *all_bits_set && ((val & bitmask) == 1);
+            }
+            return true;
+        }
+        else
+            return false;  // wasn't an integer
+    }
+    else
+        return false; // wasn't a number
+}
+
+
+bool fn_CreatedFromNamePageObj(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    return false; /// @todo
+}
+
+
+bool fn_Eval(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    return false; /// @todo
+}
+
+bool fn_FileSize(size_t limit) {
+    assert(limit > 0);
+    return false; /// @todo
+}
+
+
+bool fn_FontHasLatinChars(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    return false; /// @todo
+}
+
+
+bool fn_GetPageNumber(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    return false; /// @todo
+}
+
+
+bool fn_Ignore() {
+    return true;
+}
+
+
+bool fn_ImageIsStructContentItem(ArlPDFObject* obj) {
+    return false; /// @todo
+}
+
+
+bool fn_ImplementationDependent() {
+    return true;
+}
+
+
+bool fn_InMap(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    /// @todo
+    return false; /// @todo
+}
+
+
+bool fn_IsAssociatedFile(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    /// @todo Need to see if obj is in trailer::Catalog::AF (array of File Specification dicionaries)
+    return false; /// @todo
+}
+
+
+bool fn_IsEncryptedWrapper(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    return false; /// @todo
+}
+
+
+bool fn_IsLastInNumberFormatArray(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    return false; /// @todo
+}
+
+
+bool fn_IsMeaningful(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    return false; /// @todo
+}
+
+
+bool fn_IsPDFTagged(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    /// @todo Need to see trailer::Catalog::StructTreeRoot exists
+    return false; /// @todo
+}
+
+
+bool fn_IsPageNumber(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    return false; /// @todo
+}
+
+
+bool fn_IsPresent(ArlPDFObject* obj, std::string& key, bool *is_present) {
+    assert(obj != nullptr);
+    assert(is_present != nullptr);
+
+    *is_present = false;
+    switch (obj->get_object_type()) {
+        case PDFObjectType::ArlPDFObjTypeArray: {
+            ArlPDFArray* arr = (ArlPDFArray*)obj;
+            try {
+                int idx = std::stoi(key);
+                *is_present = (arr->get_value(idx) != nullptr);
+                return true;
+            }
+            catch (...) {
+                return false; // key wasn't a number
+            }
+            }
+        case PDFObjectType::ArlPDFObjTypeDictionary: {
+            ArlPDFDictionary *dict = (ArlPDFDictionary*)obj;
+            *is_present = (dict->get_value(ToWString(key)) != nullptr);
+            return true;
+            }
+    } // switch
+    return false; 
+}
+
+
+bool fn_KeyNameIsColorant(std::wstring& key, std::vector<std::wstring>& colorants) {
+    for (auto& k : colorants)
+        if (k == key)
+            return true;
+    return false; 
+}
+
+
+bool fn_MustBeDirect(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    return !obj->is_indirect_ref();
+}
+
+
+bool fn_NoCycle(ArlPDFObject* obj, std::string key) {
+    assert(obj != nullptr);
+    /// @todo Starting at obj, recursively look at key to ensure there is no loop
+    return false; /// @todo
+}
+
+
+bool fn_NotInMap(ArlPDFObject* obj, std::string& pdf_path) {
+    assert(obj != nullptr);
+    /// @todo Look up map and then look up a reference to this obj
+    return false; /// @todo
+}
+
+
+bool fn_NotPresent(ArlPDFObject* obj, std::string& key, bool* is_not_present) {
+    bool ret_val = fn_IsPresent(obj, key, is_not_present);
+    *is_not_present = !(*is_not_present);
+    return ret_val;
+}
+
+
+/// @brief PDF Standard 14 font names
+static const std::vector<std::wstring> Std14Fonts = { 
+    L"Times-Roman", 
+    L"Helvetica", 
+    L"Courier", 
+    L"Symbol",  
+    L"Times-Bold", 
+    L"Helvetica-Bold", 
+    L"Courier-Bold", 
+    L"ZapfDingbats", 
+    L"Times-Italic",
+    L"Helvetica-Oblique", 
+    L"Courier-Oblique", 
+    L"Times-BoldItalic", 
+    L"Helvetica-BoldOblique", 
+    L"Courier-BoldOblique" 
+};
+
+bool fn_NotStandard14Font(ArlPDFObject* parent, bool *not_std14font) {
+    assert(parent != nullptr);
+    assert(not_std14font != nullptr);
+
+    *not_std14font = false;
+    if (parent->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary) {
+        ArlPDFDictionary *dict = (ArlPDFDictionary*)parent;
+        if (check_key_value(dict, L"Type", {L"Font"}) && check_key_value(dict, L"Subtype", {L"Type1"}) && !check_key_value(dict, L"BaseFont", Std14Fonts)) {
+            *not_std14font = true;
+            return true;
+        }
+        else
+            return false; // wasn't a Type 1 font dictionary
+    }
+    return false; 
+}
+
+
+bool fn_NumberOfPages(int *num_pages) {
+    assert(num_pages != nullptr);
+
+    *num_pages = -1;
+    /// @todo Return the total number of pages in the PDF
+    return false; /// @todo
+}
+
+
+// Object is a StructParent integer
+bool fn_PageContainsStructContentItems(ArlPDFObject* obj, bool *struct_content_items) {
+    assert(obj != nullptr);
+    assert(struct_content_items != nullptr);
+
+    *struct_content_items = false;
+    if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber) {
+        if (((ArlPDFNumber*)obj)->is_integer_value()) {
+            int val = ((ArlPDFNumber*)obj)->get_integer_value();
+            if (val >= 0) {
+                /// @todo Need to see if this is a valid index into trailer::Catalog::StructTreeRoot::ParentTree (number tree)  
+                *struct_content_items = true;
+                return true; 
+            }
+            else
+                return false; // cannot have negative value
+        }
+        else
+            return false; // not an integer
+    }
+    return false;  // not a number object
+}
+
+
+bool fn_RectHeight(ArlPDFObject* obj, double *height) {
+    assert(obj != nullptr);
+    assert(height != nullptr);
+
+    *height = -1;
+    if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
+        ArlPDFArray* rect = (ArlPDFArray*)obj;
+        if (rect->get_num_elements() == 4) {
+            for (int i = 0; i < 4; i++)
+                if (rect->get_value(i)->get_object_type() != PDFObjectType::ArlPDFObjTypeNumber)
+                    return false; // not all rect array elements were numbers;
+            double lly = ((ArlPDFNumber*)rect->get_value(1))->get_value();
+            double ury = ((ArlPDFNumber*)rect->get_value(3))->get_value();
+            *height = round(fabs(ury - lly));
+            return true;
+        }
+        else
+            return false; // not a 4 element array
+    }
+    return false; // not an array
+}
+
+
+bool fn_RectWidth(ArlPDFObject* obj, double *width) {
+    assert(obj != nullptr);
+    assert(width != nullptr);
+
+    *width = -1;
+    if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
+        ArlPDFArray *rect = (ArlPDFArray*)obj;
+        if (rect->get_num_elements() == 4) {
+            for (int i = 0; i < 4; i++)
+                if (rect->get_value(i)->get_object_type() != PDFObjectType::ArlPDFObjTypeNumber)
+                    return false; // not all rect array elements were numbers;
+            double llx = ((ArlPDFNumber *)rect->get_value(0))->get_value();
+            double urx = ((ArlPDFNumber *)rect->get_value(2))->get_value();
+            *width = round(fabs(urx - llx));
+            return true;
+        }
+        else
+            return false; // not a 4 element array
+    }
+    return false; // not an array
+}
+
+
+bool fn_RequiredValue(ArlPDFObject* obj, std::string& expr, std::string& value, bool *was_req_val) {
+    assert(obj != nullptr);
+    assert(was_req_val != nullptr);
+
+    *was_req_val = false;
+    return false; /// @todo
+}
+
+
+bool fn_StreamLength(ArlPDFObject* obj, size_t *stm_len) {
+    assert(obj != nullptr);
+    assert(stm_len != nullptr);
+
+    *stm_len = -1;
+    if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeStream) {
+        ArlPDFStream* stm_obj = (ArlPDFStream*)obj;
+        ArlPDFObject* len_obj = stm_obj->get_dictionary()->get_value(L"Length");
+        if (len_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber) {
+            ArlPDFNumber* len_num_obj = (ArlPDFNumber*)len_obj;
+            if (len_num_obj->is_integer_value()) {
+                *stm_len = len_num_obj->get_integer_value();
+                return true;
+            }
+            else
+                return false; // stream Length key was a float!
+        }
+        else
+            return false; // stream Length key was not an number
+    }
+    return false; // not a stream
+}
+
+
+bool fn_StringLength(ArlPDFObject* obj, size_t *str_len) {
+    assert(obj != nullptr);
+    assert(str_len != nullptr);
+
+    *str_len = -1;
+    if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeString) {
+        ArlPDFString *str_obj = (ArlPDFString *)obj;
+        std::wstring s = str_obj->get_value();
+        *str_len = s.size();
+        return true;
+    }
+    return false; // not a string
+}
