@@ -159,9 +159,9 @@ namespace ArlingtonPDFShim {
 
         // Constructor
         explicit ArlingtonPDFSDK()
-        { /* constructor */
-          ctx = nullptr;
-        };
+            { /* constructor */
+              ctx = nullptr;
+            };
 
         // Initialize the PDF SDK. Throws exceptions on error.
         void initialize(bool enable_debugging);
