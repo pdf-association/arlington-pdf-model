@@ -19,11 +19,11 @@ AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfFileSp
 Measure	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,MeasureRL),fn:SinceVersion(2.0,MeasureGEO)]	
 PtData	dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,PointData)]	
 Length	integer	1.4		TRUE	FALSE	FALSE					
-Filter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(DecodeParms) == fn:ArrayLength(Filter))]	[ArrayOfCompressionFilterNames];[]	
-DecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms) == fn:ArrayLength(Filter))]	[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.5,FilterCrypt)]	
+Filter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfCompressionFilterNames];[]	
+DecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.5,FilterCrypt)]	
 F	dictionary;string	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,FileSpecification)];[]	
-FFilter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(FDecodeParms) == fn:ArrayLength(FFilter))]	[ArrayOfCompressionFilterNames];[]	
-FDecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms) == fn:ArrayLength(FFilter))]	[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.5,FilterCrypt)]	
+FFilter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]	[ArrayOfCompressionFilterNames];[]	
+FDecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]	[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.5,FilterCrypt)]	
 DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(@DL>=0)]		
 MarkStyle	string-text	1.4		FALSE	FALSE	FALSE					*from printer mark form dictionary
 Colorants	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,ColorantsDict)]	

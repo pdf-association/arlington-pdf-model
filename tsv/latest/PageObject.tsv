@@ -10,7 +10,7 @@ TrimBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox
 ArtBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				
 BoxColorInfo	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,BoxColorInfo)]	
 Contents	array;stream	1.0		FALSE	[FALSE];[TRUE]	FALSE				[ArrayOfStreamsGeneral];[Stream]	
-Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Eval(@Rotate mod 90==0)]			Inheritable from Parent
+Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Eval((@Rotate mod 90)==0)]			Inheritable from Parent
 Group	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,Group)]	
 Thumb	stream	1.0		FALSE	TRUE	FALSE				[Thumbnail]	
 B	array	1.1		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOfBeads)]	
