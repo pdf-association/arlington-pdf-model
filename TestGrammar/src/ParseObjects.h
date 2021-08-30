@@ -52,10 +52,9 @@ private:
         std::string   link;
         std::string   context;
         
-        // Constructor
         queue_elem(ArlPDFObject* o, const std::string &l, std::string &c)
             : object(o), link(l), context(c)
-        { /* */ }
+            { /* constructor */ }
     };
 
     /// @brief The list of PDF objects to process
