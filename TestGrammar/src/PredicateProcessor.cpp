@@ -45,7 +45,7 @@ const std::string ArlTypeOrLink = "[a-zA-Z0-9_\\-\\.]+";
 const std::string ArlMathComp = "(==|!=|>=|<=|>|<)";
 
 /// @brief Arlington math operators - required explicit SPACE either side
-const std::string ArlMathOp   = " (mod|\\*|\\+|\\-) ";
+const std::string ArlMathOp   = " (\\*|\\+|\\-) ";
 
 /// @brief Arlington logical operators. Require SPACE either side. Also expect bracketed expressions either side or predicate:
 /// e.g. ...) || (... or ...) || fn:...  
@@ -63,6 +63,8 @@ const std::string ArlPredicate1ArgV = "fn:[a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
 /// @brief Ordered list of regex matches that should reduce well-formed predicates down to nothing (i.e. an empty string)
 /// @todo Mathematical expressions are currently NOT supported (+, -, *, /, multi-term expressions, etc).
 const std::vector<std::regex> AllPredicateFunctions = {
+    // IsRequired is always outer function and starting for "Required" field
+    std::regex("^fn:IsRequired\\(.*\\)"),
     // Bracketed expression components
     std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate0Arg + "\\)"),
     std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate1Arg + "\\)"),
@@ -73,9 +75,9 @@ const std::vector<std::regex> AllPredicateFunctions = {
     std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKeyValue + "\\)"),
     std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKey + "\\)"),
     std::regex("\\(" + ArlKey + ArlMathComp + ArlKeyValue + "\\)"),
-    std::regex("\\(" + ArlKeyValue + " mod (90|8)==0\\)"),
-    // IsRequired is always outer function and starting for "Required" field
-    std::regex("^fn:IsRequired\\(.*\\)"),
+    std::regex("\\(fn:ArrayLength\\(" + ArlKeyValue + "\\) mod " + ArlInt + "\\)==" + ArlInt),
+    std::regex("\\(fn:ArrayLength\\(" + ArlKey + "\\) mod " + ArlInt + "\\)==" + ArlInt),
+    std::regex("\\(" + ArlKeyValue + " mod " + ArlInt + "\\)==" + ArlInt),
     // single PDF version arguments
     std::regex("fn:SinceVersion\\(" + ArlPDFVersion + "\\)"),
     std::regex("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\)"),
@@ -92,16 +94,12 @@ const std::vector<std::regex> AllPredicateFunctions = {
     // 2 integer arguments
     std::regex("fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)"),
     std::regex("fn:BitsSet\\(" + ArlInt + "," + ArlInt + "\\)"),
-    // Parameterless predicates - RUINS math expressions!
-    std::regex(ArlPredicate0Arg),
     // single key / array index arguments - RUINS math expressions!
     std::regex("fn:RectHeight\\(" + ArlKey + "\\)"),
     std::regex("fn:RectWidth\\(" + ArlKey + "\\)"),
-    std::regex("fn:StringLength\\(" + ArlKey + "," + ArlKeyValue + ArlMathOp + ArlInt + "\\)"),
-    std::regex("fn:StringLength\\(" + ArlKey + "\\)" + ArlMathComp + ArlInt),
-    std::regex("fn:ArrayLength\\(" + ArlKey + "\\)" + ArlMathComp + ArlInt),
+    std::regex("fn:StringLength\\(" + ArlKey + "\\)(" + ArlMathComp + ArlInt + ")?"),
+    std::regex("fn:ArrayLength\\(" + ArlKey + "\\)(" + ArlMathComp + ArlInt + ")?"),
     std::regex("fn:ArrayLength\\(" + ArlKey + "\\) " + ArlMathComp + " fn:ArrayLength\\(" + ArlKey + "\\)"),
-    std::regex("\\(fn:ArrayLength\\(" + ArlKey + "\\) mod 2\\)==0"),
     std::regex("fn:Ignore\\(" + ArlKey + "\\)"),
     std::regex("fn:InMap\\(" + ArlKey + "\\)"),
     std::regex("fn:NotInMap\\(" + ArlKey + "\\)"),
@@ -111,8 +109,11 @@ const std::vector<std::regex> AllPredicateFunctions = {
     std::regex("fn:MustBeDirect\\(" + ArlKey + "\\)"),
     // More complex...
     std::regex("fn:IsPresent\\(" + ArlKey + "," + ArlKey + "\\)"),
-    std::regex("fn:StringLength\\(" + ArlKey + "," + ArlKeyValue + ArlMathOp + ArlKey + "\\)" + ArlMathComp + ArlInt),
     std::regex("fn:Required\\(" + ArlKeyValue + ArlMathComp + ArlKey + "," + ArlKey + "\\)"),
+    // 
+    std::regex(ArlPredicate1ArgV),
+    std::regex(ArlPredicate1Arg),
+    std::regex(ArlPredicate0Arg),
     // unbracketed expression components
     std::regex(ArlKeyValue + "==" + ArlBooleans),
     std::regex(ArlKeyValue + ArlMathComp + ArlKeyValue),
@@ -749,12 +750,6 @@ bool fn_BitsSet(ArlPDFObject* obj, int low_bit, int high_bit, bool* all_bits_set
 }
 
 
-bool fn_CreatedFromNamePageObj(ArlPDFObject* obj) {
-    assert(obj != nullptr);
-    return false; /// @todo
-}
-
-
 bool fn_Eval(ArlPDFObject* obj) {
     assert(obj != nullptr);
     return false; /// @todo
@@ -1048,7 +1043,7 @@ bool fn_StreamLength(ArlPDFObject* obj, size_t *stm_len) {
 }
 
 
-bool fn_StringLength(ArlPDFObject* obj, size_t *str_len) {
+bool fn_StringLength1(ArlPDFObject* obj, size_t *str_len) {
     assert(obj != nullptr);
     assert(str_len != nullptr);
 
@@ -1061,3 +1056,22 @@ bool fn_StringLength(ArlPDFObject* obj, size_t *str_len) {
     }
     return false; // not a string
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Simplistic expression grammar support: 
+// - Fully bracketed logical sub-expressions using ( and )
+// - Key value variables (@name)
+// - Integer and number constants
+// - PDF Name constants
+// - PDF string constants "(xxx)"
+// - PDF Boolean keywords (constants): true, false
+// - Logical comparison: &&, ||, == 
+// - Mathematical comparison: ==, !=, >, <, >=, <=
+// - Mathematical operators: +, -, *, mod
+// - Predicates starting with "fn:"
+//
+// Grep voodoo: grep -Pho "fn:[a-zA-Z]+\((?:[^)(]+|(?R))*+\)" *.tsv | sort | uniq
+// 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
