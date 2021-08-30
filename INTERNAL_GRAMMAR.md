@@ -17,21 +17,22 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   Last row in TSV needs EOL after last TAB
 *   TSV file names are case sensitive
 *   TSV file extensions are always `.tsv` (lowercase) but are not present in the TSV data itself
+* all TSV files will have matching numbers of `[`, `]` `(` and `(`
 
 
 # PDF Object conventions
 
 
 *   There are NO leading SLASHES for PDF names (_ever_!)
-*   PDF names might use `#`-escaping
+*   PDF names might use `#`-escaping in the future
     *   the PDF specification never specifies any such keys so this is allowing for future-proofing
 *   PDF strings always use `(` and `)`
-*   PDF arrays always use `[` and `]` (which requires some additional processing so as not to be confused
-    with our [];[];[] syntax for multiple types)
+*   PDF arrays always use `[` and `]` (which requires some additional processing so as not to be confused with our [];[];[] syntax for multiple types)
 *   Expressions with integers need to use integers
 *   Leading `@` indicates "value of" a key or array element
-*   PDF booleans are `true` and `false` lowercase.
-    *   Uppercase `TRUE`/`FALSE` are reserved for boolean TSV data fields such as the "Required" field.
+*   PDF Booleans are `true` and `false` lowercase.
+    *   Uppercase `TRUE`/`FALSE` are reserved for logical Boolean TSV data fields such as the "Required" field.
+* expressions using `&&` or `||` logical operators need to be either fully bracketed or be just a predicate and have a single SPACE either side of the logical operator
 
 # TSV Data Fields
 
@@ -42,23 +43,19 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   Case sensitive (as per PDF spec)
 *   No duplicates keys in any single TSV file
 *   Only alphanumeric, `.`, `-`, `_` or ASTERISK characters (no whitespace or other special chars)
-    *   PDF names might use `#`-escaping in the future (but the PDF specification never specifies any such
-        keys so this is allowing for future-proofing)
+    *   PDF names might use `#`-escaping in the future (but the PDF specification never specifies any such keys so this is allowing for future-proofing)
 *   If dictionary, then "Key" name must start with alpha (and with no spaces) or just an ASTERISK `*`
 *   If ASTERISK `*` by itself then must be last row in TSV file
 *   If ASTERISK `*` by itself then "Required" column must be FALSE
 *   If expressing a PDF array, then "Key" name is an integer array index. Zero-based increasing (always by 1)
     integers always starting at ZERO (0), with an optional ASTERISK appended after the digit (indicating repeat)
      - or just an ASTERISK `*`
-*   If expressing a PDF array with `integer+ASTERISK` and then all rows must be `integer+ASTERISK` (indicating a
-    repeating group of _N_ (numbered 0 to _N_-1) array elements).
-*   If expressing a PDF array with `integer+ASTERISK` (and all rows are the same) then the "Required" column should
-    be TRUE if all _N_ entries must always be repeated as a full set.
+*   If expressing a PDF array with `integer+ASTERISK` and then all rows must be `integer+ASTERISK` (indicating a repeating group of _N_ (numbered 0 to _N_-1) array elements).
+*   If expressing a PDF array with `integer+ASTERISK` (and all rows are the same) then the "Required" column should be TRUE if all _N_ entries must always be repeated as a full set.
 *   In the future:
     *   "Key" names with `#`-escapes
-    *   _How should we define malforms???_ e.g. /type vs /Type; /SubType vs /Subtype; /BlackIs1 (uppercase i) vs
-        /Blackls1 (lowercase L). Are these separate rows in a TSV, a "SpecialCase" column or wrapped in a declarative
-       function in the "Key" column? (e.g. `Type;fn:Malform(type, ...)`). Need to consider impact on Linux CLI processing, such as grep.
+    *   _How should we define malforms??? e.g. `/type` vs `/Type`; `/SubType` vs `/Subtype`; `/BlackIs1` (uppercase i) vs `/Blackls1` (lowercase L). Are these separate rows in a TSV, a "SpecialCase" column or wrapped in a declarative
+       function in the "Key" column? (e.g. `Type;fn:Malform(type,...)`). Need to consider impact on Linux CLI processing, such as grep._
 *   **Python pretty-print/JSON**
     *   String (as JSON dictionary key)
 *   **Linux CLI tests:**
@@ -91,8 +88,8 @@ This document describes some strict rules for the Arlington PDF model, for both 
     * `string-ascii`
     * `string-byte`
     * `string-text`
-*   Each type may also be wrapped in a version-based declarative function (e.g. `fn:SinceVersion(version, type)` or
-    `fn:Deprecated(version, type)` ).
+*   Each type may also be wrapped in a version-based declarative function (e.g. `fn:SinceVersion(version,type)` or
+    `fn:Deprecated(version,type)` ).
 *   When a declarative function is used, the internal simple type is still kept in its alphabetic sort order
 *   **Python pretty-print/JSON:**
     *   Always a list
