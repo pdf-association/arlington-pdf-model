@@ -516,414 +516,333 @@ The second character in the prefix represents the value of the key or array elem
 
 <table>
   <tr>
-   <td>`int fn:ArrayLength(key)`
-   </td>
+   <td><code>fn:ArrayLength(<i>key</i>)</code></td>
    <td>
-<ul>
-
-<li>returns integer >= 0
-
-<li>represents requirement of current key which must be of type `array`
-</li>
-</ul>
+    <ul>
+     <li>asserts <i>key</i> references something of type <code>array</code></li>     <li>returns an integervalue >= 0</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:ArraySortAscending()`
-   </td>
+   <td><code>fn:ArraySortAscending(<i>key</i>)</code></td>
    <td>
-<ul>
-
-<li>statement of fact (requirement) about current key
-</li>
-</ul>
+    <ul>
+     <li>asserts <i>key</i> references something of type <code>array</code></li>
+     <li>asserts that array is sorted in ascending order</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`statement fn:BeforeVersion(version, [ statement ] )`
-   </td>
+   <td><code>fn:BeforeVersion(<i>version</i>)</code><br/>
+   <code>fn:BeforeVersion(<i>version</i>,<i>assertion</i>)</code></td>
    <td>
-<ul>
-
-<li>
-</ul>
+    <ul>
+     <li><i>version</i> must be 1.0, ..., 2.0
+     <li>asserts that optional <i>assertion</i> only applies before PDF <i>version</i></li>
+     <li><i>assertion</i> is a <code>fn:Eval(...)</code> expression that only applies before <i>version</i>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:BitClear(bit-posn) `
-   </td>
+   <td><code>fn:BitClear(<i>bit-posn</i>)</code></td>
    <td>
-<ul>
-
-<li>States requirement that `bit-posn` (1-32) is zero (clear)
-</li>
-</ul>
+    <ul>
+     <li><i>bit-posn</i> is 1-32 inclusive</li>
+     <li>asserts that <i>bit-posn</i> (1-32 inclusive) is zero (clear)</li>
+     <li>asserts <i>key</i> is something of type <code>bitmask</code></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:BitSet(bit-posn)`
-   </td>
+   <td><code>fn:BitSet(<i>bit-posn</i>)</code></td>
    <td>
-<ul>
-
-<li>States requirement that `bit-posn` (1-32) is one (set)
-</li>
-</ul>
+    <ul>
+     <li><i>bit-posn</i> is 1-32 inclusive</li>
+     <li>asserts that <i>bit-posn</i> is one (set)</li>
+     <li>asserts <i>key</i> is something of type <code>bitmask</code></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:BitsClear(low-bit, high-bit)`
-   </td>
+   <td><code>fn:BitsClear(<i>low-bit</i>,<i>high-bit</i>)</code></td>
    <td>
-<ul>
-
-<li>States requirement that all bits between `low-bit` (1-32) and `high-bit` (1-32) inclusive are zero (clear)
-
-<li>`low-bit` &lt; `high-bit`
-</li>
-</ul>
+    <ul>
+     <li><i>low-bit</i> and <i>high-bit</i> must be 1-32 inclusive</li>
+     <li>asserts that all bits between <i>low-bit</i> and <i>high-bit</i> inclusive are all zero (clear)</li>
+     <li><i>low-bit</i> and <i>high-bit</i> must be different
+     <li>asserts <i>key</i> references something of type <code>bitmask</code></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:BitsSet(low-bit, high-bit)`
-   </td>
+  <td><code>fn:BitsSet(<i>low-bit</i>,<i>high-bit</i>)</code></td>
+  <td>
+   <ul>
+    <li><i>low-bit</i> and <i>high-bit</i> must be 1-32 inclusive</li>
+    <li>asserts that all bits between <i>low-bit</i> and <i>high-bit</i> inclusive are all one (set)</li>
+    <li><i>low-bit</i> and <i>high-bit</i> must be different
+    <li>asserts <i>key</i> references something of type <code>bitmask</code></li>
+   </ul>
+  </td>
+  </tr>
+  <tr>
+   <td><code>fn:Deprecated(<i>version</i>,<i>statement-that-is-deprecated</i>)</code></td>
    <td>
-<ul>
-
-<li>States requirement that all bits between `low-bit` (1-32) and `high-bit` (1-32) inclusive are zero (clear)
-
-<li>`low-bit` &lt; `high-bit`
-</li>
-</ul>
+    <ul>
+     <li></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:CreatedFromNamePageObj()`
-   </td>
+   <td><code>fn:Eval(<i>expr</i>)</code></td>
    <td>
-<ul>
-
-<li>
-</li>
-</ul>
+    <ul>
+     <li></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:Deprecated(version, statement-that-is-deprecated)`
-   </td>
+   <td><code>fn:FileSize()</code></td>
    <td>
-<ul>
-
-<li>
-</ul>
+    <ul>
+     <li>represents the length of the PDF file in bytes (from <code>%PDF-<i>x.y</i></code> to last <code>%%EOF</code>)</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:Eval(expr)`
-   </td>
+   <td><code>fn:FontHasLatinChars()</code></td>
    <td>
-<ul>
-
-<li>
-</ul>
+    <ul>
+     <li></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`int fn:FileSize()`
-   </td>
+   <td><code>fn:Ignore(expr)</code></td>
    <td>
-<ul>
-
-<li>returns integer >= 0
-
-<li>represents fact about PDF file
-</li>
-</ul>
+    <ul>
+     <li></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:FontHasLatinChars()`
-   </td>
+   <td><code>fn:ImageIsStructContentItem()</code></td>
    <td>
-<ul>
-
-<li>
-</li>
-</ul>
+    <ul>
+     <li></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:Ignore(expr)`
-   </td>
+   <td><code>fn:ImplementationDependent()</code></td>
    <td>
-<ul>
-
-<li>
-</ul>
+    <ul>
+     <li>key can be any value. There is no right or wrong.</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:ImageIsStructContentItem()`
-   </td>
+   <td><code>fn:InMap(<i>key</i>)</code></td>
    <td>
-<ul>
-
-<li>
-</li>
-</ul>
+    <ul>
+     <li><i>key</i> must be a map object (<code>dictionary</code> or <code>array</code>)</li>
+     <li>current key value is required to be in this map</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:ImplementationDependent()`
-   </td>
+   <td><code>fn:IsAssociatedFile()</code></td>
    <td>
-<ul>
-
-<li>
-</li>
-</ul>
+    <ul>
+     <li>returns requirement about current key</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:InMap(key-name)`
-   </td>
+   <td><code>fn:IsEncryptedWrapper()</code></td>
    <td>
-<ul>
-
-<li>
-</ul>
+    <ul>
+     <li>assertion about current PDF file</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:IsAssociatedFile()`
-   </td>
+   <td><code>fn:IsLastInNumberFormatArray()</code></td>
    <td>
-<ul>
-
-<li>returns requirement about current key
-</li>
-</ul>
+    <ul>
+     <li>asserts that the current key is the last array element in a number format array (i.e. a parent)</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:IsEncryptedWrapper()`
-   </td>
+   <td><code>fn:IsMeaningful(<i>expr</i>)<code></td>
    <td>
-<ul>
-
-<li>returns requirement about current PDF file
-</li>
-</ul>
+    <ul>
+     <li></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:IsLastInNumberFormatArray()`
-   </td>
+   <td><code>fn:IsPDFTagged()</code></td>
    <td>
-<ul>
-
-<li>returns requirement about current key
-</li>
-</ul>
+    <ul>
+     <li>asserts that the PDF file is Tagged</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:IsMeaningful(expr)`
+   <td>
+    <code>fn:IsPDFVersion(1.0)</code>
+    <code>fn:IsPDFVersion(1.0,<i>statement</i>)<code>
    </td>
    <td>
-<ul>
-
-<li>
-</ul>
+    <ul>
+     <li>if no optional <i>statement</i>, then always true to PDF 1.0 files</li>
+     <li>otherwise optional <i>statement</i> only applies to PDF 1.0 files</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:IsPDFTagged()`
-   </td>
+   <td><code>fn:IsPresent(<i>key</i>)</code></td>
    <td>
-<ul>
-
-<li>represents fact about PDF file
-</li>
-</ul>
+    <ul>
+     <li></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:IsPDFVersion(1.0, statement-only-in-pdf-1.0)`
-   </td>
+   <td><code>fn:IsRequired(<i>condition</i>)</code></td>
    <td>
-<ul>
-
-<li>
-</ul>
+    <ul>
+     <li>only occurs in "Required" field</li>
+     <li>must always be the outer-most predicate</li>
+     <li><i>condition</i> is a conditional expression that resolves to a boolean</li>
+     <li>if <i>condition</i> evaluates to true, then current key is required</li>
+     <li>if <i>condition</i> evaluates to false, then current key is optional</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:IsPresent(key-name)`
-   </td>
+   <td><code>fn:KeyNameIsColorant()</code></td>
    <td>
-<ul>
-
-<li>
-</ul>
+    <ul>
+     <li>asserts that the current custom key is also a colorant name</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:IsRequired(condition)`
+   <td>
+    <code>fn:MustBeDirect()</code><br/>
+    <code>fn:MustBeDirect(<i>condition</i>)</code>
    </td>
    <td>
-<ul>
-
-<li>
-</ul>
+    <ul>
+     <li>only ever used in the "IndirectRef" field.</li>
+     <li>if <i>condition</i> is true, the the current key value must be a direct object.
+     <li>if <i>condition</i> is false, the the current key value can be direct or indirect.
+    </ul>
+ </td>
+  </tr>
+  <tr>
+   <td><code>fn:NoCycle()<code></td>
+   <td>
+    <ul>
+     <li></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:KeyNameIsColorant()`
-   </td>
+   <td><code>fn:NotPresent(<i>key</i>)</code></td>
    <td>
-<ul>
-
-<li>
-</li>
-</ul>
+    <ul>
+     <li>evaluates if <i>key</i> is present</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:MustBeDirect( [ optional-condition ] )`
-   </td>
+   <td><code>fn:NotStandard14Font()</code></td>
    <td>
-<ul>
-
-<li>
-</ul>
+   <ul>
+    <li>Asserts that the current font object is not one of the Standard 14 Type 1 fonts.</li>
+   </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:NoCycle()`
-   </td>
+   <td><code>fn:PageContainsStructContentItems()</code></td>
    <td>
-<ul>
-
-<li>
-</li>
-</ul>
+    <ul>
+     <li></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:NotPresent(key-name)`
-   </td>
+   <td><code>fn:RectHeight(<i>rect</i>)</code></td>
    <td>
-<ul>
-
-<li>
-</ul>
+    <ul>
+     <li><i>rect</i> needs to be an array of 4 numbers (<code>rectangle</code> in Arlington types)</li>
+     <li><i>rect</i> is a key name and evaluates to integer >= 0.</li>
+     <li>Needs to be used inside <code>fn:Eval(...)</code>.</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`Bool fn:NotStandard14Font()`
-   </td>
+   <td><code>fn:RectWidth(<i>rect</i>)</code></td>
    <td>
-<ul>
-
-<li>
-</li>
-</ul>
+    <ul>
+     <li><i>rect</i> needs to be an array of 4 numbers (<code>rectangle</code> in Arlington types)</li>
+     <li><i>rect</i> is a key name and evaluates to integer >= 0.</li>
+     <li>Needs to be used inside <code>fn:Eval(...)</code>.</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:PageContainsStructContentItems()`
-   </td>
+   <td><code>fn:RequiredValue(<i>expr</i>,<i>value</i>)<code></td>
    <td>
-<ul>
-
-<li>
-</li>
-</ul>
+    <ul>
+     <li></li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`int fn:RectHeight(key-which-is-a-rect)`
-   </td>
+   <td><code>fn:SinceVersion(<i>version</i>,<i>statement</i>)</code></td>
    <td>
-<ul>
-
-<li>Returns the height of a rectangle (>= 0)
-</li>
-</ul>
+    <ul>
+     <li><i>version</i> is only 1.0, ..., 2.0</li>
+     <li>no SPACE around COMMA</li>
+     <li><i>statement</i> is only ever a pre-defined Arlington type or a key name</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`int fn:RectWidth(key-which-is-a-rect)`
-   </td>
+   <td><code>fn:StreamLength(<i>key</i>)</code></td>
    <td>
-<ul>
-
-<li>Returns the width of a rectangle (>= 0)
-</li>
-</ul>
+    <ul>
+     <li><i>key</i> needs to be a stream and always evaluates to a non-negative integer.</li>
+     <li>relies on <code>Length</code> key, rather than reading streams
+     <li>Needs to be used inside <code>fn:Eval(...)</code>.</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`fn:RequiredValue(condition-expression, value)`
-   </td>
+   <td><code>fn:StringLength(<i>key</i>)</code></td>
    <td>
-<ul>
-
-<li>
-</ul>
-   </td>
-  </tr>
-  <tr>
-   <td>`fn:SinceVersion( version, statement )`
-   </td>
-   <td>
-<ul>
-
-<li>
-</ul>
-   </td>
-  </tr>
-  <tr>
-   <td>`Bool fn:StreamLength( expr )`
-   </td>
-   <td>
-<ul>
-
-<li>`expr `is stream length of current key
-
-<li>`expr `evaluates to a non-negative integer
-</ul>
-   </td>
-  </tr>
-  <tr>
-   <td>`Bool fn:StringLength( [ cond ], expr )`
-   </td>
-   <td>
-<ul>
-
-<li>`expr `is string length of current key
-
-<li>`expr `evaluates to a non-negative integer
-
-<li>`cond` is optional
-
-<li>`cond` is condition when string length must be the same `expr`
-</li>
-</ul>
+    <ul>
+     <li><i>key</i> needs to be a string object and always evaluates to a non-negative integer.</li>
+     <li>Needs to be used inside <code>fn:Eval(...)</code>.</li>
+    </ul>
    </td>
   </tr>
 </table>
 
 
 
-# Checks to be done in 32K
+# Checks still needing to be completed in ISO 32000-2:2020
 
-Check sizes of all `array` search hits - up to Table 95
+- Check array length requirements of all `array` search hits - *done up to Table 95*
 
-Check ranges of all `integer` search hits - up to Table 170.
+- Check ranges of all `integer` search hits - *done up to Table 170*.
 See also: [https://github.com/pdf-association/pdf-issues/issues/15](https://github.com/pdf-association/pdf-issues/issues/15)
 
-Read every Table for dictionary keys and update declarative rules - up to Table 186 Popup Annots
+- Read every Table for dictionary keys and update declarative rules - *done up to Table 186 Popup Annots*
 
-Check ranges of all `number` search hits - not started
+- Check ranges of all `number` search hits - *not started yet*
