@@ -18,7 +18,7 @@
 # Lexical errors (such as typos) will result in a Python exception and premature failure.
 #
 # Normal usage with Arlington PDF model:
-#  grep --color=never -Pho "fn:[[:alnum:]]*\([^\t\]\;]*" *.tsv | sort | uniq | arlington-fn-lex.py > out.txt 2>&1
+#  grep --color=never -Pho "fn:[a-zA-Z]+\((?:[^)(]+|(?R))*+\)" ../tsv/latest/*.tsv | sort | uniq | python3 arlington-fn-lex.py > out.txt 2>&1
 #
 # Requires Python 3 and sly: pip3 install sly
 # See https://sly.readthedocs.io/en/latest/sly.html
@@ -51,7 +51,7 @@ class ArlingtonFnLexer(Lexer):
     ignore = ' \r\n'
 
     # Regular expression rules for tokens
-    FUNC_NAME    = r'fn\:[A-Z][a-zA-Z0-9]+\('
+    FUNC_NAME    = r'fn\:[A-Z][a-zA-Z14]+\('
     PDF_TRUE     = r'(true)|(TRUE)'
     PDF_FALSE    = r'(false)|(FALSE)'
     PDF_STRING   = r'\([a-zA-Z0-9_\-]+\)'
