@@ -22,7 +22,7 @@
 
 #include "ArlingtonTSVGrammarFile.h"
 
-    /// @brief All Arlington pre-defined types (alphabetically sorted)
+/// @brief All Arlington pre-defined types (alphabetically sorted)
 const std::vector<std::string>  CArlingtonTSVGrammarFile::arl_all_types = {
         "array",
         "bitmask",

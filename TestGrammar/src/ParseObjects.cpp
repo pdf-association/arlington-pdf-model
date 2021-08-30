@@ -17,7 +17,6 @@
   Reading the whole PDF starting from specific object and validating against grammar provided via Arlington TSV file set
 */
 
-#include <map>
 #include <fstream>
 #include <sstream>
 #include <iomanip>
@@ -197,13 +196,11 @@ bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd) {
     else if (reqd == "FALSE")
         return false;
     else {
-        const std::string  ArlKey = "([a-zA-Z0-9_\\.\\-]+\\:\\:)?([a-zA-Z0-9_\\.\\-]+\\:\\:)?[a-zA-Z0-9_\\.\\-\\*]+";
-        const std::string  ArlKeyValue = "([a-zA-Z0-9_\\.\\-]+\\:\\:)?([a-zA-Z0-9_\\.\\-]+\\:\\:)?@[a-zA-Z0-9_\\.\\-\\*]+";
-        const std::regex   r_isRequired("^fn:IsRequired\\((.+)\\)");
-        const std::regex   r_isPresent("fn:IsPresent\\(([^\\)\\)]+)\\)");
-        const std::regex   r_notPresent("fn:NotPresent\\(([^\\)\\)]+)\\)");
-        std::regex      r_keyValueEquals("@(.+)==(.+)");
-        std::regex      r_keyValueNotEquals("@(.+)!=(.+)");
+        const std::regex   r_isRequired("^fn:IsRequired\\((.+)\\)");     // $1 = inner
+        const std::regex   r_isPresent("fn:IsPresent\\(([^\\)]+)\\)");   // $1 = inner
+        const std::regex   r_notPresent("fn:NotPresent\\(([^\\)]+)\\)"); // $1 = inner
+        std::regex      r_keyValueEquals("@(.+)==(.+)");                 // $1 = LHS, "==", $2 = RHS
+        std::regex      r_keyValueNotEquals("@(.+)!=(.+)");              // $1 = LHS, "!=", $2 = RHS
         std::string     inner;
         std::string     key;
         std::smatch     m;

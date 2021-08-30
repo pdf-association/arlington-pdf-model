@@ -18,6 +18,8 @@
   A class to read the Arlington TSV-based grammar data from a TSV file.
 */
 
+#ifndef ArlingtonTSVGrammarFile_h
+#define ArlingtonTSVGrammarFile_h
 #pragma once
 
 #include <string>
@@ -88,3 +90,5 @@ public:
     /// @brief Returns a reference to the raw TSV data from the TSV file
     const ArlTSVmatrix& get_data();
 };
+
+#endif // ArlingtonTSVGrammarFile_h

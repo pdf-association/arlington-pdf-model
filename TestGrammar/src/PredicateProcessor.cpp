@@ -14,53 +14,23 @@
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
-
 #include <exception>
 #include <iterator>
 #include <algorithm>
 #include <regex>
 #include <string>
 #include <cassert>
+
 #include "PredicateProcessor.h"
 #include "utils.h"
 
-/// @brief Integer - only optinoal leading negative sign supported
-const std::string ArlInt = "(\\-)?[0-9]+";
 
-/// @brief Number (requires at least 1 decimal place either side of decimal point)
-const std::string ArlNum = ArlInt + "\\.[0-9]+";
+/// @brief Regex to process "Links" and "Types" fields
+/// - $1 = predicate name
+/// - $2 = single Link (TSV filename) or single Arlington predefined Type 
+const std::regex  r_Links("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(" + ArlPDFVersion + "\\,([a-zA-Z0-9_.]+)\\)");
+const std::regex  r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(" + ArlPDFVersion + "\\,([a-z\\-]+)\\)");
 
-/// @brief Arlington key or array index regex, including path separator "::" and wildcards
-/// Examples: SomeKey, 3, *, 0*, parent::SomeKey, SomeKeyA::someKeyB::3,
-const std::string  ArlKeyBase  = "[a-zA-Z0-9_\\.]+";
-const std::string  ArlKey      = "([a-zA-Z]+\\:\\:)*(" + ArlKeyBase +"|[0-9]+(\\*)?|\\*)+";
-const std::string  ArlKeyValue = "([a-zA-Z]+\\:\\:)*@(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
-
-/// @brief Arlington PDF version regex (1.0, 1.1, ... 1.7, 2.0)
-const std::string  ArlPDFVersion = "(1\\.0|1\\.1|1\\.2|1\\.3|1\\.4|1\\.5|1\\.6|1\\.7|2\\.0)";
-
-/// @brief Arlington Type or Link (TSV filename)
-const std::string ArlTypeOrLink = "[a-zA-Z0-9_\\-]+";
-
-/// @brief Arlington math comparisons - currently NOT required to have SPACE either side
-const std::string ArlMathComp = "(==|!=|>=|<=|>|<)";
-
-/// @brief Arlington math operators - currently NOT required to have SPACE either side
-/// "mod" handled separately.
-const std::string ArlMathOp   = "(\\*|\\+|\\-)";
-
-/// @brief Arlington logical operators. Require SPACE either side. Also expect bracketed expressions either side or a predicate:
-/// e.g. ...) || (... or ...) || fn:...  
-const std::string ArlLogicalOp = " (&&|\\|\\|) ";
-const std::regex  r_LogicalBracketing("(..)(&&|\\|\\|)(..)");
-
-/// @brief Arlington PDF boolean keywords
-const std::string ArlBooleans = "(true|false)";
-
-/// @brief Arlington predicate with zero or one parameter
-const std::string ArlPredicate0Arg  = "fn:[a-zA-Z14]+\\(\\)";
-const std::string ArlPredicate1Arg  = "fn:[a-zA-Z14]+\\(" + ArlKey + "\\)";
-const std::string ArlPredicate1ArgV = "fn:[a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
 
 /// @brief Ordered list of regex matches that should reduce well-formed predicates down to nothing (i.e. an empty string)
 /// @todo Mathematical expressions are currently NOT supported (+, -, *, /, multi-term expressions, etc).
@@ -77,7 +47,7 @@ const std::vector<std::regex> AllPredicateFunctions = {
     // 2 arguments: PDF version and type/link
     //  - Mostly not required as pre-processed via remove_type_predicates()
     std::regex("fn:IsPDFVersion\\(1.0,fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)\\)"),
-    std::regex("fn:SinceVersion\\(2.0,fn:BitSet\\(" + ArlInt + "\\)\\)"),
+    std::regex("fn:SinceVersion\\(" + ArlPDFVersion + ",fn:BitSet\\(" + ArlInt + "\\)\\)"),
     std::regex("fn:SinceVersion\\(" + ArlPDFVersion + ",fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)\\)"),
     std::regex("fn:BeforeVersion\\(" + ArlPDFVersion + ",fn:Eval\\(" + ArlKeyValue + ArlMathComp + ArlInt + "\\)\\)"),
     // Single integer arguments
@@ -88,6 +58,7 @@ const std::vector<std::regex> AllPredicateFunctions = {
     std::regex("fn:BitsSet\\(" + ArlInt + "," + ArlInt + "\\)"),
     // Bracketed expression components
     std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlInt + "\\)"),
+    std::regex("\\(" + ArlKeyValue + ArlMathOp + ArlKeyValue + "\\)"),
     std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate0Arg + "\\)"),
     std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate1Arg + "\\)"),
     std::regex("\\(" + ArlPredicate1Arg + ArlMathComp + ArlPredicate1ArgV + "\\)"),
@@ -127,7 +98,8 @@ const std::vector<std::regex> AllPredicateFunctions = {
     std::regex("^fn:Ignore"),
     std::regex("^fn:IsMeaningful"),
     std::regex("^fn:NotPresent"),
-    std::regex("^fn:Eval")
+    std::regex("^fn:Eval"),
+    std::regex("\\(" + ArlMathComp + "\\)")
 };
 
 
@@ -153,6 +125,8 @@ bool ValidationByConsumption(const std::string& tsv_file, const std::string& fn,
 
         // Logical expression - expect bracketed expressions either side or predicate:
         /// e.g. ...) || (... or ...) || fn:...
+        const std::regex  r_LogicalBracketing("(..)(&&|\\|\\|)(..)");
+
         if ((s.find("&&") != std::string::npos) || (s.find("||") != std::string::npos)) {
             std::smatch  m;
             if (!std::regex_search(s, m, r_LogicalBracketing)) {
@@ -207,8 +181,6 @@ bool KeyPredicateProcessor::ValidateRowSyntax() {
     return false;
 }
 
-
-const std::regex r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(" + ArlPDFVersion + "\\,([a-z\\-]+)\\)");
 
 /// @brief Validates an Arlington "Type" field (column 2) 
 /// Arlington types are all lowercase.
@@ -474,9 +446,6 @@ bool InheritablePredicateProcessor::ReduceRow() {
 }
 
 
-
-const std::regex  r_Links("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(" + ArlPDFVersion + "\\,([a-zA-Z0-9_.\\-]+)\\)");
-
 /// @brief Validates an Arlington "Links" field (column 11) 
 ///  - fn:SinceVersion(x.y,link)
 ///  - fn:Deprecated(x.y,link)
@@ -562,8 +531,9 @@ std::string LinkPredicateProcessor::ReduceRow(const std::string pdf_version) {
 //
 //  Predicate implementations
 //   - return true if predicate makes sense, false otherwise
-//   - 1st argument is the PDF object in question
-//   - first set of arguments are function specific
+//   - 1st argument is current key (from Arlington), if required
+//   - 2nd argument is the PDF object in question
+//   - next set of arguments are function specific
 //   - last argument(s) are the return (out) parameters
 //
 //////////////////////////////////////////////////////////////////////////////////////////////

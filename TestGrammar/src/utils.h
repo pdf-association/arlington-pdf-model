@@ -14,6 +14,8 @@
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
+#ifndef Utils_h
+#define Utils_h
 #pragma once
 
 #include <string>
@@ -44,3 +46,5 @@ std::string& strip_leading_whitespace(std::string& str);
 
 // Case insensitive comparison of two strings
 bool iequals(const std::string& a, const std::string& b);
+
+#endif // Utils_h

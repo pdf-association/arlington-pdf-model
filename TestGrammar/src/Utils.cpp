@@ -17,13 +17,13 @@
 #define  _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNINGS
 #define  _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 
-#include <string>
 #include <iostream>
 #include <locale>
 #include <codecvt>
 #include <math.h>
 #include <algorithm>
 #include <regex>
+
 #ifdef _WIN32
 #include <Windows.h>
 extern HINSTANCE ghInstance;
@@ -31,10 +31,15 @@ extern HINSTANCE ghInstance;
 #include <cstring>
 #include <limits.h>
 #include <sys/stat.h>
-#endif
-
+#endif // _WIN32
 
 #include "utils.h"
+#include "PredicateProcessor.h"
+
+/// @brief Regexes for matching versioning predicates: $1 = PDF version "," $2 = Link or predefined Arlington type
+static const std::regex  r_sinceVersion("fn:SinceVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
+static const std::regex  r_isDeprecated("fn:Deprecated\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
+
 
 /// @brief Converts a Unicode string to UTF8
 /// 
@@ -195,7 +200,6 @@ bool is_file(const std::filesystem::path& p)
 /// @param link_in[in]  Arlington TSV Link field (column 11) that might contain a predicate function 
 /// @returns            the Arlington "Links" field with all fn:SinceVersion(x.y,zzz) removed
 std::string remove_link_predicates(const std::string& link_in) {
-    std::regex      r_sinceVersion("fn:SinceVersion\\((1\\.0|1\\.1|1\\.2|1\\.3|1\\.4|1\\.5|1\\.6|1\\.7|2\\.0)\\,([A-Za-z0-9\\-_.]+)\\)");
     std::string     to_ret;
 
     to_ret = std::regex_replace(link_in, r_sinceVersion, "$2");
@@ -208,8 +212,6 @@ std::string remove_link_predicates(const std::string& link_in) {
 /// @param[in] types_in Arlington TSV Type field (column 11) that might contain a predicate function 
 /// @returns   the Arlington "Type" field with all fn:SinceVersion(x.y,zzz) and fn:Deprecated(x.y,zzz) removed
 std::string remove_type_predicates(const std::string& types_in) {
-    std::regex      r_sinceVersion("fn:SinceVersion\\((1\\.0|1\\.1|1\\.2|1\\.3|1\\.4|1\\.5|1\\.6|1\\.7|2\\.0)\\,([A-Za-z0-9\\-_.]+)\\)");
-    std::regex      r_isDeprecated("fn:Deprecated\\((1\\.0|1\\.1|1\\.2|1\\.3|1\\.4|1\\.5|1\\.6|1\\.7|2\\.0)\\,([A-Za-z0-9\\-_.]+)\\)");
     std::string     to_ret;
 
     to_ret = std::regex_replace(types_in, r_sinceVersion, "$2");
@@ -284,11 +286,6 @@ std::string get_link_for_type(std::string single_type, const std::string& types,
 //////////////////////////////////////////////////////////////////////////
 // 
 std::vector<std::string> split(const std::string& s, char separator) {
-  //std::regex functionStr("fn:\\w*\\([ A-Za-z0-9<>=@&|,]+\\)");
-  //std::smatch match;
-  //if (std::regex_search(s, match, functionStr))
-  //  std::cout << "match: " << match[1] << '\n';
-
   std::vector<std::string> output;
   std::string::size_type pos_prev = 0, pos_separator=0, pos_fn = 0, pos=0;
 

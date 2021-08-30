@@ -16,7 +16,6 @@
 
 #ifndef ArlingtonPDFShim_h
 #define ArlingtonPDFShim_h
-
 #pragma once
 
 // Choose which PDF SDK you want to use. Some may have more functionality than others. pdfium is default
@@ -25,7 +24,6 @@
 #undef ARL_PDFSDK_PDFIX
 #undef ARL_PDFSDK_QPDF
 #endif
-
 
 #include <iostream>
 #include <filesystem>

@@ -16,7 +16,6 @@
 
 #ifndef TestGrammarVers_h
 #define TestGrammarVers_h
-
 #pragma once
 
 #define TestGrammar_VERSION "v0.5 built " __DATE__ " " __TIME__

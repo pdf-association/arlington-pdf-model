@@ -15,11 +15,52 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+
+#ifndef PredicateProcessor_h
+#define PredicateProcessor_h
+
 #include <iostream>
 #include "ArlingtonTSVGrammarFile.h"
 #include "ArlingtonPDFShim.h"
 
 using namespace ArlingtonPDFShim;
+
+/// @brief Integer - only optional leading negative sign
+const std::string ArlInt = "(\\-)?[0-9]+";
+
+/// @brief Number (requires at least 1 decimal place either side of decimal point ".")
+const std::string ArlNum = ArlInt + "\\.[0-9]+";
+
+/// @brief Arlington key / array index regex, including path separator "::" and wildcards
+/// Examples: SomeKey, 3, *, 0*, parent::SomeKey, SomeKeyA::SomeKeyB::3, SomeKeyA::SomeKeyB::@SomeKeyC,
+const std::string  ArlKeyBase = "[a-zA-Z0-9_\\.]+";
+const std::string  ArlKey = "([a-zA-Z]+\\:\\:)*(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
+const std::string  ArlKeyValue = "([a-zA-Z]+\\:\\:)*@(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
+
+/// @brief Arlington PDF version regex (1.0, 1.1, ... 1.7, 2.0)
+const std::string  ArlPDFVersion = "(1\\.[0-7]|2\\.0)";
+
+/// @brief Arlington Type or Link (TSV filename)
+const std::string ArlTypeOrLink = "[a-zA-Z0-9_\\-]+";
+
+/// @brief Arlington math comparisons - currently NOT required to have SPACE either side
+const std::string ArlMathComp = "(==|!=|>=|<=|>|<)";
+
+/// @brief Arlington math operators - multiply needs a SPACE either side to disambiguate from key wildcards.
+/// "mod" handled explicitly.
+const std::string ArlMathOp = "( \\* |\\+|\\-)";
+
+/// @brief Arlington logical operators. Require SPACE either side. Also expect bracketed expressions either side or a predicate:
+/// e.g. ...) || (... or ...) || fn:...  
+const std::string ArlLogicalOp = " (&&|\\|\\|) ";
+
+/// @brief Arlington PDF boolean keywords
+const std::string ArlBooleans = "(true|false)";
+
+/// @brief Arlington predicate with zero or one parameter
+const std::string ArlPredicate0Arg = "fn:[a-zA-Z14]+\\(\\)";
+const std::string ArlPredicate1Arg = "fn:[a-zA-Z14]+\\(" + ArlKey + "\\)";
+const std::string ArlPredicate1ArgV = "fn:[a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
 
 bool ValidationByConsumption(const std::string& tsv_file, const std::string& fn, std::ostream& ofs);
 
@@ -167,3 +208,5 @@ public:
 
 /// Arlington "Notes" field (column 12) 
 /// - free form text so no support required
+
+#endif // PredicateProcessor_h

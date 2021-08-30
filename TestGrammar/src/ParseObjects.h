@@ -16,12 +16,12 @@
 
 #ifndef ParseObjects_h
 #define ParseObjects_h
+#pragma once
 
 ///
 /// Read the whole PDF starting from specific object and validating against
 /// the Arlington PDF grammar provided via the set of TSV files
 ///
-#pragma once
 
 #include <string>
 #include <filesystem>

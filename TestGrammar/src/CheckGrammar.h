@@ -14,15 +14,21 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#ifndef CheckGrammar_h
+#define CheckGrammar_h
 #pragma once
+
 #include "ArlingtonPDFShim.h"
 
 #include <iostream>
 #include <string>
 #include <filesystem>
+#include "ArlingtonPDFShim.h"
 
 // Validate the Arlington PDF model grammar
 void ValidateGrammarFolder(const std::filesystem::path& grammar_folder, bool verbose, std::ostream& ofs);
 
 // Check Adobe DVA vs Arlington PDF model
 void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK& pdfsdk, const std::filesystem::path& dva_file, const std::filesystem::path& grammar_folder, std::ostream& ofs);
+
+#endif // CheckGrammar_h
