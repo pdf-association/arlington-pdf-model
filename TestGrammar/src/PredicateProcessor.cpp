@@ -31,23 +31,25 @@ const std::string ArlInt = "(\\-)?[0-9]+";
 const std::string ArlNum = ArlInt + "\\.[0-9]+";
 
 /// @brief Arlington key or array index regex, including path separator "::" and wildcards
-/// Examples: SomeKey, 3, parent::SomeKey, SomeKeyA::someKeyB::3, 
-const std::string  ArlKey      = "([a-zA-Z0-9_\\.\\-]+\\:\\:)?([a-zA-Z0-9_\\.\\-]+\\:\\:)?[a-zA-Z0-9_\\.\\-\\*]+";
-const std::string  ArlKeyValue = "([a-zA-Z0-9_\\.\\-]+\\:\\:)?([a-zA-Z0-9_\\.\\-]+\\:\\:)?@[a-zA-Z0-9_\\.\\-\\*]+";
+/// Examples: SomeKey, 3, *, 0*, parent::SomeKey, SomeKeyA::someKeyB::3,
+const std::string  ArlKeyBase  = "[a-zA-Z0-9_\\.]+";
+const std::string  ArlKey      = "([a-zA-Z]+\\:\\:)*(" + ArlKeyBase +"|[0-9]+(\\*)?|\\*)+";
+const std::string  ArlKeyValue = "([a-zA-Z]+\\:\\:)*@(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
 
 /// @brief Arlington PDF version regex (1.0, 1.1, ... 1.7, 2.0)
 const std::string  ArlPDFVersion = "(1\\.0|1\\.1|1\\.2|1\\.3|1\\.4|1\\.5|1\\.6|1\\.7|2\\.0)";
 
 /// @brief Arlington Type or Link (TSV filename)
-const std::string ArlTypeOrLink = "[a-zA-Z0-9_\\-\\.]+";
+const std::string ArlTypeOrLink = "[a-zA-Z0-9_\\-]+";
 
 /// @brief Arlington math comparisons - currently NOT required to have SPACE either side
 const std::string ArlMathComp = "(==|!=|>=|<=|>|<)";
 
-/// @brief Arlington math operators - required explicit SPACE either side
-const std::string ArlMathOp   = " (\\*|\\+|\\-) ";
+/// @brief Arlington math operators - currently NOT required to have SPACE either side
+/// "mod" handled separately.
+const std::string ArlMathOp   = "(\\*|\\+|\\-)";
 
-/// @brief Arlington logical operators. Require SPACE either side. Also expect bracketed expressions either side or predicate:
+/// @brief Arlington logical operators. Require SPACE either side. Also expect bracketed expressions either side or a predicate:
 /// e.g. ...) || (... or ...) || fn:...  
 const std::string ArlLogicalOp = " (&&|\\|\\|) ";
 const std::regex  r_LogicalBracketing("(..)(&&|\\|\\|)(..)");
@@ -65,19 +67,8 @@ const std::string ArlPredicate1ArgV = "fn:[a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
 const std::vector<std::regex> AllPredicateFunctions = {
     // IsRequired is always outer function and starting for "Required" field
     std::regex("^fn:IsRequired\\(.*\\)"),
-    // Bracketed expression components
-    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate0Arg + "\\)"),
-    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate1Arg + "\\)"),
-    std::regex("\\(" + ArlPredicate1Arg + ArlMathComp + ArlPredicate1Arg + "\\)"),
-    std::regex("\\(" + ArlPredicate1ArgV + ArlMathComp + ArlInt + "\\)"),
-    std::regex("\\(" + ArlPredicate1Arg + ArlMathComp + ArlInt + "\\)"),
-    std::regex("\\(" + ArlKeyValue + "==" + ArlBooleans + "\\)"),
-    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKeyValue + "\\)"),
-    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKey + "\\)"),
-    std::regex("\\(" + ArlKey + ArlMathComp + ArlKeyValue + "\\)"),
     std::regex("\\(fn:ArrayLength\\(" + ArlKeyValue + "\\) mod " + ArlInt + "\\)==" + ArlInt),
     std::regex("\\(fn:ArrayLength\\(" + ArlKey + "\\) mod " + ArlInt + "\\)==" + ArlInt),
-    std::regex("\\(" + ArlKeyValue + " mod " + ArlInt + "\\)==" + ArlInt),
     // single PDF version arguments
     std::regex("fn:SinceVersion\\(" + ArlPDFVersion + "\\)"),
     std::regex("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\)"),
@@ -88,12 +79,26 @@ const std::vector<std::regex> AllPredicateFunctions = {
     std::regex("fn:IsPDFVersion\\(1.0,fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)\\)"),
     std::regex("fn:SinceVersion\\(2.0,fn:BitSet\\(" + ArlInt + "\\)\\)"),
     std::regex("fn:SinceVersion\\(" + ArlPDFVersion + ",fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)\\)"),
+    std::regex("fn:BeforeVersion\\(" + ArlPDFVersion + ",fn:Eval\\(" + ArlKeyValue + ArlMathComp + ArlInt + "\\)\\)"),
     // Single integer arguments
     std::regex("fn:BitClear\\(" + ArlInt + "\\)"),
     std::regex("fn:BitSet\\(" + ArlInt + "\\)"),
     // 2 integer arguments
     std::regex("fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)"),
     std::regex("fn:BitsSet\\(" + ArlInt + "," + ArlInt + "\\)"),
+    // Bracketed expression components
+    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlInt + "\\)"),
+    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate0Arg + "\\)"),
+    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate1Arg + "\\)"),
+    std::regex("\\(" + ArlPredicate1Arg + ArlMathComp + ArlPredicate1ArgV + "\\)"),
+    std::regex("\\(" + ArlPredicate1Arg + ArlMathComp + ArlPredicate1Arg + "\\)"),
+    std::regex("\\(" + ArlPredicate1ArgV + ArlMathComp + ArlInt + "\\)"),
+    std::regex("\\(" + ArlPredicate1Arg + ArlMathComp + ArlInt + "\\)"),
+    std::regex("\\(" + ArlKeyValue + "==" + ArlBooleans + "\\)"),
+    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKeyValue + "\\)"),
+    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKey + "\\)"),
+    std::regex("\\(" + ArlKey + ArlMathComp + ArlKeyValue + "\\)"),
+    std::regex("\\(" + ArlKeyValue + " mod " + ArlInt + "\\)==" + ArlInt),
     // single key / array index arguments - RUINS math expressions!
     std::regex("fn:RectHeight\\(" + ArlKey + "\\)"),
     std::regex("fn:RectWidth\\(" + ArlKey + "\\)"),
@@ -109,24 +114,18 @@ const std::vector<std::regex> AllPredicateFunctions = {
     std::regex("fn:MustBeDirect\\(" + ArlKey + "\\)"),
     // More complex...
     std::regex("fn:IsPresent\\(" + ArlKey + "," + ArlKey + "\\)"),
-    std::regex("fn:Required\\(" + ArlKeyValue + ArlMathComp + ArlKey + "," + ArlKey + "\\)"),
+    std::regex("fn:RequiredValue\\(" + ArlKeyValue + ArlMathComp + ArlKey + ",(" + ArlKey + "|" + ArlInt + ")\\)"),
     // 
     std::regex(ArlPredicate1ArgV),
     std::regex(ArlPredicate1Arg),
     std::regex(ArlPredicate0Arg),
     // unbracketed expression components
     std::regex(ArlKeyValue + "==" + ArlBooleans),
-    std::regex(ArlKeyValue + ArlMathComp + ArlKeyValue),
-    std::regex(ArlKeyValue + ArlMathComp + ArlKey),
-    std::regex(ArlKey + ArlMathComp + ArlKeyValue),
-    // Logical operators after math operations stripped away
-    std::regex("\\(" + ArlLogicalOp + "\\)"),
+    // Logical operators after all parameters stripped away
     std::regex(ArlLogicalOp),
     // predicates with complex arguments (incl. nested functions) do last as previous regexes should have soaked up everything
-    std::regex(ArlPredicate0Arg),
     std::regex("^fn:Ignore"),
     std::regex("^fn:IsMeaningful"),
-    std::regex("^fn:IsRequired"),
     std::regex("^fn:NotPresent"),
     std::regex("^fn:Eval")
 };
@@ -180,7 +179,7 @@ bool ValidationByConsumption(const std::string& tsv_file, const std::string& fn,
             // Remove any leading COMMA that was potentially between predicates that just got stripped
             if ((s.size() > 0) && (s[0] == ','))
                 s = s.substr(1, s.size() - 1);
-        }
+        } // for
         if (std::regex_search(s, bad_result)) {
             if (!show_tsv) {
                 ofs << "   " << tsv_file << ":" << std::endl;
