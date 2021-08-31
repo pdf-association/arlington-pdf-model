@@ -44,24 +44,24 @@ Each row defines a specific key in a dictionary or an array element in an array.
 - All PDF names are always expressed **without** the leading FORWARD-SLASH (`/`).
 - PDF strings are required to have `(` and `)`.
 - PDF array objects must also have `[` and `]` and, of course do **not** use commas between array elements.
-- PDF boolean (keywords) are always lowercase `true` and `false`.
-- Logical boolean values related to the description of PDF objects in the Arlington data model are always uppercase `TRUE`/`FALSE`.
-- TSV column names are shown double-quoted (`"`) to hopefully avoid confusion.
+- PDF Boolean (keywords) are always lowercase `true` and `false`.
+- Logical Boolean values related to the description of PDF objects in the Arlington data model are always uppercase `TRUE`/`FALSE`.
+- TSV column names are shown double-quoted (`"`) in documentation to hopefully avoid confusion.
 
 TSV columns are always in the following order and tabs must exist for all columns:
 
-1. [**Key**](#Key) - key in dictionary, or integer index into an array. ASTERISK (`*`) represents a wildcard and means any key/index.
-1. [**Type**](#Type) - one or more Arlington types separated by SEMI-COLON `;`.
-1. [**SinceVersion**](#SinceVersion-and-DeprecatedIn) - version of PDF this key was introduced in.
-1. [**DeprecatedIn**](#SinceVersion-and-DeprecatedIn) - version of PDF this key was deprecated in. Empty if not deprecated.
-1. [**Required**](#Required) - whether the key or array element is required.
-1. **IndirectReference** - whether the key is required to be an indirect reference (`TRUE`/`FALSE`) or if it must be a direct object (`fn:MustBeDirect`).
-1. **Inheritable** - whether the key is inheritable (`TRUE`/`FALSE`).
-1. **DefaultValue** - optional default value of key.
-1. [**PossibleValues**](#PossibleValues) - list of possible values. For dictionary `/Type` keys that must have a specific value, this will be a choice of just 1.
-1. [**SpecialCase**](#SpecialCase)  - declarative functions defining additional relationships.
-1. [**Link**](#Link) - name(s) of other TSV files for validating the values of this key for dictionaries, arrays and streams.
-1. **Notes** - free text for arbitrary notes.
+1. "[**Key**](#Key)" - key in dictionary, or integer index into an array. ASTERISK (`*`) represents a wildcard and means any key/index.
+1. "[**Type**](#Type)" - one or more of the pre-defined Arlington types separated by SEMI-COLONs `;`.
+1. "[**SinceVersion**](#SinceVersion-and-DeprecatedIn)" - version of PDF this key was introduced in.
+1. "[**DeprecatedIn**](#SinceVersion-and-DeprecatedIn)" - version of PDF this key was deprecated in. Empty if not deprecated.
+1. "[**Required**](#Required)" - whether the key or array element is required.
+1. **IndirectReference**" - whether the key is required to be an indirect reference (`TRUE`/`FALSE`) or if it must be a direct object (`fn:MustBeDirect`).
+1. **Inheritable**" - whether the key is inheritable (`TRUE`/`FALSE`).
+1. **DefaultValue**" - optional default value of key.
+1. "[**PossibleValues**](#PossibleValues)" - list of possible values. For dictionary `/Type` keys that must have a specific value, this will be a choice of just 1.
+1. "[**SpecialCase**](#SpecialCase)" - declarative functions defining additional relationships.
+1. "[**Link**](#Link)" - name(s) of other TSV files for validating the values of this key for dictionaries, arrays and streams.
+1. "**Notes**" - free text for arbitrary notes.
 
 The two special objects [\_UniversalArray](tsv/latest/_UniversalArray.tsv) and [\_UniversalDictionary](tsv/latest/_UniversalDictionary.tsv) are not formally defined in the PDF 2.0 specification and represent generic an arbitrarily-sized PDF array and PDF dictionary respectively. They are used to resolve "Links" to generic objects for a few PDF objects.
 
@@ -76,13 +76,17 @@ A very precise definition of all syntax rules for the Arlington PDF model as wel
 
 [Example](tsv/latest/3DBackground.tsv) of a single entry in a dictionary with a `/Type` key:
 
+<div style="font-family: monospace">
 
 Key | Type | Required | ...
 --- | --- | --- | ---
 Type | name | TRUE | ...
 
+</div>
 
 Example of an [array requiring 3 floating-point numbers](tsv/latest/ArrayOf_3RGBNumbers.tsv), such as RGB values:
+
+<div style="font-family: monospace">
 
 Key | Type | ...
 --- | --- | ---
@@ -90,49 +94,56 @@ Key | Type | ...
 1 | number | ...
 2 | number | ...
 
+</div>
 
 Example of an array with unlimited number of elements of the same type [ArrayOfThreads](tsv/latest/ArrayOfThreads.tsv):
+
+<div style="font-family: monospace">
 
 Key | Type | ... |Link
 --- | --- | --- | ---
 \* | dictionary | ... | \[[Thread](tsv/latest/Thread.tsv)]
 
+</div>
 
 Dictionaries can also serve as maps, where an arbitrary name is associated with another element. Examples include ClassMap or the Shading dictionary in the Resources dictionary. In such cases the Shading key is linked to ShadingMap and [ShadingMap](tsv/latest/ShadingMap.tsv) looks like this:
+
+<div style="font-family: monospace">
 
 Key |  Type | ... | Link
 --- | --- | --- | ---
 \* | dictionary;stream | ... | \[[ShadingType1](tsv/latest/ShadingType1.tsv),[ShadingType2](tsv/latest/ShadingType2),[ShadingType3](tsv/latest/ShadingType3.tsv)];\[[ShadingType4](tsv/latest/ShadingType4.tsv),[ShadingType5](tsv/latest/ShadingType5.tsv),[ShadingType6](tsv/latest/ShadingType6.tsv),[ShadingType7](tsv/latest/ShadingType7.tsv)]
 
+</div>
 
 ### Type
 
-PDF 2.0 formally defines 9 basic types of object, but within the specification other types are commonly referred to. Therefore the Arlington PDF Model uses the following extended set of types (case sensitive, alphabetically sorted, SEMI-COLON (`;`) separated):
+PDF 2.0 formally defines 9 basic types of object, but within the specification other types are commonly referred to. Therefore the Arlington PDF Model uses the following extended set of pre-defined types (case sensitive, alphabetically sorted, SEMI-COLON (`;`) separated):
 
-- array
-- bitmask
-- boolean
-- date
-- dictionary
-- integer
-- matrix
-- name
-- name-tree
-- null
-- number
-- number-tree
-- rectangle
-- stream
-- string
-- string-ascii
-- string-byte
-- string-text
+- `array`
+- `bitmask`
+- `boolean`
+- `date`
+- `dictionary`
+- `integer`
+- `matrix`
+- `name`
+- `name-tree`
+- `null`
+- `number`
+- `number-tree`
+- `rectangle`
+- `stream`
+- `string`
+- `string-ascii`
+- `string-byte`
+- `string-text`
 
-A single key in a dictionary can often be of different types. A common example is when a key is either a dictionary or an array of dictionaries. In this case **Type** would be defined as `array;dictionary`. Types are always stored in alphabetical order in the 2nd column using SEMI-COLON (`;`) separators.
+A single key in a dictionary can often be of different types. A common example is when a key is either a dictionary or an array of dictionaries. In this case "**Type**" would be defined as `array;dictionary`. Types are always stored in alphabetical order in the 2nd column using SEMI-COLON (`;`) separators.
 
 These Linux commands lists all combinations of the Arlington types used in PDF:
 
-```
+```bash
 cut -f 2 *.tsv | sort | uniq
 cut -f 2 *.tsv | sed -e 's/;/\n/g' | sort | uniq
 ```
@@ -144,30 +155,33 @@ All TSV rows must have a valid (non-empty) "SinceVersion" entry. If keys are sti
 
 ### Required
 
-This is effectively a boolean field (`TRUE`/`FALSE`) but may also contain a `fn:IsRequired(...)` declarative function. Examples include:
+This is effectively a Boolean field (`TRUE`/`FALSE`) but may also contain a `fn:IsRequired(...)` predicate. Examples include:
 
-- when a key changes from optional to required in a particualr PDF version then the expression `fn:IsRequired(fn:SinceVersion(x.y))` is used.
+- when a key changes from optional to required in a particular PDF version then the expression `fn:IsRequired(fn:SinceVersion(x.y))` is used.
 
-- if a key/array entry is conditional based on the value of another key then an expression such as `fn:IsRequired(@Filter!=JPXDecode)` can be used. The `@` syntax means "value of key/array index ..."
+- if a key/array entry is conditional based on the value of another key then an expression such as `fn:IsRequired(@Filter!=JPXDecode)` can be used. The `@` syntax means "value of key/array index".
 
 - if a key/array entry is conditional based on the presence or absence of another key then the nested expressions `fn:IsRequired(fn:IsPresent(OtherKeyName))` or `fn:IsRequired(fn:NotPresent(OtherKeyName))` can be used.
 
 
 ### PossibleValues
 
-PossibleValues also follow the same pattern as Links:
+"PossibleValues" follows the same pattern as "Links":
+
+<div style="font-family: monospace">
 
 Type | PossibleValues | ...
 --- | --- | ---
-array;dictionary | \[Value1ForType1,Value2ForType1];\[Value1ForType2,Value2ForType2] | ---
+integer;string | \[1,3,99];\[(Hello),(World)] | ...
 
+</div>
 
-Often times it is necessary to define a declarative function (`fn:`) for situations when values are valid.
+Often times it is necessary to define a predicate (`fn:`) for situations when values are valid.
 
 
 ### SpecialCase
 
-A set of declarative functions is used to define more advanced kinds of relationships. Every function is always prefixed with `fn:`. Current functions in use include (_subject to change!_:
+A set of predicates is used to define more advanced kinds of relationships. Every predicate is always prefixed with `fn:`. Current functions in use include (_subject to change!_:
 
 ```
 fn:BeforeVersion
@@ -201,26 +215,35 @@ If a specific key or array element requires further definition (i.e. represents 
 
 Example in [PageObject](tsv/latest/PageObject.tsv):
 
+<div style="font-family: monospace">
+
 Key | Type | ... | Link
 --- | --- | --- | ---
 Resources  | dictionary | ... | \[[Resource](tsv/latest/Resource.tsv)]
 
+</div>
 
 If "Key" is represented by different types we use following pattern with SEMI-COLON ";" separators:
+
+<div style="font-family: monospace">
 
 Type | ... | Link
 --- | --- | ---
 array<b>;</b>dictionary | ... | \[ValidateArray];\[ValidateDictionary]
 
+</div>
 
 Another common example is that one dictionary could be based on few different dictionaries. For example an Annotation might be Popup, Stamp, etc. In such cases the TSV filenames are separated with COMMA (",") separators like this:
+
+<div style="font-family: monospace">
 
 Type | ... | Link
 --- | --- | ---
 array;dictionary | ... | \[[ArrayOfAnnots](tsv/latest/ArrayOfAnnots.tsv)];\[[AnnotStamp](tsv/latest/AnnotStamp.tsv),[AnnotRedact](tsv/latest/AnnotRedact.tsv),[AnnotPopup](tsv/latest/AnnotPopup.tsv)]
 
+</div>
 
-Links may also be wrapped in the `fn:Deprecated` or `fn:SinceVersion` declarative functions if a specific type of PDF object has been deprecated or introduced in specific PDF versions.
+Links may also be wrapped in the `fn:Deprecated` or `fn:SinceVersion` predicates if a specific type of PDF object has been deprecated or introduced in specific PDF versions.
 
 ---
 
@@ -230,69 +253,8 @@ All PoCs are command line based with builtin help if no command line arguments a
 
 ## TestGrammar (C++17)
 
-CLI utility based on the free [PDFix SDK Lite](https://pdfix.net/download-free/) that uses a set of Arlington TSV files. The tool implements various tasks:
-
-1. validates all TSV files.
-    - Check the uniformity (number of columns), if all types are one of Arlington types, etc.
-    - Does NOT check declarative functions
-2. validates a PDF file. Starting from trailer, the tool validates:
-    - if all required keys are present
-    - if values are of correct type
-    - if objects are indirect if required
-    - if value is correct if PossibleValues are defined
-    - all error messages are prefixed with "Error:" to enable post-processing
-3. recursively validates a folder containing PDF files.
-    - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting.
-4. compares grammar with Adobe DVA
-
-### Notes
-
-* TestGrammar PoC does NOT currently confirm PDF version validity or understand declarative functions
-
-* all error messages from validating PDF files are prefixed with "Error:"
-
-* possible error messages from PDF file validation are as follows. Each error message also provides some context (e.g. a PDF object number):
-
-```
-Error: EXCEPTION ...
-Error: Failed to open ...
-Error: failed to acquire Trailer ...
-Error: Can't select any link from ...
-Error: not indirect ...
-Error: wrong type ...
-Error: wrong value ...
-Error: required key doesn't exist ...
-Error: object validated in two different contexts ...
-```
-
-* the Arlington definition is based on PDF 2.0 where some previously optional keys are now required (e.g. font dictionary **FirstChar**, **LastChar**, **Widths**) which means that matching legacy PDFs will fail unless these keys are present. A warning such as the following will be issued (because PDF 2.0 required keys are not present in legacy PDFs so there is no precise match):
-
-```
-Error: Can't select any link from \[FontType1,FontTrueType,FontMultipleMaster,FontType3,FontType0,FontCIDType0,FontCIDType2\] to validate provided object: xxx
-```
-
-### Building
-
-#### Windows
-
-Open [/TestGrammar/platform/msvc2019/TestGrammar.sln](/TestGrammar/platform/msvc2019/TestGrammar.sln) with Microsoft Visual Studio 2019 and compile. Valid configurations are: 32 or 64 bit, Debug or Release. Compiled executables will be in [/TestGrammar/bin/x64](/TestGrammar/bin/x64) (64 bit) and [/TestGrammar/bin/x86](/TestGrammar/bin/x86) (32 bit).
-
-#### Linux
-
-Note that due to C++17, gcc v8 or later is required. CMake is also required.
-
-```
-cd TestGrammar
-cmake .
-make
-```
-
-Compiled binary will be in [/TestGrammar/bin/linux](/TestGrammar/bin/linux).
-
-#### Mac OS/X
-
-T.B.D. - try Linux instructions???
-
+A CLI utility that can validate an Arlington grammar (set of TSV files) and perform validation against PDF files.  
+All documentation is now located in the [TestGrammar](TestGrammar/) folder
 
 ## GCXML (Java)
 
@@ -334,17 +296,16 @@ The XML version of the PDF DOM grammar (one XML file per PDF version) is created
 
 ## Python3 scripts
 
-The main Python3 PoC script is (/scripts/arlington.py). This script does:
+The main Python3 PoC mega-script is [arlington.py](scripts/arlington.py). This script can:
 
-1. converts TSV data into an in-memory Python representation
-1. perform a detailed validation of the Arlington Python representation, including lexing all declarative functions
-1. save the Python representation as JSON
-1. save the Python representation as a 'pretty-print' which is more friendly for Linux commands, etc.
+1. convert an Arlington TSV data set into an in-memory Python representation and save out to JSON
+1. perform a detailed validation of the Arlington Python representation, including attempted lexing of all predicates
+1. save the Python representation as a 'pretty-print' which is more friendly for Linux commands, etc. but technically invalid JSON
 1. validates a PDF file against the Arlington model using `pikepdf`
 
 It relies on the [Python Sly parser](https://sly.readthedocs.io/en/latest/) and `pikepdf` [doco](pikepdf.readthedocs.io/) which is Python wrapper on top of [QPDF](https://github.com/qpdf/qpdf),
 
-```
+```bash
 pip3 install sly pikepdf
 ```
 
@@ -352,7 +313,7 @@ pip3 install sly pikepdf
 
 Basic Linux commands can be used on an Arlington TSV data set (`cut`, `grep`, `sed`, etc.), however column numbering needs to be remembered and screen display can be messed up unless you have a wide monitor and small fonts. Alternative more specialized utilities such as the [EBay TSV-Utilities](https://github.com/eBay/tsv-utils) or [GNU datamash](https://www.gnu.org/software/datamash/) can also be used.
 
-```
+```bash
 ## Ensure sorting is consistent...
 export LC_ALL=C
 
@@ -427,7 +388,7 @@ cut -f 1 *.tsv | sort | uniq
 
 Examples of the more powerful [EBay TSV-Utilities](https://github.com/eBay/tsv-utils) commands. Note that Linux shell requires the use of backslash to stop shell expansion. The commands can use TSV column names:
 
-```
+```bash
 ## Find all keys that are only 'string-byte'
 tsv-filter -H --str-eq Type:string-byte *.tsv
 
@@ -440,8 +401,7 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 ---
 
-# TODO :pushpin:
-
+# TODO
 
 ## TestGrammar C++ utility
 - when validating the TSV data files, also do a validation on the declarative function expressions
@@ -452,7 +412,6 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 - confirm that the XML produced from the TSV data with formulas is still valid
 
 ## Python scripts
-- make sure the pure JSON produced with formulas is still valid
 - confirm why some PDF objects from later PDF versions end up in earlier versions
 
 ---
