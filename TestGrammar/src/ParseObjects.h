@@ -73,18 +73,19 @@ public:
         : grammar_folder(tsv_folder), output(ofs)
         { /* constructor */ }
 
-    void add_parse_object(ArlPDFObject* object, const std::string& link, std::string context);
     void parse_object();
+    void add_parse_object(ArlPDFObject* object, const std::string& link, std::string context);
     void parse_name_tree(ArlPDFDictionary* obj, const std::string &links, std::string context);
     void parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context);
 
-    std::string select_one(ArlPDFObject* obj, const std::string &links_string, std::string &obj_name);
-    std::string get_link_for_object(ArlPDFObject* obj, const std::string &types, const std::string &links);
-    int get_type_index_for_object(ArlPDFObject* obj, const std::string &types);
-    std::string get_type_string(ArlPDFObject* obj);
+    int get_type_index_for_object(ArlPDFObject* obj, const std::string& types);
+    std::string get_type_string_for_object(ArlPDFObject* obj);
+    std::string get_link_for_object(ArlPDFObject* obj, const std::string &links_string, std::string &obj_name);
+    std::string get_linkset_for_object_type(ArlPDFObject* obj, const std::string &types, const std::string &links);
+    bool is_required_key(ArlPDFObject* obj, const std::string& reqd, const std::string& pdf_vers = "2.0");
+
     void check_basics(ArlPDFObject* obj, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path &grammar_file);
     bool check_possible_values(ArlPDFObject* object, int key_idx, const ArlTSVmatrix& tsv_data, const int index, std::wstring &real_str_value);
-    bool is_required_key(ArlPDFObject* obj, const std::string &reqd);
 };
 
 #endif // ParseObjects_h
