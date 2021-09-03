@@ -80,6 +80,13 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
 #include <crtdbg.h>
 
 int wmain(int argc, wchar_t* argv[]) {
+#ifdef _DEBUG
+    int tmp = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
+    tmp = tmp | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF; // | _CRTDBG_CHECK_ALWAYS_DF;
+    _CrtSetDbgFlag(tmp);
+    // _CrtSetBreakAlloc(xxx);
+#endif // _DEBUG
+
     // Convert wchar_t* to char* for command line processing
     mbstate_t   state;
     char        **mbcsargv = new char*[argc];
@@ -146,6 +153,11 @@ int main(int argc, char* argv[]) {
     bool            debug_mode = sarge.exists("debug");
 
 #if defined(_WIN32) || defined(WIN32)
+    // Delet the temp stuff for command line processing
+    for (int i = 0; i < argc; i++)
+        delete mbcsargv[i];
+    delete mbcsargv;
+
     if (sarge.exists("batchmode")) {
         // Suppress windows dialogs for assertions and errors - send to stderr instead during batch CLI processing
         _CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_FILE);
@@ -153,7 +165,7 @@ int main(int argc, char* argv[]) {
         _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
         _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);
     }
-#endif
+#endif // _WIN32/WIN32
 
 
     // --tsvdir is required option
