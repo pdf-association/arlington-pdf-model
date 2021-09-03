@@ -68,11 +68,13 @@ void ArlingtonPDFSDK::initialize(bool enable_debugging)
 /// @brief  Shutdown the PDF SDK
 void ArlingtonPDFSDK::shutdown()
 {
-  //destroy pdfium
-  auto pdfium_ctx = (pdfium_context*)ctx;
-  delete(pdfium_ctx);
-  CPDF_ModuleMgr::Destroy();
-  ctx = nullptr;
+    //destroy pdfium
+    auto pdfium_ctx = (pdfium_context*)ctx;
+    if (pdfium_ctx->parser != nullptr)
+        delete pdfium_ctx->parser;
+    delete(pdfium_ctx);
+    CPDF_ModuleMgr::Destroy();
+    ctx = nullptr;
 }
 
 /// @brief  Returns human readable version string for PDF SDK that is being used
