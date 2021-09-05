@@ -26,7 +26,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   There are NO leading SLASHES for PDF names (_ever_!)
 *   PDF names might use `#`-escaping in the future
     *   the PDF specification never specifies any such keys so this is allowing for future-proofing
-*   PDF strings always use `(` and `)`
+*   PDF strings use single quotes `'` and `'` (as `(` and `)` are ambiguous with expressions and this is still supported natively by Python `csv` module)
 *   PDF arrays always use `[` and `]` (which requires some additional processing so as not to be confused with our [];[];[] syntax for multiple types)
 *   Expressions with integers need to use integers
 *   Leading `@` indicates "value of" a key or array element
@@ -141,7 +141,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   `grep "'Deprecated': " dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 4 *.tsv | sort | uniq`
+    cut -f 4 *.tsv | sort | uniq
     ```
 
 ## Column 5 - Required
@@ -214,14 +214,14 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 *   Can be blank
 *   SQUARE-BRACKETS are only used for PDF arrays, in which case they must use double SQUARE-BRACKETS
-    *   e.g. [false false] ? [[false false]]
+    *  e.g. [false false] ? [[false false]]
 *   If there is a "DefaultValue" AND there are multiple types, then require [];[];[] expressions
-    *   If the "DefaultValue" is a PDF array, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
+    *  If the "DefaultValue" is a PDF array, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
 *   The only valid declarative functions are:
-    *   `fn:ImplementationDependent()`, or
-    *   `fn:Eval(condition, statement)` where statement must match the appropriate type (e.g. an integer for an
-        integer key, a string for a string-\* key, etc)
-    *   Declarative functions only need [];[];[] expression if a multi-typed key
+    *  `fn:ImplementationDependent()`, or
+    *  `fn:DefaultValue(condition, value)` where _value_ must match the appropriate type (e.g. an integer for an integer key, a string for a string-\* key, etc), or
+    *  `fn:Eval(expression)`
+    *  Declarative functions only need [];[];[] expression if a multi-typed key
 *   **Python pretty-print/JSON:**
     *   A list or `None`
     *   If list, then length always matches length of "Type"
@@ -361,13 +361,13 @@ grep --color=always -ho "fn:[[:alnum:]]*." *.tsv | sort | uniq
 List all predicates and their Arguments
 
 ```shell
-grep -Pho "fn:[a-zA-Z]+\((?:[^)(]+|(?R))*+\)" *.tsv | sort | uniq
+grep -Pho "fn:[a-zA-Z0-9]+\((?:[^)(]+|(?R))*+\)" *.tsv | sort | uniq
 ```
 
 List all declarative functions that take no parameters:
 
 ```shell
-grep --color=always -Pho "fn:[[:alnum:]]*\(\)" *.tsv | sort | uniq
+grep --color=always -Pho "fn:[a-zA-Z0-9]+\(\)" *.tsv | sort | uniq
 ```
 
 List all parameter lists (but not function names) (and a few PDF strings too!):
@@ -379,13 +379,13 @@ grep --color=always -Pho "\((?>[^()]|(?R))*\)" *.tsv | sort | uniq
 List all declarative functions with their arguments:
 
 ```shell
-grep --color=always -Pho "fn:[[:alnum:]]*\([^\t\]\;]*" *.tsv | sort | uniq
+grep --color=always -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" *.tsv | sort | uniq
 ```
 
 
 # EBay TSV Utilities
 
-Pretty column-ized output:
+Pretty columnized output:
 ```shell
 tsv-pretty Catalog.tsv
 ```
@@ -437,74 +437,59 @@ The second character in the prefix represents the value of the key or array elem
 
 <table>
   <tr>
-   <td>`bit-posn`
+   <td><code><i>bit-posn</i></code>
    </td>
    <td>
-<ul>
-
-<li>bits are numbered 1-32 inclusive
-</li>
-</ul>
+    <ul>
+     <li>bits are numbered 1-32 inclusive</li>
+     <li>bit 1 is the low-order bit
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`version`
+   <td><code><i>version</i></code>
    </td>
    <td>
-<ul>
-
-<li>One of `1.0`, `1.1`, ... `2.0`
-
-<li>Matches set used in Column 3 (SinceVersion)
-</li>
-</ul>
+    <ul>
+     <li>One of 1.0, 1.1, ... 2.0</li>
+     <li>Matches set used in "SinceVersion" (column 3) and "Deprecated" (column 4)</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`expr`
+   <td><code><i>expr</i></code>
    </td>
    <td>
-<ul>
-
-<li>Mathematical expression (or constant)
-
-<li>References to PDF objects need ``@`` to get key/array value
-
-<li>Can be nested functions that return integer or real values
-</li>
-</ul>
+    <ul>
+     <li>Mathematical expression (or constant)</li>
+     <li>Explicit bracketing <code>(...)</code> required (no order of operation!)</li>
+     <li>Mathematical operators are <code>+</code>, <code>-</code>, <code>*</code>, and <code>mod</code></li>
+     <li>References to PDF objects need <code>@</code> to get key/array value</li>
+     <li>Can use nested predicates that represent an integer or number</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`cond`
+   <td><code><i>cond</i></code>
    </td>
    <td>
-<ul>
-
-<li>Boolean expression, including nested functions or mathematical expressions that use comparison operators
-
-<li>Use `==`, `!=`, `>=`, `&lt;=`, `>`, `&lt;` comparison operators
-
-<li>Use `&&` (AND) or `||` (OR) logical operators
-</li>
-</ul>
+    <ul>
+     <li>Boolean expression, including nested predicates and mathematical expressions that use comparison operators</li>
+     <li>Use <code>==</code>, <code>!=</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&lt;</code> mathematical comparison operators</li>
+     <li>Use <code>==</code>, <code>!=</code>, <code>&&</code> (AND) or <code>||</code> (OR) logical operators (there is no NOT operator)</li>
+    </ul>
    </td>
   </tr>
   <tr>
-   <td>`statement`
+   <td><code><i>statement</i></code>
    </td>
    <td>
-<ul>
-
-<li>PDF object (e.g. name, string, real, integer, array, null)
-
-<li>A mathematical expression (like `expr`)
-
-<li>Arlington Type - if in Column 2
-
-<li>Arlington link - if in Column 11
-</li>
-</ul>
+    <ul>
+     <li>PDF object (e.g. name, string, real, integer, array, null)</li>
+     <li>A mathematical expression (like <code><i>expr</i></code>)</li>
+     <li>Arlington predefined "Type" - if in Column 2</li>
+     <li>Arlington link (TSV filename)- if in Column 11</li>
+    </ul>
    </td>
   </tr>
 </table>
@@ -519,7 +504,8 @@ The second character in the prefix represents the value of the key or array elem
    <td><code>fn:ArrayLength(<i>key</i>)</code></td>
    <td>
     <ul>
-     <li>asserts <i>key</i> references something of type <code>array</code></li>     <li>returns an integervalue >= 0</li>
+     <li>asserts <i>key</i> references something of type <code>array</code></li>
+     <li>returns an integervalue >= 0</li>
     </ul>
    </td>
   </tr>
@@ -537,9 +523,9 @@ The second character in the prefix represents the value of the key or array elem
    <code>fn:BeforeVersion(<i>version</i>,<i>assertion</i>)</code></td>
    <td>
     <ul>
-     <li><i>version</i> must be 1.0, ..., 2.0
+     <li><i>version</i> must be 1.0, ..., 2.0</li>
      <li>asserts that optional <i>assertion</i> only applies before PDF <i>version</i></li>
-     <li><i>assertion</i> is a <code>fn:Eval(...)</code> expression that only applies before <i>version</i>
+     <li><i>assertion</i> is a <code>fn:Eval(...)</code> expression that only applies before <i>version</i></li>
     </ul>
    </td>
   </tr>
@@ -569,7 +555,7 @@ The second character in the prefix represents the value of the key or array elem
     <ul>
      <li><i>low-bit</i> and <i>high-bit</i> must be 1-32 inclusive</li>
      <li>asserts that all bits between <i>low-bit</i> and <i>high-bit</i> inclusive are all zero (clear)</li>
-     <li><i>low-bit</i> and <i>high-bit</i> must be different
+     <li><i>low-bit</i> and <i>high-bit</i> must be different</li>
      <li>asserts <i>key</i> references something of type <code>bitmask</code></li>
     </ul>
    </td>
@@ -580,12 +566,20 @@ The second character in the prefix represents the value of the key or array elem
    <ul>
     <li><i>low-bit</i> and <i>high-bit</i> must be 1-32 inclusive</li>
     <li>asserts that all bits between <i>low-bit</i> and <i>high-bit</i> inclusive are all one (set)</li>
-    <li><i>low-bit</i> and <i>high-bit</i> must be different
+    <li><i>low-bit</i> and <i>high-bit</i> must be different</li>
     <li>asserts <i>key</i> references something of type <code>bitmask</code></li>
    </ul>
   </td>
   </tr>
   <tr>
+   <td><code>fn:DefaultValue(<i>condition</i>,<i>statement</i>)</code></td>
+   <td>
+    <ul>
+     <li>A conditionally-based default value</li>
+     <li>Only used in "DefaultValue" field</li>
+    </ul>
+   </td>
+  </tr>  <tr>
    <td><code>fn:Deprecated(<i>version</i>,<i>statement-that-is-deprecated</i>)</code></td>
    <td>
     <ul>

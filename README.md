@@ -42,7 +42,7 @@ tsvreader = csv.DictReader(file, delimiter='\t')
 Each row defines a specific key in a dictionary or an array element in an array. All the characteristics captured in the TSV for that key/array element are defined in the PDF 2.0 specification.
 
 - All PDF names are always expressed **without** the leading FORWARD-SLASH (`/`).
-- PDF strings are required to have `(` and `)`.
+- PDF strings are required to have `'` and `'` (single quotes).
 - PDF array objects must also have `[` and `]` and, of course do **not** use commas between array elements.
 - PDF Boolean (keywords) are always lowercase `true` and `false`.
 - Logical Boolean values related to the description of PDF objects in the Arlington data model are always uppercase `TRUE`/`FALSE`.
@@ -404,7 +404,6 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 # TODO
 
 ## TestGrammar C++ utility
-- when validating the TSV data files, also do a validation on the declarative function expressions
 - when validating a PDF file, check required values in parent dictionaries when inheritance is allowed.
 - extend TestGrammar with new feature to report all keys that are NOT defined in any PDF specification (as this may indicate either proprietary extensions, undocumented legacy extensions or common errors/malformations from PDF writers).
 

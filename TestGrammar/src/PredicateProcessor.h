@@ -31,6 +31,9 @@ const std::string ArlInt = "(\\-)?[0-9]+";
 /// @brief Number (requires at least 1 decimal place either side of decimal point ".")
 const std::string ArlNum = ArlInt + "\\.[0-9]+";
 
+/// @brief Strings use doubled quotes (to disambiguate from bracketed names, keys, etc.). Empty strings are invalid
+const std::string ArlString = "'[^']+'";
+
 /// @brief Arlington key / array index regex, including path separator "::" and wildcards
 /// Examples: SomeKey, 3, *, 0*, parent::SomeKey, SomeKeyA::SomeKeyB::3, SomeKeyA::SomeKeyB::@SomeKeyC,
 const std::string  ArlKeyBase = "[a-zA-Z0-9_\\.]+";
@@ -46,13 +49,13 @@ const std::string ArlTypeOrLink = "[a-zA-Z0-9_\\-]+";
 /// @brief Arlington math comparisons - currently NOT required to have SPACE either side
 const std::string ArlMathComp = "(==|!=|>=|<=|>|<)";
 
-/// @brief Arlington math operators - multiply needs a SPACE either side to disambiguate from key wildcards.
+/// @brief Arlington math operators - MULTIPLY and MINUS need a SPACE either side to disambiguate from wildcards and numbers
 /// "mod" handled explicitly.
-const std::string ArlMathOp = "( \\* |\\+|\\-)";
+const std::string ArlMathOp = "( \\* |\\+| \\- | mod )";
 
 /// @brief Arlington logical operators. Require SPACE either side. Also expect bracketed expressions either side or a predicate:
 /// e.g. ...) || (... or ...) || fn:...  
-const std::string ArlLogicalOp = " (&&|\\|\\|) ";
+const std::string ArlLogicalOp = "( && | \\|\\| )";
 
 /// @brief Arlington PDF boolean keywords
 const std::string ArlBooleans = "(true|false)";
@@ -63,6 +66,66 @@ const std::string ArlPredicate1Arg = "fn:[a-zA-Z14]+\\(" + ArlKey + "\\)";
 const std::string ArlPredicate1ArgV = "fn:[a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
 
 bool ValidationByConsumption(const std::string& tsv_file, const std::string& fn, std::ostream& ofs);
+
+/// @brief #define ARL_PARSER_DEBUG to enable verbose debugging of predicate and expression parsing
+#define ARL_PARSER_DEBUG
+
+struct ASTNode {
+    std::string     node;            // predicate including opening bracket '('
+    ASTNode         *arg[2];         // optional arguments
+#ifdef ARL_PARSER_DEBUG
+    ASTNode*        parent;          // parent pointer makes for easier debugging
+#endif  // ARL_PARSER_DEBUG
+
+    ASTNode(ASTNode *p = nullptr)
+#ifdef ARL_PARSER_DEBUG
+        : parent(p)
+#endif  // ARL_PARSER_DEBUG
+        { /* constructor */ arg[0] = arg[1] = nullptr; }
+
+    ~ASTNode() { 
+        /* destructor */
+        // don't delete parent!!
+        if (arg[0] != nullptr) delete arg[0];
+        if (arg[1] != nullptr) delete arg[1];
+    }
+
+    /// @brief assignment operator =
+    ASTNode& operator=(const ASTNode& n) {
+        // don't copy parent!!
+        node   = n.node;
+        arg[0] = n.arg[0];
+        arg[1] = n.arg[1];
+        return *this;
+    }
+
+    /// @brief output operator <<
+    friend std::ostream& operator<<(std::ostream& ofs, const ASTNode& n) {
+        if (!n.node.empty())
+            ofs << "{ '" << n.node << "'";
+        else
+            ofs << "{ ''";
+      
+        if ((n.arg[0] != nullptr) && (n.arg[1] != nullptr))
+            ofs << ",[" << *n.arg[0] << "],[" << *n.arg[1] << "]";
+        else {
+            if (n.arg[0] != nullptr)
+                ofs << ",[" << * n.arg[0] << "]";
+            else if (n.arg[1] != nullptr)
+                ofs << ",???,[" << *n.arg[1] << "]";
+        }
+        ofs << " }";
+        return ofs;
+    }
+};
+
+/// @brief A stack of AST-Nodes
+typedef std::vector<ASTNode*>  ASTNodeStack;
+
+
+
+std::string LRParsePredicate(std::string s, ASTNode *root);
+
 
 class PredicateProcessor {
 protected:
