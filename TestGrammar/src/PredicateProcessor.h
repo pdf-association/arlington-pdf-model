@@ -67,8 +67,8 @@ const std::string ArlPredicate1ArgV = "fn:[a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
 
 bool ValidationByConsumption(const std::string& tsv_file, const std::string& fn, std::ostream& ofs);
 
-/// @brief #define ARL_PARSER_DEBUG to enable verbose debugging of predicate and expression parsing
-#define ARL_PARSER_DEBUG
+/// @brief #define ARL_PARSER_DEBUG to enable very verbose debugging of predicate and expression parsing
+// #define ARL_PARSER_DEBUG
 
 struct ASTNode {
     std::string     node;            // predicate including opening bracket '('
