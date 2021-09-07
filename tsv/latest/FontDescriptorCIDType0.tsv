@@ -17,8 +17,8 @@ StemH	number	1.2		FALSE	FALSE	FALSE	0
 AvgWidth	number	1.2		FALSE	FALSE	FALSE	0				
 MaxWidth	number	1.2		FALSE	FALSE	FALSE	0				
 MissingWidth	number	1.2		FALSE	FALSE	FALSE	0				
-FontFile	stream	1.2		FALSE	TRUE	FALSE			[fn:NotPresent(FontFile2) && fn:NotPresent(FontFile3)]	[FontFile]	
-FontFile3	stream	1.2		FALSE	TRUE	FALSE			[fn:NotPresent(FontFile) && fn:NotPresent(FontFile2)]	[fn:SinceVersion(1.2,FontFile3CIDType0)]	
+FontFile	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:NotPresent(FontFile2) && fn:NotPresent(FontFile3))]	[FontFile]	
+FontFile3	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:NotPresent(FontFile) && fn:NotPresent(FontFile2))]	[fn:SinceVersion(1.2,FontFile3CIDType0)]	
 Style	dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,StyleDict)]	
 Lang	name	1.5		FALSE	FALSE	FALSE					
 FD	dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,FDDict)]	
