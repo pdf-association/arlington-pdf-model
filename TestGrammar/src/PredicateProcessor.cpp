@@ -32,139 +32,229 @@ const std::regex  r_Links("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersio
 const std::regex  r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(" + ArlPDFVersion + "\\,([a-z\\-]+)\\)");
 
 
-/// @brief Ordered list of regex matches that should reduce well-formed predicates down to nothing (i.e. an empty string)
-/// @todo Mathematical expressions are currently NOT supported (+, -, *, /, multi-term expressions, etc).
-const std::vector<std::regex> AllPredicateFunctions = {
-    // IsRequired is always outer function and starting for "Required" field
-    std::regex("^fn:IsRequired\\(.*\\)"),
-    std::regex("\\(fn:ArrayLength\\(" + ArlKeyValue + "\\) mod " + ArlInt + "\\)==" + ArlInt),
-    std::regex("\\(fn:ArrayLength\\(" + ArlKey + "\\) mod " + ArlInt + "\\)==" + ArlInt),
-    // single PDF version arguments
-    std::regex("fn:SinceVersion\\(" + ArlPDFVersion + "\\)"),
-    std::regex("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\)"),
-    std::regex("fn:BeforeVersion\\(" + ArlPDFVersion + "\\)"),
-    std::regex("fn:Deprecated\\(" + ArlPDFVersion + "\\)"),
-    // 2 arguments: PDF version and type/link
-    //  - Mostly not required as pre-processed via remove_type_predicates()
-    std::regex("fn:IsPDFVersion\\(1.0,fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)\\)"),
-    std::regex("fn:SinceVersion\\(" + ArlPDFVersion + ",fn:BitSet\\(" + ArlInt + "\\)\\)"),
-    std::regex("fn:SinceVersion\\(" + ArlPDFVersion + ",fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)\\)"),
-    std::regex("fn:BeforeVersion\\(" + ArlPDFVersion + ",fn:Eval\\(" + ArlKeyValue + ArlMathComp + ArlInt + "\\)\\)"),
-    // Single integer arguments
-    std::regex("fn:BitClear\\(" + ArlInt + "\\)"),
-    std::regex("fn:BitSet\\(" + ArlInt + "\\)"),
-    // 2 integer arguments
-    std::regex("fn:BitsClear\\(" + ArlInt + "," + ArlInt + "\\)"),
-    std::regex("fn:BitsSet\\(" + ArlInt + "," + ArlInt + "\\)"),
-    // Bracketed expression components
-    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlInt + "\\)"),
-    std::regex("\\(" + ArlKeyValue + ArlMathOp + ArlKeyValue + "\\)"),
-    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate0Arg + "\\)"),
-    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlPredicate1Arg + "\\)"),
-    std::regex("\\(" + ArlPredicate1Arg + ArlMathComp + ArlPredicate1ArgV + "\\)"),
-    std::regex("\\(" + ArlPredicate1Arg + ArlMathComp + ArlPredicate1Arg + "\\)"),
-    std::regex("\\(" + ArlPredicate1ArgV + ArlMathComp + ArlInt + "\\)"),
-    std::regex("\\(" + ArlPredicate1Arg + ArlMathComp + ArlInt + "\\)"),
-    std::regex("\\(" + ArlKeyValue + "==" + ArlBooleans + "\\)"),
-    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKeyValue + "\\)"),
-    std::regex("\\(" + ArlKeyValue + ArlMathComp + ArlKey + "\\)"),
-    std::regex("\\(" + ArlKey + ArlMathComp + ArlKeyValue + "\\)"),
-    std::regex("\\(" + ArlKeyValue + " mod " + ArlInt + "\\)==" + ArlInt),
-    // single key / array index arguments - RUINS math expressions!
-    std::regex("fn:RectHeight\\(" + ArlKey + "\\)"),
-    std::regex("fn:RectWidth\\(" + ArlKey + "\\)"),
-    std::regex("fn:StringLength\\(" + ArlKey + "\\)(" + ArlMathComp + ArlInt + ")?"),
-    std::regex("fn:ArrayLength\\(" + ArlKey + "\\)(" + ArlMathComp + ArlInt + ")?"),
-    std::regex("fn:ArrayLength\\(" + ArlKey + "\\) " + ArlMathComp + " fn:ArrayLength\\(" + ArlKey + "\\)"),
-    std::regex("fn:Ignore\\(" + ArlKey + "\\)"),
-    std::regex("fn:InMap\\(" + ArlKey + "\\)"),
-    std::regex("fn:NotInMap\\(" + ArlKey + "\\)"),
-    std::regex("fn:IsPageNumber\\(" + ArlKeyValue + "\\)"),
-    std::regex("fn:IsPresent\\(" + ArlKey + "\\)"),
-    std::regex("fn:NotPresent\\(" + ArlKey + "\\)"),
-    std::regex("fn:MustBeDirect\\(" + ArlKey + "\\)"),
-    // More complex...
-    std::regex("fn:IsPresent\\(" + ArlKey + "," + ArlKey + "\\)"),
-    std::regex("fn:RequiredValue\\(" + ArlKeyValue + ArlMathComp + ArlKey + ",(" + ArlKey + "|" + ArlInt + ")\\)"),
-    // 
-    std::regex(ArlPredicate1ArgV),
-    std::regex(ArlPredicate1Arg),
-    std::regex(ArlPredicate0Arg),
-    // unbracketed expression components
-    std::regex(ArlKeyValue + "==" + ArlBooleans),
-    // Logical operators after all parameters stripped away
-    std::regex(ArlLogicalOp),
-    // predicates with complex arguments (incl. nested functions) do last as previous regexes should have soaked up everything
-    std::regex("^fn:Ignore"),
-    std::regex("^fn:IsMeaningful"),
-    std::regex("^fn:NotPresent"),
-    std::regex("^fn:Eval"),
-    std::regex("\\(" + ArlMathComp + "\\)")
-};
+static const std::regex   r_StartsWithPredicate("^fn:[a-zA-Z14]+\\(");
+static const std::regex   r_StartsWithKeyValue("^" + ArlKeyValue);
+static const std::regex   r_StartsWithKey("^" + ArlKey);
+static const std::regex   r_StartsWithMathComp("^" + ArlMathComp);
+static const std::regex   r_StartsWithMathOp("^" + ArlMathOp);
+static const std::regex   r_StartsWithLogicOp("^" + ArlLogicalOp);
+static const std::regex   r_StartsWithBool("^" + ArlBooleans);
+static const std::regex   r_StartsWithNum("^" + ArlNum);
+static const std::regex   r_StartsWithInt("^" + ArlInt);
+static const std::regex   r_StartsWithString("^" + ArlString);
+static const std::regex   r_StartswithType("^" + ArlPredfinedType);
+static const std::regex   r_StartswithLink("^" + ArlLink);
 
 
-/// @brief  Validates an Arlington predicate by regex-match search & replace-with-nothing removal.
-///         VERY INEFFICIENT and VERY SLOW!!
-/// 
-/// @param[in] fn    the Arlington input containing predicates 
-/// @return          true if the predicate is reduced to the empty string, false otherwise
-bool ValidationByConsumption(const std::string& tsv_file, const std::string& fn, std::ostream& ofs)
-{
-    bool ret_val = true;
-    bool show_tsv = false;
-    std::regex    bad_result("[^a-zA-Z0-9_. \\-\\,\\(\\)]");
-    std::vector<std::string>  list = split(fn, ';');
+#ifdef ARL_PARSER_DEBUG
+/// @brief enables pretty-printing of recursion depth
+static      int call_depth = 0;
+#endif // ARL_PARSER_DEBUG
 
-    for (auto& l : list) {
-        std::string s = l;
-        if ((s[0] == '[') && (s[s.size()-1] == ']'))    // Strip [ and ]
-            s = s.substr(1, s.size()-2);
 
-        // Keeps the type/link value so nested other predicates still match
-        s = remove_type_predicates(s);
 
-        // Logical expression - expect bracketed expressions either side or predicate:
-        /// e.g. ...) || (... or ...) || fn:...
-        const std::regex  r_LogicalBracketing("(..)(&&|\\|\\|)(..)");
+std::string LRParseExpression(std::string s, ASTNode* root) {
+    assert(root != nullptr);
+    ASTNodeStack    stack;
+    int             nested_expressions = 0;
+    std::smatch     m, m1;
+    int             loop = 100;  // avoid deadlocks due to bad predicates
 
-        if ((s.find("&&") != std::string::npos) || (s.find("||") != std::string::npos)) {
-            std::smatch  m;
-            if (!std::regex_search(s, m, r_LogicalBracketing)) {
-                if (!show_tsv) {
-                    ofs << "   " << tsv_file << ":" << std::endl;
-                        show_tsv = true;
-                }
-                ofs << "Error: bad logical expression bracketing: '" << l << "'" << std::endl;
-            } 
-            else {
-                for (int i = 1; i < m.size() ; i += 4)
-                    if ((m[i] != ") ") || ((m[i+2] != " (") && (m[i+2] != " f"))) {
-                        if (!show_tsv) {
-                            ofs << "   " << tsv_file << ":" << std::endl;
-                            show_tsv = true;
-                        }
-                        ofs << "Error: incorrect logical expression bracketing: '" << l << "'" << std::endl;
-                    }
-            }
+    if (s.empty())
+        return s;
+
+#ifdef ARL_PARSER_DEBUG
+    call_depth++;
+    std::cout << std::string(call_depth, ' ') << "LRParseExpression(s-in='" << s << "')" << std::endl;
+#endif // ARL_PARSER_DEBUG
+
+    stack.push_back(root);
+
+    do {
+        // Might start with multiple explicitly bracketed expression / sub-expression
+        // e.g.  ((a+b)-c)
+        assert(!s.empty());
+        while (s[0] == '(') {                   
+            s = s.substr(1, s.size() - 1);      
+            assert(!s.empty());
+            nested_expressions++;
+            ASTNode* nested_node = new ASTNode(stack.back());
+            stack.back()->arg[0] = nested_node;
+            stack.push_back(nested_node);
         }
 
-        for (auto r : AllPredicateFunctions) {
-            s = std::regex_replace(s, r, "");
-            // Remove any leading COMMA that was potentially between predicates that just got stripped
-            if ((s.size() > 0) && (s[0] == ','))
-                s = s.substr(1, s.size() - 1);
-        } // for
-        if (std::regex_search(s, bad_result)) {
-            if (!show_tsv) {
-                ofs << "   " << tsv_file << ":" << std::endl;
-                show_tsv = true;
+        if (std::regex_search(s, m, r_StartsWithPredicate)) {
+            assert(m.ready());
+            ASTNode* p = stack.back();
+            assert(p->node.empty());
+            p->node = m[0];
+            s = m.suffix().str();
+            assert(!s.empty());
+            // Process up to 2 optional arguments until predicate closing bracket ')'
+            if (s[0] != ')') {
+                p->arg[0] = new ASTNode(p);
+                s = LRParsePredicate(s, p->arg[0]);
+
+                assert(!s.empty());
+                if (s[0] == ',') {                          // COMMA = optional 2nd argument in predicate
+                    s = s.substr(1, s.size() - 1);          // Remove COMMA
+                    p->arg[1] = new ASTNode(p);
+                    s = LRParsePredicate(s, p->arg[1]);
+                }
+                else if (s[0] != ')') {
+                    // must be an operator that is part of an expression for arg[0]...
+                    s = LRParseExpression(s, p->arg[0]);
+                }
             }
-            ofs << "\tIn:  '" << l << "'" << std::endl;
-            ofs << "\tOut: '" << s << "'" << std::endl;
-            ret_val = false;
+            assert(!s.empty() && (s[0] == ')'));
+            s = s.substr(1, s.size() - 1);                  // Consume ')' that ends predicate
+        } 
+        else if (std::regex_search(s, m, r_StartsWithBool) || std::regex_search(s, m, r_StartsWithString) ||
+            std::regex_search(s, m, r_StartswithType) || std::regex_search(s, m, r_StartsWithKeyValue) || 
+            std::regex_search(s, m, r_StartsWithKey) || std::regex_search(s, m, r_StartswithLink) ||
+            std::regex_search(s, m, r_StartsWithNum) || std::regex_search(s, m, r_StartsWithInt)) {
+            // Variable / constant. ORDERING of above regex expressions is CRITICAL!! 
+            ASTNode* p = stack.back();
+            assert(m.ready());
+            assert(p->node.empty());
+            p->node = m[0];
+            s = m.suffix().str();
+        }
+    
+        // Close any explicitly closed  sub-expressions
+        while ((nested_expressions > 0) && (s[0] == ')')) {
+            assert(!s.empty());
+            s = s.substr(1, s.size() - 1);
+            nested_expressions--;
+            stack.pop_back();
+        }
+
+        // Check for in-fix operator - recurse down to parse RHS
+        if (std::regex_search(s, m1, r_StartsWithMathComp) || std::regex_search(s, m1, r_StartsWithMathOp) || std::regex_search(s, m1, r_StartsWithLogicOp)) {
+            assert(m1.ready());
+            std::string op  = m1[0];
+            s = m1.suffix().str();
+            // top-of-stack is LHS to the operator we just encountered
+            // Update top-of-stack for this operator and then add new RHS to stack
+            ASTNode*    p   = stack.back();
+            assert(p != nullptr);
+            ASTNode*    lhs;
+            ASTNode*    rhs;
+            if (p->node.empty()) {
+                // We pushed for an open bracket so an empty node already exists and LHS already set
+                // e.g. fn:A(x+(y*z)) where 'op' is '*'
+                p->node = op;
+                assert(p->arg[1] == nullptr);
+                rhs = new ASTNode(p);
+                p->arg[1] = rhs;
+            }
+            else {
+                // Infix operator without any extra open bracket
+                // e.g. fn:A(x+y) where 'op' is '+'
+                lhs = new ASTNode(p);
+                rhs = new ASTNode(p);
+                *lhs = *p;
+                p->node   = op;
+                p->arg[0] = lhs;
+                p->arg[1] = rhs;
+            }
+            // Parse RHS
+            s = LRParsePredicate(s, rhs);
+        }
+
+        while ((nested_expressions > 0) && (s[0] == ')')) {         // Close any explicitly bracketed expressions
+            assert(!s.empty());
+            s = s.substr(1, s.size() - 1);
+            nested_expressions--;
+            stack.pop_back();
+        }
+
+        // Typos in predicates, etc can cause this loop not to terminate...
+        if (--loop <= 0) {
+            std::cerr << "Error: Failure to terminate parsing of '" << s << "', AST=" << *root << std::endl;
+            assert(loop > 0);
         }
     }
-    return ret_val;
+    while ((loop > 0) && ((nested_expressions > 0) || (!s.empty() && (s[0] != ',') && (s[0] != ')'))));
+
+    assert(stack.size() == 1); // root      
+    assert(nested_expressions == 0);
+
+#ifdef ARL_PARSER_DEBUG
+    std::cout << std::string(call_depth, ' ') << "LRParseExpression(" << *root <<" ), s-out='" << s << "'" << std::endl;
+    call_depth--;
+#endif // ARL_PARSER_DEBUG
+
+    return s;
+}
+
+
+/// @brief   Performs a left-to-right recursive decent parse of a raw Arlington predicate string. 
+/// 
+/// @param[in] s      an Arlington predicate string, partially consumed
+/// @param[in] root   an AST node that needs to be populated. Never nullptr.
+/// 
+/// @returns an Arlington predicate string remaining
+/// 
+std::string LRParsePredicate(std::string s, ASTNode *root) {
+    assert(root != nullptr);
+    std::smatch     m, m1;
+
+    if (s.empty())
+        return s;
+
+#ifdef ARL_PARSER_DEBUG
+    call_depth++;
+    std::cout << std::string(call_depth, ' ') << "LRParsePredicate(s-in='" << s << "', root=" << *root << ")" << std::endl;
+#endif // ARL_PARSER_DEBUG
+
+    if (std::regex_search(s, m, r_StartsWithPredicate)) {
+        assert(m.ready());
+        assert(root->node.empty());
+        root->node = m[0];
+        s = m.suffix().str();
+        assert(!s.empty());
+        // Process up to 2 optional arguments until predicate closing bracket ')'
+        if (s[0] != ')') {
+            root->arg[0] = new ASTNode(root);
+            s = LRParsePredicate(s, root->arg[0]);      // arg[0] is possibly only argument
+
+            assert(!s.empty());
+            if (s[0] == ',') {                          // COMMA = optional 2nd argument in predicate
+                s = s.substr(1, s.size() - 1);          // Remove COMMA
+                root->arg[1] = new ASTNode(root);
+                s = LRParsePredicate(s, root->arg[1]);
+            }
+            else if (s[0] != ')') {
+                // must be an operator that is part of an expression for arg[0]
+                // e.g. fn:Eval(@x==1) - encountered first '=' of "=="
+                s = LRParseExpression(s, root->arg[0]);
+            }
+        }
+        assert(!s.empty() && (s[0] == ')'));
+        s = s.substr(1, s.size() - 1);                  // Consume ')' that ends predicate
+    } 
+    else {
+        assert(root->node.empty());
+        assert(root->arg[0] == nullptr);
+        assert(root->arg[1] == nullptr);
+        s = LRParseExpression(s, root);
+        if (root->node.empty()) {
+            assert(root->arg[0] != nullptr);
+            assert(root->arg[1] == nullptr);
+            ASTNode  *tmp = root->arg[0];
+            *root = *tmp;           // struct copy!
+            tmp->arg[0] = nullptr;
+            tmp->arg[1] = nullptr;
+            delete tmp;
+        }
+    }
+
+#ifdef ARL_PARSER_DEBUG
+    std::cout << std::string(call_depth, ' ') << "LRParsePredicate(" << *root << ", s-out='" << s << "'" << std::endl;
+    call_depth--;
+#endif // ARL_PARSER_DEBUG
+    return s;
 }
 
 

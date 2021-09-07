@@ -31,7 +31,7 @@ const std::string ArlInt = "(\\-)?[0-9]+";
 /// @brief Number (requires at least 1 decimal place either side of decimal point ".")
 const std::string ArlNum = ArlInt + "\\.[0-9]+";
 
-/// @brief Strings use doubled quotes (to disambiguate from bracketed names, keys, etc.). Empty strings are invalid
+/// @brief Strings use doubled quotes (to disambiguate from bracketed names, keys, etc.). Empty strings are invalid.
 const std::string ArlString = "'[^']+'";
 
 /// @brief Arlington key / array index regex, including path separator "::" and wildcards
@@ -43,56 +43,52 @@ const std::string  ArlKeyValue = "([a-zA-Z]+\\:\\:)*@(" + ArlKeyBase + "|[0-9]+(
 /// @brief Arlington PDF version regex (1.0, 1.1, ... 1.7, 2.0)
 const std::string  ArlPDFVersion = "(1\\.[0-7]|2\\.0)";
 
-/// @brief Arlington Type or Link (TSV filename)
-const std::string ArlTypeOrLink = "[a-zA-Z0-9_\\-]+";
+/// @brief pre-defined Arlington Types (all lowercase with some sub-types include DASH and a qualifier)
+const std::string ArlPredfinedType = "(array|bitmask|boolean|date|dictionary|integer|matrix|name|name-tree|null|number-tree|number|rectangle|stream|string-ascii|string-byte|string-text|string)";
+
+/// @brief Arlington Link name (i.e. TSV filename without extension). Only UNDERBAR, never DASH or PERIOD.
+const std::string ArlLink = "[a-zA-Z0-9_]+";
 
 /// @brief Arlington math comparisons - currently NOT required to have SPACE either side
 const std::string ArlMathComp = "(==|!=|>=|<=|>|<)";
 
 /// @brief Arlington math operators - MULTIPLY and MINUS need a SPACE either side to disambiguate from wildcards and numbers
-/// "mod" handled explicitly.
 const std::string ArlMathOp = "( \\* |\\+| \\- | mod )";
 
 /// @brief Arlington logical operators. Require SPACE either side. Also expect bracketed expressions either side or a predicate:
-/// e.g. ...) || (... or ...) || fn:...  
+/// e.g. "...) || (..." or "...) || fn:..."  
 const std::string ArlLogicalOp = "( && | \\|\\| )";
 
 /// @brief Arlington PDF boolean keywords
 const std::string ArlBooleans = "(true|false)";
 
-/// @brief Arlington predicate with zero or one parameter
-const std::string ArlPredicate0Arg = "fn:[a-zA-Z14]+\\(\\)";
-const std::string ArlPredicate1Arg = "fn:[a-zA-Z14]+\\(" + ArlKey + "\\)";
-const std::string ArlPredicate1ArgV = "fn:[a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
+/// @brief Arlington predicates with zero or one parameter
+const std::string ArlPredicate0Arg  = "fn:[A-Z][a-zA-Z14]+\\(\\)";
+const std::string ArlPredicate1Arg  = "fn:[A-Z][a-zA-Z14]+\\(" + ArlKey + "\\)";
+const std::string ArlPredicate1ArgV = "fn:[A-Z][a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
 
-bool ValidationByConsumption(const std::string& tsv_file, const std::string& fn, std::ostream& ofs);
+/// @brief #define ARL_PARSER_TESTING to test a small set of hard coded predicates
+//#define ARL_PARSER_TESTING
+
 
 /// @brief #define ARL_PARSER_DEBUG to enable very verbose debugging of predicate and expression parsing
-// #define ARL_PARSER_DEBUG
+//#define ARL_PARSER_DEBUG
 
 struct ASTNode {
-    std::string     node;            // predicate including opening bracket '('
-    ASTNode         *arg[2];         // optional arguments
-#ifdef ARL_PARSER_DEBUG
-    ASTNode*        parent;          // parent pointer makes for easier debugging
-#endif  // ARL_PARSER_DEBUG
+    std::string     node;            // predicate including opening bracket '(', operator, operand
+    ASTNode         *arg[2];         // optional arguments for operators
 
     ASTNode(ASTNode *p = nullptr)
-#ifdef ARL_PARSER_DEBUG
-        : parent(p)
-#endif  // ARL_PARSER_DEBUG
         { /* constructor */ arg[0] = arg[1] = nullptr; }
 
     ~ASTNode() { 
-        /* destructor */
-        // don't delete parent!!
+        /* destructor - recursive */
         if (arg[0] != nullptr) delete arg[0];
         if (arg[1] != nullptr) delete arg[1];
     }
 
     /// @brief assignment operator =
     ASTNode& operator=(const ASTNode& n) {
-        // don't copy parent!!
         node   = n.node;
         arg[0] = n.arg[0];
         arg[1] = n.arg[1];
@@ -102,20 +98,34 @@ struct ASTNode {
     /// @brief output operator <<
     friend std::ostream& operator<<(std::ostream& ofs, const ASTNode& n) {
         if (!n.node.empty())
-            ofs << "{ '" << n.node << "'";
+            ofs << "{'" << n.node << "'";
         else
-            ofs << "{ ''";
-      
+            ofs << "{''";
+
         if ((n.arg[0] != nullptr) && (n.arg[1] != nullptr))
             ofs << ",[" << *n.arg[0] << "],[" << *n.arg[1] << "]";
         else {
             if (n.arg[0] != nullptr)
                 ofs << ",[" << * n.arg[0] << "]";
-            else if (n.arg[1] != nullptr)
+            else if (n.arg[1] != nullptr) // why is arg[0] nullptr when arg[1] isn't???
                 ofs << ",???,[" << *n.arg[1] << "]";
         }
-        ofs << " }";
+        ofs << "}";
         return ofs;
+    }
+
+    /// @brief  Validate if an AST node is correctly configured. Can only be done AFTER a full parse is completed.
+    /// @return true if valid. false if the node is incorrect or partially populated.
+    bool valid() {
+        bool ret_val = !node.empty();
+        if (ret_val && arg[0] != nullptr) {
+            ret_val = ret_val && arg[0]->valid();
+            if (ret_val && arg[1] != nullptr) 
+                ret_val = ret_val && arg[1]->valid();
+        }
+        else if (arg[1] != nullptr)
+            ret_val = false;
+        return ret_val;
     }
 };
 
