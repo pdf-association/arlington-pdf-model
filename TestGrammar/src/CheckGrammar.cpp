@@ -102,7 +102,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
             const std::regex   r_LocalKeyValue("[^:]@([a-zA-Z0-9_]+)");
             if (std::regex_search(col, m, r_LocalKeyValue) && m.ready() && (m.size() > 0)) 
                 for (int i = 1; i < m.size(); i += 2)
-                    vars_list.push_back(m[i].str());
+                    vars_list.push_back(m[i].str()); 
 
             // Try and parse each predicate after isolating 
             std::vector<std::string>  list = split(col, ';');
@@ -144,6 +144,13 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
         }
         delete key_validator;
 
+        TypePredicateProcessor* type_validator = new TypePredicateProcessor(vc[TSV_TYPE]);
+        if (!type_validator->ValidateRowSyntax()) {
+            report_stream << "Error: Type field validation error " << reader.get_tsv_name() << " for key " << vc[TSV_TYPE] << std::endl;
+            retval = false;
+        }
+        delete type_validator;
+
         SinceVersionPredicateProcessor* sincever_validator = new SinceVersionPredicateProcessor(vc[TSV_SINCEVERSION]);
         if (!sincever_validator->ValidateRowSyntax()) {
             report_stream << "Error: SinceVersion field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SINCEVERSION] << std::endl;
@@ -179,12 +186,35 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
         }
         delete inherit_validator;
 
+        DefaultValuePredicateProcessor* dv_validator = new DefaultValuePredicateProcessor(vc[TSV_DEFAULTVALUE]);
+        if (!dv_validator->ValidateRowSyntax()) {
+            report_stream << "Error: DefaultValue field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_DEFAULTVALUE] << std::endl;
+            retval = false;
+        }
+        delete dv_validator;
+
+        PossibleValuesPredicateProcessor* pv_validator = new PossibleValuesPredicateProcessor(vc[TSV_POSSIBLEVALUES]);
+        if (!pv_validator->ValidateRowSyntax()) {
+            report_stream << "Error: PossibleValues field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_POSSIBLEVALUES] << std::endl;
+            retval = false;
+        }
+        delete pv_validator;
+
+        SpecialCasePredicateProcessor* sc_validator = new SpecialCasePredicateProcessor(vc[TSV_SPECIALCASE]);
+        if (!sc_validator->ValidateRowSyntax()) {
+            report_stream << "Error: SpecialCase field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SPECIALCASE] << std::endl;
+            retval = false;
+        }
+        delete sc_validator;
+
         LinkPredicateProcessor* links_validator = new LinkPredicateProcessor(vc[TSV_LINK]);
         if (!links_validator->ValidateRowSyntax()) {
             report_stream << "Error: Link field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_LINK] << std::endl;
             retval = false;
         }
         delete links_validator;
+
+        // TSV_NOTE
 
         // CHECK INTER-COLUMN CONSISTENCY
         // Various columns support multiple types by separating with ";" (SEMI-COLON)
@@ -205,16 +235,12 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
                 for (auto& type : types) {
                     j++;
                     type = remove_type_predicates(type);
-                    if (std::find(CArlingtonTSVGrammarFile::arl_non_complex_types.begin(), 
-                                  CArlingtonTSVGrammarFile::arl_non_complex_types.end(), 
-                                  type) != CArlingtonTSVGrammarFile::arl_non_complex_types.end()) {
+                    if (std::find(v_ArlNonComplexTypes.begin(), v_ArlNonComplexTypes.end(), type) != v_ArlNonComplexTypes.end()) {
                         // type is a simple type - Links NOT expected
                         if (links[j] != "[]")  
                             report_stream << "Error: basic type " << type << " should not be linked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << links[j] << std::endl;
                     }
-                    else if (std::find(CArlingtonTSVGrammarFile::arl_complex_types.begin(),
-                                       CArlingtonTSVGrammarFile::arl_complex_types.end(),
-                                       type) != CArlingtonTSVGrammarFile::arl_complex_types.end()) {
+                    else if (std::find(v_ArlComplexTypes.begin(), v_ArlComplexTypes.end(), type) != v_ArlComplexTypes.end()) {
                         // type is a complex type - Links are REQUIRED
                         if (links[j] == "[]")
                             report_stream << "Error: complex type " << type << " is unlinked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;

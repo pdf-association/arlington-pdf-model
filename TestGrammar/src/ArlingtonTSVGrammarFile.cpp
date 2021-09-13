@@ -22,69 +22,6 @@
 
 #include "ArlingtonTSVGrammarFile.h"
 
-/// @brief All Arlington pre-defined types (alphabetically sorted)
-const std::vector<std::string>  CArlingtonTSVGrammarFile::arl_all_types = {
-        "array",
-        "bitmask",
-        "boolean",
-        "date",
-        "dictionary",
-        "integer",
-        "matrix",
-        "name",
-        "name-tree",
-        "null",
-        "number",
-        "number-tree",
-        "rectangle",
-        "stream",
-        "string",
-        "string-ascii",
-        "string-byte",
-        "string-text"
-};
-
-/// @brief Arlingon pre-defined types which REQUIRE a Link - aka "Complex types" (alphabetically sorted)
-const std::vector<std::string>  CArlingtonTSVGrammarFile::arl_complex_types = {
-    "array",
-    "dictionary",
-    "name-tree",
-    "number-tree",
-    "stream"
-};
-
-/// @brief Arlington pre-defined types that must NOT have Links - aka "Non-complex types" (alphabetically sorted)
-const std::vector<std::string>  CArlingtonTSVGrammarFile::arl_non_complex_types = {
-    "bitmask",
-    "boolean",
-    "date",
-    "integer",
-    "matrix",
-    "name",
-    "null",
-    "number",
-    "rectangle",
-    "string",
-    "string-ascii",
-    "string-byte",
-    "string-text"
-};
-
-
-// @brief Arlington PDF versions
-const std::vector<std::string>  CArlingtonTSVGrammarFile::arl_pdf_versions = {
-    "1.0",
-    "1.1",
-    "1.2",
-    "1.3",
-    "1.4",
-    "1.5",
-    "1.6",
-    "1.7",
-    "2.0",
-};
-
-
 /// @brief  Parses through a TSV file line by line and loads TSV data into data_list
 /// @return returns false if TSV data is malformed, else returns true
 bool CArlingtonTSVGrammarFile::load()
