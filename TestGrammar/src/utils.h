@@ -21,30 +21,32 @@
 #include <string>
 #include <filesystem>
 
-// string conversion to/from wide strings needed by PDF files
+/// @brief string conversion to/from wide strings needed by PDF files
 std::string  ToUtf8(const std::wstring& str);
 std::wstring utf8ToUtf16(const std::string& utf8Str);
 std::wstring ToWString(const std::string& s);
 
-// check if a folder, or if a file
+/// @brief check if a folder, or if a file
 bool is_folder(const std::filesystem::path& p);
 bool is_file(const std::filesystem::path& p);
 
-// split Arlington-style strings into vector based on separator character
+/// @brief split Arlington-style strings into vector based on separator character
 std::vector<std::string> split(const std::string& s, char separator);
 
-// Arlington predicate support
+/// @brief Arlington predicate support
 std::string remove_link_predicates(const std::string& link_in);
 std::string remove_type_predicates(const std::string& types_in);
-std::string extract_function(const std::string& value, std::string& function);
 
 int get_type_index(std::string single_type, std::string types);
 std::string get_link_for_type(std::string single_type, const std::string& types, const std::string& links);
 
-// Strip leading whitespace
+/// @brief Strip leading whitespace
 std::string& strip_leading_whitespace(std::string& str);
 
-// Case insensitive comparison of two strings
+/// @brief Case insensitive comparison of two strings
 bool iequals(const std::string& a, const std::string& b);
+
+/// @brief Finds a string in a vector of strings
+bool FindInVector(const std::vector<std::string> list, const std::string v);
 
 #endif // Utils_h
