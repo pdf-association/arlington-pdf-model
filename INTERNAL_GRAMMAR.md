@@ -5,34 +5,32 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 # TSV file rules
 
-
-*   They are TSV, not CSV.
-*   No quotes (single or double quotes) are required
-*   Every TSV file needs to have the same identical header row as first line in file
-*   EOL rules for TSV are now set by .gitattributes to be LF -
-    *   standard Linux CLI works including under Windows WSL2: `cut`, `grep`, `sed`, etc.
-    *   this means you can also use all the [Ebay TSV utilities](https://github.com/eBay/tsv-utils) even under Windows
-    *   [GNU datamash](https://www.gnu.org/software/datamash/) can also be used
-*   Every TSV file needs to have the full set of TABS (for all columns)
-*   Last row in TSV needs EOL after last TAB
-*   TSV file names are case sensitive
-*   TSV file extensions are always `.tsv` (lowercase) but are not present in the TSV data itself
+* They are TSV, not CSV.
+* No double quotes are required
+* Every TSV file needs to have the same identical header row as first line in file
+* EOL rules for TSV are now set by .gitattributes to be LF -
+    - standard Linux CLI works including under Windows WSL2: `cut`, `grep`, `sed`, etc.
+    - this means you can also use all the [Ebay TSV utilities](https://github.com/eBay/tsv-utils) even under Windows
+    - [GNU datamash](https://www.gnu.org/software/datamash/) can also be used
+* Every TSV file needs to have the full set of TABS (for all columns)
+* Last row in TSV needs EOL after last TAB
+* TSV file names are case sensitive
+* TSV file extensions are always `.tsv` (lowercase) but are not present in the TSV data itself
 * all TSV files will have matching numbers of `[`, `]` `(` and `(`
 
 
 # PDF Object conventions
 
-
-*   There are NO leading SLASHES for PDF names (_ever_!)
-*   PDF names might use `#`-escaping in the future
+* There are NO leading SLASHES for PDF names (_ever_!)
+* PDF names might use `#`-escaping in the future
     *   the PDF specification never specifies any such keys so this is allowing for future-proofing
-*   PDF strings use single quotes `'` and `'` (as `(` and `)` are ambiguous with expressions and this is still supported natively by Python `csv` module)
-*   PDF arrays always use `[` and `]` (which requires some additional processing so as not to be confused with our [];[];[] syntax for multiple types)
-*   Expressions with integers need to use integers
-*   Leading `@` indicates "value of" a key or array element
-*   PDF Booleans are `true` and `false` lowercase.
-    *   Uppercase `TRUE`/`FALSE` are reserved for logical Boolean TSV data fields such as the "Required" field.
-* expressions using `&&` or `||` logical operators need to be either fully bracketed or be just a predicate and have a single SPACE either side of the logical operator
+* PDF strings use single quotes `'` and `'` (as `(` and `)` are ambiguous with expressions and single quotes are supported natively by Python `csv` module)
+* PDF arrays always use `[` and `]` (which requires some additional processing so as not to be confused with our [];[];[] syntax for complex types)
+* Expressions with integers need to use integers
+* Leading `@` indicates "value of" a key or array element
+* PDF Booleans are `true` and `false` lowercase.
+    - Uppercase `TRUE`/`FALSE` are reserved for logical Boolean TSV data fields such as the "Required" field.
+* expressions using `&&` or `||` logical operators need to be either fully bracketed or be just a predicate and have a single SPACE either side of the logical operator. precedence rules are NOT implemented.
 
 # TSV Data Fields
 
@@ -44,14 +42,14 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   No duplicates keys in any single TSV file
 *   Only alphanumeric, `.`, `-`, `_` or ASTERISK characters (no whitespace or other special chars)
     *   PDF names might use `#`-escaping in the future (but the PDF specification never specifies any such keys so this is allowing for future-proofing)
-*   If dictionary, then "Key" name must start with alpha (and with no spaces) or just an ASTERISK `*`
+*   If a dictionary, then "Key" may also be an ASTERISK `*` meaning wildcard, so anything is allowed
 *   If ASTERISK `*` by itself then must be last row in TSV file
 *   If ASTERISK `*` by itself then "Required" column must be FALSE
-*   If expressing a PDF array, then "Key" name is an integer array index. Zero-based increasing (always by 1)
-    integers always starting at ZERO (0), with an optional ASTERISK appended after the digit (indicating repeat)
-     - or just an ASTERISK `*`
-*   If expressing a PDF array with `integer+ASTERISK` and then all rows must be `integer+ASTERISK` (indicating a repeating group of _N_ (numbered 0 to _N_-1) array elements).
-*   If expressing a PDF array with `integer+ASTERISK` (and all rows are the same) then the "Required" column should be TRUE if all _N_ entries must always be repeated as a full set.
+*   If expressing a PDF array, then "Key" name is really the integer array index.
+    - Zero-based increasing (always by 1) integers always starting at ZERO (0), with an optional ASTERISK appended after the digit (indicating repeat)
+    - Or just an ASTERISK `*` meaning that any number of array elements may exist
+*   If expressing a PDF array with `integer+ASTERISK` and then the last set of rows must all be `integer+ASTERISK` (indicating a repeating group of _N_ starting at array element _X_ (numbered _X_ to _X+N_-1) array elements).
+*   If expressing a PDF array with `integer+ASTERISK` (and all rows are the same) then the "Required" column should be TRUE if all _N_ entries must always be repeated as a full set (e.g. in pairs).
 *   In the future:
     *   "Key" names with `#`-escapes
     *   _How should we define malforms??? e.g. `/type` vs `/Type`; `/SubType` vs `/Subtype`; `/BlackIs1` (uppercase i) vs `/Blackls1` (lowercase L). Are these separate rows in a TSV, a "SpecialCase" column or wrapped in a declarative
@@ -69,7 +67,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 
 *   Must not be blank
-*   Alphabetically sorted, SEMI-COLON separated list from the following predefined set of types (always lowercase):
+*   Alphabetically sorted, SEMI-COLON separated list from the following predefined set of Arlington types (always lowercase):
     * `array`
     * `bitmask`
     * `boolean`
@@ -91,6 +89,10 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   Each type may also be wrapped in a version-based declarative function (e.g. `fn:SinceVersion(version,type)` or
     `fn:Deprecated(version,type)` ).
 *   When a declarative function is used, the internal simple type is still kept in its alphabetic sort order
+* The following predefined Arlington types ALWAYS REQUIRE a link:
+    - `array`, `dictionary`, `name-tree`, `number-tree`, `stream`
+* The following predefined Arlington types NEVER have a link (they are the basic Arlington types):
+    - `bitmask`, `boolean`, `date`, `integer`, `matrix`, `name`, `null`, `number`, `rectangle`, `string`, `string-ascii`, `string-byte`, `string-text`
 *   **Python pretty-print/JSON:**
     *   Always a list
     *   List elements are either:
@@ -115,7 +117,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   Set of versions may be increased - e.g. `2.1`
     *   A small set of declarative functions might also be used
         *   Either as "or" conjunction or by themselves to represent proprietary extensions? Examples include inline image
-            abbreviations used in Image XObjects; DP as an alias for DecodeParams by Adobe; the Apple /AAPL or /PTEX LaTeX
+            abbreviations used in Image XObjects; `DP` as an alias for `DecodeParams` by Adobe; the Apple /AAPL or /PTEX LaTeX
             extensions; the various PDF 2.0 extension ISO specs being developed now
             e.g., `fn:Extension(string)` or `2.0;fn:Extension(string)` where `string` might be `ISO-32002` or `AdobeExtensionLevel5`.
 *   **Python pretty-print/JSON**
@@ -431,9 +433,7 @@ The second character in the prefix represents the value of the key or array elem
 | `+?` | Key is in the PDF, but is not known to Arlington for this specific version of PDF (i.e. it is in the Arlington definition for some future definition of PDF). _This assumes the reporting application is PDF version aware_! |
 
 
-
-# Parameters
-
+# Parameters to predicates
 
 <table>
   <tr>
@@ -451,7 +451,7 @@ The second character in the prefix represents the value of the key or array elem
    </td>
    <td>
     <ul>
-     <li>One of 1.0, 1.1, ... 2.0</li>
+     <li>One of "1.0, "1.1", ... "2.0"</li>
      <li>Matches set used in "SinceVersion" (column 3) and "Deprecated" (column 4)</li>
     </ul>
    </td>
@@ -474,7 +474,7 @@ The second character in the prefix represents the value of the key or array elem
    </td>
    <td>
     <ul>
-     <li>Boolean expression, including nested predicates and mathematical expressions that use comparison operators</li>
+     <li>Boolean expression, including nested predicates, mathematical expressions that use comparison operators, or boolean sub-expressions</li>
      <li>Use <code>==</code>, <code>!=</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&lt;</code> mathematical comparison operators</li>
      <li>Use <code>==</code>, <code>!=</code>, <code>&&</code> (AND) or <code>||</code> (OR) logical operators (there is no NOT operator)</li>
     </ul>
@@ -487,8 +487,8 @@ The second character in the prefix represents the value of the key or array elem
     <ul>
      <li>PDF object (e.g. name, string, real, integer, array, null)</li>
      <li>A mathematical expression (like <code><i>expr</i></code>)</li>
-     <li>Arlington predefined "Type" - if in Column 2</li>
-     <li>Arlington link (TSV filename)- if in Column 11</li>
+     <li>Arlington predefined type - if in "Type" (column 2)</li>
+     <li>Arlington link (TSV filename)- if in "Link" (column 11)</li>
     </ul>
    </td>
   </tr>
@@ -498,6 +498,8 @@ The second character in the prefix represents the value of the key or array elem
 
 # Declarative Functions
 
+**Do not use additional whitespace!**
+Single SPACE characters are only required around logical operators (`&&` and `||`), MINUS (`-`) and the `mod` mathematical operators.
 
 <table>
   <tr>
@@ -505,7 +507,7 @@ The second character in the prefix represents the value of the key or array elem
    <td>
     <ul>
      <li>asserts <i>key</i> references something of type <code>array</code></li>
-     <li>returns an integervalue >= 0</li>
+     <li>returns an integer value >= 0</li>
     </ul>
    </td>
   </tr>
@@ -576,14 +578,14 @@ The second character in the prefix represents the value of the key or array elem
    <td>
     <ul>
      <li>A conditionally-based default value</li>
-     <li>Only used in "DefaultValue" field</li>
+     <li>Only used in "DefaultValue" field (column 8)</li>
     </ul>
    </td>
   </tr>  <tr>
-   <td><code>fn:Deprecated(<i>version</i>,<i>statement-that-is-deprecated</i>)</code></td>
+   <td><code>fn:Deprecated(<i>version</i>,<i>statement</i>)</code></td>
    <td>
     <ul>
-     <li></li>
+     <li>indicates that something was deprecated, such as a type ("Type" field), a value (e.g. "PossibleValues" field )</li>
     </ul>
    </td>
   </tr>
@@ -591,7 +593,8 @@ The second character in the prefix represents the value of the key or array elem
    <td><code>fn:Eval(<i>expr</i>)</code></td>
    <td>
     <ul>
-     <li></li>
+     <li>something complex that needs calculation</li>
+     <li>may involve multiple terms with logical operators "&&" or "||"</li>
     </ul>
    </td>
   </tr>
@@ -612,10 +615,11 @@ The second character in the prefix represents the value of the key or array elem
    </td>
   </tr>
   <tr>
-   <td><code>fn:Ignore(expr)</code></td>
+   <td><code>fn:Ignore(<i>expr</i>)</code></td>
    <td>
     <ul>
-     <li></li>
+     <li>asserts that the current row is to be ignored when <code><i>expr</i></code> evaluates to true</li>
+     <li>only used in "SpecialCase" field (column 10)</li>
     </ul>
    </td>
   </tr>
@@ -631,6 +635,7 @@ The second character in the prefix represents the value of the key or array elem
    <td><code>fn:ImplementationDependent()</code></td>
    <td>
     <ul>
+     <li>asserts that the current row is formally defined to be implementation dependent in the PDF specification</li>
      <li>key can be any value. There is no right or wrong.</li>
     </ul>
    </td>
@@ -773,8 +778,9 @@ The second character in the prefix represents the value of the key or array elem
    <td><code>fn:RectHeight(<i>rect</i>)</code></td>
    <td>
     <ul>
-     <li><i>rect</i> needs to be an array of 4 numbers (<code>rectangle</code> in Arlington types)</li>
-     <li><i>rect</i> is a key name and evaluates to integer >= 0.</li>
+     <li><i>rect</i> needs to be <code>rectangle</code> in Arlington predefined types</li>
+     <li><i>rect</i> is a key name</li>
+     <li>evaluates to a number >= 0, representing the height of the rectangle.</li>
      <li>Needs to be used inside <code>fn:Eval(...)</code>.</li>
     </ul>
    </td>
@@ -783,8 +789,9 @@ The second character in the prefix represents the value of the key or array elem
    <td><code>fn:RectWidth(<i>rect</i>)</code></td>
    <td>
     <ul>
-     <li><i>rect</i> needs to be an array of 4 numbers (<code>rectangle</code> in Arlington types)</li>
-     <li><i>rect</i> is a key name and evaluates to integer >= 0.</li>
+     <li><i>rect</i> needs to be <code>rectangle</code> in Arlington predefined types</li>
+     <li><i>rect</i> is a key name</li>
+     <li>evaluates to a number >= 0 representing the width of the rectangle</li>
      <li>Needs to be used inside <code>fn:Eval(...)</code>.</li>
     </ul>
    </td>
@@ -802,8 +809,7 @@ The second character in the prefix represents the value of the key or array elem
    <td>
     <ul>
      <li><i>version</i> is only 1.0, ..., 2.0</li>
-     <li>no SPACE around COMMA</li>
-     <li><i>statement</i> is only ever a pre-defined Arlington type or a key name</li>
+     <li><i>statement</i> can be a pre-defined Arlington type, a Link, or constant (such as PDF name, number, integer, string)</li>
     </ul>
    </td>
   </tr>
