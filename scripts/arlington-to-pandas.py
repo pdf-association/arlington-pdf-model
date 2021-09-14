@@ -25,10 +25,24 @@
 #
 # In Jupyter/pandas:
 #
+#   %matplotlib inline
 #   import pandas as pd
-#   df = pdf.read_csv('pandas.tsv')
+#   import matplotlib.pyplot as plt
+#   import seaborn as sns
+#   sns.set(style="darkgrid")
 #
-# df is then a pandas DataFrame of a full Arlington file set
+#   df = pd.read_csv('pandas.tsv', delimiter='\t', na_filter=False,
+#                     dtype={'Object':str, 'Key':str, 'Type':str,
+#                            'SinceVersion':str, 'DeprecatedIn':str,
+#                            'Required':str, 'IndirectReference':str,
+#                            'Inheritable':str, 'DefaultValue':str,
+#                            'PossibleValues':str, 'SpecialCase':str,
+#                            'Link':str, 'Note':str})
+#   df.head()
+#   df.tail()
+#   len(df)
+#
+# df is a pandas DataFrame of a full Arlington file set
 #
 
 import sys
@@ -44,6 +58,11 @@ def ArlingtonToPandas(dir: str, pandas_fname: str):
                      'Required', 'IndirectReference', 'Inheritable',
                      'DefaultValue', 'PossibleValues', 'SpecialCase', 'Link',
                      'Note']
+
+     {'Object':str, 'Key':str, 'Type':str, 'SinceVersion':str, 'DeprecatedIn':str,
+     'Required':str, 'IndirectReference':str, 'Inheritable':str,
+     'DefaultValue':str, 'PossibleValues':str, 'SpecialCase':str, 'Link':str,
+     'Note':str}
 
     with open(pandas_fname, 'w', newline='') as pandasfile:
         pandaswriter = csv.DictWriter(pandasfile, fieldnames=pandas_fields,
@@ -61,10 +80,10 @@ def ArlingtonToPandas(dir: str, pandas_fname: str):
 
     pandasfile.close()
     if (fcount == 0):
-        print("There were no TSV files in directory ", dir)
+        print("There were no TSV files in directory", dir)
         return
 
-    print("%d TSV files processed", fcount)
+    print("TSV files processed:", fcount)
 
 
 if __name__ == '__main__':
@@ -80,6 +99,6 @@ if __name__ == '__main__':
         cli_parser.print_help()
         sys.exit()
 
-    print("Loading from ", cli.tsvdir)
+    print("Loading from", cli.tsvdir)
     arl = ArlingtonToPandas(cli.tsvdir, cli.pandas)
-    print("Done writing to ", cli.pandas)
+    print("Done writing to", cli.pandas)
