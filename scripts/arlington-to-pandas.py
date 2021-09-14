@@ -32,15 +32,12 @@
 #   sns.set(style="darkgrid")
 #
 #   df = pd.read_csv('pandas.tsv', delimiter='\t', na_filter=False,
-#                     dtype={'Object':str, 'Key':str, 'Type':str,
-#                            'SinceVersion':str, 'DeprecatedIn':str,
-#                            'Required':str, 'IndirectReference':str,
-#                            'Inheritable':str, 'DefaultValue':str,
-#                            'PossibleValues':str, 'SpecialCase':str,
-#                            'Link':str, 'Note':str})
-#   df.head()
-#   df.tail()
-#   len(df)
+#                dtype={'Object':'string', 'Key':'string', 'Type':'string',
+#                        'SinceVersion':'string', 'DeprecatedIn':'string',
+#                        'Required':'string', 'IndirectReference':'string',
+#                        'Inheritable':'string', 'DefaultValue':'string',
+#                        'PossibleValues':'string', 'SpecialCase':'string',
+#                        'Link':'string', 'Note':'string'})
 #
 # df is a pandas DataFrame of a full Arlington file set
 #
