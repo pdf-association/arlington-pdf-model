@@ -20,6 +20,7 @@
 #include <regex>
 #include <string>
 #include <cassert>
+#include <math.h>
 
 #include "PredicateProcessor.h"
 #include "utils.h"

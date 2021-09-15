@@ -381,7 +381,7 @@ public:
         PredicateProcessor(s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
-    std::string LinkPredicateProcessor::ReduceRow(const std::string pdf_version);
+    std::string ReduceRow(const std::string pdf_version);
 };
 
 /// Arlington "Notes" field (column 12) 

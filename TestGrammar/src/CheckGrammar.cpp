@@ -278,7 +278,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
     }
 
     // Check for duplicate keys in this TSV file
-    auto& it = std::unique(keys_list.begin(), keys_list.end());
+    auto it = std::unique(keys_list.begin(), keys_list.end());
     if (it != keys_list.end()) {
         report_stream << "Error: duplicate keys in " << reader.get_tsv_name() << " for key " << *it << std::endl;
         retval = false;
