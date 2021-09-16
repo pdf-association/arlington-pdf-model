@@ -155,8 +155,8 @@ int main(int argc, char* argv[]) {
 #if defined(_WIN32) || defined(WIN32)
     // Delet the temp stuff for command line processing
     for (int i = 0; i < argc; i++)
-        delete mbcsargv[i];
-    delete mbcsargv;
+        delete[] mbcsargv[i];
+    delete[] mbcsargv;
 
     if (sarge.exists("batchmode")) {
         // Suppress windows dialogs for assertions and errors - send to stderr instead during batch CLI processing
