@@ -72,7 +72,8 @@ namespace ArlingtonPDFShim {
         void* object;
         bool is_indirect;
     public:
-      explicit ArlPDFObject(void* obj);
+        explicit ArlPDFObject(void* obj);
+        ~ArlPDFObject();
         PDFObjectType get_object_type();
         int   get_object_number();
         bool  is_indirect_ref();

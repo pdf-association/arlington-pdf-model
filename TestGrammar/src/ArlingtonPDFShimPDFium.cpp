@@ -36,12 +36,14 @@ using namespace ArlingtonPDFShim;
 void* ArlingtonPDFSDK::ctx;
 
 struct pdfium_context {
-  CPDF_Parser* parser=nullptr;
-  CCodec_ModuleMgr* codecModule=nullptr;
-  ~pdfium_context() {
-    if (parser) delete(parser);
-    codecModule->Destroy();
-  }
+    CPDF_Parser* parser = nullptr;
+    CCodec_ModuleMgr* codecModule = nullptr;
+
+    ~pdfium_context() {
+        if (parser) 
+            delete(parser);
+        codecModule->Destroy();
+    }
 };
 
 /// @brief Initialize the PDF SDK. May throw exceptions.
@@ -70,8 +72,10 @@ void ArlingtonPDFSDK::shutdown()
 {
     //destroy pdfium
     auto pdfium_ctx = (pdfium_context*)ctx;
-    if (pdfium_ctx->parser != nullptr)
+    if (pdfium_ctx->parser != nullptr) {
         delete pdfium_ctx->parser;
+        pdfium_ctx->parser = nullptr;
+    }
     delete(pdfium_ctx);
     CPDF_ModuleMgr::Destroy();
     ctx = nullptr;
@@ -105,8 +109,10 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 
     //pdfium_ctx->parser->SetPassword(password);
     FX_DWORD err_code = pdfium_ctx->parser->StartParse((FX_LPCSTR)pdf_filename.string().c_str());
-    if (err_code)
-      return nullptr;
+    if (err_code) {
+        delete pdfium_ctx->parser;
+        return nullptr;
+    }
 
     CPDF_Dictionary* trailr = pdfium_ctx->parser->GetTrailer();
     if (trailr != NULL) {
@@ -145,16 +151,27 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 }
 
 
-ArlPDFObject::ArlPDFObject(void* obj):object(obj)
+ArlPDFObject::ArlPDFObject(void* obj) : object(obj)
 {
-  is_indirect = false;
-  if (object == nullptr)
-    return;
-  CPDF_Object* pdf_obj = (CPDF_Object*)object;
-  if (pdf_obj->GetType() == PDFOBJ_REFERENCE) {
-    object = ((pdfium_context*)ArlingtonPDFSDK::ctx)->parser->GetDocument()->GetIndirectObject(((CPDF_Reference*)object)->GetRefObjNum());
-    is_indirect = true;
-  } 
+    is_indirect = false;
+    if (object == nullptr)
+        return;
+    CPDF_Object* pdf_obj = (CPDF_Object*)object;
+    if (pdf_obj->GetType() == PDFOBJ_REFERENCE) {
+        object = ((pdfium_context*)ArlingtonPDFSDK::ctx)->parser->GetDocument()->GetIndirectObject(((CPDF_Reference*)object)->GetRefObjNum());
+        is_indirect = true;
+    } 
+}
+
+
+ArlPDFObject::~ArlPDFObject()
+{
+    if (object == nullptr)
+        return;
+    CPDF_Object* pdf_obj = (CPDF_Object*)object;
+    if (is_indirect) {
+        // Release object or free memory ???
+    }
 }
 
 
