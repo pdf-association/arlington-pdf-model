@@ -37,11 +37,13 @@
 using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
 
-/// @brief Processes a single PDF file against the Arlington PDF model
-/// @param pdf_file_name[in]  PDF filename for processing
-/// @param tsv_folder[in] the folder with the Arlington TSV model files
-/// @param ofs[in]   open stream to write output to
-void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs)
+/// @brief Validates a single PDF file against the Arlington PDF model
+/// 
+/// @param[in] pdf_file_name  PDF filename for processing
+/// @param[in] tsv_folder the folder with the Arlington TSV model files
+/// @param[in] ofs   open stream to write output to
+/// @param[in] terse   terser style output (will sort/uniq better)
+void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, bool terse)
 {
     try
     {
@@ -51,7 +53,7 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
 
         ArlPDFTrailer* trailer = pdfsdk.get_trailer(pdf_file_name.wstring());
         if (trailer != nullptr) {
-            CParsePDF parser(tsv_folder, ofs);
+            CParsePDF parser(tsv_folder, ofs, terse);
             if (trailer->get_xrefstm()) {
                 ofs << "XRefStream detected" << std::endl;
                 parser.add_parse_object(trailer, "XRefStream", "Trailer");
@@ -65,6 +67,7 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
         {
             ofs << "Error: failed to acquire Trailer in: " << fs::absolute(pdf_file_name).lexically_normal() << std::endl;
         }
+        delete trailer;
     }
     catch (std::exception& ex) {
         ofs << "Error: EXCEPTION: " << ex.what() << std::endl;
@@ -79,12 +82,15 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
 #if defined(_WIN32) || defined(WIN32)
 #include <crtdbg.h>
 
+/// @brief #define CRT_MEMORY_LEAK_CHECK to enable C RTL memory leak checking (slow!)
+//#define CRT_MEMORY_LEAK_CHECK
+
 int wmain(int argc, wchar_t* argv[]) {
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(CRT_MEMORY_LEAK_CHECK)
     int tmp = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
     tmp = tmp | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF; // | _CRTDBG_CHECK_ALWAYS_DF;
     _CrtSetDbgFlag(tmp);
-    // _CrtSetBreakAlloc(xxx);
+    _CrtSetBreakAlloc(2219);
 #endif // _DEBUG
 
     // Convert wchar_t* to char* for command line processing
@@ -113,14 +119,15 @@ int main(int argc, char* argv[]) {
 
     sarge.setDescription("Arlington PDF Model C++ P.o.C. version " TestGrammar_VERSION
                          "\nChoose one of: --pdf, --checkdva or --validate.");
-    sarge.setUsage("TestGrammar --tsvdir <dir> [--out <fname|dir>] [--debug] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
-    sarge.setArgument("h", "help",     "This usage message.", false);
-    sarge.setArgument("t", "tsvdir",   "[required] folder containing Arlington PDF model TSV file set.", true);
-    sarge.setArgument("o", "out",      "output file or folder. Default is stdout. Existing files will NOT be overwritten.", true);
-    sarge.setArgument("p", "pdf",      "input PDF file or folder.", true);
-    sarge.setArgument("c", "checkdva", "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
-    sarge.setArgument("v", "validate", "validate the Arlington PDF model.", false);
-    sarge.setArgument("d", "debug",    "output additional debugging information (verbose!)", false);
+    sarge.setUsage("TestGrammar --tsvdir <dir> [--out <fname|dir>] [--debug] [--brief] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
+    sarge.setArgument("h", "help",      "This usage message.", false);
+    sarge.setArgument("t", "tsvdir",    "[required] folder containing Arlington PDF model TSV file set.", true);
+    sarge.setArgument("o", "out",       "output file or folder. Default is stdout. Existing files will NOT be overwritten.", true);
+    sarge.setArgument("p", "pdf",       "input PDF file or folder.", true);
+    sarge.setArgument("c", "checkdva",  "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
+    sarge.setArgument("v", "validate",  "validate the Arlington PDF model.", false);
+    sarge.setArgument("b", "brief",     "terse output when checking PDFs - no object numbers, details of errors, etc.", false);
+    sarge.setArgument("d", "debug",     "output additional debugging information (verbose!)", false);
     sarge.setArgument("b", "batchmode", "stop popup error dialog windows - redirect errors to console", false);
 
 #if defined(_WIN32) || defined(WIN32)
@@ -151,6 +158,7 @@ int main(int argc, char* argv[]) {
     fs::path        input_file;         // input PDF or Adobe DVA
     std::ofstream   ofs;                // output filestream
     bool            debug_mode = sarge.exists("debug");
+    bool            terse = sarge.exists("brief");
 
 #if defined(_WIN32) || defined(WIN32)
     // Delet the temp stuff for command line processing
@@ -275,7 +283,7 @@ int main(int argc, char* argv[]) {
                     }
                     std::cout << "Processing " << entry.path() << " to " << rptfile << std::endl;
                     ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
-                    process_single_pdf(entry.path(), grammar_folder, pdf_io, ofs);
+                    process_single_pdf(entry.path(), grammar_folder, pdf_io, ofs, terse);
                     ofs.close();
                 }
             }
@@ -301,7 +309,7 @@ int main(int argc, char* argv[]) {
                 std::cout << "Processing " << input_file << " to " << save_path << std::endl;
             }
             ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
-            process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs));
+            process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse);
             ofs.close();
         }
         else {
