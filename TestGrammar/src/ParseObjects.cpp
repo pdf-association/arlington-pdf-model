@@ -803,20 +803,30 @@ void CParsePDF::parse_object()
                         }
                     }
 
-                    // we didn't find the key, there may be wildcard key (*) that will validate
+                    // Metadata streams are allowed anywhere
+                    if (!is_found) 
+                        if (key == L"Metadata") {
+                            add_parse_object(inner_obj, "Metadata", elem.context + "->Metadata");
+                            is_found = true;
+                        }   
+    
+                    // we didn't find the key, there may be wildcard key (* or <integer>*) that will validate
                     if (!is_found) {
                         for (auto& vec : data_list)
-                            if ((vec[TSV_KEYNAME] == "*") && (vec[TSV_LINK] != "")) {
-                                std::string lnk = get_linkset_for_object_type(inner_obj, vec[TSV_TYPE], vec[TSV_LINK]);
-                                std::string as = ToUtf8(key);
-                                std::string direct_link = get_link_for_object(inner_obj, lnk, as);
-                                add_parse_object(inner_obj, direct_link, elem.context + "->" + as);
+                            if (vec[TSV_KEYNAME].find("*") != std::string::npos) {
+                                if (vec[TSV_LINK] != "") {
+                                    // wildcard is a complex type so recurse
+                                    std::string lnk = get_linkset_for_object_type(inner_obj, vec[TSV_TYPE], vec[TSV_LINK]);
+                                    std::string as = ToUtf8(key);
+                                    std::string direct_link = get_link_for_object(inner_obj, lnk, as);
+                                    add_parse_object(inner_obj, direct_link, elem.context + "->" + as);
+                                }
                                 is_found = true;
                                 break;
                             }
                     }
-                    // Still didn't find the key - report as an extension...
-                    if (!is_found)
+                    // Still didn't find the key - report as an extension if not terse.
+                    if (!is_found && !terse)
                         output << "Warning: dictionary key '" << ToUtf8(key) << "' is not defined in Arlington for " << fs::path(grammar_file).stem() << std::endl;
                 }
                 else {
