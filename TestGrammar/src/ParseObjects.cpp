@@ -214,7 +214,8 @@ bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd, cons
         assert(std::regex_search(pdf_vers, std::regex(ArlPDFVersion)));
 
         /// @todo don't currently support multi-term predicates or paths to other objects, so assume not required
-        if ((inner.find("&&") != std::string::npos) || (inner.find("||") != std::string::npos) || (inner.find("::") != std::string::npos))
+        if ((inner.find("&&") != std::string::npos) || (inner.find("||") != std::string::npos) || 
+            (inner.find("::") != std::string::npos) || (inner.find("fn:") != std::string::npos))
             return false;
 
         PDFObjectType obj_type = obj->get_object_type();
@@ -391,7 +392,7 @@ std::string CParsePDF::get_link_for_object(ArlPDFObject* obj, const std::string 
     }
 
     output << "Error: Can't select any link from " << links_string <<" to validate provided object: " << obj_name; 
-    if (obj->get_object_number() != 0)
+    if (!terse && (obj->get_object_number() != 0))
         output << " for object #" << obj->get_object_number();
     output << std::endl;
     return "";
@@ -558,7 +559,7 @@ void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatr
     if ((obj_type != PDFObjectType::ArlPDFObjTypeNull) && (index == -1) /*&& vec[TSV_TYPE]!="ANY"*/) {
         output << "Error: wrong type: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
         output << " should be: " << tsv_data[key_idx][TSV_TYPE] << " and is " << get_type_string_for_object(object);
-        if (object->get_object_number() != 0) 
+        if (!terse && (object->get_object_number() != 0))
             output << " for object #" << object->get_object_number();
         output << std::endl;
     }
@@ -571,10 +572,12 @@ void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatr
         std::wstring str_value;
         if (!check_possible_values(object, key_idx, tsv_data, index, str_value)) {
             output << "Error: wrong value: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
-            output << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES] << " and is ";
-            output << get_type_string_for_object(object) << "==" << ToUtf8(str_value);
-            if (object->get_object_number() != 0) 
-                output << " for object #" << object->get_object_number();
+            if (!terse) {
+                output << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES] << " and is ";
+                output << get_type_string_for_object(object) << "==" << ToUtf8(str_value);
+                if (object->get_object_number() != 0) 
+                    output << " for object #" << object->get_object_number();
+            }
             output << std::endl;
         }
     }
@@ -622,8 +625,8 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
     else {
         // Table 36 Names: "Root and leaf nodes only; required in leaf nodes; present in the root node 
         //                  if and only if Kids is not present"
-        if (root && (kids_obj != nullptr))
-            output << "Error: name tree Names object was missing or not an array when Kids was also present" << std::endl;
+        if (root && (kids_obj == nullptr))
+            output << "Error: name tree Names object was missing or not an array when Kids was also missing (obj " << obj->get_object_number() << ")" << std::endl;
     }
 
     if (kids_obj != nullptr) {
@@ -654,7 +657,6 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
 /// @param[in,out] context 
 /// @param[in]     root   true if the root node of a Name tree
 void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root) {
-    /// @todo check if Kids doesn't exist together with names etc..
     ArlPDFObject *kids_obj   = obj->get_value(L"Kids");
     ArlPDFObject *nums_obj   = obj->get_value(L"Nums");
     //ArlPDFObject *limits_obj = obj->get_value(L"Limits");
@@ -693,8 +695,8 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &link
     else {
         // Table 37 Nums: "Root and leaf nodes only; shall be required in leaf nodes; 
         //                 present in the root node if and only if Kids is not present
-        if (root && (kids_obj != nullptr))
-            output << "Error: number tree Nums object was missing when Kids was also present" << std::endl;
+        if (root && (kids_obj == nullptr))
+            output << "Error: number tree Nums object was missing when Kids was also missing (obj " << obj->get_object_number() << ")" << std::endl;
     }
 
     if (kids_obj != nullptr) {
@@ -828,12 +830,16 @@ void CParsePDF::parse_object()
                 if (is_required_key(elem.object, vec[TSV_REQUIRED]) && (vec[TSV_KEYNAME] != "*")) {
                     ArlPDFObject* inner_obj = dictObj->get_value(ToWString(vec[TSV_KEYNAME]));
                     if (inner_obj == nullptr) {
+                        int objnum = dictObj->get_object_number();
                         if (vec[TSV_INHERITABLE] == "FALSE") {
-                            output << "Error: non-inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")" << std::endl;
+                            output << "Error: non-inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")";
                         } else {
                             /// @todo support inheritance
-                            output << "Error: required key doesn't exist (inheritance NOT checked): " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")" << std::endl;
+                            output << "Error: required key doesn't exist (inheritance NOT checked): " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")";
                         }
+                        if (!terse && (objnum != 0))
+                            output << " (in obj " << objnum << ")";
+                        output << std::endl;
                     }
                 } 
             } // for

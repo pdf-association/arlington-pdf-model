@@ -393,8 +393,8 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
                     std::string all_links = remove_link_predicates(vc[TSV_LINK]);
                     if (all_links != "") {
                         std::vector<std::string> links = split(all_links, ';');
-                        for (auto type_link : links) {
-                            if ((type_link != "") && (type_link != "[]")) {
+                        for (auto type_link : links)
+                            if ((type_link != "") && (type_link != "[]")) 
                                 if ((type_link[0] == '[') && type_link[type_link.size()-1] == ']') {
                                     std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ','); // strip [ and ] then split by COMMA
                                     for (auto lnk : direct_links) 
@@ -403,8 +403,6 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
                                 }
                                 else 
                                     ofs << "Error: " << gfile << " has bad link '" << type_link << "' - missing enclosing [ ]" << std::endl;
-                            }
-                        } // for
                     }
                 } // for
             }
@@ -425,7 +423,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
                 ofs << "Error: can't load Arlington TSV grammar file " << gf << std::endl;
             else 
                 check_grammar(reader, verbose, ofs);
-        } // if
+        }
     } // for
 
     ofs << "END" << std::endl;

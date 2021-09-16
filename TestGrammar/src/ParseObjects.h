@@ -65,12 +65,15 @@ private:
 
     /// @brief Output stream to write results to. Already open
     std::ostream            &output;
+
+    /// @brief Terse output. Otherwise output can ruin "... | sort | uniq | ..." Linux CLI pipelines
+    bool                    terse; 
   
     const ArlTSVmatrix& get_grammar(const std::string& link);
 
 public:
-    CParsePDF(const std::filesystem::path& tsv_folder, std::ostream &ofs)
-        : grammar_folder(tsv_folder), output(ofs)
+    CParsePDF(const std::filesystem::path& tsv_folder, std::ostream &ofs, bool terser_output)
+        : grammar_folder(tsv_folder), output(ofs), terse(terser_output)
         { /* constructor */ }
 
     void parse_object();
