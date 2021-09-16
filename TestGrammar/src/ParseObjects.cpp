@@ -145,7 +145,7 @@ bool CParsePDF::check_possible_values(ArlPDFObject* object, int key_idx, const A
         possible_vals = remove_type_predicates(possible_vals);
         if (possible_vals.find("fn:") != std::string::npos) {
             /// @todo Predicates remained in PossibleValues means we cannot make reliable decision
-            return false;
+            return true;
         }
 
         // Safe to split on COMMAs as no predicates 
@@ -619,8 +619,10 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
         }
     }
     else {
-        // Error: Names isn't an array in PDF name tree
-        output << "Error: name tree Names object was missing or not an array" << std::endl;
+        // Table 36: "Root and leaf nodes only; required in leaf nodes; present in the root node if and 
+        //           only if Kids is not present"
+        if (kids_obj != nullptr)
+            output << "Error: name tree Names object was missing or not an array when Kids was also present" << std::endl;
     }
 
     if (kids_obj != nullptr) {
@@ -687,8 +689,10 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &link
         }
     }
     else {
-        // Error: Nums isn't an array in PDF number tree
-        output << "Error: number tree Nums object was missing" << std::endl;
+        // Table 37: "Root and leaf nodes only; shall be required in leaf nodes; 
+        //           present in the root node if and only if Kids is not present
+        if (kids_obj != nullptr)
+            output << "Error: number tree Nums object was missing when Kids was also present" << std::endl;
     }
 
     if (kids_obj != nullptr) {
