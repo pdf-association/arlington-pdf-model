@@ -5,10 +5,13 @@ Width	integer	1.4		TRUE	FALSE	FALSE			[fn:Eval(@Width==parent::@Width)]
 Height	integer	1.4		TRUE	FALSE	FALSE			[fn:Eval(@Height==parent::@Height)]		
 ColorSpace	name	1.4		TRUE	FALSE	FALSE		[DeviceGray]			
 BitsPerComponent	integer	1.4		TRUE	FALSE	FALSE		[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8),fn:SinceVersion(1.5,16)]			
+Intent	name	1.4		FALSE	FALSE	FALSE					
 ImageMask	boolean	1.4		FALSE	FALSE	FALSE	false	[false]			
+Name	name	1.4	2.0	FALSE	FALSE	FALSE					
 Decode	array	1.4		FALSE	FALSE	FALSE	[[0,1]]			[ArrayOfNumbersGeneral]	
 Interpolate	boolean	1.4		FALSE	FALSE	FALSE	false				
 Matte	array	1.4		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
+Metadata	stream	1.4		FALSE	TRUE	FALSE				[fn:SinceVersion(1.4,Metadata)]	
 Length	integer	1.4		TRUE	FALSE	FALSE					
 Filter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfFilterNames];[]	
 DecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),FilterCCITTFaxDecode,fn:SinceVersion(1.4,FilterJBIG2Decode),FilterDCTDecode,fn:SinceVersion(1.5,FilterCrypt)]	
