@@ -827,11 +827,11 @@ void CParsePDF::parse_object()
                     }
                     // Still didn't find the key - report as an extension if not terse.
                     if (!is_found && !terse)
-                        output << "Warning: dictionary key '" << ToUtf8(key) << "' is not defined in Arlington for " << fs::path(grammar_file).stem() << std::endl;
+                        output << "Warning: key '" << ToUtf8(key) << "' is not defined in Arlington for " << fs::path(grammar_file).stem() << std::endl;
                 }
                 else {
                     // malformed PDF or parsing limitation in PDF SDK?
-                    output << "Error: could not get value for dictionary key '" << ToUtf8(key) << "' (" << fs::path(grammar_file).stem() << ")" << std::endl;
+                    output << "Error: could not get value for key '" << ToUtf8(key) << "' (" << fs::path(grammar_file).stem() << ")" << std::endl;
                 }
             } // for
 
