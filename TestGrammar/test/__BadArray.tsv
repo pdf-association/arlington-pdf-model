@@ -1,0 +1,6 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+0	boolean	1.0		FALSE	FALSE	FALSE	false			[__BadDict]	booleans don't need links
+0	boolean	1.0		FALSE	FALSE	FALSE	false				
+1*	boolean	1.0		FALSE	FALSE	FALSE	false		[fn:Eval(@1>@9)]		there is no 9th array element
+2*	boolean	1.0		FALSE	FALSE	FALSE	false				
+3	boolean	1.0		FALSE	FALSE	FALSE	false				wildcard index is not last
