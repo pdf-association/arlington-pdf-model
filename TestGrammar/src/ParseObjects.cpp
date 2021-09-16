@@ -586,7 +586,8 @@ void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatr
 /// @param[in]     obj 
 /// @param[in]     links 
 /// @param[in,out] context 
-void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links, std::string context) {
+/// @param[in]     root   true if the root node of a Name tree
+void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root) {
     /// @todo check if Kids doesn't exist together with names etc.
     ArlPDFObject *kids_obj   = obj->get_value(L"Kids");
     ArlPDFObject *names_obj  = obj->get_value(L"Names");
@@ -619,9 +620,9 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
         }
     }
     else {
-        // Table 36: "Root and leaf nodes only; required in leaf nodes; present in the root node if and 
-        //           only if Kids is not present"
-        if (kids_obj != nullptr)
+        // Table 36 Names: "Root and leaf nodes only; required in leaf nodes; present in the root node 
+        //                  if and only if Kids is not present"
+        if (root && (kids_obj != nullptr))
             output << "Error: name tree Names object was missing or not an array when Kids was also present" << std::endl;
     }
 
@@ -631,7 +632,7 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
             for (int i = 0; i < array_obj->get_num_elements(); i++) {
                 ArlPDFObject* item = array_obj->get_value(i);
                 if ((item != nullptr) && (item->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary))
-                    parse_name_tree((ArlPDFDictionary*)item, links, context);
+                    parse_name_tree((ArlPDFDictionary*)item, links, context, false);
                 else {
                     // Error: individual kid isn't dictionary in PDF name tree
                     output << "Error: name tree Kids array element number " << i << " was not a dictionary" << std::endl;
@@ -651,7 +652,8 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
 /// @param[in]     obj 
 /// @param[in]     links 
 /// @param[in,out] context 
-void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context) {
+/// @param[in]     root   true if the root node of a Name tree
+void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root) {
     /// @todo check if Kids doesn't exist together with names etc..
     ArlPDFObject *kids_obj   = obj->get_value(L"Kids");
     ArlPDFObject *nums_obj   = obj->get_value(L"Nums");
@@ -689,9 +691,9 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &link
         }
     }
     else {
-        // Table 37: "Root and leaf nodes only; shall be required in leaf nodes; 
-        //           present in the root node if and only if Kids is not present
-        if (kids_obj != nullptr)
+        // Table 37 Nums: "Root and leaf nodes only; shall be required in leaf nodes; 
+        //                 present in the root node if and only if Kids is not present
+        if (root && (kids_obj != nullptr))
             output << "Error: number tree Nums object was missing when Kids was also present" << std::endl;
     }
 
@@ -701,7 +703,7 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &link
             for (int i = 0; i < array_obj->get_num_elements(); i++) {
                 ArlPDFObject* item = array_obj->get_value(i);
                 if ((item != nullptr) && (item->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary))
-                    parse_name_tree((ArlPDFDictionary*)item, links, context);
+                    parse_number_tree((ArlPDFDictionary*)item, links, context, false);
                 else {
                     // Error: individual kid isn't dictionary in PDF number tree
                     output << "Error: number tree Kids array element number " << i << " was not a dictionary" << std::endl;

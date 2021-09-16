@@ -75,8 +75,8 @@ public:
 
     void parse_object();
     void add_parse_object(ArlPDFObject* object, const std::string& link, std::string context);
-    void parse_name_tree(ArlPDFDictionary* obj, const std::string &links, std::string context);
-    void parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context);
+    void parse_name_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root = true);
+    void parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root = true);
 
     int get_type_index_for_object(ArlPDFObject* obj, const std::string& types);
     std::string get_type_string_for_object(ArlPDFObject* obj);
