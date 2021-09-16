@@ -381,29 +381,36 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
     while (!to_process.empty()) { 
         std::string gfile = to_process.back();
         to_process.pop_back();
+
+        // Have we already processed this Arlington grammar TSV file?
         if (std::find(processed.begin(), processed.end(), gfile) == processed.end()) {
             processed.push_back(gfile);
             gf = grammar_folder / gfile;
             CArlingtonTSVGrammarFile reader(gf);
-            reader.load();
-            const ArlTSVmatrix &data = reader.get_data();
-            for (auto& vc : data) {
-                std::string all_links = remove_link_predicates(vc[TSV_LINK]);
-                if (all_links != "") {
-                    std::vector<std::string> links = split(all_links, ';');
-                    for (auto type_link : links)
-                        if ((type_link != "") && (type_link != "[]")) 
-                            if ((type_link[0] == '[') && type_link[type_link.size()-1] == ']') {
-                                std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ','); // strip [ and ] then split by COMMA
-                                for (auto lnk : direct_links)
-                                    if (lnk != "") 
-                                        to_process.push_back(lnk + ".tsv");
+            if (reader.load()) {
+                const ArlTSVmatrix &data = reader.get_data();
+                for (auto& vc : data) {
+                    std::string all_links = remove_link_predicates(vc[TSV_LINK]);
+                    if (all_links != "") {
+                        std::vector<std::string> links = split(all_links, ';');
+                        for (auto type_link : links) {
+                            if ((type_link != "") && (type_link != "[]")) {
+                                if ((type_link[0] == '[') && type_link[type_link.size()-1] == ']') {
+                                    std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ','); // strip [ and ] then split by COMMA
+                                    for (auto lnk : direct_links) 
+                                        if (lnk != "")
+                                            to_process.push_back(lnk + ".tsv");
+                                }
+                                else 
+                                    ofs << "Error: " << gfile << " has bad link '" << type_link << "' - missing enclosing [ ]" << std::endl;
                             }
-                            else 
-                                ofs << "Error: " << gfile << " has bad link '" << type_link << "' - missing enclosing [ ]" << std::endl;
-                }
-            } // for
-        } // if
+                        } // for
+                    }
+                } // for
+            }
+            else 
+                ofs << "Error: linked file " << gf.stem() << " failed to load!" << std::endl;
+        }
     } // while
 
     // Iterate across all physical files in the folder

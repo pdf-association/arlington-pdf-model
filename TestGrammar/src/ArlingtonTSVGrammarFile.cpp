@@ -26,8 +26,14 @@
 /// @return returns false if TSV data is malformed, else returns true
 bool CArlingtonTSVGrammarFile::load()
 {
-    std::ifstream     file(tsv_file_name);
+    std::ifstream     file(tsv_file_name, std::ios::in);
     std::string       line = "";
+
+    // Check if the file exists and is OK for reading
+    if (!file.is_open() || file.bad() || file.eof()) {
+        file.close();
+        return false;
+    }
 
     // Iterate through each line (row) and split content using TAB delimiter
     while (getline(file, line))
@@ -59,6 +65,11 @@ bool CArlingtonTSVGrammarFile::load()
 
     // Close the TSV file
     file.close();
+  
+    // Empty file?
+    if (data_list.size() == 0)
+        return false;
+
     return true;
 }
 
