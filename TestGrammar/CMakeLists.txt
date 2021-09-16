@@ -31,10 +31,10 @@ if(MSVC)
     #add_compile_options(/W3 /WX-)
     #add_compile_definitions(BUILD_WINDOWS)
 else()
+    add_compile_definitions(register=) #mac doesn't compile lcms with C++17
 endif()
 
 add_compile_definitions(PNG_PREFIX PNG_USE_READ_MACROS OPJ_STATIC PNG_INTEL_SSE_OPT=1 NOMINMAX _CRT_NONSTDC_NO_DEPRECATE)
-add_compile_definitions(register=) #mac doesn't compile lcms with C++17
 
 set(SRC_PDFIUM
     src/ArlingtonPDFShimPDFium.cpp
