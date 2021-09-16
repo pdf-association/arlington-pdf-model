@@ -19,7 +19,6 @@ It performs a number of functions:
 
 1. validates all TSV files in an Arlington TSV file set.
     - Check the uniformity (number of columns), if all types are one of Arlington types, etc.
-    - Does **NOT** yet check or validate predicates (declarative functions)
 2. validates a PDF file against an Arlington TSV file set. Starting from trailer, the tool validates:
     - if all required keys are present (_inheritance is currently not implemented_)
     - if values are of correct type (_processing of predicates (declarative functions) are not supported_)
@@ -29,7 +28,7 @@ It performs a number of functions:
 3. recursively validates a folder containing many PDF files.
     - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting.
 4. compares the Arlington PDF model grammar with the Adobe DVA FormalRep
-    - the output report needs manual review afterwards
+    - the output report needs manual review afterwards, as predicates will trigger differences
 
 
 ## Usage
@@ -51,6 +50,7 @@ Options:
 -c, --checkdva   Adobe DVA formal-rep PDF file to compare against Arlington PDF model.
 -v, --validate   validate the Arlington PDF model.
 -d, --debug      output additional debugging information (verbose!)
+-b, --batchmode  top popup error dialog windows - redirect errors to console
 
 Built using some-PDF-SDK v x.y.z
 ```
@@ -59,7 +59,7 @@ Built using some-PDF-SDK v x.y.z
 
 * TestGrammar PoC does NOT currently confirm PDF version validity, understand most predicates (declarative functions), or support inheritance. So there will be a lot of false "Error:" messages!!!!
 
-* all error messages from validating PDF files are prefixed with `^Error:` to make regex-based post processing easier
+* all messages from validating PDF files are prefixed with `^Error:` or `Warning:` to make regex-based post processing easier
 
 * possible error messages from PDF file validation are as follows. Each error message also provides some context (e.g. a PDF object number):
 
@@ -86,17 +86,19 @@ Error: Can't select any link from \[FontType1,FontTrueType,FontMultipleMaster,Fo
 
 * all output should have a final line "END" (`grep --files-without-match "^END"`) - if not then something nasty has happened!
 
+* if processing a folder of PDFs under Windows, then use `--batchmode` so that if things crash a dialog box doesn't block execution from continuing.
+
 ## Coding Conventions
 
 * platform independent C++17 with STL and minimal other dependencies (_no Boost please!_)
 * no tabs. 4 space indents
 * std::wstrings need to be used for many things (such as PDF names and strings from PDF files) - don't assume ASCII or UTF-8!
-* can assume Arlington TSV data is ASCII/UTF-8
+* can assume Arlington TSV data is all ASCII/UTF-8
 * liberal comments with code readability
 * classes and methods use Doxygen style `///` comments (as supported by Visual Studio IDE)
 * zero warnings on all builds and all platforms (excepting PDF SDKs)
 * all error messages matched with `^Error:` (i.e. case sensitive regex at start of a line)
-* do not create unnecessary dependencies on specific PDF SDKs - isolate through a shim layer
+* do not create unnecessary dependencies on specific PDF SDKs - isolate through the shim layer
 * liberal use of asserts with the Arlington PDF model, which can be assumed to be correct (but never for data from PDF files!)
 * performance and memory is **not** critical (this is just a PoC!) - so long as a full Arlington model can be processed and reasonably-sized PDFs can be checked
 
