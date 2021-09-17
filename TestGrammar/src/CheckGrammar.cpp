@@ -124,7 +124,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
                         pred_root = new ASTNode();
                         s = LRParsePredicate(s, pred_root);
                         if (verbose)
-                            report_stream << "AST: " << *pred_root << std::endl;
+                            report_stream << "AST: " << pred_root << std::endl;
                         assert(pred_root->valid());
                         delete pred_root;
                         pred_root = nullptr;

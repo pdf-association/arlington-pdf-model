@@ -177,7 +177,7 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
 
         // Typos in predicates, etc can cause this loop not to terminate...
         if (--loop <= 0) {
-            std::cerr << "Error: Failure to terminate parsing of '" << s << "', AST=" << *root << std::endl;
+            std::cerr << "Error: Failure to terminate parsing of '" << s << "', AST=" << root << std::endl;
             assert(loop > 0);
         }
     }
