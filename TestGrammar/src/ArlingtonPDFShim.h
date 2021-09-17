@@ -78,12 +78,28 @@ namespace ArlingtonPDFShim {
         int   get_object_number();
         bool  is_indirect_ref();
         std::string get_hash_id();
+
+        /// @brief output operator <<
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFObject& obj) {
+            if (obj.object != nullptr) {
+                int           obj_num  = const_cast<ArlPDFObject&>(obj).get_object_number();
+                if (obj_num > 0)
+                    ofs << "obj " << obj_num;
+                else
+                    ofs << "direct-obj";
+            }
+            return ofs;
+        };
     };
 
     class ArlPDFBoolean : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
     public:
         bool get_value();
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFBoolean& obj) {
+            ofs << "Boolean " << (ArlPDFObject)obj;
+            return ofs;
+        };
     };
 
     class ArlPDFNumber : public ArlPDFObject {
@@ -92,22 +108,35 @@ namespace ArlingtonPDFShim {
         bool   is_integer_value();
         int    get_integer_value();
         double get_value();
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNumber& obj) {
+            ofs << "Number " << (ArlPDFObject)obj;
+            return ofs;
+        };
     };
 
     class ArlPDFString : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
     public:
         std::wstring get_value();
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFString& obj) {
+            ofs << "String " << (ArlPDFObject)obj;
+            return ofs;
+        };
     };
 
     class ArlPDFName : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
     public:
         std::wstring get_value();
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFName& obj) {
+            ofs << "Name " << (ArlPDFObject)obj;
+            return ofs;
+        };
     };
 
     class ArlPDFNull : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNull& obj);
     };
 
     class ArlPDFArray : public ArlPDFObject {
@@ -115,6 +144,10 @@ namespace ArlingtonPDFShim {
     public:
         int get_num_elements();
         ArlPDFObject* get_value(int idx);
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFArray& obj) {
+            ofs << "Array " << (ArlPDFObject)obj;
+            return ofs;
+        };
     };
 
     class ArlPDFDictionary : public ArlPDFObject {
@@ -126,18 +159,26 @@ namespace ArlingtonPDFShim {
         // For iterating keys...
         int get_num_keys();
         std::wstring get_key_name_by_index(int index);
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFDictionary& obj) {
+            ofs << "Dictionary " << (ArlPDFObject)obj;
+            return ofs;
+        };
     };
 
     class ArlPDFStream : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
     public:
-      ArlPDFDictionary* get_dictionary();
+        ArlPDFDictionary* get_dictionary();
         //// For keys by name...
         //bool          has_key(std::wstring key);
         //ArlPDFObject* get_value(std::wstring key);
         //// For iterating keys...
         //int get_num_keys();
         //std::wstring get_key_name_by_index(int index);
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFStream& obj) {
+            ofs << "Stream " << (ArlPDFObject)obj;
+            return ofs;
+        };
     };
 
     // The trailer object of a PDF document (file)
@@ -149,6 +190,7 @@ namespace ArlingtonPDFShim {
     public:
         void set_xrefstm(bool is_xrefstream) { is_xrefstm = is_xrefstream; };
         bool get_xrefstm() { return is_xrefstm; };
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFTrailer& obj);
     };
 
     class ArlingtonPDFSDK {
@@ -158,9 +200,7 @@ namespace ArlingtonPDFShim {
 
         // Constructor
         explicit ArlingtonPDFSDK()
-            { /* constructor */
-              ctx = nullptr;
-            };
+            { /* constructor */ ctx = nullptr; };
 
         // Initialize the PDF SDK. Throws exceptions on error.
         void initialize(bool enable_debugging);
