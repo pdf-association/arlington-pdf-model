@@ -33,7 +33,7 @@
 
 using namespace ArlingtonPDFShim;
 
-void* ArlingtonPDFSDK::ctx;
+void* ArlingtonPDFSDK::ctx = nullptr;
 
 struct pdfium_context {
     CPDF_Parser* parser = nullptr;
@@ -170,7 +170,7 @@ ArlPDFObject::~ArlPDFObject()
         return;
     CPDF_Object* pdf_obj = (CPDF_Object*)object;
     if (is_indirect) {
-        // Release object or free memory ???
+        /// @todo Release object or free memory ???
     }
 }
 
@@ -268,9 +268,9 @@ bool ArlPDFBoolean::get_value()
     assert(object != nullptr);
     assert(((CPDF_Object *)object)->GetType() == PDFOBJ_BOOLEAN);
     CPDF_Boolean* obj = ((CPDF_Boolean*)object);
-    bool retval = obj->GetInteger()!=0;
+    bool retval = (obj->GetInteger() != 0);
     if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
+        std::wcout << __FUNCTION__ << "(" << object << "): " << (retval ? "true" : "false") << std::endl;
     }
     return retval;
 }
@@ -456,13 +456,13 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
     FX_POSITION pos = obj->GetStartPos();
     std::wstring retval;
     while (pos) {
-      CFX_ByteString keyName;
-      CPDF_Object* nextObj = obj->GetNextElement(pos, keyName);
-      if (index == 0) {
-        retval = (FX_LPCWSTR)keyName.UTF8Decode();
-        break;
-      }
-      index--;
+        CFX_ByteString keyName;
+        CPDF_Object* nextObj = obj->GetNextElement(pos, keyName);
+        if (index == 0) {
+            retval = (FX_LPCWSTR)keyName.UTF8Decode();
+            break;
+        }
+        index--;
     }
 
     if (ArlingtonPDFShim::debugging) {
