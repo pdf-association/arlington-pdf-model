@@ -396,7 +396,7 @@ std::string CParsePDF::get_link_for_object(ArlPDFObject* obj, const std::string 
         return links[to_ret];
     }
 
-    output << "Error: Can't select any link from " << links_string <<" to validate provided object" << obj_name; 
+    output << "Error: can't select any link from " << links_string <<" to validate provided object" << obj_name; 
     if (!terse) 
         output << " (" << *obj << ")";
     output << std::endl;
@@ -616,7 +616,7 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
                 }
                 else {
                     // Error: name tree Names array did not have pairs of entries (obj2 == nullptr)
-                    output << "Error: name tree Names array element " << i << "was missing 2nd element in a pair" << std::endl;
+                    output << "Error: name tree Names array element " << i << " was missing 2nd element in a pair" << std::endl;
                 }
             }
             else {
@@ -689,12 +689,12 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &link
                         }
                         else {
                             // Error: every even entry in a number tree Nums array are supposed be objects
-                            output << "Error: number tree Nums array key[" << i << "] was not an object" << std::endl;
+                            output << "Error: number tree Nums array element " << i << " was not an object" << std::endl;
                         }
                     }
                     else {
                         // Error: every odd entry in a number tree Nums array are supposed be integers
-                        output << "Error: number tree Nums array key[" << i << "] was not an integer" << std::endl;
+                        output << "Error: number tree Nums array element " << i << " was not an integer" << std::endl;
                     }
                 }
                 else {
