@@ -14,7 +14,7 @@
 
 # TestGrammar (C++17) proof of concept application
 
-The TestGrammar (C++17) proof of concept application is a command-line utility based on the free [PDFix SDK Lite](https://pdfix.net/download-free/).
+The TestGrammar (C++17) proof of concept application is a command-line utility.
 It performs a number of functions:
 
 1. validates all TSV files in an Arlington TSV file set.
@@ -25,6 +25,7 @@ It performs a number of functions:
     - if objects are indirect if required (_requires pdfium PDF SDK to be used_)
     - if value is correct if `PossibleValues` are defined (_processing of predicates (declarative functions) are not supported_)
     - all error messages are prefixed with `Error:` to enable post-processing
+    - that predicates can be parsed using a simple regex-based recursive descent parser
 3. recursively validates a folder containing many PDF files.
     - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting.
 4. compares the Arlington PDF model grammar with the Adobe DVA FormalRep
@@ -49,6 +50,7 @@ Options:
 -p, --pdf        input PDF file or folder.
 -c, --checkdva   Adobe DVA formal-rep PDF file to compare against Arlington PDF model.
 -v, --validate   validate the Arlington PDF model.
+-b, --brief      terse output when checking PDFs - no object numbers, details of errors, etc.
 -d, --debug      output additional debugging information (verbose!)
 -b, --batchmode  top popup error dialog windows - redirect errors to console
 
@@ -61,19 +63,34 @@ Built using some-PDF-SDK v x.y.z
 
 * all messages from validating PDF files are prefixed with `^Error:` or `Warning:` to make regex-based post processing easier
 
-* possible error messages from PDF file validation are as follows. Each error message also provides some context (e.g. a PDF object number):
+* possible warning and error messages from PDF file validation are as follows. Each message may also provide context (e.g. a PDF object number) so long as `--brief` is **not** specified (default):
 
 ```
 Error: EXCEPTION ...
 Error: Failed to open ...
 Error: failed to acquire Trailer ...
-Error: Can't select any link from ...
+Error: can't select any link from ...
 Error: not an indirect reference as required: ...
 Error: wrong type: ...
 Error: wrong value: ...
 Error: non-inheritable required key doesn't exist ...
 Error: required key doesn't exist (inheritance not checked) ...
 Error: object validated in two different contexts. First: ...
+Error: array length incorrect for ...
+Error: could not get value for key ...
+Error: PDF array object encountered, but using Arlington dictionary
+Error: name tree Kids array element number xxx was not a dictionary
+Error: number tree Kids array element number xxx was not a dictionary
+Error: name tree Kids object was not an array
+Error: number tree Kids object was not an array
+Error: name tree Names array element xxx was missing 2nd element in a pair
+Error: name tree Names array element xxx error for 1st element in a pair (not a string?)
+Error: name tree Names object was missing or not an array when Kids was also missing
+Error: number tree Nums object was missing when Kids was also missing
+Error: number tree Nums array was invalid
+Error: number tree Nums array element xxx was not an integer
+Error: number tree Nums array element xxx was not an object
+Warning: key 'xxx' is not defined in Arlington for "yyy"
 ```
 
 * the Arlington PDF model is based on PDF 2.0 (ISO 32000-2:2020) where some previously optional keys are now required
@@ -84,9 +101,26 @@ A warning such as the following will be issued (because PDF 2.0 required keys ar
 Error: Can't select any link from \[FontType1,FontTrueType,FontMultipleMaster,FontType3,FontType0,FontCIDType0,FontCIDType2\] to validate provided object: xxx
 ```
 
-* all output should have a final line "END" (`grep --files-without-match "^END"`) - if not then something nasty has happened!
+* all output should have a final line "END" (`grep --files-without-match "^END"`) - if not then something nasty has happened! (crash!?!)
 
-* if processing a folder of PDFs under Windows, then use `--batchmode` so that if things crash a dialog box doesn't block execution from continuing.
+* if processing a folder of PDFs under Windows, then use `--batchmode` so that if things do crash or assert then the error dialog box doesn't block execution from continuing.
+
+## Useful post-_processing
+
+After processing a tree of PDF files and saving the output into a folder via a command such as:
+
+```bash
+TestGrammar --batchmode --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/
+```
+
+the following Linux CLI commands can be useful in quickly filtering the output:
+
+```bash
+grep "Error:" * | sort | uniq
+grep "Warning:" * | sort | uniq
+grep -h "Error:" * | cut -c 1-66 | sort | uniq
+grep --files-without-match "^END" *
+```
 
 ## Coding Conventions
 
@@ -96,6 +130,7 @@ Error: Can't select any link from \[FontType1,FontTrueType,FontMultipleMaster,Fo
 * can assume Arlington TSV data is all ASCII/UTF-8
 * liberal comments with code readability
 * classes and methods use Doxygen style `///` comments (as supported by Visual Studio IDE)
+* `/// @todo` are to-do comments
 * zero warnings on all builds and all platforms (excepting PDF SDKs)
 * all error messages matched with `^Error:` (i.e. case sensitive regex at start of a line)
 * do not create unnecessary dependencies on specific PDF SDKs - isolate through the shim layer
@@ -195,7 +230,7 @@ make
 cd ..
 ```
 
-Compiled binaries will be in [/TestGrammar/bin/linux](/TestGrammar/bin/linux).
+Compiled Linux binaries will be in [/TestGrammar/bin/linux](/TestGrammar/bin/linux).
 
 
 ### Mac OS/X
@@ -209,8 +244,6 @@ Follow the instructions for Linux. Compiled binaries will be in [/TestGrammar/bi
 - when validating the TSV data files, also do a validation on the predicate (declarative function) expressions
 
 - when validating a PDF file, check required values in parent dictionaries when inheritance is allowed.
-
-- extend TestGrammar with new feature to report all keys that are NOT defined in any PDF specification (as this may indicate either proprietary extensions, undocumented legacy extensions or common errors/malformations from PDF writers).
 
 ---
 
