@@ -103,14 +103,15 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
     auto pdfium_ctx = (pdfium_context*)ctx;
     
     // close previously opened document
-    if (pdfium_ctx->parser)
-      delete(pdfium_ctx->parser);
+    if (pdfium_ctx->parser != nullptr)
+        delete(pdfium_ctx->parser);
     pdfium_ctx->parser = new CPDF_Parser;
 
     //pdfium_ctx->parser->SetPassword(password);
     FX_DWORD err_code = pdfium_ctx->parser->StartParse((FX_LPCSTR)pdf_filename.string().c_str());
     if (err_code) {
         delete pdfium_ctx->parser;
+        pdfium_ctx->parser = nullptr;
         return nullptr;
     }
 
@@ -133,9 +134,8 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
                 id = info_key->GetObjNum();
             }
             else {
-                if (ArlingtonPDFShim::debugging) {
+                if (ArlingtonPDFShim::debugging) 
                     std::cout << __FUNCTION__ << " trailer Info key could not be found!" << std::endl;
-                }
             }
         
             return trailer_obj;
