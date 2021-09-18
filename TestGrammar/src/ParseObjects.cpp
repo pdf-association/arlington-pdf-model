@@ -150,7 +150,7 @@ bool CParsePDF::check_possible_values(ArlPDFObject* object, int key_idx, const A
         possible_vals = remove_type_predicates(possible_vals);
         if (possible_vals.find("fn:") != std::string::npos) {
             /// @todo Predicates remained in PossibleValues means we cannot make reliable decision
-            return true;
+            return false;
         }
 
         // Safe to split on COMMAs as no predicates 
@@ -290,49 +290,67 @@ bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd, cons
 }
 
 
+/// @brief define SCORING_DEBUG to see scoring unside get_link_for_object()
+//#define SCORING_DEBUG
+
+
 ///@brief  Choose a specific link for a PDF object from a provided set of Arlington links to validate further.
-/// We select a link with all required values and with matching possible values. 
-/// Sometimes required values are missing, are inherited etc. 
+/// Select a link with all required values and with matching possible values. 
+/// Sometimes required values are missing, are inherited, etc. 
 /// Scoring mechanism is used (lower score = better, like golf):
-///  +4 = if required key is completely missing;
-///  +2 = if required key is present, but has a different (incorrect) type;
-///  +1 = if required key value doesn't match with a possible value 
-///  -1 = if required key value doesn't match with a possible value due to a predicate
-///  -2 = if required key value matches but is not /Type or /Subtype
-/// -10 = if possible value matches and key is /Type or /Subtype.
+///   +6 = required key is completely missing
+///   +4 = required key is present, but has a different (incorrect) type (does happen: name vs string)
+///   -1 = required key value doesn't match with a possible value due to a predicate (TODO - currently unsupported)
+///   -2 = required key value but can be anything (so easier match)
+///   -4 = required key (not /Type or /Subtype) and value matches precisely
+///  -10 = required key is key is /Type or /Subtype AND possible value matches precisely
+/// -3*N = all N keys in the object were required keys AND present
+/// 
 /// Arlington grammar file with the lowest score is our selected link (like golf).
 /// 
 /// @param[in]  obj          the PDF object in question
-/// @param[in]  links_string set of Arlington links to try with all predicates already REMOVED!!!
+/// @param[in]  links_string set of Arlington links to try (predicates are SAFE)
 /// @param[in]  obj_name     the path of the PDF object in the PDF file
 /// 
 /// @returns a single Arlington link that is the best match for the given PDF object. Or "" if no link.
 std::string CParsePDF::get_link_for_object(ArlPDFObject* obj, const std::string &links_string, std::string &obj_name) {
     assert(obj != nullptr);
+
     if (links_string == "[]" || links_string == "")
         return "";
+    
+#if defined(SCORING_DEBUG)
+    std::cout << std::endl << "Deciding for " << obj_name << " using " << links_string << std::endl;
+#endif
 
     // Remove all predicates from Links before spliting by COMMA
     std::string s = remove_type_predicates(links_string);
     std::vector<std::string> links = split(s.substr(1, s.size() - 2), ',');
     assert(links.size() > 0);
-    if (links.size() == 1)
+    if (links.size() == 1) {
+#if defined(SCORING_DEBUG)
+        std::cout << "Only option is " << links[0] << std::endl << std::endl;
+#endif
         return links[0];
+    }
 
-    int to_ret = -1;
-    int min_score = 1000;
+    int  to_ret = -1;
+    int  min_score = 1000;
+
     // checking all links to see which one is suitable for provided object 
+    PDFObjectType obj_type = obj->get_object_type();
     for (auto i = 0; i < (int)links.size(); i++) {
+#if defined(SCORING_DEBUG)
+        std::cout << "Scoring " << links[i] << std::endl;
+#endif
         const ArlTSVmatrix& data_list = get_grammar(links[i]);
 
         auto j = 0;
         auto link_score = 0;
-        PDFObjectType obj_type = obj->get_object_type();
         if ((obj_type == PDFObjectType::ArlPDFObjTypeDictionary) ||
             (obj_type == PDFObjectType::ArlPDFObjTypeStream) ||
             (obj_type == PDFObjectType::ArlPDFObjTypeArray)) {
-            // Are all "required" fields has to be present?
-            // and if required value is defined then does it match with possible value?
+            bool all_required_keys = true;
             for (auto& vec : data_list) {
                 j++;
                 if (is_required_key(obj, vec[TSV_REQUIRED])) {
@@ -359,40 +377,85 @@ std::string CParsePDF::get_link_for_object(ArlPDFObject* obj, const std::string 
                             break;
                     } // switch
 
-                    // have required object, let's check possible values and compute score
+                    // have a Required inner object, check "Possible Values" and compute score
                     if (inner_object != nullptr) {
                         int index = get_type_index_for_object(inner_object, vec[TSV_TYPE]);
                         if (index != -1) {
                             if (vec[TSV_POSSIBLEVALUES] != "") {
-                                std::wstring str_value;
+                                std::wstring   str_value;  // inner_object value from PDF as string
                                 if (check_possible_values(inner_object, j-1, data_list, index, str_value)) {
+#if defined(SCORING_DEBUG)
+                                    std::cout << "Required key " << vec[TSV_KEYNAME] << " is present and value '" << ToUtf8(str_value) << "' matched" << std::endl;
+#endif
                                     if (vec[TSV_KEYNAME] == "Type" || vec[TSV_KEYNAME] == "Subtype")
-                                        link_score -= 10; // Type or Subtype key with a correct value!! 
+                                        link_score += -10; // Type or Subtype key exists with a correct value
                                     else 
-                                        link_score -= 2; // another required key (not Type or Subtype) with a correct value!!
+                                        link_score += -4; // another required key (not Type or Subtype) exists with a correct value
                                 }
-                                else if (str_value.find(L"fn:") != std::wstring::npos)
-                                    link_score--; /// @todo required key present, but not a match, likely because of predicates
-                                else
-                                    link_score++; // required key present, but not a match (and no predicates)
+                                else if (vec[TSV_POSSIBLEVALUES].find("fn:") != std::string::npos) {
+#if defined(SCORING_DEBUG)
+                                    std::cout << "Required key " << vec[TSV_KEYNAME] << " is present but predicates in " << vec[TSV_POSSIBLEVALUES] << std::endl;
+#endif
+                                    link_score += -1; /// @todo required key exists, but not a match, likely because of predicates
+                                }
+                                else {
+#if defined(SCORING_DEBUG)
+                                    std::cout << "Required key " << vec[TSV_KEYNAME] << " is present but incorrect value '" << ToUtf8(str_value) << "'" << std::endl;
+#endif
+                                    link_score += +4; // required key exists, but NOT a correct value (no predicates so explicitly wrong)
+                                }
                             }
-                        } else 
-                            link_score += 2; // required key exists but is wrong type
-                    } else 
-                        link_score += 4; // required key is missing
+                            else {
+#if defined(SCORING_DEBUG)
+                                std::cout << "Required key " << vec[TSV_KEYNAME] << " is present and anything is OK" << std::endl;
+#endif
+                                // Required key exists, but no specified PossibleValues so anything is OK
+                                link_score += -2;  // another required key (not Type or Subtype)
+                            }
+                        } else {
+#if defined(SCORING_DEBUG)
+                            std::cout << "Required key " << vec[TSV_KEYNAME] << " is present but wrong type!" << std::endl;
+#endif
+                            link_score += +4; // required key exists but is wrong type (explicitly incorrect)
+                        }
+                    } else {
+#if defined(SCORING_DEBUG)
+                        std::cout << "Required key " << vec[TSV_KEYNAME] << " is missing!" << std::endl;
+#endif
+                        link_score += +6; // required key is missing!
+                        all_required_keys = false;
+                    }
                 } // if a required key
+                else
+                    all_required_keys = false;
             } // for each key in grammar file
+
+            // All keys were required and present (common for arrays) - bonus x nbr of keys
+            if (all_required_keys) {
+#if defined(SCORING_DEBUG)
+                std::cout << "All required keys were present!" << std::endl;
+#endif
+                link_score += -3 * (int)data_list.size();
+            }
         } // if (dict || stream || array)
+
+#if defined(SCORING_DEBUG)
+        std::cout << links[i] << " scored " << link_score << ", min so far is " << min_score << std::endl;
+#endif
 
         // remembering the lowest score
         if (min_score > link_score) {
             to_ret = i;
             min_score = link_score;
         }
-    }
+    } // for
+
     // lowest score wins (if we had any matches for required keys)
-    if (to_ret != -1) {
+    if (to_ret >= 0) {
         obj_name += " (as " + links[to_ret] + ")";
+#if defined(SCORING_DEBUG)
+        std::cout << "Winner was " << obj_name << " from " << links_string << std::endl << std::endl;
+#endif
         return links[to_ret];
     }
 
@@ -413,7 +476,7 @@ std::string CParsePDF::get_link_for_object(ArlPDFObject* obj, const std::string 
 /// @param[in] types    Arlington "Types" field from TSV data e.g. "array;dictionary;number". Predicates must be REMOVED.
 /// @param[in] links    Arlington "Links" field from TSV data e.g. "[SomeArray];[SomeDictA,SomeDictB];[]".  Predicates must be REMOVED.
 /// 
-/// @returns Arlington link (TSV file name) or ""
+/// @returns Arlington link set (TSV file names) or "". Predicates are RETAINED.
 std::string CParsePDF::get_linkset_for_object_type(ArlPDFObject* obj, const std::string &types, const std::string &links) {
     assert(obj != nullptr);
     assert(types.size() > 0);
@@ -574,7 +637,14 @@ void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatr
     if ((tsv_data[key_idx][TSV_POSSIBLEVALUES] != "") && (index != -1)) {
         std::wstring str_value;
         if (!check_possible_values(object, key_idx, tsv_data, index, str_value)) {
-            output << "Error: wrong value: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
+            if (tsv_data[key_idx][TSV_POSSIBLEVALUES].find("fn:") == std::string::npos) {
+                // No predicates - so an error...
+                output << "Error: wrong value: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
+            }
+            else {
+                /// @todo Predicates - so just a warning...
+                output << "Warning: possibly wrong value (predicates NOT supported): " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
+            }
             if (!terse) {
                 output << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES] << " and is ";
                 output << get_type_string_for_object(object) << "==" << ToUtf8(str_value) << " (" << *object << ")";
@@ -588,15 +658,13 @@ void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatr
 /// @brief Processes a PDF name tree 
 /// 
 /// @param[in]     obj 
-/// @param[in]     links 
+/// @param[in]     links   set of Arlington links (predicates are SAFE)
 /// @param[in,out] context 
-/// @param[in]     root   true if the root node of a Name tree
+/// @param[in]     root    true if the root node of a Name tree
 void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root) {
     ArlPDFObject *kids_obj   = obj->get_value(L"Kids");
     ArlPDFObject *names_obj  = obj->get_value(L"Names");
     //ArlPDFObject *limits_obj = obj->get_value(L"Limits");
-
-    assert(links.find("fn:") == std::string::npos);
 
     if ((names_obj != nullptr) && (names_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
         ArlPDFArray *array_obj = (ArlPDFArray*)names_obj;
@@ -660,15 +728,13 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
 /// @brief Processes a PDF number tree
 /// 
 /// @param[in]     obj 
-/// @param[in]     links 
+/// @param[in]     links    set of Arlington links (Predicates are SAFE!)
 /// @param[in,out] context 
 /// @param[in]     root   true if the root node of a Name tree
 void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root) {
     ArlPDFObject *kids_obj   = obj->get_value(L"Kids");
     ArlPDFObject *nums_obj   = obj->get_value(L"Nums");
     //ArlPDFObject *limits_obj = obj->get_value(L"Limits");
-
-    assert(links.find("fn:") == std::string::npos);
 
     if (nums_obj != nullptr) {
         if (nums_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
@@ -889,7 +955,6 @@ void CParsePDF::parse_object()
                             continue;
 
                         opt[index]   = remove_type_predicates(opt[index]);
-                        links[index] = remove_link_predicates(links[index]);
 
                         if ((opt[index] == "number-tree") && (inner_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
                             parse_number_tree((ArlPDFDictionary*)inner_obj, links[index], elem.context + "->" + vec[TSV_KEYNAME]);
@@ -911,41 +976,38 @@ void CParsePDF::parse_object()
         } else if (obj_type == PDFObjectType::ArlPDFObjTypeArray) {
             ArlPDFArray*    arrayObj = (ArlPDFArray*)elem.object;
 
-            std::smatch     m;
-            int             i;
-            bool            non_array = false;
-#define ALL_ARRAY_ELEMS 99999
-            int             first_wildcard = ALL_ARRAY_ELEMS; // bigger than any TSV row count
-            int             first_notreqd  = ALL_ARRAY_ELEMS; // bigger than any TSV row count
-
             // Preview the Arlington array definition for wildcards and to see if this really is an array
             // Also determine minimum required number of elements in the array.
-            for (i = 0; i < (int)data_list.size(); i++) {
+#define ALL_ARRAY_ELEMS 99999
+            int             first_wildcard = ALL_ARRAY_ELEMS; // bigger than any TSV row count
+            int             first_notreqd = ALL_ARRAY_ELEMS; // bigger than any TSV row count
+            std::vector<std::string>    key_list;
+
+            for (int i = 0; i < (int)data_list.size(); i++) {
+                key_list.push_back(data_list[i][TSV_KEYNAME]);
                 if ((first_notreqd > i) && (data_list[i][TSV_REQUIRED] != "TRUE"))
                     first_notreqd = i;
                 
                 if (first_wildcard > i)
                     if (data_list[i][TSV_KEYNAME].find("*") != std::string::npos)
                         first_wildcard = i;
-                    else if (!std::regex_search(data_list[i][TSV_KEYNAME], m, r_KeyArrayIndices))
-                        non_array = true;
             } // for
 
-            if (non_array) {
+            // Use null-stream to suppress messages - should have used "--validate" first anyway
+            if (!check_valid_array_definition(fs::path(grammar_file).stem().string(), key_list, cnull)) {
                 output << "Error: PDF array object encountered, but using Arlington dictionary " << fs::path(grammar_file).stem() << std::endl;
                 continue;
             }
 
-            for (i = 0; i < arrayObj->get_num_elements(); i++) {
+            for (int i = 0; i < arrayObj->get_num_elements(); i++) {
                 ArlPDFObject* item = arrayObj->get_value(i);
                 if (item != nullptr)
                     if ((first_wildcard == 0) && (data_list[0][TSV_KEYNAME] == "*")) {
                         // All array elements will match wildcard 
                         check_basics(item, 0, data_list, grammar_file.filename());
                         if (data_list[0][TSV_LINK] != "") {
-                            std::string l = remove_link_predicates(data_list[0][TSV_LINK]);
                             std::string t = remove_type_predicates(data_list[0][TSV_TYPE]);
-                            std::string lnk = get_linkset_for_object_type(item, t, l);
+                            std::string lnk = get_linkset_for_object_type(item, t, data_list[0][TSV_LINK]);
                             std::string as = "[" + std::to_string(i) + "]";
                             std::string direct_link = get_link_for_object(item, lnk, as);
                             add_parse_object(item, direct_link, elem.context + as);
@@ -956,9 +1018,8 @@ void CParsePDF::parse_object()
                         assert(data_list[i][TSV_KEYNAME] == std::to_string(i));
                         check_basics(item, i, data_list, grammar_file.filename());
                         if (data_list[i][TSV_LINK] != "") {
-                            std::string l = remove_link_predicates(data_list[i][TSV_LINK]);
                             std::string t = remove_type_predicates(data_list[i][TSV_TYPE]);
-                            std::string lnk = get_linkset_for_object_type(item, t, l);
+                            std::string lnk = get_linkset_for_object_type(item, t, data_list[i][TSV_LINK]);
                             std::string as = "[" + std::to_string(i) + "]";
                             std::string direct_link = get_link_for_object(item, lnk, as);
                             add_parse_object(item, direct_link, elem.context + as);
