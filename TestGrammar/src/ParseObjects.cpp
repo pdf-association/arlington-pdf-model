@@ -684,12 +684,19 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
                 }
                 else {
                     // Error: name tree Names array did not have pairs of entries (obj2 == nullptr)
-                    output << "Error: name tree Names array element " << i << " was missing 2nd element in a pair" << std::endl;
+                    output << "Error: name tree Names array element #" << i << " - missing 2nd element in a pair" << std::endl;
                 }
             }
             else {
-                // Error: one of the pair of objects was not OK
-                output << "Error: name tree Names array element " << i << " error for 1st element in a pair (not a string?)" << std::endl;
+                // Error: 1st in the pair was not OK
+                if (obj1 == nullptr)
+                    output << "Error: name tree Names array element #" << i << " - 1st element in a pair returned null" << std::endl;
+                else {
+                    output << "Error: name tree Names array element #" << i << " - 1st element in a pair was not a string";
+                    if (!terse)
+                        output << " (" << *obj1 << ")";
+                    output << std::endl;
+                }
             }
         }
     }
@@ -697,7 +704,10 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
         // Table 36 Names: "Root and leaf nodes only; required in leaf nodes; present in the root node 
         //                  if and only if Kids is not present"
         if (root && (kids_obj == nullptr)) {
-            output << "Error: name tree Names object was missing or not an array when Kids was also missing";
+            if (names_obj == nullptr)
+                output << "Error: name tree Names object was missing when Kids was also missing";
+            else
+                output << "Error: name tree Names object was not an array when Kids was also missing";
             if (!terse)
                 output << " (" << *obj << ")";
             output << std::endl;
@@ -713,7 +723,10 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
                     parse_name_tree((ArlPDFDictionary*)item, links, context, false);
                 else {
                     // Error: individual kid isn't dictionary in PDF name tree
-                    output << "Error: name tree Kids array element number " << i << " was not a dictionary" << std::endl;
+                    output << "Error: name tree Kids array element number #" << i << " was not a dictionary";
+                    if (!terse && (item != nullptr))
+                        output << " (" << *item << ")";
+                    output << std::endl;
                 }
             }
         }
@@ -755,12 +768,15 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &link
                         }
                         else {
                             // Error: every even entry in a number tree Nums array are supposed be objects
-                            output << "Error: number tree Nums array element " << i << " was not an object" << std::endl;
+                            output << "Error: number tree Nums array element #" << i << " was null" << std::endl;
                         }
                     }
                     else {
                         // Error: every odd entry in a number tree Nums array are supposed be integers
-                        output << "Error: number tree Nums array element " << i << " was not an integer" << std::endl;
+                        output << "Error: number tree Nums array element #" << i << " was not an integer";
+                        if (!terse)
+                            output << " (" << *obj1 << ")";
+                        output << std::endl;
                     }
                 }
                 else {
@@ -794,13 +810,19 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &link
                     parse_number_tree((ArlPDFDictionary*)item, links, context, false);
                 else {
                     // Error: individual kid isn't dictionary in PDF number tree
-                    output << "Error: number tree Kids array element number " << i << " was not a dictionary" << std::endl;
+                    output << "Error: number tree Kids array element number #" << i << " was not a dictionary";
+                    if (!terse && (item != nullptr))
+                        output << " (" << *item << ")";
+                    output << std::endl;
                 }
             }
         }
         else {
             // Error: Kids isn't array in PDF number tree
-            output << "Error: number tree Kids object was not an array" << std::endl;
+            output << "Error: number tree Kids object was not an array";
+            if (!terse)
+                output << " (" << *kids_obj << ")";
+            output << std::endl;
         }
     }
 }
