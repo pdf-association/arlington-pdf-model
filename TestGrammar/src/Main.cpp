@@ -90,7 +90,7 @@ int wmain(int argc, wchar_t* argv[]) {
     int tmp = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
     tmp = tmp | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF; // | _CRTDBG_CHECK_ALWAYS_DF;
     _CrtSetDbgFlag(tmp);
-    _CrtSetBreakAlloc(2219);
+    //_CrtSetBreakAlloc(2219);
 #endif // _DEBUG
 
     // Convert wchar_t* to char* for command line processing
