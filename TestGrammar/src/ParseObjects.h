@@ -66,7 +66,8 @@ private:
     /// @brief Output stream to write results to. Already open
     std::ostream            &output;
 
-    /// @brief Terse output. Otherwise output can ruin "... | sort | uniq | ..." Linux CLI pipelines
+    /// @brief Terse output. Otherwise output can make "... | sort | uniq | ..." Linux CLI pipelines difficult
+    ///        Details of specific PDF objects (such as object numbers) are not output.
     bool                    terse; 
   
     const ArlTSVmatrix& get_grammar(const std::string& link);
@@ -89,6 +90,7 @@ public:
 
     void check_basics(ArlPDFObject* obj, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path &grammar_file);
     bool check_possible_values(ArlPDFObject* object, int key_idx, const ArlTSVmatrix& tsv_data, const int index, std::wstring &real_str_value);
+    ArlPDFObject* find_via_inheritance(ArlPDFDictionary* obj, const std::wstring& key, int depth = 0);
 };
 
 #endif // ParseObjects_h

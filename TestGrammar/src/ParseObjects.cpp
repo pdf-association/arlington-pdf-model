@@ -589,6 +589,32 @@ std::string CParsePDF::get_type_string_for_object(ArlPDFObject *obj) {
 }
 
 
+/// @brief  Recursively looks for 'key' via inheritance (i.e. through "Parent" keys)
+/// 
+/// @param[in] obj 
+/// @param[in] key        the key to find
+/// @param[in] depth      recursive depth (in case of malformed PDFs to stop infinite loops!)
+/// 
+/// @returns nullptr if 'key' is NOT located via inheritance, otherwise the PDF object which matches BY KEYNAME!
+ArlPDFObject* CParsePDF::find_via_inheritance(ArlPDFDictionary* obj, const std::wstring& key, int depth) {
+    assert(obj != nullptr);
+    if (depth > 250) {
+        output << "Error: recursive inheritance depth of " << depth << " exceeded for " << ToUtf8(key) << std::endl;
+        return nullptr;
+    }
+    ArlPDFObject* parent = obj->get_value(L"Parent");
+    if ((parent != nullptr) && (parent->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+        ArlPDFDictionary* parent_dict = (ArlPDFDictionary*)parent;
+        ArlPDFObject* key_obj = parent_dict->get_value(key);
+        if (key_obj == nullptr)
+            return find_via_inheritance(parent_dict, key, depth+1);
+        return key_obj;
+    }
+    return nullptr;
+}
+
+
+
 /// @brief Validate basic information on a PDF object (stream, arrray, dictionary) including:
 ///   - type
 ///   - indirect
@@ -709,7 +735,7 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
             else
                 output << "Error: name tree Names object was not an array when Kids was also missing";
             if (!terse)
-                output << " (" << *obj << ")";
+                output << " (" << *obj << ")"; 
             output << std::endl;
         }
     }
@@ -953,13 +979,19 @@ void CParsePDF::parse_object()
                     if (inner_obj == nullptr) {
                         if (vec[TSV_INHERITABLE] == "FALSE") {
                             output << "Error: non-inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")";
+                            if (!terse)
+                                output << " (" << *dictObj << ")";
+                            output << std::endl;
                         } else {
                             /// @todo support inheritance
-                            output << "Error: required key doesn't exist (inheritance NOT checked): " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")";
+                            inner_obj = find_via_inheritance(dictObj, ToWString(vec[TSV_KEYNAME]));
+                            if (inner_obj == nullptr) {
+                                output << "Error: inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")";
+                                if (!terse)
+                                    output << " (" << *dictObj << ")";
+                                output << std::endl;
+                            }
                         }
-                        if (!terse) 
-                            output << " (" << *dictObj << ")";
-                        output << std::endl;
                     }
                 } 
 
