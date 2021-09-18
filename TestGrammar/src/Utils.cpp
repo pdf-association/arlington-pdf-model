@@ -23,6 +23,7 @@
 #include <math.h>
 #include <algorithm>
 #include <regex>
+#include <cassert>
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -344,3 +345,73 @@ bool FindInVector(const std::vector<std::string> list, const std::string v) {
     return false;
 }
 
+
+/// @brief Matches integer-only array indices (NO WILDCARDS!) for TSV_KEYNAME field
+///        Note that some PDF keys are real number like e.g. "/1.2"
+static const std::regex r_KeyArrayKeys("^([0-9]+|[0-9]*\\*?)$");
+
+
+/// @brief  Checks if an Arlington TSV is an array object. Confirmed by checking
+///         that all keys are either pure integers, just "*" (last row) or integer+"*".
+///         Also confirms integer array keys start at zero and always increase by +1.
+///         A TSV with a single wildcard key "*" is ambiguous but returns true here.
+/// 
+/// @param[in] fname TSV filename
+/// @param[in] keys  list of keys from an Arlington TSV definition
+/// @param[in] ofs   open stream to write any errors to (use cnull/wcnull for /dev/null)
+/// 
+/// @returns true if keys can represent a PDF array. false otherwise
+bool check_valid_array_definition(const std::string& fname, const std::vector<std::string>& keys, std::ostream& ofs) {
+    assert(keys.size() > 0);
+
+    // Trivial cases special-cased
+    if (keys.size() == 1)
+        if ((keys[0] == "*") || (keys[0] == "0"))
+            return true;
+        else if (keys[0] == "0*") {
+            ofs << "Warning: single element array with '0*' should use '*' " << fname << std::endl;
+            return true;
+        }
+        else
+            return false;
+
+    int         idx;
+    int         first_wildcard = -1;
+    bool        row_has_wildcard;
+    std::smatch m;
+    for (int row = 0; row < keys.size(); row++) {
+        if (!std::regex_search(keys[row], m, r_KeyArrayKeys))
+            return false;
+
+        // Last row wildcard is common and stoi() dislikes so test first
+        if ((keys[row] == "*") && (row == keys.size() - 1))
+            return true;
+
+        // Attempt to convert what is possibly an integer (got passed regex above)
+        try {
+            idx = std::stoi(keys[row]);
+        }
+        catch (std::exception& ex) {
+            ofs << "Error: arrays must use integers: was '" << keys[row] << "', wanted " << row << " for " << fname << ": " << ex.what() << std::endl;
+            return false;
+        }
+
+        if ((idx != row) && (row > 0)) {
+            ofs << "Error: arrays need to use contiguous integers: was '" << keys[row] << "', wanted " << row << " for " << fname << std::endl;
+            return false;
+        }
+
+        // Check if we are ending with wildcard sequence
+        row_has_wildcard = (keys[keys[row].size() - 1] == "*");
+        if (row_has_wildcard) {
+            if (first_wildcard < 0)
+                first_wildcard = row;
+        }
+        else if (first_wildcard >= 0) {
+            ofs << "Error: array using numbered wildcards (integer+'*') need to be contiguous last rows in" << fname << std::endl;
+            return false;
+        }
+    }
+
+    return true;
+}

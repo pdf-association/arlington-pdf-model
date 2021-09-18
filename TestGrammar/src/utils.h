@@ -21,6 +21,10 @@
 #include <string>
 #include <filesystem>
 
+/// @brief /dev/null equivalents
+extern std::ostream  cnull;
+extern std::wostream wcnull;
+
 /// @brief string conversion to/from wide strings needed by PDF files
 std::string  ToUtf8(const std::wstring& str);
 std::wstring utf8ToUtf16(const std::string& utf8Str);
@@ -48,5 +52,8 @@ bool iequals(const std::string& a, const std::string& b);
 
 /// @brief Finds a string in a vector of strings
 bool FindInVector(const std::vector<std::string> list, const std::string v);
+
+/// @brief Check if Arlington data represents an array
+bool check_valid_array_definition(const std::string& fname, const std::vector<std::string>& keys, std::ostream& ofs);
 
 #endif // Utils_h

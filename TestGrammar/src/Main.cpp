@@ -37,6 +37,12 @@
 using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
 
+
+/// @brief /dev/null equivalent streams - see https://stackoverflow.com/questions/6240950/platform-independent-dev-null-in-c#6240980
+std::ostream  cnull(0);
+std::wostream wcnull(0);
+
+
 /// @brief Validates a single PDF file against the Arlington PDF model
 /// 
 /// @param[in] pdf_file_name  PDF filename for processing
