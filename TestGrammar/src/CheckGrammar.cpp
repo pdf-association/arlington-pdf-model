@@ -84,6 +84,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
         retval = false;
     }
 
+    bool has_inheritable = false;
     for (auto& vc : data_list) {
         // Add key of current row to a list to later check for duplicates
         keys_list.push_back(vc[TSV_KEYNAME]);
@@ -186,6 +187,8 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
             retval = false;
         }
         delete inherit_validator;
+        if (vc[TSV_INHERITABLE] == "TRUE")
+            has_inheritable = true;
 
         DefaultValuePredicateProcessor* dv_validator = new DefaultValuePredicateProcessor(vc[TSV_DEFAULTVALUE]);
         if (!dv_validator->ValidateRowSyntax()) {
@@ -281,6 +284,21 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
         report_stream << "Error: duplicate keys in " << reader.get_tsv_name() << " for key " << *it << std::endl;
         retval = false;
     }
+
+    // Check that if at least one key was inheritable, then also a Parent key that is a dictionary
+    // Not assuming page tree as this is more flexible (for future)
+    if (has_inheritable) 
+        if (std::find(keys_list.begin(), keys_list.end(), "Parent") == keys_list.end()) {
+            report_stream << "Error: at least one inheritable key in " << reader.get_tsv_name() << " but no Parent key" << std::endl;
+            retval = false;
+        }
+        else {
+            for (auto& vc : data_list) 
+                if ((vc[TSV_KEYNAME] == "Parent") && (vc[TSV_TYPE] != "dictionary")) {
+                    report_stream << "Error: at least one inheritable key in " << reader.get_tsv_name() << " but Parent key is not a dictionary" << std::endl;
+                    retval = false;
+                }
+        }
     
     // Check "*" wildcard key - must be last (duplicate keys already checked above)
     if (std::find(keys_list.begin(), keys_list.end(), "*") != keys_list.end()) 
