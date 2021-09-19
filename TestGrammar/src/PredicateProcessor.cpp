@@ -64,6 +64,7 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
     ASTNodeStack    stack;
     int             nested_expressions = 0;
     std::smatch     m, m1;
+    ASTNodeType     m_type;
     int             loop = 100;  // avoid deadlocks due to bad predicates
 
     if (s.empty())
@@ -80,6 +81,8 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
         // Might start with multiple explicitly bracketed expression / sub-expression
         // e.g.  ((a+b)-c)
         assert(!s.empty());
+        m_type = ASTNodeType::ASTNT_Unknown;
+
         while (s[0] == '(') {                   
             s = s.substr(1, s.size() - 1);      
             assert(!s.empty());
@@ -94,6 +97,7 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
             ASTNode* p = stack.back();
             assert(p->node.empty());
             p->node = m[0];
+            p->type = ASTNodeType::ASTNT_Predicate;
             s = m.suffix().str();
             assert(!s.empty());
             // Process up to 2 optional arguments until predicate closing bracket ')'
@@ -115,15 +119,20 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
             assert(!s.empty() && (s[0] == ')'));
             s = s.substr(1, s.size() - 1);                  // Consume ')' that ends predicate
         } 
-        else if (std::regex_search(s, m, r_StartsWithBool) || std::regex_search(s, m, r_StartsWithString) ||
-            std::regex_search(s, m, r_StartswithType) || std::regex_search(s, m, r_StartsWithKeyValue) || 
-            std::regex_search(s, m, r_StartsWithKey) || std::regex_search(s, m, r_StartswithLink) ||
-            std::regex_search(s, m, r_StartsWithNum) || std::regex_search(s, m, r_StartsWithInt)) {
-            // Variable / constant. ORDERING of above regex expressions is CRITICAL!! 
+        else if ((m_type = ASTNodeType::ASTNT_ConstPDFBoolean, std::regex_search(s, m, r_StartsWithBool)) ||
+            (m_type = ASTNodeType::ASTNT_ConstString,          std::regex_search(s, m, r_StartsWithString)) ||
+            (m_type = ASTNodeType::ASTNT_Type,                 std::regex_search(s, m, r_StartswithType)) ||
+            (m_type = ASTNodeType::ASTNT_KeyValue,             std::regex_search(s, m, r_StartsWithKeyValue)) ||
+            (m_type = ASTNodeType::ASTNT_ConstNum,             std::regex_search(s, m, r_StartsWithNum)) ||
+            (m_type = ASTNodeType::ASTNT_ConstInt,             std::regex_search(s, m, r_StartsWithInt)) ||
+            (m_type = ASTNodeType::ASTNT_Key,                  std::regex_search(s, m, r_StartsWithKey))) {
+                // Variable / constant. ORDERING of above regex expressions is CRITICAL!! 
             ASTNode* p = stack.back();
             assert(m.ready());
             assert(p->node.empty());
+            assert(m_type != ASTNodeType::ASTNT_Unknown);
             p->node = m[0];
+            p->type = m_type;
             s = m.suffix().str();
         }
     
@@ -136,8 +145,11 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
         }
 
         // Check for in-fix operator - recurse down to parse RHS
-        if (std::regex_search(s, m1, r_StartsWithMathComp) || std::regex_search(s, m1, r_StartsWithMathOp) || std::regex_search(s, m1, r_StartsWithLogicOp)) {
+        if ((m_type = ASTNodeType::ASTNT_MathComp,  std::regex_search(s, m1, r_StartsWithMathComp)) ||
+            (m_type = ASTNodeType::ASTNT_MathOp,    std::regex_search(s, m1, r_StartsWithMathOp)) ||
+            (m_type = ASTNodeType::ASTNT_LogicalOp, std::regex_search(s, m1, r_StartsWithLogicOp))) {
             assert(m1.ready());
+            assert(m_type != ASTNodeType::ASTNT_Unknown);
             std::string op  = m1[0];
             s = m1.suffix().str();
             // top-of-stack is LHS to the operator we just encountered
@@ -150,6 +162,7 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
                 // We pushed for an open bracket so an empty node already exists and LHS already set
                 // e.g. fn:A(x+(y*z)) where 'op' is '*'
                 p->node = op;
+                p->type = m_type;
                 assert(p->arg[1] == nullptr);
                 rhs = new ASTNode(p);
                 p->arg[1] = rhs;
@@ -161,6 +174,7 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
                 rhs = new ASTNode(p);
                 *lhs = *p;
                 p->node   = op;
+                p->type = m_type;
                 p->arg[0] = lhs;
                 p->arg[1] = rhs;
             }
@@ -217,6 +231,7 @@ std::string LRParsePredicate(std::string s, ASTNode *root) {
         assert(m.ready());
         assert(root->node.empty());
         root->node = m[0];
+        root->type = ASTNodeType::ASTNT_Predicate;
         s = m.suffix().str();
         assert(!s.empty());
         // Process up to 2 optional arguments until predicate closing bracket ')'
