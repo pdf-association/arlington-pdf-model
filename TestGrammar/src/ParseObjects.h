@@ -11,7 +11,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 // Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
-// 
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef ParseObjects_h
@@ -42,7 +42,7 @@ private:
     /// @brief Remembering processed PDF objects (and how they were validated).
     ///        Storing hash_id of object as key and link with which we validated the object as the value.
     std::map<std::string, std::string>      mapped;
-  
+
     /// @brief the Arlington PDF model (cache of loaded TSV grammar files)
     std::map<std::string, std::unique_ptr<CArlingtonTSVGrammarFile>>  grammar_map;
 
@@ -51,7 +51,7 @@ private:
         ArlPDFObject* object;
         std::string   link;
         std::string   context;
-        
+
         queue_elem(ArlPDFObject* o, const std::string &l, std::string &c)
             : object(o), link(l), context(c)
             { /* constructor */ }
@@ -68,8 +68,8 @@ private:
 
     /// @brief Terse output. Otherwise output can make "... | sort | uniq | ..." Linux CLI pipelines difficult
     ///        Details of specific PDF objects (such as object numbers) are not output.
-    bool                    terse; 
-  
+    bool                    terse;
+
     const ArlTSVmatrix& get_grammar(const std::string& link);
 
 public:

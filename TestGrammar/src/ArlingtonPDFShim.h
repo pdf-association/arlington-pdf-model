@@ -29,9 +29,9 @@
 #include <filesystem>
 
 /// A wafer thin shim layer to isolate a specific C/C++ PDF SDK library from the Arlington
-/// PDF Model proof-of-concept C++ application. By replacing the matching .cpp file, 
+/// PDF Model proof-of-concept C++ application. By replacing the matching .cpp file,
 /// any PDF SDK library should be easily integrateable without propogating changes
-/// throughout the PoC code base. Performance issues are considered irrelevant. 
+/// throughout the PoC code base. Performance issues are considered irrelevant.
 
 namespace ArlingtonPDFShim {
 
@@ -41,7 +41,7 @@ namespace ArlingtonPDFShim {
     /// @brief All the various types of PDF Object
     enum class PDFObjectType {
         ArlPDFObjTypeUnknown    = 0,
-        ArlPDFObjTypeBoolean,   
+        ArlPDFObjTypeBoolean,
         ArlPDFObjTypeNumber,    // Integer or Real
         ArlPDFObjTypeString,    // Any type of string
         ArlPDFObjTypeName,
@@ -56,14 +56,14 @@ namespace ArlingtonPDFShim {
     const std::string PDFObjectType_strings[] = {
         "ArlPDFObjTypeUnknown",
         "ArlPDFObjTypeBoolean",
-        "ArlPDFObjTypeNumber",    
-        "ArlPDFObjTypeString",    
+        "ArlPDFObjTypeNumber",
+        "ArlPDFObjTypeString",
         "ArlPDFObjTypeName",
         "ArlPDFObjTypeArray",
         "ArlPDFObjTypeDictionary",
         "ArlPDFObjTypeStream",
         "ArlPDFObjTypeNull",
-        "ArlPDFObjTypeReference"  
+        "ArlPDFObjTypeReference"
     };
 
     // Base class PDF object
@@ -195,7 +195,7 @@ namespace ArlingtonPDFShim {
 
     class ArlingtonPDFSDK {
     public:
-        // Untyped PDF SDK context object 
+        // Untyped PDF SDK context object
         static void    *ctx;
 
         // Constructor
@@ -211,7 +211,7 @@ namespace ArlingtonPDFShim {
         // Get human-readable version string
         std::string get_version_string();
 
-        // Open a PDF file (no password) and returns trailer object. 
+        // Open a PDF file (no password) and returns trailer object.
         ArlPDFTrailer *get_trailer(std::filesystem::path pdf_filename);
     };
 

@@ -11,7 +11,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 // Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
-// 
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef Utils_h

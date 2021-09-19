@@ -11,7 +11,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 // Contributors: Roman Toda, Frantisek Forgac, Normex; Peter Wyatt, PDF Association
-// 
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifdef _MSC_VER
@@ -44,7 +44,7 @@ std::wostream wcnull(0);
 
 
 /// @brief Validates a single PDF file against the Arlington PDF model
-/// 
+///
 /// @param[in] pdf_file_name  PDF filename for processing
 /// @param[in] tsv_folder the folder with the Arlington TSV model files
 /// @param[in] ofs   open stream to write output to

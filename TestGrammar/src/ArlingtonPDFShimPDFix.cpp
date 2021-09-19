@@ -14,9 +14,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-/// A wafer-thin shim layer to isolate the PDFix SDK library from the rest of the 
-/// Arlington PDF Model proof-of-concept C++ application. Replace just this C++ file 
-/// for alternate PDF SDKs. Performance overhead issues are considered irrelevant. 
+/// A wafer-thin shim layer to isolate the PDFix SDK library from the rest of the
+/// Arlington PDF Model proof-of-concept C++ application. Replace just this C++ file
+/// for alternate PDF SDKs. Performance overhead issues are considered irrelevant.
 
 #include "ArlingtonPDFShim.h"
 
@@ -66,7 +66,7 @@ void ArlingtonPDFSDK::initialize(bool enable_debugging)
     // Global namespaced flag to control debugging output
     ArlingtonPDFShim::debugging = enable_debugging;
 
-    // Assign to void context 
+    // Assign to void context
     auto pdfix_ctx = new pdfix_context;
     pdfix_ctx->pdfix = pdfix;
 
@@ -91,8 +91,8 @@ std::string ArlingtonPDFSDK::get_version_string()
 {
     assert(ctx != nullptr);
     Pdfix* pdfix = ((pdfix_context*)ctx)->pdfix;
-    return "PDFix v" + std::to_string(pdfix->GetVersionMajor()) + "." 
-                     + std::to_string(pdfix->GetVersionMinor()) + "." 
+    return "PDFix v" + std::to_string(pdfix->GetVersionMajor()) + "."
+                     + std::to_string(pdfix->GetVersionMinor()) + "."
                      + std::to_string(pdfix->GetVersionPatch());
 }
 
@@ -153,10 +153,10 @@ ArlPDFObject::ArlPDFObject(void* obj) :object(obj)
   is_indirect = false;
   if (object == nullptr)
     return;
-  is_indirect = (get_object_number() != 0); 
+  is_indirect = (get_object_number() != 0);
 }
 
-/// @brief  Returns the PDF object type of an object 
+/// @brief  Returns the PDF object type of an object
 /// @return PDFObjectType enum value
 PDFObjectType ArlPDFObject::get_object_type()
 {
@@ -172,34 +172,34 @@ PDFObjectType ArlPDFObject::get_object_type()
 
     switch (obj->GetObjectType())
     {
-        case kPdsBoolean:   
-            retval = PDFObjectType::ArlPDFObjTypeBoolean; 
+        case kPdsBoolean:
+            retval = PDFObjectType::ArlPDFObjTypeBoolean;
             break;
-        case kPdsNumber:    
+        case kPdsNumber:
             retval = PDFObjectType::ArlPDFObjTypeNumber;    // Integer or Real (or bitmask)
             break;
-        case kPdsString:    
+        case kPdsString:
             retval = PDFObjectType::ArlPDFObjTypeString;    // Any type of string
             break;
-        case kPdsName:      
+        case kPdsName:
             retval = PDFObjectType::ArlPDFObjTypeName;
             break;
-        case kPdsArray:     
+        case kPdsArray:
             retval = PDFObjectType::ArlPDFObjTypeArray;     // incl. rectangle or matrix
             break;
-        case kPdsDictionary: 
+        case kPdsDictionary:
             retval = PDFObjectType::ArlPDFObjTypeDictionary;
             break;
-        case kPdsStream:    
+        case kPdsStream:
             retval = PDFObjectType::ArlPDFObjTypeStream;
             break;
-        case kPdsNull:      
+        case kPdsNull:
             retval = PDFObjectType::ArlPDFObjTypeNull;
             break;
-        case kPdsReference: 
+        case kPdsReference:
             retval = PDFObjectType::ArlPDFObjTypeReference;
             break;
-        default:            
+        default:
             retval = PDFObjectType::ArlPDFObjTypeUnknown;
             break;
     }
@@ -258,7 +258,7 @@ bool ArlPDFBoolean::get_value()
 }
 
 
-/// @brief  Returns true if a PDF numeric object is an integer 
+/// @brief  Returns true if a PDF numeric object is an integer
 /// @return Returns true if an integer value, false if real value
 bool ArlPDFNumber::is_integer_value()
 {
@@ -289,7 +289,7 @@ int ArlPDFNumber::get_integer_value()
 }
 
 
-/// @brief  Returns the value of a PDF numeric object as a double, 
+/// @brief  Returns the value of a PDF numeric object as a double,
 ///         regardless if it is an integer or real in the PDF file
 /// @return Double precision value bounded by compiler
 double ArlPDFNumber::get_value()
@@ -424,7 +424,7 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
 
 
 /// @brief Returns the key name of i-th dictionary key
-/// @param index[in] dictionary key index 
+/// @param index[in] dictionary key index
 /// @return Key name
 std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 {
@@ -440,7 +440,7 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 }
 
 /// @brief  Gets the dictionary associated with the PDF stream
-/// @return the PDF dictionary object 
+/// @return the PDF dictionary object
 ArlPDFDictionary* ArlPDFStream::get_dictionary()
 {
   assert(object != nullptr);
@@ -456,7 +456,7 @@ ArlPDFDictionary* ArlPDFStream::get_dictionary()
 }
 
 
-/// @brief Returns the number of keys in a PDF stream 
+/// @brief Returns the number of keys in a PDF stream
 /// @return Number of keys (>= 0)
 //int ArlPDFStream::get_num_keys()
 //{
@@ -510,7 +510,7 @@ ArlPDFDictionary* ArlPDFStream::get_dictionary()
 //
 //
 ///// @brief Returns the key name of i-th stream key
-///// @param index[in] dictionary key index 
+///// @param index[in] dictionary key index
 ///// @return Key name
 //std::wstring ArlPDFStream::get_key_name_by_index(int index)
 //{

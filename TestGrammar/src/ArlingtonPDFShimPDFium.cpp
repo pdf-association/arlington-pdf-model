@@ -10,13 +10,13 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Normex. 
+// Contributors: Roman Toda, Normex.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-/// A wafer-thin shim layer to isolate the PDFix SDK library from the rest of the 
-/// Arlington PDF Model proof-of-concept C++ application. Replace just this C++ file 
-/// for alternate PDF SDKs. Performance overhead issues are considered irrelevant. 
+/// A wafer-thin shim layer to isolate the PDFix SDK library from the rest of the
+/// Arlington PDF Model proof-of-concept C++ application. Replace just this C++ file
+/// for alternate PDF SDKs. Performance overhead issues are considered irrelevant.
 
 #include "ArlingtonPDFShim.h"
 
@@ -40,7 +40,7 @@ struct pdfium_context {
     CCodec_ModuleMgr* codecModule = nullptr;
 
     ~pdfium_context() {
-        if (parser) 
+        if (parser)
             delete(parser);
         codecModule->Destroy();
     }
@@ -88,8 +88,8 @@ std::string ArlingtonPDFSDK::get_version_string()
     assert(ctx != nullptr);
     return "pdfium";
     //Pdfix* pdfix = (Pdfix *)ctx;
-    //return "PDFix v" + std::to_string(pdfix->GetVersionMajor()) + "." 
-    //                 + std::to_string(pdfix->GetVersionMinor()) + "." 
+    //return "PDFix v" + std::to_string(pdfix->GetVersionMajor()) + "."
+    //                 + std::to_string(pdfix->GetVersionMinor()) + "."
     //                 + std::to_string(pdfix->GetVersionPatch());
 }
 
@@ -101,7 +101,7 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 {
     assert(ctx != nullptr);
     auto pdfium_ctx = (pdfium_context*)ctx;
-    
+
     // close previously opened document
     if (pdfium_ctx->parser != nullptr)
         delete(pdfium_ctx->parser);
@@ -128,16 +128,16 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
         CPDF_Object* root_key = (CPDF_Object*)trailer_obj->get_value(L"Root");
         if (root_key != NULL) {
             id = root_key->GetObjNum();
-        
+
             CPDF_Object* info_key = (CPDF_Object*)trailer_obj->get_value(L"Info");
             if (info_key != NULL) {
                 id = info_key->GetObjNum();
             }
             else {
-                if (ArlingtonPDFShim::debugging) 
+                if (ArlingtonPDFShim::debugging)
                     std::cout << __FUNCTION__ << " trailer Info key could not be found!" << std::endl;
             }
-        
+
             return trailer_obj;
         }
         if (ArlingtonPDFShim::debugging) {
@@ -160,7 +160,7 @@ ArlPDFObject::ArlPDFObject(void* obj) : object(obj)
     if (pdf_obj->GetType() == PDFOBJ_REFERENCE) {
         object = ((pdfium_context*)ArlingtonPDFSDK::ctx)->parser->GetDocument()->GetIndirectObject(((CPDF_Reference*)object)->GetRefObjNum());
         is_indirect = true;
-    } 
+    }
 }
 
 
@@ -175,7 +175,7 @@ ArlPDFObject::~ArlPDFObject()
 }
 
 
-/// @brief  Returns the PDF object type of an object 
+/// @brief  Returns the PDF object type of an object
 /// @return PDFObjectType enum value
 PDFObjectType ArlPDFObject::get_object_type()
 {
@@ -192,7 +192,7 @@ PDFObjectType ArlPDFObject::get_object_type()
     switch (obj->GetType())
     {
     case PDFOBJ_BOOLEAN:
-            retval = PDFObjectType::ArlPDFObjTypeBoolean; 
+            retval = PDFObjectType::ArlPDFObjTypeBoolean;
             break;
     case PDFOBJ_NUMBER:
             retval = PDFObjectType::ArlPDFObjTypeNumber;    // Integer or Real (or bitmask)
@@ -219,7 +219,7 @@ PDFObjectType ArlPDFObject::get_object_type()
              object = ((pdfium_context*)ArlingtonPDFSDK::ctx)->parser->GetDocument()->GetIndirectObject(((CPDF_Reference*)object)->GetRefObjNum());
              retval = get_object_type(); // PDFObjectType::ArlPDFObjTypeReference;
             break;
-        default:            
+        default:
             retval = PDFObjectType::ArlPDFObjTypeUnknown;
             break;
     }
@@ -276,7 +276,7 @@ bool ArlPDFBoolean::get_value()
 }
 
 
-/// @brief  Returns true if a PDF numeric object is an integer 
+/// @brief  Returns true if a PDF numeric object is an integer
 /// @return Returns true if an integer value, false if real value
 bool ArlPDFNumber::is_integer_value()
 {
@@ -307,7 +307,7 @@ int ArlPDFNumber::get_integer_value()
 }
 
 
-/// @brief  Returns the value of a PDF numeric object as a double, 
+/// @brief  Returns the value of a PDF numeric object as a double,
 ///         regardless if it is an integer or real in the PDF file
 /// @return Double precision value bounded by compiler
 double ArlPDFNumber::get_value()
@@ -413,7 +413,7 @@ bool ArlPDFDictionary::has_key(std::wstring key)
     assert(object != nullptr);
     assert(((CPDF_Object*)object)->GetType() == PDFOBJ_DICTIONARY);
     CPDF_Dictionary* obj = ((CPDF_Dictionary*)object);
-      
+
     bool retval = obj->KeyExist(CFX_ByteString::FromUnicode(key.c_str()));
     if (ArlingtonPDFShim::debugging) {
         std::wcout << __FUNCTION__ << "(" << key << "): " << (retval ? "true" : "false") << std::endl;
@@ -444,14 +444,14 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
 
 
 /// @brief Returns the key name of i-th dictionary key
-/// @param index[in] dictionary key index 
+/// @param index[in] dictionary key index
 /// @return Key name
 std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 {
     assert(object != nullptr);
     assert(index >= 0);
     assert(((CPDF_Object*)object)->GetType() == PDFOBJ_DICTIONARY);
-    CPDF_Dictionary* obj = ((CPDF_Dictionary*)object); 
+    CPDF_Dictionary* obj = ((CPDF_Dictionary*)object);
 
     FX_POSITION pos = obj->GetStartPos();
     std::wstring retval;
@@ -472,12 +472,12 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 }
 
 /// @brief  Gets the dictionary associated with the PDF stream
-/// @return the PDF dictionary object 
+/// @return the PDF dictionary object
 ArlPDFDictionary* ArlPDFStream::get_dictionary()
 {
     assert(object != nullptr);
     assert(((CPDF_Object*)object)->GetType() == PDFOBJ_STREAM);
-    CPDF_Stream* obj = ((CPDF_Stream*)object); 
+    CPDF_Stream* obj = ((CPDF_Stream*)object);
     CPDF_Dictionary* stm_dict = obj->GetDict();
     assert(stm_dict != nullptr);
     ArlPDFDictionary* retval = new ArlPDFDictionary(stm_dict);
@@ -488,13 +488,13 @@ ArlPDFDictionary* ArlPDFStream::get_dictionary()
 }
 
 
-/// @brief Returns the number of keys in a PDF stream 
+/// @brief Returns the number of keys in a PDF stream
 /// @return Number of keys (>= 0)
 //int ArlPDFStream::get_num_keys()
 //{
 //    assert(object != nullptr);
 //    assert(((CPDF_Object*)object)->GetType() == PDFOBJ_STREAM);
-//    CPDF_Stream* obj = ((CPDF_Stream*)object); 
+//    CPDF_Stream* obj = ((CPDF_Stream*)object);
 //    CPDF_Dictionary* stm_dict = obj->GetDict();
 //    assert(stm_dict != nullptr);
 //    int retval = stm_dict->GetCount();
@@ -512,7 +512,7 @@ ArlPDFDictionary* ArlPDFStream::get_dictionary()
 //{
 //    assert(object != nullptr);
 //    assert(((CPDF_Object*)object)->GetType() == PDFOBJ_STREAM);
-//    CPDF_Stream* obj = ((CPDF_Stream*)object); 
+//    CPDF_Stream* obj = ((CPDF_Stream*)object);
 //    CPDF_Dictionary* stm_dict = obj->GetDict();
 //    assert(stm_dict != nullptr);
 //    bool retval = stm_dict->KeyExist(CFX_ByteString::FromUnicode(key.c_str()));
@@ -530,7 +530,7 @@ ArlPDFDictionary* ArlPDFStream::get_dictionary()
 //{
 //    assert(object != nullptr);
 //    assert(((CPDF_Object*)object)->GetType() == PDFOBJ_STREAM);
-//    CPDF_Stream* obj = ((CPDF_Stream*)object); 
+//    CPDF_Stream* obj = ((CPDF_Stream*)object);
 //    CPDF_Dictionary* stm_dict = obj->GetDict();
 //    assert(stm_dict != nullptr);
 //    ArlPDFObject * retval = new ArlPDFObject(stm_dict->GetElement(CFX_ByteString::FromUnicode(key.c_str())));
@@ -542,14 +542,14 @@ ArlPDFDictionary* ArlPDFStream::get_dictionary()
 //
 //
 ///// @brief Returns the key name of i-th stream key
-///// @param index[in] dictionary key index 
+///// @param index[in] dictionary key index
 ///// @return Key name
 //std::wstring ArlPDFStream::get_key_name_by_index(int index)
 //{
 //    assert(object != nullptr);
 //    assert(index >= 0);
 //    assert(((CPDF_Object*)object)->GetType() == PDFOBJ_STREAM);
-//    CPDF_Stream* obj = ((CPDF_Stream*)object); 
+//    CPDF_Stream* obj = ((CPDF_Stream*)object);
 //    CPDF_Dictionary* stm_dict = obj->GetDict();
 //    assert(stm_dict != nullptr);
 //

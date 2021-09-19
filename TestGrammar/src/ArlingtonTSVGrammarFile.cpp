@@ -14,7 +14,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-///
+/// @file
 ///  A class to read the Arlington TSV-based grammar data from a TSV file.
 ///
 
@@ -65,7 +65,7 @@ bool CArlingtonTSVGrammarFile::load()
 
     // Close the TSV file
     file.close();
-  
+
     // Empty file?
     if (data_list.size() == 0)
         return false;

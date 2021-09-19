@@ -11,7 +11,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 // Contributors: Peter Wyatt, PDF Association
-// 
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -95,7 +95,7 @@ const std::string ArlInt = "(\\-)?[0-9]+(?![a-zA-Z\\*])";
 /// @brief Arlington Number (requires at least 1 decimal place either side of decimal point ".")
 const std::string ArlNum = ArlInt + "\\.[0-9]+(?![a-zA-Z\\*])";
 
-/// @brief Arlington PDF Strings use single quotes (to disambiguate from bracketed names, keys, etc.). 
+/// @brief Arlington PDF Strings use single quotes (to disambiguate from bracketed names, keys, etc.).
 /// Empty strings are invalid (same as empty field in Arlington). No escapes supported.
 const std::string ArlString = "'[^']+'";
 
@@ -121,13 +121,13 @@ const std::string ArlLink = "[a-zA-Z0-9_]+";
 /// @brief Arlington math comparisons - currently NOT required to have SPACE either side
 const std::string ArlMathComp = "(==|!=|>=|<=|>|<)";
 
-/// @brief Arlington math operators - MULTIPLY and MINUS need a SPACE either side 
+/// @brief Arlington math operators - MULTIPLY and MINUS need a SPACE either side
 ///        to disambiguate from keys with wildcards and negative numbers
 const std::string ArlMathOp = "( \\* |\\+| \\- | mod )";
 
-/// @brief Arlington logical operators. Require SPACE either side. 
+/// @brief Arlington logical operators. Require SPACE either side.
 /// Also expect bracketed expressions either side or a predicate:
-/// e.g. "...) || (..." or "...) || fn:..."  
+/// e.g. "...) || (..." or "...) || fn:..."
 const std::string ArlLogicalOp = "( && | \\|\\| )";
 
 /// @brief Arlington PDF boolean keywords
@@ -184,18 +184,18 @@ static const std::string ASTNodeType_strings[] = {
 /// @brief Predicate parser creates a binary tree of these simple ASTNodes
 struct ASTNode {
     /// @brief predicate operator or operand
-    std::string     node;            
+    std::string     node;
 
     /// @brief type of operator/operand
     ASTNodeType     type;
 
     /// @brief Optional arguments for operators
-    ASTNode         *arg[2];         
+    ASTNode         *arg[2];
 
     ASTNode(ASTNode *p = nullptr)
         { /* constructor */ arg[0] = arg[1] = nullptr; type = ASTNodeType::ASTNT_Unknown; }
 
-    ~ASTNode() { 
+    ~ASTNode() {
         /* destructor - recursive */
         if (arg[0] != nullptr) delete arg[0];
         if (arg[1] != nullptr) delete arg[1];
@@ -235,7 +235,7 @@ struct ASTNode {
         bool ret_val = !node.empty();
         if (ret_val && arg[0] != nullptr) {
             ret_val = ret_val && arg[0]->valid();
-            if (ret_val && arg[1] != nullptr) 
+            if (ret_val && arg[1] != nullptr)
                 ret_val = ret_val && arg[1]->valid();
         }
         else if (arg[1] != nullptr)
@@ -250,11 +250,11 @@ typedef std::vector<ASTNode*>  ASTNodeStack;
 
 
 /// @brief Left-to-right recursive descent parser, based on regex pattern matching
-/// 
+///
 /// @param[in] s    input string to parse
 /// @param root     the root node of AST that is being constructed
-/// 
-/// @return         the remainder of the string that is being parsed.  
+///
+/// @return         the remainder of the string that is being parsed.
 std::string LRParsePredicate(std::string s, ASTNode *root);
 
 
@@ -264,7 +264,7 @@ protected:
     std::string     tsv_field;
     ASTNode         *ast;
 public:
-    PredicateProcessor(std::string s) : 
+    PredicateProcessor(std::string s) :
         tsv_field(s)
         { /* constructor */ ast = new ASTNode(); };
     ~PredicateProcessor()
@@ -273,7 +273,7 @@ public:
 };
 
 
-/// @brief Implements predicate support for the Arlington "Key" field (column 1) 
+/// @brief Implements predicate support for the Arlington "Key" field (column 1)
 /// - No COMMAs or SEMI-COLONs
 /// - any alphanumeric or "." or "-" or "_"
 /// - any integer (array index)
@@ -288,7 +288,7 @@ public:
 };
 
 
-/// @brief Implements predicate support for the Arlington "Type" field (column 2) 
+/// @brief Implements predicate support for the Arlington "Type" field (column 2)
 /// - SEMI-COLON separated, alphabetically sorted, but no [ ] brackets
 /// - fn:SinceVersion(x.y,type)
 /// - fn:Deprecated(x.y,type)
@@ -296,7 +296,7 @@ public:
 /// - fn:IsPDFVersion(x.y,type)
 class TypePredicateProcessor : public PredicateProcessor {
 public:
-    TypePredicateProcessor(std::string s) : 
+    TypePredicateProcessor(std::string s) :
         PredicateProcessor(s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
@@ -304,7 +304,7 @@ public:
 };
 
 
-/// @brief Implements predicate support for the Arlington "SinceVersion" field (column 3) 
+/// @brief Implements predicate support for the Arlington "SinceVersion" field (column 3)
 /// - only "1.0" or "1.1" or ... or "1.7 or "2.0"
 class SinceVersionPredicateProcessor : public PredicateProcessor {
 public:
@@ -316,7 +316,7 @@ public:
 };
 
 
-/// @brief Implements predicate support for the Arlington "DeprecatedIn" field (column 4) 
+/// @brief Implements predicate support for the Arlington "DeprecatedIn" field (column 4)
 /// - only blank ("") or "1.0" or "1.1" or ... or "1.7 or "2.0"
 class DeprecatedInPredicateProcessor : public PredicateProcessor {
 public:
@@ -328,7 +328,7 @@ public:
 };
 
 
-/// @brief Implements predicate support for the Arlington "Required" field (column 5) 
+/// @brief Implements predicate support for the Arlington "Required" field (column 5)
 /// - either TRUE, FALSE or fn:IsRequired(...)
 /// - inner can be very flexible, including logical " && " and " || " expressions:
 ///   . fn:BeforeVersion(x.y), fn:IsPDFVersion(x.y)
@@ -349,7 +349,7 @@ public:
 /// @brief "IndirectReference" column has 3 possible outcomes
 enum class ReferenceType { MustBeDirect, MustBeIndirect, DontCare };
 
-/// @brief Implements predicate support for the Arlington "IndirectReference" field (column 6) 
+/// @brief Implements predicate support for the Arlington "IndirectReference" field (column 6)
 /// - [];[];[]
 /// - fn:MustBeDirect()
 /// - fn:MustBeDirect(fn:IsPresent(key))
@@ -377,7 +377,7 @@ public:
 
 /// @brief Implements predicate support for the Arlington "DefaultValue" field (column 8)
 /// - can be [];[];[]
-/// - constants 
+/// - constants
 /// - '[' and ']' also used for PDF arrays
 class DefaultValuePredicateProcessor : public PredicateProcessor {
 public:
@@ -415,7 +415,7 @@ public:
 };
 
 
-/// @brief Implements predicate support for the Arlington "Links" field (column 11) 
+/// @brief Implements predicate support for the Arlington "Links" field (column 11)
 /// - [];[];[]
 /// - fn:SinceVersion(x.y,type)
 /// - fn:Deprecated(x.y,type)
@@ -430,7 +430,7 @@ public:
     std::string ReduceRow(const std::string pdf_version);
 };
 
-/// Arlington "Notes" field (column 12) 
+/// Arlington "Notes" field (column 12)
 /// - free form text so no support required
 
 #endif // PredicateProcessor_h

@@ -22,7 +22,7 @@
 #ifdef ARL_PDFSDK_QPDF
 
 // QPDF uses some C++17 deprecated features so silence warnings
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS 
+#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #define _SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNINGS
 
 #include <string>
@@ -327,7 +327,7 @@ bool ArlPDFDictionary::has_key(std::wstring key)
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isDictionary());
     std::string s = std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(key);
-    bool retval = obj->hasKey(s); 
+    bool retval = obj->hasKey(s);
     if (ArlingtonPDFShim::debugging) {
         std::cout << __FUNCTION__ << "(" << s << "): " << (retval ? "true" : "false") << std::endl;
     }
