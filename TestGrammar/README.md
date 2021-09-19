@@ -249,11 +249,16 @@ Compiled Linux binaries will be in [/TestGrammar/bin/linux](/TestGrammar/bin/lin
 
 Follow the instructions for Linux. Compiled binaries will be in [/TestGrammar/bin/darwin](/TestGrammar/bin/darwin).
 
+## Code documentation
+
+Run `doxygen Doxyfile` to generate full documentation for the TestGrammar C++ PoC application. Then open [./doc/index](./doc/index). `dot` is also required.
+
+
 ---
 
 # TODO :pushpin:
 
-- when validating the TSV data files, also do a validation on the predicate (declarative function) expressions
+- when processing PDF files, also calculate predicates (declarative functions)
 
 ---
 
