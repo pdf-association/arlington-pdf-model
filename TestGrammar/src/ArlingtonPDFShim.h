@@ -35,10 +35,10 @@
 
 namespace ArlingtonPDFShim {
 
-    // Enable verbose debugging
+    /// @brief Enable verbose debugging
     static bool    debugging = false;
 
-    // All the various types of PDF Object
+    /// @brief All the various types of PDF Object
     enum class PDFObjectType {
         ArlPDFObjTypeUnknown    = 0,
         ArlPDFObjTypeBoolean,   
@@ -52,7 +52,7 @@ namespace ArlingtonPDFShim {
         ArlPDFObjTypeReference  // Indirect reference
     };
 
-    // Human readable equivalent of the above enum
+    /// @brief Human readable equivalent of the above enum
     const std::string PDFObjectType_strings[] = {
         "ArlPDFObjTypeUnknown",
         "ArlPDFObjTypeBoolean",
