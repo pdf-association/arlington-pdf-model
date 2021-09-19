@@ -35,10 +35,10 @@ namespace fs = std::filesystem;
 typedef std::vector<std::vector<std::string>> ArlTSVmatrix;
 
 
-/// @brief Arlington TSV column titles and numbers
+/// @brief Arlington TSV column (field) titles and numbers
 enum ArlingtonTSVColumns {
      TSV_KEYNAME         = 0,     // "*" means any
-     TSV_TYPE            = 1,     // in alphabetical order of basic_types, "," separated
+     TSV_TYPE            = 1,     // in alphabetical order of basic_types, ";" separated
      TSV_SINCEVERSION    = 2,     // 1.0, 1.1, ..., 2.0
      TSV_DEPRECATEDIN    = 3,     // blank or 1.0, 1.1, ..., 2.0
      TSV_REQUIRED        = 4,     // TRUE or FALSE or predicates
@@ -46,7 +46,7 @@ enum ArlingtonTSVColumns {
      TSV_INHERITABLE     = 6,
      TSV_DEFAULTVALUE    = 7,
      TSV_POSSIBLEVALUES  = 8,     // predicates!!
-     TSV_SPECIALCASE     = 9,     // ignore for now...
+     TSV_SPECIALCASE     = 9,     // predicates!!
      TSV_LINK            = 10,    // ";" separated list of "[xxx]" with predicates
      TSV_NOTES           = 11     // free text
 };
@@ -76,7 +76,7 @@ public:
 
     CArlingtonTSVGrammarFile(fs::path tsv_name) :
         tsv_file_name(tsv_name)
-    { /* constructor */ }
+        { /* constructor */ }
 
     /// @brief Function to fetch data from a TSV File
     bool load();
