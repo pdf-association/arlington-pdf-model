@@ -56,4 +56,7 @@ bool FindInVector(const std::vector<std::string> list, const std::string v);
 /// @brief Check if Arlington data represents an array
 bool check_valid_array_definition(const std::string& fname, const std::vector<std::string>& keys, std::ostream& ofs);
 
+// @brief Tests if a key is a valid PDF second or third class name according to Annex E of ISO 32000-2:2020
+bool is_second_or_third_class_pdf_name(const std::string key);
+
 #endif // Utils_h

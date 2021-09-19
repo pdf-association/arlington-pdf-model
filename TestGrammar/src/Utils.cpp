@@ -415,3 +415,18 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
 
     return true;
 }
+
+
+/// @brief Regex for PDF second class or third class names according to Annex E of ISO 32000-2:2020
+const std::regex r_SecondOrThirdClassName("^([a-zA-Z0-9_\\-]{4,5}(_|:)|XX)");
+
+
+/// @brief  Tests if a key is a valid PDF second or third class name according to Annex E of ISO 32000-2:2020
+/// 
+/// @param[in] key   the key in question
+/// 
+/// @returns true if a second class name
+bool is_second_or_third_class_pdf_name(const std::string key) {
+    std::smatch  m;
+    return std::regex_search(key, m, r_SecondOrThirdClassName);
+}

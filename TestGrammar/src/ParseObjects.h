@@ -40,7 +40,7 @@ class CParsePDF
 {
 private:
     /// @brief Remembering processed PDF objects (and how they were validated).
-    //  Storing hash_id of object and link with which we validated the object.
+    ///        Storing hash_id of object as key and link with which we validated the object as the value.
     std::map<std::string, std::string>      mapped;
   
     /// @brief the Arlington PDF model (cache of loaded TSV grammar files)

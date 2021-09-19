@@ -303,7 +303,7 @@ bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd, cons
 ///   -1 = required key value doesn't match with a possible value due to a predicate (TODO - currently unsupported)
 ///   -2 = required key value but can be anything (so easier match)
 ///   -4 = required key (not /Type or /Subtype) and value matches precisely
-///  -10 = required key is key is /Type or /Subtype AND possible value matches precisely
+///  -20 = required key is key is /Type or /Subtype AND possible value matches precisely
 /// -3*N = all N keys in the object were required keys AND present
 /// 
 /// Arlington grammar file with the lowest score is our selected link (like golf).
@@ -388,7 +388,7 @@ std::string CParsePDF::get_link_for_object(ArlPDFObject* obj, const std::string 
                                     std::cout << "Required key " << vec[TSV_KEYNAME] << " is present and value '" << ToUtf8(str_value) << "' matched" << std::endl;
 #endif
                                     if (vec[TSV_KEYNAME] == "Type" || vec[TSV_KEYNAME] == "Subtype")
-                                        link_score += -10; // Type or Subtype key exists with a correct value
+                                        link_score += -20; // Type or Subtype key exists with a correct value
                                     else 
                                         link_score += -4; // another required key (not Type or Subtype) exists with a correct value
                                 }
@@ -869,7 +869,7 @@ void CParsePDF::add_parse_object(ArlPDFObject* object, const std::string& link, 
 void CParsePDF::parse_object() 
 {
     while (!to_process.empty()) {
-        queue_elem elem = to_process.front();
+        auto elem = to_process.front();
         to_process.pop();
         if (elem.link == "")
             continue;
@@ -878,32 +878,28 @@ void CParsePDF::parse_object()
         elem.link = remove_link_predicates(elem.link);
 
         if (elem.object->is_indirect_ref()) {
-            auto found = mapped.find(elem.object->get_hash_id());
+            auto hash = elem.object->get_hash_id();
+            auto found = mapped.find(hash);
             if (found != mapped.end()) {
                 // "_Universal..." objects match anything so ignore them.
-
-                // remove predicates to match clean elem.link
-                found->second = remove_link_predicates(found->second);
-
                 if ((found->second != elem.link) &&
                       (((elem.link != "_UniversalDictionary") && (elem.link != "_UniversalArray")) &&
                        ((found->second != "_UniversalDictionary") && (found->second != "_UniversalArray")))) {
-                    output << "Error: object validated in two different contexts. First: " << found->second;
-                    output << "; second: " << elem.link;
+                    output << "Error: object validated in two different contexts. First: " << found->second << "; second: " << elem.link;
                     if (!terse) 
-                        output << " in: " << strip_leading_whitespace(elem.context);
+                        output << " in: " << strip_leading_whitespace(elem.context) << " " << found->first;
                     output << std::endl;
                 }
                 continue;
             }
             // remember visited object with a link used for validation
-            mapped.insert(std::make_pair(elem.object->get_hash_id(), elem.link));
+            mapped.insert(std::make_pair(hash, elem.link));
         }
 
         output << elem.context << std::endl;
         elem.context = "  " + elem.context;
 
-        fs::path  grammar_file = grammar_folder;
+        fs::path  grammar_file = grammar_folder; 
         grammar_file /= elem.link + ".tsv";
         const ArlTSVmatrix &data_list = get_grammar(elem.link);
 
@@ -934,7 +930,7 @@ void CParsePDF::parse_object()
                     for (auto& vec : data_list) {
                         key_idx++; 
                         if (vec[TSV_KEYNAME] == ToUtf8(key)) {
-                            check_basics(inner_obj, key_idx, data_list, grammar_file.filename());
+                            check_basics(inner_obj, key_idx, data_list, elem.link);
                             is_found = true;
                             break;
                         }
@@ -963,12 +959,17 @@ void CParsePDF::parse_object()
                             }
 
                     // Still didn't find the key - report as an extension if not terse.
-                    if (!is_found && !terse)
-                        output << "Warning: key '" << ToUtf8(key) << "' is not defined in Arlington for " << fs::path(grammar_file).stem() << std::endl;
+                    if (!is_found && !terse) {
+                        std::string k = ToUtf8(key);
+                        if (is_second_or_third_class_pdf_name(k))
+                            output << "Warning: second/third class key '" << k << "' is not defined in Arlington for " << elem.link << std::endl;
+                        else
+                            output << "Warning: unknown key '" << k << "' is not defined in Arlington for " << elem.link << std::endl;
+                    }
                 }
                 else {
                     // malformed PDF or parsing limitation in PDF SDK?
-                    output << "Error: could not get value for key '" << ToUtf8(key) << "' (" << fs::path(grammar_file).stem() << ")" << std::endl;
+                    output << "Error: could not get value for key '" << ToUtf8(key) << "' (" << elem.link << ")" << std::endl;
                 }
             } // for
 
@@ -978,7 +979,7 @@ void CParsePDF::parse_object()
                     ArlPDFObject* inner_obj = dictObj->get_value(ToWString(vec[TSV_KEYNAME]));
                     if (inner_obj == nullptr) {
                         if (vec[TSV_INHERITABLE] == "FALSE") {
-                            output << "Error: non-inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")";
+                            output << "Error: non-inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << elem.link << ")";
                             if (!terse)
                                 output << " (" << *dictObj << ")";
                             output << std::endl;
@@ -986,7 +987,7 @@ void CParsePDF::parse_object()
                             /// @todo support inheritance
                             inner_obj = find_via_inheritance(dictObj, ToWString(vec[TSV_KEYNAME]));
                             if (inner_obj == nullptr) {
-                                output << "Error: inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << fs::path(grammar_file).stem() << ")";
+                                output << "Error: inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << elem.link << ")";
                                 if (!terse)
                                     output << " (" << *dictObj << ")";
                                 output << std::endl;
@@ -995,7 +996,7 @@ void CParsePDF::parse_object()
                     }
                 } 
 
-            // now go through containers and process them with new grammar_file
+            // now go through containers and process them with new elem.link
             for (auto& vec : data_list) {
                 if (vec.size() >= TSV_NOTES && vec[TSV_LINK] != "") {
                     ArlPDFObject* inner_obj = dictObj->get_value(ToWString(vec[TSV_KEYNAME]));
@@ -1048,8 +1049,8 @@ void CParsePDF::parse_object()
             } // for
 
             // Use null-stream to suppress messages - should have used "--validate" first anyway
-            if (!check_valid_array_definition(fs::path(grammar_file).stem().string(), key_list, cnull)) {
-                output << "Error: PDF array object encountered, but using Arlington dictionary " << fs::path(grammar_file).stem() << std::endl;
+            if (!check_valid_array_definition(elem.link, key_list, cnull)) {
+                output << "Error: PDF array object encountered, but using Arlington dictionary " << elem.link << std::endl;
                 continue;
             }
 
@@ -1058,7 +1059,7 @@ void CParsePDF::parse_object()
                 if (item != nullptr)
                     if ((first_wildcard == 0) && (data_list[0][TSV_KEYNAME] == "*")) {
                         // All array elements will match wildcard 
-                        check_basics(item, 0, data_list, grammar_file.filename());
+                        check_basics(item, 0, data_list, elem.link);
                         if (data_list[0][TSV_LINK] != "") {
                             std::string t = remove_type_predicates(data_list[0][TSV_TYPE]);
                             std::string lnk = get_linkset_for_object_type(item, t, data_list[0][TSV_LINK]);
@@ -1070,7 +1071,7 @@ void CParsePDF::parse_object()
                     else if ((first_wildcard > i) && (i < (int)data_list.size())) {
                         // No wildcards to this array element
                         assert(data_list[i][TSV_KEYNAME] == std::to_string(i));
-                        check_basics(item, i, data_list, grammar_file.filename());
+                        check_basics(item, i, data_list, elem.link);
                         if (data_list[i][TSV_LINK] != "") {
                             std::string t = remove_type_predicates(data_list[i][TSV_TYPE]);
                             std::string lnk = get_linkset_for_object_type(item, t, data_list[i][TSV_LINK]);
@@ -1083,21 +1084,21 @@ void CParsePDF::parse_object()
             } // for-each array element
 
             if ((first_notreqd == ALL_ARRAY_ELEMS) && (first_wildcard == ALL_ARRAY_ELEMS) && (data_list.size() != arrayObj->get_num_elements())) {
-                output << "Error: array length incorrect for " << fs::path(grammar_file).stem();
+                output << "Error: array length incorrect for " << elem.link;
                 if (!terse)
                     output << ", wanted " << data_list.size() << ", got " << arrayObj->get_num_elements() << " (" << *arrayObj << ")";
                 output << std::endl;
             }
             
             if ((first_notreqd != ALL_ARRAY_ELEMS) && (first_notreqd > arrayObj->get_num_elements())) {
-                output << "Error: array " << fs::path(grammar_file).stem() << " requires " << first_notreqd << " elements, but only had " << arrayObj->get_num_elements();
+                output << "Error: array " << elem.link << " requires " << first_notreqd << " elements, but only had " << arrayObj->get_num_elements();
                 if (!terse)
                     output << " (" << *arrayObj << ")";
                 output << std::endl;
             }
         }
         else {
-            output << "Error: unexpected object type " << PDFObjectType_strings[(int)obj_type] << " for " << fs::path(grammar_file).stem();
+            output << "Error: unexpected object type " << PDFObjectType_strings[(int)obj_type] << " for " << elem.link;
             if (!terse)
                 output << " (" << *elem.object << ")";
             output << std::endl;
