@@ -20,12 +20,12 @@ It performs a number of functions:
 1. validates all TSV files in an Arlington TSV file set.
     - Check the uniformity (number of columns), if all types are one of Arlington types, etc.
 2. validates a PDF file against an Arlington TSV file set. Starting from trailer, the tool validates:
-    - if all required keys are present (_inheritance is currently not implemented_)
-    - if values are of correct type (_processing of predicates (declarative functions) are not supported_)
+    - if all required keys are present
+    - if values are of correct type (_processing of predicates (declarative functions) are not fully supported_)
     - if objects are indirect if required (_requires pdfium PDF SDK to be used_)
-    - if value is correct if `PossibleValues` are defined (_processing of predicates (declarative functions) are not supported_)
-    - all error messages are prefixed with `Error:` to enable post-processing
-    - that predicates can be parsed using a simple regex-based recursive descent parser
+    - if value is correct if `PossibleValues` are defined (_processing of predicates (declarative functions) are not fully supported_)
+    - all error messages are prefixed with `Error:` or `Warning:` to enable post-processing
+    - that all Arlington predicates can be parsed using a simple regex-based recursive descent parser
 3. recursively validates a folder containing many PDF files.
     - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting.
 4. compares the Arlington PDF model grammar with the Adobe DVA FormalRep
@@ -41,7 +41,7 @@ Arlington PDF Model C++ P.o.C. version v x.y built xxx
 Choose one of: --pdf, --checkdva or --validate.
 
 Usage:
-        TestGrammar --tsvdir <dir> [--out <fname|dir>] [--debug] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
+        TestGrammar --tsvdir <dir> [--out <fname|dir>] [--brief] [--debug] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
 
 Options:
 -h, --help       This usage message.
@@ -59,9 +59,9 @@ Built using some-PDF-SDK v x.y.z
 
 ## Notes
 
-* TestGrammar PoC does NOT currently confirm PDF version validity, understand most predicates (declarative functions), or support inheritance. So there will be a lot of false "Error:" messages!!!!
+* TestGrammar PoC does NOT currently confirm PDF version validity, or understand most predicates (declarative functions). So there may be some false "Error:" messages!!
 
-* all messages from validating PDF files are prefixed with `^Error:` or `Warning:` to make regex-based post processing easier
+* all messages from validating PDF files are prefixed with `^Error:` or `^Warning:` to make regex-based post processing easier
 
 * possible warning and error messages from PDF file validation are as follows. Each message may also provide context (e.g. a PDF object number) so long as `--brief` is **not** specified (default):
 
@@ -74,7 +74,7 @@ Error: not an indirect reference as required: ...
 Error: wrong type: ...
 Error: wrong value: ...
 Error: non-inheritable required key doesn't exist ...
-Error: required key doesn't exist (inheritance not checked) ...
+Error: inheritable required key doesn't exist ...
 Error: object validated in two different contexts. First: ...
 Error: array length incorrect for ...
 Error: could not get value for key ...
@@ -91,19 +91,31 @@ Error: number tree Nums array was invalid
 Error: number tree Nums array element xxx was not an integer
 Error: number tree Nums array element xxx was not an object
 Warning: key 'xxx' is not defined in Arlington for "yyy"
+Warning: possibly wrong value (predicates NOT supported): ...
 ```
 
 * the Arlington PDF model is based on PDF 2.0 (ISO 32000-2:2020) where some previously optional keys are now required
 (e.g. font dictionary **FirstChar**, **LastChar**, **Widths**) which means that matching legacy PDFs will falsely report errors unless these keys are present.
-A warning such as the following will be issued (because PDF 2.0 required keys are not present in legacy PDFs so there is no precise match):
 
-```
-Error: Can't select any link from \[FontType1,FontTrueType,FontMultipleMaster,FontType3,FontType0,FontCIDType0,FontCIDType2\] to validate provided object: xxx
-```
-
-* all output should have a final line "END" (`grep --files-without-match "^END"`) - if not then something nasty has happened! (crash!?!)
+* all output should have a final line "END" (`grep --files-without-match "^END"`) - if not then something nasty has happened (crash!?!)
 
 * if processing a folder of PDFs under Windows, then use `--batchmode` so that if things do crash or assert then the error dialog box doesn't block execution from continuing.
+
+### Understanding errors and warnings
+
+Most error and warning messages are obvious from the text. If `--brief` is **not** specified, then PDF object numbers may also be in the output which can help rapidly identify the cause of error and warning messages. Error and warning message always occur **after** the PDF path so adding a `-A 2` to a grep can provide such context.
+
+`Error: object validated in two different contexts. First ...`
+
+This error means that a direct PDF object (`x y obj ... endobj`) has been arrived at by two different paths in the PDF, but that the Arlington Link determination in each case resulted in two different object definitions (TSV filenames). This can happen if the Arlington PDF Model is under- or ill-specified (_is there sufficient information in the parent object to correctly determine which definition should get used? Is a predicate required?_) or if there is object reuse occurring in the PDF file. For example, a SoftMask Image XObject can be reused (just by being in the XObject Resources) as a normal Image XObject. Until predicates are fully supported, false error messages may occur more often than they should. Currently this error is **expected** for combined widget and field annotations, as permitted by sub-clause 12.5.6.19:
+
+> As a convenience, when a field has only a single associated widget annotation, the contents of the field dictionary (12.7.4, "Field dictionaries") and the annotation dictionary may be merged into a single dictionary containing entries that pertain to both a field and an annotation.
+
+This might be corrected in a future version of Arlington, by adding the Widget annotation keys to all field annotations (or vice-versa).
+
+Note that TestGrammar uses a point-scoring system to resolve potential Link ambiguities, with Type and Subtype keys have a very strong influence, followed by other required keys. However disambiguation for arrays often occurs through context but, by design, TestGrammar does **not** track context - it merely follows all object references. Thus an array link may be incorrectly chosen...  
+
+Inheritance is only tested for keys that are also "Required", as the required-ness condition can be met via inheritance. The algorithm uses recursive back-tracking following explicit `Parent` key references, which is currently sufficient for the Page Tree. It does **not** build a forward-looking stack, such as renderer might need to construct.     
 
 ## Useful post-_processing
 
@@ -116,9 +128,9 @@ TestGrammar --batchmode --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf
 the following Linux CLI commands can be useful in quickly filtering the output:
 
 ```bash
-grep "Error:" * | sort | uniq
-grep "Warning:" * | sort | uniq
-grep -h "Error:" * | cut -c 1-66 | sort | uniq
+grep "^Error:" * | sort | uniq
+grep "^Warning:" * | sort | uniq
+grep -h "^Error:" * | cut -c 1-66 | sort | uniq
 grep --files-without-match "^END" *
 ```
 
@@ -242,8 +254,6 @@ Follow the instructions for Linux. Compiled binaries will be in [/TestGrammar/bi
 # TODO :pushpin:
 
 - when validating the TSV data files, also do a validation on the predicate (declarative function) expressions
-
-- when validating a PDF file, check required values in parent dictionaries when inheritance is allowed.
 
 ---
 
