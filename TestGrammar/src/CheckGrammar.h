@@ -25,10 +25,10 @@
 #include <filesystem>
 #include "ArlingtonPDFShim.h"
 
-// Validate the Arlington PDF model grammar
+/// @brief Validate the Arlington PDF model grammar
 void ValidateGrammarFolder(const std::filesystem::path& grammar_folder, bool verbose, std::ostream& ofs);
 
-// Check Adobe DVA vs Arlington PDF model
+/// @brief Check Adobe DVA vs Arlington PDF model
 void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK& pdfsdk, const std::filesystem::path& dva_file, const std::filesystem::path& grammar_folder, std::ostream& ofs);
 
 #endif // CheckGrammar_h

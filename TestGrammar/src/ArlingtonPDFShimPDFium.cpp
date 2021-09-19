@@ -82,7 +82,7 @@ void ArlingtonPDFSDK::shutdown()
 }
 
 /// @brief  Returns human readable version string for PDF SDK that is being used
-/// @return version string
+/// @returns version string
 std::string ArlingtonPDFSDK::get_version_string()
 {
     assert(ctx != nullptr);
@@ -95,8 +95,10 @@ std::string ArlingtonPDFSDK::get_version_string()
 
 
 /// @brief   Opens a PDF file (no password) and locates trailer dictionary
-/// @param   pdf_filename[in] PDF filename
-/// @return  handle to PDF trailer dictionary or nullptr if trailer is not locatable
+/// 
+/// @param[in]   pdf_filename PDF filename
+/// 
+/// @returns  handle to PDF trailer dictionary or nullptr if trailer is not locatable
 ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 {
     assert(ctx != nullptr);
@@ -444,8 +446,10 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
 
 
 /// @brief Returns the key name of i-th dictionary key
-/// @param index[in] dictionary key index
-/// @return Key name
+/// 
+/// @param[in] index dictionary key index
+/// 
+/// @returns Key name
 std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 {
     assert(object != nullptr);

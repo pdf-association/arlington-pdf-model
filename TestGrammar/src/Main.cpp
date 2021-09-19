@@ -47,7 +47,8 @@ std::wostream wcnull(0);
 ///
 /// @param[in] pdf_file_name  PDF filename for processing
 /// @param[in] tsv_folder the folder with the Arlington TSV model files
-/// @param[in] ofs   open stream to write output to
+/// @param[in] pdfsdk  the already initiated PDF SDK library to use
+/// @param[in,out] ofs already open file stream for output
 /// @param[in] terse   terser style output (will sort/uniq better)
 void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, bool terse)
 {

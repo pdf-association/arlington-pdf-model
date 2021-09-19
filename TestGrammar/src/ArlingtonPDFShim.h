@@ -18,7 +18,7 @@
 #define ArlingtonPDFShim_h
 #pragma once
 
-// Choose which PDF SDK you want to use. Some may have more functionality than others. pdfium is default
+/// @brief Choose which PDF SDK you want to use. Some may have more functionality than others. pdfium is default
 #if !defined(ARL_PDFSDK_PDFIUM) && !defined(ARL_PDFSDK_PDFIX) && !defined(ARL_PDFSDK_QPDF)
 #define ARL_PDFSDK_PDFIUM
 #undef ARL_PDFSDK_PDFIX
@@ -28,11 +28,10 @@
 #include <iostream>
 #include <filesystem>
 
-/// A wafer thin shim layer to isolate a specific C/C++ PDF SDK library from the Arlington
+/// @namespace A wafer thin shim layer to isolate a specific C/C++ PDF SDK library from the Arlington
 /// PDF Model proof-of-concept C++ application. By replacing the matching .cpp file,
 /// any PDF SDK library should be easily integrateable without propogating changes
 /// throughout the PoC code base. Performance issues are considered irrelevant.
-
 namespace ArlingtonPDFShim {
 
     /// @brief Enable verbose debugging

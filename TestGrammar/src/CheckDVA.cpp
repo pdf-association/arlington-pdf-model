@@ -29,7 +29,7 @@
 using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
 
-// simulating recursive processing of the PDF Objects
+/// @brief simulating recursive processing of the PDF Objects
 struct to_process_elem {
     std::wstring  dva_link;
     std::wstring  dva_link2;
@@ -43,8 +43,15 @@ struct to_process_elem {
 };
 
 
+/// @brief 
 std::queue<to_process_elem> to_process_checks;
 
+
+/// @brief  Process a single dictionary definition
+/// 
+/// @param[in] tsv_dir Arlington TSV directory
+/// @param[in,out] ofs     already open output stream for report messages
+/// @param[in] map 
 void process_dict(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary* map) {
     ArlPDFDictionary* map_dict = map;
 
@@ -646,9 +653,9 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary* 
         } // for
 
 
-        /// @brief Checks if a key name exists in Arlington
-        /// @param key[in] key name (string)
-        /// @returns true if key exists in Arlington
+        // @brief Checks if a key name exists in Arlington
+        // @param[in] key key name (string)
+        // @returns true if key exists in Arlington
         auto exists_in_our = [=](auto key) {
             for (auto& vec : *data_list)
                 if (vec[TSV_KEYNAME] == ToUtf8(key))
@@ -657,9 +664,9 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary* 
         }; // auto
 
 
-        /// @brief Iterates through all keys in a DVA PDF dictionary to see if they are in Arlington
-        /// @param a_dict[in]   the DVA PDF dictionary
-        /// @param in_ofs[in]   report stream
+        // @brief Iterates through all keys in a DVA PDF dictionary to see if they are in Arlington
+        // @param[in] a_dict   the DVA PDF dictionary
+        // @param[in] in_ofs   report stream
         auto check_dict = [=](ArlPDFDictionary* a_dict, std::ostream& in_ofs) {
             for (int i = 0; i < (a_dict->get_num_keys()); i++) {
                 std::wstring key = a_dict->get_key_name_by_index(i);
@@ -721,10 +728,11 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary* 
 
 
 /// @brief  Compares Arlington TSV file set against Adobe DVA formal representation PDF
-/// @param pdfsdk              already instantiated PDF SDK Arlington shim object
-/// @param dva_file[in]        the Adobe DVA PDF file with the FormalRep tree
-/// @param grammar_folder[in]  the Arlington PDF model folder with TSV file set
-/// @param ofs[in]             report stream
+/// 
+/// @param[in] pdfsdk          already instantiated PDF SDK Arlington shim object
+/// @param[in] dva_file        the Adobe DVA PDF file with the FormalRep tree
+/// @param[in] grammar_folder  the Arlington PDF model folder with TSV file set
+/// @param[in] ofs             report stream
 void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK &pdfsdk, const std::filesystem::path& dva_file, const fs::path& grammar_folder, std::ostream& ofs) {
     try {
         ofs << "BEGIN - Arlington vs Adobe DVA Report - TestGrammar " << TestGrammar_VERSION << " " << pdfsdk.get_version_string() << std::endl;

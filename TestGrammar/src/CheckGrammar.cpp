@@ -44,6 +44,7 @@ static ASTNode* pred_root = nullptr;
 /// - correct basic types 1st column
 ///
 /// @param[in]      reader
+/// @param[in]      verbose        true if verbose debug output is wanted
 /// @param[in,out]  report_stream  open output stream to report errors
 ///
 /// @return trues if Arlington TSV file is valid, false if there were any errors
@@ -323,6 +324,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
 /// @brief   Validate an entire Arlington PDF Model TSV folder for holistic links
 ///
 /// @param[in] grammar_folder   folder containing a set of TSV files
+/// @param[in] verbose          true if additional verbose debug output is wanted
 /// @param[in] ofs              open output stream
 void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::ostream& ofs) {
     // collecting all tsv starting from Trailer (traditional and XRefStream)

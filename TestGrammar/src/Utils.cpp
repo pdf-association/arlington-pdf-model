@@ -87,7 +87,7 @@ std::string ToUtf8(const wchar_t unicode) {
 
 /// @brief Converts a Unicode wide string to UTF8
 ///
-/// @param[in] unicode Unicode input
+/// @param[in] wstr Unicode input
 ///
 /// @returns equivalent UTF8 string
 std::string ToUtf8(const std::wstring& wstr) {
@@ -200,7 +200,7 @@ bool is_file(const std::filesystem::path& p)
 
 /// @brief  Removes all Alington predicates (declarative functions) from the "Link" column.
 ///         Only "fn:SinceVersion(x.y,zzz)" is expected - which will reduce to 'zzz'.
-/// @param link_in[in]  Arlington TSV Link field (column 11) that might contain a predicate function
+/// @param[in] link_in  Arlington TSV Link field (column 11) that might contain a predicate function
 /// @returns            the Arlington "Links" field with all fn:SinceVersion(x.y,zzz) removed
 std::string remove_link_predicates(const std::string& link_in) {
     std::string     to_ret;
@@ -244,7 +244,7 @@ int get_type_index(std::string single_type, std::string types) {
 /// @brief  Looks up a single Arlington type in the Types field, and then matches across to the Links field.
 ///         Predicates are NOT stripped and retained in the result.
 ///
-/// @param[in] single type  a single Arlington predefined type (e.g. array, bitmask, rectangle, matrix, etc)
+/// @param[in] single_type  a single Arlington predefined type (e.g. array, bitmask, rectangle, matrix, etc)
 /// @param[in] types    Arlington Types field (alphabetically sorted, SEMI-COLON separated)
 /// @param[in] links    Arlington Links field (enclosed in [] and semi-colon separated)
 ///

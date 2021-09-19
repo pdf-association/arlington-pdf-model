@@ -192,7 +192,7 @@ bool CParsePDF::check_possible_values(ArlPDFObject* object, int key_idx, const A
 
 /// @brief Supports Arlington vec[TSV_REQUIRED] field which is either TRUE, FALSE or predicates. This method
 ///        calculates predicates
-///  e.g. fn:IsRequired(fn:IsPresent(Solidities)); fn:IsRequired(@SubFilter==adbe.pkcs7.s3 || @SubFilter==adbe.pkcs7.s4)
+///  e.g. fn:IsRequired(fn:IsPresent(Solidities)); fn:IsRequired(\@SubFilter==adbe.pkcs7.s3 || \@SubFilter==adbe.pkcs7.s4)
 ///
 /// @returns true if the key is required. false if the key is not required or the predicate is too complex
 bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd, const std::string& pdf_vers) {
@@ -292,7 +292,7 @@ bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd, cons
 
 
 /// @brief define SCORING_DEBUG to see scoring unside get_link_for_object()
-//#define SCORING_DEBUG
+#undef SCORING_DEBUG
 
 
 ///@brief  Choose a specific link for a PDF object from a provided set of Arlington links to validate further.
@@ -561,7 +561,7 @@ int CParsePDF::get_type_index_for_object(ArlPDFObject *obj, const std::string &t
 /// @brief  Determines the Arlington type for a given PDF object.
 ///         Note that for some types there are ambiguities (e.g. an integer could also be a bitmask).
 ///
-/// @param obj[in] PDF object
+/// @param[in] obj PDF object
 ///
 /// @return approximated Arlington type as a string
 std::string CParsePDF::get_type_string_for_object(ArlPDFObject *obj) {
@@ -1081,7 +1081,7 @@ void CParsePDF::parse_object()
                             add_parse_object(item, direct_link, elem.context + as);
                         }
                     }
-                    /// @todo  Support array wildcards fully (<integer>*)
+                    /// @todo  Support array wildcards fully (integer + *)
             } // for-each array element
 
             if ((first_notreqd == ALL_ARRAY_ELEMS) && (first_wildcard == ALL_ARRAY_ELEMS) && (data_list.size() != arrayObj->get_num_elements())) {

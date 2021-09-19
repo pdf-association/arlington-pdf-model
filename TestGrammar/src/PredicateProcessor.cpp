@@ -442,7 +442,7 @@ bool DeprecatedInPredicateProcessor::ReduceRow(const std::string pdf_version) {
 /// - inner can be very flexible expressions, including logical operators " && " and " || ":
 ///   . fn:BeforeVersion(x.y), fn:IsPDFVersion(x.y)
 ///   . fn:IsPresent(key) or fn:NotPresent(key)
-///   . @key==value or @key!=value
+///   . \@key==value or \@key!=value
 ///   . use of Arlington-PDF-Path key syntax "::", "parent::"
 ///   . various highly specialized predicates: fn:IsEncryptedWrapper(), fn:NotStandard14Font(), ...
 bool RequiredPredicateProcessor::ValidateRowSyntax() {
@@ -462,7 +462,7 @@ bool RequiredPredicateProcessor::ValidateRowSyntax() {
 /// - inner can be very flexible, including logical && and || expressions:
 ///   . fn:BeforeVersion(x.y), fn:IsPDFVersion(x.y)
 ///   . fn:IsPresent(key) or fn:NotPresent(key)
-///   . @key==... or @key!=...
+///   . \@key==... or \@key!=...
 ///   . use of Arlington-PDF-Path "::", "parent::"
 ///   . various highly specialized predicates: fn:IsEncryptedWrapper(), fn:NotStandard14Font(), ...
 ///

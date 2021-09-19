@@ -101,7 +101,7 @@ const std::string ArlString = "'[^']+'";
 
 /// @brief Arlington key or array index regex, including path separator "::" and wildcards.
 /// Intersects with ArlLink and ArlPredfinedType.
-/// Examples: SomeKey, 3, *, 2*, parent::SomeKey, SomeKeyA::SomeKeyB::3, SomeKeyA::SomeKeyB::@SomeKeyC,
+/// Examples: SomeKey, 3, *, 2*, parent::SomeKey, SomeKeyA::SomeKeyB::3, SomeKeyA::SomeKeyB::\@SomeKeyC,
 const std::string  ArlKeyBase = "[a-zA-Z0-9_\\.]+";
 const std::string  ArlKey = "([a-zA-Z]+\\:\\:)*(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
 const std::string  ArlKeyValue = "([a-zA-Z]+\\:\\:)*@(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
@@ -173,12 +173,12 @@ static const std::string ASTNodeType_strings[] = {
 };
 
 
-/// @brief #define ARL_PARSER_TESTING to test a small set of hard coded predicates
-//#define ARL_PARSER_TESTING
+/// @brief define ARL_PARSER_TESTING to test a small set of hard coded predicates
+#undef ARL_PARSER_TESTING
 
 
-/// @brief #define ARL_PARSER_DEBUG to enable very verbose debugging of predicate and expression parsing
-//#define ARL_PARSER_DEBUG
+/// @brief define ARL_PARSER_DEBUG to enable very verbose debugging of predicate and expression parsing
+#undef ARL_PARSER_DEBUG
 
 
 /// @brief Predicate parser creates a binary tree of these simple ASTNodes
@@ -250,11 +250,6 @@ typedef std::vector<ASTNode*>  ASTNodeStack;
 
 
 /// @brief Left-to-right recursive descent parser, based on regex pattern matching
-///
-/// @param[in] s    input string to parse
-/// @param root     the root node of AST that is being constructed
-///
-/// @return         the remainder of the string that is being parsed.
 std::string LRParsePredicate(std::string s, ASTNode *root);
 
 
@@ -333,7 +328,7 @@ public:
 /// - inner can be very flexible, including logical " && " and " || " expressions:
 ///   . fn:BeforeVersion(x.y), fn:IsPDFVersion(x.y)
 ///   . fn:IsPresent(key) or fn:NotPresent(key)
-///   . @key==... or @key!=...
+///   . \@key==... or \@key!=...
 ///   . use of Arlington-PDF-Path "::", "parent::"
 ///   . various highly specialized predicates: fn:IsEncryptedWrapper(), fn:NotStandard14Font(), ...
 class RequiredPredicateProcessor : public PredicateProcessor {
