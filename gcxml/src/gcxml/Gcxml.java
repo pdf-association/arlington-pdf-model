@@ -1,4 +1,4 @@
-/*
+/**
 * Gcxml.java
 * Copyright 2020 PDF Association, Inc. https://www.pdfa.org
 *
@@ -10,140 +10,152 @@
 * (DARPA). Approved for public release.
 *
 * SPDX-License-Identifier: Apache-2.0
-* Contributors: Roman Toda, Frantisek Forgac, Normex
+* Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
 */
 package gcxml;
 
 import java.io.File;
 
 /**
- *
  * @author fero
  */
 public class Gcxml {
-    // gcxml version string
-    public static final String grammar_version = "0.4.9";
-    
+    /// gcxml version string
+    public static final String grammar_version = "0.5.0";
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         final String delimiter = "\t";
-        double[] pdf_versions = {1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0};
-        String inputFolder = inputFolder = System.getProperty("user.dir") + "/tsv/latest/";
+        final double[] pdf_versions = {1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0};
+        String inputFolder = System.getProperty("user.dir") + "/tsv/latest/";
         File folder = new File(inputFolder);
         File[] listOfFiles = folder.listFiles();
-        
-        if(args.length > 0){
+
+
+        if (args.length > 0) {
             String argument = args[0];
-            switch (argument){
+            System.out.println("gcxml " + grammar_version);
+            switch (argument) {
                 // run -xml and -tsv at once for all pdf versions
                 case "-all":
-                    System.out.println("gcxml " + grammar_version);                 
-                    for(int i = 0; i < pdf_versions.length; i++ ){
+                    for (int i = 0; i < pdf_versions.length; i++ ) {
                         XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, String.valueOf(pdf_versions[i]));
                         xmlcreator.convertFile();
                     }
                     TSVUpdater tsv = new TSVUpdater();
                     break;
+                    
                 // create grammar in xml format for each pdf version from the latest tsv files.
                 case "-xml":
-                    System.out.println("gcxml " + grammar_version);
-                    if(args.length>1 && (!args[1].isEmpty())){
+                    if ((args.length > 1) && (!args[1].isEmpty())) {
                         String pdf_version = args[1];
                         XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, pdf_version);
                         xmlcreator.convertFile();
-                    }else{
-                        for(int i = 0; i < pdf_versions.length; i++ ){
+                    }
+                    else {
+                        for (int i = 0; i < pdf_versions.length; i++ ) {
                             XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, String.valueOf(pdf_versions[i]));
                             xmlcreator.convertFile();
                         }
                     }
                     break;
-                // display keys introduced in pdf version x.x or all
+                    
+                // display keys introduced in pdf version x.x or "-all"
                 case "-sin":
-                    System.out.println("gcxml " + grammar_version);
-                    if(args.length>1 && !args[1].isEmpty()){
+                    if ((args.length > 1) && !args[1].isEmpty()) {
                         String version = args[1];
-                        if(version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
+                        if (version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
                                 || version.equals("1.3") || version.equals("1.4") || version.equals("1.5")
-                                || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")){
+                                || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")) {
                             XMLQuery query = new XMLQuery();
                             query.SinceVersion(version);
-                        }else if(version.equals("-all")){
+                        }
+                        else if (version.equals("-all")) {
                             XMLQuery query = new XMLQuery();
                             query.SinceVersion();
-                        }else{
-                            System.out.println("There is no such PDF version. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0");
                         }
-                    }else{
-                        System.out.println("PDF version was not specified. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0");
+                        else {
+                            System.out.println("There is no such PDF version. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all");
+                        }
+                    }
+                    else {
+                        System.out.println("PDF version was not specified. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all.");
                         System.out.println("If you want to display all keys and their version use '-all' as parameter.");
                     }
                     break;
+                    
                 // display keys deprecated in pdf version x.x or all
                 case "-dep":
-                    System.out.println("gcxml " + grammar_version);
-                    if(args.length>1 && !args[1].isEmpty()){
+                    if ((args.length > 1) && !args[1].isEmpty()) {
                         String version = args[1];
                         if(version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
                                 || version.equals("1.3") || version.equals("1.4") || version.equals("1.5")
                                 || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")){
                             XMLQuery query = new XMLQuery();
                             query.DeprecatedIn(version);
-                        }else if(version.equals("-all")){
+                        }
+                        else if (version.equals("-all")) {
                             XMLQuery query = new XMLQuery();
                             query.DeprecatedIn();
-                        }else{
-                            System.out.println("There is no such PDF version. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0");
                         }
-                    }else{
-                        System.out.println("PDF version was not specified. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7 or 2.0");
+                        else {
+                            System.out.println("There is no such PDF version. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all.");
+                        }
+                    }
+                    else {
+                        System.out.println("PDF version was not specified. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all.");
                         System.out.println("If you want to display all keys and their version use '-all' as parameter.");
                     }
                     break;
+                    
                 case "-so":
-                    System.out.println("gcxml " + grammar_version);
                     XMLQuery query = new XMLQuery();
                     query.SchizophrenicObjects();
                     break;
+
                 case "-kc":
-                    System.out.println("gcxml " + grammar_version);
                     query = new XMLQuery();
                     query.KeyOccurrenceCount();
                     break;
+
                 case "-po":
-                    System.out.println("gcxml " + grammar_version);
-                    if(args.length > 1){
+                    if (args.length > 1) {
                         query = new XMLQuery();
                         query.PotentialDicts(args[1]);
-                    }else{
+                    }
+                    else {
                         System.out.println("No keys specified. Expected list of keys, eg.: Key1,Key2,Key3");
                     }
                     break;
+                    
                 case "-version":
-                    System.out.println("gcxml " + grammar_version);
                     break;
+
                 case "-tsv":
-                    System.out.println("gcxml " + grammar_version);
                     TSVUpdater tsv2 = new TSVUpdater();
                     break;
+
                 case "-sc":
-                    System.out.println("gcxml " + grammar_version);
                     query = new XMLQuery();
                     query.getSpecialCases();
                     break;
+
                 case "-help":
-                    showHelp();
-                    break;
                 default:
                     showHelp();
+                    break;
             }
-        }else{
+        }
+        else {
             showHelp();
         }
     }
-    
+
+    /**
+     * Command line help
+     */
     private static void showHelp() {
         // general info about the gxcml
         System.out.println("GENERAL:");

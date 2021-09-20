@@ -10,7 +10,7 @@
  * (DARPA). Approved for public release.
  *
  * SPDX-License-Identifier: Apache-2.0
- * Contributors: Roman Toda, Frantisek Forgac, Normex
+ * Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
  */
 package gcxml;
 
@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import static java.lang.Integer.max;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -31,10 +32,19 @@ import java.util.regex.Pattern;
  * @author fero
  */
 public class TSVUpdater {
-
+    /**
+    * The list of valid supported PDF versions
+    */
     final double[] pdf_version = {1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0};
+    
+    /**
+    * The path to the latest TSV file set (typically "tsv/latest")
+    */
     static String path_to_tsv_files = "";
     
+    /**
+    * Constructor. Deletes existing PDF version TSV sub-folders!
+    */
     public TSVUpdater(){
         path_to_tsv_files = System.getProperty("user.dir") + "/tsv/latest/";
         for(double x : pdf_version){
@@ -43,92 +53,118 @@ public class TSVUpdater {
         }
     }
     
-    private static void createTSV(double version){
+    /**
+    * Creates a TSV file set for the specified PDF version
+    * @param version  the PDF version between 1.0 to 2.0 inclusive
+    */
+    private static void createTSV(double version) {
         final String delimiter = "\t";
         
-        File[] list_of_files = null;
         File folder = new File(path_to_tsv_files);
-        list_of_files = folder.listFiles();
+        var list_of_files = folder.listFiles();
         
-        for(File file : list_of_files){
-            if(file.isFile() && file.canRead() && file.exists()){
+        for (File file : list_of_files){
+            if (file.isFile() && file.canRead() && file.exists()) {
                 try {
                     BufferedReader tsv_reader;
-                    String temp = path_to_tsv_files;
+                    var temp = path_to_tsv_files;
                     String file_name = file.getName().substring(0, file.getName().length()-4);
                     temp += file_name + ".tsv";
                     tsv_reader = new BufferedReader(new FileReader(temp));
-                    String[] row = null;
+                    String[] row;
                     String output_string = "";
                     String entry = "";
-                    System.out.println("================\nProcessing " +file_name + " for version " +version);
+                    System.out.println("================\nProcessing " + file_name + " for version " + version);
                     String current_line = tsv_reader.readLine();
+                    // First line is header
                     if (current_line != null) {
                         output_string = current_line + "\n";
                     }
                     while ((current_line = tsv_reader.readLine()) != null) {
                         row = current_line.split(delimiter, -1);
-                        String key_name = row[0];
-                        System.out.println("\tkey: " +key_name);
-                        /*
-                        if(row.length!=12){
-                            System.out.println(file_name + " "+ key_name+ " " + row.length);
-                        }
-                        */
-                        String data_type = row[1];
-                        String since_version = row[2];
-                        String deprecated = row[3];
-                        String required = row[4];
-                        String indirect_ref = row[5];
-                        String inheritable = row[6];
-                        String default_value = row[7];
-                        String possible_values = row[8];
-                        String special_case = row[9];
-                        String links = row[10];
-                        String links_with_functions = "";
-                        if(!links.isBlank()){
-                            links_with_functions = addSinceVersionFuncToLinks(links, version);
-                        }
-                        String notes = row[11];
-                        if(Double.parseDouble(since_version) <= version){
-                            String record =
-                                    key_name + delimiter +
-                                    data_type + delimiter +
-                                    since_version + delimiter +
-                                    deprecated + delimiter +
-                                    required + delimiter +
-                                    indirect_ref + delimiter +
-                                    inheritable + delimiter +
-                                    default_value + delimiter +
-                                    possible_values + delimiter +
-                                    special_case + delimiter +
-                                    //links + delimiter +
-                                    links_with_functions + delimiter +
-                                    notes;
-                            entry += record + "\n";
-                        }
-                    }
-                    if(!entry.isEmpty()){
+                        if (row.length != 12) {
+                            System.out.println("Error: " + file_name + " had " + row.length + " rows, not 12!\n" + row);
+                        } 
+                        else {
+                            String key_name = row[0];
+                            // Type: SEMI-COLON separated, may have version-based predicates
+                            String data_type = row[1]; 
+                            // SinceVersion: 1.0, 1.1, ..., 2.0 inclusive 
+                            String since_version = row[2];
+                            String deprecated = row[3];
+                            // Required: possibly wrapped in "fn:IsRequired(...)" with version-based predicates
+                            String required = row[4];
+                            String indirect_ref = row[5];
+                            String inheritable = row[6];
+                            String default_value = row[7];
+                            // PossibleValues: complex form [];[];[], may have version-based predicates
+                            String possible_values = row[8];
+                            String special_case = row[9];
+                            // Links: complex form [];[];[], may have version-based predicates
+                            String links = row[10];
+                            String notes = row[11];
+                            
+                            if (Double.parseDouble(since_version) <= version) {
+                                System.out.println("\tKept key: " + key_name);
+                                String types_reduced = reduceTypesForVersion(data_type, version);
+                                String links_reduced = reduceComplexForVersion(links, version);
+                                String pv_reduced = reduceComplexForVersion(possible_values, version);
+                               
+                                if (required.startsWith("fn:IsRequired(")) {
+                                    required = ReduceRequiredForVersion(required, version);                                    
+                                }
+
+                                String record =
+                                        key_name + delimiter +
+                                        types_reduced + delimiter +
+                                        since_version + delimiter +
+                                        deprecated + delimiter +
+                                        required + delimiter +
+                                        indirect_ref + delimiter +
+                                        inheritable + delimiter +
+                                        default_value + delimiter +
+                                        pv_reduced + delimiter +
+                                        special_case + delimiter +
+                                        links_reduced + delimiter +
+                                        notes;
+                                entry += record + "\n";
+                            }
+                            else {
+                                System.out.println("\tDropped key: " + key_name);
+                            }
+                        }            
+                    } // while
+                    // Did we exclude the entire object??
+                    if (!entry.isEmpty()) {
                         output_string += entry;
                         WriteToFile(output_string, file_name, version);
                     }
-                } catch (FileNotFoundException ex) {
+                    else {
+                        System.out.println("\tNot writing file " + file_name + " for version " + version);                        
+                    }
+                } 
+                catch (FileNotFoundException ex) {
                     Logger.getLogger(TSVUpdater.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
+                } 
+                catch (IOException ex) {
                     Logger.getLogger(TSVUpdater.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-            }
-        }
+                } // catch
+            } // if file OK
+        } // for file
     }
 
+    /**
+    * Writes a new TSV file to a specified PDF version folder
+    * 
+    * @param output_string string the tab-separated multi-line string to write
+    * @param file the filename (i.e. PDF object)
+    * @param version the PDF version used to select the sub-folder
+    */
     private static void WriteToFile(String output_string, String file, double version) {
         BufferedWriter out = null;
         
-        String path = "";
-        path +=  System.getProperty("user.dir") + "/tsv/";
-        path += version + "/";
-        path += file +".tsv";
+        String path = System.getProperty("user.dir") + "/tsv/";
+        path += version + "/" + file +".tsv";
 
         try {
             FileWriter fstream = new FileWriter(path, false);
@@ -139,7 +175,7 @@ public class TSVUpdater {
             System.err.println("Error: " + e.getMessage());
         }
         finally {
-            if(out != null) {
+            if (out != null) {
                 try {
                     out.close();
                 } catch (IOException ex) {
@@ -149,146 +185,274 @@ public class TSVUpdater {
         }
     }
 
+    /**
+    * Deletes an entire PDF version specific folder of all Arlington TSV files
+    * 
+    * @param x  the PDF version (1.0, 1.1, ..., 2.0)
+    */
     private void deleteContent(double x) {        
         String path = "";
         path +=  System.getProperty("user.dir") + "/tsv/";
         path += x + "/";
         
-        File[] list_of_files = null;
         File folder = new File(path);
-        list_of_files = folder.listFiles();
+        var list_of_files = folder.listFiles();
         
-        for(File file : list_of_files){
+        for (File file : list_of_files) {
             file.delete();
         }
     }
     
-    private static String addSinceVersionFuncToLinks(String links, double version){
-        String result = "";
-        final String function = "fn:SinceVersion";
+    /**
+     * Finds the matching closing bracket ")" for the first open bracket "(" 
+     * in a string. 
+     * e.g. (abc) = 4
+     *      fn((a==b),(c && (d!=e))) = 24
+     * 
+     * @param s  the string
+     * @return -1 if no matching bracket pair or IndexOf matching ")" in string
+     */
+    private static int IndexOfOuterCloseBracket(String s) {
+        int nested = 0;
+        int i = 0;
         
-        String[] links2 = links.split(";"); // split by data types
-        for(int i = 0; i < links2.length; i++){
-            String _links = "";
-            links2[i] = links2[i].replace("[", "");
-            links2[i] = links2[i].replace("]", "");
-            String temp = commaSplit(links2[i]);
-            String[] links3 = temp.split(",,"); // split by data values
-            for(int j = 0; j < links3.length; j++){
-                if(!links3[j].isBlank()){
-                    //double object_intro = getObjectVersion(links3[j]);
-                    //System.out.println("\t\tObject:" + links3[j] + " was added in " + object_intro);
-                    // remove if statement to create functions everywhere
-                    String mydata = links3[j];
-                    double ver = getVersion(mydata);
-
-                    String obj = getLink(mydata);
-                    
-                    if(ver>version){
-                        // comment out line below to create links without functions
-                        //_links += function + "(" +  object_intro + "," + links3[j] +")";
-                    }else{
-                        _links += obj;
-                    }
-                    if(j+1 != links3.length){
-                        _links += ",";
-                    }
+        for (char ch: s.toCharArray()) {
+            if (ch == '('){
+                nested++;
+            }
+            else if (ch == ')') {
+                if (nested == 1) {
+                    return i;
                 }
-            }       
-            // removes all commas at the beginning of the string,
-            // commas behind commas,
-            // trailing commas
-            _links = _links.replaceAll("^,*|(?<=,),|,*$", "");
-               
-            if(i+1 != links2.length){
-                result += "["+ _links +"];";
-            }else{
-                result += "["+ _links +"]";
+                nested--;
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    
+    /**
+    * Processes an atomic Arlington entry that might contain version
+    * predicates and reduces it appropriately for the specified PDF version.
+    *
+    * Version-specific predicates ONLY that are supported:
+    * - fn:SinceVersion(x.y,zzz): keep/strip if version &gt;= x.y else remove
+    * - fn:BeforeVersion(x.y,zzz): keep/strip if x.y &lt; version else remove
+    * - fn:Deprecated(x.y,zzz): strip if version &lt; x.y else keep as-is with predicate
+    * - fn:IsPDFVersion(x.y,zzz): keep/strip if version == x.y else remove
+    *
+    * @param str     the atomic element from an Arlington TSV file
+    * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
+    * 
+    * @return the version-reduced equivalent appropriate for the version
+    */
+   private static String reduceAtomicForVersion(String str, double version) {
+        if ((str.isBlank()) || (!str.contains("fn:"))) {
+            return str;
+        }
+
+        String   tsv_ver;
+        String   tsv_s = str;
+        // +3 = length of PDF version string "x.y"
+        // +1 = trailing COMMA as predicate operand separator before atomic element
+        if (str.startsWith("fn:SinceVersion(")) {
+            tsv_ver = str.substring(16, 16+3);
+            if (version >= Double.parseDouble(tsv_ver)) {
+                tsv_s = str.substring(16+3+1, str.length()-1);
+            }
+            else {
+                tsv_s = "";
             }
         }
-        System.out.println("LINK RESULT: " +result +"\n------------");
-        return result;
+        else if (str.startsWith("fn:BeforeVersion(")) {
+            tsv_ver = str.substring(17, 17+3);
+            if (Double.parseDouble(tsv_ver) < version) {
+                tsv_s = str.substring(17+3+1, str.length()-1);
+            }
+            else {
+                tsv_s = str;
+            }
+        }
+        else if (str.startsWith("fn:Deprecated(")) {
+            tsv_ver = str.substring(14, 14+3);
+            if (version < Double.parseDouble(tsv_ver)) {
+                tsv_s = str.substring(14+3+1, str.length()-1);;
+            }
+            else {
+                tsv_s = str;
+            }
+        }
+        else if (str.startsWith("fn:IsPDFVersion(")) {
+            tsv_ver = str.substring(16, 16+3);
+            if (version == Double.parseDouble(tsv_ver)) {
+                tsv_s = str.substring(16+3+1, str.length()-1);
+            }
+            else {
+                tsv_s = "";
+            }
+        }
+        return tsv_s;
     }
     
-    private static double getObjectVersion(String link){
-        double result = 10.;
+    /**
+    * Processes an Arlington Type field that might contain version
+    * predicates and reduces it appropriately for the specified PDF version.
+    *
+    * @param str     the Type field from an Arlington TSV file
+    * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
+    *
+    * @return the version-reduced equivalent appropriate for the version
+    */
+    private static String reduceTypesForVersion(String str, double version) {
+        if ((str.isBlank()) || (!str.contains("fn:"))) {
+            return str;
+        }
+
+        String[] arr = str.split(";"); // split complex type
         
-        String object = link + ".tsv";
-        final String delimiter = "\t";
-        
-        File[] list_of_files = null;
-        File folder = new File(path_to_tsv_files);
-        list_of_files = folder.listFiles();
-        
-        for(File file : list_of_files){
-            if(file.getName().equals(object) && file.isFile() && file.canRead() && file.exists()){
-                //find the lowest since version value
-                try {
-                    BufferedReader tsv_reader;
-                    String temp = path_to_tsv_files;
-                    String file_name = file.getName().substring(0, file.getName().length()-4);
-                    temp += file_name + ".tsv";
-                    tsv_reader = new BufferedReader(new FileReader(temp));
-                    String[] row = null;
-                    
-                    String current_line = tsv_reader.readLine();
-                    if (current_line != null) {
-                        String unused = current_line + "\n";
-                    }
-                    while ((current_line = tsv_reader.readLine()) != null) {
-                        row = current_line.split(delimiter, -1);
-                        double current_value = Double.parseDouble(row[2]);
-                        if(current_value < result){
-                            result = current_value;
-                        }
-                    }
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(TSVUpdater.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(TSVUpdater.class.getName()).log(Level.SEVERE, null, ex);
+        String   out_types = "";
+        String   tsv_s;
+        for (String a : arr) {
+            tsv_s = reduceAtomicForVersion(a, version);
+
+            // Append to output if there was anything to keep
+            if (!tsv_s.isBlank()) {
+                if (out_types.isBlank()) {
+                    out_types = tsv_s;
+                } else {
+                    out_types = out_types + ";" + tsv_s;
                 }
             }
         }
-        return result;
+        return out_types;
     }
-    private static String commaSplit(String s) {
-        String result = "";
-        int counter = 0;
-        for(char ch: s.toCharArray()){
-            if(ch == '('){
-                counter++;
-                result += "(";
-            }else if (ch == ')'){
-                counter--;
-                result += ")";
-            }else if (ch == ',' && counter == 0){
-                result += ",,";
-            }else{
-                result += ch;
+    
+    /**
+    * Processes any complex Arlington field ([];[];[]) that might contain version
+    * predicates and reduces it appropriately for the specified PDF version.
+    *
+    * @param str     the Link field from an Arlington TSV file
+    * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
+    * 
+    * @return the version-reduced equivalent appropriate for the version
+    */
+    private static String reduceComplexForVersion(String str, double version) {
+        if ((str.isBlank()) || (!str.contains("fn:"))) {
+            return str;
+        }
+
+        String[] arr = str.split(";"); // split complex type
+        
+        String   out_links = "";
+        for (String a : arr) {
+            // strip [ and ]    
+            a = a.substring(1, a.length() - 1);
+            
+            String link = "";
+            // COMMAs are ambiguous: separators or inside predicates?
+            while (!a.isBlank()) {
+                if (a.startsWith("fn:")) {
+                    // get up to closing bracket )
+                    int i = IndexOfOuterCloseBracket(a);
+                    assert i != -1: "No ')' for predicate!";
+                    
+                    // Get encapsulating predicate incl. close bracket
+                    String s = a.substring(0, i + 1);
+
+                    if (i + 2 < a.length()) {
+                        a = a.substring(i + 2, a.length());
+                    }
+                    else {
+                        a = "";
+                    }
+                    String reduced = reduceAtomicForVersion(s, version);
+
+                    // Append to output if there was anything to keep
+                    if (!reduced.isBlank()) {
+                        if (link.isBlank()) {
+                            link = reduced;
+                        } else {
+                            link = link + "," + reduced;
+                        }
+                    }
+                    // remove COMMA if not at end of string
+                    if ((!a.isBlank()) && (a.charAt(0) == ',')) {
+                        a = a.substring(1, a.length());
+                    }
+                }
+                else {
+                    String s = a;
+                    if (a.indexOf(',') >= 0) {
+                        s = a.substring(0, a.indexOf(','));
+                        a = a.substring(a.indexOf(',') + 1, a.length());
+                    }
+                    else {
+                        a = "";
+                    }
+                    if (link.isBlank()) {
+                        link = s;
+                    } else {
+                        link = link + "," + s;
+                    }                    
+                }
+            } // while
+            
+            if (out_links.isBlank()) {
+                out_links = "[" + link + "]";
+            }
+            else {
+                out_links = out_links + ";[" + link + "]"; 
+            }
+        } // for
+        return out_links;
+    }
+    
+    
+    /**
+    * Processes an Arlington "Required" field that might contain version
+    * predicates and reduces it appropriately for the specified PDF version.
+    * Outer predicate is always "fn:IsRequired(...)". Examples include:
+    * - fn:IsRequired(fn:SinceVersion(1.5))
+    * - fn:IsRequired(fn:BeforeVersion(1.3) || fn:IsPresent(SomeKey))
+    * - fn:IsRequired(fn:SinceVersion(2.0) || fn:AnotherPredicate(...))
+    *
+    * @param str     the Required field from an Arlington TSV file
+    * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
+    * 
+    * @return the version-reduced equivalent appropriate for the version
+    */
+    private static String ReduceRequiredForVersion(String reqd, double version) {
+        String r = reqd.substring(14, reqd.length()-1);
+        String tsv_ver;
+        
+        if (r.startsWith("fn:BeforeVersion(")) {
+            tsv_ver = r.substring(17, 17+3);
+            // Don't process complex expressions (e.g. with " && " or " || ")
+            if ((version < Double.parseDouble(tsv_ver)) && (reqd.indexOf(' ') == -1)) {
+                return "TRUE";
+            }
+        }                         
+        else if (r.startsWith("fn:IsPDFVersion(")) {
+            tsv_ver = r.substring(16, 16+3);
+            // Don't process complex expressions (e.g. with " && " or " || ")
+            if ((Double.parseDouble(tsv_ver) == version) && (reqd.indexOf(' ') == -1)) {
+                return "TRUE";
             }
         }
-        return result;
-    } 
-    private static double getVersion(String mydata) {
-        double ver = 1.0;
-        Pattern pattern = Pattern.compile("\\((.*?),");
-        Matcher matcher = pattern.matcher(mydata);
-        if (matcher.find())
-        {
-            System.out.println(matcher.group(1));
-            ver = Double.parseDouble(matcher.group(1));
+        else if (r.startsWith("fn:SinceVersion(")) {
+            tsv_ver = r.substring(16, 16+3);
+            if (version >= Double.parseDouble(tsv_ver)) {
+                if ((reqd.indexOf(' ') == -1) || (reqd.contains(" || "))) {
+                    return "TRUE";
+                }
+            }
+            else {
+                r = reqd.replace("fn:SinceVersion("+tsv_ver+") || ", "");
+                return r;
+            }
         }
-        return ver;
+        return reqd;
     }
-    private static String getLink(String mydata) {
-        String link = "";
-        Pattern pattern = Pattern.compile(",(.*?)\\)");
-        Matcher matcher = pattern.matcher(mydata);
-        if (matcher.find())
-        {
-            System.out.println(matcher.group(1));
-            link =matcher.group(1);
-        }
-        return link;
-    }
+     
 }

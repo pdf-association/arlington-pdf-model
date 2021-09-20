@@ -55,6 +55,14 @@ public class XMLCreator {
     private DocumentBuilder dom_builder = null;
     private Document new_doc = null;
     
+    /**
+      * Converts the Arlington PDF Model from a TSV file set to a single XML
+     * representation
+     * 
+     * @param list_of_files  array of files
+     * @param delimiter   should be '\t'
+     * @param pdf_version  PDF version number. 1.0 to 2.0
+     */
     public XMLCreator(File[] list_of_files, String delimiter, String pdf_version) {
         this.output_folder = System.getProperty("user.dir") + "/xml/";
         this.input_folder = System.getProperty("user.dir") + "/tsv/latest/";
@@ -140,7 +148,7 @@ public class XMLCreator {
                             // colValues[1] -> type
                             // colValues[10] -> link(csv) VALIDATE(xml)
                             // colValues[6], colValues[7], colValues[8] -> other values (optional)
-                            Element value_elem = null;
+                            Element value_elem;
 
                             value_elem = nodeValues(column_values[1], column_values[7], column_values[8], column_values[10]);
 
@@ -346,34 +354,33 @@ public class XMLCreator {
 
     private String getDataType(String type) {
         String result;
-        if(!type.startsWith("fn:")) result = type;
-        else{
+        if(!type.startsWith("fn:")) {
+            result = type;
+        }else{
             result = processFn(type);
         }
         return result;
     }
 
+    /**
+     * Process predicates
+     * 
+     * @param s a string
+     * @return a string
+     */
     private String processFn(String s) {
         String result = ""; 
         if(s.startsWith("fn:")){
             int openB = s.indexOf("(");
             String params = s.substring(openB);
             String function_name = s.substring(3, openB);
-            //System.out.println(function_name);
-            //System.out.println(params);
             switch (function_name){
                 case "Deprecated":
-                    //todo
-                    //System.out.println("Deprecated function call");
                     result = process_func_deprecated(params);
                     break;
                 case "SinceVersion":
-                    //todo
-                    //System.out.println("SinceVersion function call");
                     break;
                 case "IsRequired":
-                    //todo
-                    //System.out.println("IsRequired function call");
                     break;
                 default : System.out.println("unknown function call");
             }
@@ -381,6 +388,7 @@ public class XMLCreator {
         }
         return result;
     }
+
 
     private String process_func_deprecated(String params) {
         String first_arg = "";  // when it was deprecated
@@ -393,16 +401,21 @@ public class XMLCreator {
                 first_arg = "was deprecated in" + args[i];
             }else if(i==1){
                 if(args[i].startsWith("fn:")){
-                processFn(args[i]);
-            }else{
-                second_arg = args[i];
-            }
+                    processFn(args[i]);
+                }else{
+                    second_arg = args[i];
+                }
             }
         }       
         return second_arg + " " + first_arg;
     }
 
-    // creates a single <VALUE> node
+    /**
+     * creates a single &lt;VALUE&gt; node
+     * @param t      an Arlington type
+     * @param value  the value for the VALUE node
+     * @return       a new XML VALUE element
+     */
     private Element createNodeValue(String t, String value) {
         Element valueElem = new_doc.createElement("VALUE");
         value = value.replace("[", "");
@@ -411,7 +424,6 @@ public class XMLCreator {
             valueElem.setAttribute("type", t);
             valueElem.appendChild(new_doc.createTextNode(value));
         }else{
-            int k = 0;
             valueElem.setAttribute("type", t);
             valueElem.appendChild(new_doc.createTextNode(value));
         }
