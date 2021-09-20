@@ -281,6 +281,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     * `array`
     * `dictionary`
     * `stream`
+    * `name-tree`
 *   "Links" must NOT exist for selected fundamental "Types" (i.e. must be empty `[]` in the SEMI-COLON separated list):
     * `array`
     * `bitmask`
@@ -289,7 +290,6 @@ This document describes some strict rules for the Arlington PDF model, for both 
     * `integer`
     * `matrix`
     * `name`
-    * `name-tree`
     * `null`
     * `number`
     * `number-tree`
