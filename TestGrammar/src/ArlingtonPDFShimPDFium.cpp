@@ -153,6 +153,19 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 }
 
 
+/// @brief  Gets the PDF version of the current PDF file
+/// 
+/// @param trailer   trailer of the PDF
+/// 
+/// @returns   PDF version string 
+std::string ArlingtonPDFSDK::get_pdf_version(ArlPDFTrailer* trailer) {
+    assert(ctx != nullptr);
+    assert(trailer != nullptr);
+    return "2.0"; /// @todo - how to get PDF version from pdfium??
+}
+
+
+
 ArlPDFObject::ArlPDFObject(void* obj) : object(obj)
 {
     is_indirect = false;

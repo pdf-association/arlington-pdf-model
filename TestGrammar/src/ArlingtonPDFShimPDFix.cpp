@@ -14,9 +14,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-/// A wafer-thin shim layer to isolate the PDFix SDK library from the rest of the
-/// Arlington PDF Model proof-of-concept C++ application. Replace just this C++ file
-/// for alternate PDF SDKs. Performance overhead issues are considered irrelevant.
+/// @file A wafer-thin shim layer to isolate the PDFix SDK library from the rest of the
+/// Arlington PDF Model proof-of-concept C++ application. Performance overhead issues 
+/// are considered irrelevant. See https://pdfix.github.io/pdfix_sdk_builds/en/6.1.0/html/.
 
 #include "ArlingtonPDFShim.h"
 
@@ -150,6 +150,19 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
       }
     }
     return nullptr;
+}
+
+
+
+/// @brief  Gets the PDF version of the PDF file
+/// 
+/// @param trailer   trailer of the PDF
+/// 
+/// @returns   PDF version string 
+std::string ArlingtonPDFSDK::get_pdf_version(ArlPDFTrailer* trailer) {
+    assert(ctx != nullptr);
+    assert(trailer != nullptr);
+    return "2.0"; /// @todo - how to get PDF version from PDFix??
 }
 
 

@@ -168,12 +168,6 @@ namespace ArlingtonPDFShim {
         using ArlPDFObject::ArlPDFObject;
     public:
         ArlPDFDictionary* get_dictionary();
-        //// For keys by name...
-        //bool          has_key(std::wstring key);
-        //ArlPDFObject* get_value(std::wstring key);
-        //// For iterating keys...
-        //int get_num_keys();
-        //std::wstring get_key_name_by_index(int index);
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFStream& obj) {
             ofs << "Stream " << (ArlPDFObject)obj;
             return ofs;
@@ -194,26 +188,29 @@ namespace ArlingtonPDFShim {
 
     class ArlingtonPDFSDK {
     public:
-        // Untyped PDF SDK context object
+        /// @brief Untyped PDF SDK context object. Needs casting appropriately
         static void    *ctx;
 
-        // Constructor
+        /// @brief PDF SDK constructor
         explicit ArlingtonPDFSDK()
             { /* constructor */ ctx = nullptr; };
 
-        // Initialize the PDF SDK. Throws exceptions on error.
+        /// @briefInitialize the PDF SDK. Throws exceptions on error.
         void initialize(bool enable_debugging);
 
-        // Shutdown the PDF SDK
+        /// @brief Shutdown the PDF SDK
         void shutdown();
 
-        // Get human-readable version string
+        /// @brief Get human-readable version string of PDF SDK
         std::string get_version_string();
 
-        // Open a PDF file (no password) and returns trailer object.
+        /// @brief Open a PDF file (no password) and returns trailer object.
         ArlPDFTrailer *get_trailer(std::filesystem::path pdf_filename);
+
+        /// @brief Get the PDF version of a PDF file
+        std::string ArlingtonPDFSDK::get_pdf_version(ArlPDFTrailer* trailer);
     };
 
-} // namespace
+}; // namespace
 
 #endif // ArlingtonPDFShim_h
