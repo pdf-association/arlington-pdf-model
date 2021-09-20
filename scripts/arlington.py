@@ -1527,6 +1527,7 @@ if __name__ == '__main__':
     cli_parser.add_argument('-d', '--debug', help="enable debug logging (verbose!)", action="store_const", dest="loglevel", const=logging.DEBUG, default=logging.WARNING)
     cli_parser.add_argument('-i', '--info', help="enable informative logging", action="store_const", dest="loglevel", const=logging.INFO)
     cli_parser.add_argument('-p', '--pdf', help="input PDF file", default=None, dest="pdffile")
+    cli_parser.add_argument('-o', '--out', help="output directory", default=".", dest="outdir")
     cli = cli_parser.parse_args()
 
     logging.basicConfig(level=cli.loglevel)
@@ -1554,8 +1555,28 @@ if __name__ == '__main__':
         if os.path.isfile(cli.pdffile):
             print("Processing '%s'..." % cli.pdffile)
             arl.validate_pdf_file(cli.pdffile)
+        elif os.path.isdir(cli.pdffile):
+            print("Processing directory '%s'..." % cli.pdffile)
+            for pdf in glob.iglob(os.path.join(cli.pdffile, r"*.pdf")):
+                outf = os.path.join(os.path.normpath(cli.outdir), os.path.splitext(os.path.basename(pdf))[0])
+                while (os.path.isfile(outf + ".txt")):
+                    outf = outf + "_"
+                outf = outf + ".txt"
+                print("Processing '%s' to '%s'..." % (pdf, outf))
+                try:
+                    oldstdout = sys.stdout
+                    oldstderr = sys.stderr
+                    sys.stdout = sys.stderr = open(outf, "w")
+                    arl.validate_pdf_file(pdf)
+                except Exception as e:
+                    print("Exception: " + str(e))
+                    traceback.print_exception(type(e), e, e.__traceback__)
+                finally:
+                    sys.stdout.close()
+                    sys.stdout = oldstdout
+                    sys.stderr = oldstderr
         else:
-            print("'%s' is not a valid file!" % cli.pdffile)
+            print("'%s' is not a valid file or directory!" % cli.pdffile)
             sys.exit()
 
     print("Done.")
