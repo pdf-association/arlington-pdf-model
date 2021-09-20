@@ -39,6 +39,8 @@ pip3 install sly pikepdf
 qpdf --version
 # Colorized JSON output (long!)
 jq -C '.' json.json | more
+# Count the number of PDF objects in Arlington
+jq 'keys[]' json.json | wc -l
 # select a specific key in a specific PDF object
 jq '.PageObject.CropBox' json.json
 # list all the keys in Arlington as quoted strings
