@@ -10,26 +10,26 @@ An example Jupyter Notebook is provided at [Arlington.ipynb](Arlington.ipynb).
 
 ###  [arlington-fn-lex.py](arlington-fn-lex.py)
 
-This script syntactically validates (i.e. tries to parse) all predicates in the Arlington PDF model. Predicate parse errors (such as typos) will result in a Python exception and premature failure. This should be one of the first tests done when adding or changing predicates.
+This script syntactically validates (i.e. tries to parse) all predicates in the Arlington PDF model. Output is the AST produced by the [Python Sly parser](https://sly.readthedocs.io/en/latest/). Predicate parsing errors (such as typos) will result in a Python exception and premature failure. This should be one of the first tests done when adding or changing predicates, or working out how to construct a valid predicate.
 
 ```
 Usage: arlington-fn-lex.py [- | files ]
 ```
 
-Normal usage with Arlington PDF model (Linux CLI):
+Example usage (Linux CLI):
 
 ```bash
-echo "fn:Eval(@key,-27,1.23,'string',path::key1,((expr1==expr2) && (a!=b)" || (4>3))) | python3 arlington-fn-lex.py
-$ grep --color=never -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" ../tsv/latest/*.tsv | sort | uniq | python3 arlington-fn-lex.py
+echo "fn:Eval(@key,-27,1.23,'string',path::key1,((expr1==expr2) && (a!=b) || (4>3)))" | python3 arlington-fn-lex.py
+grep --color=never -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" ../tsv/latest/*.tsv | sort | uniq | python3 arlington-fn-lex.py
 ```
 
 ### [arlington.py](arlington.py)
 
 This is the main PoC mega-script and can:
 
-1. convert an Arlington TSV data set into an in-memory Python representation and save out to pure JSON, which can then processed by `jq`. Use `-j/``--json`
-1. perform a detailed validation of the Arlington Python representation, including attempted lexing of all predicates. Use `--validate`
-1. save the Python representation as a 'pretty-print' which is more friendly for simple Linux commands such as `grep`, etc. but is technically invalid JSON and **not** suitable for `jq`. See `-s`/`--save`
+1. convert an Arlington TSV data set into an in-memory Python representation and save out to pure JSON, which can then processed by `jq`. Use `-j/``--json`.
+1. perform a detailed validation of the Arlington Python in-memory representation read in from an Arlington TSV file set, including attempted lexing of all predicates. Use `--validate`
+1. save the Python representation as a 'pretty-print' which is more friendly for simple Linux commands such as `grep`, etc. but is technically invalid JSON and **not** suitable for `jq`. See `-s`/`--save`.
 1. validates a PDF file, or folder of PDFs, against the Arlington model using `pikepdf`. See `-p`/`--pdf` and `-o`/`--out`
 
 It relies on the [Python Sly parser](https://sly.readthedocs.io/en/latest/) and `pikepdf` [doco](pikepdf.readthedocs.io/) which is Python wrapper on top of [QPDF](https://github.com/qpdf/qpdf).
@@ -37,7 +37,17 @@ It relies on the [Python Sly parser](https://sly.readthedocs.io/en/latest/) and 
 ```bash
 pip3 install sly pikepdf
 qpdf --version
+# Colorized JSON output (long!)
+jq -C '.' json.json | more
+# select a specific key in a specific PDF object
+jq '.PageObject.CropBox' json.json
+# list all the keys in Arlington as quoted strings
+jq 'add | keys[]' json.json
+# List the keys in a specific PDF object as an array
+jq '.PageObject | keys' json.json
 ```
+
+A useful JQ cookbook is [here](https://github.com/stedolan/jq/wiki/Cookbook).
 
 ---
 
