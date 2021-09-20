@@ -29,14 +29,18 @@
 using namespace ArlingtonPDFShim;
 using namespace PDFixSDK;
 
+Pdfix_statics;
+
 void* ArlingtonPDFSDK::ctx;
+
 struct pdfix_context {
-  Pdfix* pdfix;
-  PdfDoc* doc = nullptr;
-  ~pdfix_context() {
-    if (doc) doc->Close();
-    pdfix->Destroy();
-  }
+    Pdfix* pdfix;
+    PdfDoc* doc = nullptr;
+    ~pdfix_context() {
+        if (doc != nullptr) 
+            doc->Close();
+        pdfix->Destroy();
+    }
 };
 
 /// @brief Initialize the PDF SDK. May throw exceptions.
@@ -148,13 +152,23 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
     return nullptr;
 }
 
-ArlPDFObject::ArlPDFObject(void* obj) :object(obj)
+
+/// @brief constructor
+/// @param[in] obj 
+ArlPDFObject::ArlPDFObject(void* obj) : object(obj)
 {
-  is_indirect = false;
-  if (object == nullptr)
-    return;
-  is_indirect = (get_object_number() != 0);
+    is_indirect = false;
+    if (object == nullptr)
+        return;
+    is_indirect = (get_object_number() != 0);
 }
+
+
+/// @brief destructor
+ArlPDFObject::~ArlPDFObject() {
+
+}
+
 
 /// @brief  Returns the PDF object type of an object
 /// @return PDFObjectType enum value
