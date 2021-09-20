@@ -16,6 +16,9 @@
 
 #include "ArlingtonPDFShim.h"
 
+/// @file
+/// Compares an Arlington PDF model to the Adobe DVA FormalRep as defined in a PDF
+
 #include <exception>
 #include <queue>
 #include <map>

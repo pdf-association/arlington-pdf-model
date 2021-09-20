@@ -14,7 +14,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-/// @file A wafer-thin shim layer to isolate the PDFix SDK library from the rest of the
+/// @file 
+/// A wafer-thin shim layer to isolate the PDFix SDK library from the rest of the
 /// Arlington PDF Model proof-of-concept C++ application. Performance overhead issues 
 /// are considered irrelevant. See https://pdfix.github.io/pdfix_sdk_builds/en/6.1.0/html/.
 

@@ -14,6 +14,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+/// @file
+/// General utility functions
+
 #define  _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNINGS
 #define  _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 

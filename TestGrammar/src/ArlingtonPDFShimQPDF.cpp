@@ -14,7 +14,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-/// @file A wafer-thin shim layer to isolate the QPDF SDK library from the rest of the
+/// @file 
+/// A wafer-thin shim layer to isolate the QPDF SDK library from the rest of the
 /// Arlington PDF Model proof-of-concept C++ application. Performance and memory 
 /// overhead issues are considered irrelevant. See http://qpdf.sourceforge.net/files/qpdf-manual.html
 

@@ -14,6 +14,10 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+/// @file
+/// TestGrammar proof-of-concept main program: command line option processing,
+/// initialization of PDF SKD, setting up output streams, etc.
+
 #ifdef _MSC_VER
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
@@ -49,7 +53,7 @@ std::wostream wcnull(0);
 /// @param[in] tsv_folder the folder with the Arlington TSV model files
 /// @param[in] pdfsdk  the already initiated PDF SDK library to use
 /// @param[in,out] ofs already open file stream for output
-/// @param[in] terse   terser style output (will sort/uniq better)
+/// @param[in] terse   terse style (abbreviated) output (will sort| uniq better under Linux CLI)
 void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, bool terse)
 {
     try

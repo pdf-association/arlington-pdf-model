@@ -13,10 +13,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-/*!
-  Reading the whole PDF starting from specific object and validating against grammar
-  provided via an Arlington TSV file set
-*/
+/// @file
+/// Reads the whole PDF starting from specific object and validating against grammar
+/// provided via an Arlington TSV file set
 
 #include <fstream>
 #include <sstream>

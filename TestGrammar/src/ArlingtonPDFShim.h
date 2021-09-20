@@ -195,7 +195,7 @@ namespace ArlingtonPDFShim {
         explicit ArlingtonPDFSDK()
             { /* constructor */ ctx = nullptr; };
 
-        /// @briefInitialize the PDF SDK. Throws exceptions on error.
+        /// @brief Initialize the PDF SDK. Throws exceptions on error.
         void initialize(bool enable_debugging);
 
         /// @brief Shutdown the PDF SDK
@@ -208,7 +208,7 @@ namespace ArlingtonPDFShim {
         ArlPDFTrailer *get_trailer(std::filesystem::path pdf_filename);
 
         /// @brief Get the PDF version of a PDF file
-        std::string ArlingtonPDFSDK::get_pdf_version(ArlPDFTrailer* trailer);
+        std::string get_pdf_version(ArlPDFTrailer* trailer);
     };
 
 }; // namespace

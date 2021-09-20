@@ -14,6 +14,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+/// @file
+/// A left-to-right, recursive descent regex-based parser for Arlington predicates.
+
 #include <exception>
 #include <iterator>
 #include <algorithm>
