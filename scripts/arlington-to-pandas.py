@@ -56,11 +56,6 @@ def ArlingtonToPandas(dir: str, pandas_fname: str):
                      'DefaultValue', 'PossibleValues', 'SpecialCase', 'Link',
                      'Note']
 
-     {'Object':str, 'Key':str, 'Type':str, 'SinceVersion':str, 'DeprecatedIn':str,
-     'Required':str, 'IndirectReference':str, 'Inheritable':str,
-     'DefaultValue':str, 'PossibleValues':str, 'SpecialCase':str, 'Link':str,
-     'Note':str}
-
     with open(pandas_fname, 'w', newline='') as pandasfile:
         pandaswriter = csv.DictWriter(pandasfile, fieldnames=pandas_fields,
                                       delimiter='\t', quoting=csv.QUOTE_MINIMAL)
