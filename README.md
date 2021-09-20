@@ -249,7 +249,11 @@ Links may also be wrapped in the `fn:Deprecated` or `fn:SinceVersion` predicates
 
 # Proof of Concept Implementations
 
-All PoCs are command line based with builtin help if no command line arguments are provided.
+All PoCs are command line based with built-in help if no command line arguments are provided. Command line options for all Python scripts and TestGrammar C++ PoC are the same to keep things simple.
+
+## Python scripts
+
+The scripts folder contains several Python3 scripts and an example Jupyter Notebook which are cross-platform (tested on both Windows and Linux). See [scripts/README.md](scripts/README.md).
 
 ## TestGrammar (C++17)
 
@@ -294,23 +298,6 @@ QUERIES:
 
 The XML version of the PDF DOM grammar (one XML file per PDF version) is created from the TSV files and written to `./xml`. All of the answers to queries are based on processing the XML files in `./xml`.
 
-## Python3 scripts
-
-The script `arlington-to-pandas.py` will concatenate an entire Arlington TSV file set into a single large TSV file with an additional first column representing the Arlington TSV filename. This combined TSV is then suitable for processing in Jupyter Notebooks with pandas, etc.
-
-
-The main Python3 PoC mega-script is [arlington.py](scripts/arlington.py). This script can:
-
-1. convert an Arlington TSV data set into an in-memory Python representation and save out to JSON
-1. perform a detailed validation of the Arlington Python representation, including attempted lexing of all predicates
-1. save the Python representation as a 'pretty-print' which is more friendly for Linux commands, etc. but technically invalid JSON
-1. validates a PDF file against the Arlington model using `pikepdf`
-
-It relies on the [Python Sly parser](https://sly.readthedocs.io/en/latest/) and `pikepdf` [doco](pikepdf.readthedocs.io/) which is Python wrapper on top of [QPDF](https://github.com/qpdf/qpdf),
-
-```bash
-pip3 install sly pikepdf
-```
 
 ## Linux commands
 
@@ -408,8 +395,6 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 ## gcxml utility
 - confirm that the XML produced from the TSV data with formulas is still valid
-
-## Python scripts
 - confirm why some PDF objects from later PDF versions end up in earlier versions
 
 ---
