@@ -182,9 +182,10 @@ class Arlington:
         @param ast: AST to be validated.
         @returns: True if a valid 'fn:ArrayLength' function. False otherwise
         """
-        if (len(ast) == 1) and (ast[0].type in ('KEY_NAME', 'INTEGER')):
+        if ((len(ast) == 1) and
+            not isinstance(ast[0], list) and (ast[0].type in ('KEY_NAME', 'INTEGER'))):
             return True
-        elif (len(ast) > 1) and isinstance(ast[0], list):
+        elif (len(ast) >= 1) and isinstance(ast[0], list):
             return True
         elif (len(ast) > 1) and (ast[0].type == 'KEY_PATH') and (ast[1].type == 'KEY_NAME'):
             return True
@@ -243,12 +244,12 @@ class Arlington:
         """
         return True   # TODO!!!!!
 
-    def validate_fn_is_get_page_number(self, ast: AST) -> bool:
+    def validate_fn_get_page_property(self, ast: AST) -> bool:
         """
         @param ast: AST to be validated.
         @returns: True if a valid function. False otherwise
         """
-        if (len(ast) == 1) and (ast[0].type == 'KEY_VALUE'):
+        if (len(ast) >= 2) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in ['KEY_NAME', 'KEY_PATH']):
             return True
         return False
 
@@ -413,12 +414,11 @@ class Arlington:
         'fn:BitSet(': validate_fn_bit,
         'fn:BitsClear(': validate_fn_bits,
         'fn:BitsSet(': validate_fn_bits,
-        'fn:CreatedFromNamePageObj(': validate_fn_void,
         'fn:Deprecated(': validate_fn_version,
         'fn:Eval(': validate_fn_eval,
         'fn:FileSize(': validate_fn_void,
         'fn:FontHasLatinChars(': validate_fn_void,
-        'fn:GetPageNumber(': validate_fn_is_get_page_number,
+        'fn:PageProperty(': validate_fn_get_page_property,
         'fn:Ignore(': validate_fn_ignore,
         'fn:ImageIsStructContentItem(': validate_fn_void,
         'fn:ImplementationDependent(': validate_fn_void,
@@ -427,7 +427,6 @@ class Arlington:
         'fn:IsEncryptedWrapper(': validate_fn_void,
         'fn:IsLastInNumberFormatArray(': validate_fn_void,
         'fn:IsMeaningful(': validate_fn_is_meaningful,
-        'fn:IsPageNumber(': validate_fn_is_get_page_number,
         'fn:IsPDFTagged(': validate_fn_void,
         'fn:IsPDFVersion(': validate_fn_version,
         'fn:IsPresent(': validate_fn_is_present,
@@ -855,8 +854,6 @@ class Arlington:
                     if isinstance(v, list):
                         if (v[0].type != 'FUNC_NAME') and (v[0].value != 'fn:IsRequired('):
                             logging.error("Required function '%s' does not start with 'fn:IsRequired' for %s::%s", row['Required'], obj_name, keyname)
-                    if (r'*' in keyname) and isinstance(v, bool) and (v is not False):
-                        logging.error("Required needs to be FALSE for wildcard key '%s' in %s!", keyname, obj_name)
 
                 if (isinstance(row['IndirectReference'], list) and (len(row['IndirectReference']) > 1)):
                     if (len(row['Type']) != len(row['IndirectReference'])):
@@ -1018,7 +1015,7 @@ class Arlington:
                                 logging.debug("Found %s for %s::%s", obj_name, f, k)
 
             logging.debug("Found %d links to '%s'", found, obj_name)
-            if (found == 0):
+            if (found == 0) and (obj_name != "FileTrailer") and (obj_name != "XRefStream"):
                 logging.critical("Unlinked object %s!", obj_name)
 
     def process_matrix(self, mtx: pikepdf.Array, pth: str) -> None:
