@@ -44,7 +44,6 @@ import org.xml.sax.SAXException;
  * @author fero
  */
 public class XMLQuery {
-    private final String grammar_version = Gcxml.grammar_version;
     private String inputFolder;
     
     private DocumentBuilderFactory domFactory = null;

@@ -20,44 +20,46 @@ import java.io.File;
  * @author fero
  */
 public class Gcxml {
-    /// gcxml version string
-    public static final String grammar_version = "0.5.0";
+    /**
+     * GCXML version string
+     */ 
+    public static final String Gcxml_version = "0.5.0";
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        final String delimiter = "\t";
-        final double[] pdf_versions = {1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0};
+        final char delimiter = '\t';
+        
         String inputFolder = System.getProperty("user.dir") + "/tsv/latest/";
         File folder = new File(inputFolder);
         File[] listOfFiles = folder.listFiles();
 
-
         if (args.length > 0) {
             String argument = args[0];
-            System.out.println("gcxml " + grammar_version);
+            System.out.println("gcxml " + Gcxml_version);
             switch (argument) {
                 // run -xml and -tsv at once for all pdf versions
                 case "-all":
-                    for (int i = 0; i < pdf_versions.length; i++ ) {
-                        XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, String.valueOf(pdf_versions[i]));
-                        xmlcreator.convertFile();
+                    for (int i = 0; i < TSVHandler.pdf_version.length; i++ ) {
+                        XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter);
+                        xmlcreator.createXML(String.valueOf(TSVHandler.pdf_version[i]));
                     }
-                    TSVUpdater tsv = new TSVUpdater();
+                    TSVHandler tsv = new TSVHandler();
+                    tsv.createAllVersionsTSV();
                     break;
                     
-                // create grammar in xml format for each pdf version from the latest tsv files.
+                // create grammar in XML format for a specific PDF version from the latest TSV files
                 case "-xml":
                     if ((args.length > 1) && (!args[1].isEmpty())) {
                         String pdf_version = args[1];
-                        XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, pdf_version);
-                        xmlcreator.convertFile();
+                        XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter);
+                        xmlcreator.createXML(pdf_version);
                     }
                     else {
-                        for (int i = 0; i < pdf_versions.length; i++ ) {
-                            XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter, String.valueOf(pdf_versions[i]));
-                            xmlcreator.convertFile();
+                        for (int i = 0; i < TSVHandler.pdf_version.length; i++ ) {
+                            XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter);
+                            xmlcreator.createXML(String.valueOf(TSVHandler.pdf_version[i]));
                         }
                     }
                     break;
@@ -134,7 +136,8 @@ public class Gcxml {
                     break;
 
                 case "-tsv":
-                    TSVUpdater tsv2 = new TSVUpdater();
+                    TSVHandler tsv2 = new TSVHandler();
+                    tsv2.createAllVersionsTSV();
                     break;
 
                 case "-sc":
@@ -159,7 +162,7 @@ public class Gcxml {
     private static void showHelp() {
         // general info about the gxcml
         System.out.println("GENERAL:");
-        System.out.println("\t-version\t\tprint version information (current: " + grammar_version + ")");
+        System.out.println("\t-version\t\tprint version information (current: " + Gcxml_version + ")");
         System.out.println("\t-help\t\t\tshow list of available commands");
         // converting to other formats
         System.out.println("CONVERSIONS:");

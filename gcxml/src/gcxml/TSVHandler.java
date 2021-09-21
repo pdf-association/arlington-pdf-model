@@ -28,16 +28,17 @@ import java.util.logging.Logger;
  *
  * @author fero
  */
-public class TSVUpdater {
+public class TSVHandler {
+    
     /**
      * Complex Arlington "Type" fields can be reduced due to predicates.
      * This reduction then needs to be mirrored across other TSV fields
      * so that the number of SEMI-COLON separated elements matches.
      */
-    class TypeListModifier {
-        String      input_types;
-        String      output_types;
-        boolean[]   input_was_reduced; 
+    public class TypeListModifier {
+        private String      input_types;
+        private String      output_types;
+        private boolean[]   input_was_reduced; 
         
         /**
          * Constructor. Default is that the input and output are the same,
@@ -54,7 +55,8 @@ public class TSVUpdater {
         }
         
         /**
-         * Returns true if something has been reduced
+         * Returns true if something has been reduced due to versioning
+         * 
          * @return true if something has been reduced
          */
         public boolean somethingReduced() {
@@ -103,34 +105,50 @@ public class TSVUpdater {
             }
             return out_str;
         } 
-    }
-    
-    /**
-    * The list of valid supported PDF versions
-    */
-    final double[] pdf_version = {1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0};
-    
-    /**
-    * The path to the latest TSV file set (typically "tsv/latest")
-    */
-    static String path_to_tsv_files = "";
-    
-    /**
-    * Constructor. Deletes existing PDF version TSV sub-folders!
-    */
-    public TSVUpdater(){
-        path_to_tsv_files = System.getProperty("user.dir") + "/tsv/latest/";
-        for(double x : pdf_version){
-            deleteContent(x);
-            createTSV(x);
+        
+        /**
+         * Returns the reduced Types list, accounting for the PDF version
+         * @return the reduce Types list as a String
+         */
+        public String getReducedTypes() {
+            return output_types;
         }
     }
     
     /**
-    * Creates a TSV file set for the specified PDF version
-    * @param version  the PDF version between 1.0 to 2.0 inclusive
-    */
-    private void createTSV(double version) {
+     * The list of all valid supported PDF versions
+     */
+    public final static double[] pdf_version = {1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0};
+    
+    /**
+     * The path to the latest TSV file set (typically "tsv/latest")
+     */
+    private static String path_to_tsv_files = "";
+    
+    /**
+     * Constructor. 
+     */
+    public TSVHandler(){
+        path_to_tsv_files = System.getProperty("user.dir") + "/tsv/latest/";
+    }
+
+    /**
+     * Creates TSV file sets for all the PDF versions, based on 'path_to_tsv_files'
+     * Deletes all existing PDF version sub-folders and files!
+     */
+    public void createAllVersionsTSV() {
+        for (double x : pdf_version) {
+            deleteTSVset(x);
+            createTSVset(x);
+        }
+    }
+
+    /**
+     * Creates a TSV file set for the specified PDF version
+     * 
+     * @param version  the PDF version between 1.0 to 2.0 inclusive
+     */
+    private void createTSVset(double version) {
         final String delimiter = "\t";
         
         File folder = new File(path_to_tsv_files);
@@ -238,22 +256,22 @@ public class TSVUpdater {
                     }
                 } 
                 catch (FileNotFoundException ex) {
-                    Logger.getLogger(TSVUpdater.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TSVHandler.class.getName()).log(Level.SEVERE, null, ex);
                 } 
                 catch (IOException ex) {
-                    Logger.getLogger(TSVUpdater.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TSVHandler.class.getName()).log(Level.SEVERE, null, ex);
                 } // catch
             } // if file OK
         } // for file
     }
 
     /**
-    * Writes a new TSV file to a specified PDF version folder
-    * 
-    * @param output_string string the tab-separated multi-line string to write
-    * @param file the filename (i.e. PDF object)
-    * @param version the PDF version used to select the sub-folder
-    */
+     * Writes a new TSV file to a specified PDF version folder
+     * 
+     * @param output_string string the tab-separated multi-line string to write
+     * @param file the filename (i.e. PDF object)
+     * @param version the PDF version used to select the sub-folder
+     */
     private void writeToFile(String output_string, String file, double version) {
         BufferedWriter out = null;
         
@@ -273,21 +291,21 @@ public class TSVUpdater {
                 try {
                     out.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(TSVUpdater.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TSVHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
 
     /**
-    * Deletes an entire PDF version specific folder of all Arlington TSV files
-    * 
-    * @param x  the PDF version (1.0, 1.1, ..., 2.0)
-    */
-    private void deleteContent(double x) {        
+     * Deletes an entire PDF version specific folder of all Arlington TSV files
+     * 
+     * @param x  the PDF version (1.0, 1.1, ..., 2.0)
+     */
+    private void deleteTSVset(double ver) {        
         String path = "";
         path +=  System.getProperty("user.dir") + "/tsv/";
-        path += x + "/";
+        path += ver + "/";
         
         File folder = new File(path);
         var list_of_files = folder.listFiles();
@@ -306,7 +324,7 @@ public class TSVUpdater {
      * @param s  the string
      * @return -1 if no matching bracket pair or IndexOf matching ")" in string
      */
-    private int indexOfOuterCloseBracket(String s) {
+    public int indexOfOuterCloseBracket(String s) {
         int nested = 0;
         int i = 0;
         
@@ -327,21 +345,21 @@ public class TSVUpdater {
 
     
     /**
-    * Processes an atomic Arlington entry that might contain version
-    * predicates and reduces it appropriately for the specified PDF version.
-    *
-    * Version-specific predicates ONLY that are supported:
-    * - fn:SinceVersion(x.y,zzz): keep/strip if version &gt;= x.y else remove
-    * - fn:BeforeVersion(x.y,zzz): keep/strip if x.y &lt; version else remove
-    * - fn:Deprecated(x.y,zzz): strip if version &lt; x.y else keep as-is with predicate
-    * - fn:IsPDFVersion(x.y,zzz): keep/strip if version == x.y else remove
-    *
-    * @param str     the atomic element from an Arlington TSV file
-    * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
-    * 
-    * @return the version-reduced equivalent appropriate for the version
-    */
-   private String reduceAtomicForVersion(String str, double version) {
+     * Processes an atomic Arlington entry that might contain version
+     * predicates and reduces it appropriately for the specified PDF version.
+     *
+     * Version-specific predicates ONLY that are supported:
+     * - fn:SinceVersion(x.y,zzz): keep/strip if version &gt;= x.y else remove
+     * - fn:BeforeVersion(x.y,zzz): keep/strip if x.y &lt; version else remove
+     * - fn:Deprecated(x.y,zzz): strip if version &lt; x.y else keep as-is with predicate
+     * - fn:IsPDFVersion(x.y,zzz): keep/strip if version == x.y else remove
+     *
+     * @param str     the atomic element from an Arlington TSV file
+     * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
+     * 
+     * @return the version-reduced equivalent appropriate for the version
+     */
+   public String reduceAtomicForVersion(String str, double version) {
         if ((str.isBlank()) || (!str.contains("fn:"))) {
             return str;
         }
@@ -390,15 +408,15 @@ public class TSVUpdater {
     }
     
     /**
-    * Processes an Arlington Type field that might contain version
-    * predicates and reduces it appropriately for the specified PDF version.
-    *
-    * @param str     the Type field from an Arlington TSV file
-    * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
-    *
-    * @return a TypeListModifier object, summarizing what happened
-    */
-    private TypeListModifier reduceTypesForVersion(String str, double version) {
+     * Processes an Arlington Type field that might contain version
+     * predicates and reduces it appropriately for the specified PDF version.
+     *
+     * @param str     the Type field from an Arlington TSV file
+     * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
+     *
+     * @return a TypeListModifier object, summarizing what happened
+     */
+    public TypeListModifier reduceTypesForVersion(String str, double version) {
         TypeListModifier  obj = new TypeListModifier(str);
         
         if ((str.isBlank()) || (!str.contains("fn:"))) {
@@ -431,15 +449,15 @@ public class TSVUpdater {
     }
     
     /**
-    * Processes any complex Arlington field ([];[];[]) that might contain version
-    * predicates and reduces it appropriately for the specified PDF version.
-    *
-    * @param str     the Link field from an Arlington TSV file
-    * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
-    * 
-    * @return the version-reduced equivalent appropriate for the version
-    */
-    private String reduceComplexForVersion(String str, double version) {
+     * Processes any complex Arlington field ([];[];[]) that might contain version
+     * predicates and reduces it appropriately for the specified PDF version.
+     *
+     * @param str     the Link field from an Arlington TSV file
+     * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
+     * 
+     * @return the version-reduced equivalent appropriate for the version
+     */
+    public String reduceComplexForVersion(String str, double version) {
         if ((str.isBlank()) || (!str.contains("fn:"))) {
             return str;
         }
@@ -512,19 +530,24 @@ public class TSVUpdater {
     
     
     /**
-    * Processes an Arlington "Required" field that might contain version
-    * predicates and reduces it appropriately for the specified PDF version.
-    * Outer predicate is always "fn:IsRequired(...)". Examples include:
-    * - fn:IsRequired(fn:SinceVersion(1.5))
-    * - fn:IsRequired(fn:BeforeVersion(1.3) || fn:IsPresent(SomeKey))
-    * - fn:IsRequired(fn:SinceVersion(2.0) || fn:AnotherPredicate(...))
-    *
-    * @param reqd     the Required field from an Arlington TSV file
-    * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
-    * 
-    * @return the version-reduced equivalent appropriate for the version
-    */
-    private String reduceRequiredForVersion(String reqd, double version) {
+     * Processes an Arlington "Required" field that might contain version
+     * predicates and reduces it appropriately for the specified PDF version.
+     * Outer predicate is always "fn:IsRequired(...)". Examples include:
+     * - fn:IsRequired(fn:SinceVersion(1.5))
+     * - fn:IsRequired(fn:BeforeVersion(1.3) || fn:IsPresent(SomeKey))
+     * - fn:IsRequired(fn:SinceVersion(2.0) || fn:AnotherPredicate(...))
+     *
+     * @param reqd     the Required field from an Arlington TSV file
+     * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
+     * 
+     * @return the version-reduced equivalent appropriate for the version
+     */
+    public String reduceRequiredForVersion(String reqd, double version) {
+        if (reqd.equals("TRUE") || reqd.equals("FALSE")) {
+            return reqd;
+        }
+        
+        assert (reqd.length() > 30) : "fnIsRequired() is too short!";
         String r = reqd.substring(14, reqd.length()-1);
         String tsv_ver;
         
