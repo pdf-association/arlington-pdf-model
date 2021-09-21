@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <!-- definition of simple elements -->
+
+  <!-- Key name or array index (integer). Or wildcard -->
   <xs:element name="NAME" type="xs:string"/>
+  
   <xs:element name="VALUE">
       <xs:complexType>
       <xs:simpleContent>
@@ -11,8 +13,11 @@
       </xs:simpleContent>
     </xs:complexType>
   </xs:element>
+  
   <xs:element name="REQUIRED" type="xs:boolean"/>
-  <xs:element name="INDIRECT_REFERENCE" type="xs:boolean"/>
+  
+  <xs:element name="INHERITABLE" type="xs:boolean"/>
+
   <xs:element name="INTRODUCED">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -28,11 +33,11 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
+  
   <xs:element name="DEPRECATED" nillable="true">
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:enumeration value=""/>
-        <xs:enumeration value="1.0"/>
         <xs:enumeration value="1.1"/>
         <xs:enumeration value="1.2"/>
         <xs:enumeration value="1.3"/>
@@ -44,6 +49,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
+  
   <xs:element name="SPECIAL_CASE" type="xs:string"/>
 
   <!-- definition of attributes -->
@@ -51,28 +57,42 @@
   <xs:attribute name="type">
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:enumeration value="integer"/>
-        <xs:enumeration value="number"/>
-        <xs:enumeration value="name"/>
+        <xs:enumeration value="array"/>
+        <xs:enumeration value="bitmask"/>
         <xs:enumeration value="boolean"/>
+        <xs:enumeration value="date"/>
+        <xs:enumeration value="dictionary"/>
+        <xs:enumeration value="integer"/>
+        <xs:enumeration value="matrix"/>
+        <xs:enumeration value="name"/>
+        <xs:enumeration value="name-tree"/>
+        <xs:enumeration value="null"/>
+        <xs:enumeration value="number"/>
+        <xs:enumeration value="number-tree"/>
+        <xs:enumeration value="rectangle"/>
+        <xs:enumeration value="stream"/>
         <xs:enumeration value="string"/>
         <xs:enumeration value="string-ascii"/>
         <xs:enumeration value="string-byte"/>
         <xs:enumeration value="string-text"/>
-        <xs:enumeration value="stream"/>
-        <xs:enumeration value="dictionary"/>
-        <xs:enumeration value="array"/>
-        <xs:enumeration value="rectangle"/>
-        <xs:enumeration value="date"/>
-        <xs:enumeration value="name-tree"/>
-        <xs:enumeration value="number-tree"/>
-        <xs:enumeration value="null"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:attribute>
+  
+  <!-- file number in Arlington file set when sorted alphabetically -->
   <xs:attribute name="object_number" type="xs:integer"/>
+  
   <xs:attribute name="grammar_version" type="xs:string"/>
-  <xs:attribute name="iso_ref" type="xs:string"/>
+  
+  <!-- for now, always "ISO 32000-2:2020" -->
+  <xs:attribute name="iso_ref">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="ISO 32000-2:2020"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+  
   <xs:attribute name="pdf_version">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -101,6 +121,7 @@
       <xs:attribute ref="iso_ref"/>
     </xs:complexType>
   </xs:element>
+  
   <xs:element name="OBJECT">
     <xs:complexType>
       <xs:sequence>
@@ -110,19 +131,22 @@
       <xs:attribute ref="object_number"/>
     </xs:complexType>
   </xs:element>
+  
   <xs:element name="ENTRY">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="NAME" minOccurs="1" maxOccurs="1"/>
-        <xs:element ref="VALUES" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="VALUES" minOccurs="0" maxOccurs="1"/>
         <xs:element ref="REQUIRED" minOccurs="1" maxOccurs="1"/>
         <xs:element ref="INDIRECT_REFERENCE" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="INHERITABLE" minOccurs="1" maxOccurs="1"/>
         <xs:element ref="INTRODUCED" minOccurs="1" maxOccurs="1"/>
-        <xs:element ref="DEPRECATED" minOccurs="1" maxOccurs="1"/>
-        <xs:element ref="SPECIAL_CASE" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="DEPRECATED" minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="SPECIAL_CASE" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  
   <xs:element name="VALUES">
     <xs:complexType>
       <xs:sequence>
@@ -130,4 +154,13 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+
+  <xs:element name="INDIRECT_REFERENCE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="VALUE" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>

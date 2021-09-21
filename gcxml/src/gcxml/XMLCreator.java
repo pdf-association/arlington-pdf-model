@@ -153,39 +153,39 @@ public class XMLCreator {
 
                             // <NAME> node: name of the key
                             Element name_elem = nodeName(column_values[0]);
+                            assert (name_elem != null) : "Node element was null!";
                             Element introduced_elem = nodeIntroduced(column_values[2]);
+                            assert (introduced_elem != null) : "Introduced element was null!";
                             Element deprecated_elem = nodeDeprecated(column_values[3]);
                             Element required_elem = nodeRequired(column_values[4]);
-                            Element indirect_reference_elem = nodeIndirectReference(column_values[5]);
+                            assert (required_elem != null) : "Required element was null!";
+                            Element indirect_reference_elem = nodeIndirectReference(column_values[1], column_values[5]);
+                            assert (indirect_reference_elem != null) : "IndirectReference element was null!";
                             Element inheritable = nodeInheritable(column_values[6]);
+                            assert (inheritable != null) : "Inheritable element was null!";
                             Element special_case_elem = nodeSpecialCase(column_values[9]);
-
-
+ 
                             // <VALUE> node: possible values that can be used for the entry
                             // colValues[1]: type
                             // colValues[10]: links
                             // colValues[6], colValues[7], colValues[8]: other values (optional)
                             Element value_elem = nodeValues(column_values[1], column_values[7], column_values[8], column_values[10]);
 
-                            if ((name_elem != null) && 
-                                    (value_elem != null) && 
-                                    (introduced_elem != null) &&
-                                    (deprecated_elem != null) && 
-                                    (required_elem != null) && 
-                                    (indirect_reference_elem != null) &&
-                                    (special_case_elem != null)) {
-                                //append elements to entry
-                                entry_elem.appendChild(name_elem);
+                            //append elements to entry
+                            entry_elem.appendChild(name_elem);
+                            if (value_elem != null)  
                                 entry_elem.appendChild(value_elem);
-                                entry_elem.appendChild(required_elem);
-                                entry_elem.appendChild(indirect_reference_elem);
-                                entry_elem.appendChild(inheritable);
-                                entry_elem.appendChild(introduced_elem);
+                            entry_elem.appendChild(required_elem);
+                            entry_elem.appendChild(indirect_reference_elem);
+                            entry_elem.appendChild(inheritable);
+                            entry_elem.appendChild(introduced_elem);
+                            if (deprecated_elem != null)
                                 entry_elem.appendChild(deprecated_elem);
+                            if (special_case_elem != null) 
                                 entry_elem.appendChild(special_case_elem);
-                                // append elements to object
-                                object_elem.appendChild(entry_elem);
-                            }
+
+                            // append elements to object
+                            object_elem.appendChild(entry_elem);
                         } 
                         else {
                             System.out.println("\tDropped key: " + current_entry);
@@ -256,11 +256,15 @@ public class XMLCreator {
      * 
      * @param col_value  the TSV "DeprecatedIn" field (column 4). Can be empty.
      * 
-     * @return a valid Element (always)
+     * @return a valid Element or null
      */
     private Element nodeDeprecated(String col_value) {
-        Element temp_elem = new_doc.createElement("DEPRECATED");
-        temp_elem.appendChild(new_doc.createTextNode(col_value));
+        Element temp_elem = null;
+        
+        if (!col_value.isBlank()) {
+            temp_elem = new_doc.createElement("DEPRECATED");
+            temp_elem.appendChild(new_doc.createTextNode(col_value));
+        }    
         return temp_elem;
     }
     
@@ -288,25 +292,42 @@ public class XMLCreator {
      * Creates an XML "INDIRECT_REFERENCE" element representing whether the 
      * current key/array index is required to be direct, indirect or either.
      * 
+     * @param types   the TSV "Types" string which may be multi-typed
      * @param col_value  the TSV "IndirectReference" field which can be complex,
      *  FALSE, TRUE or a predicate. Column 6.
      * 
-     * @return a valid Element (always)
+     * @return a valid Element with children (always)
      */
-    private Element nodeIndirectReference(String col_value) {
+    private Element nodeIndirectReference(String types, String col_value) {
         Element temp_elem = new_doc.createElement("INDIRECT_REFERENCE");
-        if (col_value.startsWith("fn:")) {
-            temp_elem.appendChild(new_doc.createTextNode(col_value));
-        }
-        else if ((col_value.equals("TRUE")) || (col_value.equals("FALSE"))) {
-            temp_elem.appendChild(new_doc.createTextNode(col_value.toLowerCase()));
+        Element value;
+        
+        String type_arr[] = types.split(";");
+        String ir_arr[];
+        
+        if (col_value.contains(";")) {
+            ir_arr= col_value.split(";");
         }
         else {
-            String ir_arr[] = col_value.split(";");
-            for (String ir : ir_arr) {
-                ir = ir.substring(1, ir.length()-1); // strip [ and ]
-                temp_elem.appendChild(new_doc.createTextNode(col_value.toLowerCase()));
+            ir_arr = new String[type_arr.length];
+            for (int i = 0; i < ir_arr.length; i++)
+                ir_arr[i] = col_value;
+        }
+        assert (ir_arr.length == type_arr.length) : "Mismatched Type and IndirectRef arrays!";
+            
+        for (int i = 0; i < type_arr.length; i++) {
+            if (ir_arr[i].charAt(0) == '[') {
+                // strip [ and ]
+                ir_arr[i] = ir_arr[i].substring(1, ir_arr[i].length()-1); 
             }
+
+            if ((ir_arr[i].equals("TRUE")) || (ir_arr[i].equals("FALSE"))) {
+                value = createNodeValue(type_arr[i], ir_arr[i].toLowerCase());
+            }
+            else {
+                value = createNodeValue(types, ir_arr[i]);
+            }
+            temp_elem.appendChild(value);
         }
         return temp_elem;
     }
@@ -347,11 +368,13 @@ public class XMLCreator {
      * @param col_value  the TSV "SpecialCase" field which can be anything.
      * Column 10.
      * 
-     * @return a valid Element
+     * @return a valid Element or null 
      */
     private Element nodeSpecialCase(String col_value) {
-        Element temp_elem = new_doc.createElement("SPECIAL_CASE");
+        Element temp_elem = null;
         if (!col_value.isBlank()) {
+            temp_elem = new_doc.createElement("SPECIAL_CASE");
+            col_value = col_value.substring(1, col_value.length()-1); // strip [ and ]
             temp_elem.appendChild(new_doc.createTextNode(col_value));
         }
         return temp_elem;
@@ -374,17 +397,19 @@ public class XMLCreator {
         
         String[] types = type.split(";");
         String[] arr_links = links.split(";");
+        assert (types.length == arr_links.length) : "Types and Links are different lengths!";
+        assert (!type.contains("fn:")) : "Types contained a predicate!";
+
         String[] pos_values = null;
         if (!possible_values.isBlank()) {
             pos_values = possible_values.split(";");
         }
+        
         String[] dft_values = null;
         if (!default_value.isBlank()) {
             dft_values = default_value.split(";");
         }
                 
-        assert (types.length == arr_links.length) : "Types and Links are not the same length!";
-        assert (!type.contains("fn:")) : "Types contained a predicate!";
         assert ((pos_values != null) && (pos_values.length == arr_links.length)) : "PossibleValues and Links are not the same length!";
         assert ((dft_values != null) && (dft_values.length == arr_links.length)) : "DefaultValue and Links are not the same length!";
         
@@ -436,6 +461,7 @@ public class XMLCreator {
                         else {
                             a = "";
                         }
+                        assert (!s.isBlank()) : "Adding empty value!";
                         value = createNodeValue(t, s);
                         values_elem.appendChild(value);
                     }
@@ -447,8 +473,8 @@ public class XMLCreator {
                     assert (pos_values[i].charAt(0) == '[') : "No opening [ on PossibleValue";
                     assert (pos_values[i].charAt(pos_values[i].length()-1) == ']') : "No closing ] on PossibleValue";
                     String a = pos_values[i].substring(1, pos_values[i].length() - 1);
+
                     // COMMAs are ambiguous: separators or inside predicates?
-                    
                     while (!a.isBlank()) {
                         if (a.startsWith("fn:")) {
                             // get up to closing bracket )
@@ -482,46 +508,34 @@ public class XMLCreator {
                                 a = "";
                             }
                             value = createNodeValue(t, s);
-                            values_elem.appendChild(value);
-                        }
+                            values_elem.appendChild(value);                        }
                     } // while
-                }
-                else {
-                    // No PossibleValue - use empty value
-                    value = createNodeValue(t, "");
-                    values_elem.appendChild(value);
-                }
+                } // if PossibleValues
                 
                 // DefaultValue only makes sense for basic types
                 if (dft_values != null) {
                     Element default_elem = new_doc.createElement("DEFAULT_VALUE");
-                    if (dft_values[i].charAt(0) == '[') {
-                        // strip off [ and ]
-                        dft_values[i] = dft_values[i].substring(1, dft_values[i].length() - 1);
-                    }
-                    // Account for degenerate "[]"    
-                    if (dft_values[i].length() > 0) {
-                        value = createNodeValue(t, dft_values[i]);
-                        values_elem.appendChild(value);
-                    }
+                    value = createNodeValue(t, dft_values[i]);
+                    values_elem.appendChild(value);
                 }
             }
         } // for-each type
         
-        return values_elem;
+        if (values_elem.hasChildNodes())
+            return values_elem;
+        else
+            return null;
     }
 
    /**
-     * Creates a single "VALUE" element
+     * Creates a single "VALUE" element for a Type t with value
      * 
      * @param t      an Arlington type (just one)
-     * @param value  the value for the VALUE node, possibly with [ and ]
+     * @param value  the value for the VALUE node
      * @return       a new XML VALUE element
      */
     private Element createNodeValue(String t, String value) {
         Element valueElem = new_doc.createElement("VALUE");
-        value = value.replace("[", "");
-        value = value.replace("]", "");
         valueElem.setAttribute("type", t);
         valueElem.appendChild(new_doc.createTextNode(value));
         return valueElem;
