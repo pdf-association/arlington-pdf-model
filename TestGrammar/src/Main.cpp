@@ -205,12 +205,14 @@ int main(int argc, char* argv[]) {
     // --pdf can be a folder or a file
     s.clear();
     (void)sarge.getFlag("pdf", s);
-    input_file = fs::absolute(s);
+    if (!s.empty())
+        input_file = fs::absolute(s);
 
     // --out can be a folder or a file
     s.clear();
     (void)sarge.getFlag("out", s);
-    save_path = fs::absolute(s);
+    if (!s.empty())
+        save_path = fs::absolute(s);
 
     if (debug_mode) {
         std::cout << "Arlington TSV folder: " << grammar_folder << std::endl;
