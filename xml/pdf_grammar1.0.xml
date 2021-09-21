@@ -47,6 +47,7 @@
          <NAME>Border</NAME>
          <VALUES>
             <VALUE type="array">ArrayOf_4AnnotBorderCharacteristics</VALUE>
+            <VALUE isDefaultValue="true" type="array">[0 0 1]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -121,6 +122,7 @@
          <NAME>Border</NAME>
          <VALUES>
             <VALUE type="array">ArrayOf_4AnnotBorderCharacteristics</VALUE>
+            <VALUE isDefaultValue="true" type="array">[0 0 1]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -132,7 +134,7 @@
       <ENTRY>
          <NAME>Open</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -151,7 +153,7 @@
             <VALUE type="name">NewParagraph</VALUE>
             <VALUE type="name">Paragraph</VALUE>
             <VALUE type="name">Insert</VALUE>
-            <VALUE type="name">Note</VALUE>
+            <VALUE isDefaultValue="true" type="name">Note</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -170,7 +172,7 @@
             <VALUE type="string-text">'Cancelled'</VALUE>
             <VALUE type="string-text">'Completed'</VALUE>
             <VALUE type="string-text">'None'</VALUE>
-            <VALUE type="string-text">fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))</VALUE>
+            <VALUE isDefaultValue="true" type="string-text">fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -180,9 +182,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfAnnots" object_number="002">
+   <OBJECT id="ArrayOfAnnots" isArray="true" object_number="002">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">AnnotText</VALUE>
             <VALUE type="dictionary">AnnotLink</VALUE>
@@ -195,9 +197,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfCompressionFilterNames" object_number="003">
+   <OBJECT id="ArrayOfCompressionFilterNames" isArray="true" object_number="003">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="name">ASCIIHexDecode</VALUE>
             <VALUE type="name">ASCII85Decode</VALUE>
@@ -212,9 +214,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDecodeParams" object_number="004">
+   <OBJECT id="ArrayOfDecodeParams" isArray="true" object_number="004">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">FilterLZWDecode</VALUE>
             <VALUE type="dictionary">FilterCCITTFaxDecode</VALUE>
@@ -229,9 +231,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDifferences" object_number="005">
+   <OBJECT id="ArrayOfDifferences" isArray="true" object_number="005">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
@@ -241,9 +243,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfFilterNames" object_number="006">
+   <OBJECT id="ArrayOfFilterNames" isArray="true" object_number="006">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="name">ASCIIHexDecode</VALUE>
             <VALUE type="name">ASCII85Decode</VALUE>
@@ -260,9 +262,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfIntegersGeneral" object_number="007">
+   <OBJECT id="ArrayOfIntegersGeneral" isArray="true" object_number="007">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
@@ -271,9 +273,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfNamesForProcSet" object_number="008">
+   <OBJECT id="ArrayOfNamesForProcSet" isArray="true" object_number="008">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="name">PDF</VALUE>
             <VALUE type="name">Text</VALUE>
@@ -290,9 +292,9 @@
          <DEPRECATED>1.4</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfNumbersGeneral" object_number="009">
+   <OBJECT id="ArrayOfNumbersGeneral" isArray="true" object_number="009">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
@@ -301,9 +303,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfPageTreeNodeKids" object_number="010">
+   <OBJECT id="ArrayOfPageTreeNodeKids" isArray="true" object_number="010">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">PageTreeNode</VALUE>
             <VALUE type="dictionary">PageObject</VALUE>
@@ -316,9 +318,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfStreamsGeneral" object_number="011">
+   <OBJECT id="ArrayOfStreamsGeneral" isArray="true" object_number="011">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="stream">Stream</VALUE>
          </VALUES>
@@ -330,7 +332,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4AnnotBorderCharacteristics" object_number="012">
+   <OBJECT id="ArrayOf_4AnnotBorderCharacteristics" isArray="true" object_number="012">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -402,7 +404,7 @@
             <VALUE type="name">TwoColumnRight</VALUE>
             <VALUE type="name">TwoPageLeft</VALUE>
             <VALUE type="name">TwoPageRight</VALUE>
-            <VALUE type="name">SinglePage</VALUE>
+            <VALUE isDefaultValue="true" type="name">SinglePage</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -420,7 +422,7 @@
             <VALUE type="name">FullScreen</VALUE>
             <VALUE type="name">UseOC</VALUE>
             <VALUE type="name">UseAttachments</VALUE>
-            <VALUE type="name">UseNone</VALUE>
+            <VALUE isDefaultValue="true" type="name">UseNone</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -444,7 +446,7 @@
       <ENTRY>
          <NAME>NeedsRendering</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -457,7 +459,7 @@
    </OBJECT>
    <OBJECT id="CharProcMap" object_number="014">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="stream">Stream</VALUE>
          </VALUES>
@@ -471,7 +473,7 @@
    </OBJECT>
    <OBJECT id="ColorSpaceMap" object_number="015">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="array">IndexedColorSpace</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
@@ -487,7 +489,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest0" object_number="016">
+   <OBJECT id="Dest0" isArray="true" object_number="016">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -515,7 +517,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest1" object_number="017">
+   <OBJECT id="Dest1" isArray="true" object_number="017">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -554,7 +556,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest4" object_number="018">
+   <OBJECT id="Dest4" isArray="true" object_number="018">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -622,7 +624,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DestXYZ" object_number="019">
+   <OBJECT id="DestXYZ" isArray="true" object_number="019">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -815,7 +817,7 @@
       <ENTRY>
          <NAME>K</NAME>
          <VALUES>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -827,7 +829,7 @@
       <ENTRY>
          <NAME>EndOfLine</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -839,7 +841,7 @@
       <ENTRY>
          <NAME>EncodedByteAlign</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -852,7 +854,7 @@
          <NAME>Columns</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval(@Columns&gt;=0)</VALUE>
-            <VALUE type="integer">1728</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1728</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -865,7 +867,7 @@
          <NAME>Rows</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval(@Rows&gt;=0)</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -877,7 +879,7 @@
       <ENTRY>
          <NAME>EndOfBlock</NAME>
          <VALUES>
-            <VALUE type="boolean">true</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">true</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -889,7 +891,7 @@
       <ENTRY>
          <NAME>BlackIs1</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -902,7 +904,7 @@
          <NAME>DamagedRowsBeforeError</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval(@DamagedRowsBeforeError&gt;=0)</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -952,7 +954,7 @@
          <NAME>Colors</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval((@Colors&gt;=1) &amp;&amp; fn:BeforeVersion(1.3,fn:Eval(@Colors&lt;=4)))</VALUE>
-            <VALUE type="integer">1</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -969,7 +971,7 @@
             <VALUE type="integer">2</VALUE>
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">8</VALUE>
-            <VALUE type="integer">8</VALUE>
+            <VALUE isDefaultValue="true" type="integer">8</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -982,7 +984,7 @@
       <ENTRY>
          <NAME>Columns</NAME>
          <VALUES>
-            <VALUE type="integer">1</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -997,7 +999,7 @@
          <VALUES>
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
-            <VALUE type="integer">1</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1081,7 +1083,7 @@
       <ENTRY>
          <NAME>Leading</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1102,7 +1104,7 @@
       <ENTRY>
          <NAME>XHeight</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1123,7 +1125,7 @@
       <ENTRY>
          <NAME>StemH</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1135,7 +1137,7 @@
       <ENTRY>
          <NAME>AvgWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1147,7 +1149,7 @@
       <ENTRY>
          <NAME>MaxWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1159,7 +1161,7 @@
       <ENTRY>
          <NAME>MissingWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1243,7 +1245,7 @@
       <ENTRY>
          <NAME>Leading</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1264,7 +1266,7 @@
       <ENTRY>
          <NAME>XHeight</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1285,7 +1287,7 @@
       <ENTRY>
          <NAME>StemH</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1297,7 +1299,7 @@
       <ENTRY>
          <NAME>AvgWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1309,7 +1311,7 @@
       <ENTRY>
          <NAME>MaxWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1321,7 +1323,7 @@
       <ENTRY>
          <NAME>MissingWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1418,7 +1420,7 @@
       <ENTRY>
          <NAME>Leading</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1439,7 +1441,7 @@
       <ENTRY>
          <NAME>XHeight</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1460,7 +1462,7 @@
       <ENTRY>
          <NAME>StemH</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1472,7 +1474,7 @@
       <ENTRY>
          <NAME>AvgWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1484,7 +1486,7 @@
       <ENTRY>
          <NAME>MaxWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1496,7 +1498,7 @@
       <ENTRY>
          <NAME>MissingWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1549,7 +1551,7 @@
    </OBJECT>
    <OBJECT id="FontMap" object_number="030">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">FontType1</VALUE>
             <VALUE type="dictionary">FontTrueType</VALUE>
@@ -1994,7 +1996,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="IndexedColorSpace" object_number="035">
+   <OBJECT id="IndexedColorSpace" isArray="true" object_number="035">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -2242,7 +2244,7 @@
       <ENTRY>
          <NAME>CropBox</NAME>
          <VALUES>
-            <VALUE type="rectangle">@MediaBox</VALUE>
+            <VALUE isDefaultValue="true" type="rectangle">@MediaBox</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2269,7 +2271,7 @@
          <NAME>Rotate</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval((@Rotate mod 90)==0)</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2377,7 +2379,7 @@
       <ENTRY>
          <NAME>CropBox</NAME>
          <VALUES>
-            <VALUE type="rectangle">@MediaBox</VALUE>
+            <VALUE isDefaultValue="true" type="rectangle">@MediaBox</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2390,7 +2392,7 @@
          <NAME>Rotate</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval((@Rotate mod 90)==0)</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2461,7 +2463,7 @@
       <ENTRY>
          <NAME>CropBox</NAME>
          <VALUES>
-            <VALUE type="rectangle">@MediaBox</VALUE>
+            <VALUE isDefaultValue="true" type="rectangle">@MediaBox</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2474,7 +2476,7 @@
          <NAME>Rotate</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval((@Rotate mod 90)==0)</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2719,7 +2721,7 @@
       <ENTRY>
          <NAME>Matrix</NAME>
          <VALUES>
-            <VALUE type="matrix">[1 0 0 1 0 0]</VALUE>
+            <VALUE isDefaultValue="true" type="matrix">[1 0 0 1 0 0]</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2872,7 +2874,7 @@
       <ENTRY>
          <NAME>ImageMask</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2897,7 +2899,7 @@
       <ENTRY>
          <NAME>Interpolate</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2974,7 +2976,7 @@
    </OBJECT>
    <OBJECT id="XObjectMap" object_number="046">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="stream">XObjectFormType1</VALUE>
             <VALUE type="stream">XObjectImage</VALUE>

@@ -4,11 +4,16 @@ Java-based proof of concept CLI utility that can:
 
 1. convert an Arlington TSV file set into PDF version specific subsets
 
-1. convert an Arlington TSV file set into XML files that are valid based on [schema](/xml/schema/objects.xsd)
+1. convert an Arlington TSV file set into XML files that are valid based on [this XSD schema](/xml/schema/arlington-pdf.xsd).
+    - This can be verified using `xmllint --noout --schema xml/schema/arlington-pdf.xsd xml/pdf_grammarX.Y.xml`
 
 1. gives answers to various researcher-type queries
 
 To compile, run `ant` from this directory or use [Apache NetBeans](https://netbeans.apache.org/). Output JAR will be in `dist/gcxml.jar`.
+
+## Notes
+
+- The [schema](/xml/schema/arlington-pdf.xsd) has been updated as a result of predicates and a more complex Arlington internal grammar. See [INTERNAL_GRAMMAR.md](../INTERNAL_GRAMMAR.md) for details.
 
 ## Usage
 
@@ -35,6 +40,6 @@ QUERIES:
 
 **Note**: output might be too long to display in terminal, so it is recommended to always redirect the output to file.
 
-The XML version of the PDF DOM grammar (one XML file per PDF version) is created from the TSV files and written to the XML subfolder.
+The XML version of the PDF DOM grammar (one XML file per PDF version called `pdf_grammarX.Y.xml`) is created from the TSV files and written to the `./xml/` subfolder.
 
-All of the answers to queries are based on processing the XML files in the `xml` folder in the top-level folder.
+All of the answers to queries are based on processing the XML files in the `./xml/` folder in the top-level folder.

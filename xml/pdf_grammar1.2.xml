@@ -237,7 +237,7 @@
       <ENTRY>
          <NAME>H</NAME>
          <VALUES>
-            <VALUE type="boolean">true</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">true</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -500,7 +500,7 @@
             <VALUE type="name">Stop</VALUE>
             <VALUE type="name">Pause</VALUE>
             <VALUE type="name">Resume</VALUE>
-            <VALUE type="name">Play</VALUE>
+            <VALUE isDefaultValue="true" type="name">Play</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -644,7 +644,7 @@
          <VALUES>
             <VALUE type="bitmask">0</VALUE>
             <VALUE type="bitmask">1</VALUE>
-            <VALUE type="bitmask">0</VALUE>
+            <VALUE isDefaultValue="true" type="bitmask">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -724,7 +724,7 @@
          <NAME>Volume</NAME>
          <VALUES>
             <VALUE type="number">fn:Eval((@Volume&gt;=-1) &amp;&amp; (@Volume&lt;=1))</VALUE>
-            <VALUE type="number">1.0</VALUE>
+            <VALUE isDefaultValue="true" type="number">1.0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -737,7 +737,7 @@
       <ENTRY>
          <NAME>Synchronous</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -750,7 +750,7 @@
       <ENTRY>
          <NAME>Repeat</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -763,7 +763,7 @@
       <ENTRY>
          <NAME>Mix</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -815,7 +815,7 @@
       <ENTRY>
          <NAME>Flags</NAME>
          <VALUES>
-            <VALUE type="bitmask">0</VALUE>
+            <VALUE isDefaultValue="true" type="bitmask">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -997,7 +997,7 @@
       <ENTRY>
          <NAME>IsMap</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1251,7 +1251,7 @@
       <ENTRY>
          <NAME>F</NAME>
          <VALUES>
-            <VALUE type="bitmask">0</VALUE>
+            <VALUE isDefaultValue="true" type="bitmask">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1286,6 +1286,7 @@
          <NAME>Border</NAME>
          <VALUES>
             <VALUE type="array">ArrayOf_4AnnotBorderCharacteristics</VALUE>
+            <VALUE isDefaultValue="true" type="array">[0 0 1]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1354,7 +1355,7 @@
             <VALUE type="name">I</VALUE>
             <VALUE type="name">O</VALUE>
             <VALUE type="name">P</VALUE>
-            <VALUE type="name">I</VALUE>
+            <VALUE isDefaultValue="true" type="name">I</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1425,7 +1426,7 @@
       <ENTRY>
          <NAME>F</NAME>
          <VALUES>
-            <VALUE type="bitmask">0</VALUE>
+            <VALUE isDefaultValue="true" type="bitmask">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1463,6 +1464,7 @@
          <NAME>Border</NAME>
          <VALUES>
             <VALUE type="array">ArrayOf_4AnnotBorderCharacteristics</VALUE>
+            <VALUE isDefaultValue="true" type="array">[0 0 1]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1584,7 +1586,7 @@
       <ENTRY>
          <NAME>F</NAME>
          <VALUES>
-            <VALUE type="bitmask">0</VALUE>
+            <VALUE isDefaultValue="true" type="bitmask">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1622,6 +1624,7 @@
          <NAME>Border</NAME>
          <VALUES>
             <VALUE type="array">ArrayOf_4AnnotBorderCharacteristics</VALUE>
+            <VALUE isDefaultValue="true" type="array">[0 0 1]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1670,7 +1673,7 @@
       <ENTRY>
          <NAME>Name</NAME>
          <VALUES>
-            <VALUE type="name">Speaker</VALUE>
+            <VALUE isDefaultValue="true" type="name">Speaker</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1737,7 +1740,7 @@
       <ENTRY>
          <NAME>F</NAME>
          <VALUES>
-            <VALUE type="bitmask">0</VALUE>
+            <VALUE isDefaultValue="true" type="bitmask">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1772,6 +1775,7 @@
          <NAME>Border</NAME>
          <VALUES>
             <VALUE type="array">ArrayOf_4AnnotBorderCharacteristics</VALUE>
+            <VALUE isDefaultValue="true" type="array">[0 0 1]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1804,7 +1808,7 @@
       <ENTRY>
          <NAME>Open</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1823,7 +1827,7 @@
             <VALUE type="name">NewParagraph</VALUE>
             <VALUE type="name">Paragraph</VALUE>
             <VALUE type="name">Insert</VALUE>
-            <VALUE type="name">Note</VALUE>
+            <VALUE isDefaultValue="true" type="name">Note</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1842,7 +1846,7 @@
             <VALUE type="string-text">'Cancelled'</VALUE>
             <VALUE type="string-text">'Completed'</VALUE>
             <VALUE type="string-text">'None'</VALUE>
-            <VALUE type="string-text">fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))</VALUE>
+            <VALUE isDefaultValue="true" type="string-text">fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1908,7 +1912,7 @@
       <ENTRY>
          <NAME>F</NAME>
          <VALUES>
-            <VALUE type="bitmask">0</VALUE>
+            <VALUE isDefaultValue="true" type="bitmask">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1943,6 +1947,7 @@
          <NAME>Border</NAME>
          <VALUES>
             <VALUE type="array">ArrayOf_4AnnotBorderCharacteristics</VALUE>
+            <VALUE isDefaultValue="true" type="array">[0 0 1]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1972,7 +1977,7 @@
             <VALUE type="name">O</VALUE>
             <VALUE type="name">P</VALUE>
             <VALUE type="name">T</VALUE>
-            <VALUE type="name">I</VALUE>
+            <VALUE isDefaultValue="true" type="name">I</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2095,6 +2100,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>R</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="stream">[@N]</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -2104,6 +2112,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>D</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="stream">[@N]</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -2116,7 +2127,7 @@
       <ENTRY>
          <NAME>R</NAME>
          <VALUES>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2225,7 +2236,7 @@
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">5</VALUE>
             <VALUE type="integer">6</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2235,7 +2246,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf4Functions" object_number="021">
+   <OBJECT id="ArrayOf4Functions" isArray="true" object_number="021">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2273,9 +2284,9 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfActions" object_number="022">
+   <OBJECT id="ArrayOfActions" isArray="true" object_number="022">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">ActionGoTo</VALUE>
             <VALUE type="dictionary">ActionGoToR</VALUE>
@@ -2298,9 +2309,9 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfAnnots" object_number="023">
+   <OBJECT id="ArrayOfAnnots" isArray="true" object_number="023">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">AnnotText</VALUE>
             <VALUE type="dictionary">AnnotLink</VALUE>
@@ -2316,9 +2327,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfBeads" object_number="024">
+   <OBJECT id="ArrayOfBeads" isArray="true" object_number="024">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">BeadFirst</VALUE>
             <VALUE type="dictionary">Bead</VALUE>
@@ -2331,9 +2342,9 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfCompressionFilterNames" object_number="025">
+   <OBJECT id="ArrayOfCompressionFilterNames" isArray="true" object_number="025">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="name">ASCIIHexDecode</VALUE>
             <VALUE type="name">ASCII85Decode</VALUE>
@@ -2349,9 +2360,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDashPatterns" object_number="026">
+   <OBJECT id="ArrayOfDashPatterns" isArray="true" object_number="026">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
@@ -2360,9 +2371,9 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDecodeParams" object_number="027">
+   <OBJECT id="ArrayOfDecodeParams" isArray="true" object_number="027">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">FilterLZWDecode</VALUE>
             <VALUE type="dictionary">FilterFlateDecode</VALUE>
@@ -2378,7 +2389,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDescendantFonts" object_number="028">
+   <OBJECT id="ArrayOfDescendantFonts" isArray="true" object_number="028">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -2393,9 +2404,9 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDifferences" object_number="029">
+   <OBJECT id="ArrayOfDifferences" isArray="true" object_number="029">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
@@ -2405,7 +2416,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDuration" object_number="030">
+   <OBJECT id="ArrayOfDuration" isArray="true" object_number="030">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -2435,9 +2446,9 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfFieldID" object_number="031">
+   <OBJECT id="ArrayOfFieldID" isArray="true" object_number="031">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">FieldTx</VALUE>
             <VALUE type="dictionary">FieldBtn</VALUE>
@@ -2453,9 +2464,9 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfFields" object_number="032">
+   <OBJECT id="ArrayOfFields" isArray="true" object_number="032">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">FieldTx</VALUE>
             <VALUE type="dictionary">FieldBtn</VALUE>
@@ -2471,9 +2482,9 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfFilterNames" object_number="033">
+   <OBJECT id="ArrayOfFilterNames" isArray="true" object_number="033">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="name">ASCIIHexDecode</VALUE>
             <VALUE type="name">ASCII85Decode</VALUE>
@@ -2491,9 +2502,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfFunctions" object_number="034">
+   <OBJECT id="ArrayOfFunctions" isArray="true" object_number="034">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -2502,9 +2513,9 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfIntegersGeneral" object_number="035">
+   <OBJECT id="ArrayOfIntegersGeneral" isArray="true" object_number="035">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
@@ -2513,9 +2524,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfNamesForProcSet" object_number="036">
+   <OBJECT id="ArrayOfNamesForProcSet" isArray="true" object_number="036">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="name">PDF</VALUE>
             <VALUE type="name">Text</VALUE>
@@ -2532,9 +2543,9 @@
          <DEPRECATED>1.4</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfNumbersGeneral" object_number="037">
+   <OBJECT id="ArrayOfNumbersGeneral" isArray="true" object_number="037">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
@@ -2543,7 +2554,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfOPI13Color" object_number="038">
+   <OBJECT id="ArrayOfOPI13Color" isArray="true" object_number="038">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2590,9 +2601,9 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfPageTreeNodeKids" object_number="039">
+   <OBJECT id="ArrayOfPageTreeNodeKids" isArray="true" object_number="039">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">PageTreeNode</VALUE>
             <VALUE type="dictionary">PageObject</VALUE>
@@ -2605,9 +2616,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfStreamsGeneral" object_number="040">
+   <OBJECT id="ArrayOfStreamsGeneral" isArray="true" object_number="040">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="stream">Stream</VALUE>
          </VALUES>
@@ -2619,9 +2630,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfTags" object_number="041">
+   <OBJECT id="ArrayOfTags" isArray="true" object_number="041">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
@@ -2631,9 +2642,9 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfThreads" object_number="042">
+   <OBJECT id="ArrayOfThreads" isArray="true" object_number="042">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">Thread</VALUE>
          </VALUES>
@@ -2645,7 +2656,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2DashNumbers" object_number="043">
+   <OBJECT id="ArrayOf_2DashNumbers" isArray="true" object_number="043">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>false</REQUIRED>
@@ -2665,7 +2676,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2Integers" object_number="044">
+   <OBJECT id="ArrayOf_2Integers" isArray="true" object_number="044">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2685,7 +2696,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2Numbers" object_number="045">
+   <OBJECT id="ArrayOf_2Numbers" isArray="true" object_number="045">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2705,7 +2716,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2StringsByte" object_number="046">
+   <OBJECT id="ArrayOf_2StringsByte" isArray="true" object_number="046">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2725,7 +2736,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4AnnotBorderCharacteristics" object_number="047">
+   <OBJECT id="ArrayOf_4AnnotBorderCharacteristics" isArray="true" object_number="047">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -2775,7 +2786,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4Integers" object_number="048">
+   <OBJECT id="ArrayOf_4Integers" isArray="true" object_number="048">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2813,7 +2824,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4NumbersColorAnnotation" object_number="049">
+   <OBJECT id="ArrayOf_4NumbersColorAnnotation" isArray="true" object_number="049">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -2863,7 +2874,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_8Numbers" object_number="050">
+   <OBJECT id="ArrayOf_8Numbers" isArray="true" object_number="050">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2937,7 +2948,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_9Numbers" object_number="051">
+   <OBJECT id="ArrayOf_9Numbers" isArray="true" object_number="051">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -3166,7 +3177,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Blackpoint" object_number="054">
+   <OBJECT id="Blackpoint" isArray="true" object_number="054">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3221,7 +3232,7 @@
          <NAME>W</NAME>
          <VALUES>
             <VALUE type="number">fn:Eval(@W&gt;=0.0)</VALUE>
-            <VALUE type="number">1</VALUE>
+            <VALUE isDefaultValue="true" type="number">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3238,7 +3249,7 @@
             <VALUE type="name">D</VALUE>
             <VALUE type="name">I</VALUE>
             <VALUE type="name">U</VALUE>
-            <VALUE type="name">S</VALUE>
+            <VALUE isDefaultValue="true" type="name">S</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3251,6 +3262,7 @@
          <NAME>D</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfDashPatterns</VALUE>
+            <VALUE isDefaultValue="true" type="array">[3]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3334,7 +3346,7 @@
       <ENTRY>
          <NAME>Leading</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3355,7 +3367,7 @@
       <ENTRY>
          <NAME>XHeight</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3376,7 +3388,7 @@
       <ENTRY>
          <NAME>StemH</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3388,7 +3400,7 @@
       <ENTRY>
          <NAME>AvgWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3400,7 +3412,7 @@
       <ENTRY>
          <NAME>MaxWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3412,7 +3424,7 @@
       <ENTRY>
          <NAME>MissingWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3500,7 +3512,7 @@
          <VALUES>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">0</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3676,7 +3688,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CalGrayColorSpace" object_number="059">
+   <OBJECT id="CalGrayColorSpace" isArray="true" object_number="059">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3719,6 +3731,7 @@
          <NAME>BlackPoint</NAME>
          <VALUES>
             <VALUE type="array">Blackpoint</VALUE>
+            <VALUE isDefaultValue="true" type="array">[0.0 0.0 0.0]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3731,7 +3744,7 @@
          <NAME>Gamma</NAME>
          <VALUES>
             <VALUE type="number">fn:Eval(@Gamma&gt;0)</VALUE>
-            <VALUE type="number">1</VALUE>
+            <VALUE isDefaultValue="true" type="number">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3741,7 +3754,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CalRGBColorSpace" object_number="061">
+   <OBJECT id="CalRGBColorSpace" isArray="true" object_number="061">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3784,6 +3797,7 @@
          <NAME>BlackPoint</NAME>
          <VALUES>
             <VALUE type="array">Blackpoint</VALUE>
+            <VALUE isDefaultValue="true" type="array">[0.0 0.0 0.0]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3796,6 +3810,7 @@
          <NAME>Gamma</NAME>
          <VALUES>
             <VALUE type="array">Gamma</VALUE>
+            <VALUE isDefaultValue="true" type="array">[1.0 1.0 1.0]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3808,6 +3823,7 @@
          <NAME>Matrix</NAME>
          <VALUES>
             <VALUE type="array">ArrayOf_9Numbers</VALUE>
+            <VALUE isDefaultValue="true" type="array">[1 0 0 0 1 0 0 0 1]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3887,7 +3903,7 @@
             <VALUE type="name">TwoColumnRight</VALUE>
             <VALUE type="name">TwoPageLeft</VALUE>
             <VALUE type="name">TwoPageRight</VALUE>
-            <VALUE type="name">SinglePage</VALUE>
+            <VALUE isDefaultValue="true" type="name">SinglePage</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3905,7 +3921,7 @@
             <VALUE type="name">FullScreen</VALUE>
             <VALUE type="name">UseOC</VALUE>
             <VALUE type="name">UseAttachments</VALUE>
-            <VALUE type="name">UseNone</VALUE>
+            <VALUE isDefaultValue="true" type="name">UseNone</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3993,7 +4009,7 @@
       <ENTRY>
          <NAME>NeedsRendering</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -4006,7 +4022,7 @@
    </OBJECT>
    <OBJECT id="CharProcMap" object_number="064">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="stream">Stream</VALUE>
          </VALUES>
@@ -4020,7 +4036,7 @@
    </OBJECT>
    <OBJECT id="ColorSpaceMap" object_number="065">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="array">CalGrayColorSpace</VALUE>
             <VALUE type="array">CalRGBColorSpace</VALUE>
@@ -4041,7 +4057,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest0" object_number="066">
+   <OBJECT id="Dest0" isArray="true" object_number="066">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -4070,7 +4086,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest1" object_number="067">
+   <OBJECT id="Dest1" isArray="true" object_number="067">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -4111,7 +4127,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest4" object_number="068">
+   <OBJECT id="Dest4" isArray="true" object_number="068">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -4196,7 +4212,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DestXYZ" object_number="070">
+   <OBJECT id="DestXYZ" isArray="true" object_number="070">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -4256,7 +4272,7 @@
    </OBJECT>
    <OBJECT id="DestsMap" object_number="071">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="array">DestXYZ</VALUE>
             <VALUE type="array">Dest0</VALUE>
@@ -4423,7 +4439,7 @@
          <NAME>Filter</NAME>
          <VALUES>
             <VALUE type="name">Standard</VALUE>
-            <VALUE type="name">Standard</VALUE>
+            <VALUE isDefaultValue="true" type="name">Standard</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -4545,7 +4561,7 @@
    </OBJECT>
    <OBJECT id="FDDict" object_number="076">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">CIDFontDescriptorMetrics</VALUE>
          </VALUES>
@@ -4677,7 +4693,7 @@
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -4796,7 +4812,7 @@
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -4917,7 +4933,7 @@
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">2</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5012,7 +5028,7 @@
       <ENTRY>
          <NAME>V</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5102,7 +5118,7 @@
       <ENTRY>
          <NAME>K</NAME>
          <VALUES>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5114,7 +5130,7 @@
       <ENTRY>
          <NAME>EndOfLine</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5126,7 +5142,7 @@
       <ENTRY>
          <NAME>EncodedByteAlign</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5139,7 +5155,7 @@
          <NAME>Columns</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval(@Columns&gt;=0)</VALUE>
-            <VALUE type="integer">1728</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1728</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5152,7 +5168,7 @@
          <NAME>Rows</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval(@Rows&gt;=0)</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5164,7 +5180,7 @@
       <ENTRY>
          <NAME>EndOfBlock</NAME>
          <VALUES>
-            <VALUE type="boolean">true</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">true</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5176,7 +5192,7 @@
       <ENTRY>
          <NAME>BlackIs1</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5189,7 +5205,7 @@
          <NAME>DamagedRowsBeforeError</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval(@DamagedRowsBeforeError&gt;=0)</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5239,7 +5255,7 @@
          <NAME>Colors</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval((@Colors&gt;=1) &amp;&amp; fn:BeforeVersion(1.3,fn:Eval(@Colors&lt;=4)))</VALUE>
-            <VALUE type="integer">1</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5256,7 +5272,7 @@
             <VALUE type="integer">2</VALUE>
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">8</VALUE>
-            <VALUE type="integer">8</VALUE>
+            <VALUE isDefaultValue="true" type="integer">8</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5269,7 +5285,7 @@
       <ENTRY>
          <NAME>Columns</NAME>
          <VALUES>
-            <VALUE type="integer">1</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5304,7 +5320,7 @@
          <NAME>Colors</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval((@Colors&gt;=1) &amp;&amp; fn:BeforeVersion(1.3,fn:Eval(@Colors&lt;=4)))</VALUE>
-            <VALUE type="integer">1</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5321,7 +5337,7 @@
             <VALUE type="integer">2</VALUE>
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">8</VALUE>
-            <VALUE type="integer">8</VALUE>
+            <VALUE isDefaultValue="true" type="integer">8</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5334,7 +5350,7 @@
       <ENTRY>
          <NAME>Columns</NAME>
          <VALUES>
-            <VALUE type="integer">1</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5349,7 +5365,7 @@
          <VALUES>
             <VALUE type="integer">0</VALUE>
             <VALUE type="integer">1</VALUE>
-            <VALUE type="integer">1</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5420,7 +5436,7 @@
       <ENTRY>
          <NAME>DW</NAME>
          <VALUES>
-            <VALUE type="number">1000</VALUE>
+            <VALUE isDefaultValue="true" type="number">1000</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5445,6 +5461,7 @@
          <NAME>DW2</NAME>
          <VALUES>
             <VALUE type="array">ArrayOf_2Numbers</VALUE>
+            <VALUE isDefaultValue="true" type="array">[880 -1000]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5552,7 +5569,7 @@
       <ENTRY>
          <NAME>DW</NAME>
          <VALUES>
-            <VALUE type="number">1000</VALUE>
+            <VALUE isDefaultValue="true" type="number">1000</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5577,6 +5594,7 @@
          <NAME>DW2</NAME>
          <VALUES>
             <VALUE type="array">ArrayOf_2Numbers</VALUE>
+            <VALUE isDefaultValue="true" type="array">[880 -1000]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5697,7 +5715,7 @@
       <ENTRY>
          <NAME>Leading</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5718,7 +5736,7 @@
       <ENTRY>
          <NAME>XHeight</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5739,7 +5757,7 @@
       <ENTRY>
          <NAME>StemH</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5751,7 +5769,7 @@
       <ENTRY>
          <NAME>AvgWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5763,7 +5781,7 @@
       <ENTRY>
          <NAME>MaxWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5775,7 +5793,7 @@
       <ENTRY>
          <NAME>MissingWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5922,7 +5940,7 @@
       <ENTRY>
          <NAME>Leading</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5943,7 +5961,7 @@
       <ENTRY>
          <NAME>XHeight</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5964,7 +5982,7 @@
       <ENTRY>
          <NAME>StemH</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5976,7 +5994,7 @@
       <ENTRY>
          <NAME>AvgWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5988,7 +6006,7 @@
       <ENTRY>
          <NAME>MaxWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6000,7 +6018,7 @@
       <ENTRY>
          <NAME>MissingWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6147,7 +6165,7 @@
       <ENTRY>
          <NAME>Leading</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6168,7 +6186,7 @@
       <ENTRY>
          <NAME>XHeight</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6189,7 +6207,7 @@
       <ENTRY>
          <NAME>StemH</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6201,7 +6219,7 @@
       <ENTRY>
          <NAME>AvgWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6213,7 +6231,7 @@
       <ENTRY>
          <NAME>MaxWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6225,7 +6243,7 @@
       <ENTRY>
          <NAME>MissingWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6335,7 +6353,7 @@
       <ENTRY>
          <NAME>Leading</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6356,7 +6374,7 @@
       <ENTRY>
          <NAME>XHeight</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6377,7 +6395,7 @@
       <ENTRY>
          <NAME>StemH</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6389,7 +6407,7 @@
       <ENTRY>
          <NAME>AvgWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6401,7 +6419,7 @@
       <ENTRY>
          <NAME>MaxWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6413,7 +6431,7 @@
       <ENTRY>
          <NAME>MissingWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6533,7 +6551,7 @@
       <ENTRY>
          <NAME>Leading</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6554,7 +6572,7 @@
       <ENTRY>
          <NAME>XHeight</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6575,7 +6593,7 @@
       <ENTRY>
          <NAME>StemH</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6587,7 +6605,7 @@
       <ENTRY>
          <NAME>AvgWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6599,7 +6617,7 @@
       <ENTRY>
          <NAME>MaxWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -6611,7 +6629,7 @@
       <ENTRY>
          <NAME>MissingWidth</NAME>
          <VALUES>
-            <VALUE type="number">0</VALUE>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -7025,7 +7043,7 @@
    </OBJECT>
    <OBJECT id="FontMap" object_number="099">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">FontType1</VALUE>
             <VALUE type="dictionary">FontTrueType</VALUE>
@@ -7742,7 +7760,7 @@
          <VALUES>
             <VALUE type="integer">1</VALUE>
             <VALUE type="integer">3</VALUE>
-            <VALUE type="integer">1</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -7768,6 +7786,7 @@
          <NAME>Decode</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+            <VALUE isDefaultValue="true" type="array">@Range</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -7778,12 +7797,12 @@
          <SPECIAL_CASE>fn:Eval((fn:ArrayLength(Decode) mod 2)==0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Gamma" object_number="106">
+   <OBJECT id="Gamma" isArray="true" object_number="106">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
             <VALUE type="number">fn:Eval(@0&gt;=0)</VALUE>
-            <VALUE type="number">1</VALUE>
+            <VALUE isDefaultValue="true" type="number">1</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -7796,7 +7815,7 @@
          <NAME>1</NAME>
          <VALUES>
             <VALUE type="number">fn:Eval(@1&gt;=0)</VALUE>
-            <VALUE type="number">1</VALUE>
+            <VALUE isDefaultValue="true" type="number">1</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -7809,7 +7828,7 @@
          <NAME>2</NAME>
          <VALUES>
             <VALUE type="number">fn:Eval(@2&gt;=0)</VALUE>
-            <VALUE type="number">1</VALUE>
+            <VALUE isDefaultValue="true" type="number">1</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -7916,7 +7935,7 @@
    </OBJECT>
    <OBJECT id="GraphicsStateParameterMap" object_number="108">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">GraphicsStateParameter</VALUE>
          </VALUES>
@@ -7987,6 +8006,27 @@
          <NAME>SpotFunction</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfFunctions</VALUE>
+            <VALUE type="stream">SimpleDot</VALUE>
+            <VALUE type="stream">InvertedSimpleDot</VALUE>
+            <VALUE type="stream">DoubleDot</VALUE>
+            <VALUE type="stream">InvertedDoubleDot</VALUE>
+            <VALUE type="stream">CosineDot</VALUE>
+            <VALUE type="stream">Double</VALUE>
+            <VALUE type="stream">InvertedDouble</VALUE>
+            <VALUE type="stream">Line</VALUE>
+            <VALUE type="stream">LineX</VALUE>
+            <VALUE type="stream">LineY</VALUE>
+            <VALUE type="stream">Round</VALUE>
+            <VALUE type="stream">Ellipse</VALUE>
+            <VALUE type="stream">EllipseA</VALUE>
+            <VALUE type="stream">InvertedEllipseA</VALUE>
+            <VALUE type="stream">EllipseB</VALUE>
+            <VALUE type="stream">EllipseC</VALUE>
+            <VALUE type="stream">InvertedEllipseC</VALUE>
+            <VALUE type="stream">Square</VALUE>
+            <VALUE type="stream">Cross</VALUE>
+            <VALUE type="stream">Rhomboid</VALUE>
+            <VALUE type="stream">Diamond</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8000,7 +8040,7 @@
       <ENTRY>
          <NAME>AccurateScreens</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8011,6 +8051,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>TransferFunction</NAME>
+         <VALUES>
+            <VALUE type="stream">Identity</VALUE>
+         </VALUES>
          <REQUIRED>fn:IsRequired(parent::@HalftoneType==5)</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="name">false</VALUE>
@@ -8080,6 +8123,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>TransferFunction</NAME>
+         <VALUES>
+            <VALUE type="stream">Identity</VALUE>
+         </VALUES>
          <REQUIRED>fn:IsRequired(parent::@HalftoneType==5)</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="name">false</VALUE>
@@ -8139,7 +8185,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">HalftoneType1</VALUE>
             <VALUE type="stream">HalftoneType6</VALUE>
@@ -8215,6 +8261,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>TransferFunction</NAME>
+         <VALUES>
+            <VALUE type="stream">Identity</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="name">false</VALUE>
@@ -8224,7 +8273,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="IndexedColorSpace" object_number="113">
+   <OBJECT id="IndexedColorSpace" isArray="true" object_number="113">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -8240,13 +8289,17 @@
       <ENTRY>
          <NAME>1</NAME>
          <VALUES>
+            <VALUE type="array">CalGrayColorSpace</VALUE>
+            <VALUE type="array">CalRGBColorSpace</VALUE>
+            <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">SeparationColorSpace</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="fn:SinceVersion(1.1,array)">false</VALUE>
+            <VALUE type="array">false</VALUE>
             <VALUE type="name">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
@@ -8294,7 +8347,7 @@
       <ENTRY>
          <NAME>NeedAppearances</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8340,7 +8393,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabColorSpace" object_number="115">
+   <OBJECT id="LabColorSpace" isArray="true" object_number="115">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -8404,12 +8457,12 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabRange" object_number="117">
+   <OBJECT id="LabRange" isArray="true" object_number="117">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
             <VALUE type="number">fn:Eval(@0&lt;=@1)</VALUE>
-            <VALUE type="number">-100</VALUE>
+            <VALUE isDefaultValue="true" type="number">-100</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8422,7 +8475,7 @@
          <NAME>1</NAME>
          <VALUES>
             <VALUE type="number">fn:Eval(@1&gt;=@0)</VALUE>
-            <VALUE type="number">100</VALUE>
+            <VALUE isDefaultValue="true" type="number">100</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8435,7 +8488,7 @@
          <NAME>2</NAME>
          <VALUES>
             <VALUE type="number">fn:Eval(@2&lt;=@3)</VALUE>
-            <VALUE type="number">-100</VALUE>
+            <VALUE isDefaultValue="true" type="number">-100</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8448,7 +8501,7 @@
          <NAME>3</NAME>
          <VALUES>
             <VALUE type="number">fn:Eval(@3&gt;=@2)</VALUE>
-            <VALUE type="number">100</VALUE>
+            <VALUE isDefaultValue="true" type="number">100</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8532,7 +8585,7 @@
       <ENTRY>
          <NAME>P</NAME>
          <VALUES>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8568,7 +8621,7 @@
          <VALUES>
             <VALUE type="string-ascii">'open'</VALUE>
             <VALUE type="string-ascii">'print'</VALUE>
-            <VALUE type="string-ascii">'open'</VALUE>
+            <VALUE isDefaultValue="true" type="string-ascii">'open'</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8621,7 +8674,7 @@
          <NAME>Rotate</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval((@Rotate mod 90)==0)</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8651,8 +8704,9 @@
          <NAME>Start</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfDuration</VALUE>
-            <VALUE type="integer">[fn:Eval(@Start&gt;0)]</VALUE>
-            <VALUE type="string-byte">[fn:Eval(fn:StringLength(Start)==8)]</VALUE>
+            <VALUE isDefaultValue="true" type="array">[]</VALUE>
+            <VALUE isDefaultValue="true" type="integer">[fn:Eval(@Start&gt;0)]</VALUE>
+            <VALUE isDefaultValue="true" type="string-byte">[fn:Eval(fn:StringLength(Start)==8)]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8668,8 +8722,9 @@
          <NAME>Duration</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfDuration</VALUE>
-            <VALUE type="integer">[fn:Eval(@Duration&gt;0)]</VALUE>
-            <VALUE type="string-byte">[fn:Eval(fn:StringLength(Duration)==8)]</VALUE>
+            <VALUE isDefaultValue="true" type="array">[]</VALUE>
+            <VALUE isDefaultValue="true" type="integer">[fn:Eval(@Duration&gt;0)]</VALUE>
+            <VALUE isDefaultValue="true" type="string-byte">[fn:Eval(fn:StringLength(Duration)==8)]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8684,7 +8739,7 @@
       <ENTRY>
          <NAME>Rate</NAME>
          <VALUES>
-            <VALUE type="number">1.0</VALUE>
+            <VALUE isDefaultValue="true" type="number">1.0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8697,7 +8752,7 @@
       <ENTRY>
          <NAME>Volume</NAME>
          <VALUES>
-            <VALUE type="number">1.0</VALUE>
+            <VALUE isDefaultValue="true" type="number">1.0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8710,7 +8765,7 @@
       <ENTRY>
          <NAME>ShowControls</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8727,7 +8782,7 @@
             <VALUE type="name">Open</VALUE>
             <VALUE type="name">Repeat</VALUE>
             <VALUE type="name">Palindrome</VALUE>
-            <VALUE type="name">Once</VALUE>
+            <VALUE isDefaultValue="true" type="name">Once</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8740,7 +8795,7 @@
       <ENTRY>
          <NAME>Synchronous</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8768,6 +8823,7 @@
          <NAME>FWPosition</NAME>
          <VALUES>
             <VALUE type="array">ArrayOf_2Numbers</VALUE>
+            <VALUE isDefaultValue="true" type="array">[0.5 0.5]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9402,7 +9458,7 @@
       <ENTRY>
          <NAME>CropBox</NAME>
          <VALUES>
-            <VALUE type="rectangle">@MediaBox</VALUE>
+            <VALUE isDefaultValue="true" type="rectangle">@MediaBox</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9429,7 +9485,7 @@
          <NAME>Rotate</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval((@Rotate mod 90)==0)</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9510,7 +9566,7 @@
       <ENTRY>
          <NAME>Hid</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9595,7 +9651,7 @@
       <ENTRY>
          <NAME>CropBox</NAME>
          <VALUES>
-            <VALUE type="rectangle">@MediaBox</VALUE>
+            <VALUE isDefaultValue="true" type="rectangle">@MediaBox</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9608,7 +9664,7 @@
          <NAME>Rotate</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval((@Rotate mod 90)==0)</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9679,7 +9735,7 @@
       <ENTRY>
          <NAME>CropBox</NAME>
          <VALUES>
-            <VALUE type="rectangle">@MediaBox</VALUE>
+            <VALUE isDefaultValue="true" type="rectangle">@MediaBox</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9692,7 +9748,7 @@
          <NAME>Rotate</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval((@Rotate mod 90)==0)</VALUE>
-            <VALUE type="integer">0</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9702,7 +9758,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PatternColorSpace" object_number="132">
+   <OBJECT id="PatternColorSpace" isArray="true" object_number="132">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -9738,7 +9794,7 @@
    </OBJECT>
    <OBJECT id="PatternMap" object_number="133">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -10040,7 +10096,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SeparationColorSpace" object_number="136">
+   <OBJECT id="SeparationColorSpace" isArray="true" object_number="136">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10121,7 +10177,7 @@
          <NAME>C</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval(@C&gt;0)</VALUE>
-            <VALUE type="integer">1</VALUE>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10135,7 +10191,7 @@
          <NAME>B</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval(@B&gt;0)</VALUE>
-            <VALUE type="integer">8</VALUE>
+            <VALUE isDefaultValue="true" type="integer">8</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10152,7 +10208,7 @@
             <VALUE type="name">Signed</VALUE>
             <VALUE type="name">muLaw</VALUE>
             <VALUE type="name">ALaw</VALUE>
-            <VALUE type="name">Raw</VALUE>
+            <VALUE isDefaultValue="true" type="name">Raw</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10549,7 +10605,7 @@
             <VALUE type="name">Cover</VALUE>
             <VALUE type="name">Uncover</VALUE>
             <VALUE type="name">Fade</VALUE>
-            <VALUE type="name">R</VALUE>
+            <VALUE isDefaultValue="true" type="name">R</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10562,7 +10618,7 @@
          <NAME>D</NAME>
          <VALUES>
             <VALUE type="number">fn:Eval(@D&gt;=0)</VALUE>
-            <VALUE type="number">1</VALUE>
+            <VALUE isDefaultValue="true" type="number">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10576,7 +10632,7 @@
          <VALUES>
             <VALUE type="name">H</VALUE>
             <VALUE type="name">V</VALUE>
-            <VALUE type="name">H</VALUE>
+            <VALUE isDefaultValue="true" type="name">H</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10591,7 +10647,7 @@
          <VALUES>
             <VALUE type="name">I</VALUE>
             <VALUE type="name">O</VALUE>
-            <VALUE type="name">I</VALUE>
+            <VALUE isDefaultValue="true" type="name">I</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10609,9 +10665,9 @@
             <VALUE type="integer">180</VALUE>
             <VALUE type="integer">270</VALUE>
             <VALUE type="integer">315</VALUE>
-            <VALUE type="integer">[0]</VALUE>
+            <VALUE isDefaultValue="true" type="integer">[0]</VALUE>
             <VALUE type="name">None</VALUE>
-            <VALUE type="name">[]</VALUE>
+            <VALUE isDefaultValue="true" type="name">[]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10638,7 +10694,7 @@
       <ENTRY>
          <NAME>HideToolbar</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10650,7 +10706,7 @@
       <ENTRY>
          <NAME>HideMenubar</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10662,7 +10718,7 @@
       <ENTRY>
          <NAME>HideWindowUI</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10674,7 +10730,7 @@
       <ENTRY>
          <NAME>FitWindow</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10686,7 +10742,7 @@
       <ENTRY>
          <NAME>CenterWindow</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10702,7 +10758,7 @@
             <VALUE type="name">UseOutlines</VALUE>
             <VALUE type="name">UseThumbs</VALUE>
             <VALUE type="name">UseOC</VALUE>
-            <VALUE type="name">UseNone</VALUE>
+            <VALUE isDefaultValue="true" type="name">UseNone</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10713,7 +10769,7 @@
          <SPECIAL_CASE>fn:IsMeaningful(Catalog::@PageMode==FullScreen)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Whitepoint" object_number="145">
+   <OBJECT id="Whitepoint" isArray="true" object_number="145">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10985,7 +11041,7 @@
       <ENTRY>
          <NAME>Matrix</NAME>
          <VALUES>
-            <VALUE type="matrix">[1 0 0 1 0 0]</VALUE>
+            <VALUE isDefaultValue="true" type="matrix">[1 0 0 1 0 0]</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -11143,7 +11199,7 @@
       <ENTRY>
          <NAME>Matrix</NAME>
          <VALUES>
-            <VALUE type="matrix">[1 0 0 1 0 0]</VALUE>
+            <VALUE isDefaultValue="true" type="matrix">[1 0 0 1 0 0]</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -11386,7 +11442,7 @@
       <ENTRY>
          <NAME>ImageMask</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -11411,7 +11467,7 @@
       <ENTRY>
          <NAME>Interpolate</NAME>
          <VALUES>
-            <VALUE type="boolean">false</VALUE>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -11495,9 +11551,12 @@
       </ENTRY>
       <ENTRY>
          <NAME>F</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FileSpecification</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="fn:SinceVersion(1.1,dictionary)">false</VALUE>
+            <VALUE type="dictionary">false</VALUE>
             <VALUE type="string">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
@@ -11545,7 +11604,7 @@
    </OBJECT>
    <OBJECT id="XObjectMap" object_number="150">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="stream">XObjectFormType1</VALUE>
             <VALUE type="stream">XObjectImage</VALUE>
@@ -11560,9 +11619,9 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="_UniversalArray" object_number="151">
+   <OBJECT id="_UniversalArray" isArray="true" object_number="151">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="array">_UniversalArray</VALUE>
             <VALUE type="dictionary">_UniversalDictionary</VALUE>
@@ -11585,7 +11644,7 @@
    </OBJECT>
    <OBJECT id="_UniversalDictionary" object_number="152">
       <ENTRY>
-         <NAME>*</NAME>
+         <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="array">_UniversalArray</VALUE>
             <VALUE type="dictionary">_UniversalDictionary</VALUE>

@@ -300,7 +300,7 @@ public class TSVHandler {
     /**
      * Deletes an entire PDF version specific folder of all Arlington TSV files
      * 
-     * @param x  the PDF version (1.0, 1.1, ..., 2.0)
+     * @param ver  the PDF version (1.0, 1.1, ..., 2.0)
      */
     private void deleteTSVset(double ver) {        
         String path = "";

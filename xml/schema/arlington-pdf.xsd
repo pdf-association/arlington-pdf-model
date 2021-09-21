@@ -2,19 +2,34 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <!-- Key name or array index (integer). Or wildcard -->
-  <xs:element name="NAME" type="xs:string"/>
+  <xs:element name="NAME">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="isWildcard"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
   
   <xs:element name="VALUE">
       <xs:complexType>
       <xs:simpleContent>
         <xs:extension base="xs:string">
           <xs:attribute ref="type"/>
+          <xs:attribute ref="isDefaultValue"/>
         </xs:extension>
       </xs:simpleContent>
     </xs:complexType>
   </xs:element>
   
-  <xs:element name="REQUIRED" type="xs:boolean"/>
+  <xs:element name="REQUIRED">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="(true|false|fn:IsRequired\(.*\))"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
   
   <xs:element name="INHERITABLE" type="xs:boolean"/>
 
@@ -57,35 +72,24 @@
   <xs:attribute name="type">
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:enumeration value="array"/>
-        <xs:enumeration value="bitmask"/>
-        <xs:enumeration value="boolean"/>
-        <xs:enumeration value="date"/>
-        <xs:enumeration value="dictionary"/>
-        <xs:enumeration value="integer"/>
-        <xs:enumeration value="matrix"/>
-        <xs:enumeration value="name"/>
-        <xs:enumeration value="name-tree"/>
-        <xs:enumeration value="null"/>
-        <xs:enumeration value="number"/>
-        <xs:enumeration value="number-tree"/>
-        <xs:enumeration value="rectangle"/>
-        <xs:enumeration value="stream"/>
-        <xs:enumeration value="string"/>
-        <xs:enumeration value="string-ascii"/>
-        <xs:enumeration value="string-byte"/>
-        <xs:enumeration value="string-text"/>
+        <xs:pattern value="(array|bitmask|boolean|date|dictionary|integer|matrix|name|name-tree|null|number|number-tree|rectangle|stream|string|string-ascii|string-byte|string-text|fn:Deprecated\([12]\.[0-7],.*\))"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:attribute>
   
   <!-- file number in Arlington file set when sorted alphabetically -->
   <xs:attribute name="object_number" type="xs:integer"/>
+
+  <xs:attribute name="isArray" type="xs:boolean"/>
   
+  <xs:attribute name="isDefaultValue" type="xs:boolean"/>
+
+  <xs:attribute name="isWildcard" type="xs:boolean"/>
+
   <xs:attribute name="grammar_version" type="xs:string"/>
   
   <!-- for now, always "ISO 32000-2:2020" -->
-  <xs:attribute name="iso_ref">
+  <xs:attribute name="iso_ref" >
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:enumeration value="ISO 32000-2:2020"/>
@@ -129,6 +133,7 @@
       </xs:sequence>
       <xs:attribute ref="id"/>
       <xs:attribute ref="object_number"/>
+      <xs:attribute ref="isArray"/>
     </xs:complexType>
   </xs:element>
   

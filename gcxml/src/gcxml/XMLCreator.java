@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
@@ -112,7 +114,7 @@ public class XMLCreator {
                 if (file.isFile() && file.canRead() && file.exists()) {
                     BufferedReader tsv_reader;
                     String temp = input_folder;
-                    String file_name = file.getName().substring(0, file.getName().length()-4);
+                    String file_name = file.getName().substring(0, file.getName().length()-4); // no file extension ".tsv"
                     temp += file_name + ".tsv";
                     tsv_reader = new BufferedReader(new FileReader(temp));
                     System.out.println("Processing " + file_name + " for PDF " + pdf_version);
@@ -124,6 +126,8 @@ public class XMLCreator {
                     object_elem.setAttribute("id", file_name);
                     object_elem.setAttribute("object_number", String.format("%03d",object_count));
                     
+                    boolean object_is_array = file_name.contains("Array");
+                    
                     while ((current_line = tsv_reader.readLine()) != null) {
                         String[] column_values = current_line.split(Character.toString(delimiter), -1);
                         assert (column_values.length == 12) : "Less than 12 TSV columns!";
@@ -132,17 +136,21 @@ public class XMLCreator {
                         current_entry = column_values[0];
                         float current_entry_version = Float.parseFloat(column_values[2]);
 
+                        if (column_values[0].matches("^[0-9]+(\\*)?(?![a-zA-Z\\\\*])")) {
+                            object_is_array = true;
+                        }
+                        
                         // <ENTRY> node: represents single key/array element in the object
                         Element entry_elem = new_doc.createElement("ENTRY");
                         if (current_entry_version <= pdf_ver) {
                             System.out.println("\tKept key: " + current_entry);
 
                             TSVHandler.TypeListModifier types_reduced = tsv.reduceTypesForVersion(column_values[1], pdf_ver);
+                            column_values[1] = types_reduced.getReducedTypes();
                             if (types_reduced.somethingReduced()) {
                                 // At least one type got reduced so need to
                                 // reduce various other TSV fields accordingly
                                 // BEFORE they themselves are reduced
-                                column_values[1]  = types_reduced.getReducedTypes();
                                 column_values[5]  = types_reduced.reduceCorresponding(column_values[5]);  // IndirectReference
                                 column_values[7]  = types_reduced.reduceCorresponding(column_values[7]);  // DefaultValue
                                 column_values[9]  = types_reduced.reduceCorresponding(column_values[9]);  // SpecialCase
@@ -194,6 +202,8 @@ public class XMLCreator {
                     
                     // append object to root - if there was anyting
                     if (object_elem.hasChildNodes()) {
+                        if (object_is_array)
+                            object_elem.setAttribute("isArray", "true");
                         System.out.println("\tAdded to XML for PDF " + pdf_version);
                         object_count++;
                         root_elem.appendChild(object_elem);
@@ -233,6 +243,8 @@ public class XMLCreator {
     private Element nodeName(String col_value) {
         Element temp_elem = new_doc.createElement("NAME");
         temp_elem.appendChild(new_doc.createTextNode(col_value));
+        if (col_value.contains("*"))
+            temp_elem.setAttribute("isWildcard", "true");
         return temp_elem;
     }
     
@@ -325,7 +337,7 @@ public class XMLCreator {
                 value = createNodeValue(type_arr[i], ir_arr[i].toLowerCase());
             }
             else {
-                value = createNodeValue(types, ir_arr[i]);
+                value = createNodeValue(type_arr[i], ir_arr[i]);
             }
             temp_elem.appendChild(value);
         }
@@ -400,18 +412,10 @@ public class XMLCreator {
         assert (types.length == arr_links.length) : "Types and Links are different lengths!";
         assert (!type.contains("fn:")) : "Types contained a predicate!";
 
-        String[] pos_values = null;
-        if (!possible_values.isBlank()) {
-            pos_values = possible_values.split(";");
-        }
-        
-        String[] dft_values = null;
-        if (!default_value.isBlank()) {
-            dft_values = default_value.split(";");
-        }
-                
-        assert ((pos_values != null) && (pos_values.length == arr_links.length)) : "PossibleValues and Links are not the same length!";
-        assert ((dft_values != null) && (dft_values.length == arr_links.length)) : "DefaultValue and Links are not the same length!";
+        String[] pos_values = possible_values.split(";");
+        String[] dft_values = default_value.split(";");
+        assert (pos_values.length == arr_links.length) : "PossibleValues and Links are not the same length!";
+        assert (dft_values.length == arr_links.length) : "DefaultValue and Links are not the same length!";
         
         for (int i = 0; i < types.length; i++) {
             Element value;
@@ -466,58 +470,58 @@ public class XMLCreator {
                         values_elem.appendChild(value);
                     }
                 } // while
-            }
-            else { // A basic Arlington type (i.e. no Links)
-                if (pos_values != null) {
-                    // Strip [ and ]
-                    assert (pos_values[i].charAt(0) == '[') : "No opening [ on PossibleValue";
-                    assert (pos_values[i].charAt(pos_values[i].length()-1) == ']') : "No closing ] on PossibleValue";
-                    String a = pos_values[i].substring(1, pos_values[i].length() - 1);
+            } // if Linkable-type
 
-                    // COMMAs are ambiguous: separators or inside predicates?
-                    while (!a.isBlank()) {
-                        if (a.startsWith("fn:")) {
-                            // get up to closing bracket )
-                            int j = tsv.indexOfOuterCloseBracket(a);
-                            assert j != -1: "No ')' for predicate!";
+            // any PossibleValues?
+            if ((i < pos_values.length) && (!pos_values[i].isBlank())) {
+                // Strip [ and ]
+                assert (pos_values[i].charAt(0) == '[') : "No opening [ on PossibleValue";
+                assert (pos_values[i].charAt(pos_values[i].length()-1) == ']') : "No closing ] on PossibleValue";
+                String a = pos_values[i].substring(1, pos_values[i].length() - 1);
 
-                            // Get encapsulating predicate incl. close bracket
-                            String s = a.substring(0, j + 1);
-                            value = createNodeValue(t, s);
-                            values_elem.appendChild(value);
+                // COMMAs are ambiguous: separators or inside predicates?
+                while (!a.isBlank()) {
+                    if (a.startsWith("fn:")) {
+                        // get up to closing bracket )
+                        int j = tsv.indexOfOuterCloseBracket(a);
+                        assert j != -1: "No ')' for predicate!";
 
-                            if (j + 2 < a.length()) {
-                                a = a.substring(j + 2, a.length());
-                            }
-                            else {
-                                a = "";
-                            }
+                        // Get encapsulating predicate incl. close bracket
+                        String s = a.substring(0, j + 1);
+                        value = createNodeValue(t, s);
+                        values_elem.appendChild(value);
 
-                            // remove COMMA if not at end of string
-                            if ((!a.isBlank()) && (a.charAt(0) == ',')) {
-                                a = a.substring(1, a.length());
-                            }
+                        if (j + 2 < a.length()) {
+                            a = a.substring(j + 2, a.length());
                         }
                         else {
-                            String s = a;
-                            if (a.indexOf(',') >= 0) {
-                                s = a.substring(0, a.indexOf(','));
-                                a = a.substring(a.indexOf(',') + 1, a.length());
-                            }
-                            else {
-                                a = "";
-                            }
-                            value = createNodeValue(t, s);
-                            values_elem.appendChild(value);                        }
-                    } // while
-                } // if PossibleValues
+                            a = "";
+                        }
+
+                        // remove COMMA if not at end of string
+                        if ((!a.isBlank()) && (a.charAt(0) == ',')) {
+                            a = a.substring(1, a.length());
+                        }
+                    }
+                    else {
+                        String s = a;
+                        if (a.indexOf(',') >= 0) {
+                            s = a.substring(0, a.indexOf(','));
+                            a = a.substring(a.indexOf(',') + 1, a.length());
+                        }
+                        else {
+                            a = "";
+                        }
+                        value = createNodeValue(t, s);
+                        values_elem.appendChild(value);                        }
+                } // while
+            } // if PossibleValues
                 
-                // DefaultValue only makes sense for basic types
-                if (dft_values != null) {
-                    Element default_elem = new_doc.createElement("DEFAULT_VALUE");
-                    value = createNodeValue(t, dft_values[i]);
-                    values_elem.appendChild(value);
-                }
+            // any DefaultValue? 
+            if ((i < dft_values.length) && (!dft_values[i].isBlank())) {
+                value = createNodeValue(t, dft_values[i]);
+                value.setAttribute("isDefaultValue", "true");
+                values_elem.appendChild(value);
             }
         } // for-each type
         
@@ -536,6 +540,7 @@ public class XMLCreator {
      */
     private Element createNodeValue(String t, String value) {
         Element valueElem = new_doc.createElement("VALUE");
+        assert (!t.contains(";")) : "VALUE node type had a SEMI-COLON!";
         valueElem.setAttribute("type", t);
         valueElem.appendChild(new_doc.createTextNode(value));
         return valueElem;
