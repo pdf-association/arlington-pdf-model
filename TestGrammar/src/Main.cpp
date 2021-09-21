@@ -139,7 +139,7 @@ int main(int argc, char* argv[]) {
     sarge.setArgument("v", "validate",  "validate the Arlington PDF model.", false);
     sarge.setArgument("b", "brief",     "terse output when checking PDFs - no object numbers, details of errors, etc.", false);
     sarge.setArgument("d", "debug",     "output additional debugging information (verbose!)", false);
-    sarge.setArgument("b", "batchmode", "stop popup error dialog windows - redirect errors to console", false);
+    sarge.setArgument("m", "batchmode", "stop popup error dialog windows - redirect errors to console (Windows only)", false);
 
 #if defined(_WIN32) || defined(WIN32)
     if (!sarge.parseArguments(argc, mbcsargv)) {
