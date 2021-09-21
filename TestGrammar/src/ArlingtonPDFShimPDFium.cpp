@@ -58,7 +58,7 @@ struct pdfium_context {
 
     ~pdfium_context() {
         /* Destructor */
-/// @todo Linux release builds always segfault on exit!!
+/// @todo pdfium-based Linux release builds always segfault on exit!!
 ///       NULL-pointer dereference in CFX_Plex::FreeDataChain (fx_basic_plex.cpp:24)
 #if !defined(__linux__) && !defined(DEBUG)
         if (parser != nullptr) {
