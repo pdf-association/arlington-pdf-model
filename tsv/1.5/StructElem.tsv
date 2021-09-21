@@ -5,9 +5,9 @@ P	dictionary	1.3		TRUE	TRUE	FALSE				[StructElem,StructTreeRoot]
 ID	string-byte	1.3		FALSE	FALSE	FALSE					
 Pg	dictionary	1.3		FALSE	TRUE	FALSE				[PageObject]	
 K	array;dictionary;integer	1.3		FALSE	FALSE	FALSE				[ArrayOfStructElemKids];[StructElem,MarkedContentReference,ObjectReference];[]	
-A	array;dictionary;stream	1.3		FALSE	FALSE	FALSE				[ArrayOfAttributes];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes];[Stream]	
+A	array;dictionary;stream	1.3		FALSE	[FALSE];[FALSE];[TRUE]	FALSE				[ArrayOfAttributes];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes];[Stream]	
 C	array;name	1.3		FALSE	FALSE	FALSE				[ArrayOfNamesGeneral];[]	
-R	integer	1.3		FALSE	FALSE	FALSE	0	[fn:Expr(@self>=0)]			
+R	integer	1.3		FALSE	FALSE	FALSE	0	[fn:Eval(@R>=0)]			
 T	string-text	1.3		FALSE	FALSE	FALSE					
 Lang	string-text	1.4		FALSE	FALSE	FALSE					
 Alt	string-text	1.3		FALSE	FALSE	FALSE					

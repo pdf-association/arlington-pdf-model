@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Length1	integer	1.0		FALSE	FALSE	FALSE					
-Length2	integer	1.0		FALSE	FALSE	FALSE					
-Length3	integer	1.0		FALSE	FALSE	FALSE					
+Length1	integer	1.2		FALSE	FALSE	FALSE			[fn:Eval(@Length1>=0)]		
+Length2	integer	1.2		FALSE	FALSE	FALSE			[fn:Eval(@Length2>=0)]		
+Length3	integer	1.2		FALSE	FALSE	FALSE			[fn:Eval(@Length3>=0)]		
 Subtype	name	1.2		FALSE	FALSE	FALSE		[Type1C,CIDFontType0C,OpenType]			

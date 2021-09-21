@@ -9,9 +9,9 @@ BleedBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				Inheritable from Parent
 TrimBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				
 ArtBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				
 BoxColorInfo	dictionary	1.4		FALSE	FALSE	FALSE				[BoxColorInfo]	
-Contents	array;stream	1.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral];[Stream]	
-Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Expr(@self mod 90==0)]			Inheritable from Parent
-Group	dictionary	1.4		FALSE	FALSE	FALSE				[Group]	
+Contents	array;stream	1.0		FALSE	[FALSE];[TRUE]	FALSE				[ArrayOfStreamsGeneral];[Stream]	
+Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Eval((@Rotate mod 90)==0)]			Inheritable from Parent
+Group	dictionary	1.4		FALSE	FALSE	FALSE				[GroupAttributes]	
 Thumb	stream	1.0		FALSE	TRUE	FALSE				[Thumbnail]	
 B	array	1.1		FALSE	FALSE	FALSE				[ArrayOfBeads]	
 Dur	number	1.1		FALSE	FALSE	FALSE					
@@ -25,6 +25,6 @@ ID	string-byte	1.3		FALSE	FALSE	FALSE					byte string
 PZ	number	1.3		FALSE	FALSE	FALSE					
 SeparationInfo	dictionary	1.3		FALSE	FALSE	FALSE				[Separation]	
 Tabs	name	1.5		FALSE	FALSE	FALSE		[R,C,S,A,W]			
-TemplateInstantiated	name	1.5		fn:IsRequired(fn:CreatedFromNamePageObj())	FALSE	FALSE					
+TemplateInstantiated	name	1.5		fn:IsRequired(fn:InMap(Catalog::Names::Pages) || fn:InMap(Catalog::Names::Templates))	FALSE	FALSE					
 PresSteps	dictionary	1.5		FALSE	FALSE	FALSE				[NavNode]	
-Hid	boolean	1.1	1.3	FALSE	FALSE	TRUE	FALSE				
+Hid	boolean	1.1	1.3	FALSE	FALSE	TRUE	false				

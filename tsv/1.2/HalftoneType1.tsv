@@ -2,8 +2,8 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.2		FALSE	FALSE	FALSE		[Halftone]			
 HalftoneType	integer	1.2		TRUE	FALSE	FALSE		[1]			
 HalftoneName	string-byte	1.2		FALSE	FALSE	FALSE					
-Frequency	number	1.2		TRUE	FALSE	FALSE					
+Frequency	number	1.2		TRUE	FALSE	FALSE		[fn:Eval(@Frequency>=0)]			
 Angle	number	1.2		TRUE	FALSE	FALSE					
-SpotFunction	array;dictionary;name;stream	1.2		TRUE	FALSE	FALSE				[ArrayOfFunctions];[];[];[FunctionType0]	
-AccurateScreens	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-TransferFunction	dictionary;name;stream	1.2		FALSE	FALSE	FALSE				[];[];[FunctionType0]	
+SpotFunction	array;name;stream	1.2		TRUE	[FALSE];[FALSE];[TRUE]	FALSE		[];[SimpleDot,InvertedSimpleDot,DoubleDot,InvertedDoubleDot,CosineDot,Double,InvertedDouble,Line,LineX,LineY,Round,Ellipse,EllipseA,InvertedEllipseA,EllipseB,EllipseC,InvertedEllipseC,Square,Cross,Rhomboid,Diamond];[]		[ArrayOfFunctions];[];[FunctionType0]	
+AccurateScreens	boolean	1.2		FALSE	FALSE	FALSE	false				
+TransferFunction	name;stream	1.2		fn:IsRequired(parent::@HalftoneType==5)	[FALSE];[TRUE]	FALSE		[Identity];[]		[];[FunctionType0]	

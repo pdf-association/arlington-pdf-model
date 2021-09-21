@@ -21,17 +21,90 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import static java.lang.Integer.max;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
  * @author fero
  */
 public class TSVUpdater {
+    /**
+     * Complex Arlington "Type" fields can be reduced due to predicates.
+     * This reduction then needs to be mirrored across other TSV fields
+     * so that the number of SEMI-COLON separated elements matches.
+     */
+    class TypeListModifier {
+        String      input_types;
+        String      output_types;
+        boolean[]   input_was_reduced; 
+        
+        /**
+         * Constructor. Default is that the input and output are the same,
+         * so nothing is reduced.
+         * @param types the original Arlington "Types" field
+         */
+        public TypeListModifier(String types) {
+            String[] arr = types.split(";"); // split complex type
+            input_types = output_types = types;
+            input_was_reduced = new boolean[arr.length];
+            for (int i = 0; i < arr.length; i++) {
+                input_was_reduced[i] = false;
+            }
+        }
+        
+        /**
+         * Returns true if something has been reduced
+         * @return true if something has been reduced
+         */
+        public boolean somethingReduced() {
+            for (int i = 0; i < input_was_reduced.length; i++) {
+                if (input_was_reduced[i]) {
+                    return true;
+                }
+            } 
+            return false;
+        }
+        
+        /**
+         * At least one type got reduced so need to
+         * reduce various other TSV fields accordingly
+         * - Check for SEMI-COLON to determine if complex
+         * - Split based on SEMI-COLIN
+         * - Remove each element that has been reduced
+         * - Stitch things back together with SEMI-COLONS
+         * 
+         * @param str some complex Arlington field
+         * @return  correspondingly reduced (transformed) Arlington field
+         */
+        public String reduceCorresponding(String str) {
+            String[] arr = str.split(";"); // split complex type
+            if (arr.length != input_was_reduced.length) {
+                System.out.println("Error: pre-reduction lengths did not match for '" + str + "'!");
+                return str;
+            }
+            String out_str = "";
+            for (int i = 0; i < input_was_reduced.length; i++) {
+                if (!input_was_reduced[i]) {
+                    if (out_str.isBlank()) {
+                        out_str = arr[i];
+                    }
+                    else {
+                        out_str = out_str + ";" + arr[i];
+                    }
+                }
+            }
+            // Reduce even further for special fields...
+            if ("[TRUE]".equals(out_str)) {
+                out_str = "TRUE";
+            }
+            else if ("[FALSE]".equals(out_str)) {
+                out_str = "FALSE";
+            }
+            return out_str;
+        } 
+    }
+    
     /**
     * The list of valid supported PDF versions
     */
@@ -57,7 +130,7 @@ public class TSVUpdater {
     * Creates a TSV file set for the specified PDF version
     * @param version  the PDF version between 1.0 to 2.0 inclusive
     */
-    private static void createTSV(double version) {
+    private void createTSV(double version) {
         final String delimiter = "\t";
         
         File folder = new File(path_to_tsv_files);
@@ -83,40 +156,61 @@ public class TSVUpdater {
                     while ((current_line = tsv_reader.readLine()) != null) {
                         row = current_line.split(delimiter, -1);
                         if (row.length != 12) {
-                            System.out.println("Error: " + file_name + " had " + row.length + " rows, not 12!\n" + row);
+                            System.out.println("Error: " + file_name + " had " + row.length + " rows, not 12!\n");
                         } 
                         else {
                             String key_name = row[0];
-                            // Type: SEMI-COLON separated, may have version-based predicates
+                            
+                            // Type: complex type, SEMI-COLON separated, may have version-based predicates
                             String data_type = row[1]; 
+                            
                             // SinceVersion: 1.0, 1.1, ..., 2.0 inclusive 
                             String since_version = row[2];
                             String deprecated = row[3];
+                            
                             // Required: possibly wrapped in "fn:IsRequired(...)" with version-based predicates
                             String required = row[4];
+                            
+                            // IndirectReference: possibly complex so may need reduction
                             String indirect_ref = row[5];
                             String inheritable = row[6];
+                            
+                            // DefaultValue: possibly complex so may need reduction
                             String default_value = row[7];
-                            // PossibleValues: complex form [];[];[], may have version-based predicates
+                            
+                            // PossibleValues: possibly complex, may also have version-based predicates
                             String possible_values = row[8];
+                            
+                            // SpecialCase: possibly complex, may also have version-based predicates
                             String special_case = row[9];
-                            // Links: complex form [];[];[], may have version-based predicates
+                            
+                            // Links: possibly complex, may also have version-based predicates
                             String links = row[10];
                             String notes = row[11];
                             
                             if (Double.parseDouble(since_version) <= version) {
                                 System.out.println("\tKept key: " + key_name);
-                                String types_reduced = reduceTypesForVersion(data_type, version);
+                                TypeListModifier types_reduced = reduceTypesForVersion(data_type, version);
+                                if (types_reduced.somethingReduced()) {
+                                    // At least one type got reduced so need to
+                                    // reduce various other TSV fields accordingly
+                                    // BEFORE they themselves are reduced
+                                    indirect_ref = types_reduced.reduceCorresponding(indirect_ref);
+                                    default_value = types_reduced.reduceCorresponding(default_value);
+                                    possible_values = types_reduced.reduceCorresponding(possible_values);
+                                    special_case = types_reduced.reduceCorresponding(special_case);
+                                    links = types_reduced.reduceCorresponding(links);
+                                }
                                 String links_reduced = reduceComplexForVersion(links, version);
                                 String pv_reduced = reduceComplexForVersion(possible_values, version);
                                
                                 if (required.startsWith("fn:IsRequired(")) {
-                                    required = ReduceRequiredForVersion(required, version);                                    
+                                    required = reduceRequiredForVersion(required, version);                                    
                                 }
 
                                 String record =
                                         key_name + delimiter +
-                                        types_reduced + delimiter +
+                                        types_reduced.output_types + delimiter +
                                         since_version + delimiter +
                                         deprecated + delimiter +
                                         required + delimiter +
@@ -137,7 +231,7 @@ public class TSVUpdater {
                     // Did we exclude the entire object??
                     if (!entry.isEmpty()) {
                         output_string += entry;
-                        WriteToFile(output_string, file_name, version);
+                        writeToFile(output_string, file_name, version);
                     }
                     else {
                         System.out.println("\tNot writing file " + file_name + " for version " + version);                        
@@ -160,7 +254,7 @@ public class TSVUpdater {
     * @param file the filename (i.e. PDF object)
     * @param version the PDF version used to select the sub-folder
     */
-    private static void WriteToFile(String output_string, String file, double version) {
+    private void writeToFile(String output_string, String file, double version) {
         BufferedWriter out = null;
         
         String path = System.getProperty("user.dir") + "/tsv/";
@@ -207,12 +301,12 @@ public class TSVUpdater {
      * Finds the matching closing bracket ")" for the first open bracket "(" 
      * in a string. 
      * e.g. (abc) = 4
-     *      fn((a==b),(c && (d!=e))) = 24
+     *      fn((a==b),(c || (d!=e))) = 24
      * 
      * @param s  the string
      * @return -1 if no matching bracket pair or IndexOf matching ")" in string
      */
-    private static int IndexOfOuterCloseBracket(String s) {
+    private int indexOfOuterCloseBracket(String s) {
         int nested = 0;
         int i = 0;
         
@@ -247,7 +341,7 @@ public class TSVUpdater {
     * 
     * @return the version-reduced equivalent appropriate for the version
     */
-   private static String reduceAtomicForVersion(String str, double version) {
+   private String reduceAtomicForVersion(String str, double version) {
         if ((str.isBlank()) || (!str.contains("fn:"))) {
             return str;
         }
@@ -277,7 +371,7 @@ public class TSVUpdater {
         else if (str.startsWith("fn:Deprecated(")) {
             tsv_ver = str.substring(14, 14+3);
             if (version < Double.parseDouble(tsv_ver)) {
-                tsv_s = str.substring(14+3+1, str.length()-1);;
+                tsv_s = str.substring(14+3+1, str.length()-1);
             }
             else {
                 tsv_s = str;
@@ -302,17 +396,20 @@ public class TSVUpdater {
     * @param str     the Type field from an Arlington TSV file
     * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
     *
-    * @return the version-reduced equivalent appropriate for the version
+    * @return a TypeListModifier object, summarizing what happened
     */
-    private static String reduceTypesForVersion(String str, double version) {
+    private TypeListModifier reduceTypesForVersion(String str, double version) {
+        TypeListModifier  obj = new TypeListModifier(str);
+        
         if ((str.isBlank()) || (!str.contains("fn:"))) {
-            return str;
+            return obj;
         }
 
         String[] arr = str.split(";"); // split complex type
         
         String   out_types = "";
         String   tsv_s;
+        int      i = 0;
         for (String a : arr) {
             tsv_s = reduceAtomicForVersion(a, version);
 
@@ -324,8 +421,13 @@ public class TSVUpdater {
                     out_types = out_types + ";" + tsv_s;
                 }
             }
+            else {
+                obj.input_was_reduced[i] = true;
+            }
+            i++;
         }
-        return out_types;
+        obj.output_types = out_types;
+        return obj;
     }
     
     /**
@@ -337,7 +439,7 @@ public class TSVUpdater {
     * 
     * @return the version-reduced equivalent appropriate for the version
     */
-    private static String reduceComplexForVersion(String str, double version) {
+    private String reduceComplexForVersion(String str, double version) {
         if ((str.isBlank()) || (!str.contains("fn:"))) {
             return str;
         }
@@ -354,7 +456,7 @@ public class TSVUpdater {
             while (!a.isBlank()) {
                 if (a.startsWith("fn:")) {
                     // get up to closing bracket )
-                    int i = IndexOfOuterCloseBracket(a);
+                    int i = indexOfOuterCloseBracket(a);
                     assert i != -1: "No ')' for predicate!";
                     
                     // Get encapsulating predicate incl. close bracket
@@ -417,12 +519,12 @@ public class TSVUpdater {
     * - fn:IsRequired(fn:BeforeVersion(1.3) || fn:IsPresent(SomeKey))
     * - fn:IsRequired(fn:SinceVersion(2.0) || fn:AnotherPredicate(...))
     *
-    * @param str     the Required field from an Arlington TSV file
+    * @param reqd     the Required field from an Arlington TSV file
     * @param version the PDF version being targeted. 1.0 to 2.0 inclusive. 
     * 
     * @return the version-reduced equivalent appropriate for the version
     */
-    private static String ReduceRequiredForVersion(String reqd, double version) {
+    private String reduceRequiredForVersion(String reqd, double version) {
         String r = reqd.substring(14, reqd.length()-1);
         String tsv_ver;
         

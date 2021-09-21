@@ -4,6 +4,6 @@ Subtype	name	1.0		TRUE	FALSE	FALSE		[Text]
 Rect	rectangle	1.0		TRUE	FALSE	FALSE					
 Contents	string-text	1.0		FALSE	FALSE	FALSE					
 Border	array	1.0		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
-Open	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
+Open	boolean	1.0		FALSE	FALSE	FALSE	false				
 Name	name	1.0		FALSE	FALSE	FALSE	Note	[Comment,Key,Note,Help,NewParagraph,Paragraph,Insert]			
-State	string-text	1.0		FALSE	FALSE	FALSE					
+State	string-text	1.0		FALSE	FALSE	FALSE	fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))	['Marked','Unmarked','Accepted','Rejected','Cancelled','Completed','None']			
