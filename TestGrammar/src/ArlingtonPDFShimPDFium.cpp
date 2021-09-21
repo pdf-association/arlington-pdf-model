@@ -37,33 +37,47 @@ using namespace ArlingtonPDFShim;
 void* ArlingtonPDFSDK::ctx = nullptr;
 
 struct pdfium_context {
-    CPDF_Parser* parser = nullptr;
-    CCodec_ModuleMgr* codecModule = nullptr;
+    CPDF_Parser*        parser;
+    CPDF_ModuleMgr*     moduleMgr;
+    CCodec_ModuleMgr*   codecModule;
+
+    pdfium_context() {
+        /* Default constructor */
+        parser = nullptr;
+        CPDF_ModuleMgr::Create();
+        codecModule = CCodec_ModuleMgr::Create();
+        moduleMgr = CPDF_ModuleMgr::Get();
+        moduleMgr->SetCodecModule(codecModule);
+        // moduleMgr->InitPageModule();
+        // moduleMgr->InitRenderModule();
+        // moduleMgr->LoadEmbeddedGB1CMaps();
+        // moduleMgr->LoadEmbeddedJapan1CMaps();
+        // moduleMgr->LoadEmbeddedCNS1CMaps();
+        // moduleMgr->LoadEmbeddedKorea1CMaps();
+    };
 
     ~pdfium_context() {
-        if (parser)
+        /* Destructor */
+/// @todo Linux release builds always segfault on exit!!
+///       NULL-pointer dereference in CFX_Plex::FreeDataChain (fx_basic_plex.cpp:24)
+#if !defined(__linux__) && !defined(DEBUG)
+        if (parser != nullptr) {
+            parser->CloseParser();
             delete(parser);
-        codecModule->Destroy();
-    }
+        }
+        if (codecModule != nullptr)
+            codecModule->Destroy();
+        if (moduleMgr != nullptr)
+            moduleMgr->Destroy();
+#endif
+    };
 };
 
 /// @brief Initialize the PDF SDK. May throw exceptions.
 void ArlingtonPDFSDK::initialize(bool enable_debugging)
 {
     assert(ctx == nullptr);
-
     auto pdfium_ctx = new pdfium_context;
-    CPDF_ModuleMgr::Create();
-    auto moduleMgr = CPDF_ModuleMgr::Get();
-    pdfium_ctx->codecModule = CCodec_ModuleMgr::Create();
-    moduleMgr->SetCodecModule(pdfium_ctx->codecModule);
-    //moduleMgr->InitPageModule();
-    //moduleMgr->LoadEmbeddedGB1CMaps();
-    //moduleMgr->LoadEmbeddedJapan1CMaps();
-    //moduleMgr->LoadEmbeddedCNS1CMaps();
-    //moduleMgr->LoadEmbeddedKorea1CMaps();
-    pdfium_ctx->parser = nullptr;
-
     ctx = pdfium_ctx;
     ArlingtonPDFShim::debugging = enable_debugging;
 }
@@ -71,15 +85,10 @@ void ArlingtonPDFSDK::initialize(bool enable_debugging)
 /// @brief  Shutdown the PDF SDK
 void ArlingtonPDFSDK::shutdown()
 {
-    //destroy pdfium
-    auto pdfium_ctx = (pdfium_context*)ctx;
-    if (pdfium_ctx->parser != nullptr) {
-        delete pdfium_ctx->parser;
-        pdfium_ctx->parser = nullptr;
+    if (ctx != nullptr) {
+        delete((pdfium_context*)ctx);
+        ctx = nullptr;
     }
-    delete(pdfium_ctx);
-    CPDF_ModuleMgr::Destroy();
-    ctx = nullptr;
 }
 
 /// @brief  Returns human readable version string for PDF SDK that is being used
@@ -88,10 +97,6 @@ std::string ArlingtonPDFSDK::get_version_string()
 {
     assert(ctx != nullptr);
     return "pdfium";
-    //Pdfix* pdfix = (Pdfix *)ctx;
-    //return "PDFix v" + std::to_string(pdfix->GetVersionMajor()) + "."
-    //                 + std::to_string(pdfix->GetVersionMinor()) + "."
-    //                 + std::to_string(pdfix->GetVersionPatch());
 }
 
 
@@ -162,7 +167,9 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 std::string ArlingtonPDFSDK::get_pdf_version(ArlPDFTrailer* trailer) {
     assert(ctx != nullptr);
     assert(trailer != nullptr);
-    return "2.0"; /// @todo - how to get PDF version from pdfium??
+    auto pdfium_ctx = (pdfium_context*)ctx;
+
+    return "2.0"; /// @todo - how to get PDF version from pdfium?? pdfium_ctx->parser->GetFileVersion(); is an int????
 }
 
 
