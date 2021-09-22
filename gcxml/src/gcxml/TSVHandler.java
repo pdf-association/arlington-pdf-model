@@ -25,9 +25,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author fero
- */
+ * Handles Arlington TSV data. In particular it understands the PDF version
+ * based predicates and can perform reduction on the "Type" and "Links" fields
+ * appropriately for a specified PDF version. e.g. the "fn:SinceVersion" 
+ * predicate statement will be removed if the current PDF version is less than 
+ * the operand in the predicate. Furthermore, utility methods are provided that
+ * can reduce the other TSV fields, should the "Type" field be reduced. e.g. if 
+ * the "Type" field has an entry "array;fn:SinceVersion(1.5,dictionary);stream"
+ * then other TSV fields that are expressed in the complex manner (meaning with 
+ * SEMI-COLON separators) will have the corresponding middle element removed if 
+ * for PDF 1.0 to 1.4 inclusive.
+  */
 public class TSVHandler {
     
     /**

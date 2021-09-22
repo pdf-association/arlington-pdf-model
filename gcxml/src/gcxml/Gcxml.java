@@ -92,9 +92,9 @@ public class Gcxml {
                 case "-dep":
                     if ((args.length > 1) && !args[1].isEmpty()) {
                         String version = args[1];
-                        if(version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
+                        if (version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
                                 || version.equals("1.3") || version.equals("1.4") || version.equals("1.5")
-                                || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")){
+                                || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")) {
                             XMLQuery query = new XMLQuery();
                             query.DeprecatedIn(version);
                         }

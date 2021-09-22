@@ -36,21 +36,54 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
- * @author fero
+ * A class to create XML equivalent versions of an Arlington TSV file set.
  */
 public class XMLCreator {
+    /**
+     * Input folder where Arlington TSV files are.
+     * Defaults to './tsv/latest' on the assumption running in the Arlington
+     * main folder. 
+     */
     private String input_folder;
+    
+    /**
+     * Output folder where XML files will be written.
+     * Defaults to './xml/' on the assumption running in the Arlington
+     * main folder.
+     */
     private String output_folder;
+    
+    /**
+     * TSVHandler object that can use to reduce TSV fields, based on
+     * Arlington "Type" field PDF version predicates.
+     */
     private TSVHandler tsv = null;
+    
+    /**
+     * the PDF Version of XML being created
+     */
     private double pdf_ver = 0; 
+    
+    /**
+     * Alphabetically sorted array of File objects that 
+     * comprise an Arlington TSV file set.
+     */
     private File[] list_of_files = null;
+    
+    /**
+     * TSV delimiter - should be TAB
+     */
     private char delimiter = '\t';
     
+    /**
+     * Current Arlington TSV filename (object) being processed.
+     * Used for error and assertion messages during XML creation.
+     */
     private String current_entry;
     
-    private DocumentBuilderFactory dom_factory = null;
-    private DocumentBuilder dom_builder = null;
+    /**
+     * XML document root object to which we will add XML elements
+     */
     private Document new_doc = null;
     
     /**
@@ -78,15 +111,6 @@ public class XMLCreator {
         
         this.delimiter = delimiter;
         this.current_entry = "";
-        
-        try {
-            dom_factory = DocumentBuilderFactory.newInstance();
-            dom_builder = dom_factory.newDocumentBuilder();
-            new_doc = dom_builder.newDocument();
-        } 
-        catch (Exception exp) {
-            System.err.println("ERROR: " + exp.toString());
-        }
     }
     
     /**
@@ -174,12 +198,12 @@ public class XMLCreator {
                             Element special_case_elem = nodeSpecialCase(column_values[9]);
  
                             // <VALUE> node: possible values that can be used for the entry
-                            // colValues[1]: type
-                            // colValues[10]: links
-                            // colValues[6], colValues[7], colValues[8]: other values (optional)
+                            // - colValues[1]: type
+                            // - colValues[10]: links
+                            // - colValues[6], colValues[7], colValues[8]: other values (optional)
                             Element value_elem = nodeValues(column_values[1], column_values[7], column_values[8], column_values[10]);
 
-                            //append elements to entry
+                            //append elements to entry. Some are optional.
                             entry_elem.appendChild(name_elem);
                             if (value_elem != null)  
                                 entry_elem.appendChild(value_elem);
@@ -212,8 +236,7 @@ public class XMLCreator {
                 }
             }
             
-            // Save the document to the disk file
-            // properties setup
+            // Save the XML document 
             TransformerFactory tran_factory = TransformerFactory.newInstance();
             Transformer transformer = tran_factory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -223,9 +246,6 @@ public class XMLCreator {
             Result result = new StreamResult(new File(output_folder));
             transformer.transform(src, result);
             System.out.println("Wrote XML for PDF " + pdf_version + " with " + object_count + " objects to " + output_folder);
-        } 
-        catch (IOException exp) {
-            System.err.println(exp.toString());
         } 
         catch (Exception exp) {
             System.err.println(exp.toString());
