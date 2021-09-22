@@ -111,8 +111,10 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
     auto pdfium_ctx = (pdfium_context*)ctx;
 
     // close previously opened document
-    if (pdfium_ctx->parser != nullptr)
+    if (pdfium_ctx->parser != nullptr) {
+        pdfium_ctx->parser->CloseParser();
         delete(pdfium_ctx->parser);
+    }
     pdfium_ctx->parser = new CPDF_Parser;
 
     //pdfium_ctx->parser->SetPassword(password);
@@ -167,9 +169,14 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 std::string ArlingtonPDFSDK::get_pdf_version(ArlPDFTrailer* trailer) {
     assert(ctx != nullptr);
     assert(trailer != nullptr);
-    auto pdfium_ctx = (pdfium_context*)ctx;
 
-    return "2.0"; /// @todo - how to get PDF version from pdfium?? pdfium_ctx->parser->GetFileVersion(); is an int????
+    auto pdfium_ctx = (pdfium_context*)ctx;
+    assert(pdfium_ctx->parser != nullptr);
+    int ver = pdfium_ctx->parser->GetFileVersion();
+    // ver = PDF header version x 10 (so PDF 1.3 = 13)
+    char version_str[4];
+    snprintf(version_str, 4, "%1.1f", ver / 10.0);
+    return version_str;
 }
 
 
