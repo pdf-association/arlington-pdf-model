@@ -133,14 +133,6 @@ FX_DWORD CPDF_Parser::StartParse(FX_LPCSTR filename, FX_BOOL bReParse)
     }
     return StartParse(pFileAccess, bReParse);
 }
-FX_DWORD CPDF_Parser::StartParse(FX_LPCWSTR filename, FX_BOOL bReParse)
-{
-    IFX_FileRead* pFileAccess = FX_CreateFileRead(filename);
-    if (!pFileAccess) {
-        return PDFPARSE_ERROR_FILE;
-    }
-    return StartParse(pFileAccess, bReParse);
-}
 CPDF_SecurityHandler* FPDF_CreateStandardSecurityHandler();
 CPDF_SecurityHandler* FPDF_CreatePubKeyHandler(void*);
 FX_DWORD CPDF_Parser::StartParse(IFX_FileRead* pFileAccess, FX_BOOL bReParse, FX_BOOL bOwnFileRead)
