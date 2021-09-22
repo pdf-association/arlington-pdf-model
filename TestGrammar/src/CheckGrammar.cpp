@@ -379,9 +379,13 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
     if (verbose)
         ofs << "Predicate reduction by regular expression is being attempted." << std::endl;
 
-    // Dual entry points into the latest Arlington grammars.
-    // Avoid reporting errors in PDF sets prior to PDF 1.5
+    // Multiple entry points into later Arlington grammars.
     to_process.push_back("FileTrailer.tsv");
+
+    if (is_file(grammar_folder / "LinearizationParameterDict.tsv"))
+        to_process.push_back("LinearizationParameterDict.tsv");
+
+    // Avoid reporting errors in PDF sets prior to PDF 1.5
     if (is_file(grammar_folder / "XRefStream.tsv"))
         to_process.push_back("XRefStream.tsv");
 
