@@ -72,6 +72,7 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
                 ofs << "Traditional trailer dictionary detected" << std::endl;
                 parser.add_parse_object(trailer, "FileTrailer", "Trailer");
             }
+            ofs << "PDF Header version " << pdfsdk.get_pdf_version(trailer) << std::endl;
             parser.parse_object();
         }
         else
