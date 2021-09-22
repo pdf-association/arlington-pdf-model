@@ -88,7 +88,7 @@
             "id": "ArrayOf_4AnnotBorderCharacteristics",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "ArrayOf_4AnnotBorderCharacteristics array"
         },
         {
@@ -117,28 +117,28 @@
             "id": "Dest0",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "Dest0 array"
         },
         {
             "id": "Dest1",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "Dest1 array"
         },
         {
             "id": "Dest4",
-            "val": 25,
+            "val": 36,
             "group": "array",
-            "desc": "5 entries",
+            "desc": "6 elements",
             "name": "Dest4 array"
         },
         {
             "id": "DestXYZ",
             "val": 25,
             "group": "array",
-            "desc": "5 entries",
+            "desc": "5 elements",
             "name": "DestXYZ array"
         },
         {
@@ -185,13 +185,6 @@
             "name": "FilterLZWDecode dict"
         },
         {
-            "id": "FontDescriptor",
-            "val": 256,
-            "group": "dict",
-            "desc": "16 keys",
-            "name": "FontDescriptor dict"
-        },
-        {
             "id": "FontDescriptorTrueType",
             "val": 225,
             "group": "dict",
@@ -206,11 +199,11 @@
             "name": "FontDescriptorType1 dict"
         },
         {
-            "id": "FontFile",
-            "val": 9,
+            "id": "FontDescriptorType3",
+            "val": 225,
             "group": "dict",
-            "desc": "3 keys",
-            "name": "FontFile dict"
+            "desc": "15 keys",
+            "name": "FontDescriptorType3 dict"
         },
         {
             "id": "FontFileType1",
@@ -258,15 +251,8 @@
             "id": "IndexedColorSpace",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "IndexedColorSpace array"
-        },
-        {
-            "id": "Matrix",
-            "val": 36,
-            "group": "array",
-            "desc": "6 entries",
-            "name": "Matrix array"
         },
         {
             "id": "Outline",
@@ -344,20 +330,6 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "XObjectMap map"
-        },
-        {
-            "id": "_UniversalArray",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "_UniversalArray map"
-        },
-        {
-            "id": "_UniversalDictionary",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "_UniversalDictionary map"
         }
     ],
     "links": [
@@ -429,8 +401,7 @@
         {
             "source": "ArrayOfStreamsGeneral",
             "target": "Stream",
-            "name": "ArrayOfStreamsGeneral::*",
-            "color": "red"
+            "name": "ArrayOfStreamsGeneral::*"
         },
         {
             "source": "Catalog",
@@ -492,11 +463,6 @@
             "target": "Catalog",
             "name": "FileTrailer::Root",
             "color": "red"
-        },
-        {
-            "source": "FontDescriptor",
-            "target": "FontFile",
-            "name": "FontDescriptor::FontFile"
         },
         {
             "source": "FontDescriptorType1",
@@ -588,14 +554,8 @@
         },
         {
             "source": "FontType3",
-            "target": "FontDescriptor",
+            "target": "FontDescriptorType3",
             "name": "FontType3::FontDescriptor",
-            "color": "red"
-        },
-        {
-            "source": "FontType3",
-            "target": "Matrix",
-            "name": "FontType3::FontMatrix",
             "color": "red"
         },
         {
@@ -817,12 +777,6 @@
         },
         {
             "source": "XObjectFormType1",
-            "target": "Matrix",
-            "name": "XObjectFormType1::Matrix",
-            "color": "red"
-        },
-        {
-            "source": "XObjectFormType1",
             "target": "ArrayOfIntegersGeneral",
             "name": "XObjectFormType1::XUID"
         },
@@ -871,36 +825,6 @@
             "source": "XObjectMap",
             "target": "XObjectImage",
             "name": "XObjectMap::*"
-        },
-        {
-            "source": "_UniversalArray",
-            "target": "_UniversalArray",
-            "name": "_UniversalArray::*"
-        },
-        {
-            "source": "_UniversalArray",
-            "target": "_UniversalDictionary",
-            "name": "_UniversalArray::*"
-        },
-        {
-            "source": "_UniversalArray",
-            "target": "Stream",
-            "name": "_UniversalArray::*"
-        },
-        {
-            "source": "_UniversalDictionary",
-            "target": "_UniversalArray",
-            "name": "_UniversalDictionary::*"
-        },
-        {
-            "source": "_UniversalDictionary",
-            "target": "_UniversalDictionary",
-            "name": "_UniversalDictionary::*"
-        },
-        {
-            "source": "_UniversalDictionary",
-            "target": "Stream",
-            "name": "_UniversalDictionary::*"
         }
     ]
 }

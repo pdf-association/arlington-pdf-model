@@ -3,47 +3,54 @@
     "id": "AnnotLink",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Annot]"
       },
       "Subtype": {
+        "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Link]"
       },
       "Rect": {
+        "Key": "Rect",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Contents": {
+        "Key": "Contents",
         "Type": "string-text",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Border": {
+        "Key": "Border",
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
+        "SpecialCase": "[fn:Ignore(BS)]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "Dest": {
+        "Key": "Dest",
         "Type": "array;name;string-byte",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -55,38 +62,43 @@
     "id": "AnnotText",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Annot]"
       },
       "Subtype": {
+        "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Text]"
       },
       "Rect": {
+        "Key": "Rect",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Contents": {
+        "Key": "Contents",
         "Type": "string-text",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Border": {
+        "Key": "Border",
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -94,16 +106,18 @@
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "Open": {
+        "Key": "Open",
         "Type": "boolean",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": false
+        "DefaultValue": "false"
       },
       "Name": {
+        "Key": "Name",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -111,11 +125,14 @@
         "PossibleValues": "[Comment,Key,Note,Help,NewParagraph,Paragraph,Insert]"
       },
       "State": {
+        "Key": "State",
         "Type": "string-text",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "DefaultValue": "fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))",
+        "PossibleValues": "['Marked','Unmarked','Accepted','Rejected','Cancelled','Completed','None']"
       }
     }
   },
@@ -123,8 +140,9 @@
     "id": "ArrayOfAnnots",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -136,12 +154,13 @@
     "id": "ArrayOfCompressionFilterNames",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]"
+        "PossibleValues": "[ASCIIHexDecode,ASCII85Decode,LZWDecode,RunLengthDecode]"
       }
     }
   },
@@ -149,8 +168,9 @@
     "id": "ArrayOfDecodeParams",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "dictionary;null",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -162,9 +182,10 @@
     "id": "ArrayOfDifferences",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "integer;name",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       }
@@ -174,12 +195,13 @@
     "id": "ArrayOfFilterNames",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]"
+        "PossibleValues": "[ASCIIHexDecode,ASCII85Decode,LZWDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]"
       }
     }
   },
@@ -187,9 +209,10 @@
     "id": "ArrayOfIntegersGeneral",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       }
@@ -199,14 +222,14 @@
     "id": "ArrayOfNamesForProcSet",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "name",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "1.4",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 1.4,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[PDF,Text,ImageB,ImageC,ImageI]",
-        "Note": "Table 346"
+        "PossibleValues": "[PDF,Text,ImageB,ImageC,ImageI]"
       }
     }
   },
@@ -214,9 +237,10 @@
     "id": "ArrayOfNumbersGeneral",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       }
@@ -226,8 +250,9 @@
     "id": "ArrayOfPageTreeNodeKids",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -239,9 +264,10 @@
     "id": "ArrayOfStreamsGeneral",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "stream",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
@@ -252,25 +278,31 @@
     "id": "ArrayOf_4AnnotBorderCharacteristics",
     "keys": {
       "0": {
+        "Key": "0",
         "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
+        "SinceVersion": 1.0,
+        "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@0>=0)]"
       },
       "1": {
+        "Key": "1",
         "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
+        "SinceVersion": 1.0,
+        "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@1>=0)]"
       },
       "2": {
+        "Key": "2",
         "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
+        "SinceVersion": 1.0,
+        "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@2>=0)]"
       }
     }
   },
@@ -278,24 +310,27 @@
     "id": "Catalog",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Catalog]"
       },
       "Pages": {
+        "Key": "Pages",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageTreeNodeRoot]"
       },
       "PageLayout": {
+        "Key": "PageLayout",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -303,8 +338,9 @@
         "PossibleValues": "[SinglePage,OneColumn,TwoColumnLeft,TwoColumnRight,TwoPageLeft,TwoPageRight]"
       },
       "PageMode": {
+        "Key": "PageMode",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -312,21 +348,23 @@
         "PossibleValues": "[UseNone,UseOutlines,UseThumbs,FullScreen,UseOC,UseAttachments]"
       },
       "Outlines": {
+        "Key": "Outlines",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Outline]"
       },
       "NeedsRendering": {
+        "Key": "NeedsRendering",
         "Type": "boolean",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "2.0",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": false
+        "DefaultValue": "false"
       }
     }
   },
@@ -334,8 +372,9 @@
     "id": "CharProcMap",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "stream",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
@@ -347,8 +386,9 @@
     "id": "ColorSpaceMap",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "array;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -361,20 +401,23 @@
     "id": "Dest0",
     "keys": {
       "0": {
+        "Key": "0",
         "Type": "dictionary;number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
+        "PossibleValues": "[];[fn:Eval(@0>=0)]",
         "Link": "[PageObject];[]"
       },
       "1": {
+        "Key": "1",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[Fit,fn:SinceVersion(1.1,FitB)]"
+        "PossibleValues": "[Fit]"
       }
     }
   },
@@ -382,24 +425,28 @@
     "id": "Dest1",
     "keys": {
       "0": {
+        "Key": "0",
         "Type": "dictionary;number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
+        "PossibleValues": "[];[fn:Eval(@0>=0)]",
         "Link": "[PageObject];[]"
       },
       "1": {
+        "Key": "1",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[FitH,FitV,fn:SinceVersion(1.1,FitBH),fn:SinceVersion(1.1,FitBV)]"
+        "PossibleValues": "[FitH,FitV]"
       },
       "2": {
+        "Key": "2",
         "Type": "null;number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -411,40 +458,55 @@
     "id": "Dest4",
     "keys": {
       "0": {
+        "Key": "0",
         "Type": "dictionary;number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
+        "PossibleValues": "[];[fn:Eval(@0>=0)]",
         "Link": "[PageObject];[]"
       },
       "1": {
+        "Key": "1",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[FitR]"
       },
       "2": {
+        "Key": "2",
         "Type": "null;number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[];[]"
       },
       "3": {
+        "Key": "3",
         "Type": "null;number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[];[]"
       },
       "4": {
+        "Key": "4",
         "Type": "null;number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[];[]"
+      },
+      "5": {
+        "Key": "5",
+        "Type": "null;number",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -456,40 +518,46 @@
     "id": "DestXYZ",
     "keys": {
       "0": {
+        "Key": "0",
         "Type": "dictionary;number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
+        "PossibleValues": "[];[fn:Eval(@0>=0)]",
         "Link": "[PageObject];[]"
       },
       "1": {
+        "Key": "1",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[XYZ]"
       },
       "2": {
+        "Key": "2",
         "Type": "null;number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[];[]"
       },
       "3": {
+        "Key": "3",
         "Type": "null;number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[];[]"
       },
       "4": {
+        "Key": "4",
         "Type": "null;number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -501,32 +569,36 @@
     "id": "DocInfo",
     "keys": {
       "Author": {
+        "Key": "Author",
         "Type": "string-text",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "2.0",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Creator": {
+        "Key": "Creator",
         "Type": "string-text",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "2.0",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Producer": {
+        "Key": "Producer",
         "Type": "string-text",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "2.0",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "CreationDate": {
+        "Key": "CreationDate",
         "Type": "date",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
@@ -537,28 +609,30 @@
     "id": "Encoding",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Encoding]"
       },
       "BaseEncoding": {
+        "Key": "BaseEncoding",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[MacRomanEncoding,MacExpertEncoding,WinAnsiEncoding]"
       },
       "Differences": {
+        "Key": "Differences",
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "should not be used with TrueType fonts",
         "Link": "[ArrayOfDifferences]"
       }
     }
@@ -567,31 +641,36 @@
     "id": "FileTrailer",
     "keys": {
       "Size": {
+        "Key": "Size",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
-        "PossibleValues": "[fn:Expr(@self>0)]"
+        "PossibleValues": "[fn:Eval(@Size>0)]"
       },
       "Prev": {
+        "Key": "Prev",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval((@Prev>=0) && (@Prev<=fn:FileSize()))]"
       },
       "Root": {
+        "Key": "Root",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Catalog]"
       },
       "Info": {
+        "Key": "Info",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
@@ -603,68 +682,80 @@
     "id": "FilterCCITTFaxDecode",
     "keys": {
       "K": {
+        "Key": "K",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "EndOfLine": {
+        "Key": "EndOfLine",
         "Type": "boolean",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": false
+        "DefaultValue": "false"
       },
       "EncodedByteAlign": {
+        "Key": "EncodedByteAlign",
         "Type": "boolean",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": false
+        "DefaultValue": "false"
       },
       "Columns": {
+        "Key": "Columns",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "1728"
+        "DefaultValue": "1728",
+        "PossibleValues": "[fn:Eval(@Columns>=0)]"
       },
       "Rows": {
+        "Key": "Rows",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "0"
+        "DefaultValue": "0",
+        "PossibleValues": "[fn:Eval(@Rows>=0)]"
       },
       "EndOfBlock": {
+        "Key": "EndOfBlock",
         "Type": "boolean",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": true
+        "DefaultValue": "true"
       },
       "BlackIs1": {
+        "Key": "BlackIs1",
         "Type": "boolean",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": false
+        "DefaultValue": "false"
       },
       "DamagedRowsBeforeError": {
+        "Key": "DamagedRowsBeforeError",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "0"
+        "DefaultValue": "0",
+        "PossibleValues": "[fn:Eval(@DamagedRowsBeforeError>=0)]",
+        "SpecialCase": "[fn:Ignore((@EndOfLine==false) || (@K<0))]"
       }
     }
   },
@@ -672,8 +763,9 @@
     "id": "FilterDCTDecode",
     "keys": {
       "ColorTransform": {
+        "Key": "ColorTransform",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -685,43 +777,50 @@
     "id": "FilterLZWDecode",
     "keys": {
       "Predictor": {
+        "Key": "Predictor",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[1,2,10,11,12,13,14,15]"
       },
       "Colors": {
+        "Key": "Colors",
         "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[fn:Expr(@self>=1)]",
-        "SpecialCase": "used only if predictor > 1"
-      },
-      "BitsPerComponent": {
-        "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[1,2,4,8,16]",
-        "SpecialCase": "used only if predictor > 1"
-      },
-      "Columns": {
-        "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "1",
-        "SpecialCase": "used only if predictor > 1"
+        "PossibleValues": "[fn:Eval((@Colors>=1) && fn:BeforeVersion(1.3,fn:Eval(@Colors<=4)))]",
+        "SpecialCase": "[fn:Ignore(@Predictor<=1)]"
+      },
+      "BitsPerComponent": {
+        "Key": "BitsPerComponent",
+        "Type": "integer",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "8",
+        "PossibleValues": "[1,2,4,8]",
+        "SpecialCase": "[fn:Ignore(@Predictor<=1)]"
+      },
+      "Columns": {
+        "Key": "Columns",
+        "Type": "integer",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1",
+        "SpecialCase": "[fn:Ignore(@Predictor<=1)]"
       },
       "EarlyChange": {
+        "Key": "EarlyChange",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -731,250 +830,132 @@
     }
   },
   {
-    "id": "FontDescriptor",
-    "keys": {
-      "Type": {
-        "Type": "name",
-        "SinceVersion": "1.0",
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[FontDescriptor]"
-      },
-      "FontName": {
-        "Type": "name",
-        "SinceVersion": "1.0",
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "Flags": {
-        "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "FontBBox": {
-        "Type": "rectangle",
-        "SinceVersion": "1.0",
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "Optional for Type 3 fonts"
-      },
-      "ItalicAngle": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "Ascent": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "Optional for Type 3 fonts"
-      },
-      "Descent": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[fn:Expr(@self<0)]",
-        "SpecialCase": "Optional for Type 3 fonts"
-      },
-      "Leading": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "0"
-      },
-      "CapHeight": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "XHeight": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "0"
-      },
-      "StemV": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "Optional for Type 3 fonts"
-      },
-      "StemH": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "0"
-      },
-      "AvgWidth": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "0"
-      },
-      "MaxWidth": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "0"
-      },
-      "MissingWidth": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "0"
-      },
-      "FontFile": {
-        "Type": "stream",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[FontFile]"
-      }
-    }
-  },
-  {
     "id": "FontDescriptorTrueType",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[FontDescriptor]"
       },
       "FontName": {
+        "Key": "FontName",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@FontName==parent::@BaseFont)]"
       },
       "Flags": {
-        "Type": "integer",
-        "SinceVersion": "1.0",
+        "Key": "Flags",
+        "Type": "bitmask",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "FontBBox": {
+        "Key": "FontBBox",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "Optional for Type 3 fonts"
+        "Inheritable": false
       },
       "ItalicAngle": {
+        "Key": "ItalicAngle",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Ascent": {
+        "Key": "Ascent",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "Optional for Type 3 fonts"
+        "Inheritable": false
       },
       "Descent": {
+        "Key": "Descent",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Expr(@self<0)]",
-        "SpecialCase": "Optional for Type 3 fonts"
+        "PossibleValues": "[fn:Eval(@Descent<0)]"
       },
       "Leading": {
+        "Key": "Leading",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "CapHeight": {
+        "Key": "CapHeight",
         "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:FontHasLatinChars())",
         "IndirectReference": false,
         "Inheritable": false
       },
       "XHeight": {
+        "Key": "XHeight",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "StemV": {
+        "Key": "StemV",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "Optional for Type 3 fonts"
+        "Inheritable": false
       },
       "StemH": {
+        "Key": "StemH",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "AvgWidth": {
+        "Key": "AvgWidth",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "MaxWidth": {
+        "Key": "MaxWidth",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "MissingWidth": {
+        "Key": "MissingWidth",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -986,121 +967,138 @@
     "id": "FontDescriptorType1",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[FontDescriptor]"
       },
       "FontName": {
+        "Key": "FontName",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@FontName==parent::@BaseFont)]"
       },
       "Flags": {
-        "Type": "integer",
-        "SinceVersion": "1.0",
+        "Key": "Flags",
+        "Type": "bitmask",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "FontBBox": {
+        "Key": "FontBBox",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "ItalicAngle": {
+        "Key": "ItalicAngle",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Ascent": {
+        "Key": "Ascent",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Descent": {
+        "Key": "Descent",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Expr(@self<0)]"
+        "PossibleValues": "[fn:Eval(@Descent<0)]"
       },
       "Leading": {
+        "Key": "Leading",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "CapHeight": {
+        "Key": "CapHeight",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "XHeight": {
+        "Key": "XHeight",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "StemV": {
+        "Key": "StemV",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "StemH": {
+        "Key": "StemH",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "AvgWidth": {
+        "Key": "AvgWidth",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "MaxWidth": {
+        "Key": "MaxWidth",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "MissingWidth": {
+        "Key": "MissingWidth",
         "Type": "number",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0"
       },
       "FontFile": {
+        "Key": "FontFile",
         "Type": "stream",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
@@ -1109,28 +1107,137 @@
     }
   },
   {
-    "id": "FontFile",
+    "id": "FontDescriptorType3",
     "keys": {
-      "Length1": {
-        "Type": "integer",
-        "SinceVersion": "1.0",
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[FontDescriptor]"
+      },
+      "FontName": {
+        "Key": "FontName",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@FontName==parent::@Name)]"
+      },
+      "Flags": {
+        "Key": "Flags",
+        "Type": "bitmask",
+        "SinceVersion": 1.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:BitClear(5) && fn:BitsClear(8,16) && fn:BitsClear(20,32))]"
+      },
+      "FontBBox": {
+        "Key": "FontBBox",
+        "Type": "rectangle",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
-      "Length2": {
-        "Type": "integer",
-        "SinceVersion": "1.0",
+      "ItalicAngle": {
+        "Key": "ItalicAngle",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Ascent": {
+        "Key": "Ascent",
+        "Type": "number",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
-      "Length3": {
-        "Type": "integer",
-        "SinceVersion": "1.0",
+      "Descent": {
+        "Key": "Descent",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@Descent<0)]"
+      },
+      "Leading": {
+        "Key": "Leading",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0"
+      },
+      "CapHeight": {
+        "Key": "CapHeight",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:FontHasLatinChars())",
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "XHeight": {
+        "Key": "XHeight",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0"
+      },
+      "StemV": {
+        "Key": "StemV",
+        "Type": "number",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      },
+      "StemH": {
+        "Key": "StemH",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0"
+      },
+      "AvgWidth": {
+        "Key": "AvgWidth",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0"
+      },
+      "MaxWidth": {
+        "Key": "MaxWidth",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0"
+      },
+      "MissingWidth": {
+        "Key": "MissingWidth",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0"
       }
     }
   },
@@ -1138,29 +1245,36 @@
     "id": "FontFileType1",
     "keys": {
       "Length1": {
+        "Key": "Length1",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@Length1>=0)]"
       },
       "Length2": {
+        "Key": "Length2",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@Length2>=0)]"
       },
       "Length3": {
+        "Key": "Length3",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@Length3>=0)]"
       },
       "Subtype": {
+        "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
@@ -1171,8 +1285,9 @@
     "id": "FontMap",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -1184,73 +1299,78 @@
     "id": "FontMultipleMaster",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Font]"
       },
       "Subtype": {
+        "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[MMType1]"
       },
       "Name": {
+        "Key": "Name",
         "Type": "name",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "2.0",
-        "Required": "fn:IsRequired(fn:IsPDFVersion(1.0))",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "BaseFont": {
+        "Key": "BaseFont",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "FirstChar": {
+        "Key": "FirstChar",
         "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14"
+        "Inheritable": false
       },
       "LastChar": {
+        "Key": "LastChar",
         "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14"
+        "Inheritable": false
       },
       "Widths": {
+        "Key": "Widths",
         "Type": "array",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14",
         "Link": "[ArrayOfIntegersGeneral]"
       },
       "FontDescriptor": {
+        "Key": "FontDescriptor",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14",
         "Link": "[FontDescriptorType1]"
       },
       "Encoding": {
+        "Key": "Encoding",
         "Type": "dictionary;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -1263,73 +1383,78 @@
     "id": "FontTrueType",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Font]"
       },
       "Subtype": {
+        "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[TrueType]"
       },
       "Name": {
+        "Key": "Name",
         "Type": "name",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "2.0",
-        "Required": "fn:IsRequired(fn:IsPDFVersion(1.0))",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "BaseFont": {
+        "Key": "BaseFont",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "FirstChar": {
+        "Key": "FirstChar",
         "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14"
+        "Inheritable": false
       },
       "LastChar": {
+        "Key": "LastChar",
         "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14"
+        "Inheritable": false
       },
       "Widths": {
+        "Key": "Widths",
         "Type": "array",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14",
         "Link": "[ArrayOfIntegersGeneral]"
       },
       "FontDescriptor": {
+        "Key": "FontDescriptor",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14",
         "Link": "[FontDescriptorTrueType]"
       },
       "Encoding": {
+        "Key": "Encoding",
         "Type": "dictionary;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -1342,73 +1467,79 @@
     "id": "FontType1",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Font]"
       },
       "Subtype": {
+        "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Type1]"
       },
       "Name": {
+        "Key": "Name",
         "Type": "name",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "2.0",
-        "Required": "fn:IsRequired(fn:IsPDFVersion(1.0))",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "BaseFont": {
+        "Key": "BaseFont",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "FirstChar": {
+        "Key": "FirstChar",
         "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14"
+        "Inheritable": false
       },
       "LastChar": {
+        "Key": "LastChar",
         "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14"
+        "Inheritable": false
       },
       "Widths": {
+        "Key": "Widths",
         "Type": "array",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))]",
         "Link": "[ArrayOfIntegersGeneral]"
       },
       "FontDescriptor": {
+        "Key": "FontDescriptor",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
-        "Required": true,
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "optional in 1.0-1.7 for Base14",
         "Link": "[FontDescriptorType1]"
       },
       "Encoding": {
+        "Key": "Encoding",
         "Type": "dictionary;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -1421,89 +1552,99 @@
     "id": "FontType3",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Font]"
       },
       "Subtype": {
+        "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Type3]"
       },
       "Name": {
+        "Key": "Name",
         "Type": "name",
-        "SinceVersion": "1.0",
-        "Required": "fn:IsRequired(fn:IsPDFVersion(1.0))",
+        "SinceVersion": 1.0,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "FontBBox": {
+        "Key": "FontBBox",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "FontMatrix": {
-        "Type": "array",
-        "SinceVersion": "1.0",
+        "Key": "FontMatrix",
+        "Type": "matrix",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[Matrix]"
+        "Inheritable": false
       },
       "CharProcs": {
+        "Key": "CharProcs",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[CharProcMap]"
       },
       "Encoding": {
+        "Key": "Encoding",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "type name allowed in 1.7",
         "Link": "[Encoding]"
       },
       "FirstChar": {
+        "Key": "FirstChar",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "LastChar": {
+        "Key": "LastChar",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Widths": {
+        "Key": "Widths",
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))]",
         "Link": "[ArrayOfIntegersGeneral]"
       },
       "FontDescriptor": {
+        "Key": "FontDescriptor",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": "fn:IsRequired(fn:IsPDFTagged())",
         "IndirectReference": true,
         "Inheritable": false,
-        "Link": "[FontDescriptor]"
+        "Link": "[FontDescriptorType3]"
       }
     }
   },
@@ -1511,85 +1652,41 @@
     "id": "IndexedColorSpace",
     "keys": {
       "0": {
+        "Key": "0",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Indexed]"
       },
       "1": {
-        "Type": "array;name",
-        "SinceVersion": "1.0",
+        "Key": "1",
+        "Type": "name",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
-        "Link": "[];[]",
-        "Note": "*cannot be pattern or indexed"
+        "PossibleValues": "[DeviceCMYK,DeviceRGB,DeviceGray]",
+        "Link": "[]"
       },
       "2": {
+        "Key": "2",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Expr(@self>0 && @self<=255)]"
+        "PossibleValues": "[fn:Eval((@2>0) && (@2<=255))]"
       },
       "3": {
+        "Key": "3",
         "Type": "stream;string",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": "[true];[false]",
         "Inheritable": false,
         "Link": "[Stream];[]"
-      }
-    }
-  },
-  {
-    "id": "Matrix",
-    "keys": {
-      "0": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "1": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "2": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "3": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "4": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "5": {
-        "Type": "number",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
       }
     }
   },
@@ -1597,36 +1694,40 @@
     "id": "Outline",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Outlines]"
       },
       "First": {
+        "Key": "First",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[OutlineItem]"
       },
       "Last": {
+        "Key": "Last",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[OutlineItem]"
       },
       "Count": {
+        "Key": "Count",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Expr(@self>=0)]"
+        "PossibleValues": "[fn:Eval(@Count>=0)]"
       }
     }
   },
@@ -1634,65 +1735,74 @@
     "id": "OutlineItem",
     "keys": {
       "Title": {
+        "Key": "Title",
         "Type": "string-text",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Parent": {
+        "Key": "Parent",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[OutlineItem,Outline]"
       },
       "Prev": {
+        "Key": "Prev",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[OutlineItem]"
       },
       "Next": {
+        "Key": "Next",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[OutlineItem]"
       },
       "First": {
+        "Key": "First",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[OutlineItem]"
       },
       "Last": {
+        "Key": "Last",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[OutlineItem]"
       },
       "Count": {
+        "Key": "Count",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Dest": {
+        "Key": "Dest",
         "Type": "array;name;string-byte",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:NotPresent(A)]",
         "Link": "[DestXYZ,Dest0,Dest1,Dest4];[];[]"
       }
     }
@@ -1701,76 +1811,81 @@
     "id": "PageObject",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Page,Template]"
       },
       "Parent": {
+        "Key": "Parent",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": "fn:IsRequired(@Type!=Template)",
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageTreeNode,PageTreeNodeRoot]"
       },
       "Resources": {
+        "Key": "Resources",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": true,
-        "Link": "[Resource]",
-        "Note": "Inheritable from Parent"
+        "Link": "[Resource]"
       },
       "MediaBox": {
+        "Key": "MediaBox",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": true,
-        "Note": "Inheritable from Parent"
+        "Inheritable": true
       },
       "CropBox": {
+        "Key": "CropBox",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": true,
-        "DefaultValue": "@MediaBox",
-        "Note": "Inheritable from Parent"
+        "DefaultValue": "@MediaBox"
       },
       "Contents": {
+        "Key": "Contents",
         "Type": "array;stream",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "[false];[true]",
         "Inheritable": false,
         "Link": "[ArrayOfStreamsGeneral];[Stream]"
       },
       "Rotate": {
+        "Key": "Rotate",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": true,
         "DefaultValue": "0",
-        "PossibleValues": "[fn:Expr(@self mod 90==0)]",
-        "Note": "Inheritable from Parent"
+        "PossibleValues": "[fn:Eval((@Rotate mod 90)==0)]"
       },
       "Thumb": {
+        "Key": "Thumb",
         "Type": "stream",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Thumbnail]"
       },
       "Annots": {
+        "Key": "Annots",
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -1782,72 +1897,76 @@
     "id": "PageTreeNode",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Pages]"
       },
       "Parent": {
+        "Key": "Parent",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageTreeNode,PageTreeNodeRoot]"
       },
       "Kids": {
+        "Key": "Kids",
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfPageTreeNodeKids]"
       },
       "Count": {
+        "Key": "Count",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Expr(@self>=0)]"
+        "PossibleValues": "[fn:Eval(@Count>=0)]"
       },
       "Resources": {
+        "Key": "Resources",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": true,
-        "Link": "[Resource]",
-        "Note": "Inheritable from Parent"
+        "Link": "[Resource]"
       },
       "MediaBox": {
+        "Key": "MediaBox",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true,
-        "Note": "Inheritable from Parent"
+        "Inheritable": true
       },
       "CropBox": {
+        "Key": "CropBox",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": true,
-        "DefaultValue": "@MediaBox",
-        "Note": "Inheritable from Parent"
+        "DefaultValue": "@MediaBox"
       },
       "Rotate": {
+        "Key": "Rotate",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": true,
         "DefaultValue": "0",
-        "PossibleValues": "[fn:Expr(@self mod 90==0)]",
-        "Note": "Inheritable from Parent"
+        "PossibleValues": "[fn:Eval((@Rotate mod 90)==0)]"
       }
     }
   },
@@ -1855,64 +1974,67 @@
     "id": "PageTreeNodeRoot",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Pages]"
       },
       "Kids": {
+        "Key": "Kids",
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfPageTreeNodeKids]"
       },
       "Count": {
+        "Key": "Count",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Expr(@self>=0)]"
+        "PossibleValues": "[fn:Eval(@Count>=0)]"
       },
       "Resources": {
+        "Key": "Resources",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true,
-        "Link": "[Resource]",
-        "Note": "Inheritable from Parent"
+        "Inheritable": false,
+        "Link": "[Resource]"
       },
       "MediaBox": {
+        "Key": "MediaBox",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true,
-        "Note": "Inheritable from Parent"
+        "Inheritable": false
       },
       "CropBox": {
+        "Key": "CropBox",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "@MediaBox",
-        "Note": "Inheritable from Parent"
+        "Inheritable": false,
+        "DefaultValue": "@MediaBox"
       },
       "Rotate": {
+        "Key": "Rotate",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true,
+        "Inheritable": false,
         "DefaultValue": "0",
-        "PossibleValues": "[fn:Expr(@self mod 90==0)]",
-        "Note": "Inheritable from Parent"
+        "PossibleValues": "[fn:Eval((@Rotate mod 90)==0)]"
       }
     }
   },
@@ -1920,41 +2042,41 @@
     "id": "Resource",
     "keys": {
       "ColorSpace": {
+        "Key": "ColorSpace",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ColorSpaceMap]",
-        "Note": "*"
+        "Link": "[ColorSpaceMap]"
       },
       "XObject": {
+        "Key": "XObject",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[XObjectMap]",
-        "Note": "*"
+        "Link": "[XObjectMap]"
       },
       "Font": {
+        "Key": "Font",
         "Type": "dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[FontMap]",
-        "Note": "*"
+        "Link": "[FontMap]"
       },
       "ProcSet": {
+        "Key": "ProcSet",
         "Type": "array",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "2.0",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfNamesForProcSet]",
-        "Note": "*, Clause 14.2 says deprecated in 1.4"
+        "Link": "[ArrayOfNamesForProcSet]"
       }
     }
   },
@@ -1962,27 +2084,32 @@
     "id": "Stream",
     "keys": {
       "Length": {
+        "Key": "Length",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Filter": {
+        "Key": "Filter",
         "Type": "array;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
+        "Key": "DecodeParms",
         "Type": "array;dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       }
     }
@@ -1991,38 +2118,43 @@
     "id": "Thumbnail",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[XObject]"
       },
       "Subtype": {
+        "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Image]"
       },
       "Width": {
+        "Key": "Width",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Height": {
+        "Key": "Height",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "ColorSpace": {
+        "Key": "ColorSpace",
         "Type": "array;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -2030,16 +2162,18 @@
         "Link": "[IndexedColorSpace];[]"
       },
       "BitsPerComponent": {
+        "Key": "BitsPerComponent",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[1,2,4,8,16]"
       },
       "Decode": {
+        "Key": "Decode",
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -2051,82 +2185,92 @@
     "id": "XObjectFormType1",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[XObject]"
       },
       "Subtype": {
+        "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Form]"
       },
       "FormType": {
+        "Key": "FormType",
         "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": "fn:IsRequired(fn:BeforeVersion(1.3))",
+        "SinceVersion": 1.0,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[1]"
       },
       "BBox": {
+        "Key": "BBox",
         "Type": "rectangle",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Matrix": {
-        "Type": "array",
-        "SinceVersion": "1.0",
-        "Required": "fn:IsRequired(fn:BeforeVersion(1.3))",
+        "Key": "Matrix",
+        "Type": "matrix",
+        "SinceVersion": 1.0,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "[1 0 0 1 0 0]",
-        "Link": "[Matrix]"
+        "DefaultValue": "[1 0 0 1 0 0]"
       },
       "Name": {
+        "Key": "Name",
         "Type": "name",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "2.0",
-        "Required": "fn:IsRequired(fn:BeforeVersion(1.3))",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Length": {
+        "Key": "Length",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false,
-        "Note": "* from stream"
+        "Inheritable": false
       },
       "Filter": {
+        "Key": "Filter",
         "Type": "array;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,RunLengthDecode]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
+        "Key": "DecodeParms",
         "Type": "array;dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode]"
       },
       "XUID": {
+        "Key": "XUID",
         "Type": "array",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "1.3",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 1.3,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -2138,115 +2282,133 @@
     "id": "XObjectImage",
     "keys": {
       "Type": {
+        "Key": "Type",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[XObject]"
       },
       "Subtype": {
+        "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Image]"
       },
       "Width": {
+        "Key": "Width",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Height": {
+        "Key": "Height",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "ColorSpace": {
+        "Key": "ColorSpace",
         "Type": "array;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": "fn:IsRequired(@Filter!=JPXDecode)",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
+        "SpecialCase": "[fn:NotPresent(@ImageMask==true)]",
         "Link": "[IndexedColorSpace];[]"
       },
       "BitsPerComponent": {
+        "Key": "BitsPerComponent",
         "Type": "integer",
-        "SinceVersion": "1.0",
-        "Required": "fn:IsRequired(@Filter!=JPXDecode || ImageMask==true)",
+        "SinceVersion": 1.0,
+        "Required": "fn:IsRequired((@Filter!=JPXDecode) || (ImageMask==true))",
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:RequiredValue(@Filter==CCITTFaxDecode || @Filter==JBIG2Decode,1),2,4,fn:RequiredValue(@Filter==RunLengthDecode || @Filter==DCTDecode,8),fn:SinceVersion(1.5,16)]"
+        "PossibleValues": "[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)]"
       },
       "ImageMask": {
+        "Key": "ImageMask",
         "Type": "boolean",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": false
+        "DefaultValue": "false"
       },
       "Decode": {
+        "Key": "Decode",
         "Type": "array",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Ignore((@Filter==JPXDecode) && fn:NotPresent(ColorSpace) && (@ImageMask==false))]",
         "Link": "[ArrayOfNumbersGeneral]"
       },
       "Interpolate": {
+        "Key": "Interpolate",
         "Type": "boolean",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": false
+        "DefaultValue": "false"
       },
       "Name": {
+        "Key": "Name",
         "Type": "name",
-        "SinceVersion": "1.0",
-        "DeprecatedIn": "2.0",
-        "Required": "fn:IsRequired(fn:IsPDFVersion(1.0))",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Length": {
+        "Key": "Length",
         "Type": "integer",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
       "Filter": {
+        "Key": "Filter",
         "Type": "array;name",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]",
+        "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
+        "Key": "DecodeParms",
         "Type": "array;dictionary",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       },
       "F": {
-        "Type": "dictionary;string",
-        "SinceVersion": "1.0",
+        "Key": "F",
+        "Type": "string",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[];[]"
+        "Link": "[]"
       }
     }
   },
@@ -2254,38 +2416,13 @@
     "id": "XObjectMap",
     "keys": {
       "*": {
+        "Key": "*",
         "Type": "stream",
-        "SinceVersion": "1.0",
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[XObjectFormType1,XObjectImage]"
-      }
-    }
-  },
-  {
-    "id": "_UniversalArray",
-    "keys": {
-      "*": {
-        "Type": "array;boolean;dictionary;name;null;number;stream;string",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[_UniversalArray];[];[_UniversalDictionary];[];[];[];[Stream];[]"
-      }
-    }
-  },
-  {
-    "id": "_UniversalDictionary",
-    "keys": {
-      "*": {
-        "Type": "array;boolean;dictionary;name;null;number;stream;string",
-        "SinceVersion": "1.0",
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[_UniversalArray];[];[_UniversalDictionary];[];[];[];[Stream];[]"
       }
     }
   }

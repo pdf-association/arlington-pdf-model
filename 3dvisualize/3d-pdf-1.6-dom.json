@@ -373,9 +373,9 @@
         },
         {
             "id": "AnnotWidget",
-            "val": 400,
+            "val": 625,
             "group": "dict",
-            "desc": "20 keys",
+            "desc": "25 keys",
             "name": "AnnotWidget dict"
         },
         {
@@ -431,8 +431,15 @@
             "id": "ArrayOf3DTransMatrix",
             "val": 144,
             "group": "array",
-            "desc": "12 entries",
+            "desc": "12 elements",
             "name": "ArrayOf3DTransMatrix array"
+        },
+        {
+            "id": "ArrayOf4Functions",
+            "val": 16,
+            "group": "array",
+            "desc": "4 elements",
+            "name": "ArrayOf4Functions array"
         },
         {
             "id": "ArrayOfActions",
@@ -522,7 +529,7 @@
             "id": "ArrayOfDescendantFonts",
             "val": 1,
             "group": "array",
-            "desc": "1 entries",
+            "desc": "1 elements",
             "name": "ArrayOfDescendantFonts array"
         },
         {
@@ -536,7 +543,7 @@
             "id": "ArrayOfDuration",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ArrayOfDuration array"
         },
         {
@@ -554,18 +561,18 @@
             "name": "ArrayOfFields map"
         },
         {
-            "id": "ArrayOfFileSpecRF",
-            "val": 4,
-            "group": "array",
-            "desc": "2 entries",
-            "name": "ArrayOfFileSpecRF array"
-        },
-        {
             "id": "ArrayOfFilterNames",
             "val": 1,
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfFilterNames map"
+        },
+        {
+            "id": "ArrayOfFontAndSize",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOfFontAndSize array"
         },
         {
             "id": "ArrayOfFonts",
@@ -585,7 +592,7 @@
             "id": "ArrayOfGSPDashPatterns",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ArrayOfGSPDashPatterns array"
         },
         {
@@ -680,6 +687,13 @@
             "name": "ArrayOfOCGState map"
         },
         {
+            "id": "ArrayOfOCGindirect",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfOCGindirect map"
+        },
+        {
             "id": "ArrayOfOCUsage",
             "val": 1,
             "group": "map",
@@ -690,7 +704,7 @@
             "id": "ArrayOfOPI13Color",
             "val": 25,
             "group": "array",
-            "desc": "5 entries",
+            "desc": "5 elements",
             "name": "ArrayOfOPI13Color array"
         },
         {
@@ -701,18 +715,11 @@
             "name": "ArrayOfOptContentGroups map"
         },
         {
-            "id": "ArrayOfOptContentOrders1",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "ArrayOfOptContentOrders1 map"
-        },
-        {
-            "id": "ArrayOfOptContentOrders2",
+            "id": "ArrayOfOptContentOrders",
             "val": 4,
             "group": "map",
             "desc": "(unspecified)",
-            "name": "ArrayOfOptContentOrders2 map"
+            "name": "ArrayOfOptContentOrders map"
         },
         {
             "id": "ArrayOfOutputIntents",
@@ -739,8 +746,15 @@
             "id": "ArrayOfQuadPoints",
             "val": 64,
             "group": "array",
-            "desc": "8 entries",
+            "desc": "8 elements",
             "name": "ArrayOfQuadPoints array"
+        },
+        {
+            "id": "ArrayOfRenditions",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfRenditions map"
         },
         {
             "id": "ArrayOfSignatureReferences",
@@ -848,137 +862,165 @@
             "name": "ArrayOfWebCaptureCommands map"
         },
         {
+            "id": "ArrayOfXFA",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfXFA map"
+        },
+        {
+            "id": "ArrayOfXRefWIntegers",
+            "val": 9,
+            "group": "array",
+            "desc": "3 elements",
+            "name": "ArrayOfXRefWIntegers array"
+        },
+        {
             "id": "ArrayOf_2Booleans",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ArrayOf_2Booleans array"
         },
         {
             "id": "ArrayOf_2DashNumbers",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ArrayOf_2DashNumbers array"
         },
         {
             "id": "ArrayOf_2Integers",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ArrayOf_2Integers array"
         },
         {
             "id": "ArrayOf_2LineEndingsNames",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ArrayOf_2LineEndingsNames array"
         },
         {
             "id": "ArrayOf_2Numbers",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ArrayOf_2Numbers array"
         },
         {
             "id": "ArrayOf_2StringsByte",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ArrayOf_2StringsByte array"
         },
         {
             "id": "ArrayOf_2StringsText",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ArrayOf_2StringsText array"
         },
         {
             "id": "ArrayOf_3Integers",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "ArrayOf_3Integers array"
         },
         {
             "id": "ArrayOf_3RGBNumbers",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "ArrayOf_3RGBNumbers array"
         },
         {
             "id": "ArrayOf_3or4CalloutLineNumbers",
             "val": 36,
             "group": "array",
-            "desc": "6 entries",
+            "desc": "6 elements",
             "name": "ArrayOf_3or4CalloutLineNumbers array"
         },
         {
             "id": "ArrayOf_4AnnotBorderCharacteristics",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "ArrayOf_4AnnotBorderCharacteristics array"
         },
         {
             "id": "ArrayOf_4BorderColors",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "ArrayOf_4BorderColors array"
         },
         {
             "id": "ArrayOf_4BorderStyleNames",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "ArrayOf_4BorderStyleNames array"
+        },
+        {
+            "id": "ArrayOf_4BorderThicknessIntegers",
+            "val": 16,
+            "group": "array",
+            "desc": "4 elements",
+            "name": "ArrayOf_4BorderThicknessIntegers array"
         },
         {
             "id": "ArrayOf_4Integers",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "ArrayOf_4Integers array"
         },
         {
             "id": "ArrayOf_4NamesForAttached",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "ArrayOf_4NamesForAttached array"
         },
         {
             "id": "ArrayOf_4Numbers",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "ArrayOf_4Numbers array"
         },
         {
             "id": "ArrayOf_4NumbersColorAnnotation",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "ArrayOf_4NumbersColorAnnotation array"
         },
         {
             "id": "ArrayOf_6Numbers",
             "val": 36,
             "group": "array",
-            "desc": "6 entries",
+            "desc": "6 elements",
             "name": "ArrayOf_6Numbers array"
         },
         {
             "id": "ArrayOf_8Numbers",
             "val": 64,
             "group": "array",
-            "desc": "8 entries",
+            "desc": "8 elements",
             "name": "ArrayOf_8Numbers array"
+        },
+        {
+            "id": "ArrayOf_9Numbers",
+            "val": 81,
+            "group": "array",
+            "desc": "9 elements",
+            "name": "ArrayOf_9Numbers array"
         },
         {
             "id": "Bead",
@@ -998,7 +1040,7 @@
             "id": "Blackpoint",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "Blackpoint array"
         },
         {
@@ -1054,7 +1096,7 @@
             "id": "CalGrayColorSpace",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "CalGrayColorSpace array"
         },
         {
@@ -1068,7 +1110,7 @@
             "id": "CalRGBColorSpace",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "CalRGBColorSpace array"
         },
         {
@@ -1137,30 +1179,30 @@
         },
         {
             "id": "Data",
-            "val": 4,
-            "group": "dict",
-            "desc": "2 keys",
-            "name": "Data dict"
+            "val": 9,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "Data map"
         },
         {
             "id": "Dest0",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "Dest0 array"
         },
         {
             "id": "Dest1",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "Dest1 array"
         },
         {
             "id": "Dest4",
-            "val": 25,
+            "val": 36,
             "group": "array",
-            "desc": "5 entries",
+            "desc": "6 elements",
             "name": "Dest4 array"
         },
         {
@@ -1174,7 +1216,7 @@
             "id": "DestXYZ",
             "val": 25,
             "group": "array",
-            "desc": "5 entries",
+            "desc": "5 elements",
             "name": "DestXYZ array"
         },
         {
@@ -1188,7 +1230,7 @@
             "id": "DeviceNColorSpace",
             "val": 25,
             "group": "array",
-            "desc": "5 entries",
+            "desc": "5 elements",
             "name": "DeviceNColorSpace array"
         },
         {
@@ -1325,6 +1367,13 @@
             "name": "FieldTx dict"
         },
         {
+            "id": "FileSpecEF",
+            "val": 1,
+            "group": "dict",
+            "desc": "1 keys",
+            "name": "FileSpecEF dict"
+        },
+        {
             "id": "FileSpecRF",
             "val": 1,
             "group": "dict",
@@ -1369,9 +1418,9 @@
         },
         {
             "id": "FilterFlateDecode",
-            "val": 25,
+            "val": 16,
             "group": "dict",
-            "desc": "5 keys",
+            "desc": "4 keys",
             "name": "FilterFlateDecode dict"
         },
         {
@@ -1417,31 +1466,24 @@
             "name": "FontCIDType2 dict"
         },
         {
-            "id": "FontDescriptor",
-            "val": 400,
-            "group": "dict",
-            "desc": "20 keys",
-            "name": "FontDescriptor dict"
-        },
-        {
             "id": "FontDescriptorCIDType0",
-            "val": 625,
+            "val": 576,
             "group": "dict",
-            "desc": "25 keys",
+            "desc": "24 keys",
             "name": "FontDescriptorCIDType0 dict"
         },
         {
             "id": "FontDescriptorCIDType2",
-            "val": 625,
+            "val": 576,
             "group": "dict",
-            "desc": "25 keys",
+            "desc": "24 keys",
             "name": "FontDescriptorCIDType2 dict"
         },
         {
             "id": "FontDescriptorTrueType",
-            "val": 441,
+            "val": 400,
             "group": "dict",
-            "desc": "21 keys",
+            "desc": "20 keys",
             "name": "FontDescriptorTrueType dict"
         },
         {
@@ -1452,6 +1494,13 @@
             "name": "FontDescriptorType1 dict"
         },
         {
+            "id": "FontDescriptorType3",
+            "val": 324,
+            "group": "dict",
+            "desc": "18 keys",
+            "name": "FontDescriptorType3 dict"
+        },
+        {
             "id": "FontFile",
             "val": 121,
             "group": "dict",
@@ -1459,18 +1508,11 @@
             "name": "FontFile dict"
         },
         {
-            "id": "FontFile2CIDType2",
+            "id": "FontFile2",
             "val": 121,
             "group": "dict",
             "desc": "11 keys",
-            "name": "FontFile2CIDType2 dict"
-        },
-        {
-            "id": "FontFile2TrueType",
-            "val": 121,
-            "group": "dict",
-            "desc": "11 keys",
-            "name": "FontFile2TrueType dict"
+            "name": "FontFile2 dict"
         },
         {
             "id": "FontFile3CIDType0",
@@ -1567,7 +1609,7 @@
             "id": "Gamma",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "Gamma array"
         },
         {
@@ -1585,18 +1627,11 @@
             "name": "GraphicsStateParameterMap map"
         },
         {
-            "id": "Group",
-            "val": 4,
+            "id": "GroupAttributes",
+            "val": 25,
             "group": "dict",
-            "desc": "2 keys",
-            "name": "Group dict"
-        },
-        {
-            "id": "GroupTransparency",
-            "val": 144,
-            "group": "dict",
-            "desc": "12 keys",
-            "name": "GroupTransparency dict"
+            "desc": "5 keys",
+            "name": "GroupAttributes dict"
         },
         {
             "id": "HalftoneType1",
@@ -1637,7 +1672,7 @@
             "id": "ICCBasedColorSpace",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ICCBasedColorSpace array"
         },
         {
@@ -1658,7 +1693,7 @@
             "id": "IndexedColorSpace",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "IndexedColorSpace array"
         },
         {
@@ -1672,7 +1707,7 @@
             "id": "LabColorSpace",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "LabColorSpace array"
         },
         {
@@ -1686,7 +1721,7 @@
             "id": "LabRange",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "LabRange array"
         },
         {
@@ -1695,6 +1730,13 @@
             "group": "dict",
             "desc": "22 keys",
             "name": "LegalAttestation dict"
+        },
+        {
+            "id": "LinearizationParameterDict",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "LinearizationParameterDict dict"
         },
         {
             "id": "MDPDict",
@@ -1723,13 +1765,6 @@
             "group": "dict",
             "desc": "5 keys",
             "name": "MarkedContentReference dict"
-        },
-        {
-            "id": "Matrix",
-            "val": 36,
-            "group": "array",
-            "desc": "6 entries",
-            "name": "Matrix array"
         },
         {
             "id": "MeasureRL",
@@ -2127,7 +2162,7 @@
             "id": "PatternColorSpace",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "PatternColorSpace array"
         },
         {
@@ -2171,6 +2206,13 @@
             "group": "dict",
             "desc": "3 keys",
             "name": "Reference dict"
+        },
+        {
+            "id": "RelatedFilesArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "RelatedFilesArray array"
         },
         {
             "id": "RenditionBE",
@@ -2225,7 +2267,7 @@
             "id": "SeparationColorSpace",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "SeparationColorSpace array"
         },
         {
@@ -2586,6 +2628,13 @@
             "name": "Viewport dict"
         },
         {
+            "id": "VisibilityExpressionArray",
+            "val": 9,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "VisibilityExpressionArray map"
+        },
+        {
             "id": "WebCaptureCommand",
             "val": 49,
             "group": "dict",
@@ -2624,7 +2673,7 @@
             "id": "Whitepoint",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "Whitepoint array"
         },
         {
@@ -2678,9 +2727,9 @@
         },
         {
             "id": "XObjectImageSoftMask",
-            "val": 289,
+            "val": 400,
             "group": "dict",
-            "desc": "17 keys",
+            "desc": "20 keys",
             "name": "XObjectImageSoftMask dict"
         },
         {
@@ -2692,9 +2741,10 @@
         },
         {
             "id": "XRefStream",
-            "val": 225,
+            "val": 256,
             "group": "dict",
-            "desc": "15 keys",
+            "desc": "16 keys",
+            "color": "red",
             "name": "XRefStream dict"
         },
         {
@@ -2717,11 +2767,6 @@
             "source": "3DBackground",
             "target": "ArrayOf_3RGBNumbers",
             "name": "3DBackground::C"
-        },
-        {
-            "source": "3DBackground",
-            "target": "ArrayOfNamesGeneral",
-            "name": "3DBackground::CS"
         },
         {
             "source": "3DReference",
@@ -6646,7 +6691,8 @@
         {
             "source": "Annot3D",
             "target": "Appearance",
-            "name": "Annot3D::AP"
+            "name": "Annot3D::AP",
+            "color": "red"
         },
         {
             "source": "Annot3D",
@@ -6676,7 +6722,8 @@
         {
             "source": "AnnotCaret",
             "target": "Appearance",
-            "name": "AnnotCaret::AP"
+            "name": "AnnotCaret::AP",
+            "color": "red"
         },
         {
             "source": "AnnotCaret",
@@ -6854,7 +6901,8 @@
         {
             "source": "AnnotCircle",
             "target": "Appearance",
-            "name": "AnnotCircle::AP"
+            "name": "AnnotCircle::AP",
+            "color": "red"
         },
         {
             "source": "AnnotCircle",
@@ -7047,7 +7095,8 @@
         {
             "source": "AnnotFileAttachment",
             "target": "Appearance",
-            "name": "AnnotFileAttachment::AP"
+            "name": "AnnotFileAttachment::AP",
+            "color": "red"
         },
         {
             "source": "AnnotFileAttachment",
@@ -7231,7 +7280,8 @@
         {
             "source": "AnnotFreeText",
             "target": "Appearance",
-            "name": "AnnotFreeText::AP"
+            "name": "AnnotFreeText::AP",
+            "color": "red"
         },
         {
             "source": "AnnotFreeText",
@@ -7424,7 +7474,8 @@
         {
             "source": "AnnotHighlight",
             "target": "Appearance",
-            "name": "AnnotHighlight::AP"
+            "name": "AnnotHighlight::AP",
+            "color": "red"
         },
         {
             "source": "AnnotHighlight",
@@ -7608,7 +7659,8 @@
         {
             "source": "AnnotInk",
             "target": "Appearance",
-            "name": "AnnotInk::AP"
+            "name": "AnnotInk::AP",
+            "color": "red"
         },
         {
             "source": "AnnotInk",
@@ -7797,7 +7849,8 @@
         {
             "source": "AnnotLine",
             "target": "Appearance",
-            "name": "AnnotLine::AP"
+            "name": "AnnotLine::AP",
+            "color": "red"
         },
         {
             "source": "AnnotLine",
@@ -8156,7 +8209,8 @@
         {
             "source": "AnnotMovie",
             "target": "Appearance",
-            "name": "AnnotMovie::AP"
+            "name": "AnnotMovie::AP",
+            "color": "red"
         },
         {
             "source": "AnnotMovie",
@@ -8192,7 +8246,8 @@
         {
             "source": "AnnotPolyLine",
             "target": "Appearance",
-            "name": "AnnotPolyLine::AP"
+            "name": "AnnotPolyLine::AP",
+            "color": "red"
         },
         {
             "source": "AnnotPolyLine",
@@ -8396,7 +8451,8 @@
         {
             "source": "AnnotPolygon",
             "target": "Appearance",
-            "name": "AnnotPolygon::AP"
+            "name": "AnnotPolygon::AP",
+            "color": "red"
         },
         {
             "source": "AnnotPolygon",
@@ -8745,7 +8801,8 @@
         {
             "source": "AnnotPrinterMark",
             "target": "AppearancePrinterMark",
-            "name": "AnnotPrinterMark::AP"
+            "name": "AnnotPrinterMark::AP",
+            "color": "red"
         },
         {
             "source": "AnnotPrinterMark",
@@ -8870,7 +8927,8 @@
         {
             "source": "AnnotScreen",
             "target": "Appearance",
-            "name": "AnnotScreen::AP"
+            "name": "AnnotScreen::AP",
+            "color": "red"
         },
         {
             "source": "AnnotScreen",
@@ -8905,7 +8963,8 @@
         {
             "source": "AnnotSound",
             "target": "Appearance",
-            "name": "AnnotSound::AP"
+            "name": "AnnotSound::AP",
+            "color": "red"
         },
         {
             "source": "AnnotSound",
@@ -9089,7 +9148,8 @@
         {
             "source": "AnnotSquare",
             "target": "Appearance",
-            "name": "AnnotSquare::AP"
+            "name": "AnnotSquare::AP",
+            "color": "red"
         },
         {
             "source": "AnnotSquare",
@@ -9282,7 +9342,8 @@
         {
             "source": "AnnotSquiggly",
             "target": "Appearance",
-            "name": "AnnotSquiggly::AP"
+            "name": "AnnotSquiggly::AP",
+            "color": "red"
         },
         {
             "source": "AnnotSquiggly",
@@ -9466,7 +9527,8 @@
         {
             "source": "AnnotStamp",
             "target": "Appearance",
-            "name": "AnnotStamp::AP"
+            "name": "AnnotStamp::AP",
+            "color": "red"
         },
         {
             "source": "AnnotStamp",
@@ -9644,7 +9706,8 @@
         {
             "source": "AnnotStrikeOut",
             "target": "Appearance",
-            "name": "AnnotStrikeOut::AP"
+            "name": "AnnotStrikeOut::AP",
+            "color": "red"
         },
         {
             "source": "AnnotStrikeOut",
@@ -9828,7 +9891,8 @@
         {
             "source": "AnnotText",
             "target": "Appearance",
-            "name": "AnnotText::AP"
+            "name": "AnnotText::AP",
+            "color": "red"
         },
         {
             "source": "AnnotText",
@@ -10012,7 +10076,8 @@
         {
             "source": "AnnotTrapNetwork",
             "target": "ArrayOfAnnotStates",
-            "name": "AnnotTrapNetwork::AnnotStates"
+            "name": "AnnotTrapNetwork::AnnotStates",
+            "color": "red"
         },
         {
             "source": "AnnotTrapNetwork",
@@ -10047,12 +10112,14 @@
         {
             "source": "AnnotTrapNetwork",
             "target": "_UniversalArray",
-            "name": "AnnotTrapNetwork::Version"
+            "name": "AnnotTrapNetwork::Version",
+            "color": "red"
         },
         {
             "source": "AnnotUnderline",
             "target": "Appearance",
-            "name": "AnnotUnderline::AP"
+            "name": "AnnotUnderline::AP",
+            "color": "red"
         },
         {
             "source": "AnnotUnderline",
@@ -10236,7 +10303,8 @@
         {
             "source": "AnnotWatermark",
             "target": "Appearance",
-            "name": "AnnotWatermark::AP"
+            "name": "AnnotWatermark::AP",
+            "color": "red"
         },
         {
             "source": "AnnotWatermark",
@@ -10366,7 +10434,8 @@
         {
             "source": "AnnotWidget",
             "target": "Appearance",
-            "name": "AnnotWidget::AP"
+            "name": "AnnotWidget::AP",
+            "color": "red"
         },
         {
             "source": "AnnotWidget",
@@ -10382,6 +10451,11 @@
             "source": "AnnotWidget",
             "target": "ArrayOf_4NumbersColorAnnotation",
             "name": "AnnotWidget::C"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ArrayOfFields",
+            "name": "AnnotWidget::Kids"
         },
         {
             "source": "AnnotWidget",
@@ -10595,6 +10669,102 @@
             "source": "AppearanceTrapNetSubDict",
             "target": "XObjectFormTrapNet",
             "name": "AppearanceTrapNetSubDict::*"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType2",
+            "name": "ArrayOf4Functions::0",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType3",
+            "name": "ArrayOf4Functions::0",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType0",
+            "name": "ArrayOf4Functions::0",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType4",
+            "name": "ArrayOf4Functions::0",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType2",
+            "name": "ArrayOf4Functions::1",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType3",
+            "name": "ArrayOf4Functions::1",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType0",
+            "name": "ArrayOf4Functions::1",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType4",
+            "name": "ArrayOf4Functions::1",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType2",
+            "name": "ArrayOf4Functions::2",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType3",
+            "name": "ArrayOf4Functions::2",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType0",
+            "name": "ArrayOf4Functions::2",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType4",
+            "name": "ArrayOf4Functions::2",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType2",
+            "name": "ArrayOf4Functions::3",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType3",
+            "name": "ArrayOf4Functions::3",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType0",
+            "name": "ArrayOf4Functions::3",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOf4Functions",
+            "target": "FunctionType4",
+            "name": "ArrayOf4Functions::3",
+            "color": "red"
         },
         {
             "source": "ArrayOfActions",
@@ -10814,26 +10984,22 @@
         {
             "source": "ArrayOfArraysInkList",
             "target": "ArrayOfInkList",
-            "name": "ArrayOfArraysInkList::*",
-            "color": "red"
+            "name": "ArrayOfArraysInkList::*"
         },
         {
             "source": "ArrayOfArraysRBGroups",
             "target": "ArrayOfOptContentGroups",
-            "name": "ArrayOfArraysRBGroups::*",
-            "color": "red"
+            "name": "ArrayOfArraysRBGroups::*"
         },
         {
             "source": "ArrayOfArraysURLStrings",
             "target": "ArrayOfURLStrings",
-            "name": "ArrayOfArraysURLStrings::*",
-            "color": "red"
+            "name": "ArrayOfArraysURLStrings::*"
         },
         {
             "source": "ArrayOfArrays_2StringsText",
             "target": "ArrayOf_2StringsText",
-            "name": "ArrayOfArrays_2StringsText::*",
-            "color": "red"
+            "name": "ArrayOfArrays_2StringsText::*"
         },
         {
             "source": "ArrayOfAttributes",
@@ -10993,9 +11159,39 @@
             "name": "ArrayOfFields::*"
         },
         {
-            "source": "ArrayOfFileSpecRF",
-            "target": "EmbeddedFileStream",
-            "name": "ArrayOfFileSpecRF::1"
+            "source": "ArrayOfFontAndSize",
+            "target": "FontType1",
+            "name": "ArrayOfFontAndSize::0"
+        },
+        {
+            "source": "ArrayOfFontAndSize",
+            "target": "FontTrueType",
+            "name": "ArrayOfFontAndSize::0"
+        },
+        {
+            "source": "ArrayOfFontAndSize",
+            "target": "FontMultipleMaster",
+            "name": "ArrayOfFontAndSize::0"
+        },
+        {
+            "source": "ArrayOfFontAndSize",
+            "target": "FontType3",
+            "name": "ArrayOfFontAndSize::0"
+        },
+        {
+            "source": "ArrayOfFontAndSize",
+            "target": "FontType0",
+            "name": "ArrayOfFontAndSize::0"
+        },
+        {
+            "source": "ArrayOfFontAndSize",
+            "target": "FontCIDType0",
+            "name": "ArrayOfFontAndSize::0"
+        },
+        {
+            "source": "ArrayOfFontAndSize",
+            "target": "FontCIDType2",
+            "name": "ArrayOfFontAndSize::0"
         },
         {
             "source": "ArrayOfFonts",
@@ -11086,8 +11282,12 @@
         {
             "source": "ArrayOfOCGState",
             "target": "OptContentGroup",
-            "name": "ArrayOfOCGState::*",
-            "color": "red"
+            "name": "ArrayOfOCGState::*"
+        },
+        {
+            "source": "ArrayOfOCGindirect",
+            "target": "OptContentGroup",
+            "name": "ArrayOfOCGindirect::*"
         },
         {
             "source": "ArrayOfOCUsage",
@@ -11096,31 +11296,18 @@
         },
         {
             "source": "ArrayOfOptContentGroups",
-            "target": "ArrayOfOptContentOrders1",
-            "name": "ArrayOfOptContentGroups::*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfOptContentGroups",
-            "target": "ArrayOfOptContentOrders2",
-            "name": "ArrayOfOptContentGroups::*",
-            "color": "red"
+            "target": "ArrayOfOptContentOrders",
+            "name": "ArrayOfOptContentGroups::*"
         },
         {
             "source": "ArrayOfOptContentGroups",
             "target": "OptContentGroup",
-            "name": "ArrayOfOptContentGroups::*",
-            "color": "red"
+            "name": "ArrayOfOptContentGroups::*"
         },
         {
-            "source": "ArrayOfOptContentOrders1",
-            "target": "ArrayOfOptContentGroups",
-            "name": "ArrayOfOptContentOrders1::*"
-        },
-        {
-            "source": "ArrayOfOptContentOrders2",
-            "target": "ArrayOfOptContentGroups",
-            "name": "ArrayOfOptContentOrders2::*"
+            "source": "ArrayOfOptContentOrders",
+            "target": "OptContentGroup",
+            "name": "ArrayOfOptContentOrders::*"
         },
         {
             "source": "ArrayOfOutputIntents",
@@ -11141,6 +11328,16 @@
             "source": "ArrayOfPages",
             "target": "PageObject",
             "name": "ArrayOfPages::*"
+        },
+        {
+            "source": "ArrayOfRenditions",
+            "target": "RenditionMedia",
+            "name": "ArrayOfRenditions::*"
+        },
+        {
+            "source": "ArrayOfRenditions",
+            "target": "RenditionSelector",
+            "name": "ArrayOfRenditions::*"
         },
         {
             "source": "ArrayOfSignatureReferences",
@@ -11165,20 +11362,17 @@
         {
             "source": "ArrayOfSoftwareIdentifiers",
             "target": "SoftwareIdentifier",
-            "name": "ArrayOfSoftwareIdentifiers::*",
-            "color": "red"
+            "name": "ArrayOfSoftwareIdentifiers::*"
         },
         {
             "source": "ArrayOfSourceInformations",
             "target": "SourceInformation",
-            "name": "ArrayOfSourceInformations::*",
-            "color": "red"
+            "name": "ArrayOfSourceInformations::*"
         },
         {
             "source": "ArrayOfStreamsGeneral",
             "target": "Stream",
-            "name": "ArrayOfStreamsGeneral::*",
-            "color": "red"
+            "name": "ArrayOfStreamsGeneral::*"
         },
         {
             "source": "ArrayOfStructElem",
@@ -11218,8 +11412,12 @@
         {
             "source": "ArrayOfWebCaptureCommands",
             "target": "WebCaptureCommand",
-            "name": "ArrayOfWebCaptureCommands::*",
-            "color": "red"
+            "name": "ArrayOfWebCaptureCommands::*"
+        },
+        {
+            "source": "ArrayOfXFA",
+            "target": "Stream",
+            "name": "ArrayOfXFA::*"
         },
         {
             "source": "ArrayOf_4AnnotBorderCharacteristics",
@@ -11457,7 +11655,7 @@
         },
         {
             "source": "CalRGBDict",
-            "target": "Matrix",
+            "target": "ArrayOf_9Numbers",
             "name": "CalRGBDict::Matrix"
         },
         {
@@ -11787,6 +11985,21 @@
             "target": "ArrayOfStringsByte",
             "name": "CryptFilterPublicKey::Recipients",
             "color": "red"
+        },
+        {
+            "source": "Data",
+            "target": "_UniversalArray",
+            "name": "Data::*"
+        },
+        {
+            "source": "Data",
+            "target": "_UniversalDictionary",
+            "name": "Data::*"
+        },
+        {
+            "source": "Data",
+            "target": "Stream",
+            "name": "Data::*"
         },
         {
             "source": "Data",
@@ -12426,13 +12639,18 @@
             "name": "FieldTx::V"
         },
         {
-            "source": "FileSpecRF",
+            "source": "FileSpecEF",
             "target": "EmbeddedFileStream",
+            "name": "FileSpecEF::F"
+        },
+        {
+            "source": "FileSpecRF",
+            "target": "RelatedFilesArray",
             "name": "FileSpecRF::F"
         },
         {
             "source": "FileSpecification",
-            "target": "FileSpecRF",
+            "target": "FileSpecEF",
             "name": "FileSpecification::EF",
             "color": "red"
         },
@@ -12474,19 +12692,9 @@
             "color": "red"
         },
         {
-            "source": "FileTrailer",
-            "target": "XRefStream",
-            "name": "FileTrailer::XRefStm"
-        },
-        {
             "source": "FilterJBIG2Decode",
             "target": "Stream",
             "name": "FilterJBIG2Decode::JBIG2Globals"
-        },
-        {
-            "source": "FixedPrint",
-            "target": "Matrix",
-            "name": "FixedPrint::Matrix"
         },
         {
             "source": "FloatingWindowParameters",
@@ -12575,11 +12783,6 @@
             "name": "FontCIDType2::W2"
         },
         {
-            "source": "FontDescriptor",
-            "target": "FontFile",
-            "name": "FontDescriptor::FontFile"
-        },
-        {
             "source": "FontDescriptorCIDType0",
             "target": "Stream",
             "name": "FontDescriptorCIDType0::CIDSet"
@@ -12621,7 +12824,7 @@
         },
         {
             "source": "FontDescriptorCIDType2",
-            "target": "FontFile2CIDType2",
+            "target": "FontFile2",
             "name": "FontDescriptorCIDType2::FontFile2"
         },
         {
@@ -12636,7 +12839,7 @@
         },
         {
             "source": "FontDescriptorTrueType",
-            "target": "FontFile2TrueType",
+            "target": "FontFile2",
             "name": "FontDescriptorTrueType::FontFile2"
         },
         {
@@ -12650,114 +12853,59 @@
             "name": "FontDescriptorType1::FontFile3"
         },
         {
-            "source": "FontFile2CIDType2",
+            "source": "FontFile2",
             "target": "ArrayOfDecodeParams",
-            "name": "FontFile2CIDType2::DecodeParms"
+            "name": "FontFile2::DecodeParms"
         },
         {
-            "source": "FontFile2CIDType2",
+            "source": "FontFile2",
             "target": "FilterLZWDecode",
-            "name": "FontFile2CIDType2::DecodeParms"
+            "name": "FontFile2::DecodeParms"
         },
         {
-            "source": "FontFile2CIDType2",
+            "source": "FontFile2",
             "target": "FilterFlateDecode",
-            "name": "FontFile2CIDType2::DecodeParms"
+            "name": "FontFile2::DecodeParms"
         },
         {
-            "source": "FontFile2CIDType2",
+            "source": "FontFile2",
             "target": "FilterCrypt",
-            "name": "FontFile2CIDType2::DecodeParms"
+            "name": "FontFile2::DecodeParms"
         },
         {
-            "source": "FontFile2CIDType2",
+            "source": "FontFile2",
             "target": "FileSpecification",
-            "name": "FontFile2CIDType2::F"
+            "name": "FontFile2::F"
         },
         {
-            "source": "FontFile2CIDType2",
+            "source": "FontFile2",
             "target": "ArrayOfDecodeParams",
-            "name": "FontFile2CIDType2::FDecodeParms"
+            "name": "FontFile2::FDecodeParms"
         },
         {
-            "source": "FontFile2CIDType2",
+            "source": "FontFile2",
             "target": "FilterLZWDecode",
-            "name": "FontFile2CIDType2::FDecodeParms"
+            "name": "FontFile2::FDecodeParms"
         },
         {
-            "source": "FontFile2CIDType2",
+            "source": "FontFile2",
             "target": "FilterFlateDecode",
-            "name": "FontFile2CIDType2::FDecodeParms"
+            "name": "FontFile2::FDecodeParms"
         },
         {
-            "source": "FontFile2CIDType2",
+            "source": "FontFile2",
             "target": "FilterCrypt",
-            "name": "FontFile2CIDType2::FDecodeParms"
+            "name": "FontFile2::FDecodeParms"
         },
         {
-            "source": "FontFile2CIDType2",
+            "source": "FontFile2",
             "target": "ArrayOfCompressionFilterNames",
-            "name": "FontFile2CIDType2::FFilter"
+            "name": "FontFile2::FFilter"
         },
         {
-            "source": "FontFile2CIDType2",
+            "source": "FontFile2",
             "target": "ArrayOfCompressionFilterNames",
-            "name": "FontFile2CIDType2::Filter"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "ArrayOfDecodeParams",
-            "name": "FontFile2TrueType::DecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "FilterLZWDecode",
-            "name": "FontFile2TrueType::DecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "FilterFlateDecode",
-            "name": "FontFile2TrueType::DecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "FilterCrypt",
-            "name": "FontFile2TrueType::DecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "FileSpecification",
-            "name": "FontFile2TrueType::F"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "ArrayOfDecodeParams",
-            "name": "FontFile2TrueType::FDecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "FilterLZWDecode",
-            "name": "FontFile2TrueType::FDecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "FilterFlateDecode",
-            "name": "FontFile2TrueType::FDecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "FilterCrypt",
-            "name": "FontFile2TrueType::FDecodeParms"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "ArrayOfCompressionFilterNames",
-            "name": "FontFile2TrueType::FFilter"
-        },
-        {
-            "source": "FontFile2TrueType",
-            "target": "ArrayOfCompressionFilterNames",
-            "name": "FontFile2TrueType::Filter"
+            "name": "FontFile2::Filter"
         },
         {
             "source": "FontFile3CIDType0",
@@ -13111,14 +13259,8 @@
         },
         {
             "source": "FontType3",
-            "target": "FontDescriptor",
+            "target": "FontDescriptorType3",
             "name": "FontType3::FontDescriptor",
-            "color": "red"
-        },
-        {
-            "source": "FontType3",
-            "target": "Matrix",
-            "name": "FontType3::FontMatrix",
             "color": "red"
         },
         {
@@ -13389,37 +13531,7 @@
         },
         {
             "source": "GraphicsStateParameter",
-            "target": "FontType1",
-            "name": "GraphicsStateParameter::Font"
-        },
-        {
-            "source": "GraphicsStateParameter",
-            "target": "FontTrueType",
-            "name": "GraphicsStateParameter::Font"
-        },
-        {
-            "source": "GraphicsStateParameter",
-            "target": "FontMultipleMaster",
-            "name": "GraphicsStateParameter::Font"
-        },
-        {
-            "source": "GraphicsStateParameter",
-            "target": "FontType3",
-            "name": "GraphicsStateParameter::Font"
-        },
-        {
-            "source": "GraphicsStateParameter",
-            "target": "FontType0",
-            "name": "GraphicsStateParameter::Font"
-        },
-        {
-            "source": "GraphicsStateParameter",
-            "target": "FontCIDType0",
-            "name": "GraphicsStateParameter::Font"
-        },
-        {
-            "source": "GraphicsStateParameter",
-            "target": "FontCIDType2",
+            "target": "ArrayOfFontAndSize",
             "name": "GraphicsStateParameter::Font"
         },
         {
@@ -13464,7 +13576,7 @@
         },
         {
             "source": "GraphicsStateParameter",
-            "target": "ArrayOfFunctions",
+            "target": "ArrayOf4Functions",
             "name": "GraphicsStateParameter::TR"
         },
         {
@@ -13489,7 +13601,7 @@
         },
         {
             "source": "GraphicsStateParameter",
-            "target": "ArrayOfFunctions",
+            "target": "ArrayOf4Functions",
             "name": "GraphicsStateParameter::TR2"
         },
         {
@@ -13558,74 +13670,19 @@
             "name": "GraphicsStateParameterMap::*"
         },
         {
-            "source": "GroupTransparency",
+            "source": "GroupAttributes",
             "target": "CalGrayColorSpace",
-            "name": "GroupTransparency::CS"
+            "name": "GroupAttributes::CS"
         },
         {
-            "source": "GroupTransparency",
+            "source": "GroupAttributes",
             "target": "CalRGBColorSpace",
-            "name": "GroupTransparency::CS"
+            "name": "GroupAttributes::CS"
         },
         {
-            "source": "GroupTransparency",
+            "source": "GroupAttributes",
             "target": "ICCBasedColorSpace",
-            "name": "GroupTransparency::CS"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "ArrayOfDecodeParams",
-            "name": "GroupTransparency::DecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterLZWDecode",
-            "name": "GroupTransparency::DecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterFlateDecode",
-            "name": "GroupTransparency::DecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterCrypt",
-            "name": "GroupTransparency::DecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FileSpecification",
-            "name": "GroupTransparency::F"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "ArrayOfDecodeParams",
-            "name": "GroupTransparency::FDecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterLZWDecode",
-            "name": "GroupTransparency::FDecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterFlateDecode",
-            "name": "GroupTransparency::FDecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "FilterCrypt",
-            "name": "GroupTransparency::FDecodeParms"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "ArrayOfCompressionFilterNames",
-            "name": "GroupTransparency::FFilter"
-        },
-        {
-            "source": "GroupTransparency",
-            "target": "ArrayOfCompressionFilterNames",
-            "name": "GroupTransparency::Filter"
+            "name": "GroupAttributes::CS"
         },
         {
             "source": "HalftoneType10",
@@ -13685,22 +13742,26 @@
         {
             "source": "HalftoneType10",
             "target": "FunctionType2",
-            "name": "HalftoneType10::TransferFunction"
+            "name": "HalftoneType10::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType10",
             "target": "FunctionType3",
-            "name": "HalftoneType10::TransferFunction"
+            "name": "HalftoneType10::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType10",
             "target": "FunctionType0",
-            "name": "HalftoneType10::TransferFunction"
+            "name": "HalftoneType10::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType10",
             "target": "FunctionType4",
-            "name": "HalftoneType10::TransferFunction"
+            "name": "HalftoneType10::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType16",
@@ -13760,22 +13821,26 @@
         {
             "source": "HalftoneType16",
             "target": "FunctionType2",
-            "name": "HalftoneType16::TransferFunction"
+            "name": "HalftoneType16::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType16",
             "target": "FunctionType3",
-            "name": "HalftoneType16::TransferFunction"
+            "name": "HalftoneType16::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType16",
             "target": "FunctionType0",
-            "name": "HalftoneType16::TransferFunction"
+            "name": "HalftoneType16::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType16",
             "target": "FunctionType4",
-            "name": "HalftoneType16::TransferFunction"
+            "name": "HalftoneType16::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType1",
@@ -13810,46 +13875,46 @@
         {
             "source": "HalftoneType1",
             "target": "FunctionType2",
-            "name": "HalftoneType1::TransferFunction"
+            "name": "HalftoneType1::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType1",
             "target": "FunctionType3",
-            "name": "HalftoneType1::TransferFunction"
+            "name": "HalftoneType1::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType1",
             "target": "FunctionType0",
-            "name": "HalftoneType1::TransferFunction"
+            "name": "HalftoneType1::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType1",
             "target": "FunctionType4",
-            "name": "HalftoneType1::TransferFunction"
+            "name": "HalftoneType1::TransferFunction",
+            "color": "red"
         },
         {
             "source": "HalftoneType5",
             "target": "HalftoneType1",
-            "name": "HalftoneType5::*",
-            "color": "red"
+            "name": "HalftoneType5::*"
         },
         {
             "source": "HalftoneType5",
             "target": "HalftoneType6",
-            "name": "HalftoneType5::*",
-            "color": "red"
+            "name": "HalftoneType5::*"
         },
         {
             "source": "HalftoneType5",
             "target": "HalftoneType10",
-            "name": "HalftoneType5::*",
-            "color": "red"
+            "name": "HalftoneType5::*"
         },
         {
             "source": "HalftoneType5",
             "target": "HalftoneType16",
-            "name": "HalftoneType5::*",
-            "color": "red"
+            "name": "HalftoneType5::*"
         },
         {
             "source": "HalftoneType5",
@@ -14116,7 +14181,7 @@
         },
         {
             "source": "InteractiveForm",
-            "target": "ArrayOfStreamsGeneral",
+            "target": "ArrayOfXFA",
             "name": "InteractiveForm::XFA"
         },
         {
@@ -14144,6 +14209,18 @@
             "source": "LabDict",
             "target": "Whitepoint",
             "name": "LabDict::WhitePoint",
+            "color": "red"
+        },
+        {
+            "source": "LinearizationParameterDict",
+            "target": "ArrayOf_2Integers",
+            "name": "LinearizationParameterDict::H",
+            "color": "red"
+        },
+        {
+            "source": "LinearizationParameterDict",
+            "target": "ArrayOf_4Integers",
+            "name": "LinearizationParameterDict::H",
             "color": "red"
         },
         {
@@ -14564,7 +14641,7 @@
         },
         {
             "source": "Name",
-            "target": "EmbeddedFileStream",
+            "target": "FileSpecification",
             "name": "Name::EmbeddedFiles"
         },
         {
@@ -15024,7 +15101,7 @@
         },
         {
             "source": "OptContentMembership",
-            "target": "_UniversalArray",
+            "target": "VisibilityExpressionArray",
             "name": "OptContentMembership::VE"
         },
         {
@@ -15040,7 +15117,7 @@
         },
         {
             "source": "OptContentProperties",
-            "target": "ArrayOfOCG",
+            "target": "ArrayOfOCGindirect",
             "name": "OptContentProperties::OCGs",
             "color": "red"
         },
@@ -15094,6 +15171,11 @@
             "source": "OptContentUsageApplication",
             "target": "ArrayOfOCG",
             "name": "OptContentUsageApplication::OCGs"
+        },
+        {
+            "source": "OptContentUser",
+            "target": "ArrayOfStringsText",
+            "name": "OptContentUser::Name"
         },
         {
             "source": "Outline",
@@ -15294,7 +15376,7 @@
         },
         {
             "source": "PageObject",
-            "target": "Group",
+            "target": "GroupAttributes",
             "name": "PageObject::Group"
         },
         {
@@ -15491,11 +15573,6 @@
         },
         {
             "source": "PatternType1",
-            "target": "Matrix",
-            "name": "PatternType1::Matrix"
-        },
-        {
-            "source": "PatternType1",
             "target": "Resource",
             "name": "PatternType1::Resources",
             "color": "red"
@@ -15509,11 +15586,6 @@
             "source": "PatternType2",
             "target": "GraphicsStateParameter",
             "name": "PatternType2::ExtGState"
-        },
-        {
-            "source": "PatternType2",
-            "target": "Matrix",
-            "name": "PatternType2::Matrix"
         },
         {
             "source": "PatternType2",
@@ -15579,6 +15651,11 @@
             "name": "Reference::ID"
         },
         {
+            "source": "RelatedFilesArray",
+            "target": "EmbeddedFileStream",
+            "name": "RelatedFilesArray::1*"
+        },
+        {
             "source": "RenditionBE",
             "target": "MediaCriteria",
             "name": "RenditionBE::C"
@@ -15631,13 +15708,7 @@
         },
         {
             "source": "RenditionSelector",
-            "target": "RenditionSelector",
-            "name": "RenditionSelector::R",
-            "color": "red"
-        },
-        {
-            "source": "RenditionSelector",
-            "target": "RenditionMedia",
+            "target": "ArrayOfRenditions",
             "name": "RenditionSelector::R",
             "color": "red"
         },
@@ -15861,11 +15932,6 @@
             "target": "FunctionType4",
             "name": "ShadingType1::Function",
             "color": "red"
-        },
-        {
-            "source": "ShadingType1",
-            "target": "Matrix",
-            "name": "ShadingType1::Matrix"
         },
         {
             "source": "ShadingType2",
@@ -16102,7 +16168,7 @@
         },
         {
             "source": "ShadingType4",
-            "target": "ArrayOf_4Numbers",
+            "target": "ArrayOfNumbersGeneral",
             "name": "ShadingType4::Decode"
         },
         {
@@ -16645,7 +16711,8 @@
         {
             "source": "Signature",
             "target": "ArrayOfStringsByte",
-            "name": "Signature::Cert"
+            "name": "Signature::Cert",
+            "color": "red"
         },
         {
             "source": "Signature",
@@ -16751,7 +16818,7 @@
         },
         {
             "source": "SoftMaskAlpha",
-            "target": "GroupTransparency",
+            "target": "XObjectFormType1",
             "name": "SoftMaskAlpha::G",
             "color": "red"
         },
@@ -16782,7 +16849,7 @@
         },
         {
             "source": "SoftMaskLuminosity",
-            "target": "GroupTransparency",
+            "target": "XObjectFormType1",
             "name": "SoftMaskLuminosity::G",
             "color": "red"
         },
@@ -16929,7 +16996,7 @@
         },
         {
             "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_4Integers",
+            "target": "ArrayOf_4BorderThicknessIntegers",
             "name": "StandardLayoutAttributesBLSE::BorderThickness"
         },
         {
@@ -16974,7 +17041,7 @@
         },
         {
             "source": "StandardLayoutAttributesColumn",
-            "target": "ArrayOf_4Integers",
+            "target": "ArrayOf_4BorderThicknessIntegers",
             "name": "StandardLayoutAttributesColumn::BorderThickness"
         },
         {
@@ -17019,7 +17086,7 @@
         },
         {
             "source": "StandardLayoutAttributesILSE",
-            "target": "ArrayOf_4Integers",
+            "target": "ArrayOf_4BorderThicknessIntegers",
             "name": "StandardLayoutAttributesILSE::BorderThickness"
         },
         {
@@ -17256,6 +17323,11 @@
         },
         {
             "source": "StructTreeRoot",
+            "target": "ArrayOfStructElem",
+            "name": "StructTreeRoot::ParentTree"
+        },
+        {
+            "source": "StructTreeRoot",
             "target": "StructElem",
             "name": "StructTreeRoot::ParentTree"
         },
@@ -17438,6 +17510,28 @@
             "source": "Viewport",
             "target": "MeasureRL",
             "name": "Viewport::Measure"
+        },
+        {
+            "source": "VisibilityExpressionArray",
+            "target": "OptContentGroup",
+            "name": "VisibilityExpressionArray::*"
+        },
+        {
+            "source": "VisibilityExpressionArray",
+            "target": "VisibilityExpressionArray",
+            "name": "VisibilityExpressionArray::*"
+        },
+        {
+            "source": "VisibilityExpressionArray",
+            "target": "OptContentGroup",
+            "name": "VisibilityExpressionArray::1",
+            "color": "red"
+        },
+        {
+            "source": "VisibilityExpressionArray",
+            "target": "VisibilityExpressionArray",
+            "name": "VisibilityExpressionArray::1",
+            "color": "red"
         },
         {
             "source": "WebCaptureCommand",
@@ -17628,12 +17722,6 @@
         },
         {
             "source": "XObjectFormPSpassthrough",
-            "target": "Matrix",
-            "name": "XObjectFormPSpassthrough::Matrix",
-            "color": "red"
-        },
-        {
-            "source": "XObjectFormPSpassthrough",
             "target": "Stream",
             "name": "XObjectFormPSpassthrough::PS",
             "color": "red"
@@ -17700,13 +17788,8 @@
         },
         {
             "source": "XObjectFormPrinterMark",
-            "target": "Group",
+            "target": "GroupAttributes",
             "name": "XObjectFormPrinterMark::Group"
-        },
-        {
-            "source": "XObjectFormPrinterMark",
-            "target": "Matrix",
-            "name": "XObjectFormPrinterMark::Matrix"
         },
         {
             "source": "XObjectFormPrinterMark",
@@ -17747,12 +17830,6 @@
             "source": "XObjectFormPrinterMark",
             "target": "Resource",
             "name": "XObjectFormPrinterMark::Resources"
-        },
-        {
-            "source": "XObjectFormPrinterMark",
-            "target": "ColorantsDict",
-            "name": "XObjectFormPrinterMark::Subtype",
-            "color": "red"
         },
         {
             "source": "XObjectFormTrapNet",
@@ -17811,13 +17888,8 @@
         },
         {
             "source": "XObjectFormTrapNet",
-            "target": "Group",
+            "target": "GroupAttributes",
             "name": "XObjectFormTrapNet::Group"
-        },
-        {
-            "source": "XObjectFormTrapNet",
-            "target": "Matrix",
-            "name": "XObjectFormTrapNet::Matrix"
         },
         {
             "source": "XObjectFormTrapNet",
@@ -17926,14 +17998,8 @@
         },
         {
             "source": "XObjectFormType1",
-            "target": "Group",
+            "target": "GroupAttributes",
             "name": "XObjectFormType1::Group"
-        },
-        {
-            "source": "XObjectFormType1",
-            "target": "Matrix",
-            "name": "XObjectFormType1::Matrix",
-            "color": "red"
         },
         {
             "source": "XObjectFormType1",
@@ -18385,6 +18451,11 @@
             "name": "XObjectImageSoftMask::Matte"
         },
         {
+            "source": "XObjectImageSoftMask",
+            "target": "Metadata",
+            "name": "XObjectImageSoftMask::Metadata"
+        },
+        {
             "source": "XObjectMap",
             "target": "XObjectFormType1",
             "name": "XObjectMap::*"
@@ -18418,6 +18489,16 @@
             "source": "XRefStream",
             "target": "FilterFlateDecode",
             "name": "XRefStream::DecodeParms"
+        },
+        {
+            "source": "XRefStream",
+            "target": "EncryptionStandard",
+            "name": "XRefStream::Encrypt"
+        },
+        {
+            "source": "XRefStream",
+            "target": "EncryptionPublicKey",
+            "name": "XRefStream::Encrypt"
         },
         {
             "source": "XRefStream",
@@ -18473,7 +18554,7 @@
         },
         {
             "source": "XRefStream",
-            "target": "ArrayOf_3Integers",
+            "target": "ArrayOfXRefWIntegers",
             "name": "XRefStream::W",
             "color": "red"
         },
