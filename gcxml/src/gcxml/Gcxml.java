@@ -1,28 +1,29 @@
 /**
-* Gcxml.java
-* Copyright 2020 PDF Association, Inc. https://www.pdfa.org
-*
-* This material is based upon work supported by the Defense Advanced
-* Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-* Any opinions, findings and conclusions or recommendations expressed
-* in this material are those of the author(s) and do not necessarily
-* reflect the views of the Defense Advanced Research Projects Agency
-* (DARPA). Approved for public release.
-*
-* SPDX-License-Identifier: Apache-2.0
-* Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
-*/
+ * Gcxml.java
+ * Copyright 2020 PDF Association, Inc. https://www.pdfa.org
+ *
+ * This material is based upon work supported by the Defense Advanced
+ * Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+ * Any opinions, findings and conclusions or recommendations expressed
+ * in this material are those of the author(s) and do not necessarily
+ * reflect the views of the Defense Advanced Research Projects Agency
+ * (DARPA). Approved for public release.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
+ */
 package gcxml;
 
 import java.io.File;
 
 /**
- * @author fero
+ * Command line utility demonstrating Java processing of the Arlington TSV model.
+ * Also uses Java's XPath capabilities to process the XML version of Arlington.
  */
 public class Gcxml {
     /**
      * GCXML version string
-     */ 
+     */
     public static final String Gcxml_version = "0.5.0";
 
     /**
@@ -30,7 +31,7 @@ public class Gcxml {
      */
     public static void main(String[] args) {
         final char delimiter = '\t';
-        
+
         String inputFolder = System.getProperty("user.dir") + "/tsv/latest/";
         File folder = new File(inputFolder);
         File[] listOfFiles = folder.listFiles();
@@ -48,7 +49,7 @@ public class Gcxml {
                     TSVHandler tsv = new TSVHandler();
                     tsv.createAllVersionsTSV();
                     break;
-                    
+
                 // create grammar in XML format for a specific PDF version from the latest TSV files
                 case "-xml":
                     if ((args.length > 1) && (!args[1].isEmpty())) {
@@ -63,7 +64,7 @@ public class Gcxml {
                         }
                     }
                     break;
-                    
+
                 // display keys introduced in pdf version x.x or "-all"
                 case "-sin":
                     if ((args.length > 1) && !args[1].isEmpty()) {
@@ -87,7 +88,7 @@ public class Gcxml {
                         System.out.println("If you want to display all keys and their version use '-all' as parameter.");
                     }
                     break;
-                    
+
                 // display keys deprecated in pdf version x.x or all
                 case "-dep":
                     if ((args.length > 1) && !args[1].isEmpty()) {
@@ -111,7 +112,7 @@ public class Gcxml {
                         System.out.println("If you want to display all keys and their version use '-all' as parameter.");
                     }
                     break;
-                    
+
                 case "-so":
                     XMLQuery query = new XMLQuery();
                     query.SchizophrenicObjects();
@@ -131,7 +132,7 @@ public class Gcxml {
                         System.out.println("No keys specified. Expected list of keys, eg.: Key1,Key2,Key3");
                     }
                     break;
-                    
+
                 case "-version":
                     break;
 

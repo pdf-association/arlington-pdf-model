@@ -14,7 +14,6 @@
  */
 package gcxml;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,29 +52,29 @@ public class XMLQuery {
      * the main Arlington top folder.
      */
     private String inputFolder;
-    
+
     /**
-     * 
+     *
      */
     private DocumentBuilder domBuilder = null;
-    
+
     /**
-     * 
+     *
      */
     private Document newDoc = null;
-    
+
 
     /**
      * List of all files in "inputFolder" - file extension is NOT checked.
      */
     private File[] files = null;
-        
+
     /**
      * Constructor. Initialize instance variables
      */
     public XMLQuery() {
         this.inputFolder = System.getProperty("user.dir") + "/xml/";
-        
+
         File folder = new File(inputFolder);
         this.files = folder.listFiles();
         // sort files by name alphabetically, remove folders
@@ -95,17 +94,17 @@ public class XMLQuery {
             DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
             domBuilder = domFactory.newDocumentBuilder();
             newDoc = domBuilder.newDocument();
-        }  
+        }
         catch (FactoryConfigurationError | Exception ex) {
             System.err.println(ex.toString());
-        } 
+        }
     }
-    
+
     /**
      * Show keys that were introduced in the specified PDF version for each XML
-     * file in the input folder. 
+     * file in the input folder.
      * For command line option "-sin &lt;version&gt;".
-     * 
+     *
      * @param pdfVersion  PDF version as a string e.g. "1.7"
      */
     public void SinceVersion(String pdfVersion){
@@ -116,14 +115,14 @@ public class XMLQuery {
                     String inputFile = inputFolder + file.getName();
                     Document doc = domBuilder.parse(inputFile);
                     doc.getDocumentElement().normalize();
-                    
+
                     System.out.println("Working on " + file.getName());
-                    
+
                     // load all "object" nodes using xpath
                     XPath xPath =  XPathFactory.newInstance().newXPath();
                     String expression = "/PDF/OBJECT";
                     NodeList object_nodes = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
-                    
+
                     for (int i = 0; i < object_nodes.getLength(); i++) {
                         int keyCount = 0;
                         Node nNode = object_nodes.item(i);
@@ -148,14 +147,14 @@ public class XMLQuery {
                         }
                     } // for
                     System.out.println("======================================================================");
-                } 
+                }
                 catch (SAXException | IOException | XPathExpressionException ex) {
                     Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
-    
+
     /**
      * Show all keys and the version of PDF they were introduced for each XML
      * file in the input folder. Output will be VERY VERBOSE!!
@@ -169,14 +168,14 @@ public class XMLQuery {
                     String inputFile = inputFolder + file.getName();
                     Document doc = domBuilder.parse(inputFile);
                     doc.getDocumentElement().normalize();
-                    
+
                     System.out.println("Working on " + file.getName());
-                    
+
                     // load all "object" nodes using xpath
                     XPath xPath =  XPathFactory.newInstance().newXPath();
                     String expression = "/PDF/OBJECT";
                     NodeList object_nodes = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
-                    
+
                     for (int i = 0; i < object_nodes.getLength(); i++) {
                         Node nNode = object_nodes.item(i);
                         if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -194,19 +193,19 @@ public class XMLQuery {
                         }
                     }
                     System.out.println("======================================================================");
-                } 
+                }
                 catch (SAXException | IOException | XPathExpressionException ex) {
                     Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
-    
-    
+
+
     /**
      * Show deprecated keys that match a specified PDF version for each XML
      * file in the input folder. For command line option "-dep &lt;version&gt;"
-     * 
+     *
      * @param pdfVersion  PDF version as a string e.g. "1.7"
      */
     public void DeprecatedIn(String pdfVersion){
@@ -217,14 +216,14 @@ public class XMLQuery {
                     String inputFile = inputFolder + file.getName();
                     Document doc = domBuilder.parse(inputFile);
                     doc.getDocumentElement().normalize();
-                    
+
                     System.out.println("Working on " + file.getName());
-                    
+
                     // load all "object" nodes using xpath
                     XPath xPath =  XPathFactory.newInstance().newXPath();
                     String expression = "/PDF/OBJECT";
                     NodeList object_nodes = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
-                    
+
                     for (int i = 0; i < object_nodes.getLength(); i++) {
                         int keyCount = 0;
                         Node nNode = object_nodes.item(i);
@@ -252,17 +251,17 @@ public class XMLQuery {
                         }
                     }
                     System.out.println("======================================================================");
-                } 
+                }
                 catch (SAXException | IOException | XPathExpressionException ex) {
                     Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
-    
-    
+
+
     /**
-     * Show keys that have been deprecated and the version of PDF they were 
+     * Show keys that have been deprecated and the version of PDF they were
      * deprecated in for each XML file in the input folder. Output is VERBOSE!!
      * For command line option "-dep -all".
      */
@@ -274,14 +273,14 @@ public class XMLQuery {
                     String inputFile = inputFolder + file.getName();
                     Document doc = domBuilder.parse(inputFile);
                     doc.getDocumentElement().normalize();
-                    
+
                     System.out.println("Working on " + file.getName());
-                    
+
                     // load all "object" nodes using xpath
                     XPath xPath =  XPathFactory.newInstance().newXPath();
                     String expression = "/PDF/OBJECT";
                     NodeList object_nodes = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
-                    
+
                     for (int i = 0; i < object_nodes.getLength(); i++) {
                         Node nNode = object_nodes.item(i);
                         if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -302,20 +301,20 @@ public class XMLQuery {
                         }
                     }
                     System.out.println("======================================================================");
-                } 
+                }
                 catch (SAXException | IOException | XPathExpressionException ex) {
                     Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
-    
-    
+
+
     /**
      * A potentially schizophrenic PDF object is a PDF object which does not
      * have a Type or Subtype (or S) key to clearly identify it without context of
-     * its reference from the PDF DOM. Technically multiple such objects can be 
-     * combined into a single PDF direct object so long as the keys are 
+     * its reference from the PDF DOM. Technically multiple such objects can be
+     * combined into a single PDF direct object so long as the keys are
      * mutually exclusive.
      * Command line option: "-so"
      */
@@ -325,14 +324,14 @@ public class XMLQuery {
                 try {
                     String inputFile = inputFolder + file.getName();
                     System.out.println("XML file: " + file.getName());
-                    
+
                     Document doc = domBuilder.parse(inputFile);
                     doc.getDocumentElement().normalize();
                     ArrayList<String> arrListTypes;
 
                     String expression = "/PDF/OBJECT/ENTRY[NAME='Type']/VALUES/VALUE/../../../@id";
                     arrListTypes = evaluateXPath(doc, expression);
-                    if (!arrListTypes.isEmpty()) {  
+                    if (!arrListTypes.isEmpty()) {
                         System.out.println("\tThe following objects have /Type keys:");
                         Iterator<String> listIterator = arrListTypes.iterator();
                         while (listIterator.hasNext()) {
@@ -350,7 +349,7 @@ public class XMLQuery {
                             String nodeValue = listIterator.next();
                             System.out.println("\t\t" + nodeValue);
                         }
-                    }                          
+                    }
 
                     expression = "/PDF/OBJECT/ENTRY[NAME='S']/VALUES/VALUE/../../../@id";
                     arrListTypes = evaluateXPath(doc, expression);
@@ -361,19 +360,19 @@ public class XMLQuery {
                             String nodeValue = listIterator.next();
                             System.out.println("\t\t" + nodeValue);
                         }
-                    }                          
+                    }
                     System.out.println();
-                } 
+                }
                 catch (Exception ex) {
                     Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }    
+        }
     }
-    
-    
+
+
     /**
-     * Reports the occurrence count for keys. That is how often the same key 
+     * Reports the occurrence count for keys. That is how often the same key
      * appears across multiple PDF objects. Command line option "-kc". Does
      * not count wildcards or integer array indices.
      */
@@ -401,7 +400,7 @@ public class XMLQuery {
                                 keyCountMap.put(key, 1);
                             }
                         }
-                    }              
+                    }
                     printMap(file.getName(), keyCountMap);
                 }
                 catch (Exception ex) {
@@ -410,9 +409,9 @@ public class XMLQuery {
             }
         } // for
     }
-    
+
         /**
-     * Supports the "-sc" command line option to extract those keys across 
+     * Supports the "-sc" command line option to extract those keys across
      * all PDF object with "SpecialCase" definitions defined. Processes each
      * XML file in 'input_folder'.
      */
@@ -425,13 +424,13 @@ public class XMLQuery {
                     String inputFile = inputFolder + file.getName();
                     Document doc = domBuilder.parse(inputFile);
                     doc.getDocumentElement().normalize();
-                    
+
                     XPath xPath =  XPathFactory.newInstance().newXPath();
-                    
+
                     // Only get OBJECT nodes that have optional SPECIAL_CASE elements below
                     String expression = "/PDF/OBJECT/ENTRY/SPECIAL_CASE/../..";
                     NodeList special_case_nodes = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
-                    
+
                     for (int i = 0; i < special_case_nodes.getLength(); i++) {
                         Element special_case_elem = (Element) special_case_nodes.item(i);
                         String spec_case = special_case_elem.getElementsByTagName("SPECIAL_CASE").item(0).getTextContent();
@@ -439,7 +438,7 @@ public class XMLQuery {
                         String object_id = special_case_elem.getAttribute("id");
                         System.out.printf("\tObject %-30s key /%-20s has special case: %s\n", object_id, key_name, spec_case);
                     }
-                } 
+                }
                 catch (SAXException | IOException | XPathExpressionException | DOMException ex) {
                     Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -447,11 +446,11 @@ public class XMLQuery {
         }
     }
 
-    
+
     /**
      * Outputs the key occurrence map for the specified XML file. Used by "-kc"
      * command line option.
-     * 
+     *
      * @param file_name the XML file
      * @param mp   the map of key names and counts
      */
@@ -467,20 +466,20 @@ public class XMLQuery {
         }
         System.out.println("============================================");
     }
-    
-    
+
+
     /**
-     * Creates a new ArrayList of the node values returned from an XPath 
+     * Creates a new ArrayList of the node values returned from an XPath
      * expression. Only works with XPath NODESET expressions.
-     * 
+     *
      * @param document   the XML document
      * @param xpathExpression  the XPath expression
-     * 
+     *
      * @return an ArrayList of nodes
-     * 
-     * @throws Exception from XPath 
+     *
+     * @throws Exception from XPath
      */
-    private static ArrayList<String> evaluateXPath(Document document, String xpathExpression) throws Exception 
+    private static ArrayList<String> evaluateXPath(Document document, String xpathExpression) throws Exception
     {
         XPathFactory xpathFactory = XPathFactory.newInstance();
         XPath xpath = xpathFactory.newXPath();
@@ -493,19 +492,19 @@ public class XMLQuery {
         }
         return values;
     }
-    
+
 
     /**
      * For the specified XML file, get the list of all unique Keys. Does not
      * add wildcard keys or array indices (integers).
-     * 
+     *
      * @param file_name  XML file
-     * 
+     *
      * @return ArrayList of unique key names
-     * 
+     *
      * @throws Exception from XPath
      */
-    private ArrayList<String> getAllKeys(String file_name) throws Exception 
+    private ArrayList<String> getAllKeys(String file_name) throws Exception
     {
         ArrayList<String> allKeys = new ArrayList<>();
 
@@ -528,25 +527,25 @@ public class XMLQuery {
         return allKeys;
     }
 
-    
+
     /**
-     * Determines which PDF objects contain the given key by querying a 
+     * Determines which PDF objects contain the given key by querying a
      * specific XML file.
-     * 
+     *
      * @param key   the key name to locate
      * @param file_name  the XML file name
-     * 
-     * @return a comma separated list of 
+     *
+     * @return a comma separated list of
      */
     private String getDictByKey(String key, String file_name) {
-        String dicts = "";                
+        String dicts = "";
         try {
             String inputFile = inputFolder + file_name;
             Document doc = domBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
 
             XPath xPath =  XPathFactory.newInstance().newXPath();
-            String expression = "/PDF/OBJECT/ENTRY";	        
+            String expression = "/PDF/OBJECT/ENTRY";
             NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
 
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -563,22 +562,22 @@ public class XMLQuery {
                         else
                             dicts += ", " + objectName;
                     }
-                } 
+                }
             } // for
-        } 
+        }
         catch (SAXException | IOException | XPathExpressionException | DOMException ex) {
             Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dicts;
     }
-    
-    
+
+
     /**
-     * Unions 2 Lists. That is creates a new list of all unique elements from 
+     * Unions 2 Lists. That is creates a new list of all unique elements from
      * both lists. Logical "OR"). See
      * https://stackoverflow.com/questions/5283047/intersection-and-union-of-arraylists-in-java.
-     * 
-     * @param <T>    list type, typical String here 
+     *
+     * @param <T>    list type, typical String here
      * @param list1  List 1
      * @param list2  List 2
      * @return the union of list1 and list2
@@ -589,13 +588,13 @@ public class XMLQuery {
         set.addAll(list2);
         return new ArrayList<T>(set);
     }
-    
+
     /**
      * Intersects 2 Lists. That is creates a new list with only common elements.
      * Logical "AND". See
      * https://stackoverflow.com/questions/5283047/intersection-and-union-of-arraylists-in-java.
-     * 
-     * @param <T>    list type, typical String here 
+     *
+     * @param <T>    list type, typical String here
      * @param list1  List 1
      * @param list2  List 2
      * @return the intersection of list1 and list2
@@ -609,18 +608,18 @@ public class XMLQuery {
         }
         return list;
     }
-    
-    
+
+
     /**
-     * Finds PDF objects that all have a given set of keys (logical AND). 
-     * 
+     * Finds PDF objects that all have a given set of keys (logical AND).
+     *
      * @param keys COMMA separated list of keys
      */
     public void PotentialDicts(String keys){
         String[] given_keys = keys.split(",");
         System.out.println("PDF objects with these " + given_keys.length + " key(s): " + keys);
         XPath xPath =  XPathFactory.newInstance().newXPath();
-        
+
         for (File file : files) {
             if (file.isFile() && file.canRead() && file.exists()) {
                 System.out.println("XML file: " + file.getName());
@@ -630,19 +629,19 @@ public class XMLQuery {
                     String inputFile = inputFolder + file.getName();
                     Document doc = domBuilder.parse(inputFile);
                     doc.getDocumentElement().normalize();
-                    
+
                     for (String key : given_keys){
                         String expression = "/PDF/OBJECT/ENTRY[NAME='" + key + "']/../@id";
                         NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(doc, XPathConstants.NODESET);
-                        
+
                         // Convert NodeList node values to a List we can intersect and union
-                        List<String> keyDicts = new ArrayList<>();     
+                        List<String> keyDicts = new ArrayList<>();
                         for (int i = 0; i < nodeList.getLength(); i++) {
                             keyDicts.add(nodeList.item(i).getNodeValue());
                         }
-                        
+
                         if (first_key) {
-                            listDicts.addAll(keyDicts); 
+                            listDicts.addAll(keyDicts);
                             first_key = false;
                         }
                         else {
@@ -651,7 +650,7 @@ public class XMLQuery {
                         if (listDicts.isEmpty())
                             break;
                     }
-                    
+
                     if (!listDicts.isEmpty()) {
                         String dicts = "";
                         for (String s : listDicts)
@@ -662,14 +661,13 @@ public class XMLQuery {
                         System.out.println("\tObjects: " + dicts);
                     }
                     else
-                        System.out.println("\tNo PDF objects match");                } 
+                        System.out.println("\tNo PDF objects match");                }
                 catch (SAXException | IOException | XPathExpressionException | DOMException ex) {
                     Logger.getLogger(XMLQuery.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 System.out.println("================================================");
             }
-        }  // for-each file    
+        }  // for-each file
     }
-        
+
 }
- 
