@@ -32,7 +32,8 @@ void CFX_MapPtrToPtr::RemoveAll()
     }
     m_nCount = 0;
     m_pFreeList = NULL;
-    m_pBlocks->FreeDataChain();
+    if (m_pBlocks)
+        m_pBlocks->FreeDataChain();
     m_pBlocks = NULL;
 }
 CFX_MapPtrToPtr::~CFX_MapPtrToPtr()
