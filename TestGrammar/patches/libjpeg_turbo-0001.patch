@@ -1,0 +1,26 @@
+diff --git a/jconfig.h b/jconfig.h
+index e839580..feefbac 100644
+--- a/jconfig.h
++++ b/jconfig.h
+@@ -1,7 +1,7 @@
+ /* Version ID for the JPEG library.
+  * Might be useful for tests like "#if JPEG_LIB_VERSION >= 60".
+  */
+-#define JPEG_LIB_VERSION 62
++#define JPEG_LIB_VERSION 80
+ 
+ /* libjpeg-turbo version */
+ #define LIBJPEG_TURBO_VERSION 2.0.1
+@@ -10,10 +10,10 @@
+ #define LIBJPEG_TURBO_VERSION_NUMBER  2000001
+ 
+ /* Support arithmetic encoding */
+-/* #define C_ARITH_CODING_SUPPORTED 1 */
++#define C_ARITH_CODING_SUPPORTED 1
+ 
+ /* Support arithmetic decoding */
+-/* #define D_ARITH_CODING_SUPPORTED 1 */
++#define D_ARITH_CODING_SUPPORTED 1
+ 
+ /* Support in-memory source/destination managers */
+ #define MEM_SRCDST_SUPPORTED 1
