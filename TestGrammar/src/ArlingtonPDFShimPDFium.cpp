@@ -14,6 +14,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+/// @file
 /// A wafer-thin shim layer to isolate the PDFix SDK library from the rest of the 
 /// Arlington PDF Model proof-of-concept C++ application. Replace just this C++ file 
 /// for alternate PDF SDKs. Performance overhead issues are considered irrelevant. 
@@ -83,8 +84,6 @@ void ArlingtonPDFSDK::shutdown()
       pdfium_ctx->document = nullptr;
     }
 
-    delete(pdfium_ctx);
-
     CPDF_PageModule::Destroy();
     CFX_GEModule::Destroy();
     ctx = nullptr;
@@ -104,26 +103,33 @@ std::string ArlingtonPDFSDK::get_version_string()
 
 
 /// @brief   Opens a PDF file (no password) and locates trailer dictionary
-/// @param   pdf_filename[in] PDF filename
-/// @return  handle to PDF trailer dictionary or nullptr if trailer is not locatable
+/// 
+/// @param[in]   pdf_filename PDF filename
+/// 
+/// @returns  handle to PDF trailer dictionary or nullptr if trailer is not locatable
 ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 {
     assert(ctx != nullptr);
     auto pdfium_ctx = (pdfium_context*)ctx;
     
     // close previously opened document
-    if (pdfium_ctx->document)
+    if (pdfium_ctx->document != nullptr) {
       delete(pdfium_ctx->document);
-    pdfium_ctx->document = new CPDF_Document(std::make_unique<CPDF_DocRenderData>(), std::make_unique<CPDF_DocPageData>());
+	    pdfium_ctx->document = nullptr;
+	  }
 
     RetainPtr<IFX_SeekableReadStream> file_access = IFX_SeekableReadStream::CreateFromFilename(pdf_filename.string().c_str());
     if (!file_access)
       return nullptr;
 
+    pdfium_ctx->document = new CPDF_Document(std::make_unique<CPDF_DocRenderData>(), std::make_unique<CPDF_DocPageData>());
     ByteString password;
     CPDF_Parser::Error err_code = pdfium_ctx->document->LoadDoc(file_access, password);
-    if (err_code)
+    if (err_code) {
+      delete(pdfium_ctx->document);
+	    pdfium_ctx->document = nullptr;
       return nullptr;
+	  }
 
     const CPDF_Dictionary* trailr = pdfium_ctx->document->GetParser()->GetTrailer();
     if (trailr != NULL) {
@@ -161,6 +167,23 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
     return nullptr;
 }
 
+/// @brief  Gets the PDF version of the current PDF file
+/// 
+/// @param[in] trailer   trailer of the PDF
+/// 
+/// @returns   PDF version string 
+std::string ArlingtonPDFSDK::get_pdf_version(ArlPDFTrailer* trailer) {
+    assert(ctx != nullptr);
+    assert(trailer != nullptr);
+    auto pdfium_ctx = (pdfium_context*)ctx;
+    assert(pdfium_ctx->document != nullptr);
+    int ver = pdfium_ctx->document->GetParser()->GetFileVersion();
+    // ver = PDF header version x 10 (so PDF 1.3 = 13)
+    char version_str[4];
+    snprintf(version_str, 4, "%1.1f", ver / 10.0);
+    return version_str;
+
+}
 
 ArlPDFObject::ArlPDFObject(void* obj):object(obj)
 {
@@ -174,6 +197,15 @@ ArlPDFObject::ArlPDFObject(void* obj):object(obj)
   } 
 }
 
+ArlPDFObject::~ArlPDFObject()
+{
+  if (object == nullptr)
+    return;
+  CPDF_Object* pdf_obj = (CPDF_Object*)object;
+  if (is_indirect) {
+    /// @todo Release object or free memory ???
+  }
+}
 
 /// @brief  Returns the PDF object type of an object 
 /// @return PDFObjectType enum value
@@ -444,8 +476,10 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
 
 
 /// @brief Returns the key name of i-th dictionary key
-/// @param index[in] dictionary key index 
-/// @return Key name
+/// 
+/// @param[in] index dictionary key index
+/// 
+/// @returns Key name
 std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 {
     assert(object != nullptr);

@@ -1433,9 +1433,6 @@
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\lsr.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Main.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\libopenjpeg20\mct.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
@@ -2233,6 +2230,9 @@
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fpdfapi\render\cpdf_type3glyphmap.cpp">
       <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
