@@ -2,6 +2,6 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.2		FALSE	FALSE	FALSE		[Halftone]			
 HalftoneType	integer	1.2		TRUE	FALSE	FALSE		[6]			
 HalftoneName	string-byte	1.2		FALSE	FALSE	FALSE					
-Width	integer	1.2		TRUE	FALSE	FALSE					
-Height	integer	1.2		TRUE	FALSE	FALSE					
-TransferFunction	dictionary;name;stream	1.2		FALSE	FALSE	FALSE				[];[];[FunctionType0]	
+Width	integer	1.2		TRUE	FALSE	FALSE		[fn:Eval(@Width>0)]			
+Height	integer	1.2		TRUE	FALSE	FALSE		[fn:Eval(@Height>=0)]			
+TransferFunction	name;stream	1.2		FALSE	[FALSE];[TRUE]	FALSE		[Identity];[]		[];[FunctionType0]	

@@ -13,12 +13,14 @@
 *.pyc
 *.tlog
 *.recipe
+CMakeCache*
+scripts/.ipynb_*
 scripts/__pycache__/
 scripts/.vs/
+gcxml/build/
 gcxml/dist/javadoc/
-gcxml/dist/gcxml.jar
-CMakeCache*
 TestGrammar/cmake*
 TestGrammar/Makefile
 TestGrammar/platform/msvc2019/.vs/
 TestGrammar/qpdf
+TestGrammar/doc

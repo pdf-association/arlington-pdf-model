@@ -1,11 +1,11 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.4		FALSE	FALSE	FALSE		[XObject]			
-Subtype	name	1.4		TRUE	FALSE	FALSE		[Form]		[ColorantsDict]	
+Subtype	name	1.4		TRUE	FALSE	FALSE		[Form]			
 FormType	integer	1.4		FALSE	FALSE	FALSE		[1]			
 BBox	rectangle	1.4		TRUE	FALSE	FALSE					
-Matrix	array	1.4		FALSE	FALSE	FALSE	[1 0 0 1 0 0]			[Matrix]	
+Matrix	matrix	1.4		FALSE	FALSE	FALSE	[1 0 0 1 0 0]				
 Resources	dictionary	1.4		FALSE	FALSE	FALSE				[Resource]	
-Group	dictionary	1.4		FALSE	FALSE	FALSE				[Group]	
+Group	dictionary	1.4		FALSE	FALSE	FALSE				[GroupAttributes]	
 Ref	dictionary	1.4		FALSE	FALSE	FALSE				[Reference]	
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]	
 PieceInfo	dictionary	1.4		FALSE	FALSE	FALSE				[PagePiece]	
@@ -16,11 +16,11 @@ OPI	dictionary	1.4	2.0	FALSE	FALSE	FALSE				[OPIVersion13,OPIVersion20]
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
 Name	name	1.4	2.0	FALSE	FALSE	FALSE					
 Length	integer	1.4		TRUE	FALSE	FALSE					
-Filter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]		[ArrayOfCompressionFilterNames];[]	
-DecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
+Filter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfCompressionFilterNames];[]	
+DecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
 F	dictionary;string	1.4		FALSE	FALSE	FALSE				[FileSpecification];[]	
-FFilter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]		[ArrayOfCompressionFilterNames];[]	
-FDecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
-DL	integer	1.5		FALSE	FALSE	FALSE					
+FFilter	array;name	1.4		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]	[ArrayOfCompressionFilterNames];[]	
+FDecodeParms	array;dictionary	1.4		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
+DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(@DL>=0)]		
 MarkStyle	string-text	1.4		FALSE	FALSE	FALSE					*from printer mark form dictionary
 Colorants	dictionary	1.4		FALSE	FALSE	FALSE				[ColorantsDict]	

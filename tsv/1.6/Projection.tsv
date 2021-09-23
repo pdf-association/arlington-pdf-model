@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Subtype	name	1.6		TRUE	FALSE	FALSE		[O,P]			
 CS	name	1.6		FALSE	FALSE	FALSE	ANF	[XNF,ANF]			
-F	number	1.6		FALSE	FALSE	FALSE					
-N	number	1.6		FALSE	FALSE	FALSE	0	[fn:Expr(@self>=0)]			
+F	number	1.6		FALSE	FALSE	FALSE			[fn:IsMeaningful(@CS==XNF)]		
+N	number	1.6		fn:IsRequired(@Subtype==P)	FALSE	FALSE	0	[fn:Eval(@N>=0)]	[fn:IsMeaningful(@CS==XNF)]		
 FOV	number	1.6		FALSE	FALSE	FALSE					
-PS	name;number	1.6		FALSE	FALSE	FALSE					
-OS	number	1.6		FALSE	FALSE	FALSE	1				
+PS	name;number	1.6		FALSE	FALSE	FALSE			[fn:IsMeaningful(@Subtype==P)]		
+OS	number	1.6		FALSE	FALSE	FALSE	1	[fn:Eval(@OS>=0)]	[fn:IsMeaningful(@Subtype==O)]		

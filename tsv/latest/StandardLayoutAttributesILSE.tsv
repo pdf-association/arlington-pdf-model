@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 O	name	1.3		TRUE	FALSE	FALSE		[Layout]			
 Placement	name	1.4		FALSE	FALSE	FALSE		[Block,Inline,Before,Start,End]			
-WritingMode	name	1.4		FALSE	FALSE	TRUE	LrTb	[LrTb,RlTb,tbRl,TbLr,LrBt,RlBt,BtRl,BtLr]			
+WritingMode	name	1.4		FALSE	FALSE	TRUE	LrTb	[LrTb,RlTb,TbRl,TbLr,LrBt,RlBt,BtRl,BtLr]			
 BackgroundColor	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,ArrayOf_3RGBNumbers)]	
 BorderColor	array	1.5		FALSE	FALSE	TRUE				[fn:SinceVersion(1.5,ArrayOf_4BorderColors),fn:SinceVersion(1.4,ArrayOf_3RGBNumbers)]	
 BorderStyle	array;name	1.5		FALSE	FALSE	FALSE	[];[None]	[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]		[fn:SinceVersion(1.5,ArrayOf_4BorderStyleNames)];[]	

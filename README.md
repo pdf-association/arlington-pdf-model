@@ -43,10 +43,10 @@ Each row defines a specific key in a dictionary or an array element in an array.
 
 - All PDF names are always expressed **without** the leading FORWARD-SLASH (`/`).
 - PDF strings are required to have `'` and `'` (single quotes).
-- PDF array objects must also have `[` and `]` and, of course do **not** use commas between array elements.
+- PDF array objects must also have `[` and `]` and, of course, do **not** use commas between array elements.
 - PDF Boolean (keywords) are always lowercase `true` and `false`.
 - Logical Boolean values related to the description of PDF objects in the Arlington data model are always uppercase `TRUE`/`FALSE`.
-- TSV column names are shown double-quoted (`"`) in documentation to hopefully avoid confusion.
+- TSV column names (a.k.a. fields) are shown double-quoted (`"`) in documentation to hopefully avoid confusion.
 
 TSV columns are always in the following order and tabs must exist for all columns:
 
@@ -55,7 +55,7 @@ TSV columns are always in the following order and tabs must exist for all column
 1. "[**SinceVersion**](#SinceVersion-and-DeprecatedIn)" - version of PDF this key was introduced in.
 1. "[**DeprecatedIn**](#SinceVersion-and-DeprecatedIn)" - version of PDF this key was deprecated in. Empty if not deprecated.
 1. "[**Required**](#Required)" - whether the key or array element is required.
-1. **IndirectReference**" - whether the key is required to be an indirect reference (`TRUE`/`FALSE`) or if it must be a direct object (`fn:MustBeDirect`).
+1. **IndirectReference**" - whether the key is required to be an indirect reference (`TRUE`/`FALSE`) or if it must be a direct object (predicate `fn:MustBeDirect(...)`).
 1. **Inheritable**" - whether the key is inheritable (`TRUE`/`FALSE`).
 1. **DefaultValue**" - optional default value of key.
 1. "[**PossibleValues**](#PossibleValues)" - list of possible values. For dictionary `/Type` keys that must have a specific value, this will be a choice of just 1.
@@ -72,7 +72,7 @@ A very precise definition of all syntax rules for the Arlington PDF model as wel
 
 ### Key
 
-"Key" represents a single key in a dictionary, an index into an array, or multiple entries (`*`). Dictionary keys are obviously case sensitive and array indices are integers. To locate a key easily using Linux begin a regex with the start-of-line (`^`). For a precise match end the regex with a TAB (`\t`).
+"Key" represents a single key in a dictionary, an index into an array, or multiple entries (`*`). Dictionary keys are obviously case sensitive and array indices are integers. To locate a key easily using Linux begin a regex with the start-of-line (`^`). For a precise match end the regex with a TAB (`\t`). Conveniently, ISO 32000 only uses ASCII characters for 1st class key names so there are no #-escapes used in Arlington. ISO 32000 also does not define any dictionary key that is purely just an integer - Arlington leverages this fact so that array "keys" are always 0-based integers. Note that ISO 32000 does define some keys that start with integers (e.g. `/3DD`) but these are clearly distinguishable from array indices.  
 
 [Example](tsv/latest/3DBackground.tsv) of a single entry in a dictionary with a `/Type` key:
 
@@ -159,7 +159,7 @@ This is effectively a Boolean field (`TRUE`/`FALSE`) but may also contain a `fn:
 
 - when a key changes from optional to required in a particular PDF version then the expression `fn:IsRequired(fn:SinceVersion(x.y))` is used.
 
-- if a key/array entry is conditional based on the value of another key then an expression such as `fn:IsRequired(@Filter!=JPXDecode)` can be used. The `@` syntax means "value of key/array index".
+- if a key/array entry is conditional based on the value of another key then an expression such as `fn:IsRequired(@Filter!=JPXDecode)` can be used. The `@` syntax means "value of a key/array index".
 
 - if a key/array entry is conditional based on the presence or absence of another key then the nested expressions `fn:IsRequired(fn:IsPresent(OtherKeyName))` or `fn:IsRequired(fn:NotPresent(OtherKeyName))` can be used.
 
@@ -170,25 +170,25 @@ This is effectively a Boolean field (`TRUE`/`FALSE`) but may also contain a `fn:
 
 <div style="font-family: monospace">
 
-Type | PossibleValues | ...
---- | --- | ---
-integer;string | \[1,3,99];\[(Hello),(World)] | ...
+Type | ... | PossibleValues | ...
+--- | --- | --- | ---
+integer;string | ... | \[1,3,99];\[(Hello),(World)] | ...
 
 </div>
 
-Often times it is necessary to define a predicate (`fn:`) for situations when values are valid.
+Often times it is necessary to use a predicate (`fn:`) for situations when values are valid.
 
 
 ### SpecialCase
 
-A set of predicates is used to define more advanced kinds of relationships. Every predicate is always prefixed with `fn:`. Current functions in use include (_subject to change!_:
+A set of predicates is used to define more advanced kinds of relationships. Every predicate is always prefixed with `fn:`. Current predicates include (_subject to change!_:
 
 ```
+fn:ArrayLength
 fn:BeforeVersion
 fn:BitSet
 fn:BitsClear
 fn:BitsSet
-fn:CreatedFromNamePageObj
 fn:Deprecated
 fn:Expr
 fn:ImageIsStructContentItem
@@ -249,65 +249,23 @@ Links may also be wrapped in the `fn:Deprecated` or `fn:SinceVersion` predicates
 
 # Proof of Concept Implementations
 
-All PoCs are command line based with builtin help if no command line arguments are provided.
+All PoCs are command line based with built-in help if no command line arguments are provided. Command line options for all Python scripts and TestGrammar C++ PoC are the same to keep things simple.
+
+## Python scripts
+
+The scripts folder contains several Python3 scripts and an example Jupyter Notebook which are cross-platform (tested on both Windows and Linux). See [scripts/README.md](scripts/README.md).
 
 ## TestGrammar (C++17)
 
 A CLI utility that can validate an Arlington grammar (set of TSV files) and perform validation against PDF files.  
-All documentation is now located in the [TestGrammar](TestGrammar/) folder
+All documentation is now located in the [TestGrammar](TestGrammar/) folder.
 
 ## GCXML (Java)
 
-Java CLI utility that:
+A CLI Java-based proof of concept application that can convert the main Arlington TSV file set (in `./tsv/latest`) into PDF version specific file sets in both TSV and XML formats. The XML format is defined by [this schema](xml/schema/objects.xsd). In addition, some research oriented queries can be performed using the XML as input. Detailed documentation is now located in the [gcxml](gcxml) folder.
 
-1. converts all TSV files into XML files that must be valid based on [schema](/xml/schema/objects.xsd)
+The Java gcxml.jar  file must be run in this top-level folder (such that `./tsv/` and `./xml/` are both sub-folders).
 
-1. gives answers to various researcher-type queries
-
-To compile, run `ant` from [/gcxml](/gcxml) directory or use NetBeans. Output JAR is in [/gcxml/dist/gcxml.jar](/gcxml/dist/gcxml.jar).
-
-#### Usage
-
-To use gcxml tool run the following command from terminal/commandline in the top-level PDF20_Grammar folder (so that `./tsv/` is a sub-folder):
-
-```
-java -jar ./gcxml/dist/gcxml.jar
-
-GENERAL:
-    -version        print version information (current: 0.4.9)
-    -help           show list of available commands
-CONVERSIONS:
-    -all            convert latest TSV to XML and TSV sub-versions for each specific PDF version
-    -xml <version>      convert TSV to XML for specified PDF version (or all if no version is specified)
-    -tsv            create TSV files for each PDF version
-QUERIES:
-    -sin <version | -all>   return all keys introduced in ("since") a specified PDF version (or all)
-    -dep <version | -all>   return all keys deprecated in a specified PDF version (or all)
-    -kc         return every key name and their occurrence counts for each version of PDF
-    -po key<,key1,...>  return list of potential objects based on a set of given keys for each version of PDF
-    -sc         list special cases for every PDF version
-    -so         return objects that are not defined to have key Type, or where the Type key is specified as optional
-
-```
-
-**Note**: output might be too long to display in terminal, so it is recommended to always redirect the output to file.
-
-The XML version of the PDF DOM grammar (one XML file per PDF version) is created from the TSV files and written to `./xml`. All of the answers to queries are based on processing the XML files in `./xml`.
-
-## Python3 scripts
-
-The main Python3 PoC mega-script is [arlington.py](scripts/arlington.py). This script can:
-
-1. convert an Arlington TSV data set into an in-memory Python representation and save out to JSON
-1. perform a detailed validation of the Arlington Python representation, including attempted lexing of all predicates
-1. save the Python representation as a 'pretty-print' which is more friendly for Linux commands, etc. but technically invalid JSON
-1. validates a PDF file against the Arlington model using `pikepdf`
-
-It relies on the [Python Sly parser](https://sly.readthedocs.io/en/latest/) and `pikepdf` [doco](pikepdf.readthedocs.io/) which is Python wrapper on top of [QPDF](https://github.com/qpdf/qpdf),
-
-```bash
-pip3 install sly pikepdf
-```
 
 ## Linux commands
 
@@ -403,14 +361,8 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 # TODO
 
-## TestGrammar C++ utility
-- when validating a PDF file, check required values in parent dictionaries when inheritance is allowed.
-- extend TestGrammar with new feature to report all keys that are NOT defined in any PDF specification (as this may indicate either proprietary extensions, undocumented legacy extensions or common errors/malformations from PDF writers).
-
 ## gcxml utility
 - confirm that the XML produced from the TSV data with formulas is still valid
-
-## Python scripts
 - confirm why some PDF objects from later PDF versions end up in earlier versions
 
 ---

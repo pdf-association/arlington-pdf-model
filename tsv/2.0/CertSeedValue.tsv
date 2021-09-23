@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.5		FALSE	FALSE	FALSE		[SVCert]			
-Ff	integer	1.5		FALSE	FALSE	FALSE	0				
+Ff	bitmask	1.5		FALSE	FALSE	FALSE	0				
 Subject	array	1.5		FALSE	FALSE	FALSE				[ArrayOfStringsByte]	
 SignaturePolicyOID	string-ascii	2.0		FALSE	FALSE	FALSE					
 SignaturePolicyHashValue	string	2.0		FALSE	FALSE	FALSE					

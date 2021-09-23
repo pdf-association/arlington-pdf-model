@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Length1	integer	1.0		TRUE	FALSE	FALSE					
-Length2	integer	1.0		TRUE	FALSE	FALSE					
-Length3	integer	1.0		TRUE	FALSE	FALSE					
+Length1	integer	1.0		TRUE	FALSE	FALSE			[fn:Eval(@Length1>=0)]		
+Length2	integer	1.0		TRUE	FALSE	FALSE			[fn:Eval(@Length2>=0)]		
+Length3	integer	1.0		TRUE	FALSE	FALSE			[fn:Eval(@Length3>=0)]		
 Subtype	name	1.0		FALSE	FALSE	FALSE					

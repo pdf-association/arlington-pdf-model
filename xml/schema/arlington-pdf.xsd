@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Key name or array index (integer). Or wildcard -->
+  <xs:element name="NAME">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="isWildcard"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="VALUE">
+      <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="type"/>
+          <xs:attribute ref="isDefaultValue"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="REQUIRED">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="(true|false|fn:IsRequired\(.*\))"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  
+  <xs:element name="INHERITABLE" type="xs:boolean"/>
+
+  <xs:element name="INTRODUCED">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="1.0"/>
+        <xs:enumeration value="1.1"/>
+        <xs:enumeration value="1.2"/>
+        <xs:enumeration value="1.3"/>
+        <xs:enumeration value="1.4"/>
+        <xs:enumeration value="1.5"/>
+        <xs:enumeration value="1.6"/>
+        <xs:enumeration value="1.7"/>
+        <xs:enumeration value="2.0"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  
+  <xs:element name="DEPRECATED" nillable="true">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value=""/>
+        <xs:enumeration value="1.1"/>
+        <xs:enumeration value="1.2"/>
+        <xs:enumeration value="1.3"/>
+        <xs:enumeration value="1.4"/>
+        <xs:enumeration value="1.5"/>
+        <xs:enumeration value="1.6"/>
+        <xs:enumeration value="1.7"/>
+        <xs:enumeration value="2.0"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  
+  <xs:element name="SPECIAL_CASE" type="xs:string"/>
+
+  <!-- definition of attributes -->
+  <xs:attribute name="id" type="xs:string"/>
+  <xs:attribute name="type">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="(array|bitmask|boolean|date|dictionary|integer|matrix|name|name-tree|null|number|number-tree|rectangle|stream|string|string-ascii|string-byte|string-text|fn:Deprecated\([12]\.[0-7],.*\))"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+  
+  <!-- file number in Arlington file set when sorted alphabetically -->
+  <xs:attribute name="object_number" type="xs:integer"/>
+
+  <xs:attribute name="isArray" type="xs:boolean"/>
+  
+  <xs:attribute name="isDefaultValue" type="xs:boolean"/>
+
+  <xs:attribute name="isWildcard" type="xs:boolean"/>
+
+  <xs:attribute name="grammar_version" type="xs:string"/>
+  
+  <!-- for now, always "ISO 32000-2:2020" -->
+  <xs:attribute name="iso_ref" >
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="ISO 32000-2:2020"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+  
+  <xs:attribute name="pdf_version">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value=""/>
+        <xs:enumeration value="1.0"/>
+        <xs:enumeration value="1.1"/>
+        <xs:enumeration value="1.2"/>
+        <xs:enumeration value="1.3"/>
+        <xs:enumeration value="1.4"/>
+        <xs:enumeration value="1.5"/>
+        <xs:enumeration value="1.6"/>
+        <xs:enumeration value="1.7"/>
+        <xs:enumeration value="2.0"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+
+  <!-- definition of complex elements -->
+  <xs:element name="PDF">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="OBJECT" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute ref="grammar_version"/>
+      <xs:attribute ref="pdf_version"/>
+      <xs:attribute ref="iso_ref"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="OBJECT">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ENTRY" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute ref="id"/>
+      <xs:attribute ref="object_number"/>
+      <xs:attribute ref="isArray"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="ENTRY">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="NAME" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="VALUES" minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="REQUIRED" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="INDIRECT_REFERENCE" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="INHERITABLE" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="INTRODUCED" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="DEPRECATED" minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="SPECIAL_CASE" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="VALUES">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="VALUE" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="INDIRECT_REFERENCE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="VALUE" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

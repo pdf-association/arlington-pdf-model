@@ -3,4 +3,4 @@ Type	name	1.5		FALSE	FALSE	FALSE		[Action]
 S	name	1.5		TRUE	FALSE	FALSE		[SetOCGState]			
 Next	array;dictionary	1.5		FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionECMAScript]	
 State	array	1.5		TRUE	FALSE	FALSE				[ArrayOfOCGState]	
-PreserveRB	boolean	1.5		FALSE	FALSE	FALSE	TRUE				
+PreserveRB	boolean	1.5		FALSE	FALSE	FALSE	true				

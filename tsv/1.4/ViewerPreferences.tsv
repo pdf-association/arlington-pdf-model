@@ -1,11 +1,11 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-HideToolbar	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-HideMenubar	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-HideWindowUI	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-FitWindow	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-CenterWindow	boolean	1.2		FALSE	FALSE	FALSE	FALSE				
-DisplayDocTitle	boolean	1.4		FALSE	FALSE	FALSE	FALSE				
-NonFullScreenPageMode	name	1.2		FALSE	FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,UseOC]			
+HideToolbar	boolean	1.2		FALSE	FALSE	FALSE	false				
+HideMenubar	boolean	1.2		FALSE	FALSE	FALSE	false				
+HideWindowUI	boolean	1.2		FALSE	FALSE	FALSE	false				
+FitWindow	boolean	1.2		FALSE	FALSE	FALSE	false				
+CenterWindow	boolean	1.2		FALSE	FALSE	FALSE	false				
+DisplayDocTitle	boolean	1.4		FALSE	FALSE	FALSE	false				
+NonFullScreenPageMode	name	1.2		FALSE	FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,UseOC]	[fn:IsMeaningful(Catalog::@PageMode==FullScreen)]		
 Direction	name	1.3		FALSE	FALSE	FALSE	L2R	[L2R,R2L]			
 ViewArea	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			
 ViewClip	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			

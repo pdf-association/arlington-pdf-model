@@ -1,0 +1,7 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.7		FALSE	FALSE	FALSE		['String',Value2]			
+Key1	boolean	3.0		fn:IsRequired(fn:IsPresent(1))	FALSE	TRUE	false			invalid PDF version	
+Key1	boolean	2.0		fn:IsRequired(fn:IsPresent(Key99))	FALSE	FALSE	false			invalid key reference	
+*	number	2.0		FALSE	FALSE	FALSE	false				wildcard not last
+Key1	number	2.0		FALSE	FALSE	FALSE	false				duplicate key
+Parent	integer	2.0		FALSE	TRUE	FALSE	false				Parent that is not a dict

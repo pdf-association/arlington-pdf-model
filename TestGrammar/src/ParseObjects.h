@@ -11,7 +11,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 // Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
-// 
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef ParseObjects_h
@@ -40,9 +40,9 @@ class CParsePDF
 {
 private:
     /// @brief Remembering processed PDF objects (and how they were validated).
-    //  Storing hash_id of object and link with which we validated the object.
+    ///        Storing hash_id of object as key and link with which we validated the object as the value.
     std::map<std::string, std::string>      mapped;
-  
+
     /// @brief the Arlington PDF model (cache of loaded TSV grammar files)
     std::map<std::string, std::unique_ptr<CArlingtonTSVGrammarFile>>  grammar_map;
 
@@ -51,7 +51,7 @@ private:
         ArlPDFObject* object;
         std::string   link;
         std::string   context;
-        
+
         queue_elem(ArlPDFObject* o, const std::string &l, std::string &c)
             : object(o), link(l), context(c)
             { /* constructor */ }
@@ -65,18 +65,22 @@ private:
 
     /// @brief Output stream to write results to. Already open
     std::ostream            &output;
-  
+
+    /// @brief Terse output. Otherwise output can make "... | sort | uniq | ..." Linux CLI pipelines difficult
+    ///        Details of specific PDF objects (such as object numbers) are not output.
+    bool                    terse;
+
     const ArlTSVmatrix& get_grammar(const std::string& link);
 
 public:
-    CParsePDF(const std::filesystem::path& tsv_folder, std::ostream &ofs)
-        : grammar_folder(tsv_folder), output(ofs)
+    CParsePDF(const std::filesystem::path& tsv_folder, std::ostream &ofs, bool terser_output)
+        : grammar_folder(tsv_folder), output(ofs), terse(terser_output)
         { /* constructor */ }
 
     void parse_object();
     void add_parse_object(ArlPDFObject* object, const std::string& link, std::string context);
-    void parse_name_tree(ArlPDFDictionary* obj, const std::string &links, std::string context);
-    void parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context);
+    void parse_name_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root = true);
+    void parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root = true);
 
     int get_type_index_for_object(ArlPDFObject* obj, const std::string& types);
     std::string get_type_string_for_object(ArlPDFObject* obj);
@@ -86,6 +90,7 @@ public:
 
     void check_basics(ArlPDFObject* obj, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path &grammar_file);
     bool check_possible_values(ArlPDFObject* object, int key_idx, const ArlTSVmatrix& tsv_data, const int index, std::wstring &real_str_value);
+    ArlPDFObject* find_via_inheritance(ArlPDFDictionary* obj, const std::wstring& key, int depth = 0);
 };
 
 #endif // ParseObjects_h

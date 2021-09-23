@@ -1,11 +1,11 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.2		TRUE	FALSE	FALSE		[FontDescriptor]			
 FontName	name	1.2		TRUE	FALSE	FALSE					
-Flags	integer	1.2		TRUE	FALSE	FALSE					
+Flags	bitmask	1.2		TRUE	FALSE	FALSE					
 FontBBox	rectangle	1.2		TRUE	FALSE	FALSE					
 ItalicAngle	number	1.2		TRUE	FALSE	FALSE					
 Ascent	number	1.2		TRUE	FALSE	FALSE					
-Descent	number	1.2		TRUE	FALSE	FALSE		[fn:Expr(@self<0)]			
+Descent	number	1.2		TRUE	FALSE	FALSE		[fn:Eval(@Descent<0)]			
 Leading	number	1.2		FALSE	FALSE	FALSE	0				
 CapHeight	number	1.2		FALSE	FALSE	FALSE					
 XHeight	number	1.2		FALSE	FALSE	FALSE	0				
