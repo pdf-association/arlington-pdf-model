@@ -134,9 +134,6 @@
     <ClCompile Include="..\..\pdfium\constants\appearance.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\appendable.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\ArlingtonPDFShimPDFium.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -167,34 +164,13 @@
     <ClCompile Include="..\..\pdfium\third_party\libopenjpeg20\bio.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\bmpset.cpp">
+    <ClCompile Include="..\..\pdfium\third_party\libopenjpeg20\dwt.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\brkeng.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\brkiter.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\bytesinkutil.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\bytestream.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\bytestrie.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\bytestriebuilder.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\bytestrieiterator.cpp">
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\cstr.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fxcrt\bytestring.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\caniter.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fpdfapi\parser\cfdf_document.cpp">
@@ -347,15 +323,6 @@
     <ClCompile Include="..\..\pdfium\core\fxge\win32\cgdi_plus_ext.cpp">
       <Filter>Source Files\pdfium_win</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\characterproperties.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\chariter.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\charstr.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\CheckDVA.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
@@ -393,9 +360,6 @@
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Korea1\cmaps_korea1.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\cmemory.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\lcms\src\cmsalpha.c">
@@ -764,40 +728,13 @@
     <ClCompile Include="..\..\pdfium\third_party\zlib\crc32_simd.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\cstr.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fxge\dib\cstretchengine.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\cstring.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\cwchar.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fxge\win32\cwin32_platform.cpp">
       <Filter>Source Files\pdfium_win</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\zlib\deflate.c">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\dictbe.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\dictionarydata.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\dtintrv.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\libopenjpeg20\dwt.c">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\edits.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\errorcode.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\CNS1\ETen-B5-H_0.cpp">
@@ -828,12 +765,6 @@
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fxcodec\fax\faxmodule.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\filteredbrk.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\filterednormalizer2.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fxcodec\flate\flatemodule.cpp">
@@ -1130,12 +1061,6 @@
     <ClCompile Include="..\..\pdfium\core\fxcodec\icc\icc_transform.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\icudataver.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\icuplug.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\libopenjpeg20\image.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
@@ -1385,70 +1310,10 @@
     <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Korea1\KSCpc-EUC-H_0.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\loadednormalizer2impl.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\localebuilder.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\localematcher.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\localeprioritylist.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\locavailable.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\locbased.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\locdispnames.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\locdistance.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\locdspnm.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\locid.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\loclikely.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\loclikelysubtags.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\locmap.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\locresdata.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\locutil.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\lsr.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\libopenjpeg20\mct.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\messagepattern.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\libopenjpeg20\mqc.c">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\normalizer2.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\normalizer2impl.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\normlzr.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fxcrt\observed_ptr.cpp">
@@ -1475,9 +1340,6 @@
     <ClCompile Include="..\..\src\ParseObjects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\parsepos.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\base\allocator\partition_allocator\partition_alloc.cc">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
@@ -1491,9 +1353,6 @@
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\base\allocator\partition_allocator\partition_root_base.cc">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\patternprops.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\pcf\pcfdrivr.c">
@@ -1526,20 +1385,11 @@
     <ClCompile Include="..\..\pdfium\third_party\libopenjpeg20\pi.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\pluralmap.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\sfnt\pngshim.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\PredicateProcessor.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\propname.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\propsvec.cpp">
-      <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\psaux\psarrst.c">
       <Filter>Source Files\pdfium</Filter>
@@ -1592,91 +1442,19 @@
     <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\psaux\psstack.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\punycode.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\putil.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\base\allocator\partition_allocator\random.cc">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\rbbi.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\rbbi_cache.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\rbbidata.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\rbbinode.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\rbbirb.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\rbbiscan.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\rbbisetb.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\rbbistbl.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\rbbitblb.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fxge\renderdevicedriver_iface.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\resbund.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\resbund_cnv.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\resource.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\restrace.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ruleiter.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fxcodec\scanlinedecoder.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\schriter.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fxge\scoped_font_transform.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\sdf\sdf.c">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\serv.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\servlk.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\servlkf.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\servls.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\servnotf.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\servrbf.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\servslkf.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\sfnt\sfdriver.c">
@@ -1691,31 +1469,16 @@
     <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\sfnt\sfwoff2.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\sharedobject.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\simpleformatter.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\libopenjpeg20\sparse_array.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\base\allocator\partition_allocator\spin_lock.cc">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\static_unicode_sets.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\constants\stream_dict_common.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\core\fxcrt\string_data_template.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\stringpiece.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\stringtriebuilder.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\libopenjpeg20\t1.c">
@@ -1811,52 +1574,148 @@
     <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\truetype\ttsubpix.c">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\zlib\uncompr.c">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\CNS1\UniCNS-UCS2-H_3.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\CNS1\UniCNS-UCS2-V_3.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\CNS1\UniCNS-UTF16-H_0.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\GB1\UniGB-UCS2-H_4.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\GB1\UniGB-UCS2-V_4.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Japan1\UniJIS-UCS2-H_4.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Japan1\UniJIS-UCS2-HW-H_4.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Japan1\UniJIS-UCS2-HW-V_4.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Japan1\UniJIS-UCS2-V_4.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Korea1\UniKS-UCS2-H_1.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Korea1\UniKS-UCS2-V_1.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Korea1\UniKS-UTF16-H_0.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Japan1\V_1.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fxcrt\widestring.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\base\win\win_util.cc">
+      <Filter>Source Files\pdfium_win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\winfonts\winfnt.c">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\sfnt\woff2tags.c">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\zlib\zutil.c">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\render\cpdf_docrenderdata.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\render\cpdf_type3cache.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fxge\win32\cfx_psfonttracker.cpp">
+      <Filter>Source Files\pdfium_win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\core\fpdfapi\render\cpdf_type3glyphmap.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\appendable.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\charstr.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\bytesinkutil.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\bytestream.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\bytestrie.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\cmemory.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\cstring.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\edits.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\errorcode.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\localebuilder.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\locid.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\loclikely.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\locmap.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\patternprops.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\propname.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\putil.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\resource.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\stringpiece.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\stubdata\stubdata.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\util.cpp">
+      <Filter>Source Files\pdfium</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uarrsort.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ubidi.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ubidi_props.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ubidiln.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ubiditransform.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ubidiwrt.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ubrk.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucase.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucasemap.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucasemap_titlecase_brkiter.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucat.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uchar.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucharstrie.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucharstriebuilder.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucharstrieiterator.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uchriter.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucln_cmn.cpp">
@@ -1892,9 +1751,6 @@
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucnv_lmb.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucnv_set.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucnv_u7.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
@@ -1913,9 +1769,6 @@
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucnvbocu.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucnvdisp.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucnvhz.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
@@ -1931,16 +1784,7 @@
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucnvscsu.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucnvsel.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucol_swp.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucptrie.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ucurr.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\udata.cpp">
@@ -1958,22 +1802,7 @@
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uhash.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uhash_us.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uidna.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uinit.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uinvchar.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uiter.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ulist.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uloc.cpp">
@@ -1991,28 +1820,7 @@
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\umath.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\umutablecptrie.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\umutex.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unames.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\zlib\uncompr.c">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\CNS1\UniCNS-UCS2-H_3.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\CNS1\UniCNS-UCS2-V_3.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\CNS1\UniCNS-UTF16-H_0.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unifiedcache.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unifilt.cpp">
@@ -2021,76 +1829,16 @@
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unifunct.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\GB1\UniGB-UCS2-H_4.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\GB1\UniGB-UCS2-V_4.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Japan1\UniJIS-UCS2-H_4.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Japan1\UniJIS-UCS2-HW-H_4.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Japan1\UniJIS-UCS2-HW-V_4.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Japan1\UniJIS-UCS2-V_4.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Korea1\UniKS-UCS2-H_1.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Korea1\UniKS-UCS2-V_1.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Korea1\UniKS-UTF16-H_0.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uniset.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uniset_closure.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uniset_props.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unisetspan.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unistr.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unistr_case.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unistr_case_locale.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unistr_cnv.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unistr_props.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unistr_titlecase_brkiter.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unorm.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\unormcmp.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uobject.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uprops.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ures_cnv.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uresbund.cpp">
@@ -2099,46 +1847,13 @@
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uresdata.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\usc_impl.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uscript.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uscript_props.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uset.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uset_props.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\usetiter.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ushape.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\usprep.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ustack.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ustr_cnv.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ustr_titlecase_brkiter.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ustr_wcs.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ustrcase.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ustrcase_locale.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ustrenum.cpp">
@@ -2153,25 +1868,10 @@
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\ustrtrns.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\utext.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\utf_impl.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\util.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\util_props.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\utrace.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\utrie.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\utrie_swap.cpp">
@@ -2180,59 +1880,14 @@
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\utrie2.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\utrie2_builder.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uts46.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\utypes.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uvector.cpp">
       <Filter>Source Files\pdfium</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uvectr32.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\icu\source\common\uvectr64.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\cmaps\Japan1\V_1.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fxcrt\widestring.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\base\win\win_util.cc">
-      <Filter>Source Files\pdfium_win</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\winfonts\winfnt.c">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pdfium\third_party\icu\source\common\wintz.cpp">
       <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\freetype\src\src\sfnt\woff2tags.c">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\third_party\zlib\zutil.c">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\render\cpdf_docrenderdata.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\render\cpdf_type3cache.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fxge\win32\cfx_psfonttracker.cpp">
-      <Filter>Source Files\pdfium_win</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pdfium\core\fpdfapi\render\cpdf_type3glyphmap.cpp">
-      <Filter>Source Files\pdfium</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Main.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -30,21 +30,12 @@ set (SRC_QPDF
 #=========== pdfium ===========
 if(MSVC)
     add_compile_options(/W3 /WX- /utf-8)
-    add_compile_definitions(X86_WINDOWS WIN32 BUILD_WINDOWS ICU_DATA_DIR_WINDOWS="")
+    add_compile_definitions(X86_WINDOWS WIN32 BUILD_WINDOWS)
+	# ICU_DATA_DIR_WINDOWS=""
 else()
-    # add_compile_definitions(register=) #mac doesn't compile lcms with C++17
 endif()
 
 add_compile_definitions(PNG_NO_CONFIG_H USE_LIBJPEG_TURBO NOMINMAX UNICODE _UNICODE U_COMMON_IMPLEMENTATION FT2_BUILD_LIBRARY _NO_GDIPLUS_ _CRT_SECURE_NO_DEPRECATE _CRT_NONSTDC_NO_DEPRECATE _HAS_EXCEPTIONS=0 LS_STATIC)
-
-#old: add_compile_definitions(PNG_PREFIX PNG_USE_READ_MACROS OPJ_STATIC PNG_INTEL_SSE_OPT=1 NOMINMAX _CRT_NONSTDC_NO_DEPRECATE)
-# USE_STD_NAMESPACE
-# PDF_ENABLE_XFA
-# PDF_ENABLE_XFA_BMP
-# PDF_ENABLE_XFA_GIF
-# PDF_ENABLE_XFA_TIFF
-#LS_STATIC;WIN3;USE_LIBJPEG_TURBO;BOOST_ALL_NO_LIB;PDF_ENABLE_XFA_BMP;PDF_ENABLE_XFA_GIF;PDF_ENABLE_XFA_TIFF;U_COMMON_IMPLEMENTATION;X86_WINDOWS;PDF_ENABLE_XFA;FT2_BUILD_LIBRARY;_FPDFSDK_LIB;_NO_GDIPLUS_;OPJ_STATIC;V8_DEPRECATION_WARNINGS;NOMINMAX;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)
-#add_compile_definitions(register=) #mac doesn't compile lcms with C++17
 
 set(SRC_PDFIUM
     src/ArlingtonPDFShimPDFium.cpp
@@ -305,231 +296,29 @@ set(SRC_PDFIUM
     pdfium/third_party/freetype/src/src/type42/t42objs.c
     pdfium/third_party/freetype/src/src/type42/t42parse.c
     pdfium/third_party/freetype/src/src/winfonts/winfnt.c
-    # pdfium/third_party/icu/source/common/appendable.cpp
-    # pdfium/third_party/icu/source/common/bytesinkutil.cpp
-    # pdfium/third_party/icu/source/common/bytestream.cpp
-    # pdfium/third_party/icu/source/common/charstr.cpp
-    # pdfium/third_party/icu/source/common/cmemory.cpp
-    # pdfium/third_party/icu/source/common/cstring.cpp
-    # pdfium/third_party/icu/source/common/edits.cpp
-    # pdfium/third_party/icu/source/common/errorcode.cpp
-    # pdfium/third_party/icu/source/common/locmap.cpp
-    # pdfium/third_party/icu/source/common/putil.cpp
-    # pdfium/third_party/icu/source/common/stringpiece.cpp
-    # pdfium/third_party/icu/source/common/ucase.cpp
-    # pdfium/third_party/icu/source/common/uchar.cpp
-    # pdfium/third_party/icu/source/common/ucln_cmn.cpp
-    # pdfium/third_party/icu/source/common/udataswp.cpp
-    # pdfium/third_party/icu/source/common/uinvchar.cpp
-	# pdfium/third_party/icu/source/common/uloc.cpp	
-    # pdfium/third_party/icu/source/common/umutex.cpp
-    # pdfium/third_party/icu/source/common/unistr.cpp
-    # pdfium/third_party/icu/source/common/unistr_case.cpp
-    # pdfium/third_party/icu/source/common/unistr_cnv.cpp
-    # pdfium/third_party/icu/source/common/uobject.cpp
-    # pdfium/third_party/icu/source/common/ustrtrns.cpp
-    # pdfium/third_party/icu/source/common/ustring.cpp
-	# pdfium/third_party/icu/source/common/ustrenum.cpp
-    # pdfium/third_party/icu/source/common/utrace.cpp
-    # pdfium/third_party/icu/source/common/utrie2.cpp
-    # pdfium/third_party/icu/source/common/utf_impl.cpp
-    # pdfium/third_party/icu/source/common/utypes.cpp
-	pdfium/third_party/icu/source/common/uniset.cpp
-	pdfium/third_party/icu/source/common/dictbe.cpp
-	pdfium/third_party/icu/source/common/chariter.cpp
-	pdfium/third_party/icu/source/common/utf_impl.cpp
-	pdfium/third_party/icu/source/common/uhash.cpp
-	pdfium/third_party/icu/source/common/ushape.cpp
-	pdfium/third_party/icu/source/common/ucnvsel.cpp
-	pdfium/third_party/icu/source/common/uarrsort.cpp
-	pdfium/third_party/icu/source/common/ucnv_set.cpp
-	pdfium/third_party/icu/source/common/uniset_props.cpp
-	pdfium/third_party/icu/source/common/caniter.cpp
-	pdfium/third_party/icu/source/common/ubidiwrt.cpp
-	pdfium/third_party/icu/source/common/ucnvscsu.cpp
-	pdfium/third_party/icu/source/common/cstr.cpp
-	pdfium/third_party/icu/source/common/wintz.cpp
-	pdfium/third_party/icu/source/common/ubiditransform.cpp
-	pdfium/third_party/icu/source/common/dictionarydata.cpp
-	pdfium/third_party/icu/source/common/loclikelysubtags.cpp
-	pdfium/third_party/icu/source/common/stringtriebuilder.cpp
-	pdfium/third_party/icu/source/common/util.cpp
-	pdfium/third_party/icu/source/common/cstring.cpp
-	pdfium/third_party/icu/source/common/localeprioritylist.cpp
-	pdfium/third_party/icu/source/common/uinit.cpp
-	pdfium/third_party/icu/source/common/ucharstrieiterator.cpp
-	pdfium/third_party/icu/source/common/unisetspan.cpp
-	pdfium/third_party/icu/source/common/icuplug.cpp
-	pdfium/third_party/icu/source/common/ucnv_ext.cpp
-	pdfium/third_party/icu/source/common/servnotf.cpp
-	pdfium/third_party/icu/source/common/locid.cpp
-	pdfium/third_party/icu/source/common/ustr_cnv.cpp
-	pdfium/third_party/icu/source/common/unames.cpp
-	pdfium/third_party/icu/source/common/filterednormalizer2.cpp
-	pdfium/third_party/icu/source/common/loclikely.cpp
-	pdfium/third_party/icu/source/common/uscript_props.cpp
-	pdfium/third_party/icu/source/common/bytestrieiterator.cpp
-	pdfium/third_party/icu/source/common/propsvec.cpp
-	pdfium/third_party/icu/source/common/ucnv_u32.cpp
-	pdfium/third_party/icu/source/common/punycode.cpp
-	pdfium/third_party/icu/source/common/ubidiln.cpp
-	pdfium/third_party/icu/source/common/putil.cpp
-	pdfium/third_party/icu/source/common/bytestrie.cpp
-	pdfium/third_party/icu/source/common/resource.cpp
-	pdfium/third_party/icu/source/common/uvector.cpp
-	pdfium/third_party/icu/source/common/ucase.cpp
-	pdfium/third_party/icu/source/common/rbbi.cpp
-	pdfium/third_party/icu/source/common/locutil.cpp
-	pdfium/third_party/icu/source/common/servls.cpp
-	pdfium/third_party/icu/source/common/ucnvdisp.cpp
-	pdfium/third_party/icu/source/common/ucnv_err.cpp
-	pdfium/third_party/icu/source/common/unistr_titlecase_brkiter.cpp
-	pdfium/third_party/icu/source/common/uloc_tag.cpp
-	pdfium/third_party/icu/source/common/icudataver.cpp
-	pdfium/third_party/icu/source/common/uenum.cpp
-	pdfium/third_party/icu/source/common/rbbisetb.cpp
-	pdfium/third_party/icu/source/common/filteredbrk.cpp
-	pdfium/third_party/icu/source/common/ubrk.cpp
-	pdfium/third_party/icu/source/common/ucnv_bld.cpp
-	pdfium/third_party/icu/source/common/brkeng.cpp
-	pdfium/third_party/icu/source/common/charstr.cpp
-	pdfium/third_party/icu/source/common/uloc_keytype.cpp
-	pdfium/third_party/icu/source/common/ucnv_ct.cpp
-	pdfium/third_party/icu/source/common/bytestriebuilder.cpp
-	pdfium/third_party/icu/source/common/ubidi.cpp
-	pdfium/third_party/icu/source/common/ucnv_u8.cpp
-	pdfium/third_party/icu/source/common/locdispnames.cpp
-	pdfium/third_party/icu/source/common/ucnv_cb.cpp
-	pdfium/third_party/icu/source/common/ustr_titlecase_brkiter.cpp
-	pdfium/third_party/icu/source/common/locdistance.cpp
-	pdfium/third_party/icu/source/common/static_unicode_sets.cpp
-	pdfium/third_party/icu/source/common/bmpset.cpp
-	pdfium/third_party/icu/source/common/uniset_closure.cpp
-	pdfium/third_party/icu/source/common/locdspnm.cpp
-	pdfium/third_party/icu/source/common/bytesinkutil.cpp
-	pdfium/third_party/icu/source/common/rbbi_cache.cpp
-	pdfium/third_party/icu/source/common/ucharstriebuilder.cpp
-	pdfium/third_party/icu/source/common/utrie2.cpp
-	pdfium/third_party/icu/source/common/unifiedcache.cpp
-	pdfium/third_party/icu/source/common/servlkf.cpp
-	pdfium/third_party/icu/source/common/schriter.cpp
-	pdfium/third_party/icu/source/common/locbased.cpp
-	pdfium/third_party/icu/source/common/udatamem.cpp
-	pdfium/third_party/icu/source/common/umutablecptrie.cpp
-	pdfium/third_party/icu/source/common/patternprops.cpp
-	pdfium/third_party/icu/source/common/localebuilder.cpp
-	pdfium/third_party/icu/source/common/unistr_props.cpp
-	pdfium/third_party/icu/source/common/ucnv.cpp
-	pdfium/third_party/icu/source/common/stringpiece.cpp
-	pdfium/third_party/icu/source/common/ulist.cpp
-	pdfium/third_party/icu/source/common/ustrtrns.cpp
-	pdfium/third_party/icu/source/common/uiter.cpp
-	pdfium/third_party/icu/source/common/cmemory.cpp
-	pdfium/third_party/icu/source/common/resbund_cnv.cpp
-	pdfium/third_party/icu/source/common/uvectr64.cpp
-	pdfium/third_party/icu/source/common/unistr_case.cpp
-	pdfium/third_party/icu/source/common/ustr_wcs.cpp
-	pdfium/third_party/icu/source/common/ucnvlat1.cpp
-	pdfium/third_party/icu/source/common/simpleformatter.cpp
-	pdfium/third_party/icu/source/common/uts46.cpp
-	pdfium/third_party/icu/source/common/ucnvmbcs.cpp
-	pdfium/third_party/icu/source/common/locresdata.cpp
-	pdfium/third_party/icu/source/common/pluralmap.cpp
-	pdfium/third_party/icu/source/common/uprops.cpp
-	pdfium/third_party/icu/source/common/usetiter.cpp
-	pdfium/third_party/icu/source/common/propname.cpp
-	pdfium/third_party/icu/source/common/rbbistbl.cpp
-	pdfium/third_party/icu/source/common/ucat.cpp
-	pdfium/third_party/icu/source/common/unifilt.cpp
-	pdfium/third_party/icu/source/common/utrie_swap.cpp
-	pdfium/third_party/icu/source/common/uresdata.cpp
-	pdfium/third_party/icu/source/common/umapfile.cpp
-	pdfium/third_party/icu/source/common/messagepattern.cpp
-	pdfium/third_party/icu/source/common/locavailable.cpp
-	pdfium/third_party/icu/source/common/ustrcase.cpp
-	pdfium/third_party/icu/source/common/cwchar.cpp
-	pdfium/third_party/icu/source/common/rbbiscan.cpp
-	pdfium/third_party/icu/source/common/umath.cpp
-	pdfium/third_party/icu/source/common/uset.cpp
-	pdfium/third_party/icu/source/common/ucln_cmn.cpp
-	pdfium/third_party/icu/source/common/ures_cnv.cpp
-	pdfium/third_party/icu/source/common/normlzr.cpp
-	pdfium/third_party/icu/source/common/ucmndata.cpp
-	pdfium/third_party/icu/source/common/servlk.cpp
-	pdfium/third_party/icu/source/common/edits.cpp
-	pdfium/third_party/icu/source/common/ucnvbocu.cpp
-	pdfium/third_party/icu/source/common/ustrfmt.cpp
-	pdfium/third_party/icu/source/common/parsepos.cpp
-	pdfium/third_party/icu/source/common/loadednormalizer2impl.cpp
-	pdfium/third_party/icu/source/common/udata.cpp
-	pdfium/third_party/icu/source/common/errorcode.cpp
-	pdfium/third_party/icu/source/common/uchriter.cpp
-	pdfium/third_party/icu/source/common/ucnv_lmb.cpp
-	pdfium/third_party/icu/source/common/ucurr.cpp
-	pdfium/third_party/icu/source/common/udataswp.cpp
-	pdfium/third_party/icu/source/common/restrace.cpp
-	pdfium/third_party/icu/source/common/ustrcase_locale.cpp
-	pdfium/third_party/icu/source/common/localematcher.cpp
-	pdfium/third_party/icu/source/common/unistr.cpp
-	pdfium/third_party/icu/source/common/ucnvhz.cpp
-	pdfium/third_party/icu/source/common/normalizer2.cpp
-	pdfium/third_party/icu/source/common/sharedobject.cpp
-	pdfium/third_party/icu/source/common/resbund.cpp
-	pdfium/third_party/icu/source/common/uhash_us.cpp
-	pdfium/third_party/icu/source/common/serv.cpp
-	pdfium/third_party/icu/source/common/utrie.cpp
-	pdfium/third_party/icu/source/common/umutex.cpp
-	pdfium/third_party/icu/source/common/unorm.cpp
-	pdfium/third_party/icu/source/common/uidna.cpp
-	pdfium/third_party/icu/source/common/servrbf.cpp
-	pdfium/third_party/icu/source/common/ucnv_u7.cpp
-	pdfium/third_party/icu/source/common/ruleiter.cpp
-	pdfium/third_party/icu/source/common/uset_props.cpp
-	pdfium/third_party/icu/source/common/appendable.cpp
-	pdfium/third_party/icu/source/common/lsr.cpp
-	pdfium/third_party/icu/source/common/utypes.cpp
-	pdfium/third_party/icu/source/common/ucasemap.cpp
-	pdfium/third_party/icu/source/common/usc_impl.cpp
-	pdfium/third_party/icu/source/common/uresbund.cpp
-	pdfium/third_party/icu/source/common/rbbidata.cpp
-	pdfium/third_party/icu/source/common/unormcmp.cpp
-	pdfium/third_party/icu/source/common/ucptrie.cpp
-	pdfium/third_party/icu/source/common/ubidi_props.cpp
-	pdfium/third_party/icu/source/common/uchar.cpp
-	pdfium/third_party/icu/source/common/normalizer2impl.cpp
-	pdfium/third_party/icu/source/common/ucnvisci.cpp
-	pdfium/third_party/icu/source/common/unistr_cnv.cpp
-	pdfium/third_party/icu/source/common/rbbirb.cpp
-	pdfium/third_party/icu/source/common/unifunct.cpp
-	pdfium/third_party/icu/source/common/characterproperties.cpp
-	pdfium/third_party/icu/source/common/ustack.cpp
-	pdfium/third_party/icu/source/common/uinvchar.cpp
-	pdfium/third_party/icu/source/common/ucasemap_titlecase_brkiter.cpp
-	pdfium/third_party/icu/source/common/bytestream.cpp
-	pdfium/third_party/icu/source/common/ustring.cpp
-	pdfium/third_party/icu/source/common/usprep.cpp
-	pdfium/third_party/icu/source/common/servslkf.cpp
-	pdfium/third_party/icu/source/common/rbbitblb.cpp
-	pdfium/third_party/icu/source/common/ucnv_u16.cpp
-	pdfium/third_party/icu/source/common/util_props.cpp
-	pdfium/third_party/icu/source/common/uloc.cpp
-	pdfium/third_party/icu/source/common/ustrenum.cpp
-	pdfium/third_party/icu/source/common/ucnv_io.cpp
-	pdfium/third_party/icu/source/common/unistr_case_locale.cpp
-	pdfium/third_party/icu/source/common/uobject.cpp
-	pdfium/third_party/icu/source/common/ucnv_cnv.cpp
-	pdfium/third_party/icu/source/common/ucnv2022.cpp
-	pdfium/third_party/icu/source/common/ucol_swp.cpp
-	pdfium/third_party/icu/source/common/dtintrv.cpp
-	pdfium/third_party/icu/source/common/rbbinode.cpp
-	pdfium/third_party/icu/source/common/ucharstrie.cpp
-	pdfium/third_party/icu/source/common/uscript.cpp
-	pdfium/third_party/icu/source/common/utext.cpp
-	pdfium/third_party/icu/source/common/locmap.cpp
-	pdfium/third_party/icu/source/common/utrie2_builder.cpp
-	pdfium/third_party/icu/source/common/uvectr32.cpp
-	pdfium/third_party/icu/source/common/utrace.cpp
-	pdfium/third_party/icu/source/common/brkiter.cpp
+
+    pdfium/third_party/icu/source/common/appendable.cpp
+    pdfium/third_party/icu/source/common/charstr.cpp
+    pdfium/third_party/icu/source/common/cmemory.cpp
+    pdfium/third_party/icu/source/common/cstring.cpp
+    pdfium/third_party/icu/source/common/locmap.cpp
+    pdfium/third_party/icu/source/common/putil.cpp
+    pdfium/third_party/icu/source/common/stringpiece.cpp
+    pdfium/third_party/icu/source/common/ucase.cpp
+    pdfium/third_party/icu/source/common/uchar.cpp
+    pdfium/third_party/icu/source/common/ucln_cmn.cpp
+    pdfium/third_party/icu/source/common/udataswp.cpp
+    pdfium/third_party/icu/source/common/uinvchar.cpp
+    pdfium/third_party/icu/source/common/umutex.cpp
+    pdfium/third_party/icu/source/common/unistr.cpp
+    pdfium/third_party/icu/source/common/uobject.cpp
+    pdfium/third_party/icu/source/common/ustrtrns.cpp
+    pdfium/third_party/icu/source/common/ustring.cpp
+    pdfium/third_party/icu/source/common/utrace.cpp
+    pdfium/third_party/icu/source/common/utrie2.cpp
+    pdfium/third_party/icu/source/common/utf_impl.cpp
+    pdfium/third_party/icu/source/common/utypes.cpp
+
     pdfium/third_party/lcms/src/cmsalpha.c
     pdfium/third_party/lcms/src/cmscam02.c
     pdfium/third_party/lcms/src/cmscgats.c
@@ -914,6 +703,69 @@ if (WIN32)
 	pdfium/core/fxcrt/fx_folder_windows.cpp		
 	pdfium/third_party/base/win/win_util.cc
 	pdfium/core/fxge/win32/cfx_psfonttracker.cpp	
+
+    pdfium/third_party/icu/source/common/bytesinkutil.cpp
+    pdfium/third_party/icu/source/common/bytestream.cpp
+    pdfium/third_party/icu/source/common/bytestrie.cpp
+    pdfium/third_party/icu/source/common/cstr.cpp
+    pdfium/third_party/icu/source/common/bytestrie.cpp
+    pdfium/third_party/icu/source/common/edits.cpp
+    pdfium/third_party/icu/source/common/errorcode.cpp
+    pdfium/third_party/icu/source/common/localebuilder.cpp
+    pdfium/third_party/icu/source/common/locid.cpp
+    pdfium/third_party/icu/source/common/loclikely.cpp
+    pdfium/third_party/icu/source/common/patternprops.cpp
+    pdfium/third_party/icu/source/common/propname.cpp
+    pdfium/third_party/icu/source/common/resource.cpp
+    pdfium/third_party/icu/source/common/uarrsort.cpp
+    pdfium/third_party/icu/source/common/ucmndata.cpp
+    pdfium/third_party/icu/source/common/ucnv.cpp
+    pdfium/third_party/icu/source/common/ucnv_bld.cpp
+    pdfium/third_party/icu/source/common/ucnv_cb.cpp
+    pdfium/third_party/icu/source/common/ucnv_cnv.cpp
+    pdfium/third_party/icu/source/common/ucnv_ct.cpp
+    pdfium/third_party/icu/source/common/ucnv_err.cpp
+    pdfium/third_party/icu/source/common/ucnv_ext.cpp
+    pdfium/third_party/icu/source/common/ucnv_io.cpp
+    pdfium/third_party/icu/source/common/ucnv_lmb.cpp
+    pdfium/third_party/icu/source/common/ucnv_u7.cpp
+    pdfium/third_party/icu/source/common/ucnv_u8.cpp
+    pdfium/third_party/icu/source/common/ucnv_u16.cpp
+    pdfium/third_party/icu/source/common/ucnv_u32.cpp
+    pdfium/third_party/icu/source/common/ucnv2022.cpp
+    pdfium/third_party/icu/source/common/ucnvbocu.cpp
+    pdfium/third_party/icu/source/common/ucnvhz.cpp
+    pdfium/third_party/icu/source/common/ucnvisci.cpp
+    pdfium/third_party/icu/source/common/ucnvlat1.cpp
+    pdfium/third_party/icu/source/common/ucnvmbcs.cpp
+    pdfium/third_party/icu/source/common/ucnvscsu.cpp
+    pdfium/third_party/icu/source/common/ucol_swp.cpp
+    pdfium/third_party/icu/source/common/udata.cpp
+    pdfium/third_party/icu/source/common/udatamem.cpp
+    pdfium/third_party/icu/source/common/uenum.cpp
+    pdfium/third_party/icu/source/common/uhash.cpp
+    pdfium/third_party/icu/source/common/uloc.cpp
+    pdfium/third_party/icu/source/common/uloc_keytype.cpp
+    pdfium/third_party/icu/source/common/uloc_tag.cpp
+    pdfium/third_party/icu/source/common/umapfile.cpp
+    pdfium/third_party/icu/source/common/umath.cpp
+    pdfium/third_party/icu/source/common/unifilt.cpp
+    pdfium/third_party/icu/source/common/unifunct.cpp
+    pdfium/third_party/icu/source/common/unistr_case.cpp
+    pdfium/third_party/icu/source/common/unistr_cnv.cpp
+    pdfium/third_party/icu/source/common/unistr_case.cpp
+    pdfium/third_party/icu/source/common/uresbund.cpp
+    pdfium/third_party/icu/source/common/uresdata.cpp
+    pdfium/third_party/icu/source/common/uscript_props.cpp
+    pdfium/third_party/icu/source/common/ustr_cnv.cpp
+    pdfium/third_party/icu/source/common/ustrcase.cpp
+    pdfium/third_party/icu/source/common/ustrenum.cpp
+    pdfium/third_party/icu/source/common/ustrfmt.cpp
+    pdfium/third_party/icu/source/common/util.cpp
+    pdfium/third_party/icu/source/common/utrie_swap.cpp
+    pdfium/third_party/icu/source/common/uvector.cpp
+    pdfium/third_party/icu/source/common/wintz.cpp
+    pdfium/third_party/icu/source/stubdata/stubdata.cpp
     )
 elseif(APPLE)
     set(SRC_PDFIUM_PLATFORM
