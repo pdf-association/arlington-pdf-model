@@ -38,10 +38,10 @@ struct to_process_elem {
     std::wstring  dva_link2;
     std::string   link;
     to_process_elem(const std::wstring dva_lnk, std::string our_lnk)
-        : dva_link(dva_lnk), link(our_lnk), dva_link2(L"")
+        : dva_link(dva_lnk), dva_link2(L""), link(our_lnk)
         { /* constructor */ }
     to_process_elem(const std::wstring dva_lnk1, const std::wstring dva_lnk2, std::string our_lnk)
-        : dva_link(dva_lnk2), link(our_lnk), dva_link2(dva_lnk1)
+        : dva_link(dva_lnk1), dva_link2(dva_lnk2), link(our_lnk)
         { /* constructor */ }
 };
 
