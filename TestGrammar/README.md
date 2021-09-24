@@ -37,24 +37,25 @@ It performs a number of functions:
 The command line options are very similar to the Python proof-of-concept:
 
 ```
-Arlington PDF Model C++ P.o.C. version v x.y built xxx
+Arlington PDF Model C++ P.o.C. version vX.Y built <date>> <time> (<platform & compiler>)
 Choose one of: --pdf, --checkdva or --validate.
 
 Usage:
-        TestGrammar --tsvdir <dir> [--out <fname|dir>] [--brief] [--debug] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
+        TestGrammar --tsvdir <dir> [--out <fname|dir>] [--clobber] [--debug] [--brief] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
 
 Options:
--h, --help       This usage message.
--t, --tsvdir     [required] folder containing Arlington PDF model TSV file set.
--o, --out        output file or folder. Default is stdout. Existing files will be overwritten.
--p, --pdf        input PDF file or folder.
--c, --checkdva   Adobe DVA formal-rep PDF file to compare against Arlington PDF model.
--v, --validate   validate the Arlington PDF model.
--b, --brief      terse output when checking PDFs - no object numbers, details of errors, etc.
--d, --debug      output additional debugging information (verbose!)
--b, --batchmode  top popup error dialog windows - redirect errors to console
+-h, --help        This usage message.
+-b, --brief       terse output when checking PDFs - no object numbers, details of errors, etc.
+-c, --checkdva    Adobe DVA formal-rep PDF file to compare against Arlington PDF model.
+-d, --debug       output additional debugging information (verbose!)
+    --clobber     always overwrite PDF output report files (--pdf) rather than append underscores
+-m, --batchmode   stop popup error dialog windows - redirect errors to console (Windows only)
+-o, --out         output file or folder. Default is stdout. See --clobber for overwriting behavior
+-p, --pdf         input PDF file or folder.
+-t, --tsvdir      [required] folder containing Arlington PDF model TSV file set.
+-v, --validate    validate the Arlington PDF model.
 
-Built using some-PDF-SDK v x.y.z
+Built using <pdf-sdk> vX.Y.Z
 ```
 
 ## Notes
@@ -117,7 +118,51 @@ Note that TestGrammar uses a point-scoring system to resolve potential Link ambi
 
 Inheritance is only tested for keys that are also "Required", as the required-ness condition can be met via inheritance. The algorithm uses recursive back-tracking following explicit `Parent` key references, which is currently sufficient for the Page Tree. It does **not** build a forward-looking stack, such as renderer might need to construct.     
 
-## Useful post-_processing
+## Understanding output
+
+Examining extant PDF files against the specification-derived Arlington PDF model can produce a lot of output. Using simple CLI commands such as `head`, `tail` and `grep` can be used to bulk analyze a directory full of output files.
+
+The first line of all output is as follows:
+```
+BEGIN - TestGrammar vX.Y built <date> <time> (<compiler> <platform> <debug|release>) <pdf-sdk>
+BEGIN - TestGrammar v0.5 built Sep 24 2021 13:38:51 (MSC x64 release) pdfium
+BEGIN - TestGrammar v0.5 built Sep 24 2021 13:50:03 (GNU-C linux release) pdfium
+BEGIN - TestGrammar v0.5 built Sep 24 2021 14:23:32 (MSC x86 release) PDFix v6.1.0
+```
+where:
+* `BEGIN` is a magic keyword indicating the start of a new PDF
+* `vX.Y` is the version of the TestGrammar proof-of-concept application
+* `<date>` and `<time>` are the date and time of the build (C/C++ \__DATE__ and \__TIME__ macros)
+* `(<compiler> <platform> <debug|release>)` indicate the C++ compiler, platform and whether it is a debug or release build.
+    - Knowing this is critical for debug as PDF SDKs can (and do!) differ in their output and behavior because of such factors!
+* `<pdf-sdk>` is the name and version (_when available_) of the PDF SDK being used.  
+
+The second line will always be the location of the Arlington PDF Model TSV file set being used (the path format is appropriate to operating system):
+```
+Arlington TSV data: "C:\\arlington-pdf-model\\tsv\\latest"
+```
+
+The 3rd line will always be the full path and filename of the PDF file (the file path format is appropriate to operating system):
+```
+PDF: "c:\\Users\\peter\\Documents\\test.pdf"
+PDF: "/mnt/c/Users/peter/Documents/test.pdf"
+```
+
+The 4th line will give an indication of how this PDF is structured - whether it uses a traditional cross-reference table with `startxref`, `xref` and `trailer` keywords, or whether cross-reference streams are used. For those PDF SKDs that do not report this directly (such as pdfium), this is based on the presence of the required `Type` key in the trailer dictionary (as defined in the [Arlington XRefStream object](../tsv/latest/XRefStream.tsv)):
+
+```
+XRefStream detected
+Traditional trailer dictionary detected
+```
+
+The 5th line will report the PDF version, as reported by the PDF SDK being used. This may be the version from the PDF Header line (`%PDF-x.y`), the Document Catalog Version key, or both. PDF SDKs that do not support this functionality will report 2.0 (the latest PDF version):
+```
+PDF Header version X.Y
+```
+
+The last line should always be just `END` on a line by itself. If this is missing, then it means that the TestGrammar application has not cleanly completed processing (_crash? exception? assertion failure? timeout?_).
+
+## Useful post-processing
 
 After processing a tree of PDF files and saving the output into a folder via a command such as:
 
@@ -163,91 +208,102 @@ Checking PDF files requires a PDF SDK with certain key features (_we shouldn't n
 * return the raw bytes from the PDF file for PDF name and string objects
 * not do any PDF version based processing while parsing
 
-All code for a specific PDF SDK should be kept isolated in a single shim layer CPP file so that all Arlington specific logic and validation checks can be performed against the minimally simple API defined in `ArlingtonPDFShim.h`. There are #defines to select which PDF SDK to build with.
+All code for a specific PDF SDK should be kept isolated in a single shim layer CPP file so that all Arlington specific logic and validation checks can be performed against the minimally simple API defined in `ArlingtonPDFShim.h`. There are `#defines` to select which PDF SDK to build with.
 
 ## Source code dependencies
 
 TestGrammar has the following module dependencies:
 
-* PDFium: OSS PDF SDK
+* PDFium: OSS PDF SDK (`ARL_PDFSDK_PDFIUM`)
   - this is the **default PDF SDK used** as it provides the most functionality, has source code, and is debuggable if things don't work as expected
+  - a local copy of pdfium is used to reduce the build complexity and time - and to fix a number of issues.
   - reduced source code located in `./pdfium`
-  -  PDFium is slightly modified in order to validate whether key values are direct or indirect references in trailer and normal PDF objects
+  -  PDFium is also slightly modified in order to validate whether key values are direct or indirect references in trailer and normal PDF objects
   - see `src/ArlingtonPDFShimPDFium.cpp`
 
-* PDFix: a free PDF SDK
+* PDFix: a free but closed source PDF SDK (`ARL_PDFSDK_PDFIX`)
   - see `src/ArlingtonPDFShimPDFix.cpp`
   - single .h dependency [src/Pdfix.h](src/Pdfix.h)
   - see https://pdfix.net/ with SDK documentation at https://pdfix.github.io/pdfix_sdk_builds/
   - cannot report whether trailer keys are direct or indirect
-  - necessary runtime dynamic libraries/DLLs are in `TestGrammar/bin/...`
-  - there are no debug symbols so when things go wrong it can be difficult to know what and why
+  - necessary runtime shared libraries/DLLs are in `TestGrammar/bin/...`
+  - there are no debug symbols so when things go wrong it is difficult to know what and/or why
 
 * Sarge: a light-weight C++ command line parser
   - command line options are kept aligned with Python PoCs
   - modified source code located in `./sarge`
   - originally from https://github.com/MayaPosch/Sarge
-  - slightly modified to support wide-string command lines and remove compiler warnings across all platforms and buids  
+  - slightly modified to support wide-string command lines and remove compiler warnings across all platforms and builds  
 
-* QPDF: an OSS PDF SDK
+* QPDF: an OSS PDF SDK (`ARL_PDFSDK_QPDF`)
   - still work-in-progress / incomplete - **DO NOT USE**
   - download `qpdf-10.x.y-bin-msvc64.zip` from https://github.com/qpdf/qpdf/releases
   - place into `./qpdf`
 
 ## Building
 
-### Windows Visual Studio
+### Windows Visual Studio 2019 GUI
 
-Open [/TestGrammar/platform/msvc2019/TestGrammar.sln](/TestGrammar/platform/msvc2019/TestGrammar.sln) with Microsoft Visual Studio 2019 and compile. Valid configurations are: 32 (`x86`) or 64 (`x64`) bit, Debug or Release. Compiled executables will be in [/TestGrammar/bin/x64](/TestGrammar/bin/x64) (64 bit) and [/TestGrammar/bin/x86](/TestGrammar/bin/x86) (32 bit).
+Open [/TestGrammar/platform/msvc2019/TestGrammar.sln](/TestGrammar/platform/msvc2019/TestGrammar.sln) with Microsoft Visual Studio 2019 and compile. Valid configurations are: 32 (`x86`) or 64 (`x64`) bit, Debug or Release. Compiled executables will be in [TestGrammar/bin/x64](./bin/x64) (64 bit) and [TestGrammar/bin/x86](./bin/x86) (32 bit).
 
-To build via `msbuild` command line in a Visual Studio Native Tools command prompt:
+Under TestGrammar | Properties | C/C++ | Preprocessor, add the define to select the PDF SDK you wish to use: `ARL_PDFSDK_PDFIUM`, `ARL_PDFSDK_PDFIX` or `ARL_PDFSDK_QPDF` (_QPDF support is not currently working_)
+
+### Windows Visual Studio 2019 command line
+
+To build via `msbuild` command line in a Visual Studio 2019 "Native Tools" command prompt:
 
 ```dos
 cd TestGrammar\platform\msvc2019
 msbuild -m TestGrammar.sln -t:Rebuild -p:Configuration=Debug -p:Platform=x64
 ```
 
-To build in a Visual Studio Native Tools command prompt using nmake via CMake for Windows using ["out of source" builds](https://gitlab.kitware.com/cmake/community/-/wikis/FAQ#out-of-source-build-trees):
+Compiled binaries will be in [TestGrammar/bin/x86](./bin/x86) or [TestGrammar/bin/x64](./bin/x64). Debug binaries end with `..._d.exe`. In order to select the PDF SDK, either open and change in the Visual Studio IDE (_as above_) or hand edit [platform/msvc/2019/TestGrammar.vcxproj](platform/msvc/2019/TestGrammar.vcxproj) in an XML aware text editor:
+
+```
+<PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;...
+```
+
+### Windows command line via CMake and nmake (MSVC)
+
+[CMake](https://cmake.org/) for Windows is required. In a Visual Studio "Native Tools" command prompt:
 
 ```dos
 cd TestGrammar
-mkdir WinDebug
-cd WinDebug
-cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
-nmake
-cd ..
-mkdir WinRelease
-cd WinRelease
-cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release ..
-nmake
+mkdir Win
+cd Win
+cmake -G "NMake Makefiles" -DPDFSDK_xxx=ON ..
+nmake debug
+nmake release
 cd ..
 ```
 
-where `Configuration` can be either `Debug` or `Release`, and `Platform` can be either `x64` or `x86` (32 bit). Compiled binaries will be in [/TestGrammar/bin/x86](/TestGrammar/bin/x86) or [/TestGrammar/bin/x64](/TestGrammar/bin/x64).
+where `xxx` is `PDFIUM`, `PDFIX` or `QPDF` (_QPDF support is not currently working_) - as in `PDFSDK_PDFIUM`. Compiled binaries will be in [TestGrammar/bin/x64](./bin/x64). Debug binaries end with `..._d.exe`.
 
 ### Linux
 
-Note that due to C++17, gcc/g++ v8 or later is required. CMake is also required.
+Note that due to C++17, gcc/g++ v8 or later is required. [CMake](https://cmake.org/) is also required.
 
 ```bash
-mkdir LinDebug
-cd LinDebug
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-make
-cd ..
-mkdir LinRelease
-cd LinRelease
-cmake -DCMAKE_BUILD_TYPE=Release ..
-make
+mkdir Linux
+cd Linux
+cmake -DPDFSDK_xxx=ON ..
+make debug
+make release
 cd ..
 ```
 
-Compiled Linux binaries will be in [/TestGrammar/bin/linux](/TestGrammar/bin/linux).
+where `xxx` is `PDFIUM`, `PDFIX` or `QPDF` (_not currently working_) - as in `PDFSDK_PDFIUM`. Compiled Linux binaries will be in [TestGrammar/bin/linux](./bin/linux). Debug binaries end with `..._d`.
+
+If using a PDFix build, then the shared library `libpdfix.so` must also be accessible. The following command may help:
+
+```bash
+export LD_LIBRARY_PATH=xxx/arlington-pdf-model/TestGrammar/bin/linux:$LD_LIBRARY_PATH
+```
 
 
 ### Mac OS/X
 
-Follow the instructions for Linux. Compiled binaries will be in [/TestGrammar/bin/darwin](/TestGrammar/bin/darwin).
+Follow the instructions for Linux. Compiled binaries will be in [TestGrammar/bin/darwin](./bin/darwin).
 
 ## Code documentation
 
@@ -256,9 +312,10 @@ Run `doxygen Doxyfile` to generate full documentation for the TestGrammar C++ Po
 
 ---
 
-# TODO :pushpin:
+# TODO
 
-- when processing PDF files, also calculate predicates (declarative functions)
+- see the Doxygen output for miscellaneous improvements
+- when processing PDF files, also calculate predicates
 
 ---
 
