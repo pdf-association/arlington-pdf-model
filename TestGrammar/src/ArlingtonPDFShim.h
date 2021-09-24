@@ -18,11 +18,10 @@
 #define ArlingtonPDFShim_h
 #pragma once
 
-/// @brief Choose which PDF SDK you want to use. Some may have more functionality than others. pdfium is default
+/// @brief Choose which PDF SDK you want to use. Some may have more functionality than others.
+/// This is set in CMakeLists.txt or the TestGrammar | Properties | Preprocessor dialog for Visual Studio
 #if !defined(ARL_PDFSDK_PDFIUM) && !defined(ARL_PDFSDK_PDFIX) && !defined(ARL_PDFSDK_QPDF)
-#define ARL_PDFSDK_PDFIUM
-#undef ARL_PDFSDK_PDFIX
-#undef ARL_PDFSDK_QPDF
+#error Select the PDF SDK by defining one of: ARL_PDFSDK_PDFIUM, ARL_PDFSDK_PDFIX or ARL_PDFSDK_QPDF
 #endif
 
 #include <iostream>
