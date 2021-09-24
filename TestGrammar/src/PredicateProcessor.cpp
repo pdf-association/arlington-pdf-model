@@ -715,7 +715,7 @@ std::string LinkPredicateProcessor::ReduceRow(const std::string pdf_version) {
 
     std::string to_ret = "";
     std::vector<std::string> link_list = split(tsv_field, ';');
-    for (auto lnk : link_list) {
+    for (auto& lnk : link_list) {
         std::smatch     m;
         if (std::regex_search(lnk, m, r_Links) && m.ready() && (m.size() == 4)) {
             // m[1] = predicate function name (no "fn:")
@@ -1031,21 +1031,24 @@ bool fn_IsPresent(ArlPDFObject* obj, std::string& key, bool *is_present) {
     *is_present = false;
     switch (obj->get_object_type()) {
         case PDFObjectType::ArlPDFObjTypeArray: {
-            ArlPDFArray* arr = (ArlPDFArray*)obj;
-            try {
-                int idx = std::stoi(key);
-                *is_present = (arr->get_value(idx) != nullptr);
-                return true;
-            }
-            catch (...) {
-                return false; // key wasn't a number
-            }
+                ArlPDFArray* arr = (ArlPDFArray*)obj;
+                try {
+                    int idx = std::stoi(key);
+                    *is_present = (arr->get_value(idx) != nullptr);
+                    return true;
+                }
+                catch (...) {
+                    return false; // key wasn't a number
+                }
             }
         case PDFObjectType::ArlPDFObjTypeDictionary: {
-            ArlPDFDictionary *dict = (ArlPDFDictionary*)obj;
-            *is_present = (dict->get_value(ToWString(key)) != nullptr);
-            return true;
+                ArlPDFDictionary *dict = (ArlPDFDictionary*)obj;
+                *is_present = (dict->get_value(ToWString(key)) != nullptr);
+                return true;
             }
+        default:
+            /// @todo - is this correct?
+            break;
     } // switch
     return false;
 }
