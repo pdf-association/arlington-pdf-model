@@ -131,16 +131,17 @@ int main(int argc, char* argv[]) {
 
     sarge.setDescription("Arlington PDF Model C++ P.o.C. version " TestGrammar_VERSION
                          "\nChoose one of: --pdf, --checkdva or --validate.");
-    sarge.setUsage("TestGrammar --tsvdir <dir> [--out <fname|dir>] [--debug] [--brief] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
-    sarge.setArgument("h", "help",      "This usage message.", false);
-    sarge.setArgument("t", "tsvdir",    "[required] folder containing Arlington PDF model TSV file set.", true);
-    sarge.setArgument("o", "out",       "output file or folder. Default is stdout. Existing files will NOT be overwritten.", true);
-    sarge.setArgument("p", "pdf",       "input PDF file or folder.", true);
-    sarge.setArgument("c", "checkdva",  "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
-    sarge.setArgument("v", "validate",  "validate the Arlington PDF model.", false);
-    sarge.setArgument("b", "brief",     "terse output when checking PDFs - no object numbers, details of errors, etc.", false);
-    sarge.setArgument("d", "debug",     "output additional debugging information (verbose!)", false);
+    sarge.setUsage("TestGrammar --tsvdir <dir> [--out <fname|dir>] [--clobber] [--debug] [--brief] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
+    sarge.setArgument("h", "help",     "This usage message.", false);
+    sarge.setArgument("b", "brief",    "terse output when checking PDFs - no object numbers, details of errors, etc.", false);
+    sarge.setArgument("c", "checkdva", "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
+    sarge.setArgument("d", "debug",    "output additional debugging information (verbose!)", false);
+    sarge.setArgument("",  "clobber",  "always overwrite PDF output report files (--pdf) rather than append underscores", false);
     sarge.setArgument("m", "batchmode", "stop popup error dialog windows - redirect errors to console (Windows only)", false);
+    sarge.setArgument("o", "out",      "output file or folder. Default is stdout. See --clobber for overwriting behavior", true);
+    sarge.setArgument("p", "pdf",      "input PDF file or folder.", true);
+    sarge.setArgument("t", "tsvdir",   "[required] folder containing Arlington PDF model TSV file set.", true);
+    sarge.setArgument("v", "validate", "validate the Arlington PDF model.", false);
 
 #if defined(_WIN32) || defined(WIN32)
     if (!sarge.parseArguments(argc, mbcsargv)) {
@@ -169,6 +170,7 @@ int main(int argc, char* argv[]) {
     fs::path        save_path;          // output file or folder. Optional.
     fs::path        input_file;         // input PDF or Adobe DVA
     std::ofstream   ofs;                // output filestream
+    bool            clobber = sarge.exists("clobber");
     bool            debug_mode = sarge.exists("debug");
     bool            terse = sarge.exists("brief");
 
@@ -290,10 +292,12 @@ int main(int argc, char* argv[]) {
                 if (iequals(entry.path().extension().string(), ".pdf") && entry.is_regular_file()) {
                     rptfile = save_path / entry.path().stem();
                     rptfile.replace_extension(".txt"); // change .pdf to .txt
-                    // if rptfile already exists then try a different filename by continuously appending underscores...
-                    while (fs::exists(rptfile)) {
-                        rptfile.replace_filename(rptfile.stem().string() + "_");
-                        rptfile.replace_extension(".txt");
+                    if (!clobber) {
+                        // if rptfile already exists then try a different filename by continuously appending underscores...
+                        while (fs::exists(rptfile)) {
+                            rptfile.replace_filename(rptfile.stem().string() + "_");
+                            rptfile.replace_extension(".txt");
+                        }
                     }
                     std::cout << "Processing " << entry.path() << " to " << rptfile << std::endl;
                     ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
@@ -314,10 +318,12 @@ int main(int argc, char* argv[]) {
                     save_path /= input_file.stem();
                     save_path.replace_extension(".txt"); // change extension to .txt
                 }
-                // if output file already exists then try a different filename by continuously appending underscores...
-                while (fs::exists(save_path)) {
-                    save_path.replace_filename(save_path.stem().string() + "_");
-                    save_path.replace_extension(".txt");
+                if (!clobber) {
+                    // if output file already exists then try a different filename by continuously appending underscores...
+                    while (fs::exists(save_path)) {
+                        save_path.replace_filename(save_path.stem().string() + "_");
+                        save_path.replace_extension(".txt");
+                    }
                 }
                 // Don't output message if going to stdout
                 std::cout << "Processing " << input_file << " to " << save_path << std::endl;
