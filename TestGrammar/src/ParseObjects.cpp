@@ -872,7 +872,7 @@ void CParsePDF::add_parse_object(ArlPDFObject* object, const std::string& link, 
 void CParsePDF::parse_object()
 {
     while (!to_process.empty()) {
-        auto elem = to_process.front();
+        queue_elem elem = to_process.front();
         to_process.pop();
         if (elem.link == "")
             continue;
