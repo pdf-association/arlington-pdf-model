@@ -489,7 +489,7 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
     std::wstring retval;
     while (pos) {
         CFX_ByteString keyName;
-        CPDF_Object* nextObj = obj->GetNextElement(pos, keyName);
+        (void)obj->GetNextElement(pos, keyName);
         if (index == 0) {
             retval = (FX_LPCWSTR)keyName.UTF8Decode();
             break;
