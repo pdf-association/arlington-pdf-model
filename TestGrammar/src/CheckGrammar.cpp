@@ -51,7 +51,7 @@ static ASTNode* pred_root = nullptr;
 bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream& report_stream)
 {
     bool                        retval = true;
-    auto                        data_list = reader.get_data();
+    auto&                       data_list = reader.get_data();
     std::vector<std::string>    keys_list;
     std::vector<std::string>    vars_list;
 
@@ -104,7 +104,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
             std::smatch  m;
             const std::regex   r_LocalKeyValue("[^:]@([a-zA-Z0-9_]+)");
             if (std::regex_search(col, m, r_LocalKeyValue) && m.ready() && (m.size() > 0))
-                for (int i = 1; i < m.size(); i += 2)
+                for (int i = 1; i < (int)m.size(); i += 2)
                     vars_list.push_back(m[i].str());
 
             // Try and parse each predicate after isolating
@@ -228,7 +228,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
         std::vector<std::string>    default_val = split(vc[TSV_DEFAULTVALUE], ';');
         std::vector<std::string>    possible_vals = split(vc[TSV_POSSIBLEVALUES], ';');
 
-        if (vc[TSV_LINK] != "")
+        if (vc[TSV_LINK] != "") {
             if (links.size() != types.size()) {
                 report_stream << "Error: wrong # of Types vs. # of links " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
                 retval = false;
@@ -256,6 +256,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
                     }
                 } // for
             }
+        }
 
         if (vc[TSV_DEFAULTVALUE] != "")
             if (types.size() != default_val.size()) {
@@ -288,7 +289,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
 
     // Check that if at least one key that was inheritable and possibly required, then also a Parent key that is a dictionary
     // Not assuming page tree as this is more flexible (for future). Predicates in "Required" field are NOT processed
-    if (has_reqd_inheritable)
+    if (has_reqd_inheritable) {
         if (std::find(keys_list.begin(), keys_list.end(), "Parent") == keys_list.end()) {
             report_stream << "Error: at least one required inheritable key in " << reader.get_tsv_name() << " but no Parent key" << std::endl;
             retval = false;
@@ -300,6 +301,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
                     retval = false;
                 }
         }
+    }
 
     // Check "*" wildcard key - must be last (duplicate keys already checked above)
     if (std::find(keys_list.begin(), keys_list.end(), "*") != keys_list.end())
@@ -405,16 +407,17 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
                     std::string all_links = remove_link_predicates(vc[TSV_LINK]);
                     if (all_links != "") {
                         std::vector<std::string> links = split(all_links, ';');
-                        for (auto type_link : links)
+                        for (auto& type_link : links)
                             if ((type_link != "") && (type_link != "[]"))
                                 if ((type_link[0] == '[') && type_link[type_link.size()-1] == ']') {
                                     std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ','); // strip [ and ] then split by COMMA
-                                    for (auto lnk : direct_links)
+                                    for (auto& lnk : direct_links)
                                         if (lnk != "")
                                             to_process.push_back(lnk + ".tsv");
                                 }
-                                else
+                                else {
                                     ofs << "Error: " << gfile << " has bad link '" << type_link << "' - missing enclosing [ ]" << std::endl;
+                                }
                     }
                 } // for
             }
