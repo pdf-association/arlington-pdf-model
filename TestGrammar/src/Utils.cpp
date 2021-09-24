@@ -342,7 +342,7 @@ bool iequals(const std::string& a, const std::string& b)
 ///
 /// @returns   true if 'v' is an exact to an element in 'list'. false otherwise.
 bool FindInVector(const std::vector<std::string> list, const std::string v) {
-    for (auto li : list)
+    for (auto& li : list)
         if (v == li)
             return true;
     return false;
@@ -382,7 +382,7 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
     int         first_wildcard = -1;
     bool        row_has_wildcard;
     std::smatch m;
-    for (int row = 0; row < keys.size(); row++) {
+    for (int row = 0; row < (int)keys.size(); row++) {
         if (!std::regex_search(keys[row], m, r_KeyArrayKeys))
             return false;
 
