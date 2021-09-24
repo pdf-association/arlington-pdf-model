@@ -117,7 +117,7 @@ bool CParsePDF::check_possible_values(ArlPDFObject* object, int key_idx, const A
     } // switch
 
     // Need to cope with wildcard keys "*" in TSV data as key_idx might be beyond rows in tsv_data
-    if (key_idx >= tsv_data.size()) {
+    if (key_idx >= (int)tsv_data.size()) {
         if (tsv_data[0][TSV_KEYNAME] == "*")
             key_idx = 0;
         else if (tsv_data[tsv_data.size() - 1][TSV_KEYNAME] == "*")
@@ -159,7 +159,7 @@ bool CParsePDF::check_possible_values(ArlPDFObject* object, int key_idx, const A
 
         bool found = false;
         PDFObjectType obj_type = object->get_object_type();
-        for (auto opt : options) {
+        for (auto& opt : options) {
             assert(opt != "");
 
             // Only floating point numbers need special processing
@@ -374,6 +374,9 @@ std::string CParsePDF::get_link_for_object(ArlPDFObject* obj, const std::string 
                                 if (stmDictObj->has_key(utf8ToUtf16(vec[TSV_KEYNAME])))
                                     inner_object = stmDictObj->get_value(utf8ToUtf16(vec[TSV_KEYNAME]));
                             }
+                            break;
+                        default:
+                            assert(false && "Unexpected object type!");
                             break;
                     } // switch
 
@@ -630,7 +633,7 @@ void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatr
     auto obj_type = object->get_object_type();
 
     // Need to cope with wildcard keys "*" in TSV data as key_idx might be beyond rows in tsv_data
-    if (key_idx >= tsv_data.size()) {
+    if (key_idx >= (int)tsv_data.size()) {
         if (tsv_data[0][TSV_KEYNAME] == "*")
             key_idx = 0;
         else if (tsv_data[tsv_data.size()-1][TSV_KEYNAME] == "*")
@@ -1056,7 +1059,7 @@ void CParsePDF::parse_object()
 
             for (int i = 0; i < arrayObj->get_num_elements(); i++) {
                 ArlPDFObject* item = arrayObj->get_value(i);
-                if (item != nullptr)
+                if (item != nullptr) {
                     if ((first_wildcard == 0) && (data_list[0][TSV_KEYNAME] == "*")) {
                         // All array elements will match wildcard
                         check_basics(item, 0, data_list, elem.link);
@@ -1081,6 +1084,7 @@ void CParsePDF::parse_object()
                         }
                     }
                     /// @todo  Support array wildcards fully (integer + *)
+                }
             } // for-each array element
 
             if ((first_notreqd == ALL_ARRAY_ELEMS) && (first_wildcard == ALL_ARRAY_ELEMS) && (data_list.size() != arrayObj->get_num_elements())) {
