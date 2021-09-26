@@ -253,7 +253,7 @@ All PoCs are command line based with built-in help if no command line arguments 
 
 ## Python scripts
 
-The scripts folder contains several Python3 scripts and an example Jupyter Notebook which are cross-platform (tested on both Windows and Linux). See [scripts/README.md](scripts/README.md).
+The scripts folder contains several Python3 scripts and an example Jupyter Notebook which are all cross-platform (tested on both Windows and Linux). See [scripts/README.md](scripts/README.md).
 
 ## TestGrammar (C++17)
 
@@ -338,6 +338,32 @@ grep -Pho "fn:[^\t]*" * | sort | uniq
 
 # Unique set of key names (case-sensitive strings), array indices (0-based integers) or '*' for dictionary or array maps
 cut -f 1 * | sort | uniq
+```
+
+Example of a GNU `datamash check` command that can confirm that all TSV files in an Arlington data set have the correct number of fields:
+
+```bash
+for f in *.tsv; do echo -n "$f, " ; datamash --headers check 12 fields < $f || break; done
+```
+
+If the monolithic single TSV file `pandas.tsv` created by [scripts/arlington-to-pandas.py] is used (being a merge of all individual TSV files in an Arlington file set, with a left-most field object name being added), then GNU datamash can also be used to get some basic statistics with reference to field titles:
+
+```bash
+# Count the number of unique PDF objects and keys in an Arlington PDF Model
+datamash --headers --sort countunique Object < pandas.tsv
+datamash --headers --sort countunique Key < pandas.tsv
+
+# Count number of keys / array elements in each object
+datamash --headers --sort groupby 1 count 1 < pandas.tsv
+
+# Count the number of new keys / array elements introduced in each PDF version
+datamash --headers --sort groupBy SinceVersion count SinceVersion < pandas.tsv
+
+# Count the number of keys / array elements that got deprecated in each PDF version
+datamash --headers --sort groupBy DeprecatedIn count DeprecatedIn < pandas.tsv
+
+# For each PDF object, when was it first introduced and when was something last added to it
+datamash -H --round=1 --group Object min SinceVersion max SinceVersion < pandas.tsv
 ```
 
 Examples of the more powerful [EBay TSV-Utilities](https://github.com/eBay/tsv-utils) commands. Note that Linux shell requires the use of backslash to stop shell expansion. These commands can use TSV field names:
