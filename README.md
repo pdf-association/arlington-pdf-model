@@ -46,9 +46,9 @@ Each row defines a specific key in a dictionary or an array element in an array.
 - PDF array objects must also have `[` and `]` and, of course, do **not** use commas between array elements.
 - PDF Boolean (keywords) are always lowercase `true` and `false`.
 - Logical Boolean values related to the description of PDF objects in the Arlington data model are always uppercase `TRUE`/`FALSE`.
-- TSV column names (a.k.a. fields) are shown double-quoted (`"`) in documentation to hopefully avoid confusion.
+- TSV field names (a.k.a. columns) are shown double-quoted (`"`) in documentation to hopefully avoid confusion.
 
-TSV columns are always in the following order and tabs must exist for all columns:
+TSV fields are always in the following order and TABs must exist for all fields:
 
 1. "[**Key**](#Key)" - key in dictionary, or integer index into an array. ASTERISK (`*`) represents a wildcard and means any key/index.
 1. "[**Type**](#Type)" - one or more of the pre-defined Arlington types separated by SEMI-COLONs `;`.
@@ -67,7 +67,7 @@ The two special objects [\_UniversalArray](tsv/latest/_UniversalArray.tsv) and [
 
 ## TSV Field Summary
 
-A very precise definition of all syntax rules for the Arlington PDF model as well as Python equivalent data structure descriptions and useful Linux commands is in [INTERNAL_GRAMMAR.md](INTERNAL_GRAMMAR.md). Only a _simplified summary_ is provided below to get started. Note that not all TSV columns (fields) are shown in the examples below. And normally "Links" are not conveniently hyperlinked to actual TSV files either!
+A very precise definition of all syntax rules for the Arlington PDF model as well as Python equivalent data structure descriptions and useful Linux commands is in [INTERNAL_GRAMMAR.md](INTERNAL_GRAMMAR.md). Only a _simplified summary_ is provided below to get started. Note that not all TSV fields are shown in the examples below. And normally "Links" are not conveniently hyperlinked to actual TSV files either!
 
 
 ### Key
@@ -139,7 +139,7 @@ PDF 2.0 formally defines 9 basic types of object, but within the specification o
 - `string-byte`
 - `string-text`
 
-A single key in a dictionary can often be of different types. A common example is when a key is either a dictionary or an array of dictionaries. In this case "**Type**" would be defined as `array;dictionary`. Types are always stored in alphabetical order in the 2nd column using SEMI-COLON (`;`) separators.
+A single key in a dictionary can often be of different types. A common example is when a key is either a dictionary or an array of dictionaries. In this case "**Type**" would be defined as `array;dictionary`. Types are always stored in alphabetical order in the 2nd field using SEMI-COLON (`;`) separators.
 
 These Linux commands lists all combinations of the Arlington types used in PDF:
 
@@ -211,7 +211,7 @@ fn:StringLength
 
 ### Link
 
-If a specific key or array element requires further definition (i.e. represents another dictionary, stream or array) the key is linked to another TSV via the "Link" column. It is the name of another TSV file without any file extension. Links are always encapsulated in `[` and `]`.
+If a specific key or array element requires further definition (i.e. represents another dictionary, stream or array) the key is linked to another TSV via the "Link" field. It is the name of another TSV file without any file extension. Links are always encapsulated in `[` and `]`.
 
 Example in [PageObject](tsv/latest/PageObject.tsv):
 
@@ -258,112 +258,100 @@ The scripts folder contains several Python3 scripts and an example Jupyter Noteb
 ## TestGrammar (C++17)
 
 A CLI utility that can validate an Arlington grammar (set of TSV files) and perform validation against PDF files.  
-All documentation is now located in the [TestGrammar](TestGrammar/) folder.
+All documentation is now located in [TestGrammar/README.md](TestGrammar/README.md).
 
 ## GCXML (Java)
 
-A CLI Java-based proof of concept application that can convert the main Arlington TSV file set (in `./tsv/latest`) into PDF version specific file sets in both TSV and XML formats. The XML format is defined by [this schema](xml/schema/objects.xsd). In addition, some research oriented queries can be performed using the XML as input. Detailed documentation is now located in the [gcxml](gcxml) folder.
+A CLI Java-based proof of concept application that can convert the main Arlington TSV file set (in `./tsv/latest`) into PDF version specific file sets in both TSV and XML formats. The XML format is defined by [this schema](xml/schema/objects.xsd). In addition, some research oriented queries can be performed using the XML as input. Detailed documentation is now located in [gcxml/README.md](gcxml/README.md).
 
-The Java gcxml.jar  file must be run in this top-level folder (such that `./tsv/` and `./xml/` are both sub-folders).
+The Java gcxml.jar file must be run in this top-level folder (such that `./tsv/` and `./xml/` are both sub-folders).
 
 
 ## Linux commands
 
-Basic Linux commands can be used on an Arlington TSV data set (`cut`, `grep`, `sed`, etc.), however column numbering needs to be remembered and screen display can be messed up unless you have a wide monitor and small fonts. Alternative more specialized utilities such as the [EBay TSV-Utilities](https://github.com/eBay/tsv-utils) or [GNU datamash](https://www.gnu.org/software/datamash/) can also be used.
+Basic Linux commands can be used on an Arlington TSV data set (`cut`, `grep`, `sed`, etc.), however field (column) numbering needs to be remembered and screen display can be messed up unless you have a wide monitor and small fonts. Alternative more specialized utilities such as the [EBay TSV-Utilities](https://github.com/eBay/tsv-utils) or [GNU datamash](https://www.gnu.org/software/datamash/) can also be used.
 
 ```bash
-## Ensure sorting is consistent...
+# Ensure sorting is consistent...
 export LC_ALL=C
 
-## If you have a wide terminal, this helps with TSV display from cat, etc.
+# If you have a wide terminal, this helps with TSV display from cat, etc.
 tabs 1,20,37,50,64,73,91,103,118,140,158,175,190,210,230
 
-## Change directory to a specific PDF version or "latest"
+# Change directory to a specific PDF version or "latest"
 cd ./tsv/latest
 
-## Confirm consistent column headers across all TSV files
-head -qn1 *.tsv | sort | uniq | sed -e 's/\t/\\t/g'
-## Correct response: Key\tType\tSinceVersion\tDeprecatedIn\tRequired\tIndirectReference\tInheritable\tDefaultValue\tPossibleValues\tSpecialCase\tLink\tNote
+# Confirm consistent field headers across all TSV files
+head -qn1 * | sort | uniq | sed -e 's/\t/\\t/g'
+# Correct response: Key\tType\tSinceVersion\tDeprecatedIn\tRequired\tIndirectReference\tInheritable\tDefaultValue\tPossibleValues\tSpecialCase\tLink\tNote
 
-## Find files with column issues - worth investigating in ODS in case of data in other rows...
-grep -P "Link\t\t" *.tsv | sed -e 's/\t/\\t/g'
-grep -P "Note\t\t" *.tsv | sed -e 's/\t/\\t/g'
-# No response is correct!
-
-## Confirm the Type column
-cut -f 2 *.tsv | grep -v "fn:" | sort | uniq
+# Confirm the Type field
+cut -f 2 * | grep -v "fn:" | sort | uniq
 # Correct response: each line only has Types listed above, separated by semi-colons, sorted alphabetically.
-cut -f 2 *.tsv | grep -v "fn:" | sed -e 's/;/\n/g' | sort | uniq
-# Correct response: Type, array, boolean, date, dictionary, fn:Deprecated(type,pdf-version), integer, name, name-tree,
-#                   null, number, number-tree, rectangle, stream, string, string-ascii, string-byte, string-text
+cut -f 2 * | grep -v "fn:" | sed -e 's/;/\n/g' | sort | uniq
+# Correct response: Type, array, boolean, date, dictionary, integer, name, name-tree, nll, number,
+#                   number-tree, rectangle, stream, string, string-ascii, string-byte, string-text
+#                   and version-based predicates (fn:SinceVersion, fn:Deprecated, etc).
 
-## Confirm all "SinceVersion" values
-cut -f 3 *.tsv | sort | uniq
-# Correct response: pdf-version values 1.0, ..., 2.0, SinceVersion. No blank lines.
+# Confirm all "SinceVersion" values
+cut -f 3 * | sort | uniq
+# Correct response: pdf-version values 1.0, ..., 2.0, fn:SinceVersion, etc. predicates No blank lines.
 
-## Confirm all "DeprecatedIn" values
-cut -f 4 *.tsv | sort | uniq
-# Correct response: pdf-version values 1.0, ..., 2.0, DeprecatedIn. Blank lines OK.
+# Confirm all "DeprecatedIn" values
+cut -f 4 * | sort | uniq
+# Correct response: pdf-version values 1.0, ..., 2.0, fn:DeprecatedIn. Blank lines OK.
 
-## Confirm all "Required" values (TRUE, FALSE or fn:IsRequired() function)
-cut -f 5 *.tsv | sort | uniq
+# Confirm all "Required" values (TRUE, FALSE or fn:IsRequired predicate)
+cut -f 5 * | sort | uniq
 # Correct response: TRUE, FALSE, Required, fn:IsRequired(...). No blank lines.
 
-## Confirm all "IndirectReference" values (TRUE, FALSE or fn:MustBeDirect() function)
-cut -f 6 *.tsv | sort | uniq
-# Correct response: TRUE, FALSE, IndirectReference or a fn:MustBeDirect() function. No blank lines.
+# Confirm all "IndirectReference" values (TRUE, FALSE or fn:MustBeDirect() predicate)
+cut -f 6 * | sort | uniq
+# Correct response: TRUE, FALSE, IndirectReference or a fn:MustBeDirect() predicate. No blank lines.
 
-## Column 7 is "Inheritable" (TRUE or FALSE)
-cut -f 7 *.tsv | sort | uniq
+# Field 7 is "Inheritable" (TRUE or FALSE)
+cut -f 7 * | sort | uniq
 # Correct response: TRUE, FALSE, Inheritable.
 
-## Column 8 is "DefaultValue"
-cut -f 8 *.tsv | sort | uniq
+# Field 8 is "DefaultValue"
+cut -f 8 * | sort | uniq
 
-## Column 9 is "PossibleValues"
-cut -f 9 *.tsv | sort | uniq
-# Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK if multiples.
+# Field 9 is "PossibleValues"
+cut -f 9 * | sort | uniq
+# Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK.
 
-## Column 10: List all "SpecialCases"
-cut -f 10 *.tsv | sort | uniq
+# Field 10: List all "SpecialCases"
+cut -f 10 * | sort | uniq
 
-## Column 11: Sets of "Link" to other TSV objects
-cut -f 11 *.tsv | sort | uniq
-# Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK if multiples.
+# Field 11: Sets of "Link" to other TSV objects
+cut -f 11 * | sort | uniq
+# Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK.
 
-## All "Notes" (free form text)
-cut -f 12 *.tsv | sort | uniq
+# All "Notes" from field 12 (free form text)
+cut -f 12 * | sort | uniq
 
-## Set of all unique custom function names (starting "fn:")
-grep -ho "fn:[a-zA-Z]*" *.tsv | sort | uniq
+# Set of all unique custom predicates (starting "fn:")
+grep -ho "fn:[a-zA-Z]*" * | sort | uniq
 
-## Custom functions in context
-grep -Pho "fn:[^\t]*" *.tsv | sort | uniq
+# Custom predicates with context
+grep -Pho "fn:[^\t]*" * | sort | uniq
 
-## Unique set of key names (case-sensitive strings), array indices (0-based integers) or '*' for dictionary or array maps
-cut -f 1 *.tsv | sort | uniq
+# Unique set of key names (case-sensitive strings), array indices (0-based integers) or '*' for dictionary or array maps
+cut -f 1 * | sort | uniq
 ```
 
-Examples of the more powerful [EBay TSV-Utilities](https://github.com/eBay/tsv-utils) commands. Note that Linux shell requires the use of backslash to stop shell expansion. The commands can use TSV column names:
+Examples of the more powerful [EBay TSV-Utilities](https://github.com/eBay/tsv-utils) commands. Note that Linux shell requires the use of backslash to stop shell expansion. These commands can use TSV field names:
 
 ```bash
-## Find all keys that are only 'string-byte'
+# Find all keys that are only 'string-byte'
 tsv-filter -H --str-eq Type:string-byte *.tsv
 
-## Find all keys that are only 'string-byte' but introduced in PDF 1.5 or later
+# Find all keys that are only 'string-byte' but introduced in PDF 1.5 or later
 tsv-filter -H --str-eq Type:string-byte --ge SinceVersion:1.5 *.tsv
 
-## Find all keys that can be any type of string
+# Find all keys that can be any type of string
 tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 ```
-
----
-
-# TODO
-
-## gcxml utility
-- confirm that the XML produced from the TSV data with formulas is still valid
-- confirm why some PDF objects from later PDF versions end up in earlier versions
 
 ---
 
