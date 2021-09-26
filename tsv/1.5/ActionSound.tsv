@@ -3,7 +3,7 @@ Type	name	1.2	2.0	FALSE	FALSE	FALSE		[Action]
 S	name	1.2	2.0	TRUE	FALSE	FALSE		[Sound]			
 Next	array;dictionary	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionECMAScript]	
 Sound	stream	1.2	2.0	TRUE	TRUE	FALSE				[Stream]	
-Volume	number	1.2	2.0	FALSE	FALSE	FALSE	1.0	[fn:Expr(@self>=-1 && @self<=1)]			
-Synchronous	boolean	1.2	2.0	FALSE	FALSE	FALSE	FALSE				
-Repeat	boolean	1.2	2.0	FALSE	FALSE	FALSE	FALSE				
-Mix	boolean	1.2	2.0	FALSE	FALSE	FALSE	FALSE				
+Volume	number	1.2	2.0	FALSE	FALSE	FALSE	1.0	[fn:Eval((@Volume>=-1) && (@Volume<=1))]			
+Synchronous	boolean	1.2	2.0	FALSE	FALSE	FALSE	false				
+Repeat	boolean	1.2	2.0	FALSE	FALSE	FALSE	false				
+Mix	boolean	1.2	2.0	FALSE	FALSE	FALSE	false				

@@ -1,12 +1,12 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.0		TRUE	FALSE	FALSE		[Font]			
 Subtype	name	1.0		TRUE	FALSE	FALSE		[Type3]			
-Name	name	1.0		fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
+Name	name	1.0		TRUE	FALSE	FALSE					
 FontBBox	rectangle	1.0		TRUE	FALSE	FALSE					
-FontMatrix	array	1.0		TRUE	FALSE	FALSE				[Matrix]	
+FontMatrix	matrix	1.0		TRUE	FALSE	FALSE					
 CharProcs	dictionary	1.0		TRUE	FALSE	FALSE				[CharProcMap]	
-Encoding	dictionary	1.0		TRUE	FALSE	FALSE			type name allowed in 1.7	[Encoding]	
+Encoding	dictionary	1.0		TRUE	FALSE	FALSE				[Encoding]	
 FirstChar	integer	1.0		TRUE	FALSE	FALSE					
 LastChar	integer	1.0		TRUE	FALSE	FALSE					
-Widths	array	1.0		TRUE	FALSE	FALSE				[ArrayOfIntegersGeneral]	
-FontDescriptor	dictionary	1.0		fn:IsRequired(fn:IsPDFTagged())	TRUE	FALSE				[FontDescriptor]	
+Widths	array	1.0		TRUE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))]	[ArrayOfIntegersGeneral]	
+FontDescriptor	dictionary	1.0		fn:IsRequired(fn:IsPDFTagged())	TRUE	FALSE				[FontDescriptorType3]	

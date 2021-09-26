@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-N	dictionary;stream	1.2		TRUE	FALSE	FALSE				[];[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]	*
-R	dictionary;stream	1.2		FALSE	FALSE	FALSE	@N			[];[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]	*
-D	dictionary;stream	1.2		FALSE	FALSE	FALSE	@N			[];[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]	*
+N	stream	1.2		TRUE	TRUE	FALSE				[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]	*
+R	stream	1.2		FALSE	TRUE	FALSE	[@N]			[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]	*
+D	stream	1.2		FALSE	TRUE	FALSE	[@N]			[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]	*

@@ -1,17 +1,17 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Filter	name	1.1		TRUE	FALSE	FALSE	Standard	[Standard]			
 SubFilter	name	1.3		FALSE	FALSE	FALSE					
-V	integer	1.1		TRUE	FALSE	FALSE		[fn:Deprecated(1.1,0),fn:Deprecated(2.0,1),fn:Deprecated(2.0,fn:SinceVersion(1.4,2)),fn:Deprecated(2.0,fn:SinceVersion(1.4,3)),fn:Deprecated(2.0,fn:SinceVersion(1.5,4)),fn:SinceVersion(2.0,5)]			
-Length	integer	1.4	2.0	FALSE	FALSE	FALSE	40	[fn:Expr(@self>=40 && @self<=128 && @self mod 8==0)]	fn:IsMeaningful(@V==2 || @V==3)		
-CF	dictionary	1.5		FALSE	FALSE	FALSE		[fn:IsMeaningful((@V==4 && fn:SinceVersion(1.5)) || (@V==5 && fn:SinceVersion(2.0)))]		[CryptFilter]	
-StmF	name	1.5		FALSE	FALSE	FALSE	Identity	[fn:IsMeaningful((@V==4 && fn:SinceVersion(1.5)) || (@V==5 && fn:SinceVersion(2.0)))]			
-StrF	name	1.5		FALSE	FALSE	FALSE	Identity				
-EFF	name	1.1		FALSE	FALSE	FALSE					
-R	integer	1.1		TRUE	FALSE	FALSE		[fn:Deprecated(2.0,fn:RequiredValue(@V<2,2)),fn:Deprecated(2.0,fn:RequiredValue(@V==2 || @V==3,3)),fn:Deprecated(2.0,fn:RequiredValue(@V==4,4)),fn:Deprecated(2.0,fn:SinceVersion(2.0,5)),fn:SinceVersion(2.0,fn:RequiredValue(@V==5,6))]			
-O	string-byte	1.1		TRUE	FALSE	FALSE			fn:Expr(fn:StringLength(@R<=4,32) || fn:StringLength(@R==6, 48))		32 bytes long if the value of R is 4 or less and 48 bytes long if the value of R is 6
-U	string-byte	1.1		TRUE	FALSE	FALSE			fn:Expr(fn:StringLength(@R<=4,32) || fn:StringLength(@R==6, 48))		32 bytes long if the value of R is 4 or less and 48 bytes long if the value of R is 6
-OE	string-byte	1.1		fn:IsRequired(@R==6)	FALSE	FALSE			fn:StringLength(32)		32 byte string
+V	integer	1.1		TRUE	FALSE	FALSE		[fn:Deprecated(1.1,0),fn:Deprecated(2.0,1),fn:Deprecated(2.0,fn:SinceVersion(1.4,2)),fn:Deprecated(2.0,fn:SinceVersion(1.4,3)),fn:Deprecated(2.0,fn:SinceVersion(1.5,4)),5]			
+Length	integer	1.4	2.0	FALSE	FALSE	FALSE	40	[fn:Eval((@Length>=40) && (@Length<=128) && ((@Length mod 8)==0))]	[fn:IsMeaningful((@V==2) || (@V==3))]		
+CF	dictionary	1.5		FALSE	FALSE	FALSE			[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]	[CryptFilter]	
+StmF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]		
+StrF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]		
+EFF	name	1.1		FALSE	FALSE	FALSE			[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]		
+R	integer	1.1		TRUE	FALSE	FALSE		[fn:Deprecated(2.0,fn:RequiredValue(@V<2,2)),fn:Deprecated(2.0,fn:RequiredValue((@V==2) || (@V==3),3)),fn:Deprecated(2.0,fn:RequiredValue(@V==4,4)),fn:Deprecated(2.0,fn:SinceVersion(2.0,5)),fn:RequiredValue(@V==5,6)]			
+O	string-byte	1.1		TRUE	FALSE	FALSE			[fn:Eval(((@R<=4) && (fn:StringLength(O)==32)) || ((@R==6) && (fn:StringLength(O)==48)))]		32 bytes long if the value of R is 4 or less and 48 bytes long if the value of R is 6
+U	string-byte	1.1		TRUE	FALSE	FALSE			[fn:Eval(((@R<=4) && (fn:StringLength(U)==32)) || ((@R==6) && (fn:StringLength(U)==48)))]		32 bytes long if the value of R is 4 or less and 48 bytes long if the value of R is 6
+OE	string-byte	1.1		fn:IsRequired(@R==6)	FALSE	FALSE			[fn:Eval(fn:StringLength(OE)==32)]		32 byte string
 UE	string-byte	1.1		fn:IsRequired(@R==6)	FALSE	FALSE					
-P	integer	1.1		TRUE	FALSE	FALSE		[fn:BitsClear(1,2),3,4,5,6,fn:BitsSet(7,8),9,fn:SinceVersion(2.0,fn:BitSet(10)),11,12,fn:BitsSet(13,32)]			
+P	bitmask	1.1		TRUE	FALSE	FALSE		[fn:BitsClear(1,2),3,4,5,6,fn:BitsSet(7,8),9,fn:BitSet(10),11,12,fn:BitsSet(13,32)]			
 Perms	string-byte	1.1		fn:IsRequired(@R==6)	FALSE	FALSE					
-EncryptMetadata	boolean	1.3		FALSE	FALSE	FALSE	TRUE				
+EncryptMetadata	boolean	1.3		FALSE	FALSE	FALSE	true		[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]		

@@ -2,6 +2,6 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.2		FALSE	FALSE	FALSE		[Halftone]			
 HalftoneType	integer	1.2		TRUE	FALSE	FALSE		[10]			
 HalftoneName	string-byte	1.2		FALSE	FALSE	FALSE					
-Xsquare	integer	1.2		TRUE	FALSE	FALSE					
-Ysquare	integer	1.2		TRUE	FALSE	FALSE					
-TransferFunction	dictionary;name;stream	1.2		FALSE	FALSE	FALSE				[];[];[FunctionType0]	
+Xsquare	integer	1.2		TRUE	FALSE	FALSE		[fn:Eval(@Xsquare>0)]			
+Ysquare	integer	1.2		TRUE	FALSE	FALSE		[fn:Eval(@Ysquare>0)]			
+TransferFunction	name;stream	1.2		fn:IsRequired(parent::@HalftoneType==5)	[FALSE];[TRUE]	FALSE		[Identity];[]		[];[FunctionType0]	

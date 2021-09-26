@@ -3,13 +3,13 @@ Type	name	1.0		FALSE	FALSE	FALSE		[XObject]
 Subtype	name	1.0		TRUE	FALSE	FALSE		[Image]			
 Width	integer	1.0		TRUE	FALSE	FALSE					
 Height	integer	1.0		TRUE	FALSE	FALSE					
-ColorSpace	array;name	1.0		fn:IsRequired(@Filter!=JPXDecode)	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[IndexedColorSpace];[]	
-BitsPerComponent	integer	1.0		fn:IsRequired(@Filter!=JPXDecode || ImageMask==true)	FALSE	FALSE		[fn:RequiredValue(@Filter==CCITTFaxDecode || @Filter==JBIG2Decode,1),2,4,fn:RequiredValue(@Filter==RunLengthDecode || @Filter==DCTDecode,8),fn:SinceVersion(1.5,16)]			
-ImageMask	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
-Decode	array	1.0		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
-Interpolate	boolean	1.0		FALSE	FALSE	FALSE	FALSE				
-Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
+ColorSpace	array;name	1.0		fn:IsRequired(@Filter!=JPXDecode)	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]	[fn:NotPresent(@ImageMask==true)]	[IndexedColorSpace];[]	
+BitsPerComponent	integer	1.0		fn:IsRequired((@Filter!=JPXDecode) || (ImageMask==true))	FALSE	FALSE		[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)]			
+ImageMask	boolean	1.0		FALSE	FALSE	FALSE	false				
+Decode	array	1.0		FALSE	FALSE	FALSE			[fn:Ignore((@Filter==JPXDecode) && fn:NotPresent(ColorSpace) && (@ImageMask==false))]	[ArrayOfNumbersGeneral]	
+Interpolate	boolean	1.0		FALSE	FALSE	FALSE	false				
+Name	name	1.0	2.0	TRUE	FALSE	FALSE					
 Length	integer	1.0		TRUE	FALSE	FALSE					
-Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,CCITTFaxDecode,fn:SinceVersion(1.4,JBIG2Decode),DCTDecode,fn:SinceVersion(1.5,JPXDecode),fn:SinceVersion(1.5,Crypt)]		[ArrayOfFilterNames];[]	
-DecodeParms	array;dictionary	1.0		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterCCITTFaxDecode,FilterDCTDecode]	
-F	dictionary;string	1.0		FALSE	FALSE	FALSE				[];[]	
+Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfFilterNames];[]	
+DecodeParms	array;dictionary	1.0		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterCCITTFaxDecode,FilterDCTDecode]	
+F	string	1.0		FALSE	FALSE	FALSE				[]	

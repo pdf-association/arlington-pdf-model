@@ -137,29 +137,50 @@
             "id": "ArrayOf_2DashNumbers",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ArrayOf_2DashNumbers array"
+        },
+        {
+            "id": "ArrayOf_2Integers",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOf_2Integers array"
         },
         {
             "id": "ArrayOf_2StringsByte",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "ArrayOf_2StringsByte array"
         },
         {
             "id": "ArrayOf_4AnnotBorderCharacteristics",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "ArrayOf_4AnnotBorderCharacteristics array"
+        },
+        {
+            "id": "ArrayOf_4Integers",
+            "val": 16,
+            "group": "array",
+            "desc": "4 elements",
+            "name": "ArrayOf_4Integers array"
         },
         {
             "id": "ArrayOf_4NumbersColorAnnotation",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "ArrayOf_4NumbersColorAnnotation array"
+        },
+        {
+            "id": "ArrayOf_9Numbers",
+            "val": 81,
+            "group": "array",
+            "desc": "9 elements",
+            "name": "ArrayOf_9Numbers array"
         },
         {
             "id": "Bead",
@@ -179,14 +200,14 @@
             "id": "Blackpoint",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "Blackpoint array"
         },
         {
             "id": "CalGrayColorSpace",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "CalGrayColorSpace array"
         },
         {
@@ -200,7 +221,7 @@
             "id": "CalRGBColorSpace",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "CalRGBColorSpace array"
         },
         {
@@ -236,21 +257,21 @@
             "id": "Dest0",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "Dest0 array"
         },
         {
             "id": "Dest1",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "Dest1 array"
         },
         {
             "id": "Dest4",
-            "val": 25,
+            "val": 36,
             "group": "array",
-            "desc": "5 entries",
+            "desc": "6 elements",
             "name": "Dest4 array"
         },
         {
@@ -264,7 +285,7 @@
             "id": "DestXYZ",
             "val": 25,
             "group": "array",
-            "desc": "5 entries",
+            "desc": "5 elements",
             "name": "DestXYZ array"
         },
         {
@@ -339,17 +360,10 @@
             "name": "FilterLZWDecode dict"
         },
         {
-            "id": "FontDescriptor",
-            "val": 289,
-            "group": "dict",
-            "desc": "17 keys",
-            "name": "FontDescriptor dict"
-        },
-        {
             "id": "FontDescriptorTrueType",
-            "val": 289,
+            "val": 256,
             "group": "dict",
-            "desc": "17 keys",
+            "desc": "16 keys",
             "name": "FontDescriptorTrueType dict"
         },
         {
@@ -360,11 +374,11 @@
             "name": "FontDescriptorType1 dict"
         },
         {
-            "id": "FontFile",
-            "val": 9,
+            "id": "FontDescriptorType3",
+            "val": 225,
             "group": "dict",
-            "desc": "3 keys",
-            "name": "FontFile dict"
+            "desc": "15 keys",
+            "name": "FontDescriptorType3 dict"
         },
         {
             "id": "FontFileType1",
@@ -412,21 +426,21 @@
             "id": "Gamma",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "Gamma array"
         },
         {
             "id": "IndexedColorSpace",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "IndexedColorSpace array"
         },
         {
             "id": "LabColorSpace",
             "val": 4,
             "group": "array",
-            "desc": "2 entries",
+            "desc": "2 elements",
             "name": "LabColorSpace array"
         },
         {
@@ -440,15 +454,15 @@
             "id": "LabRange",
             "val": 16,
             "group": "array",
-            "desc": "4 entries",
+            "desc": "4 elements",
             "name": "LabRange array"
         },
         {
-            "id": "Matrix",
-            "val": 36,
-            "group": "array",
-            "desc": "6 entries",
-            "name": "Matrix array"
+            "id": "LinearizationParameterDict",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "LinearizationParameterDict dict"
         },
         {
             "id": "MicrosoftWindowsLaunchParam",
@@ -538,7 +552,7 @@
             "id": "Whitepoint",
             "val": 9,
             "group": "array",
-            "desc": "3 entries",
+            "desc": "3 elements",
             "name": "Whitepoint array"
         },
         {
@@ -575,20 +589,6 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "XObjectMap map"
-        },
-        {
-            "id": "_UniversalArray",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "_UniversalArray map"
-        },
-        {
-            "id": "_UniversalDictionary",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "_UniversalDictionary map"
         }
     ],
     "links": [
@@ -786,8 +786,7 @@
         {
             "source": "ArrayOfStreamsGeneral",
             "target": "Stream",
-            "name": "ArrayOfStreamsGeneral::*",
-            "color": "red"
+            "name": "ArrayOfStreamsGeneral::*"
         },
         {
             "source": "ArrayOfThreads",
@@ -905,7 +904,7 @@
         },
         {
             "source": "CalRGBDict",
-            "target": "Matrix",
+            "target": "ArrayOf_9Numbers",
             "name": "CalRGBDict::Matrix"
         },
         {
@@ -1121,11 +1120,6 @@
             "color": "red"
         },
         {
-            "source": "FontDescriptor",
-            "target": "FontFile",
-            "name": "FontDescriptor::FontFile"
-        },
-        {
             "source": "FontDescriptorTrueType",
             "target": "FontFileType1",
             "name": "FontDescriptorTrueType::FontFile"
@@ -1220,14 +1214,8 @@
         },
         {
             "source": "FontType3",
-            "target": "FontDescriptor",
+            "target": "FontDescriptorType3",
             "name": "FontType3::FontDescriptor",
-            "color": "red"
-        },
-        {
-            "source": "FontType3",
-            "target": "Matrix",
-            "name": "FontType3::FontMatrix",
             "color": "red"
         },
         {
@@ -1280,6 +1268,18 @@
             "source": "LabDict",
             "target": "Whitepoint",
             "name": "LabDict::WhitePoint",
+            "color": "red"
+        },
+        {
+            "source": "LinearizationParameterDict",
+            "target": "ArrayOf_2Integers",
+            "name": "LinearizationParameterDict::H",
+            "color": "red"
+        },
+        {
+            "source": "LinearizationParameterDict",
+            "target": "ArrayOf_4Integers",
+            "name": "LinearizationParameterDict::H",
             "color": "red"
         },
         {
@@ -1570,12 +1570,6 @@
         },
         {
             "source": "XObjectFormPSpassthrough",
-            "target": "Matrix",
-            "name": "XObjectFormPSpassthrough::Matrix",
-            "color": "red"
-        },
-        {
-            "source": "XObjectFormPSpassthrough",
             "target": "Stream",
             "name": "XObjectFormPSpassthrough::PS",
             "color": "red"
@@ -1594,12 +1588,6 @@
             "source": "XObjectFormType1",
             "target": "ArrayOfCompressionFilterNames",
             "name": "XObjectFormType1::Filter"
-        },
-        {
-            "source": "XObjectFormType1",
-            "target": "Matrix",
-            "name": "XObjectFormType1::Matrix",
-            "color": "red"
         },
         {
             "source": "XObjectFormType1",
@@ -1684,36 +1672,6 @@
             "source": "XObjectMap",
             "target": "XObjectFormPSpassthrough",
             "name": "XObjectMap::*"
-        },
-        {
-            "source": "_UniversalArray",
-            "target": "_UniversalArray",
-            "name": "_UniversalArray::*"
-        },
-        {
-            "source": "_UniversalArray",
-            "target": "_UniversalDictionary",
-            "name": "_UniversalArray::*"
-        },
-        {
-            "source": "_UniversalArray",
-            "target": "Stream",
-            "name": "_UniversalArray::*"
-        },
-        {
-            "source": "_UniversalDictionary",
-            "target": "_UniversalArray",
-            "name": "_UniversalDictionary::*"
-        },
-        {
-            "source": "_UniversalDictionary",
-            "target": "_UniversalDictionary",
-            "name": "_UniversalDictionary::*"
-        },
-        {
-            "source": "_UniversalDictionary",
-            "target": "Stream",
-            "name": "_UniversalDictionary::*"
         }
     ]
 }

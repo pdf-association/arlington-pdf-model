@@ -8,8 +8,8 @@ CropBox	rectangle	1.0		FALSE	FALSE	TRUE	@MediaBox				Inheritable from Parent
 BleedBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				Inheritable from Parent
 TrimBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				
 ArtBox	rectangle	1.3		FALSE	FALSE	FALSE	@CropBox				
-Contents	array;stream	1.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral];[Stream]	
-Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Expr(@self mod 90==0)]			Inheritable from Parent
+Contents	array;stream	1.0		FALSE	[FALSE];[TRUE]	FALSE				[ArrayOfStreamsGeneral];[Stream]	
+Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Eval((@Rotate mod 90)==0)]			Inheritable from Parent
 Thumb	stream	1.0		FALSE	TRUE	FALSE				[Thumbnail]	
 B	array	1.1		FALSE	FALSE	FALSE				[ArrayOfBeads]	
 Dur	number	1.1		FALSE	FALSE	FALSE					
@@ -21,4 +21,4 @@ StructParents	integer	1.3		fn:IsRequired(fn:PageContainsStructContentItems())	FA
 ID	string-byte	1.3		FALSE	FALSE	FALSE					byte string
 PZ	number	1.3		FALSE	FALSE	FALSE					
 SeparationInfo	dictionary	1.3		FALSE	FALSE	FALSE				[Separation]	
-Hid	boolean	1.1	1.3	FALSE	FALSE	TRUE	FALSE				
+Hid	boolean	1.1	1.3	FALSE	FALSE	TRUE	false				

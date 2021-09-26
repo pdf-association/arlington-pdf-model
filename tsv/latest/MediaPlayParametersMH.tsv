@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-V	integer	1.5		FALSE	FALSE	FALSE	100	[fn:Eval(@V>=0 && @V<=100)]			percentage volume
+V	integer	1.5		FALSE	FALSE	FALSE	100	[fn:Eval((@V>=0) && (@V<=100))]			percentage volume
 C	boolean	1.5		FALSE	FALSE	FALSE	false				
 F	integer	1.5		FALSE	FALSE	FALSE	5	[0,1,2,3,4,5]			
 D	dictionary	1.5		FALSE	FALSE	FALSE				[MediaDuration]	

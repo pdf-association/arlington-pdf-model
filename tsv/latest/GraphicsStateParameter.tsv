@@ -1,29 +1,29 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.2		FALSE	FALSE	FALSE		[ExtGState]			
 LW	number	1.3		FALSE	FALSE	FALSE		[fn:Eval(@LW>0)]			
-LC	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval(@LC>=0 && @LC<=2)]			
-LJ	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval(@LJ>=0 && @LJ<=2)]			
+LC	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval((@LC>=0) && (@LC<=2))]			
+LJ	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval((@LJ>=0) && (@LJ<=2))]			
 ML	number	1.3		FALSE	FALSE	FALSE		[fn:Eval(@ML>0)]			
 D	array	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfGSPDashPatterns)]	
 RI	name	1.3		FALSE	FALSE	FALSE		[AbsoluteColorimetric,RelativeColorimetric,Saturation,Perceptual]			
 OP	boolean	1.2		FALSE	FALSE	FALSE					
 op	boolean	1.3		FALSE	FALSE	FALSE					
-OPM	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval(@OPM>=0 && @OPM<=1)]			
+OPM	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval((@OPM>=0) && (@OPM<=1))]			
 Font	array	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfFontAndSize)]	
-BG	dictionary;stream	1.2		FALSE	[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.3,FunctionType2),fn:SinceVersion(1.3,FunctionType3)];[fn:SinceVersion(1.2,FunctionType0),fn:SinceVersion(1.3,FunctionType4)]	
+BG	fn:SinceVersion(1.3,dictionary);stream	1.2		FALSE	[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.3,FunctionType2),fn:SinceVersion(1.3,FunctionType3)];[fn:SinceVersion(1.2,FunctionType0),fn:SinceVersion(1.3,FunctionType4)]	
 BG2	dictionary;name;stream	1.3		FALSE	[FALSE];[FALSE];[TRUE]	FALSE	[];[Default];[]			[fn:SinceVersion(1.3,FunctionType2),fn:SinceVersion(1.3,FunctionType3)];[];[fn:SinceVersion(1.2,FunctionType0),fn:SinceVersion(1.3,FunctionType4)]	
-UCR	dictionary;stream	1.2		FALSE	[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.3,FunctionType2),fn:SinceVersion(1.3,FunctionType3)];[fn:SinceVersion(1.2,FunctionType0),fn:SinceVersion(1.3,FunctionType4)]	
+UCR	fn:SinceVersion(1.3,dictionary);stream	1.2		FALSE	[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.3,FunctionType2),fn:SinceVersion(1.3,FunctionType3)];[fn:SinceVersion(1.2,FunctionType0),fn:SinceVersion(1.3,FunctionType4)]	
 UCR2	dictionary;name;stream	1.3		FALSE	[FALSE];[FALSE];[TRUE]	FALSE	[];[Default];[]			[fn:SinceVersion(1.3,FunctionType2),fn:SinceVersion(1.3,FunctionType3)];[];[fn:SinceVersion(1.2,FunctionType0),fn:SinceVersion(1.3,FunctionType4)]	
-TR	array;dictionary;name;stream	1.2	2.0	FALSE	[FALSE];[FALSE];[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.2,ArrayOf4Functions)];[fn:SinceVersion(1.3,FunctionType2),fn:SinceVersion(1.3,FunctionType3)];[];[fn:SinceVersion(1.2,FunctionType0),fn:SinceVersion(1.3,FunctionType4)]	
+TR	array;fn:SinceVersion(1.3,dictionary);name;stream	1.2	2.0	FALSE	[FALSE];[FALSE];[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.2,ArrayOf4Functions)];[fn:SinceVersion(1.3,FunctionType2),fn:SinceVersion(1.3,FunctionType3)];[];[fn:SinceVersion(1.2,FunctionType0),fn:SinceVersion(1.3,FunctionType4)]	
 TR2	array;dictionary;name;stream	1.3	2.0	FALSE	[FALSE];[FALSE];[FALSE];[TRUE]	FALSE	[];[];[Default];[]			[fn:SinceVersion(1.2,ArrayOf4Functions)];[fn:SinceVersion(1.3,FunctionType2),fn:SinceVersion(1.3,FunctionType3)];[];[fn:SinceVersion(1.2,FunctionType0),fn:SinceVersion(1.3,FunctionType4)]	
 HT	dictionary;name;stream	1.2		FALSE	[FALSE];[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.2,HalftoneType1),fn:SinceVersion(1.2,HalftoneType5)];[];[fn:SinceVersion(1.2,HalftoneType6),fn:SinceVersion(1.2,HalftoneType10),fn:SinceVersion(1.3,HalftoneType16)]	
 FL	number	1.3		FALSE	FALSE	FALSE		[fn:Eval(@FL>0)]			
-SM	number	1.3		FALSE	FALSE	FALSE		[fn:Eval(@SM>=0 && @SM<=1)]			
+SM	number	1.3		FALSE	FALSE	FALSE		[fn:Eval((@SM>=0) && (@SM<=1))]			
 SA	boolean	1.2		FALSE	FALSE	FALSE					
 BM	fn:Deprecated(2.0,array);name	1.4		FALSE	FALSE	FALSE		[];[fn:Deprecated(2.0,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]		[fn:SinceVersion(1.3,ArrayOfNamesGeneral)];[]	
 SMask	dictionary;name	1.4		FALSE	FALSE	FALSE		[];[None]		[fn:SinceVersion(1.4,SoftMaskAlpha),fn:SinceVersion(1.4,SoftMaskLuminosity)];[]	
-CA	number	1.4		FALSE	FALSE	FALSE		[fn:Eval(@CA>=0 && @CA<=1)]			
-ca	number	1.4		FALSE	FALSE	FALSE		[fn:Eval(@ca>=0 && @ca<=1)]			
+CA	number	1.4		FALSE	FALSE	FALSE		[fn:Eval((@CA>=0) && (@CA<=1))]			
+ca	number	1.4		FALSE	FALSE	FALSE		[fn:Eval((@ca>=0) && (@ca<=1))]			
 AIS	boolean	1.4		FALSE	FALSE	FALSE					
 TK	boolean	1.4		FALSE	FALSE	FALSE					
 UseBlackPtComp	name	2.0		FALSE	FALSE	FALSE	Default	[OFF,ON,Default]			

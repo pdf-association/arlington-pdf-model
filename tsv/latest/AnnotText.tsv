@@ -7,15 +7,15 @@ P	dictionary	1.3		FALSE	TRUE	FALSE				[PageObject]
 NM	string-text	1.4		FALSE	FALSE	FALSE					
 M	date;string-text	1.1		FALSE	FALSE	FALSE					
 F	bitmask	1.1		FALSE	FALSE	FALSE	0		[fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]		
-AP	dictionary	1.2		fn:IsRequired((@Rect::0!=@Rect::2) || (@Rect::1!=@Rect::3))	FALSE	FALSE				[fn:SinceVersion(1.2,Appearance)]	
+AP	dictionary	1.2		fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))	FALSE	FALSE				[fn:SinceVersion(1.2,Appearance)]	
 AS	name	1.2		fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))	FALSE	FALSE					
 Border	array	1.0		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
 C	array	1.1		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_4NumbersColorAnnotation)]	
 StructParent	integer	1.3		FALSE	FALSE	FALSE					
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,OptContentGroup),fn:SinceVersion(1.5,OptContentMembership)]	
 AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfFileSpecifications)];[fn:SinceVersion(1.1,FileSpecification)]	
-ca	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval(@ca>=0.0 && @ca<1.0)]			
-CA	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval(@CA>=0.0 && @CA<1.0)]			
+ca	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval((@ca>=0.0) && (@ca<1.0))]			
+CA	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && (@CA<1.0))]			
 BM	name	2.0		FALSE	FALSE	FALSE	Normal	[fn:Deprecated(2.0,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]			
 Lang	string-text	2.0		FALSE	FALSE	FALSE					
 T	string-text	1.1		FALSE	FALSE	FALSE					
@@ -28,6 +28,6 @@ RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]
 IT	name	1.6		FALSE	FALSE	FALSE					
 Open	boolean	1.0		FALSE	FALSE	FALSE	false				
 Name	name	1.0		FALSE	FALSE	FALSE	Note	[Comment,Key,Note,Help,NewParagraph,Paragraph,Insert]			
-State	string-text	1.0		FALSE	FALSE	FALSE	fn:Eval((@StateModel==(Marked),(Unmarked)) || (@StateModel==(Review),(None)))	[(Marked),(Unmarked),(Accepted),(Rejected),(Cancelled),(Completed),(None)]			
-StateModel	string-text	1.5		fn:IsRequired(fn:IsPresent(State))	FALSE	FALSE		[(Marked),(Review)]			
+State	string-text	1.0		FALSE	FALSE	FALSE	fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))	['Marked','Unmarked','Accepted','Rejected','Cancelled','Completed','None']			
+StateModel	string-text	1.5		fn:IsRequired(fn:IsPresent(State))	FALSE	FALSE		['Marked','Review']			
 ExData	dictionary	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,ExData3DMarkup),fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	

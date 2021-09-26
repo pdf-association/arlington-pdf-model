@@ -3,9 +3,9 @@ Type	name	1.0		TRUE	FALSE	FALSE		[Font]
 Subtype	name	1.0		TRUE	FALSE	FALSE		[MMType1]			
 Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
 BaseFont	name	1.0		TRUE	FALSE	FALSE					
-FirstChar	integer	1.0		TRUE	FALSE	FALSE			optional in 1.0-1.7 for Base14		
-LastChar	integer	1.0		TRUE	FALSE	FALSE			optional in 1.0-1.7 for Base14		
-Widths	array	1.0		TRUE	FALSE	FALSE			optional in 1.0-1.7 for Base14	[ArrayOfIntegersGeneral]	
-FontDescriptor	dictionary	1.0		TRUE	TRUE	FALSE			optional in 1.0-1.7 for Base14	[FontDescriptorType1]	
+FirstChar	integer	1.0		fn:IsRequired(fn:NotStandard14Font())	FALSE	FALSE					
+LastChar	integer	1.0		fn:IsRequired(fn:NotStandard14Font())	FALSE	FALSE					
+Widths	array	1.0		fn:IsRequired(fn:NotStandard14Font())	FALSE	FALSE				[ArrayOfIntegersGeneral]	
+FontDescriptor	dictionary	1.0		fn:IsRequired(fn:NotStandard14Font())	TRUE	FALSE				[FontDescriptorType1]	
 Encoding	dictionary;name	1.0		FALSE	FALSE	FALSE		[];[MacRomanEncoding,MacExpertEncoding,WinAnsiEncoding]		[Encoding];[]	
 ToUnicode	stream	1.2		FALSE	TRUE	FALSE				[Stream]	

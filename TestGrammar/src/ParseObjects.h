@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // ParseObjects.h
 // Copyright 2020 PDF Association, Inc. https://www.pdfa.org
 //
@@ -10,76 +10,87 @@
 // (DARPA). Approved for public release.
 //
 // SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex
+// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
+//
 ///////////////////////////////////////////////////////////////////////////////
 
-/*!
-  Reading the whole PDF starting from specific object and validating against grammar provided via tsv file
-*/
-
+#ifndef ParseObjects_h
+#define ParseObjects_h
 #pragma once
 
+///
+/// Read the whole PDF starting from specific object and validating against
+/// the Arlington PDF grammar provided via the set of TSV files
+///
+
 #include <string>
+#include <filesystem>
 #include <map>
 #include <iostream>
 #include <string>
-#include <fstream>
-#include <sstream>
-#include <iomanip>
-#include <memory>
-#include <algorithm> 
-#include <codecvt>
 #include <queue>
 
-#include "GrammarFile.h"
-#include "Pdfix.h"
+#include "ArlingtonTSVGrammarFile.h"
+#include "ArlingtonPDFShim.h"
 #include "utils.h"
 
-using namespace PDFixSDK;
-
-#ifdef GetObject
-#undef GetObject
-#endif
+using namespace ArlingtonPDFShim;
 
 class CParsePDF
 {
-  //remembering processed objects (and how they were validated)
-  std::map<PdsObject*, std::string> mapped;
-  
-  // cache of loaded grammar files
-  std::map<std::string, std::unique_ptr<CGrammarReader>> grammar_map;
+private:
+    /// @brief Remembering processed PDF objects (and how they were validated).
+    ///        Storing hash_id of object as key and link with which we validated the object as the value.
+    std::map<std::string, std::string>      mapped;
 
-  // simulating recursive processing of the PDObjects
-  struct queue_elem {
-    PdsObject* object;
-    std::string link;
-    std::string context;
-    queue_elem(PdsObject* o, const std::string &l, std::string &c)
-      : object(o), link(l), context(c)
-    {}
-  };
-  std::queue<queue_elem> to_process;
+    /// @brief the Arlington PDF model (cache of loaded TSV grammar files)
+    std::map<std::string, std::unique_ptr<CArlingtonTSVGrammarFile>>  grammar_map;
 
-  std::string grammar_folder;
-  PdfDoc* pdf_doc;
-  std::ofstream &output;
-  const std::vector<std::vector<std::string>>* get_grammar(const std::string& link);
+    /// @brief simulating recursive processing of the ArlPDFObjects
+    struct queue_elem {
+        ArlPDFObject* object;
+        std::string   link;
+        std::string   context;
+
+        queue_elem(ArlPDFObject* o, const std::string &l, std::string &c)
+            : object(o), link(l), context(c)
+            { /* constructor */ }
+    };
+
+    /// @brief The list of PDF objects to process
+    std::queue<queue_elem>  to_process;
+
+    /// @brief The folder with an Arlington TSV file set
+    std::filesystem::path   grammar_folder;
+
+    /// @brief Output stream to write results to. Already open
+    std::ostream            &output;
+
+    /// @brief Terse output. Otherwise output can make "... | sort | uniq | ..." Linux CLI pipelines difficult
+    ///        Details of specific PDF objects (such as object numbers) are not output.
+    bool                    terse;
+
+    const ArlTSVmatrix& get_grammar(const std::string& link);
 
 public:
-  CParsePDF(PdfDoc* doc, std::string tsv_folder, std::ofstream &ofs) :
-    pdf_doc(doc), grammar_folder(tsv_folder), output(ofs)
-  { }
+    CParsePDF(const std::filesystem::path& tsv_folder, std::ostream &ofs, bool terser_output)
+        : grammar_folder(tsv_folder), output(ofs), terse(terser_output)
+        { /* constructor */ }
 
-  void add_parse_object(PdsObject* object, const std::string& link, std::string context);
-  void parse_object();
-  void parse_name_tree(PdsDictionary* obj, const std::string &links, std::string context);
-  void parse_number_tree(PdsDictionary* obj, const std::string &links, std::string context);
+    void parse_object();
+    void add_parse_object(ArlPDFObject* object, const std::string& link, std::string context);
+    void parse_name_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root = true);
+    void parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root = true);
 
-  std::string select_one(PdsObject* obj, const std::string &links_string, std::string &obj_name);
-  std::string get_link_for_type(PdsObject* obj, const std::string &types, const std::string &links);
-  int get_type_index(PdsObject *obj, std::string types);
-  std::string get_type_string(PdsObject *obj);
-  void check_basics(PdsObject *object, const std::vector<std::string> &vec, const std::string &grammar_file);
-  bool check_possible_values(PdsObject* object, const std::string& possible_value_str, int index, std::wstring& real_str_value);
+    int get_type_index_for_object(ArlPDFObject* obj, const std::string& types);
+    std::string get_type_string_for_object(ArlPDFObject* obj);
+    std::string get_link_for_object(ArlPDFObject* obj, const std::string &links_string, std::string &obj_name);
+    std::string get_linkset_for_object_type(ArlPDFObject* obj, const std::string &types, const std::string &links);
+    bool is_required_key(ArlPDFObject* obj, const std::string& reqd, const std::string& pdf_vers = "2.0");
+
+    void check_basics(ArlPDFObject* obj, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path &grammar_file);
+    bool check_possible_values(ArlPDFObject* object, int key_idx, const ArlTSVmatrix& tsv_data, const int index, std::wstring &real_str_value);
+    ArlPDFObject* find_via_inheritance(ArlPDFDictionary* obj, const std::wstring& key, int depth = 0);
 };
 
+#endif // ParseObjects_h

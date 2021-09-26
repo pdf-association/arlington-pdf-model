@@ -2,17 +2,17 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 FT	name	1.2		TRUE	FALSE	TRUE		[Ch]			
 Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,FieldSig,Field]	
 Kids	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFields]	
-T	string-text	1.2		TRUE	FALSE	FALSE					
+T	string-text	1.2		FALSE	FALSE	FALSE					
 TU	string-text	1.3		FALSE	FALSE	FALSE					
 TM	string-text	1.3		FALSE	FALSE	FALSE					
-Ff	integer	1.2		FALSE	FALSE	TRUE					
+Ff	bitmask	1.2		FALSE	FALSE	TRUE					
 V	string-text	1.2		FALSE	FALSE	TRUE					
 DV	string-text	1.2		FALSE	FALSE	TRUE					
-AA	dictionary	1.2		FALSE	FALSE	FALSE				[AddActionFormField]	
+AA	dictionary	1.3		FALSE	FALSE	FALSE				[AddActionFormField]	
 DA	string	1.2		TRUE	FALSE	TRUE					
 Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]			
 DS	string-text	1.5		FALSE	FALSE	FALSE					
-RV	stream;string-text	1.5		FALSE	FALSE	FALSE				[Stream];[]	
+RV	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 Opt	array	1.4		FALSE	FALSE	TRUE				[ArrayOfStringsText,ArrayOfArrays_2StringsText]	
-TI	integer	1.2		FALSE	FALSE	TRUE					
-I	array	1.4		FALSE	FALSE	TRUE			sometimes required	[ArrayOfIntegersGeneral]	
+TI	integer	1.2		FALSE	FALSE	TRUE		[fn:Eval((@TI>0) && (@TI<fn:ArrayLength(Opt)))]			
+I	array	1.4		FALSE	FALSE	TRUE				[ArrayOfIntegersGeneral]	This entry shall be used when two or more elements in the Opt array have different names but the same export value or when the value of the choice field is an array. If the items identified by this entry differ from those in the V entry of the field dictionary (see discussion following this Table), the V entry shall be used

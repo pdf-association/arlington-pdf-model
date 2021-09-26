@@ -3,5 +3,5 @@ Type	name	1.0		FALSE	FALSE	FALSE		[Annot]
 Subtype	name	1.0		TRUE	FALSE	FALSE		[Link]			
 Rect	rectangle	1.0		TRUE	FALSE	FALSE					
 Contents	string-text	1.0		FALSE	FALSE	FALSE					
-Border	array	1.0		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
+Border	array	1.0		FALSE	FALSE	FALSE	[0 0 1]		[fn:Ignore(BS)]	[ArrayOf_4AnnotBorderCharacteristics]	
 Dest	array;name;string-byte	1.0		FALSE	FALSE	FALSE				[DestXYZ,Dest0,Dest1,Dest4];[];[]	

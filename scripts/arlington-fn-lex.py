@@ -17,19 +17,35 @@
 #
 # Lexical errors (such as typos) will result in a Python exception and premature failure.
 #
-# Normal usage with Arlington PDF model:
-#  grep --color=never -Pho "fn:[[:alnum:]]*\([^\t\]\;]*" *.tsv | sort | uniq | arlington-fn-lex.py > out.txt 2>&1
+# Normal usage with Arlington PDF model (Linux CLI):
+#  $ echo "fn:Eval(@key,-27,1.23,'string',path::key1,((expr1==expr2) && (a!=b)" || (4>3))) | python3 arlington-fn-lex.py
 #
-# Requires Python 3 and sly: pip3 install sly
-# See https://sly.readthedocs.io/en/latest/sly.html
+#  $ grep --color=never -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" ../tsv/latest/*.tsv | sort | uniq | python3 arlington-fn-lex.py
+#    --> expected outcome: no errors or crashes means that the predicates in Arlington are likely correct and valid
+#
+#
+# Requires Python 3 and sly:
+# - pip3 install sly
+# - See https://sly.readthedocs.io/en/latest/sly.html
+#
+# Python QA:
+# - flake8 --ignore E501,E221,E226 arlington-fn-lex.py
+# - pyflakes arlington-fn-lex.py
+# - mypy arlington-fn-lex.py
 #
 import fileinput
 import pprint
-from sly import Lexer
+from typing import List, Tuple
+import sly        # type: ignore
+
 
 ##############################################################################################
-class ArlingtonFnLexer(Lexer):
-    #debugfile = 'parser.out'
+class ArlingtonFnLexer(sly.Lexer):
+    """
+    Sly parser
+    """
+
+    # debugfile = 'parser.out'
 
     # Set of token names.   This is always required.
     tokens = {
@@ -51,17 +67,17 @@ class ArlingtonFnLexer(Lexer):
     ignore = ' \r\n'
 
     # Regular expression rules for tokens
-    FUNC_NAME    = r'fn\:[A-Z][a-zA-Z0-9]+\('
+    FUNC_NAME    = r'fn\:[A-Z][a-zA-Z14]+\('
     PDF_TRUE     = r'(true)|(TRUE)'
     PDF_FALSE    = r'(false)|(FALSE)'
-    PDF_STRING   = r'\([a-zA-Z0-9_\-]+\)'
+    PDF_STRING   = r'\'[^\']+\''
     MOD          = r'mod'
     ELLIPSIS     = r'\.\.\.'
     KEY_VALUE    = r'@(\*|[0-9]+|[0-9]+\*|[a-zA-Z0-9_\.\-]+)'
     # Key name is both a PDF name or a TSV filename
     # Key name of just '*' is ambiguous TIMES (multiply) operator.
     # Key name which is numeric array index (0-9*) is ambiguous with integers.
-    # Array indices are integers, or integer followed by ASTERISK (wildcard) - need to use SPACEs to disambiguate
+    # Array indices are integers, or integer + ASTERISK (wildcard) - need to use SPACEs to disambiguate
     KEY_PATH     = r'(parent::)?(([a-zA-Z]|[a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[a-zA-Z])[a-zA-Z0-9_\.\-]*::)+'
     KEY_NAME     = r'([_a-zA-Z]|[_a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[_a-zA-Z])[a-zA-Z0-9_\.\-]*'
     PDF_PATH     = r'::'
@@ -105,17 +121,19 @@ class ArlingtonFnLexer(Lexer):
         t.value = True
         return t
 
-def ToNestedAST(stk, idx=0):
+
+def ToNestedAST(stk: List[sly.lex.Token], idx: int = 0) -> Tuple[int, List[sly.lex.Token]]:
     """
     Assumes a fully valid parse tree with fully bracketed "( .. )" expressions.
     Recursive.
 
-    @param  stk: stack of sly.lex.Tokens
-    @param  idx: token index into stk
+    @param[in]  stk: stack of sly.lex.Tokens
+    @param[in]  idx: token index into stk
+
     @returns:  index to next token in token stack, AST
     """
-    ast = []
-    i = idx
+    ast: List[sly.lex.Token] = []
+    i: int = idx
 
     while (i < len(stk)):
         if (stk[i].type == 'FUNC_NAME'):
@@ -142,20 +160,26 @@ def ToNestedAST(stk, idx=0):
 if __name__ == '__main__':
     lexer  = ArlingtonFnLexer()
 
+    i: int
+    j: int
+    line: str
+    tok: sly.lex.Token
+    ast: List[sly.lex.Token]
+
     for line in fileinput.input():
         # Skip blank lines and those starting with '#' (comments)
         if (line != '') and (line[0] != '#'):
-            stk = []
+            stk: List[sly.lex.Token] = []
             print(line, end='')
             for tok in lexer.tokenize(line):
-                #print('type=%20r,  value=%26r' % (tok.type, tok.value))
+                # print('type=%20r,  value=%26r' % (tok.type, tok.value))
                 stk.append(tok)
             print()
             i, ast = ToNestedAST(stk)
             # pprint.pprint(ast)
-            for i, a in enumerate(ast):
+            for j, a in enumerate(ast):
                 # De-tokenize only the top level PDF keynames
                 if (not isinstance(a, list)) and (a.type == 'KEY_NAME'):
-                    ast[i] = a.value
+                    ast[j] = a.value
             pprint.pprint(ast)
             print()

@@ -1,7 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Fields	array	1.2		TRUE	FALSE	FALSE				[ArrayOfFields]	
-NeedAppearances	boolean	1.2	2.0	FALSE	FALSE	FALSE	FALSE				
+NeedAppearances	boolean	1.2	2.0	FALSE	FALSE	FALSE	false				
 DR	dictionary	1.2		FALSE	FALSE	FALSE				[Resource]	
 DA	string	1.2		FALSE	FALSE	FALSE					
-Q	integer	1.2		FALSE	FALSE	FALSE					
-XFA	array;stream	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral];[Stream]	
+Q	integer	1.2		FALSE	FALSE	FALSE		[0,1,2]			
