@@ -12,4 +12,4 @@ Name	name	1.0	2.0	TRUE	FALSE	FALSE
 Length	integer	1.0		TRUE	FALSE	FALSE					
 Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfFilterNames];[]	
 DecodeParms	array;dictionary	1.0		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterCCITTFaxDecode,FilterDCTDecode]	
-F	string	1.0		FALSE	FALSE	FALSE				[]	
+F	string	1.0		FALSE	FALSE	FALSE					
