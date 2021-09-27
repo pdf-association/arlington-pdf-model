@@ -47,7 +47,7 @@ public class TSVHandler {
         private String      input_types;
         private String      output_types;
         private boolean[]   input_was_reduced; 
-        private final String[] linked_types = {"array", "dictionary", "name-tree", "number-tree", "stream"};
+
         /**
          * Constructor. Default is that the input and output are the same,
          * so nothing is reduced.
@@ -62,22 +62,6 @@ public class TSVHandler {
             }
         }
         
-        /**
-         * Returns true if parameter is an Arlington type that always requires a Link 
-         * 
-         * @param t a single Arlington type
-         * 
-         * @return true if and only if t is a type that always requires a Link
-         */
-        public boolean isLinkedType(String t) {
-            for (String linked_type : linked_types) {
-                if (linked_type.equals(t)) {
-                    return true;
-                }
-            } 
-            return false;
-        }
-       
         /**
          * Returns true if something has been reduced due to versioning
          * 
@@ -148,6 +132,11 @@ public class TSVHandler {
     public final static double[] pdf_version = {1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0};
     
     /**
+     * The list of all Arlington pre-defined types that require a Link
+     */
+    private final static String[] linked_types = {"array", "dictionary", "name-tree", "number-tree", "stream"};
+        
+    /**
      * The path to the latest TSV file set (typically "tsv/latest")
      */
     private static String path_to_tsv_files = "";
@@ -171,6 +160,22 @@ public class TSVHandler {
     }
 
     /**
+    * Returns true if parameter is an Arlington type that always requires a Link 
+    * 
+    * @param t a single Arlington type
+    * 
+    * @return true if and only if t is a type that always requires a Link
+    */
+   public boolean isLinkedType(String t) {
+       for (String linked_type : linked_types) {
+           if (linked_type.equals(t)) {
+               return true;
+           }
+       } 
+       return false;
+   }
+
+   /**
      * Creates a TSV file set for the specified PDF version
      * 
      * @param version  the PDF version between 1.0 to 2.0 inclusive
@@ -251,6 +256,12 @@ public class TSVHandler {
                                
                                 if (required.startsWith("fn:IsRequired(")) {
                                     required = reduceRequiredForVersion(required, version);                                    
+                                }
+                                
+                                // Did we reduce links to effectively nothing for a single basic type?
+                                if ("[]".equals(links_reduced)) {
+                                    assert !isLinkedType(types_reduced.output_types) : "Reduced to [] for a Type requiring a Link!";
+                                    links_reduced = "";
                                 }
 
                                 String record =
