@@ -47,7 +47,7 @@ public class TSVHandler {
         private String      input_types;
         private String      output_types;
         private boolean[]   input_was_reduced; 
-        
+        private final String[] complex_types = {"array", "dictionary", "name-tree", "number-tree", "stream"};
         /**
          * Constructor. Default is that the input and output are the same,
          * so nothing is reduced.
@@ -62,6 +62,24 @@ public class TSVHandler {
             }
         }
         
+        /**
+         * Returns true if an Arlington type is a complex type (meaning
+         * that a Link is always required)
+         * 
+         * @param t a single Arlington type
+         * 
+         * @return true if t is a complex type and requires a Link
+         */
+        public boolean isComplexType(String t) {
+            for (String complex_type : complex_types) {
+                if (complex_type.equals(t)) {
+                    return true;
+                }
+            } 
+            return false;
+        }
+
+       
         /**
          * Returns true if something has been reduced due to versioning
          * 
@@ -94,6 +112,7 @@ public class TSVHandler {
                 return str;
             }
             String out_str = "";
+            int out_len = 0;
             for (int i = 0; i < input_was_reduced.length; i++) {
                 if (!input_was_reduced[i]) {
                     if (out_str.isBlank()) {
@@ -102,6 +121,7 @@ public class TSVHandler {
                     else {
                         out_str = out_str + ";" + arr[i];
                     }
+                    out_len = out_len + 1;
                 }
             }
             // Reduce even further for special fields...
@@ -111,6 +131,9 @@ public class TSVHandler {
             else if ("[FALSE]".equals(out_str)) {
                 out_str = "FALSE";
             }
+            // If we reduced to a basic type then the result is nothing
+            if ((out_len == 1) && !isComplexType(out_str))
+                out_str = "";
             return out_str;
         } 
         
