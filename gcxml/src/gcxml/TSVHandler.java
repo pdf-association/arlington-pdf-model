@@ -47,7 +47,7 @@ public class TSVHandler {
         private String      input_types;
         private String      output_types;
         private boolean[]   input_was_reduced; 
-        private final String[] complex_types = {"array", "dictionary", "name-tree", "number-tree", "stream"};
+        private final String[] linked_types = {"array", "dictionary", "name-tree", "number-tree", "stream"};
         /**
          * Constructor. Default is that the input and output are the same,
          * so nothing is reduced.
@@ -63,22 +63,20 @@ public class TSVHandler {
         }
         
         /**
-         * Returns true if an Arlington type is a complex type (meaning
-         * that a Link is always required)
+         * Returns true if parameter is an Arlington type that always requires a Link 
          * 
          * @param t a single Arlington type
          * 
-         * @return true if t is a complex type and requires a Link
+         * @return true if and only if t is a type that always requires a Link
          */
-        public boolean isComplexType(String t) {
-            for (String complex_type : complex_types) {
-                if (complex_type.equals(t)) {
+        public boolean isLinkedType(String t) {
+            for (String linked_type : linked_types) {
+                if (linked_type.equals(t)) {
                     return true;
                 }
             } 
             return false;
         }
-
        
         /**
          * Returns true if something has been reduced due to versioning
@@ -131,9 +129,7 @@ public class TSVHandler {
             else if ("[FALSE]".equals(out_str)) {
                 out_str = "FALSE";
             }
-            // If we reduced to a basic type then the result is nothing
-            if ((out_len == 1) && !isComplexType(out_str))
-                out_str = "";
+
             return out_str;
         } 
         
