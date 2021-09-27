@@ -84,6 +84,8 @@ public class XMLCreator {
     /**
      * XML document root object to which we will add XML elements
      */
+    private DocumentBuilderFactory dom_factory = null;
+    private DocumentBuilder dom_builder = null;
     private Document new_doc = null;
 
     /**
@@ -93,7 +95,7 @@ public class XMLCreator {
      * @param list_of_files  array of Arlington TSV file names
      * @param delimiter    should be '\t'
      */
-    public XMLCreator(File[] list_of_files, char delimiter) {
+    public XMLCreator(File[] list_of_files, char delimiter) throws Exception {
         this.output_folder = System.getProperty("user.dir") + "/xml/";
         this.input_folder  = System.getProperty("user.dir") + "/tsv/latest/";
 
@@ -111,6 +113,10 @@ public class XMLCreator {
 
         this.delimiter = delimiter;
         this.current_entry = "";
+        
+        dom_factory = DocumentBuilderFactory.newInstance();
+        dom_builder = dom_factory.newDocumentBuilder();
+        new_doc = dom_builder.newDocument();        
     }
 
     /**

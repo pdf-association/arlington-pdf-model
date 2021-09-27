@@ -39,118 +39,131 @@ public class Gcxml {
         if (args.length > 0) {
             String argument = args[0];
             System.out.println("gcxml " + Gcxml_version);
-            switch (argument) {
-                // run -xml and -tsv at once for all pdf versions
-                case "-all":
-                    for (int i = 0; i < TSVHandler.pdf_version.length; i++ ) {
-                        XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter);
-                        xmlcreator.createXML(String.valueOf(TSVHandler.pdf_version[i]));
-                    }
-                    TSVHandler tsv = new TSVHandler();
-                    tsv.createAllVersionsTSV();
-                    break;
-
-                // create grammar in XML format for a specific PDF version from the latest TSV files
-                case "-xml":
-                    if ((args.length > 1) && (!args[1].isEmpty())) {
-                        String pdf_version = args[1];
-                        XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter);
-                        xmlcreator.createXML(pdf_version);
-                    }
-                    else {
+            try {
+                switch (argument) {
+                    // run -xml and -tsv at once for all pdf versions
+                    case "-all":
                         for (int i = 0; i < TSVHandler.pdf_version.length; i++ ) {
                             XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter);
                             xmlcreator.createXML(String.valueOf(TSVHandler.pdf_version[i]));
                         }
-                    }
-                    break;
+                        TSVHandler tsv = new TSVHandler();
+                        tsv.createAllVersionsTSV();
+                        break;
 
-                // display keys introduced in pdf version x.x or "-all"
-                case "-sin":
-                    if ((args.length > 1) && !args[1].isEmpty()) {
-                        String version = args[1];
-                        if (version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
-                                || version.equals("1.3") || version.equals("1.4") || version.equals("1.5")
-                                || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")) {
-                            XMLQuery query = new XMLQuery();
-                            query.SinceVersion(version);
-                        }
-                        else if (version.equals("-all")) {
-                            XMLQuery query = new XMLQuery();
-                            query.SinceVersion();
+                    // create grammar in XML format for a specific PDF version from the latest TSV files
+                    case "-xml":
+                            if ((args.length > 1) && (!args[1].isEmpty())) {
+                                String version = args[1];
+                                if (version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
+                                    || version.equals("1.3") || version.equals("1.4") || version.equals("1.5")
+                                    || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")) {
+                                    XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter);
+                                    xmlcreator.createXML(version);
+                                }
+                                else {
+                                    System.out.println("There is no such PDF version. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0");
+                                }
+                            }
+                            else {
+                                for (int i = 0; i < TSVHandler.pdf_version.length; i++ ) {
+                                    XMLCreator xmlcreator = new XMLCreator(listOfFiles, delimiter);
+                                    xmlcreator.createXML(String.valueOf(TSVHandler.pdf_version[i]));
+                                }
+                            }
+                        break;
+
+                    // display keys introduced in pdf version x.x or "-all"
+                    case "-sin":
+                        if ((args.length > 1) && !args[1].isEmpty()) {
+                            String version = args[1];
+                            if (version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
+                                    || version.equals("1.3") || version.equals("1.4") || version.equals("1.5")
+                                    || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")) {
+                                XMLQuery query = new XMLQuery();
+                                query.SinceVersion(version);
+                            }
+                            else if (version.equals("-all")) {
+                                XMLQuery query = new XMLQuery();
+                                query.SinceVersion();
+                            }
+                            else {
+                                System.out.println("There is no such PDF version. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all");
+                            }
                         }
                         else {
-                            System.out.println("There is no such PDF version. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all");
+                            System.out.println("PDF version was not specified. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all.");
+                            System.out.println("If you want to display all keys and their version use '-all' as parameter.");
                         }
-                    }
-                    else {
-                        System.out.println("PDF version was not specified. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all.");
-                        System.out.println("If you want to display all keys and their version use '-all' as parameter.");
-                    }
-                    break;
+                        break;
 
-                // display keys deprecated in pdf version x.x or all
-                case "-dep":
-                    if ((args.length > 1) && !args[1].isEmpty()) {
-                        String version = args[1];
-                        if (version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
-                                || version.equals("1.3") || version.equals("1.4") || version.equals("1.5")
-                                || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")) {
-                            XMLQuery query = new XMLQuery();
-                            query.DeprecatedIn(version);
-                        }
-                        else if (version.equals("-all")) {
-                            XMLQuery query = new XMLQuery();
-                            query.DeprecatedIn();
+                    // display keys deprecated in pdf version x.x or all
+                    case "-dep":
+                        if ((args.length > 1) && !args[1].isEmpty()) {
+                            String version = args[1];
+                            if (version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
+                                    || version.equals("1.3") || version.equals("1.4") || version.equals("1.5")
+                                    || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")) {
+                                XMLQuery query = new XMLQuery();
+                                query.DeprecatedIn(version);
+                            }
+                            else if (version.equals("-all")) {
+                                XMLQuery query = new XMLQuery();
+                                query.DeprecatedIn();
+                            }
+                            else {
+                                System.out.println("There is no such PDF version. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all.");
+                            }
                         }
                         else {
-                            System.out.println("There is no such PDF version. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all.");
+                            System.out.println("PDF version was not specified. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all.");
+                            System.out.println("If you want to display all keys and their version use '-all' as parameter.");
                         }
-                    }
-                    else {
-                        System.out.println("PDF version was not specified. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0 or -all.");
-                        System.out.println("If you want to display all keys and their version use '-all' as parameter.");
-                    }
-                    break;
+                        break;
 
-                case "-so":
-                    XMLQuery query = new XMLQuery();
-                    query.SchizophrenicObjects();
-                    break;
+                    case "-so":
+                        XMLQuery query = new XMLQuery();
+                        query.SchizophrenicObjects();
+                        break;
 
-                case "-kc":
-                    query = new XMLQuery();
-                    query.KeyOccurrenceCount();
-                    break;
-
-                case "-po":
-                    if (args.length > 1) {
+                    case "-kc":
                         query = new XMLQuery();
-                        query.PotentialDicts(args[1]);
-                    }
-                    else {
-                        System.out.println("No keys specified. Expected list of keys, eg.: Key1,Key2,Key3");
-                    }
-                    break;
+                        query.KeyOccurrenceCount();
+                        break;
 
-                case "-version":
-                    break;
+                    case "-po":
+                        if (args.length > 1) {
+                            query = new XMLQuery();
+                            query.PotentialDicts(args[1]);
+                        }
+                        else {
+                            System.out.println("No keys specified. Expected list of keys, eg.: Key1,Key2,Key3");
+                        }
+                        break;
 
-                case "-tsv":
-                    TSVHandler tsv2 = new TSVHandler();
-                    tsv2.createAllVersionsTSV();
-                    break;
+                    case "-version":
+                        break;
 
-                case "-sc":
-                    query = new XMLQuery();
-                    query.getSpecialCases();
-                    break;
+                    case "-tsv":
+                        TSVHandler tsv2 = new TSVHandler();
+                        tsv2.createAllVersionsTSV();
+                        break;
 
-                case "-help":
-                default:
-                    showHelp();
-                    break;
+                    case "-sc":
+                        query = new XMLQuery();
+                        query.getSpecialCases();
+                        break;
+
+                    case "-help":
+                    default:
+                        showHelp();
+                        break;
+                } // switch
             }
+            catch (Exception exp) {
+                System.err.println(exp.toString());
+                showHelp();
+            }                
         }
         else {
             showHelp();
