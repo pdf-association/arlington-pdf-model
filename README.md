@@ -383,6 +383,7 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * "[_Demystifying PDF through a machine-readable definition_](https://langsec.org/spw21/papers.html#pdfReadable)"; Peter Wyatt, LangSec Workshop at IEEE Security & Privacy, May 27th and 28th, 2021 \[[Paper](https://github.com/gangtan/LangSec-papers-and-slides/raw/main/langsec21/papers/Wyatt_LangSec21.pdf)] \[[Talk Video](https://www.youtube.com/watch?v=c1Lxf-JMcH4)]
 
+* "[_The Arlington PDF Model_](PDF-Days-2021-Arlington-PDF-model.pdf)" \[presentation], Peter Wyatt, PDF Asssociation's "PDF Days 2021" online event, Tuesday 28 Sept 2021.
 
 ---
 
