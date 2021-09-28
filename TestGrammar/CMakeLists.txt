@@ -584,9 +584,6 @@ set(SRC_PDFIUM
     pdfium/core/fxcodec/jpx/cjpx_decoder.cpp
     pdfium/core/fxcodec/jpx/jpx_decode_utils.cpp
 	pdfium/core/fxge/agg/fx_agg_driver.cpp
-    # libs/pdfium/core/fxge/apple/fx_apple_platform.cpp
-    # libs/pdfium/core/fxge/apple/fx_mac_impl.cpp
-    # libs/pdfium/core/fxge/apple/fx_quartz_device.cpp
     pdfium/core/fxge/fontdata/chromefontdata/FoxitDingbats.cpp
     pdfium/core/fxge/fontdata/chromefontdata/FoxitFixed.cpp
     pdfium/core/fxge/fontdata/chromefontdata/FoxitFixedBold.cpp
@@ -777,7 +774,9 @@ elseif(APPLE)
     )
 elseif(UNIX)
     set(SRC_PDFIUM_PLATFORM
-      pdfium/core/src/fxge/ge/fx_ge_linux.cpp
+	pdfium/core/fxcrt/cfx_fileaccess_posix.cpp
+	pdfium/core/fxcrt/fx_folder_posix.cpp	
+	pdfium/core/fxge/linux/fx_linux_impl.cpp
     )
 endif()
 
