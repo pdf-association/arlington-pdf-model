@@ -368,15 +368,18 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
     assert(keys.size() > 0);
 
     // Trivial cases special-cased
-    if (keys.size() == 1)
-        if ((keys[0] == "*") || (keys[0] == "0"))
+    if (keys.size() == 1) {
+        if ((keys[0] == "*") || (keys[0] == "0")) {
             return true;
+        }
         else if (keys[0] == "0*") {
             ofs << "Warning: single element array with '0*' should use '*' " << fname << std::endl;
             return true;
         }
-        else
+        else {
             return false;
+        }
+    }
 
     int         idx;
     int         first_wildcard = -1;

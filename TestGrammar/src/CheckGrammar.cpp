@@ -407,17 +407,20 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
                     std::string all_links = remove_link_predicates(vc[TSV_LINK]);
                     if (all_links != "") {
                         std::vector<std::string> links = split(all_links, ';');
-                        for (auto& type_link : links)
-                            if ((type_link != "") && (type_link != "[]"))
+                        for (auto& type_link : links) {
+                            if ((type_link != "") && (type_link != "[]")) {
                                 if ((type_link[0] == '[') && type_link[type_link.size()-1] == ']') {
                                     std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ','); // strip [ and ] then split by COMMA
                                     for (auto& lnk : direct_links)
-                                        if (lnk != "")
+                                        if (lnk != "") {
                                             to_process.push_back(lnk + ".tsv");
+                                        }
                                 }
                                 else {
                                     ofs << "Error: " << gfile << " has bad link '" << type_link << "' - missing enclosing [ ]" << std::endl;
                                 }
+                            }
+                        } // for
                     }
                 } // for
             }

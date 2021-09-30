@@ -786,6 +786,8 @@ bool check_key_value(ArlPDFDictionary* dict, const std::wstring& key, const std:
                     if (val == i)
                         return true;
                 break;
+            default: /* fallthrough */
+                break;
         } // switch
     }
     return false;
