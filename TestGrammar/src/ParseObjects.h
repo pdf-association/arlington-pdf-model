@@ -29,6 +29,7 @@
 #include <iostream>
 #include <string>
 #include <queue>
+#include <cassert>
 
 #include "ArlingtonTSVGrammarFile.h"
 #include "ArlingtonPDFShim.h"
@@ -54,7 +55,7 @@ private:
 
         queue_elem(ArlPDFObject* o, const std::string &l, std::string &c)
             : object(o), link(l), context(c)
-            { /* constructor */ }
+            { /* constructor */ assert(o != nullptr); }
     };
 
     /// @brief The list of PDF objects to process

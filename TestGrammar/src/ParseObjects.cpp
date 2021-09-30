@@ -863,6 +863,7 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &link
 /// @param[in]     link     Arlington link (TSV filename)
 /// @param[in,out] context  current content (PDF path)
 void CParsePDF::add_parse_object(ArlPDFObject* object, const std::string& link, std::string context) {
+    assert(object != nullptr);
     to_process.emplace(object, link, context);
 }
 
@@ -880,6 +881,7 @@ void CParsePDF::parse_object()
         // Need to clean up the elem.link due to predicates "fn:SinceVersion(x,y, ...)"
         elem.link = remove_link_predicates(elem.link);
 
+        assert(elem.object != nullptr);
         if (elem.object->is_indirect_ref()) {
             auto hash = elem.object->get_hash_id();
             auto found = mapped.find(hash);
@@ -911,6 +913,7 @@ void CParsePDF::parse_object()
         // - checking basics (Type, PossibleValue, indirect)
         // - then check presence of required keys
         // - then recursively calling validation for each container with link to other grammar file
+        assert(elem.object != nullptr);
         PDFObjectType obj_type = elem.object->get_object_type();
 
         if ((obj_type == PDFObjectType::ArlPDFObjTypeDictionary) || (obj_type == PDFObjectType::ArlPDFObjTypeStream)) {
