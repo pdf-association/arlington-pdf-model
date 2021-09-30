@@ -22,7 +22,9 @@
 #include "ArlingtonPDFShim.h"
 
 #ifdef ARL_PDFSDK_PDFIUM
+#include <algorithm>
 #include <string>
+#include <vector>
 #include <cassert>
 
 
