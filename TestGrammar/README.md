@@ -100,7 +100,11 @@ Warning: possibly wrong value (predicates NOT supported): ...
 
 * all output should have a final line "END" (`grep --files-without-match "^END"`) - if not then something nasty has happened (crash!?!)
 
-* if processing a folder of PDFs under Windows, then use `--batchmode` so that if things do crash or assert then the error dialog box doesn't block execution from continuing.
+* an exit code of 0 indicates successful processing.
+
+* An exit code of -1 indicates an error: typically an encrypted PDF file requiring a password or with  unsupported crypto, or a corrupted PDF where the trailer cannot be located (this will also depend on the PDF SDK in use).
+
+* if processing a folder of PDFs under Microsoft Windows, then use `--batchmode` so that if things do crash or assert then the error dialog box doesn't block unattended execution from continuing.
 
 ### Understanding errors and warnings
 
@@ -207,6 +211,8 @@ Checking PDF files requires a PDF SDK with certain key features (_we shouldn't n
 * not confuse values, such as integer and real numbers, so that they are expressed exactly as they appear in a PDF file - **this is a limiting factor for some PDF SDKs!**
 * return the raw bytes from the PDF file for PDF name and string objects
 * not do any PDF version based processing while parsing
+
+Another recent discovery of behavior differences between PDF SDKs is when a dictionary key is an indirect reference to an object that is well beyond the trailer Size key or maximum cross-reference table object number. In some cases, the PDF SDK "sees" the key, allowing it to be detected and the error that it is invalid is deferred until the TestGrammar app attempts to resolve the indirect reference (e.g. PDFix). Then an error message such as `Error: could not get value for key XXX` will be generated. Other PDF SDKs completely reject the key and the key is not at all visible so no error about can be reported - the key is completely invisible when using such PDF SDKs (e.g. pdfium).
 
 All code for a specific PDF SDK should be kept isolated in a single shim layer CPP file so that all Arlington specific logic and validation checks can be performed against the minimally simple API defined in `ArlingtonPDFShim.h`. There are `#defines` to select which PDF SDK to build with.
 
