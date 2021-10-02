@@ -2,14 +2,14 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.5		FALSE	FALSE	FALSE		[SV]			
 Ff	bitmask	1.7		FALSE	FALSE	FALSE	0				
 Filter	name	1.5		FALSE	FALSE	FALSE					
-SubFilter	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfNamesGeneral)]	
+SubFilter	array	1.5		FALSE	FALSE	FALSE				[ArrayOfSignatureSubFilterNames]	
 DigestMethod	array	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,ArrayOfDigestMethod)]	
 V	integer	1.5		FALSE	FALSE	FALSE		[0,1,2,3]			
 Cert	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,CertSeedValue)]	
-Reasons	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,ArrayOfStringsText)]	
+Reasons	array	1.5		FALSE	FALSE	FALSE				[ArrayOfStringsText]	
 MDP	dictionary	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,MDPDict)]	
 TimeStamp	dictionary	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.6,TimeStampDict)]	
-LegalAttestation	array	1.6		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,ArrayOfStringsText)]	
+LegalAttestation	array	1.6		FALSE	FALSE	FALSE				[ArrayOfStringsText]	
 AddRevInfo	boolean	1.7		FALSE	FALSE	FALSE					
 LockDocument	name	2.0		FALSE	FALSE	FALSE		[true,false,auto]			
 AppearanceFilter	string-text	2.0		FALSE	FALSE	FALSE					
