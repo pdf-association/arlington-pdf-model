@@ -338,7 +338,7 @@ std::string CParsePDF::get_link_for_object(ArlPDFObject* obj, const std::string 
     int  min_score = 1000;
 
     // checking all links to see which one is suitable for provided object
-    PDFObjectType obj_type = obj->get_object_type();
+    auto obj_type = obj->get_object_type();
     for (auto i = 0; i < (int)links.size(); i++) {
 #if defined(SCORING_DEBUG)
         std::cout << "Scoring " << links[i] << std::endl;
@@ -914,18 +914,19 @@ void CParsePDF::parse_object()
         // - then check presence of required keys
         // - then recursively calling validation for each container with link to other grammar file
         assert(elem.object != nullptr);
-        PDFObjectType obj_type = elem.object->get_object_type();
+        auto obj_type = elem.object->get_object_type();
 
         if ((obj_type == PDFObjectType::ArlPDFObjTypeDictionary) || (obj_type == PDFObjectType::ArlPDFObjTypeStream)) {
             ArlPDFDictionary* dictObj;
 
             // validate values first, then process containers
-            if (elem.object->get_object_type() == PDFObjectType::ArlPDFObjTypeStream)
+            if (obj_type == PDFObjectType::ArlPDFObjTypeStream)
                 dictObj = ((ArlPDFStream*)elem.object)->get_dictionary();
             else
                 dictObj = (ArlPDFDictionary*)elem.object;
 
-            for (int i = 0; i < (dictObj->get_num_keys()); i++) {
+            auto dict_num_keys = dictObj->get_num_keys();
+            for (int i = 0; i < dict_num_keys; i++) {
                 std::wstring key = dictObj->get_key_name_by_index(i);
                 ArlPDFObject* inner_obj = dictObj->get_value(key);
 
@@ -1017,15 +1018,16 @@ void CParsePDF::parse_object()
 
                         opt[index]   = remove_type_predicates(opt[index]);
 
-                        if ((opt[index] == "number-tree") && (inner_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                        auto inner_obj_type = inner_obj->get_object_type();
+                        if ((opt[index] == "number-tree") && (inner_obj_type == PDFObjectType::ArlPDFObjTypeDictionary)) {
                             parse_number_tree((ArlPDFDictionary*)inner_obj, links[index], elem.context + "->" + vec[TSV_KEYNAME]);
                         }
-                        else if ((opt[index] == "name-tree") && (inner_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                        else if ((opt[index] == "name-tree") && (inner_obj_type == PDFObjectType::ArlPDFObjTypeDictionary)) {
                             parse_name_tree((ArlPDFDictionary*)inner_obj, links[index], elem.context + "->" + vec[TSV_KEYNAME]);
                         }
-                        else if ((inner_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary) ||
-                                 (inner_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeStream) ||
-                                 (inner_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
+                        else if ((inner_obj_type == PDFObjectType::ArlPDFObjTypeDictionary) ||
+                                 (inner_obj_type == PDFObjectType::ArlPDFObjTypeStream) ||
+                                 (inner_obj_type == PDFObjectType::ArlPDFObjTypeArray)) {
                             std::string as = vec[TSV_KEYNAME];
                             std::string direct_link = get_link_for_object(inner_obj, links[index], as);
                             add_parse_object(inner_obj, direct_link, elem.context + "->" + as);
@@ -1090,15 +1092,16 @@ void CParsePDF::parse_object()
                 }
             } // for-each array element
 
-            if ((first_notreqd == ALL_ARRAY_ELEMS) && (first_wildcard == ALL_ARRAY_ELEMS) && (data_list.size() != arrayObj->get_num_elements())) {
+            auto array_size = arrayObj->get_num_elements();
+            if ((first_notreqd == ALL_ARRAY_ELEMS) && (first_wildcard == ALL_ARRAY_ELEMS) && (data_list.size() != array_size)) {
                 output << "Error: array length incorrect for " << elem.link;
                 if (!terse)
-                    output << ", wanted " << data_list.size() << ", got " << arrayObj->get_num_elements() << " (" << *arrayObj << ")";
+                    output << ", wanted " << data_list.size() << ", got " << array_size << " (" << *arrayObj << ")";
                 output << std::endl;
             }
 
-            if ((first_notreqd != ALL_ARRAY_ELEMS) && (first_notreqd > arrayObj->get_num_elements())) {
-                output << "Error: array " << elem.link << " requires " << first_notreqd << " elements, but only had " << arrayObj->get_num_elements();
+            if ((first_notreqd != ALL_ARRAY_ELEMS) && (first_notreqd > array_size)) {
+                output << "Error: array " << elem.link << " requires " << first_notreqd << " elements, but only had " << array_size;
                 if (!terse)
                     output << " (" << *arrayObj << ")";
                 output << std::endl;
