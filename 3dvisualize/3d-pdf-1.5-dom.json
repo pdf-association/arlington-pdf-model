@@ -680,6 +680,13 @@
             "name": "ArrayOfSignatureReferences map"
         },
         {
+            "id": "ArrayOfSignatureSubFilterNames",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfSignatureSubFilterNames map"
+        },
+        {
             "id": "ArrayOfSoftwareIdentifiers",
             "val": 1,
             "group": "map",
@@ -15019,7 +15026,7 @@
         },
         {
             "source": "SigFieldSeedValue",
-            "target": "ArrayOfNamesGeneral",
+            "target": "ArrayOfSignatureSubFilterNames",
             "name": "SigFieldSeedValue::SubFilter"
         },
         {

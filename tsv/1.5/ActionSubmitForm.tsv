@@ -2,5 +2,5 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 S	name	1.2		TRUE	FALSE	FALSE		[SubmitForm]			
 F	dictionary;string	1.2		TRUE	FALSE	FALSE				[FileSpecification];[]	
 Fields	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFieldID]	
-Flags	bitmask	1.2		FALSE	FALSE	TRUE	0				
-CharSet	string	1.2		FALSE	FALSE	TRUE		['utf-8','utf-16','Shift-JIS','BigFive','GBK','UHC']			
+Flags	bitmask	1.2		FALSE	FALSE	FALSE	0				see https://github.com/pdf-association/pdf-issues/issues/122
+CharSet	string	1.2		FALSE	FALSE	FALSE		['utf-8','utf-16','Shift-JIS','BigFive','GBK','UHC']			see https://github.com/pdf-association/pdf-issues/issues/122

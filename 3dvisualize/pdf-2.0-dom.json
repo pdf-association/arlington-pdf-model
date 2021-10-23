@@ -245,6 +245,15 @@
         "Inheritable": false,
         "DefaultValue": "true"
       },
+      "PV": {
+        "Key": "PV",
+        "Type": "boolean",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "true"
+      },
       "IC": {
         "Key": "IC",
         "Type": "array",
@@ -2731,7 +2740,7 @@
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true,
+        "Inheritable": false,
         "DefaultValue": "0"
       },
       "CharSet": {
@@ -2740,7 +2749,7 @@
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true,
+        "Inheritable": false,
         "PossibleValues": "['utf-8','utf-16','Shift-JIS','BigFive','GBK','UHC']"
       }
     }
@@ -12171,6 +12180,20 @@
     }
   },
   {
+    "id": "ArrayOfSignatureSubFilterNames",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "name",
+        "SinceVersion": 1.3,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Deprecated(2.0,fn:SinceVersion(1.6,adbe.pkcs7.detached)),fn:Deprecated(2.0,fn:SinceVersion(1.6,adbe.pkcs7.sha1)),adbe.x509.rsa_sha1,ETSI.CAdES.detached,ETSI.RFC3161]"
+      }
+    }
+  },
+  {
     "id": "ArrayOfSoftwareIdentifiers",
     "keys": {
       "*": {
@@ -12525,7 +12548,7 @@
       "0": {
         "Key": "0",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -12533,7 +12556,7 @@
       "1": {
         "Key": "1",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -13066,7 +13089,7 @@
       "0": {
         "Key": "0",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -13074,7 +13097,7 @@
       "1": {
         "Key": "1",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -13082,7 +13105,7 @@
       "2": {
         "Key": "2",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -13090,7 +13113,7 @@
       "3": {
         "Key": "3",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -29511,7 +29534,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfNamesGeneral]"
+        "Link": "[ArrayOfSignatureSubFilterNames]"
       },
       "DigestMethod": {
         "Key": "DigestMethod",
@@ -29621,7 +29644,8 @@
         "SinceVersion": 1.3,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": true
+        "Inheritable": false,
+        "PossibleValues": "[Adobe.PPKLite,Entrust.PPKEF,CICI.SignIt,VeriSign.PPKVS]"
       },
       "SubFilter": {
         "Key": "SubFilter",
@@ -29629,7 +29653,8 @@
         "SinceVersion": 1.3,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Deprecated(2.0,fn:SinceVersion(1.6,adbe.pkcs7.detached)),fn:Deprecated(2.0,fn:SinceVersion(1.6,adbe.pkcs7.sha1)),adbe.x509.rsa_sha1,ETSI.CAdES.detached,ETSI.RFC3161]"
       },
       "Contents": {
         "Key": "Contents",
@@ -29810,6 +29835,7 @@
         "Key": "DigestMethod",
         "Type": "name",
         "SinceVersion": 1.5,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -29860,6 +29886,7 @@
         "Key": "DigestMethod",
         "Type": "name",
         "SinceVersion": 1.5,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -31262,6 +31289,7 @@
         "Key": "R",
         "Type": "integer",
         "SinceVersion": 1.3,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -34716,7 +34744,7 @@
       "*": {
         "Key": "*",
         "Type": "array;boolean;dictionary;name;null;number;stream;string",
-        "SinceVersion": 1.0,
+        "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": "[false];[false];[false];[false];[false];[false];[true];[false]",
         "Inheritable": false,
@@ -34730,7 +34758,7 @@
       "*": {
         "Key": "*",
         "Type": "array;boolean;dictionary;name;null;number;stream;string",
-        "SinceVersion": 1.0,
+        "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": "[false];[false];[false];[false];[false];[false];[true];[false]",
         "Inheritable": false,
