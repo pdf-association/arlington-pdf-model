@@ -23,9 +23,9 @@
         },
         {
             "id": "3DCrossSection",
-            "val": 49,
+            "val": 64,
             "group": "dict",
-            "desc": "7 keys",
+            "desc": "8 keys",
             "name": "3DCrossSection dict"
         },
         {
@@ -846,6 +846,13 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfSignatureReferences map"
+        },
+        {
+            "id": "ArrayOfSignatureSubFilterNames",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfSignatureSubFilterNames map"
         },
         {
             "id": "ArrayOfSoftwareIdentifiers",
@@ -18054,7 +18061,7 @@
         },
         {
             "source": "SigFieldSeedValue",
-            "target": "ArrayOfNamesGeneral",
+            "target": "ArrayOfSignatureSubFilterNames",
             "name": "SigFieldSeedValue::SubFilter"
         },
         {

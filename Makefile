@@ -42,13 +42,24 @@ pandas:
 	python3 ./scripts/arlington-to-pandas.py --tsvdir ./tsv/latest --save ./scripts/pandas.tsv
 
 
-# Make the 3D/VR visualization JSON files
+# Make the 3D/VR visualization JSON files (all versions)
+# Ensure to do a "make tsv" beforehand to refresh the PDF version specific file sets!
 .PHONY: 3d
 3d:
 	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/latest --outdir ./3dvisualize/
+	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/2.0 --outdir ./3dvisualize/
+	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/1.7 --outdir ./3dvisualize/
+	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/1.6 --outdir ./3dvisualize/
+	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/1.5 --outdir ./3dvisualize/
+	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/1.4 --outdir ./3dvisualize/
+	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/1.3 --outdir ./3dvisualize/
+	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/1.2 --outdir ./3dvisualize/
+	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/1.1 --outdir ./3dvisualize/
+	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/1.0 --outdir ./3dvisualize/
 
 
 # Validate each of the existing TSV file sets using Python script. Does NOT create the TSVs!
+# Ensure to do a "make tsv" beforehand to refresh the PDF version specific file sets!
 .PHONY: validate
 validate:
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.0/ --validate

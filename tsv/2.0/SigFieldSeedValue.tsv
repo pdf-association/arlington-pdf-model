@@ -2,7 +2,7 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.5		FALSE	FALSE	FALSE		[SV]			
 Ff	bitmask	1.7		FALSE	FALSE	FALSE	0				
 Filter	name	1.5		FALSE	FALSE	FALSE					
-SubFilter	array	1.5		FALSE	FALSE	FALSE				[ArrayOfNamesGeneral]	
+SubFilter	array	1.5		FALSE	FALSE	FALSE				[ArrayOfSignatureSubFilterNames]	
 DigestMethod	array	1.7		FALSE	FALSE	FALSE				[ArrayOfDigestMethod]	
 V	integer	1.5		FALSE	FALSE	FALSE		[0,1,2,3]			
 Cert	dictionary	1.5		FALSE	FALSE	FALSE				[CertSeedValue]	

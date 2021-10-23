@@ -3,4 +3,4 @@ Type	name	1.5		FALSE	FALSE	FALSE		[SigRef]
 TransformMethod	name	1.5		TRUE	FALSE	FALSE		[DocMDP]			
 TransformParams	dictionary	1.5		FALSE	FALSE	FALSE				[DocMDPTransformParameters]	
 Data	array;boolean;dictionary;integer;name;stream;string	1.5		FALSE	[FALSE];[FALSE];[FALSE];[FALSE];[FALSE];[TRUE];[FALSE]	FALSE				[_UniversalArray];[];[_UniversalDictionary];[];[];[Stream];[]	*various
-DigestMethod	name	1.5		FALSE	FALSE	FALSE		[fn:Deprecated(2.0,MD5),fn:Deprecated(2.0,SHA1),SHA256,SHA384,SHA512,RIPEMD160]			
+DigestMethod	name	1.5	2.0	FALSE	FALSE	FALSE		[fn:Deprecated(2.0,MD5),fn:Deprecated(2.0,SHA1),SHA256,SHA384,SHA512,RIPEMD160]			see https://github.com/pdf-association/pdf-issues/issues/171

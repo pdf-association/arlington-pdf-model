@@ -545,7 +545,7 @@
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true,
+        "Inheritable": false,
         "DefaultValue": "0"
       },
       "CharSet": {
@@ -554,7 +554,7 @@
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true,
+        "Inheritable": false,
         "PossibleValues": "['utf-8','utf-16','Shift-JIS','BigFive','GBK','UHC']"
       }
     }
@@ -1968,7 +1968,7 @@
       "0": {
         "Key": "0",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -1976,7 +1976,7 @@
       "1": {
         "Key": "1",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -2072,7 +2072,7 @@
       "0": {
         "Key": "0",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -2080,7 +2080,7 @@
       "1": {
         "Key": "1",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -2088,7 +2088,7 @@
       "2": {
         "Key": "2",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -2096,7 +2096,7 @@
       "3": {
         "Key": "3",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -8946,7 +8946,7 @@
       "*": {
         "Key": "*",
         "Type": "array;boolean;dictionary;name;null;number;stream;string",
-        "SinceVersion": 1.0,
+        "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": "[false];[false];[false];[false];[false];[false];[true];[false]",
         "Inheritable": false,
@@ -8960,7 +8960,7 @@
       "*": {
         "Key": "*",
         "Type": "array;boolean;dictionary;name;null;number;stream;string",
-        "SinceVersion": 1.0,
+        "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": "[false];[false];[false];[false];[false];[false];[true];[false]",
         "Inheritable": false,
