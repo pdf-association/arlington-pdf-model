@@ -54,7 +54,7 @@ void ArlingtonPDFSDK::initialize(bool enable_debugging)
     std::wstring license_key = L"jgrrknzeuaDobhTt";
 
     if (!Pdfix_init(Pdfix_MODULE_NAME))
-        throw std::runtime_error("Pdfix: Initialization failed");
+        throw std::runtime_error("Pdfix: Initialization failed for " Pdfix_MODULE_NAME);
 
     Pdfix* pdfix = GetPdfix();
     if (!pdfix)
