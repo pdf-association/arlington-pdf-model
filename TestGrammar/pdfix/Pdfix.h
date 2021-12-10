@@ -2275,9 +2275,9 @@ DLL_HANDLE* Pdfix_init(const char* path) {\
 #if defined _WIN32
 #define Pdfix_MODULE_NAME "pdfix.dll"
 #elif defined __linux__
-#define Pdfix_MODULE_NAME "./libpdfix.so"
+#define Pdfix_MODULE_NAME "libpdfix.so"
 #elif defined __APPLE__
-#define Pdfix_MODULE_NAME "./libpdfix.dylib"
+#define Pdfix_MODULE_NAME "libpdfix.dylib"
 #else
 #error unknown platform
 #endif
