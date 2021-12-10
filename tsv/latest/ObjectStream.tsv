@@ -2,7 +2,7 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.5		TRUE	FALSE	FALSE		[ObjStm]			
 N	integer	1.5		TRUE	FALSE	FALSE		[fn:Eval(@N>=0)]			
 First	integer	1.5		TRUE	FALSE	FALSE		[fn:Eval(@First>=0)]			
-Extends	dictionary	1.5		FALSE	TRUE	FALSE			[fn:NoCycle()]	[fn:SinceVersion(1.5,ObjectStream)]	forms a directed acyclic graph
+Extends	stream	1.5		FALSE	TRUE	FALSE			[fn:NoCycle()]	[fn:SinceVersion(1.5,ObjectStream)]	forms a directed acyclic graph
 Length	integer	1.5		TRUE	FALSE	FALSE					
 Filter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfCompressionFilterNames];[]	
 DecodeParms	array;dictionary	1.5		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.5,FilterCrypt)]	
