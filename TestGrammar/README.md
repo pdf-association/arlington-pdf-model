@@ -287,15 +287,17 @@ where `xxx` is `PDFIUM`, `PDFIX` or `QPDF` (_QPDF support is not currently worki
 
 ### Linux
 
-Note that due to C++17, gcc/g++ v8 or later is required. [CMake](https://cmake.org/) is also required.
+Note that due to C++17, gcc/g++ v8 or later is required. [CMake](https://cmake.org/) is also required. CMake system supports both Makefiles and Ninja build systems. `CMAKE_BUILD_TYPE` values include the standard set including `Debug`, `Release` and `RelWithDebInfo`:
 
 ```bash
-mkdir Linux
-cd Linux
-cmake -DPDFSDK_xxx=ON ..
-make debug
-make release
-cd ..
+# Makefile build system
+cmake -B cmake-linux/debug -DPDFSDK_xxx=ON -DCMAKE_BUILD_TYPE=Debug .
+cmake --build cmake-linux/debug --config Debug
+cmake --build cmake-linux/debug --target clean
+
+# Ninja build system (alternative)
+cmake -G Ninja -B cmake-ninja/release -DPDFSDK_xxx=ON -DCMAKE_BUILD_TYPE=Release .
+ninja -C cmake-ninja/release
 ```
 
 where `xxx` is `PDFIUM`, `PDFIX` or `QPDF` (_not currently working_) - as in `PDFSDK_PDFIUM`. Compiled Linux binaries will be in [TestGrammar/bin/linux](./bin/linux). Debug binaries end with `..._d`.
@@ -303,7 +305,7 @@ where `xxx` is `PDFIUM`, `PDFIX` or `QPDF` (_not currently working_) - as in `PD
 If using a PDFix build, then the shared library `libpdfix.so` must also be accessible. The following command may help:
 
 ```bash
-export LD_LIBRARY_PATH=xxx/arlington-pdf-model/TestGrammar/bin/linux:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$PWD/bin/linux:$LD_LIBRARY_PATH
 ```
 
 
