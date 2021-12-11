@@ -8644,7 +8644,7 @@
          <INDIRECT_REFERENCE>
             <VALUE type="name">false</VALUE>
          </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
+         <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
       <ENTRY>
@@ -12450,7 +12450,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
          <REQUIRED>fn:IsRequired(fn:NotStandard14Font())</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -12565,7 +12565,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
          <REQUIRED>fn:IsRequired(fn:NotStandard14Font())</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -12813,7 +12813,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
          <REQUIRED>fn:IsRequired(fn:NotStandard14Font())</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -12961,7 +12961,7 @@
       <ENTRY>
          <NAME>Widths</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -22324,7 +22324,7 @@
       <ENTRY>
          <NAME>TrapRegions</NAME>
          <VALUES>
-            <VALUE type="array">_UniversalDictionary</VALUE>
+            <VALUE type="array">_UniversalArray</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
