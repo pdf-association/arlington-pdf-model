@@ -32,23 +32,30 @@
 
 namespace fs = std::filesystem;
 
+/// @brief When validating, need to know context of TSV (array, dict, stream, name-tree, number-tree)
+typedef struct _ValidationContext  {
+    std::string     tsv_name;
+    std::string     type;
+} ValidationContext;
+
 
 /// @brief For debugging ease, make the root of an entire predicate static
 static ASTNode* pred_root = nullptr;
 
 
 
-/// @brief  Checks the validity of a single Arlington PDF Model TSV file:
+/// @brief  Checks the validity of a single Arlington PDF Model TSV file with knowledge of PDF type:
 /// - correct # of columns (TAB separated)
 /// - correct headings (first line)
 /// - correct basic types 1st column
 ///
 /// @param[in]      reader
+/// @param[in]      arl_type       a complex Arlington Type for the TSV
 /// @param[in]      verbose        true if verbose debug output is wanted
 /// @param[in,out]  report_stream  open output stream to report errors
 ///
 /// @return trues if Arlington TSV file is valid, false if there were any errors
-bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream& report_stream)
+bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool verbose, std::ostream& report_stream)
 {
     bool                        retval = true;
     auto&                       data_list = reader.get_data();
@@ -56,7 +63,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
     std::vector<std::string>    vars_list;
 
     if (verbose)
-        report_stream << reader.get_tsv_name() << std::endl;
+        report_stream << reader.get_tsv_name() << ":" << std::endl;
 
     if (data_list.empty()) {
         report_stream << "Error: empty Arlington TSV grammar file: " << reader.get_tsv_name() << std::endl;
@@ -93,10 +100,10 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
         for (auto& col : vc) {
 
             // Check brackets are all balanced
-            if (std::count(col.begin(), col.end(), '[') != std::count(col.begin(), col.end(), ']'))
+            if (std::count(std::begin(col), std::end(col), '[') != std::count(std::begin(col), std::end(col), ']'))
                 report_stream << "Error: mismatched number of open '[' and close ']' set brackets '" << col << "' for " << reader.get_tsv_name() << std::endl;
 
-            if (std::count(col.begin(), col.end(), '(') != std::count(col.begin(), col.end(), ')'))
+            if (std::count(std::begin(col), std::end(col), '(') != std::count(std::begin(col), std::end(col), ')'))
                 report_stream << "Error: mismatched number of open '(' and close ')' brackets '" << col << "' for " << reader.get_tsv_name() << std::endl;
 
             // Locate all local variables (@xxx) to see if they are also keys in this object
@@ -121,18 +128,18 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
                             s = s.substr(1, s.size() - 1);
                             assert((s[0] != '&') && (s[0] != '|') && (s[0] != 'm'));  // BAD: need SPACE before &&, ||, mod
                         }
-                        if (verbose)
-                            report_stream << "In:  '" << s << "'" << std::endl;
+                        // if (verbose)
+                        //    report_stream << "In:  '" << s << "'" << std::endl;
                         assert(pred_root == nullptr);
                         pred_root = new ASTNode();
                         s = LRParsePredicate(s, pred_root);
-                        if (verbose)
-                            report_stream << "AST: " << *pred_root << std::endl;
+                        // if (verbose)
+                        //    report_stream << "AST: " << *pred_root << std::endl;
                         assert(pred_root->valid());
                         delete pred_root;
                         pred_root = nullptr;
-                        if (verbose)
-                            report_stream << std::endl;
+                        //if (verbose)
+                        //    report_stream << std::endl;
                         if (!s.empty())
                             if ((s[0] == ',') || (s[0] == '[') || (s[0] == ']') || (s[0] == ';') || (s[0] == ' '))
                                 s = s.substr(1, s.size() - 1);
@@ -240,12 +247,12 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
                 for (auto& type : types) {
                     j++;
                     type = remove_type_predicates(type);
-                    if (std::find(v_ArlNonComplexTypes.begin(), v_ArlNonComplexTypes.end(), type) != v_ArlNonComplexTypes.end()) {
+                    if (std::find(std::begin(v_ArlNonComplexTypes), std::end(v_ArlNonComplexTypes), type) != std::end(v_ArlNonComplexTypes)) {
                         // type is a simple type - Links NOT expected
                         if (links[j] != "[]")
                             report_stream << "Error: basic type " << type << " should not be linked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << links[j] << std::endl;
                     }
-                    else if (std::find(v_ArlComplexTypes.begin(), v_ArlComplexTypes.end(), type) != v_ArlComplexTypes.end()) {
+                    else if (std::find(std::begin(v_ArlComplexTypes), std::end(v_ArlComplexTypes), type) != std::end(v_ArlComplexTypes)) {
                         // type is a complex type - Links are REQUIRED
                         if (links[j] == "[]")
                             report_stream << "Error: complex type " << type << " is unlinked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << std::endl;
@@ -276,13 +283,13 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
     // Check if all local variables (@xxx) match a key in this object definition
     if (vars_list.size() > 0) {
         for (auto& v : vars_list)
-            if (std::find(keys_list.begin(), keys_list.end(), v) == keys_list.end())
+            if (std::find(std::begin(keys_list), std::end(keys_list), v) == std::end(keys_list))
                 report_stream << "Warning: referenced variable @" << v << " not a key in " << reader.get_tsv_name() << std::endl;
     }
 
     // Check for duplicate keys in this TSV file
-    auto it = std::unique(keys_list.begin(), keys_list.end());
-    if (it != keys_list.end()) {
+    auto it = std::unique(std::begin(keys_list), std::end(keys_list));
+    if (it != std::end(keys_list)) {
         report_stream << "Error: duplicate keys in " << reader.get_tsv_name() << " for key " << *it << std::endl;
         retval = false;
     }
@@ -290,7 +297,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
     // Check that if at least one key that was inheritable and possibly required, then also a Parent key that is a dictionary
     // Not assuming page tree as this is more flexible (for future). Predicates in "Required" field are NOT processed
     if (has_reqd_inheritable) {
-        if (std::find(keys_list.begin(), keys_list.end(), "Parent") == keys_list.end()) {
+        if (std::find(std::begin(keys_list), std::end(keys_list), "Parent") == std::end(keys_list)) {
             report_stream << "Error: at least one required inheritable key in " << reader.get_tsv_name() << " but no Parent key" << std::endl;
             retval = false;
         }
@@ -304,19 +311,28 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
     }
 
     // Check "*" wildcard key - must be last (duplicate keys already checked above)
-    if (std::find(keys_list.begin(), keys_list.end(), "*") != keys_list.end())
+    if (std::find(std::begin(keys_list), std::end(keys_list), "*") != std::end(keys_list))
         if (keys_list[keys_list.size() - 1] != "*") {
             report_stream << "Error: wildcard key '*' in " << reader.get_tsv_name() << " was not last key" << std::endl;
             retval = false;
         }
 
-    if (!check_valid_array_definition(reader.get_tsv_name(), keys_list, report_stream)) {
-        // Must be a dictionary - check to see if filename avoids using "Array"
-        // This is not a requirement that all arrays are explicitly named, but is otherwise highly confusing!
+    bool ambiguous = false;
+    bool valid_array = check_valid_array_definition(reader.get_tsv_name(), keys_list, report_stream, &ambiguous);
+
+    if ((arl_type == "array") && !valid_array) {
+        report_stream << "Error: array definition file '" << reader.get_tsv_name() << "' did not validate as an array!" << std::endl;
+        retval = false;
+    }
+    
+    if ((arl_type != "array") && (arl_type != "name-tree") && (arl_type != "number-tree") && valid_array && !ambiguous) {
+        // Dictionary or stream
+        report_stream << "Error: " << arl_type << " definition file '" << reader.get_tsv_name() << "' appears to be an array!" << std::endl;
+        // This is not a requirement that all arrays are explicitly named as such, but is otherwise highly confusing!
         if (reader.get_tsv_name().find("Array") != std::string::npos) {
-            report_stream << "Warning: dictionary definition file '" << reader.get_tsv_name() << "' is named inappropriately?" << std::endl;
-            retval = false;
+            report_stream << "Warning: non-array definition file '" << reader.get_tsv_name() << "' is named inappropriately?" << std::endl;
         }
+        retval = false;
     }
 
     return retval;
@@ -330,9 +346,10 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, bool verbose, std::ostream&
 /// @param[in] ofs              open output stream
 void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::ostream& ofs) {
     // collecting all tsv starting from Trailer (traditional and XRefStream)
-    std::vector<std::string>  processed;
-    std::vector<std::string>  to_process;
-    fs::path                  gf;
+    std::vector<ValidationContext>  processed;
+    std::vector<ValidationContext>  to_process;
+    ValidationContext               vcxt;
+    fs::path                        gf;
 
     ofs << "BEGIN - Arlington Validation Report - TestGrammar " << TestGrammar_VERSION << std::endl;
     ofs << "Arlington TSV data: " << fs::absolute(grammar_folder).lexically_normal() << std::endl;
@@ -382,24 +399,44 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
         ofs << "Predicate reduction by regular expression is being attempted." << std::endl;
 
     // Multiple entry points into later Arlington grammars.
-    to_process.push_back("FileTrailer.tsv");
+    vcxt.tsv_name = "FileTrailer";
+    vcxt.type = "dictionary";
+    to_process.push_back(vcxt);
 
-    if (is_file(grammar_folder / "LinearizationParameterDict.tsv"))
-        to_process.push_back("LinearizationParameterDict.tsv");
+    if (is_file(grammar_folder / "LinearizationParameterDict.tsv")) {
+        vcxt.tsv_name = "LinearizationParameterDict";
+        vcxt.type = "dictionary";
+        to_process.push_back(vcxt);
+    }
 
     // Avoid reporting errors in PDF sets prior to PDF 1.5
-    if (is_file(grammar_folder / "XRefStream.tsv"))
-        to_process.push_back("XRefStream.tsv");
+    if (is_file(grammar_folder / "XRefStream.tsv")) {
+        vcxt.tsv_name = "XRefStream";
+        vcxt.type = "stream";
+        to_process.push_back(vcxt);
+    }
+    if (is_file(grammar_folder / "ObjectStream.tsv")) {
+        vcxt.tsv_name = "ObjectStream";
+        vcxt.type = "stream";
+        to_process.push_back(vcxt);
+    }
 
     // Build the full list of all referenced grammar files mentioned in "Links" fields (after stripping off all predicates)
     while (!to_process.empty()) {
-        std::string gfile = to_process.back();
+        // Get and then remove last element from vector
+        vcxt = to_process.back();
         to_process.pop_back();
 
-        // Have we already processed this Arlington grammar TSV file?
-        if (std::find(processed.begin(), processed.end(), gfile) == processed.end()) {
-            processed.push_back(gfile);
-            gf = grammar_folder / gfile;
+        // std::find_if() matching lambda function - same TSV file AND same type of PDF object
+        auto is_validation_match = [&vcxt](ValidationContext a) { 
+            return (a.tsv_name == vcxt.tsv_name) && (a.type == vcxt.type);
+        };
+
+        // Have we already processed this Arlington grammar TSV file (vcxt)?
+        if (std::find_if(std::begin(processed), std::end(processed), is_validation_match) == std::end(processed)) {
+            processed.push_back(vcxt);
+
+            gf = grammar_folder / (vcxt.tsv_name + ".tsv");
             CArlingtonTSVGrammarFile reader(gf);
             if (reader.load()) {
                 const ArlTSVmatrix &data = reader.get_data();
@@ -407,17 +444,45 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
                     std::string all_links = remove_link_predicates(vc[TSV_LINK]);
                     if (all_links != "") {
                         std::vector<std::string> links = split(all_links, ';');
+
+                        std::string all_types = remove_type_predicates(vc[TSV_TYPE]);
+                        std::vector<std::string> types = split(all_types, ';');
+                        
+                        int idx = 0;
                         for (auto& type_link : links) {
+                            ValidationContext vcxt1;
+                            // Index the type
+                            vcxt1.type = types[idx];
+                            idx++;
+
                             if ((type_link != "") && (type_link != "[]")) {
-                                if ((type_link[0] == '[') && type_link[type_link.size()-1] == ']') {
+                                if ((type_link[0] == '[') && (type_link[type_link.size()-1] == ']')) {
                                     std::vector<std::string> direct_links = split(type_link.substr(1, type_link.size() - 2), ','); // strip [ and ] then split by COMMA
                                     for (auto& lnk : direct_links)
                                         if (lnk != "") {
-                                            to_process.push_back(lnk + ".tsv");
+                                            vcxt1.tsv_name = lnk;
+
+                                            if (std::find(std::begin(v_ArlComplexTypes), std::end(v_ArlComplexTypes), vcxt1.type) == std::end(v_ArlComplexTypes)) {
+                                                ofs << "Error: " << vcxt1.tsv_name << " has simple type '" << type_link << "' when link " << lnk << "is present" << std::endl;
+                                            }
+
+                                            // Name- and number-tree nodes can be any type so ignore false warnings
+                                            if ((vcxt1.type != "name-tree") && (vcxt1.type != "number-tree")) {
+                                                if ((lnk.find("Array") != std::string::npos) && (vcxt1.type != "array")) {
+                                                    ofs << "Warning: in " << gf.stem() << ", " << lnk << " filename contains 'Array' but is linked as " << vcxt1.type << std::endl;
+                                                }
+                                                if ((lnk.find("Dict") != std::string::npos) && (vcxt1.type != "dictionary")) {
+                                                    ofs << "Warning: in " << gf.stem() << ", " << lnk << " filename contains 'Dict' but is linked as " << vcxt1.type << std::endl;
+                                                }
+                                                if ((lnk.find("Stream") != std::string::npos) && (vcxt1.type != "stream") && (lnk != "ArrayOfStreamsGeneral")) {
+                                                    ofs << "Warning: in " << gf.stem() << ", " << lnk << " filename contains 'Stream' but is linked as " << vcxt1.type << std::endl;
+                                                }
+                                            }
+                                            to_process.push_back(vcxt1);
                                         }
                                 }
                                 else {
-                                    ofs << "Error: " << gfile << " has bad link '" << type_link << "' - missing enclosing [ ]" << std::endl;
+                                    ofs << "Error: " << vcxt.tsv_name << " has bad link '" << type_link << "' - missing enclosing [ ]" << std::endl;
                                 }
                             }
                         } // for
@@ -429,18 +494,40 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
         }
     } // while
 
-    // Iterate across all physical files in the folder
+    if (verbose) {
+        ofs << std::endl;
+        for (auto& a : processed)
+            ofs << "Info: " << a.tsv_name << " as " << a.type << std::endl;
+        ofs << std::endl;
+    }
+
+    // Iterate across all physical files in the folder to append anything that exists but is so far unreferenced
     for (const auto& entry : fs::directory_iterator(grammar_folder)) {
         if (entry.is_regular_file() && entry.path().extension().string() == ".tsv") {
-            const auto tsv = entry.path().filename().string();
-            if (std::find(processed.begin(), processed.end(), tsv) == processed.end())
-                ofs << "Error: can't reach " << tsv << " from Trailer or XRefStream" << std::endl;
-            gf = grammar_folder / tsv;
-            CArlingtonTSVGrammarFile reader(gf);
-            if (!reader.load())
-                ofs << "Error: can't load Arlington TSV grammar file " << gf << std::endl;
-            else
-                check_grammar(reader, verbose, ofs);
+            const auto tsv = entry.path().stem().string();
+
+            // std::find_if() matching lambda function - same TSV file ONLY since can't know type
+            auto is_tsv_match = [&tsv](ValidationContext a) { return (a.tsv_name == tsv); };
+            auto result = std::find_if(std::begin(processed), std::end(processed), is_tsv_match);
+
+            if (result == std::end(processed)) {
+                ofs << "Error: can't reach " << tsv << " from Trailer or XRefStream (assumed as dictionary)" << std::endl;
+                vcxt.tsv_name = tsv;
+                vcxt.type = "dictionary"; // assumed!
+                processed.push_back(vcxt);
+            }
+        }
+    } // for
+
+    // Now check everything...
+    for (auto& p : processed) {
+        gf = grammar_folder / (p.tsv_name + ".tsv");
+        CArlingtonTSVGrammarFile reader(gf);
+        if (!reader.load()) {
+            ofs << "Error: can't load Arlington TSV grammar file " << gf << " as " << p.type << std::endl;
+        }
+        else {
+            check_grammar(reader, p.type, verbose, ofs);
         }
     } // for
 
