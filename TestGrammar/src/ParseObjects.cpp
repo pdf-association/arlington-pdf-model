@@ -1057,7 +1057,8 @@ void CParsePDF::parse_object()
             } // for
 
             // Use null-stream to suppress messages - should have used "--validate" first anyway
-            if (!check_valid_array_definition(elem.link, key_list, cnull)) {
+            bool ambiguous;
+            if (!check_valid_array_definition(elem.link, key_list, cnull, &ambiguous)) {
                 output << "Error: PDF array object encountered, but using Arlington dictionary " << elem.link << std::endl;
                 continue;
             }
