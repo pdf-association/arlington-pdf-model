@@ -1,4 +1,31 @@
-cmake_minimum_required (VERSION 3.10)
+## Arlington PDF Model: TestGrammar C++ PoC
+##
+## In the ./TestGrammar folder:
+##
+## If using PDFix:
+## $ export LD_LIBRARY_PATH=$PWD/bin/linux:$LD_LIBRARY_PATH
+##
+## Using Unix Makefile build system:
+## $ cmake -B cmake-linux/debug -DPDFSDK_PDFIUM=ON -DCMAKE_BUILD_TYPE=Debug .
+## $ cmake --build cmake-linux/debug --config Debug
+## $ cmake --build cmake-linux/debug --target clean
+##
+## Can use CMAKE_BUILD_TYPE Release or RelWithDebInfo:
+## $ cmake -B cmake-linux/release -DPDFSDK_PDFIX=ON -DCMAKE_BUILD_TYPE=Release .
+## $ cmake --build cmake-linux/release --config Release
+## $ cmake --build cmake-linux/release --target clean
+##
+## Using Ninja build system:
+## $ cmake -G Ninja -B cmake-linux/debug -DPDFSDK_PDFIUM=ON -DCMAKE_BUILD_TYPE=Debug .
+## $ ninja -C cmake-linux/debug
+##
+## Using Microsoft x64 Native Tools (DOS) build system:
+## % cmake -G "" -B cmake-dos\debug -DPDFSDK_PDFIX=ON -DCMAKE_BUILD_TYPE=Debug .
+## % cd cmake-dos\debug
+## % nmake
+
+
+cmake_minimum_required (VERSION 3.12)
 
 PROJECT(TestGrammar)
 
@@ -11,6 +38,10 @@ if((NOT PDFSDK_PDFIX) AND
    (NOT PDFSDK_PDFIUM) AND
    (NOT PDFSDK_QPDF))
         message(FATAL_ERROR "Must select which PDF SDK to use! Use -Dxx=ON with PDFSDK_PDFIX, PDFSDK_PDFIUM or PDFSDK_QPDF")
+endif()
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug CACHE STRING "" FORCE)
 endif()
 
 #=========== PDFix ============
@@ -40,7 +71,7 @@ if(PDFSDK_PDFIUM)
 
     if(MSVC)
         #add_compile_options(/W3 /WX-)
-        #add_compile_definitions(BUILD_WINDOWS)
+        add_compile_definitions(BUILD_WINDOWS PNG_PREFIX PNG_USE_READ_MACROS OPJ_STATIC PNG_INTEL_SSE_OPT=1 NOMINMAX)
     else()
         add_compile_definitions(register=) # mac doesn't compile lcms with C++17 due to using register keyword
     endif()
@@ -376,7 +407,7 @@ if(PDFSDK_PDFIUM)
         pdfium/core/src/reflow/reflowengine.cpp
     )
 
-    if (WIN32)
+    if(WIN32)
         set(SRC_PDFIUM_PLATFORM
             pdfium/core/src/fxge/win32/fx_win32_device.cpp
             pdfium/core/src/fxge/win32/fx_win32_dib.cpp
@@ -402,10 +433,14 @@ endif()
 
 # =========== common ===========
 
-SET (CMAKE_CXX_STANDARD 17)
-SET (CMAKE_CXX_STANDARD_REQUIRED True)
-SET (CMAKE_REQUIRED_LIBRARIES stdc++fs)
-SET (CMAKE_DEBUG_POSTFIX _d)
+SET(CMAKE_CXX_STANDARD 17)
+set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+SET(CMAKE_REQUIRED_LIBRARIES stdc++fs)
+SET(CMAKE_DEBUG_POSTFIX _d)
 
 set(SOURCES
     src/ArlingtonTSVGrammarFile.cpp
@@ -417,26 +452,22 @@ set(SOURCES
     sarge/sarge.cpp
     )
 
-if (WIN32)
+if(WIN32)
     add_compile_options(/EHsc)
     if("${CMAKE_SIZEOF_VOID_P}" STREQUAL "4")
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/x86)
     else()
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/x64)
     endif()
-elseif(APPLE)
+elseif (APPLE)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/darwin)
-elseif(UNIX)
+elseif (UNIX)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/linux)
-    if(RELEASE)
-        SET (CMAKE_BUILD_TYPE RelWithDebInfo)
-        message(STATUS "Release build will have debug symbols - use strip to remove")
-    endif()
 endif()
 
 add_executable(TestGrammar src/Main.cpp ${SOURCES} ${SRC_PDFSDK})
-
 set_target_properties(TestGrammar PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
+add_compile_definitions(TestGrammar $<$<CONFIG:DEBUG>:DEBUG>)
 
 target_include_directories(TestGrammar
     PUBLIC
@@ -456,13 +487,3 @@ if(APPLE)
 elseif (UNIX)
     target_link_libraries(TestGrammar dl stdc++fs)
 endif()
-
-add_custom_target(debug
-    COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Debug ${CMAKE_SOURCE_DIR}
-    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target all
-    COMMENT "Creating debug executable.")
-
-add_custom_target(release
-    COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Release ${CMAKE_SOURCE_DIR}
-    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target all
-    COMMENT "Creating release executable.")
