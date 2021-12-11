@@ -335,6 +335,25 @@ bool iequals(const std::string& a, const std::string& b)
 }
 
 
+/// @brief Case INsensitive substring search
+///
+/// @param[in] s   string 
+/// @param[in] s1  sub-string to search for in s
+///
+/// @returns true if string s1 is in string s. false otherwise
+bool icontains(const std::string& s, const std::string& s1)
+{
+    // Local vars so as not to alter argument strings
+    std::string s_in = s;
+    std::string s1_in = s1;
+    // Convert args lower case
+    std::transform(s_in.begin(),  s_in.end(),  s_in.begin(),  ::tolower);
+    std::transform(s1_in.begin(), s1_in.end(), s1_in.begin(), ::tolower);
+    // Find sub string in given string
+    return (s_in.find(s1_in, 0) != std::string::npos);
+}
+
+
 /// @brief  Utility function to locate a string in a vector of strings
 ///
 /// @param[in] list   vector to search
@@ -362,14 +381,21 @@ static const std::regex r_KeyArrayKeys("^([0-9]+|[0-9]*\\*?)$");
 /// @param[in] fname TSV filename
 /// @param[in] keys  list of keys from an Arlington TSV definition
 /// @param[in] ofs   open stream to write any errors to (use cnull/wcnull for /dev/null)
+/// @param[out] wildcard_only true if and only if the TSV is a single line with "*" wildcard. This is an ambiguous dictionary or array.
 ///
 /// @returns true if keys can represent a PDF array. false otherwise
-bool check_valid_array_definition(const std::string& fname, const std::vector<std::string>& keys, std::ostream& ofs) {
+bool check_valid_array_definition(const std::string& fname, const std::vector<std::string>& keys, std::ostream& ofs, bool *wildcard_only) {
     assert(keys.size() > 0);
+    assert(wildcard_only != nullptr);
+    *wildcard_only = false;
 
     // Trivial cases special-cased
     if (keys.size() == 1) {
-        if ((keys[0] == "*") || (keys[0] == "0")) {
+        if (keys[0] == "*") {
+            *wildcard_only = true;
+            return true;
+        }
+        else if (keys[0] == "0") {
             return true;
         }
         else if (keys[0] == "0*") {

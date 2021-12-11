@@ -50,11 +50,14 @@ std::string& strip_leading_whitespace(std::string& str);
 /// @brief Case insensitive comparison of two strings
 bool iequals(const std::string& a, const std::string& b);
 
+/// @brief Case insensitive substring match of s1 in s
+bool icontains(const std::string& s, const std::string& s1);
+
 /// @brief Finds a string in a vector of strings
 bool FindInVector(const std::vector<std::string> list, const std::string v);
 
 /// @brief Check if Arlington data represents an array
-bool check_valid_array_definition(const std::string& fname, const std::vector<std::string>& keys, std::ostream& ofs);
+bool check_valid_array_definition(const std::string& fname, const std::vector<std::string>& keys, std::ostream& ofs, bool* wildcard_only);
 
 // @brief Tests if a key is a valid PDF second or third class name according to Annex E of ISO 32000-2:2020
 bool is_second_or_third_class_pdf_name(const std::string key);
