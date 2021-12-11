@@ -423,7 +423,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[3DView]"
+        "Link": "[]"
       },
       "DV": {
         "Key": "DV",
@@ -12081,7 +12081,7 @@
         "SinceVersion": 1.3,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": true
+        "Inheritable": false
       },
       "SubFilter": {
         "Key": "SubFilter",
@@ -15798,7 +15798,7 @@
         "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfIntegersGeneral]"
+        "Link": "[ArrayOfNumbersGeneral]"
       },
       "FontDescriptor": {
         "Key": "FontDescriptor",
@@ -15891,7 +15891,7 @@
         "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfIntegersGeneral]"
+        "Link": "[ArrayOfNumbersGeneral]"
       },
       "FontDescriptor": {
         "Key": "FontDescriptor",
@@ -16044,7 +16044,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))]",
-        "Link": "[ArrayOfIntegersGeneral]"
+        "Link": "[ArrayOfNumbersGeneral]"
       },
       "FontDescriptor": {
         "Key": "FontDescriptor",
@@ -16163,7 +16163,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))]",
-        "Link": "[ArrayOfIntegersGeneral]"
+        "Link": "[ArrayOfNumbersGeneral]"
       },
       "FontDescriptor": {
         "Key": "FontDescriptor",
@@ -20150,7 +20150,7 @@
       },
       "Extends": {
         "Key": "Extends",
-        "Type": "dictionary",
+        "Type": "stream",
         "SinceVersion": 1.5,
         "Required": false,
         "IndirectReference": true,
@@ -26628,21 +26628,21 @@
       },
       "1": {
         "Key": "1",
-        "Type": "dictionary",
+        "Type": "array;dictionary",
         "SinceVersion": 1.6,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[OptContentGroup,VisibilityExpressionArray]"
+        "Link": "[VisibilityExpressionArray];[OptContentGroup]"
       },
       "*": {
         "Key": "*",
-        "Type": "dictionary",
+        "Type": "array;dictionary",
         "SinceVersion": 1.6,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[OptContentGroup,VisibilityExpressionArray]"
+        "Link": "[VisibilityExpressionArray];[OptContentGroup]"
       }
     }
   },
@@ -27686,7 +27686,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalDictionary]"
+        "Link": "[_UniversalArray]"
       },
       "TrapStyles": {
         "Key": "TrapStyles",

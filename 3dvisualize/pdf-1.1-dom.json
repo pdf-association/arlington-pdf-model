@@ -2499,7 +2499,7 @@
         "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfIntegersGeneral]"
+        "Link": "[ArrayOfNumbersGeneral]"
       },
       "FontDescriptor": {
         "Key": "FontDescriptor",
@@ -2583,7 +2583,7 @@
         "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfIntegersGeneral]"
+        "Link": "[ArrayOfNumbersGeneral]"
       },
       "FontDescriptor": {
         "Key": "FontDescriptor",
@@ -2668,7 +2668,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))]",
-        "Link": "[ArrayOfIntegersGeneral]"
+        "Link": "[ArrayOfNumbersGeneral]"
       },
       "FontDescriptor": {
         "Key": "FontDescriptor",
@@ -2778,7 +2778,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))]",
-        "Link": "[ArrayOfIntegersGeneral]"
+        "Link": "[ArrayOfNumbersGeneral]"
       },
       "FontDescriptor": {
         "Key": "FontDescriptor",

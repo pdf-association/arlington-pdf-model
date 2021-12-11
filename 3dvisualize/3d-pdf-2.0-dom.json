@@ -3998,7 +3998,7 @@
         },
         {
             "source": "3DStream",
-            "target": "3DView",
+            "target": "ArrayOf3DView",
             "name": "3DStream::VA"
         },
         {
@@ -17228,7 +17228,7 @@
         },
         {
             "source": "FontMultipleMaster",
-            "target": "ArrayOfIntegersGeneral",
+            "target": "ArrayOfNumbersGeneral",
             "name": "FontMultipleMaster::Widths",
             "color": "red"
         },
@@ -17250,7 +17250,7 @@
         },
         {
             "source": "FontTrueType",
-            "target": "ArrayOfIntegersGeneral",
+            "target": "ArrayOfNumbersGeneral",
             "name": "FontTrueType::Widths",
             "color": "red"
         },
@@ -17289,7 +17289,7 @@
         },
         {
             "source": "FontType1",
-            "target": "ArrayOfIntegersGeneral",
+            "target": "ArrayOfNumbersGeneral",
             "name": "FontType1::Widths",
             "color": "red"
         },
@@ -17323,7 +17323,7 @@
         },
         {
             "source": "FontType3",
-            "target": "ArrayOfIntegersGeneral",
+            "target": "ArrayOfNumbersGeneral",
             "name": "FontType3::Widths",
             "color": "red"
         },
@@ -22298,23 +22298,23 @@
         },
         {
             "source": "VisibilityExpressionArray",
-            "target": "OptContentGroup",
-            "name": "VisibilityExpressionArray::*"
-        },
-        {
-            "source": "VisibilityExpressionArray",
             "target": "VisibilityExpressionArray",
             "name": "VisibilityExpressionArray::*"
         },
         {
             "source": "VisibilityExpressionArray",
             "target": "OptContentGroup",
+            "name": "VisibilityExpressionArray::*"
+        },
+        {
+            "source": "VisibilityExpressionArray",
+            "target": "VisibilityExpressionArray",
             "name": "VisibilityExpressionArray::1",
             "color": "red"
         },
         {
             "source": "VisibilityExpressionArray",
-            "target": "VisibilityExpressionArray",
+            "target": "OptContentGroup",
             "name": "VisibilityExpressionArray::1",
             "color": "red"
         },
@@ -22768,7 +22768,7 @@
         },
         {
             "source": "XObjectFormTrapNet",
-            "target": "_UniversalDictionary",
+            "target": "_UniversalArray",
             "name": "XObjectFormTrapNet::TrapRegions"
         },
         {
