@@ -287,12 +287,13 @@ where `xxx` is `PDFIUM`, `PDFIX` or `QPDF` (_QPDF support is not currently worki
 
 ### Linux
 
-Note that due to C++17, gcc/g++ v8 or later is required. [CMake](https://cmake.org/) is also required. CMake system supports both Makefiles and Ninja build systems. `CMAKE_BUILD_TYPE` values include the standard set including `Debug`, `Release` and `RelWithDebInfo`:
+Note that due to C++17, gcc/g++ v8 or later is required. [CMake](https://cmake.org/) is also required. CMake system supports both Makefiles and Ninja build systems. `CMAKE_BUILD_TYPE` values include the standard set including `Debug` (binary ends with `_d`), `Release` and `RelWithDebInfo`:
 
 ```bash
 # Makefile build system
 cmake -B cmake-linux/debug -DPDFSDK_xxx=ON -DCMAKE_BUILD_TYPE=Debug .
 cmake --build cmake-linux/debug --config Debug
+./bin/linux/TestGrammar_d
 
 # To delete everything before doing a clean build...
 cmake --build cmake-linux/debug --target clean
