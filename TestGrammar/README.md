@@ -293,6 +293,8 @@ Note that due to C++17, gcc/g++ v8 or later is required. [CMake](https://cmake.o
 # Makefile build system
 cmake -B cmake-linux/debug -DPDFSDK_xxx=ON -DCMAKE_BUILD_TYPE=Debug .
 cmake --build cmake-linux/debug --config Debug
+
+# To delete everything before doing a clean build...
 cmake --build cmake-linux/debug --target clean
 
 # Ninja build system (alternative)
