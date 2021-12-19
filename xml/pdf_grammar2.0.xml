@@ -15896,7 +15896,7 @@
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>2.0</INTRODUCED>
+         <INTRODUCED>1.6</INTRODUCED>
       </ENTRY>
    </OBJECT>
    <OBJECT id="ArrayOf4Functions" isArray="true" object_number="083">
@@ -17203,7 +17203,7 @@
             <VALUE type="name">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
+         <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
    <OBJECT id="ArrayOfSoftwareIdentifiers" isArray="true" object_number="149">
@@ -17562,7 +17562,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>1</NAME>
@@ -17571,7 +17571,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
    <OBJECT id="ArrayOf_2LineEndingsNames" isArray="true" object_number="173">
@@ -18223,7 +18223,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>1</NAME>
@@ -18232,7 +18232,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>2</NAME>
@@ -18241,7 +18241,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>3</NAME>
@@ -18250,7 +18250,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
    <OBJECT id="ArrayOf_4NamesForAttached" isArray="true" object_number="190">
@@ -30287,7 +30287,7 @@
             <VALUE type="number">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>L</NAME>
@@ -30296,7 +30296,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>H</NAME>
@@ -30309,7 +30309,7 @@
             <VALUE type="array">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>O</NAME>
@@ -30318,7 +30318,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>E</NAME>
@@ -30327,7 +30327,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>N</NAME>
@@ -30336,7 +30336,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>T</NAME>
@@ -30345,7 +30345,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>P</NAME>
@@ -30357,7 +30357,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
    <OBJECT id="MDPDict" object_number="322">
@@ -45626,7 +45626,7 @@
             <VALUE type="integer">fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)</VALUE>
             <VALUE type="integer">16</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((@Filter!=JPXDecode) || (ImageMask==true))</REQUIRED>
+         <REQUIRED>fn:IsRequired((@Filter!=JPXDecode) || (@ImageMask==true))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>

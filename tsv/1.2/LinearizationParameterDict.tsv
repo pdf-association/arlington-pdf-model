@@ -1,9 +1,9 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Linearized	number	1.1		TRUE	fn:MustBeDirect()	FALSE		[1.0]			version
-L	integer	1.1		TRUE	fn:MustBeDirect()	FALSE					length of file
-H	array	1.1		TRUE	fn:MustBeDirect()	FALSE				[ArrayOf_2Integers,ArrayOf_4Integers]	
-O	integer	1.1		TRUE	fn:MustBeDirect()	FALSE					object number of the first pages page object
-E	integer	1.1		TRUE	fn:MustBeDirect()	FALSE					offset of the end of the first page
-N	integer	1.1		TRUE	fn:MustBeDirect()	FALSE					number of pages
-T	integer	1.1		TRUE	fn:MustBeDirect()	FALSE					
-P	integer	1.1		FALSE	fn:MustBeDirect()	FALSE	0				page number of first page
+Linearized	number	1.2		TRUE	fn:MustBeDirect()	FALSE		[1.0]			version
+L	integer	1.2		TRUE	fn:MustBeDirect()	FALSE					length of file
+H	array	1.2		TRUE	fn:MustBeDirect()	FALSE				[ArrayOf_2Integers,ArrayOf_4Integers]	
+O	integer	1.2		TRUE	fn:MustBeDirect()	FALSE					object number of the first pages page object
+E	integer	1.2		TRUE	fn:MustBeDirect()	FALSE					offset of the end of the first page
+N	integer	1.2		TRUE	fn:MustBeDirect()	FALSE					number of pages
+T	integer	1.2		TRUE	fn:MustBeDirect()	FALSE					
+P	integer	1.2		FALSE	fn:MustBeDirect()	FALSE	0				page number of first page

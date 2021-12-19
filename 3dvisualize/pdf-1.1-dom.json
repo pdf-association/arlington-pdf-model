@@ -620,27 +620,6 @@
     }
   },
   {
-    "id": "ArrayOf_2Integers",
-    "keys": {
-      "0": {
-        "Key": "0",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "1": {
-        "Key": "1",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false
-      }
-    }
-  },
-  {
     "id": "ArrayOf_2StringsByte",
     "keys": {
       "0": {
@@ -699,43 +678,6 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOf_2DashNumbers]"
-      }
-    }
-  },
-  {
-    "id": "ArrayOf_4Integers",
-    "keys": {
-      "0": {
-        "Key": "0",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "1": {
-        "Key": "1",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "2": {
-        "Key": "2",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "3": {
-        "Key": "3",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false
       }
     }
   },
@@ -2969,78 +2911,6 @@
     }
   },
   {
-    "id": "LinearizationParameterDict",
-    "keys": {
-      "Linearized": {
-        "Key": "Linearized",
-        "Type": "number",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false,
-        "PossibleValues": "[1.0]"
-      },
-      "L": {
-        "Key": "L",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
-      },
-      "H": {
-        "Key": "H",
-        "Type": "array",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false,
-        "Link": "[ArrayOf_2Integers,ArrayOf_4Integers]"
-      },
-      "O": {
-        "Key": "O",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
-      },
-      "E": {
-        "Key": "E",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
-      },
-      "N": {
-        "Key": "N",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
-      },
-      "T": {
-        "Key": "T",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
-      },
-      "P": {
-        "Key": "P",
-        "Type": "integer",
-        "SinceVersion": 1.1,
-        "Required": false,
-        "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false,
-        "DefaultValue": "0"
-      }
-    }
-  },
-  {
     "id": "MicrosoftWindowsLaunchParam",
     "keys": {
       "F": {
@@ -4117,7 +3987,7 @@
         "Key": "BitsPerComponent",
         "Type": "integer",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired((@Filter!=JPXDecode) || (ImageMask==true))",
+        "Required": "fn:IsRequired((@Filter!=JPXDecode) || (@ImageMask==true))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)]"

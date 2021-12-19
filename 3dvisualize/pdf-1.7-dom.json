@@ -423,7 +423,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[]"
+        "Link": "[ArrayOf3DView]"
       },
       "DV": {
         "Key": "DV",
@@ -8053,6 +8053,20 @@
     }
   },
   {
+    "id": "ArrayOf3DView",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[3DView]"
+      }
+    }
+  },
+  {
     "id": "ArrayOf4Functions",
     "keys": {
       "0": {
@@ -8914,7 +8928,7 @@
       "*": {
         "Key": "*",
         "Type": "name",
-        "SinceVersion": 1.3,
+        "SinceVersion": 1.5,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -9236,7 +9250,7 @@
       "0": {
         "Key": "0",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -9244,7 +9258,7 @@
       "1": {
         "Key": "1",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -9719,7 +9733,7 @@
       "0": {
         "Key": "0",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -9727,7 +9741,7 @@
       "1": {
         "Key": "1",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -9735,7 +9749,7 @@
       "2": {
         "Key": "2",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -9743,7 +9757,7 @@
       "3": {
         "Key": "3",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -18068,7 +18082,7 @@
       "Linearized": {
         "Key": "Linearized",
         "Type": "number",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
@@ -18077,7 +18091,7 @@
       "L": {
         "Key": "L",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false
@@ -18085,7 +18099,7 @@
       "H": {
         "Key": "H",
         "Type": "array",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
@@ -18094,7 +18108,7 @@
       "O": {
         "Key": "O",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false
@@ -18102,7 +18116,7 @@
       "E": {
         "Key": "E",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false
@@ -18110,7 +18124,7 @@
       "N": {
         "Key": "N",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false
@@ -18118,7 +18132,7 @@
       "T": {
         "Key": "T",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false
@@ -18126,7 +18140,7 @@
       "P": {
         "Key": "P",
         "Type": "integer",
-        "SinceVersion": 1.1,
+        "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
@@ -27977,7 +27991,7 @@
         "Key": "BitsPerComponent",
         "Type": "integer",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired((@Filter!=JPXDecode) || (ImageMask==true))",
+        "Required": "fn:IsRequired((@Filter!=JPXDecode) || (@ImageMask==true))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8),16]"

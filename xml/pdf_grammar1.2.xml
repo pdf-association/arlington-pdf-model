@@ -2684,7 +2684,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>1</NAME>
@@ -2693,7 +2693,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
    <OBJECT id="ArrayOf_2Numbers" isArray="true" object_number="045">
@@ -2794,7 +2794,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>1</NAME>
@@ -2803,7 +2803,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>2</NAME>
@@ -2812,7 +2812,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>3</NAME>
@@ -2821,7 +2821,7 @@
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
    <OBJECT id="ArrayOf_4NumbersColorAnnotation" isArray="true" object_number="049">
@@ -8522,7 +8522,7 @@
             <VALUE type="number">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>L</NAME>
@@ -8531,7 +8531,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>H</NAME>
@@ -8544,7 +8544,7 @@
             <VALUE type="array">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>O</NAME>
@@ -8553,7 +8553,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>E</NAME>
@@ -8562,7 +8562,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>N</NAME>
@@ -8571,7 +8571,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>T</NAME>
@@ -8580,7 +8580,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>P</NAME>
@@ -8592,7 +8592,7 @@
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
    <OBJECT id="MicrosoftWindowsLaunchParam" object_number="119">
@@ -11423,7 +11423,7 @@
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((@Filter!=JPXDecode) || (ImageMask==true))</REQUIRED>
+         <REQUIRED>fn:IsRequired((@Filter!=JPXDecode) || (@ImageMask==true))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>

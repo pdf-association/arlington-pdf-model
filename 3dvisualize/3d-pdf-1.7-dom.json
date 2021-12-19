@@ -491,6 +491,13 @@
             "name": "ArrayOf3DTransMatrix array"
         },
         {
+            "id": "ArrayOf3DView",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOf3DView map"
+        },
+        {
             "id": "ArrayOf4Functions",
             "val": 16,
             "group": "array",
@@ -3255,6 +3262,11 @@
             "source": "3DStream",
             "target": "_UniversalDictionary",
             "name": "3DStream::Resources"
+        },
+        {
+            "source": "3DStream",
+            "target": "ArrayOf3DView",
+            "name": "3DStream::VA"
         },
         {
             "source": "3DView",
@@ -11552,6 +11564,11 @@
             "source": "ArrayOf3DNode",
             "target": "3DNode",
             "name": "ArrayOf3DNode::*"
+        },
+        {
+            "source": "ArrayOf3DView",
+            "target": "3DView",
+            "name": "ArrayOf3DView::*"
         },
         {
             "source": "ArrayOf4Functions",
