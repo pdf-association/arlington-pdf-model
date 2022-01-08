@@ -12119,7 +12119,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[RequirementsOCInteract,RequirementsOCAutoStates,RequirementsAcroFormInteract,RequirementsNavigation,RequirementsMarkup,RequirementsMarkup,RequirementsMultimedia,RequirementsU3D,RequirementsPRC,RequirementsAction,RequirementsEnableJavaScripts,RequirementsAttachment,RequirementsAttachmentEditing,RequirementsCollection,RequirementsCollectionEditing,RequirementsDigSigValidation,RequirementsDigSig,RequirementsDigSigMDP,RequirementsRichMedia,RequirementsGeospatial2D,RequirementsGeospatial3D,RequirementsDPartInteract,RequirementsSeparationSimulation,RequirementsTransitions,RequirementsEncryption,RequirementsHandler]"
+        "Link": "[RequirementsOCInteract,RequirementsOCAutoStates,RequirementsAcroFormInteract,RequirementsNavigation,RequirementsMarkup,Requirements3DMarkup,RequirementsMultimedia,RequirementsU3D,RequirementsPRC,RequirementsAction,RequirementsEnableJavaScripts,RequirementsAttachment,RequirementsAttachmentEditing,RequirementsCollection,RequirementsCollectionEditing,RequirementsDigSigValidation,RequirementsDigSig,RequirementsDigSigMDP,RequirementsRichMedia,RequirementsGeospatial2D,RequirementsGeospatial3D,RequirementsDPartInteract,RequirementsSeparationSimulation,RequirementsTransitions,RequirementsEncryption,RequirementsHandler,RequirementsSTEP]"
       }
     }
   },
@@ -15748,7 +15748,7 @@
         "Type": "string-text",
         "SinceVersion": 2.0,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false
       }
     }
@@ -26512,12 +26512,12 @@
     }
   },
   {
-    "id": "RequirementsAcroFormInteract",
+    "id": "Requirements3DMarkup",
     "keys": {
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26526,7 +26526,59 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[3DMarkup]"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "dictionary;name",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[Extensions];[]"
+      },
+      "RH": {
+        "Key": "RH",
+        "Type": "array;dictionary",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[[]];[]",
+        "Link": "[ArrayOfRequirementsHandlers];[RequirementsHandler]"
+      },
+      "Penalty": {
+        "Key": "Penalty",
+        "Type": "integer",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "100",
+        "PossibleValues": "[fn:Eval((@Penalty>=0) && (@Penalty<=100))]"
+      }
+    }
+  },
+  {
+    "id": "RequirementsAcroFormInteract",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Requirement]"
+      },
+      "S": {
+        "Key": "S",
+        "Type": "name",
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26544,7 +26596,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26569,7 +26621,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26578,7 +26630,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26596,7 +26648,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26621,7 +26673,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26630,7 +26682,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26648,7 +26700,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26673,7 +26725,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26682,7 +26734,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26700,7 +26752,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26725,7 +26777,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26734,7 +26786,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26752,7 +26804,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26777,7 +26829,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26786,7 +26838,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26804,7 +26856,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26829,7 +26881,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26838,7 +26890,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26856,7 +26908,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26881,7 +26933,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26890,7 +26942,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26908,7 +26960,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26942,7 +26994,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26951,7 +27003,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -26969,7 +27021,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27003,7 +27055,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27012,7 +27064,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27030,7 +27082,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27116,7 +27168,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27125,7 +27177,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27143,7 +27195,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27177,7 +27229,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27186,7 +27238,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27204,7 +27256,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27229,7 +27281,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27238,7 +27290,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27256,7 +27308,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27281,7 +27333,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27290,7 +27342,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27299,7 +27351,7 @@
       "Script": {
         "Key": "Script",
         "Type": "string-text",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
@@ -27312,7 +27364,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27321,7 +27373,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27339,7 +27391,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27364,7 +27416,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27373,7 +27425,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27391,7 +27443,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27416,7 +27468,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27425,7 +27477,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27443,7 +27495,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27468,7 +27520,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27477,7 +27529,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27495,7 +27547,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27520,7 +27572,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27529,7 +27581,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27547,7 +27599,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27572,7 +27624,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27581,7 +27633,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27599,7 +27651,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27624,7 +27676,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27633,7 +27685,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27651,7 +27703,59 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[[]];[]",
+        "Link": "[ArrayOfRequirementsHandlers];[RequirementsHandler]"
+      },
+      "Penalty": {
+        "Key": "Penalty",
+        "Type": "integer",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "100",
+        "PossibleValues": "[fn:Eval((@Penalty>=0) && (@Penalty<=100))]"
+      }
+    }
+  },
+  {
+    "id": "RequirementsSTEP",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Requirement]"
+      },
+      "S": {
+        "Key": "S",
+        "Type": "name",
+        "SinceVersion": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[STEP]"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "name",
+        "SinceVersion": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[2020.0]"
+      },
+      "RH": {
+        "Key": "RH",
+        "Type": "array;dictionary",
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27676,7 +27780,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27685,7 +27789,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27703,7 +27807,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27728,7 +27832,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27737,7 +27841,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27755,7 +27859,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27780,7 +27884,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27789,7 +27893,7 @@
       "S": {
         "Key": "S",
         "Type": "name",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27807,7 +27911,7 @@
       "RH": {
         "Key": "RH",
         "Type": "array;dictionary",
-        "SinceVersion": 1.7,
+        "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,

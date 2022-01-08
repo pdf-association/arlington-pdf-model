@@ -2796,6 +2796,13 @@
             "name": "RenditionSelector dict"
         },
         {
+            "id": "Requirements3DMarkup",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "Requirements3DMarkup dict"
+        },
+        {
             "id": "RequirementsAcroFormInteract",
             "val": 25,
             "group": "dict",
@@ -2948,6 +2955,13 @@
             "group": "dict",
             "desc": "5 keys",
             "name": "RequirementsRichMedia dict"
+        },
+        {
+            "id": "RequirementsSTEP",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "RequirementsSTEP dict"
         },
         {
             "id": "RequirementsSeparationSimulation",
@@ -14905,7 +14919,7 @@
         },
         {
             "source": "ArrayOfRequirements",
-            "target": "RequirementsMarkup",
+            "target": "Requirements3DMarkup",
             "name": "ArrayOfRequirements::*"
         },
         {
@@ -15006,6 +15020,11 @@
         {
             "source": "ArrayOfRequirements",
             "target": "RequirementsHandler",
+            "name": "ArrayOfRequirements::*"
+        },
+        {
+            "source": "ArrayOfRequirements",
+            "target": "RequirementsSTEP",
             "name": "ArrayOfRequirements::*"
         },
         {
@@ -19913,6 +19932,21 @@
             "color": "red"
         },
         {
+            "source": "Requirements3DMarkup",
+            "target": "ArrayOfRequirementsHandlers",
+            "name": "Requirements3DMarkup::RH"
+        },
+        {
+            "source": "Requirements3DMarkup",
+            "target": "RequirementsHandler",
+            "name": "Requirements3DMarkup::RH"
+        },
+        {
+            "source": "Requirements3DMarkup",
+            "target": "Extensions",
+            "name": "Requirements3DMarkup::V"
+        },
+        {
             "source": "RequirementsAcroFormInteract",
             "target": "ArrayOfRequirementsHandlers",
             "name": "RequirementsAcroFormInteract::RH"
@@ -20266,6 +20300,16 @@
             "source": "RequirementsRichMedia",
             "target": "Extensions",
             "name": "RequirementsRichMedia::V"
+        },
+        {
+            "source": "RequirementsSTEP",
+            "target": "ArrayOfRequirementsHandlers",
+            "name": "RequirementsSTEP::RH"
+        },
+        {
+            "source": "RequirementsSTEP",
+            "target": "RequirementsHandler",
+            "name": "RequirementsSTEP::RH"
         },
         {
             "source": "RequirementsSeparationSimulation",
