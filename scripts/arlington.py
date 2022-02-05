@@ -756,7 +756,7 @@ class Arlington:
                             if (row['DefaultValue'] is not None) and isinstance(row['DefaultValue'][0], (int, float)):
                                 logging.info("Converting DefaultValue int/float/bool '%s' back to name for %s::%s", str(row['DefaultValue'][0]), obj_name, keyname)
                                 row['DefaultValue'][0] = str(row['DefaultValue'][0])
-                            if (row['PossibleValues'] is not None):
+                            if (row['PossibleValues'] is not None) and (row['PossibleValues'][0] is not None):
                                 for i, v in enumerate(row['PossibleValues'][0]):
                                     if isinstance(v, (int, float)):
                                         logging.info("Converting PossibleValues int/float/bool '%s' back to name for %s::%s", str(v), obj_name, keyname)

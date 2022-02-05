@@ -2446,6 +2446,13 @@
             "name": "RequirementsEnableJavaScripts dict"
         },
         {
+            "id": "RequirementsHandler",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "RequirementsHandler dict"
+        },
+        {
             "id": "Resource",
             "val": 64,
             "group": "dict",
@@ -12082,6 +12089,16 @@
             "name": "ArrayOfRequirements::*"
         },
         {
+            "source": "ArrayOfRequirements",
+            "target": "RequirementsHandler",
+            "name": "ArrayOfRequirements::*"
+        },
+        {
+            "source": "ArrayOfRequirementsHandlers",
+            "target": "RequirementsHandler",
+            "name": "ArrayOfRequirementsHandlers::*"
+        },
+        {
             "source": "ArrayOfSignatureReferences",
             "target": "SignatureReferenceDocMDP",
             "name": "ArrayOfSignatureReferences::*"
@@ -16549,7 +16566,12 @@
         },
         {
             "source": "RequirementsEnableJavaScripts",
-            "target": "ArrayOfs",
+            "target": "ArrayOfRequirementsHandlers",
+            "name": "RequirementsEnableJavaScripts::RH"
+        },
+        {
+            "source": "RequirementsEnableJavaScripts",
+            "target": "RequirementsHandler",
             "name": "RequirementsEnableJavaScripts::RH"
         },
         {
