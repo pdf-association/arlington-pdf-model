@@ -8890,7 +8890,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[RequirementsEnableJavaScripts]"
+        "Link": "[RequirementsEnableJavaScripts,RequirementsHandler]"
       }
     }
   },
@@ -8904,7 +8904,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[]"
+        "Link": "[RequirementsHandler]"
       }
     }
   },
@@ -16644,7 +16644,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@LW>0)]"
+        "PossibleValues": "[fn:Eval(@LW>=0)]"
       },
       "LC": {
         "Key": "LC",
@@ -21756,6 +21756,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "PossibleValues": "[];[fn:Eval(@PS>0)]",
         "SpecialCase": "[fn:IsMeaningful(@Subtype==P)]"
       },
       "OS": {
@@ -21766,7 +21767,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "1",
-        "PossibleValues": "[fn:Eval(@OS>=0)]",
+        "PossibleValues": "[fn:Eval(@OS>0)]",
         "SpecialCase": "[fn:IsMeaningful(@Subtype==O)]"
       },
       "OB": {
@@ -22027,7 +22028,38 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[[]];[]",
-        "Link": "[ArrayOfs];[]"
+        "Link": "[ArrayOfRequirementsHandlers];[RequirementsHandler]"
+      }
+    }
+  },
+  {
+    "id": "RequirementsHandler",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[ReqHandler]"
+      },
+      "S": {
+        "Key": "S",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[JS,NoOp]"
+      },
+      "Script": {
+        "Key": "Script",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
       }
     }
   },

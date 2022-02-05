@@ -9608,7 +9608,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@LW>0)]"
+        "PossibleValues": "[fn:Eval(@LW>=0)]"
       },
       "LC": {
         "Key": "LC",

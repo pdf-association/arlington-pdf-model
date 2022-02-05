@@ -20348,7 +20348,7 @@
       <ENTRY>
          <NAME>LW</NAME>
          <VALUES>
-            <VALUE type="number">fn:Eval(@LW&gt;0)</VALUE>
+            <VALUE type="number">fn:Eval(@LW&gt;=0)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -27026,6 +27026,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>PS</NAME>
+         <VALUES>
+            <VALUE type="number">fn:Eval(@PS&gt;0)</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="name">false</VALUE>
@@ -27038,7 +27041,7 @@
       <ENTRY>
          <NAME>OS</NAME>
          <VALUES>
-            <VALUE type="number">fn:Eval(@OS&gt;=0)</VALUE>
+            <VALUE type="number">fn:Eval(@OS&gt;0)</VALUE>
             <VALUE isDefaultValue="true" type="number">1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
