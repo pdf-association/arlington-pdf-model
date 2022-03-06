@@ -89,7 +89,7 @@ public:
     std::string get_linkset_for_object_type(ArlPDFObject* obj, const std::string &types, const std::string &links);
     bool is_required_key(ArlPDFObject* obj, const std::string& reqd, const std::string& pdf_vers = "2.0");
 
-    void check_basics(ArlPDFObject* obj, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path &grammar_file);
+    void check_basics(ArlPDFObject* obj, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path &grammar_file, const std::string &context);
     bool check_possible_values(ArlPDFObject* object, int key_idx, const ArlTSVmatrix& tsv_data, const int index, std::wstring &real_str_value);
     ArlPDFObject* find_via_inheritance(ArlPDFDictionary* obj, const std::wstring& key, int depth = 0);
 };

@@ -46,6 +46,8 @@ namespace fs = std::filesystem;
 std::ostream  cnull(0);
 std::wostream wcnull(0);
 
+/// @brief Global control over colorized output
+bool no_color = false;
 
 /// @brief Validates a single PDF file against the Arlington PDF model
 ///
@@ -77,12 +79,12 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
         }
         else
         {
-            ofs << "Error: failed to acquire Trailer in: " << fs::absolute(pdf_file_name).lexically_normal() << std::endl;
+            ofs << COLOR_ERROR << "Error: failed to acquire Trailer in: " << fs::absolute(pdf_file_name).lexically_normal() << COLOR_RESET << std::endl;
         }
         delete trailer;
     }
     catch (std::exception& ex) {
-        ofs << "Error: EXCEPTION: " << ex.what() << std::endl;
+        ofs << COLOR_ERROR << "Error: EXCEPTION: " << ex.what() << COLOR_RESET << std::endl;
     }
 
     // Finally...
@@ -137,6 +139,7 @@ int main(int argc, char* argv[]) {
     sarge.setArgument("c", "checkdva", "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
     sarge.setArgument("d", "debug",    "output additional debugging information (verbose!)", false);
     sarge.setArgument("",  "clobber",  "always overwrite PDF output report files (--pdf) rather than append underscores", false);
+    sarge.setArgument("",  "no-color", "disable colorized text output (useful when redirecting or piping output)", false);
     sarge.setArgument("m", "batchmode", "stop popup error dialog windows - redirect errors to console (Windows only)", false);
     sarge.setArgument("o", "out",      "output file or folder. Default is stdout. See --clobber for overwriting behavior", true);
     sarge.setArgument("p", "pdf",      "input PDF file or folder.", true);
@@ -148,7 +151,7 @@ int main(int argc, char* argv[]) {
 #else
     if (!sarge.parseArguments(argc, argv)) {
 #endif
-        std::cerr << "ERROR: error parsing command line arguments" << std::endl;
+        std::cerr << COLOR_ERROR << "ERROR: error parsing command line arguments" << COLOR_RESET << std::endl;
         sarge.printHelp();
         pdf_io.shutdown();
         return -1;
@@ -174,6 +177,8 @@ int main(int argc, char* argv[]) {
     bool            debug_mode = sarge.exists("debug");
     bool            terse = sarge.exists("brief");
 
+    no_color = sarge.exists("no-color");
+
 #if defined(_WIN32) || defined(WIN32)
     // Delet the temp stuff for command line processing
     for (int i = 0; i < argc; i++)
@@ -186,19 +191,20 @@ int main(int argc, char* argv[]) {
         _CrtSetReportFile(_CRT_ERROR, _CRTDBG_FILE_STDERR);
         _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
         _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);
+        // Suppress color as batchmode implies post-processing grep, etc.
+        no_color = true;
     }
 #endif // _WIN32/WIN32
 
-
     // --tsvdir is required option
     if (!sarge.getFlag("tsvdir", s)) {
-        std::cerr << "ERROR: required -t/--tsvdir was not specified!" << std::endl;
+        std::cerr << COLOR_ERROR << "ERROR: required -t/--tsvdir was not specified!" << COLOR_RESET << std::endl;
         sarge.printHelp();
         pdf_io.shutdown();
         return -1;
     }
     if (!is_folder(s)) {
-        std::cerr << "ERROR: -t/--tsvdir \"" << s << "\" is not a valid folder!" << std::endl;
+        std::cerr << COLOR_ERROR << "ERROR: -t/--tsvdir \"" << s << "\" is not a valid folder!" << COLOR_RESET << std::endl;
         sarge.printHelp();
         pdf_io.shutdown();
         return -1;
@@ -268,14 +274,14 @@ int main(int argc, char* argv[]) {
             return 0;
         }
         else {
-            std::cerr << "ERROR: --checkdva argument was not a valid PDF file!" << std::endl;
+            std::cerr << COLOR_ERROR << "ERROR: --checkdva argument was not a valid PDF file!" << COLOR_RESET << std::endl;
             pdf_io.shutdown();
             return -1;
         }
     }
 
     if (input_file.empty()) {
-        std::cerr << "ERROR: no PDF file or folder was specified!" << std::endl;
+        std::cerr << COLOR_ERROR << "ERROR: no PDF file or folder was specified!" << COLOR_RESET << std::endl;
         pdf_io.shutdown();
         return -1;
     }
@@ -333,7 +339,7 @@ int main(int argc, char* argv[]) {
             ofs.close();
         }
         else {
-            std::cerr << "ERROR: --pdf argument was not a valid file!" << std::endl;
+            std::cerr << COLOR_ERROR << "ERROR: --pdf argument was not a valid file!" << COLOR_RESET << std::endl;
             retval = -1;
         }
     }

@@ -49,6 +49,6 @@
 #endif
 
 
-#define TestGrammar_VERSION "v0.6 built " __DATE__ " " __TIME__ " (" TG_COMPILER " " TG_PLATFORM " " TG_CONFIG ")" 
+#define TestGrammar_VERSION "v0.7 built " __DATE__ " " __TIME__ " (" TG_COMPILER " " TG_PLATFORM " " TG_CONFIG ")" 
 
 #endif // TestGrammarVers_h

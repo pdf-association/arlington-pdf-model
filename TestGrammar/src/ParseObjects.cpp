@@ -290,7 +290,7 @@ bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd, cons
 }
 
 
-/// @brief define SCORING_DEBUG to see scoring unside get_link_for_object()
+/// @brief define SCORING_DEBUG to see scoring inside get_link_for_object()
 #undef SCORING_DEBUG
 
 
@@ -462,10 +462,10 @@ std::string CParsePDF::get_link_for_object(ArlPDFObject* obj, const std::string 
         return links[to_ret];
     }
 
-    output << "Error: can't select any link from " << links_string <<" to validate provided object" << obj_name;
+    output << COLOR_ERROR << "Error: can't select any link from " << links_string <<" to validate provided object" << obj_name;
     if (!terse)
         output << " (" << *obj << ")";
-    output << std::endl;
+    output << COLOR_RESET << std::endl;
     return "";
 }
 
@@ -602,7 +602,7 @@ std::string CParsePDF::get_type_string_for_object(ArlPDFObject *obj) {
 ArlPDFObject* CParsePDF::find_via_inheritance(ArlPDFDictionary* obj, const std::wstring& key, int depth) {
     assert(obj != nullptr);
     if (depth > 250) {
-        output << "Error: recursive inheritance depth of " << depth << " exceeded for " << ToUtf8(key) << std::endl;
+        output << COLOR_ERROR << "Error: recursive inheritance depth of " << depth << " exceeded for " << ToUtf8(key) << COLOR_RESET << std::endl;
         return nullptr;
     }
     ArlPDFObject* parent = obj->get_value(L"Parent");
@@ -627,7 +627,8 @@ ArlPDFObject* CParsePDF::find_via_inheritance(ArlPDFDictionary* obj, const std::
 /// @param[in]   key_idx       >= 0. Index into TSV data for this PDF object
 /// @param[in]   tsv_data      the full Arlington PDF model definition read from a TSV
 /// @param[in]   grammar_file  the name Arlington PDF model filename (object name) used for error messages
-void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path &grammar_file) {
+/// @param[in]   context       context (PDF path)
+void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path &grammar_file, const std::string &context) {
     assert(object != nullptr);
     assert(key_idx >= 0);
     auto obj_type = object->get_object_type();
@@ -647,16 +648,20 @@ void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatr
     // Treat null object as though the key is not present (i.e. don't report an error)
     if ((tsv_data[key_idx][TSV_INDIRECTREF] == "TRUE") &&
         (!object->is_indirect_ref() && (obj_type != PDFObjectType::ArlPDFObjTypeNull) && (obj_type != PDFObjectType::ArlPDFObjTypeReference))) {
-        output << "Error: not an indirect reference as required: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")" << std::endl;
+        if (terse)
+            output << context << std::endl;
+        output << COLOR_ERROR << "Error: not an indirect reference as required: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")" << COLOR_RESET << std::endl;
     }
 
     // check type. "null" is always valid and same as not present so ignore.
     int index = get_type_index_for_object(object, tsv_data[key_idx][TSV_TYPE]);
     if ((obj_type != PDFObjectType::ArlPDFObjTypeNull) && (index == -1)) {
-        output << "Error: wrong type: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
+        if (terse)
+            output << context << std::endl;
+        output << COLOR_ERROR << "Error: wrong type: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
         if (!terse)
             output << " should be: " << tsv_data[key_idx][TSV_TYPE] << " and is " << get_type_string_for_object(object) << " (" << *object << ")";
-        output << std::endl;
+        output << COLOR_RESET << std::endl;
     }
 
     // possible value, could be one of many
@@ -666,19 +671,21 @@ void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatr
     if ((tsv_data[key_idx][TSV_POSSIBLEVALUES] != "") && (index != -1)) {
         std::wstring str_value;
         if (!check_possible_values(object, key_idx, tsv_data, index, str_value)) {
+            if (terse)
+                output << context << std::endl;
             if (tsv_data[key_idx][TSV_POSSIBLEVALUES].find("fn:") == std::string::npos) {
                 // No predicates - so an error...
-                output << "Error: wrong value: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
+                output << COLOR_ERROR << "Error: wrong value: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
             }
             else {
                 /// @todo Predicates - so just a warning...
-                output << "Warning: possibly wrong value (predicates NOT supported): " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
+                output << COLOR_WARNING << "Warning: possibly wrong value (predicates NOT supported): " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file.stem() << ")";
             }
             if (!terse) {
                 output << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES] << " and is ";
                 output << get_type_string_for_object(object) << "==" << ToUtf8(str_value) << " (" << *object << ")";
             }
-            output << std::endl;
+            output << COLOR_RESET << std::endl;
         }
     }
 }
@@ -713,18 +720,18 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
                 }
                 else {
                     // Error: name tree Names array did not have pairs of entries (obj2 == nullptr)
-                    output << "Error: name tree Names array element #" << i << " - missing 2nd element in a pair" << std::endl;
+                    output << COLOR_ERROR << "Error: name tree Names array element #" << i << " - missing 2nd element in a pair for " << strip_leading_whitespace(context) << COLOR_RESET << std::endl;
                 }
             }
             else {
                 // Error: 1st in the pair was not OK
                 if (obj1 == nullptr)
-                    output << "Error: name tree Names array element #" << i << " - 1st element in a pair returned null" << std::endl;
+                    output << COLOR_ERROR << "Error: name tree Names array element #" << i << " - 1st element in a pair returned null for " << strip_leading_whitespace(context) << COLOR_RESET << std::endl;
                 else {
-                    output << "Error: name tree Names array element #" << i << " - 1st element in a pair was not a string";
+                    output << COLOR_ERROR << "Error: name tree Names array element #" << i << " - 1st element in a pair was not a string for " << strip_leading_whitespace(context);
                     if (!terse)
                         output << " (" << *obj1 << ")";
-                    output << std::endl;
+                    output << COLOR_RESET << std::endl;
                 }
             }
         }
@@ -734,12 +741,12 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
         //                  if and only if Kids is not present"
         if (root && (kids_obj == nullptr)) {
             if (names_obj == nullptr)
-                output << "Error: name tree Names object was missing when Kids was also missing";
+                output << COLOR_ERROR << "Error: name tree Names object was missing when Kids was also missing for " << strip_leading_whitespace(context);
             else
-                output << "Error: name tree Names object was not an array when Kids was also missing";
+                output << COLOR_ERROR << "Error: name tree Names object was not an array when Kids was also missing for " << strip_leading_whitespace(context);
             if (!terse)
                 output << " (" << *obj << ")";
-            output << std::endl;
+            output << COLOR_RESET << std::endl;
         }
     }
 
@@ -752,16 +759,16 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::string &links,
                     parse_name_tree((ArlPDFDictionary*)item, links, context, false);
                 else {
                     // Error: individual kid isn't dictionary in PDF name tree
-                    output << "Error: name tree Kids array element number #" << i << " was not a dictionary";
+                    output << COLOR_ERROR << "Error: name tree Kids array element number #" << i << " was not a dictionary for " << strip_leading_whitespace(context);
                     if (!terse && (item != nullptr))
                         output << " (" << *item << ")";
-                    output << std::endl;
+                    output << COLOR_RESET << std::endl;
                 }
             }
         }
         else {
             // error: Kids isn't array in PDF name tree
-            output << "Error: name tree Kids object was not an array" << std::endl;
+            output << COLOR_ERROR << "Error: name tree Kids object was not an array for " << strip_leading_whitespace(context) << COLOR_RESET << std::endl;
         }
     }
 }
@@ -797,36 +804,36 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &link
                         }
                         else {
                             // Error: every even entry in a number tree Nums array are supposed be objects
-                            output << "Error: number tree Nums array element #" << i << " was null" << std::endl;
+                            output << COLOR_ERROR << "Error: number tree Nums array element #" << i << " was null for " << strip_leading_whitespace(context) << COLOR_RESET << std::endl;
                         }
                     }
                     else {
                         // Error: every odd entry in a number tree Nums array are supposed be integers
-                        output << "Error: number tree Nums array element #" << i << " was not an integer";
+                        output << COLOR_ERROR << "Error: number tree Nums array element #" << i << " was not an integer for " << strip_leading_whitespace(context);
                         if (!terse)
                             output << " (" << *obj1 << ")";
-                        output << std::endl;
+                        output << COLOR_RESET << std::endl;
                     }
                 }
                 else {
                     // Error: one of the pair of objects was not OK in PDF number tree
-                    output << "Error: number tree Nums array was invalid" << std::endl;
+                    output << COLOR_ERROR << "Error: number tree Nums array was invalid for " << strip_leading_whitespace(context) << COLOR_RESET << std::endl;
                 }
             } // for
         }
         else {
             // Error: Nums isn't an array in PDF number tree
-            output << "Error: number tree Nums object was not an array" << std::endl;
+            output << COLOR_ERROR << "Error: number tree Nums object was not an array for " << strip_leading_whitespace(context) << COLOR_RESET << std::endl;
         }
     }
     else {
         // Table 37 Nums: "Root and leaf nodes only; shall be required in leaf nodes;
         //                 present in the root node if and only if Kids is not present
         if (root && (kids_obj == nullptr)) {
-            output << "Error: number tree Nums object was missing when Kids was also missing";
+            output << COLOR_ERROR << "Error: number tree Nums object was missing when Kids was also missing for " << strip_leading_whitespace(context);
             if (!terse)
                 output << " (" << *obj << ")";
-            output << std::endl;
+            output << COLOR_RESET << std::endl;
         }
     }
 
@@ -839,19 +846,19 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::string &link
                     parse_number_tree((ArlPDFDictionary*)item, links, context, false);
                 else {
                     // Error: individual kid isn't dictionary in PDF number tree
-                    output << "Error: number tree Kids array element number #" << i << " was not a dictionary";
+                    output << COLOR_ERROR << "Error: number tree Kids array element number #" << i << " was not a dictionary for " << context;
                     if (!terse && (item != nullptr))
                         output << " (" << *item << ")";
-                    output << std::endl;
+                    output << COLOR_RESET << std::endl;
                 }
             }
         }
         else {
             // Error: Kids isn't array in PDF number tree
-            output << "Error: number tree Kids object was not an array";
+            output << COLOR_ERROR << "Error: number tree Kids object was not an array for " << context;
             if (!terse)
                 output << " (" << *kids_obj << ")";
-            output << std::endl;
+            output << COLOR_RESET << std::endl;
         }
     }
 }
@@ -890,10 +897,10 @@ void CParsePDF::parse_object()
                 if ((found->second != elem.link) &&
                       (((elem.link != "_UniversalDictionary") && (elem.link != "_UniversalArray")) &&
                        ((found->second != "_UniversalDictionary") && (found->second != "_UniversalArray")))) {
-                    output << "Error: object validated in two different contexts. First: " << found->second << "; second: " << elem.link;
+                    output << COLOR_ERROR << "Error: object validated in two different contexts. First: " << found->second << "; second: " << elem.link;
                     if (!terse)
                         output << " in: " << strip_leading_whitespace(elem.context) << " " << found->first;
-                    output << std::endl;
+                    output << COLOR_RESET << std::endl;
                 }
                 continue;
             }
@@ -901,7 +908,8 @@ void CParsePDF::parse_object()
             mapped.insert(std::make_pair(hash, elem.link));
         }
 
-        output << elem.context << std::endl;
+        if (!terse)
+            output << elem.context << std::endl;
         elem.context = "  " + elem.context;
 
         fs::path  grammar_file = grammar_folder;
@@ -937,7 +945,7 @@ void CParsePDF::parse_object()
                     for (auto& vec : data_list) {
                         key_idx++;
                         if (vec[TSV_KEYNAME] == ToUtf8(key)) {
-                            check_basics(inner_obj, key_idx, data_list, elem.link);
+                            check_basics(inner_obj, key_idx, data_list, elem.link, elem.context);
                             is_found = true;
                             break;
                         }
@@ -965,18 +973,22 @@ void CParsePDF::parse_object()
                                 break;
                             }
 
-                    // Still didn't find the key - report as an extension if not terse.
-                    if (!is_found && !terse) {
+                    // Still didn't find the key - report as an extension 
+                    if (!is_found) {
                         std::string k = ToUtf8(key);
+                        if (terse)
+                            output << elem.context << std::endl;
                         if (is_second_or_third_class_pdf_name(k))
-                            output << "Warning: second/third class key '" << k << "' is not defined in Arlington for " << elem.link << std::endl;
+                            output << COLOR_WARNING << "Warning: second/third class key '" << k << "' is not defined in Arlington for " << elem.link << COLOR_RESET << std::endl;
                         else
-                            output << "Warning: unknown key '" << k << "' is not defined in Arlington for " << elem.link << std::endl;
+                            output << COLOR_WARNING << "Warning: unknown key '" << k << "' is not defined in Arlington for " << elem.link << COLOR_RESET << std::endl;
                     }
                 }
                 else {
                     // malformed PDF or parsing limitation in PDF SDK?
-                    output << "Error: could not get value for key '" << ToUtf8(key) << "' (" << elem.link << ")" << std::endl;
+                    if (terse)
+                        output << elem.context << std::endl;
+                    output << COLOR_ERROR << "Error: could not get value for key '" << ToUtf8(key) << "' (" << elem.link << ")" << COLOR_RESET << std::endl;
                 }
             } // for
 
@@ -986,18 +998,22 @@ void CParsePDF::parse_object()
                     ArlPDFObject* inner_obj = dictObj->get_value(ToWString(vec[TSV_KEYNAME]));
                     if (inner_obj == nullptr) {
                         if (vec[TSV_INHERITABLE] == "FALSE") {
-                            output << "Error: non-inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << elem.link << ")";
+                            if (terse)
+                                output << elem.context << std::endl;
+                            output << COLOR_ERROR << "Error: non-inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << elem.link << ")";
                             if (!terse)
                                 output << " (" << *dictObj << ")";
-                            output << std::endl;
+                            output << COLOR_RESET << std::endl;
                         } else {
                             /// @todo support inheritance
                             inner_obj = find_via_inheritance(dictObj, ToWString(vec[TSV_KEYNAME]));
                             if (inner_obj == nullptr) {
-                                output << "Error: inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << elem.link << ")";
+                                if (terse)
+                                    output << elem.context << std::endl;
+                                output << COLOR_ERROR << "Error: inheritable required key doesn't exist: " << vec[TSV_KEYNAME] << " (" << elem.link << ")";
                                 if (!terse)
                                     output << " (" << *dictObj << ")";
-                                output << std::endl;
+                                output << COLOR_RESET << std::endl;
                             }
                         }
                     }
@@ -1059,7 +1075,9 @@ void CParsePDF::parse_object()
             // Use null-stream to suppress messages - should have used "--validate" first anyway
             bool ambiguous;
             if (!check_valid_array_definition(elem.link, key_list, cnull, &ambiguous)) {
-                output << "Error: PDF array object encountered, but using Arlington dictionary " << elem.link << std::endl;
+                if (terse)
+                    output << elem.context << std::endl;
+                output << COLOR_ERROR << "Error: PDF array object encountered, but using Arlington dictionary " << elem.link << COLOR_RESET << std::endl;
                 continue;
             }
 
@@ -1068,7 +1086,7 @@ void CParsePDF::parse_object()
                 if (item != nullptr) {
                     if ((first_wildcard == 0) && (data_list[0][TSV_KEYNAME] == "*")) {
                         // All array elements will match wildcard
-                        check_basics(item, 0, data_list, elem.link);
+                        check_basics(item, 0, data_list, elem.link, elem.context);
                         if (data_list[0][TSV_LINK] != "") {
                             std::string t = remove_type_predicates(data_list[0][TSV_TYPE]);
                             std::string lnk = get_linkset_for_object_type(item, t, data_list[0][TSV_LINK]);
@@ -1080,7 +1098,7 @@ void CParsePDF::parse_object()
                     else if ((first_wildcard > i) && (i < (int)data_list.size())) {
                         // No wildcards to this array element
                         assert(data_list[i][TSV_KEYNAME] == std::to_string(i));
-                        check_basics(item, i, data_list, elem.link);
+                        check_basics(item, i, data_list, elem.link, elem.context);
                         if (data_list[i][TSV_LINK] != "") {
                             std::string t = remove_type_predicates(data_list[i][TSV_TYPE]);
                             std::string lnk = get_linkset_for_object_type(item, t, data_list[i][TSV_LINK]);
@@ -1095,24 +1113,30 @@ void CParsePDF::parse_object()
 
             auto array_size = arrayObj->get_num_elements();
             if ((first_notreqd == ALL_ARRAY_ELEMS) && (first_wildcard == ALL_ARRAY_ELEMS) && (data_list.size() != array_size)) {
-                output << "Error: array length incorrect for " << elem.link;
+                if (terse)
+                    output << elem.context << std::endl;
+                output << COLOR_ERROR << "Error: array length incorrect for " << elem.link;
                 if (!terse)
                     output << ", wanted " << data_list.size() << ", got " << array_size << " (" << *arrayObj << ")";
-                output << std::endl;
+                output << COLOR_RESET << std::endl;
             }
 
             if ((first_notreqd != ALL_ARRAY_ELEMS) && (first_notreqd > array_size)) {
-                output << "Error: array " << elem.link << " requires " << first_notreqd << " elements, but only had " << array_size;
+                if (terse)
+                    output << elem.context << std::endl;
+                output << COLOR_ERROR << "Error: array " << elem.link << " requires " << first_notreqd << " elements, but only had " << array_size;
                 if (!terse)
                     output << " (" << *arrayObj << ")";
-                output << std::endl;
+                output << COLOR_RESET << std::endl;
             }
         }
         else {
-            output << "Error: unexpected object type " << PDFObjectType_strings[(int)obj_type] << " for " << elem.link;
+            if (terse)
+                output << elem.context << std::endl;
+            output << COLOR_ERROR << "Error: unexpected object type " << PDFObjectType_strings[(int)obj_type] << " for " << elem.link;
             if (!terse)
                 output << " (" << *elem.object << ")";
-            output << std::endl;
+            output << COLOR_RESET << std::endl;
         }
     } // while queue not empty
 }

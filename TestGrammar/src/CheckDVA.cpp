@@ -751,19 +751,19 @@ void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK &pdfsdk, const std::filesystem::
                      process_dict(grammar_folder, ofs, (ArlPDFDictionary*)formal_rep);
                 }
                 else {
-                    ofs << "Error: failed to acquire Trailer/Root/FormalRepTree" << std::endl;
+                    ofs << COLOR_ERROR << "Error: failed to acquire Trailer/Root/FormalRepTree" << COLOR_RESET << std::endl;
                 }
             }
             else {
-                ofs << "Error: failed to acquire Trailer/Root" << std::endl;
+                ofs << COLOR_ERROR << "Error: failed to acquire Trailer/Root" << COLOR_RESET << std::endl;
             }
         }
         else {
-            ofs << "Error: failed to acquire Trailer" << std::endl;
+            ofs << COLOR_ERROR << "Error: failed to acquire Trailer" << COLOR_RESET << std::endl;
         }
     }
     catch (std::exception& ex) {
-        ofs << "Error: EXCEPTION: " << ex.what() << std::endl;
+        ofs << COLOR_ERROR << "Error: EXCEPTION: " << ex.what() << COLOR_RESET << std::endl;
     }
 
     // Finally...

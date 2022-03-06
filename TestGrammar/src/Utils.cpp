@@ -44,7 +44,6 @@ extern HINSTANCE ghInstance;
 static const std::regex  r_sinceVersion("fn:SinceVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
 static const std::regex  r_isDeprecated("fn:Deprecated\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
 
-
 /// @brief Converts a Unicode string to UTF8
 ///
 /// @param[in] unicode Unicode input
@@ -399,7 +398,7 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
             return true;
         }
         else if (keys[0] == "0*") {
-            ofs << "Warning: single element array with '0*' should use '*' " << fname << std::endl;
+            ofs << COLOR_WARNING << "Warning: single element array with '0*' should use '*' " << fname << COLOR_RESET << std::endl;
             return true;
         }
         else {
@@ -424,12 +423,12 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
             idx = std::stoi(keys[row]);
         }
         catch (std::exception& ex) {
-            ofs << "Error: arrays must use integers: was '" << keys[row] << "', wanted " << row << " for " << fname << ": " << ex.what() << std::endl;
+            ofs << COLOR_ERROR << "Error: arrays must use integers: was '" << keys[row] << "', wanted " << row << " for " << fname << ": " << ex.what() << COLOR_RESET << std::endl;
             return false;
         }
 
         if ((idx != row) && (row > 0)) {
-            ofs << "Error: arrays need to use contiguous integers: was '" << keys[row] << "', wanted " << row << " for " << fname << std::endl;
+            ofs << COLOR_ERROR << "Error: arrays need to use contiguous integers: was '" << keys[row] << "', wanted " << row << " for " << fname << COLOR_RESET << std::endl;
             return false;
         }
 
@@ -440,7 +439,7 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
                 first_wildcard = row;
         }
         else if (first_wildcard >= 0) {
-            ofs << "Error: array using numbered wildcards (integer+'*') need to be contiguous last rows in" << fname << std::endl;
+            ofs << COLOR_ERROR << "Error: array using numbered wildcards (integer+'*') need to be contiguous last rows in" << fname << COLOR_RESET << std::endl;
             return false;
         }
     }

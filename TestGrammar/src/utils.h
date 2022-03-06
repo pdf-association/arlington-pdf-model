@@ -21,6 +21,18 @@
 #include <string>
 #include <filesystem>
 
+///@brief Simple colored text on console control via ANSI codes. Portable across *nix and Windows 10/11.
+#define COLOR_RESET_ANSI    "\033[0m"
+#define COLOR_ERROR_ANSI    "\033[1;31m" // Red foreground
+#define COLOR_WARNING_ANSI  "\033[1;33m" // Yellow foreground
+
+/// @brief Global flag from main, representing --no-color CLI option
+extern bool no_color;
+
+inline std::ostream& COLOR_RESET(std::ostream& os)    { if (!no_color) { os << COLOR_RESET_ANSI; }  return os; }
+inline std::ostream& COLOR_ERROR(std::ostream& os)    { if (!no_color) { os << COLOR_ERROR_ANSI; }  return os; }
+inline std::ostream& COLOR_WARNING(std::ostream & os) { if (!no_color) { os << COLOR_WARNING_ANSI; } return os; }
+
 /// @brief /dev/null equivalents
 extern std::ostream  cnull;
 extern std::wostream wcnull;
