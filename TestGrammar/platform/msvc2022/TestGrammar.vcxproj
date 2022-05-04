@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\pdfium\core\src\fdrm\crypto\fx_crypt.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fdrm\crypto\fx_crypt_aes.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fdrm\crypto\fx_crypt_sha.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_basic_module.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\Adobe-CNS1-UCS2_5.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\B5pc-H_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\B5pc-V_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\cmaps_cns1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\CNS-EUC-H_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\CNS-EUC-V_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\ETen-B5-H_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\ETen-B5-V_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\ETenms-B5-H_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\ETenms-B5-V_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\HKscs-B5-H_5.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\HKscs-B5-V_5.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\UniCNS-UCS2-H_3.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\UniCNS-UCS2-V_3.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\CNS1\UniCNS-UTF16-H_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\fpdf_cmaps.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\Adobe-GB1-UCS2_5.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\cmaps_gb1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\GB-EUC-H_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\GB-EUC-V_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\GBK-EUC-H_2.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\GBK-EUC-V_2.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\GBK2K-H_5.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\GBK2K-V_5.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\GBKp-EUC-H_2.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\GBKp-EUC-V_2.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\GBpc-EUC-H_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\GBpc-EUC-V_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\UniGB-UCS2-H_4.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\GB1\UniGB-UCS2-V_4.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\83pv-RKSJ-H_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\90ms-RKSJ-H_2.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\90ms-RKSJ-V_2.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\90msp-RKSJ-H_2.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\90msp-RKSJ-V_2.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\90pv-RKSJ-H_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\Add-RKSJ-H_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\Add-RKSJ-V_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\Adobe-Japan1-UCS2_4.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\cmaps_japan1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\EUC-H_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\EUC-V_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\Ext-RKSJ-H_2.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\Ext-RKSJ-V_2.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\H_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\UniJIS-UCS2-HW-H_4.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\UniJIS-UCS2-HW-V_4.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\UniJIS-UCS2-H_4.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\UniJIS-UCS2-V_4.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\UniJIS-UTF16-H_5.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\UniJIS-UTF16-V_5.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Japan1\V_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\Adobe-Korea1-UCS2_2.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\cmaps_korea1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\KSC-EUC-H_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\KSC-EUC-V_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\KSCms-UHC-HW-H_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\KSCms-UHC-HW-V_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\KSCms-UHC-H_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\KSCms-UHC-V_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\KSCpc-EUC-H_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\UniKS-UCS2-H_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\UniKS-UCS2-V_1.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\Korea1\UniKS-UTF16-H_0.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_edit\fpdf_edit_content.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_edit\fpdf_edit_create.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_edit\fpdf_edit_doc.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_edit\fpdf_edit_image.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_font\fpdf_font.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_font\fpdf_font_charset.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_font\fpdf_font_cid.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_font\fpdf_font_utility.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_font\ttgsubtable.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\fpdf_page.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\fpdf_page_colors.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\fpdf_page_doc.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\fpdf_page_func.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\fpdf_page_graph_state.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\fpdf_page_image.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\fpdf_page_parser.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\fpdf_page_parser_new.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\fpdf_page_parser_old.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\fpdf_page_path.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\fpdf_page_pattern.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_parser\fpdf_parser_decode.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_parser\fpdf_parser_document.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_parser\fpdf_parser_encrypt.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_parser\fpdf_parser_fdf.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_parser\fpdf_parser_filters.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_parser\fpdf_parser_objects.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_parser\fpdf_parser_parser.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_parser\fpdf_parser_utility.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_render\fpdf_render.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_render\fpdf_render_cache.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_render\fpdf_render_image.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_render\fpdf_render_loadimage.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_render\fpdf_render_pattern.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfapi\fpdf_render\fpdf_render_text.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_action.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_annot.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_ap.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_basic.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_bookmark.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_form.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_formcontrol.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_formfield.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_link.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_metadata.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_ocg.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_tagged.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_utils.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_viewerPreferences.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_vt.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdfdoc\doc_vtmodule.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdftext\fpdf_text.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdftext\fpdf_text_int.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdftext\fpdf_text_search.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdftext\unicodenormalization.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fpdftext\unicodenormalizationdata.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\codec\fx_codec.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\codec\fx_codec_fax.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\codec\fx_codec_flate.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\codec\fx_codec_icc.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\codec\fx_codec_jbig.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\codec\fx_codec_jbig_enc.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\codec\fx_codec_jpeg.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\codec\fx_codec_jpx_opj.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_bio.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_cio.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_dwt.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_event.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_function_list.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_image.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_invert.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_j2k.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_j2k_lib.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_jpt.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_mct.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_mqc.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_openjpeg.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_openjpeg_jp2.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_opj_clock.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_pi.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_raw.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_t1.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_t2.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_tcd.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\src\fx_tgt.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_adler32.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_compress.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_crc32.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_deflate.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_gzclose.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_gzlib.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_gzread.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_gzwrite.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_infback.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_inffast.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_inflate.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_inftrees.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_trees.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_uncompr.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\fx_zlib\src\fx_zlib_zutil.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_ArithIntDecoder.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_Context.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_GeneralDecoder.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_HuffmanDecoder.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_HuffmanTable.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_Image.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_Object.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_PatternDict.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_Segment.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_SymbolDict.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmscam02.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmscgats.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmscnvrt.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmserr.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsgamma.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsgmt.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmshalf.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsintrp.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsio0.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsio1.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmslut.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsmd5.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsmtrx.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsnamed.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsopt.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmspack.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmspcs.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsplugin.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsps2.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmssamp.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmssm.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmstypes.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsvirt.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmswtpnt.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\lcms2\src\fx_cmsxform.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcapimin.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcapistd.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jccoefct.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jccolor.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcdctmgr.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jchuff.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcinit.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcmainct.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcmarker.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcmaster.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcomapi.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcparam.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcphuff.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcprepct.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jcsample.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jctrans.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdapimin.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdapistd.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdcoefct.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdcolor.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jddctmgr.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdhuff.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdinput.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdmainct.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdmarker.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdmaster.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdmerge.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdphuff.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdpostct.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdsample.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jdtrans.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jerror.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jfdctfst.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jfdctint.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jidctfst.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jidctint.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jidctred.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jmemmgr.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jmemnobs.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcodec\libjpeg\fpdfapi_jutils.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fxcrt_platforms.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fxcrt_posix.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fxcrt_windows.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_arabic.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_array.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_bstring.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_buffer.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_coords.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_gcc.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_list.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_maps.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_memmgr.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_plex.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_utf.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_util.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_basic_wstring.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_extension.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_ucddata.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_unicode.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_xml_composer.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxcrt\fx_xml_parser.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\agg\src\fxfx_agg_curves.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\agg\src\fxfx_agg_driver.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\agg\src\fxfx_agg_path_storage.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\agg\src\fxfx_agg_rasterizer_scanline_aa.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\agg\src\fxfx_agg_vcgen_dash.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\agg\src\fxfx_agg_vcgen_stroke.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\android\fpf_skiafont.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\android\fpf_skiafontmgr.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\android\fpf_skiamodule.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\apple\fx_apple_platform.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\apple\fx_mac_imp.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\apple\fx_quartz_device.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\dib\fx_dib_composite.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\dib\fx_dib_convert.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\dib\fx_dib_engine.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\dib\fx_dib_main.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\dib\fx_dib_transform.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitDingbats.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitFixed.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitFixedBold.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitFixedBoldItalic.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitFixedItalic.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitSans.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitSansBold.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitSansBoldItalic.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitSansItalic.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitSansMM.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitSerif.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitSerifBold.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitSerifBoldItalic.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitSerifItalic.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitSerifMM.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fontdata\chromefontdata\FoxitSymbol.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_cff.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_ftbase.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_ftbitmap.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_ftglyph.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_ftinit.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_ftlcdfil.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_ftmm.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_ftsystem.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_psaux.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_pshinter.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_psmodule.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_raster.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_sfnt.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_smooth.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_truetype.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_type1.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\fx_freetype\src\fxft_type1cid.c" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\ge\fx_ge.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\ge\fx_ge_device.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\ge\fx_ge_font.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\ge\fx_ge_fontmap.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\ge\fx_ge_linux.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\ge\fx_ge_path.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\ge\fx_ge_ps.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\ge\fx_ge_text.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\skia\fx_skia_blitter_new.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\skia\fx_skia_device.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\win32\fx_win32_device.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\win32\fx_win32_dib.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\win32\fx_win32_dwrite.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\win32\fx_win32_gdipext.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\fxge\win32\fx_win32_print.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\reflow\autoreflow.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\reflow\layoutprocessor_reflow.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\reflow\layoutprovider_taggedpdf.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\reflow\reflowedpage.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\reflow\reflowedtextpage.cpp" />
+    <ClCompile Include="..\..\pdfium\core\src\reflow\reflowengine.cpp" />
+    <ClCompile Include="..\..\sarge\sarge.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level4</WarningLevel>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ArlingtonPDFShimPDFium.cpp" />
+    <ClCompile Include="..\..\src\ArlingtonPDFShimPDFix.cpp" />
+    <ClCompile Include="..\..\src\ArlingtonPDFShimQPDF.cpp" />
+    <ClCompile Include="..\..\src\ArlingtonTSVGrammarFile.cpp" />
+    <ClCompile Include="..\..\src\CheckDVA.cpp" />
+    <ClCompile Include="..\..\src\CheckGrammar.cpp" />
+    <ClCompile Include="..\..\src\Main.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ParseObjects.cpp" />
+    <ClCompile Include="..\..\src\PredicateProcessor.cpp" />
+    <ClCompile Include="..\..\src\Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\pdfium\core\include\fdrm\fx_crypt.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfapi\fpdfapi.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfapi\fpdf_module.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfapi\fpdf_objects.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfapi\fpdf_page.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfapi\fpdf_pageobj.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfapi\fpdf_parser.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfapi\fpdf_render.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfapi\fpdf_resource.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfapi\fpdf_serial.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfdoc\fpdf_ap.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfdoc\fpdf_doc.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfdoc\fpdf_tagged.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdfdoc\fpdf_vt.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fpdftext\fpdf_text.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcodec\fx_codec.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcodec\fx_codec_def.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcodec\fx_codec_provider.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcrt\fx_arb.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcrt\fx_basic.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcrt\fx_coordinates.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcrt\fx_ext.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcrt\fx_memory.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcrt\fx_stream.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcrt\fx_string.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcrt\fx_system.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcrt\fx_ucd.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxcrt\fx_xml.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxge\fpf.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxge\fx_dib.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxge\fx_font.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxge\fx_freetype.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxge\fx_ge.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxge\fx_ge_apple.h" />
+    <ClInclude Include="..\..\pdfium\core\include\fxge\fx_ge_win32.h" />
+    <ClInclude Include="..\..\pdfium\core\include\reflow\fpdf_layout.h" />
+    <ClInclude Include="..\..\pdfium\core\include\reflow\reflowengine.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\foxitnames.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\config\ftconfig.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\config\ftheader.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\config\ftmodule.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\config\ftoption.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\config\ftstdlib.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\freetype.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftadvanc.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftautoh.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftbbox.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftbdf.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftbitmap.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftbzip2.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftcache.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftcffdrv.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftcid.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\fterrdef.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\fterrors.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftgasp.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftglyph.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftgxval.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftgzip.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftimage.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftincrem.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftlcdfil.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftlist.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftlzw.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftmac.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftmm.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftmodapi.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftmoderr.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftotval.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftoutln.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftpfr.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftrender.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftsizes.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftsnames.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftstroke.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftsynth.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftsystem.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\fttrigon.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftttdrv.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\fttypes.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftwinfnt.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ftxf86.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\autohint.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\ftcalc.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\ftdebug.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\ftdriver.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\ftgloadr.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\ftmemory.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\ftobjs.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\ftpic.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\ftrfork.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\ftserv.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\ftstream.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\fttrace.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\ftvalid.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\internal.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\psaux.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\pshints.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svbdf.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svcid.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svgldict.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svgxval.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svkern.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svmm.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svotval.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svpfr.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svpostnm.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svprop.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svpscmap.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svpsinfo.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svsfnt.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svttcmap.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svtteng.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svttglyf.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svwinfnt.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\services\svxf86nm.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\sfnt.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\t1types.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\internal\tttypes.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\t1tables.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ttnameid.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\tttables.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\tttags.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\freetype\ttunpat.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\freetype\ft2build.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\libjpeg\jconfig.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\libjpeg\jerror.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\libjpeg\jmorecfg.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\libjpeg\jpegint.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\libjpeg\jpeglib.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\zlib\zconf.h" />
+    <ClInclude Include="..\..\pdfium\core\include\thirdparties\zlib\zlib.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdfapi\fpdf_cmaps\cmap_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdfapi\fpdf_edit\editint.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdfapi\fpdf_font\common.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdfapi\fpdf_font\font_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdfapi\fpdf_font\ttgsubtable.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdfapi\fpdf_page\pageint.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdfapi\fpdf_parser\filters_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdfapi\fpdf_render\render_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdfdoc\pdf_vt.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdfdoc\tagged_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdftext\text_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fpdftext\txtproc.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\codec\codec_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\fx_libopenjpeg\include\fx_openjpeg.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\fx_zlib\include\fx_zlib.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_ArithDecoder.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_ArithIntDecoder.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_ArithQe.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_BitStream.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_Context.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_Define.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_GeneralDecoder.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_HuffmanDecoder.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_HuffmanTable.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_HuffmanTable_Standard.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_Image.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_List.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_Module.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_Object.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_Page.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_PatternDict.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_Segment.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\jbig2\JBig2_SymbolDict.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\lcms2\include\fx_lcms2.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\lcms2\include\fx_lcms2_plugin.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\cderror.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\cdjpeg.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\jchuff.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\jconfig.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\jdct.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\jdhuff.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\jerror.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\jinclude.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\jmemsys.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\jmorecfg.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\jpegint.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\jpeglib.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\jversion.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcodec\libjpeg\transupp.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcrt\extension.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcrt\fxcrt_platforms.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcrt\fxcrt_posix.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcrt\fxcrt_windows.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcrt\fx_arabic.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcrt\plex.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxcrt\xml_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\agg\include\fxfx_agg_basics.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\agg\include\fxfx_agg_clip_liang_barsky.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\agg\include\fxfx_agg_conv_dash.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\agg\include\fxfx_agg_conv_stroke.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\agg\include\fxfx_agg_curves.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\agg\include\fxfx_agg_path_storage.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\agg\include\fxfx_agg_rasterizer_scanline_aa.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\agg\include\fxfx_agg_renderer_scanline.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\agg\include\fxfx_agg_rendering_buffer.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\agg\include\fxfx_agg_scanline_u.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\agg\include\fx_agg_driver.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\android\fpf_skiafont.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\android\fpf_skiafontmgr.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\android\fpf_skiamodule.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\android\fx_fpf.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\apple\apple_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\dib\dib_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\fx_freetype\include\fxft_cffobjs.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\fx_freetype\include\fxft_cfftypes.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\fx_freetype\include\fxft_freetype.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\fx_freetype\include\fxft_ft2build.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\fx_freetype\include\fxft_ftmm.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\fx_freetype\include\fxft_ftobjs.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\fx_freetype\include\fxft_ftotval.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\fx_freetype\include\fxft_ftoutln.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\fx_freetype\include\fxft_ftstream.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\fx_freetype\include\fxft_tttables.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\fx_freetype\include\fxft_tttypes.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\ge\text_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\skia\fx_skia_blitter_new.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\skia\fx_skia_device.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\win32\dwrite_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fxge\win32\win32_int.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fx_freetype.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fx_jpeglib.h" />
+    <ClInclude Include="..\..\pdfium\core\src\fx_zlib.h" />
+    <ClInclude Include="..\..\pdfium\core\src\reflow\autoreflow.h" />
+    <ClInclude Include="..\..\pdfium\core\src\reflow\layoutprovider_taggedpdf.h" />
+    <ClInclude Include="..\..\pdfium\core\src\reflow\reflowedpage.h" />
+    <ClInclude Include="..\..\pdfium\core\src\reflow\reflowedtextpage.h" />
+    <ClInclude Include="..\..\sarge\sarge.h" />
+    <ClInclude Include="..\..\src\ArlingtonPDFShim.h" />
+    <ClInclude Include="..\..\src\ArlingtonTSVGrammarFile.h" />
+    <ClInclude Include="..\..\src\CheckGrammar.h" />
+    <ClInclude Include="..\..\src\ParseObjects.h" />
+    <ClInclude Include="..\..\src\Pdfix.h" />
+    <ClInclude Include="..\..\src\PredicateProcessor.h" />
+    <ClInclude Include="..\..\src\TestGrammarVers.h" />
+    <ClInclude Include="..\..\src\utils.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{B59B8D65-F512-4452-B77A-519B6DBFA037}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>TestGrammar</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)..\..\bin\x86\</OutDir>
+    <IntDir>$(ProjectDir)..\..\build\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)..\..\bin\x64\</OutDir>
+    <IntDir>$(ProjectDir)..\..\build\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)..\..\bin\x86\</OutDir>
+    <IntDir>$(ProjectDir)..\..\build\</IntDir>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)..\..\bin\x64\</OutDir>
+    <IntDir>$(ProjectDir)..\..\build\</IntDir>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\pdfix;$(ProjectDir)..\..\qpdf\include;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\pdfix;$(ProjectDir)..\..\qpdf\include;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\pdfix;$(ProjectDir)..\..\qpdf\include;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\pdfix;$(ProjectDir)..\..\qpdf\include;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
