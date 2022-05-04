@@ -16,4 +16,3 @@ T	string-text	1.1		FALSE	FALSE	FALSE
 Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 Open	boolean	1.0		FALSE	FALSE	FALSE	false				
 Name	name	1.0		FALSE	FALSE	FALSE	Note	[Comment,Key,Note,Help,NewParagraph,Paragraph,Insert]			
-State	string-text	1.0		FALSE	FALSE	FALSE	fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))	['Marked','Unmarked','Accepted','Rejected','Cancelled','Completed','None']			

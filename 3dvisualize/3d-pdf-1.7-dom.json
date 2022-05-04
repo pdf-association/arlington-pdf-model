@@ -1346,11 +1346,25 @@
             "name": "CryptFilter dict"
         },
         {
+            "id": "CryptFilterMap",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "CryptFilterMap map"
+        },
+        {
             "id": "CryptFilterPublicKey",
             "val": 36,
             "group": "dict",
             "desc": "6 keys",
             "name": "CryptFilterPublicKey dict"
+        },
+        {
+            "id": "CryptFilterPublicKeyMap",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "CryptFilterPublicKeyMap map"
         },
         {
             "id": "Data",
@@ -2643,9 +2657,9 @@
         },
         {
             "id": "StandardLayoutAttributesBLSE",
-            "val": 484,
+            "val": 729,
             "group": "dict",
-            "desc": "22 keys",
+            "desc": "27 keys",
             "name": "StandardLayoutAttributesBLSE dict"
         },
         {
@@ -2657,9 +2671,9 @@
         },
         {
             "id": "StandardLayoutAttributesILSE",
-            "val": 289,
+            "val": 441,
             "group": "dict",
-            "desc": "17 keys",
+            "desc": "21 keys",
             "name": "StandardLayoutAttributesILSE dict"
         },
         {
@@ -12801,9 +12815,27 @@
             "name": "ColorantsDict::*"
         },
         {
+            "source": "CryptFilterMap",
+            "target": "CryptFilter",
+            "name": "CryptFilterMap::*",
+            "color": "red"
+        },
+        {
             "source": "CryptFilterPublicKey",
             "target": "ArrayOfStringsByte",
             "name": "CryptFilterPublicKey::Recipients",
+            "color": "red"
+        },
+        {
+            "source": "CryptFilterPublicKeyMap",
+            "target": "CryptFilter",
+            "name": "CryptFilterPublicKeyMap::*",
+            "color": "red"
+        },
+        {
+            "source": "CryptFilterPublicKeyMap",
+            "target": "CryptFilterPublicKey",
+            "name": "CryptFilterPublicKeyMap::*",
             "color": "red"
         },
         {
@@ -13173,12 +13205,12 @@
         },
         {
             "source": "EncryptionPublicKey",
-            "target": "CryptFilter",
+            "target": "CryptFilterMap",
             "name": "EncryptionPublicKey::CF"
         },
         {
             "source": "EncryptionPublicKey",
-            "target": "CryptFilterPublicKey",
+            "target": "CryptFilterPublicKeyMap",
             "name": "EncryptionPublicKey::CF"
         },
         {
@@ -13189,7 +13221,7 @@
         },
         {
             "source": "EncryptionStandard",
-            "target": "CryptFilter",
+            "target": "CryptFilterMap",
             "name": "EncryptionStandard::CF"
         },
         {
@@ -17865,6 +17897,11 @@
             "source": "StandardLayoutAttributesBLSE",
             "target": "ArrayOf_4Integers",
             "name": "StandardLayoutAttributesBLSE::TPadding"
+        },
+        {
+            "source": "StandardLayoutAttributesBLSE",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "StandardLayoutAttributesBLSE::TextDecorationColor"
         },
         {
             "source": "StandardLayoutAttributesColumn",

@@ -4436,25 +4436,6 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
-      <ENTRY>
-         <NAME>State</NAME>
-         <VALUES>
-            <VALUE type="string-text">'Marked'</VALUE>
-            <VALUE type="string-text">'Unmarked'</VALUE>
-            <VALUE type="string-text">'Accepted'</VALUE>
-            <VALUE type="string-text">'Rejected'</VALUE>
-            <VALUE type="string-text">'Cancelled'</VALUE>
-            <VALUE type="string-text">'Completed'</VALUE>
-            <VALUE type="string-text">'None'</VALUE>
-            <VALUE isDefaultValue="true" type="string-text">fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="string-text">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
-      </ENTRY>
    </OBJECT>
    <OBJECT id="AnnotTrapNetwork" object_number="034">
       <ENTRY>
@@ -7933,7 +7914,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">true</VALUE>
+            <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
@@ -7993,7 +7974,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">true</VALUE>
+            <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
@@ -8005,7 +7986,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="array">true</VALUE>
+            <VALUE type="array">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
@@ -9045,28 +9026,6 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>EFF</NAME>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>EncryptMetadata</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="boolean">true</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="boolean">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
    <OBJECT id="EncryptionStandard" object_number="135">
@@ -10114,7 +10073,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">true</VALUE>
+            <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
@@ -13579,7 +13538,7 @@
       <ENTRY>
          <NAME>ML</NAME>
          <VALUES>
-            <VALUE type="number">fn:Eval(@ML&gt;0)</VALUE>
+            <VALUE type="number">fn:Eval(@ML&gt;=1)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -19689,7 +19648,6 @@
          <NAME>Placement</NAME>
          <VALUES>
             <VALUE type="name">Block</VALUE>
-            <VALUE type="name">Inline</VALUE>
             <VALUE type="name">Before</VALUE>
             <VALUE type="name">Start</VALUE>
             <VALUE type="name">End</VALUE>
@@ -19865,6 +19823,50 @@
          <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
       </ENTRY>
+      <ENTRY>
+         <NAME>BaselineShift</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>LineHeight</NAME>
+         <VALUES>
+            <VALUE type="name">Normal</VALUE>
+            <VALUE type="name">Auto</VALUE>
+            <VALUE isDefaultValue="true" type="name">[Normal]</VALUE>
+            <VALUE isDefaultValue="true" type="number">[]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TextDecorationType</NAME>
+         <VALUES>
+            <VALUE type="name">None</VALUE>
+            <VALUE type="name">Underline</VALUE>
+            <VALUE type="name">Overline</VALUE>
+            <VALUE type="name">LineThrough</VALUE>
+            <VALUE isDefaultValue="true" type="name">None</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+      </ENTRY>
    </OBJECT>
    <OBJECT id="StandardLayoutAttributesColumn" object_number="238">
       <ENTRY>
@@ -19932,7 +19934,6 @@
       <ENTRY>
          <NAME>Placement</NAME>
          <VALUES>
-            <VALUE type="name">Block</VALUE>
             <VALUE type="name">Inline</VALUE>
             <VALUE type="name">Before</VALUE>
             <VALUE type="name">Start</VALUE>
@@ -20005,6 +20006,55 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>SpaceBefore</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>SpaceAfter</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(@Placement!=Inline)</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>StartIndent</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>EndIndent</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
@@ -22760,7 +22810,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
-         <SPECIAL_CASE>fn:NotPresent(@SMaskInData&gt;0)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:SinceVersion(1.5,fn:NotPresent(@SMaskInData&gt;0))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Name</NAME>

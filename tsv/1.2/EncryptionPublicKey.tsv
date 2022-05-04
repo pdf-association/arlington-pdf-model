@@ -1,3 +1,2 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Filter	name	1.1		TRUE	FALSE	FALSE		[Adobe.PubSec,AdobePPKLite]			
-EFF	name	1.1		FALSE	FALSE	FALSE			[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]		

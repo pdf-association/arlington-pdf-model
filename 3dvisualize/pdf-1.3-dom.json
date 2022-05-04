@@ -2845,16 +2845,6 @@
         "Inheritable": false,
         "DefaultValue": "Note",
         "PossibleValues": "[Comment,Key,Note,Help,NewParagraph,Paragraph,Insert]"
-      },
-      "State": {
-        "Key": "State",
-        "Type": "string-text",
-        "SinceVersion": 1.0,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))",
-        "PossibleValues": "['Marked','Unmarked','Accepted','Rejected','Cancelled','Completed','None']"
       }
     }
   },
@@ -5382,7 +5372,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.1,
         "Required": false,
-        "IndirectReference": true,
+        "IndirectReference": false,
         "Inheritable": false,
         "Link": "[DestsMap]"
       },
@@ -5420,7 +5410,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": true,
+        "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Outline]"
       },
@@ -5429,7 +5419,7 @@
         "Type": "array",
         "SinceVersion": 1.1,
         "Required": false,
-        "IndirectReference": true,
+        "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfThreads]"
       },
@@ -6160,24 +6150,6 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[adbe.pkcs7.s3,adbe.pkcs7.s4,adbe.pkcs7.s5]"
-      },
-      "EFF": {
-        "Key": "EFF",
-        "Type": "name",
-        "SinceVersion": 1.1,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]"
-      },
-      "EncryptMetadata": {
-        "Key": "EncryptMetadata",
-        "Type": "boolean",
-        "SinceVersion": 1.3,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "true"
       }
     }
   },
@@ -6986,7 +6958,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": true,
+        "IndirectReference": false,
         "Inheritable": false,
         "Link": "[DocInfo]"
       },
@@ -9635,7 +9607,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@ML>0)]"
+        "PossibleValues": "[fn:Eval(@ML>=1)]"
       },
       "D": {
         "Key": "D",

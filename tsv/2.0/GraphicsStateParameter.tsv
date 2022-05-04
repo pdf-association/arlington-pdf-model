@@ -3,7 +3,7 @@ Type	name	1.2		FALSE	FALSE	FALSE		[ExtGState]
 LW	number	1.3		FALSE	FALSE	FALSE		[fn:Eval(@LW>=0)]			
 LC	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval((@LC>=0) && (@LC<=2))]			
 LJ	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval((@LJ>=0) && (@LJ<=2))]			
-ML	number	1.3		FALSE	FALSE	FALSE		[fn:Eval(@ML>0)]			
+ML	number	1.3		FALSE	FALSE	FALSE		[fn:Eval(@ML>=1)]			
 D	array	1.3		FALSE	FALSE	FALSE				[ArrayOfGSPDashPatterns]	
 RI	name	1.3		FALSE	FALSE	FALSE		[AbsoluteColorimetric,RelativeColorimetric,Saturation,Perceptual]			
 OP	boolean	1.2		FALSE	FALSE	FALSE					

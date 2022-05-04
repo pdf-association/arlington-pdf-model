@@ -123,16 +123,6 @@
         "Inheritable": false,
         "DefaultValue": "Note",
         "PossibleValues": "[Comment,Key,Note,Help,NewParagraph,Paragraph,Insert]"
-      },
-      "State": {
-        "Key": "State",
-        "Type": "string-text",
-        "SinceVersion": 1.0,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))",
-        "PossibleValues": "['Marked','Unmarked','Accepted','Rejected','Cancelled','Completed','None']"
       }
     }
   },
@@ -352,7 +342,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": true,
+        "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Outline]"
       },
@@ -672,7 +662,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": true,
+        "IndirectReference": false,
         "Inheritable": false,
         "Link": "[DocInfo]"
       }

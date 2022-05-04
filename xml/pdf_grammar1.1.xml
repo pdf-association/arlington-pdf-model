@@ -543,25 +543,6 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
-      <ENTRY>
-         <NAME>State</NAME>
-         <VALUES>
-            <VALUE type="string-text">'Marked'</VALUE>
-            <VALUE type="string-text">'Unmarked'</VALUE>
-            <VALUE type="string-text">'Accepted'</VALUE>
-            <VALUE type="string-text">'Rejected'</VALUE>
-            <VALUE type="string-text">'Cancelled'</VALUE>
-            <VALUE type="string-text">'Completed'</VALUE>
-            <VALUE type="string-text">'None'</VALUE>
-            <VALUE isDefaultValue="true" type="string-text">fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="string-text">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
-      </ENTRY>
    </OBJECT>
    <OBJECT id="ArrayOfAnnots" isArray="true" object_number="007">
       <ENTRY>
@@ -1326,7 +1307,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">true</VALUE>
+            <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
@@ -1374,7 +1355,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">true</VALUE>
+            <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
@@ -1386,7 +1367,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="array">true</VALUE>
+            <VALUE type="array">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
@@ -1839,16 +1820,6 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
-      <ENTRY>
-         <NAME>EFF</NAME>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
-      </ENTRY>
    </OBJECT>
    <OBJECT id="EncryptionStandard" object_number="043">
       <ENTRY>
@@ -2106,7 +2077,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">true</VALUE>
+            <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
