@@ -12,12 +12,14 @@
 # Contributors: Peter Wyatt, PDF Association
 #
 # A simple makefile to automate some repetitive tasks. Typical usage:
-# - make clean
-# - make 3d
-# - make pandas
-# - make tsv > tsv.out
-# - make xml > xml.out
-# - make validate
+# $ make clean
+# $ make tsv > tsv.out
+# $ make validate
+# $ make 3d
+# $ make pandas
+# $ make xml > xml.out
+#
+# Does NOT make the TestGrammar C++ PoC! Assumes TestGrammar is in the path.
 #
 
 XMLLINT ::= xmllint
@@ -32,8 +34,6 @@ clean:
 	rm -rf ./tsv/1.0/*.tsv ./tsv/1.1/*.tsv ./tsv/1.2/*.tsv ./tsv/1.3/*.tsv ./tsv/1.4/*.tsv
 	rm -rf ./tsv/1.5/*.tsv ./tsv/1.6/*.tsv ./tsv/1.7/*.tsv ./tsv/2.0/*.tsv
 	rm -rf ./gcxml/dist/gcxml.jar
-	rm -rf ./TestGrammar/bin/x64/TestGrammar*.* ./TestGrammar/bin/x86/TestGrammar*.*
-	rm -rf ./TestGrammar/bin/linux/TestGrammar* ./TestGrammar/bin/darwin/TestGrammar*
 
 
 # Make the monolithic TSV file by combining all TSVs - suitable for Jupyter
@@ -58,19 +58,30 @@ pandas:
 	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/1.0 --outdir ./3dvisualize/
 
 
-# Validate each of the existing TSV file sets using Python script. Does NOT create the TSVs!
+# Validate each of the existing TSV file sets using both the Python script and C++ PoC.
+# Does NOT create the TSVs!
 # Ensure to do a "make tsv" beforehand to refresh the PDF version specific file sets!
 .PHONY: validate
 validate:
+	TestGrammar --tsvdir ./tsv/1.0/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.0/ --validate
+	TestGrammar --tsvdir ./tsv/1.1/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.1/ --validate
+	TestGrammar --tsvdir ./tsv/1.2/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.2/ --validate
+	TestGrammar --tsvdir ./tsv/1.3/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.3/ --validate
+	TestGrammar --tsvdir ./tsv/1.4/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.4/ --validate
+	TestGrammar --tsvdir ./tsv/1.5/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.5/ --validate
+	TestGrammar --tsvdir ./tsv/1.6/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.6/ --validate
+	TestGrammar --tsvdir ./tsv/1.7/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.7/ --validate
+	TestGrammar --tsvdir ./tsv/2.0/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/2.0/ --validate
+	TestGrammar --tsvdir ./tsv/latest/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/latest/ --validate
 
 
