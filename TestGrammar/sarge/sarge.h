@@ -1,14 +1,14 @@
-/*
-    sarge.h - Header file for the Sarge command line argument parser project.
-
-    Revision 1
-
-    Originally from: https://github.com/MayaPosch/Sarge
-
-    2019/03/16, Maya Posch
-    2021/06, Peter Wyatt - modified for Level 4 warning free compilation
-*/
-
+///
+/// @file
+/// @brief Interface for the Sarge command line argument parser project.
+///
+/// @version 1
+///
+/// @remark Originally from: https://github.com/MayaPosch/Sarge
+///
+/// @author 2019/03/16, Maya Posch
+/// @author 2021/06, Peter Wyatt - modified for Level 4 warning free compilation
+///
 
 #include <string>
 #include <vector>
