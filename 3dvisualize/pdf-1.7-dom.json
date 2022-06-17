@@ -24120,7 +24120,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[Pagination,Layout,Page,Inline]"
+        "PossibleValues": "[Pagination,Layout,Page]"
       },
       "BBox": {
         "Key": "BBox",
@@ -24146,7 +24146,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[Header,Footer,Watermark,PageNum,Bates,LineNum,Redaction]"
+        "PossibleValues": "[Header,Footer,Watermark]",
+        "SpecialCase": "[fn:IsMeaningful((@Type==Pagination) || (@Type==Inline))]"
       }
     }
   },
@@ -24779,6 +24780,17 @@
         "Key": "Checked",
         "Type": "name",
         "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "off",
+        "PossibleValues": "[on,off,neutral]"
+      },
+      "checked": {
+        "Key": "checked",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,

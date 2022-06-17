@@ -15125,7 +15125,7 @@
         "Type": "dictionary",
         "SinceVersion": 2.0,
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[DPart,DPartRoot]"
       },
@@ -15201,8 +15201,8 @@
         "Key": "DPartRootNode",
         "Type": "dictionary",
         "SinceVersion": 2.0,
-        "Required": false,
-        "IndirectReference": false,
+        "Required": true,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[DPart]"
       },
@@ -15212,7 +15212,8 @@
         "SinceVersion": 2.0,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@RecordLevel>=0)]"
       },
       "NodeNameList": {
         "Key": "NodeNameList",
@@ -30605,7 +30606,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[Header,Footer,Watermark,PageNum,Bates,LineNum,Redaction]"
+        "PossibleValues": "[Header,Footer,Watermark,PageNum,Bates,LineNum,Redaction]",
+        "SpecialCase": "[fn:IsMeaningful((@Type==Pagination) || (@Type==Inline))]"
       }
     }
   },
@@ -31275,6 +31277,17 @@
         "Key": "Checked",
         "Type": "name",
         "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "off",
+        "PossibleValues": "[on,off,neutral]"
+      },
+      "checked": {
+        "Key": "checked",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,

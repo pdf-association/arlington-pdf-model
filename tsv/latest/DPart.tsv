@@ -1,9 +1,9 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[DPart]			
-Parent	dictionary	2.0		TRUE	FALSE	FALSE				[fn:SinceVersion(2.0,DPart),fn:SinceVersion(2.0,DPartRoot)]	
-DParts	array	2.0		fn:IsRequired(fn:NotPresent(Start))	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfDPartArrays)]	
+Parent	dictionary	2.0		TRUE	TRUE	FALSE				[DPart,DPartRoot]	
+DParts	array	2.0		fn:IsRequired(fn:NotPresent(Start))	FALSE	FALSE				[ArrayOfDPartArrays]	
 Start	dictionary	2.0		fn:IsRequired(fn:NotPresent(DParts))	TRUE	FALSE				[PageObject]	
 End	dictionary	2.0		fn:IsRequired(fn:IsPresent(Start))	TRUE	FALSE				[PageObject]	
 DPM	dictionary	2.0		FALSE	FALSE	FALSE				[_UniversalDictionary]	
-AF	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfFileSpecifications)]	
-Metadata	stream	2.0		FALSE	TRUE	FALSE				[fn:SinceVersion(1.4,Metadata)]	
+AF	array	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	
+Metadata	stream	2.0		FALSE	TRUE	FALSE				[Metadata]	

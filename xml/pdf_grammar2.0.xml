@@ -20847,7 +20847,7 @@
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">false</VALUE>
+            <VALUE type="dictionary">true</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>2.0</INTRODUCED>
@@ -20943,9 +20943,9 @@
          <VALUES>
             <VALUE type="dictionary">DPart</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">false</VALUE>
+            <VALUE type="dictionary">true</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>2.0</INTRODUCED>
@@ -20958,6 +20958,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>2.0</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(@RecordLevel&gt;=0)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>NodeNameList</NAME>
@@ -41168,6 +41169,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.7</INTRODUCED>
+         <SPECIAL_CASE>fn:IsMeaningful((@Type==Pagination) || (@Type==Inline))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="StandardLayoutAttributesBLSE" object_number="470">
@@ -42172,6 +42174,22 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.7</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>checked</NAME>
+         <VALUES>
+            <VALUE type="name">on</VALUE>
+            <VALUE type="name">off</VALUE>
+            <VALUE type="name">neutral</VALUE>
+            <VALUE isDefaultValue="true" type="name">off</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.7</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
       <ENTRY>
          <NAME>Desc</NAME>

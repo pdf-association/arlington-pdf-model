@@ -32210,7 +32210,6 @@
             <VALUE type="name">Pagination</VALUE>
             <VALUE type="name">Layout</VALUE>
             <VALUE type="name">Page</VALUE>
-            <VALUE type="name">Inline</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -32246,10 +32245,6 @@
             <VALUE type="name">Header</VALUE>
             <VALUE type="name">Footer</VALUE>
             <VALUE type="name">Watermark</VALUE>
-            <VALUE type="name">PageNum</VALUE>
-            <VALUE type="name">Bates</VALUE>
-            <VALUE type="name">LineNum</VALUE>
-            <VALUE type="name">Redaction</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -32257,6 +32252,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.7</INTRODUCED>
+         <SPECIAL_CASE>fn:IsMeaningful((@Type==Pagination) || (@Type==Inline))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="StandardLayoutAttributesBLSE" object_number="379">
@@ -33210,6 +33206,22 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.7</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>checked</NAME>
+         <VALUES>
+            <VALUE type="name">on</VALUE>
+            <VALUE type="name">off</VALUE>
+            <VALUE type="name">neutral</VALUE>
+            <VALUE isDefaultValue="true" type="name">off</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.7</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
       <ENTRY>
          <NAME>Desc</NAME>

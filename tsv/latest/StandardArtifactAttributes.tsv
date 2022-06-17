@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 O	name	1.4		TRUE	FALSE	FALSE		[Artifact]			
-Type	name	1.4		FALSE	FALSE	FALSE		[Pagination,Layout,Page,Inline]			
+Type	name	1.4		FALSE	FALSE	FALSE		[Pagination,Layout,Page,fn:SinceVersion(2.0,Inline)]			
 BBox	rectangle	1.4		FALSE	FALSE	FALSE					
 Attached	array	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.4,ArrayOf_4NamesForAttached)]	
-Subtype	name	1.7		FALSE	FALSE	FALSE		[Header,Footer,Watermark,PageNum,Bates,LineNum,Redaction]			
+Subtype	name	1.7		FALSE	FALSE	FALSE		[Header,Footer,Watermark,fn:SinceVersion(2.0,PageNum),fn:SinceVersion(2.0,Bates),fn:SinceVersion(2.0,LineNum),fn:SinceVersion(2.0,Redaction)]	[fn:IsMeaningful((@Type==Pagination) || (@Type==Inline))]		

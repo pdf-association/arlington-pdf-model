@@ -3,4 +3,4 @@ O	name	1.4		TRUE	FALSE	FALSE		[Artifact]
 Type	name	1.4		FALSE	FALSE	FALSE		[Pagination,Layout,Page,Inline]			
 BBox	rectangle	1.4		FALSE	FALSE	FALSE					
 Attached	array	1.4		FALSE	FALSE	FALSE				[ArrayOf_4NamesForAttached]	
-Subtype	name	1.7		FALSE	FALSE	FALSE		[Header,Footer,Watermark,PageNum,Bates,LineNum,Redaction]			
+Subtype	name	1.7		FALSE	FALSE	FALSE		[Header,Footer,Watermark,PageNum,Bates,LineNum,Redaction]	[fn:IsMeaningful((@Type==Pagination) || (@Type==Inline))]		
