@@ -12146,8 +12146,12 @@
    <OBJECT id="ArrayOfOptContentOrders" isArray="true" object_number="113">
       <ENTRY>
          <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="dictionary">OptContentGroup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
+            <VALUE type="dictionary">false</VALUE>
             <VALUE type="string-text">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
@@ -15528,8 +15532,6 @@
          <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">CryptFilter</VALUE>
-            <VALUE type="dictionary">Identity</VALUE>
-            <VALUE type="dictionary">StdCF</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -23817,7 +23819,7 @@
       <ENTRY>
          <NAME>2</NAME>
          <VALUES>
-            <VALUE type="integer">fn:Eval((@2&gt;0) &amp;&amp; (@2&lt;=255))</VALUE>
+            <VALUE type="integer">fn:Eval((@2&gt;=0) &amp;&amp; (@2&lt;=255))</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>

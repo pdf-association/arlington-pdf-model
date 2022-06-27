@@ -16552,7 +16552,6 @@
          <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">FileSpecification</VALUE>
-            <VALUE type="dictionary">fn:InMap(RichMediaContent::Assets)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -16560,6 +16559,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>2.0</INTRODUCED>
+         <SPECIAL_CASE>fn:InMap(RichMediaContent::Assets)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="ArrayOfInkList" isArray="true" object_number="116">
@@ -16881,8 +16881,12 @@
    <OBJECT id="ArrayOfOptContentOrders" isArray="true" object_number="136">
       <ENTRY>
          <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="dictionary">OptContentGroup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
+            <VALUE type="dictionary">false</VALUE>
             <VALUE type="string-text">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
@@ -20716,8 +20720,6 @@
          <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">CryptFilter</VALUE>
-            <VALUE type="dictionary">Identity</VALUE>
-            <VALUE type="dictionary">StdCF</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -29846,7 +29848,7 @@
       <ENTRY>
          <NAME>2</NAME>
          <VALUES>
-            <VALUE type="integer">fn:Eval((@2&gt;0) &amp;&amp; (@2&lt;=255))</VALUE>
+            <VALUE type="integer">fn:Eval((@2&gt;=0) &amp;&amp; (@2&lt;=255))</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>

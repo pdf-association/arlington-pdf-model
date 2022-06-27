@@ -8737,11 +8737,12 @@
     "keys": {
       "0": {
         "Key": "0",
-        "Type": "string-text",
+        "Type": "dictionary;string-text",
         "SinceVersion": 1.5,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "Link": "[OptContentGroup];[]"
       },
       "*": {
         "Key": "*",
@@ -11483,7 +11484,6 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[Identity,StdCF]",
         "Link": "[CryptFilter]"
       }
     }
@@ -17712,7 +17712,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval((@2>0) && (@2<=255))]"
+        "PossibleValues": "[fn:Eval((@2>=0) && (@2<=255))]"
       },
       "3": {
         "Key": "3",

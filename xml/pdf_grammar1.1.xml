@@ -3378,7 +3378,7 @@
       <ENTRY>
          <NAME>2</NAME>
          <VALUES>
-            <VALUE type="integer">fn:Eval((@2&gt;0) &amp;&amp; (@2&lt;=255))</VALUE>
+            <VALUE type="integer">fn:Eval((@2&gt;=0) &amp;&amp; (@2&lt;=255))</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>

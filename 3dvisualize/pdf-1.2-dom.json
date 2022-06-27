@@ -6391,7 +6391,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval((@2>0) && (@2<=255))]"
+        "PossibleValues": "[fn:Eval((@2>=0) && (@2<=255))]"
       },
       "3": {
         "Key": "3",
