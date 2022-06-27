@@ -41,6 +41,7 @@
             <VALUE type="dictionary">ActionSubmitForm</VALUE>
             <VALUE type="dictionary">ActionResetForm</VALUE>
             <VALUE type="dictionary">ActionImportData</VALUE>
+            <VALUE type="dictionary">ActionECMAScript</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1438,6 +1439,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4NumbersColorAnnotation</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -1465,6 +1469,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -1599,6 +1606,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4NumbersColorAnnotation</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -1626,6 +1636,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -1778,6 +1791,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4NumbersColorAnnotation</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -1805,6 +1821,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -1966,6 +1985,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -1975,6 +1997,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>QuadPoints</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfQuadPoints</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -2128,6 +2153,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -2137,6 +2165,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>InkList</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfArraysInkList</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -2302,6 +2333,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -2311,6 +2345,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>L</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4Numbers</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -3033,6 +3070,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -3213,6 +3253,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -3377,6 +3420,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -3556,6 +3602,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -3565,6 +3614,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>QuadPoints</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfQuadPoints</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -3717,6 +3769,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -3840,6 +3895,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AppearanceTrapNet</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -3910,6 +3968,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>AnnotStates</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfAnnotStates</VALUE>
+         </VALUES>
          <REQUIRED>fn:IsRequired(fn:IsPresent(Version) &amp;&amp; fn:NotPresent(LastModified))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -3920,6 +3981,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>FontFauxing</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfFonts</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -4073,6 +4137,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Popup</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -4082,6 +4149,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>QuadPoints</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfQuadPoints</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -4501,6 +4571,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>IF</NAME>
+         <VALUES>
+            <VALUE type="dictionary">IconFit</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -4545,6 +4618,10 @@
    <OBJECT id="AppearanceTrapNet" object_number="037">
       <ENTRY>
          <NAME>N</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AppearanceTrapNetSubDict</VALUE>
+            <VALUE type="stream">XObjectFormTrapNet</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -4557,7 +4634,9 @@
       <ENTRY>
          <NAME>R</NAME>
          <VALUES>
+            <VALUE type="dictionary">AppearanceTrapNetSubDict</VALUE>
             <VALUE isDefaultValue="true" type="dictionary">[@N]</VALUE>
+            <VALUE type="stream">XObjectFormTrapNet</VALUE>
             <VALUE isDefaultValue="true" type="stream">[@N]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -4572,7 +4651,9 @@
       <ENTRY>
          <NAME>D</NAME>
          <VALUES>
+            <VALUE type="dictionary">AppearanceTrapNetSubDict</VALUE>
             <VALUE isDefaultValue="true" type="dictionary">[@N]</VALUE>
+            <VALUE type="stream">XObjectFormTrapNet</VALUE>
             <VALUE isDefaultValue="true" type="stream">[@N]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -4588,6 +4669,9 @@
    <OBJECT id="AppearanceTrapNetSubDict" object_number="038">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="stream">XObjectFormTrapNet</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -4694,6 +4778,9 @@
    <OBJECT id="ArrayOfArraysInkList" isArray="true" object_number="043">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfInkList</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -4705,6 +4792,9 @@
    <OBJECT id="ArrayOfArraysURLStrings" isArray="true" object_number="044">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfURLStrings</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -4717,6 +4807,12 @@
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
+            <VALUE type="dictionary">StandardLayoutAttributesBLSE</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesColumn</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesILSE</VALUE>
+            <VALUE type="dictionary">StandardTableAttributes</VALUE>
+            <VALUE type="dictionary">StandardListAttributes</VALUE>
+            <VALUE type="dictionary">StandardPrintFieldAttributes</VALUE>
             <VALUE type="stream">Stream</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -4991,6 +5087,9 @@
    <OBJECT id="ArrayOfImageAlternates" isArray="true" object_number="060">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AlternateImage</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -5215,6 +5314,9 @@
    <OBJECT id="ArrayOfSourceInformations" isArray="true" object_number="070">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">SourceInformation</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -5251,6 +5353,9 @@
    <OBJECT id="ArrayOfStructElem" isArray="true" object_number="073">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">StructElem</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -5262,6 +5367,11 @@
    <OBJECT id="ArrayOfStructElemKids" isArray="true" object_number="074">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">StructElem</VALUE>
+            <VALUE type="dictionary">MarkedContentReference</VALUE>
+            <VALUE type="dictionary">ObjectReference</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -5311,6 +5421,9 @@
    <OBJECT id="ArrayOfWebCaptureCommands" isArray="true" object_number="078">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">WebCaptureCommand</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -6676,6 +6789,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>PageLabels</NAME>
+         <VALUES>
+            <VALUE type="number-tree">PageLabel</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number-tree">false</VALUE>
@@ -6880,6 +6996,14 @@
    <OBJECT id="ClassMap" object_number="105">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">StandardLayoutAttributesBLSE</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesColumn</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesILSE</VALUE>
+            <VALUE type="dictionary">StandardTableAttributes</VALUE>
+            <VALUE type="dictionary">StandardListAttributes</VALUE>
+            <VALUE type="dictionary">StandardPrintFieldAttributes</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -7337,6 +7461,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Cert</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStringsByte</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -7359,6 +7486,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Changes</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_3Integers</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -7454,6 +7584,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Mac</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Mac</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -7497,6 +7630,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Params</NAME>
+         <VALUES>
+            <VALUE type="dictionary">EmbeddedFileParameter</VALUE>
+         </VALUES>
          <REQUIRED>fn:IsRequired(fn:IsAssociatedFile())</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -7913,6 +8049,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>AA</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AddActionFormField</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -7999,6 +8138,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>AA</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AddActionFormField</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -8145,6 +8287,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>AA</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AddActionFormField</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -8267,6 +8412,10 @@
       </ENTRY>
       <ENTRY>
          <NAME>V</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Signature</VALUE>
+            <VALUE type="dictionary">DocTimeStamp</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -8276,6 +8425,10 @@
       </ENTRY>
       <ENTRY>
          <NAME>DV</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Signature</VALUE>
+            <VALUE type="dictionary">DocTimeStamp</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -8285,6 +8438,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>AA</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AddActionFormField</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -8465,6 +8621,9 @@
    <OBJECT id="FileSpecEF" object_number="127">
       <ENTRY>
          <NAME>F</NAME>
+         <VALUES>
+            <VALUE type="stream">EmbeddedFileStream</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -8476,6 +8635,9 @@
    <OBJECT id="FileSpecRF" object_number="128">
       <ENTRY>
          <NAME>F</NAME>
+         <VALUES>
+            <VALUE type="array">RelatedFilesArray</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">true</VALUE>
@@ -8572,6 +8734,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>EF</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FileSpecEF</VALUE>
+         </VALUES>
          <REQUIRED>fn:IsRequired(fn:IsPresent(RF))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -8581,6 +8746,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>RF</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FileSpecRF</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -12108,6 +12276,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>D</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfGSPDashPatterns</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -12162,6 +12333,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Font</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfFontAndSize</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -12181,9 +12355,12 @@
       <ENTRY>
          <NAME>BG2</NAME>
          <VALUES>
+            <VALUE type="dictionary">FunctionType2</VALUE>
+            <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE isDefaultValue="true" type="dictionary">[]</VALUE>
             <VALUE isDefaultValue="true" type="name">[Default]</VALUE>
             <VALUE type="stream">FunctionType0</VALUE>
+            <VALUE type="stream">FunctionType4</VALUE>
             <VALUE isDefaultValue="true" type="stream">[]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -12207,9 +12384,12 @@
       <ENTRY>
          <NAME>UCR2</NAME>
          <VALUES>
+            <VALUE type="dictionary">FunctionType2</VALUE>
+            <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE isDefaultValue="true" type="dictionary">[]</VALUE>
             <VALUE isDefaultValue="true" type="name">[Default]</VALUE>
             <VALUE type="stream">FunctionType0</VALUE>
+            <VALUE type="stream">FunctionType4</VALUE>
             <VALUE isDefaultValue="true" type="stream">[]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -12241,9 +12421,12 @@
          <VALUES>
             <VALUE type="array">ArrayOf4Functions</VALUE>
             <VALUE isDefaultValue="true" type="array">[]</VALUE>
+            <VALUE type="dictionary">FunctionType2</VALUE>
+            <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE isDefaultValue="true" type="dictionary">[]</VALUE>
             <VALUE isDefaultValue="true" type="name">[Default]</VALUE>
             <VALUE type="stream">FunctionType0</VALUE>
+            <VALUE type="stream">FunctionType4</VALUE>
             <VALUE isDefaultValue="true" type="stream">[]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -12701,8 +12884,11 @@
       <ENTRY>
          <NAME>TransferFunction</NAME>
          <VALUES>
+            <VALUE type="dictionary">FunctionType2</VALUE>
+            <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE type="name">Identity</VALUE>
             <VALUE type="stream">FunctionType0</VALUE>
+            <VALUE type="stream">FunctionType4</VALUE>
          </VALUES>
          <REQUIRED>fn:IsRequired(parent::@HalftoneType==5)</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -13051,6 +13237,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="stream">ICCProfileStream</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -14609,6 +14798,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>SE</NAME>
+         <VALUES>
+            <VALUE type="dictionary">StructElem</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -14872,6 +15064,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>PieceInfo</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PagePiece</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -14908,6 +15103,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>SeparationInfo</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Separation</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -14932,6 +15130,9 @@
    <OBJECT id="PagePiece" object_number="189">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Data</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -15399,6 +15600,15 @@
       </ENTRY>
       <ENTRY>
          <NAME>Shading</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ShadingType1</VALUE>
+            <VALUE type="dictionary">ShadingType2</VALUE>
+            <VALUE type="dictionary">ShadingType3</VALUE>
+            <VALUE type="stream">ShadingType4</VALUE>
+            <VALUE type="stream">ShadingType5</VALUE>
+            <VALUE type="stream">ShadingType6</VALUE>
+            <VALUE type="stream">ShadingType7</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -15444,6 +15654,9 @@
       </ENTRY>
       <ENTRY>
          <NAME isWildcard="true">1*</NAME>
+         <VALUES>
+            <VALUE type="stream">EmbeddedFileStream</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -15491,6 +15704,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Shading</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ShadingMap</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -15562,6 +15778,9 @@
    <OBJECT id="Separation" object_number="199">
       <ENTRY>
          <NAME>Pages</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfPages</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -16752,7 +16971,10 @@
          <NAME>Function</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfFunctions</VALUE>
+            <VALUE type="dictionary">FunctionType2</VALUE>
+            <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE type="stream">FunctionType0</VALUE>
+            <VALUE type="stream">FunctionType4</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -17263,6 +17485,9 @@
    <OBJECT id="SourceInformation" object_number="211">
       <ENTRY>
          <NAME>AU</NAME>
+         <VALUES>
+            <VALUE type="dictionary">URLAlias</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -17306,6 +17531,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
+         <VALUES>
+            <VALUE type="dictionary">WebCaptureCommand</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -17524,6 +17752,10 @@
       </ENTRY>
       <ENTRY>
          <NAME>P</NAME>
+         <VALUES>
+            <VALUE type="dictionary">StructElem</VALUE>
+            <VALUE type="dictionary">StructTreeRoot</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
@@ -18072,6 +18304,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfArraysURLStrings</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -18240,6 +18475,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>S</NAME>
+         <VALUES>
+            <VALUE type="dictionary">WebCaptureCommandSettings</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -18322,6 +18560,10 @@
       </ENTRY>
       <ENTRY>
          <NAME>SI</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfSourceInformations</VALUE>
+            <VALUE type="dictionary">SourceInformation</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -18375,6 +18617,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfWebCaptureCommands</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -18432,6 +18677,10 @@
       </ENTRY>
       <ENTRY>
          <NAME>SI</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfSourceInformations</VALUE>
+            <VALUE type="dictionary">SourceInformation</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -19483,6 +19732,7 @@
          <NAME>Mask</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+            <VALUE type="stream">XObjectImageMask</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -19520,6 +19770,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Alternates</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfImageAlternates</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -19777,6 +20030,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Alternates</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfImageAlternates</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>

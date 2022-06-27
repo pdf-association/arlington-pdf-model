@@ -7,18 +7,18 @@ P	dictionary	1.3	2.0	FALSE	TRUE	FALSE				[PageObject]
 NM	string	1.4	2.0	FALSE	FALSE	FALSE					
 M	date;string	1.3	2.0	FALSE	FALSE	FALSE					
 F	bitmask	1.3	2.0	TRUE	FALSE	FALSE			[fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]		
-AP	dictionary	1.3	2.0	TRUE	FALSE	FALSE				[fn:SinceVersion(1.3,AppearanceTrapNet)]	
+AP	dictionary	1.3	2.0	TRUE	FALSE	FALSE				[AppearanceTrapNet]	
 AS	name	1.3	2.0	TRUE	FALSE	FALSE					
 Border	array	1.3	2.0	FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
-C	array	1.3	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ArrayOf_4NumbersColorAnnotation)]	
+C	array	1.3	2.0	FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
 StructParent	integer	1.3	2.0	FALSE	FALSE	FALSE					
-OC	dictionary	1.5	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,OptContentGroup),fn:SinceVersion(1.5,OptContentMembership)]	
-AF	array;dictionary	2.0	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfFileSpecifications)];[fn:SinceVersion(1.1,FileSpecification)]	
+OC	dictionary	1.5	2.0	FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
+AF	array;dictionary	2.0	2.0	FALSE	FALSE	FALSE				[ArrayOfFileSpecifications];[FileSpecification]	
 ca	number	2.0	2.0	FALSE	FALSE	FALSE	1.0	[fn:Eval((@ca>=0.0) && (@ca<=1.0))]			
 CA	number	2.0	2.0	FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && (@CA<=1.0))]			
 BM	name	2.0	2.0	FALSE	FALSE	FALSE	Normal	[fn:Deprecated(2.0,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]			
 Lang	string	2.0	2.0	FALSE	FALSE	FALSE					
 LastModified	date	1.4	2.0	fn:IsRequired(fn:NotPresent(Version) && fn:NotPresent(AnnotStates))	FALSE	FALSE					
 Version	array	1.3	2.0	fn:IsRequired(fn:IsPresent(AnnotStates) && fn:NotPresent(LastModified))	FALSE	FALSE				[_UniversalArray]	
-AnnotStates	array	1.3	2.0	fn:IsRequired(fn:IsPresent(Version) && fn:NotPresent(LastModified))	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfAnnotStates)]	
-FontFauxing	array	1.3	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfFonts)]	
+AnnotStates	array	1.3	2.0	fn:IsRequired(fn:IsPresent(Version) && fn:NotPresent(LastModified))	FALSE	FALSE				[ArrayOfAnnotStates]	
+FontFauxing	array	1.3	2.0	FALSE	FALSE	FALSE				[ArrayOfFonts]	

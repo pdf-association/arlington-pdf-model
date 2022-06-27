@@ -1,2 +1,2 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-*	dictionary	1.2		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,FieldTx),fn:SinceVersion(1.2,FieldBtn),fn:SinceVersion(1.2,FieldCh),fn:SinceVersion(1.3,FieldSig),fn:SinceVersion(1.2,Field),fn:SinceVersion(1.2,AnnotWidget)]	*can be merged together
+*	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,fn:SinceVersion(1.3,FieldSig),Field,AnnotWidget]	*can be merged together

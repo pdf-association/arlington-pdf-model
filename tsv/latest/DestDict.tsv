@@ -1,3 +1,3 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 D	array	1.1		TRUE	FALSE	FALSE				[DestXYZ,Dest0,Dest1,Dest4]	
-SD	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,DestXYZStruct),fn:SinceVersion(2.0,Dest0Struct),fn:SinceVersion(2.0,Dest1Struct),fn:SinceVersion(2.0,Dest4Struct)]	
+SD	array	2.0		FALSE	FALSE	FALSE				[DestXYZStruct,Dest0Struct,Dest1Struct,Dest4Struct]	

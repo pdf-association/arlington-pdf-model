@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.4		FALSE	FALSE	FALSE		[Mask]			
 S	name	1.4		TRUE	FALSE	FALSE		[Luminosity]			
-G	stream	1.4		TRUE	TRUE	FALSE				[fn:SinceVersion(1.4,XObjectFormType1)]	
+G	stream	1.4		TRUE	TRUE	FALSE				[XObjectFormType1]	
 BC	array	1.4		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
-TR	dictionary;name;stream	1.4		FALSE	[FALSE];[FALSE];[TRUE]	FALSE	[];[Identity];[]	[];[Identity];[]		[fn:SinceVersion(1.3,FunctionType2),fn:SinceVersion(1.3,FunctionType3)];[];[fn:SinceVersion(1.2,FunctionType0),fn:SinceVersion(1.3,FunctionType4)]	
+TR	dictionary;name;stream	1.4		FALSE	[FALSE];[FALSE];[TRUE]	FALSE	[];[Identity];[]	[];[Identity];[]		[FunctionType2,FunctionType3];[];[FunctionType0,FunctionType4]	

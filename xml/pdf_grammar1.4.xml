@@ -2545,6 +2545,7 @@
       <ENTRY>
          <NAME>LE</NAME>
          <VALUES>
+            <VALUE type="array">ArrayOf_2LineEndingsNames</VALUE>
             <VALUE isDefaultValue="true" type="array">[None None]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -3241,6 +3242,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AppearancePrinterMark</VALUE>
+         </VALUES>
          <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -5288,6 +5292,10 @@
    <OBJECT id="AppearancePrinterMark" object_number="039">
       <ENTRY>
          <NAME>N</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AppearancePrinterMarkSubDict</VALUE>
+            <VALUE type="stream">XObjectFormPrinterMark</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -5299,7 +5307,9 @@
       <ENTRY>
          <NAME>R</NAME>
          <VALUES>
+            <VALUE type="dictionary">AppearancePrinterMarkSubDict</VALUE>
             <VALUE isDefaultValue="true" type="dictionary">[@N]</VALUE>
+            <VALUE type="stream">XObjectFormPrinterMark</VALUE>
             <VALUE isDefaultValue="true" type="stream">[@N]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -5313,7 +5323,9 @@
       <ENTRY>
          <NAME>D</NAME>
          <VALUES>
+            <VALUE type="dictionary">AppearancePrinterMarkSubDict</VALUE>
             <VALUE isDefaultValue="true" type="dictionary">[@N]</VALUE>
+            <VALUE type="stream">XObjectFormPrinterMark</VALUE>
             <VALUE isDefaultValue="true" type="stream">[@N]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -5328,6 +5340,9 @@
    <OBJECT id="AppearancePrinterMarkSubDict" object_number="040">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="stream">XObjectFormPrinterMark</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -5582,6 +5597,9 @@
    <OBJECT id="ArrayOfArrays_2StringsText" isArray="true" object_number="050">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_2StringsText</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -6007,6 +6025,9 @@
    <OBJECT id="ArrayOfOutputIntents" isArray="true" object_number="073">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">OutputIntents</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -7190,6 +7211,9 @@
    <OBJECT id="BoxColorInfo" object_number="108">
       <ENTRY>
          <NAME>CropBox</NAME>
+         <VALUES>
+            <VALUE type="dictionary">BoxStyle</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -7199,6 +7223,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>BleedBox</NAME>
+         <VALUES>
+            <VALUE type="dictionary">BoxStyle</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -7208,6 +7235,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>TrimBox</NAME>
+         <VALUES>
+            <VALUE type="dictionary">BoxStyle</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -7217,6 +7247,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>ArtBox</NAME>
+         <VALUES>
+            <VALUE type="dictionary">BoxStyle</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -7229,6 +7262,7 @@
       <ENTRY>
          <NAME>C</NAME>
          <VALUES>
+            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
             <VALUE isDefaultValue="true" type="array">[0.0 0.0 0.0]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -9397,6 +9431,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Opt</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStringsText</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -9556,6 +9593,10 @@
       </ENTRY>
       <ENTRY>
          <NAME>Opt</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStringsText</VALUE>
+            <VALUE type="array">ArrayOfArrays_2StringsText</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -13816,6 +13857,8 @@
       <ENTRY>
          <NAME>SMask</NAME>
          <VALUES>
+            <VALUE type="dictionary">SoftMaskAlpha</VALUE>
+            <VALUE type="dictionary">SoftMaskLuminosity</VALUE>
             <VALUE type="name">None</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -14767,6 +14810,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Metadata</NAME>
+         <VALUES>
+            <VALUE type="stream">Metadata</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -16455,6 +16501,7 @@
       <ENTRY>
          <NAME>C</NAME>
          <VALUES>
+            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
             <VALUE isDefaultValue="true" type="array">[0.0 0.0 0.0]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -16708,6 +16755,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>BoxColorInfo</NAME>
+         <VALUES>
+            <VALUE type="dictionary">BoxColorInfo</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -16744,6 +16794,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Group</NAME>
+         <VALUES>
+            <VALUE type="dictionary">GroupAttributes</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -16822,6 +16875,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Metadata</NAME>
+         <VALUES>
+            <VALUE type="stream">Metadata</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -19235,6 +19291,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>G</NAME>
+         <VALUES>
+            <VALUE type="stream">XObjectFormType1</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -19291,6 +19350,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>G</NAME>
+         <VALUES>
+            <VALUE type="stream">XObjectFormType1</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -19622,6 +19684,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Attached</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4NamesForAttached</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -21862,6 +21927,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Group</NAME>
+         <VALUES>
+            <VALUE type="dictionary">GroupAttributes</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -21871,6 +21939,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Ref</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Reference</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -21880,6 +21951,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Metadata</NAME>
+         <VALUES>
+            <VALUE type="stream">Metadata</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -22053,6 +22127,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Colorants</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ColorantsDict</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -22803,6 +22880,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>SMask</NAME>
+         <VALUES>
+            <VALUE type="stream">XObjectImageSoftMask</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -22856,6 +22936,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Metadata</NAME>
+         <VALUES>
+            <VALUE type="stream">Metadata</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -23082,6 +23165,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>SMask</NAME>
+         <VALUES>
+            <VALUE type="stream">XObjectImageSoftMask</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -23134,6 +23220,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Metadata</NAME>
+         <VALUES>
+            <VALUE type="stream">Metadata</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -23385,6 +23474,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Metadata</NAME>
+         <VALUES>
+            <VALUE type="stream">Metadata</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="stream">true</VALUE>
@@ -23411,6 +23503,7 @@
             <VALUE type="name">FlateDecode</VALUE>
             <VALUE type="name">RunLengthDecode</VALUE>
             <VALUE type="name">CCITTFaxDecode</VALUE>
+            <VALUE type="name">JBIG2Decode</VALUE>
             <VALUE type="name">DCTDecode</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -23429,6 +23522,7 @@
             <VALUE type="dictionary">FilterLZWDecode</VALUE>
             <VALUE type="dictionary">FilterFlateDecode</VALUE>
             <VALUE type="dictionary">FilterCCITTFaxDecode</VALUE>
+            <VALUE type="dictionary">FilterJBIG2Decode</VALUE>
             <VALUE type="dictionary">FilterDCTDecode</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -23463,6 +23557,7 @@
             <VALUE type="name">FlateDecode</VALUE>
             <VALUE type="name">RunLengthDecode</VALUE>
             <VALUE type="name">CCITTFaxDecode</VALUE>
+            <VALUE type="name">JBIG2Decode</VALUE>
             <VALUE type="name">DCTDecode</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -23481,6 +23576,7 @@
             <VALUE type="dictionary">FilterLZWDecode</VALUE>
             <VALUE type="dictionary">FilterFlateDecode</VALUE>
             <VALUE type="dictionary">FilterCCITTFaxDecode</VALUE>
+            <VALUE type="dictionary">FilterJBIG2Decode</VALUE>
             <VALUE type="dictionary">FilterDCTDecode</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>

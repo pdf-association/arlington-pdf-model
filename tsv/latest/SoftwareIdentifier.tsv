@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.5		FALSE	FALSE	FALSE		[SoftwareIdentifier]			
 U	string-ascii	1.5		TRUE	FALSE	FALSE					
-L	array	1.5		FALSE	FALSE	FALSE	[0]			[fn:SinceVersion(1.5,ArrayOfVersions)]	
+L	array	1.5		FALSE	FALSE	FALSE	[0]			[ArrayOfVersions]	
 LI	boolean	1.5		FALSE	FALSE	FALSE	true				
-H	array	1.5		FALSE	FALSE	FALSE	[]			[fn:SinceVersion(1.5,ArrayOfVersions)]	
+H	array	1.5		FALSE	FALSE	FALSE	[]			[ArrayOfVersions]	
 HI	boolean	1.5		FALSE	FALSE	FALSE	true				
-OS	array	1.5		FALSE	FALSE	FALSE	[]			[fn:SinceVersion(1.3,ArrayOfStringsByte)]	
+OS	array	1.5		FALSE	FALSE	FALSE	[]			[ArrayOfStringsByte]	

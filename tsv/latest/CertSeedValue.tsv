@@ -1,14 +1,14 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.5		FALSE	FALSE	FALSE		[SVCert]			
 Ff	bitmask	1.5		FALSE	FALSE	FALSE	0				
-Subject	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfStringsByte)]	
+Subject	array	1.5		FALSE	FALSE	FALSE				[ArrayOfStringsByte]	
 SignaturePolicyOID	string-ascii	2.0		FALSE	FALSE	FALSE					
 SignaturePolicyHashValue	string	2.0		FALSE	FALSE	FALSE					
 SignaturePolicyHashAlgorithm	name	2.0		FALSE	FALSE	FALSE					
-SignaturePolicyCommitmentType	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,ArrayOfStringsASCII)]	
-SubjectDN	array	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,ArrayOfSubjectDN)]	
-KeyUsage	array	1.7		FALSE	FALSE	FALSE				[fn:SinceVersion(1.7,ArrayOfStringsASCII)]	
-Issuer	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfStringsByte)]	
-OID	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfStringsByte)]	
+SignaturePolicyCommitmentType	array	2.0		FALSE	FALSE	FALSE				[ArrayOfStringsASCII]	
+SubjectDN	array	1.7		FALSE	FALSE	FALSE				[ArrayOfSubjectDN]	
+KeyUsage	array	1.7		FALSE	FALSE	FALSE				[ArrayOfStringsASCII]	
+Issuer	array	1.5		FALSE	FALSE	FALSE				[ArrayOfStringsByte]	
+OID	array	1.5		FALSE	FALSE	FALSE				[ArrayOfStringsByte]	
 URL	string-ascii	1.5		FALSE	FALSE	FALSE					
 URLType	name	1.7		FALSE	FALSE	FALSE	Browser	[Browser]			

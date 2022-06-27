@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.3		FALSE	FALSE	FALSE		[Pattern]			
 PatternType	integer	1.3		TRUE	FALSE	FALSE		[2]			
-Shading	dictionary;stream	1.3		TRUE	[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.3,ShadingType1),fn:SinceVersion(1.3,ShadingType2),fn:SinceVersion(1.3,ShadingType3)];[fn:SinceVersion(1.3,ShadingType4),fn:SinceVersion(1.3,ShadingType5),fn:SinceVersion(1.3,ShadingType6),fn:SinceVersion(1.3,ShadingType7)]	
+Shading	dictionary;stream	1.3		TRUE	[FALSE];[TRUE]	FALSE				[ShadingType1,ShadingType2,ShadingType3];[ShadingType4,ShadingType5,ShadingType6,ShadingType7]	
 Matrix	matrix	1.3		FALSE	FALSE	FALSE	[1 0 0 1 0 0]				
-ExtGState	dictionary	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,GraphicsStateParameter)]	
+ExtGState	dictionary	1.3		FALSE	FALSE	FALSE				[GraphicsStateParameter]	

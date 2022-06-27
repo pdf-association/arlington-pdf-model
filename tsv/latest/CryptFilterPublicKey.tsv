@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Recipients	array;string-byte	1.5		TRUE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfStringsByte)];[]	
+Recipients	array;string-byte	1.5		TRUE	FALSE	FALSE				[ArrayOfStringsByte];[]	
 EncryptMetadata	boolean	1.5		FALSE	FALSE	FALSE	true				
 Type	name	1.5		FALSE	FALSE	FALSE		[CryptFilter]			
 CFM	name	1.5		FALSE	FALSE	FALSE	None	[None,V2,AESV2,AESV3]			

@@ -2,7 +2,7 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Size	integer	1.0		TRUE	fn:MustBeDirect()	FALSE		[fn:Eval(@Size>0)]			
 Prev	integer	1.0		FALSE	fn:MustBeDirect()	FALSE		[fn:Eval((@Prev>=0) && (@Prev<=fn:FileSize()))]			
 Root	dictionary	1.0		TRUE	TRUE	FALSE				[Catalog]	
-Encrypt	dictionary	1.1		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,EncryptionStandard),fn:SinceVersion(1.1,EncryptionPublicKey)]	
+Encrypt	dictionary	1.1		FALSE	FALSE	FALSE				[EncryptionStandard,EncryptionPublicKey]	
 Info	dictionary	1.0		FALSE	FALSE	FALSE				[DocInfo]	
 ID	array	1.1		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE			[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]	[fn:SinceVersion(1.1,ArrayOf_2StringsByte)]	
 XRefStm	integer	1.5		FALSE	FALSE	FALSE		[fn:Eval((@XRefStm>=0) && (@XRefStm<=fn:FileSize()))]			

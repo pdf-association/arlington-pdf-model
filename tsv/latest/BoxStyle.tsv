@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-C	array	1.4		FALSE	FALSE	FALSE	[0.0 0.0 0.0]			[fn:SinceVersion(1.4,ArrayOf_3RGBNumbers)]	
+C	array	1.4		FALSE	FALSE	FALSE	[0.0 0.0 0.0]			[ArrayOf_3RGBNumbers]	
 W	number	1.4		FALSE	FALSE	FALSE	1				
 S	name	1.4		FALSE	FALSE	FALSE	S	[S,D]			
-D	array	1.4		FALSE	FALSE	FALSE	[3]			[fn:SinceVersion(1.2,ArrayOfDashPatterns)]	
+D	array	1.4		FALSE	FALSE	FALSE	[3]			[ArrayOfDashPatterns]	

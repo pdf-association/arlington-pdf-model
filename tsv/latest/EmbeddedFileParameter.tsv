@@ -2,5 +2,5 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Size	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval(@Size>=0)]			
 CreationDate	date	1.3		FALSE	FALSE	FALSE					
 ModDate	date	1.3		fn:IsRequired(fn:IsAssociatedFile())	FALSE	FALSE					
-Mac	dictionary	1.3	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,Mac)]	
+Mac	dictionary	1.3	2.0	FALSE	FALSE	FALSE				[Mac]	
 CheckSum	string	1.3		FALSE	FALSE	FALSE			[fn:Eval(fn:StringLength(CheckSum)==16)]		MD5 checksum

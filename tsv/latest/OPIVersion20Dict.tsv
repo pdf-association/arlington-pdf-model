@@ -1,12 +1,12 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.2	2.0	FALSE	FALSE	FALSE		[OPI]			
 Version	number	1.2	2.0	TRUE	FALSE	FALSE		[2.0]			
-F	dictionary;string	1.2	2.0	TRUE	FALSE	FALSE				[fn:SinceVersion(1.1,FileSpecification)];[]	
+F	dictionary;string	1.2	2.0	TRUE	FALSE	FALSE				[FileSpecification];[]	
 MainImage	string-byte	1.2	2.0	FALSE	FALSE	FALSE					
-Tags	array	1.2	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,ArrayOfTags)]	
-Size	array	1.2	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,ArrayOf_2Numbers)]	
+Tags	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOfTags]	
+Size	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOf_2Numbers]	
 CropRect	rectangle	1.2	2.0	FALSE	FALSE	FALSE					
 Overprint	boolean	1.2	2.0	FALSE	FALSE	FALSE					
 Inks	array;name	1.2	2.0	FALSE	FALSE	FALSE				[_UniversalArray];[]	
-IncludedImageDimensions	array	1.2	2.0	FALSE	FALSE	FALSE				[fn:SinceVersion(1.2,ArrayOf_2Integers)]	
+IncludedImageDimensions	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOf_2Integers]	
 IncludedImageQuality	number	1.2	2.0	FALSE	FALSE	FALSE					

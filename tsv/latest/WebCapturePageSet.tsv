@@ -3,7 +3,7 @@ Type	name	1.3		FALSE	FALSE	FALSE		[SpiderContentSet]
 S	name	1.3		TRUE	FALSE	FALSE		[SPS]			
 ID	string-byte	1.3		TRUE	FALSE	FALSE					
 O	array	1.3		TRUE	FALSE	FALSE				[_UniversalArray]	
-SI	array;dictionary	1.3		TRUE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfSourceInformations)];[fn:SinceVersion(1.3,SourceInformation)]	
+SI	array;dictionary	1.3		TRUE	FALSE	FALSE				[ArrayOfSourceInformations];[SourceInformation]	
 CT	string-ascii	1.3		FALSE	FALSE	FALSE					
 TS	date	1.3		FALSE	FALSE	FALSE					
 T	string-text	1.3		FALSE	FALSE	FALSE					

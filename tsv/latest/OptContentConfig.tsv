@@ -8,5 +8,5 @@ Intent	array;name	1.5		FALSE	FALSE	FALSE	[];[View]	[];[All,Design,View]		[fn:Sin
 AS	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfOCUsage)]	
 Order	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfOptContentGroups)]	
 ListMode	name	1.5		FALSE	FALSE	FALSE	AllPages	[AllPages,VisiblePages]			
-RBGroups	array	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.5,ArrayOfArraysRBGroups)]	
-Locked	array	1.6		FALSE	FALSE	FALSE	[]			[fn:SinceVersion(1.5,ArrayOfOptContentGroups)]	
+RBGroups	array	1.5		FALSE	FALSE	FALSE				[ArrayOfArraysRBGroups]	
+Locked	array	1.6		FALSE	FALSE	FALSE	[]			[ArrayOfOptContentGroups]	

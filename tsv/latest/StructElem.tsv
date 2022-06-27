@@ -1,9 +1,9 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.3		FALSE	FALSE	FALSE		[StructElem]			
 S	name	1.3		TRUE	FALSE	FALSE					
-P	dictionary	1.3		TRUE	TRUE	FALSE				[fn:SinceVersion(1.3,StructElem),fn:SinceVersion(1.3,StructTreeRoot)]	
+P	dictionary	1.3		TRUE	TRUE	FALSE				[StructElem,StructTreeRoot]	
 ID	string-byte	1.3		FALSE	FALSE	FALSE					
-Ref	array	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfStructElem)]	
+Ref	array	2.0		FALSE	FALSE	FALSE				[ArrayOfStructElem]	
 Pg	dictionary	1.3		FALSE	TRUE	FALSE				[PageObject]	
 K	array;dictionary;integer	1.3		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ArrayOfStructElemKids)];[fn:SinceVersion(1.3,StructElem),fn:SinceVersion(1.3,MarkedContentReference),fn:SinceVersion(1.3,ObjectReference)];[]	
 A	array;dictionary;stream	1.3		FALSE	[FALSE];[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.3,ArrayOfAttributes)];[fn:SinceVersion(1.3,StandardLayoutAttributesBLSE),fn:SinceVersion(1.3,StandardLayoutAttributesColumn),fn:SinceVersion(1.3,StandardLayoutAttributesILSE),fn:SinceVersion(1.3,StandardTableAttributes),fn:SinceVersion(1.3,StandardListAttributes),fn:SinceVersion(1.3,StandardPrintFieldAttributes),fn:SinceVersion(1.4,StandardArtifactAttributes),fn:SinceVersion(1.6,UserPropertiesAttributes),fn:SinceVersion(1.6,NSOAttributes)];[Stream]	
@@ -14,7 +14,7 @@ Lang	string-text	1.4		FALSE	FALSE	FALSE
 Alt	string-text	1.3		FALSE	FALSE	FALSE					
 E	string-text	1.5		FALSE	FALSE	FALSE					
 ActualText	string-text	1.4		FALSE	FALSE	FALSE					
-AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[fn:SinceVersion(2.0,ArrayOfFileSpecifications)];[fn:SinceVersion(1.1,FileSpecification)]	
-NS	dictionary	2.0		FALSE	TRUE	FALSE				[fn:SinceVersion(2.0,Namespace)]	
+AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications];[FileSpecification]	
+NS	dictionary	2.0		FALSE	TRUE	FALSE				[Namespace]	
 PhoneticAlphabet	name	2.0		FALSE	FALSE	FALSE	ipa				
 Phoneme	string-text	2.0		FALSE	FALSE	FALSE					
