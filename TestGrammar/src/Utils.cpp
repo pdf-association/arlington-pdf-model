@@ -1,17 +1,23 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Utils.cpp
-// Copyright 2020 PDF Association, Inc. https://www.pdfa.org
-//
-// This material is based upon work supported by the Defense Advanced
-// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-// Any opinions, findings and conclusions or recommendations expressed
-// in this material are those of the author(s) and do not necessarily
-// reflect the views of the Defense Advanced Research Projects Agency
-// (DARPA). Approved for public release.
-//
-// SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
-//
+/// @file 
+/// @brief Utility function definitions
+/// 
+/// @copyright 
+/// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
+/// SPDX-License-Identifier: Apache-2.0
+/// 
+/// @remark
+/// This material is based upon work supported by the Defense Advanced
+/// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+/// Any opinions, findings and conclusions or recommendations expressed
+/// in this material are those of the author(s) and do not necessarily
+/// reflect the views of the Defense Advanced Research Projects Agency
+/// (DARPA). Approved for public release.
+///
+/// @author Roman Toda, Normex
+/// @author Frantisek Forgac, Normex
+/// @author Peter Wyatt, PDF Association
+/// 
 ///////////////////////////////////////////////////////////////////////////////
 
 /// @file
@@ -311,7 +317,7 @@ std::vector<std::string> split(const std::string& s, char separator) {
 /// @param[in]  str   the string with leading whitespace
 ///
 /// @returns    the input string with all leading whitespace removed
-std::string& strip_leading_whitespace(std::string& str) {
+std::string strip_leading_whitespace(std::string& str) {
     auto it2 = std::find_if(str.begin(), str.end(), [](char ch) { return !std::isspace<char>(ch, std::locale::classic()); });
     str.erase(str.begin(), it2);
     return str;
@@ -398,7 +404,7 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
             return true;
         }
         else if (keys[0] == "0*") {
-            ofs << COLOR_WARNING << "Warning: single element array with '0*' should use '*' " << fname << COLOR_RESET << std::endl;
+            ofs << COLOR_WARNING << "single element array with '0*' should use '*' " << fname << COLOR_RESET;
             return true;
         }
         else {
@@ -423,12 +429,12 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
             idx = std::stoi(keys[row]);
         }
         catch (std::exception& ex) {
-            ofs << COLOR_ERROR << "Error: arrays must use integers: was '" << keys[row] << "', wanted " << row << " for " << fname << ": " << ex.what() << COLOR_RESET << std::endl;
+            ofs << COLOR_ERROR << "arrays must use integers: was '" << keys[row] << "', wanted " << row << " for " << fname << ": " << ex.what() << COLOR_RESET;
             return false;
         }
 
         if ((idx != row) && (row > 0)) {
-            ofs << COLOR_ERROR << "Error: arrays need to use contiguous integers: was '" << keys[row] << "', wanted " << row << " for " << fname << COLOR_RESET << std::endl;
+            ofs << COLOR_ERROR << "arrays need to use contiguous integers: was '" << keys[row] << "', wanted " << row << " for " << fname << COLOR_RESET;
             return false;
         }
 
@@ -439,7 +445,7 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
                 first_wildcard = row;
         }
         else if (first_wildcard >= 0) {
-            ofs << COLOR_ERROR << "Error: array using numbered wildcards (integer+'*') need to be contiguous last rows in" << fname << COLOR_RESET << std::endl;
+            ofs << COLOR_ERROR << "array using numbered wildcards (integer+'*') need to be contiguous last rows in" << fname << COLOR_RESET;
             return false;
         }
     }
@@ -448,16 +454,32 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
 }
 
 
-/// @brief Regex for PDF second class or third class names according to Annex E of ISO 32000-2:2020
-const std::regex r_SecondOrThirdClassName("^([a-zA-Z0-9_\\-]{4,5}(_|:)|XX)");
+/// @brief Regex for PDF second class names according to Annex E of ISO 32000-2:2020
+const std::regex r_SecondClassName("^([a-zA-Z0-9_\\-]{4,5}(_|:)|XX)");
 
 
-/// @brief  Tests if a key is a valid PDF second or third class name according to Annex E of ISO 32000-2:2020
+/// @brief  Tests if a key is a valid PDF second class name according to Annex E of ISO 32000-2:2020
 ///
 /// @param[in] key   the key in question
 ///
 /// @returns true if a second class name
-bool is_second_or_third_class_pdf_name(const std::string key) {
+bool is_second_class_pdf_name(const std::string key) {
     std::smatch  m;
-    return std::regex_search(key, m, r_SecondOrThirdClassName);
+    return std::regex_search(key, m, r_SecondClassName);
+}
+
+
+/// @brief Regex for PDF third class names according to Annex E of ISO 32000-2:2020
+const std::regex r_ThirdClassName("^XX");
+
+
+/// @brief  Tests if a key is a valid PDF third class name according to Annex E of ISO 32000-2:2020
+/// (i.e. starts with "XX")
+///
+/// @param[in] key   the key in question
+///
+/// @returns true if a third class name
+bool is_third_class_pdf_name(const std::string key) {
+    std::smatch  m;
+    return std::regex_search(key, m, r_ThirdClassName);
 }

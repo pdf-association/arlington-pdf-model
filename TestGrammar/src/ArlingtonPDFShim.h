@@ -1,16 +1,20 @@
 ///////////////////////////////////////////////////////////////////////////////
-// ArlingtonPDFShim.h
-// Copyright 2020-2021 PDF Association, Inc. https://www.pdfa.org
-//
-// This material is based upon work supported by the Defense Advanced
-// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-// Any opinions, findings and conclusions or recommendations expressed
-// in this material are those of the author(s) and do not necessarily
-// reflect the views of the Defense Advanced Research Projects Agency
-// (DARPA). Approved for public release.
-//
-// SPDX-License-Identifier: Apache-2.0
-// Contributors: Peter Wyatt, PDF Association
+/// @file 
+/// @brief Arlington PDF SDK shim layer
+/// 
+/// @copyright
+/// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
+/// SPDX-License-Identifier: Apache-2.0
+/// 
+/// @remark
+/// This material is based upon work supported by the Defense Advanced
+/// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+/// Any opinions, findings and conclusions or recommendations expressed
+/// in this material are those of the author(s) and do not necessarily
+/// reflect the views of the Defense Advanced Research Projects Agency
+/// (DARPA). Approved for public release.
+///
+/// @author Peter Wyatt, PDF Association
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -18,16 +22,18 @@
 #define ArlingtonPDFShim_h
 #pragma once
 
+#include <iostream>
+#include <filesystem>
+#include <vector>
+
 /// @brief Choose which PDF SDK you want to use. Some may have more functionality than others.
 /// This is set in CMakeLists.txt or the TestGrammar | Properties | Preprocessor dialog for Visual Studio
 #if !defined(ARL_PDFSDK_PDFIUM) && !defined(ARL_PDFSDK_PDFIX) && !defined(ARL_PDFSDK_QPDF)
 #error Select the PDF SDK by defining one of: ARL_PDFSDK_PDFIUM, ARL_PDFSDK_PDFIX or ARL_PDFSDK_QPDF
 #endif
 
-#include <iostream>
-#include <filesystem>
-
-/// @namespace A wafer thin shim layer to isolate a specific C/C++ PDF SDK library from the Arlington
+/// @namespace ArlingtonPDFShim
+/// A wafer thin shim layer to isolate a specific C/C++ PDF SDK library from the Arlington
 /// PDF Model proof-of-concept C++ application. By replacing the matching .cpp file,
 /// any PDF SDK library should be easily integrateable without propogating changes
 /// throughout the PoC code base. Performance issues are considered irrelevant.
@@ -36,7 +42,8 @@ namespace ArlingtonPDFShim {
     /// @brief Enable verbose debugging
     static bool    debugging = false;
 
-    /// @brief All the various types of PDF Object
+    /// @enum PDFObjectType 
+    /// All the various types of PDF Object
     enum class PDFObjectType {
         ArlPDFObjTypeUnknown    = 0,
         ArlPDFObjTypeBoolean,
@@ -50,7 +57,7 @@ namespace ArlingtonPDFShim {
         ArlPDFObjTypeReference  // Indirect reference
     };
 
-    /// @brief Human readable equivalent of the above enum
+    /// @brief Human readable equivalent of PDFObjectType
     const std::string PDFObjectType_strings[] = {
         "ArlPDFObjTypeUnknown",
         "ArlPDFObjTypeBoolean",
@@ -64,11 +71,18 @@ namespace ArlingtonPDFShim {
         "ArlPDFObjTypeReference"
     };
 
-    // Base class PDF object
+    /// @class ArlPDFObject
+    /// Base class PDF object
     class ArlPDFObject {
     protected:
+        /// @brief pointer to PDF SDK dependent data object
         void* object;
+        /// @brief true iff is an indirect reference
         bool is_indirect;
+        /// @brief Sort all dictionary keys so guaranteed same order across PDF SDKs
+        std::vector<std::wstring>   sorted_keys;
+        /// @brief Checks if keys are sorted and, if not, then sorts
+        virtual void sort_keys();
     public:
         explicit ArlPDFObject(void* obj);
         ~ArlPDFObject();
@@ -90,6 +104,8 @@ namespace ArlingtonPDFShim {
         };
     };
 
+    /// @class ArlPDFBoolean
+    /// PDF Boolean object
     class ArlPDFBoolean : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
     public:
@@ -100,6 +116,8 @@ namespace ArlingtonPDFShim {
         };
     };
 
+    /// @class ArlPDFNumber
+    /// PDF Number object
     class ArlPDFNumber : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
     public:
@@ -112,6 +130,8 @@ namespace ArlingtonPDFShim {
         };
     };
 
+    /// @class ArlPDFString
+    /// PDF string object
     class ArlPDFString : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
     public:
@@ -122,6 +142,8 @@ namespace ArlingtonPDFShim {
         };
     };
 
+    /// @class ArlPDFName
+    /// PDF Name object
     class ArlPDFName : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
     public:
@@ -132,11 +154,15 @@ namespace ArlingtonPDFShim {
         };
     };
 
+    /// @class ArlPDFNull
+    /// PDF null object
     class ArlPDFNull : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNull& obj);
     };
 
+    /// @class ArlPDFArray
+    /// PDF Array object
     class ArlPDFArray : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
     public:
@@ -148,6 +174,8 @@ namespace ArlingtonPDFShim {
         };
     };
 
+    /// @class ArlPDFDictionary
+    /// PDF Dictionary object
     class ArlPDFDictionary : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
     public:
@@ -163,6 +191,8 @@ namespace ArlingtonPDFShim {
         };
     };
 
+    /// @class ArlPDFStream
+    /// PDF stream object
     class ArlPDFStream : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
     public:
@@ -173,7 +203,8 @@ namespace ArlingtonPDFShim {
         };
     };
 
-    // The trailer object of a PDF document (file)
+    /// @class ArlPDFTrailer
+    /// The trailer object of a PDF document (file)
     class ArlPDFTrailer : public ArlPDFDictionary {
         using ArlPDFDictionary::ArlPDFDictionary;
     protected:
@@ -185,6 +216,8 @@ namespace ArlingtonPDFShim {
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFTrailer& obj);
     };
 
+    /// @class ArlingtonPDFSDK
+    /// Arlington PDF SDK
     class ArlingtonPDFSDK {
     public:
         /// @brief Untyped PDF SDK context object. Needs casting appropriately

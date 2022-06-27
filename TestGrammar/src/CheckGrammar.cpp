@@ -1,17 +1,23 @@
 ///////////////////////////////////////////////////////////////////////////////
-// CheckGrammar.cpp
-// Copyright 2020 PDF Association, Inc. https://www.pdfa.org
-//
-// This material is based upon work supported by the Defense Advanced
-// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-// Any opinions, findings and conclusions or recommendations expressed
-// in this material are those of the author(s) and do not necessarily
-// reflect the views of the Defense Advanced Research Projects Agency
-// (DARPA). Approved for public release.
-//
-// SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
-//
+/// @file 
+/// @brief Validates an Arlington PDF model 
+/// 
+/// @copyright 
+/// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
+/// SPDX-License-Identifier: Apache-2.0
+/// 
+/// @remark
+/// This material is based upon work supported by the Defense Advanced
+/// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+/// Any opinions, findings and conclusions or recommendations expressed
+/// in this material are those of the author(s) and do not necessarily
+/// reflect the views of the Defense Advanced Research Projects Agency
+/// (DARPA). Approved for public release.
+///
+/// @author Roman Toda, Normex
+/// @author Frantisek Forgac, Normex
+/// @author Peter Wyatt, PDF Association
+///
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <exception>
@@ -66,12 +72,12 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
         report_stream << reader.get_tsv_name() << ":" << std::endl;
 
     if (data_list.empty()) {
-        report_stream << COLOR_ERROR << "Error: empty Arlington TSV grammar file: " << reader.get_tsv_name() << COLOR_RESET << std::endl;
+        report_stream << COLOR_ERROR << "empty Arlington TSV grammar file: " << reader.get_tsv_name() << COLOR_RESET;
         return false;
     }
 
     if (reader.header_list.size() < 12) {
-        report_stream << COLOR_ERROR << "Error: wrong number of columns in TSV file: " << reader.get_tsv_name() << COLOR_RESET << std::endl;
+        report_stream << COLOR_ERROR << "wrong number of columns in TSV file: " << reader.get_tsv_name() << COLOR_RESET;
         return false;
     }
 
@@ -88,7 +94,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
         (reader.header_list[TSV_SPECIALCASE]      != "SpecialCase") ||
         (reader.header_list[TSV_LINK]             != "Link") ||
         (reader.header_list[TSV_NOTES]            != "Note")) {
-        report_stream << COLOR_ERROR << "Error: wrong column headers for file: " << reader.get_tsv_name() << COLOR_RESET << std::endl;
+        report_stream << COLOR_ERROR << "wrong column headers for file: " << reader.get_tsv_name() << COLOR_RESET;
         retval = false;
     }
 
@@ -101,10 +107,10 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
 
             // Check brackets are all balanced
             if (std::count(std::begin(col), std::end(col), '[') != std::count(std::begin(col), std::end(col), ']'))
-                report_stream << COLOR_ERROR << "Error: mismatched number of open '[' and close ']' set brackets '" << col << "' for " << reader.get_tsv_name() << COLOR_RESET << std::endl;
+                report_stream << COLOR_ERROR << "mismatched number of open '[' and close ']' set brackets '" << col << "' for " << reader.get_tsv_name() << COLOR_RESET;
 
             if (std::count(std::begin(col), std::end(col), '(') != std::count(std::begin(col), std::end(col), ')'))
-                report_stream << COLOR_ERROR << "Error: mismatched number of open '(' and close ')' brackets '" << col << "' for " << reader.get_tsv_name() << COLOR_RESET << std::endl;
+                report_stream << COLOR_ERROR << "mismatched number of open '(' and close ')' brackets '" << col << "' for " << reader.get_tsv_name() << COLOR_RESET;
 
             // Locate all local variables (@xxx) to see if they are also keys in this object
             // Variables in other objects (yyy::@xxx) are purposely NOT checked
@@ -149,49 +155,49 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
 
         KeyPredicateProcessor *key_validator = new KeyPredicateProcessor(vc[TSV_KEYNAME]);
         if (!key_validator->ValidateRowSyntax()) {
-            report_stream << COLOR_ERROR << "Error: KeyName field validation error " << reader.get_tsv_name() << " for key " << vc[TSV_KEYNAME] << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "KeyName field validation error " << reader.get_tsv_name() << " for key " << vc[TSV_KEYNAME] << COLOR_RESET;
             retval = false;
         }
         delete key_validator;
 
         TypePredicateProcessor* type_validator = new TypePredicateProcessor(vc[TSV_TYPE]);
         if (!type_validator->ValidateRowSyntax()) {
-            report_stream << COLOR_ERROR << "Error: Type field validation error " << reader.get_tsv_name() << " for key " << vc[TSV_TYPE] << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "Type field validation error " << reader.get_tsv_name() << " for key " << vc[TSV_TYPE] << COLOR_RESET;
             retval = false;
         }
         delete type_validator;
 
         SinceVersionPredicateProcessor* sincever_validator = new SinceVersionPredicateProcessor(vc[TSV_SINCEVERSION]);
         if (!sincever_validator->ValidateRowSyntax()) {
-            report_stream << COLOR_ERROR << "Error: SinceVersion field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SINCEVERSION] << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "SinceVersion field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SINCEVERSION] << COLOR_RESET;
             retval = false;
         }
         delete sincever_validator;
 
         DeprecatedInPredicateProcessor* depver_validator = new DeprecatedInPredicateProcessor(vc[TSV_DEPRECATEDIN]);
         if (!depver_validator->ValidateRowSyntax()) {
-            report_stream << COLOR_ERROR << "Error: DeprecatedIn field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_DEPRECATEDIN] << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "DeprecatedIn field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_DEPRECATEDIN] << COLOR_RESET;
             retval = false;
         }
         delete depver_validator;
 
         RequiredPredicateProcessor* reqd_validator = new RequiredPredicateProcessor(vc[TSV_REQUIRED]);
         if (!reqd_validator->ValidateRowSyntax()) {
-            report_stream << COLOR_ERROR << "Error: Required field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_REQUIRED] << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "Required field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_REQUIRED] << COLOR_RESET;
             retval = false;
         }
         delete reqd_validator;
 
         IndirectRefPredicateProcessor* ir_validator = new IndirectRefPredicateProcessor(vc[TSV_INDIRECTREF]);
         if (!ir_validator->ValidateRowSyntax()) {
-            report_stream << COLOR_ERROR << "Error: IndirectRef field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INDIRECTREF] << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "IndirectRef field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INDIRECTREF] << COLOR_RESET;
             retval = false;
         }
         delete ir_validator;
 
         InheritablePredicateProcessor* inherit_validator = new InheritablePredicateProcessor(vc[TSV_INHERITABLE]);
         if (!inherit_validator->ValidateRowSyntax()) {
-            report_stream << COLOR_ERROR << "Error: Inheritable field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INHERITABLE] << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "Inheritable field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INHERITABLE] << COLOR_RESET;
             retval = false;
         }
         delete inherit_validator;
@@ -200,28 +206,28 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
 
         DefaultValuePredicateProcessor* dv_validator = new DefaultValuePredicateProcessor(vc[TSV_DEFAULTVALUE]);
         if (!dv_validator->ValidateRowSyntax()) {
-            report_stream << COLOR_ERROR << "Error: DefaultValue field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_DEFAULTVALUE] << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "DefaultValue field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_DEFAULTVALUE] << COLOR_RESET;
             retval = false;
         }
         delete dv_validator;
 
         PossibleValuesPredicateProcessor* pv_validator = new PossibleValuesPredicateProcessor(vc[TSV_POSSIBLEVALUES]);
         if (!pv_validator->ValidateRowSyntax()) {
-            report_stream << COLOR_ERROR << "Error: PossibleValues field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_POSSIBLEVALUES] << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "PossibleValues field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_POSSIBLEVALUES] << COLOR_RESET;
             retval = false;
         }
         delete pv_validator;
 
         SpecialCasePredicateProcessor* sc_validator = new SpecialCasePredicateProcessor(vc[TSV_SPECIALCASE]);
         if (!sc_validator->ValidateRowSyntax()) {
-            report_stream << COLOR_ERROR << "Error: SpecialCase field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SPECIALCASE] << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "SpecialCase field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SPECIALCASE] << COLOR_RESET;
             retval = false;
         }
         delete sc_validator;
 
         LinkPredicateProcessor* links_validator = new LinkPredicateProcessor(vc[TSV_LINK]);
         if (!links_validator->ValidateRowSyntax()) {
-            report_stream << COLOR_ERROR << "Error: Link field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_LINK] << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "Link field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_LINK] << COLOR_RESET;
             retval = false;
         }
         delete links_validator;
@@ -237,7 +243,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
 
         if (vc[TSV_LINK] != "") {
             if (links.size() != types.size()) {
-                report_stream << COLOR_ERROR << "Error: wrong # of Types vs. # of links " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET << std::endl;
+                report_stream << COLOR_ERROR << "wrong # of Types vs. # of links " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET;
                 retval = false;
             }
             else {
@@ -250,16 +256,16 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
                     if (std::find(std::begin(v_ArlNonComplexTypes), std::end(v_ArlNonComplexTypes), type) != std::end(v_ArlNonComplexTypes)) {
                         // type is a simple type - Links NOT expected
                         if (links[j] != "[]")
-                            report_stream << COLOR_ERROR << "Error: basic type " << type << " should not be linked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << links[j] << COLOR_RESET << std::endl;
+                            report_stream << COLOR_ERROR << "basic type " << type << " should not be linked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << links[j] << COLOR_RESET;
                     }
                     else if (std::find(std::begin(v_ArlComplexTypes), std::end(v_ArlComplexTypes), type) != std::end(v_ArlComplexTypes)) {
                         // type is a complex type - Links are REQUIRED
                         if (links[j] == "[]")
-                            report_stream << COLOR_ERROR << "Error: complex type " << type << " is unlinked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET << std::endl;
+                            report_stream << COLOR_ERROR << "complex type " << type << " is unlinked in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET;
                     }
                     else {
                         // unexpected type!
-                        report_stream << COLOR_ERROR << "Error: unexpected type " << type << " in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET << std::endl;
+                        report_stream << COLOR_ERROR << "unexpected type " << type << " in " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET;
                     }
                 } // for
             }
@@ -267,13 +273,13 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
 
         if (vc[TSV_DEFAULTVALUE] != "")
             if (types.size() != default_val.size()) {
-                report_stream << COLOR_ERROR << "Error: wrong # of types vs. # of DefaultValue " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET << std::endl;
+                report_stream << COLOR_ERROR << "wrong # of types vs. # of DefaultValue " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET;
                 retval = false;
             }
 
         if (vc[TSV_POSSIBLEVALUES] != "")
             if (types.size() != possible_vals.size()) {
-                report_stream << COLOR_ERROR << "Error: wrong # of types vs. # of PossibleValues " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET << std::endl;
+                report_stream << COLOR_ERROR << "wrong # of types vs. # of PossibleValues " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET;
                 retval = false;
             }
 
@@ -284,13 +290,13 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
     if (vars_list.size() > 0) {
         for (auto& v : vars_list)
             if (std::find(std::begin(keys_list), std::end(keys_list), v) == std::end(keys_list))
-                report_stream << COLOR_WARNING << "Warning: referenced variable @" << v << " not a key in " << reader.get_tsv_name() << COLOR_RESET << std::endl;
+                report_stream << COLOR_WARNING << "referenced variable @" << v << " not a key in " << reader.get_tsv_name() << COLOR_RESET;
     }
 
     // Check for duplicate keys in this TSV file
     auto it = std::unique(std::begin(keys_list), std::end(keys_list));
     if (it != std::end(keys_list)) {
-        report_stream << COLOR_ERROR << "Error: duplicate keys in " << reader.get_tsv_name() << " for key " << *it << COLOR_RESET << std::endl;
+        report_stream << COLOR_ERROR << "duplicate keys in " << reader.get_tsv_name() << " for key " << *it << COLOR_RESET;
         retval = false;
     }
 
@@ -298,13 +304,13 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
     // Not assuming page tree as this is more flexible (for future). Predicates in "Required" field are NOT processed
     if (has_reqd_inheritable) {
         if (std::find(std::begin(keys_list), std::end(keys_list), "Parent") == std::end(keys_list)) {
-            report_stream << COLOR_ERROR << "Error: at least one required inheritable key in " << reader.get_tsv_name() << " but no Parent key" << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "at least one required inheritable key in " << reader.get_tsv_name() << " but no Parent key" << COLOR_RESET;
             retval = false;
         }
         else {
             for (auto& vc : data_list)
                 if ((vc[TSV_KEYNAME] == "Parent") && (vc[TSV_TYPE] != "dictionary")) {
-                    report_stream << COLOR_ERROR << "Error: at least one required inheritable key in " << reader.get_tsv_name() << " but Parent key is not a dictionary" << COLOR_RESET << std::endl;
+                    report_stream << COLOR_ERROR << "at least one required inheritable key in " << reader.get_tsv_name() << " but Parent key is not a dictionary" << COLOR_RESET;
                     retval = false;
                 }
         }
@@ -313,7 +319,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
     // Check "*" wildcard key - must be last (duplicate keys already checked above)
     if (std::find(std::begin(keys_list), std::end(keys_list), "*") != std::end(keys_list))
         if (keys_list[keys_list.size() - 1] != "*") {
-            report_stream << COLOR_ERROR << "Error: wildcard key '*' in " << reader.get_tsv_name() << " was not last key" << COLOR_RESET << std::endl;
+            report_stream << COLOR_ERROR << "wildcard key '*' in " << reader.get_tsv_name() << " was not last key" << COLOR_RESET;
             retval = false;
         }
 
@@ -321,16 +327,16 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
     bool valid_array = check_valid_array_definition(reader.get_tsv_name(), keys_list, report_stream, &ambiguous);
 
     if ((arl_type == "array") && !valid_array) {
-        report_stream << COLOR_ERROR << "Error: array definition file '" << reader.get_tsv_name() << "' did not validate as an array!" << COLOR_RESET << std::endl;
+        report_stream << COLOR_ERROR << "array definition file '" << reader.get_tsv_name() << "' did not validate as an array!" << COLOR_RESET;
         retval = false;
     }
     
     if ((arl_type != "array") && (arl_type != "name-tree") && (arl_type != "number-tree") && valid_array && !ambiguous) {
         // Dictionary or stream
-        report_stream << COLOR_ERROR << "Error: " << arl_type << " definition file '" << reader.get_tsv_name() << "' appears to be an array!" << COLOR_RESET << std::endl;
+        report_stream << COLOR_ERROR << "" << arl_type << " definition file '" << reader.get_tsv_name() << "' appears to be an array!" << COLOR_RESET;
         // This is not a requirement that all arrays are explicitly named as such, but is otherwise highly confusing!
         if (reader.get_tsv_name().find("Array") != std::string::npos) {
-            report_stream << COLOR_WARNING << "Warning: non-array definition file '" << reader.get_tsv_name() << "' is named inappropriately?" << COLOR_RESET << std::endl;
+            report_stream << COLOR_WARNING << "non-array definition file '" << reader.get_tsv_name() << "' is named inappropriately?" << COLOR_RESET;
         }
         retval = false;
     }
@@ -463,26 +469,26 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
                                             vcxt1.tsv_name = lnk;
 
                                             if (std::find(std::begin(v_ArlComplexTypes), std::end(v_ArlComplexTypes), vcxt1.type) == std::end(v_ArlComplexTypes)) {
-                                                ofs << COLOR_ERROR << "Error: " << vcxt1.tsv_name << " has simple type '" << type_link << "' when link " << lnk << "is present" << COLOR_RESET << std::endl;
+                                                ofs << COLOR_ERROR << "" << vcxt1.tsv_name << " has simple type '" << type_link << "' when link " << lnk << " is present" << COLOR_RESET;
                                             }
 
                                             // Name- and number-tree nodes can be any type so ignore false warnings
                                             if ((vcxt1.type != "name-tree") && (vcxt1.type != "number-tree")) {
                                                 if ((lnk.find("Array") != std::string::npos) && (vcxt1.type != "array")) {
-                                                    ofs << COLOR_WARNING << "Warning: in " << gf.stem() << ", " << lnk << " filename contains 'Array' but is linked as " << vcxt1.type << COLOR_RESET << std::endl;
+                                                    ofs << COLOR_WARNING << "in " << gf.stem() << ", " << lnk << " filename contains 'Array' but is linked as " << vcxt1.type << COLOR_RESET;
                                                 }
                                                 if ((lnk.find("Dict") != std::string::npos) && (vcxt1.type != "dictionary")) {
-                                                    ofs << COLOR_WARNING << "Warning: in " << gf.stem() << ", " << lnk << " filename contains 'Dict' but is linked as " << vcxt1.type << COLOR_RESET << std::endl;
+                                                    ofs << COLOR_WARNING << "in " << gf.stem() << ", " << lnk << " filename contains 'Dict' but is linked as " << vcxt1.type << COLOR_RESET;
                                                 }
                                                 if ((lnk.find("Stream") != std::string::npos) && (vcxt1.type != "stream") && (lnk != "ArrayOfStreamsGeneral")) {
-                                                    ofs << COLOR_WARNING << "Warning: in " << gf.stem() << ", " << lnk << " filename contains 'Stream' but is linked as " << vcxt1.type << COLOR_RESET << std::endl;
+                                                    ofs << COLOR_WARNING << "in " << gf.stem() << ", " << lnk << " filename contains 'Stream' but is linked as " << vcxt1.type << COLOR_RESET;
                                                 }
                                             }
                                             to_process.push_back(vcxt1);
                                         }
                                 }
                                 else {
-                                    ofs << COLOR_ERROR << "Error: " << vcxt.tsv_name << " has bad link '" << type_link << "' - missing enclosing [ ]" << COLOR_RESET << std::endl;
+                                    ofs << COLOR_ERROR << "" << vcxt.tsv_name << " has bad link '" << type_link << "' - missing enclosing [ ]" << COLOR_RESET;
                                 }
                             }
                         } // for
@@ -490,7 +496,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
                 } // for
             }
             else
-                ofs << COLOR_ERROR << "Error: linked file " << gf.stem() << " failed to load!" << COLOR_RESET << std::endl;
+                ofs << COLOR_ERROR << "linked file " << gf.stem() << " failed to load!" << COLOR_RESET;
         }
     } // while
 
@@ -511,7 +517,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
             auto result = std::find_if(std::begin(processed), std::end(processed), is_tsv_match);
 
             if (result == std::end(processed)) {
-                ofs << COLOR_ERROR << "Error: can't reach " << tsv << " from Trailer or XRefStream (assumed as dictionary)" << COLOR_RESET << std::endl;
+                ofs << COLOR_ERROR << "can't reach " << tsv << " from Trailer or XRefStream (assumed as dictionary)" << COLOR_RESET;
                 vcxt.tsv_name = tsv;
                 vcxt.type = "dictionary"; // assumed!
                 processed.push_back(vcxt);
@@ -524,7 +530,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
         gf = grammar_folder / (p.tsv_name + ".tsv");
         CArlingtonTSVGrammarFile reader(gf);
         if (!reader.load()) {
-            ofs << COLOR_ERROR << "Error: can't load Arlington TSV grammar file " << gf << " as " << p.type << COLOR_RESET << std::endl;
+            ofs << COLOR_ERROR << "can't load Arlington TSV grammar file " << gf << " as " << p.type << COLOR_RESET;
         }
         else {
             check_grammar(reader, p.type, verbose, ofs);

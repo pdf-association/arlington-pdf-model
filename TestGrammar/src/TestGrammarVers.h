@@ -1,17 +1,21 @@
 ///////////////////////////////////////////////////////////////////////////////
-// TestGrammarVers.h
-// Copyright 2020 PDF Association, Inc. https://www.pdfa.org
-//
-// This material is based upon work supported by the Defense Advanced
-// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-// Any opinions, findings and conclusions or recommendations expressed
-// in this material are those of the author(s) and do not necessarily
-// reflect the views of the Defense Advanced Research Projects Agency
-// (DARPA). Approved for public release.
-//
-// SPDX-License-Identifier: Apache-2.0
-// Contributors: Peter Wyatt
-//
+/// @file 
+/// @brief TestGrammar version, platform and build details
+/// 
+/// @copyright
+/// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
+/// SPDX-License-Identifier: Apache-2.0
+/// 
+/// @remark
+/// This material is based upon work supported by the Defense Advanced
+/// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+/// Any opinions, findings and conclusions or recommendations expressed
+/// in this material are those of the author(s) and do not necessarily
+/// reflect the views of the Defense Advanced Research Projects Agency
+/// (DARPA). Approved for public release.
+///
+/// @author Peter Wyatt, PDF Association
+/// 
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef TestGrammarVers_h
@@ -48,7 +52,7 @@
 #   define TG_CONFIG "release"
 #endif
 
-
+/// @brief String showing version, build date/time, compiler, platform and configuration
 #define TestGrammar_VERSION "v0.7 built " __DATE__ " " __TIME__ " (" TG_COMPILER " " TG_PLATFORM " " TG_CONFIG ")" 
 
 #endif // TestGrammarVers_h

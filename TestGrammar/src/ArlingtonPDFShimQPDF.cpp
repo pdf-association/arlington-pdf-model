@@ -1,23 +1,26 @@
 ///////////////////////////////////////////////////////////////////////////////
-// ArlingtonPDFShimQPDF.cpp
-// Copyright 2020-2021 PDF Association, Inc. https://www.pdfa.org
-//
-// This material is based upon work supported by the Defense Advanced
-// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-// Any opinions, findings and conclusions or recommendations expressed
-// in this material are those of the author(s) and do not necessarily
-// reflect the views of the Defense Advanced Research Projects Agency
-// (DARPA). Approved for public release.
-//
-// SPDX-License-Identifier: Apache-2.0
-// Contributors: Peter Wyatt
-//
-///////////////////////////////////////////////////////////////////////////////
-
 /// @file 
+/// @brief  Arlington QPDF SDK shim layer
+///
 /// A wafer-thin shim layer to isolate the QPDF SDK library from the rest of the
-/// Arlington PDF Model proof-of-concept C++ application. Performance and memory 
-/// overhead issues are considered irrelevant. See http://qpdf.sourceforge.net/files/qpdf-manual.html
+/// Arlington PDF Model proof-of-concept C++ application. Performance and memory
+/// overhead issues are considered irrelevant. 
+///  
+/// @copyright
+/// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
+/// SPDX-License-Identifier: Apache-2.0
+/// 
+/// @remark
+/// This material is based upon work supported by the Defense Advanced
+/// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+/// Any opinions, findings and conclusions or recommendations expressed
+/// in this material are those of the author(s) and do not necessarily
+/// reflect the views of the Defense Advanced Research Projects Agency
+/// (DARPA). Approved for public release.
+///
+/// @author Peter Wyatt, PDF Association
+///
+///////////////////////////////////////////////////////////////////////////////
 
 #include "ArlingtonPDFShim.h"
 #ifdef ARL_PDFSDK_QPDF
@@ -134,7 +137,7 @@ ArlPDFObject::ArlPDFObject(void* obj) : object(obj)
 
 /// @brief destructor
 ArlPDFObject::~ArlPDFObject() {
-
+    sorted_keys.clear();
 }
 
 
@@ -222,6 +225,24 @@ int ArlPDFObject::get_object_number()
         std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
     }
     return retval;
+}
+
+
+/// @brief Checks if keys are already sorted and, if not, then sorts and caches
+void ArlPDFObject::sort_keys()
+{
+    if (sorted_keys.empty()) {
+        assert(((PdsObject*)object)->GetObjectType() == kPdsDictionary);
+        PdsDictionary* obj = (PdsDictionary*)object;
+        int numKeys = obj->GetNumKeys();
+        // Get all the keys in the dictionary
+        for (int i = 0; i < numKeys; i++) {
+            sorted_keys.push_back(obj->GetKey(index));
+        }
+        // Sort the keys
+        if (sorted_keys.size() > 1)
+            std::sort(sorted_keys.begin(), sorted_keys.end());
+    }
 }
 
 
@@ -408,6 +429,13 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 {
     assert(object != nullptr);
     assert(index >= 0);
+
+    sort_keys();
+    // Get the i-th sorted key name, allowing for no keys in a dictionary 
+    if ((!sorted_keys.empty()) && (index < sorted_keys.size()))
+        retval = sorted_keys[index];
+
+/*****
     std::wstring retval = L"";
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isDictionary());
@@ -420,6 +448,7 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
                 break;
             }
     }
+****/
     if (ArlingtonPDFShim::debugging) 
         std::cout << __FUNCTION__ << "(" << index << "): " << ToUtf8(retval) << std::endl;
     return retval;

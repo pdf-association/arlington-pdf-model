@@ -18,18 +18,19 @@ The TestGrammar (C++17) proof of concept application is a command-line utility.
 It performs a number of functions:
 
 1. validates all TSV files in an Arlington TSV file set.
-    - Check the uniformity (number of columns), if all types are one of Arlington types, etc.
+    - Check the uniformity (number of columns), if all types are one of Arlington types, predicates are parsable, etc.
 2. validates a PDF file against an Arlington TSV file set. Starting from trailer, the tool validates:
     - if all required keys are present
+    - if additional undocumented keys are present and whether such keys conform to 2nd or 3rd class PDF name conventions
     - if values are of correct type (_processing of predicates (declarative functions) are not fully supported_)
-    - if objects are indirect if required (_requires pdfium PDF SDK to be used_)
+    - if objects are indirect objects as specified (_requires pdfium PDF SDK to be used_)
     - if value is correct if `PossibleValues` are defined (_processing of predicates (declarative functions) are not fully supported_)
-    - all error messages are prefixed with `Error:` or `Warning:` to enable post-processing
-    - that all Arlington predicates can be parsed using a simple regex-based recursive descent parser
+    - all messages are prefixed with `Error:`, `Warning:` or `Info:` to enable post-processing
+    - messages can be colorized
 3. recursively validates a folder containing many PDF files.
     - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting.
-4. compares the Arlington PDF model grammar with the Adobe DVA FormalRep
-    - the output report needs manual review afterwards, as predicates will trigger differences
+4. compares the Arlington PDF model grammar with the Adobe DVA FormalRep17
+    - the output report needs manual review afterwards, as the Arlington predicates will trigger many differences
 
 
 ## Usage
@@ -41,14 +42,15 @@ Arlington PDF Model C++ P.o.C. version vX.Y built <date>> <time> (<platform & co
 Choose one of: --pdf, --checkdva or --validate.
 
 Usage:
-        TestGrammar --tsvdir <dir> [--out <fname|dir>] [--clobber] [--debug] [--brief] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
+        TestGrammar --tsvdir <dir> [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
 
 Options:
 -h, --help        This usage message.
--b, --brief       terse output when checking PDFs - no object numbers, details of errors, etc.
+-b, --brief       terse output when checking PDFs. The full PDF DOM tree is NOT output.
 -c, --checkdva    Adobe DVA formal-rep PDF file to compare against Arlington PDF model.
 -d, --debug       output additional debugging information (verbose!)
     --clobber     always overwrite PDF output report files (--pdf) rather than append underscores
+    --no-color    disable colorized text output (useful when redirecting or piping output)
 -m, --batchmode   stop popup error dialog windows - redirect errors to console (Windows only)
 -o, --out         output file or folder. Default is stdout. See --clobber for overwriting behavior
 -p, --pdf         input PDF file or folder.
@@ -58,24 +60,36 @@ Options:
 Built using <pdf-sdk> vX.Y.Z
 ```
 
+`Info:` messages are cyan, `Warning:` messages are yellow, and `Error:` messages are red.
+
+It is recommended to use `--brief` to see a single line of context (i.e. the PDF DOM path of the object) immediately prior to all related `Error:`, `Warning:` or `Info:` messages.
+
 ## Notes
 
-* TestGrammar PoC does NOT currently confirm PDF version validity, or understand most predicates (declarative functions). So there may be some false "Error:" messages!!
+* TestGrammar PoC currently ignores PDF version checking
 
-* all messages from validating PDF files are prefixed with `^Error:` or `^Warning:` to make regex-based post processing easier
+* TestGrammar PoC does NOT process all predicates (declarative functions) so there may be some false `Error:` or `Warning:` messages!!
 
-* possible warning and error messages from PDF file validation are as follows. Each message may also provide context (e.g. a PDF object number) so long as `--brief` is **not** specified (default):
+* all messages from validating PDF files are prefixed with `Error:`, `Warning:` or `Info:` to make regex-based post processing easier.  
 
+* possible messages from PDF file validation are as follows:
+
+*Error Messages (red):*
 ```
 Error: EXCEPTION ...
 Error: Failed to open ...
 Error: failed to acquire Trailer ...
+Error: failed to acquire Trailer/Root ...
+Error: unexpected PDF header version ...
+Error: Document Catalog Version key is not a PDF name. Ignoring.
+Error: Document Catalog Version key value ... was not an expected value. Ignoring.
 Error: can't select any link from ...
 Error: not an indirect reference as required: ...
 Error: wrong type: ...
 Error: wrong value: ...
 Error: non-inheritable required key doesn't exist ...
 Error: inheritable required key doesn't exist ...
+Error: recursive inheritance depth of ... exceeded for ...  
 Error: object validated in two different contexts. First: ...
 Error: array length incorrect for ...
 Error: could not get value for key ...
@@ -84,31 +98,47 @@ Error: name tree Kids array element number xxx was not a dictionary
 Error: number tree Kids array element number xxx was not a dictionary
 Error: name tree Kids object was not an array
 Error: number tree Kids object was not an array
-Error: name tree Names array element xxx was missing 2nd element in a pair
-Error: name tree Names array element xxx error for 1st element in a pair (not a string?)
+Error: name tree Names array element ... was missing 2nd element in a pair
+Error: name tree Names array element ... error for 1st element in a pair (not a string?)
 Error: name tree Names object was missing or not an array when Kids was also missing
 Error: number tree Nums object was missing when Kids was also missing
 Error: number tree Nums array was invalid
 Error: number tree Nums array element xxx was not an integer
 Error: number tree Nums array element xxx was not an object
-Warning: key 'xxx' is not defined in Arlington for "yyy"
+Error: number tree Kids array element number #... was not a dictionary for ...
+Error: number tree Kids object was not an array for ...
+Error: PDF array object encountered, but using Arlington dictionary ...
+Error: unexpected object type ... for ...
+```
+*Warning Messages (yellow):*
+```
+Warning: Document Catalog Version is earlier than PDF header version! Ignoring.
 Warning: possibly wrong value (predicates NOT supported): ...
+Warning: Arlington complex repetition patterns are not supported yet.
+```
+*Informational Messages (cyan):*
+```
+Info: found a Metadata key in ...
+Info: found an Associated File AF key in ...
+Info: second class key ... is not defined in Arlington for ...
+Info: third class key ... found in ...
+Info: unknown key ... is not defined in Arlington for ...
 ```
 
-* the Arlington PDF model is based on PDF 2.0 (ISO 32000-2:2020) where some previously optional keys are now required
-(e.g. font dictionary **FirstChar**, **LastChar**, **Widths**) which means that matching legacy PDFs will falsely report errors unless these keys are present.
+* the Arlington PDF model is primarily based on PDF 2.0 (ISO 32000-2:2020) where some previously optional keys are now required
+(e.g. font dictionary **FirstChar**, **LastChar**, **Widths**) which means that matching older legacy PDFs will falsely report errors unless these keys are present or until PDF version support is implemented in the PoC.
 
 * all output should have a final line "END" (`grep --files-without-match "^END"`) - if not then something nasty has happened (crash!?!)
 
 * an exit code of 0 indicates successful processing.
 
-* An exit code of -1 indicates an error: typically an encrypted PDF file requiring a password or with  unsupported crypto, or a corrupted PDF where the trailer cannot be located (this will also depend on the PDF SDK in use).
+* an exit code of -1 indicates an error: typically an encrypted PDF file requiring a password or with  unsupported crypto, or a corrupted PDF where the trailer cannot be located (this will also depend on the PDF SDK in use).
 
 * if processing a folder of PDFs under Microsoft Windows, then use `--batchmode` so that if things do crash or assert then the error dialog box doesn't block unattended execution from continuing.
 
 ### Understanding errors and warnings
 
-Most error and warning messages are obvious from the text. If `--brief` is **not** specified, then PDF object numbers may also be in the output which can help rapidly identify the cause of error and warning messages. Error and warning message always occur **after** the PDF path so adding a `-A 2` to a grep can provide such context.
+Most error and warning messages are obvious from the message text. If `--brief` is **not** specified, then PDF object numbers may also be in the output which can help rapidly identify the cause of error and warning messages. Messages always occur **after** the PDF DOM path so adding a `-A 1` to `grep` can provide such context.
 
 `Error: object validated in two different contexts. First ...`
 
@@ -118,9 +148,9 @@ This error means that a direct PDF object (`x y obj ... endobj`) has been arrive
 
 This might be corrected in a future version of Arlington, by adding the Widget annotation keys to all field annotations (or vice-versa).
 
-Note that TestGrammar uses a point-scoring system to resolve potential Link ambiguities, with Type and Subtype keys have a very strong influence, followed by other required keys. However disambiguation for arrays often occurs through context but, by design, TestGrammar does **not** track context - it merely follows all object references. Thus an array link may be incorrectly chosen...  
+Note that TestGrammar uses a point-scoring system to resolve potential Link ambiguities, with `Type` and `Subtype` keys have a very strong influence, followed by other required keys. However disambiguation for arrays often occurs through context but, by design, TestGrammar does **not** track context - it merely follows all object references. Thus an array link may be incorrectly chosen...  
 
-Inheritance is only tested for keys that are also "Required", as the required-ness condition can be met via inheritance. The algorithm uses recursive back-tracking following explicit `Parent` key references, which is currently sufficient for the Page Tree. It does **not** build a forward-looking stack, such as renderer might need to construct.     
+Inheritance is only tested for keys that are also "Required" in the Arlington PDF Model, as the required-ness condition can be met via inheritance. The algorithm uses recursive back-tracking following explicit `Parent` key references, which is currently sufficient for the Page Tree. It does **not** build a forward-looking stack, such as renderer might need to construct.     
 
 ## Understanding output
 
@@ -171,37 +201,40 @@ The last line should always be just `END` on a line by itself. If this is missin
 After processing a tree of PDF files and saving the output into a folder via a command such as:
 
 ```bash
-TestGrammar --batchmode --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/
+TestGrammar --brief --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/
 ```
 
 the following Linux CLI commands can be useful in quickly filtering the output:
 
 ```bash
-grep "^Error:" * | sort | uniq
-grep "^Warning:" * | sort | uniq
-grep -h "^Error:" * | cut -c 1-66 | sort | uniq
-grep --files-without-match "^END" *
+grep "Error:" * | sort | uniq
+grep "Warning:" * | sort | uniq
+grep "Info:" * | sort | uniq
+grep -Ph "Error:" * | sort | uniq
+grep -Ph "Warning:" * | sort | uniq
+grep -Ph "Info:" * | sort | uniq
+grep --files-without-match "END" *
 ```
 
 ## Coding Conventions
 
 * platform independent C++17 with STL and minimal other dependencies (_no Boost please!_)
 * no tabs. 4 space indents
-* std::wstrings need to be used for many things (such as PDF names and strings from PDF files) - don't assume ASCII or UTF-8!
+* std::wstrings need to be used for many things (such as PDF names and strings from PDF files) - don't assume PDF content is ASCII or UTF-8!
 * can assume Arlington TSV data is all ASCII/UTF-8
 * liberal comments with code readability
 * classes and methods use Doxygen style `///` comments (as supported by Visual Studio IDE)
 * `/// @todo` are to-do comments
 * zero warnings on all builds and all platforms (excepting PDF SDKs)
-* all error messages matched with `^Error:` (i.e. case sensitive regex at start of a line)
 * do not create unnecessary dependencies on specific PDF SDKs - isolate through the shim layer
 * liberal use of asserts with the Arlington PDF model, which can be assumed to be correct (but never for data from PDF files!)
 * performance and memory is **not** critical (this is just a PoC!) - so long as a full Arlington model can be processed and reasonably-sized PDFs can be checked
+* some PDF SDKs do absorb far too much memory, are excessively slow or cause stack overflows. This is not the PoC's issue!
 
 ## PDF SDK Requirements
 
 Checking PDF files requires a PDF SDK with certain key features (_we shouldn't need to write yet-another PDF parser!_). Key features required of a PDF SDK are:
-* able to iterate over all keys in PDF dictionaries and arrays, including any additional keys not defined in the PDF spec
+* able to iterate over all keys in PDF dictionaries and arrays, including any additional keys not defined in the PDF spec. Keys are sorted alphabetically by the PoC so output from different PDF SDKs is hopefully in the same order.
 * able to test if a specific key name exists in a PDF dictionary
 * able to report the true number of array elements  
 * able to report key value type against the 9 PDF basic object types (integer, number, boolean, name, string, dictionary, stream, array, null)
@@ -212,7 +245,7 @@ Checking PDF files requires a PDF SDK with certain key features (_we shouldn't n
 * return the raw bytes from the PDF file for PDF name and string objects
 * not do any PDF version based processing while parsing
 
-Another recent discovery of behavior differences between PDF SDKs is when a dictionary key is an indirect reference to an object that is well beyond the trailer Size key or maximum cross-reference table object number. In some cases, the PDF SDK "sees" the key, allowing it to be detected and the error that it is invalid is deferred until the TestGrammar app attempts to resolve the indirect reference (e.g. PDFix). Then an error message such as `Error: could not get value for key XXX` will be generated. Other PDF SDKs completely reject the key and the key is not at all visible so no error about can be reported - the key is completely invisible when using such PDF SDKs (e.g. pdfium).
+Another recent discovery of behavior differences between PDF SDKs is when a dictionary key is an indirect reference to an object that is well beyond the trailer `Size` key or maximum cross-reference table object number. In some cases, the PDF SDK "sees" the key, allowing it to be detected and the error that it is invalid is deferred until the TestGrammar app attempts to resolve the indirect reference (e.g. PDFix). Then an error message such as `Error: could not get value for key XXX` will be generated. Other PDF SDKs completely reject the key and the key is not at all visible so no error about can be reported - the key is completely invisible when using such PDF SDKs (e.g. pdfium).
 
 All code for a specific PDF SDK should be kept isolated in a single shim layer CPP file so that all Arlington specific logic and validation checks can be performed against the minimally simple API defined in `ArlingtonPDFShim.h`. There are `#defines` to select which PDF SDK to build with.
 
@@ -224,7 +257,7 @@ TestGrammar has the following module dependencies:
   - this is the **default PDF SDK used** as it provides the most functionality, has source code, and is debuggable if things don't work as expected
   - a local copy of pdfium is used to reduce the build complexity and time - and to fix a number of issues.
   - reduced source code located in `./pdfium`
-  -  PDFium is also slightly modified in order to validate whether key values are direct or indirect references in trailer and normal PDF objects
+  - PDFium is also slightly modified in order to validate whether key values are direct or indirect references in trailer and normal PDF objects
   - see `src/ArlingtonPDFShimPDFium.cpp`
 
 * PDFix: a free but closed source PDF SDK (`ARL_PDFSDK_PDFIX`)
@@ -242,28 +275,30 @@ TestGrammar has the following module dependencies:
   - slightly modified to support wide-string command lines and remove compiler warnings across all platforms and builds  
 
 * QPDF: an OSS PDF SDK (`ARL_PDFSDK_QPDF`)
-  - still work-in-progress / incomplete - **DO NOT USE**
+  - still work-in-progress / incomplete - **DO NOT USE!**
   - download `qpdf-10.x.y-bin-msvc64.zip` from https://github.com/qpdf/qpdf/releases
   - place into `./qpdf`
 
+* MuPDF: an OSS PDF SDK (_in the future_)
+
 ## Building
 
-### Windows Visual Studio 2019 GUI
+### Windows Visual Studio GUI
 
-Open [/TestGrammar/platform/msvc2019/TestGrammar.sln](/TestGrammar/platform/msvc2019/TestGrammar.sln) with Microsoft Visual Studio 2019 and compile. Valid configurations are: 32 (`x86`) or 64 (`x64`) bit, Debug or Release. Compiled executables will be in [TestGrammar/bin/x64](./bin/x64) (64 bit) and [TestGrammar/bin/x86](./bin/x86) (32 bit).
+Open [/TestGrammar/platform/msvc2019/TestGrammar.sln](/TestGrammar/platform/msvc2019/TestGrammar.sln) with Microsoft Visual Studio 2019 or 2022 and compile. Valid configurations are: 32 (`x86`) or 64 (`x64`) bit, Debug or Release. Compiled executables will be in [TestGrammar/bin/x64](./bin/x64) (64 bit) and [TestGrammar/bin/x86](./bin/x86) (32 bit).
 
 Under TestGrammar | Properties | C/C++ | Preprocessor, add the define to select the PDF SDK you wish to use: `ARL_PDFSDK_PDFIUM`, `ARL_PDFSDK_PDFIX` or `ARL_PDFSDK_QPDF` (_QPDF support is not currently working_)
 
-### Windows Visual Studio 2019 command line
+### Windows Visual Studio command line
 
 To build via `msbuild` command line in a Visual Studio 2019 "Native Tools" command prompt:
 
 ```dos
-cd TestGrammar\platform\msvc2019
+cd TestGrammar\platform\msvc20xx
 msbuild -m TestGrammar.sln -t:Rebuild -p:Configuration=Debug -p:Platform=x64
 ```
 
-Compiled binaries will be in [TestGrammar/bin/x86](./bin/x86) or [TestGrammar/bin/x64](./bin/x64). Debug binaries end with `..._d.exe`. In order to select the PDF SDK, either open and change in the Visual Studio IDE (_as above_) or hand edit [platform/msvc/2019/TestGrammar.vcxproj](platform/msvc/2019/TestGrammar.vcxproj) in an XML aware text editor:
+Compiled binaries will be in [TestGrammar/bin/x86](./bin/x86) or [TestGrammar/bin/x64](./bin/x64). Debug binaries end with `..._d.exe`. In order to select the PDF SDK, either open and change in the Visual Studio IDE (_as above_) or hand edit [platform/msvc/2019/TestGrammar.vcxproj](platform/msvc/2019/TestGrammar.vcxproj) or [platform/msvc/2022/TestGrammar.vcxproj](platform/msvc/2022/TestGrammar.vcxproj) in an XML aware text editor:
 
 ```
 <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;...
@@ -318,15 +353,16 @@ Follow the instructions for Linux. Compiled binaries will be in [TestGrammar/bin
 
 ## Code documentation
 
-Run `doxygen Doxyfile` to generate full documentation for the TestGrammar C++ PoC application. Then open [./doc/index](./doc/index). `dot` is also required.
+Run `doxygen Doxyfile` to generate full documentation for the TestGrammar C++ PoC application. Then open [./doc/html/index.html](./doc/html/index.html). `dot` is also required.
 
 
 ---
 
 # TODO
 
-- see the Doxygen output for miscellaneous improvements
-- when processing PDF files, also calculate predicates
+- see the Doxygen output for miscellaneous improvements marked by `@todo` in the C++ source code
+- when processing PDF files, calculate all predicates
+- finish PDF SDK bindings for QPDF, MuPDF and a later/better version of pdfium
 
 ---
 

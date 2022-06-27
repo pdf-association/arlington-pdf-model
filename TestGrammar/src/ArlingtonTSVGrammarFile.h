@@ -1,22 +1,24 @@
 ///////////////////////////////////////////////////////////////////////////////
-// ArlingtonTSVGrammarFile.h
-// Copyright 2020-2021 PDF Association, Inc. https://www.pdfa.org
-//
-// This material is based upon work supported by the Defense Advanced
-// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-// Any opinions, findings and conclusions or recommendations expressed
-// in this material are those of the author(s) and do not necessarily
-// reflect the views of the Defense Advanced Research Projects Agency
-// (DARPA). Approved for public release.
-//
-// SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex; Peter Wyatt
-//
+/// @file 
+/// @brief A class to read the Arlington TSV-based grammar data from a TSV file.
+/// 
+/// @copyright 
+/// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
+/// SPDX-License-Identifier: Apache-2.0
+/// 
+/// @remark
+/// This material is based upon work supported by the Defense Advanced
+/// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+/// Any opinions, findings and conclusions or recommendations expressed
+/// in this material are those of the author(s) and do not necessarily
+/// reflect the views of the Defense Advanced Research Projects Agency
+/// (DARPA). Approved for public release.
+///
+/// @author Roman Toda, Normex
+/// @author Frantisek Forgac, Normex
+/// @author Peter Wyatt, PDF Association
+/// 
 ///////////////////////////////////////////////////////////////////////////////
-
-/*!
-  A class to read the Arlington TSV-based grammar data from a TSV file.
-*/
 
 #ifndef ArlingtonTSVGrammarFile_h
 #define ArlingtonTSVGrammarFile_h

@@ -1,17 +1,21 @@
 ///////////////////////////////////////////////////////////////////////////////
-// PredicateProcessor.cpp
-// Copyright 2021 PDF Association, Inc. https://www.pdfa.org
-//
-// This material is based upon work supported by the Defense Advanced
-// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-// Any opinions, findings and conclusions or recommendations expressed
-// in this material are those of the author(s) and do not necessarily
-// reflect the views of the Defense Advanced Research Projects Agency
-// (DARPA). Approved for public release.
-//
-// SPDX-License-Identifier: Apache-2.0
-// Contributors: Peter Wyatt, PDF Association
-//
+/// @file 
+/// @brief Arlington predicate processor
+/// 
+/// @copyright
+/// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
+/// SPDX-License-Identifier: Apache-2.0
+/// 
+/// @remark
+/// This material is based upon work supported by the Defense Advanced
+/// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+/// Any opinions, findings and conclusions or recommendations expressed
+/// in this material are those of the author(s) and do not necessarily
+/// reflect the views of the Defense Advanced Research Projects Agency
+/// (DARPA). Approved for public release.
+///
+/// @author Peter Wyatt, PDF Association
+///
 ///////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -25,7 +29,7 @@
 
 using namespace ArlingtonPDFShim;
 
-/// @brief All Arlington pre-defined types (alphabetically sorted vector)
+/// @brief All Arlington pre-defined types (alphabetically pre-sorted vector)
 const std::vector<std::string>  v_ArlAllTypes = {
         "array",
         "bitmask",
@@ -47,7 +51,7 @@ const std::vector<std::string>  v_ArlAllTypes = {
         "string-text"
 };
 
-/// @brief Arlingon pre-defined types which REQUIRE a Link - aka "Complex types" (alphabetically sorted vector)
+/// @brief Arlingon pre-defined types which REQUIRE a Link - aka "Complex types" (alphabetically pre-sorted vector)
 const std::vector<std::string>  v_ArlComplexTypes = {
     "array",
     "dictionary",
@@ -56,7 +60,7 @@ const std::vector<std::string>  v_ArlComplexTypes = {
     "stream"
 };
 
-/// @brief Arlington pre-defined types that must NOT have Links - aka "Non-complex types" (alphabetically sorted vector)
+/// @brief Arlington pre-defined types that must NOT have Links - aka "Non-complex types" (alphabetically pre-sorted vector)
 const std::vector<std::string>  v_ArlNonComplexTypes = {
     "bitmask",
     "boolean",
@@ -74,7 +78,7 @@ const std::vector<std::string>  v_ArlNonComplexTypes = {
 };
 
 
-// @brief full set of Arlington supported PDF versions (numerically sorted vector)
+// @brief full set of Arlington supported PDF versions (numerically pre-sorted vector)
 const std::vector<std::string>  v_ArlPDFVersions = {
     "1.0",
     "1.1",
@@ -139,7 +143,8 @@ const std::string ArlPredicate1Arg  = "fn:[A-Z][a-zA-Z14]+\\(" + ArlKey + "\\)";
 const std::string ArlPredicate1ArgV = "fn:[A-Z][a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
 
 
-/// @brief AST Node types (based on regex matches)
+/// @enum ASTNodeType 
+/// AST Node types (based on regex matches)
 enum class ASTNodeType {
     ASTNT_Unknown = 0,
     ASTNT_Predicate,
@@ -173,11 +178,11 @@ static const std::string ASTNodeType_strings[] = {
 };
 
 
-/// @brief define ARL_PARSER_TESTING to test a small set of hard coded predicates
+/// @def define ARL_PARSER_TESTING to test a small set of hard coded predicates
 #undef ARL_PARSER_TESTING
 
 
-/// @brief define ARL_PARSER_DEBUG to enable very verbose debugging of predicate and expression parsing
+/// @def define ARL_PARSER_DEBUG to enable very verbose debugging of predicate and expression parsing
 #undef ARL_PARSER_DEBUG
 
 
@@ -189,12 +194,14 @@ struct ASTNode {
     /// @brief type of operator/operand
     ASTNodeType     type;
 
-    /// @brief Optional arguments for operators
+    /// @brief Optional arguments for operators (left ptr, right ptr)
     ASTNode         *arg[2];
 
+    /// @brief Constructor
     ASTNode(ASTNode *p = nullptr)
         { /* constructor */ arg[0] = arg[1] = nullptr; type = ASTNodeType::ASTNT_Unknown; }
 
+    /// @brief Destructor
     ~ASTNode() {
         /* destructor - recursive */
         if (arg[0] != nullptr) delete arg[0];
@@ -245,8 +252,12 @@ struct ASTNode {
 };
 
 
-/// @brief A stack of AST-Nodes
-typedef std::vector<ASTNode*>  ASTNodeStack;
+/// @brief A vector (stack) of AST-Nodes
+typedef std::vector<ASTNode*>      ASTNodeStack;
+
+
+/// @brief A vector of vector of AST-Nodes
+typedef std::vector<ASTNodeStack>  ASTNodeMatrix;
 
 
 /// @brief Left-to-right recursive descent parser, based on regex pattern matching
@@ -256,30 +267,48 @@ std::string LRParsePredicate(std::string s, ASTNode *root);
 class PredicateProcessor {
 protected:
     /// @brief Single field from a row in an Arlington TSV grammar file
-    std::string     tsv_field;
-    ASTNode         *ast;
+    std::string             tsv_field;
+
+    /// @brief PDF version of the PDF file that is being processed
+    std::string             pdf_version;
+
+    /// @brief A vector of vector of predicate ASTs, as Arlington fields may be of form: 
+    /// [fn:A(...),fn:B(...),fn:C(...)];[];[fn:X(...),fn:Y(...),fn:Z(...)]
+    /// - outer vector: supports each Arlington type (e.g. [A,B,C];[];[X,Y,Z])
+    /// - inner vector: supports predicates around each COMMA-separated values 
+    ///   for each type (e.g. the A,B,C; nullptr and X,Y,Z above)
+    ASTNodeMatrix           predicate_ast;
+
 public:
-    PredicateProcessor(std::string s) :
-        tsv_field(s)
-        { /* constructor */ ast = new ASTNode(); };
-    ~PredicateProcessor()
-        { /* destructor */ delete ast; };
+    PredicateProcessor(std::string &s) :
+        tsv_field(s), pdf_version("2.0") // default version is latest version
+        { /* constructor */ };
+    ~PredicateProcessor();
+
+    /// @brief Set the PDF version of file when reducing the Arlington model for an object
+    /// Not needed for Arlington predicate grammar validation.
+    void set_pdf_version(std::string& pdfver);
+
+    /// @brief ValidateRowSyntax() returns true if the Arlington content is valid
     virtual bool ValidateRowSyntax() = 0;
+
+    /// @brief ReduceRow(...)
 };
 
 
 /// @brief Implements predicate support for the Arlington "Key" field (column 1)
 /// - No COMMAs or SEMI-COLONs
 /// - any alphanumeric or "." or "-" or "_"
-/// - any integer (array index)
-/// - wildcard "*" - must be last row
-/// - all rows are integer + "*" for a repeating set of N array elements
+/// - any integer (assumed to be an array index)
+/// - wildcard "*" - must always be last row
+/// - all rows are integer + "*" then indicates a repeating sets of N array elements
 class KeyPredicateProcessor : public PredicateProcessor {
 public:
     KeyPredicateProcessor(std::string s) :
         PredicateProcessor(s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
+    // ReduceRow(...) is not required 
 };
 
 
@@ -295,7 +324,7 @@ public:
         PredicateProcessor(s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
-    std::string ReduceRow(const std::string pdf_version);
+    std::string ReduceRow();
 };
 
 
@@ -307,7 +336,7 @@ public:
         PredicateProcessor(s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
-    bool ReduceRow(const std::string pdf_version);
+    bool ReduceRow();
 };
 
 
@@ -319,13 +348,13 @@ public:
         PredicateProcessor(s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
-    bool ReduceRow(const std::string pdf_version);
+    bool ReduceRow();
 };
 
 
 /// @brief Implements predicate support for the Arlington "Required" field (column 5)
 /// - either TRUE, FALSE or fn:IsRequired(...)
-/// - inner can be very flexible, including logical " && " and " || " expressions:
+/// - argument of fn:IsRequired(...) can be very flexible, including logical " && " and " || " expressions:
 ///   . fn:BeforeVersion(x.y), fn:IsPDFVersion(x.y)
 ///   . fn:IsPresent(key) or fn:NotPresent(key)
 ///   . \@key==... or \@key!=...
@@ -337,7 +366,7 @@ public:
         PredicateProcessor(s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
-    bool ReduceRow(const std::string pdf_version, ArlPDFObject* obj);
+    bool ReduceRow(ArlPDFObject* obj);
 };
 
 
@@ -393,6 +422,8 @@ public:
         PredicateProcessor(s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
+    bool ReduceRow(ArlPDFObject* object, const int key_idx, const ArlTSVmatrix& tsv_data, const int idx, bool* fully_processed);
+    bool IsValidValue(ArlPDFObject* object, const std::string& pvalues);
 };
 
 
@@ -422,7 +453,7 @@ public:
         PredicateProcessor(s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
-    std::string ReduceRow(const std::string pdf_version);
+    std::string ReduceRow();
 };
 
 /// Arlington "Notes" field (column 12)

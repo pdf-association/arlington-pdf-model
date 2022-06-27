@@ -1,21 +1,22 @@
 ///////////////////////////////////////////////////////////////////////////////
-// PredicateProcessor.cpp
-// Copyright 2021 PDF Association, Inc. https://www.pdfa.org
-//
-// This material is based upon work supported by the Defense Advanced
-// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-// Any opinions, findings and conclusions or recommendations expressed
-// in this material are those of the author(s) and do not necessarily
-// reflect the views of the Defense Advanced Research Projects Agency
-// (DARPA). Approved for public release.
-//
-// SPDX-License-Identifier: Apache-2.0
-// Contributors: Peter Wyatt, PDF Association
-//
+/// @file 
+/// @brief A left-to-right, recursive descent regex-based parser for Arlington predicates.
+/// 
+/// @copyright
+/// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
+/// SPDX-License-Identifier: Apache-2.0
+/// 
+/// @remark
+/// This material is based upon work supported by the Defense Advanced
+/// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+/// Any opinions, findings and conclusions or recommendations expressed
+/// in this material are those of the author(s) and do not necessarily
+/// reflect the views of the Defense Advanced Research Projects Agency
+/// (DARPA). Approved for public release.
+///
+/// @author Peter Wyatt, PDF Association
+///
 ///////////////////////////////////////////////////////////////////////////////
-
-/// @file
-/// A left-to-right, recursive descent regex-based parser for Arlington predicates.
 
 #include <exception>
 #include <iterator>
@@ -27,6 +28,10 @@
 
 #include "PredicateProcessor.h"
 #include "utils.h"
+
+
+/// @brief define PP_DEBUG to get VERY verbose debugging of predicate processing (PP)
+#undef PP_DEBUG
 
 
 /// @brief Regex to process "Links" and "Types" fields
@@ -194,7 +199,7 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
 
         // Typos in predicates, etc can cause this loop not to terminate...
         if (--loop <= 0) {
-            std::cerr << COLOR_ERROR << "Error: Failure to terminate parsing of '" << s << "', AST=" << *root << COLOR_RESET << std::endl;
+            std::cerr << COLOR_ERROR << "Failure to terminate parsing of '" << s << "', AST=" << *root << COLOR_RESET;
             assert(loop > 0);
         }
     }
@@ -281,20 +286,49 @@ std::string LRParsePredicate(std::string s, ASTNode *root) {
 }
 
 
+/// @brief Destructor. manually walk matrix of ASTs and delete each node
+PredicateProcessor::~PredicateProcessor()
+{
+    // A vector of ASTNodeStack = a vector of vectors of ASTNodes
+    if (!predicate_ast.empty()) {
+        for (int i = (int)predicate_ast.size()-1; i >= 0; i--) {
+            if (!predicate_ast[i].empty()) {
+                for (int j = (int)predicate_ast[i].size()-1; j >= 0; j--) {
+                    delete predicate_ast[i][j];
+                }
+                predicate_ast[i].clear(); // inner vector
+            }
+        }
+        predicate_ast.clear(); // outer vector of matrix
+    }
+};
+
+
+/// @brief Sets the PDF version of file.  Used when reducing Arlington down for a specific object.
+/// @param[in]  pdfver  "1.0", "1.1", ..., "2.0"
+void PredicateProcessor::set_pdf_version(std::string& pdfver) {
+    assert(pdfver.size() == 3);
+    if (FindInVector(v_ArlPDFVersions, pdfver)) {
+        pdf_version = pdfver;
+    }
+}
+
+
 /// @brief Validates an Arlington "Key" field (column 1)
-/// - no predicates
+/// - no predicates allowed
 /// - No COMMAs or SEMI-COLONs
-/// - any alphanumeric or "." or "-" or "_"
-/// - any integer (array index)
-/// - wildcard "*" - must be last row (cannot be checked here)
+/// - any alphanumeric including "." or "-" or "_" only
+/// - any integer (i.e. an array index)
+/// - wildcard "*" by itself - must be last row (cannot be checked here)
 /// - integer + "*" for a repeating set of N array elements - all rows (cannot be checked here)
 bool KeyPredicateProcessor::ValidateRowSyntax() {
     const std::regex      r_Keys("(\\*|[0-9]+|[0-9]+\\*|[a-zA-Z0-9\\-\\._]+)");
+
+    // no predicates allowed
     if (tsv_field.find("fn:") != std::string::npos)
         return false;
-    if (std::regex_search(tsv_field,r_Keys))
-        return true;
-    return false;
+
+    return std::regex_search(tsv_field, r_Keys);
 }
 
 
@@ -331,23 +365,22 @@ bool TypePredicateProcessor::ValidateRowSyntax() {
     return true;
 }
 
-/// @brief Reduces an Arlington "Type" field (column 2) based on a PDF version
-/// Arlington types are always lowercase
+/// @brief Reduces an Arlington "Type" field (column 2) based on a PDF version.
+/// Arlington types are always lowercase, in alphabetical order.
 /// - a;b;c
 /// - fn:SinceVersion(x.y,type)
 /// - fn:Deprecated(x.y,type)
 /// - fn:BeforeVersion(x.y,type)
 /// - fn:IsPDFVersion(1.0,type)
 ///
-/// @param[in]  pdf_version   A PDF version as a string (1.0, 1.1, ... 1.7, 2.0)
+/// @param[in]  pdf_version   A PDF version as a string ("1.0", "1.1", ... "1.7", "2.0")
 ///
 /// @returns a list of Arlington types WITHOUT any predicates. NEVER an empty string "".
-std::string TypePredicateProcessor::ReduceRow(const std::string pdf_version) {
+std::string TypePredicateProcessor::ReduceRow() {
     if (tsv_field.find("fn:") == std::string::npos)
         return tsv_field;
 
     std::string     to_ret = "";
-    assert(pdf_version.size() == 3);
 
     std::vector<std::string> type_list = split(tsv_field, ';');
     for (auto& t : type_list) {
@@ -401,10 +434,9 @@ bool SinceVersionPredicateProcessor::ValidateRowSyntax() {
 /// @brief Determines if the current Arlington row is valid based on the "SinceVersion" field (column 3)
 ///
 /// @returns true if this row is valid for the specified by PDF version. false otherwise
-bool SinceVersionPredicateProcessor::ReduceRow(const std::string pdf_version) {
+bool SinceVersionPredicateProcessor::ReduceRow() {
     // PDF version "x.y" --> convert to integer as x*10 + y
     assert(tsv_field.size() == 3);
-    assert(pdf_version.size() == 3);
 
     int pdf_v = pdf_version[0] * 10 + pdf_version[2];
     int tsv_v = tsv_field[0]   * 10 + tsv_field[2];
@@ -426,7 +458,7 @@ bool DeprecatedInPredicateProcessor::ValidateRowSyntax() {
 /// @brief Determines if the current Arlington row is valid based on the "DeprecatedIn" field (column 4)
 ///
 /// @returns true if this row is valid for the specified by PDF version. false otherwise
-bool DeprecatedInPredicateProcessor::ReduceRow(const std::string pdf_version) {
+bool DeprecatedInPredicateProcessor::ReduceRow() {
     if (tsv_field == "")
         return true;
 
@@ -452,14 +484,20 @@ bool RequiredPredicateProcessor::ValidateRowSyntax() {
     if ((tsv_field == "TRUE") || (tsv_field == "FALSE"))
         return true;
     else if ((tsv_field.find("fn:IsRequired(") == 0) && (tsv_field[tsv_field.size()-1] == ')')) {
+        ASTNode *ast = new ASTNode();
+        ASTNodeStack stack;
+
         std::string whats_left = LRParsePredicate(tsv_field, ast);
+        predicate_ast.clear();
+        stack.push_back(ast);
+        predicate_ast.push_back(stack);
         return (whats_left.size() == 0);
     }
     return false;
 }
 
 
-/// @brief Reduces an Arlington "Required" field (column 5) for a given PDF version and PDF object
+/// @brief Reduces an Arlington "Required" field (column 5) for a given PDF version and PDF object.
 /// - either TRUE, FALSE or fn:IsRequired(...)
 /// - NO SEMI-COLONs or [ ]
 /// - inner can be very flexible, including logical && and || expressions:
@@ -470,16 +508,22 @@ bool RequiredPredicateProcessor::ValidateRowSyntax() {
 ///   . various highly specialized predicates: fn:IsEncryptedWrapper(), fn:NotStandard14Font(), ...
 ///
 /// @returns true if field is required for the given PDF version and PDF object
-bool RequiredPredicateProcessor::ReduceRow(const std::string pdf_version, ArlPDFObject* obj) {
+bool RequiredPredicateProcessor::ReduceRow(ArlPDFObject* obj) {
     if (tsv_field == "TRUE")
         return true;
     else if (tsv_field == "FALSE")
         return false;
     else {
-        std::string whats_left = LRParsePredicate(tsv_field, ast);
-        assert(whats_left.size() == 0);
-        assert(ast->node == "fn:IsRequired(");
-        assert(ast->arg[0] != nullptr);
+        if (predicate_ast.empty()) {
+            ASTNode* ast = new ASTNode();
+            ASTNodeStack stack;
+
+            std::string whats_left = LRParsePredicate(tsv_field, ast);
+            predicate_ast.clear();
+            stack.push_back(ast);
+            predicate_ast.push_back(stack);
+            assert(whats_left.size() == 0);
+        }
         /// @todo PROCESS THE AST!
         return false;
     }
@@ -503,8 +547,14 @@ bool IndirectRefPredicateProcessor::ValidateRowSyntax() {
         return true;
     }
     else {
+        ASTNode *ast = new ASTNode();
+        ASTNodeStack stack;
+
         std::string whats_left = LRParsePredicate(tsv_field, ast);
         assert(ast->node == "fn:MustBeDirect(");
+        predicate_ast.clear();
+        stack.push_back(ast);
+        predicate_ast.push_back(stack);
         return (whats_left.size() == 0);
     }
 }
@@ -529,24 +579,36 @@ ReferenceType IndirectRefPredicateProcessor::ReduceRow(const int type_index) {
         assert(type_index < indirect_list.size());
         if (indirect_list[type_index] == "[TRUE]")
             return ReferenceType::MustBeIndirect;
-        else
+        else if (indirect_list[type_index] == "[FALSE]")
             return ReferenceType::DontCare;
+        else { 
+            assert(false && "unexpected predicate in a complex IndirectRef field [];[];[] : ");
+        }
     }
     else {
-        std::string whats_left = LRParsePredicate(tsv_field, ast);
-        assert(whats_left.size() == 0);
+        ASTNode* ast;
+        if (predicate_ast.empty()) {
+            ASTNodeStack stack;
+
+            ast = new ASTNode();
+            std::string whats_left = LRParsePredicate(tsv_field, ast);
+            assert(ast->node == "fn:MustBeDirect(");
+            predicate_ast.clear();
+            stack.push_back(ast);
+            predicate_ast.push_back(stack);
+            assert(whats_left.size() == 0);
+        }
+        ast = predicate_ast[0][0];
         assert(ast->node == "fn:MustBeDirect(");
-        /// @todo PROCESS AST
-        return ReferenceType::DontCare;
+        /// @todo PROCESS AST 
     }
+    return ReferenceType::DontCare; // Default behaviour
 }
 
 /// @brief Validates an Arlington "Inheritable" field (column 7)
 /// - only TRUE or FALSE
 bool InheritablePredicateProcessor::ValidateRowSyntax() {
-    if ((tsv_field == "TRUE") || (tsv_field == "FALSE"))
-        return true;
-    return false;
+    return ((tsv_field == "TRUE") || (tsv_field == "FALSE"));
 }
 
 
@@ -555,15 +617,12 @@ bool InheritablePredicateProcessor::ValidateRowSyntax() {
 ///
 /// @returns true if the row is inheritable, false otherwise
 bool InheritablePredicateProcessor::ReduceRow() {
-    if (tsv_field == "TRUE")
-        return true;
-    else
-        return false;
+    return (tsv_field == "TRUE");
 }
 
 
 /// @brief Validates an Arlington "DefaultValue" field (column 8)
-/// Can be pretty much anything so as long as it parses, assume it is OK.
+/// Can be pretty much anything but so as long as it parses, assume it is OK.
 ///
 /// @returns true if syntax is valid. false otherwise
 bool DefaultValuePredicateProcessor::ValidateRowSyntax() {
@@ -571,28 +630,34 @@ bool DefaultValuePredicateProcessor::ValidateRowSyntax() {
         return true;
 
     std::string s;
+    ASTNodeStack stack;
 
     if (tsv_field.find(";") != std::string::npos) {
         // complex type [];[];[], so therefore everything has [ and ]
         std::vector<std::string> dv_list = split(tsv_field, ';');
 
-        for (auto& dv : dv_list)
+        for (auto& dv : dv_list) {
+            stack.clear();
             if (dv.find("fn:") != std::string::npos) {
                 int loop = 0;
                 s = dv.substr(1, dv.size() - 2); // strip off '[' and ']'
                 do {
                     ASTNode* n = new ASTNode();
+
                     s = LRParsePredicate(s, n);
-                    delete n;
+                    stack.push_back(n);
                     loop++;
                     while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
                         s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                     }
                 } while (!s.empty() && (loop < 100));
-                if (loop >= 100)
+                if (loop >= 100) {
+                    assert(false && "Arlington complex type DefaultValue field too long and complex!");
                     return false;
+                }
             }
-        return true;
+            predicate_ast.push_back(stack);
+        } // for
     }
     else {
         // non-complex type - [ and ] may be PDF array with SPACE separators so don't strip
@@ -602,17 +667,20 @@ bool DefaultValuePredicateProcessor::ValidateRowSyntax() {
             do {
                 ASTNode* n = new ASTNode();
                 s = LRParsePredicate(s, n);
-                delete n;
+                stack.push_back(n);
                 loop++;
                 while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
                     s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                 }
             } while (!s.empty() && (loop < 100));
-            if (loop >= 100)
+            if (loop >= 100) {
+                assert(false && "Arlington simple type DefaultValue field too long and complex!");
                 return false;
-        }
-        return true;
+            }
+        } 
+        predicate_ast.push_back(stack);
     }
+    return true;
 }
 
 
@@ -626,24 +694,120 @@ bool PossibleValuesPredicateProcessor::ValidateRowSyntax() {
 
     std::vector<std::string> pv_list = split(tsv_field, ';');
     std::string s;
-    for (auto& pv : pv_list)
+    ASTNodeStack stack;
+
+    for (auto& pv : pv_list) {
+        stack.clear();
         if (pv.find("fn:") != std::string::npos) {
             int loop = 0;
-            s = pv.substr(1, pv.size()-2); // strip off '[' and ']'
+            s = pv.substr(1, pv.size() - 2); // strip off '[' and ']'
             do {
                 ASTNode* n = new ASTNode();
                 s = LRParsePredicate(s, n);
-                delete n;
+                stack.push_back(n);
                 loop++;
                 while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
                     s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                 }
             } while (!s.empty() && (loop < 100));
-            if (loop >= 100)
+            if (loop >= 100) {
+                assert(false && "Arlington complex type PossibleValues field too long and complex when validating!");
                 return false;
+            }
         }
+        predicate_ast.push_back(stack);
+    }
     return true;
 }
+
+
+/// @brief Checks if "val" is a valid value from a COMMA-separated set
+/// 
+/// @returns true if "val" is valid (i.e. in the set)
+bool PossibleValuesPredicateProcessor::IsValidValue(ArlPDFObject* object, const std::string& pvalues) {
+    PDFObjectType obj_type = object->get_object_type();
+    std::vector<std::string> val_list = split(pvalues, ',');
+    bool retval = false;
+
+    switch (obj_type) {
+    case PDFObjectType::ArlPDFObjTypeNull:
+        // null always matches so always OK
+        retval = true;
+        break;
+
+    case PDFObjectType::ArlPDFObjTypeName:
+        {
+            // PDF Names are raw with no leading SLASH
+            std::string nm = ToUtf8(((ArlPDFName*)object)->get_value());
+            auto it = std::find(val_list.begin(), val_list.end(), nm);
+            retval = (it != val_list.end());
+        }
+        break;
+
+    case PDFObjectType::ArlPDFObjTypeString:
+        {
+            // PDF Strings are single quoted in Arlington
+            std::string s = "'" + ToUtf8(((ArlPDFString*)object)->get_value()) + "'";
+            auto it = std::find(val_list.begin(), val_list.end(), s);
+            retval = (it != val_list.end());
+        }
+        break;
+
+    case PDFObjectType::ArlPDFObjTypeNumber:
+        if (((ArlPDFNumber*)object)->is_integer_value()) {
+            // Integers can be directly matched
+            int num_value = ((ArlPDFNumber*)object)->get_integer_value();
+            auto it = std::find(val_list.begin(), val_list.end(), std::to_string(num_value));
+            retval = (it != val_list.end());
+        }
+        else {
+            // Real number need a tolerance for matching
+            double num_value = ((ArlPDFNumber*)object)->get_value();
+            for (auto &it : val_list) {
+                try {
+                    auto double_val = std::stod(it);
+                    // Double-precision comparison often fails because parsed PDF value is not precisely stored
+                    // Old Adobe PDF specs used to recommend 5 digits so go +/- half of that
+                    if (fabs(num_value - double_val) <= 0.000005) {
+                        retval = true;
+                        break;
+                    }
+                }
+                catch (...) {
+                    // fallthrough and do next opt in PossibleValues options list
+                }
+            }
+        }
+        break;
+
+    case PDFObjectType::ArlPDFObjTypeArray:      
+        /// @todo Some arrays do have Possible Values (e.g. XObject Decode arrays for masks: [0,1] or [1,0])
+        retval = true;
+        break;
+
+    case PDFObjectType::ArlPDFObjTypeBoolean:    // Booleans don't have Possible Values in Arlington!
+        assert("Booleans don't have Possible Values" && false);
+        break;
+    case PDFObjectType::ArlPDFObjTypeDictionary: // Dictionaries are linked types and don't have Possible Values!
+        assert("Dictionaries are linked types and don't have Possible Values" && false);
+        break;
+    case PDFObjectType::ArlPDFObjTypeStream:     // Streams are linked types and don't have Possible Values!
+        assert("Streams are linked types and don't have Possible Values" && false);
+        break;
+    case PDFObjectType::ArlPDFObjTypeReference:  // Should not happen
+        assert("ArlPDFObjTypeReference" && false);
+        break;
+    case PDFObjectType::ArlPDFObjTypeUnknown:    // Should not happen
+        assert("ArlPDFObjTypeUnknown" && false);
+        break;
+    default:
+        assert("default" && false);
+        break;
+    }
+    return retval;
+}
+
+
 
 
 /// @brief Validates an Arlington "SpecialCase" field (column 10)
@@ -653,20 +817,26 @@ bool SpecialCasePredicateProcessor::ValidateRowSyntax() {
 
     std::string s;
     std::vector<std::string> sc_list = split(tsv_field, ';');
+    ASTNodeStack stack;
+
     for (auto& sc : sc_list) {
         int loop = 0;
+        stack.clear();
         s = sc.substr(1, sc.size() - 2); // strip off '[' and ']'
         do {
             ASTNode *n = new ASTNode();
             s = LRParsePredicate(s, n);
-            delete n;
+            stack.push_back(n);
             loop++;
             while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
                 s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
             }
         } while (!s.empty() && (loop < 100));
-        if (loop >= 100)
+        if (loop >= 100) {
+            assert(false && "Arlington complex type SpecialCase field too long and complex when validating!");
             return false;
+        }
+        predicate_ast.push_back(stack);
     } // for
     return true;
 }
@@ -708,7 +878,7 @@ bool LinkPredicateProcessor::ValidateRowSyntax() {
 ///  - fn:IsPDFVersion(x.y,link)
 ///
 /// @returns an Arlington Links field with all predicates removed. May be empty string "".
-std::string LinkPredicateProcessor::ReduceRow(const std::string pdf_version) {
+std::string LinkPredicateProcessor::ReduceRow() {
     // Nothing to do?
     if (tsv_field.find("fn:") == std::string::npos)
         return tsv_field;
@@ -759,6 +929,7 @@ std::string LinkPredicateProcessor::ReduceRow(const std::string pdf_version) {
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
 /// @brief   Check if the value of a key is in a dictionary and matches a given set
 ///
 /// @param[in] dict     dictionary object
@@ -780,12 +951,14 @@ bool check_key_value(ArlPDFDictionary* dict, const std::wstring& key, const std:
                     if (val == i)
                         return true;
                 break;
+
             case PDFObjectType::ArlPDFObjTypeName:
                 val = ((ArlPDFName *)val_obj)->get_value();
                 for (auto& i : values)
                     if (val == i)
                         return true;
                 break;
+
             default: /* fallthrough */
                 break;
         } // switch
@@ -794,22 +967,22 @@ bool check_key_value(ArlPDFDictionary* dict, const std::wstring& key, const std:
 }
 
 
-bool fn_ArrayLength(ArlPDFObject* obj, int *arr_len) {
+int fn_ArrayLength(ArlPDFObject* obj) {
     assert(obj != nullptr);
-    assert(arr_len != nullptr);
     if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
         ArlPDFArray *arr = (ArlPDFArray *)obj;
-        *arr_len = arr->get_num_elements();
-        return true;
+        ASTNode* out = new ASTNode;
+        return arr->get_num_elements();
     }
-    return false;
+#ifdef PP_DEBUG
+    std::cout << "fn_ArrayLength() was not an array!" << std::endl;
+#endif
+    return -1;
 }
 
 
-bool fn_ArraySortAscending(ArlPDFObject* obj, bool *sorted) {
+bool fn_ArraySortAscending(ArlPDFObject* obj) {
     assert(obj != nullptr);
-    assert(sorted != nullptr);
-    *sorted = false;
 
     if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
         ArlPDFArray* arr = (ArlPDFArray*)obj;
@@ -823,123 +996,180 @@ bool fn_ArraySortAscending(ArlPDFObject* obj, bool *sorted) {
                     obj_type = arr->get_value(i)->get_object_type();
                     if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
                         this_elem_val = ((ArlPDFNumber*)arr->get_value(i))->get_value();
-                        if (last_elem_val > this_elem_val)
+                        if (last_elem_val > this_elem_val) 
                             return false; // was not sorted!
                         last_elem_val = this_elem_val;
                     }
-                    else
+                    else {
+#ifdef PP_DEBUG
+                        std::cout << "fn_ArraySortAscending() had inconsistent types!" << std::endl;
+#endif
                         return false; // inconsistent array element types
-                }
-                *sorted = true;
+                    }
+                } // for
                 return true;
             }
-            else
-               return false; // not a numeric array
+            else {
+#ifdef PP_DEBUG
+                std::cout << "fn_ArraySortAscending() was not a numeric array!" << std::endl;
+#endif
+                return false; // not a numeric array
+            }
         }
-        else {
-            *sorted = true;
+        else
             return true; // empty array is always sorted by definition
-        }
     }
+#ifdef PP_DEBUG
+    std::cout << "fn_ArraySortAscending() was not an array!" << std::endl;
+#endif
     return false; // wasn't an array
 }
 
 
-bool fn_BitClear(ArlPDFObject* obj, int bit, bool *bit_was_clear) {
+/// @brief Single bit is clear. 
+bool fn_BitClear(ArlPDFObject* obj, const ASTNode *bit_node) {
     assert(obj != nullptr);
-    assert((bit >= 1) && (bit <= 32));
-    assert(bit_was_clear != nullptr);
 
-    *bit_was_clear = false;
+    assert((bit_node != nullptr) && (bit_node->type == ASTNodeType::ASTNT_ConstInt));
+    int bit = std::stoi(bit_node->node);
+    assert((bit >= 1) && (bit <= 32));
+
     PDFObjectType obj_type = obj->get_object_type();
     if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
         ArlPDFNumber *num_obj = (ArlPDFNumber *)obj;
         if (num_obj->is_integer_value()) {
             int bitmask = 1 << (bit - 1);
             int val = num_obj->get_integer_value();
-            *bit_was_clear = ((val & bitmask) == 0);
-            return true;
+            return ((val & bitmask) == 0);
         }
-        else
+        else {
+#ifdef PP_DEBUG
+            std::cout << "fn_BitClear() was not an integer!" << std::endl;
+#endif
             return false;  // wasn't an integer
+        }
     }
-    else
+    else {
+#ifdef PP_DEBUG
+        std::cout << "fn_BitClear() was not a number!" << std::endl;
+#endif
         return false; // wasn't a number
+    }
 }
 
 
-bool fn_BitSet(ArlPDFObject* obj, int bit, bool* bit_was_set) {
+// Single bit is set. Bit that should be set is in the left arg
+bool fn_BitSet(ArlPDFObject* obj, const ASTNode* bit_node) {
     assert(obj != nullptr);
-    assert((bit >= 1) && (bit <= 32));
-    assert(bit_was_set != nullptr);
 
-    *bit_was_set = false;
+    assert((bit_node != nullptr) && (bit_node->type == ASTNodeType::ASTNT_ConstInt));
+    int bit = std::stoi(bit_node->node);
+    assert((bit >= 1) && (bit <= 32));
+
     PDFObjectType obj_type = obj->get_object_type();
     if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
         ArlPDFNumber* num_obj = (ArlPDFNumber *)obj;
         if (num_obj->is_integer_value()) {
             int bitmask = 1 << (bit - 1);
             int val = num_obj->get_integer_value();
-            *bit_was_set = ((val & bitmask) == 1);
-            return true;
+            return ((val & bitmask) == 1);
         }
-        else
+        else {
+#ifdef PP_DEBUG
+            std::cout << "fn_BitSet() was not an integer!" << std::endl;
+#endif
             return false;  // wasn't an integer
+        }
     }
-    else
+    else {
+#ifdef PP_DEBUG
+        std::cout << "fn_BitSet() was not a number!" << std::endl;
+#endif
         return false; // wasn't a number
+    }
 }
 
 
-bool fn_BitsClear(ArlPDFObject* obj, int low_bit, int high_bit, bool *all_bits_clear) {
+/// @brief Multiple bits should be clear. 
+bool fn_BitsClear(ArlPDFObject* obj, const ASTNode* low_bit_node, const ASTNode* high_bit_node) {
     assert(obj != nullptr);
-    assert((low_bit >= 1) && (low_bit <= 32));
-    assert((high_bit >= 1) && (high_bit <= 32));
-    assert(low_bit < high_bit);
 
-    *all_bits_clear = false;
+    assert((low_bit_node != nullptr) && (low_bit_node->type == ASTNodeType::ASTNT_ConstInt));
+    int low_bit = std::stoi(low_bit_node->node);
+    assert((low_bit >= 1) && (low_bit <= 32));
+
+    assert((high_bit_node != nullptr) && (high_bit_node->type == ASTNodeType::ASTNT_ConstInt));
+    int high_bit = std::stoi(high_bit_node->node);
+    assert((high_bit >= 1) && (high_bit <= 32));
+
+    assert(low_bit <= high_bit);
+
     PDFObjectType obj_type = obj->get_object_type();
     if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
         ArlPDFNumber* num_obj = (ArlPDFNumber*)obj;
         if (num_obj->is_integer_value()) {
             int val = num_obj->get_integer_value();
+            bool all_bits_clear = true;
             for (int bit = low_bit; bit <= high_bit; bit ++) {
                 int bitmask = 1 << (bit - 1);
-                *all_bits_clear = *all_bits_clear && ((val & bitmask) == 0);
+                all_bits_clear = all_bits_clear && ((val & bitmask) == 0);
             }
-            return true;
+            return all_bits_clear;
         }
-        else
+        else {
+#ifdef PP_DEBUG
+            std::cout << "fn_BitsClear() was not an integer!" << std::endl;
+#endif
             return false;  // wasn't an integer
+        }
     }
-    else
+    else {
+#ifdef PP_DEBUG
+        std::cout << "fn_BitsClear() was not a number!" << std::endl;
+#endif
         return false; // wasn't a number
+    }
 }
 
 
-bool fn_BitsSet(ArlPDFObject* obj, int low_bit, int high_bit, bool* all_bits_set) {
+bool fn_BitsSet(ArlPDFObject* obj, const ASTNode* low_bit_node, const ASTNode* high_bit_node) {
     assert(obj != nullptr);
+
+    assert((low_bit_node != nullptr) && (low_bit_node->type == ASTNodeType::ASTNT_ConstInt));
+    int low_bit = std::stoi(low_bit_node->node);
     assert((low_bit >= 1) && (low_bit <= 32));
+
+    assert((high_bit_node != nullptr) && (high_bit_node->type == ASTNodeType::ASTNT_ConstInt));
+    int high_bit = std::stoi(high_bit_node->node);
     assert((high_bit >= 1) && (high_bit <= 32));
+
     assert(low_bit < high_bit);
 
-    *all_bits_set = false;
     PDFObjectType obj_type = obj->get_object_type();
     if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
         ArlPDFNumber* num_obj = (ArlPDFNumber*)obj;
         if (num_obj->is_integer_value()) {
             int val = num_obj->get_integer_value();
+            bool all_bits_set = true;
             for (int bit = low_bit; bit <= high_bit; bit++) {
                 int bitmask = 1 << (bit - 1);
-                *all_bits_set = *all_bits_set && ((val & bitmask) == 1);
+                all_bits_set = all_bits_set && ((val & bitmask) == 1);
             }
-            return true;
+            return all_bits_set;
         }
-        else
+        else {
+#ifdef PP_DEBUG
+            std::cout << "fn_BitsSet() was not an integer!" << std::endl;
+#endif
             return false;  // wasn't an integer
+        }
     }
-    else
+    else {
+#ifdef PP_DEBUG
+        std::cout << "fn_BitsSet() was not a number!" << std::endl;
+#endif
         return false; // wasn't a number
+    }
 }
 
 
@@ -948,9 +1178,8 @@ bool fn_Eval(ArlPDFObject* obj) {
     return false; /// @todo
 }
 
-bool fn_FileSize(size_t limit) {
-    assert(limit > 0);
-    return false; /// @todo
+int fn_FileSize() {
+    return 99999999; /// @todo
 }
 
 
@@ -972,6 +1201,7 @@ bool fn_Ignore() {
 
 
 bool fn_ImageIsStructContentItem(ArlPDFObject* obj) {
+    assert(obj != nullptr);
     return false; /// @todo
 }
 
@@ -980,18 +1210,16 @@ bool fn_ImplementationDependent() {
     return true;
 }
 
-
-bool fn_InMap(ArlPDFObject* obj) {
+bool fn_InMap(ArlPDFObject* obj, ASTNode *key) {
     assert(obj != nullptr);
-    /// @todo
-    return false; /// @todo
+    assert(key != nullptr);
+    return true; /// @todo
 }
 
 
 bool fn_IsAssociatedFile(ArlPDFObject* obj) {
     assert(obj != nullptr);
-    /// @todo Need to see if obj is in trailer::Catalog::AF (array of File Specification dicionaries)
-    return false; /// @todo
+    return false; /// @todo Need to see if obj is in trailer::Catalog::AF (array of File Specification dicionaries)
 }
 
 
@@ -1015,14 +1243,7 @@ bool fn_IsMeaningful(ArlPDFObject* obj) {
 
 bool fn_IsPDFTagged(ArlPDFObject* obj) {
     assert(obj != nullptr);
-    /// @todo Need to see trailer::Catalog::StructTreeRoot exists
-    return false; /// @todo
-}
-
-
-bool fn_IsPageNumber(ArlPDFObject* obj) {
-    assert(obj != nullptr);
-    return false; /// @todo
+    return true; /// @todo - determine if PDF is a Tagged PDF file: DocCat::MarkInfo::Marked == true
 }
 
 
@@ -1040,7 +1261,7 @@ bool fn_IsPresent(ArlPDFObject* obj, std::string& key, bool *is_present) {
                     return true;
                 }
                 catch (...) {
-                    return false; // key wasn't a number
+                    return false; // key wasn't an integer
                 }
             }
         case PDFObjectType::ArlPDFObjTypeDictionary: {
@@ -1049,7 +1270,7 @@ bool fn_IsPresent(ArlPDFObject* obj, std::string& key, bool *is_present) {
                 return true;
             }
         default:
-            /// @todo - is this correct?
+            /// @todo - is this correct? Streams??
             break;
     } // switch
     return false;
@@ -1070,24 +1291,20 @@ bool fn_MustBeDirect(ArlPDFObject* obj) {
 }
 
 
-bool fn_NoCycle(ArlPDFObject* obj, std::string key) {
+bool fn_NoCycle(ArlPDFObject* obj) {
     assert(obj != nullptr);
-    /// @todo Starting at obj, recursively look at key to ensure there is no loop
-    return false; /// @todo
+    return false; /// @todo Starting at obj, recursively look at key to ensure there is no loop
 }
 
 
-bool fn_NotInMap(ArlPDFObject* obj, std::string& pdf_path) {
+bool fn_NotInMap(ArlPDFObject* obj) {
     assert(obj != nullptr);
-    /// @todo Look up map and then look up a reference to this obj
-    return false; /// @todo
+    return false; /// @todo - Look up map and then look up a reference to this obj
 }
 
 
-bool fn_NotPresent(ArlPDFObject* obj, std::string& key, bool* is_not_present) {
-    bool ret_val = fn_IsPresent(obj, key, is_not_present);
-    *is_not_present = !(*is_not_present);
-    return ret_val;
+ASTNode* fn_NotPresent(ArlPDFObject* obj, std::string& key, bool* is_not_present) {
+    return nullptr; /// @todo - fn_NotPresent
 }
 
 
@@ -1109,156 +1326,1068 @@ static const std::vector<std::wstring> Std14Fonts = {
     L"Courier-BoldOblique"
 };
 
-bool fn_NotStandard14Font(ArlPDFObject* parent, bool *not_std14font) {
+ASTNode* fn_NotStandard14Font(ArlPDFObject* parent) {
     assert(parent != nullptr);
-    assert(not_std14font != nullptr);
 
-    *not_std14font = false;
     if (parent->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary) {
         ArlPDFDictionary *dict = (ArlPDFDictionary*)parent;
-        if (check_key_value(dict, L"Type", {L"Font"}) && check_key_value(dict, L"Subtype", {L"Type1"}) && !check_key_value(dict, L"BaseFont", Std14Fonts)) {
-            *not_std14font = true;
-            return true;
+        if (check_key_value(dict, L"Type", {L"Font"}) && 
+            check_key_value(dict, L"Subtype", {L"Type1"}) && 
+            !check_key_value(dict, L"BaseFont", Std14Fonts)) {
+            ASTNode* node = new ASTNode;
+            node->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            node->node = std::to_string(true);
+            return node;
         }
         else
-            return false; // wasn't a Type 1 font dictionary
+            return nullptr; // wasn't a Type 1 font dictionary
     }
-    return false;
+    return nullptr;
 }
 
 
-// Object is a StructParent integer
-bool fn_PageContainsStructContentItems(ArlPDFObject* obj, bool *struct_content_items) {
+/// Object is a StructParent integer
+ASTNode* fn_PageContainsStructContentItems(ArlPDFObject* obj) {
     assert(obj != nullptr);
-    assert(struct_content_items != nullptr);
 
-    *struct_content_items = false;
     if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber) {
         if (((ArlPDFNumber*)obj)->is_integer_value()) {
             int val = ((ArlPDFNumber*)obj)->get_integer_value();
             if (val >= 0) {
                 /// @todo Need to see if this is a valid index into trailer::Catalog::StructTreeRoot::ParentTree (number tree)
-                *struct_content_items = true;
-                return true;
+                ASTNode* node = new ASTNode;
+                node->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                node->node = std::to_string(true);
+                return node;
             }
-            else
-                return false; // cannot have negative value
+            else {
+#ifdef PP_DEBUG
+                std::cout << "fn_PageContainsStructContentItems() was less than zero!" << std::endl;
+#endif
+                return nullptr; // cannot have negative value
+            }
         }
-        else
-            return false; // not an integer
+        else {
+#ifdef PP_DEBUG
+            std::cout << "fn_PageContainsStructContentItems() was not an integer!" << std::endl;
+#endif
+            return nullptr; // not an integer
+        }
     }
-    return false;  // not a number object
+#ifdef PP_DEBUG
+    std::cout << "fn_PageContainsStructContentItems() was not number!" << std::endl;
+#endif
+    return nullptr;  // not a number object
 }
 
 
-bool fn_RectHeight(ArlPDFObject* obj, double *height) {
+/// Used by Target.tsv for A key: 
+/// - fn:PageProperty(\@P,Annots)
+/// - fn:Eval(\@A==fn:PageProperty(\@P,Annots::NM))
+/// 1st arg: PDF page object
+/// 2nd arg: a key of a page 
+bool fn_PageProperty(ArlPDFObject* obj, ASTNode *pg_key) {
     assert(obj != nullptr);
-    assert(height != nullptr);
+    assert(pg_key != nullptr);
+    return true; /// @todo - implement fn:PageProperty() properly
+}
 
-    *height = -1;
+
+double fn_RectHeight(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+
     if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
         ArlPDFArray* rect = (ArlPDFArray*)obj;
         if (rect->get_num_elements() == 4) {
             for (int i = 0; i < 4; i++)
                 if (rect->get_value(i)->get_object_type() != PDFObjectType::ArlPDFObjTypeNumber)
-                    return false; // not all rect array elements were numbers;
+                    return -1.0; // not all rect array elements were numbers;
             double lly = ((ArlPDFNumber*)rect->get_value(1))->get_value();
             double ury = ((ArlPDFNumber*)rect->get_value(3))->get_value();
-            *height = round(fabs(ury - lly));
-            return true;
+            double height = round(fabs(ury - lly));
+            return height;
         }
-        else
-            return false; // not a 4 element array
+        else {
+#ifdef PP_DEBUG
+            std::cout << "fn_RectHeight() was not a 4 element array!" << std::endl;
+#endif
+            return -1.0; // not a 4 element array
+        }
     }
-    return false; // not an array
+#ifdef PP_DEBUG
+    std::cout << "fn_RectHeight() was not an array!" << std::endl;
+#endif
+    return -1.0; // not an array
 }
 
 
-bool fn_RectWidth(ArlPDFObject* obj, double *width) {
+double fn_RectWidth(ArlPDFObject* obj) {
     assert(obj != nullptr);
-    assert(width != nullptr);
 
-    *width = -1;
     if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
         ArlPDFArray *rect = (ArlPDFArray*)obj;
         if (rect->get_num_elements() == 4) {
             for (int i = 0; i < 4; i++)
                 if (rect->get_value(i)->get_object_type() != PDFObjectType::ArlPDFObjTypeNumber)
-                    return false; // not all rect array elements were numbers;
+                    return -1.0; // not all rect array elements were numbers;
             double llx = ((ArlPDFNumber *)rect->get_value(0))->get_value();
             double urx = ((ArlPDFNumber *)rect->get_value(2))->get_value();
-            *width = round(fabs(urx - llx));
-            return true;
+            double width = fabs(urx - llx);
+            return width;
         }
-        else
-            return false; // not a 4 element array
+        else {
+#ifdef PP_DEBUG
+            std::cout << "fn_RectWidth() was not a 4 element array!" << std::endl;
+#endif
+            return -1.0; // not a 4 element array
+        }
     }
-    return false; // not an array
+#ifdef PP_DEBUG
+    std::cout << "fn_RectWidth() was not an array!" << std::endl;
+#endif
+    return -1.0; // not an array
 }
 
 
-bool fn_RequiredValue(ArlPDFObject* obj, std::string& expr, std::string& value, bool *was_req_val) {
+// e.g. fn:RequiredValue(@CFM==AESV2,128)
+//      - condition argument should already be reduced to true/false
+//      - value argument can be any primitive PDF type (int, real, name, string-*, boolean)
+bool fn_RequiredValue(ArlPDFObject* obj, ASTNode* condition, ASTNode* value) {
     assert(obj != nullptr);
-    assert(was_req_val != nullptr);
 
-    *was_req_val = false;
-    return false; /// @todo
+    /// @todo: temporary code until @-value for non-self referenced keys works
+    /// e.g. fn:Deprecated(2.0,fn:RequiredValue(\@V<2,2))
+    if (condition == nullptr) {
+        return false;
+    }
+
+    assert(condition != nullptr);
+    assert(condition->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+    assert(value != nullptr);
+
+    if (condition->node == "false") {
+        // Condition not met so value of obj can be anything (no need to check)
+        return false;
+    }
+    else {
+        // Condition is met so value of obj MUST BE 'value'
+        PDFObjectType obj_type = obj->get_object_type();
+        switch (obj_type) {
+            case PDFObjectType::ArlPDFObjTypeName:
+                if (value->type == ASTNodeType::ASTNT_Key) {
+                    return (value->node == ToUtf8(((ArlPDFName*)obj)->get_value()));
+                }
+                break;
+
+            case PDFObjectType::ArlPDFObjTypeNumber:
+                if ((value->type == ASTNodeType::ASTNT_ConstInt) && ((ArlPDFNumber*)obj)->is_integer_value()) {
+                    return (value->node == std::to_string(((ArlPDFNumber*)obj)->get_integer_value()));
+                }
+                else if (value->type == ASTNodeType::ASTNT_ConstNum) {
+                    return (value->node == std::to_string(((ArlPDFNumber*)obj)->get_value()));
+                }
+                break;
+
+            case PDFObjectType::ArlPDFObjTypeBoolean:
+                if (value->type == ASTNodeType::ASTNT_ConstPDFBoolean) {
+                    if ((value->node == "true") && ((ArlPDFBoolean*)obj)->get_value()) {
+                        return true;
+                    } 
+                    else if ((value->node == "false") && !((ArlPDFBoolean*)obj)->get_value()) {
+                        return true;
+                    }
+                }
+                break;
+
+            case PDFObjectType::ArlPDFObjTypeString:
+                if (value->type == ASTNodeType::ASTNT_ConstString) {
+                    return (value->node == ToUtf8(((ArlPDFString*)obj)->get_value()));
+                }
+                break;
+
+            case PDFObjectType::ArlPDFObjTypeDictionary:
+            case PDFObjectType::ArlPDFObjTypeStream:
+            case PDFObjectType::ArlPDFObjTypeArray:
+            case PDFObjectType::ArlPDFObjTypeNull:
+            case PDFObjectType::ArlPDFObjTypeUnknown:
+            case PDFObjectType::ArlPDFObjTypeReference:
+            default:
+                assert(false && "unexpected fn:RequiredValue value!");
+                return false;
+        } // switch obj_type
+    }
+
+    return false;
 }
 
 
-bool fn_StreamLength(ArlPDFObject* obj, size_t *stm_len) {
+/// @brief Stream Length is according to key value, not actual data. -1 on error.
+int fn_StreamLength(ArlPDFObject* obj) {
     assert(obj != nullptr);
-    assert(stm_len != nullptr);
 
-    *stm_len = -1;
     if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeStream) {
         ArlPDFStream* stm_obj = (ArlPDFStream*)obj;
         ArlPDFObject* len_obj = stm_obj->get_dictionary()->get_value(L"Length");
         if (len_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber) {
             ArlPDFNumber* len_num_obj = (ArlPDFNumber*)len_obj;
             if (len_num_obj->is_integer_value()) {
-                *stm_len = len_num_obj->get_integer_value();
-                return true;
+                return len_num_obj->get_integer_value();
             }
-            else
-                return false; // stream Length key was a float!
+            else {
+#ifdef PP_DEBUG
+                std::cout << "fn_StreamLength() Length was not an integer (was a float)!" << std::endl;
+#endif
+                return -1; // stream Length key was a float!
+            }
         }
-        else
-            return false; // stream Length key was not an number
+        else {
+#ifdef PP_DEBUG
+            std::cout << "fn_StreamLength() Length was not a number!" << std::endl;
+#endif
+            return -1; // stream Length key was not an number
+        }
     }
-    return false; // not a stream
+#ifdef PP_DEBUG
+    std::cout << "fn_StreamLength() was not a stream!" << std::endl;
+#endif
+    return -1; // not a stream
 }
 
 
-bool fn_StringLength(ArlPDFObject* obj, size_t *str_len) {
+// @brief length of a PDF string object. -1 if an error.
+int fn_StringLength(ArlPDFObject* obj) {
     assert(obj != nullptr);
-    assert(str_len != nullptr);
 
-    *str_len = -1;
     if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeString) {
         ArlPDFString *str_obj = (ArlPDFString *)obj;
-        std::wstring s = str_obj->get_value();
-        *str_len = s.size();
-        return true;
+        int len = (int)str_obj->get_value().size();
+        return len;
     }
-    return false; // not a string
+#ifdef PP_DEBUG
+    std::cout << "fn_StringLength() was not a string!" << std::endl;
+#endif
+    return -1; // not a string
 }
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Simplistic expression grammar support:
-// - Fully bracketed logical sub-expressions using ( and )
-// - Key value variables (@name)
-// - Integer and number constants
-// - PDF Name constants
-// - PDF string constants "(xxx)"
-// - PDF Boolean keywords (constants): true, false
-// - Logical comparison: &&, ||, ==
-// - Mathematical comparison: ==, !=, >, <, >=, <=
-// - Mathematical operators: +, -, *, mod
-// - Predicates starting with "fn:"
-//
-// Grep voodoo: grep -Pho "fn:[a-zA-Z]+\((?:[^)(]+|(?R))*+\)" *.tsv | sort | uniq
-//
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+/// @brief BeforeVersion means a feature was introduced prior to specific PDF version:
+///   - fn:IsRequired(fn:BeforeVersion(1.3))
+///   - fn:Eval((\@Colors>=1) && fn:BeforeVersion(1.3,fn:Eval(\@Colors<=4)))
+/// 
+/// @param[in] pdf_ver   version of the PDF file
+/// @param[in] ver_node  version from Arlington PDF model
+/// @param[in] thing     (optional) the feature that was introduced
+ASTNode *fn_BeforeVersion(const std::string& pdf_ver, const ASTNode* ver_node, const ASTNode* thing) {
+    assert(pdf_ver.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, pdf_ver));
+
+    assert(ver_node != nullptr);
+    assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
+    assert(ver_node->node.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, ver_node->node));
+
+    // Convert to 10 * PDF version
+    int pdf_v = (pdf_ver[0] - '0') * 10 + (pdf_ver[2] - '0');
+    int arl_v = (ver_node->node[0] - '0') * 10 + (ver_node->node[2] - '0');
+
+    if (thing != nullptr) {
+        if (pdf_v < arl_v) {
+            ASTNode* out = new ASTNode;
+            out->type = thing->type;
+            out->node = thing->node;
+            return out;
+        }
+    }
+    else { // thing == nullptr
+        ASTNode* out = new ASTNode;
+        out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+        out->node = (pdf_v < arl_v) ? "true" : "false";
+        return out;
+    }
+    return nullptr;
+}
+
+
+/// @brief SinceVersion means a feature was introduced in a specific PDF version
+/// 
+/// @param[in] pdf_ver   version of the PDF file
+/// @param[in] ver_node  version when feature 'thing' was introduced from Arlington PDF model
+/// @param[in] thing     (optional) the feature that was introduced
+ASTNode* fn_SinceVersion(const std::string& pdf_ver, const ASTNode* ver_node, const ASTNode* thing) {
+    assert(pdf_ver.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, pdf_ver));
+
+    assert(ver_node != nullptr);
+    assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
+    assert(ver_node->node.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, ver_node->node));
+
+    // Convert to 10 * PDF version
+    int pdf_v = (pdf_ver[0] - '0') * 10 + (pdf_ver[2] - '0');
+    int arl_v = (ver_node->node[0] - '0') * 10 + (ver_node->node[2] - '0');
+
+    if (thing != nullptr) {
+        if (pdf_v >= arl_v) {
+            ASTNode* out = new ASTNode;
+            out->type = thing->type;
+            out->node = thing->node;
+            return out;
+        }
+    }
+    else { // thing == nullptr
+        ASTNode* out = new ASTNode;
+        out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+        out->node = (pdf_v >= arl_v) ? "true" : "false";
+        return out;
+    }
+    return nullptr;
+}
+
+
+/// @brief IsPDFVersion means a feature was introduced for only a specific PDF version:
+///   - fn:IsRequired(fn:IsPDFVersion(1.0))
+///   - fn:IsPDFVersion(1.0,fn:BitsClear(2,32))
+/// 
+/// @param[in] pdf_ver   version of the PDF file
+/// @param[in] ver_node  version when feature 'thing' was introduced from Arlington PDF model
+/// @param[in] thing     (optional) the feature that was introduced
+ASTNode* fn_IsPDFVersion(const std::string& pdf_ver, const ASTNode* ver_node, const ASTNode* thing) {
+    assert(pdf_ver.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, pdf_ver));
+
+    assert(ver_node != nullptr);
+    assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
+    assert(ver_node->node.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, ver_node->node));
+    assert(ver_node->node == "1.0"); // only use is for PDF 1.0
+
+    // Convert to 10 * PDF version
+    int pdf_v = (pdf_ver[0] - '0') * 10 + (pdf_ver[2] - '0');
+    int arl_v = (ver_node->node[0] - '0') * 10 + (ver_node->node[2] - '0');
+    if (thing != nullptr) {
+        if (pdf_v == arl_v) {
+            ASTNode* out = new ASTNode;
+            out->type = thing->type;
+            out->node = thing->node;
+            return out;
+        }
+    }
+    else { // thing == nullptr
+        ASTNode* out = new ASTNode;
+        out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+        out->node = (pdf_v == arl_v) ? "true" : "false";
+        return out;
+    }
+    return nullptr;
+}
+
+/// @brief Deprecated predicate. If PDF version is BEFORE Arlington's deprecated version, then return 
+/// whatever it was, otherwise return nullptr (meaning `thing` shouldn't exist as it has been deprecated).
+///
+/// @param[in] pdf_ver  version of the PDF file
+/// @param[in] dep_ver  version when deprecated from the Arlington PDF model (1st arg to predicate)
+/// @param[in] thing    thing that was deprecated (2nd arg to predicate)      
+ASTNode* fn_Deprecated(const std::string& pdf_ver, const ASTNode* dep_ver, const ASTNode* thing) {
+    assert(pdf_ver.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, pdf_ver));
+
+    assert(dep_ver != nullptr);
+    assert(dep_ver->type == ASTNodeType::ASTNT_ConstNum);
+    assert(dep_ver->node.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, dep_ver->node));
+
+    assert(thing != nullptr);
+
+    // Convert to 10 * PDF version
+    int pdf_v = (pdf_ver[0] - '0') * 10 + (pdf_ver[2] - '0');
+    int arl_v = (dep_ver->node[0] - '0') * 10 + (dep_ver->node[2] - '0');
+
+    if (pdf_v < arl_v) {
+        ASTNode* out = new ASTNode;
+        out->type = thing->type;
+        out->node = thing->node;
+        return out;
+    }
+    return nullptr;
+}
+
+
+
+int fn_NumberOfPages(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    return 99999; /// @todo - determine number of pages in PDF
+}
+
+
+/// @brief Processes an ASTNode by recursively descending and calculating the predicate.
+ASTNode* ProcessPredicate(ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, bool* fully_processed, int depth = 0) {
+    assert(obj != nullptr);
+    assert(in_ast != nullptr);
+    assert(key_idx >= 0);
+    assert(type_idx >= 0);
+    assert(fully_processed != nullptr);
+
+    ASTNode* out = new ASTNode;
+    ASTNode* out_left = nullptr;
+    ASTNode* out_right = nullptr;
+
+#ifdef PP_DEBUG
+    std::cout << std::string(depth * 2, ' ') << "In:  " << *in_ast << std::endl;
+#endif
+
+    if (in_ast->arg[0] != nullptr) {
+        out_left = ProcessPredicate(obj, in_ast->arg[0], key_idx, tsv_data, type_idx, fully_processed, ++depth);
+#ifdef PP_DEBUG
+        if (out_left != nullptr) { std::cout << std::string(depth * 2, ' ') << " Out-Left:  " << *out_left << std::endl; }
+#endif 
+    }
+
+    if (in_ast->arg[1] != nullptr) {
+        out_right = ProcessPredicate(obj, in_ast->arg[1], key_idx, tsv_data, type_idx, fully_processed, ++depth);
+#ifdef PP_DEBUG
+        if (out_right != nullptr) { std::cout << std::string(depth * 2, ' ') << " Out-Right:  " << *out_right << std::endl; }
+#endif 
+    }
+
+
+    switch (in_ast->type) {
+    case ASTNodeType::ASTNT_ConstPDFBoolean:
+    case ASTNodeType::ASTNT_ConstString:
+    case ASTNodeType::ASTNT_ConstInt:
+    case ASTNodeType::ASTNT_ConstNum:
+    case ASTNodeType::ASTNT_Key:
+        // Primitive type so out = in
+        out->type = in_ast->type;
+        out->node = in_ast->node;
+        break;
+
+    case ASTNodeType::ASTNT_Predicate:
+        {
+            if (in_ast->node == "fn:ArrayLength(") {
+                out->type = ASTNodeType::ASTNT_ConstInt;
+                out->node = std::to_string(fn_ArrayLength(obj));
+            }
+            else if (in_ast->node == "fn:ArraySortAscending(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_ArraySortAscending(obj) ? "true" : "false";
+            }
+            else if (in_ast->node == "fn:BeforeVersion(") {
+                delete out;
+                *fully_processed = false; /// @todo 
+                out = fn_BeforeVersion("2.0", out_left, out_right);  /// @todo correct PDF version to file version
+            }
+            else if (in_ast->node == "fn:BitClear(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_BitClear(obj, out_left) ? "true" : "false";
+            }
+            else if (in_ast->node == "fn:BitSet(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_BitSet(obj, out_left) ? "true" : "false";
+            }
+            else if (in_ast->node == "fn:BitsClear(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_BitsClear(obj, out_left, out_right) ? "true" : "false";
+            }
+            else if (in_ast->node == "fn:BitsSet(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_BitsSet(obj, out_left, out_right) ? "true" : "false";
+            }
+            else if (in_ast->node == "fn:DefaultValue(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = "true"; /// @todo ????
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:Deprecated(") {
+                delete out;
+                *fully_processed = false; /// @todo 
+                out = fn_Deprecated("2.0", out_left, out_right);  /// @todo correct PDF version to file version
+            }
+            else if (in_ast->node == "fn:Eval(") {
+                assert(out_left != nullptr);
+                out->type = out_left->type;
+                out->node = out_left->node;
+            }
+            else if (in_ast->node == "fn:FileSize(") {
+                out->type = ASTNodeType::ASTNT_ConstInt;
+                out->node = std::to_string(fn_FileSize());
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:FontHasLatinChars(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_FontHasLatinChars(obj) ? "true" : "false";
+            }
+            else if (in_ast->node == "fn:Ignore(") {
+                /// @todo - is this correct?
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = "true";
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:ImageIsStructContentItem(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_ImageIsStructContentItem(obj) ? "true" : "false";
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:ImplementationDependent(") {
+                /// @todo - is this correct?
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = "true";
+            }
+            else if (in_ast->node == "fn:InMap(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_InMap(obj, out_left) ? "true" : "false";
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:IsAssociatedFile(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_IsAssociatedFile(obj) ? "true" : "false";
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:IsEncryptedWrapper(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_IsEncryptedWrapper(obj) ? "true" : "false";
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:IsLastInNumberFormatArray(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_IsLastInNumberFormatArray(obj) ? "true" : "false";
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:IsMeaningful(") {
+                /// @todo - is this correct?
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = "true";
+            }
+            else if (in_ast->node == "fn:IsPDFTagged(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_IsPDFTagged(obj) ? "true" : "false";
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:IsPDFVersion(") {
+                out = fn_IsPDFVersion("2.0", out_left, out_right);     /// @todo correct PDF version to file version
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:IsPresent(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = "true"; /// @todo /////////////////////////////////////////////////////
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:IsRequired(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = "false"; /// @todo /////////////////////////////////////////////////////
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:KeyNameIsColorant(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = "true"; /// @todo /////////////////////////////////////////////////////
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:MustBeDirect(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_MustBeDirect(obj) ? "true" : "false";
+            }
+            else if (in_ast->node == "fn:NoCycle(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_NoCycle(obj) ? "true" : "false";
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:NotInMap(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_NotInMap(obj) ? "true" : "false";
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:NotPresent(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = "true"; /// @todo /////////////////////////////////////////////////////
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:NotStandard14Font(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_NotStandard14Font(obj) ? "true" : "false";
+            }
+            else if (in_ast->node == "fn:NumberOfPages(") {
+                out->type = ASTNodeType::ASTNT_ConstInt;
+                out->node = std::to_string(fn_NumberOfPages(obj));
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:PageContainsStructContentItems(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_PageContainsStructContentItems(obj) ? "true" : "false";
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:PageProperty(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_PageProperty(obj, out_right) ? "true" : "false";
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:RectHeight(") {
+                out->type = ASTNodeType::ASTNT_ConstNum;
+                out->node = std::to_string(fn_RectHeight(obj));
+            }
+            else if (in_ast->node == "fn:RectWidth(") {
+                out->type = ASTNodeType::ASTNT_ConstNum;
+                out->node = std::to_string(fn_RectWidth(obj));
+            }
+            else if (in_ast->node == "fn:RequiredValue(") {
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = fn_RequiredValue(obj, out_left, out_right) ? "true" : "false";
+                *fully_processed = false; /// @todo 
+                delete out_left;
+                delete out_right;
+                out_left = out_right = nullptr;
+            }
+            else if (in_ast->node == "fn:SinceVersion(") {
+                delete out;
+                out = fn_SinceVersion("2.0", out_left, out_right);     /// @todo correct PDF version to file version
+                *fully_processed = false; /// @todo 
+            }
+            else if (in_ast->node == "fn:StreamLength(") {
+                out->type = ASTNodeType::ASTNT_ConstInt;
+                out->node = std::to_string(fn_StreamLength(obj));
+            }
+            else if (in_ast->node == "fn:StringLength(") {
+                out->type = ASTNodeType::ASTNT_ConstInt;
+                out->node = std::to_string(fn_StringLength(obj));
+            }
+            else {
+                assert(false && "unrecognized predicate function!");
+                *fully_processed = false; /// @todo 
+                delete out;
+                delete out_left;
+                delete out_right;
+                return nullptr;
+            }
+        }
+        break;
+
+    case ASTNodeType::ASTNT_MathComp:
+        // Math comparison operators - cannot be start of an AST!
+        assert((out_left != nullptr) && (out_right != nullptr));
+        out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+
+        if (in_ast->node == "==") {
+            // equality - could be numeric, logical, etc.
+            out->node = (out_left->node == out_right->node) ? "true" : "false";
+        }
+        else if (in_ast->node == "!=") {
+            // inequality - could be numeric, logical, etc.
+            out->node = (out_left->node != out_right->node) ? "true" : "false";
+        }
+        else {
+            double left = 0.0;
+            double right = 0.0;
+
+            try {
+                left = std::stod(out_left->node);
+            }
+            catch (...) {
+#ifdef PP_DEBUG
+                std::cout << "left side floating point exception for " << out_left->node << "!" << std::endl;
+#endif
+                delete out;
+                delete out_left;
+                delete out_right;
+                return nullptr;
+            }
+            try {
+                right = std::stod(out_right->node);
+            }
+            catch (...) {
+#ifdef PP_DEBUG
+                std::cout << "right side floating point exception for " << out_right->node << "!" << std::endl;
+#endif
+                delete out;
+                delete out_left;
+                delete out_right;
+                return nullptr;
+            }
+
+            if (in_ast->node == "<=") {
+                // less than or equal to (numeric only)
+                out->node = (left <= right) ? "true" : "false";
+            }
+            else if (in_ast->node == "<") {
+                // less than (numeric only)
+                out->node = (left < right) ? "true" : "false";
+            }
+            else if (in_ast->node == ">=") {
+                // greater than or equal to (numeric only)
+                out->node = (left >= right) ? "true" : "false";
+            }
+            else if (in_ast->node == ">") {
+                // greater than (numeric)
+                out->node = (left > right) ? "true" : "false";
+            }
+            else {
+                assert(false && "unexpected math comparison!");
+                delete out;
+                delete out_left;
+                delete out_right;
+                return nullptr;
+            }
+        }
+        break;
+
+    case ASTNodeType::ASTNT_MathOp:
+        {
+            // Math operators: +, -, *, mod
+            assert((out_left != nullptr) && (out_right != nullptr));
+            double left = std::stod(out_left->node);
+            double right = std::stod(out_right->node);
+
+            // Work out typing - integer vs number
+            if ((in_ast->arg[0]->type == ASTNodeType::ASTNT_ConstInt) && (in_ast->arg[1]->type == ASTNodeType::ASTNT_ConstInt))
+                out->type = ASTNodeType::ASTNT_ConstInt;
+            else
+                out->type = ASTNodeType::ASTNT_ConstNum;
+
+            if (in_ast->node == " + ") {
+                // addition
+                if (out->type == ASTNodeType::ASTNT_ConstInt)
+                    out->node = std::to_string(int(left + right));
+                else
+                    out->node = std::to_string(left + right);
+            }
+            else if (in_ast->node == " - ") {
+                // subtraction
+                if (out->type == ASTNodeType::ASTNT_ConstInt)
+                    out->node = std::to_string(int(left - right));
+                else
+                    out->node = std::to_string(left - right);
+            }
+            else if (in_ast->node == " * ") {
+                // multiply
+                if (out->type == ASTNodeType::ASTNT_ConstInt)
+                    out->node = std::to_string(int(left * right));
+                else
+                    out->node = std::to_string(left * right);
+            }
+            else if (in_ast->node == " mod ") {
+                // modulo
+                out->type = ASTNodeType::ASTNT_ConstInt;
+                out->node = std::to_string(int(left) % int(right));
+            }
+            else {
+                assert(false && "unexpected math operator!");
+                delete out;
+                delete out_left;
+                delete out_right;
+                return nullptr;
+            }
+        }
+        break;
+
+    case ASTNodeType::ASTNT_LogicalOp:
+        {
+            // Logical operators - should have 2 operands (left, right) but due to version-based predicates
+            // this can reduce to just one in which case the output is just the non-nullptr boolean.
+            if ((out_left != nullptr) && (out_right == nullptr)) {
+                assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = out_left->node;
+                break;
+            }
+            else if ((out_left == nullptr) && (out_right != nullptr)) {
+                assert(out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = out_right->node;
+                break;
+            }
+
+            assert((out_left != nullptr) && (out_right != nullptr));
+            assert((out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean) && (out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean));
+            if (in_ast->node == " && ") {
+                // logical AND
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = ((out_left->node == "true") && (out_right->node == "true")) ? "true" : "false";
+            }
+            else if (in_ast->node == " || ") {
+                // logical OR
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                out->node = ((out_left->node == "true") || (out_right->node == "true")) ? "true" : "false";
+            }
+            else {
+                assert(false && "unexpected logical operator!");
+                delete out;
+                delete out_left;
+                delete out_right;
+                return nullptr;
+            }
+        }
+        break;
+
+    case ASTNodeType::ASTNT_KeyValue: // @keyname
+        {
+            assert(in_ast->node[0] == '@');
+            std::string key = in_ast->node.substr(1);
+
+            bool self_refer = (tsv_data[key_idx][TSV_KEYNAME] == key);
+
+            if (!self_refer) {
+                /// @todo - need to get the parent object
+                out->type = ASTNodeType::ASTNT_Key;
+                out->node = key;
+                break;
+            }
+
+            // self-reference: obj is the correct object
+            PDFObjectType obj_type = obj->get_object_type();
+            switch (obj_type) {
+                case PDFObjectType::ArlPDFObjTypeName:
+                {
+                    out->type = ASTNodeType::ASTNT_Key;
+                    out->node = ToUtf8(((ArlPDFName*)obj)->get_value());
+                }
+                break;
+
+                case PDFObjectType::ArlPDFObjTypeNumber:
+                    if (((ArlPDFNumber*)obj)->is_integer_value()) {
+                        out->type = ASTNodeType::ASTNT_ConstInt;
+                        out->node = std::to_string(((ArlPDFNumber*)obj)->get_integer_value());
+                    }
+                    else {
+                        out->type = ASTNodeType::ASTNT_ConstNum;
+                        out->node = std::to_string(((ArlPDFNumber*)obj)->get_value());
+                    }
+                break;
+
+                case PDFObjectType::ArlPDFObjTypeBoolean:
+                {
+                    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                    out->node = std::to_string(((ArlPDFBoolean*)obj)->get_value());
+                }
+                break;
+
+                case PDFObjectType::ArlPDFObjTypeString:
+                {
+                    out->type = ASTNodeType::ASTNT_ConstString;
+                    out->node = ToUtf8(((ArlPDFString*)obj)->get_value());
+                }
+                break;
+
+                case PDFObjectType::ArlPDFObjTypeDictionary:
+                {
+                    ArlPDFObject* val = ((ArlPDFDictionary*)obj)->get_value(ToWString(key));
+                    if (val != nullptr) {
+                        PDFObjectType val_type = val->get_object_type();
+                        /// @todo 
+                    }
+                    else {
+                        delete out;
+                        delete out_left;
+                        delete out_right;
+                        return nullptr;
+                    }
+                }
+                break;
+
+                case PDFObjectType::ArlPDFObjTypeStream:
+                {
+                    ArlPDFObject* val = ((ArlPDFStream*)obj)->get_dictionary()->get_value(ToWString(key));
+                    if (val != nullptr) {
+                        PDFObjectType val_type = val->get_object_type();
+                        /// @todo 
+                    }
+                    else {
+                        delete out;
+                        delete out_left;
+                        delete out_right;
+                        return nullptr;
+                    }
+                }
+                break;
+
+                case PDFObjectType::ArlPDFObjTypeArray:
+                    try {
+                        int idx = std::stoi(key);
+                        ArlPDFObject* val = ((ArlPDFArray*)obj)->get_value(idx);
+                        if (val != nullptr) {
+                            PDFObjectType val_type = val->get_object_type();
+                            /// @todo 
+                        }
+                        else {
+                            delete out;
+                            delete out_left;
+                            delete out_right;
+                            return nullptr;
+                        }
+                    }
+                    catch (...) {  // Conversion of key as an array index integer failed!
+                        delete out;
+                        delete out_left;
+                        delete out_right;
+                        return nullptr;
+                    }
+                    break;
+
+                case PDFObjectType::ArlPDFObjTypeNull:
+                case PDFObjectType::ArlPDFObjTypeUnknown:
+                case PDFObjectType::ArlPDFObjTypeReference:
+                default:
+                    assert(false && "unexpected key-value type!");
+                    delete out;
+                    delete out_left;
+                    delete out_right;
+                    return nullptr;
+            } // switch obj_type
+        }
+        break;
+
+    case ASTNodeType::ASTNT_Unknown:
+    case ASTNodeType::ASTNT_Type:
+    default:
+        // Likely a parsing error!
+        delete out;
+        delete out_left;
+        delete out_right;
+        assert(false && "unexpected AST node while recursing!");
+        return nullptr;
+    } // switch
+
+    if (out != nullptr) {
+        out->arg[0] = out_left;
+        out->arg[1] = out_right;
+#ifdef PP_DEBUG
+        std::cout << std::string(depth * 2, ' ') << "Out: " << *out << std::endl;
+#endif
+        assert(out->valid());
+    }
+    else {
+        delete out_left;
+        delete out_right;
+#ifdef PP_DEBUG
+        std::cout << std::string(depth * 2, ' ') << "Out: nullptr" << std::endl;
+#endif 
+    }
+
+    return out;
+}
+
+
+/// @brief Reduces an Arlington "PossibleValues" row (column 9)
+/// Can be pretty much anything.
+///
+/// @returns true if syntax is valid. false otherwise
+bool PossibleValuesPredicateProcessor::ReduceRow(ArlPDFObject* object, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, bool* fully_processed) {
+    assert(object != nullptr);
+    assert(key_idx >= 0);
+    assert(type_idx >= 0);
+    assert(fully_processed != nullptr);
+
+    *fully_processed = true; // assume all predicates will get fully processed
+
+    if (tsv_field == "")
+        return true;
+
+    /// Split on SEMI-COLON
+    std::vector<std::string> pv_list = split(tsv_field, ';');
+
+    // Complex types (arrays, dicts, streams) are just "[]" so this reduces away
+    assert((type_idx >= 0) && (type_idx < pv_list.size()));
+    if (pv_list[type_idx] == "[]")
+        return true;
+
+    ASTNodeStack stack;
+
+    if (predicate_ast.empty())
+        for (auto& pv : pv_list) {
+            stack.clear();
+            if (pv.find("fn:") != std::string::npos) {
+                int loop = 0;
+                std::string s = pv.substr(1, pv.size() - 2); // strip off '[' and ']'
+                do {
+                    ASTNode* n = new ASTNode();
+                    s = LRParsePredicate(s, n);
+                    stack.push_back(n);
+                    loop++;
+                    while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
+                        s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
+                    }
+                } while (!s.empty() && (loop < 100));
+                if (loop >= 100) {
+                    assert(false && "Arlington complex type PossibleValues field too long and complex when reducing!");
+                    *fully_processed = false;
+                    return false;
+                }
+            }
+            predicate_ast.push_back(stack);
+        }
+
+    // There should now be a vector of ASTs or nullptr for each type of the TSV field
+    assert(predicate_ast.size() == pv_list.size());
+    assert(type_idx < predicate_ast.size());
+    assert(pv_list[type_idx][0] == '[');
+
+    std::string s = pv_list[type_idx].substr(1, pv_list[type_idx].size() - 2); // strip off '[' and ']'
+
+    if (predicate_ast[type_idx].empty() || (predicate_ast[type_idx][0] == nullptr)) {
+        // No predicates - but could be a set of COMMA-separated constants (e.g. names, integers, etc.)
+        return IsValidValue(object, s);
+    }
+
+    // At least one predicate was in the COMMA list of Possible Values
+    // Walk vector of ASTs
+#ifdef PP_DEBUG
+    std::cout << std::endl << s << std::endl;
+#endif 
+    stack = predicate_ast[type_idx];
+    for (auto i = 0; i < stack.size(); i++) {
+        ASTNode* n = stack[i];
+
+        switch (n->type) {
+        case ASTNodeType::ASTNT_ConstPDFBoolean:
+        case ASTNodeType::ASTNT_ConstString:
+        case ASTNodeType::ASTNT_ConstInt:
+        case ASTNodeType::ASTNT_ConstNum:
+        case ASTNodeType::ASTNT_Key:
+            // Primitive type means this is a NON-predicate value so see if it is a match
+            // otherwise loop and keep trying...
+            assert((n->arg[0] == nullptr) && (n->arg[1] == nullptr));
+            if (IsValidValue(object, n->node))
+                return true;
+            break;
+
+        case ASTNodeType::ASTNT_Predicate:
+            {
+                ASTNode *pp = ProcessPredicate(object, n, key_idx, tsv_data, type_idx, fully_processed);
+                if (pp != nullptr) {
+                    bool vv = IsValidValue(object, pp->node);
+                    switch (pp->type) {
+                        case ASTNodeType::ASTNT_ConstPDFBoolean:
+                            // Booleans can either be a valid value OR the result of a predicate calculation
+                            if (!vv && (pp->node == "true")) 
+                                vv = true;
+                            delete pp;
+                            return vv;
+                        case ASTNodeType::ASTNT_ConstString:
+                        case ASTNodeType::ASTNT_ConstInt:
+                        case ASTNodeType::ASTNT_ConstNum:
+                        case ASTNodeType::ASTNT_Key:
+                            delete pp;
+                            if (vv) 
+                                return true;
+                            break;
+                        default:
+                            assert(false && "unexpected node type from ProcessPredicate!");
+                            delete pp;
+                            *fully_processed = false;
+                            return false;
+                    } // switch
+                } // if 
+            }
+            break;
+
+        case ASTNodeType::ASTNT_MathComp:  // Math comparison operators - cannot be start of an AST!
+        case ASTNodeType::ASTNT_MathOp:    // Math operators - cannot be start of an AST!
+        case ASTNodeType::ASTNT_LogicalOp: // Logical operators - cannot be start of an AST!
+        case ASTNodeType::ASTNT_KeyValue:  // @keyname - cannot be start of an AST! Needs to be wrapped in fn:Eval()
+        case ASTNodeType::ASTNT_Unknown:
+        case ASTNodeType::ASTNT_Type:
+        default:
+            // Likely a parsing error or bad Arlington data! Check via "--validate" CLI option
+            assert(false && "unexpected AST node when reducing Possible Values!");
+            *fully_processed = false;
+            return false;
+        } // switch
+    } // for
+    return false;
+}

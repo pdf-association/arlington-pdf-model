@@ -1,23 +1,27 @@
 ///////////////////////////////////////////////////////////////////////////////
-// ArlingtonPDFShim.cpp
-// Copyright 2020-2021 PDF Association, Inc. https://www.pdfa.org
-//
-// This material is based upon work supported by the Defense Advanced
-// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-// Any opinions, findings and conclusions or recommendations expressed
-// in this material are those of the author(s) and do not necessarily
-// reflect the views of the Defense Advanced Research Projects Agency
-// (DARPA). Approved for public release.
-//
-// SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Normex.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-/// @file
+/// @file 
+/// @brief  Arlington PDFium SDK shim layer
+/// 
 /// A wafer-thin shim layer to isolate the pdfium SDK library from the rest of the
 /// Arlington PDF Model proof-of-concept C++ application. Performance and memory
 /// overhead issues are considered irrelevant.
+///  
+/// @copyright
+/// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
+/// SPDX-License-Identifier: Apache-2.0
+/// 
+/// @remark
+/// This material is based upon work supported by the Defense Advanced
+/// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+/// Any opinions, findings and conclusions or recommendations expressed
+/// in this material are those of the author(s) and do not necessarily
+/// reflect the views of the Defense Advanced Research Projects Agency
+/// (DARPA). Approved for public release.
+///
+/// @author Roman Toda, Normex
+/// @author Peter Wyatt, PDF Association
+///
+///////////////////////////////////////////////////////////////////////////////
 
 #include "ArlingtonPDFShim.h"
 
@@ -133,29 +137,10 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
         // if /Type key exists, then assume working with XRefStream
         ArlPDFObject* type_key= trailer_obj->get_value(L"Type");
         trailer_obj->set_xrefstm(type_key != nullptr);
-
-        //FX_DWORD  GetObjNum() const
-        //FX_DWORD  GetGenNum() const
-        int id = trailr->GetObjNum();
-        CPDF_Object* root_key = (CPDF_Object*)trailer_obj->get_value(L"Root");
-        if (root_key != NULL) {
-            id = root_key->GetObjNum();
-
-            CPDF_Object* info_key = (CPDF_Object*)trailer_obj->get_value(L"Info");
-            if (info_key != NULL) {
-                id = info_key->GetObjNum();
-            }
-            else {
-                if (ArlingtonPDFShim::debugging)
-                    std::cout << __FUNCTION__ << " trailer Info key could not be found!" << std::endl;
-            }
-
-            return trailer_obj;
-        }
-        if (ArlingtonPDFShim::debugging) {
-            std::cout << __FUNCTION__ << " trailer Root key could not be found!" << std::endl;
-        }
+        delete type_key;
+        return trailer_obj;
     }
+
     if (ArlingtonPDFShim::debugging) {
         std::cout << __FUNCTION__ << " trailer could not be found!" << std::endl;
     }
@@ -191,35 +176,21 @@ CPDF_Object* pdfium_is_indirect_valid(CPDF_Object* obj) {
 }
 
 
+/// @brief Constructor taking a PDF SDK generic pointer for storage
 ArlPDFObject::ArlPDFObject(void* obj) : object(obj)
 {
-    is_indirect = false;
-
     assert(object != nullptr);
     CPDF_Object* pdf_obj = (CPDF_Object*)object;
     int obj_type = pdf_obj->GetType();
     assert(obj_type != PDFOBJ_INVALID);
-    if (obj_type == PDFOBJ_REFERENCE) {
-        is_indirect = true;
-        CPDF_Object *pdf_ir = pdfium_is_indirect_valid(pdf_obj);
-        // Treat missing objects as PDF null objects as this is a
-        // constructor and we cannot return an error (such as nullptr)
-        if (pdf_ir == nullptr)
-            object = new CPDF_Null;
-        else
-            object = pdf_ir;
-    }
+    is_indirect = (obj_type == PDFOBJ_REFERENCE);
 }
 
 
+/// @brief Destructor for all objects
 ArlPDFObject::~ArlPDFObject()
 {
-    if (object == nullptr)
-        return;
-    CPDF_Object* pdf_obj = (CPDF_Object*)object;
-    if (is_indirect) {
-        /// @todo Release object or free memory ???
-    }
+    sorted_keys.clear(); 
 }
 
 
@@ -239,10 +210,10 @@ PDFObjectType ArlPDFObject::get_object_type()
 
     switch (obj->GetType())
     {
-    case PDFOBJ_BOOLEAN:
+        case PDFOBJ_BOOLEAN:
             retval = PDFObjectType::ArlPDFObjTypeBoolean;
             break;
-    case PDFOBJ_NUMBER:
+        case PDFOBJ_NUMBER:
             retval = PDFObjectType::ArlPDFObjTypeNumber;    // Integer or Real (or bitmask)
             break;
         case PDFOBJ_STRING:
@@ -264,8 +235,13 @@ PDFObjectType ArlPDFObject::get_object_type()
             retval = PDFObjectType::ArlPDFObjTypeNull;
             break;
         case PDFOBJ_REFERENCE:
-             object = ((pdfium_context*)ArlingtonPDFSDK::ctx)->parser->GetDocument()->GetIndirectObject(((CPDF_Reference*)object)->GetRefObjNum());
-             retval = get_object_type(); // PDFObjectType::ArlPDFObjTypeReference;
+            {
+                FX_DWORD r = ((CPDF_Reference*)object)->GetRefObjNum();
+                CPDF_Object* ir_obj = ((pdfium_context*)ArlingtonPDFSDK::ctx)->parser->GetDocument()->GetIndirectObject(r);
+                //??? delete object; or ((CPDF_Object*)object)->Release(); ??
+                object = ir_obj;
+                retval = get_object_type(); 
+            }
             break;
         case PDFOBJ_INVALID: /* fallthrough */
         default:
@@ -289,13 +265,21 @@ bool ArlPDFObject::is_indirect_ref()
   return is_indirect;
 }
 
+
 /// @brief   generates unique identifier for every object
 /// @return  for indirect objects it returns the unique identifier (object number)
 std::string ArlPDFObject::get_hash_id()
 {
-  assert(object != nullptr);
-  return std::to_string(((CPDF_Object*)object)->GetObjNum()) + "_"+ std::to_string(((CPDF_Object*)object)->GetGenNum());
+    assert(object != nullptr);
+    if (((CPDF_Object*)object)->GetType() != PDFOBJ_REFERENCE) {
+        return std::to_string(((CPDF_Object*)object)->GetObjNum()) + "_" + std::to_string(((CPDF_Object*)object)->GetGenNum());
+    }
+    else {
+        CPDF_Reference* r = (CPDF_Reference*)object;
+        return std::to_string(r->GetRefObjNum()) + "_" + std::to_string(r->GetGenNum());
+    }
 }
+
 
 /// @brief  Returns the object number or 0 if a direct object
 /// @return the object number or 0 if a direct object
@@ -307,6 +291,28 @@ int ArlPDFObject::get_object_number()
         std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
     }
     return retval;
+}
+
+
+/// @brief Checks if keys are already sorted and, if not, then sorts and caches
+void ArlPDFObject::sort_keys()
+{
+    if (sorted_keys.empty()) {
+        assert(((CPDF_Object*)object)->GetType() == PDFOBJ_DICTIONARY);
+        CPDF_Dictionary* dict = ((CPDF_Dictionary*)object);
+
+        // Get all the keys in the dictionary
+        FX_POSITION pos = dict->GetStartPos();
+        while (pos) {
+            CFX_ByteString keyName;
+            (void)dict->GetNextElement(pos, keyName);
+            std::wstring key = (FX_LPCWSTR)keyName.UTF8Decode();
+            sorted_keys.push_back(key);
+        }
+        // Sort the keys
+        if (sorted_keys.size() > 1)
+            std::sort(sorted_keys.begin(), sorted_keys.end());
+    }
 }
 
 
@@ -432,20 +438,7 @@ ArlPDFObject* ArlPDFArray::get_value(int idx)
     if (type_key != nullptr) {
         int t = type_key->GetType();
         assert(t != PDFOBJ_INVALID);
-        // Make pdfium match pdfix behaviour by returning nullptr if indirect reference
-        // is to an invalid object. Otherwise get a CPDF_Null object and the error
-        // messages are slightly different. This is because constructors cannot return
-        // a value, but just populate 'this'.
-        if (t == PDFOBJ_REFERENCE) {
-            CPDF_Object* pdf_ir = pdfium_is_indirect_valid(type_key);
-            if (pdf_ir == nullptr)
-                retval = nullptr;
-            else
-                retval = new ArlPDFObject(type_key);
-        }
-        else {
-            retval = new ArlPDFObject(type_key);
-        }
+        retval = new ArlPDFObject(type_key);
     }
 
     if (ArlingtonPDFShim::debugging) {
@@ -497,7 +490,8 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
     ArlPDFObject* retval = nullptr;
     CPDF_Dictionary* obj = ((CPDF_Dictionary*)object);
 
-    CPDF_Object* type_key = obj->GetElement(CFX_ByteString::FromUnicode(key.c_str()));
+    CFX_ByteString bstr = CFX_ByteString::FromUnicode(key.c_str());
+    CPDF_Object* type_key = obj->GetElement(bstr);
     if (type_key != NULL)
         retval = new ArlPDFObject(type_key);
 
@@ -518,23 +512,12 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 {
     assert(object != nullptr);
     assert(index >= 0);
-    assert(((CPDF_Object*)object)->GetType() == PDFOBJ_DICTIONARY);
     std::wstring     retval;
-    CPDF_Dictionary* dict = ((CPDF_Dictionary*)object);
 
-    // Get all the keys
-    std::vector<std::wstring> all_keys;
-    FX_POSITION pos = dict->GetStartPos();
-    while (pos) {
-        CFX_ByteString keyName;
-        (void)dict->GetNextElement(pos, keyName);
-        all_keys.push_back((FX_LPCWSTR)keyName.UTF8Decode());
-    }
-    // Sort the keys
-    std::sort(all_keys.begin(), all_keys.end());
-    // Get the i-th sorted key name 
-    if (index < all_keys.size())
-        retval = all_keys[index];
+    sort_keys();
+    // Get the i-th sorted key name, allowing for no keys in a dictionary 
+    if ((!sorted_keys.empty()) && (index < sorted_keys.size()))
+        retval = sorted_keys[index];
 
     if (ArlingtonPDFShim::debugging) {
         std::wcout << __FUNCTION__ << "(" << index << "): '" << retval << "'" << std::endl;

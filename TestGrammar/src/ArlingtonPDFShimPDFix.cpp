@@ -1,23 +1,28 @@
 ///////////////////////////////////////////////////////////////////////////////
-// ArlingtonPDFShim.cpp
-// Copyright 2020-2021 PDF Association, Inc. https://www.pdfa.org
-//
-// This material is based upon work supported by the Defense Advanced
-// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-// Any opinions, findings and conclusions or recommendations expressed
-// in this material are those of the author(s) and do not necessarily
-// reflect the views of the Defense Advanced Research Projects Agency
-// (DARPA). Approved for public release.
-//
-// SPDX-License-Identifier: Apache-2.0
-// Contributors: Peter Wyatt
-//
-///////////////////////////////////////////////////////////////////////////////
-
 /// @file 
+/// @brief  Arlington PDFix SDK shim layer
+///
 /// A wafer-thin shim layer to isolate the PDFix SDK library from the rest of the
-/// Arlington PDF Model proof-of-concept C++ application. Performance overhead issues 
-/// are considered irrelevant. See https://pdfix.github.io/pdfix_sdk_builds/en/6.1.0/html/.
+/// Arlington PDF Model proof-of-concept C++ application. Performance and memory
+/// overhead issues are considered irrelevant. 
+/// See https://pdfix.github.io/pdfix_sdk_builds/en/6.1.0/html/.
+///  
+/// @copyright
+/// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
+/// SPDX-License-Identifier: Apache-2.0
+/// 
+/// @remark
+/// This material is based upon work supported by the Defense Advanced
+/// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+/// Any opinions, findings and conclusions or recommendations expressed
+/// in this material are those of the author(s) and do not necessarily
+/// reflect the views of the Defense Advanced Research Projects Agency
+/// (DARPA). Approved for public release.
+///
+/// @author Roman Toda, Normex
+/// @author Peter Wyatt, PDF Association
+///
+///////////////////////////////////////////////////////////////////////////////
 
 #include "ArlingtonPDFShim.h"
 
@@ -35,7 +40,7 @@ Pdfix_statics;
 void* ArlingtonPDFSDK::ctx;
 
 struct pdfix_context {
-    Pdfix* pdfix;
+    Pdfix* pdfix = nullptr;
     PdfDoc* doc = nullptr;
     ~pdfix_context() {
         if (doc != nullptr) 
@@ -180,7 +185,7 @@ ArlPDFObject::ArlPDFObject(void* obj) : object(obj)
 
 /// @brief destructor
 ArlPDFObject::~ArlPDFObject() {
-
+    sorted_keys.clear();
 }
 
 
@@ -268,6 +273,24 @@ int ArlPDFObject::get_object_number()
         std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
     }
     return retval;
+}
+
+
+/// @brief Checks if keys are already sorted and, if not, then sorts and caches
+void ArlPDFObject::sort_keys()
+{
+    if (sorted_keys.empty()) {
+        assert(((PdsObject*)object)->GetObjectType() == kPdsDictionary);
+        PdsDictionary* obj = (PdsDictionary*)object;
+        int numKeys = obj->GetNumKeys();
+        // Get all the keys in the dictionary
+        for (int i=0; i < numKeys; i++) {
+            sorted_keys.push_back(obj->GetKey(i));
+        }
+        // Sort the keys
+        if (sorted_keys.size() > 1)
+            std::sort(sorted_keys.begin(), sorted_keys.end());
+    }
 }
 
 
@@ -459,8 +482,14 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
     assert(object != nullptr);
     assert(index >= 0);
     assert(((PdsObject*)object)->GetObjectType() == kPdsDictionary);
-    PdsDictionary* obj = (PdsDictionary*)object;
-    std::wstring retval = obj->GetKey(index);
+
+    std::wstring retval;
+
+    sort_keys();
+    // Get the i-th sorted key name, allowing for no keys in a dictionary 
+    if ((!sorted_keys.empty()) && (index < sorted_keys.size()))
+        retval = sorted_keys[index];
+
     if (ArlingtonPDFShim::debugging) {
         std::wcout << __FUNCTION__ << "(" << index << "): '" << retval << "'" << std::endl;
     }

@@ -1,23 +1,27 @@
 ///////////////////////////////////////////////////////////////////////////////
-// CheckDVA.cpp
-// Copyright 2020 PDF Association, Inc. https://www.pdfa.org
-//
-// This material is based upon work supported by the Defense Advanced
-// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
-// Any opinions, findings and conclusions or recommendations expressed
-// in this material are those of the author(s) and do not necessarily
-// reflect the views of the Defense Advanced Research Projects Agency
-// (DARPA). Approved for public release.
-//
-// SPDX-License-Identifier: Apache-2.0
-// Contributors: Roman Toda, Frantisek Forgac, Normex. Peter Wyatt, PDF Association
-//
+/// @file 
+/// @brief Compares an Arlington PDF model to the Adobe DVA FormalRep as defined in a PDF file
+/// 
+/// @copyright 
+/// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
+/// SPDX-License-Identifier: Apache-2.0
+/// 
+/// @remark
+/// This material is based upon work supported by the Defense Advanced
+/// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+/// Any opinions, findings and conclusions or recommendations expressed
+/// in this material are those of the author(s) and do not necessarily
+/// reflect the views of the Defense Advanced Research Projects Agency
+/// (DARPA). Approved for public release.
+///
+/// @author Roman Toda, Normex
+/// @author Frantisek Forgac, Normex
+/// @author Peter Wyatt, PDF Association
+/// 
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "ArlingtonPDFShim.h"
 
-/// @file
-/// Compares an Arlington PDF model to the Adobe DVA FormalRep as defined in a PDF
 
 #include <exception>
 #include <queue>
@@ -751,19 +755,19 @@ void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK &pdfsdk, const std::filesystem::
                      process_dict(grammar_folder, ofs, (ArlPDFDictionary*)formal_rep);
                 }
                 else {
-                    ofs << COLOR_ERROR << "Error: failed to acquire Trailer/Root/FormalRepTree" << COLOR_RESET << std::endl;
+                    ofs << COLOR_ERROR << "failed to acquire Trailer/Root/FormalRepTree" << COLOR_RESET;
                 }
             }
             else {
-                ofs << COLOR_ERROR << "Error: failed to acquire Trailer/Root" << COLOR_RESET << std::endl;
+                ofs << COLOR_ERROR << "failed to acquire Trailer/Root" << COLOR_RESET;
             }
         }
         else {
-            ofs << COLOR_ERROR << "Error: failed to acquire Trailer" << COLOR_RESET << std::endl;
+            ofs << COLOR_ERROR << "failed to acquire Trailer" << COLOR_RESET;
         }
     }
     catch (std::exception& ex) {
-        ofs << COLOR_ERROR << "Error: EXCEPTION: " << ex.what() << COLOR_RESET << std::endl;
+        ofs << COLOR_ERROR << "EXCEPTION: " << ex.what() << COLOR_RESET;
     }
 
     // Finally...
