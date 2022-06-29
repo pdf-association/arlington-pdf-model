@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
-/// @file 
+/// @file
 /// @brief Header for Arlington model validation and checking against Adobe DVA
-/// 
-/// @copyright 
+///
+/// @copyright
 /// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
 /// SPDX-License-Identifier: Apache-2.0
-/// 
+///
 /// @remark
 /// This material is based upon work supported by the Defense Advanced
 /// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
@@ -29,7 +29,6 @@
 #include <iostream>
 #include <string>
 #include <filesystem>
-#include "ArlingtonPDFShim.h"
 
 /// @brief Validate the Arlington PDF model grammar
 void ValidateGrammarFolder(const std::filesystem::path& grammar_folder, bool verbose, std::ostream& ofs);
