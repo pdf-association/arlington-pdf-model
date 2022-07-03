@@ -448,6 +448,7 @@ set(SOURCES
     src/CheckGrammar.cpp
     src/ParseObjects.cpp
     src/PredicateProcessor.cpp
+    src/PDFFile.cpp
     src/Utils.cpp
     sarge/sarge.cpp
     )

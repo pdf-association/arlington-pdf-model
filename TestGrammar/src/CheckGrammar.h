@@ -34,6 +34,6 @@
 void ValidateGrammarFolder(const std::filesystem::path& grammar_folder, bool verbose, std::ostream& ofs);
 
 /// @brief Check Adobe DVA vs Arlington PDF model
-void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK& pdfsdk, const std::filesystem::path& dva_file, const std::filesystem::path& grammar_folder, std::ostream& ofs);
+void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK& pdfsdk, const std::filesystem::path& dva_file, const std::filesystem::path& grammar_folder, std::ostream& ofs, bool terse);
 
 #endif // CheckGrammar_h

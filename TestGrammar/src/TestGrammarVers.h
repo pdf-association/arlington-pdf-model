@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
-/// @file 
+/// @file
 /// @brief TestGrammar version, platform and build details
-/// 
+///
 /// @copyright
 /// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
 /// SPDX-License-Identifier: Apache-2.0
-/// 
+///
 /// @remark
 /// This material is based upon work supported by the Defense Advanced
 /// Research Projects Agency (DARPA) under Contract No. HR001119C0079.
@@ -15,11 +15,12 @@
 /// (DARPA). Approved for public release.
 ///
 /// @author Peter Wyatt, PDF Association
-/// 
+///
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef TestGrammarVers_h
 #define TestGrammarVers_h
+#pragma once
 
 // Compiler
 #if defined(_MSC_VER)
@@ -53,6 +54,6 @@
 #endif
 
 /// @brief String showing version, build date/time, compiler, platform and configuration
-#define TestGrammar_VERSION "v0.7 built " __DATE__ " " __TIME__ " (" TG_COMPILER " " TG_PLATFORM " " TG_CONFIG ")" 
+#define TestGrammar_VERSION "v0.8 built " __DATE__ " " __TIME__ " (" TG_COMPILER " " TG_PLATFORM " " TG_CONFIG ")"
 
 #endif // TestGrammarVers_h

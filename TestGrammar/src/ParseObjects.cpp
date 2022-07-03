@@ -20,6 +20,14 @@
 ///
 ///////////////////////////////////////////////////////////////////////////////
 
+#include "ParseObjects.h"
+#include "ArlingtonTSVGrammarFile.h"
+#include "ArlPredicates.h"
+#include "ASTNode.h"
+#include "PredicateProcessor.h"
+#include "utils.h"
+#include "PDFFile.h"
+
 #include <fstream>
 #include <sstream>
 #include <iomanip>
@@ -30,11 +38,6 @@
 #include <cassert>
 #include <regex>
 #include <algorithm>
-
-#include "ArlingtonTSVGrammarFile.h"
-#include "ParseObjects.h"
-#include "PredicateProcessor.h"
-#include "utils.h"
 
 using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
@@ -76,7 +79,7 @@ const ArlTSVmatrix& CParsePDF::get_grammar(const std::string &link)
 bool CParsePDF::check_possible_values(ArlPDFObject* object, int key_idx, const ArlTSVmatrix &tsv_data, const int type_idx, std::wstring &real_str_value) {
     assert(object != nullptr);
     assert(key_idx >= 0);
-    assert(key_idx < tsv_data.size());
+    assert(key_idx < (int)tsv_data.size());
     assert(type_idx >= 0);
 
     double num_value;
@@ -134,10 +137,9 @@ bool CParsePDF::check_possible_values(ArlPDFObject* object, int key_idx, const A
 
     /// Possible Value might be something complex with multiple predicates and empty options
     /// e.g.: [a,fn:A(b),c];[];[d,fn:C(xx,fn:B(yyy,e)),f]
-    PossibleValuesPredicateProcessor pv = PossibleValuesPredicateProcessor(tsv_data[key_idx][TSV_POSSIBLEVALUES]);
+    PossibleValuesPredicateProcessor pv = PossibleValuesPredicateProcessor(pdfc, tsv_data[key_idx][TSV_POSSIBLEVALUES]);
 
-    pv.set_pdf_version(pdf_version);
-    bool fully_processed = true;
+     bool fully_processed = true;
     bool b = pv.ReduceRow(object, key_idx, tsv_data, type_idx, &fully_processed);
     return b;
 }
@@ -148,7 +150,7 @@ bool CParsePDF::check_possible_values(ArlPDFObject* object, int key_idx, const A
 ///  e.g. fn:IsRequired(fn:IsPresent(Solidities)); fn:IsRequired(\@SubFilter==adbe.pkcs7.s3 || \@SubFilter==adbe.pkcs7.s4)
 ///
 /// @returns true if the key is required. false if the key is not required or the predicate is too complex
-bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd, const std::string& pdf_vers) {
+bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd) {
     assert(obj != nullptr);
 
     if (reqd == "TRUE")
@@ -168,9 +170,6 @@ bool CParsePDF::is_required_key(ArlPDFObject* obj, const std::string &reqd, cons
 
         // Strip off outer predicate "^fn:IsRequired( ... )"
         inner = std::regex_replace(reqd, r_isRequired, "$1");
-
-        // Ensure PDF version supplied is valid
-        assert(std::regex_search(pdf_vers, std::regex(ArlPDFVersion)));
 
         /// @todo don't currently support multi-term predicates or paths to other objects, so assume not required
         if ((inner.find("&&") != std::string::npos) || (inner.find("||") != std::string::npos) ||
@@ -489,8 +488,7 @@ int CParsePDF::get_type_index_for_object(ArlPDFObject *obj, const std::string &t
     // Only do predicate overhead if there are predicates
     if (types.find("fn:") != std::string::npos) {
         /// Reduce the predicates using PDF version
-        TypePredicateProcessor type_reducer(types);
-        type_reducer.set_pdf_version(pdf_version);
+        TypePredicateProcessor type_reducer(pdfc, types);
         reduced_types = type_reducer.ReduceRow();
     } 
 
@@ -673,7 +671,7 @@ void CParsePDF::check_basics(ArlPDFObject *object, int key_idx, const ArlTSVmatr
                 output << COLOR_RESET;
             }
             else {
-                PossibleValuesPredicateProcessor pv(tsv_data[key_idx][TSV_POSSIBLEVALUES]);
+                PossibleValuesPredicateProcessor pv(pdfc, tsv_data[key_idx][TSV_POSSIBLEVALUES]);
                 bool fully_processed = true;
                 bool pv_reduced = pv.ReduceRow(object, key_idx, tsv_data, index, &fully_processed);
                 if (!pv_reduced) {
@@ -891,81 +889,21 @@ void CParsePDF::add_parse_object(ArlPDFObject* object, const std::string& link, 
     to_process.emplace(object, link, context);
 }
 
-
-/// @brief Set the file size of the current PDF in bytes. Needed for predicate processing.
-/// 
-/// @param[in] pdf_file     PDF file
-void CParsePDF::set_pdf_file_size(const fs::path& pdf_file) {
-    /// @todo  Does not account for pre-amble (before "%PDF-x.y") or post-amble (after "%%EOF" + EOL) junk bytes
-    filesize_bytes = fs::file_size(pdf_file);
-}
-
-
-/// @brief Gets the file size of the current PDF in bytes. 
-/// 
-/// @returns File size of PDF in bytes 
-std::uintmax_t CParsePDF::get_pdf_file_size() {
-    return filesize_bytes;
-}
-
-
 /// @brief Iteratively parse PDF objects from the to_process queue
 ///
-/// @param[in] pdf_hdr_ver   PDF version from the file header (string "1.0", "1.1", etc.)
-/// @param[in] doc_cat_ver_obj Document Catalog Version key entry (can be nullptr)
-void CParsePDF::parse_object(const std::string &pdf_hdr_ver, ArlPDFObject* doc_cat_ver_obj)
+/// @param[in] pdf   PDF file object
+void CParsePDF::parse_object(CPDFFile &pdf)
 {
-    // Need to work out what PDF version to use - between PDF header and DocCatalog::Version
-    if ((pdf_hdr_ver.size() == 3) && FindInVector(v_ArlPDFVersions, pdf_hdr_ver)) {
-        pdf_version = pdf_header_version = pdf_hdr_ver;
-        output << "PDF header version is " << pdf_hdr_ver << std::endl;
-    }
-    else {
-        output << COLOR_ERROR << "unexpected PDF header version " << pdf_hdr_ver << COLOR_RESET;
-    }
+    pdfc = &pdf;
+    std::string ver = pdfc->get_pdf_version(output); // may produce messages
+    output << "Processing file as PDF " << ver << std::endl;
 
-    if (doc_cat_ver_obj != nullptr) {
-        if (doc_cat_ver_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeName) {
-            std::wstring doccat_ver = ((ArlPDFName*)doc_cat_ver_obj)->get_value();
-            if ((doccat_ver.size() == 3) && FindInVector(v_ArlPDFVersions, ToUtf8(doccat_ver))) {
-                pdf_catalog_version = ToUtf8(doccat_ver);
-                output << "PDF Document Catalog Version is " << pdf_catalog_version << std::endl;
+    counter = 0;
 
-                // Rely on ASCII for version computation
-                if (pdf_catalog_version[0] > pdf_header_version[0]) {
-                    pdf_version = pdf_catalog_version;
-                } 
-                else if (pdf_catalog_version[0] < pdf_header_version[0]) {
-                    output << COLOR_WARNING << "Document Catalog Version is earlier than PDF header version! Ignoring." << COLOR_RESET;
-                }
-                else { // major version digit is the same. Check minor digit
-                    if (pdf_catalog_version[2] > pdf_header_version[2])
-                        pdf_version = pdf_catalog_version;
-                    else if (pdf_catalog_version[2] < pdf_header_version[2]) {
-                        output << COLOR_WARNING << "Document Catalog Version is earlier than PDF header version! Ignoring." << COLOR_RESET;
-                    }
-                    // else the same
-                }
-            }
-            else {
-                output << COLOR_ERROR << "Document Catalog Version key value '" << ToUtf8(doccat_ver) << "' was not an expected value. Ignoring." << COLOR_RESET;
-            }
-        }
-        else {
-            output << COLOR_ERROR << "Document Catalog Version key is not a PDF name. Ignoring." << COLOR_RESET;
-        }
-    }
-    output << "Processing file as PDF " << pdf_version << std::endl;
-
-#ifdef DEBUG_COUNTER
-    int debug_counter = 0;
-#endif // DEBUG_COUNTER
     while (!to_process.empty()) {
         context_shown = false;
-#ifdef DEBUG_COUNTER
-        debug_counter++;
-#endif // DEBUG_COUNTER
 
+        counter++;
         queue_elem elem = to_process.front();
         to_process.pop();
         if (elem.link == "") {
@@ -977,10 +915,7 @@ void CParsePDF::parse_object(const std::string &pdf_hdr_ver, ArlPDFObject* doc_c
         elem.link = remove_link_predicates(elem.link);
 
         if (!terse) {
-#ifdef DEBUG_COUNTER
-            output << std::setw(8) << debug_counter << ": ";
-#endif // DEBUG_COUNTER
-            output << elem.context << std::endl;
+            output << std::setw(8) << counter << ": " << elem.context << std::endl;
             context_shown = true;
         }
         elem.context = "  " + elem.context;
@@ -1192,7 +1127,7 @@ void CParsePDF::parse_object(const std::string &pdf_hdr_ver, ArlPDFObject* doc_c
 
             // Preview the Arlington array definition for wildcards and to see if this really is an array
             // Also determine minimum required number of elements in the array.
-#define ALL_ARRAY_ELEMS 99999
+            constexpr auto ALL_ARRAY_ELEMS = 99999;
             int first_wildcard = ALL_ARRAY_ELEMS; // bigger than any TSV row count
             int first_notreqd  = ALL_ARRAY_ELEMS; // bigger than any TSV row count
             std::vector<std::string>    key_list;
@@ -1259,7 +1194,7 @@ void CParsePDF::parse_object(const std::string &pdf_hdr_ver, ArlPDFObject* doc_c
             } // for-each array element
 
             auto array_size = arrayObj->get_num_elements();
-            if ((first_notreqd == ALL_ARRAY_ELEMS) && (first_wildcard == ALL_ARRAY_ELEMS) && (data_list.size() != array_size)) {
+            if ((first_notreqd == ALL_ARRAY_ELEMS) && (first_wildcard == ALL_ARRAY_ELEMS) && ((int)data_list.size() != array_size)) {
                 if (!context_shown) {
                     output << elem.context << std::endl;
                     context_shown = true;
@@ -1290,4 +1225,7 @@ void CParsePDF::parse_object(const std::string &pdf_hdr_ver, ArlPDFObject* doc_c
         }
         delete elem.object;
     } // while queue not empty
+
+    // Clean up
+    pdfc = nullptr;
 }

@@ -21,6 +21,8 @@
 /// @author Frantisek Forgac, Normex
 /// @author Peter Wyatt, PDF Association
 /// 
+/// @todo Fix all the memory leaks caused by re-using pointers to ArlPDFObjects
+/// 
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifdef _MSC_VER
@@ -37,9 +39,11 @@
 #endif
 
 #include "ArlingtonPDFShim.h"
+#include "ArlPredicates.h"
 #include "ParseObjects.h"
 #include "CheckGrammar.h"
 #include "TestGrammarVers.h"
+#include "PDFFile.h"
 #include "sarge.h"
 #include "utils.h"
 
@@ -63,7 +67,8 @@ bool no_color = false;
 /// @param[in] pdfsdk  the already initiated PDF SDK library to use
 /// @param[in,out] ofs already open file stream for output
 /// @param[in] terse   terse style (abbreviated) output (will sort | uniq better under Linux CLI)
-void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, bool terse)
+/// @param[in] forced_ver  forced PDF version or empty string to use PDF
+void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, bool terse, std::string forced_ver)
 {
     try
     {
@@ -71,39 +76,24 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
         ofs << "Arlington TSV data: " << fs::absolute(tsv_folder).lexically_normal() << std::endl;
         ofs << "PDF: " << fs::absolute(pdf_file_name).lexically_normal() << std::endl;
 
-        ArlPDFTrailer* trailer = pdfsdk.get_trailer(pdf_file_name.wstring());
-        if (trailer != nullptr) {
-            const std::string t = "Trailer";
-            CParsePDF parser(tsv_folder, ofs, terse);
-            parser.set_pdf_file_size(pdf_file_name);
-            
-            if (trailer->get_xrefstm()) {
-                ofs << "XRefStream detected" << std::endl;
-                parser.add_parse_object(trailer, "XRefStream", "Trailer");
-            } else {
-                ofs << "Traditional trailer dictionary detected" << std::endl;
-                parser.add_parse_object(trailer, "FileTrailer", "Trailer");
+        CParsePDF parser(tsv_folder, ofs, terse);
+        CPDFFile  pdf(pdf_file_name, pdfsdk, forced_ver);
+
+        ArlPDFTrailer* t = pdf.get_trailer();
+        if (t != nullptr) {
+            if (pdf.uses_xref_stream()) {
+                ofs << "XRefStream detected." << std::endl;
+                parser.add_parse_object(t, "XRefStream", "Trailer");
+            }
+            else {
+                ofs << "Traditional trailer dictionary detected." << std::endl;
+                parser.add_parse_object(t, "FileTrailer", "Trailer");
             }
 
-            // Get the Document Catalog Version key if it exists
-            ArlPDFObject* doc_cat_ver = nullptr;
-            if (trailer->has_key(L"Root")) {
-                ArlPDFObject* doccat = trailer->get_value(L"Root");
-                if (doccat != nullptr) {
-                    if ((doccat->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-                        ArlPDFDictionary* doccat_dict = (ArlPDFDictionary*)doccat;
-                        doc_cat_ver = doccat_dict->get_value(L"Version");
-                    }
-                    delete doccat;
-                }
-            }
-            parser.parse_object(pdfsdk.get_pdf_version(trailer), doc_cat_ver);
-            if (doc_cat_ver != nullptr)
-                delete doc_cat_ver;
+            parser.parse_object(pdf);
         }
-        else
-        {
-            ofs << COLOR_ERROR << "failed to acquire Trailer in: " << fs::absolute(pdf_file_name).lexically_normal() << COLOR_RESET;
+        else {
+            ofs << COLOR_ERROR << "failed to acquire Trailer!" << COLOR_RESET;
         }
     }
     catch (std::exception& ex) {
@@ -130,9 +120,9 @@ _CrtMemState stateDiff;
 int wmain(int argc, wchar_t* argv[]) {
 #if defined(_DEBUG) && defined(CRT_MEMORY_LEAK_CHECK)
     int tmp = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
-    tmp = tmp | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF; // | _CRTDBG_CHECK_ALWAYS_DF;
+    tmp = tmp | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF; // | _CRTDBG_CHECK_ALWAYS_DF; // _CRTDBG_CHECK_ALWAYS_DF is VERY slow!!
     _CrtSetDbgFlag(tmp);
-    //_CrtSetBreakAlloc(361985);
+    //_CrtSetBreakAlloc(101909);
 #endif // _DEBUG && CRT_MEMORY_LEAK_CHECK
 
     // Convert wchar_t* to char* for command line processing
@@ -162,16 +152,17 @@ int main(int argc, char* argv[]) {
 
     sarge.setDescription("Arlington PDF Model C++ P.o.C. version " TestGrammar_VERSION
         "\nChoose one of: --pdf, --checkdva or --validate.");
-    sarge.setUsage("TestGrammar --tsvdir <dir> [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
+    sarge.setUsage("TestGrammar --tsvdir <dir> [--force <ver>] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
     sarge.setArgument("h", "help", "This usage message.", false);
     sarge.setArgument("b", "brief", "terse output when checking PDFs. The full PDF DOM tree is NOT output.", false);
     sarge.setArgument("c", "checkdva", "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
     sarge.setArgument("d", "debug", "output additional debugging information (verbose!)", false);
-    sarge.setArgument("", "clobber", "always overwrite PDF output report files (--pdf) rather than append underscores", false);
-    sarge.setArgument("", "no-color", "disable colorized text output (useful when redirecting or piping output)", false);
-    sarge.setArgument("m", "batchmode", "stop popup error dialog windows - redirect errors to console (Windows only)", false);
+    sarge.setArgument("",  "clobber", "always overwrite PDF output report files (--pdf) rather than append underscores", false);
+    sarge.setArgument("",  "no-color", "disable colorized text output (useful when redirecting or piping output)", false);
+    sarge.setArgument("m", "batchmode", "stop popup error dialog windows and redirect everything to console (Windows only, includes memory leak reports)", false);
     sarge.setArgument("o", "out", "output file or folder. Default is stdout. See --clobber for overwriting behavior", true);
     sarge.setArgument("p", "pdf", "input PDF file or folder.", true);
+    sarge.setArgument("f", "force", "force the PDF version to the specified value (1,0, 1.1, ..., 2.0). Requires --pdf", true);
     sarge.setArgument("t", "tsvdir", "[required] folder containing Arlington PDF model TSV file set.", true);
     sarge.setArgument("v", "validate", "validate the Arlington PDF model.", false);
 
@@ -202,6 +193,7 @@ int main(int argc, char* argv[]) {
     fs::path        save_path;          // output file or folder. Optional.
     fs::path        input_file;         // input PDF or Adobe DVA
     std::ofstream   ofs;                // output filestream
+    std::string     force_version;      // Optional forced PDF version
     bool            clobber = sarge.exists("clobber");
     bool            debug_mode = sarge.exists("debug");
     bool            terse = sarge.exists("brief");
@@ -254,16 +246,33 @@ int main(int argc, char* argv[]) {
     if (!s.empty())
         save_path = fs::absolute(s);
 
+    // Optional -f/--force <version>
+    if (sarge.getFlag("force", s)) {
+        if (!FindInVector(v_ArlPDFVersions, s)) {
+            std::cerr << COLOR_ERROR << "-f/--force PDF version '" << s << "' is not valid!" << COLOR_RESET;
+            sarge.printHelp();
+            pdf_io.shutdown();
+            return -1;
+        }
+        force_version = s;
+    }
+
     if (debug_mode) {
-        std::cout << "Arlington TSV folder: " << grammar_folder << std::endl;
-        std::cout << "Output file/folder:   " << save_path << std::endl;
-        std::cout << "PDF file/folder       " << input_file << std::endl;
+        std::cout << "Arlington TSV folder: " << grammar_folder.lexically_normal() << std::endl;
+        std::cout << "Output file/folder:   " << save_path.lexically_normal() << std::endl;
+        std::cout << "PDF file/folder:      " << input_file.lexically_normal() << std::endl;
+        std::cout << "Colorized output      " << (no_color ? "off" : "on") << std::endl;
+        std::cout << "Clobber mode:         " << (clobber ? "on" : "off") << std::endl;
+        std::cout << "Brief mode:           " << (terse ? "on" : "off") << std::endl;
+        if (!force_version.empty()) {
+            std::cout << "Forced PDF version:   " << force_version << std::endl;
+        }
         if (sarge.exists("validate")) {
             std::cout << "Validating Arlington PDF Model grammar." << std::endl;
         }
         if (sarge.exists("checkdva")) {
             (void)sarge.getFlag("checkdva", s);
-            std::cout << "Adobe DVA FormalRep:  " << fs::absolute(s) << std::endl;
+            std::cout << "Adobe DVA FormalRep:  " << fs::absolute(s).lexically_normal() << std::endl;
         }
     }
 
@@ -293,19 +302,19 @@ int main(int argc, char* argv[]) {
                     ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
                 }
                 else {
-                    save_path /= "dva-arl-check.txt";
+                    save_path /= "dva.txt";
                     ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
                 }
             }
             if (!ofs.is_open())
                 std::cout << std::endl;
-            CheckDVA(pdf_io, input_file.lexically_normal(), grammar_folder, (save_path.empty() ? std::cout : ofs));
+            CheckDVA(pdf_io, input_file.lexically_normal(), grammar_folder, (save_path.empty() ? std::cout : ofs), terse);
             ofs.close();
             pdf_io.shutdown();
             return 0;
         }
         else {
-            std::cerr << COLOR_ERROR << "--checkdva argument was not a valid PDF file!" << COLOR_RESET;
+            std::cerr << COLOR_ERROR << "--checkdva argument '" << input_file << "' was not a valid PDF file!" << COLOR_RESET;
             pdf_io.shutdown();
             return -1;
         }
@@ -338,7 +347,7 @@ int main(int argc, char* argv[]) {
                         }
                         std::cout << "Processing " << entry.path().lexically_normal() << " to " << rptfile.lexically_normal() << std::endl;
                         ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
-                        process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, ofs, terse);
+                        process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, ofs, terse, force_version);
                         ofs.close();
                     }
                 }
@@ -368,7 +377,7 @@ int main(int argc, char* argv[]) {
                 }
                 ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
                 input_file = input_file.lexically_normal();
-                process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse);
+                process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse, force_version);
                 ofs.close();
                 std::cout << "DONE" << std::endl;
             }

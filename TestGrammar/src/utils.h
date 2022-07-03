@@ -26,18 +26,22 @@
 
 #include <string>
 #include <filesystem>
+#include <vector>
+
+/// @brief Macro to silence unreferenced formal parameter warnings
+#define UNREFERENCED_FORMAL_PARAM(x)		((void)(x))
 
 /// @brief ANSI code to reset all text formatting. Portable across *nix and Windows 10/11.
-#define COLOR_RESET_ANSI    "\033[0m"
+constexpr auto COLOR_RESET_ANSI = "\033[0m";
 
 /// @brief ANSI code for red foreground text. Portable across *nix and Windows 10/11.
-#define COLOR_ERROR_ANSI    "\033[1;31m" // Red foreground
+constexpr auto COLOR_ERROR_ANSI = "\033[1;31m"; // Red foreground;
 
 /// @brief ANSI code for yellow foreground text. Portable across *nix and Windows 10/11.
-#define COLOR_WARNING_ANSI  "\033[1;33m" // Yellow foreground
+constexpr auto COLOR_WARNING_ANSI = "\033[1;33m"; // Yellow foreground;
 
 /// @brief ANSI code for cyan foreground text. Portable across *nix and Windows 10/11.
-#define COLOR_INFO_ANSI  "\033[1;36m" // Cyan foreground
+constexpr auto COLOR_INFO_ANSI = "\033[1;36m"; // Cyan foreground;
 
 /// @brief Global flag from main, representing --no-color CLI option
 extern bool no_color;
@@ -85,6 +89,7 @@ std::string remove_type_predicates(const std::string& types_in);
 /// @brief Returns the index of a specific type in an Arlington type string or -1 if not present
 int get_type_index(std::string single_type, std::string types);
 
+/// @brief  Looks up a single Arlington type in the Types field, and then matches across to the Links field.
 std::string get_link_for_type(std::string single_type, const std::string& types, const std::string& links);
 
 /// @brief Strip leading whitespace

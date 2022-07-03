@@ -26,6 +26,9 @@
 #define  _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNINGS
 #define  _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 
+#include "utils.h"
+#include "ArlPredicates.h"
+
 #include <iostream>
 #include <locale>
 #include <codecvt>
@@ -42,9 +45,6 @@ extern HINSTANCE ghInstance;
 #include <limits.h>
 #include <sys/stat.h>
 #endif // _WIN32
-
-#include "utils.h"
-#include "PredicateProcessor.h"
 
 /// @brief Regexes for matching versioning predicates: $1 = PDF version "," $2 = Link or predefined Arlington type
 static const std::regex  r_sinceVersion("fn:SinceVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
@@ -351,9 +351,15 @@ bool icontains(const std::string& s, const std::string& s1)
     // Local vars so as not to alter argument strings
     std::string s_in = s;
     std::string s1_in = s1;
+
     // Convert args lower case
-    std::transform(s_in.begin(),  s_in.end(),  s_in.begin(),  ::tolower);
-    std::transform(s1_in.begin(), s1_in.end(), s1_in.begin(), ::tolower);
+    std::for_each(s_in.begin(), s_in.end(), [](char& c) { // modify in-place
+        c = (char)std::tolower(static_cast<unsigned char>(c));
+        });
+    std::for_each(s1_in.begin(), s1_in.end(), [](char& c) { // modify in-place
+        c = (char)std::tolower(static_cast<unsigned char>(c));
+        });
+
     // Find sub string in given string
     return (s_in.find(s1_in, 0) != std::string::npos);
 }
@@ -421,7 +427,7 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
             return false;
 
         // Last row wildcard is common and stoi() dislikes so test first
-        if ((keys[row] == "*") && (row == keys.size() - 1))
+        if ((keys[row] == "*") && (row == (int)keys.size() - 1))
             return true;
 
         // Attempt to convert what is possibly an integer (got passed regex above)

@@ -134,10 +134,9 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
     CPDF_Dictionary* trailr = pdfium_ctx->parser->GetTrailer();
     if (trailr != NULL) {
         ArlPDFTrailer* trailer_obj = new ArlPDFTrailer(trailr);
+        assert(trailer_obj != nullptr);
         // if /Type key exists, then assume working with XRefStream
-        ArlPDFObject* type_key= trailer_obj->get_value(L"Type");
-        trailer_obj->set_xrefstm(type_key != nullptr);
-        delete type_key;
+        trailer_obj->set_xrefstm(trailer_obj->has_key(L"Type"));
         return trailer_obj;
     }
 
@@ -516,7 +515,7 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 
     sort_keys();
     // Get the i-th sorted key name, allowing for no keys in a dictionary 
-    if ((!sorted_keys.empty()) && (index < sorted_keys.size()))
+    if ((!sorted_keys.empty()) && (index < (int)sorted_keys.size()))
         retval = sorted_keys[index];
 
     if (ArlingtonPDFShim::debugging) {

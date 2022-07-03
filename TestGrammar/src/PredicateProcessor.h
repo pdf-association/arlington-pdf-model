@@ -18,259 +18,31 @@
 ///
 ///////////////////////////////////////////////////////////////////////////////
 
-#pragma once
-
 #ifndef PredicateProcessor_h
 #define PredicateProcessor_h
+#pragma once
 
-#include <iostream>
 #include "ArlingtonTSVGrammarFile.h"
 #include "ArlingtonPDFShim.h"
+#include "ASTNode.h"
+#include "PDFFile.h"
+
+#include <iostream>
+#include <string>
+#include <vector>
 
 using namespace ArlingtonPDFShim;
-
-/// @brief All Arlington pre-defined types (alphabetically pre-sorted vector)
-const std::vector<std::string>  v_ArlAllTypes = {
-        "array",
-        "bitmask",
-        "boolean",
-        "date",
-        "dictionary",
-        "integer",
-        "matrix",
-        "name",
-        "name-tree",
-        "null",
-        "number",
-        "number-tree",
-        "rectangle",
-        "stream",
-        "string",
-        "string-ascii",
-        "string-byte",
-        "string-text"
-};
-
-/// @brief Arlingon pre-defined types which REQUIRE a Link - aka "Complex types" (alphabetically pre-sorted vector)
-const std::vector<std::string>  v_ArlComplexTypes = {
-    "array",
-    "dictionary",
-    "name-tree",
-    "number-tree",
-    "stream"
-};
-
-/// @brief Arlington pre-defined types that must NOT have Links - aka "Non-complex types" (alphabetically pre-sorted vector)
-const std::vector<std::string>  v_ArlNonComplexTypes = {
-    "bitmask",
-    "boolean",
-    "date",
-    "integer",
-    "matrix",
-    "name",
-    "null",
-    "number",
-    "rectangle",
-    "string",
-    "string-ascii",
-    "string-byte",
-    "string-text"
-};
-
-
-// @brief full set of Arlington supported PDF versions (numerically pre-sorted vector)
-const std::vector<std::string>  v_ArlPDFVersions = {
-    "1.0",
-    "1.1",
-    "1.2",
-    "1.3",
-    "1.4",
-    "1.5",
-    "1.6",
-    "1.7",
-    "2.0"
-};
-
-
-/// @brief Arlington Integer - only optional leading negative sign.
-/// Avoid matching the front part of keys that start with digits "3DRenderMode" and array indexed wildcards "1*"
-const std::string ArlInt = "(\\-)?[0-9]+(?![a-zA-Z\\*])";
-
-/// @brief Arlington Number (requires at least 1 decimal place either side of decimal point ".")
-const std::string ArlNum = ArlInt + "\\.[0-9]+(?![a-zA-Z\\*])";
-
-/// @brief Arlington PDF Strings use single quotes (to disambiguate from bracketed names, keys, etc.).
-/// Empty strings are invalid (same as empty field in Arlington). No escapes supported.
-const std::string ArlString = "'[^']+'";
-
-/// @brief Arlington key or array index regex, including path separator "::" and wildcards.
-/// Intersects with ArlLink and ArlPredfinedType.
-/// Examples: SomeKey, 3, *, 2*, parent::SomeKey, SomeKeyA::SomeKeyB::3, SomeKeyA::SomeKeyB::\@SomeKeyC,
-const std::string  ArlKeyBase = "[a-zA-Z0-9_\\.]+";
-const std::string  ArlKey = "([a-zA-Z]+\\:\\:)*(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
-const std::string  ArlKeyValue = "([a-zA-Z]+\\:\\:)*@(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
-
-/// @brief Arlington PDF version regex (1.0, 1.1, ... 1.7, 2.0).
-///        Intersects with ArlNum.
-const std::string  ArlPDFVersion = "(1\\.[0-7]|2\\.0)";
-
-/// @brief pre-defined Arlington Types (all lowercase with some sub-types include DASH and qualifier).
-/// Intersects with ArlLink and ArlKeyBase.
-const std::string ArlPredfinedType = "(array|bitmask|boolean|date|dictionary|integer|matrix|name|name-tree|null|number-tree|number|rectangle|stream|string-ascii|string-byte|string-text|string)";
-
-/// @brief Arlington Link name (i.e. TSV filename without extension). Only UNDERBAR, never DASH or PERIOD.
-/// Intersects with ArlPredfinedType and ArlKeyBase.
-const std::string ArlLink = "[a-zA-Z0-9_]+";
-
-/// @brief Arlington math comparisons - currently NOT required to have SPACE either side
-const std::string ArlMathComp = "(==|!=|>=|<=|>|<)";
-
-/// @brief Arlington math operators - MULTIPLY and MINUS need a SPACE either side
-///        to disambiguate from keys with wildcards and negative numbers
-const std::string ArlMathOp = "( \\* |\\+| \\- | mod )";
-
-/// @brief Arlington logical operators. Require SPACE either side.
-/// Also expect bracketed expressions either side or a predicate:
-/// e.g. "...) || (..." or "...) || fn:..."
-const std::string ArlLogicalOp = "( && | \\|\\| )";
-
-/// @brief Arlington PDF boolean keywords
-const std::string ArlBooleans = "(true|false)";
-
-/// @brief Arlington predicates with zero or one parameter
-const std::string ArlPredicate0Arg  = "fn:[A-Z][a-zA-Z14]+\\(\\)";
-const std::string ArlPredicate1Arg  = "fn:[A-Z][a-zA-Z14]+\\(" + ArlKey + "\\)";
-const std::string ArlPredicate1ArgV = "fn:[A-Z][a-zA-Z14]+\\(" + ArlKeyValue + "\\)";
-
-
-/// @enum ASTNodeType 
-/// AST Node types (based on regex matches)
-enum class ASTNodeType {
-    ASTNT_Unknown = 0,
-    ASTNT_Predicate,
-    ASTNT_MathComp,
-    ASTNT_MathOp,
-    ASTNT_LogicalOp,
-    ASTNT_ConstPDFBoolean,
-    ASTNT_ConstString,
-    ASTNT_ConstInt,
-    ASTNT_ConstNum,     // also matches a PDF version
-    ASTNT_Key,          // also matches Arlington Link (TSV filename)
-    ASTNT_KeyValue,
-    ASTNT_Type
-};
-
-
-/// @brief Human readable strings of enum class ASTNodeType
-static const std::string ASTNodeType_strings[] = {
-    "???",
-    "Predicate",
-    "MathComp",
-    "MathOp",
-    "LogicalOp",
-    "Boolean",
-    "String",
-    "Integer",
-    "Number",
-    "Key",
-    "KeyValue",
-    "Type"
-};
-
-
-/// @def define ARL_PARSER_TESTING to test a small set of hard coded predicates
-#undef ARL_PARSER_TESTING
-
-
-/// @def define ARL_PARSER_DEBUG to enable very verbose debugging of predicate and expression parsing
-#undef ARL_PARSER_DEBUG
-
-
-/// @brief Predicate parser creates a binary tree of these simple ASTNodes
-struct ASTNode {
-    /// @brief predicate operator or operand
-    std::string     node;
-
-    /// @brief type of operator/operand
-    ASTNodeType     type;
-
-    /// @brief Optional arguments for operators (left ptr, right ptr)
-    ASTNode         *arg[2];
-
-    /// @brief Constructor
-    ASTNode(ASTNode *p = nullptr)
-        { /* constructor */ arg[0] = arg[1] = nullptr; type = ASTNodeType::ASTNT_Unknown; }
-
-    /// @brief Destructor
-    ~ASTNode() {
-        /* destructor - recursive */
-        if (arg[0] != nullptr) delete arg[0];
-        if (arg[1] != nullptr) delete arg[1];
-    }
-
-    /// @brief assignment operator =
-    ASTNode& operator=(const ASTNode& n) {
-        node   = n.node;
-        type   = n.type;
-        arg[0] = n.arg[0];
-        arg[1] = n.arg[1];
-        return *this;
-    }
-
-    /// @brief output operator <<
-    friend std::ostream& operator<<(std::ostream& ofs, const ASTNode& n) {
-        if (!n.node.empty())
-            ofs << "{" << ASTNodeType_strings[(int)n.type] << ":'" << n.node << "'";
-        else
-            ofs << "{''";
-
-        if ((n.arg[0] != nullptr) && (n.arg[1] != nullptr))
-            ofs << ",[" << *n.arg[0] << "],[" << *n.arg[1] << "]";
-        else {
-            if (n.arg[0] != nullptr)
-                ofs << ",[" << * n.arg[0] << "]";
-            else if (n.arg[1] != nullptr) // why is arg[0] nullptr when arg[1] isn't???
-                ofs << ",???,[" << *n.arg[1] << "]";
-        }
-        ofs << "}";
-        return ofs;
-    }
-
-    /// @brief  Validate if an AST node is correctly configured. Can only be done AFTER a full parse is completed.
-    /// @return true if valid. false if the node is incorrect or partially populated.
-    bool valid() {
-        bool ret_val = !node.empty();
-        if (ret_val && arg[0] != nullptr) {
-            ret_val = ret_val && arg[0]->valid();
-            if (ret_val && arg[1] != nullptr)
-                ret_val = ret_val && arg[1]->valid();
-        }
-        else if (arg[1] != nullptr)
-            ret_val = false;
-        return ret_val;
-    }
-};
-
-
-/// @brief A vector (stack) of AST-Nodes
-typedef std::vector<ASTNode*>      ASTNodeStack;
-
-
-/// @brief A vector of vector of AST-Nodes
-typedef std::vector<ASTNodeStack>  ASTNodeMatrix;
-
 
 /// @brief Left-to-right recursive descent parser, based on regex pattern matching
 std::string LRParsePredicate(std::string s, ASTNode *root);
 
-
 class PredicateProcessor {
 protected:
+    /// @brief the PDF file class object
+    CPDFFile*               pdfc;
+
     /// @brief Single field from a row in an Arlington TSV grammar file
     std::string             tsv_field;
-
-    /// @brief PDF version of the PDF file that is being processed
-    std::string             pdf_version;
 
     /// @brief A vector of vector of predicate ASTs, as Arlington fields may be of form: 
     /// [fn:A(...),fn:B(...),fn:C(...)];[];[fn:X(...),fn:Y(...),fn:Z(...)]
@@ -280,14 +52,11 @@ protected:
     ASTNodeMatrix           predicate_ast;
 
 public:
-    PredicateProcessor(std::string &s) :
-        tsv_field(s), pdf_version("2.0") // default version is latest version
+    PredicateProcessor(CPDFFile* pdfo, std::string &s) :
+        pdfc(pdfo), tsv_field(s)
         { /* constructor */ };
-    ~PredicateProcessor();
 
-    /// @brief Set the PDF version of file when reducing the Arlington model for an object
-    /// Not needed for Arlington predicate grammar validation.
-    void set_pdf_version(std::string& pdfver);
+    ~PredicateProcessor();
 
     /// @brief ValidateRowSyntax() returns true if the Arlington content is valid
     virtual bool ValidateRowSyntax() = 0;
@@ -304,8 +73,8 @@ public:
 /// - all rows are integer + "*" then indicates a repeating sets of N array elements
 class KeyPredicateProcessor : public PredicateProcessor {
 public:
-    KeyPredicateProcessor(std::string s) :
-        PredicateProcessor(s)
+    KeyPredicateProcessor(CPDFFile* pdfo, std::string s) :
+        PredicateProcessor(pdfo, s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
     // ReduceRow(...) is not required 
@@ -320,8 +89,8 @@ public:
 /// - fn:IsPDFVersion(x.y,type)
 class TypePredicateProcessor : public PredicateProcessor {
 public:
-    TypePredicateProcessor(std::string s) :
-        PredicateProcessor(s)
+    TypePredicateProcessor(CPDFFile* pdfo, std::string s) :
+        PredicateProcessor(pdfo, s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
     std::string ReduceRow();
@@ -332,8 +101,8 @@ public:
 /// - only "1.0" or "1.1" or ... or "1.7 or "2.0"
 class SinceVersionPredicateProcessor : public PredicateProcessor {
 public:
-    SinceVersionPredicateProcessor(std::string s) :
-        PredicateProcessor(s)
+    SinceVersionPredicateProcessor(CPDFFile* pdfo, std::string s) :
+        PredicateProcessor(pdfo, s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
     bool ReduceRow();
@@ -344,8 +113,8 @@ public:
 /// - only blank ("") or "1.0" or "1.1" or ... or "1.7 or "2.0"
 class DeprecatedInPredicateProcessor : public PredicateProcessor {
 public:
-    DeprecatedInPredicateProcessor(std::string s) :
-        PredicateProcessor(s)
+    DeprecatedInPredicateProcessor(CPDFFile* pdfo, std::string s) :
+        PredicateProcessor(pdfo, s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
     bool ReduceRow();
@@ -362,8 +131,8 @@ public:
 ///   . various highly specialized predicates: fn:IsEncryptedWrapper(), fn:NotStandard14Font(), ...
 class RequiredPredicateProcessor : public PredicateProcessor {
 public:
-    RequiredPredicateProcessor(std::string s) :
-        PredicateProcessor(s)
+    RequiredPredicateProcessor(CPDFFile* pdfo, std::string s) :
+        PredicateProcessor(pdfo, s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
     bool ReduceRow(ArlPDFObject* obj);
@@ -379,8 +148,8 @@ enum class ReferenceType { MustBeDirect, MustBeIndirect, DontCare };
 /// - fn:MustBeDirect(fn:IsPresent(key))
 class IndirectRefPredicateProcessor : public PredicateProcessor {
 public:
-    IndirectRefPredicateProcessor(std::string s) :
-        PredicateProcessor(s)
+    IndirectRefPredicateProcessor(CPDFFile* pdfo, std::string s) :
+        PredicateProcessor(pdfo, s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
     ReferenceType ReduceRow(const int type_index);
@@ -391,8 +160,8 @@ public:
 /// -- TRUE or FALSE only
 class InheritablePredicateProcessor : public PredicateProcessor {
 public:
-    InheritablePredicateProcessor(std::string s) :
-        PredicateProcessor(s)
+    InheritablePredicateProcessor(CPDFFile* pdfo, std::string s) :
+        PredicateProcessor(pdfo, s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
     bool ReduceRow();
@@ -405,8 +174,8 @@ public:
 /// - '[' and ']' also used for PDF arrays
 class DefaultValuePredicateProcessor : public PredicateProcessor {
 public:
-    DefaultValuePredicateProcessor(std::string s) :
-        PredicateProcessor(s)
+    DefaultValuePredicateProcessor(CPDFFile* pdfo, std::string s) :
+        PredicateProcessor(pdfo, s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
 };
@@ -418,8 +187,8 @@ public:
 /// - '[' and ']' also used for sets and PDF arrays
 class PossibleValuesPredicateProcessor : public PredicateProcessor {
 public:
-    PossibleValuesPredicateProcessor(std::string s) :
-        PredicateProcessor(s)
+    PossibleValuesPredicateProcessor(CPDFFile* pdfo, std::string s) :
+        PredicateProcessor(pdfo, s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
     bool ReduceRow(ArlPDFObject* object, const int key_idx, const ArlTSVmatrix& tsv_data, const int idx, bool* fully_processed);
@@ -434,8 +203,8 @@ public:
 /// - complex expressions
 class SpecialCasePredicateProcessor : public PredicateProcessor {
 public:
-    SpecialCasePredicateProcessor(std::string s) :
-        PredicateProcessor(s)
+    SpecialCasePredicateProcessor(CPDFFile* pdfo, std::string s) :
+        PredicateProcessor(pdfo, s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
 };
@@ -449,8 +218,8 @@ public:
 /// - fn:IsPDFVersion(x.y,type)
 class LinkPredicateProcessor : public PredicateProcessor {
 public:
-    LinkPredicateProcessor(std::string s) :
-        PredicateProcessor(s)
+    LinkPredicateProcessor(CPDFFile* pdfo, std::string s) :
+        PredicateProcessor(pdfo, s)
         { /* constructor */ };
     virtual bool ValidateRowSyntax();
     std::string ReduceRow();

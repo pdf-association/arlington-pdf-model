@@ -20,6 +20,13 @@
 ///
 ///////////////////////////////////////////////////////////////////////////////
 
+#include "CheckGrammar.h"
+#include "ArlingtonTSVGrammarFile.h"
+#include "ArlPredicates.h"
+#include "PredicateProcessor.h"
+#include "TestGrammarVers.h"
+#include "utils.h"
+
 #include <exception>
 #include <iterator>
 #include <algorithm>
@@ -30,13 +37,12 @@
 #include <iostream>
 #include <cassert>
 
-#include "utils.h"
-#include "CheckGrammar.h"
-#include "ArlingtonTSVGrammarFile.h"
-#include "PredicateProcessor.h"
-#include "TestGrammarVers.h"
-
 namespace fs = std::filesystem;
+
+
+/// @def define ARL_PARSER_TESTING to test a small set of hard coded predicates
+#undef ARL_PARSER_TESTING
+
 
 /// @brief When validating, need to know context of TSV (array, dict, stream, name-tree, number-tree)
 typedef struct _ValidationContext  {
@@ -47,7 +53,6 @@ typedef struct _ValidationContext  {
 
 /// @brief For debugging ease, make the root of an entire predicate static
 static ASTNode* pred_root = nullptr;
-
 
 
 /// @brief  Checks the validity of a single Arlington PDF Model TSV file with knowledge of PDF type:
@@ -153,49 +158,49 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
                 }
         } // for col
 
-        KeyPredicateProcessor *key_validator = new KeyPredicateProcessor(vc[TSV_KEYNAME]);
+        KeyPredicateProcessor *key_validator = new KeyPredicateProcessor(nullptr, vc[TSV_KEYNAME]);
         if (!key_validator->ValidateRowSyntax()) {
             report_stream << COLOR_ERROR << "KeyName field validation error " << reader.get_tsv_name() << " for key " << vc[TSV_KEYNAME] << COLOR_RESET;
             retval = false;
         }
         delete key_validator;
 
-        TypePredicateProcessor* type_validator = new TypePredicateProcessor(vc[TSV_TYPE]);
+        TypePredicateProcessor* type_validator = new TypePredicateProcessor(nullptr, vc[TSV_TYPE]);
         if (!type_validator->ValidateRowSyntax()) {
             report_stream << COLOR_ERROR << "Type field validation error " << reader.get_tsv_name() << " for key " << vc[TSV_TYPE] << COLOR_RESET;
             retval = false;
         }
         delete type_validator;
 
-        SinceVersionPredicateProcessor* sincever_validator = new SinceVersionPredicateProcessor(vc[TSV_SINCEVERSION]);
+        SinceVersionPredicateProcessor* sincever_validator = new SinceVersionPredicateProcessor(nullptr, vc[TSV_SINCEVERSION]);
         if (!sincever_validator->ValidateRowSyntax()) {
             report_stream << COLOR_ERROR << "SinceVersion field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SINCEVERSION] << COLOR_RESET;
             retval = false;
         }
         delete sincever_validator;
 
-        DeprecatedInPredicateProcessor* depver_validator = new DeprecatedInPredicateProcessor(vc[TSV_DEPRECATEDIN]);
+        DeprecatedInPredicateProcessor* depver_validator = new DeprecatedInPredicateProcessor(nullptr, vc[TSV_DEPRECATEDIN]);
         if (!depver_validator->ValidateRowSyntax()) {
             report_stream << COLOR_ERROR << "DeprecatedIn field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_DEPRECATEDIN] << COLOR_RESET;
             retval = false;
         }
         delete depver_validator;
 
-        RequiredPredicateProcessor* reqd_validator = new RequiredPredicateProcessor(vc[TSV_REQUIRED]);
+        RequiredPredicateProcessor* reqd_validator = new RequiredPredicateProcessor(nullptr, vc[TSV_REQUIRED]);
         if (!reqd_validator->ValidateRowSyntax()) {
             report_stream << COLOR_ERROR << "Required field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_REQUIRED] << COLOR_RESET;
             retval = false;
         }
         delete reqd_validator;
 
-        IndirectRefPredicateProcessor* ir_validator = new IndirectRefPredicateProcessor(vc[TSV_INDIRECTREF]);
+        IndirectRefPredicateProcessor* ir_validator = new IndirectRefPredicateProcessor(nullptr, vc[TSV_INDIRECTREF]);
         if (!ir_validator->ValidateRowSyntax()) {
             report_stream << COLOR_ERROR << "IndirectRef field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INDIRECTREF] << COLOR_RESET;
             retval = false;
         }
         delete ir_validator;
 
-        InheritablePredicateProcessor* inherit_validator = new InheritablePredicateProcessor(vc[TSV_INHERITABLE]);
+        InheritablePredicateProcessor* inherit_validator = new InheritablePredicateProcessor(nullptr, vc[TSV_INHERITABLE]);
         if (!inherit_validator->ValidateRowSyntax()) {
             report_stream << COLOR_ERROR << "Inheritable field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INHERITABLE] << COLOR_RESET;
             retval = false;
@@ -204,28 +209,28 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
         if ((vc[TSV_INHERITABLE] == "TRUE") && (vc[TSV_REQUIRED] != "FALSE"))
             has_reqd_inheritable = true;
 
-        DefaultValuePredicateProcessor* dv_validator = new DefaultValuePredicateProcessor(vc[TSV_DEFAULTVALUE]);
+        DefaultValuePredicateProcessor* dv_validator = new DefaultValuePredicateProcessor(nullptr, vc[TSV_DEFAULTVALUE]);
         if (!dv_validator->ValidateRowSyntax()) {
             report_stream << COLOR_ERROR << "DefaultValue field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_DEFAULTVALUE] << COLOR_RESET;
             retval = false;
         }
         delete dv_validator;
 
-        PossibleValuesPredicateProcessor* pv_validator = new PossibleValuesPredicateProcessor(vc[TSV_POSSIBLEVALUES]);
+        PossibleValuesPredicateProcessor* pv_validator = new PossibleValuesPredicateProcessor(nullptr, vc[TSV_POSSIBLEVALUES]);
         if (!pv_validator->ValidateRowSyntax()) {
             report_stream << COLOR_ERROR << "PossibleValues field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_POSSIBLEVALUES] << COLOR_RESET;
             retval = false;
         }
         delete pv_validator;
 
-        SpecialCasePredicateProcessor* sc_validator = new SpecialCasePredicateProcessor(vc[TSV_SPECIALCASE]);
+        SpecialCasePredicateProcessor* sc_validator = new SpecialCasePredicateProcessor(nullptr, vc[TSV_SPECIALCASE]);
         if (!sc_validator->ValidateRowSyntax()) {
             report_stream << COLOR_ERROR << "SpecialCase field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SPECIALCASE] << COLOR_RESET;
             retval = false;
         }
         delete sc_validator;
 
-        LinkPredicateProcessor* links_validator = new LinkPredicateProcessor(vc[TSV_LINK]);
+        LinkPredicateProcessor* links_validator = new LinkPredicateProcessor(nullptr, vc[TSV_LINK]);
         if (!links_validator->ValidateRowSyntax()) {
             report_stream << COLOR_ERROR << "Link field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_LINK] << COLOR_RESET;
             retval = false;
