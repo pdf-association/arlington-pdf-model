@@ -314,6 +314,19 @@ class Arlington:
             return True
         return False
 
+    def validate_fn_must_be_indirect(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 0) or isinstance(ast[0], list):
+            return True
+        if (len(ast) == 1) and (ast[0].type == 'KEY_VALUE'):
+            return True
+        if (len(ast) == 2) and (ast[0].type == 'FUNC_NAME') and (ast[1].type in ('REAL', 'INTEGER')):
+            return True
+        return False
+
     def validate_fn_not_in_map(self, ast: AST) -> bool:
         """
         @param ast: AST to be validated.
@@ -433,6 +446,7 @@ class Arlington:
         'fn:IsRequired(': validate_fn_is_required,
         'fn:KeyNameIsColorant(': validate_fn_void,
         'fn:MustBeDirect(': validate_fn_must_be_direct,
+        'fn:MustBeIndirect(': validate_fn_must_be_indirect,
         'fn:NoCycle(': validate_fn_void,
         'fn:NotInMap(': validate_fn_not_in_map,
         'fn:NotPresent(': validate_fn_not_present,
