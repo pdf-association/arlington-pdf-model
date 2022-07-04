@@ -21,8 +21,6 @@
 /// @author Frantisek Forgac, Normex
 /// @author Peter Wyatt, PDF Association
 /// 
-/// @todo Fix all the memory leaks caused by re-using pointers to ArlPDFObjects
-/// 
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifdef _MSC_VER
@@ -115,7 +113,7 @@ _CrtMemState state2;
 _CrtMemState stateDiff;
 
 /// @brief #define CRT_MEMORY_LEAK_CHECK to enable C RTL memory leak checking (slow!)
-#define CRT_MEMORY_LEAK_CHECK
+#undef CRT_MEMORY_LEAK_CHECK
 
 int wmain(int argc, wchar_t* argv[]) {
 #if defined(_DEBUG) && defined(CRT_MEMORY_LEAK_CHECK)
