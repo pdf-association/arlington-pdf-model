@@ -1,6 +1,6 @@
 # Arlington PDF Model Grammar Validation Rules
 
-This document describes some strict rules for the Arlington PDF model, for both the data and the custom declarative functions (`fn:`). Only some of these rules are currently implemented by various PoCs, but everything is precisely documented here.
+This document describes some strict rules for the Arlington PDF model, for both the data and the predicates (custom declarative functions that start `fn:`). Only some of these rules are currently implemented by various PoCs, but everything is precisely documented here.
 
 
 # TSV file rules
@@ -97,7 +97,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   Always a list
     *   List elements are either:
         *   Strings for the basic types listed above
-        *   Python lists for declarative functions - a simple search through the list for a match to the types above is
+        *   Python lists for predicates - a simple search through the list for a match to the types above is
             sufficient (if understanding the declarative function is not required)
     *   _Not to be confused with "/Type" keys which is why the `[` is included in this grep!_
     *   `grep "'Type': \[" dom.json | sed -e 's/^ *//' | sort | uniq`
@@ -115,7 +115,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   Must be one of `1.0`, `1.1`, ... `1.7` or `2.0`
 *   In the future:
     *   Set of versions may be increased - e.g. `2.1`
-    *   A small set of declarative functions might also be used
+    *   A small set of predicates might also be used
         *   Either as "or" conjunction or by themselves to represent proprietary extensions? Examples include inline image
             abbreviations used in Image XObjects; `DP` as an alias for `DecodeParams` by Adobe; the Apple /AAPL or /PTEX LaTeX
             extensions; the various PDF 2.0 extension ISO specs being developed now
@@ -177,11 +177,11 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   Streams must always have "IndirectReference" as `TRUE`
 *   Either:
     *   Single word: `FALSE` or `TRUE` (uppercase only); or
-    *   Single declarative function `fn:MustBeDirect()` indicating that the corresponding key/array element must
-        be a direct object
+    *   Single declarative function `fn:MustBeDirect()` or `fn:MustBeIndirect()` indicating that the corresponding key/array element must
+        be a direct object or not
     *   `[];[];[]` style expression - SEMI-COLON separated, SQUARE-BRACKETS expressions that exactly match the
         number of items in the "Type" column. Only the values `TRUE` or `FALSE` can be used.
-    *   A more complex set of requirements using the declarative function `fn:MustBeDirect(optional-key-path>)`
+    *   A more complex set of requirements using the predicate `fn:MustBeDirect(optional-key-path>)` or `fn:MustBeIndirect(...)`
         **NOT** enclosed in SQUARE-BRACKETS
 *   **Python pretty-print/JSON:**
     *   Always a list
@@ -219,11 +219,11 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *  e.g. [false false] ? [[false false]]
 *   If there is a "DefaultValue" AND there are multiple types, then require [];[];[] expressions
     *  If the "DefaultValue" is a PDF array, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
-*   The only valid declarative functions are:
+*   The only valid predicates are:
     *  `fn:ImplementationDependent()`, or
     *  `fn:DefaultValue(condition, value)` where _value_ must match the appropriate type (e.g. an integer for an integer key, a string for a string-\* key, etc), or
     *  `fn:Eval(expression)`
-    *  Declarative functions only need [];[];[] expression if a multi-typed key
+    *  Predicates only need [];[];[] expression if a multi-typed key
 *   **Python pretty-print/JSON:**
     *   A list or `None`
     *   If list, then length always matches length of "Type"
@@ -299,7 +299,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     * `string-byte`
     * `string-text`
 *   Each sub-expression inside a SQUARE-BRACKET is a COMMA separate list of case-sensitive filenames of other TSV files (without `.tsv` extension)
-*   These sub-expressions can also include the version declarative functions:
+*   These sub-expressions can also include the version predicates:
     *   `fn:SinceVersion(pdf-version, link)`
     *   `fn:BeforeVersion(pdf-version, link)`
     *   `fn:IsPDFVersion(1.0, link)`
@@ -324,7 +324,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   A string or `None`
 
 
-# Validation of declarative functions
+# Validation of predicates (declarative functions)
 
 
 
@@ -344,7 +344,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   Functions can nest (as arguments of other functions)
 *   Support two C/C++ style boolean operators: && (logical and), || (logical or)
 *   Support six C/C++ style comparison operators: &lt;. &lt;=, &gt;, &gt;=, ==, !=
-*   NO bit-wise operators - _use declarative functions instead_
+*   NO bit-wise operators - _use predicates instead_
 *   NO unary NOT (`!`) operator (_implement as a new declarative function `fn:Notxxxx`_)
 *   All expressions MUST be fully bracketed between Boolean operators (_to avoid defining precedence rules_)
 *   NO conditional if/then, switch or loop style statements _ - its declarative!_
@@ -366,7 +366,7 @@ List all predicates and their Arguments
 grep -Pho "fn:[a-zA-Z0-9]+\((?:[^)(]+|(?R))*+\)" *.tsv | sort | uniq
 ```
 
-List all declarative functions that take no parameters:
+List all predicates that take no parameters:
 
 ```shell
 grep --color=always -Pho "fn:[a-zA-Z0-9]+\(\)" *.tsv | sort | uniq
@@ -378,7 +378,7 @@ List all parameter lists (but not function names) (and a few PDF strings too!):
 grep --color=always -Pho "\((?>[^()]|(?R))*\)" *.tsv | sort | uniq
 ```
 
-List all declarative functions with their arguments:
+List all predicates with their arguments:
 
 ```shell
 grep --color=always -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" *.tsv | sort | uniq
@@ -425,8 +425,8 @@ The second character in the prefix represents the value of the key or array elem
 
 | Prefix | Description |
 | ------ | ----------- |
-| `==` | Key/array element and value are fully within the Arlington definition for the required specific PDF version and all data is validated (including "Key", "Type", "PossibleValues", "IndirectReference"/`fn:MustBeDirect`, etc). All declarative functions are also all validated. _This assumes that the reporting applications implements all declarative functions_! |
-| `=?` | The Key is in the Arlington definition for the required specific version of PDF but there is a data error (such as with "Type", "PossibleValues", "IndirectReference"/`fn:MustBeDirect`, etc. or with one or more of the declarative functions being invalidated). _This assumes that the reporting applications implements all declarative functions_! |
+| `==` | Key/array element and value are fully within the Arlington definition for the required specific PDF version and all data is validated (including "Key", "Type", "PossibleValues", "IndirectReference"/`fn:MustBeDirect`, etc). All predicates are also all validated. _This assumes that the reporting applications implements all predicates_! |
+| `=?` | The Key is in the Arlington definition for the required specific version of PDF but there is a data error (such as with "Type", "PossibleValues", "IndirectReference"/`fn:MustBeDirect`, etc. or with one or more of the predicates being invalidated). _This assumes that the reporting applications implements all predicates_! |
 | `--` | An Arlington required ("Required"==FALSE) Key for the required specific version of PDF is missing in the PDF (i.e. NOT in the PDF) but is specified in Arlington. |
 | `-?` | An Arlington optional Key for the required specific version of PDF is missing in the PDF but is specified in Arlington. _This won't be reported unless an additional option is specified as it would otherwise be too verbose._ |
 | `++` | Key is in the PDF, but is not known to Arlington for any version of PDF (i.e. it is not unrecognized by Arlington at all). |
@@ -496,7 +496,7 @@ The second character in the prefix represents the value of the key or array elem
 
 
 
-# Declarative Functions
+# Predicates (declarative functions)
 
 **Do not use additional whitespace!**
 Single SPACE characters are only required around logical operators (`&&` and `||`), MINUS (`-`) and the `mod` mathematical operators.
@@ -737,8 +737,21 @@ Single SPACE characters are only required around logical operators (`&&` and `||
    <td>
     <ul>
      <li>only ever used in the "IndirectRef" field.</li>
-     <li>if <i>condition</i> is true, the the current key value must be a direct object.
-     <li>if <i>condition</i> is false, the the current key value can be direct or indirect.
+     <li>if <i>condition</i> is true, the current key value must be a direct object.
+     <li>if <i>condition</i> is false, the current key value can be direct or indirect.
+    </ul>
+ </td>
+  </tr>
+  <tr>
+   <td>
+    <code>fn:MustBeIndirect()</code><br/>
+    <code>fn:MustBeIndirect(<i>condition</i>)</code>
+   </td>
+   <td>
+    <ul>
+     <li>only ever used in the "IndirectRef" field.</li>
+     <li>if <i>condition</i> is true, the current key value must be an indirect object.
+     <li>if <i>condition</i> is false, the current key value can be direct or indirect.
     </ul>
  </td>
   </tr>
