@@ -104,10 +104,11 @@ def ArlingtonTo3D(tsvdir: str, outdir: str, pdfver: str):
                 newlnks: str = obj['keys'][pdfkey]['Link']
                 # print('\t\tProcessing Links %s' % newlnks)
 
-                # Need to support our declarative functions ("fn:SinceVersion(x.y,...)") in Links
+                # Need to support PDF version predicates ("fn:SinceVersion(x.y,...)") in Links
                 # This Linux command can confirm all functions in Links:
                 #   cut -f 11 ../tsv/latest/*.tsv | grep -ho "fn:[a-zA-Z]*" | sort | uniq
                 newlnks = re.sub(r"fn\:SinceVersion\(\d\.\d,", "", newlnks)
+                newlnks = re.sub(r"fn\:IsPDFVersion\(\d\.\d,", "", newlnks)
                 newlnks = re.sub(r"\)", "", newlnks)
                 pdflinks = re.split(r"\;|\,|\]|\[", newlnks)
 
