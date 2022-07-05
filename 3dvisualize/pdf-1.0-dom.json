@@ -342,7 +342,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[Outline]"
       },
@@ -662,7 +662,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[DocInfo]"
       }
@@ -1522,7 +1522,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": "fn:IsRequired(fn:NotStandard14Font())",
-        "IndirectReference": true,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[FontDescriptorType1]"
       },
@@ -1632,7 +1632,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": "fn:IsRequired(fn:IsPDFTagged())",
-        "IndirectReference": true,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[FontDescriptorType3]"
       }

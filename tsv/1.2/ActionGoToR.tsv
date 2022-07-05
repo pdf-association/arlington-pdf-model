@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.1		FALSE	FALSE	FALSE		[Action]			
 S	name	1.1		TRUE	FALSE	FALSE		[GoToR]			
-Next	array;dictionary	1.2		FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]	
+Next	array;dictionary	1.2		FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]	
 F	dictionary;string	1.1		TRUE	FALSE	FALSE				[FileSpecification];[]	
 D	array;name;string-byte	1.1		TRUE	FALSE	FALSE				[DestXYZ,Dest0,Dest1,Dest4];[];[]	*must be a pagenumber not Page Object
 NewWindow	boolean	1.2		FALSE	FALSE	FALSE					

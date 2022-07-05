@@ -9,4 +9,4 @@ Encoding	dictionary	1.0		TRUE	FALSE	FALSE				[Encoding]
 FirstChar	integer	1.0		TRUE	FALSE	FALSE					
 LastChar	integer	1.0		TRUE	FALSE	FALSE					
 Widths	array	1.0		TRUE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))]	[ArrayOfNumbersGeneral]	
-FontDescriptor	dictionary	1.0		fn:IsRequired(fn:IsPDFTagged())	TRUE	FALSE				[FontDescriptorType3]	
+FontDescriptor	dictionary	1.0		fn:IsRequired(fn:IsPDFTagged())	fn:MustBeIndirect(fn:BeforeVersion(2.0))	FALSE				[FontDescriptorType3]	

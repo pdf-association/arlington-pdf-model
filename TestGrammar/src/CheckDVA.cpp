@@ -1,6 +1,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 /// @file 
-/// @brief Compares an Arlington PDF model to the Adobe DVA FormalRep as defined in a PDF file
+/// @brief Compares an Arlington PDF model to the Adobe DVA FormalRep 
+/// 
+/// - Output always has DVA first then Arlington
+/// - Output uses "+" when combining multiple Adobe DVA objects
+/// - Output uses "/" as the Arlington/DVA dictionary name and key separator
+/// - Adobe DVA logic is hard coded with mostly COLOR_ERROR messages but some asserts()  
+///   in case of unexpected errors.
 /// 
 /// @copyright 
 /// Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
@@ -30,407 +36,515 @@
 #include <exception>
 #include <queue>
 #include <map>
+#include <vector>
 #include <cassert>
 
 using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
 
+
 /// @brief define DVA_TRACING for verbose output about which DVA objects are getting read
-/// 
-/// PDF1_7FormalRep.pdf DocCat::FormalRepTree dictionary has 564 entries total, but need 
-/// to ignore operators, operands, etc. Export to a text file as "PDF1_7FormalRep.cos" then
-/// manually delete anything with "Operand" or "Operator"
-/// 
-/// grep "Reading DVA object" dva.txt | sort | uniq | wc -l ===> 266
-///  vs
-/// grep --color=never -Po "(?<=^\t\/)[^\t]*" PDF1_7FormalRep.cos | wc -l ===> 436
-///  vs
-/// ls --color=never -1 arlington-pdf-model/tsv/latest *.tsv | wc -l ==> 520
 #undef DVA_TRACING
 
 
-/// @brief Class for storing Adobe DVA object and Arlington TSV pairs
-class to_process_elem {
+/// @brief Class for storing Adobe DVA object and Arlington TSV tuples.
+/// Note that Adobe DVA often uses 2 PDF objects (base object and specialized object)
+/// to represent what is in a single Arlington TSV file.
+/// dva[0] should always be valid 
+class CDVAArlingtonTuple {
 public:
-    std::wstring  dva_link;  // Adobe DVA object (key name so wstring)
-    std::string   link;      // Arlington TSV filename
+    std::vector<std::wstring>   dva;    // potentially multiple Adobe DVA objects (PDF key names so wstring)
+    std::string                 link;   // Arlington TSV filename
 
-    to_process_elem()
+    CDVAArlingtonTuple()
         { /* default (empty) constructor */ };
 
-    to_process_elem(const std::wstring dva_lnk, const std::string our_lnk)
-        : dva_link(dva_lnk), link(our_lnk)
-        { /* constructor */ };
+    CDVAArlingtonTuple(const std::vector<std::wstring>& dva_vec, const std::string our_lnk)
+        : link(our_lnk)
+        { /* vector-based constructor */ 
+            for (auto d : dva_vec) {
+                dva.push_back(d);
+            }
+        };
 
-    bool operator == (const to_process_elem& a)
-        { /* comparison */ return ((link == a.link) && (dva_link == a.dva_link)); };
+    CDVAArlingtonTuple(const std::wstring dva_lnk, const std::string our_lnk)
+        : link(our_lnk)
+        { /* 2-arg constructor */ dva.push_back(dva_lnk); };
+
+    CDVAArlingtonTuple(const std::wstring dva_lnk1, const std::wstring dva_lnk2, const std::string our_lnk)
+        : link(our_lnk)
+        { /* 3-arg constructor */ dva.push_back(dva_lnk1); dva.push_back(dva_lnk2); };
+
+    CDVAArlingtonTuple(const std::wstring dva_lnk1, const std::wstring dva_lnk2, const std::wstring dva_lnk3, const std::string our_lnk)
+        : link(our_lnk)
+        { /* 4-arg constructor */ dva.push_back(dva_lnk1); dva.push_back(dva_lnk2); dva.push_back(dva_lnk3); };
+
+    CDVAArlingtonTuple(const std::wstring dva_lnk1, const std::wstring dva_lnk2, const std::wstring dva_lnk3, const std::wstring dva_lnk4, const std::string our_lnk)
+        : link(our_lnk)
+        { /* 5-arg constructor */ dva.push_back(dva_lnk1); dva.push_back(dva_lnk2); dva.push_back(dva_lnk3); dva.push_back(dva_lnk4); };
+
+    CDVAArlingtonTuple(const std::wstring dva_lnk1, const std::wstring dva_lnk2, const std::wstring dva_lnk3, const std::wstring dva_lnk4, const std::wstring dva_lnk5, const std::string our_lnk)
+        : link(our_lnk)
+        { /* 6-arg constructor */ dva.push_back(dva_lnk1); dva.push_back(dva_lnk2); dva.push_back(dva_lnk3); dva.push_back(dva_lnk4); dva.push_back(dva_lnk5); };
+
+    /// @brief returns true if key is in the vector of DVA keys
+    bool contains_DVA_key(const std::wstring& key) {
+        assert(!dva.empty());
+        for (size_t i = 0; i < dva.size(); i++) {
+            if (dva[i] == key)
+                return true;
+        }
+        return false;
+    };
+
+    /// @brief Concatenates all the DVA keys using '+' separators. 
+    /// @param[in] max_key  limit the number of keys report (0..n-1)
+    std::string all_DVA_keys(const size_t max_key = 999) {
+        assert(!dva.empty());
+        std::wstring ws = dva[0];
+        for (size_t i = 1; i < dva.size(); i++) {
+            if (i > max_key)
+                break;
+            ws = ws + L" + " + dva[i];
+        }
+        return ToUtf8(ws);
+    };
+
+    bool operator == (const CDVAArlingtonTuple& a) {
+        /* comparison */ 
+        assert(!dva.empty());
+        assert(!a.dva.empty());
+        if ((link == a.link) && (dva.size() == a.dva.size())) {
+            for (size_t i = 0; i < dva.size(); i++) {
+                if (dva[i] != a.dva[i]) 
+                    return false;
+            }
+            return true;
+        }
+        return false; 
+    };
 };
 
 
-/// @brief  Process a single Adobe DVA dictionary definition
+/// @brief  Process a single Adobe DVA dictionary definition (FormalRepTree dictionary)
 /// 
 /// @param[in]     tsv_dir Arlington TSV directory
 /// @param[in,out] ofs     already open output stream for reporting messages
 /// @param[in]     map     the Adobe DVA root dictionary for comparison
 /// @param[in]     terse   whether output should be brief/terse
 /// 
-void process_dict(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary * map_dict, bool terse) {
+void process_dva_formal_rep_tree(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary * map_dict, bool terse) {
     int count = 0;
 
-    // A vector of already completed comparisons made up of an Arlington / Adobe DVA key pairs
-    std::vector<to_process_elem>                mapped;
+    // A vector of already completed comparisons made up of an Arlington / Adobe DVA key tuples
+    std::vector<CDVAArlingtonTuple>                mapped;
 
-    // A vector of to-be-done comparisons made up of an Arlington / Adobe DVA key pairs
-    std::queue<to_process_elem>                 to_process_checks;
+    // A vector of to-be-done comparisons made up of an Arlington / Adobe DVA key tuples
+    std::queue<CDVAArlingtonTuple>                 to_process_checks;
 
     // Pre-populate some DVA vs Arlington tuples - mostly direct name matches
     // Group into roughly logical order so that output is also grouped
-    to_process_checks.emplace(L"Trailer",           "FileTrailer");
-    to_process_checks.emplace(L"Catalog",           "Catalog");
-    to_process_checks.emplace(L"XRef",              "XRefStream");
+    //
+    // THIS IS A MANUALLY CURATED LIST FROM GROKING THE ADOBE DVA BY HAND!!!
+    // 
+    // Thus ConcatWithFormalRep processing or /VerifyAtFormalRep lookups are no longer required
+    //
+    to_process_checks.emplace(L"Trailer",                       "FileTrailer");
+    to_process_checks.emplace(L"XRef", L"StreamDict",           "XRefStream");
+    to_process_checks.emplace(L"Linearized",                    "LinearizationParameterDict");
+    // Document Catalog
+    to_process_checks.emplace(L"Catalog",                       "Catalog");
+    to_process_checks.emplace(L"DocInfo",                       "DocInfo");
+    to_process_checks.emplace(L"MarkInfo",                      "MarkInfo");
+    to_process_checks.emplace(L"Legal",                         "LegalAttestation");
+    to_process_checks.emplace(L"CatalogDests",                  "DestsMap");
+    to_process_checks.emplace(L"CatalogDestsDict",              "DestDict");
+    to_process_checks.emplace(L"CatalogThreads",                "ArrayOfThreads");
+    to_process_checks.emplace(L"CatalogURI",                    "URI");
+    to_process_checks.emplace(L"AcroForm",                      "InteractiveForm");
+    to_process_checks.emplace(L"AcroFormFields",                "ArrayOfFields");
+    // Additional Actions
+    to_process_checks.emplace(L"CatalogAdditionalActions",      "AddActionCatalog");
+    to_process_checks.emplace(L"ScreenAnnotAdditionalActions",  "AddActionScreenAnnotation");
+    to_process_checks.emplace(L"AnnotWidgetAdditionalActions",  "AddActionWidgetAnnotation");
+    to_process_checks.emplace(L"PageAdditionalActions",         "AddActionPageObject");
+    to_process_checks.emplace(L"FieldAdditionalActions",        "AddActionFormField");
     // 3D
-    to_process_checks.emplace(L"3DCrossSection",    "3DCrossSection");
-    to_process_checks.emplace(L"3DLightingScheme",  "3DCrossSection");
-    to_process_checks.emplace(L"3DNode",            "3DNode");
-    to_process_checks.emplace(L"3DRenderMode",      "3DRenderMode");
+    to_process_checks.emplace(L"3DCrossSection",                "3DCrossSection");
+    to_process_checks.emplace(L"3DLightingScheme",              "3DLightingScheme");
+    to_process_checks.emplace(L"3DNode",                        "3DNode");
+    to_process_checks.emplace(L"3DRenderMode",                  "3DRenderMode");
+    to_process_checks.emplace(L"3DVDict",                       "3DView");
+    to_process_checks.emplace(L"3DADict",                       "3DActivation");
+    to_process_checks.emplace(L"3DDStream", L"StreamDict",      "3DStream");
+    to_process_checks.emplace(L"3DVBGDict",                     "3DBackground");
+    to_process_checks.emplace(L"3DSectionArray",                "ArrayOf3DCrossSection");
+    to_process_checks.emplace(L"3DDDict",                       "3DReference");
+    to_process_checks.emplace(L"3DVPDict",                      "Projection");
+    to_process_checks.emplace(L"3DANDict",                      "3DAnimationStyle");
+    // to_process_checks.emplace(L"3DANDict???", "RichMediaAnimation"); // RichMedia is PDF 2.0
     // Page tree
-    to_process_checks.emplace(L"PagesOrPage",       "PageTreeNodeRoot");
-    to_process_checks.emplace(L"PagesOrPage",       "PageTreeNode");
-    to_process_checks.emplace(L"Pages",             "PageTreeNodeRoot");
-    to_process_checks.emplace(L"Pages",             "PageTreeNode");
-    to_process_checks.emplace(L"Page",              "PageObject");
+    to_process_checks.emplace(L"Pages", L"PagesOrPage",          "PageTreeNodeRoot");
+    to_process_checks.emplace(L"Pages", L"PagesOrPage",          "PageTreeNode");
+    to_process_checks.emplace(L"Page",  L"PagesOrPage",          "PageObject");
+    to_process_checks.emplace(L"PageTemplate",                   "PageObject");
+    //
+    to_process_checks.emplace(L"ExtGState",                     "GraphicsStateParameter");
     // Bead
-    to_process_checks.emplace(L"Bead_First",        "BeadFirst");
-    to_process_checks.emplace(L"Bead",              "Bead");
-    to_process_checks.emplace(L"Thread",            "Thread");
+    to_process_checks.emplace(L"Bead",                          "Bead");
+    to_process_checks.emplace(L"Bead", L"Bead_First",           "BeadFirst");
+    to_process_checks.emplace(L"Thread",                        "Thread");
+    to_process_checks.emplace(L"ThreadInfo",                    "DocInfo");
     // Outlines
-    to_process_checks.emplace(L"Outline",           "OutlineItem");
-    to_process_checks.emplace(L"Outlines",          "Outline");
+    to_process_checks.emplace(L"Outline",                       "OutlineItem");
+    to_process_checks.emplace(L"Outlines",                      "Outline");
     // Patterns
-    to_process_checks.emplace(L"Pattern",           "PatternType1");
-    to_process_checks.emplace(L"Pattern",           "PatternType2");
-    to_process_checks.emplace(L"PatternType1",      "PatternType1");
-    to_process_checks.emplace(L"PatternType2",      "PatternType2");
+    to_process_checks.emplace(L"PatternType1", L"Pattern", L"StreamDict",   "PatternType1");
+    to_process_checks.emplace(L"PatternType2", L"Pattern",                  "PatternType2");
     // Font
-    to_process_checks.emplace(L"FontType1",         "FontType1");
-    to_process_checks.emplace(L"FontTrueType",      "FontTrueType");
-    to_process_checks.emplace(L"FontMMType1",       "FontMultipleMaster");
-    to_process_checks.emplace(L"FontType3",         "FontType3");
-    to_process_checks.emplace(L"FontType0",         "FontType0");
-    to_process_checks.emplace(L"FontCIDFontType0or2", "FontCIDType0");
-    to_process_checks.emplace(L"FontCIDFontType0or2", "FontCIDType2");
-    // Font Descriptors
-    to_process_checks.emplace(L"FontDescriptor",    "FontDescriptorCIDType0");
-    to_process_checks.emplace(L"FontDescriptor",    "FontDescriptorCIDType2");
-    to_process_checks.emplace(L"FontDescriptor",    "FontDescriptorTrueType");
-    to_process_checks.emplace(L"FontDescriptor",    "FontDescriptorType1");
-    to_process_checks.emplace(L"FontDescriptor",    "FontDescriptorType3");
-    // Font files
-    to_process_checks.emplace(L"FontFile",          "FontFile");
-    to_process_checks.emplace(L"FontFile",          "FontFile2");
-    to_process_checks.emplace(L"FontFile",          "FontFile3CIDType0");
-    to_process_checks.emplace(L"FontFile",          "FontFile3Type1");
-    to_process_checks.emplace(L"Type1FontFile3",    "FontFile3Type1");
-    to_process_checks.emplace(L"FontFile",          "FontFileType1");
-    to_process_checks.emplace(L"Type1FontFile",     "FontFileType1");
+    to_process_checks.emplace(L"FontType1",         L"Font",    "FontType1");
+    to_process_checks.emplace(L"FontTrueType",      L"Font",    "FontTrueType");
+    to_process_checks.emplace(L"FontMMType1",       L"Font",    "FontMultipleMaster");
+    to_process_checks.emplace(L"FontType3",         L"Font",    "FontType3");
+    to_process_checks.emplace(L"FontType0",         L"Font",    "FontType0");
+    to_process_checks.emplace(L"FontCIDFontType0",  L"Font",    "FontCIDType0");
+    to_process_checks.emplace(L"FontCIDFontType2",  L"Font",    "FontCIDType2");
+    to_process_checks.emplace(L"CIDFontDescriptorFDDict",       "FDDict");
+    to_process_checks.emplace(L"CIDFontDescriptorStyle",        "StyleDict");
+    // Fonts
+    to_process_checks.emplace(L"FontDescriptor",                                "FontDescriptorType3");
+    to_process_checks.emplace(L"CIDType0FontDescriptor", L"FontDescriptor",     "FontDescriptorCIDType0");
+    to_process_checks.emplace(L"CIDType2FontDescriptor", L"FontDescriptor",     "FontDescriptorCIDType2");
+    to_process_checks.emplace(L"TrueTypeFontDescriptor", L"FontDescriptor",     "FontDescriptorTrueType");
+    to_process_checks.emplace(L"Type1FontDescriptor",    L"FontDescriptor",     "FontDescriptorType1");
+    to_process_checks.emplace(L"CIDSystemInfo",                                 "CIDSystemInfo");
+    to_process_checks.emplace(L"CMap",                                          "CMap");
+    to_process_checks.emplace(L"CharProc", L"StreamDict",                       "Stream");
+    to_process_checks.emplace(L"FontFile", L"StreamDict",                       "FontFile");
+    to_process_checks.emplace(L"TrueTypeFontFile2", L"FontFile", L"StreamDict", "FontFile2");
+    to_process_checks.emplace(L"CIDType0FontFile3", L"FontFile", L"StreamDict", "FontFile3CIDType0");
+    to_process_checks.emplace(L"Type1FontFile3",    L"FontFile", L"StreamDict", "FontFile3Type1");
+    to_process_checks.emplace(L"Type1FontFile",     L"FontFile", L"StreamDict", "FontFileType1");
     // Functions
-    to_process_checks.emplace(L"FunctionType0",     "FunctionType0");
-    to_process_checks.emplace(L"FunctionType2",     "FunctionType2");
-    to_process_checks.emplace(L"FunctionType3",     "FunctionType3");
-    to_process_checks.emplace(L"FunctionType4",     "FunctionType4");
-    to_process_checks.emplace(L"Function",          "FunctionType0");
-    to_process_checks.emplace(L"Function",          "FunctionType2");
-    to_process_checks.emplace(L"Function",          "FunctionType3");
-    to_process_checks.emplace(L"Function",          "FunctionType4");
+    to_process_checks.emplace(L"FunctionType0", L"Function", L"StreamDict",     "FunctionType0");
+    to_process_checks.emplace(L"FunctionType2", L"Function",                    "FunctionType2");
+    to_process_checks.emplace(L"FunctionType3", L"Function",                    "FunctionType3");
+    to_process_checks.emplace(L"FunctionType4", L"Function", L"StreamDict",     "FunctionType4");
     // Halftones
-    to_process_checks.emplace(L"Halftone",          "HalftoneType1");
-    to_process_checks.emplace(L"Halftone",          "HalftoneType5");
-    to_process_checks.emplace(L"Halftone",          "HalftoneType6");
-    to_process_checks.emplace(L"Halftone",          "HalftoneType10");
-    to_process_checks.emplace(L"Halftone",          "HalftoneType16");
-    to_process_checks.emplace(L"HalftoneType1",     "HalftoneType1");
-    to_process_checks.emplace(L"HalftoneType5",     "HalftoneType5");
-    to_process_checks.emplace(L"HalftoneType6",     "HalftoneType6");
-    to_process_checks.emplace(L"HalftoneType10",    "HalftoneType10");
-    to_process_checks.emplace(L"HalftoneType16",    "HalftoneType16");
+    to_process_checks.emplace(L"HalftoneType1",  L"Halftone",                   "HalftoneType1");
+    to_process_checks.emplace(L"HalftoneType5",  L"Halftone",                   "HalftoneType5");
+    to_process_checks.emplace(L"HalftoneType6",  L"Halftone", L"StreamDict",    "HalftoneType6");
+    to_process_checks.emplace(L"HalftoneType10", L"Halftone", L"StreamDict",    "HalftoneType10");
+    to_process_checks.emplace(L"HalftoneType16", L"Halftone",                   "HalftoneType16");
     // XObjects
-    to_process_checks.emplace(L"XObjectForm",       "XObjectFormType1");
-    to_process_checks.emplace(L"XObjectImageBase",  "XObjectImage");
-    to_process_checks.emplace(L"XObjectPS",         "XObjectFormPS");
-    to_process_checks.emplace(L"XObjectPS",         "XObjectFormPSpassthrough");
-    to_process_checks.emplace(L"XObjectTrapNet",    "XObjectFormTrapNet");
-    to_process_checks.emplace(L"XObjectImageMask",  "XObjectImageMask");
-    to_process_checks.emplace(L"XObjectImageSMask", "XObjectImageSoftMask");
+    to_process_checks.emplace(L"XObjectForm",                           L"XObjectForm",   L"XObject", L"StreamDict", "XObjectFormType1");
+    to_process_checks.emplace(L"XObjectTrapNet",                        L"XObjectForm",   L"XObject", L"StreamDict", "XObjectFormTrapNet");
+    to_process_checks.emplace(L"XObjectPS",                                               L"XObject", L"StreamDict", "XObjectFormPS");
+    to_process_checks.emplace(L"XObjectPS",                                               L"XObject", L"StreamDict", "XObjectFormPSpassthrough");
+    to_process_checks.emplace(L"XObjectImage",                       L"XObjectImageBase", L"XObject", L"StreamDict", "XObjectImage");
+    to_process_checks.emplace(L"XObjectImageSMask", L"XObjectImage", L"XObjectImageBase", L"XObject", L"StreamDict", "XObjectImageSoftMask");
+    to_process_checks.emplace(L"XObjectImageMask",  L"XObjectImage", L"XObjectImageBase", L"XObject", L"StreamDict", "XObjectImageMask");
+    to_process_checks.emplace(L"Group",                             "GroupAttributes");
+    to_process_checks.emplace(L"GroupTransparency",                 "GroupAttributes");
+    // Resources
+    to_process_checks.emplace(L"Resources",                         "Resource");
+    to_process_checks.emplace(L"ExtGStateResources",                "GraphicsStateParameterMap");
+    to_process_checks.emplace(L"ColorSpaceResources",               "ColorSpaceMap");
+    to_process_checks.emplace(L"FontResources",                     "FontMap");
+    to_process_checks.emplace(L"PatternResources",                  "PatternMap");
+    to_process_checks.emplace(L"ShadingResources",                  "ShadingMap");
+    to_process_checks.emplace(L"XObjectResources",                  "XObjectMap");
     // Rendition
-    to_process_checks.emplace(L"Rendition",         "RenditionMedia");
-    to_process_checks.emplace(L"Rendition",         "RenditionSelector");
-    to_process_checks.emplace(L"MediaRendition",    "RenditionMedia");
-    to_process_checks.emplace(L"SelectorRendition", "RenditionSelector");
-    // SigRef
-    to_process_checks.emplace(L"SigRef",            "SignatureReferenceDocMDP");
-    to_process_checks.emplace(L"SigRef",            "SignatureReferenceFieldMDP");
-    to_process_checks.emplace(L"SigRef",            "SignatureReferenceIdentity");
-    to_process_checks.emplace(L"SigRef",             "SignatureReferenceUR");
-    to_process_checks.emplace(L"SigRefDocMDP",      "SignatureReferenceDocMDP");
-    to_process_checks.emplace(L"SigRefFieldMDP",    "SignatureReferenceFieldMDP");
-    to_process_checks.emplace(L"SigRefIdentity",    "SignatureReferenceIdentity");
-    to_process_checks.emplace(L"SigRefUR",          "SignatureReferenceUR");
+    to_process_checks.emplace(L"Rendition", L"MediaRendition",      "RenditionMedia");
+    to_process_checks.emplace(L"Rendition", L"SelectorRendition", L"MustHonorRendition", L"BestEffortRendition", "RenditionSelector");
+    // Digital Signatures
+    to_process_checks.emplace(L"SigDict",                       "Signature");
+    to_process_checks.emplace(L"SVCert",                        "CertSeedValue");
+    to_process_checks.emplace(L"MDP",                           "MDPDict");
+    to_process_checks.emplace(L"SigRef", L"SigRefDocMDP",       "SignatureReferenceDocMDP");
+    to_process_checks.emplace(L"SigRef", L"SigRefFieldMDP",     "SignatureReferenceFieldMDP");
+    to_process_checks.emplace(L"SigRef", L"SigRefIdentity",     "SignatureReferenceIdentity");
+    to_process_checks.emplace(L"SigRef", L"SigRefUR",           "SignatureReferenceUR");
+    to_process_checks.emplace(L"SigRefDocMDPParams",            "DocMDPTransformParameters");
+    to_process_checks.emplace(L"SigRefFieldMDPParams",          "FieldMDPTransformParameters");
+    to_process_checks.emplace(L"SigRefURParams",                "URTransformParameters");
     // Actions
-    to_process_checks.emplace(L"ActionGoTo",        "ActionGoTo");
-    to_process_checks.emplace(L"ActionGoTo3DView",  "ActionGoTo3DView");
     // ActionGoToDp = new in PDF 2.0
-    to_process_checks.emplace(L"ActionGoToE",       "ActionGoToE");
-    to_process_checks.emplace(L"ActionGoToR",       "ActionGoToR");
-    to_process_checks.emplace(L"ActionHide",        "ActionHide");
-    to_process_checks.emplace(L"ActionImportData",  "ActionImportData");
-    to_process_checks.emplace(L"ActionJavaScript",  "ActionECMAScript");
-    to_process_checks.emplace(L"ActionLaunch",      "ActionLaunch");
-    to_process_checks.emplace(L"ActionMovie",       "ActionMovie");
-    to_process_checks.emplace(L"ActionNamed",       "ActionNamed");
-    to_process_checks.emplace(L"ActionRendition",   "ActionRendition");
-    to_process_checks.emplace(L"ActionResetForm",   "ActionResetForm");
     // ActionRichMediaExecute = new in PDF 2.0
-    to_process_checks.emplace(L"ActionSetOCGState", "ActionSetOCGState");
-    to_process_checks.emplace(L"ActionSound",       "ActionSound");
-    to_process_checks.emplace(L"ActionSubmitForm",  "ActionSubmitForm");
-    to_process_checks.emplace(L"ActionThread",      "ActionThread");
-    to_process_checks.emplace(L"ActionTrans",       "ActionTransition");
-    to_process_checks.emplace(L"ActionURI",         "ActionURI");
-    to_process_checks.emplace(L"ArrayOfActions",    "ArrayOfActions");
+    to_process_checks.emplace(L"Action", L"ActionGoTo",         "ActionGoTo");
+    to_process_checks.emplace(L"Action", L"ActionGoTo3DView",   "ActionGoTo3DView");
+    to_process_checks.emplace(L"Action", L"ActionGoToE",        "ActionGoToE");
+    to_process_checks.emplace(L"Action", L"ActionGoToR",        "ActionGoToR");
+    to_process_checks.emplace(L"Action", L"ActionHide",         "ActionHide");
+    to_process_checks.emplace(L"Action", L"ActionImportData",   "ActionImportData");
+    to_process_checks.emplace(L"Action", L"ActionJavaScript",   "ActionECMAScript");
+    to_process_checks.emplace(L"Action", L"ActionLaunch",       "ActionLaunch");
+    to_process_checks.emplace(L"Action", L"ActionMovie",        "ActionMovie");
+    to_process_checks.emplace(L"Action", L"ActionNamed",        "ActionNamed");
+    to_process_checks.emplace(L"Action", L"ActionRendition",    "ActionRendition");
+    to_process_checks.emplace(L"Action", L"ActionResetForm",    "ActionResetForm");
+    to_process_checks.emplace(L"Action", L"ActionSetOCGState",  "ActionSetOCGState");
+    to_process_checks.emplace(L"Action", L"ActionSound",        "ActionSound");
+    to_process_checks.emplace(L"Action", L"ActionSubmitForm",   "ActionSubmitForm");
+    to_process_checks.emplace(L"Action", L"ActionThread",       "ActionThread");
+    to_process_checks.emplace(L"Action", L"ActionTrans",        "ActionTransition");
+    to_process_checks.emplace(L"Action", L"ActionURI",          "ActionURI");
+    to_process_checks.emplace(L"Action", L"ActionNOP",          "ActionNOP");       // PDF 1.2 only
+    to_process_checks.emplace(L"Action", L"ActionSetState",     "ActionSetState");  // PDF 1.2 only
+    to_process_checks.emplace(L"ArrayOfActions",                "ArrayOfActions");
+    to_process_checks.emplace(L"ActionLaunchWin",               "MicrosoftWindowsLaunchParam");
     //
-    to_process_checks.emplace(L"AlternateImageDict", "AlternateImage");
+    to_process_checks.emplace(L"AlternateImageArray",           "ArrayOfImageAlternates");
+    to_process_checks.emplace(L"AlternateImageDict",            "AlternateImage");
     // Annotations
-    to_process_checks.emplace(L"Annot3D",           "Annot3D");
-    to_process_checks.emplace(L"AnnotCaret",        "AnnotCaret");
-    to_process_checks.emplace(L"AnnotCircle",       "AnnotCircle");
-    to_process_checks.emplace(L"AnnotFileAttachment", "AnnotFileAttachment");
-    to_process_checks.emplace(L"AnnotFreeText",     "AnnotFreeText");
-    to_process_checks.emplace(L"AnnotHighlight",    "AnnotHighlight");
-    to_process_checks.emplace(L"AnnotInk",          "AnnotInk");
-    to_process_checks.emplace(L"AnnotLine",         "AnnotLine");
-    to_process_checks.emplace(L"AnnotLink",         "AnnotLink");
-    to_process_checks.emplace(L"AnnotMovie",        "AnnotMovie");
-    to_process_checks.emplace(L"AnnotPolyLine",     "AnnotPolyLine");
-    to_process_checks.emplace(L"AnnotPolygon",      "AnnotPolygon");
-    to_process_checks.emplace(L"AnnotPopup",        "AnnotPopup");
-    to_process_checks.emplace(L"AnnotPrinterMark",  "AnnotPrinterMark");
     // AnnotProjection = new in PDF 2.0
-    to_process_checks.emplace(L"Annot",             "AnnotRedact");
     // AnnotRichMedia = new in PDF 2.0
-    to_process_checks.emplace(L"AnnotScreen",       "AnnotScreen");
-    to_process_checks.emplace(L"AnnotSound",        "AnnotSound");
-    to_process_checks.emplace(L"AnnotSquare",       "AnnotSquare");
-    to_process_checks.emplace(L"AnnotSquiggly",     "AnnotSquiggly");
-    to_process_checks.emplace(L"AnnotStamp",        "AnnotStamp");
-    to_process_checks.emplace(L"AnnotStrikeOut",    "AnnotStrikeOut");
-    to_process_checks.emplace(L"AnnotText",         "AnnotText");
-    to_process_checks.emplace(L"AnnotTrapNet",      "AnnotTrapNetwork");
-    to_process_checks.emplace(L"AnnotUnderline",    "AnnotUnderline");
-    to_process_checks.emplace(L"AnnotWatermark",    "AnnotWatermark");
-    to_process_checks.emplace(L"AnnotWidget",       "AnnotWidget");
+    // Redaction annotation is missing in DVA!
+    to_process_checks.emplace(L"Annot3D",            L"WidgetOrField", L"Annot", "Annot3D");
+    to_process_checks.emplace(L"AnnotCaret", L"WidgetOrField", L"Annot",  "AnnotCaret");
+    to_process_checks.emplace(L"AnnotCircle", L"WidgetOrField", L"Annot",  "AnnotCircle");
+    to_process_checks.emplace(L"AnnotFileAttachment", L"WidgetOrField", L"Annot",  "AnnotFileAttachment");
+    to_process_checks.emplace(L"AnnotFreeText", L"WidgetOrField", L"Annot",  "AnnotFreeText");
+    to_process_checks.emplace(L"AnnotHighlight", L"WidgetOrField", L"Annot",  "AnnotHighlight");
+    to_process_checks.emplace(L"AnnotInk", L"WidgetOrField", L"Annot",  "AnnotInk");
+    to_process_checks.emplace(L"AnnotLine", L"WidgetOrField", L"Annot",  "AnnotLine");
+    to_process_checks.emplace(L"AnnotLink", L"WidgetOrField", L"Annot",  "AnnotLink");
+    to_process_checks.emplace(L"AnnotMovie", L"WidgetOrField", L"Annot",  "AnnotMovie");
+    to_process_checks.emplace(L"AnnotPolyLine", L"WidgetOrField", L"Annot",  "AnnotPolyLine");
+    to_process_checks.emplace(L"AnnotPolygon", L"WidgetOrField", L"Annot",  "AnnotPolygon");
+    to_process_checks.emplace(L"AnnotPopup", L"WidgetOrField", L"Annot",  "AnnotPopup");
+    to_process_checks.emplace(L"AnnotPrinterMark", L"WidgetOrField", L"Annot",  "AnnotPrinterMark");
+    to_process_checks.emplace(L"AnnotScreen", L"WidgetOrField", L"Annot",  "AnnotScreen");
+    to_process_checks.emplace(L"AnnotSound", L"WidgetOrField", L"Annot",  "AnnotSound");
+    to_process_checks.emplace(L"AnnotSquare", L"WidgetOrField", L"Annot",  "AnnotSquare");
+    to_process_checks.emplace(L"AnnotSquiggly", L"WidgetOrField", L"Annot",  "AnnotSquiggly");
+    to_process_checks.emplace(L"AnnotStamp", L"WidgetOrField", L"Annot",  "AnnotStamp");
+    to_process_checks.emplace(L"AnnotStrikeOut", L"WidgetOrField", L"Annot",  "AnnotStrikeOut");
+    to_process_checks.emplace(L"AnnotText", L"WidgetOrField", L"Annot",  "AnnotText");
+    to_process_checks.emplace(L"AnnotTrapNet", L"WidgetOrField", L"Annot",  "AnnotTrapNetwork");
+    to_process_checks.emplace(L"AnnotUnderline", L"WidgetOrField", L"Annot",  "AnnotUnderline");
+    to_process_checks.emplace(L"AnnotWatermark", L"WidgetOrField", L"Annot",  "AnnotWatermark");
+    to_process_checks.emplace(L"AnnotWidget", L"WidgetOrField", L"Annot", L"Field",  "AnnotWidget");
     // Colorspaces
-    to_process_checks.emplace(L"CalGrayColorSpace", "CalGrayColorSpace");
-    to_process_checks.emplace(L"CalGrayDict",       "CalGrayDict");
-    to_process_checks.emplace(L"CalRGBColorSpace",  "CalRGBColorSpace");
-    to_process_checks.emplace(L"CalRGBDict",        "CalRGBDict");
-    to_process_checks.emplace(L"CalGrayDict",       "CalGrayDict");
-    to_process_checks.emplace(L"ICCBasedColorSpace","ICCBasedColorSpace");
-    to_process_checks.emplace(L"ICCBasedDict",      "ICCProfileStream");
-    to_process_checks.emplace(L"IndexedColorSpace", "IndexedColorSpace");
-    to_process_checks.emplace(L"LabColorSpace",     "LabColorSpace");
-    to_process_checks.emplace(L"LabDict",           "LabDict");
-    to_process_checks.emplace(L"DeviceNColorSpace", "DeviceNColorSpace");
-    to_process_checks.emplace(L"DeviceNDict",       "DeviceNDict");
-    to_process_checks.emplace(L"DeviceNMixingHints","DeviceNMixingHints");
-    to_process_checks.emplace(L"DeviceNProcess",    "DeviceNProcess");
-    to_process_checks.emplace(L"SeparationColorSpace", "SeparationColorSpace");
-    to_process_checks.emplace(L"PatternColorSpace", "PatternColorSpace");
+    to_process_checks.emplace(L"CalGrayColorSpace",             "CalGrayColorSpace");
+    to_process_checks.emplace(L"CalGrayDict",                   "CalGrayDict");
+    to_process_checks.emplace(L"CalRGBColorSpace",              "CalRGBColorSpace");
+    to_process_checks.emplace(L"CalRGBDict",                    "CalRGBDict");
+    to_process_checks.emplace(L"CalGrayDict",                   "CalGrayDict");
+    to_process_checks.emplace(L"ICCBasedColorSpace",            "ICCBasedColorSpace");
+    to_process_checks.emplace(L"ICCBasedDict", L"StreamDict",   "ICCProfileStream");
+    to_process_checks.emplace(L"IndexedColorSpace",             "IndexedColorSpace");
+    to_process_checks.emplace(L"LabColorSpace",                 "LabColorSpace");
+    to_process_checks.emplace(L"LabDict",                       "LabDict");
+    to_process_checks.emplace(L"PatternColorSpace",             "PatternColorSpace");
+    to_process_checks.emplace(L"DeviceNColorSpace",             "DeviceNColorSpace");
+    to_process_checks.emplace(L"DeviceNDict",                   "DeviceNDict");
+    to_process_checks.emplace(L"DeviceNMixingHints",            "DeviceNMixingHints");
+    to_process_checks.emplace(L"DeviceNProcess",                "DeviceNProcess");
+    to_process_checks.emplace(L"DeviceNColorants",              "ColorantsDict");
+    to_process_checks.emplace(L"DeviceNDotGain",                "DictionaryOfFunctions");
+    to_process_checks.emplace(L"DeviceNSolidities",             "Solidities");
+    to_process_checks.emplace(L"SeparationColorSpace",          "SeparationColorSpace");
+    to_process_checks.emplace(L"SeparationInfo",                "Separation");
     // Appearances
-    to_process_checks.emplace(L"Appearance",        "Appearance");
-    to_process_checks.emplace(L"AppearanceCharacteristics", "AppearanceCharacteristics");
-    to_process_checks.emplace(L"AppearanceSubDict", "AppearanceSubDict");
-    to_process_checks.emplace(L"AppearanceTrapNet", "AppearanceTrapNet");
-    to_process_checks.emplace(L"AppearanceTrapNetDict", "AppearanceTrapNetSubDict");
-    to_process_checks.emplace(L"AppearanceTrapNet", "AppearanceTrapNet");
-    to_process_checks.emplace(L"AppearanceCharacteristics", "AppearanceCharacteristics");
+    to_process_checks.emplace(L"Appearance",                    "Appearance");
+    to_process_checks.emplace(L"AppearanceCharacteristics",     "AppearanceCharacteristics");
+    to_process_checks.emplace(L"AppearanceSubDict",             "AppearanceSubDict");
+    to_process_checks.emplace(L"AppearanceTrapNet",             "AppearanceTrapNet");
+    to_process_checks.emplace(L"AppearanceTrapNetDict",         "AppearanceTrapNetSubDict");
+    to_process_checks.emplace(L"AppearanceTrapNet",             "AppearanceTrapNet");
     // Misc
-    to_process_checks.emplace(L"BorderEffect",      "BorderEffect");
-    to_process_checks.emplace(L"BorderStyle",       "BorderStyle");
-    to_process_checks.emplace(L"BoxColorInfo",      "BoxColorInfo");
-    to_process_checks.emplace(L"CIDSystemInfo",     "CIDSystemInfo");
-    to_process_checks.emplace(L"CMap",              "CMap");
-    to_process_checks.emplace(L"ClassMap",          "ClassMap");
+    to_process_checks.emplace(L"ApplicationDataDict",           "Data");
+    to_process_checks.emplace(L"Trans",                         "Transition");
+    to_process_checks.emplace(L"BorderEffect",                  "BorderEffect");
+    to_process_checks.emplace(L"BorderStyle",                   "BorderStyle");
+    to_process_checks.emplace(L"BoxColorInfo",                  "BoxColorInfo");
+    to_process_checks.emplace(L"BoxStyleDict",                  "BoxStyle");
+    to_process_checks.emplace(L"ClassMap",                      "ClassMap");
+    to_process_checks.emplace(L"Names",                         "Name");
+    to_process_checks.emplace(L"IconFitDict",                   "IconFit");
     // Portable Collections
-    to_process_checks.emplace(L"Collection",        "Collection");
-    to_process_checks.emplace(L"CollectionField",   "CollectionField");
-    to_process_checks.emplace(L"CollectionItem",    "CollectionItem");
-    to_process_checks.emplace(L"CollectionSchema",  "CollectionSchema");
-    to_process_checks.emplace(L"CollectionSort",    "CollectionSort");
-    to_process_checks.emplace(L"CollectionSubitem", "CollectionSubitem");
-    to_process_checks.emplace(L"CryptFilter",       "CryptFilter");
-    to_process_checks.emplace(L"DestXYZ",           "DestXYZ");
-    to_process_checks.emplace(L"DocInfo",           "DocInfo");
-    to_process_checks.emplace(L"EmbeddedFileParams","EmbeddedFileParameter");
-    to_process_checks.emplace(L"EmbeddedFileStream","EmbeddedFileStream");
-    to_process_checks.emplace(L"Encoding",          "Encoding");
-    to_process_checks.emplace(L"3DExData",          "ExData3DMarkup");
-    to_process_checks.emplace(L"ExData",            "ExData3DMarkup");
-    to_process_checks.emplace(L"ExData",            "ExDataMarkupGeo");
-    // ExDataProjection = new in PDF 2.0
-    to_process_checks.emplace(L"FDDict",            "FDDict");
-    // Fields
-    to_process_checks.emplace(L"Field",             "Field");
-    to_process_checks.emplace(L"FieldBtn",          "FieldBtn");
-    to_process_checks.emplace(L"FieldCh",           "FieldCh");
-    to_process_checks.emplace(L"FieldSig",          "FieldSig");
-    to_process_checks.emplace(L"FieldTx",           "FieldTx");
-    to_process_checks.emplace(L"Filespec",          "Filespecification");
-    // Filter params
-    to_process_checks.emplace(L"DCTDecodeParms",    "FilterDCTDecode");
-    to_process_checks.emplace(L"CCITTFaxDecodeParms", "FilterCCITTFaxDecode");
-    to_process_checks.emplace(L"JBIG2DecodeParms",  "FilterJBIG2Decode");
-    to_process_checks.emplace(L"LZWDecodeParms",    "FilterLZWDecode");
-    to_process_checks.emplace(L"CryptFilterDecodeParms", "FilterCrypt");
+    to_process_checks.emplace(L"Collection",                    "Collection");
+    to_process_checks.emplace(L"CollectionField",               "CollectionField");
+    to_process_checks.emplace(L"CollectionItem",                "CollectionItem");
+    to_process_checks.emplace(L"CollectionSchema",              "CollectionSchema");
+    to_process_checks.emplace(L"CollectionSort",                "CollectionSort");
+    to_process_checks.emplace(L"CollectionSubitem",             "CollectionSubitem");
     //
-    to_process_checks.emplace(L"FixedPrint",        "FixedPrint");
-    to_process_checks.emplace(L"MarkInfo",          "MarkInfo");
-    to_process_checks.emplace(L"MacSpecificFileInfo", "Mac");
-    // Measurement
-    to_process_checks.emplace(L"Measure",           "MeasureRL");
-    to_process_checks.emplace(L"Measure",           "MeasureGEO");
-    to_process_checks.emplace(L"MeasureRL",         "MeasureRL");
-    // Media clips
-    to_process_checks.emplace(L"MediaClip",         "MediaClipData");
-    to_process_checks.emplace(L"MediaClip",         "MediaClipDataMHBE");
-    to_process_checks.emplace(L"MediaClip",         "MediaClipSection");
-    to_process_checks.emplace(L"MediaClip",         "MediaClipSectionMHBE");
-    to_process_checks.emplace(L"MediaCriteria",     "MediaCriteria");
-    to_process_checks.emplace(L"MediaDuration",     "MediaDuration");
-    to_process_checks.emplace(L"MediaOffsetFrame",  "MediaOffsetFrame");
-    to_process_checks.emplace(L"MediaOffsetMarker", "MediaOffsetMarker");
-    to_process_checks.emplace(L"MediaOffsetTime",   "MediaOffsetTime");
-    to_process_checks.emplace(L"MediaPermissions",  "MediaPermissions");
-    to_process_checks.emplace(L"MediaPlayParams",   "MediaScreenParameters");
-    to_process_checks.emplace(L"MediaPlayParams",   "MediaScreenParametersMHBE");
-    to_process_checks.emplace(L"MediaPlayerInfo",   "MediaPlayerInfo");
-    to_process_checks.emplace(L"MediaOffset",       "MediaOffsetFrame");
-    to_process_checks.emplace(L"MediaOffset",       "MediaOffsetMarker");
-    to_process_checks.emplace(L"MediaOffset",       "MediaOffsetTime");
-    //
-    to_process_checks.emplace(L"Movie",             "Movie");
-    to_process_checks.emplace(L"MovieActivation",   "MovieActivation");
-    to_process_checks.emplace(L"MinBitDepth",       "MinimumBitDepth");
-    to_process_checks.emplace(L"MinScreenSize",     "MinimumScreenSize");
-    to_process_checks.emplace(L"Metadata",          "Metadata");
-    to_process_checks.emplace(L"NavNode",           "NavNode");
-    to_process_checks.emplace(L"NumberFormat",      "NumberFormat");
-    // Optional content
-    to_process_checks.emplace(L"OCGorOCMD",         "OptContentGroup");
-    to_process_checks.emplace(L"OCGorOCMD",         "OptContentMembership");
-    to_process_checks.emplace(L"OCG",               "OptContentGroup");
-    to_process_checks.emplace(L"OCMD",              "OptContentMembership");
-    to_process_checks.emplace(L"OCConfig",          "OptContentConfig");
-    to_process_checks.emplace(L"OCCreatorInfo",     "OptContentCreatorInfo");
-    to_process_checks.emplace(L"OCExport",          "OptContentExport");
-    to_process_checks.emplace(L"OCLanguage",        "OptContentLanguage");
-    to_process_checks.emplace(L"OCPageElement",     "OptContentPageElement");
-    to_process_checks.emplace(L"OCPrint",           "OptContentPrint");
-    to_process_checks.emplace(L"OCProperties",      "OptContentProperties");
-    to_process_checks.emplace(L"OCUsage",           "OptContentUsage");
-    to_process_checks.emplace(L"OCUsageApplication","OptContentUsageApplication");
-    to_process_checks.emplace(L"OCUser",            "OptContentUser");
-    to_process_checks.emplace(L"OCView",            "OptContentView");
-    to_process_checks.emplace(L"OCZoom",            "OptContentZoom");
-    // OPI
-    to_process_checks.emplace(L"OPI1.3 ",           "OPIVersion13");
-    to_process_checks.emplace(L"OPI1.3",            "OPIVersion13Dict");
-    to_process_checks.emplace(L"OPI2.0",            "OPIVersion20");
-    to_process_checks.emplace(L"OPI2.0",            "OPIVersion20Dict");
-    //
-    to_process_checks.emplace(L"OutputIntents",     "OutputIntents");
-    to_process_checks.emplace(L"PageLabel",         "PageLabel");
-    to_process_checks.emplace(L"PagePieceDict",     "PagePiece");
-    to_process_checks.emplace(L"Perms",             "Permissions");
-    // Logical structure
-    to_process_checks.emplace(L"StructTreeRoot",    "StructTreeRoot");
-    to_process_checks.emplace(L"StructElem",        "StructElem");
-    to_process_checks.emplace(L"RoleMap",           "RoleMap");
-    to_process_checks.emplace(L"ObjStm",            "ObjectStream");
-    to_process_checks.emplace(L"LayoutAttributes",  "StandardLayoutAttributesBLSE");
-    to_process_checks.emplace(L"LayoutAttributes",  "StandardLayoutAttributesILSE");
-    to_process_checks.emplace(L"LayoutAttributes",  "StandardLayoutAttributesColumn");
-    to_process_checks.emplace(L"ListAttributes",    "StandardListAttributes");
-    to_process_checks.emplace(L"TableAttributes",   "StandardTableAttributes");
-    //
-    to_process_checks.emplace(L"Stream",            "Stream");
-    to_process_checks.emplace(L"SlideShow",         "SlideShow");
-    to_process_checks.emplace(L"SoftMaskLuminosity","SoftMaskLuminosity");
-    to_process_checks.emplace(L"SoftwareIdentifier","SoftwareIdentifier");
-    to_process_checks.emplace(L"Sound",             "SoundObject");
-    to_process_checks.emplace(L"SourceInfo",        "SourceInformation");
-    // Shadings
-    to_process_checks.emplace(L"ShadingType1",      "ShadingType1");
-    to_process_checks.emplace(L"ShadingType2",      "ShadingType2");
-    to_process_checks.emplace(L"ShadingType3",      "ShadingType3");
-    to_process_checks.emplace(L"ShadingType4",      "ShadingType4");
-    to_process_checks.emplace(L"ShadingType5",      "ShadingType5");
-    to_process_checks.emplace(L"ShadingType6",      "ShadingType6");
-    to_process_checks.emplace(L"ShadingType7",      "ShadingType7");
-    // Sig Ref.
-    to_process_checks.emplace(L"SigRefDocMDP",      "SignatureReferenceDocMDP");
-    to_process_checks.emplace(L"SigRefFieldMDP",    "SignatureReferenceFieldMDP");
-    to_process_checks.emplace(L"SigRefIdentity",    "SignatureReferenceIdentity");
-    to_process_checks.emplace(L"SigRefUR",          "SignatureReferenceUR");
-    //
-    to_process_checks.emplace(L"SubjectDN",         "SubjectDN");
-    to_process_checks.emplace(L"Target",            "Target");
-    to_process_checks.emplace(L"Thumbnail",         "Thumbnail");
-    to_process_checks.emplace(L"Timespan",          "Timespan");
-    to_process_checks.emplace(L"TimeStamp",         "TimeStampDict");
-    to_process_checks.emplace(L"UserProperty",      "UserProperty");
-    // UR
-    to_process_checks.emplace(L"URParamAnnotsArray","URTransformParamAnnotsArray");
-    to_process_checks.emplace(L"URParamDocArray",   "URTransformParamDocumentArray");
-    to_process_checks.emplace(L"URParamEFArray",    "URTransformParamEFArray");
-    to_process_checks.emplace(L"URParamFormArray",  "URTransformParamFormArray");
-    to_process_checks.emplace(L"URParamSigArray",   "URTransformParamSignatureArray");
-    //
-    to_process_checks.emplace(L"ViewPort",          "Viewport");
-    to_process_checks.emplace(L"ViewerPreferences", "ViewerPreferences");
-    to_process_checks.emplace(L"WebCaptureCommand", "WebCaptureCommand");
-    to_process_checks.emplace(L"WebCaptureCommandSettings", "WebCaptureCommandSettings");
+    to_process_checks.emplace(L"DestXYZ",                       "DestXYZ");
+    to_process_checks.emplace(L"EmbeddedFileParams",            "EmbeddedFileParameter");
+    to_process_checks.emplace(L"Stream", L"EmbeddedFileStream", "EmbeddedFileStream");
+    to_process_checks.emplace(L"EmbeddedFile",                  "FileSpecEF");
+    to_process_checks.emplace(L"EmbeddedFileOrFilespec",        "ArrayOfURLs");
 
-    to_process_elem elem;
+    to_process_checks.emplace(L"Encoding",                      "Encoding");
+    to_process_checks.emplace(L"3DExData", L"ExData",           "ExData3DMarkup");
+    to_process_checks.emplace(L"ExData",                        "ExDataMarkupGeo");
+    // ExDataProjection = new in PDF 2.0
+    to_process_checks.emplace(L"FDDict",                        "FDDict");
+    // Fields
+    to_process_checks.emplace(              L"Field",           "Field");
+    to_process_checks.emplace(L"FieldBtn",  L"Field",           "FieldBtn");
+    to_process_checks.emplace(L"FieldCh",   L"Field",           "FieldCh");
+    to_process_checks.emplace(L"FieldSig",  L"Field",           "FieldSig");
+    to_process_checks.emplace(L"FieldTx",   L"Field",           "FieldTx");
+    to_process_checks.emplace(L"FieldSigLock",                  "SigFieldLock");
+    to_process_checks.emplace(L"FieldSigSV",                    "SigFieldSeedValue");
+    to_process_checks.emplace(L"Filespec",                      "Filespecification");
+    // Filter params
+    to_process_checks.emplace(L"CryptFilter",                   "CryptFilter");
+    to_process_checks.emplace(L"DCTDecodeParms",                "FilterDCTDecode");
+    to_process_checks.emplace(L"FlateDecodeParms",              "FilterFlateDecode");
+    to_process_checks.emplace(L"CCITTFaxDecodeParms",           "FilterCCITTFaxDecode");
+    to_process_checks.emplace(L"JBIG2DecodeParms",              "FilterJBIG2Decode");
+    to_process_checks.emplace(L"LZWDecodeParms",                "FilterLZWDecode");
+    to_process_checks.emplace(L"CryptFilterDecodeParms",        "FilterCrypt");
+    to_process_checks.emplace(L"StandardSecHandler", L"Encrypt","EncryptionStandard");
+    to_process_checks.emplace(L"PublicKeyHandler", L"Encrypt",  "EncryptionPublicKey");
+    //
+    to_process_checks.emplace(L"FixedPrint",                    "FixedPrint");
+    to_process_checks.emplace(L"MacSpecificFileInfo",           "Mac");
+    // Measurement
+    to_process_checks.emplace(L"MeasureRL", L"Measure",         "MeasureRL");
+    to_process_checks.emplace(L"Measure",                       "MeasureGEO");
+    // Media clips
+    to_process_checks.emplace(L"MediaClip", L"MustHonorMCD", L"BestEffortMCD", L"MCD", "MediaClipData");
+    to_process_checks.emplace(L"MediaClip", L"MustHonorMCD", L"BestEffortMCD", L"MCD", "MediaClipDataMHBE");
+    to_process_checks.emplace(L"MediaClip", L"MustHonorMCS", L"BestEffortMCS", L"MCS", "MediaClipSection");
+    to_process_checks.emplace(L"MediaClip", L"MustHonorMCS", L"BestEffortMCS", L"MCS", "MediaClipSectionMHBE");
+    to_process_checks.emplace(L"MediaCriteria",                 "MediaCriteria");
+    to_process_checks.emplace(L"MediaDuration",                 "MediaDuration");
+    to_process_checks.emplace(L"MediaOffset", L"MediaOffsetFrame",  "MediaOffsetFrame");
+    to_process_checks.emplace(L"MediaOffset", L"MediaOffsetMarker", "MediaOffsetMarker");
+    to_process_checks.emplace(L"MediaOffset", L"MediaOffsetTime",   "MediaOffsetTime");
+    to_process_checks.emplace(L"MediaPermissions",              "MediaPermissions");
+    to_process_checks.emplace(L"MediaPlayParams", L"MustHonorMediaPlayParams", L"BestEffortMediaPlayParams", "MediaPlayParameters");
+    to_process_checks.emplace(L"MediaPlayers",                  "MediaPlayers");
+    to_process_checks.emplace(L"MediaScreenParams", L"MustHonorMediaScreenParams", "MediaScreenParameters");
+    to_process_checks.emplace(L"MediaPlayerInfo",               "MediaPlayerInfo");
+    to_process_checks.emplace(L"BestEffortMediaScreenParams",   "MediaScreenParametersMHBE");
+    to_process_checks.emplace(L"MCR",                           "MarkedContentReference");
+    to_process_checks.emplace(L"FWParams",                      "FloatingWindowParameters");
+    //
+    to_process_checks.emplace(L"Movie",                         "Movie");
+    to_process_checks.emplace(L"MovieActivation",               "MovieActivation");
+    to_process_checks.emplace(L"MinBitDepth",                   "MinimumBitDepth");
+    to_process_checks.emplace(L"MinScreenSize",                 "MinimumScreenSize");
+    to_process_checks.emplace(L"Metadata", L"StreamDict",       "Metadata");
+    to_process_checks.emplace(L"NavNode",                       "NavNode");
+    to_process_checks.emplace(L"NumberFormat",                  "NumberFormat");
+    to_process_checks.emplace(L"ReferencedPDF",                 "Reference");
+    // Optional content
+    to_process_checks.emplace(L"OCGorOCMD", L"OCG",             "OptContentGroup");
+    to_process_checks.emplace(L"OCGorOCMD", L"OCMD",            "OptContentMembership");
+    to_process_checks.emplace(L"OCConfig",                      "OptContentConfig");
+    to_process_checks.emplace(L"OCCreatorInfo",                 "OptContentCreatorInfo");
+    to_process_checks.emplace(L"OCExport",                      "OptContentExport");
+    to_process_checks.emplace(L"OCLanguage",                    "OptContentLanguage");
+    to_process_checks.emplace(L"OCPageElement",                 "OptContentPageElement");
+    to_process_checks.emplace(L"OCPrint",                       "OptContentPrint");
+    to_process_checks.emplace(L"OCProperties",                  "OptContentProperties");
+    to_process_checks.emplace(L"OCUsage",                       "OptContentUsage");
+    to_process_checks.emplace(L"OCUsageApplication",            "OptContentUsageApplication");
+    to_process_checks.emplace(L"OCUser",                        "OptContentUser");
+    to_process_checks.emplace(L"OCView",                        "OptContentView");
+    to_process_checks.emplace(L"OCZoom",                        "OptContentZoom");
+    // OPI
+    to_process_checks.emplace(L"OPIDict",                       "OPIVersion13");    // just the /1.3 key
+    to_process_checks.emplace(L"OPI1.3",                        "OPIVersion13Dict");
+    to_process_checks.emplace(L"OPIDict",                       "OPIVersion20");    // just the /2.0 key
+    to_process_checks.emplace(L"OPI2.0",                        "OPIVersion20Dict");
+    //
+    to_process_checks.emplace(L"OutputIntents",                 "OutputIntents");
+    to_process_checks.emplace(L"PageLabel",                     "PageLabel");
+    to_process_checks.emplace(L"PagePieceDict",                 "PagePiece");
+    to_process_checks.emplace(L"Perms",                         "Permissions");
+    // Document requirements - nothing specific was specified prior to ISO 32000-2
+    to_process_checks.emplace(L"RequirementHandler",            "RequirementsHandler");
+    to_process_checks.emplace(L"Requirements",                  "RequirementsEnableJavaScripts");
+    // Logical structure
+    to_process_checks.emplace(L"StructTreeRoot",                "StructTreeRoot");
+    to_process_checks.emplace(L"StructElem", L"StructElemAttribute", "StructElem");
+    to_process_checks.emplace(L"RoleMap",                       "RoleMap");
+    to_process_checks.emplace(L"ObjStm", L"StreamDict",         "ObjectStream");
+    to_process_checks.emplace(L"LayoutAttributes",              "StandardLayoutAttributesBLSE");
+    to_process_checks.emplace(L"LayoutAttributes",              "StandardLayoutAttributesILSE");
+    to_process_checks.emplace(L"LayoutAttributes",              "StandardLayoutAttributesColumn");
+    to_process_checks.emplace(L"ListAttributes",                "StandardListAttributes");
+    to_process_checks.emplace(L"TableAttributes",               "StandardTableAttributes");
+    to_process_checks.emplace(L"OBJR",                          "ObjectReference");
+    //
+    to_process_checks.emplace(L"StreamDict",                            "Stream");
+    to_process_checks.emplace(L"SlideShow", L"AlternatePresentations",  "SlideShow");
+    to_process_checks.emplace(L"SoftMask",                              "SoftMaskAlpha");
+    to_process_checks.emplace(L"SoftMask", L"SoftMaskLuminosity",       "SoftMaskLuminosity");
+    to_process_checks.emplace(L"SoftwareIdentifier",                    "SoftwareIdentifier");
+    to_process_checks.emplace(L"Sound", L"StreamDict",                  "SoundObject");
+    to_process_checks.emplace(L"SourceInfo",                            "SourceInformation");
+    to_process_checks.emplace(L"AliasedURL",                            "URLAlias");
+    // Shadings
+    to_process_checks.emplace(L"Shading", L"ShadingType1",      "ShadingType1");
+    to_process_checks.emplace(L"Shading", L"ShadingType2",      "ShadingType2");
+    to_process_checks.emplace(L"Shading", L"ShadingType3",      "ShadingType3");
+    to_process_checks.emplace(L"Shading", L"ShadingType4", L"StreamDict", "ShadingType4");
+    to_process_checks.emplace(L"Shading", L"ShadingType5", L"StreamDict", "ShadingType5");
+    to_process_checks.emplace(L"Shading", L"ShadingType6", L"StreamDict", "ShadingType6");
+    to_process_checks.emplace(L"Shading", L"ShadingType7", L"StreamDict", "ShadingType7");
+    // Sig Ref.
+    to_process_checks.emplace(L"SigRef", L"SigRefDocMDP",       "SignatureReferenceDocMDP");
+    to_process_checks.emplace(L"SigRef", L"SigRefFieldMDP",     "SignatureReferenceFieldMDP");
+    to_process_checks.emplace(L"SigRef", L"SigRefIdentity",     "SignatureReferenceIdentity");
+    to_process_checks.emplace(L"SigRef", L"SigRefUR",           "SignatureReferenceUR");
+    //
+    to_process_checks.emplace(L"SubjectDN",                     "SubjectDN");
+    to_process_checks.emplace(L"Target",                        "Target");
+    to_process_checks.emplace(L"Thumbnail", L"StreamDict",      "Thumbnail");
+    to_process_checks.emplace(L"Timespan",                      "Timespan");
+    to_process_checks.emplace(L"TimeStamp",                     "TimeStampDict");
+    to_process_checks.emplace(L"UserProperty",                  "UserProperty");
+    // UR
+    to_process_checks.emplace(L"URParamAnnotsArray",            "URTransformParamAnnotsArray");
+    to_process_checks.emplace(L"URParamDocArray",               "URTransformParamDocumentArray");
+    to_process_checks.emplace(L"URParamEFArray",                "URTransformParamEFArray");
+    to_process_checks.emplace(L"URParamFormArray",              "URTransformParamFormArray");
+    to_process_checks.emplace(L"URParamSigArray",               "URTransformParamSignatureArray");
+    //
+    to_process_checks.emplace(L"ViewPort",                      "Viewport");
+    to_process_checks.emplace(L"ViewerPreferences",             "ViewerPreferences");
+    // SpiderInfo / Web capture
+    to_process_checks.emplace(L"SpiderInfo",                    "WebCaptureInfo");
+    to_process_checks.emplace(L"WebCaptureCommand",             "WebCaptureCommand");
+    to_process_checks.emplace(L"WebCaptureCommandSettings",     "WebCaptureCommandSettings");
+    to_process_checks.emplace(L"SpiderContentSet", L"SpiderContentSetSIS", "WebCaptureImageSet");
+    to_process_checks.emplace(L"SpiderContentSet", L"SpiderContentSetSPS", "WebCapturePageSet");
+    to_process_checks.emplace(L"GenericDict",                   "_UniversalDictionary");
+
 
     while (!to_process_checks.empty()) {
-        elem = to_process_checks.front();
-        if (ArlingtonPDFShim::debugging && !terse) {
-            ofs << "Processing DVA " << ToUtf8(elem.dva_link) << " vs Arlington '" << elem.link << "'" << std::endl;
-        }
-        to_process_checks.pop();
-        if ((elem.link == "") || (elem.dva_link.empty()))
-            continue;
+        CDVAArlingtonTuple elem = to_process_checks.front();
 
-        // Separate multiple mappings to Arlington
-        elem.link = remove_link_predicates(elem.link);
-        std::vector<std::string> links = split(elem.link, ',');
-        if (links.size() > 1) {
-            for (auto lnk : links) {
-                to_process_checks.emplace(elem.dva_link, lnk);
-            }
-            continue;  // cannot fallthrough as elem.link is a list...
-        }
+        assert((elem.link != "") && !elem.dva.empty());
+
+        ofs << std::endl;
+        to_process_checks.pop();
+
+        // Ensure no predicates, comma lists or complex lists
+        assert(elem.link.find(':') == std::string::npos);
+        assert(elem.link.find(',') == std::string::npos);
+        assert(elem.link.find(';') == std::string::npos);
 
         auto found = std::find_if(mapped.begin(), mapped.end(), 
-            [&elem](const to_process_elem& a) { return (a.link == elem.link) && (a.dva_link == elem.dva_link); });
+            [&elem](CDVAArlingtonTuple& a) { return (a == elem); });
 
         if (found != mapped.end()) {
-            // ofs << "Arlington " << elem.link << " with DVA " << ToUtf8(elem.dva_link) << " already processed" << std::endl;
+            if (ArlingtonPDFShim::debugging && !terse) {
+                ofs << "Already processed DVA " << elem.all_DVA_keys() << " vs Arlington '" << elem.link << "'" << std::endl;
+            }
             continue;
         }
 
         // Add the current Arlingon / DVA pair to the "already done" vector
-        mapped.push_back(to_process_elem(elem.dva_link, elem.link));
+        mapped.push_back(elem);
 
         // load Arlington definition (TSV file)
         std::unique_ptr<CArlingtonTSVGrammarFile> reader(new CArlingtonTSVGrammarFile(tsv_dir / (elem.link + ".tsv")));
@@ -439,728 +553,544 @@ void process_dict(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary *
             continue;
         }
 
-        // locate dict in DVA
+        // load the full set of DVA dictionaries that map to a single Arlington definition
+        std::vector<ArlPDFDictionary *> dva_dicts;
+        for (size_t i = 0; i < elem.dva.size(); i++) {
 #ifdef DVA_TRACING
-        ofs << "Reading DVA object " << ToUtf8(elem.dva_link) << std::endl;
+            ofs << "Reading DVA object " << ToUtf8(elem.dva[i]) << std::endl;
 #endif
-        ArlPDFDictionary* dict = (ArlPDFDictionary*)map_dict->get_value(elem.dva_link);
-        if (dict == nullptr) {
-            ofs << COLOR_ERROR << "Adobe DVA problem (dictionary not found): " << ToUtf8(elem.dva_link) << COLOR_RESET;
-            continue;
+            ArlPDFDictionary * d = (ArlPDFDictionary*)map_dict->get_value(elem.dva[i]);
+            if (d == nullptr) {
+                ofs << COLOR_ERROR << "Adobe DVA key not found: " << ToUtf8(elem.dva[i]) << COLOR_RESET;
+            }
+            else if (d->get_object_type() != PDFObjectType::ArlPDFObjTypeDictionary) {
+                ofs << COLOR_ERROR << "Adobe DVA key was not a dictionary: " << ToUtf8(elem.dva[i]) << COLOR_RESET;
+            }
+            else {
+                dva_dicts.push_back(d);
+            }
         }
-        assert(dict->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary);
+        ofs << COLOR_INFO << count++ << ": Comparing DVA: " << elem.all_DVA_keys() << " vs Arlington: " << elem.link << COLOR_RESET;
 
         const ArlTSVmatrix* data_list = &reader->get_data();
-        ofs << std::endl << COLOR_INFO << count++ << ": Comparing Arlington:" << elem.link << " vs DVA:" << ToUtf8(elem.dva_link) << COLOR_RESET;
 
         // what Arlington has but Adobe DVA doesn't
         for (auto& vec : *data_list) {
-            ArlPDFDictionary* inner_obj = nullptr;
+            ArlPDFDictionary* inner_obj = nullptr; // pointer to the DVA dictionary with the current key
+            int array_idx = -1;                    // if >= 0 then Arlington array index 
 
-            // Arlington wildcard key name or array elements
-            /// @todo support repeating array index sets in Arlington
-            if (vec[TSV_KEYNAME] == "*") {
-                ArlPDFObject* tmp_obj = dict->get_value(L"GenericKey");
-                if (tmp_obj != nullptr) {
-                    switch (tmp_obj->get_object_type()) {
-                        case PDFObjectType::ArlPDFObjTypeDictionary:
-                            {
-                                inner_obj = (ArlPDFDictionary*)tmp_obj;
-                                if (inner_obj == nullptr) {
-                                    ArlPDFArray* inner_array = (ArlPDFArray*)dict->get_value(L"Array");
-                                    if ((inner_array == nullptr) || (inner_array->get_num_elements() != 1)) {
-                                        ofs << COLOR_ERROR << "Arlington wildcard key vs DVA Array - either not linked or multiple links: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
-                                    }
-                                    else {
-                                        tmp_obj = inner_array->get_value(0);
-                                        if ((tmp_obj != nullptr) && (tmp_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-                                            inner_obj = (ArlPDFDictionary*)tmp_obj;
-                                        }
-                                        else {
-                                            ofs << COLOR_ERROR << "Adobe DVA " << ToUtf8(elem.dva_link) <<"/GenericKey/Array[0] entry was not a dictionary" << COLOR_RESET;
-                                        }
-                                    }
-                                    delete inner_array;
-                                }
-                            }
-                            break;
-                        default: 
-                            ofs << COLOR_ERROR << "Adobe DVA GenericKey dictionary expected but different object type found" << COLOR_RESET;
-                            break;
-                    } // switch
+            // If the 1st and only letter of the Arlington key is a digit convert to array index (integer)
+            if ((vec[TSV_KEYNAME].size() == 1) && (std::string("0123456789").find(vec[TSV_KEYNAME][0]) != std::string::npos))  {
+                try {
+                    array_idx = std::stoi(vec[TSV_KEYNAME]);
                 }
-                else if (!dict->has_key(L"Array")) {
-                    ofs << "Arlington wildcard in " << elem.link << " did not have matching GenericKey or Array entry in DVA: " << ToUtf8(elem.dva_link) << std::endl;
-                }
-            } else {
-                ArlPDFObject* tmp_obj = dict->get_value(ToWString(vec[TSV_KEYNAME]));
-                if ((tmp_obj != nullptr) && (tmp_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-                    inner_obj = (ArlPDFDictionary*)tmp_obj;
+                catch (...) {
+                    array_idx = -1;
                 }
             }
 
-            // could be in "ConcatWithFormalReps" (elements in array are names)
-            if (inner_obj == nullptr) {
-                ArlPDFArray* inner_array = (ArlPDFArray*)dict->get_value(L"ConcatWithFormalReps");
-                if (inner_array != nullptr) {
-                    ArlPDFObject *o = inner_array->get_value(0);
-                    if ((o != nullptr) && (o->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
-                        ArlPDFName* nm = (ArlPDFName*)o;
-                        std::wstring new_dva_value = nm->get_value();
-#ifdef DVA_TRACING
-                        ofs << "Reading DVA object " << ToUtf8(new_dva_value) << std::endl;
-#endif                        
-                        ArlPDFDictionary *d = (ArlPDFDictionary*)map_dict->get_value(new_dva_value);
-                        if (d != nullptr) {
-                            inner_obj = (ArlPDFDictionary*)d->get_value(ToWString(vec[TSV_KEYNAME]));
-                        }
-                        else {
-                            ofs << COLOR_ERROR << "DVA ConcatWithFormalReps target missing for " << ToUtf8(new_dva_value) << " - " << ToUtf8(elem.dva_link) << COLOR_RESET;
-                        }
-                        delete d;
+            if (vec[TSV_KEYNAME] == "*") {
+                // Arlington wildcard - could be key name or array elements
+                // Need to cycle through all DVA dicts looking for either GenericKey or Array entries (assume just one of each)
+                ArlPDFDictionary* generic_key = nullptr;
+                ArlPDFArray*      inner_array = nullptr;
+
+                for (auto& d : dva_dicts) {
+                    if (generic_key == nullptr)
+                        generic_key = (ArlPDFDictionary*)d->get_value(L"GenericKey");
+                    if (inner_array == nullptr)
+                        inner_array = (ArlPDFArray*)d->get_value(L"Array");
+                }
+
+                if ((generic_key == nullptr) && (inner_array == nullptr)) {
+                    ofs << COLOR_WARNING << "Arlington wildcard did not have any match in Adobe DVA for " << elem.all_DVA_keys() << COLOR_RESET;
+                }
+                else if ((generic_key != nullptr) && (generic_key->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                    // wildcard matches dictionary keys! 
+                    ofs << "Arlington wildcard matched Adobe DVA GenericKey (as dictionary)" << std::endl;
+                }
+                else if ((inner_array != nullptr) && (inner_array->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) || (inner_array->get_num_elements() >= 1)) {
+                    ArlPDFObject* elem0 = inner_array->get_value(0);
+                    assert(elem0->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary);
+                    // wildcard matches array elements!
+                    ofs << "Arlington wildcard matched Adobe DVA Array (as array)" << std::endl;
+                    delete elem0;
+                }
+                delete generic_key;
+                delete inner_array;
+                continue;
+            }
+            else if (array_idx >= 0) {
+                /// DVA Array object definitions:
+                ///  - /ArrayStyle = /Direct (meaing 1-for-1) or /Repeat (one array entry = wildcard) or /Switch
+                ///  - /Array is an array of dictionaries  
+                ///  e.g. /RectangleArray <<
+                /// 	    /Array[ << /ValueType [ /CosInteger /CosFixed ] >>
+                ///                 << /ValueType [ /CosInteger /CosFixed ] >>
+                ///                 << /ValueType [ /CosInteger /CosFixed ] >>
+                ///                 << /ValueType [ /CosInteger /CosFixed ] >> ]
+                /// 	    /ArrayStyle / Direct
+                /// 	    /FormalRepOfArray /RectangleArray
+                /// 	 >>
+                ///  e.g. /RHArray <<
+                ///         /Array [ << /ValueType [ /CosDict ] /VerifyAtFormalRep /RequirementHandler >> ]
+                ///         /ArrayStyle /Repeat
+                ///         /FormalRepOfArray /RHArray
+                // >>
+                ArlPDFArray* inner_array = nullptr;
+                ArlPDFName*  array_style = nullptr;
+
+                for (auto& d : dva_dicts) {
+                    if (inner_array == nullptr) {
+                        inner_array = (ArlPDFArray*)d->get_value(L"Array");
+                        array_style = (ArlPDFName*)d->get_value(L"ArrayStyle");
                     }
-                    delete o;
+                }
+
+                if (inner_array == nullptr) {
+                    ofs << COLOR_WARNING << "Arlington array did not have any matching Adobe DVA array in " << elem.all_DVA_keys() << COLOR_RESET;
+                    continue;
+                }
+
+                if (inner_array->get_num_elements() <= array_idx) {
+                    ofs << "Arlington array index " << array_idx << "is larger than the Adobe DVA array in " << elem.all_DVA_keys() << std::endl;
+                    delete array_style;
+                    delete inner_array;
+                    continue;
+                }
+                assert(array_style != nullptr);
+                inner_obj = (ArlPDFDictionary *)inner_array->get_value(array_idx);
+                assert(inner_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary);
+                assert(inner_obj->has_key(L"ValueType"));
+                delete array_style;
+                delete inner_array;
+            }
+            else {
+                // Normal dictionary (named) key. Cycle through all DVA dicts looking for the precise key
+                ArlPDFObject* key = nullptr;
+                for (auto& d : dva_dicts) {
+                    key = d->get_value(ToWString(vec[TSV_KEYNAME]));
+                    if (key != nullptr)
+                        break;
+                }
+
+                if ((key != nullptr) && (key->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                    assert(inner_obj == nullptr);
+                    inner_obj = (ArlPDFDictionary*)key;
+                }
+                else {
+                    delete key;
                 }
             }
 
             if (inner_obj == nullptr) {
                 // Avoid reporting all the PDF 2.0 new stuff, wildcards and DVA arrays...
-                if ((vec[TSV_SINCEVERSION] != "2.0") && (vec[TSV_KEYNAME] != "*") &&
-                    (ToUtf8(elem.dva_link).find("Array") == std::string::npos)) {
-                    ofs << "Missing key in DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << " (" << vec[TSV_SINCEVERSION] << ")" << std::endl;
+                if ((vec[TSV_SINCEVERSION] != "2.0") && (vec[TSV_KEYNAME] != "*") && (array_idx < 0)) {
+                    ofs << "Missing key " << vec[TSV_KEYNAME] << " in DVA (Arlington version == " << vec[TSV_SINCEVERSION] << ")" << std::endl;
                 }
                 continue;
             }
-            else {
-                // Arlington IndirectReference can also have predicate "fn:MustBeDirect(...)" or be complex ([];[];[];...)
-                // Linux CLI:  cut -f 6 *.tsv | sort | uniq
-                // Arlington field is UPPERCASE
-                if (inner_obj->has_key(L"MustBeIndirect")) {
-                    std::string indirect = "FALSE";
-                    ArlPDFObject* indr = inner_obj->get_value(L"MustBeIndirect");
-                    if ((indr != nullptr) && (indr->get_object_type() == PDFObjectType::ArlPDFObjTypeBoolean)) {
-                        ArlPDFBoolean* indr_b = (ArlPDFBoolean*)indr;
-                        if (indr_b->get_value())
-                            indirect = "TRUE";
-                        if (vec[TSV_INDIRECTREF] != indirect) {
-                            ofs << "Indirect is different in DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << "==" << indirect;
-                            ofs << " vs Arlington: " << elem.link << "/" << vec[TSV_KEYNAME] << "==" << vec[TSV_INDIRECTREF] << std::endl;
-                        }
+
+            // Have a DVA dictionary for specific Arlington key  
+            assert(inner_obj != nullptr);
+
+            // Arlington IndirectReference can have predicates "fn:MustBeDirect(...)", "fn:MustBeDirect(...)" or be complex ([];[];[];...)
+            // Linux CLI:  cut -f 6 *.tsv | sort | uniq
+            // Arlington field is UPPERCASE
+            if (inner_obj->has_key(L"MustBeIndirect")) {
+                std::string indirect = "FALSE";
+                ArlPDFObject* indr = inner_obj->get_value(L"MustBeIndirect");
+                if (indr != nullptr) {
+                    assert(indr->get_object_type() == PDFObjectType::ArlPDFObjTypeBoolean);
+                    ArlPDFBoolean* indr_b = (ArlPDFBoolean*)indr;
+                    if (indr_b->get_value())
+                        indirect = "TRUE";
+                    if (vec[TSV_INDIRECTREF] != indirect) {
+                        ofs << "Indirect is different for key" << vec[TSV_KEYNAME] << ": DVA" << elem.all_DVA_keys()  << "==" << indirect;
+                        ofs << " vs Arlington" << elem.link << "==" << vec[TSV_INDIRECTREF] << std::endl;
                     }
-                    else {
-                        ofs << COLOR_ERROR << "DVA MustBeIndirect is not a Boolean " << ToUtf8(elem.dva_link) << COLOR_RESET;
-                    }
-                    delete indr;
                 }
-                else {
-                    // Not reported as too noisy
-                    // ofs << "DVA does not specify MustBeIndirect for " << ToUtf8(elem.dva_link) << std::endl;
-                }
-
-                // Arlington Required can also have predicate "fn:IsRequired(...)" or be complex ([];[];[];...)
-                // Linux CLI:  cut -f 5 *.tsv | sort | uniq
-                // Arlington field is UPPERCASE
-                if (inner_obj->has_key(L"Required")) {
-                    std::string required = "FALSE";
-                    ArlPDFObject* req = inner_obj->get_value(L"Required");
-                    if ((req != nullptr) && (req->get_object_type() == PDFObjectType::ArlPDFObjTypeBoolean)) {
-                        ArlPDFBoolean* req_b = (ArlPDFBoolean*)req;
-                        if (req_b->get_value())
-                            required = "TRUE";
-                        if (vec[TSV_REQUIRED] != required) {
-                            // Suppress if terse and there are predicates
-                            if (!terse || (vec[TSV_REQUIRED].find("fn:") == std::string::npos)) {
-                                ofs << "Required is different DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << "==" << required;
-                                ofs << " vs Arlington: " << elem.link << "/" << vec[TSV_KEYNAME] << "==" << vec[TSV_REQUIRED] << std::endl;
-                            }
-                        }
-                    }
-                    else {
-                        ofs << COLOR_ERROR << "DVA Required is not a Boolean " << ToUtf8(elem.dva_link) << COLOR_RESET;
-                    }
-                    delete req;
-                }
-                else {
-                    ofs << COLOR_ERROR << "DVA does not specify Required for " << ToUtf8(elem.dva_link) << COLOR_RESET;
-                }
-
-                // Arlington SinceVersion (1.0, 1.1, ..., 2.0)
-                // Linux CLI: cut -f 3 *.tsv | sort | uniq
-                if (inner_obj->has_key(L"PDFMajorVersion") && inner_obj->has_key(L"PDFMinorVersion")) {
-                    ArlPDFObject* major = inner_obj->get_value(L"PDFMajorVersion");
-                    ArlPDFObject* minor = inner_obj->get_value(L"PDFMinorVersion");
-                    if ((major != nullptr) && (minor != nullptr) &&
-                        (major->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber) &&
-                        (minor->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber)) {
-                        int   pdf_major = ((ArlPDFNumber*)major)->get_integer_value();
-                        int   pdf_minor = ((ArlPDFNumber*)minor)->get_integer_value();
-                        std::string ver = std::to_string(pdf_major) + "." + std::to_string(pdf_minor);
-                        if (ver != vec[TSV_SINCEVERSION]) {
-                            ofs << "SinceVersion is different in DVA: " << ToUtf8(elem.dva_link) << " (" << ver << ")";
-                            ofs << " vs Arlington (" << vec[TSV_SINCEVERSION] << ") for " << elem.link << "/" << vec[TSV_KEYNAME] << std::endl;
-                        }
-                    }
-                    else {
-                        ofs << COLOR_ERROR << "DVA PDFMajorVersion/PDFMinorVersion is invalid for " << ToUtf8(elem.dva_link) << COLOR_RESET;
-                    }
-                    delete major, minor;
-                }
-
-                // Check allowed Types
-                {
-                    ArlPDFObject *vt = inner_obj->get_value(L"ValueType");
-                    if (vt == nullptr) {
-                        ofs << COLOR_ERROR << "No ValueType defined for DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
-                    }
-                    else if (vt->get_object_type() != PDFObjectType::ArlPDFObjTypeArray) {
-                        ofs << COLOR_ERROR << "ValueType is not an array for DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
-                    }
-                    else {
-                        ArlPDFArray* types_array = (ArlPDFArray*)vt;
-                        std::vector<std::string>    types_our = split(vec[TSV_TYPE], ';');
-
-                        // Map broader set of Arlington types (always lowercase) to Adobe DVA types ("CosXxxx")
-                        for (size_t i = 0; i < types_our.size(); i++) {
-                            if (types_our[i] == "boolean")
-                                types_our[i] = "CosBool";
-                            else if (types_our[i] == "name")
-                                types_our[i] = "CosName";
-                            else if (types_our[i] == "number") {
-                                types_our[i] = "CosFixed";
-                                types_our.push_back("CosInteger");
-                            }
-                            else if (types_our[i] == "integer" || types_our[i] == "bitmask")
-                                types_our[i] = "CosInteger";
-                            else if (types_our[i] == "stream")
-                                types_our[i] = "CosStream";
-                            else if (types_our[i] == "array" || types_our[i] == "rectangle" || types_our[i] == "matrix")
-                                types_our[i] = "CosArray";
-                            else if (types_our[i] == "dictionary" || types_our[i] == "name-tree" || types_our[i] == "number-tree")
-                                types_our[i] = "CosDict";
-                            else if (types_our[i] == "string" || types_our[i] == "date" || types_our[i] == "string-byte" || types_our[i] == "string-text" || types_our[i] == "string-ascii")
-                                types_our[i] = "CosString";
-                        } // for
-
-                        // Adobe DVA types are always stored as names
-                        std::vector<std::string>    types_dva;
-                        for (int i = 0; i < types_array->get_num_elements(); i++) {
-                            std::wstring    new_dva_value;
-                            ArlPDFObject* obj = types_array->get_value(i);
-                            if ((obj != nullptr) && (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
-                                ArlPDFName* nm = (ArlPDFName*)obj;
-                                new_dva_value = nm->get_value();
-                                for (size_t j = 0; j < types_our.size(); j++) {
-                                    if (types_our[j] == ToUtf8(new_dva_value)) {
-                                        types_our[j] = "";
-                                        new_dva_value = L"";
-                                        break;
-                                    }
-                                } // for
-                                types_dva.push_back(ToUtf8(new_dva_value));
-                            }
-                            else {
-                                ofs << COLOR_ERROR << "DVA ValueType array element is not a name object!" << COLOR_RESET;
-                            }
-                            delete obj;
-                        } // for
-
-                        std::string head = "==Key type difference - DVA: " + ToUtf8(elem.dva_link) + " vs Arlington: " + elem.link + "/" + vec[TSV_KEYNAME] + "\n";
-                        std::string our("");
-                        for (auto& tpe : types_our)
-                            if (tpe != "") {
-                                if (our == "")
-                                    our = tpe;
-                                else
-                                    our += ", " + tpe;
-                            }
-
-                        if (our != "") {
-                            ofs << head << "\tArlington: " << our << std::endl;
-                            head = "";
-                        }
-
-                        our = "";
-                        for (auto& tpe : types_dva)
-                            if (tpe != "") {
-                                if (our == "")
-                                    our = tpe;
-                                else
-                                    our += ", " + tpe;
-                            }
-
-                        if (our != "") {
-                            if (head != "")
-                                ofs << head;
-                            ofs << "\tDVA: " << our << std::endl;
-                        }
-                    }
-                    delete vt;
-                }
-
-// If this is enabled, then many additional DVA/Arlington pairings get compared which is very noisy!
-#if 0
-                /// @todo Process DVA SpecialCases sub-dictionary:
-                //  - /DictToSwitchTo : array of other DVA objects (names), based on /SwitchOnValue array of names
-                //  - /SwitchOnValue : array of names needed by /DictToSwitchTo
-                //  - /StreamFilters dict : ???
-                //  - /RequiredIfOtherKeysAbsent : array of names
-                //  - /OtherKeysMustBePresent : array of names
-                //  - /SpecialProcessing : ???
-                //  - /MayBeInheritedFromDictAtKey : ??? name
-                //  - /MayBeInheritedFromDictAtPaths : ??? array of arrays
-                if (inner_obj != nullptr) {
-                    ArlPDFDictionary* special_cases = (ArlPDFDictionary*)inner_obj->get_value(L"SpecialCases");
-                    if (special_cases != nullptr) {
-                        assert(special_cases->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary);
-                        ArlPDFArray* switch_to = (ArlPDFArray*)special_cases->get_value(L"DictToSwitchTo");
-                        ArlPDFArray* switch_on = (ArlPDFArray*)special_cases->get_value(L"SwitchOnValue");
-                        if ((switch_to != nullptr) && (switch_on != nullptr)) {
-                            assert(switch_to->get_object_type() == PDFObjectType::ArlPDFObjTypeArray);
-                            assert(switch_on->get_object_type() == PDFObjectType::ArlPDFObjTypeArray);
-                            assert(switch_on->get_num_elements() == switch_to->get_num_elements());
-
-                            // Loop for each DictToSwitchTo reference and add
-                            for (int i = 0; i < switch_to->get_num_elements(); i++) {
-                                ArlPDFName*   dva_link = (ArlPDFName*)switch_to->get_value(i);
-                                assert(dva_link->get_object_type() == PDFObjectType::ArlPDFObjTypeName);
-                                std::wstring dva_link_s = dva_link->get_value();
-                                // ofs << "DVA special-cased to DVA " << ToUtf8(dva_link_s) << " for " << vec[TSV_KEYNAME] << " to Arlington base " << elem.link << std::endl;
-                                if (vec[TSV_LINK] != "") {
-                                    std::vector<std::string> all_links;
-                                    std::vector<std::string> typed_links = split(remove_link_predicates(vec[TSV_LINK]), ';');
-                                    // Loop for each Arlington link and combine into one big list
-                                    for (std::string lnks : typed_links) {
-                                        if (lnks != "[]") {
-                                            lnks = lnks.substr(1, lnks.size() - 2);  // strip off [ and ] 
-                                            std::vector<std::string> lnk = split(lnks, ',');
-                                            for (std::string& s : lnk) {
-                                                all_links.push_back(s);
-                                            }
-                                        }
-                                    } // for
-
-                                    auto exact = std::find(all_links.begin(), all_links.end(), ToUtf8(dva_link_s));
-                                    if (exact != all_links.end()) {
-                                        // DVA and Arlington names match precisely 
-                                        // ofs << "DVA special-cased to DVA " << ToUtf8(dva_link_s) << " for " << vec[TSV_KEYNAME] << " to Arlington " << *exact << std::endl;
-                                        to_process_checks.emplace(dva_link_s, *exact);
-                                    }
-                                    else {
-                                        // No exact match so propogate new DVA to all Arlington links...
-                                        to_process_checks.emplace(dva_link_s, elem.link);
-                                        for (std::string& s : all_links) {
-                                            // ofs << "DVA special-cased to DVA " << ToUtf8(dva_link_s) << " for " << vec[TSV_KEYNAME] << " to Arlington " << s << std::endl;
-                                            to_process_checks.emplace(dva_link_s, s);
-                                        }
-                                    }
-                                }
-                                delete dva_link;
-                            } // for
-                        }
-                        delete switch_on, switch_to;
-                    }
-                    delete special_cases;
-                }
-#endif
-
-                // Check Arlington PossibleValue field vs DVA Bounds
-                {
-                    ArlPDFDictionary* bounds_dict = (ArlPDFDictionary*)inner_obj->get_value(L"Bounds");
-                    if ((bounds_dict != nullptr) && (bounds_dict->get_object_type() != PDFObjectType::ArlPDFObjTypeDictionary)) {
-                        ofs << COLOR_ERROR << "Bounds is not a dictionary for DVA: " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
-                        delete bounds_dict;
-                    }
-                    else if ((vec[TSV_POSSIBLEVALUES] != "") && (!terse)) {
-                        std::string possible = "";
-
-                        if (bounds_dict == nullptr) {
-                            ofs << "Bounds not defined in DVA for " << ToUtf8(elem.dva_link) << ", but PossibleValue is defined in Arlington: ";
-                            ofs << elem.link << "/" << vec[TSV_KEYNAME] << "==" << vec[TSV_POSSIBLEVALUES] << std::endl;
-                        }
-                        else {
-                            ArlPDFArray* possible_array = (ArlPDFArray*)bounds_dict->get_value(L"Equals");
-                            if ((possible_array != nullptr) && (possible_array->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
-                                std::vector<std::string>    possible_dva;
-
-                                // Arlington PossibleValues (column 9) can be COMMA-separated, complex ([a,fn:A(b),c];[d,fn:B(1,2,fn:C(3,4,e)),f];[g,h,i];...) which
-                                // includes nested predicates that also use COMMAs. Sigh!
-                                // Split by ";" first to remove predicates as they use COMMAs as argument separators.
-                                /// @todo Spliting again by "," will not work properly as some predicates use COMMA!!! Hence garbled output sometimes.
-                                /// For now use remove_type_predicates() which removes fn:SinceVersion and fn:Deprecated predicates only.
-                                std::vector<std::vector<std::string>>   possible_our;
-                                {
-                                    std::vector<std::string> pv_typed = split(vec[TSV_POSSIBLEVALUES], ';');
-                                    std::string s;
-                                    for (size_t i = 0; i < pv_typed.size(); i++) {
-                                        s = remove_type_predicates(pv_typed[i]);  // removes fn:SinceVersion and fn:Deprecated predicates only
-                                        if (s[0] == '[')
-                                            s = s.substr(1, s.size() - 2); // strip off [ and ]
-                                        pv_typed[i] = s;
-                                        possible_our.push_back(split(pv_typed[i], ','));
-                                    } // for
-                                }
-
-                                ArlPDFObject* obj;
-                                for (int i = 0; i < possible_array->get_num_elements(); i++) {
-                                    std::wstring   new_dva_value = L"";
-
-                                    // Bounds array elements can be any basic type
-                                    // Convert to string for simplistic text comparison
-                                    obj = possible_array->get_value(i);
-                                    if (obj != nullptr) {
-                                        switch (obj->get_object_type()) {
-                                        case PDFObjectType::ArlPDFObjTypeBoolean: {
-                                            ArlPDFBoolean* b = (ArlPDFBoolean*)obj;
-                                            new_dva_value = (b->get_value() ? L"true" : L"false");
-                                        }
-                                                                                break;
-                                        case PDFObjectType::ArlPDFObjTypeName: {
-                                            ArlPDFName* nm = (ArlPDFName*)obj;
-                                            new_dva_value = nm->get_value();
-                                        }
-                                                                             break;
-                                        case PDFObjectType::ArlPDFObjTypeNumber: {
-                                            ArlPDFNumber* num = (ArlPDFNumber*)obj;
-                                            if (num->is_integer_value()) {
-                                                new_dva_value = std::to_wstring(num->get_integer_value());
-                                            }
-                                            else {
-                                                new_dva_value = std::to_wstring(num->get_value());
-                                            }
-                                        }
-                                                                               break;
-                                        case PDFObjectType::ArlPDFObjTypeString: {
-                                            ArlPDFString* str = (ArlPDFString*)obj;
-                                            new_dva_value = str->get_value();
-                                        }
-                                                                               break;
-                                        default:
-                                            ofs << COLOR_ERROR << "DVA Bounds/Equals[" << i << "] was an unexpected type for " << ToUtf8(elem.dva_link) << COLOR_RESET;
-                                            break;
-                                        } // switch
-
-                                        // Find if there is a match in PossibleValues
-                                        if (new_dva_value != L"") {
-                                            for (size_t j = 0; j < possible_our.size(); j++) { // split by ';'
-                                                for (size_t k = 0; k < possible_our[j].size(); k++) { // split by ','
-                                                    if (possible_our[j][k] == ToUtf8(new_dva_value)) {
-                                                        possible_our[j][k] = "";
-                                                        new_dva_value = L"";
-                                                        break;
-                                                    }
-                                                }
-                                            } // for
-                                            if (new_dva_value != L"")
-                                                possible_dva.push_back(ToUtf8(new_dva_value));
-                                        }
-                                    }
-                                    else {
-                                        ofs << COLOR_ERROR << "DVA Bounds/Equals[" << i << "] was a null object for " << ToUtf8(elem.dva_link) << COLOR_RESET;
-                                    }// if
-                                    delete obj;
-                                } // for
-
-                                std::string head = "==PossibleValue DVA: " + ToUtf8(elem.dva_link) + " vs Arlington: " + elem.link + "/" + vec[TSV_KEYNAME] + "\n";
-                                std::string our = "";
-                                for (size_t j = 0; j < possible_our.size(); j++) { // split by ';'
-                                    for (size_t k = 0; k < possible_our[j].size(); k++) { // split by ','
-                                        if (possible_our[j][k] != "") {
-                                            if (our == "")
-                                                our = possible_our[j][k];
-                                            else
-                                                our += ", " + possible_our[j][k];
-                                        }
-                                    }
-                                }
-
-                                if (our != "") {
-                                    ofs << head << "\tArlington: " << our << std::endl;
-                                    head = "";
-                                }
-
-                                our = "";
-                                for (auto& tpe : possible_dva)
-                                    if (tpe != "") {
-                                        if (our == "")
-                                            our = tpe;
-                                        else
-                                            our += ", " + tpe;
-                                    }
-
-                                if (our != "") {
-                                    if (head != "")
-                                        ofs << head;
-                                    ofs << "\tDVA: " << our << std::endl;
-                                }
-                            }
-                            else if (possible_array != nullptr) {
-                                ofs << COLOR_ERROR << "DVA Bounds/Equals was not an array for " << ToUtf8(elem.dva_link) << COLOR_RESET;
-                                delete possible_array;
-                            }
-                        }
-                    }
-                    delete bounds_dict;
-                }
+                delete indr;
             }
 
-            {
-                ArlPDFObject* link_obj = inner_obj->get_value(L"VerifyAtFormalRep"); // Array: 0-dict, 1-stream, 2-array
-
-                ArlPDFObject* recursion_obj = inner_obj->get_value(L"RecursionParams");
-                if ((recursion_obj != nullptr) && (recursion_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-                    delete link_obj;
-                    link_obj = ((ArlPDFDictionary*)recursion_obj)->get_value(L"VerifyAtFormalRep"); // 0-dict, 1-stream, 2-array
+            // Arlington Required field can also have predicates "fn:IsRequired(...)" or be complex ([];[];[];...)
+            // Linux CLI:  cut -f 5 *.tsv | sort | uniq
+            // Arlington field is UPPERCASE
+            if (inner_obj->has_key(L"Required")) {
+                ArlPDFBoolean* req_b = (ArlPDFBoolean*)inner_obj->get_value(L"Required");
+                if (req_b != nullptr) {
+                    assert(req_b->get_object_type() == PDFObjectType::ArlPDFObjTypeBoolean);
+                    std::string required = "FALSE";
+                    if (req_b->get_value())
+                        required = "TRUE";
+                    if (vec[TSV_REQUIRED] != required) {
+                        // Suppress if terse and there are predicates
+                        if (!terse || (vec[TSV_REQUIRED].find("fn:") == std::string::npos)) {
+                            ofs << "Required is different for key " << vec[TSV_KEYNAME] << ": DVA " << required;
+                            ofs << " vs Arlington: " << elem.link << "==" << vec[TSV_REQUIRED] << std::endl;
+                        }
+                    }
                 }
-                delete recursion_obj;
-                recursion_obj = nullptr;
+                delete req_b;
+            }
+            else if (array_idx < 0)  { // DVA does not define Required for arrays
+                ofs << "DVA did not specify Required for " << elem.all_DVA_keys() << "/" << vec[TSV_KEYNAME] << std::endl;
+            }
 
-                if (link_obj != nullptr) {
-                    switch (link_obj->get_object_type()) {
-                        case PDFObjectType::ArlPDFObjTypeName:
-                        {
-                            std::wstring  dva_link_value = ((ArlPDFName*)link_obj)->get_value();
-                            if ((vec[TSV_LINK] == "") && !((vec[TSV_TYPE] == "rectangle") || (vec[TSV_TYPE] == "matrix"))) {
-                                ofs << "No link in Arlington for " << elem.link << "/" << vec[TSV_KEYNAME] << " (" << vec[TSV_TYPE] << ")" << std::endl;
+            // Arlington SinceVersion (1.0, 1.1, ..., 2.0)
+            // Linux CLI: cut -f 3 *.tsv | sort | uniq
+            if (inner_obj->has_key(L"PDFMajorVersion") && inner_obj->has_key(L"PDFMinorVersion")) {
+                ArlPDFObject* major = inner_obj->get_value(L"PDFMajorVersion");
+                ArlPDFObject* minor = inner_obj->get_value(L"PDFMinorVersion");
+                if ((major != nullptr) && (minor != nullptr) &&
+                    (major->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber) &&
+                    (minor->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber)) {
+                    int   pdf_major = ((ArlPDFNumber*)major)->get_integer_value();
+                    int   pdf_minor = ((ArlPDFNumber*)minor)->get_integer_value();
+                    std::string dva_ver = std::to_string(pdf_major) + "." + std::to_string(pdf_minor);
+                    if (dva_ver != vec[TSV_SINCEVERSION]) {
+                        ofs << "SinceVersion different for key " << vec[TSV_KEYNAME] << ": DVA (" << dva_ver << ") vs Arlington (" << vec[TSV_SINCEVERSION] << ")" << std::endl;
+                    }
+                }
+                else {
+                    ofs << COLOR_ERROR << "DVA PDFMajorVersion/PDFMinorVersion was invalid for " << elem.all_DVA_keys() << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
+                }
+                delete major; 
+                delete minor;
+            }
+
+            // Check allowed Types
+            {
+                ArlPDFObject *vt = inner_obj->get_value(L"ValueType");
+                if (vt == nullptr) {
+                    ofs << COLOR_ERROR << "No ValueType defined for DVA for " << elem.all_DVA_keys() << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
+                }
+                else if (vt->get_object_type() != PDFObjectType::ArlPDFObjTypeArray) {
+                    ofs << COLOR_ERROR << "ValueType is not an array in DVA for " << elem.all_DVA_keys() << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
+                }
+                else {
+                    ArlPDFArray* types_array = (ArlPDFArray*)vt;
+                    std::vector<std::string>    types_our = split(remove_type_link_predicates(vec[TSV_TYPE]), ';');
+
+                    // Map broader set of Arlington types (always lowercase) to Adobe DVA types ("CosXxxx")
+                    for (size_t i = 0; i < types_our.size(); i++) {
+                        if (types_our[i] == "boolean")
+                            types_our[i] = "CosBool";
+                        else if (types_our[i] == "name")
+                            types_our[i] = "CosName";
+                        else if (types_our[i] == "number") {
+                            types_our[i] = "CosFixed";
+                            types_our.push_back("CosInteger");
+                        }
+                        else if (types_our[i] == "integer" || types_our[i] == "bitmask")
+                            types_our[i] = "CosInteger";
+                        else if (types_our[i] == "stream")
+                            types_our[i] = "CosStream";
+                        else if (types_our[i] == "array" || types_our[i] == "rectangle" || types_our[i] == "matrix")
+                            types_our[i] = "CosArray";
+                        else if (types_our[i] == "dictionary" || types_our[i] == "name-tree" || types_our[i] == "number-tree")
+                            types_our[i] = "CosDict";
+                        else if (types_our[i] == "string" || types_our[i] == "date" || types_our[i] == "string-byte" || types_our[i] == "string-text" || types_our[i] == "string-ascii")
+                            types_our[i] = "CosString";
+                    } 
+
+                    // Adobe DVA types are always stored as names
+                    std::vector<std::string>    types_dva;
+                    for (auto i = 0; i < types_array->get_num_elements(); i++) {
+                        std::wstring    new_dva_value;
+                        ArlPDFObject* obj = types_array->get_value(i);
+                        if ((obj != nullptr) && (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
+                            ArlPDFName* nm = (ArlPDFName*)obj;
+                            new_dva_value = nm->get_value();
+                            for (size_t j = 0; j < types_our.size(); j++) {
+                                if (types_our[j] == ToUtf8(new_dva_value)) {
+                                    types_our[j] = "";
+                                    new_dva_value = L"";
+                                    break;
+                                }
+                            } // for
+                            types_dva.push_back(ToUtf8(new_dva_value));
+                        }
+                        else {
+                            ofs << COLOR_ERROR << "DVA ValueType array element is not a name object for key " << vec[TSV_KEYNAME] << COLOR_RESET;
+                        }
+                        delete obj;
+                    } // for
+
+                    std::string head = "Type differences for key " + vec[TSV_KEYNAME] + "\n";
+                    std::string our("");
+                    for (auto& tpe : types_our)
+                        if (tpe != "") {
+                            if (our == "")
+                                our = tpe;
+                            else
+                                our += ", " + tpe;
+                        }
+
+                    if (our != "") {
+                        ofs << head << "\tArlington has: " << our << std::endl;
+                        head = "";
+                    }
+
+                    our = "";
+                    for (auto& tpe : types_dva)
+                        if (tpe != "") {
+                            if (our == "")
+                                our = tpe;
+                            else
+                                our += ", " + tpe;
+                        }
+
+                    if (our != "") {
+                        if (head != "")
+                            ofs << head;
+                        ofs << "\tDVA has: " << our << std::endl;
+                    }
+                }
+                delete vt;
+            }
+
+            // Check Arlington PossibleValue field vs DVA Bounds
+            {
+                ArlPDFDictionary* bounds_dict = (ArlPDFDictionary*)inner_obj->get_value(L"Bounds");
+                if ((bounds_dict != nullptr) && (bounds_dict->get_object_type() != PDFObjectType::ArlPDFObjTypeDictionary)) {
+                    ofs << COLOR_ERROR << "Bounds is not a dictionary in DVA for " << elem.all_DVA_keys() << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
+                }
+                else if ((vec[TSV_POSSIBLEVALUES] != "") && (!terse)) {
+                    std::string possible = "";
+
+                    if (bounds_dict == nullptr) {
+                        ofs << "Bounds not defined for key " << vec[TSV_KEYNAME] << ": Arlington " << elem.link << " has PossibleValues==" << vec[TSV_POSSIBLEVALUES] << std::endl;
+                    }
+                    else {
+                        ArlPDFArray* possible_array = (ArlPDFArray*)bounds_dict->get_value(L"Equals");
+                        if ((possible_array != nullptr) && (possible_array->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
+                            std::vector<std::string>    possible_dva;
+
+                            // Arlington PossibleValues (column 9) can be COMMA-separated, complex ([a,fn:A(b),c];[d,fn:B(1,2,fn:C(3,4,e)),f];[g,h,i];...) which
+                            // includes nested predicates that also use COMMAs. Sigh!
+                            // Split by ";" first to remove predicates as they use COMMAs as argument separators.
+                            /// @todo Spliting again by "," will not work properly as some predicates use COMMA!!! Hence garbled output sometimes.
+                            /// For now use remove_type_predicates() which removes fn:SinceVersion and fn:Deprecated predicates only.
+                            std::vector<std::vector<std::string>>   possible_our;
+                            {
+                                std::vector<std::string> pv_typed = split(vec[TSV_POSSIBLEVALUES], ';');
+                                std::string s;
+                                for (size_t i = 0; i < pv_typed.size(); i++) {
+                                    s = remove_type_link_predicates(pv_typed[i]); 
+                                    if (s[0] == '[')
+                                        s = s.substr(1, s.size() - 2); // strip off [ and ]
+                                    pv_typed[i] = s;
+                                    possible_our.push_back(split(pv_typed[i], ','));
+                                } // for
                             }
-                            else if (vec[TSV_LINK] != "") {
-                                std::vector<std::string> typed_links = split(vec[TSV_LINK], ';');
-                                for (std::string lnks : typed_links) {
-                                    if (lnks != "[]") {
-                                        lnks = lnks.substr(1, lnks.size() - 2);  // strip off [ and ] 
-                                        std::vector<std::string> lnk = split(remove_link_predicates(lnks), ',');
-                                        for (std::string s : lnk) {
-                                            to_process_checks.emplace(dva_link_value, s);
+
+                            ArlPDFObject* obj;
+                            for (int i = 0; i < possible_array->get_num_elements(); i++) {
+                                std::wstring   new_dva_value = L"";
+
+                                // Bounds array elements can be any basic type
+                                // Convert to string for simplistic text comparison
+                                obj = possible_array->get_value(i);
+                                if (obj != nullptr) {
+                                    switch (obj->get_object_type()) {
+                                    case PDFObjectType::ArlPDFObjTypeBoolean: {
+                                        ArlPDFBoolean* b = (ArlPDFBoolean*)obj;
+                                        new_dva_value = (b->get_value() ? L"true" : L"false");
+                                    }
+                                    break;
+                                    case PDFObjectType::ArlPDFObjTypeName: {
+                                        ArlPDFName* nm = (ArlPDFName*)obj;
+                                        new_dva_value = nm->get_value();
+                                    }
+                                    break;
+                                    case PDFObjectType::ArlPDFObjTypeNumber: {
+                                        ArlPDFNumber* num = (ArlPDFNumber*)obj;
+                                        if (num->is_integer_value()) {
+                                            new_dva_value = std::to_wstring(num->get_integer_value());
                                         }
+                                        else {
+                                            new_dva_value = std::to_wstring(num->get_value());
+                                        }
+                                    }
+                                    break;
+                                    case PDFObjectType::ArlPDFObjTypeString: {
+                                        ArlPDFString* str = (ArlPDFString*)obj;
+                                        new_dva_value = str->get_value();
+                                    }
+                                    break;
+                                    default:
+                                        ofs << COLOR_ERROR << "DVA Bounds/Equals[" << i << "] was an unexpected type for " << elem.all_DVA_keys() << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
+                                        break;
+                                    } // switch
+
+                                    // Find if there is a match in PossibleValues
+                                    if (new_dva_value != L"") {
+                                        for (size_t j = 0; j < possible_our.size(); j++) { // split by ';'
+                                            for (size_t k = 0; k < possible_our[j].size(); k++) { // split by ','
+                                                if (possible_our[j][k] == ToUtf8(new_dva_value)) {
+                                                    possible_our[j][k] = "";
+                                                    new_dva_value = L"";
+                                                    break;
+                                                }
+                                            }
+                                        } // for
+                                        if (new_dva_value != L"")
+                                            possible_dva.push_back(ToUtf8(new_dva_value));
+                                    }
+                                }
+                                else {
+                                    ofs << COLOR_ERROR << "DVA Bounds/Equals[" << i << "] was a null object for " << elem.all_DVA_keys() << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
+                                }// if
+                                delete obj;
+                            } // for
+
+                            std::string head = "PossibleValue differences for key " + vec[TSV_KEYNAME] + "\n";
+                            std::string our = "";
+                            for (size_t j = 0; j < possible_our.size(); j++) { // split by ';'
+                                for (size_t k = 0; k < possible_our[j].size(); k++) { // split by ','
+                                    if (possible_our[j][k] != "") {
+                                        if (our == "")
+                                            our = possible_our[j][k];
+                                        else
+                                            our += ", " + possible_our[j][k];
                                     }
                                 }
                             }
-                        }
-                        break;
-                    case PDFObjectType::ArlPDFObjTypeArray:
-                    {
-                        std::wstring  dva_dict_value = L"";
-                        std::wstring  dva_stream_value = L"";
-                        std::wstring  dva_array_value = L"";
-                        ArlPDFArray* arr = (ArlPDFArray*)link_obj;
-                        ArlPDFObject* obj;
-                        ArlPDFName* nm;
 
-                        // dictionary
-                        obj = arr->get_value(0);
-                        if ((obj != nullptr) && (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
-                            nm = (ArlPDFName*)obj;
-                            dva_dict_value = nm->get_value();
-                        }
-                        delete obj;
+                            if (our != "") {
+                                ofs << head << "\tArlington has: " << our << std::endl;
+                                head = "";
+                            }
 
-                        // stream
-                        obj = arr->get_value(1);
-                        if ((obj != nullptr) && (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
-                            nm = (ArlPDFName*)obj;
-                            dva_stream_value = nm->get_value();
-                        }
-                        delete obj;
+                            our = "";
+                            for (auto& tpe : possible_dva)
+                                if (tpe != "") {
+                                    if (our == "")
+                                        our = tpe;
+                                    else
+                                        our += ", " + tpe;
+                                }
 
-                        // array
-                        obj = arr->get_value(2);
-                        if ((obj != nullptr) && (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
-                            nm = (ArlPDFName*)obj;
-                            dva_array_value = nm->get_value();
+                            if (our != "") {
+                                if (head != "")
+                                    ofs << head;
+                                ofs << "\tDVA has: " << our << std::endl;
+                            }
                         }
-                        delete obj;
-
-                        // get_link_for_type() KEEPS predicates and does NOT split for multiple link values!
-                        std::string lnk_dict   = get_link_for_type("dictionary", vec[TSV_TYPE], vec[TSV_LINK]);
-                        std::string lnk_stream = get_link_for_type("stream", vec[TSV_TYPE], vec[TSV_LINK]);
-                        std::string lnk_array  = get_link_for_type("array", vec[TSV_TYPE], vec[TSV_LINK]);
-
-                        if ((dva_dict_value != L"") && (lnk_dict != "[]") && (lnk_dict != "")) {
-                            // Both DVA and Arlington have links for dictionaries
-                            to_process_checks.emplace(dva_dict_value, lnk_dict.substr(1, lnk_dict.size() - 2));
+                        else if (possible_array != nullptr) {
+                            ofs << COLOR_ERROR << "DVA Bounds/Equals was not an array for " << elem.all_DVA_keys() << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
                         }
-                        else if (dva_dict_value != L"") {
-                            ofs << COLOR_WARNING << "DVA had dictionary links for " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << " but Arlington did not for " << elem.link << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
-                        }
-                        else {
-                            ofs << "Arlington had dictionary links for " << elem.link << "/" << vec[TSV_KEYNAME] << " but DVA did not for " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
-                        }
-
-                        if ((dva_stream_value != L"") && (lnk_stream != "[]")) {
-                            // Both DVA and Arlington have links for streams
-                            to_process_checks.emplace(dva_stream_value, lnk_stream.substr(1, lnk_stream.size() - 2));
-                        }
-                        else if (dva_stream_value != L"") {
-                            ofs << COLOR_WARNING << "DVA had stream links for " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << " but Arlington did not for " << elem.link << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
-                        }
-                        else {
-                            ofs << "Arlington had stream links for " << elem.link << "/" << vec[TSV_KEYNAME] << " but DVA did not for " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
-                        }
-
-                        if ((dva_array_value != L"") && (lnk_array != "[]")) {
-                            // Both DVA and Arlington have links for arrays
-                            to_process_checks.emplace(dva_array_value, lnk_array.substr(1, lnk_array.size() - 2));
-                        }
-                        else if (dva_array_value != L"") {
-                            ofs << COLOR_WARNING << "DVA had array links for " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << " but Arlington did not for " << elem.link << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
-                        }
-                        else {
-                            ofs << "Arlington had array links for " << elem.link << "/" << vec[TSV_KEYNAME] << " but DVA did not for " << ToUtf8(elem.dva_link) << "/" << vec[TSV_KEYNAME] << COLOR_RESET;
-                        }
+                        delete possible_array;
                     }
-                    break;
-                    default:
-                        ofs << COLOR_ERROR << "Unexpected DVA type for VerifyAtFormalRep!" << COLOR_RESET;
-                        break;
-                    } // switch
-                } // if
-                delete link_obj;
+                }
+                delete bounds_dict;
             }
             delete inner_obj;
-        } // for arlington
+        } // for-each key in arlington
 
 
-        // @brief Checks if a key name exists in Arlington
-        // @param[in] key key name (string)
-        // @returns true if key exists in Arlington
-        auto exists_in_our = [=](auto key) {
+        /// @brief Checks if a key name exists in Arlington
+        /// 
+        /// @param[in] key key name (string)
+        /// 
+        /// @returns true if key exists in Arlington or has a wildcard
+        auto exists_in_our = [data_list](auto& key) {
             for (auto& vec : *data_list)
-                if (vec[TSV_KEYNAME] == ToUtf8(key))
-                    return true;
-                else if (vec[TSV_KEYNAME] == "*") // wildcard
+                if ((vec[TSV_KEYNAME] == ToUtf8(key)) || (vec[TSV_KEYNAME].find('*') != std::string::npos))
                     return true;
             return false;
         }; // auto
 
 
-        // @brief Iterates through all keys in a DVA PDF dictionary to see if they are in Arlington
-        // @param[in] a_dict   the DVA PDF dictionary
-        // @param[in] in_ofs   report stream
-        auto check_dict = [=](ArlPDFDictionary* a_dict, std::ostream& in_ofs) {
-            for (int i = 0; i < (a_dict->get_num_keys()); i++) {
-                std::wstring key = a_dict->get_key_name_by_index(i);
+        /// @brief Iterates through all keys in a DVA PDF dictionary to see if they are in Arlington
+        /// 
+        /// @param[in] a_dict   the DVA PDF dictionary
+        /// @param[in] in_ofs   report stream
+        auto check_dict = [=](ArlPDFDictionary* dva_dict, std::ostream& in_ofs) {
+            for (int i = 0; i < (dva_dict->get_num_keys()); i++) {
+                std::wstring key = dva_dict->get_key_name_by_index(i);
                 if (!exists_in_our(key) && (key != L"FormalRepOf") && (key != L"Array")
                     && (key != L"ArrayStyle") && (key != L"FormalRepOfArray") && (key != L"OR")
                     && (key != L"GenericKey") && (key != L"ConcatWithFormalReps")
                     && (key != L"Metadata") && (key != L"AF")) // keys in PDF 2.0 allowed anywhere
                 {
-                    in_ofs << "Missing key in Arlington: " << elem.link << "/" << ToUtf8(key) << std::endl;
+                    in_ofs << "Missing key from DVA in Arlington: " << elem.link << "/" << ToUtf8(key) << std::endl;
                 }
             }
         }; // auto
 
-        check_dict(dict, ofs);
-
-        {
-            ArlPDFObject* tmp_obj = dict->get_value(L"ConcatWithFormalReps");
-            if ((tmp_obj != nullptr) && (tmp_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
-                ArlPDFArray* inner_array = (ArlPDFArray*)tmp_obj;
-                ArlPDFObject* obj = inner_array->get_value(0);
-                if (obj != nullptr) {
-                    switch (obj->get_object_type()) {
-                        case PDFObjectType::ArlPDFObjTypeString:
-                            {
-                                ArlPDFString* concat = (ArlPDFString*)obj;
-                                std::wstring  new_dva_value = concat->get_value();
-#ifdef DVA_TRACING
-                                ofs << "Reading DVA object " << ToUtf8(new_dva_value) << std::endl;
-#endif                             
-                                ArlPDFObject* new_dva = map_dict->get_value(new_dva_value);
-                                if ((new_dva != nullptr) && (new_dva->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-                                    check_dict((ArlPDFDictionary*)new_dva, ofs);
-                                }
-                                else {
-                                    ofs << COLOR_ERROR << "DVA " << ToUtf8(elem.dva_link) << " ConcatWithFormalReps[0]/(" << ToUtf8(concat->get_value()) << ") string was not a dictionary" << COLOR_RESET;
-                                }
-                                delete new_dva;
-                            }
-                        break;
-                        case PDFObjectType::ArlPDFObjTypeName:
-                            {
-                                ArlPDFName* concat = (ArlPDFName*)obj;
-                                std::wstring  new_dva_value = concat->get_value();
-#ifdef DVA_TRACING
-                                ofs << "Reading DVA object " << ToUtf8(new_dva_value) << std::endl;
-#endif             
-                                ArlPDFObject* new_dva = map_dict->get_value(new_dva_value);
-                                if ((new_dva != nullptr) && (new_dva->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-                                    check_dict((ArlPDFDictionary*)new_dva, ofs);
-                                }
-                                else {
-                                    ofs << COLOR_ERROR << "DVA " << ToUtf8(elem.dva_link) << " ConcatWithFormalReps[0]/" << ToUtf8(concat->get_value()) << " name was not a dictionary" << COLOR_RESET;
-                                }
-                                delete new_dva;
-                            }
-                            break;
-                        default:
-                            ofs << COLOR_ERROR << "DVA " << ToUtf8(elem.dva_link) << " ConcatWithFormalReps[0] was an unexpected type" << COLOR_RESET;
-                            break;
-                    } // switch
-                }
-                else {
-                    ofs << COLOR_ERROR << "DVA " << ToUtf8(elem.dva_link) << " ConcatWithFormalReps[0] did not exist" << COLOR_RESET;
-                }
-                delete obj;
-            }
-            delete tmp_obj;
+        for (auto& d : dva_dicts) {
+            check_dict(d, ofs);
+            delete d;
         }
-
-        delete dict;
     } // while
 
     // Report all Adobe DVA key names that were NOT compared
     if (!terse)
     {
         ofs << std::endl;
+        int missed = 0;
         const int dva_num_keys = map_dict->get_num_keys();
 
         for (int i = 0; i < dva_num_keys; i++) {
             std::wstring key = map_dict->get_key_name_by_index(i);
 
             auto result = std::find_if(mapped.begin(), mapped.end(), 
-                            [&key](to_process_elem a) { return (a.dva_link == key); });
+                            [&key](CDVAArlingtonTuple a) { return a.contains_DVA_key(key); });
 
             if (result == mapped.end()) {
-                // Candidate DVA key not found - now exclude operators, operands, etc.
+                // Candidate DVA key not found - exclude operators, operands, etc.
                 // Look for key "FormalRepOf" in the dictionary
                 ArlPDFObject* obj = map_dict->get_value(key);
                 assert(obj != nullptr);
                 assert(obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary);
                 if (((ArlPDFDictionary*)obj)->has_key(L"FormalRepOf")) {
-                    ofs << COLOR_WARNING << "Adobe DVA comaparison did not check DVA key " << ToUtf8(key) << COLOR_RESET;
+                    ofs << COLOR_WARNING << "Adobe DVA comaparison did not check DVA key: " << ToUtf8(key) << COLOR_RESET;
+                    missed++;
                 }
                 delete obj;
             }
+        } // for
+        if (missed > 0) {
+            ofs << COLOR_INFO << "Adobe DVA comparison did not check " << missed << " Adobe DVA keys" << COLOR_RESET;
         }
     }
 
     // Report all Arlington TSV files that were NOT compared
     // This will include all PDF 2.0 stuff.
-    // Iterate across all physical files in the TSV folder to list anything that exists but was not referenced
+    // Iterate across all physical files in the TSV folder to list anything that exists but was never referenced
     if (!terse)
     {
         ofs << std::endl;
+        int missed = 0;
         for (const auto& entry : fs::directory_iterator(tsv_dir)) {
             if (entry.is_regular_file() && (entry.path().extension().string() == ".tsv")) {
                 const auto tsv = entry.path().stem().string();
 
                 auto result = std::find_if(mapped.begin(), mapped.end(), 
-                    [&tsv](const to_process_elem& a) { return (a.link == tsv); });
+                    [&tsv](const CDVAArlingtonTuple& a) { return (a.link == tsv); });
 
                 if (result == mapped.end()) {
-                    ofs << COLOR_WARNING << "Adobe DVA comaparison did not check Arlington " << tsv << COLOR_RESET;
+                    ofs << COLOR_WARNING << "Adobe DVA comaparison did not check Arlington: " << tsv << COLOR_RESET;
+                    missed++;
                 }
             }
         } // for
+        if (missed > 0) {
+            ofs << COLOR_INFO << "Adobe DVA comparison did not check " << missed << " Arlington definitions" << COLOR_RESET;
+        }
     }
 }
 
 
-/// @brief  Compares Arlington TSV file set against Adobe DVA formal representation PDF
+/// @brief  Compares Arlington TSV file set against Adobe DVA formal representation of PDF 1.7
 /// 
 /// @param[in] pdfsdk          already instantiated PDF SDK Arlington shim object
 /// @param[in] dva_file        the Adobe DVA PDF file with the FormalRep tree
 /// @param[in] grammar_folder  the Arlington PDF model folder with TSV file set
 /// @param[in] ofs             report stream
+/// @param[in] terse           whether output should be terse (brief)
 void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK &pdfsdk, const std::filesystem::path& dva_file, const fs::path& grammar_folder, std::ostream& ofs, bool terse) {
     try {
         ofs << "BEGIN - Arlington vs Adobe DVA Report - TestGrammar " << TestGrammar_VERSION << " " << pdfsdk.get_version_string() << std::endl;
@@ -1175,12 +1105,12 @@ void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK &pdfsdk, const std::filesystem::
                 ArlPDFObject* formal_rep = ((ArlPDFDictionary *)root)->get_value(L"FormalRepTree");
                 if ((formal_rep != nullptr) && (formal_rep->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
                     ArlPDFDictionary* formal_rep_dict = (ArlPDFDictionary*)formal_rep;
-                    process_dict(grammar_folder, ofs, formal_rep_dict, terse);
-                    delete formal_rep;
+                    process_dva_formal_rep_tree(grammar_folder, ofs, formal_rep_dict, terse);
                 }
                 else {
                     ofs << COLOR_ERROR << "failed to acquire Trailer/Root/FormalRepTree" << COLOR_RESET;
                 }
+                delete formal_rep;
             }
             else {
                 ofs << COLOR_ERROR << "failed to acquire Trailer/Root" << COLOR_RESET;

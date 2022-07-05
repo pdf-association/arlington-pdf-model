@@ -423,7 +423,6 @@ Run `doxygen Doxyfile` to generate full documentation for the TestGrammar C++ Po
 - when processing PDF files, calculate all predicates
 - finish PDF SDK bindings for QPDF, MuPDF and a later/better version of pdfium
 - detect stack overflows, memory exhaustion and timeouts to be able to fail gracefully
-- `--checkdva` doesn't do any object deletion so will report lots of memory leaks
 
 ---
 

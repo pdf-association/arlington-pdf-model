@@ -82,9 +82,8 @@ bool is_file(const std::filesystem::path& p);
 /// @brief Split Arlington-style strings into vector based on separator character
 std::vector<std::string> split(const std::string& s, char separator);
 
-/// @brief Arlington predicate support
-std::string remove_link_predicates(const std::string& link_in);
-std::string remove_type_predicates(const std::string& types_in);
+/// @brief Arlington brute-force predicate removal for Type and Link fields
+std::string remove_type_link_predicates(const std::string& link_in);
 
 /// @brief Returns the index of a specific type in an Arlington type string or -1 if not present
 int get_type_index(std::string single_type, std::string types);

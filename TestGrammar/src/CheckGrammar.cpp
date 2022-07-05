@@ -257,7 +257,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
                 int j = -1;
                 for (auto& type : types) {
                     j++;
-                    type = remove_type_predicates(type);
+                    type = remove_type_link_predicates(type);
                     if (std::find(std::begin(v_ArlNonComplexTypes), std::end(v_ArlNonComplexTypes), type) != std::end(v_ArlNonComplexTypes)) {
                         // type is a simple type - Links NOT expected
                         if (links[j] != "[]")
@@ -452,11 +452,11 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
             if (reader.load()) {
                 const ArlTSVmatrix &data = reader.get_data();
                 for (auto& vc : data) {
-                    std::string all_links = remove_link_predicates(vc[TSV_LINK]);
+                    std::string all_links = remove_type_link_predicates(vc[TSV_LINK]);
                     if (all_links != "") {
                         std::vector<std::string> links = split(all_links, ';');
 
-                        std::string all_types = remove_type_predicates(vc[TSV_TYPE]);
+                        std::string all_types = remove_type_link_predicates(vc[TSV_TYPE]);
                         std::vector<std::string> types = split(all_types, ';');
                         
                         int idx = 0;

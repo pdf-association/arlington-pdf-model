@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-WC	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ActionECMAScript)]	
-WS	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ActionECMAScript)]	
-DS	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ActionECMAScript)]	
-WP	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ActionECMAScript)]	
-DP	dictionary	1.4		FALSE	FALSE	FALSE				[fn:SinceVersion(1.3,ActionECMAScript)]	
+DC	dictionary	1.4		FALSE	FALSE	FALSE				[ActionECMAScript]	document close
+WS	dictionary	1.4		FALSE	FALSE	FALSE				[ActionECMAScript]	will save
+DS	dictionary	1.4		FALSE	FALSE	FALSE				[ActionECMAScript]	did save
+WP	dictionary	1.4		FALSE	FALSE	FALSE				[ActionECMAScript]	will print
+DP	dictionary	1.4		FALSE	FALSE	FALSE				[ActionECMAScript]	did print

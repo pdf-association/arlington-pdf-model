@@ -283,7 +283,11 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* obj, const ASTNode* in_ast, co
         }
         else if (in_ast->node == "fn:MustBeDirect(") {
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-            out->node = fn_MustBeDirect(obj) ? "true" : "false";
+            out->node = fn_MustBeDirect(obj, out_left) ? "true" : "false";
+        }
+        else if (in_ast->node == "fn:MustBeIndirect(") {
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = fn_MustBeIndirect(obj, out_left) ? "true" : "false";
         }
         else if (in_ast->node == "fn:NoCycle(") {
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
@@ -1208,10 +1212,42 @@ bool CPDFFile::fn_KeyNameIsColorant(std::wstring& key, std::vector<std::wstring>
 }
 
 
-/// @brief Checks if obj is an indirect reference
-bool CPDFFile::fn_MustBeDirect(ArlPDFObject* obj) {
+/// @brief Checks if obj is an direct reference (i.e. NOT indirect)
+/// e.g. fn:MustBeDirect() or fn:MustBeDirect(fn:IsPresent(Encrypt))
+///
+/// @param[in]  arg  optional conditional AST
+bool CPDFFile::fn_MustBeDirect(ArlPDFObject* obj, ASTNode *arg) {
     assert(obj != nullptr);
-    return !obj->is_indirect_ref();
+    if (arg == nullptr) {
+        return !obj->is_indirect_ref();
+    }
+    else {
+        assert(arg->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+        if (arg->node == "true")
+            return !obj->is_indirect_ref();
+        else
+            return false;
+    }
+}
+
+
+/// @brief Ensures an obj is an indirect reference
+/// e.g. fn:MustBeIndirect(fn:BeforeVersion(2.0))
+///
+/// @param[in]  arg  optional conditional AST
+bool CPDFFile::fn_MustBeIndirect(ArlPDFObject* obj, ASTNode* arg) {
+    assert(obj != nullptr);
+    assert(obj != nullptr);
+    if (arg == nullptr) {
+        return obj->is_indirect_ref();
+    }
+    else {
+        assert(arg->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+        if (arg->node == "true")
+            return obj->is_indirect_ref();
+        else
+            return false;
+    }
 }
 
 
@@ -1627,6 +1663,7 @@ ASTNode* CPDFFile::fn_SinceVersion(const ASTNode* ver_node, const ASTNode* thing
 /// @brief IsPDFVersion means a feature was introduced for only a specific PDF version:
 ///   - fn:IsRequired(fn:IsPDFVersion(1.0))
 ///   - fn:IsPDFVersion(1.0,fn:BitsClear(2,32))
+///   - fn:IsPDFVersion(1.2,ActionNOP)
 /// 
 /// @param[in] ver_node  version when feature 'thing' was introduced from Arlington PDF model
 /// @param[in] thing     (optional) the feature that was introduced
@@ -1640,7 +1677,6 @@ ASTNode* CPDFFile::fn_IsPDFVersion(const ASTNode* ver_node, const ASTNode* thing
     assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
     assert(ver_node->node.size() == 3);
     assert(FindInVector(v_ArlPDFVersions, ver_node->node));
-    assert(ver_node->node == "1.0"); // only use is for PDF 1.0
 
     // Convert to 10 * PDF version
     int pdf_v = (pdf_version[0] - '0') * 10 + (pdf_version[2] - '0');

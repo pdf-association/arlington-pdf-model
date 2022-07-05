@@ -9,6 +9,6 @@ AP	dictionary	1.2		FALSE	FALSE	FALSE				[Appearance]
 AS	name	1.2		fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))	FALSE	FALSE					
 Border	array	1.0		FALSE	FALSE	FALSE	[0 0 1]		[fn:Ignore(BS)]	[ArrayOf_4AnnotBorderCharacteristics]	
 C	array	1.1		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
-A	dictionary	1.1		FALSE	FALSE	FALSE				[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]	
+A	dictionary	1.1		FALSE	FALSE	FALSE				[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]	
 Dest	array;name;string-byte	1.0		FALSE	FALSE	FALSE				[DestXYZ,Dest0,Dest1,Dest4];[];[]	
 H	name	1.2		FALSE	FALSE	FALSE	I	[N,I,O,P]			

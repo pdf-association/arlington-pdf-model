@@ -2907,8 +2907,8 @@
   {
     "id": "AddActionCatalog",
     "keys": {
-      "WC": {
-        "Key": "WC",
+      "DC": {
+        "Key": "DC",
         "Type": "dictionary",
         "SinceVersion": 1.4,
         "Required": false,
@@ -14221,7 +14221,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.1,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[DestsMap]"
       },
@@ -14259,7 +14259,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[Outline]"
       },
@@ -14268,7 +14268,7 @@
         "Type": "array",
         "SinceVersion": 1.1,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[ArrayOfThreads]"
       },
@@ -17733,7 +17733,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[DocInfo]"
       },
@@ -20274,7 +20274,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": true,
-        "IndirectReference": true,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[FontDescriptorType1]"
       },
@@ -20393,7 +20393,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": "fn:IsRequired(fn:IsPDFTagged())",
-        "IndirectReference": true,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[FontDescriptorType3]"
       },
@@ -23918,7 +23918,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalDictionary]"
+        "Link": "[PageObject]"
       },
       "IDS": {
         "Key": "IDS",
@@ -24360,8 +24360,8 @@
         "Inheritable": false,
         "Link": "[ArrayOf_2Integers]"
       },
-      "GrapMap": {
-        "Key": "GrapMap",
+      "GrayMap": {
+        "Key": "GrayMap",
         "Type": "array",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,

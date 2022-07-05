@@ -2,4 +2,4 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Size	integer	1.0		TRUE	fn:MustBeDirect()	FALSE		[fn:Eval(@Size>0)]			
 Prev	integer	1.0		FALSE	fn:MustBeDirect()	FALSE		[fn:Eval((@Prev>=0) && (@Prev<=fn:FileSize()))]			
 Root	dictionary	1.0		TRUE	TRUE	FALSE				[Catalog]	
-Info	dictionary	1.0		FALSE	FALSE	FALSE				[DocInfo]	
+Info	dictionary	1.0		FALSE	fn:MustBeIndirect(fn:BeforeVersion(2.0))	FALSE				[DocInfo]	

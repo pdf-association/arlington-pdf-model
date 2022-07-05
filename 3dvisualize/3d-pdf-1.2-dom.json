@@ -43,6 +43,13 @@
             "name": "ActionMovie dict"
         },
         {
+            "id": "ActionNOP",
+            "val": 4,
+            "group": "dict",
+            "desc": "2 keys",
+            "name": "ActionNOP dict"
+        },
+        {
             "id": "ActionNamed",
             "val": 16,
             "group": "dict",
@@ -55,6 +62,13 @@
             "group": "dict",
             "desc": "5 keys",
             "name": "ActionResetForm dict"
+        },
+        {
+            "id": "ActionSetState",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "ActionSetState dict"
         },
         {
             "id": "ActionSound",
@@ -1121,6 +1135,16 @@
         },
         {
             "source": "ActionGoTo",
+            "target": "ActionNOP",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
+            "target": "ActionSetState",
+            "name": "ActionGoTo::Next"
+        },
+        {
+            "source": "ActionGoTo",
             "target": "ActionThread",
             "name": "ActionGoTo::Next"
         },
@@ -1216,6 +1240,16 @@
         },
         {
             "source": "ActionGoToR",
+            "target": "ActionNOP",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
+            "target": "ActionSetState",
+            "name": "ActionGoToR::Next"
+        },
+        {
+            "source": "ActionGoToR",
             "target": "ActionThread",
             "name": "ActionGoToR::Next"
         },
@@ -1281,6 +1315,16 @@
         },
         {
             "source": "ActionHide",
+            "target": "ActionNOP",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionSetState",
+            "name": "ActionHide::Next"
+        },
+        {
+            "source": "ActionHide",
             "target": "ActionThread",
             "name": "ActionHide::Next"
         },
@@ -1345,6 +1389,18 @@
         {
             "source": "ActionHide",
             "target": "ActionLaunch",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionNOP",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "ActionSetState",
             "name": "ActionHide::T",
             "color": "red"
         },
@@ -1430,6 +1486,16 @@
         },
         {
             "source": "ActionImportData",
+            "target": "ActionNOP",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
+            "target": "ActionSetState",
+            "name": "ActionImportData::Next"
+        },
+        {
+            "source": "ActionImportData",
             "target": "ActionThread",
             "name": "ActionImportData::Next"
         },
@@ -1497,6 +1563,16 @@
         {
             "source": "ActionLaunch",
             "target": "ActionLaunch",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionNOP",
+            "name": "ActionLaunch::Next"
+        },
+        {
+            "source": "ActionLaunch",
+            "target": "ActionSetState",
             "name": "ActionLaunch::Next"
         },
         {
@@ -1576,6 +1652,16 @@
         },
         {
             "source": "ActionMovie",
+            "target": "ActionNOP",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
+            "target": "ActionSetState",
+            "name": "ActionMovie::Next"
+        },
+        {
+            "source": "ActionMovie",
             "target": "ActionThread",
             "name": "ActionMovie::Next"
         },
@@ -1637,6 +1723,16 @@
         {
             "source": "ActionNamed",
             "target": "ActionLaunch",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionNOP",
+            "name": "ActionNamed::Next"
+        },
+        {
+            "source": "ActionNamed",
+            "target": "ActionSetState",
             "name": "ActionNamed::Next"
         },
         {
@@ -1711,6 +1807,16 @@
         },
         {
             "source": "ActionResetForm",
+            "target": "ActionNOP",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
+            "target": "ActionSetState",
+            "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionResetForm",
             "target": "ActionThread",
             "name": "ActionResetForm::Next"
         },
@@ -1755,6 +1861,42 @@
             "name": "ActionResetForm::Next"
         },
         {
+            "source": "ActionSetState",
+            "target": "ArrayOfAnnots",
+            "name": "ActionSetState::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionSetState",
+            "target": "AnnotText",
+            "name": "ActionSetState::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionSetState",
+            "target": "AnnotLink",
+            "name": "ActionSetState::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionSetState",
+            "target": "AnnotSound",
+            "name": "ActionSetState::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionSetState",
+            "target": "AnnotMovie",
+            "name": "ActionSetState::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionSetState",
+            "target": "AnnotWidget",
+            "name": "ActionSetState::T",
+            "color": "red"
+        },
+        {
             "source": "ActionSound",
             "target": "ArrayOfActions",
             "name": "ActionSound::Next"
@@ -1772,6 +1914,16 @@
         {
             "source": "ActionSound",
             "target": "ActionLaunch",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionNOP",
+            "name": "ActionSound::Next"
+        },
+        {
+            "source": "ActionSound",
+            "target": "ActionSetState",
             "name": "ActionSound::Next"
         },
         {
@@ -1874,6 +2026,16 @@
         },
         {
             "source": "ActionThread",
+            "target": "ActionNOP",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
+            "target": "ActionSetState",
+            "name": "ActionThread::Next"
+        },
+        {
+            "source": "ActionThread",
             "target": "ActionThread",
             "name": "ActionThread::Next"
         },
@@ -1944,6 +2106,16 @@
         },
         {
             "source": "ActionURI",
+            "target": "ActionNOP",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
+            "target": "ActionSetState",
+            "name": "ActionURI::Next"
+        },
+        {
+            "source": "ActionURI",
             "target": "ActionURI",
             "name": "ActionURI::Next"
         },
@@ -1995,6 +2167,16 @@
         {
             "source": "AddActionPageObject",
             "target": "ActionLaunch",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionNOP",
+            "name": "AddActionPageObject::C"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionSetState",
             "name": "AddActionPageObject::C"
         },
         {
@@ -2059,6 +2241,16 @@
         },
         {
             "source": "AddActionPageObject",
+            "target": "ActionNOP",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
+            "target": "ActionSetState",
+            "name": "AddActionPageObject::O"
+        },
+        {
+            "source": "AddActionPageObject",
             "target": "ActionThread",
             "name": "AddActionPageObject::O"
         },
@@ -2115,6 +2307,16 @@
         {
             "source": "AddActionWidgetAnnotation",
             "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNOP",
+            "name": "AddActionWidgetAnnotation::Bl"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSetState",
             "name": "AddActionWidgetAnnotation::Bl"
         },
         {
@@ -2175,6 +2377,16 @@
         {
             "source": "AddActionWidgetAnnotation",
             "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNOP",
+            "name": "AddActionWidgetAnnotation::D"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSetState",
             "name": "AddActionWidgetAnnotation::D"
         },
         {
@@ -2235,6 +2447,16 @@
         {
             "source": "AddActionWidgetAnnotation",
             "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNOP",
+            "name": "AddActionWidgetAnnotation::E"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSetState",
             "name": "AddActionWidgetAnnotation::E"
         },
         {
@@ -2295,6 +2517,16 @@
         {
             "source": "AddActionWidgetAnnotation",
             "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNOP",
+            "name": "AddActionWidgetAnnotation::Fo"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSetState",
             "name": "AddActionWidgetAnnotation::Fo"
         },
         {
@@ -2355,6 +2587,16 @@
         {
             "source": "AddActionWidgetAnnotation",
             "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNOP",
+            "name": "AddActionWidgetAnnotation::U"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSetState",
             "name": "AddActionWidgetAnnotation::U"
         },
         {
@@ -2415,6 +2657,16 @@
         {
             "source": "AddActionWidgetAnnotation",
             "target": "ActionLaunch",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionNOP",
+            "name": "AddActionWidgetAnnotation::X"
+        },
+        {
+            "source": "AddActionWidgetAnnotation",
+            "target": "ActionSetState",
             "name": "AddActionWidgetAnnotation::X"
         },
         {
@@ -2475,6 +2727,16 @@
         {
             "source": "AnnotLink",
             "target": "ActionLaunch",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionNOP",
+            "name": "AnnotLink::A"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "ActionSetState",
             "name": "AnnotLink::A"
         },
         {
@@ -2635,6 +2897,16 @@
         {
             "source": "AnnotWidget",
             "target": "ActionLaunch",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionNOP",
+            "name": "AnnotWidget::A"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "ActionSetState",
             "name": "AnnotWidget::A"
         },
         {
@@ -2848,6 +3120,16 @@
         {
             "source": "ArrayOfActions",
             "target": "ActionLaunch",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionNOP",
+            "name": "ArrayOfActions::*"
+        },
+        {
+            "source": "ArrayOfActions",
+            "target": "ActionSetState",
             "name": "ArrayOfActions::*"
         },
         {
@@ -3261,6 +3543,16 @@
         {
             "source": "Catalog",
             "target": "ActionLaunch",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionNOP",
+            "name": "Catalog::OpenAction"
+        },
+        {
+            "source": "Catalog",
+            "target": "ActionSetState",
             "name": "Catalog::OpenAction"
         },
         {
@@ -4281,7 +4573,7 @@
         {
             "source": "OPIVersion13Dict",
             "target": "ArrayOfIntegersGeneral",
-            "name": "OPIVersion13Dict::GrapMap"
+            "name": "OPIVersion13Dict::GrayMap"
         },
         {
             "source": "OPIVersion13Dict",
@@ -4362,6 +4654,16 @@
         {
             "source": "OutlineItem",
             "target": "ActionLaunch",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionNOP",
+            "name": "OutlineItem::A"
+        },
+        {
+            "source": "OutlineItem",
+            "target": "ActionSetState",
             "name": "OutlineItem::A"
         },
         {

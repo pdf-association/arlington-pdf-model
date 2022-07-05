@@ -419,7 +419,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">false</VALUE>
+            <VALUE type="dictionary">fn:MustBeIndirect(fn:BeforeVersion(2.0))</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
@@ -788,7 +788,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">false</VALUE>
+            <VALUE type="dictionary">fn:MustBeIndirect(fn:BeforeVersion(2.0))</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
@@ -1835,7 +1835,7 @@
          </VALUES>
          <REQUIRED>fn:IsRequired(fn:NotStandard14Font())</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">true</VALUE>
+            <VALUE type="dictionary">fn:MustBeIndirect(fn:BeforeVersion(2.0))</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
@@ -1971,7 +1971,7 @@
          </VALUES>
          <REQUIRED>fn:IsRequired(fn:IsPDFTagged())</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">true</VALUE>
+            <VALUE type="dictionary">fn:MustBeIndirect(fn:BeforeVersion(2.0))</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>

@@ -542,7 +542,7 @@ bool IndirectRefPredicateProcessor::ValidateRowSyntax() {
         ASTNodeStack stack;
 
         std::string whats_left = LRParsePredicate(tsv_field, ast);
-        assert(ast->node == "fn:MustBeDirect(");
+        assert((ast->node == "fn:MustBeDirect(") || (ast->node == "fn:MustBeIndirect("));
         predicate_ast.clear();
         stack.push_back(ast);
         predicate_ast.push_back(stack);
@@ -556,6 +556,7 @@ bool IndirectRefPredicateProcessor::ValidateRowSyntax() {
 /// - TRUE or FALSE or complex array of TRUE/FALSE [];[];[]
 /// - fn:MustBeDirect()
 /// - fn:MustBeDirect(...)
+/// - fn:MustBeIndirect(...)
 ReferenceType IndirectRefPredicateProcessor::ReduceRow(const int type_index) {
     if (tsv_field == "TRUE")
         return ReferenceType::MustBeIndirect;
@@ -577,21 +578,20 @@ ReferenceType IndirectRefPredicateProcessor::ReduceRow(const int type_index) {
         }
     }
     else {
-        ASTNode* ast;
+        ;
         if (predicate_ast.empty()) {
             ASTNodeStack stack;
 
-            ast = new ASTNode();
+            ASTNode* ast = new ASTNode();
             std::string whats_left = LRParsePredicate(tsv_field, ast);
-            assert(ast->node == "fn:MustBeDirect(");
+            assert((ast->node == "fn:MustBeDirect(") || (ast->node == "fn:MustBeIndirect("));
             predicate_ast.clear();
             stack.push_back(ast);
             predicate_ast.push_back(stack);
             assert(whats_left.size() == 0);
+            delete ast;
         }
-        ast = predicate_ast[0][0];
-        assert(ast->node == "fn:MustBeDirect(");
-        /// @todo PROCESS AST 
+        /// @todo PROCESS AST in preduicate_ast for fn:MustBeDirect(...) or fn:MustBeIndirect(...)
     }
     return ReferenceType::DontCare; // Default behaviour
 }

@@ -49,6 +49,7 @@ extern HINSTANCE ghInstance;
 /// @brief Regexes for matching versioning predicates: $1 = PDF version "," $2 = Link or predefined Arlington type
 static const std::regex  r_sinceVersion("fn:SinceVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
 static const std::regex  r_isDeprecated("fn:Deprecated\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
+static const std::regex  r_isPDFVersion("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
 
 /// @brief Converts a Unicode string to UTF8
 ///
@@ -206,26 +207,15 @@ bool is_file(const std::filesystem::path& p)
 }
 
 
-/// @brief  Removes all Alington predicates (declarative functions) from the "Link" column.
-///         Only "fn:SinceVersion(x.y,zzz)" is expected - which will reduce to 'zzz'.
-/// @param[in] link_in  Arlington TSV Link field (column 11) that might contain a predicate function
-/// @returns            the Arlington "Links" field with all fn:SinceVersion(x.y,zzz) removed
-std::string remove_link_predicates(const std::string& link_in) {
+/// @brief  Removes all Alington predicates (declarative functions) from the "Link" or "Type" fields.
+///       
+/// @param[in] link_in  Arlington TSV Link or Type field that might contain predicates
+/// @returns            the Arlington "Links" field with all predicates removed
+std::string remove_type_link_predicates(const std::string& in) {
     std::string     to_ret;
 
-    to_ret = std::regex_replace(link_in, r_sinceVersion, "$2");
-    return to_ret;
-}
-
-
-/// @brief  Removes all Alington predicates (declarative functions) from the "Type" column.
-///         Only "fn:SinceVersion(x.y,zzz)" and "fn:Deprecated(x.y,zzz)" is expected - which both reduce to zzz.
-/// @param[in] types_in Arlington TSV Type field (column 11) that might contain a predicate function
-/// @returns   the Arlington "Type" field with all fn:SinceVersion(x.y,zzz) and fn:Deprecated(x.y,zzz) removed
-std::string remove_type_predicates(const std::string& types_in) {
-    std::string     to_ret;
-
-    to_ret = std::regex_replace(types_in, r_sinceVersion, "$2");
+    to_ret = std::regex_replace(in,     r_sinceVersion, "$2");
+    to_ret = std::regex_replace(to_ret, r_isPDFVersion, "$2");
     to_ret = std::regex_replace(to_ret, r_isDeprecated, "$2");
     return to_ret;
 }
@@ -239,7 +229,7 @@ std::string remove_type_predicates(const std::string& types_in) {
 ///
 /// @returns -1 if single_type is not types, otherwise the index into the types array (when separated by SEMI-COLON)
 int get_type_index(std::string single_type, std::string types) {
-    std::vector<std::string> opt = split(remove_type_predicates(types), ';');
+    std::vector<std::string> opt = split(remove_type_link_predicates(types), ';');
     for (auto i = 0; i < (int)opt.size(); i++) {
         if (opt[i] == single_type)
             return i;

@@ -297,7 +297,7 @@ std::string CParsePDF::get_link_for_object(ArlPDFObject* obj, const std::string 
 #endif
 
     // Remove all predicates from Links before spliting by COMMA
-    std::string s = remove_type_predicates(links_string);
+    std::string s = remove_type_link_predicates(links_string);
     std::vector<std::string> links = split(s.substr(1, s.size() - 2), ',');
     assert(links.size() > 0);
     if (links.size() == 1) {
@@ -912,7 +912,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
         }
 
         // Need to clean up elem.link due to predicates "fn:SinceVersion(x,y,...)"
-        elem.link = remove_link_predicates(elem.link);
+        elem.link = remove_type_link_predicates(elem.link);
 
         if (!terse) {
             output << std::setw(8) << counter << ": " << elem.context << std::endl;
@@ -1093,7 +1093,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                             continue;
                         }
 
-                        opt[index] = remove_type_predicates(opt[index]);
+                        opt[index] = remove_type_link_predicates(opt[index]);
 
                         auto inner_obj_type = inner_obj->get_object_type();
                         if ((opt[index] == "number-tree") && (inner_obj_type == PDFObjectType::ArlPDFObjTypeDictionary)) {
@@ -1161,7 +1161,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                         // All array elements will match wildcard
                         check_basics(item, 0, data_list, elem.link, elem.context);
                         if (data_list[0][TSV_LINK] != "") {
-                            std::string t = remove_type_predicates(data_list[0][TSV_TYPE]);
+                            std::string t = remove_type_link_predicates(data_list[0][TSV_TYPE]);
                             std::string lnk = get_linkset_for_object_type(item, t, data_list[0][TSV_LINK]);
                             std::string as = "[" + std::to_string(i) + "]";
                             std::string direct_link = get_link_for_object(item, lnk, as);
@@ -1176,7 +1176,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                         assert(data_list[i][TSV_KEYNAME] == std::to_string(i));
                         check_basics(item, i, data_list, elem.link, elem.context);
                         if (data_list[i][TSV_LINK] != "") {
-                            std::string t = remove_type_predicates(data_list[i][TSV_TYPE]);
+                            std::string t = remove_type_link_predicates(data_list[i][TSV_TYPE]);
                             std::string lnk = get_linkset_for_object_type(item, t, data_list[i][TSV_LINK]);
                             std::string as = "[" + std::to_string(i) + "]";
                             std::string direct_link = get_link_for_object(item, lnk, as);

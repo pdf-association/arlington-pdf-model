@@ -27,7 +27,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "D": {
         "Key": "D",
@@ -68,7 +68,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "F": {
         "Key": "F",
@@ -126,7 +126,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "T": {
         "Key": "T",
@@ -135,7 +135,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData];[]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData];[]"
       },
       "H": {
         "Key": "H",
@@ -176,7 +176,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "F": {
         "Key": "F",
@@ -217,7 +217,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "F": {
         "Key": "F",
@@ -297,7 +297,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "Annotation": {
         "Key": "Annotation",
@@ -332,6 +332,30 @@
     }
   },
   {
+    "id": "ActionNOP",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.1,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Action]"
+      },
+      "S": {
+        "Key": "S",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 1.2,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[NOP]"
+      }
+    }
+  },
+  {
     "id": "ActionNamed",
     "keys": {
       "Type": {
@@ -359,7 +383,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "N": {
         "Key": "N",
@@ -400,7 +424,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "Fields": {
         "Key": "Fields",
@@ -420,6 +444,49 @@
         "Inheritable": false,
         "DefaultValue": "0",
         "PossibleValues": "[0,1]"
+      }
+    }
+  },
+  {
+    "id": "ActionSetState",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.1,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Action]"
+      },
+      "S": {
+        "Key": "S",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 1.2,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[SetState]"
+      },
+      "T": {
+        "Key": "T",
+        "Type": "array;dictionary",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 1.2,
+        "Required": true,
+        "IndirectReference": "[false];[true]",
+        "Inheritable": false,
+        "Link": "[ArrayOfAnnots];[AnnotText,AnnotLink,AnnotSound,AnnotMovie,AnnotWidget]"
+      },
+      "AS": {
+        "Key": "AS",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
       }
     }
   },
@@ -454,7 +521,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "Sound": {
         "Key": "Sound",
@@ -587,7 +654,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "F": {
         "Key": "F",
@@ -648,7 +715,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionNOP,ActionSetState,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "URI": {
         "Key": "URI",
@@ -679,7 +746,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "C": {
         "Key": "C",
@@ -688,7 +755,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       }
     }
   },
@@ -702,7 +769,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "X": {
         "Key": "X",
@@ -711,7 +778,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "D": {
         "Key": "D",
@@ -720,7 +787,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "U": {
         "Key": "U",
@@ -729,7 +796,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "Fo": {
         "Key": "Fo",
@@ -738,7 +805,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "Bl": {
         "Key": "Bl",
@@ -747,7 +814,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       }
     }
   },
@@ -850,7 +917,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "Dest": {
         "Key": "Dest",
@@ -1375,7 +1442,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "AA": {
         "Key": "AA",
@@ -1609,7 +1676,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       }
     }
   },
@@ -2913,7 +2980,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.1,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[DestsMap]"
       },
@@ -2951,7 +3018,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[Outline]"
       },
@@ -2960,7 +3027,7 @@
         "Type": "array",
         "SinceVersion": 1.1,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[ArrayOfThreads]"
       },
@@ -2971,7 +3038,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[DestXYZ,Dest0,Dest1,Dest4];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[DestXYZ,Dest0,Dest1,Dest4];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       },
       "URI": {
         "Key": "URI",
@@ -3880,7 +3947,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[DocInfo]"
       },
@@ -5764,7 +5831,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": "fn:IsRequired(fn:NotStandard14Font())",
-        "IndirectReference": true,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[FontDescriptorType1]"
       },
@@ -5883,7 +5950,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": "fn:IsRequired(fn:IsPDFTagged())",
-        "IndirectReference": true,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[FontDescriptorType3]"
       },
@@ -6992,8 +7059,8 @@
         "Inheritable": false,
         "Link": "[ArrayOf_2Integers]"
       },
-      "GrapMap": {
-        "Key": "GrapMap",
+      "GrayMap": {
+        "Key": "GrayMap",
         "Type": "array",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
@@ -7272,7 +7339,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:NotPresent(Dest)]",
-        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
+        "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       }
     }
   },

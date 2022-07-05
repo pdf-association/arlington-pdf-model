@@ -108,7 +108,8 @@ public:
     bool fn_IsPDFTagged();
     bool fn_IsPresent(ArlPDFObject* obj, std::string& key, bool* is_present);
     bool fn_KeyNameIsColorant(std::wstring& key, std::vector<std::wstring>& colorants);
-    bool fn_MustBeDirect(ArlPDFObject* obj);
+    bool fn_MustBeDirect(ArlPDFObject* obj, ASTNode* arg);
+    bool fn_MustBeIndirect(ArlPDFObject* obj, ASTNode* arg);
     bool fn_NoCycle(ArlPDFObject* obj);
     bool fn_NotInMap(ArlPDFObject* obj, ASTNode* map);
     bool fn_NotPresent(ArlPDFObject* obj, std::string& key);
