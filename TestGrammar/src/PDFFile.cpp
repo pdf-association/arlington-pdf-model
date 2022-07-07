@@ -38,7 +38,7 @@ namespace fs = std::filesystem;
 
 /// @brief Constructor. Calculates some details about the PDF file
 CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, std::string& forced_ver)
-    : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr)
+    : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr), latest_feature_version("1.0")
 {
     if (!forced_ver.empty()) {
         forced_version = forced_ver;
@@ -716,9 +716,9 @@ std::string CPDFFile::get_pdf_version(std::ostream& ofs)
     pdf_version.clear();
 
     if (hdr_ok)
-        ofs << "PDF Header Version is " << pdf_header_version << std::endl;
+        ofs << COLOR_INFO << "PDF Header version " << pdf_header_version << COLOR_RESET;
     if (cat_ok)
-        ofs << "Document Catalog Version is " << pdf_catalog_version << std::endl;
+        ofs << COLOR_INFO << "Document Catalog version " << pdf_catalog_version << COLOR_RESET;
 
     if (hdr_ok && cat_ok) {
         // Choose latest version. Rely on ASCII for version computation
@@ -726,14 +726,14 @@ std::string CPDFFile::get_pdf_version(std::ostream& ofs)
             pdf_version = pdf_catalog_version;
         }
         else if (pdf_catalog_version[0] < pdf_header_version[0]) {
-            ofs << COLOR_WARNING << "Document Catalog major version is earlier than PDF header version! Ignoring." << COLOR_RESET;
+            ofs << COLOR_ERROR << "Document Catalog major version is earlier than PDF header version! Ignoring." << COLOR_RESET;
         }
         else { // major version digit is the same. Check minor digit
             if (pdf_catalog_version[2] > pdf_header_version[2]) {
                 pdf_version = pdf_catalog_version;
             }
             else if (pdf_catalog_version[2] < pdf_header_version[2]) {
-                ofs << COLOR_WARNING << "Document Catalog minor version is earlier than PDF header version! Ignoring." << COLOR_RESET;
+                ofs << COLOR_ERROR << "Document Catalog minor version is earlier than PDF header version! Ignoring." << COLOR_RESET;
                 pdf_version = pdf_header_version;
             }
             else // versions are the same so fall through
@@ -750,12 +750,12 @@ std::string CPDFFile::get_pdf_version(std::ostream& ofs)
     }
     else {
         // Both must be bad - assume latest version
-        ofs << COLOR_WARNING << "Both Document Catalog and header versions are invalid. Assuming PDF 2.0." << COLOR_RESET;
+        ofs << COLOR_ERROR << "Both Document Catalog and header versions are invalid. Assuming PDF 2.0." << COLOR_RESET;
         pdf_version = "2.0";
     }
 
     if (!forced_version.empty()) {
-        ofs << COLOR_INFO << "PDF version is forced by command line to be " << forced_version << COLOR_RESET;
+        ofs << COLOR_INFO << "Command line forced to PDF version " << forced_version << COLOR_RESET;
         pdf_version = forced_version;
     }
     assert(!pdf_version.empty());
@@ -763,6 +763,42 @@ std::string CPDFFile::get_pdf_version(std::ostream& ofs)
 
     return pdf_version;
 }
+
+
+/// @brief Set the PDF version for an encountered feature so we can track latest version used in a PDF file
+///
+/// @param[in]  ver   a valid PDF version from Arlington representing a feature we have just encountered
+/// @param[in]  arl   the Arlington TSV file of the feature we have just encountered
+/// @param[in]  ver   the key (or array index) of the feature we have just encountered
+void CPDFFile::set_feature_version(std::string ver, std::string arl, std::string key) {
+    assert((ver.size() == 3) && FindInVector(v_ArlPDFVersions, ver));
+    assert((latest_feature_version.size() == 3) && FindInVector(v_ArlPDFVersions, latest_feature_version));
+
+    // Convert to 10 * PDF version
+    int pdf_v = (ver[0] - '0') * 10 + (ver[2] - '0');
+    int latest_v = (latest_feature_version[0] - '0') * 10 + (latest_feature_version[2] - '0');
+
+    if (pdf_v > latest_v) {
+        latest_feature_version = ver;
+        latest_feature_arlington = arl;
+        latest_feature_key = key;
+    }
+}
+
+
+/// @brief returns the latest feature version details encountered so far as a human readable string. 
+std::string CPDFFile::get_latest_feature_version_info()
+{
+    std::string s = "version PDF " + latest_feature_version;
+    if (!latest_feature_arlington.empty()) {
+        s = s + " (" + latest_feature_arlington;
+        if (latest_feature_key.size() > 0) {
+            s = s + "/" + latest_feature_key;
+        }
+        s = s + ")";
+    }
+    return s;
+};
 
 
 /// @brief Returns the length of a PDF array object

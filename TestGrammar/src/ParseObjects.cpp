@@ -895,8 +895,8 @@ void CParsePDF::add_parse_object(ArlPDFObject* object, const std::string& link, 
 void CParsePDF::parse_object(CPDFFile &pdf)
 {
     pdfc = &pdf;
-    std::string ver = pdfc->get_pdf_version(output); // may produce messages
-    output << "Processing file as PDF " << ver << std::endl;
+    std::string ver = pdfc->get_pdf_version(output); // will likely produce output messages
+    output << COLOR_INFO << "Processing file as version PDF " << ver << COLOR_RESET;
 
     counter = 0;
 
@@ -977,23 +977,26 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                         key_idx++;
                         if (vec[TSV_KEYNAME] == ToUtf8(key)) {
                             check_basics(inner_obj, key_idx, data_list, elem.link, elem.context);
+                            pdf.set_feature_version(vec[TSV_SINCEVERSION], elem.link, vec[TSV_KEYNAME]);
                             is_found = true;
                             delete inner_obj;
                             break;
                         }
                     }
 
-                    // Metadata streams are allowed anywhere
+                    // Metadata streams are allowed anywhere since PDF 1.4
                     if ((!is_found) && (key == L"Metadata")) {
                         add_parse_object(inner_obj, "Metadata", elem.context + "->Metadata");
                         output << COLOR_INFO << "found a Metadata key in " << strip_leading_whitespace(elem.context) << COLOR_RESET;
+                        pdf.set_feature_version("1.4", "Metadata", ""); // see clause 14.3
                         is_found = true;
                     }
 
-                    // AF (Associated File) objects are allowed anywhere
+                    // AF (Associated File) objects are allowed anywhere in PDF 2.0
                     if ((!is_found) && (key == L"AF")) {
                         add_parse_object(inner_obj, "FileSpecification", elem.context + "->AF");
                         output << COLOR_INFO << "found an Associated File AF key in " << strip_leading_whitespace(elem.context) << COLOR_RESET;
+                        pdf.set_feature_version("2.0", "Associated File", "");
                         is_found = true;
                     }
 
@@ -1001,6 +1004,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                     if (!is_found)
                         for (auto& vec : data_list)
                             if (vec[TSV_KEYNAME] == "*") {
+                                pdf.set_feature_version(vec[TSV_SINCEVERSION], elem.link, "dictionary wildcard");
                                 if (vec[TSV_LINK] != "") {
                                     // wildcard is a complex type so recurse
                                     std::string lnk = get_linkset_for_object_type(inner_obj, vec[TSV_TYPE], vec[TSV_LINK]);
@@ -1160,6 +1164,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                     if ((first_wildcard == 0) && (data_list[0][TSV_KEYNAME] == "*")) {
                         // All array elements will match wildcard
                         check_basics(item, 0, data_list, elem.link, elem.context);
+                        pdf.set_feature_version(data_list[0][TSV_SINCEVERSION], elem.link, "array wildcard");
                         if (data_list[0][TSV_LINK] != "") {
                             std::string t = remove_type_link_predicates(data_list[0][TSV_TYPE]);
                             std::string lnk = get_linkset_for_object_type(item, t, data_list[0][TSV_LINK]);
@@ -1175,6 +1180,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                         // No wildcards to this array element
                         assert(data_list[i][TSV_KEYNAME] == std::to_string(i));
                         check_basics(item, i, data_list, elem.link, elem.context);
+                        pdf.set_feature_version(data_list[i][TSV_SINCEVERSION], elem.link, "array index " + std::to_string(i));
                         if (data_list[i][TSV_LINK] != "") {
                             std::string t = remove_type_link_predicates(data_list[i][TSV_TYPE]);
                             std::string lnk = get_linkset_for_object_type(item, t, data_list[i][TSV_LINK]);

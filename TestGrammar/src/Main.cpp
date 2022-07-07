@@ -80,18 +80,19 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
         ArlPDFTrailer* t = pdf.get_trailer();
         if (t != nullptr) {
             if (pdf.uses_xref_stream()) {
-                ofs << "XRefStream detected." << std::endl;
+                ofs << COLOR_INFO << "XRefStream detected." << COLOR_RESET;
                 parser.add_parse_object(t, "XRefStream", "Trailer");
             }
             else {
-                ofs << "Traditional trailer dictionary detected." << std::endl;
+                ofs << COLOR_INFO << "Traditional trailer dictionary detected." << COLOR_RESET;
                 parser.add_parse_object(t, "FileTrailer", "Trailer");
             }
 
             parser.parse_object(pdf);
+            ofs << COLOR_INFO << "Latest Arlington feature was " << pdf.get_latest_feature_version_info()  << COLOR_RESET;
         }
         else {
-            ofs << COLOR_ERROR << "failed to acquire Trailer!" << COLOR_RESET;
+            ofs << COLOR_ERROR << "failed to acquire Trailer" << COLOR_RESET;
         }
     }
     catch (std::exception& ex) {
@@ -113,14 +114,14 @@ _CrtMemState state2;
 _CrtMemState stateDiff;
 
 /// @brief #define CRT_MEMORY_LEAK_CHECK to enable C RTL memory leak checking (slow!)
-#undef CRT_MEMORY_LEAK_CHECK
+#define CRT_MEMORY_LEAK_CHECK
 
 int wmain(int argc, wchar_t* argv[]) {
 #if defined(_DEBUG) && defined(CRT_MEMORY_LEAK_CHECK)
     int tmp = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
     tmp = tmp | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF; // | _CRTDBG_CHECK_ALWAYS_DF; // _CRTDBG_CHECK_ALWAYS_DF is VERY slow!!
     _CrtSetDbgFlag(tmp);
-    //_CrtSetBreakAlloc(101909);
+    //_CrtSetBreakAlloc(103307);
 #endif // _DEBUG && CRT_MEMORY_LEAK_CHECK
 
     // Convert wchar_t* to char* for command line processing

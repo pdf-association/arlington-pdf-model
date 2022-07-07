@@ -338,7 +338,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
     
     if ((arl_type != "array") && (arl_type != "name-tree") && (arl_type != "number-tree") && valid_array && !ambiguous) {
         // Dictionary or stream
-        report_stream << COLOR_ERROR << "" << arl_type << " definition file '" << reader.get_tsv_name() << "' appears to be an array!" << COLOR_RESET;
+        report_stream << COLOR_ERROR << arl_type << " definition file '" << reader.get_tsv_name() << "' appears to be an array!" << COLOR_RESET;
         // This is not a requirement that all arrays are explicitly named as such, but is otherwise highly confusing!
         if (reader.get_tsv_name().find("Array") != std::string::npos) {
             report_stream << COLOR_WARNING << "non-array definition file '" << reader.get_tsv_name() << "' is named inappropriately?" << COLOR_RESET;
@@ -474,7 +474,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
                                             vcxt1.tsv_name = lnk;
 
                                             if (std::find(std::begin(v_ArlComplexTypes), std::end(v_ArlComplexTypes), vcxt1.type) == std::end(v_ArlComplexTypes)) {
-                                                ofs << COLOR_ERROR << "" << vcxt1.tsv_name << " has simple type '" << type_link << "' when link " << lnk << " is present" << COLOR_RESET;
+                                                ofs << COLOR_ERROR << vcxt1.tsv_name << " has simple type '" << type_link << "' when link " << lnk << " is present" << COLOR_RESET;
                                             }
 
                                             // Name- and number-tree nodes can be any type so ignore false warnings
@@ -493,7 +493,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
                                         }
                                 }
                                 else {
-                                    ofs << COLOR_ERROR << "" << vcxt.tsv_name << " has bad link '" << type_link << "' - missing enclosing [ ]" << COLOR_RESET;
+                                    ofs << COLOR_ERROR << vcxt.tsv_name << " has bad link '" << type_link << "' - missing enclosing [ ]" << COLOR_RESET;
                                 }
                             }
                         } // for

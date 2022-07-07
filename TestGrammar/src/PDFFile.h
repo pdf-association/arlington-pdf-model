@@ -57,6 +57,15 @@ private:
     /// @brief Forced PDF version from command line
     std::string             forced_version;
 
+    /// @brief Latest PDF version found in the PDF file (based on Arlington SinceVersion field). Initialized to "1.0".
+    std::string             latest_feature_version;
+
+    /// @brief Arlington TSV file of latest PDF version found in the PDF file (could also be free text).
+    std::string             latest_feature_arlington;
+
+    /// @brief Key related to latest PDF version found in the PDF file (could also be free text)
+    std::string             latest_feature_key;
+
     /// @brief whether PDF file uses xref stream or a traditional trailer
     bool                    has_xref_stream;
 
@@ -132,6 +141,12 @@ public:
 
     /// @brief PDF version to use when processing a PDF file (always a valid version)
     std::string  get_pdf_version(std::ostream& ofs);
+
+    /// @brief Set the PDF version for an encountered feature so we can track latest version used
+    void set_feature_version(std::string ver, std::string arl, std::string key);
+
+    /// @brief returns the latest feature version encountered so far as a human readable string.
+    std::string get_latest_feature_version_info();
 
     ASTNode* ProcessPredicate(ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, bool* fully_processed, int depth = 0);
 };
