@@ -716,9 +716,9 @@ std::string CPDFFile::get_pdf_version(std::ostream& ofs)
     pdf_version.clear();
 
     if (hdr_ok)
-        ofs << COLOR_INFO << "PDF Header version " << pdf_header_version << COLOR_RESET;
+        ofs << COLOR_INFO << "Header is version PDF " << pdf_header_version << COLOR_RESET;
     if (cat_ok)
-        ofs << COLOR_INFO << "Document Catalog version " << pdf_catalog_version << COLOR_RESET;
+        ofs << COLOR_INFO << "Document Catalog/Version is version PDF " << pdf_catalog_version << COLOR_RESET;
 
     if (hdr_ok && cat_ok) {
         // Choose latest version. Rely on ASCII for version computation
@@ -755,7 +755,7 @@ std::string CPDFFile::get_pdf_version(std::ostream& ofs)
     }
 
     if (!forced_version.empty()) {
-        ofs << COLOR_INFO << "Command line forced to PDF version " << forced_version << COLOR_RESET;
+        ofs << COLOR_INFO << "Command line forced to version PDF " << forced_version << COLOR_RESET;
         pdf_version = forced_version;
     }
     assert(!pdf_version.empty());
