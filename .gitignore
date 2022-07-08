@@ -1,5 +1,4 @@
 # See https://github.com/github/gitignore/blob/master/VisualStudio.gitignore for Visual Studio cruft
-/gcxml/nbproject/private/
 .DS_Store
 *.ilk
 *.idb
@@ -17,12 +16,14 @@ CMakeCache*
 scripts/.ipynb_*
 scripts/__pycache__/
 scripts/.vs/
+gcxml/nbproject/private/
 gcxml/build/
 gcxml/dist/javadoc/
+gcxml/dist/*.jar
 TestGrammar/cmake*
-TestGrammar/Makefile
+TestGrammar/build
 TestGrammar/platform/msvc2019/.vs/
 TestGrammar/platform/msvc2022/.vs/
 TestGrammar/qpdf
 TestGrammar/doc
-TestGrammar/build
+TestGrammar/bin/linux/TestGrammar*
