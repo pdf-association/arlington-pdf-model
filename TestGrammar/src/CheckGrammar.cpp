@@ -299,10 +299,13 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
     }
 
     // Check for duplicate keys in this TSV file
-    auto it = std::unique(std::begin(keys_list), std::end(keys_list));
-    if (it != std::end(keys_list)) {
-        report_stream << COLOR_ERROR << "duplicate keys in " << reader.get_tsv_name() << " for key " << *it << COLOR_RESET;
-        retval = false;
+    for (size_t i = 0; i < keys_list.size(); i++) {
+        for (size_t j = 0; j < keys_list.size(); j++) {
+            if ((i != j) && (keys_list[i] == keys_list[j])) {
+                report_stream << COLOR_ERROR << "duplicate key in " << reader.get_tsv_name() << " for key #" << i << " " << keys_list[i] << COLOR_RESET;
+                retval = false;
+            }
+        }
     }
 
     // Check that if at least one key that was inheritable and possibly required, then also a Parent key that is a dictionary
