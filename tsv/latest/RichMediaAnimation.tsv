@@ -3,3 +3,4 @@ Type	name	2.0		FALSE	FALSE	FALSE		[RichMediaAnimation]
 Subtype	name	2.0		FALSE	FALSE	FALSE	None	[None,Linear,Oscillating]			
 PlayCount	integer	2.0		FALSE	FALSE	FALSE	-1				
 Speed	number	2.0		FALSE	FALSE	FALSE	1				
+AO	integer	2.0		FALSE	FALSE	FALSE	0		[fn:Eval(@AO>=0)]		as per ISO/TS 32007
