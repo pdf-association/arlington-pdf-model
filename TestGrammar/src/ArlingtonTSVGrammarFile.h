@@ -54,6 +54,23 @@ enum ArlingtonTSVColumns {
 };
 
 
+/// @brief human-readable field names (titles) of each Arlington TSV file.
+/// Indexable via ArlingtonTSVColumns
+const std::string ArlingtonTSVFieldNames[] = {
+    "Key",
+    "Type",
+    "SinceVersion",
+    "DeprecatedIn",
+    "Required",
+    "IndirectRef",
+    "Inheritable",
+    "DefaultValue",
+    "PossibleValues",
+    "SpecialCase",
+    "Link",
+    "Notes"
+};
+
 class CArlingtonTSVGrammarFile
 {
 private:

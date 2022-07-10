@@ -209,7 +209,7 @@ bool is_file(const std::filesystem::path& p)
 
 /// @brief  Removes all Alington predicates (declarative functions) from the "Link" or "Type" fields.
 ///       
-/// @param[in] link_in  Arlington TSV Link or Type field that might contain predicates
+/// @param[in]  in      Arlington TSV Link or Type field that might contain predicates
 /// @returns            the Arlington "Links" field with all predicates removed
 std::string remove_type_link_predicates(const std::string& in) {
     std::string     to_ret;

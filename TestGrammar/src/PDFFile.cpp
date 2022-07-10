@@ -33,7 +33,7 @@
 using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
 
-/// @brief #define PP_FN_DEBUG to get verbose debugging of issues to std::cout when calculating predicate functions
+/// @brief \#define PP_FN_DEBUG to get verbose debugging of issues to std::cout when calculating predicate functions
 #undef PP_FN_DEBUG
 
 /// @brief Constructor. Calculates some details about the PDF file
@@ -96,7 +96,7 @@ int CPDFFile::key_to_array_index(std::string& key) {
 
 
 /// @brief Split an Arlington key path (e.g. Catalog::Names::Dests) into a vector of keys
-/// @param[in]   an Arlington key which might be a key path
+/// @param[in]   key  an Arlington key which might be a key path
 std::vector<std::string> CPDFFile::split_key_path(std::string key) {
     std::vector<std::string>    keys;
 
@@ -769,7 +769,7 @@ std::string CPDFFile::get_pdf_version(std::ostream& ofs)
 ///
 /// @param[in]  ver   a valid PDF version from Arlington representing a feature we have just encountered
 /// @param[in]  arl   the Arlington TSV file of the feature we have just encountered
-/// @param[in]  ver   the key (or array index) of the feature we have just encountered
+/// @param[in]  key   the key (or array index) of the feature we have just encountered
 void CPDFFile::set_feature_version(std::string ver, std::string arl, std::string key) {
     assert((ver.size() == 3) && FindInVector(v_ArlPDFVersions, ver));
     assert((latest_feature_version.size() == 3) && FindInVector(v_ArlPDFVersions, latest_feature_version));
@@ -1174,7 +1174,7 @@ bool CPDFFile::fn_IsLastInNumberFormatArray(ArlPDFObject* obj) {
 
 
 /// @brief determines the meaningfulness of a PDF object according to ISO 32000-2:2020
-///  e.g. fn:IsMeaningful(@Subtype==Polyline) or fn:IsMeaningful(fn:IsPresent(CL))
+///  e.g. fn:IsMeaningful(\@Subtype==Polyline) or fn:IsMeaningful(fn:IsPresent(CL))
 /// 
 /// @returns true if obj is "meaningful", false otherwise
 bool CPDFFile::fn_IsMeaningful(ArlPDFObject* obj, ASTNode *arg) {
@@ -1251,6 +1251,7 @@ bool CPDFFile::fn_KeyNameIsColorant(std::wstring& key, std::vector<std::wstring>
 /// @brief Checks if obj is an direct reference (i.e. NOT indirect)
 /// e.g. fn:MustBeDirect() or fn:MustBeDirect(fn:IsPresent(Encrypt))
 ///
+/// @param[in]  obj  PDF object which must be direct
 /// @param[in]  arg  optional conditional AST
 bool CPDFFile::fn_MustBeDirect(ArlPDFObject* obj, ASTNode *arg) {
     assert(obj != nullptr);
@@ -1270,6 +1271,7 @@ bool CPDFFile::fn_MustBeDirect(ArlPDFObject* obj, ASTNode *arg) {
 /// @brief Ensures an obj is an indirect reference
 /// e.g. fn:MustBeIndirect(fn:BeforeVersion(2.0))
 ///
+/// @param[in]  obj  PDF object which must be indirect
 /// @param[in]  arg  optional conditional AST
 bool CPDFFile::fn_MustBeIndirect(ArlPDFObject* obj, ASTNode* arg) {
     assert(obj != nullptr);
@@ -1461,7 +1463,7 @@ double CPDFFile::fn_RectHeight(ArlPDFObject* obj) {
 
 
 /// @brief Returns the width of a PDF rectangle (>=0.0).
-/// @ereturns -1.0 on error
+/// @returns -1.0 on error
 double CPDFFile::fn_RectWidth(ArlPDFObject* obj) {
     assert(obj != nullptr);
 
@@ -1491,8 +1493,9 @@ double CPDFFile::fn_RectWidth(ArlPDFObject* obj) {
 
 
 /// @brief  Determines if value of a PDF object is as specified based on a boolean condition.
-/// e.g. fn:RequiredValue(@CFM==AESV2,128)
+/// e.g. fn:RequiredValue(\@CFM==AESV2,128)
 /// 
+/// @param[in] obj          PDF object
 /// @param[in] condition    already reduced AST node tree that is true/false
 /// @param[in] value        can be any primitive PDF type (int, real, name, string-*, boolean)
 /// 
@@ -1623,7 +1626,6 @@ int CPDFFile::fn_StringLength(ArlPDFObject* obj) {
 ///   - fn:IsRequired(fn:BeforeVersion(1.3))
 ///   - fn:Eval((\@Colors>=1) && fn:BeforeVersion(1.3,fn:Eval(\@Colors<=4)))
 /// 
-/// @param[in] pdf_ver   version of the PDF file
 /// @param[in] ver_node  version from Arlington PDF model
 /// @param[in] thing     (optional) the feature that was introduced
 /// 

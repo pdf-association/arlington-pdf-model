@@ -130,7 +130,7 @@ public:
 /// 
 /// @param[in]     tsv_dir Arlington TSV directory
 /// @param[in,out] ofs     already open output stream for reporting messages
-/// @param[in]     map     the Adobe DVA root dictionary for comparison
+/// @param[in]     map_dict the Adobe DVA root dictionary for comparison
 /// @param[in]     terse   whether output should be brief/terse
 /// 
 void process_dva_formal_rep_tree(const fs::path &tsv_dir, std::ostream& ofs, ArlPDFDictionary * map_dict, bool terse) {
@@ -990,12 +990,12 @@ void process_dva_formal_rep_tree(const fs::path &tsv_dir, std::ostream& ofs, Arl
         } // for-each key in arlington
 
 
-        /// @brief Checks if a key name exists in Arlington
+        /// brief Checks if a key name exists in Arlington
         /// 
-        /// @param[in] key key name (string)
+        /// param[in] key key name (std::wstring)
         /// 
-        /// @returns true if key exists in Arlington or has a wildcard
-        auto exists_in_our = [data_list](auto& key) {
+        /// returns true if key exists in Arlington or has a wildcard
+        auto exists_in_our = [data_list](std::wstring& key) {
             for (auto& vec : *data_list)
                 if ((vec[TSV_KEYNAME] == ToUtf8(key)) || (vec[TSV_KEYNAME].find('*') != std::string::npos))
                     return true;
@@ -1003,10 +1003,10 @@ void process_dva_formal_rep_tree(const fs::path &tsv_dir, std::ostream& ofs, Arl
         }; // auto
 
 
-        /// @brief Iterates through all keys in a DVA PDF dictionary to see if they are in Arlington
+        /// brief Iterates through all keys in a DVA PDF dictionary to see if they are in Arlington
         /// 
-        /// @param[in] a_dict   the DVA PDF dictionary
-        /// @param[in] in_ofs   report stream
+        /// param[in] dva_dict the DVA PDF dictionary
+        /// param[in] in_ofs   report stream
         auto check_dict = [=](ArlPDFDictionary* dva_dict, std::ostream& in_ofs) {
             for (int i = 0; i < (dva_dict->get_num_keys()); i++) {
                 std::wstring key = dva_dict->get_key_name_by_index(i);
