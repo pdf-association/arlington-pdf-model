@@ -121,7 +121,7 @@ int wmain(int argc, wchar_t* argv[]) {
     int tmp = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
     tmp = tmp | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF; // | _CRTDBG_CHECK_ALWAYS_DF; // _CRTDBG_CHECK_ALWAYS_DF is VERY slow!!
     _CrtSetDbgFlag(tmp);
-    //_CrtSetBreakAlloc(103307);
+    //_CrtSetBreakAlloc(2150);
 #endif // _DEBUG && CRT_MEMORY_LEAK_CHECK
 
     // Convert wchar_t* to char* for command line processing
@@ -171,6 +171,12 @@ int main(int argc, char* argv[]) {
     if (!sarge.parseArguments(argc, argv)) {
 #endif
         std::cerr << COLOR_ERROR << "error parsing command line arguments" << COLOR_RESET;
+#if defined(_WIN32) || defined(WIN32)
+        // Delet the temp stuff for command line processing
+        for (int i = 0; i < argc; i++)
+            delete[] mbcsargv[i];
+        delete[] mbcsargv;
+#endif
         sarge.printHelp();
         pdf_io.shutdown();
         return -1;
@@ -180,6 +186,12 @@ int main(int argc, char* argv[]) {
     pdf_io.initialize(sarge.exists("debug"));
 
     if (sarge.exists("help") || (argc == 1)) {
+#if defined(_WIN32) || defined(WIN32)
+        // Delet the temp stuff for command line processing
+        for (int i = 0; i < argc; i++)
+            delete[] mbcsargv[i];
+        delete[] mbcsargv;
+#endif
         sarge.printHelp();
         std::cout << "\nBuilt using " << pdf_io.get_version_string() << std::endl;
         pdf_io.shutdown();
