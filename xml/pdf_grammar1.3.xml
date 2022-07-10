@@ -587,7 +587,8 @@
             <VALUE type="name">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
+         <DEPRECATED>1.2</DEPRECATED>
       </ENTRY>
       <ENTRY>
          <NAME>S</NAME>
@@ -757,7 +758,8 @@
             <VALUE type="name">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
+         <DEPRECATED>1.2</DEPRECATED>
       </ENTRY>
       <ENTRY>
          <NAME>S</NAME>
@@ -1158,6 +1160,9 @@
    <OBJECT id="AddActionFormField" object_number="015">
       <ENTRY>
          <NAME>K</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ActionECMAScript</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -1167,6 +1172,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>F</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ActionECMAScript</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -1176,6 +1184,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>V</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ActionECMAScript</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -1185,6 +1196,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ActionECMAScript</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -1483,7 +1497,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -1651,7 +1665,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -1835,7 +1849,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -2000,7 +2014,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -2167,7 +2181,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -2347,7 +2361,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -2527,7 +2541,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -2737,7 +2751,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(4,32), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -2913,7 +2927,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -2975,6 +2989,17 @@
          <VALUES>
             <VALUE type="dictionary">AnnotText</VALUE>
             <VALUE type="dictionary">AnnotLink</VALUE>
+            <VALUE type="dictionary">AnnotFreeText</VALUE>
+            <VALUE type="dictionary">AnnotLine</VALUE>
+            <VALUE type="dictionary">AnnotSquare</VALUE>
+            <VALUE type="dictionary">AnnotCircle</VALUE>
+            <VALUE type="dictionary">AnnotHighlight</VALUE>
+            <VALUE type="dictionary">AnnotUnderline</VALUE>
+            <VALUE type="dictionary">AnnotStrikeOut</VALUE>
+            <VALUE type="dictionary">AnnotStamp</VALUE>
+            <VALUE type="dictionary">AnnotInk</VALUE>
+            <VALUE type="dictionary">AnnotPopup</VALUE>
+            <VALUE type="dictionary">AnnotFileAttachment</VALUE>
             <VALUE type="dictionary">AnnotSound</VALUE>
             <VALUE type="dictionary">AnnotMovie</VALUE>
             <VALUE type="dictionary">AnnotWidget</VALUE>
@@ -3079,7 +3104,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(4,32), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -3267,7 +3292,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -3435,7 +3460,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -3617,7 +3642,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -3784,7 +3809,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -3974,7 +3999,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -4152,7 +4177,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -4319,7 +4344,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(4,32), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -8442,6 +8467,7 @@
             <VALUE type="dictionary">FieldTx</VALUE>
             <VALUE type="dictionary">FieldBtn</VALUE>
             <VALUE type="dictionary">FieldCh</VALUE>
+            <VALUE type="dictionary">FieldSig</VALUE>
             <VALUE type="dictionary">Field</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -8666,6 +8692,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>AA</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AddActionFormField</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -15964,6 +15993,15 @@
    <OBJECT id="ShadingMap" object_number="203">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">ShadingType1</VALUE>
+            <VALUE type="dictionary">ShadingType2</VALUE>
+            <VALUE type="dictionary">ShadingType3</VALUE>
+            <VALUE type="stream">ShadingType4</VALUE>
+            <VALUE type="stream">ShadingType5</VALUE>
+            <VALUE type="stream">ShadingType6</VALUE>
+            <VALUE type="stream">ShadingType7</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -15977,6 +16015,7 @@
       <ENTRY>
          <NAME>Domain</NAME>
          <VALUES>
+            <VALUE type="array">ArrayOf_4Numbers</VALUE>
             <VALUE isDefaultValue="true" type="array">[0 1 0 1]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -16002,7 +16041,10 @@
          <NAME>Function</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfFunctions</VALUE>
+            <VALUE type="dictionary">FunctionType2</VALUE>
+            <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE type="stream">FunctionType0</VALUE>
+            <VALUE type="stream">FunctionType4</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -16031,6 +16073,7 @@
             <VALUE type="array">CalGrayColorSpace</VALUE>
             <VALUE type="array">CalRGBColorSpace</VALUE>
             <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">ICCBasedColorSpace</VALUE>
             <VALUE type="array">IndexedColorSpace</VALUE>
             <VALUE type="array">SeparationColorSpace</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
@@ -16082,6 +16125,9 @@
    <OBJECT id="ShadingType2" object_number="205">
       <ENTRY>
          <NAME>Coords</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4Numbers</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -16106,7 +16152,10 @@
          <NAME>Function</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfFunctions</VALUE>
+            <VALUE type="dictionary">FunctionType2</VALUE>
+            <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE type="stream">FunctionType0</VALUE>
+            <VALUE type="stream">FunctionType4</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -16120,6 +16169,7 @@
       <ENTRY>
          <NAME>Extend</NAME>
          <VALUES>
+            <VALUE type="array">ArrayOf_2Booleans</VALUE>
             <VALUE isDefaultValue="true" type="array">[false false]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -16147,6 +16197,7 @@
             <VALUE type="array">CalGrayColorSpace</VALUE>
             <VALUE type="array">CalRGBColorSpace</VALUE>
             <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">ICCBasedColorSpace</VALUE>
             <VALUE type="array">IndexedColorSpace</VALUE>
             <VALUE type="array">SeparationColorSpace</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
@@ -16198,6 +16249,9 @@
    <OBJECT id="ShadingType3" object_number="206">
       <ENTRY>
          <NAME>Coords</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_6Numbers</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -16222,7 +16276,10 @@
          <NAME>Function</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfFunctions</VALUE>
+            <VALUE type="dictionary">FunctionType2</VALUE>
+            <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE type="stream">FunctionType0</VALUE>
+            <VALUE type="stream">FunctionType4</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -16236,6 +16293,7 @@
       <ENTRY>
          <NAME>Extend</NAME>
          <VALUES>
+            <VALUE type="array">ArrayOf_2Booleans</VALUE>
             <VALUE isDefaultValue="true" type="array">[false false]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -16263,6 +16321,7 @@
             <VALUE type="array">CalGrayColorSpace</VALUE>
             <VALUE type="array">CalRGBColorSpace</VALUE>
             <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">ICCBasedColorSpace</VALUE>
             <VALUE type="array">IndexedColorSpace</VALUE>
             <VALUE type="array">SeparationColorSpace</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
@@ -16364,6 +16423,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>Decode</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -16375,7 +16437,10 @@
          <NAME>Function</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfFunctions</VALUE>
+            <VALUE type="dictionary">FunctionType2</VALUE>
+            <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE type="stream">FunctionType0</VALUE>
+            <VALUE type="stream">FunctionType4</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -16404,6 +16469,7 @@
             <VALUE type="array">CalGrayColorSpace</VALUE>
             <VALUE type="array">CalRGBColorSpace</VALUE>
             <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">ICCBasedColorSpace</VALUE>
             <VALUE type="array">IndexedColorSpace</VALUE>
             <VALUE type="array">SeparationColorSpace</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
@@ -16609,7 +16675,10 @@
          <NAME>Function</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfFunctions</VALUE>
+            <VALUE type="dictionary">FunctionType2</VALUE>
+            <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE type="stream">FunctionType0</VALUE>
+            <VALUE type="stream">FunctionType4</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -16638,6 +16707,7 @@
             <VALUE type="array">CalGrayColorSpace</VALUE>
             <VALUE type="array">CalRGBColorSpace</VALUE>
             <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">ICCBasedColorSpace</VALUE>
             <VALUE type="array">IndexedColorSpace</VALUE>
             <VALUE type="array">SeparationColorSpace</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
@@ -16840,7 +16910,10 @@
          <NAME>Function</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfFunctions</VALUE>
+            <VALUE type="dictionary">FunctionType2</VALUE>
+            <VALUE type="dictionary">FunctionType3</VALUE>
             <VALUE type="stream">FunctionType0</VALUE>
+            <VALUE type="stream">FunctionType4</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -16869,6 +16942,7 @@
             <VALUE type="array">CalGrayColorSpace</VALUE>
             <VALUE type="array">CalRGBColorSpace</VALUE>
             <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">ICCBasedColorSpace</VALUE>
             <VALUE type="array">IndexedColorSpace</VALUE>
             <VALUE type="array">SeparationColorSpace</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
@@ -17103,6 +17177,7 @@
             <VALUE type="array">CalGrayColorSpace</VALUE>
             <VALUE type="array">CalRGBColorSpace</VALUE>
             <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">ICCBasedColorSpace</VALUE>
             <VALUE type="array">IndexedColorSpace</VALUE>
             <VALUE type="array">SeparationColorSpace</VALUE>
             <VALUE type="name">DeviceCMYK</VALUE>
@@ -17886,6 +17961,12 @@
       </ENTRY>
       <ENTRY>
          <NAME>K</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStructElemKids</VALUE>
+            <VALUE type="dictionary">StructElem</VALUE>
+            <VALUE type="dictionary">MarkedContentReference</VALUE>
+            <VALUE type="dictionary">ObjectReference</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -17898,6 +17979,13 @@
       <ENTRY>
          <NAME>A</NAME>
          <VALUES>
+            <VALUE type="array">ArrayOfAttributes</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesBLSE</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesColumn</VALUE>
+            <VALUE type="dictionary">StandardLayoutAttributesILSE</VALUE>
+            <VALUE type="dictionary">StandardTableAttributes</VALUE>
+            <VALUE type="dictionary">StandardListAttributes</VALUE>
+            <VALUE type="dictionary">StandardPrintFieldAttributes</VALUE>
             <VALUE type="stream">Stream</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -17911,6 +17999,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNamesGeneral</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -19285,6 +19376,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>PieceInfo</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PagePiece</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
@@ -19457,6 +19551,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>SeparationColorNames</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNamesGeneral</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
@@ -19561,6 +19658,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>PieceInfo</NAME>
+         <VALUES>
+            <VALUE type="dictionary">PagePiece</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>

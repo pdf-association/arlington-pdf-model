@@ -2999,6 +2999,13 @@
             "name": "RequirementsU3D dict"
         },
         {
+            "id": "RequirementsglTF",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "RequirementsglTF dict"
+        },
+        {
             "id": "Resource",
             "val": 64,
             "group": "dict",
@@ -3014,9 +3021,9 @@
         },
         {
             "id": "RichMediaAnimation",
-            "val": 16,
+            "val": 25,
             "group": "dict",
-            "desc": "4 keys",
+            "desc": "5 keys",
             "name": "RichMediaAnimation dict"
         },
         {
@@ -3062,11 +3069,11 @@
             "name": "RichMediaHeight dict"
         },
         {
-            "id": "RichMediaInstances",
-            "val": 9,
+            "id": "RichMediaInstance",
+            "val": 16,
             "group": "dict",
-            "desc": "3 keys",
-            "name": "RichMediaInstances dict"
+            "desc": "4 keys",
+            "name": "RichMediaInstance dict"
         },
         {
             "id": "RichMediaPosition",
@@ -3910,7 +3917,7 @@
         },
         {
             "source": "3DNode",
-            "target": "RichMediaInstances",
+            "target": "RichMediaInstance",
             "name": "3DNode::Instance"
         },
         {
@@ -5960,7 +5967,7 @@
         },
         {
             "source": "ActionRichMediaExecute",
-            "target": "RichMediaInstances",
+            "target": "RichMediaInstance",
             "name": "ActionRichMediaExecute::TI"
         },
         {
@@ -15047,6 +15054,11 @@
             "name": "ArrayOfRequirements::*"
         },
         {
+            "source": "ArrayOfRequirements",
+            "target": "RequirementsglTF",
+            "name": "ArrayOfRequirements::*"
+        },
+        {
             "source": "ArrayOfRequirementsHandlers",
             "target": "RequirementsHandler",
             "name": "ArrayOfRequirementsHandlers::*"
@@ -15058,7 +15070,7 @@
         },
         {
             "source": "ArrayOfRichMediaInstances",
-            "target": "RichMediaInstances",
+            "target": "RichMediaInstance",
             "name": "ArrayOfRichMediaInstances::*"
         },
         {
@@ -20395,6 +20407,16 @@
             "name": "RequirementsU3D::V"
         },
         {
+            "source": "RequirementsglTF",
+            "target": "ArrayOfRequirementsHandlers",
+            "name": "RequirementsglTF::RH"
+        },
+        {
+            "source": "RequirementsglTF",
+            "target": "RequirementsHandler",
+            "name": "RequirementsglTF::RH"
+        },
+        {
             "source": "Resource",
             "target": "ColorSpaceMap",
             "name": "Resource::ColorSpace"
@@ -20491,9 +20513,9 @@
             "name": "RichMediaContent::Views"
         },
         {
-            "source": "RichMediaInstances",
+            "source": "RichMediaInstance",
             "target": "FileSpecification",
-            "name": "RichMediaInstances::Asset",
+            "name": "RichMediaInstance::Asset",
             "color": "red"
         },
         {
@@ -22355,7 +22377,7 @@
         },
         {
             "source": "ViewParams",
-            "target": "RichMediaInstances",
+            "target": "RichMediaInstance",
             "name": "ViewParams::Instance",
             "color": "red"
         },

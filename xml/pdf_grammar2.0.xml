@@ -1459,7 +1459,7 @@
       <ENTRY>
          <NAME>Instance</NAME>
          <VALUES>
-            <VALUE type="dictionary">RichMediaInstances</VALUE>
+            <VALUE type="dictionary">RichMediaInstance</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3257,7 +3257,8 @@
             <VALUE type="name">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
+         <DEPRECATED>1.2</DEPRECATED>
       </ENTRY>
       <ENTRY>
          <NAME>S</NAME>
@@ -3611,7 +3612,7 @@
       <ENTRY>
          <NAME>TI</NAME>
          <VALUES>
-            <VALUE type="dictionary">RichMediaInstances</VALUE>
+            <VALUE type="dictionary">RichMediaInstance</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3727,7 +3728,8 @@
             <VALUE type="name">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
+         <INTRODUCED>1.2</INTRODUCED>
+         <DEPRECATED>1.2</DEPRECATED>
       </ENTRY>
       <ENTRY>
          <NAME>S</NAME>
@@ -5082,7 +5084,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.6</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(10,32), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -5416,7 +5418,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(10,32), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -5801,7 +5803,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -6209,7 +6211,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -6599,7 +6601,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -7070,7 +7072,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -7443,7 +7445,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -7841,7 +7843,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -8347,7 +8349,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -8704,7 +8706,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(4,32), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -9001,7 +9003,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(10,32), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -9458,7 +9460,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(10,32), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -9915,7 +9917,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -10209,7 +10211,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(9,32), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -10470,7 +10472,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>2.0</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(11,32)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -10831,7 +10833,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.7</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(11,32)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -11269,7 +11271,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>2.0</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(11,32)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -11541,7 +11543,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(10,32), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -11861,7 +11863,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(4,32), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -12103,7 +12105,6 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
       <ENTRY>
          <NAME>Subj</NAME>
@@ -12268,7 +12269,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -12676,7 +12677,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(9,32), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -13049,7 +13050,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -13443,7 +13444,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -13816,7 +13817,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -14245,7 +14246,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -14539,7 +14540,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -14912,7 +14913,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.6</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(10,32), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -15172,7 +15173,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
-         <SPECIAL_CASE>fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:BitsClear(4,32), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>AP</NAME>
@@ -17207,6 +17208,7 @@
             <VALUE type="dictionary">RequirementsEncryption</VALUE>
             <VALUE type="dictionary">RequirementsHandler</VALUE>
             <VALUE type="dictionary">RequirementsSTEP</VALUE>
+            <VALUE type="dictionary">RequirementsglTF</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -17248,7 +17250,7 @@
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
-            <VALUE type="dictionary">RichMediaInstances</VALUE>
+            <VALUE type="dictionary">RichMediaInstance</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -21698,13 +21700,6 @@
       <ENTRY>
          <NAME>BaseVersion</NAME>
          <VALUES>
-            <VALUE type="name">1.0</VALUE>
-            <VALUE type="name">1.1</VALUE>
-            <VALUE type="name">1.2</VALUE>
-            <VALUE type="name">1.3</VALUE>
-            <VALUE type="name">1.4</VALUE>
-            <VALUE type="name">1.5</VALUE>
-            <VALUE type="name">1.6</VALUE>
             <VALUE type="name">1.7</VALUE>
             <VALUE type="name">2.0</VALUE>
          </VALUES>
@@ -22648,7 +22643,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful((@V==4) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>StmF</NAME>
@@ -22661,7 +22656,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful((@V==4) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>StrF</NAME>
@@ -22674,7 +22669,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful((@V==4) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>EFF</NAME>
@@ -22684,7 +22679,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.6</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful((@V==4) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>EncryptMetadata</NAME>
@@ -22765,7 +22760,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful((@V==4) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>StmF</NAME>
@@ -22778,7 +22773,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful((@V==4) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>StrF</NAME>
@@ -22791,7 +22786,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful((@V==4) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>EFF</NAME>
@@ -30901,7 +30896,7 @@
          <NAME>N</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="string">false</VALUE>
+            <VALUE type="string-text">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
@@ -31031,7 +31026,7 @@
          <NAME>N</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="string">false</VALUE>
+            <VALUE type="string-text">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
@@ -32043,6 +32038,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(@V&gt;0)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>M</NAME>
@@ -37615,7 +37611,74 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Resource" object_number="430">
+   <OBJECT id="RequirementsglTF" object_number="430">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Requirement</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>2.0</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>S</NAME>
+         <VALUES>
+            <VALUE type="name">glTF</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>2.0</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>V</NAME>
+         <VALUES>
+            <VALUE type="name">2.0</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>2.0</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>RH</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfRequirementsHandlers</VALUE>
+            <VALUE isDefaultValue="true" type="array">[[]]</VALUE>
+            <VALUE type="dictionary">RequirementsHandler</VALUE>
+            <VALUE isDefaultValue="true" type="dictionary">[]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="dictionary">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>2.0</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Penalty</NAME>
+         <VALUES>
+            <VALUE type="integer">fn:Eval((@Penalty&gt;=0) &amp;&amp; (@Penalty&lt;=100))</VALUE>
+            <VALUE isDefaultValue="true" type="integer">100</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="integer">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>2.0</INTRODUCED>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="Resource" object_number="431">
       <ENTRY>
          <NAME>ExtGState</NAME>
          <VALUES>
@@ -37714,7 +37777,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaActivation" object_number="431">
+   <OBJECT id="RichMediaActivation" object_number="432">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -37804,7 +37867,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaAnimation" object_number="432">
+   <OBJECT id="RichMediaAnimation" object_number="433">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -37856,8 +37919,21 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
+      <ENTRY>
+         <NAME>AO</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="integer">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>2.0</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(@AO&gt;=0)</SPECIAL_CASE>
+      </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaCommand" object_number="433">
+   <OBJECT id="RichMediaCommand" object_number="434">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -37896,7 +37972,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaCommandArray" isArray="true" object_number="434">
+   <OBJECT id="RichMediaCommandArray" isArray="true" object_number="435">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
@@ -37910,7 +37986,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaConfiguration" object_number="435">
+   <OBJECT id="RichMediaConfiguration" object_number="436">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -37959,7 +38035,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaContent" object_number="436">
+   <OBJECT id="RichMediaContent" object_number="437">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38010,7 +38086,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaDeactivation" object_number="437">
+   <OBJECT id="RichMediaDeactivation" object_number="438">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38039,7 +38115,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaHeight" object_number="438">
+   <OBJECT id="RichMediaHeight" object_number="439">
       <ENTRY>
          <NAME>Default</NAME>
          <VALUES>
@@ -38077,7 +38153,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaInstances" object_number="439">
+   <OBJECT id="RichMediaInstance" object_number="440">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38116,8 +38192,20 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
+      <ENTRY>
+         <NAME>Scene</NAME>
+         <VALUES>
+            <VALUE type="integer">fn:Eval(@Scene&gt;=0)</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="integer">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>2.0</INTRODUCED>
+      </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaPosition" object_number="440">
+   <OBJECT id="RichMediaPosition" object_number="441">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38185,7 +38273,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaPresentation" object_number="441">
+   <OBJECT id="RichMediaPresentation" object_number="442">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38273,7 +38361,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaSettings" object_number="442">
+   <OBJECT id="RichMediaSettings" object_number="443">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38311,7 +38399,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaWidth" object_number="443">
+   <OBJECT id="RichMediaWidth" object_number="444">
       <ENTRY>
          <NAME>Default</NAME>
          <VALUES>
@@ -38349,7 +38437,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RichMediaWindow" object_number="444">
+   <OBJECT id="RichMediaWindow" object_number="445">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -38399,7 +38487,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="RoleMap" object_number="445">
+   <OBJECT id="RoleMap" object_number="446">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
@@ -38410,7 +38498,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Separation" object_number="446">
+   <OBJECT id="Separation" object_number="447">
       <ENTRY>
          <NAME>Pages</NAME>
          <VALUES>
@@ -38447,7 +38535,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SeparationColorSpace" isArray="true" object_number="447">
+   <OBJECT id="SeparationColorSpace" isArray="true" object_number="448">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -38505,7 +38593,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingMap" object_number="448">
+   <OBJECT id="ShadingMap" object_number="449">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -38526,7 +38614,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType1" object_number="449">
+   <OBJECT id="ShadingType1" object_number="450">
       <ENTRY>
          <NAME>Domain</NAME>
          <VALUES>
@@ -38638,7 +38726,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType2" object_number="450">
+   <OBJECT id="ShadingType2" object_number="451">
       <ENTRY>
          <NAME>Coords</NAME>
          <VALUES>
@@ -38763,7 +38851,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType3" object_number="451">
+   <OBJECT id="ShadingType3" object_number="452">
       <ENTRY>
          <NAME>Coords</NAME>
          <VALUES>
@@ -38888,7 +38976,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType4" object_number="452">
+   <OBJECT id="ShadingType4" object_number="453">
       <ENTRY>
          <NAME>BitsPerCoordinate</NAME>
          <VALUES>
@@ -39143,7 +39231,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType5" object_number="453">
+   <OBJECT id="ShadingType5" object_number="454">
       <ENTRY>
          <NAME>BitsPerCoordinate</NAME>
          <VALUES>
@@ -39396,7 +39484,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType6" object_number="454">
+   <OBJECT id="ShadingType6" object_number="455">
       <ENTRY>
          <NAME>BitsPerCoordinate</NAME>
          <VALUES>
@@ -39646,7 +39734,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ShadingType7" object_number="455">
+   <OBJECT id="ShadingType7" object_number="456">
       <ENTRY>
          <NAME>BitsPerCoordinate</NAME>
          <VALUES>
@@ -39896,7 +39984,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SigFieldLock" object_number="456">
+   <OBJECT id="SigFieldLock" object_number="457">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -39950,7 +40038,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SigFieldSeedValue" object_number="457">
+   <OBJECT id="SigFieldSeedValue" object_number="458">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40116,7 +40204,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Signature" object_number="458">
+   <OBJECT id="Signature" object_number="459">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40325,7 +40413,7 @@
          <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SignatureReferenceDocMDP" object_number="459">
+   <OBJECT id="SignatureReferenceDocMDP" object_number="460">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40401,7 +40489,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SignatureReferenceFieldMDP" object_number="460">
+   <OBJECT id="SignatureReferenceFieldMDP" object_number="461">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40477,7 +40565,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SignatureReferenceIdentity" object_number="461">
+   <OBJECT id="SignatureReferenceIdentity" object_number="462">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40544,7 +40632,7 @@
          <DEPRECATED>1.7</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SignatureReferenceUR" object_number="462">
+   <OBJECT id="SignatureReferenceUR" object_number="463">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40624,7 +40712,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SlideShow" object_number="463">
+   <OBJECT id="SlideShow" object_number="464">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40675,7 +40763,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SoftMaskAlpha" object_number="464">
+   <OBJECT id="SoftMaskAlpha" object_number="465">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40734,7 +40822,7 @@
          <INTRODUCED>1.4</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SoftMaskLuminosity" object_number="465">
+   <OBJECT id="SoftMaskLuminosity" object_number="466">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40805,7 +40893,7 @@
          <INTRODUCED>1.4</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SoftwareIdentifier" object_number="466">
+   <OBJECT id="SoftwareIdentifier" object_number="467">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -40891,7 +40979,7 @@
          <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Solidities" object_number="467">
+   <OBJECT id="Solidities" object_number="468">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -40906,7 +40994,7 @@
          <INTRODUCED>1.6</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SoundObject" object_number="468">
+   <OBJECT id="SoundObject" object_number="469">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -41114,7 +41202,7 @@
          <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SourceInformation" object_number="469">
+   <OBJECT id="SourceInformation" object_number="470">
       <ENTRY>
          <NAME>AU</NAME>
          <VALUES>
@@ -41174,7 +41262,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SpectralData" object_number="470">
+   <OBJECT id="SpectralData" object_number="471">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -41188,7 +41276,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardArtifactAttributes" object_number="471">
+   <OBJECT id="StandardArtifactAttributes" object_number="472">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -41257,7 +41345,7 @@
          <SPECIAL_CASE>fn:IsMeaningful((@Type==Pagination) || (@Type==Inline))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardLayoutAttributesBLSE" object_number="472">
+   <OBJECT id="StandardLayoutAttributesBLSE" object_number="473">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -41652,7 +41740,7 @@
          <INTRODUCED>1.4</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardLayoutAttributesColumn" object_number="473">
+   <OBJECT id="StandardLayoutAttributesColumn" object_number="474">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -41832,7 +41920,7 @@
          <INTRODUCED>1.6</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardLayoutAttributesILSE" object_number="474">
+   <OBJECT id="StandardLayoutAttributesILSE" object_number="475">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -42157,7 +42245,7 @@
          <INTRODUCED>1.4</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardListAttributes" object_number="475">
+   <OBJECT id="StandardListAttributes" object_number="476">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -42216,7 +42304,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardPrintFieldAttributes" object_number="476">
+   <OBJECT id="StandardPrintFieldAttributes" object_number="477">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -42286,7 +42374,7 @@
          <INTRODUCED>1.7</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardTableAttributes" object_number="477">
+   <OBJECT id="StandardTableAttributes" object_number="478">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -42368,7 +42456,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Stream" object_number="478">
+   <OBJECT id="Stream" object_number="479">
       <ENTRY>
          <NAME>Length</NAME>
          <REQUIRED>true</REQUIRED>
@@ -42490,7 +42578,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StructElem" object_number="479">
+   <OBJECT id="StructElem" object_number="480">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -42719,7 +42807,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StructTreeRoot" object_number="480">
+   <OBJECT id="StructTreeRoot" object_number="481">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -42850,7 +42938,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StyleDict" object_number="481">
+   <OBJECT id="StyleDict" object_number="482">
       <ENTRY>
          <NAME>Panose</NAME>
          <REQUIRED>false</REQUIRED>
@@ -42862,7 +42950,7 @@
          <SPECIAL_CASE>fn:Eval(fn:StringLength(Panose)==12)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SubjectDN" object_number="482">
+   <OBJECT id="SubjectDN" object_number="483">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
@@ -42873,7 +42961,7 @@
          <INTRODUCED>1.7</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Target" object_number="483">
+   <OBJECT id="Target" object_number="484">
       <ENTRY>
          <NAME>R</NAME>
          <VALUES>
@@ -42938,7 +43026,7 @@
          <INTRODUCED>1.6</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thread" object_number="484">
+   <OBJECT id="Thread" object_number="485">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -42988,7 +43076,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thumbnail" object_number="485">
+   <OBJECT id="Thumbnail" object_number="486">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -43195,7 +43283,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="TimeStampDict" object_number="486">
+   <OBJECT id="TimeStampDict" object_number="487">
       <ENTRY>
          <NAME>URL</NAME>
          <REQUIRED>true</REQUIRED>
@@ -43220,7 +43308,7 @@
          <INTRODUCED>1.6</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Timespan" object_number="487">
+   <OBJECT id="Timespan" object_number="488">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -43255,7 +43343,7 @@
          <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Transition" object_number="488">
+   <OBJECT id="Transition" object_number="489">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -43383,7 +43471,7 @@
          <SPECIAL_CASE>fn:IsMeaningful(@D==Fly)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URI" object_number="489">
+   <OBJECT id="URI" object_number="490">
       <ENTRY>
          <NAME>Base</NAME>
          <REQUIRED>false</REQUIRED>
@@ -43394,7 +43482,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URLAlias" object_number="490">
+   <OBJECT id="URLAlias" object_number="491">
       <ENTRY>
          <NAME>U</NAME>
          <REQUIRED>true</REQUIRED>
@@ -43417,7 +43505,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamAnnotsArray" isArray="true" object_number="491">
+   <OBJECT id="URTransformParamAnnotsArray" isArray="true" object_number="492">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -43439,7 +43527,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamDocumentArray" isArray="true" object_number="492">
+   <OBJECT id="URTransformParamDocumentArray" isArray="true" object_number="493">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -43454,7 +43542,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamEFArray" isArray="true" object_number="493">
+   <OBJECT id="URTransformParamEFArray" isArray="true" object_number="494">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -43472,7 +43560,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamFormArray" isArray="true" object_number="494">
+   <OBJECT id="URTransformParamFormArray" isArray="true" object_number="495">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -43495,7 +43583,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamSignatureArray" isArray="true" object_number="495">
+   <OBJECT id="URTransformParamSignatureArray" isArray="true" object_number="496">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -43510,7 +43598,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParameters" object_number="496">
+   <OBJECT id="URTransformParameters" object_number="497">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -43626,7 +43714,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="UserPropertiesAttributes" object_number="497">
+   <OBJECT id="UserPropertiesAttributes" object_number="498">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -43652,7 +43740,7 @@
          <INTRODUCED>1.6</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="UserProperty" object_number="498">
+   <OBJECT id="UserProperty" object_number="499">
       <ENTRY>
          <NAME>N</NAME>
          <REQUIRED>true</REQUIRED>
@@ -43702,7 +43790,7 @@
          <INTRODUCED>1.6</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="VRI" object_number="499">
+   <OBJECT id="VRI" object_number="500">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -43773,11 +43861,11 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ViewParams" object_number="500">
+   <OBJECT id="ViewParams" object_number="501">
       <ENTRY>
          <NAME>Instance</NAME>
          <VALUES>
-            <VALUE type="dictionary">RichMediaInstances</VALUE>
+            <VALUE type="dictionary">RichMediaInstance</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -43800,7 +43888,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ViewerPreferences" object_number="501">
+   <OBJECT id="ViewerPreferences" object_number="502">
       <ENTRY>
          <NAME>HideToolbar</NAME>
          <VALUES>
@@ -44055,7 +44143,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Viewport" object_number="502">
+   <OBJECT id="Viewport" object_number="503">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -44112,7 +44200,7 @@
          <INTRODUCED>2.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="VisibilityExpressionArray" isArray="true" object_number="503">
+   <OBJECT id="VisibilityExpressionArray" isArray="true" object_number="504">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -44156,7 +44244,7 @@
          <INTRODUCED>1.6</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureCommand" object_number="504">
+   <OBJECT id="WebCaptureCommand" object_number="505">
       <ENTRY>
          <NAME>URL</NAME>
          <REQUIRED>true</REQUIRED>
@@ -44234,7 +44322,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureCommandSettings" object_number="505">
+   <OBJECT id="WebCaptureCommandSettings" object_number="506">
       <ENTRY>
          <NAME>G</NAME>
          <VALUES>
@@ -44260,7 +44348,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureImageSet" object_number="506">
+   <OBJECT id="WebCaptureImageSet" object_number="507">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -44352,7 +44440,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureInfo" object_number="507">
+   <OBJECT id="WebCaptureInfo" object_number="508">
       <ENTRY>
          <NAME>V</NAME>
          <REQUIRED>true</REQUIRED>
@@ -44377,7 +44465,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCapturePageSet" object_number="508">
+   <OBJECT id="WebCapturePageSet" object_number="509">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -44474,7 +44562,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Whitepoint" isArray="true" object_number="509">
+   <OBJECT id="Whitepoint" isArray="true" object_number="510">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -44512,7 +44600,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPS" object_number="510">
+   <OBJECT id="XObjectFormPS" object_number="511">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -44653,7 +44741,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPSpassthrough" object_number="511">
+   <OBJECT id="XObjectFormPSpassthrough" object_number="512">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -44860,7 +44948,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPrinterMark" object_number="512">
+   <OBJECT id="XObjectFormPrinterMark" object_number="513">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -45209,7 +45297,7 @@
          <INTRODUCED>1.4</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormTrapNet" object_number="513">
+   <OBJECT id="XObjectFormTrapNet" object_number="514">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -45606,7 +45694,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormType1" object_number="514">
+   <OBJECT id="XObjectFormType1" object_number="515">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -45949,7 +46037,7 @@
          <DEPRECATED>1.3</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImage" object_number="515">
+   <OBJECT id="XObjectImage" object_number="516">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -46360,7 +46448,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImageMask" object_number="516">
+   <OBJECT id="XObjectImageMask" object_number="517">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -46725,7 +46813,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImageSoftMask" object_number="517">
+   <OBJECT id="XObjectImageSoftMask" object_number="518">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -47000,7 +47088,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectMap" object_number="518">
+   <OBJECT id="XObjectMap" object_number="519">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -47017,7 +47105,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XRefStream" object_number="519">
+   <OBJECT id="XRefStream" object_number="520">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -47238,7 +47326,7 @@
          <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="_UniversalArray" isArray="true" object_number="520">
+   <OBJECT id="_UniversalArray" isArray="true" object_number="521">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -47261,7 +47349,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="_UniversalDictionary" object_number="521">
+   <OBJECT id="_UniversalDictionary" object_number="522">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>

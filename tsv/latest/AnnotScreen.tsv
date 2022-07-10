@@ -6,7 +6,7 @@ Contents	string-text	1.5		FALSE	FALSE	FALSE
 P	dictionary	1.5		FALSE	TRUE	FALSE				[PageObject]	
 NM	string-text	1.5		FALSE	FALSE	FALSE					
 M	date;string-text	1.5		FALSE	FALSE	FALSE					
-F	bitmask	1.5		FALSE	FALSE	FALSE	0		[fn:IsPDFVersion(1.0,fn:BitsClear(2,32)), fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]		
+F	bitmask	1.5		FALSE	FALSE	FALSE	0		[fn:BitsClear(10,32), fn:SinceVersion(1.7,fn:BitsClear(11,32))]		
 AP	dictionary	1.5		fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))	FALSE	FALSE				[Appearance]	
 AS	name	1.5		fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))	FALSE	FALSE					
 Border	array	1.5		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
@@ -20,6 +20,6 @@ BM	name	2.0		FALSE	FALSE	FALSE	Normal	[fn:Deprecated(2.0,Compatible),Normal,Mult
 Lang	string-text	2.0		FALSE	FALSE	FALSE					
 T	string-text	1.5		FALSE	FALSE	FALSE					
 MK	dictionary	1.5		FALSE	FALSE	FALSE				[AppearanceCharacteristics]	
-A	dictionary	1.5		FALSE	FALSE	FALSE				[fn:SinceVersion(1.1,ActionGoTo),fn:SinceVersion(1.1,ActionGoToR),fn:SinceVersion(1.6,ActionGoToE),fn:SinceVersion(2.0,ActionGoToDp),fn:SinceVersion(1.1,ActionLaunch),fn:SinceVersion(1.1,ActionThread),fn:SinceVersion(1.1,ActionURI),fn:SinceVersion(1.2,ActionSound),fn:SinceVersion(1.2,ActionMovie),fn:SinceVersion(1.2,ActionHide),fn:SinceVersion(1.2,ActionNamed),fn:SinceVersion(1.2,ActionSubmitForm),fn:SinceVersion(1.2,ActionResetForm),fn:SinceVersion(1.2,ActionImportData),fn:SinceVersion(1.5,ActionSetOCGState),fn:SinceVersion(1.5,ActionRendition),fn:SinceVersion(1.5,ActionTransition),fn:SinceVersion(1.6,ActionGoTo3DView),fn:SinceVersion(1.3,ActionECMAScript),fn:SinceVersion(2.0,ActionRichMediaExecute)]	
+A	dictionary	1.5		FALSE	FALSE	FALSE				[ActionGoTo,ActionGoToR,fn:SinceVersion(1.6,ActionGoToE),fn:SinceVersion(2.0,ActionGoToDp),ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,fn:SinceVersion(1.6,ActionGoTo3DView),ActionECMAScript,fn:SinceVersion(2.0,ActionRichMediaExecute)]	
 AA	dictionary	1.5		FALSE	FALSE	FALSE				[AddActionScreenAnnotation]	
 ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	

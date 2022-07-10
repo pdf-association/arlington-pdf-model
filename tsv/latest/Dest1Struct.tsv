@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-0	dictionary;fn:SinceVersion(1.1,name);fn:SinceVersion(1.2,string-byte)	2.0		TRUE	FALSE	FALSE			[];[fn:InMap(Catalog::Dests)];[fn:InMap(Catalog::Names::Dests)]	[StructElem];[];[]	
+0	dictionary;name;string-byte	2.0		TRUE	FALSE	FALSE			[];[fn:InMap(Catalog::Dests)];[fn:InMap(Catalog::Names::Dests)]	[StructElem];[];[]	
 1	name	2.0		TRUE	FALSE	FALSE		[FitH,FitV,FitBH,FitBV]			
 2	null;number	2.0		TRUE	FALSE	FALSE				[];[]	top or left
