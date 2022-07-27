@@ -735,10 +735,11 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
-   <td><code>fn:IsPresent(<i>key</i>)</code></td>
+   <td><code>fn:IsPresent(<i>key</i> or <i>expr</i>)</code></td>
    <td>
     <ul>
-     <li>Asserts that <i>key</i> must be present in a PDF.</li>
+     <li>Asserts that <i>key</i> must be present in a PDF, or that the expression </i>expr</i> is true.</li>
+     <li>e.g. <code>fn:IsPresent(StructParent)</code> or <code>fn:IsPresent(@SMaskInData>0)</code></li>
     </ul>
    </td>
   </tr>
