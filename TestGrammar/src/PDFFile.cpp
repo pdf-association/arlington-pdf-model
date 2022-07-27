@@ -350,9 +350,17 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             // 1 argument: name of key which is an array
             assert(out_left != nullptr);
             assert(out_right == nullptr);
-            out->type = ASTNodeType::ASTNT_ConstInt;
             int len = fn_ArrayLength(parent, out_left);
-            out->node = std::to_string(len);
+            if (len >= 0) {
+                // Valid length
+                out->type = ASTNodeType::ASTNT_ConstInt;
+                out->node = std::to_string(len);
+            }
+            else {
+                // Invalid length - most likely key not present...
+                delete out;
+                out = nullptr;
+            }
         }
         else if (in_ast->node == "fn:ArraySortAscending(") {
             // 1 argument: name of key which is an array
@@ -498,19 +506,31 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out = fn_IsPDFVersion(out_left, out_right);
         }
         else if (in_ast->node == "fn:IsPresent(") {
-            // 1 argument: key that needs to be present
-            assert(out_left != nullptr);
-            assert(out_right == nullptr);
+            // 1 argument: condition that has already been reduced to true/false, or a key name, or could be 
+            // nullptr (e.g. missing key in an expression)
+            if (out_left != nullptr) {
+                assert(out_right == nullptr);
+                if (out_left->type == ASTNodeType::ASTNT_Key)
+                    out->node = (fn_IsPresent(parent, out_left->node) ? "true" : "false");
+                else {
+                    assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                    out->node = out_left->node;
+                }
+            }
+            else
+                out->node = "false";
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-            out->node = (fn_IsPresent(parent, out_left->node) ? "true" : "false");
         }
         else if (in_ast->node == "fn:IsRequired(") {
-            // 1 argument: condition that has already been reduced to true/false
-            assert(out_left != nullptr);
-            assert(out_right == nullptr);
-            assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+            // 1 argument: condition that has already been reduced to true/false, or could be nullptr (e.g. missing key)
+            if (out_left != nullptr) {
+                assert(out_right == nullptr);
+                assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                out->node = out_left->node;
+            }
+            else
+                out->node = "false";
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-            out->node = out_left->node;
         }
         else if (in_ast->node == "fn:KeyNameIsColorant(") {
             // no arguments
@@ -602,17 +622,41 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             assert(out_left != nullptr);
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstInt;
-            out->node = std::to_string(fn_StreamLength(parent, out_left));
+            int len = fn_StreamLength(parent, out_left);
+            if (len >= 0) {
+                // Valid length
+                out->type = ASTNodeType::ASTNT_ConstInt;
+                out->node = std::to_string(len);
+            }
+            else {
+                // Invalid length - most likely key not present...
+                delete out;
+                out = nullptr;
+            }
         }
         else if (in_ast->node == "fn:StringLength(") {
             // 1 argument: key name of the string
             assert(out_left != nullptr);
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstInt;
-            out->node = std::to_string(fn_StringLength(parent, out_left));
+            int len = fn_StringLength(parent, out_left);
+            if (len >= 0) {
+                // Valid length
+                out->type = ASTNodeType::ASTNT_ConstInt;
+                out->node = std::to_string(len);
+            }
+            else {
+                // Invalid length - most likely key not present...
+                delete out;
+                out = nullptr;
+            }
         }
         else if (in_ast->node == "fn:Contains(") {
-            // 2 arguments: key name, value, but may have been reduced
+            // 2 arguments: key name and a value, but either may have been reduced
+            if (out_left == nullptr) {
+                delete out_right;
+                out_right = nullptr;
+            }
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = fn_Contains(obj, out_left, out_right) ? "true" : "false";
         }
@@ -629,11 +673,11 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             {
                 // Math/logic comparison operators - cannot be start of an AST!
                 // Should have 2 operands (left, right) but due to predicates this can reduce to just 
-                // one in which case the output is just the non-nullptr boolean "false".
+                // one in which case the output is just the non-nullptr boolean "true".
                 out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
 
                 if ((out_left == nullptr) || (out_right == nullptr)) {
-                    out->node = "false";
+                    out->node = "true";
                     delete out_left;
                     delete out_right;
                     out_left = out_right = nullptr;
@@ -641,7 +685,6 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 }
                 else if (in_ast->node == "==") {
                     // equality - could be numeric, logical, etc.
-                    assert((out_left != nullptr) && (out_right != nullptr));
                     if (out_left->type == out_right->type) {
                         out->node = (out_left->node == out_right->node) ? "true" : "false";
                         break;
@@ -650,7 +693,6 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 }
                 else if (in_ast->node == "!=") {
                     // inequality - could be numeric, logical, etc.
-                    assert((out_left != nullptr) && (out_right != nullptr));
                     if (out_left->type == out_right->type) {
                         out->node = (out_left->node != out_right->node) ? "true" : "false";
                         break;
@@ -658,7 +700,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                     // else fallthrough and up-convert to doubles for math op
                 }
 
-                // Different numeric comparisons between an integer and a real
+                // Numeric comparisons between an integer and a real - promote to real
                 double left  = convert_node_to_double(out_left);
                 double right = convert_node_to_double(out_right);
 
@@ -701,14 +743,36 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             break;
 
         case ASTNodeType::ASTNT_MathOp:
-            {
-                // Math operators: +, -, *, mod (SPACE either side!)
+                {
+                // Math operators: "+", " - ", "*", " mod " (SPACEs either side on some)
+                // Math operators should have 2 operands (left, right) but due to reductions,
+                // this can reduce to just one in which case the output is just the non-nullptr value.
+                // If both got reduced then reduce to "true".
+                if ((out_left != nullptr) && (out_right == nullptr)) {
+                    out->type = out_left->type;
+                    out->node = out_left->node;
+                    break;
+                }
+                else if ((out_left == nullptr) && (out_right != nullptr)) {
+                    out->type = out_right->type;
+                    out->node = out_right->node;
+                    // swap nodes to be valid()
+                    out_left = out_right;
+                    out_right = nullptr;
+                    break;
+                }
+                else if ((out_left == nullptr) && (out_right == nullptr)) {
+                    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                    out->node = "true";
+                    break;
+                }
+
                 assert((out_left != nullptr) && (out_right != nullptr));
                 double left = std::stod(out_left->node);
                 double right = std::stod(out_right->node);
 
                 // Work out typing - integer vs number
-                if ((in_ast->arg[0]->type == ASTNodeType::ASTNT_ConstInt) && (in_ast->arg[1]->type == ASTNodeType::ASTNT_ConstInt))
+                if ((out_left->type == ASTNodeType::ASTNT_ConstInt) && (out_right->type == ASTNodeType::ASTNT_ConstInt))
                     out->type = ASTNodeType::ASTNT_ConstInt;
                 else
                     out->type = ASTNodeType::ASTNT_ConstNum;
@@ -745,7 +809,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
 
         case ASTNodeType::ASTNT_LogicalOp:
             {
-                // Logical operators - should have 2 operands (left, right) but due to version-based predicates
+                // Logical operators - should have 2 operands (left, right) but due to reductions,
                 // this can reduce to just one in which case the output is just the non-nullptr boolean.
                 // If both got reduced then reduce to "true".
                 if ((out_left != nullptr) && (out_right == nullptr)) {
@@ -758,6 +822,9 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                     assert(out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean);
                     out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
                     out->node = out_right->node;
+                    // swap nodes
+                    out_left = out_right;
+                    out_right = nullptr;
                     break;
                 }
                 else if ((out_left == nullptr) && (out_right == nullptr)) {
@@ -800,37 +867,35 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 if (!self_refer) {
                     val = get_object_for_path(parent, key_parts);
                     delete_val = true;
-                    if (val == nullptr) {
-                        // The key isn't in the PDF file - check if Arlington has a "DefaultValue" we can use
-                        for (auto& vec : tsv_data) {
-                            /// @todo - overly simplistic assumptions for "DefaultValue" field
-                            /// Keys that are arrays can have defaults for empty array ("[[]]") or specific length & values "[[0,1]]"
-                            /// e.g. cut -f 8 * | grep "\[\[".
-                            if ((vec[TSV_KEYNAME] == key_parts[key_parts.size() - 1]) && (vec[TSV_DEFAULTVALUE] != "") && (vec[TSV_TYPE].find(';') == std::string::npos))
-                            {
-                                // @Key name matches and no predicates in Type field
-                                // Process the first AST and ignore the rest...
-                                std::string s = LRParsePredicate(vec[TSV_DEFAULTVALUE], out);
-                                assert(s.empty());
-                                assert(out->valid());
-                                break;
-                            }
-                        } // for
-                        // Did not find any match so indicate with nullptr out
-                        if (!out->valid()) {
-                            delete out;
-                            out = nullptr;
-                        }
-                    }
                 }
                 else 
                     val = obj;  // Self-reference
 
-                if (val != nullptr) {
+                if ((val == nullptr) && (key_parts.size() == 1)) {
+                    // Don't have a value from the PDF for "@Key", try getting "DefaultValue" for "Key" from Arlington.
+                    bool got_dv = false;
+                    for (int i = 0; i < (int)tsv_data.size(); i++)
+                        if ((tsv_data[i][TSV_KEYNAME] == key_parts[0]) && (tsv_data[i][TSV_DEFAULTVALUE] != "")) {
+                            delete out;
+                            out = new ASTNode;
+                            std::string s = LRParsePredicate(tsv_data[i][TSV_DEFAULTVALUE], out);
+                            assert(s.empty());
+                            assert(out->valid());
+                            got_dv = true;
+                            break;
+                        }
+                    if (!got_dv) {
+                        delete out;
+                        out = nullptr;
+                    }
+                }
+                else {
                     ASTNode *tmp = convert_basic_object_to_ast(val);
-                    if (tmp == nullptr) {
-                        // @keyname reference was to a complex PDF object (array, dictionary, stream) - or PDF null object
+                    if ((tmp == nullptr) && (in_ast->node.find("parent::") == std::string::npos)) {
+                        // @Key reference was to a complex PDF object (array, dictionary, stream) - or PDF null object
                         // Re-instate the key (without the '@') so containing predicate can handle. See fn_Contains().
+                        /// @todo - does not support Arlington paths with "parent::"
+                        assert(out != nullptr); 
                         out->type = ASTNodeType::ASTNT_Key;
                         out->node = key_parts[0];
                         for (int i = 1; i < (int)key_parts.size(); i++)

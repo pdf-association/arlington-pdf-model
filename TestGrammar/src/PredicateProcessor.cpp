@@ -1098,11 +1098,14 @@ bool PredicateProcessor::ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object,
     
     ASTNode* n = stack[0];
     if (n->type == ASTNodeType::ASTNT_Predicate) {
+        bool valid = true;
         ASTNode* pp = pdfc->ProcessPredicate(parent, object, n, key_idx, tsv, type_idx);
-        assert(pp != nullptr);
-        assert(pp->valid());
-        assert(pp->type == ASTNodeType::ASTNT_ConstPDFBoolean);
-        bool valid = (pp->node == "true");
+        // SpecialCase can return nullptr only when versioning makes everything go away...
+        if (pp != nullptr) {
+            assert(pp->valid());
+            assert(pp->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+            valid = (pp->node == "true");
+        }
         delete pp;
         return valid;
     }

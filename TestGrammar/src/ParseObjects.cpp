@@ -493,7 +493,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject *object, con
         else
             ofs << COLOR_ERROR << "special case not correct: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
         ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_SPECIALCASE];
-        if (debug_mode && FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type()))
+        if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type()))
             ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value) << " (" << *object << ")";
         ofs << COLOR_RESET;
     }
@@ -513,7 +513,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject *object, con
         else
             ofs << COLOR_ERROR << "wrong value for possible values: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
         ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES];
-        if (debug_mode && FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type()))
+        if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type()))
             ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value) << " (" << *object << ")";
         ofs << COLOR_RESET;
     }
