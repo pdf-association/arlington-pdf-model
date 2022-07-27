@@ -46,7 +46,7 @@ All output using different PDF SDKs is made as easily comparable as possible, no
 The command line options are very similar to the Python proof-of-concept:
 
 ```
-Arlington PDF Model C++ P.o.C. version vX.Y built <date>> <time> (<platform & compiler>)
+Arlington PDF Model C++ P.o.C. version vX.Y built <date>> <time> (<platform & compiler details>)
 Choose one of: --pdf, --checkdva or --validate.
 
 Usage:
@@ -62,28 +62,28 @@ Options:
 -m, --batchmode   stop popup error dialog windows and redirect everything to console (Windows only, includes memory leak reports)
 -o, --out         output file or folder. Default is stdout. See --clobber for overwriting behavior
 -p, --pdf         input PDF file or folder.
--f, --force       force the PDF version to the specified value (1,0, 1.1, ..., 2.0). Requires --pdf.
+-f, --force       force the PDF version to the specified value (1,0, 1.1, ..., 2.0). Requires --pdf
 -t, --tsvdir      [required] folder containing Arlington PDF model TSV file set.
 -v, --validate    validate the Arlington PDF model.
 
-Built using <pdf-sdk> vX.Y.Z
+Built using <pdf-sdk vX.Y.Z>
 ```
 
 `Info:` messages are cyan, `Warning:` messages are yellow, and `Error:` messages are red.
 
-It is recommended to use `--brief` to see a single line of context (i.e. the PDF DOM path of the object) immediately prior to all related `Error:`, `Warning:` or `Info:` messages.
+### Notes
 
-## Notes
-
-* TestGrammar PoC currently ignores PDF version checking
-
-* TestGrammar PoC does NOT process all predicates (declarative functions) so there may be some false `Error:` or `Warning:` messages!!
+* TestGrammar PoC processes _almost_ all predicates (declarative functions). When a predicate is processed that is known to have an incomplete implementation, a yellow warning message is output, whereas red error messages mean that all predicates that were processed are fully implemented.
 
 * all messages from validating PDF files are prefixed with `Error:`, `Warning:` or `Info:` to make regex-based post processing easier.  
 
 ## Arlington validation (--validate)
 
 This reads the specified Arlington TSV file set and processes all data to ensure that it is holistic, unified, correct according to the Arlington grammar rules, and that all predicates can be parsed. Reported errors generally indicate typos or data entry issues. Missing or unlinked TSV files are commonly caused by version mismatches in either the SinceVersion field or via a version predicate in the Links field.
+
+`--brief` has no impact on `--validation`. With grammar validation, `--debug` will try an additional brute-force parse using hard-coded regex expressions as well as print out the name of each Arlington TSV file as it goes. This can be useful if the PoC is crashing...
+
+The Python script `./scripts/arlington.py` can also perform syntax validation using a slightly different algorithm. Both validators should always pass!
 
 ## Arlington vs Adobe DVA (--checkdva)
 
@@ -115,24 +115,19 @@ Indirect is different for key Dests: DVA==TRUE vs Arlington==FALSE
 
 ## PDF file check (--pdf)
 
-* messages report raw data from the Arlington TSV files (such as `SpecialCase` predicates) to make searching for the specifics much easier. This can be slightly confusing when deprecated features are used, since the PDF version of the PDF file also needs to be known
+When processing PDF files, is recommended to use `--brief` to see a single line of context (i.e. the PDF DOM path of the object) immediately prior to all related `Error:`, `Warning:` or `Info:` messages. Each line of context is preceded by a number indicating a reference number in the PDF DOM - this is mainly useful for debugging. Numbers will match between runs for the same PDF SDK when using `--brief` and not. Somewhat counter-intuitively, both `--brief` and `--debug` can be used together: `--debug` will output PDF file specific information such as object numbers which can make bulk post-processing (e.g. using `grep`) more difficult to locate unique messages.
 
-* the Arlington PDF model is primarily based on PDF 2.0 (ISO 32000-2:2020) where some previously optional keys are now required
-(e.g. font dictionary **FirstChar**, **LastChar**, **Widths**) which means that matching older legacy PDFs will falsely report errors unless these keys are present or until PDF version support is implemented in the PoC.
+Due to a **severe** lack of compliance with PDF versions, if a PDF file is between 1.4 and 1.7 inclusive, it will automatically be processed as PDF 1.7. Files with versions 1.3 or earlier or PDF 2.0 are processed as per the PDF standard (where the Catalog/Version key can override the PDF header comment line). Use the `--force` command line option to override this default behavior.
 
-* it is common for PDF versions in files to be incorrect (earlier than the PDF feature set) which will then generate error and warning messages because of the use of deprecated features. One way to avoid such messages is to use `--force 2.0` on the command line to force everything to be compared against PDF 2.0, but this will also have other consequences (see above!).
+Messages report raw data from the Arlington TSV files (such as `SpecialCase` predicates) to make searching for the specifics and matching to  Arlington TSV files much easier. This can be slightly confusing when deprecated features are used, since the PDF version of the PDF file may also need to be known. The version used in the comparison is logged as `Info` messages in the first few lines as well as the 2nd last line of output.
 
-* all output should have a final line "END" (`grep --files-without-match "END"`) - if not then something nasty has happened prematurely (crash or assert)
+All output should have a final line "END" (`grep --files-without-match "END"`) - if not then something nasty has happened prematurely (crash or assert)
 
-* an exit code of 0 indicates successful processing.
-
-* an exit code of -1 indicates an error: typically an encrypted PDF file requiring a password or with  unsupported crypto, or a corrupted PDF where the trailer cannot be located (this will also depend on the PDF SDK in use).
-
-* if processing a folder of PDFs under Microsoft Windows, then use `--batchmode` so that if things do crash or assert then the error dialog box doesn't block unattended execution from continuing.
+An exit code of 0 indicates successful processing. An exit code of -1 indicates an error: typically an encrypted PDF file requiring a password or with  unsupported crypto, or a corrupted PDF where the trailer cannot be located (this will also depend on the PDF SDK in use). If processing a folder of PDFs under Microsoft Windows, then use `--batchmode` so that if things do crash or assert then the error dialog box doesn't block unattended execution from continuing.
 
 ### Understanding errors and warnings
 
-Most error and warning messages are obvious from the message text. If `--brief` is **not** specified, then PDF object numbers may also be in the output which can help rapidly identify the cause of error and warning messages. Messages always occur **after** the PDF DOM path so adding a `-A 1` to `grep` can provide such context.
+Most error and warning messages are obvious from the message text. If `--debug` **is** specified, then PDF object numbers will also be in the output which can help rapidly identify the cause of error and warning messages. Messages always occur **after** the PDF DOM path so adding a `-B 1` to `grep` can provide such context. Multiple messages can occur for any context line.
 
 `Error: object validated in two different contexts. First ...`
 
@@ -142,7 +137,7 @@ This error means that a direct PDF object (`x y obj ... endobj`) has been arrive
 
 This might be corrected in a future version of Arlington, by adding the Widget annotation keys to all field annotations (or vice-versa).
 
-Note that TestGrammar uses a point-scoring system to resolve potential Link ambiguities, with `Type` and `Subtype` keys have a very strong influence, followed by other required keys. However disambiguation for arrays often occurs through context but, by design, TestGrammar does **not** track context - it merely follows all object references. Thus an array link may be incorrectly chosen...  
+Note that TestGrammar uses a point-scoring system to resolve potential Link ambiguities, with `Type` and `Subtype` keys have a very strong influence, followed by other required keys. However disambiguation for arrays often occurs through context but, by design, TestGrammar does **not** track context - it merely follows all object references.  
 
 Inheritance is only tested for keys that are also "Required" in the Arlington PDF Model, as the required-ness condition can be met via inheritance. The algorithm uses recursive back-tracking following explicit `Parent` key references, which is currently sufficient for the Page Tree. It does **not** build a forward-looking stack, such as renderer might need to construct.     
 
@@ -197,6 +192,10 @@ Info: Latest Arlington feature was version PDF x.y (file/key)
 ```   
 
 The last line of every output should always be `END` on a line by itself. If this is missing, then it means that the TestGrammar application has not cleanly completed processing (_crash? unhandled exception? assertion failure? stack overflow? timeout?_).
+
+## Using a helpful editor
+
+The [free Atom editor](https://atom.io/) has a useful plugin called [language-ansi-styles](https://atom.io/packages/language-ansi-styles) that will support the ANSI terminal codes that are used for the colorization of messages.
 
 ## Useful post-processing
 
@@ -391,6 +390,16 @@ Info: unknown key '...' is not defined in Arlington for ...
 * liberal use of asserts with the Arlington PDF model, which can be assumed to be correct (but never for data from PDF files!)
 * performance and memory is **not** critical (this is just a PoC!) - so long as a full Arlington model can be processed and reasonably-sized PDFs can be checked
 * some PDF SDKs do absorb far too much memory, are excessively slow or cause stack overflows. This is not the PoC's issue!
+
+## Debugging tips (most for `--pdf`)
+
+* Ensure you validate the TSV file set before anything else! If validation fails, then PDF processing will undoubtedly be incorrect as it makes assumptions about correctness of data in the Arlington model!
+* Look at the top of various C++ files for #defines. e.g. in ParseObjects.cpp there is CHECKS_DEBUG and SCORING_DEBUG.
+* When debugging a PDF that is reporting strange or incorrect messages, set conditional breakpoints in ParseObjects.cpp based on the integer CParsePDF::counter (which is the number for each line of PDF DOM tree output).
+* Try using alternate PDF SDKs and comparing output line-by-line to discount issues PDF lexing and parsing issues.
+* Double check the TSV against appropriate Table in ISO 32000-2:2020. Don't assume it is perfect!
+* Temporarily edit to remove predicates from the Arlington TSV file that is causing major issues - if things now work, then it is likely to be predicate parsing or processing that is the issue.
+* You will need a PDF internal browser such as [iText RUPS](https://github.com/itext/i7j-rups) (free), [Apache PDFBox Debugger standalone](https://pdfbox.apache.org/download.html) (free) or the internal viewer in Adobe Acrobat (commercial). Many others exist too.
 
 ## PDF SDK Requirements
 

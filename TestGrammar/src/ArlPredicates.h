@@ -132,4 +132,8 @@ const std::string ArlLogicalOp = "( && | \\|\\| )";
 /// @brief Arlington PDF boolean keywords
 const std::string ArlBooleans = "(true|false)";
 
+/// @brief Tolerance for floating-point comparison.
+/// Old Adobe PDF specs used to recommend 5 digits so go + / -half of that
+const double ArlNumberTolerance = 0.000005;
+
 #endif // ArlPredicates_h

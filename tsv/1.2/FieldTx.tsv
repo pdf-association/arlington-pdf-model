@@ -3,7 +3,7 @@ FT	name	1.2		TRUE	FALSE	TRUE		[Tx]
 Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,Field]	
 Kids	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFields]	
 T	string-text	1.2		FALSE	FALSE	FALSE					
-Ff	bitmask	1.2		FALSE	FALSE	TRUE					
+Ff	bitmask	1.2		FALSE	FALSE	TRUE			[fn:Eval(fn:BitsClear(15,20) && fn:BitClear(22) && fn:BitsClear(27,32))]		
 V	stream;string-text	1.2		FALSE	[TRUE];[FALSE]	TRUE				[Stream];[]	
 DV	stream;string-text	1.2		FALSE	[TRUE];[FALSE]	TRUE				[Stream];[]	
 DA	string	1.2		TRUE	FALSE	TRUE					

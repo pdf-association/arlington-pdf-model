@@ -527,10 +527,10 @@
         },
         {
             "id": "ArrayOfTags",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "ArrayOfTags map"
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOfTags array"
         },
         {
             "id": "ArrayOfThreads",
@@ -659,11 +659,11 @@
             "name": "BeadFirst dict"
         },
         {
-            "id": "Blackpoint",
+            "id": "BlackpointArray",
             "val": 9,
             "group": "array",
             "desc": "3 elements",
-            "name": "Blackpoint array"
+            "name": "BlackpointArray array"
         },
         {
             "id": "BorderStyle",
@@ -687,11 +687,11 @@
             "name": "CIDSystemInfo dict"
         },
         {
-            "id": "CMap",
+            "id": "CMapStream",
             "val": 121,
             "group": "dict",
             "desc": "11 keys",
-            "name": "CMap dict"
+            "name": "CMapStream dict"
         },
         {
             "id": "CalGrayColorSpace",
@@ -758,25 +758,25 @@
             "name": "Data map"
         },
         {
-            "id": "Dest0",
+            "id": "Dest0Array",
             "val": 4,
             "group": "array",
             "desc": "2 elements",
-            "name": "Dest0 array"
+            "name": "Dest0Array array"
         },
         {
-            "id": "Dest1",
+            "id": "Dest1Array",
             "val": 9,
             "group": "array",
             "desc": "3 elements",
-            "name": "Dest1 array"
+            "name": "Dest1Array array"
         },
         {
-            "id": "Dest4",
+            "id": "Dest4Array",
             "val": 36,
             "group": "array",
             "desc": "6 elements",
-            "name": "Dest4 array"
+            "name": "Dest4Array array"
         },
         {
             "id": "DestDict",
@@ -786,11 +786,11 @@
             "name": "DestDict dict"
         },
         {
-            "id": "DestXYZ",
+            "id": "DestXYZArray",
             "val": 25,
             "group": "array",
             "desc": "5 elements",
-            "name": "DestXYZ array"
+            "name": "DestXYZArray array"
         },
         {
             "id": "DestsMap",
@@ -1102,11 +1102,11 @@
             "name": "FunctionType4 dict"
         },
         {
-            "id": "Gamma",
+            "id": "GammaArray",
             "val": 9,
             "group": "array",
             "desc": "3 elements",
-            "name": "Gamma array"
+            "name": "GammaArray array"
         },
         {
             "id": "GraphicsStateParameter",
@@ -1166,9 +1166,9 @@
         },
         {
             "id": "ICCProfileStream",
-            "val": 81,
+            "val": 100,
             "group": "dict",
-            "desc": "9 keys",
+            "desc": "10 keys",
             "name": "ICCProfileStream dict"
         },
         {
@@ -1207,11 +1207,11 @@
             "name": "LabDict dict"
         },
         {
-            "id": "LabRange",
+            "id": "LabRangeArray",
             "val": 16,
             "group": "array",
             "desc": "4 elements",
-            "name": "LabRange array"
+            "name": "LabRangeArray array"
         },
         {
             "id": "LinearizationParameterDict",
@@ -1634,11 +1634,11 @@
             "name": "WebCapturePageSet dict"
         },
         {
-            "id": "Whitepoint",
+            "id": "WhitepointArray",
             "val": 9,
             "group": "array",
             "desc": "3 elements",
-            "name": "Whitepoint array"
+            "name": "WhitepointArray array"
         },
         {
             "id": "XObjectFormPS",
@@ -1783,25 +1783,25 @@
         },
         {
             "source": "ActionGoTo",
-            "target": "DestXYZ",
+            "target": "DestXYZArray",
             "name": "ActionGoTo::D",
             "color": "red"
         },
         {
             "source": "ActionGoTo",
-            "target": "Dest0",
+            "target": "Dest0Array",
             "name": "ActionGoTo::D",
             "color": "red"
         },
         {
             "source": "ActionGoTo",
-            "target": "Dest1",
+            "target": "Dest1Array",
             "name": "ActionGoTo::D",
             "color": "red"
         },
         {
             "source": "ActionGoTo",
-            "target": "Dest4",
+            "target": "Dest4Array",
             "name": "ActionGoTo::D",
             "color": "red"
         },
@@ -1877,25 +1877,25 @@
         },
         {
             "source": "ActionGoToR",
-            "target": "DestXYZ",
+            "target": "DestXYZArray",
             "name": "ActionGoToR::D",
             "color": "red"
         },
         {
             "source": "ActionGoToR",
-            "target": "Dest0",
+            "target": "Dest0Array",
             "name": "ActionGoToR::D",
             "color": "red"
         },
         {
             "source": "ActionGoToR",
-            "target": "Dest1",
+            "target": "Dest1Array",
             "name": "ActionGoToR::D",
             "color": "red"
         },
         {
             "source": "ActionGoToR",
-            "target": "Dest4",
+            "target": "Dest4Array",
             "name": "ActionGoToR::D",
             "color": "red"
         },
@@ -2578,7 +2578,7 @@
         },
         {
             "source": "ActionSound",
-            "target": "Stream",
+            "target": "SoundObject",
             "name": "ActionSound::Sound",
             "color": "red"
         },
@@ -3572,22 +3572,22 @@
         },
         {
             "source": "AnnotLink",
-            "target": "DestXYZ",
+            "target": "DestXYZArray",
             "name": "AnnotLink::Dest"
         },
         {
             "source": "AnnotLink",
-            "target": "Dest0",
+            "target": "Dest0Array",
             "name": "AnnotLink::Dest"
         },
         {
             "source": "AnnotLink",
-            "target": "Dest1",
+            "target": "Dest1Array",
             "name": "AnnotLink::Dest"
         },
         {
             "source": "AnnotLink",
-            "target": "Dest4",
+            "target": "Dest4Array",
             "name": "AnnotLink::Dest"
         },
         {
@@ -4837,60 +4837,60 @@
             "name": "BorderStyle::D"
         },
         {
-            "source": "CMap",
+            "source": "CMapStream",
             "target": "CIDSystemInfo",
-            "name": "CMap::CIDSystemInfo",
+            "name": "CMapStream::CIDSystemInfo",
             "color": "red"
         },
         {
-            "source": "CMap",
+            "source": "CMapStream",
             "target": "ArrayOfDecodeParams",
-            "name": "CMap::DecodeParms"
+            "name": "CMapStream::DecodeParms"
         },
         {
-            "source": "CMap",
+            "source": "CMapStream",
             "target": "FilterLZWDecode",
-            "name": "CMap::DecodeParms"
+            "name": "CMapStream::DecodeParms"
         },
         {
-            "source": "CMap",
+            "source": "CMapStream",
             "target": "FilterFlateDecode",
-            "name": "CMap::DecodeParms"
+            "name": "CMapStream::DecodeParms"
         },
         {
-            "source": "CMap",
+            "source": "CMapStream",
             "target": "FileSpecification",
-            "name": "CMap::F"
+            "name": "CMapStream::F"
         },
         {
-            "source": "CMap",
+            "source": "CMapStream",
             "target": "ArrayOfDecodeParams",
-            "name": "CMap::FDecodeParms"
+            "name": "CMapStream::FDecodeParms"
         },
         {
-            "source": "CMap",
+            "source": "CMapStream",
             "target": "FilterLZWDecode",
-            "name": "CMap::FDecodeParms"
+            "name": "CMapStream::FDecodeParms"
         },
         {
-            "source": "CMap",
+            "source": "CMapStream",
             "target": "FilterFlateDecode",
-            "name": "CMap::FDecodeParms"
+            "name": "CMapStream::FDecodeParms"
         },
         {
-            "source": "CMap",
+            "source": "CMapStream",
             "target": "ArrayOfCompressionFilterNames",
-            "name": "CMap::FFilter"
+            "name": "CMapStream::FFilter"
         },
         {
-            "source": "CMap",
+            "source": "CMapStream",
             "target": "ArrayOfCompressionFilterNames",
-            "name": "CMap::Filter"
+            "name": "CMapStream::Filter"
         },
         {
-            "source": "CMap",
+            "source": "CMapStream",
             "target": "Stream",
-            "name": "CMap::UseCMap"
+            "name": "CMapStream::UseCMap"
         },
         {
             "source": "CalGrayColorSpace",
@@ -4900,12 +4900,12 @@
         },
         {
             "source": "CalGrayDict",
-            "target": "Blackpoint",
+            "target": "BlackpointArray",
             "name": "CalGrayDict::BlackPoint"
         },
         {
             "source": "CalGrayDict",
-            "target": "Whitepoint",
+            "target": "WhitepointArray",
             "name": "CalGrayDict::WhitePoint",
             "color": "red"
         },
@@ -4917,12 +4917,12 @@
         },
         {
             "source": "CalRGBDict",
-            "target": "Blackpoint",
+            "target": "BlackpointArray",
             "name": "CalRGBDict::BlackPoint"
         },
         {
             "source": "CalRGBDict",
-            "target": "Gamma",
+            "target": "GammaArray",
             "name": "CalRGBDict::Gamma"
         },
         {
@@ -4932,7 +4932,7 @@
         },
         {
             "source": "CalRGBDict",
-            "target": "Whitepoint",
+            "target": "WhitepointArray",
             "name": "CalRGBDict::WhitePoint",
             "color": "red"
         },
@@ -4953,22 +4953,22 @@
         },
         {
             "source": "Catalog",
-            "target": "DestXYZ",
+            "target": "DestXYZArray",
             "name": "Catalog::OpenAction"
         },
         {
             "source": "Catalog",
-            "target": "Dest0",
+            "target": "Dest0Array",
             "name": "Catalog::OpenAction"
         },
         {
             "source": "Catalog",
-            "target": "Dest1",
+            "target": "Dest1Array",
             "name": "Catalog::OpenAction"
         },
         {
             "source": "Catalog",
-            "target": "Dest4",
+            "target": "Dest4Array",
             "name": "Catalog::OpenAction"
         },
         {
@@ -5178,71 +5178,71 @@
             "name": "Data::Private"
         },
         {
-            "source": "Dest0",
+            "source": "Dest0Array",
             "target": "PageObject",
-            "name": "Dest0::0",
+            "name": "Dest0Array::0",
             "color": "red"
         },
         {
-            "source": "Dest1",
+            "source": "Dest1Array",
             "target": "PageObject",
-            "name": "Dest1::0",
+            "name": "Dest1Array::0",
             "color": "red"
         },
         {
-            "source": "Dest4",
+            "source": "Dest4Array",
             "target": "PageObject",
-            "name": "Dest4::0",
+            "name": "Dest4Array::0",
             "color": "red"
         },
         {
             "source": "DestDict",
-            "target": "DestXYZ",
+            "target": "DestXYZArray",
             "name": "DestDict::D",
             "color": "red"
         },
         {
             "source": "DestDict",
-            "target": "Dest0",
+            "target": "Dest0Array",
             "name": "DestDict::D",
             "color": "red"
         },
         {
             "source": "DestDict",
-            "target": "Dest1",
+            "target": "Dest1Array",
             "name": "DestDict::D",
             "color": "red"
         },
         {
             "source": "DestDict",
-            "target": "Dest4",
+            "target": "Dest4Array",
             "name": "DestDict::D",
             "color": "red"
         },
         {
-            "source": "DestXYZ",
+            "source": "DestXYZArray",
             "target": "PageObject",
-            "name": "DestXYZ::0",
+            "name": "DestXYZArray::0",
             "color": "red"
         },
         {
             "source": "DestsMap",
-            "target": "DestXYZ",
+            "target": "DestXYZArray",
             "name": "DestsMap::*"
         },
         {
             "source": "DestsMap",
-            "target": "Dest0",
+            "target": "Dest0Array",
             "name": "DestsMap::*"
         },
         {
             "source": "DestsMap",
-            "target": "Dest1",
+            "target": "Dest1Array",
             "name": "DestsMap::*"
         },
         {
             "source": "DestsMap",
-            "target": "Dest4",
+            "target": "Dest4Array",
             "name": "DestsMap::*"
         },
         {
@@ -6072,7 +6072,7 @@
         },
         {
             "source": "FontType0",
-            "target": "CMap",
+            "target": "CMapStream",
             "name": "FontType0::Encoding",
             "color": "red"
         },
@@ -6827,6 +6827,21 @@
         {
             "source": "ICCProfileStream",
             "target": "ArrayOfDecodeParams",
+            "name": "ICCProfileStream::DecodeParms"
+        },
+        {
+            "source": "ICCProfileStream",
+            "target": "FilterLZWDecode",
+            "name": "ICCProfileStream::DecodeParms"
+        },
+        {
+            "source": "ICCProfileStream",
+            "target": "FilterFlateDecode",
+            "name": "ICCProfileStream::DecodeParms"
+        },
+        {
+            "source": "ICCProfileStream",
+            "target": "ArrayOfDecodeParams",
             "name": "ICCProfileStream::DestOutputProfile"
         },
         {
@@ -6939,17 +6954,17 @@
         },
         {
             "source": "LabDict",
-            "target": "Blackpoint",
+            "target": "BlackpointArray",
             "name": "LabDict::BlackPoint"
         },
         {
             "source": "LabDict",
-            "target": "LabRange",
+            "target": "LabRangeArray",
             "name": "LabDict::Range"
         },
         {
             "source": "LabDict",
-            "target": "Whitepoint",
+            "target": "WhitepointArray",
             "name": "LabDict::WhitePoint",
             "color": "red"
         },
@@ -7053,22 +7068,22 @@
         },
         {
             "source": "Name",
-            "target": "DestXYZ",
+            "target": "DestXYZArray",
             "name": "Name::Dests"
         },
         {
             "source": "Name",
-            "target": "Dest0",
+            "target": "Dest0Array",
             "name": "Name::Dests"
         },
         {
             "source": "Name",
-            "target": "Dest1",
+            "target": "Dest1Array",
             "name": "Name::Dests"
         },
         {
             "source": "Name",
-            "target": "Dest4",
+            "target": "Dest4Array",
             "name": "Name::Dests"
         },
         {
@@ -7118,7 +7133,7 @@
         },
         {
             "source": "OPIVersion13Dict",
-            "target": "ArrayOf_4Integers",
+            "target": "ArrayOf_4Numbers",
             "name": "OPIVersion13Dict::CropFixed"
         },
         {
@@ -7288,22 +7303,22 @@
         },
         {
             "source": "OutlineItem",
-            "target": "DestXYZ",
+            "target": "DestXYZArray",
             "name": "OutlineItem::Dest"
         },
         {
             "source": "OutlineItem",
-            "target": "Dest0",
+            "target": "Dest0Array",
             "name": "OutlineItem::Dest"
         },
         {
             "source": "OutlineItem",
-            "target": "Dest1",
+            "target": "Dest1Array",
             "name": "OutlineItem::Dest"
         },
         {
             "source": "OutlineItem",
-            "target": "Dest4",
+            "target": "Dest4Array",
             "name": "OutlineItem::Dest"
         },
         {

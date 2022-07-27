@@ -6,7 +6,7 @@ Contents	string-text	1.4		FALSE	FALSE	FALSE
 P	dictionary	1.4		FALSE	TRUE	FALSE				[PageObject]	
 NM	string-text	1.4		FALSE	FALSE	FALSE					
 M	date;string-text	1.4		FALSE	FALSE	FALSE					
-F	bitmask	1.4		FALSE	FALSE	FALSE	0		[fn:BitsClear(9,32), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]		
+F	bitmask	1.4		FALSE	FALSE	FALSE	0		[fn:Eval(fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]		
 AP	dictionary	1.4		fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))	FALSE	FALSE				[Appearance]	
 AS	name	1.4		fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))	FALSE	FALSE					
 Border	array	1.4		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	

@@ -38,10 +38,6 @@
 /// any PDF SDK library should be easily integrateable without propogating changes
 /// throughout the PoC code base. Performance issues are considered irrelevant.
 namespace ArlingtonPDFShim {
-
-    /// @brief Enable verbose debugging
-    static bool    debugging = false;
-
     /// @enum PDFObjectType 
     /// All the various types of PDF Object
     enum class PDFObjectType {
@@ -59,44 +55,66 @@ namespace ArlingtonPDFShim {
 
     /// @brief Human readable equivalent of PDFObjectType
     const std::string PDFObjectType_strings[] = {
-        "ArlPDFObjTypeUnknown",
-        "ArlPDFObjTypeBoolean",
-        "ArlPDFObjTypeNumber",
-        "ArlPDFObjTypeString",
-        "ArlPDFObjTypeName",
-        "ArlPDFObjTypeArray",
-        "ArlPDFObjTypeDictionary",
-        "ArlPDFObjTypeStream",
-        "ArlPDFObjTypeNull",
-        "ArlPDFObjTypeReference"
+        "????",
+        "boolean",
+        "number",
+        "string",
+        "name",
+        "array",
+        "dictionary",
+        "stream",
+        "null",
+        "Indirect Reference"
     };
 
     /// @class ArlPDFObject
     /// Base class PDF object
     class ArlPDFObject {
     protected:
+        /// @brief the underlying PDF object type
+        PDFObjectType   type;
+
         /// @brief pointer to PDF SDK dependent data object
-        void* object;
+        void*           object;
+
+        /// @brief PDF bject number from underlying PDF SDK. Or parent if negative.
+        int             obj_nbr;
+
+        /// @brief PDF generation number from underlying PDF SDK. Or parent if negative.
+        int             gen_nbr;
+
         /// @brief true iff is an indirect reference
-        bool is_indirect;
+        bool            is_indirect;
+        
         /// @brief Sort all dictionary keys so guaranteed same order across PDF SDKs
         std::vector<std::wstring>   sorted_keys;
+
         /// @brief Checks if keys are sorted and, if not, then sorts
         virtual void sort_keys();
+
     public:
-        explicit ArlPDFObject(void* obj);
-        ~ArlPDFObject();
-        PDFObjectType get_object_type();
-        int   get_object_number();
-        bool  is_indirect_ref();
+        ArlPDFObject() :
+            object(nullptr), obj_nbr(0), gen_nbr(0), type(PDFObjectType::ArlPDFObjTypeUnknown)
+            { /* default constructor */ };
+
+        explicit ArlPDFObject(ArlPDFObject* parent, void* obj);
+
+        ~ArlPDFObject()
+            { /* destructor */ sorted_keys.clear(); }
+        
+        PDFObjectType get_object_type() { return type; };
+        int   get_object_number() { return obj_nbr;  };
+        int   get_generation_number() { return gen_nbr; };
+        bool  is_indirect_ref() { return is_indirect; };
         std::string get_hash_id();
 
         /// @brief output operator <<
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFObject& obj) {
             if (obj.object != nullptr) {
-                int           obj_num  = const_cast<ArlPDFObject&>(obj).get_object_number();
-                if (obj_num > 0)
-                    ofs << "obj " << obj_num;
+                if (obj.obj_nbr > 0)
+                    ofs << "obj " << obj.obj_nbr << " " << obj.gen_nbr;
+                else if (obj.obj_nbr < 0)
+                    ofs << "parent obj " << abs(obj.obj_nbr) << " " << abs(obj.gen_nbr);
                 else
                     ofs << "direct-obj";
             }
@@ -107,25 +125,30 @@ namespace ArlingtonPDFShim {
     /// @class ArlPDFBoolean
     /// PDF Boolean object
     class ArlPDFBoolean : public ArlPDFObject {
-        using ArlPDFObject::ArlPDFObject;
     public:
-        bool get_value();
+        ArlPDFBoolean(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+            { /* constructor */ type = PDFObjectType::ArlPDFObjTypeBoolean; };
+
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFBoolean& obj) {
-            ofs << "Boolean " << (ArlPDFObject)obj;
+            ofs << "boolean " << (ArlPDFObject)obj;
             return ofs;
         };
+
+        bool get_value();
     };
 
     /// @class ArlPDFNumber
     /// PDF Number object
     class ArlPDFNumber : public ArlPDFObject {
-        using ArlPDFObject::ArlPDFObject;
     public:
+        ArlPDFNumber(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+            { /* constructor */ type = PDFObjectType::ArlPDFObjTypeNumber; };
+
         bool   is_integer_value();
         int    get_integer_value();
         double get_value();
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNumber& obj) {
-            ofs << "Number " << (ArlPDFObject)obj;
+            ofs << "number " << (ArlPDFObject)obj;
             return ofs;
         };
     };
@@ -133,11 +156,13 @@ namespace ArlingtonPDFShim {
     /// @class ArlPDFString
     /// PDF string object
     class ArlPDFString : public ArlPDFObject {
-        using ArlPDFObject::ArlPDFObject;
     public:
+        ArlPDFString(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+            { /* constructor */ type = PDFObjectType::ArlPDFObjTypeString; };
+
         std::wstring get_value();
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFString& obj) {
-            ofs << "String " << (ArlPDFObject)obj;
+            ofs << "string " << (ArlPDFObject)obj;
             return ofs;
         };
     };
@@ -145,11 +170,13 @@ namespace ArlingtonPDFShim {
     /// @class ArlPDFName
     /// PDF Name object
     class ArlPDFName : public ArlPDFObject {
-        using ArlPDFObject::ArlPDFObject;
     public:
+        ArlPDFName(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+            { /* constructor */ type = PDFObjectType::ArlPDFObjTypeString; };
+
         std::wstring get_value();
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFName& obj) {
-            ofs << "Name " << (ArlPDFObject)obj;
+            ofs << "name " << (ArlPDFObject)obj;
             return ofs;
         };
     };
@@ -158,18 +185,27 @@ namespace ArlingtonPDFShim {
     /// PDF null object
     class ArlPDFNull : public ArlPDFObject {
         using ArlPDFObject::ArlPDFObject;
-        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNull& obj);
+    public:
+        ArlPDFNull(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+            { /* constructor */ type = PDFObjectType::ArlPDFObjTypeNull; };
+
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNull& obj) {
+            ofs << "null " << (ArlPDFObject)obj;
+            return ofs;
+        };
     };
 
     /// @class ArlPDFArray
     /// PDF Array object
     class ArlPDFArray : public ArlPDFObject {
-        using ArlPDFObject::ArlPDFObject;
     public:
+        ArlPDFArray(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+            { /* constructor */ type = PDFObjectType::ArlPDFObjTypeArray; };
+
         int get_num_elements();
-        ArlPDFObject* get_value(int idx);
+        ArlPDFObject* get_value(const int idx);
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFArray& obj) {
-            ofs << "Array " << (ArlPDFObject)obj;
+            ofs << "array " << (ArlPDFObject)obj;
             return ofs;
         };
     };
@@ -177,16 +213,19 @@ namespace ArlingtonPDFShim {
     /// @class ArlPDFDictionary
     /// PDF Dictionary object
     class ArlPDFDictionary : public ArlPDFObject {
-        using ArlPDFObject::ArlPDFObject;
     public:
+        ArlPDFDictionary(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+            { /* constructor */ type = PDFObjectType::ArlPDFObjTypeDictionary; };
+
         // For keys by name...
         bool          has_key(std::wstring key);
         ArlPDFObject* get_value(std::wstring key);
+
         // For iterating keys...
         int get_num_keys();
-        std::wstring get_key_name_by_index(int index);
+        std::wstring get_key_name_by_index(const int index);
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFDictionary& obj) {
-            ofs << "Dictionary " << (ArlPDFObject)obj;
+            ofs << "dictionary " << (ArlPDFObject)obj;
             return ofs;
         };
     };
@@ -194,11 +233,13 @@ namespace ArlingtonPDFShim {
     /// @class ArlPDFStream
     /// PDF stream object
     class ArlPDFStream : public ArlPDFObject {
-        using ArlPDFObject::ArlPDFObject;
     public:
+        ArlPDFStream(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+            { /* constructor */ type = PDFObjectType::ArlPDFObjTypeStream; };
+
         ArlPDFDictionary* get_dictionary();
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFStream& obj) {
-            ofs << "Stream " << (ArlPDFObject)obj;
+            ofs << "stream " << (ArlPDFObject)obj;
             return ofs;
         };
     };
@@ -206,14 +247,22 @@ namespace ArlingtonPDFShim {
     /// @class ArlPDFTrailer
     /// The trailer object of a PDF document (file)
     class ArlPDFTrailer : public ArlPDFDictionary {
-        using ArlPDFDictionary::ArlPDFDictionary;
     protected:
         // Whether it is XRefStream or normal trailer
-        bool    is_xrefstm = false;
+        bool    is_xrefstm;
+
     public:
-        void set_xrefstm(bool is_xrefstream) { is_xrefstm = is_xrefstream; };
+        ArlPDFTrailer(void* obj) : ArlPDFDictionary(nullptr, obj),
+            is_xrefstm(false)
+            { /* constructor */ };
+
+
+        void set_xrefstm(const bool is_xrefstream) { is_xrefstm = is_xrefstream; };
         bool get_xrefstm() { return is_xrefstm; };
-        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFTrailer& obj);
+        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFTrailer& obj) {
+            ofs << "trailer " << (ArlPDFDictionary)obj << (obj.is_xrefstm ? " with xref " : "");
+            return ofs;
+        }
     };
 
     /// @class ArlingtonPDFSDK
@@ -228,7 +277,7 @@ namespace ArlingtonPDFShim {
             { /* constructor */ ctx = nullptr; };
 
         /// @brief Initialize the PDF SDK. Throws exceptions on error.
-        void initialize(bool enable_debugging);
+        void initialize();
 
         /// @brief Shutdown the PDF SDK
         void shutdown();
@@ -241,6 +290,9 @@ namespace ArlingtonPDFShim {
 
         /// @brief Get the PDF version of a PDF file
         std::string get_pdf_version(ArlPDFTrailer* trailer);
+
+        /// @brief Get number of pages in the PDF. -1 on error
+        int get_pdf_page_count(ArlPDFTrailer* trailer);
     };
 
 }; // namespace

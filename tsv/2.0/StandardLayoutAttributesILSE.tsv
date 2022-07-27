@@ -16,7 +16,7 @@ TextDecorationThickness	number	1.5		FALSE	FALSE	TRUE
 TextDecorationType	name	1.4		FALSE	FALSE	TRUE	None	[None,Underline,Overline,LineThrough]			
 RubyAlign	name	1.5		FALSE	FALSE	TRUE	Distribute	[Start,Center,End,Justify,Distribute]			
 RubyPosition	name	1.5		FALSE	FALSE	TRUE	Before	[Before,After,Warichu,Inline]			
-GlyphOrientationVertical	integer;name	1.5		FALSE	FALSE	TRUE	[];[Auto]	[-180,-90,0,90,180,270,360];[Auto]			
+GlyphOrientationVertical	integer;name	1.5		FALSE	FALSE	TRUE	[];[Auto]	[-180,-90,0,90,180,270,360];[Auto]			https://github.com/pdf-association/pdf-issues/issues/152
 SpaceBefore	number	1.4		FALSE	FALSE	FALSE	0				
 SpaceAfter	number	1.4		FALSE	FALSE	FALSE	0		[fn:Eval(@Placement!=Inline)]		
 StartIndent	number	1.4		FALSE	FALSE	TRUE	0				

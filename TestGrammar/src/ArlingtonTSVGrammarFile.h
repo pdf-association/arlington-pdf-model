@@ -32,14 +32,16 @@
 
 namespace fs = std::filesystem;
 
+/// @brief  Representation of row of raw Arlington TSV string data 
+typedef std::vector<std::string>                ArlTSVRow;
 
 /// @brief  Representation of raw Arlington TSV string data (rows and columns)
-typedef std::vector<std::vector<std::string>> ArlTSVmatrix;
+typedef std::vector<ArlTSVRow>                  ArlTSVmatrix;
 
 
 /// @brief Arlington TSV column (field) titles and numbers
 enum ArlingtonTSVColumns {
-     TSV_KEYNAME         = 0,     // "*" means any
+     TSV_KEYNAME         = 0,     // "*" means wildcard
      TSV_TYPE            = 1,     // in alphabetical order of basic_types, ";" separated
      TSV_SINCEVERSION    = 2,     // 1.0, 1.1, ..., 2.0
      TSV_DEPRECATEDIN    = 3,     // blank or 1.0, 1.1, ..., 2.0
@@ -91,7 +93,7 @@ public:
     static const std::vector<std::string>  arl_pdf_versions;
 
     /// @brief TSV header row - public only so can validating all Arlington grammar files
-    std::vector<std::string>    header_list;
+    ArlTSVRow                              header_list;
 
     CArlingtonTSVGrammarFile(fs::path tsv_name) :
         tsv_file_name(tsv_name)

@@ -375,6 +375,7 @@
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level4</WarningLevel>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level4</WarningLevel>
     </ClCompile>
+    <ClCompile Include="..\..\src\ArlVersion.cpp" />
     <ClCompile Include="..\..\src\CheckDVA.cpp">
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level4</WarningLevel>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level4</WarningLevel>
@@ -387,6 +388,7 @@
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level4</WarningLevel>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level4</WarningLevel>
     </ClCompile>
+    <ClCompile Include="..\..\src\LRParsePredicate.cpp" />
     <ClCompile Include="..\..\src\Main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level4</WarningLevel>
@@ -652,8 +654,10 @@
     <ClInclude Include="..\..\src\ArlingtonPDFShim.h" />
     <ClInclude Include="..\..\src\ArlingtonTSVGrammarFile.h" />
     <ClInclude Include="..\..\src\ArlPredicates.h" />
+    <ClInclude Include="..\..\src\ArlVersion.h" />
     <ClInclude Include="..\..\src\ASTNode.h" />
     <ClInclude Include="..\..\src\CheckGrammar.h" />
+    <ClInclude Include="..\..\src\LRParsePredicate.h" />
     <ClInclude Include="..\..\src\ParseObjects.h" />
     <ClInclude Include="..\..\src\PDFFile.h" />
     <ClInclude Include="..\..\src\Pdfix.h" />

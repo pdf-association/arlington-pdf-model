@@ -6,6 +6,6 @@ BBox	rectangle	1.0		TRUE	FALSE	FALSE
 Matrix	matrix	1.0		TRUE	FALSE	FALSE	[1 0 0 1 0 0]				
 Name	name	1.0	2.0	TRUE	FALSE	FALSE					
 Length	integer	1.0		TRUE	FALSE	FALSE					* from stream
-Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfCompressionFilterNames];[]	
-DecodeParms	array;dictionary	1.0		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfDecodeParams];[FilterLZWDecode]	
+Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	
+DecodeParms	array;dictionary	1.0		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode]	
 XUID	array	1.0	1.3	FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral]	

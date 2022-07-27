@@ -2,5 +2,5 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.1		FALSE	FALSE	FALSE		[Action]			
 S	name	1.1		TRUE	FALSE	FALSE		[Thread]			
 F	dictionary;string	1.1		FALSE	FALSE	FALSE				[FileSpecification];[]	
-D	dictionary;integer;string-text	1.1		TRUE	[TRUE];[FALSE];[FALSE]	FALSE		[];[fn:Eval((@D>=0) && (@D<fn:ArrayLength(Catalog::Threads)))];[]		[Thread];[];[]	
+D	dictionary;integer;string-text	1.1		TRUE	[TRUE];[FALSE];[FALSE]	FALSE		[];[fn:Eval((@D>=0) && (@D<fn:ArrayLength(trailer::Catalog::Threads)))];[]		[Thread];[];[]	
 B	dictionary;integer	1.1		FALSE	[TRUE];[FALSE]	FALSE		[];[fn:Eval(@B>=0)]		[Bead];[]	

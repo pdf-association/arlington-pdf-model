@@ -61,12 +61,13 @@ bool no_color = false;
 /// @brief Validates a single PDF file against the Arlington PDF model
 ///
 /// @param[in] pdf_file_name  PDF filename for processing
-/// @param[in] tsv_folder the folder with the Arlington TSV model files
-/// @param[in] pdfsdk  the already initiated PDF SDK library to use
-/// @param[in,out] ofs already open file stream for output
-/// @param[in] terse   terse style (abbreviated) output (will sort | uniq better under Linux CLI)
+/// @param[in] tsv_folder   the folder with the Arlington TSV model files
+/// @param[in] pdfsdk      the already initiated PDF SDK library to use
+/// @param[in,out]         ofs already open file stream for output
+/// @param[in] terse       terse style (brief) output (will sort | uniq better under Linux CLI)
+/// @param[in] debug_mode  verbose style output (PDF-file specific information e.g. object numbers)
 /// @param[in] forced_ver  forced PDF version or empty string to use PDF
-void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, bool terse, std::string forced_ver)
+void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, const bool terse, const bool debug_mode, const std::string& forced_ver)
 {
     try
     {
@@ -74,22 +75,22 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
         ofs << "Arlington TSV data: " << fs::absolute(tsv_folder).lexically_normal() << std::endl;
         ofs << "PDF: " << fs::absolute(pdf_file_name).lexically_normal() << std::endl;
 
-        CParsePDF parser(tsv_folder, ofs, terse);
+        CParsePDF parser(tsv_folder, ofs, terse, debug_mode);
         CPDFFile  pdf(pdf_file_name, pdfsdk, forced_ver);
 
         ArlPDFTrailer* t = pdf.get_trailer();
         if (t != nullptr) {
             if (pdf.uses_xref_stream()) {
                 ofs << COLOR_INFO << "XRefStream detected." << COLOR_RESET;
-                parser.add_parse_object(t, "XRefStream", "Trailer");
+                parser.add_root_parse_object(t, "XRefStream", "Trailer (as XRefStream)");
             }
             else {
                 ofs << COLOR_INFO << "Traditional trailer dictionary detected." << COLOR_RESET;
-                parser.add_parse_object(t, "FileTrailer", "Trailer");
+                parser.add_root_parse_object(t, "FileTrailer", "Trailer");
             }
 
             parser.parse_object(pdf);
-            ofs << COLOR_INFO << "Latest Arlington feature was " << pdf.get_latest_feature_version_info()  << COLOR_RESET;
+            ofs << COLOR_INFO << "Latest Arlington feature was " << pdf.get_latest_feature_version_info() << " compared using PDF " << pdf.pdf_version << COLOR_RESET;
         }
         else {
             ofs << COLOR_ERROR << "failed to acquire Trailer" << COLOR_RESET;
@@ -108,20 +109,15 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
 #if defined(_WIN32) || defined(WIN32)
 #include <crtdbg.h>
 
-/// @brief <crtdbg.h> Memory State globals for _CrtMemDifference(), _CrtMemDumpAllObjectsSince(), etc.
-_CrtMemState state1;
-_CrtMemState state2;
-_CrtMemState stateDiff;
-
 /// @brief #define CRT_MEMORY_LEAK_CHECK to enable C RTL memory leak checking (slow!)
-#undef CRT_MEMORY_LEAK_CHECK
+#define CRT_MEMORY_LEAK_CHECK
 
 int wmain(int argc, wchar_t* argv[]) {
 #if defined(_DEBUG) && defined(CRT_MEMORY_LEAK_CHECK)
     int tmp = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
     tmp = tmp | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF; // | _CRTDBG_CHECK_ALWAYS_DF; // _CRTDBG_CHECK_ALWAYS_DF is VERY slow!!
     _CrtSetDbgFlag(tmp);
-    //_CrtSetBreakAlloc(2150);
+    //_CrtSetBreakAlloc(26587171);
 #endif // _DEBUG && CRT_MEMORY_LEAK_CHECK
 
     // Convert wchar_t* to char* for command line processing
@@ -172,7 +168,7 @@ int main(int argc, char* argv[]) {
 #endif
         std::cerr << COLOR_ERROR << "error parsing command line arguments" << COLOR_RESET;
 #if defined(_WIN32) || defined(WIN32)
-        // Delet the temp stuff for command line processing
+        // Delete the temp stuff for command line processing
         for (int i = 0; i < argc; i++)
             delete[] mbcsargv[i];
         delete[] mbcsargv;
@@ -181,13 +177,12 @@ int main(int argc, char* argv[]) {
         pdf_io.shutdown();
         return -1;
     }
-
-    // Start up the PDF SDK - this may throw exceptions!
-    pdf_io.initialize(sarge.exists("debug"));
+    
+    pdf_io.initialize();    // Start up the PDF SDK - this may throw exceptions depending on PDF SDK!
 
     if (sarge.exists("help") || (argc == 1)) {
 #if defined(_WIN32) || defined(WIN32)
-        // Delet the temp stuff for command line processing
+        // Delete the temp stuff for command line processing
         for (int i = 0; i < argc; i++)
             delete[] mbcsargv[i];
         delete[] mbcsargv;
@@ -212,7 +207,7 @@ int main(int argc, char* argv[]) {
     no_color = sarge.exists("no-color");
 
 #if defined(_WIN32) || defined(WIN32)
-    // Delet the temp stuff for command line processing
+    // Delete the temp stuff for command line processing
     for (int i = 0; i < argc; i++)
         delete[] mbcsargv[i];
     delete[] mbcsargv;
@@ -358,7 +353,7 @@ int main(int argc, char* argv[]) {
                         }
                         std::cout << "Processing " << entry.path().lexically_normal() << " to " << rptfile.lexically_normal() << std::endl;
                         ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
-                        process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, ofs, terse, force_version);
+                        process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, ofs, terse, debug_mode, force_version);
                         ofs.close();
                     }
                 }
@@ -388,7 +383,7 @@ int main(int argc, char* argv[]) {
                 }
                 ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
                 input_file = input_file.lexically_normal();
-                process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse, force_version);
+                process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse, debug_mode, force_version);
                 ofs.close();
                 std::cout << "DONE" << std::endl;
             }

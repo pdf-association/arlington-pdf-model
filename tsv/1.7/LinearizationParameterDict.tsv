@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Linearized	number	1.2		TRUE	fn:MustBeDirect()	FALSE		[1.0]			version
+Linearized	number	1.2		TRUE	fn:MustBeDirect()	FALSE		[1.0]			version - https://github.com/pdf-association/pdf-issues/issues/153
 L	integer	1.2		TRUE	fn:MustBeDirect()	FALSE					length of file
 H	array	1.2		TRUE	fn:MustBeDirect()	FALSE				[ArrayOf_2Integers,ArrayOf_4Integers]	
 O	integer	1.2		TRUE	fn:MustBeDirect()	FALSE					object number of the first pages page object

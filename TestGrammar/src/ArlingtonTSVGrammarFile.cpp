@@ -40,7 +40,7 @@ bool CArlingtonTSVGrammarFile::load()
     // Iterate through each line (row) and split content using TAB delimiter
     while (getline(file, line))
     {
-        std::vector<std::string>    vec;
+        ArlTSVRow                   vec;
         std::string::size_type      prev_pos = 0;
         std::string::size_type      pos = 0;
 

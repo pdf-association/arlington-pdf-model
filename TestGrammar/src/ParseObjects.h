@@ -28,7 +28,6 @@
 #pragma once
 
 #include <string>
-#include <filesystem>
 #include <map>
 #include <iostream>
 #include <queue>
@@ -36,10 +35,12 @@
 
 #include "ArlingtonTSVGrammarFile.h"
 #include "ArlingtonPDFShim.h"
+#include "ArlVersion.h"
 #include "PDFFile.h"
 #include "utils.h"
 
 using namespace ArlingtonPDFShim;
+
 
 class CParsePDF
 {
@@ -51,15 +52,17 @@ private:
     /// @brief the Arlington PDF model (cache of loaded TSV grammar files)
     std::map<std::string, std::unique_ptr<CArlingtonTSVGrammarFile>>  grammar_map;
 
-    /// @brief simulating recursive processing of the ArlPDFObjects
+    /// @brief Data structure for recursive processing of the ArlPDFObjects
+    /// @todo - lifetime management of recursive parent objects AND not blow out memory!
     struct queue_elem {
-        ArlPDFObject* object;
-        std::string   link;
-        std::string   context;
+        ArlPDFObject* parent;   // PDF object of parent (can be null for trailer)
+        ArlPDFObject* object;   // PDF object (e.g. of a key)
+        std::string   link;     // Arlington TSV filename
+        std::string   context;  // PDF DOM path
 
-        queue_elem(ArlPDFObject* o, const std::string &l, const std::string &c)
-            : object(o), link(l), context(c)
-            { /* constructor */ assert(o != nullptr); }
+        queue_elem(ArlPDFObject* p, ArlPDFObject* o, const std::string &l, const std::string &c)
+            : parent(p), object(o), link(l), context(c)
+            { /* constructor */ assert(object != nullptr); assert(!link.empty()); }
     };
 
     /// @brief The list of PDF objects to process
@@ -73,6 +76,10 @@ private:
 
     /// @brief Terse output. Otherwise output can make "... | sort | uniq | ..." Linux CLI pipelines difficult
     ///        Details of specific PDF objects (such as object numbers) are not output.
+    bool                    debug_mode;
+
+    /// @brief Terse output. Otherwise output can make "... | sort | uniq | ..." Linux CLI pipelines difficult
+    ///        Details of specific PDF objects (such as object numbers) are not output.
     bool                    terse;
 
     /// @brief Ensures the context line for the PDF is shown for error, warning or info messages
@@ -81,34 +88,39 @@ private:
     /// @brief PDF class object for calculating predicates, versioning, etc.
     CPDFFile*               pdfc;
 
+    /// @brief PDF version of file (multiplied by 10)
+    int                     pdf_version;
+
     /// @brief Line counter of the PDF DOM for easier analysis and debugging
     unsigned int            counter;
+
+    void show_context(queue_elem& e);
 
     /// @brief Locates & reads in a single Arlington TSV grammar file.
     const ArlTSVmatrix& get_grammar(const std::string& link);
 
+    void parse_name_tree(ArlPDFDictionary* obj, const std::vector<std::string>& links, const std::string context, const bool root = true);
+    void parse_number_tree(ArlPDFDictionary* obj, const std::vector<std::string>& links, const std::string context, const bool root = true);
+
+    std::string recommended_link_for_object(ArlPDFObject* obj, const std::vector<std::string> links, const std::string obj_name);
+
+    bool check_numeric_array(ArlPDFArray* arr, const int elems_to_check);
+    void check_everything(ArlPDFObject* parent, ArlPDFObject* obj, const int key_idx, const ArlTSVmatrix& tsv_data, const std::string& grammar_file, const std::string& context, std::ostream& ofs);
+    ArlPDFObject* find_via_inheritance(ArlPDFDictionary* obj, const std::wstring& key, const int depth = 0);
+
+    /// @brief add an object to be checked
+    void add_parse_object(ArlPDFObject* parent, ArlPDFObject* object, const std::string& link, const std::string& context);
+
 public:
-    CParsePDF(const fs::path& tsv_folder, std::ostream &ofs, bool terser_output)
-        : grammar_folder(tsv_folder), output(ofs), terse(terser_output), pdfc(nullptr), counter(0), context_shown(false)
+    CParsePDF(const fs::path& tsv_folder, std::ostream &ofs, const bool terser_output, const bool debug_output)
+        : grammar_folder(tsv_folder), output(ofs), terse(terser_output), pdfc(nullptr), counter(0), context_shown(false), debug_mode(debug_output)
         { /* constructor */ }
 
-    void add_parse_object(ArlPDFObject* object, const std::string& link, const std::string& context);
+    /// @brief add an object to be checked
+    void add_root_parse_object(ArlPDFObject* object, const std::string& link, const std::string& context);
+
+    /// @brief begin analysing a PDF file from a "root" object (most likely the trailer)
     void parse_object(CPDFFile& pdf);
-
-private:
-    void parse_name_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root = true);
-    void parse_number_tree(ArlPDFDictionary* obj, const std::string &links, std::string context, bool root = true);
-
-    int get_type_index_for_object(ArlPDFObject* obj, const std::string& types);
-    std::string get_type_string_for_object(ArlPDFObject* obj);
-    std::string get_link_for_object(ArlPDFObject* obj, const std::string &links_string, std::string &obj_name);
-    std::string get_linkset_for_object_type(ArlPDFObject* obj, const std::string &types, const std::string &links);
-    bool is_required_key(ArlPDFObject* obj, const std::string& reqd);
-
-    void check_basics(ArlPDFObject* obj, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path &grammar_file, const std::string &context);
-    bool check_possible_values(ArlPDFObject* object, int key_idx, const ArlTSVmatrix& tsv_data, const int index, std::wstring &real_str_value);
-    ArlPDFObject* find_via_inheritance(ArlPDFDictionary* obj, const std::wstring& key, int depth = 0);
-    bool check_predicates(ArlPDFObject* object, int key_idx, const ArlTSVmatrix& tsv_data, const fs::path& grammar_file, const std::string& context, const std::string& col);
 };
 
 #endif // ParseObjects_h

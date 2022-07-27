@@ -5,7 +5,7 @@ Kids	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFields]
 T	string-text	1.2		FALSE	FALSE	FALSE					
 TU	string-text	1.3		FALSE	FALSE	FALSE					
 TM	string-text	1.3		FALSE	FALSE	FALSE					
-Ff	bitmask	1.2		FALSE	FALSE	TRUE					
+Ff	bitmask	1.2		FALSE	FALSE	TRUE			[fn:Eval(fn:BitsClear(4,14) && fn:BitsClear(18,25) && fn:BitsClear(27,32))]		
 AA	dictionary	1.3		FALSE	FALSE	FALSE				[AddActionFormField]	
 DA	string	1.2		TRUE	FALSE	TRUE					
 Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]			

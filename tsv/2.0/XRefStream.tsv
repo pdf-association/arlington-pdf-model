@@ -1,17 +1,17 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5		TRUE	fn:MustBeDirect()	FALSE		[XRef]			
+Type	name	1.5		TRUE	fn:MustBeDirect()	FALSE		[XRef]			Table 5 + Table 15 + Table 17
 Size	integer	1.5		TRUE	fn:MustBeDirect()	FALSE		[fn:Eval(@Size>1)]			
 Index	array	1.5		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(((fn:ArrayLength(Index) mod 2)==0) && fn:ArraySortAscending(Index))]	[ArrayOfIntegersGeneral]	must be even array length
 Prev	integer	1.5		FALSE	fn:MustBeDirect()	FALSE		[fn:Eval((@Prev>=0) && (@Prev<=fn:FileSize()))]			
 W	array	1.5		TRUE	fn:MustBeDirect()	FALSE				[ArrayOfXRefWIntegers]	
 Length	integer	1.5		TRUE	FALSE	FALSE		[fn:Eval(@Length>=0)]			
-Filter	array;name	1.5		FALSE	fn:MustBeDirect()	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfCompressionFilterNames];[]	
-DecodeParms	array;dictionary	1.5		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
+Filter	array;name	1.5		FALSE	fn:MustBeDirect()	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	
+DecodeParms	array;dictionary	1.5		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
 F	dictionary;string	1.5		FALSE	FALSE	FALSE				[FileSpecification];[]	
-FFilter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]	[ArrayOfCompressionFilterNames];[]	
-FDecodeParms	array;dictionary	1.5		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
+FFilter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	
+FDecodeParms	array;dictionary	1.5		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
 DL	integer	1.5		FALSE	FALSE	FALSE		[fn:Eval(@DL>=0)]	[fn:Eval(@DL>=0)]		
 Root	dictionary	1.5		TRUE	TRUE	FALSE				[Catalog]	
-Info	dictionary	1.5		FALSE	TRUE	FALSE				[DocInfo]	
+Info	dictionary	1.5		FALSE	fn:MustBeIndirect(fn:BeforeVersion(2.0))	FALSE				[DocInfo]	https://github.com/pdf-association/pdf-issues/issues/106
 ID	array	1.5		TRUE	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE			[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]	[ArrayOf_2StringsByte]	
 Encrypt	dictionary	1.5		FALSE	FALSE	FALSE				[EncryptionStandard,EncryptionPublicKey]	

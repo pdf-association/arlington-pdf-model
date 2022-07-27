@@ -27,6 +27,7 @@
 
 #include <string>
 #include <cassert>
+#include <algorithm>
 #include "utils.h"
 
 /// @brief QPDF uses some C++17 deprecated features so try silence warnings
@@ -44,12 +45,9 @@ void* ArlingtonPDFSDK::ctx = nullptr;
 
 
 /// @brief Initialize the PDF SDK. May throw exceptions.
-void ArlingtonPDFSDK::initialize(bool enable_debugging)
+void ArlingtonPDFSDK::initialize()
 {
     assert(ctx == nullptr);
-
-    // Global namespaced flag to control debugging output
-    ArlingtonPDFShim::debugging = enable_debugging;
 
     // Assign to void context
     ctx = new QPDF();
@@ -122,10 +120,25 @@ std::string ArlingtonPDFSDK::get_pdf_version(ArlPDFTrailer* trailer) {
 }
 
 
+/// @brief  Gets the number of pages in the PDF file
+/// 
+/// @param[in] trailer   trailer of the PDF
+/// 
+/// @returns   number of pages in the PDF or -1 on error
+int ArlingtonPDFSDK::get_pdf_page_count(ArlPDFTrailer* trailer) {
+    assert(ctx != nullptr);
+    assert(trailer != nullptr);
+    return 99999;
+}
+
+
+
+
 /// @brief Constructor
 /// 
 /// @param[in] obj   the object
-ArlPDFObject::ArlPDFObject(void* obj) : object(obj)
+ArlPDFObject::ArlPDFObject(void* obj) :
+    object(obj), obj_nbr(-1), gen_nbr(-1) 
 {
     is_indirect = false;
     if (object == nullptr)
@@ -154,12 +167,8 @@ std::string ArlPDFObject::get_hash_id()
 /// @return PDFObjectType enum value
 PDFObjectType ArlPDFObject::get_object_type()
 {
-    if (object == nullptr) {
-        if (ArlingtonPDFShim::debugging) {
-            std::cout << __FUNCTION__ << "(nullptr): PDFObjectType::ArlPDFObjTypeNull" << std::endl;
-        }
+    if (object == nullptr)
         return PDFObjectType::ArlPDFObjTypeNull;
-    }
 
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     PDFObjectType retval;
@@ -195,9 +204,6 @@ PDFObjectType ArlPDFObject::get_object_type()
             retval = PDFObjectType::ArlPDFObjTypeUnknown;
             break;
     }
-    if (ArlingtonPDFShim::debugging) {
-        std::cout << __FUNCTION__ << "(" << object << "): " << PDFObjectType_strings[(int)retval] << std::endl;
-    }
     return retval;
 }
 
@@ -208,9 +214,6 @@ bool ArlPDFObject::is_indirect_ref()
 {
     assert(object != nullptr);
     bool retval = (((QPDFObjectHandle *)object)->isIndirect());
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): " << (retval ? "true" : "false") << std::endl;
-    }
     return retval;
 }
 
@@ -221,9 +224,6 @@ int ArlPDFObject::get_object_number()
 {
     assert(object != nullptr);
     int retval = ((QPDFObjectHandle *)object)->getObjectID();
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
-    }
     return retval;
 }
 
@@ -254,9 +254,6 @@ bool ArlPDFBoolean::get_value()
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isBool());
     bool retval = obj->getBoolValue();
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
-    }
     return retval;
 }
 
@@ -268,9 +265,6 @@ bool ArlPDFNumber::is_integer_value()
     assert(object != nullptr);
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     bool retval = obj->isInteger();
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): " << (retval ? "true" : "false") << std::endl;
-    }
     return retval;
 }
 
@@ -283,9 +277,6 @@ int ArlPDFNumber::get_integer_value()
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isInteger());
     int retval = obj->getIntValueAsInt();
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
-    }
     return retval;
 }
 
@@ -299,9 +290,6 @@ double ArlPDFNumber::get_value()
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isInteger() || obj->isReal());
     double retval = obj->getNumericValue();
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
-    }
     return retval;
 }
 
@@ -314,9 +302,6 @@ std::wstring ArlPDFString::get_value()
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isString());
     std::wstring retval = ToWString(obj->getStringValue());
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): '" << retval << "'" << std::endl;
-    }
     return retval;
 }
 
@@ -329,9 +314,6 @@ std::wstring ArlPDFName::get_value()
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isString());
     std::wstring retval = ToWString(obj->getName());
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): '" << retval << "'" << std::endl;
-    }
     return retval;
 }
 
@@ -344,9 +326,6 @@ int ArlPDFArray::get_num_elements()
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isArray());
     int retval = obj->getArrayNItems();
-    if (ArlingtonPDFShim::debugging) {
-        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
-    }
     return retval;
 }
 
@@ -363,8 +342,6 @@ ArlPDFObject* ArlPDFArray::get_value(int idx)
     QPDFObjectHandle *elem = new QPDFObjectHandle;
     *elem = obj->getArrayItem(idx);
     ArlPDFObject *retval = new ArlPDFObject(elem);
-    if (ArlingtonPDFShim::debugging)
-        std::wcout << __FUNCTION__ << "(" << idx << "): " << retval << std::endl;
     return retval;
 }
 
@@ -378,8 +355,6 @@ int ArlPDFDictionary::get_num_keys()
     assert(obj->isDictionary());
     std::map<std::string, QPDFObjectHandle>  dict = obj->getDictAsMap();
     int retval = (int)dict.size();
-    if (ArlingtonPDFShim::debugging)
-        std::wcout << __FUNCTION__ << "(" << object << "): " << retval << std::endl;
     return retval;
 }
 
@@ -394,8 +369,6 @@ bool ArlPDFDictionary::has_key(std::wstring key)
     assert(obj->isDictionary());
     std::string s = ToUtf8(key);
     bool retval = obj->hasKey(s);
-    if (ArlingtonPDFShim::debugging) 
-        std::cout << __FUNCTION__ << "(" << s << "): " << (retval ? "true" : "false") << std::endl;
     return retval;
 }
 
@@ -416,8 +389,6 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
         if (keyobj->isInitialized())
             ArlPDFObject* retval = new ArlPDFObject(keyobj);
     }
-    if (ArlingtonPDFShim::debugging)
-        std::cout << __FUNCTION__ << "(" << s << "): " << retval << std::endl;
     return retval;
 }
 
@@ -449,8 +420,6 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
             }
     }
 ****/
-    if (ArlingtonPDFShim::debugging) 
-        std::cout << __FUNCTION__ << "(" << index << "): " << ToUtf8(retval) << std::endl;
     return retval;
 }
 
@@ -461,8 +430,6 @@ ArlPDFDictionary* ArlPDFStream::get_dictionary() {
     QPDFObjectHandle* obj = (QPDFObjectHandle*)object;
     assert(obj->isStream());
     ArlPDFDictionary* retval = (ArlPDFDictionary *)obj;  /// @todo is this correct????
-    if (ArlingtonPDFShim::debugging)
-        std::cout << __FUNCTION__ << "(): " << retval << std::endl;
     return retval;
 }
 

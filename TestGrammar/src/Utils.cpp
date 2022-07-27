@@ -36,6 +36,7 @@
 #include <algorithm>
 #include <regex>
 #include <cassert>
+#include <cstdint>
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -94,19 +95,43 @@ std::string ToUtf8(const wchar_t unicode) {
     return out;
 }
 
-/// @brief Converts a Unicode wide string to UTF8
+
+
+/// @brief Converts a potentially Unicode wide string to UTF8/ASCII
 ///
-/// @param[in] wstr Unicode input
+/// @param[in] wstr Unicode input, potentially with a BOM
 ///
 /// @returns equivalent UTF8 string
 std::string ToUtf8(const std::wstring& wstr) {
-    const wchar_t* buffer = wstr.c_str();
+    std::wstring ws = wstr;
+
+    // Check for UTF-16BE or UTF-8 BOM strings
+    if ((ws.size() >= 2) && (ws[0] == 254) && (ws[1] == 255)) {
+        // Handle UTF-16BE
+        ws = ws.substr(2);
+
+        std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> conversion;
+        std::string utf8;
+
+        for (size_t i = 0; i < ws.size(); i += 2) {
+            char16_t c16 = (ws[i] << 8) + ws[i + 1];
+            utf8 = utf8 + conversion.to_bytes(c16);
+        }
+        return utf8;
+    }
+    else if ((ws.size() >= 3) && (ws[0] == 239) && (ws[1] == 187) && (ws[1] == 191)) {
+        // Strip UTF-8 BOM for PDF 2.0
+        ws = ws.substr(3);
+    }
+
+    const wchar_t* buffer = ws.c_str();
     auto len = wcslen(buffer);
     std::string out;
     while (len-- > 0)
         out.append(ToUtf8(*buffer++));
     return out;
 }
+
 
 /// @brief Converts UTF8 input string to UTF16 wide string
 ///
@@ -221,43 +246,6 @@ std::string remove_type_link_predicates(const std::string& in) {
 }
 
 
-/// @brief  Works out if an Arlington type is in the list of Arlington Types from the TSV data. Supports predicates.
-///         TO BE DEPRECATED!
-///
-/// @param[in] single_type a single Arlington predefined type (e.g. array, bitmask, rectangle, matrix, etc)
-/// @param[in] types       an Arlington Types field (alphabetically sorted; SEMI-COLON separated)
-///
-/// @returns -1 if single_type is not types, otherwise the index into the types array (when separated by SEMI-COLON)
-int get_type_index(std::string single_type, std::string types) {
-    std::vector<std::string> opt = split(remove_type_link_predicates(types), ';');
-    for (auto i = 0; i < (int)opt.size(); i++) {
-        if (opt[i] == single_type)
-            return i;
-    }
-    return -1;
-}
-
-
-
-/// @brief  Looks up a single Arlington type in the Types field, and then matches across to the Links field.
-///         Predicates are NOT stripped and retained in the result.
-///
-/// @param[in] single_type  a single Arlington predefined type (e.g. array, bitmask, rectangle, matrix, etc)
-/// @param[in] types    Arlington Types field (alphabetically sorted, SEMI-COLON separated)
-/// @param[in] links    Arlington Links field (enclosed in [] and semi-colon separated)
-///
-/// @returns  either a set of Arlington Links (incl. possibly predicates) in "[]", or the empty list "[]" if no type match
-std::string get_link_for_type(std::string single_type, const std::string& types, const std::string& links) {
-    int  index = get_type_index(single_type, types);
-    if (index == -1)
-        return "[]";
-    std::vector<std::string> lnk = split(links, ';');
-    if (index >= (int)lnk.size())  // for ArrayOfDifferences: types is "integer;name", links is "" and we get buffer overflow in lnk!
-        return "[]";
-    return lnk[index];
-}
-
-
 //////////////////////////////////////////////////////////////////////////
 //         TO BE DEPRECATED!
 //
@@ -306,11 +294,12 @@ std::vector<std::string> split(const std::string& s, char separator) {
 ///
 /// @param[in]  str   the string with leading whitespace
 ///
-/// @returns    the input string with all leading whitespace removed
-std::string strip_leading_whitespace(std::string& str) {
-    auto it2 = std::find_if(str.begin(), str.end(), [](char ch) { return !std::isspace<char>(ch, std::locale::classic()); });
-    str.erase(str.begin(), it2);
-    return str;
+/// @returns    a copy of the input string with all leading whitespace removed
+std::string strip_leading_whitespace(const std::string& str) {
+    std::string s = str;
+    auto it2 = std::find_if(s.begin(), s.end(), [](char ch) { return !std::isspace<char>(ch, std::locale::classic()); });
+    s.erase(s.begin(), it2);
+    return s;
 }
 
 
@@ -361,7 +350,7 @@ bool icontains(const std::string& s, const std::string& s1)
 /// @param[in] v      string to find
 ///
 /// @returns   true if 'v' is an exact to an element in 'list'. false otherwise.
-bool FindInVector(const std::vector<std::string> list, const std::string v) {
+bool FindInVector(const std::vector<std::string> list, const std::string& v) {
     for (auto& li : list)
         if (v == li)
             return true;
@@ -403,9 +392,8 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
             ofs << COLOR_WARNING << "single element array with '0*' should use '*' " << fname << COLOR_RESET;
             return true;
         }
-        else {
+        else
             return false;
-        }
     }
 
     int         idx;
@@ -451,7 +439,7 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
 
 
 /// @brief Regex for PDF second class names according to Annex E of ISO 32000-2:2020
-const std::regex r_SecondClassName("^([a-zA-Z0-9_\\-]{4,5}(_|:)|XX)");
+static const std::regex r_SecondClassName("^([a-zA-Z0-9_\\-]{4,5}(_|:)|XX)");
 
 
 /// @brief  Tests if a key is a valid PDF second class name according to Annex E of ISO 32000-2:2020
@@ -459,14 +447,14 @@ const std::regex r_SecondClassName("^([a-zA-Z0-9_\\-]{4,5}(_|:)|XX)");
 /// @param[in] key   the key in question
 ///
 /// @returns true if a second class name
-bool is_second_class_pdf_name(const std::string key) {
+bool is_second_class_pdf_name(const std::string& key) {
     std::smatch  m;
     return std::regex_search(key, m, r_SecondClassName);
 }
 
 
 /// @brief Regex for PDF third class names according to Annex E of ISO 32000-2:2020
-const std::regex r_ThirdClassName("^XX");
+static const std::regex r_ThirdClassName("^XX");
 
 
 /// @brief  Tests if a key is a valid PDF third class name according to Annex E of ISO 32000-2:2020
@@ -475,7 +463,106 @@ const std::regex r_ThirdClassName("^XX");
 /// @param[in] key   the key in question
 ///
 /// @returns true if a third class name
-bool is_third_class_pdf_name(const std::string key) {
+bool is_third_class_pdf_name(const std::string& key) {
     std::smatch  m;
     return std::regex_search(key, m, r_ThirdClassName);
+}
+
+
+/// @brief Regex for a full PDF date string
+///  (D:YYYYMMDDHHmmSSOHH'mm')
+static const std::regex r_DateStart("^D:(\\d{4})(\\d{2})?(\\d{2})?(\\d{2})?(\\d{2})?(\\d{2})?([Z\\+\\-]{1})?(\\d{2})?(\'?)(\\d{2})?(\'?)"); 
+
+
+/// @brief Tests if a string is a valid PDF date string according to clause 7.9.4 in ISO 32000-2:2020
+///
+/// @param[in] wdate   the date string in question
+///
+/// @returns true iff the date string is valid
+bool is_valid_pdf_date_string(const std::wstring& wdate) {
+    std::smatch  m;
+
+    // Convert from possible UTF-16 and strip off BOM
+    std::string date = ToUtf8(wdate);
+    if ((date.size() >= 2) && (date[0] == 254) && (date[1] == 255)) {
+        date = date.substr(2);
+    }
+
+    if (std::regex_search(date, m, r_DateStart)) {
+        // Range check each of the fields as per ISO 32000-2:2020
+        // m[0] is the full date
+        // Ensure things are matched AND of the right length as zero-length matches are possible with regex
+        if (m[1].matched && (m[1].length() == 4)) {
+            // Matched YYYY - not checked
+        }
+        if (m[2].matched && (m[2].length() == 2)) {
+            // Matched MM
+            int mon = ((m[2].first[0] - '0') * 10) + (m[2].first[1] - '0');
+            if ((mon < 1) || (mon > 12)) return false;
+        }
+        if (m[3].matched && (m[3].length() == 2)) {
+            // Matched DD
+            int day = ((m[3].first[0] - '0') * 10) + (m[3].first[1] - '0');
+            if ((day < 1) || (day > 31)) return false;
+        }
+        if (m[4].matched && (m[4].length() == 2)) {
+            // Matched HH
+            int hr = ((m[4].first[0] - '0') * 10) + (m[4].first[1] - '0');
+            if ((hr < 0) || (hr > 23)) return false;
+        }
+        if (m[5].matched && (m[5].length() == 2)) {
+            // Matched mm
+            int min = ((m[5].first[0] - '0') * 10) + (m[5].first[1] - '0');
+            if ((min < 0) || (min > 59)) return false;
+        }
+        if (m[6].matched && (m[6].length() == 2)) {
+            // Matched SS
+            int sec = ((m[6].first[0] - '0') * 10) + (m[6].first[1] - '0');
+            if ((sec < 0) || (sec > 59)) return false;
+        }
+        if (m[7].matched && (m[7].length() == 1)) {
+            // Matched -, +, or Z
+        }
+        if (m[8].matched && (m[8].length() == 2)) {
+            // Matched HH for timezone
+            int tzhr = ((m[8].first[0] - '0') * 10) + (m[8].first[1] - '0');
+            if ((tzhr < 0) || (tzhr > 23)) return false;
+        }
+        if (m[9].matched && (m[9].length() == 1)) {
+            // Matched APOSTROPHE
+            assert((m[9].first[0] == '\''));
+        }
+        if (m[10].matched && (m[10].length() == 2)) {
+            // Matched mm for timezone
+            int tzmin = ((m[10].first[0] - '0') * 10) + (m[10].first[1] - '0');
+            if ((tzmin < 0) || (tzmin > 59)) return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+
+/// @brief Convert an Arlington key to an array index (assumed to be an integer). 
+/// This might include a wildcard at the end (e.g. 2*).
+/// 
+/// @param[in]  key   assumed integer array index (from Arlington)
+/// 
+/// @returns -1 on error or the integer array index (>= 0)
+int key_to_array_index(const std::string& key) {
+    assert(key.size() > 0);
+    // Quick check to avoid exception handling
+    if (!isdigit(key[0]))
+        return -1;
+
+    int i = -1;
+    try {
+        i = std::stoi(key);
+        if (i < 0)
+            i = -1;
+    }
+    catch (...) {
+        i = -1;
+    }
+    return i;
 }

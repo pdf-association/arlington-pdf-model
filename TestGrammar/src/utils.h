@@ -85,14 +85,8 @@ std::vector<std::string> split(const std::string& s, char separator);
 /// @brief Arlington brute-force predicate removal for Type and Link fields
 std::string remove_type_link_predicates(const std::string& in);
 
-/// @brief Returns the index of a specific type in an Arlington type string or -1 if not present
-int get_type_index(std::string single_type, std::string types);
-
-/// @brief  Looks up a single Arlington type in the Types field, and then matches across to the Links field.
-std::string get_link_for_type(std::string single_type, const std::string& types, const std::string& links);
-
-/// @brief Strip leading whitespace
-std::string strip_leading_whitespace(std::string& str);
+/// @brief Strip leading whitespace 
+std::string strip_leading_whitespace(const std::string& str);
 
 /// @brief Case insensitive comparison of two strings
 bool iequals(const std::string& a, const std::string& b);
@@ -101,15 +95,21 @@ bool iequals(const std::string& a, const std::string& b);
 bool icontains(const std::string& s, const std::string& s1);
 
 /// @brief Finds a string in a vector of strings
-bool FindInVector(const std::vector<std::string> list, const std::string v);
+bool FindInVector(const std::vector<std::string> list, const std::string& v);
 
 /// @brief Check if Arlington data represents an array
 bool check_valid_array_definition(const std::string& fname, const std::vector<std::string>& keys, std::ostream& ofs, bool* wildcard_only);
 
-// @brief Tests if a key is a valid PDF second class name according to Annex E of ISO 32000-2:2020
-bool is_second_class_pdf_name(const std::string key);
+/// @brief Tests if a key is a valid PDF second class name according to Annex E of ISO 32000-2:2020
+bool is_second_class_pdf_name(const std::string& key);
 
-// @brief Tests if a key is a valid PDF third class name according to Annex E of ISO 32000-2:2020
-bool is_third_class_pdf_name(const std::string key);
+/// @brief Tests if a key is a valid PDF third class name according to Annex E of ISO 32000-2:2020
+bool is_third_class_pdf_name(const std::string& key);
+
+/// @brief Tests if a string is a valid PDF date string according to clause 7.9.4 in ISO 32000-2:2020
+bool is_valid_pdf_date_string(const std::wstring& wdate);
+
+/// @brief Convert an Arlington key to an array index (should be an integer) or -1 on error
+int key_to_array_index(const std::string& key);
 
 #endif // Utils_h

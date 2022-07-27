@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		TRUE	FALSE	FALSE		[Pages]			
+Type	name	1.0		TRUE	FALSE	FALSE		[Pages]			Table 30
 Parent	dictionary	1.0		TRUE	TRUE	FALSE				[PageTreeNode,PageTreeNodeRoot]	
 Kids	array	1.0		TRUE	FALSE	FALSE				[ArrayOfPageTreeNodeKids]	
 Count	integer	1.0		TRUE	FALSE	FALSE		[fn:Eval(@Count>=0)]			

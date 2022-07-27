@@ -236,13 +236,23 @@ class Arlington:
             return True
         return False
 
-    def validate_fn_eval(self, ast: AST) -> bool:
+    def validate_fn_contains(self, ast: AST) -> bool:
         """
-        Validates the very generic fn:Eval() functions. Any number of arguments!!
+        Validates the fn:Contains predicate with key-value 1st argument and a statement (anything) 2nd arg.
+        @param ast: AST to be validated.
+        @returns: True if a valid 'fn:BitsSet/Clear(' function. False otherwise
+        """
+        if ((len(ast) == 2) and (ast[0].type == 'KEY_VALUE')):
+            return True
+        return False
+
+    def validate_fn_anything(self, ast: AST) -> bool:
+        """
+        Validates all generic predicates. At least one argument is required.
         @param ast: AST to be validated.
         @returns: True if a valid function. False otherwise
         """
-        return True   # TODO!!!!!
+        return (len(ast) > 0)
 
     def validate_fn_get_page_property(self, ast: AST) -> bool:
         """
@@ -295,8 +305,11 @@ class Arlington:
         """
         if (len(ast) == 0) or isinstance(ast[0], list):
             return True
-        if (len(ast) >= 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
-            return True
+        if (len(ast) >= 3):
+            if (ast[0].type == 'FUNC_NAME'):
+                return True
+            if (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+                return True
         if (len(ast) >= 4) and (ast[0].type == 'KEY_PATH') and (ast[1].type in ('KEY_NAME', 'KEY_VALUE')) and (ast[2].type in self.__comparison_ops):
             return True
         return False
@@ -327,28 +340,6 @@ class Arlington:
             return True
         return False
 
-    def validate_fn_not_in_map(self, ast: AST) -> bool:
-        """
-        @param ast: AST to be validated.
-        @returns: True if a valid function. False otherwise
-        """
-        if (len(ast) == 2) and (ast[0].type == 'KEY_PATH') and (ast[1].type in ('KEY_NAME', 'INTEGER')):
-            return True
-        return False
-
-    def validate_fn_not_present(self, ast: AST) -> bool:
-        """
-        @param ast: AST to be validated.
-        @returns: True if a valid function. False otherwise
-        """
-        if (len(ast) == 0) or isinstance(ast[0], list):
-            return True
-        if (len(ast) == 1) and (ast[0].type in ('KEY_NAME', 'INTEGER')):
-            return True
-        if (len(ast) == 3) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
-            return True
-        return False
-
     def validate_fn_rect(self, ast: AST) -> bool:
         """
         @param ast: AST to be validated.
@@ -364,14 +355,18 @@ class Arlington:
         @returns: True if a valid function. False otherwise
         """
         if not isinstance(ast[0], list):
-            if (len(ast) >= 4) and (ast[0].type == 'KEY_VALUE') and (ast[1].type in self.__comparison_ops):
+            if ((len(ast) == 4) and (ast[0].type in ('KEY_VALUE','FUNC_NAME'))):
                 return True
         else:
-            if ((len(ast) >= 3) and
-                ((ast[0][0].type == 'KEY_VALUE') and (ast[0][1].type in self.__comparison_ops)) and
-                (ast[1].type in ('LOGICAL_OR', 'LOGICAL_AND')) and
-                ((ast[2][0].type == 'KEY_VALUE') and (ast[2][1].type in self.__comparison_ops))):
-                return True
+            if (len(ast) == 2):
+                if (isinstance(ast[0][0], list) and (ast[0][0][0].type == 'FUNC_NAME')):
+                    return True
+            elif (len(ast) >= 3):
+                if ((((ast[0][0].type == 'KEY_VALUE') and (ast[0][1].type in self.__comparison_ops)) and
+                    (ast[1].type in ('LOGICAL_OR', 'LOGICAL_AND')) and
+                    ((ast[2][0].type == 'KEY_VALUE') and (ast[2][1].type in self.__comparison_ops))) or
+                    ((ast[0][0].type == 'FUNC_NAME'))):
+                    return True
         return False
 
     def validate_fn_is_present(self, ast: AST) -> bool:
@@ -427,8 +422,9 @@ class Arlington:
         'fn:BitSet(': validate_fn_bit,
         'fn:BitsClear(': validate_fn_bits,
         'fn:BitsSet(': validate_fn_bits,
+        'fn:Contains(': validate_fn_contains,
         'fn:Deprecated(': validate_fn_version,
-        'fn:Eval(': validate_fn_eval,
+        'fn:Eval(': validate_fn_anything,
         'fn:FileSize(': validate_fn_void,
         'fn:FontHasLatinChars(': validate_fn_void,
         'fn:PageProperty(': validate_fn_get_page_property,
@@ -438,7 +434,7 @@ class Arlington:
         'fn:InMap(': validate_fn_in_map,
         'fn:IsAssociatedFile(': validate_fn_void,
         'fn:IsEncryptedWrapper(': validate_fn_void,
-        'fn:IsLastInNumberFormatArray(': validate_fn_void,
+        'fn:IsLastInNumberFormatArray(': validate_fn_anything,
         'fn:IsMeaningful(': validate_fn_is_meaningful,
         'fn:IsPDFTagged(': validate_fn_void,
         'fn:IsPDFVersion(': validate_fn_version,
@@ -448,8 +444,6 @@ class Arlington:
         'fn:MustBeDirect(': validate_fn_must_be_direct,
         'fn:MustBeIndirect(': validate_fn_must_be_indirect,
         'fn:NoCycle(': validate_fn_void,
-        'fn:NotInMap(': validate_fn_not_in_map,
-        'fn:NotPresent(': validate_fn_not_present,
         'fn:NotStandard14Font(': validate_fn_void,
         'fn:NumberOfPages(': validate_fn_void,
         'fn:PageContainsStructContentItems(': validate_fn_void,
@@ -459,7 +453,8 @@ class Arlington:
         'fn:SinceVersion(': validate_fn_version,
         'fn:StreamLength(': validate_fn_stream_length,
         'fn:StringLength(': validate_fn_string_length,
-        'fn:DefaultValue(': validate_fn_default_value
+        'fn:DefaultValue(': validate_fn_default_value,
+        'fn:Not(': validate_fn_anything
     }
 
     @staticmethod
@@ -649,7 +644,7 @@ class Arlington:
         @param key: name of the key on 'obj' for this function (just for error messages)
         @returns: Python list with top level TSV names or PDF names as strings and functions as lists
         """
-        # logging.info("In row['%s'] %s::%s: '%s'", col, obj, key, func)
+        logging.info("In row['%s'] %s::%s: '%s'", col, obj, key, func)
         stk = []
         for tok in self.__lexer.tokenize(func):
             stk.append(tok)

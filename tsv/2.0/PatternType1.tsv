@@ -9,10 +9,10 @@ YStep	number	1.2		TRUE	FALSE	FALSE
 Resources	dictionary	1.2		TRUE	FALSE	FALSE				[Resource]	
 Matrix	matrix	1.2		FALSE	FALSE	FALSE					
 Length	integer	1.2		TRUE	FALSE	FALSE					
-Filter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfCompressionFilterNames];[]	
-DecodeParms	array;dictionary	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
+Filter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	
+DecodeParms	array;dictionary	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
 F	dictionary;string	1.2		FALSE	FALSE	FALSE				[FileSpecification];[]	
-FFilter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]	[ArrayOfCompressionFilterNames];[]	
-FDecodeParms	array;dictionary	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
+FFilter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	
+FDecodeParms	array;dictionary	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
 DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(@DL>=0)]		
 XUID	array	1.2	1.3	FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral]	

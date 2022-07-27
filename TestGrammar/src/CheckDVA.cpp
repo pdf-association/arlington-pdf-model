@@ -537,9 +537,8 @@ void process_dva_formal_rep_tree(const fs::path &tsv_dir, std::ostream& ofs, Arl
             [&elem](CDVAArlingtonTuple& a) { return (a == elem); });
 
         if (found != mapped.end()) {
-            if (ArlingtonPDFShim::debugging && !terse) {
+            if (!terse)
                 ofs << "Already processed DVA " << elem.all_DVA_keys() << " vs Arlington '" << elem.link << "'" << std::endl;
-            }
             continue;
         }
 

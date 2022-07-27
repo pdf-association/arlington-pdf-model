@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		TRUE	FALSE	FALSE		[Page,Template]			
+Type	name	1.0		TRUE	FALSE	FALSE		[Page,Template]			Table 31
 Parent	dictionary	1.0		fn:IsRequired(@Type!=Template)	TRUE	FALSE				[PageTreeNode,PageTreeNodeRoot]	
 LastModified	date	1.3		fn:IsRequired(fn:IsPresent(PieceInfo))	FALSE	FALSE					
 Resources	dictionary	1.0		TRUE	FALSE	TRUE				[Resource]	Inheritable from Parent
@@ -21,7 +21,7 @@ AA	dictionary	1.2		FALSE	FALSE	FALSE				[AddActionPageObject]
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]	
 PieceInfo	dictionary	1.3		FALSE	FALSE	FALSE				[PagePiece]	
 StructParents	integer	1.3		fn:IsRequired(fn:PageContainsStructContentItems())	FALSE	FALSE					
-ID	string-byte	1.3		FALSE	FALSE	FALSE					byte string
+ID	string-byte	1.3		FALSE	FALSE	FALSE					https://github.com/pdf-association/pdf-issues/issues/106
 PZ	number	1.3		FALSE	FALSE	FALSE					
 SeparationInfo	dictionary	1.3		FALSE	FALSE	FALSE				[Separation]	
 Hid	boolean	1.1	1.3	FALSE	FALSE	TRUE	false				

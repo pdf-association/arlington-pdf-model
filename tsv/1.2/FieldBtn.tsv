@@ -3,7 +3,7 @@ FT	name	1.2		TRUE	FALSE	TRUE		[Btn]
 Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,Field]	
 Kids	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFields]	
 T	string-text	1.2		FALSE	FALSE	FALSE					
-Ff	bitmask	1.2		FALSE	FALSE	TRUE					
+Ff	bitmask	1.2		FALSE	FALSE	TRUE			[fn:Eval(fn:BitsClear(4,14) && fn:BitsClear(18,25) && fn:BitsClear(27,32))]		
 DA	string	1.2		TRUE	FALSE	TRUE					
 Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]			
 V	name	1.2		FALSE	FALSE	TRUE					

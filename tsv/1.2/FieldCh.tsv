@@ -3,7 +3,7 @@ FT	name	1.2		TRUE	FALSE	TRUE		[Ch]
 Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,Field]	
 Kids	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFields]	
 T	string-text	1.2		FALSE	FALSE	FALSE					
-Ff	bitmask	1.2		FALSE	FALSE	TRUE					
+Ff	bitmask	1.2		FALSE	FALSE	TRUE			[fn:Eval(fn:BitsClear(4,14) && fn:BitClear(21) && fn:BitsClear(24,26) && fn:BitsClear(28,32))]		
 V	string-text	1.2		FALSE	FALSE	TRUE					
 DV	string-text	1.2		FALSE	FALSE	TRUE					
 DA	string	1.2		TRUE	FALSE	TRUE					

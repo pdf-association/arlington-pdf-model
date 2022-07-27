@@ -1,0 +1,159 @@
+%PDF-1.5
+%
+% DO NOT ATTEMPT TO OPEN THIS PDF WITH A PDF VIEWER!!!
+%
+% An intentionally HIGHLY invalid PDF designed to test the predicate processing logic of many of the predicates in the Arlington TestGrammar PoC
+%
+% - version based predicates (fn:SinceVersion(), fn:Deprecated(), fn:IsPDFVersion() can be tested using the --force command line option 
+%    or using a version-specific Arlington TSV data set
+% - fn:Eval() is widely used but want to test that some math and logic operators (&&,||) work
+% - fn:IsRequired() including both a key name (key) and a key value (@key) argument
+% - fn:IsPresent()
+% - fn:ArrayLength()
+% - the various bit set/clear functions
+% - fn:StringLength()
+% - fn:Not()
+% - illogical versioning between Header, Catalog Version key and feature set in the PDF
+%
+% This material is based upon work supported by the Defense Advanced
+% Research Projects Agency (DARPA) under Contract No. HR001119C0079.
+% Any opinions, findings and conclusions or recommendations expressed
+% in this material are those of the author(s) and do not necessarily
+% reflect the views of the Defense Advanced Research Projects Agency
+% (DARPA). Approved for public release.
+%
+% Copyright (c) 2022, PDF Association Inc. Peter Wyatt.
+
+1 0 obj
+<< 
+/Type /Catalog
+/Pages 2 0 R
+/PageLayout /AnUndefinedOption % unknown value
+/CatalogCustomKey 123 % unknown key
+/Version /1.4 % less than the header
+/MarkInfo << /Marked true /Suspects 1 >> % fake a Tagged PDF, also with a wrong type for Suspects
+/Lang /en-US %% wrong type (should be a string)
+/OpenAction << 
+		/Type /Action 
+		/S /URI 
+		/URI (\003\006Bad ASCII) % unprintables in an ASCII string
+	>> 
+>>
+endobj
+
+2 0 obj
+<< 
+/Type /Pages
+/Kids [ 3 0 R ]
+/Count -1  %% fn:Eval(@Count>=0)
+>>
+endobj
+
+3 0 obj
+<< 
+/Type /Page
+/PieceInfo << 
+	/Blah << 
+		/LastModified (is not a Date!) 
+		/Data 123 
+		>> 
+	>> %% Page is missing valid LastModified key: fn:IsRequired(fn:IsPresent(PieceInfo))
+/Parent 2 0 R
+/Resources << 
+		/Font << /F1 5 0 R /F2 10 0 R >> 
+		/ExtGState << /GS1 << /BM [/BMCustom/Compatible]>> >>   %% deprecated array form AND blend mode names 
+		>>
+/MediaBox [ 841.890 (string) 0 0 0 ] %% too many elements in a rectangle AND not all numeric
+/Contents 4 0 R
+/Rotate 32 % fails [fn:Eval((@Rotate mod 90)==0)]
+/StructParents -1 %% bad value
+/Annots [ 9 0 R ]
+>>
+endobj
+
+4 0 obj
+<<
+/Length 0
+>>
+stream
+5 w
+1 0 0 rg
+0 1 0 RG
+10 10 500 500 re B
+endstream
+endobj
+
+5 0 obj
+<<
+/Type /Font
+/Subtype /Type3
+/FontBBox [-36 -36 786 786]
+/FontMatrix [0.001 0 0 0.001 0 0 1 2 4 ] %% Too many elements in a matrix
+% /FontDescriptor missing so will fail fn:IsRequired(fn:IsPDFTagged()) 
+/CharProcs 6 0 R
+/Encoding 10 0 R
+/FirstChar 92
+/LastChar 106
+/Widths [1000 1000] %% fails [fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))]
+>>
+endobj
+
+6 0 obj % CharProcs but not enough content streams so fail predicate on /Font /Widths key
+<<
+/Glyph1 7 0 R
+/Glyph2 8 0 R
+>>
+endobj
+
+7 0 obj
+<< /Length 0 >>
+stream
+% CharProc for /Glyph1
+endstream
+endobj
+
+8 0 obj
+<< /Length 0 >>
+stream
+% CharProc for /Glyph1
+endstream
+endobj
+
+9 0 obj
+<<
+/Type /Annot
+/Subtype /Link
+% Missing required Rect key
+/F 999 % should fail bitmask predicate
+/CA 1.1 % bad value
+/Metadata 4 0 R % Metadata
+>>
+endobj
+
+10 0 obj
+<<
+/Type /Font 
+/Subtype /CIDFontType0
+/BaseFont /BaseFontName
+/FontDescriptor << 
+	/Style << /Panose (Not 12 characters long) >> %% fails [fn:Eval(fn:StringLength(Panose)==12)]
+	/Flags 458863 % SHOULD PASS 32 bit check! (bits 1-4,6-7,17-19 --> as zero-based: 0-3,5-6,16-18)
+	/FontWeight 250 % not a predefined value
+	/Descent 123 % not <= 0
+	/FontName /BaseFontName %%% THIS IS CORRECT! (matches parent::BaseFont
+>>
+/AF << >> %% Associated File
+>>
+endobj
+
+trailer
+<<
+/Size 11
+/Root 1 0 R
+/TrailerCustomKey 123 % unknown key
+/XRefStm 9999  % [fn:Eval((@XRefStm>=0) && (@XRefStm<=fn:FileSize()))]
+/Info <<  
+	/CreationDate (D:20220714283724+10'00') %% bad date string (hours is > 24)
+	/Subject (\377\376UTF-16LE BOM!) %% UTF-16LE BOM string 
+	>> % not an indirect reference
+>>

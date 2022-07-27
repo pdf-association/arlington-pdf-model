@@ -77,7 +77,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[DestXYZ,Dest0,Dest1,Dest4];[];[]"
+        "Link": "[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]"
       }
     }
   },
@@ -127,7 +127,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[DestXYZ,Dest0,Dest1,Dest4];[];[]"
+        "Link": "[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]"
       },
       "NewWindow": {
         "Key": "NewWindow",
@@ -460,7 +460,8 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "PossibleValues": "[0,1]"
+        "PossibleValues": "[0,1]",
+        "SpecialCase": "[fn:Eval(fn:BitsClear(2,32))]"
       }
     }
   },
@@ -505,7 +506,7 @@
         "Required": true,
         "IndirectReference": true,
         "Inheritable": false,
-        "Link": "[Stream]"
+        "Link": "[SoundObject]"
       },
       "Volume": {
         "Key": "Volume",
@@ -587,7 +588,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "0"
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval(fn:BitClear(13) && fn:BitsClear(15,32))]"
       },
       "CharSet": {
         "Key": "CharSet",
@@ -646,7 +648,7 @@
         "Required": true,
         "IndirectReference": "[true];[false];[false]",
         "Inheritable": false,
-        "PossibleValues": "[];[fn:Eval((@D>=0) && (@D<fn:ArrayLength(Catalog::Threads)))];[]",
+        "PossibleValues": "[];[fn:Eval((@D>=0) && (@D<fn:ArrayLength(trailer::Catalog::Threads)))];[]",
         "Link": "[Thread];[];[]"
       },
       "B": {
@@ -918,7 +920,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1055,7 +1057,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1202,7 +1204,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1338,7 +1340,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1474,7 +1476,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1620,7 +1622,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1766,7 +1768,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) && fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(2.0,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1829,7 +1831,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[DestXYZ,Dest0,Dest1,Dest4];[];[]"
+        "Link": "[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]"
       },
       "H": {
         "Key": "H",
@@ -1921,7 +1923,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(4,32), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) && fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2065,7 +2067,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2199,7 +2201,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(4,32), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) && fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2353,7 +2355,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2490,7 +2492,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2562,7 +2564,7 @@
         "Inheritable": false,
         "DefaultValue": "Draft",
         "PossibleValues": "[Approved,Experimental,NotApproved,AsIs,Expired,NotForPublicRelease,Confidential,Final,Sold,Departmental,ForComment,TopSecret,Draft,ForPublicRelease]",
-        "SpecialCase": "[fn:NotPresent(@Name!=Stamp)]"
+        "SpecialCase": "[fn:Not(@Name!=Stamp)]"
       }
     }
   },
@@ -2628,7 +2630,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2764,7 +2766,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) && fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2916,7 +2918,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BitsClear(1,2) && fn:BitSet(3) && fn:BitsClear(4,6) && fn:BitSet(7) && fn:BitsClear(8,32))]"
       },
       "AP": {
         "Key": "AP",
@@ -2972,7 +2974,7 @@
         "Type": "array",
         "SinceVersion": 1.3,
         "DeprecatedIn": 2.0,
-        "Required": "fn:IsRequired(fn:IsPresent(AnnotStates) && fn:NotPresent(LastModified))",
+        "Required": "fn:IsRequired(fn:IsPresent(AnnotStates) && fn:Not(fn:IsPresent(LastModified)))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[_UniversalArray]"
@@ -2982,7 +2984,7 @@
         "Type": "array",
         "SinceVersion": 1.3,
         "DeprecatedIn": 2.0,
-        "Required": "fn:IsRequired(fn:IsPresent(Version) && fn:NotPresent(LastModified))",
+        "Required": "fn:IsRequired(fn:IsPresent(Version) && fn:Not(fn:IsPresent(LastModified)))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfAnnotStates]"
@@ -3061,7 +3063,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(8,32), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -3197,7 +3199,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:BitsClear(4,32), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))]"
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) && fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -4186,10 +4188,20 @@
   {
     "id": "ArrayOfTags",
     "keys": {
-      "*": {
-        "Key": "*",
-        "Type": "integer;string-ascii",
+      "0*": {
+        "Key": "0*",
+        "Type": "integer",
         "SinceVersion": 1.2,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "1*": {
+        "Key": "1*",
+        "Type": "string-ascii",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
@@ -4459,7 +4471,7 @@
       "0": {
         "Key": "0",
         "Type": "number",
-        "SinceVersion": 1.3,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -4467,7 +4479,7 @@
       "1": {
         "Key": "1",
         "Type": "number",
-        "SinceVersion": 1.3,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -4475,7 +4487,7 @@
       "2": {
         "Key": "2",
         "Type": "number",
-        "SinceVersion": 1.3,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -4483,7 +4495,7 @@
       "3": {
         "Key": "3",
         "Type": "number",
-        "SinceVersion": 1.3,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -4847,7 +4859,7 @@
     }
   },
   {
-    "id": "Blackpoint",
+    "id": "BlackpointArray",
     "keys": {
       "0": {
         "Key": "0",
@@ -4949,7 +4961,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:BitClear(5) && fn:BitsClear(8,16) && fn:BitsClear(20,32))]"
       },
       "FontBBox": {
         "Key": "FontBBox",
@@ -4982,7 +4995,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@Descent<0)]"
+        "PossibleValues": "[fn:Eval(@Descent<=0)]"
       },
       "Leading": {
         "Key": "Leading",
@@ -5095,7 +5108,7 @@
     }
   },
   {
-    "id": "CMap",
+    "id": "CMapStream",
     "keys": {
       "Type": {
         "Key": "Type",
@@ -5159,7 +5172,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -5169,7 +5182,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -5189,7 +5202,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -5199,7 +5212,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -5237,7 +5250,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[Whitepoint]"
+        "Link": "[WhitepointArray]"
       },
       "BlackPoint": {
         "Key": "BlackPoint",
@@ -5247,7 +5260,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0.0 0.0 0.0]",
-        "Link": "[Blackpoint]"
+        "Link": "[BlackpointArray]"
       },
       "Gamma": {
         "Key": "Gamma",
@@ -5294,7 +5307,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[Whitepoint]"
+        "Link": "[WhitepointArray]"
       },
       "BlackPoint": {
         "Key": "BlackPoint",
@@ -5304,7 +5317,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0.0 0.0 0.0]",
-        "Link": "[Blackpoint]"
+        "Link": "[BlackpointArray]"
       },
       "Gamma": {
         "Key": "Gamma",
@@ -5314,7 +5327,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[1.0 1.0 1.0]",
-        "Link": "[Gamma]"
+        "Link": "[GammaArray]"
       },
       "Matrix": {
         "Key": "Matrix",
@@ -5430,7 +5443,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[DestXYZ,Dest0,Dest1,Dest4];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
+        "Link": "[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
       },
       "URI": {
         "Key": "URI",
@@ -5555,7 +5568,7 @@
     }
   },
   {
-    "id": "Dest0",
+    "id": "Dest0Array",
     "keys": {
       "0": {
         "Key": "0",
@@ -5579,7 +5592,7 @@
     }
   },
   {
-    "id": "Dest1",
+    "id": "Dest1Array",
     "keys": {
       "0": {
         "Key": "0",
@@ -5612,7 +5625,7 @@
     }
   },
   {
-    "id": "Dest4",
+    "id": "Dest4Array",
     "keys": {
       "0": {
         "Key": "0",
@@ -5681,12 +5694,12 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[DestXYZ,Dest0,Dest1,Dest4]"
+        "Link": "[DestXYZArray,Dest0Array,Dest1Array,Dest4Array]"
       }
     }
   },
   {
-    "id": "DestXYZ",
+    "id": "DestXYZArray",
     "keys": {
       "0": {
         "Key": "0",
@@ -5746,7 +5759,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[DestXYZ,Dest0,Dest1,Dest4];[DestDict]"
+        "Link": "[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[DestDict]"
       }
     }
   },
@@ -5974,7 +5987,7 @@
         "Key": "ModDate",
         "Type": "date",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired(fn:IsAssociatedFile())",
+        "Required": "fn:IsRequired(fn:SinceVersion(2.0,fn:IsAssociatedFile()))",
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -6015,7 +6028,7 @@
         "Key": "Subtype",
         "Type": "name",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired(fn:IsAssociatedFile())",
+        "Required": "fn:IsRequired(fn:SinceVersion(2.0,fn:IsAssociatedFile()))",
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -6023,7 +6036,7 @@
         "Key": "Params",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired(fn:IsAssociatedFile())",
+        "Required": "fn:IsRequired(fn:SinceVersion(2.0,fn:IsAssociatedFile()))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[EmbeddedFileParameter]"
@@ -6044,7 +6057,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
@@ -6054,7 +6067,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       },
       "F": {
@@ -6074,7 +6087,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "FDecodeParms": {
@@ -6084,7 +6097,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       }
     }
@@ -6243,7 +6256,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:BitsClear(1,2),3,4,5,6,fn:BitsSet(7,8),9,11,12,fn:BitsSet(13,32)]"
+        "SpecialCase": "[fn:Eval(fn:BitsClear(1,2) && fn:BitsSet(7,8) && fn:SinceVersion(2.0,fn:BitSet(10)) && fn:BitsSet(13,32))]"
       },
       "Perms": {
         "Key": "Perms",
@@ -6330,7 +6343,8 @@
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:BitsClear(4,32))]"
       },
       "AA": {
         "Key": "AA",
@@ -6403,7 +6417,8 @@
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true
+        "Inheritable": true,
+        "SpecialCase": "[fn:Eval(fn:BitsClear(4,14) && fn:BitsClear(18,25) && fn:BitsClear(27,32))]"
       },
       "AA": {
         "Key": "AA",
@@ -6510,7 +6525,8 @@
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true
+        "Inheritable": true,
+        "SpecialCase": "[fn:Eval(fn:BitsClear(4,14) && fn:BitClear(21) && fn:BitsClear(24,26) && fn:BitsClear(28,32))]"
       },
       "V": {
         "Key": "V",
@@ -6626,7 +6642,8 @@
         "SinceVersion": 1.3,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true
+        "Inheritable": true,
+        "SpecialCase": "[fn:Eval(fn:BitsClear(4,32))]"
       },
       "V": {
         "Key": "V",
@@ -6735,7 +6752,8 @@
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true
+        "Inheritable": true,
+        "SpecialCase": "[fn:Eval(fn:BitsClear(15,20) && fn:BitClear(22) && fn:BitsClear(27,32))]"
       },
       "V": {
         "Key": "V",
@@ -6845,7 +6863,7 @@
         "Key": "F",
         "Type": "string",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(fn:NotPresent(DOS) && fn:NotPresent(Mac) && fn:NotPresent(Unix))",
+        "Required": "fn:IsRequired(fn:Not(fn:IsPresent(DOS)) && fn:Not(fn:IsPresent(Mac)) && fn:Not(fn:IsPresent(Unix)))",
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -7214,7 +7232,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.2,
         "Required": true,
-        "IndirectReference": true,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[FontDescriptorCIDType0]"
       },
@@ -7318,7 +7336,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.2,
         "Required": true,
-        "IndirectReference": true,
+        "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
         "Link": "[FontDescriptorCIDType2]"
       },
@@ -7406,7 +7424,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:BitClear(5) && fn:BitsClear(8,16) && fn:BitsClear(20,32))]"
       },
       "FontBBox": {
         "Key": "FontBBox",
@@ -7439,7 +7458,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@Descent<0)]"
+        "PossibleValues": "[fn:Eval(@Descent<=0)]"
       },
       "Leading": {
         "Key": "Leading",
@@ -7518,7 +7537,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:NotPresent(FontFile2) && fn:NotPresent(FontFile3))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile2)) && fn:Not(fn:IsPresent(FontFile3)))]",
         "Link": "[FontFile]"
       },
       "FontFile3": {
@@ -7528,7 +7547,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:NotPresent(FontFile) && fn:NotPresent(FontFile2))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile)) && fn:Not(fn:IsPresent(FontFile2)))]",
         "Link": "[FontFile3CIDType0]"
       },
       "Style": {
@@ -7588,7 +7607,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:BitClear(5) && fn:BitsClear(8,16) && fn:BitsClear(20,32))]"
       },
       "FontBBox": {
         "Key": "FontBBox",
@@ -7621,7 +7641,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@Descent<0)]"
+        "PossibleValues": "[fn:Eval(@Descent<=0)]"
       },
       "Leading": {
         "Key": "Leading",
@@ -7700,7 +7720,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:NotPresent(FontFile2) && fn:NotPresent(FontFile3))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile2)) && fn:Not(fn:IsPresent(FontFile3)))]",
         "Link": "[FontFile]"
       },
       "FontFile2": {
@@ -7710,7 +7730,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:NotPresent(FontFile) && fn:NotPresent(FontFile3))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile)) && fn:Not(fn:IsPresent(FontFile3)))]",
         "Link": "[FontFile2]"
       },
       "Style": {
@@ -7770,7 +7790,8 @@
         "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:BitClear(5) && fn:BitsClear(8,16) && fn:BitsClear(20,32))]"
       },
       "FontBBox": {
         "Key": "FontBBox",
@@ -7803,7 +7824,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@Descent<0)]"
+        "PossibleValues": "[fn:Eval(@Descent<=0)]"
       },
       "Leading": {
         "Key": "Leading",
@@ -7882,7 +7903,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:NotPresent(FontFile2) && fn:NotPresent(FontFile3))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile2)) && fn:Not(fn:IsPresent(FontFile3)))]",
         "Link": "[FontFileType1]"
       },
       "FontFile2": {
@@ -7892,7 +7913,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:NotPresent(FontFile) && fn:NotPresent(FontFile3))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile)) && fn:Not(fn:IsPresent(FontFile3)))]",
         "Link": "[FontFile2]"
       }
     }
@@ -7924,7 +7945,8 @@
         "SinceVersion": 1.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:BitClear(5) && fn:BitsClear(8,16) && fn:BitsClear(20,32))]"
       },
       "FontBBox": {
         "Key": "FontBBox",
@@ -7957,7 +7979,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@Descent<0)]"
+        "PossibleValues": "[fn:Eval(@Descent<=0)]"
       },
       "Leading": {
         "Key": "Leading",
@@ -8119,7 +8141,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@Descent<0)]"
+        "PossibleValues": "[fn:Eval(@Descent<=0)]"
       },
       "Leading": {
         "Key": "Leading",
@@ -8248,7 +8270,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -8258,7 +8280,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -8278,7 +8300,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -8288,7 +8310,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -8347,7 +8369,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -8357,7 +8379,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -8377,7 +8399,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -8387,7 +8409,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -8447,7 +8469,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -8457,7 +8479,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -8477,7 +8499,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -8487,7 +8509,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -8547,7 +8569,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -8557,7 +8579,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -8577,7 +8599,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -8587,7 +8609,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -8646,7 +8668,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -8656,7 +8678,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -8676,7 +8698,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -8686,7 +8708,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -8928,7 +8950,7 @@
         "IndirectReference": "[false];[true]",
         "Inheritable": false,
         "PossibleValues": "[GB-EUC-H,GB-EUC-V,GBpc-EUC-H,GBpc-EUC-V,GBK-EUC-H,GBK-EUC-V,GBKp-EUC-H,GBKp-EUC-V,GBK2K-H,GBK2K-V,UniGB-UCS2-H,UniGB-UCS2-V,UniGB-UTF16-H,UniGB-UTF16-V,B5pc-H,B5pc-V,HKscs-B5-H,HKscs-B5-V,ETen-B5-H,ETen-B5-V,ETenms-B5-H,ETenms-B5-V,CNS-EUC-H,CNS-EUC-V,UniCNS-UCS2-H,UniCNS-UCS2-V,UniCNS-UTF16-H,UniCNS-UTF16-V,83pv-RKSJ-H,90ms-RKSJ-H,90ms-RKSJ-V,90msp-RKSJ-H,90msp-RKSJ-V,90pv-RKSJ-H,Add-RKSJ-H,Add-RKSJ-V,EUC-H,EUC-V,Ext-RKSJ-H,Ext-RKSJ-V,H,V,UniJIS-UCS2-H,UniJIS-UCS2-V,UniJIS-UCS2-HW-H,UniJIS-UCS2-HW-V,UniJIS-UTF16-H,UniJIS-UTF16-V,KSC-EUC-H,KSC-EUC-V,KSCms-UHC-H,KSCms-UHC-V,KSCms-UHC-HW-H,KSCms-UHC-HW-V,KSCpc-EUC-H,UniKS-UCS2-H,UniKS-UCS2-V,UniKS-UTF16-H,UniKS-UTF16-V,Identity-H,Identity-V];[]",
-        "Link": "[];[CMap]"
+        "Link": "[];[CMapStream]"
       },
       "DescendantFonts": {
         "Key": "DescendantFonts",
@@ -9011,7 +9033,7 @@
         "Required": "fn:IsRequired(fn:NotStandard14Font())",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Widths)==(1+(@LastChar - @FirstChar)))]",
         "Link": "[ArrayOfNumbersGeneral]"
       },
       "FontDescriptor": {
@@ -9130,7 +9152,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Widths)==(1+(@LastChar - @FirstChar)))]",
         "Link": "[ArrayOfNumbersGeneral]"
       },
       "FontDescriptor": {
@@ -9260,7 +9282,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -9270,7 +9292,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -9290,7 +9312,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -9300,7 +9322,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -9481,7 +9503,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -9491,7 +9513,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -9511,7 +9533,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -9521,13 +9543,13 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
   },
   {
-    "id": "Gamma",
+    "id": "GammaArray",
     "keys": {
       "0": {
         "Key": "0",
@@ -9931,7 +9953,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -9941,7 +9963,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -9961,7 +9983,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -9971,7 +9993,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -10068,7 +10090,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -10078,7 +10100,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -10098,7 +10120,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -10108,7 +10130,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -10158,7 +10180,7 @@
         "Required": false,
         "IndirectReference": "[false];[true]",
         "Inheritable": false,
-        "SpecialCase": "[fn:KeyNameIsColorant()]",
+        "SpecialCase": "[fn:KeyNameIsColorant()];[fn:KeyNameIsColorant()]",
         "Link": "[HalftoneType1];[HalftoneType6,HalftoneType10,HalftoneType16]"
       }
     }
@@ -10236,7 +10258,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -10246,7 +10268,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -10266,7 +10288,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -10276,7 +10298,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -10353,8 +10375,18 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
+      },
+      "DecodeParms": {
+        "Key": "DecodeParms",
+        "Type": "array;dictionary",
+        "SinceVersion": 1.3,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
+        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "DestOutputProfile": {
         "Key": "DestOutputProfile",
@@ -10382,7 +10414,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -10392,7 +10424,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -10503,7 +10535,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "0"
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval(fn:BitsClear(3,32))]"
       },
       "CO": {
         "Key": "CO",
@@ -10575,7 +10608,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[Whitepoint]"
+        "Link": "[WhitepointArray]"
       },
       "BlackPoint": {
         "Key": "BlackPoint",
@@ -10584,7 +10617,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[Blackpoint]"
+        "Link": "[BlackpointArray]"
       },
       "Range": {
         "Key": "Range",
@@ -10593,12 +10626,12 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[LabRange]"
+        "Link": "[LabRangeArray]"
       }
     }
   },
   {
-    "id": "LabRange",
+    "id": "LabRangeArray",
     "keys": {
       "0": {
         "Key": "0",
@@ -10896,7 +10929,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "[];[fn:Eval(@Start>0)];[fn:Eval(fn:StringLength(Start)==8)]",
+        "DefaultValue": "[];[0];[]",
+        "SpecialCase": "[];[fn:Eval(@Start>0)];[fn:Eval(fn:StringLength(Start)==8)]",
         "Link": "[ArrayOfDuration];[];[]"
       },
       "Duration": {
@@ -10907,7 +10941,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "[];[fn:Eval(@Duration>0)];[fn:Eval(fn:StringLength(Duration)==8)]",
+        "SpecialCase": "[];[fn:Eval(@Duration>0)];[fn:Eval(fn:StringLength(Duration)==8)]",
         "Link": "[ArrayOfDuration];[];[]"
       },
       "Rate": {
@@ -10996,7 +11030,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[DestDict,DestXYZ,Dest0,Dest1,Dest4]"
+        "Link": "[DestDict,DestXYZArray,Dest0Array,Dest1Array,Dest4Array]"
       },
       "AP": {
         "Key": "AP",
@@ -11147,7 +11181,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOf_4Integers]"
+        "Link": "[ArrayOf_4Numbers]"
       },
       "Position": {
         "Key": "Position",
@@ -11224,6 +11258,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval((fn:ArrayLength(GrayMap) mod 2)==0)]",
         "Link": "[ArrayOfIntegersGeneral]"
       },
       "Transparency": {
@@ -11369,7 +11404,8 @@
         "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[1.0,2.0,3.0]"
       }
     }
   },
@@ -11517,8 +11553,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:NotPresent(A)]",
-        "Link": "[DestXYZ,Dest0,Dest1,Dest4];[];[]"
+        "SpecialCase": "[fn:Not(fn:IsPresent(A))];[fn:Not(fn:IsPresent(A))];[fn:Not(fn:IsPresent(A))]",
+        "Link": "[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]"
       },
       "A": {
         "Key": "A",
@@ -11527,7 +11563,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:NotPresent(Dest)]",
+        "SpecialCase": "[fn:Not(fn:IsPresent(Dest))]",
         "Link": "[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
       },
       "SE": {
@@ -12083,7 +12119,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -12093,7 +12129,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -12113,7 +12149,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -12123,7 +12159,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "XUID": {
@@ -12750,7 +12786,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -12760,7 +12796,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -12780,7 +12816,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -12790,7 +12826,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -12904,7 +12940,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -12914,7 +12950,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -12934,7 +12970,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -12944,7 +12980,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -13057,7 +13093,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -13067,7 +13103,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -13087,7 +13123,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -13097,7 +13133,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -13210,7 +13246,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -13220,7 +13256,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -13240,7 +13276,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -13250,7 +13286,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -13300,7 +13336,7 @@
         "Required": "fn:IsRequired(@SubFilter==adbe.x509.rsa_sha1)",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Ignore((@SubFilter==adbe.pkcs7.detached) || (@SubFilter==adbe.pkcs7.sha1) || (@SubFilter==ETSI.CAdES.detached) || (@SubFilter==ETSI.RFC3161))]",
+        "SpecialCase": "[fn:Ignore((@SubFilter==adbe.pkcs7.detached) || (@SubFilter==adbe.pkcs7.sha1) || (@SubFilter==ETSI.CAdES.detached) || (@SubFilter==ETSI.RFC3161))];[fn:Ignore((@SubFilter==adbe.pkcs7.detached) || (@SubFilter==adbe.pkcs7.sha1) || (@SubFilter==ETSI.CAdES.detached) || (@SubFilter==ETSI.RFC3161))]",
         "Link": "[ArrayOfStringsByte];[]"
       },
       "ByteRange": {
@@ -13466,7 +13502,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -13476,7 +13512,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -13496,7 +13532,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -13506,7 +13542,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -13663,7 +13699,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
@@ -13673,7 +13709,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       },
       "F": {
@@ -13693,7 +13729,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "FDecodeParms": {
@@ -13703,7 +13739,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       }
     }
@@ -14004,7 +14040,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
@@ -14014,7 +14050,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       },
       "F": {
@@ -14034,7 +14070,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "FDecodeParms": {
@@ -14044,7 +14080,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       }
     }
@@ -14112,7 +14148,7 @@
         "Inheritable": false,
         "DefaultValue": "[0];[]",
         "PossibleValues": "[0,90,180,270,315];[None]",
-        "SpecialCase": "[fn:Eval(((@Di==None) && (@S==Fly) && (@SS!=1.0)) || ((@Di==315) && (@S==Glitter)) || (((@Di==90) || (@Di==180)) && (@S==Wipe)))]"
+        "SpecialCase": "[fn:Eval((((@Di==90) || (@Di==180)) && (@S==Wipe)) || ((@Di==315) && (@S==Glitter)))];[fn:Eval(((@Di==None) && (@S==Fly) && (@SS!=1.0)))]"
       }
     }
   },
@@ -14208,7 +14244,7 @@
         "Inheritable": false,
         "DefaultValue": "UseNone",
         "PossibleValues": "[UseNone,UseOutlines,UseThumbs,UseOC]",
-        "SpecialCase": "[fn:IsMeaningful(Catalog::@PageMode==FullScreen)]"
+        "SpecialCase": "[fn:IsMeaningful(trailer::Catalog::@PageMode==FullScreen)]"
       },
       "Direction": {
         "Key": "Direction",
@@ -14490,7 +14526,7 @@
     }
   },
   {
-    "id": "Whitepoint",
+    "id": "WhitepointArray",
     "keys": {
       "0": {
         "Key": "0",
@@ -14572,7 +14608,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -14583,7 +14619,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -14605,7 +14641,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -14616,7 +14652,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -14692,7 +14728,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[0 0 0 0]"
+        "DefaultValue": "[0 0 0 0]"
       },
       "Matrix": {
         "Key": "Matrix",
@@ -14722,7 +14758,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -14733,7 +14769,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -14755,7 +14791,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -14766,7 +14802,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       }
     }
@@ -14907,7 +14943,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -14918,7 +14954,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -14940,7 +14976,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -14951,7 +14987,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "PCM": {
@@ -15074,7 +15110,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:NotPresent(StructParents)]"
+        "SpecialCase": "[fn:Not(fn:IsPresent(StructParents))]"
       },
       "StructParents": {
         "Key": "StructParents",
@@ -15083,7 +15119,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:NotPresent(StructParent)]"
+        "SpecialCase": "[fn:Not(fn:IsPresent(StructParent))]"
       },
       "OPI": {
         "Key": "OPI",
@@ -15120,7 +15156,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -15130,7 +15166,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "F": {
@@ -15150,7 +15186,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "FDecodeParms": {
@@ -15160,7 +15196,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
       "XUID": {
@@ -15216,18 +15252,18 @@
         "Key": "ColorSpace",
         "Type": "array;name",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired(@Filter!=JPXDecode)",
+        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
-        "SpecialCase": "[fn:NotPresent(@ImageMask==true)]",
+        "SpecialCase": "[fn:Not(@ImageMask==true)];[fn:Not(@ImageMask==true)]",
         "Link": "[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,PatternColorSpace];[]"
       },
       "BitsPerComponent": {
         "Key": "BitsPerComponent",
         "Type": "integer",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired((@Filter!=JPXDecode) || (@ImageMask==true))",
+        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)) || (@ImageMask==true))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)]"
@@ -15256,7 +15292,7 @@
         "Required": false,
         "IndirectReference": "[false];[true]",
         "Inheritable": false,
-        "SpecialCase": "[fn:NotPresent(fn:IsPresent(ImageMask))]",
+        "SpecialCase": "[fn:Not(fn:IsPresent(ImageMask))];[fn:Not(fn:IsPresent(ImageMask))]",
         "Link": "[ArrayOfIntegersGeneral];[XObjectImageMask]"
       },
       "Decode": {
@@ -15266,7 +15302,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Ignore((@Filter==JPXDecode) && fn:NotPresent(ColorSpace) && (@ImageMask==false))]",
+        "SpecialCase": "[fn:Ignore(fn:Contains(@Filter,JPXDecode) && fn:Not(fn:IsPresent(ColorSpace)) && (@ImageMask==false))]",
         "Link": "[ArrayOfNumbersGeneral]"
       },
       "Interpolate": {
@@ -15339,7 +15375,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
@@ -15349,7 +15385,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       },
       "F": {
@@ -15369,7 +15405,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "FDecodeParms": {
@@ -15379,7 +15415,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       }
     }
@@ -15529,7 +15565,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "DecodeParms": {
@@ -15539,7 +15575,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       },
       "F": {
@@ -15559,7 +15595,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,CCITTFaxDecode,DCTDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfFilterNames];[]"
       },
       "FDecodeParms": {
@@ -15569,7 +15605,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCCITTFaxDecode,FilterDCTDecode]"
       }
     }

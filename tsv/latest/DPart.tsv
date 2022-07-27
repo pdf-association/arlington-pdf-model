@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[DPart]			
 Parent	dictionary	2.0		TRUE	TRUE	FALSE				[DPart,DPartRoot]	
-DParts	array	2.0		fn:IsRequired(fn:NotPresent(Start))	FALSE	FALSE				[ArrayOfDPartArrays]	
-Start	dictionary	2.0		fn:IsRequired(fn:NotPresent(DParts))	TRUE	FALSE				[PageObject]	
+DParts	array	2.0		fn:IsRequired(fn:Not(fn:IsPresent(Start)))	FALSE	FALSE				[ArrayOfDPartArrays]	
+Start	dictionary	2.0		fn:IsRequired(fn:Not(fn:IsPresent(DParts)))	TRUE	FALSE				[PageObject]	
 End	dictionary	2.0		fn:IsRequired(fn:IsPresent(Start))	TRUE	FALSE				[PageObject]	
 DPM	dictionary	2.0		FALSE	FALSE	FALSE				[_UniversalDictionary]	
 AF	array	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	

@@ -28,10 +28,10 @@
       <ENTRY>
          <NAME>D</NAME>
          <VALUES>
-            <VALUE type="array">DestXYZ</VALUE>
-            <VALUE type="array">Dest0</VALUE>
-            <VALUE type="array">Dest1</VALUE>
-            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="array">DestXYZArray</VALUE>
+            <VALUE type="array">Dest0Array</VALUE>
+            <VALUE type="array">Dest1Array</VALUE>
+            <VALUE type="array">Dest4Array</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -84,10 +84,10 @@
       <ENTRY>
          <NAME>D</NAME>
          <VALUES>
-            <VALUE type="array">DestXYZ</VALUE>
-            <VALUE type="array">Dest0</VALUE>
-            <VALUE type="array">Dest1</VALUE>
-            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="array">DestXYZArray</VALUE>
+            <VALUE type="array">Dest0Array</VALUE>
+            <VALUE type="array">Dest1Array</VALUE>
+            <VALUE type="array">Dest4Array</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -213,7 +213,7 @@
          <NAME>D</NAME>
          <VALUES>
             <VALUE type="dictionary">Thread</VALUE>
-            <VALUE type="integer">fn:Eval((@D&gt;=0) &amp;&amp; (@D&lt;fn:ArrayLength(Catalog::Threads)))</VALUE>
+            <VALUE type="integer">fn:Eval((@D&gt;=0) &amp;&amp; (@D&lt;fn:ArrayLength(trailer::Catalog::Threads)))</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -350,7 +350,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) &amp;&amp; fn:BeforeVersion(1.4,fn:BitsClear(8,32)) &amp;&amp; fn:BeforeVersion(1.5,fn:BitsClear(9,32)) &amp;&amp; fn:BeforeVersion(1.6,fn:BitsClear(10,32)) &amp;&amp; fn:SinceVersion(2.0,fn:BitsClear(11,32)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Border</NAME>
@@ -397,10 +397,10 @@
       <ENTRY>
          <NAME>Dest</NAME>
          <VALUES>
-            <VALUE type="array">DestXYZ</VALUE>
-            <VALUE type="array">Dest0</VALUE>
-            <VALUE type="array">Dest1</VALUE>
-            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="array">DestXYZArray</VALUE>
+            <VALUE type="array">Dest0Array</VALUE>
+            <VALUE type="array">Dest1Array</VALUE>
+            <VALUE type="array">Dest4Array</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -476,7 +476,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:SinceVersion(1.2,fn:BitsClear(4,32)), fn:SinceVersion(1.3,fn:BitsClear(8,32)), fn:SinceVersion(1.4,fn:BitsClear(9,32)), fn:SinceVersion(1.5,fn:BitsClear(10,32)), fn:SinceVersion(1.7,fn:BitsClear(11,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) &amp;&amp; fn:BeforeVersion(1.4,fn:BitsClear(8,32)) &amp;&amp; fn:BeforeVersion(1.5,fn:BitsClear(9,32)) &amp;&amp; fn:BeforeVersion(1.6,fn:BitsClear(10,32)) &amp;&amp; fn:SinceVersion(1.7,fn:BitsClear(11,32)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Border</NAME>
@@ -1092,7 +1092,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Blackpoint" isArray="true" object_number="026">
+   <OBJECT id="BlackpointArray" isArray="true" object_number="026">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1160,7 +1160,7 @@
       <ENTRY>
          <NAME>WhitePoint</NAME>
          <VALUES>
-            <VALUE type="array">Whitepoint</VALUE>
+            <VALUE type="array">WhitepointArray</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1172,7 +1172,7 @@
       <ENTRY>
          <NAME>BlackPoint</NAME>
          <VALUES>
-            <VALUE type="array">Blackpoint</VALUE>
+            <VALUE type="array">BlackpointArray</VALUE>
             <VALUE isDefaultValue="true" type="array">[0.0 0.0 0.0]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -1226,7 +1226,7 @@
       <ENTRY>
          <NAME>WhitePoint</NAME>
          <VALUES>
-            <VALUE type="array">Whitepoint</VALUE>
+            <VALUE type="array">WhitepointArray</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1238,7 +1238,7 @@
       <ENTRY>
          <NAME>BlackPoint</NAME>
          <VALUES>
-            <VALUE type="array">Blackpoint</VALUE>
+            <VALUE type="array">BlackpointArray</VALUE>
             <VALUE isDefaultValue="true" type="array">[0.0 0.0 0.0]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -1251,7 +1251,7 @@
       <ENTRY>
          <NAME>Gamma</NAME>
          <VALUES>
-            <VALUE type="array">Gamma</VALUE>
+            <VALUE type="array">GammaArray</VALUE>
             <VALUE isDefaultValue="true" type="array">[1.0 1.0 1.0]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -1375,10 +1375,10 @@
       <ENTRY>
          <NAME>OpenAction</NAME>
          <VALUES>
-            <VALUE type="array">DestXYZ</VALUE>
-            <VALUE type="array">Dest0</VALUE>
-            <VALUE type="array">Dest1</VALUE>
-            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="array">DestXYZArray</VALUE>
+            <VALUE type="array">Dest0Array</VALUE>
+            <VALUE type="array">Dest1Array</VALUE>
+            <VALUE type="array">Dest4Array</VALUE>
             <VALUE type="dictionary">ActionGoTo</VALUE>
             <VALUE type="dictionary">ActionGoToR</VALUE>
             <VALUE type="dictionary">ActionLaunch</VALUE>
@@ -1454,7 +1454,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest0" isArray="true" object_number="034">
+   <OBJECT id="Dest0Array" isArray="true" object_number="034">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1483,7 +1483,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest1" isArray="true" object_number="035">
+   <OBJECT id="Dest1Array" isArray="true" object_number="035">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1524,7 +1524,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest4" isArray="true" object_number="036">
+   <OBJECT id="Dest4Array" isArray="true" object_number="036">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1596,10 +1596,10 @@
       <ENTRY>
          <NAME>D</NAME>
          <VALUES>
-            <VALUE type="array">DestXYZ</VALUE>
-            <VALUE type="array">Dest0</VALUE>
-            <VALUE type="array">Dest1</VALUE>
-            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="array">DestXYZArray</VALUE>
+            <VALUE type="array">Dest0Array</VALUE>
+            <VALUE type="array">Dest1Array</VALUE>
+            <VALUE type="array">Dest4Array</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -1609,7 +1609,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DestXYZ" isArray="true" object_number="038">
+   <OBJECT id="DestXYZArray" isArray="true" object_number="038">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -1671,10 +1671,10 @@
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
-            <VALUE type="array">DestXYZ</VALUE>
-            <VALUE type="array">Dest0</VALUE>
-            <VALUE type="array">Dest1</VALUE>
-            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="array">DestXYZArray</VALUE>
+            <VALUE type="array">Dest0Array</VALUE>
+            <VALUE type="array">Dest1Array</VALUE>
+            <VALUE type="array">Dest4Array</VALUE>
             <VALUE type="dictionary">DestDict</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -1917,24 +1917,13 @@
       </ENTRY>
       <ENTRY>
          <NAME>P</NAME>
-         <VALUES>
-            <VALUE type="bitmask">fn:BitsClear(1,2)</VALUE>
-            <VALUE type="bitmask">3</VALUE>
-            <VALUE type="bitmask">4</VALUE>
-            <VALUE type="bitmask">5</VALUE>
-            <VALUE type="bitmask">6</VALUE>
-            <VALUE type="bitmask">fn:BitsSet(7,8)</VALUE>
-            <VALUE type="bitmask">9</VALUE>
-            <VALUE type="bitmask">11</VALUE>
-            <VALUE type="bitmask">12</VALUE>
-            <VALUE type="bitmask">fn:BitsSet(13,32)</VALUE>
-         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="bitmask">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:BitsClear(1,2) &amp;&amp; fn:BitsSet(7,8) &amp;&amp; fn:SinceVersion(2.0,fn:BitSet(10)) &amp;&amp; fn:BitsSet(13,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Perms</NAME>
@@ -1970,7 +1959,7 @@
       </ENTRY>
       <ENTRY>
          <NAME>F</NAME>
-         <REQUIRED>fn:IsRequired(fn:NotPresent(DOS) &amp;&amp; fn:NotPresent(Mac) &amp;&amp; fn:NotPresent(Unix))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:IsPresent(DOS)) &amp;&amp; fn:Not(fn:IsPresent(Mac)) &amp;&amp; fn:Not(fn:IsPresent(Unix)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -2323,6 +2312,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:BitClear(5) &amp;&amp; fn:BitsClear(8,16) &amp;&amp; fn:BitsClear(20,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>FontBBox</NAME>
@@ -2354,7 +2344,7 @@
       <ENTRY>
          <NAME>Descent</NAME>
          <VALUES>
-            <VALUE type="number">fn:Eval(@Descent&lt;0)</VALUE>
+            <VALUE type="number">fn:Eval(@Descent&lt;=0)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2464,7 +2454,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:NotPresent(FontFile2) &amp;&amp; fn:NotPresent(FontFile3))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:Not(fn:IsPresent(FontFile2)) &amp;&amp; fn:Not(fn:IsPresent(FontFile3)))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="FontDescriptorType1" object_number="050">
@@ -2498,6 +2488,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:BitClear(5) &amp;&amp; fn:BitsClear(8,16) &amp;&amp; fn:BitsClear(20,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>FontBBox</NAME>
@@ -2529,7 +2520,7 @@
       <ENTRY>
          <NAME>Descent</NAME>
          <VALUES>
-            <VALUE type="number">fn:Eval(@Descent&lt;0)</VALUE>
+            <VALUE type="number">fn:Eval(@Descent&lt;=0)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -2715,7 +2706,7 @@
       <ENTRY>
          <NAME>Descent</NAME>
          <VALUES>
-            <VALUE type="number">fn:Eval(@Descent&lt;0)</VALUE>
+            <VALUE type="number">fn:Eval(@Descent&lt;=0)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3152,7 +3143,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(Widths)==(1+(@LastChar - @FirstChar)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>FontDescriptor</NAME>
@@ -3288,7 +3279,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(Widths)==(@LastChar - @FirstChar+1))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(Widths)==(1+(@LastChar - @FirstChar)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>FontDescriptor</NAME>
@@ -3303,7 +3294,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Gamma" isArray="true" object_number="058">
+   <OBJECT id="GammaArray" isArray="true" object_number="058">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3431,7 +3422,7 @@
       <ENTRY>
          <NAME>WhitePoint</NAME>
          <VALUES>
-            <VALUE type="array">Whitepoint</VALUE>
+            <VALUE type="array">WhitepointArray</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3443,7 +3434,7 @@
       <ENTRY>
          <NAME>BlackPoint</NAME>
          <VALUES>
-            <VALUE type="array">Blackpoint</VALUE>
+            <VALUE type="array">BlackpointArray</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3455,7 +3446,7 @@
       <ENTRY>
          <NAME>Range</NAME>
          <VALUES>
-            <VALUE type="array">LabRange</VALUE>
+            <VALUE type="array">LabRangeArray</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3465,7 +3456,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabRange" isArray="true" object_number="062">
+   <OBJECT id="LabRangeArray" isArray="true" object_number="062">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3699,10 +3690,10 @@
       <ENTRY>
          <NAME>Dest</NAME>
          <VALUES>
-            <VALUE type="array">DestXYZ</VALUE>
-            <VALUE type="array">Dest0</VALUE>
-            <VALUE type="array">Dest1</VALUE>
-            <VALUE type="array">Dest4</VALUE>
+            <VALUE type="array">DestXYZArray</VALUE>
+            <VALUE type="array">Dest0Array</VALUE>
+            <VALUE type="array">Dest1Array</VALUE>
+            <VALUE type="array">Dest4Array</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -3712,7 +3703,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:NotPresent(A)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent(A))];[fn:Not(fn:IsPresent(A))];[fn:Not(fn:IsPresent(A))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>A</NAME>
@@ -3729,7 +3720,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:NotPresent(Dest)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent(Dest))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="PageObject" object_number="066">
@@ -4150,7 +4141,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>DecodeParms</NAME>
@@ -4167,7 +4158,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="Thread" object_number="071">
@@ -4394,7 +4385,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(((@Di==None) &amp;&amp; (@S==Fly) &amp;&amp; (@SS!=1.0)) || ((@Di==315) &amp;&amp; (@S==Glitter)) || (((@Di==90) || (@Di==180)) &amp;&amp; (@S==Wipe)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval((((@Di==90) || (@Di==180)) &amp;&amp; (@S==Wipe)) || ((@Di==315) &amp;&amp; (@S==Glitter)))];[fn:Eval(((@Di==None) &amp;&amp; (@S==Fly) &amp;&amp; (@SS!=1.0)))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="URI" object_number="074">
@@ -4408,7 +4399,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Whitepoint" isArray="true" object_number="075">
+   <OBJECT id="WhitepointArray" isArray="true" object_number="075">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -4513,7 +4504,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED>1.3</DEPRECATED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>DecodeParms</NAME>
@@ -4529,7 +4520,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED>1.3</DEPRECATED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>F</NAME>
@@ -4628,7 +4619,7 @@
       <ENTRY>
          <NAME>BBox</NAME>
          <VALUES>
-            <VALUE type="rectangle">0 0 0 0</VALUE>
+            <VALUE isDefaultValue="true" type="rectangle">[0 0 0 0]</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -4678,7 +4669,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED>1.3</DEPRECATED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>DecodeParms</NAME>
@@ -4694,7 +4685,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
          <DEPRECATED>1.3</DEPRECATED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>F</NAME>
@@ -4804,7 +4795,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>DecodeParms</NAME>
@@ -4819,7 +4810,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>XUID</NAME>
@@ -4889,14 +4880,14 @@
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired(@Filter!=JPXDecode)</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
             <VALUE type="name">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:NotPresent(@ImageMask==true)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Not(@ImageMask==true)];[fn:Not(@ImageMask==true)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>BitsPerComponent</NAME>
@@ -4906,7 +4897,7 @@
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((@Filter!=JPXDecode) || (@ImageMask==true))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)) || (@ImageMask==true))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -4945,7 +4936,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Ignore((@Filter==JPXDecode) &amp;&amp; fn:NotPresent(ColorSpace) &amp;&amp; (@ImageMask==false))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Ignore(fn:Contains(@Filter,JPXDecode) &amp;&amp; fn:Not(fn:IsPresent(ColorSpace)) &amp;&amp; (@ImageMask==false))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Interpolate</NAME>
@@ -4996,7 +4987,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>DecodeParms</NAME>
@@ -5013,7 +5004,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>F</NAME>

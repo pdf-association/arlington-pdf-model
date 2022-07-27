@@ -20,7 +20,7 @@ HT	dictionary;name;stream	1.2		FALSE	[FALSE];[FALSE];[TRUE]	FALSE				[HalftoneTy
 FL	number	1.3		FALSE	FALSE	FALSE		[fn:Eval(@FL>0)]			
 SM	number	1.3		FALSE	FALSE	FALSE		[fn:Eval((@SM>=0) && (@SM<=1))]			
 SA	boolean	1.2		FALSE	FALSE	FALSE					
-BM	array;name	1.4		FALSE	FALSE	FALSE		[];[Compatible,Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]		[ArrayOfNamesGeneral];[]	
+BM	array;name	1.4		FALSE	FALSE	FALSE		[];[fn:Deprecated(1.4,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]		[ArrayOfBlendModes];[]	
 SMask	dictionary;name	1.4		FALSE	FALSE	FALSE		[];[None]		[SoftMaskAlpha,SoftMaskLuminosity];[]	
 CA	number	1.4		FALSE	FALSE	FALSE		[fn:Eval((@CA>=0) && (@CA<=1))]			
 ca	number	1.4		FALSE	FALSE	FALSE		[fn:Eval((@ca>=0) && (@ca<=1))]			

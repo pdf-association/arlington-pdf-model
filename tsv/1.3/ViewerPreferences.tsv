@@ -4,5 +4,5 @@ HideMenubar	boolean	1.2		FALSE	FALSE	FALSE	false
 HideWindowUI	boolean	1.2		FALSE	FALSE	FALSE	false				
 FitWindow	boolean	1.2		FALSE	FALSE	FALSE	false				
 CenterWindow	boolean	1.2		FALSE	FALSE	FALSE	false				
-NonFullScreenPageMode	name	1.2		FALSE	FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,UseOC]	[fn:IsMeaningful(Catalog::@PageMode==FullScreen)]		
+NonFullScreenPageMode	name	1.2		FALSE	FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,UseOC]	[fn:IsMeaningful(trailer::Catalog::@PageMode==FullScreen)]		
 Direction	name	1.3		FALSE	FALSE	FALSE	L2R	[L2R,R2L]			

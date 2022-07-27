@@ -3,5 +3,5 @@ Type	name	1.1		FALSE	FALSE	FALSE		[Action]
 S	name	1.1		TRUE	FALSE	FALSE		[GoToR]			
 Next	array;dictionary	1.2		FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionECMAScript]	
 F	dictionary;string	1.1		TRUE	FALSE	FALSE				[FileSpecification];[]	
-D	array;name;string-byte	1.1		TRUE	FALSE	FALSE				[DestXYZ,Dest0,Dest1,Dest4];[];[]	*must be a pagenumber not Page Object
+D	array;name;string-byte	1.1		TRUE	FALSE	FALSE				[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]	*must be a pagenumber not Page Object
 NewWindow	boolean	1.2		FALSE	FALSE	FALSE					
