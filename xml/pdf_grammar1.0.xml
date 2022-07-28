@@ -2837,7 +2837,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Not(@ImageMask==true)];[fn:Not(@ImageMask==true)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>BitsPerComponent</NAME>

@@ -2967,7 +2967,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -3185,7 +3185,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -3475,7 +3475,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -3788,7 +3788,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -4083,7 +4083,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -4459,7 +4459,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -4737,7 +4737,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -5028,7 +5028,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -5648,7 +5648,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -5847,7 +5847,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -6181,7 +6181,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -6714,7 +6714,7 @@
          <VALUES>
             <VALUE type="dictionary">AppearancePrinterMark</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -6883,7 +6883,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -7109,7 +7109,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -7414,7 +7414,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -7727,7 +7727,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -8005,7 +8005,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -8194,7 +8194,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:Not(@Name!=Stamp)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Not(fn:IsRequired(fn:IsPresent(IT) &amp;&amp; (@IT!=Stamp)))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="AnnotStrikeOut" object_number="050">
@@ -8289,7 +8289,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -8567,7 +8567,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -9112,7 +9112,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -9390,7 +9390,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -9558,7 +9558,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -20040,7 +20040,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(Size)==(2 * fn:ArrayLength(Encode)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(Encode)==(2 * fn:ArrayLength(Size)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>BitsPerSample</NAME>
@@ -31825,7 +31825,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.6</INTRODUCED>
-         <SPECIAL_CASE>fn:Not((@R!=C) || fn:Not(fn:InMap(trailer::Catalog::Names::EmbeddedFiles)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent((@R!=C) || fn:Not(fn:InMap(trailer::Catalog::Names::EmbeddedFiles))))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>P</NAME>
@@ -34638,7 +34638,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Not(@ImageMask==true)];[fn:Not(@ImageMask==true)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>BitsPerComponent</NAME>
@@ -34740,7 +34740,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
-         <SPECIAL_CASE>fn:SinceVersion(1.5,fn:Not(@SMaskInData&gt;0))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent(@SMaskInData&gt;0))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>SMaskInData</NAME>

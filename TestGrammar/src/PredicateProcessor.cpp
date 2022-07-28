@@ -40,7 +40,7 @@ void PredicateProcessor::EmptyPredicateAST() {
     // A vector of ASTNodeStack = a vector of vectors of ASTNodes
     if (!predicate_ast.empty()) {
         for (int i = (int)predicate_ast.size()-1; i >= 0; i--)
-            if (!predicate_ast[i].empty()) {
+            if (predicate_ast[i].size() > 0) {
                 for (int j = (int)predicate_ast[i].size()-1; j >= 0; j--)
                     delete predicate_ast[i][j];
                 predicate_ast[i].clear(); // inner vector
@@ -371,10 +371,10 @@ ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* parent, Arl
             s = LRParsePredicate(s, n);
             stack.push_back(n);
             loop++;
-            while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
+            while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
                 s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
             }
-        } while (!s.empty() && (loop < 100));
+        } while ((s.size() > 0) && (loop < 100));
         if (loop >= 100) {
             assert(false && "Arlington complex type IndirectRef field too long and complex!");
             return ReferenceType::DontCare;
@@ -478,10 +478,10 @@ bool PredicateProcessor::ValidateDefaultValueSyntax(const int key_idx) {
                     s = LRParsePredicate(s, n);
                     stack.push_back(n);
                     loop++;
-                    while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
+                    while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
                         s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                     }
-                } while (!s.empty() && (loop < 100));
+                } while ((s.size() > 0) && (loop < 100));
                 if (loop >= 100) {
                     assert(false && "Arlington complex type DefaultValue field too long and complex!");
                     return false;
@@ -500,10 +500,10 @@ bool PredicateProcessor::ValidateDefaultValueSyntax(const int key_idx) {
                 s = LRParsePredicate(s, n);
                 stack.push_back(n);
                 loop++;
-                while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
+                while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
                     s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                 }
-            } while (!s.empty() && (loop < 100));
+            } while ((s.size() > 0) && (loop < 100));
             if (loop >= 100) {
                 assert(false && "Arlington simple type DefaultValue field too long and complex!");
                 return false;
@@ -547,10 +547,10 @@ ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx) {
                     s = LRParsePredicate(s, n);
                     stack.push_back(n);
                     loop++;
-                    while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
+                    while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
                         s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                     }
-                } while (!s.empty() && (loop < 100));
+                } while ((s.size() > 0) && (loop < 100));
                 if (loop >= 100) {
                     assert(false && "Arlington complex type DefaultValue field too long and complex!");
                     return nullptr;
@@ -569,10 +569,10 @@ ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx) {
                 s = LRParsePredicate(s, n);
                 stack.push_back(n);
                 loop++;
-                while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
+                while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
                     s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                 }
-            } while (!s.empty() && (loop < 100));
+            } while ((s.size() > 0) && (loop < 100));
             if (loop >= 100) {
                 assert(false && "Arlington simple type DefaultValue field too long and complex!");
                 return nullptr;
@@ -618,10 +618,10 @@ bool PredicateProcessor::ValidatePossibleValuesSyntax(const int key_idx) {
                 s = LRParsePredicate(s, n);
                 stack.push_back(n);
                 loop++;
-                while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
+                while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
                     s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                 }
-            } while (!s.empty() && (loop < 100));
+            } while ((s.size() > 0) && (loop < 100));
             if (loop >= 100) {
                 assert(false && "Arlington complex type PossibleValues field too long and complex when validating!");
                 return false;
@@ -781,10 +781,10 @@ bool PredicateProcessor::ValidateSpecialCaseSyntax(const int key_idx) {
             s = LRParsePredicate(s, n);
             stack.push_back(n);
             loop++;
-            while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
+            while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
                 s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
             }
-        } while (!s.empty() && (loop < 100));
+        } while ((s.size() > 0) && (loop < 100));
         if (loop >= 100) {
             assert(false && "Arlington complex type SpecialCase field too long and complex when validating!");
             return false;
@@ -931,10 +931,10 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object,
                 s = LRParsePredicate(s, n);
                 stack.push_back(n);
                 loop++;
-                while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
+                while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
                     s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                 }
-            } while (!s.empty() && (loop < 100));
+            } while ((s.size() > 0) && (loop < 100));
             if (loop >= 100) {
                 assert(false && "Arlington complex type PossibleValues field too long and complex when reducing!");
                 return false;
@@ -950,7 +950,7 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object,
 
     std::string s = pv_list[type_idx].substr(1, pv_list[type_idx].size() - 2); // strip off '[' and ']'
 
-    if (predicate_ast[type_idx].empty() || (predicate_ast[type_idx][0] == nullptr)) {
+    if ((predicate_ast[type_idx].size() == 0) || (predicate_ast[type_idx][0] == nullptr)) {
         // No predicates - but could be a set of COMMA-separated constants (e.g. names, integers, etc.)
         return IsValidValue(object, key_idx, s);
     }
@@ -1069,10 +1069,10 @@ bool PredicateProcessor::ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object,
                 s = LRParsePredicate(s, n);
                 stack.push_back(n);
                 loop++;
-                while (!s.empty() && ((s[0] == ',') || (s[0] == ' '))) {
+                while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
                     s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                 }
-            } while (!s.empty() && (loop < 100));
+            } while ((s.size() > 0) && (loop < 100));
             if (loop >= 100) {
                 assert(false && "Arlington complex type SpecialCAse field too long and complex when reducing!");
                 return false;
@@ -1087,7 +1087,7 @@ bool PredicateProcessor::ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object,
 
     std::string s = sc_list[type_idx].substr(1, sc_list[type_idx].size() - 2); // strip off '[' and ']'
 
-    if (predicate_ast[type_idx].empty() || (predicate_ast[type_idx][0] == nullptr))
+    if ((predicate_ast[type_idx].size() == 0) || (predicate_ast[type_idx][0] == nullptr))
         return true;
 
 #ifdef PP_DEBUG

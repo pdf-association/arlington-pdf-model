@@ -141,19 +141,13 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
                             s = s.substr(1, s.size() - 1);
                             assert((s[0] != '&') && (s[0] != '|') && (s[0] != 'm'));  // BAD: need SPACE before &&, ||, mod
                         }
-                        // if (verbose)
-                        //    report_stream << "In:  '" << s << "'" << std::endl;
                         assert(pred_root == nullptr);
                         pred_root = new ASTNode();
                         s = LRParsePredicate(s, pred_root);
-                        // if (verbose)
-                        //    report_stream << "AST: " << *pred_root << std::endl;
                         assert(pred_root->valid());
                         delete pred_root;
                         pred_root = nullptr;
-                        //if (verbose)
-                        //    report_stream << std::endl;
-                        if (!s.empty())
+                        if (s.size() > 0)
                             if ((s[0] == ',') || (s[0] == '[') || (s[0] == ']') || (s[0] == ';') || (s[0] == ' '))
                                 s = s.substr(1, s.size() - 1);
                     } // while
@@ -442,7 +436,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
             assert(pred_root->valid());
             delete pred_root;
             pred_root = nullptr;
-            if (!s.empty())
+            if (s.size() > 0)
                 if ((s[0] == ',') || (s[0] == '[') || (s[0] == ']') || (s[0] == ';'))
                     s = s.substr(1, s.size() - 1);
         } while (!s.empty());

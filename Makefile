@@ -63,6 +63,38 @@ pandas:
 # Ensure to do a "make tsv" beforehand to refresh the PDF version specific file sets!
 .PHONY: validate
 validate:
+	# Clean-up where gcxml is missing some capabilities...
+	rm -f ./tsv/1.3/ActionNOP.tsv ./tsv/1.3/ActionSetState.tsv
+	rm -f ./tsv/1.4/ActionNOP.tsv ./tsv/1.4/ActionSetState.tsv
+	rm -f ./tsv/1.5/ActionNOP.tsv ./tsv/1.5/ActionSetState.tsv
+	rm -f ./tsv/1.6/ActionNOP.tsv ./tsv/1.6/ActionSetState.tsv
+	rm -f ./tsv/1.7/ActionNOP.tsv ./tsv/1.7/ActionSetState.tsv
+	rm -f ./tsv/2.0/ActionNOP.tsv ./tsv/2.0/ActionSetState.tsv
+
+	mv  ./tsv/1.4/XObjectImage.tsv ./tsv/1.4/XObjectImage-BEFORE.tsv
+	sed -E 's/\[fn\:Not\(fn\:IsPresent\(\@SMaskInData>0\)\)\]//g' ./tsv/1.4/XObjectImage-BEFORE.tsv > ./tsv/1.4/XObjectImage.tsv
+	rm ./tsv/1.4/XObjectImage-BEFORE.tsv
+
+	mv ./tsv/1.3/AnnotStamp.tsv ./tsv/1.3/AnnotStamp-BEFORE.tsv
+	sed -E 's/\[fn\:Not\(fn\:IsRequired\(fn\:IsPresent\(IT\) && \(\@IT!=Stamp\)\)\)\]//g' ./tsv/1.3/AnnotStamp-BEFORE.tsv > ./tsv/1.3/AnnotStamp.tsv
+	rm ./tsv/1.3/AnnotStamp-BEFORE.tsv
+
+	mv ./tsv/1.4/AnnotStamp.tsv ./tsv/1.4/AnnotStamp-BEFORE.tsv
+	sed -E 's/\[fn\:Not\(fn\:IsRequired\(fn\:IsPresent\(IT\) && \(\@IT!=Stamp\)\)\)\]//g' ./tsv/1.4/AnnotStamp-BEFORE.tsv > ./tsv/1.4/AnnotStamp.tsv
+	rm ./tsv/1.4/AnnotStamp-BEFORE.tsv
+
+	mv ./tsv/1.5/AnnotStamp.tsv ./tsv/1.5/AnnotStamp-BEFORE.tsv
+	sed -E 's/\[fn\:Not\(fn\:IsRequired\(fn\:IsPresent\(IT\) && \(\@IT!=Stamp\)\)\)\]//g' ./tsv/1.5/AnnotStamp-BEFORE.tsv > ./tsv/1.5/AnnotStamp.tsv
+	rm ./tsv/1.5/AnnotStamp-BEFORE.tsv
+
+	mv ./tsv/1.6/AnnotStamp.tsv ./tsv/1.6/AnnotStamp-BEFORE.tsv
+	sed -E 's/\[fn\:Not\(fn\:IsRequired\(fn\:IsPresent\(IT\) && \(\@IT!=Stamp\)\)\)\]//g' ./tsv/1.6/AnnotStamp-BEFORE.tsv > ./tsv/1.6/AnnotStamp.tsv
+	rm ./tsv/1.6/AnnotStamp-BEFORE.tsv
+
+	mv ./tsv/1.7/AnnotStamp.tsv ./tsv/1.7/AnnotStamp-BEFORE.tsv
+	sed -E 's/\[fn\:Not\(fn\:IsRequired\(fn\:IsPresent\(IT\) && \(\@IT!=Stamp\)\)\)\]//g' ./tsv/1.7/AnnotStamp-BEFORE.tsv > ./tsv/1.7/AnnotStamp.tsv
+	rm ./tsv/1.7/AnnotStamp-BEFORE.tsv
+
 	TestGrammar --tsvdir ./tsv/1.0/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.0/ --validate
 	TestGrammar --tsvdir ./tsv/1.1/ --validate

@@ -208,7 +208,7 @@ class Arlington:
         @param ast: AST to be validated.
         @returns: True if a valid function. False otherwise
         """
-        if ((len(ast) in [1, 2]) and (ast[0].type == 'REAL') and (str(ast[0].value) in self.__pdf_versions)):
+        if ((len(ast) >= 1) and (ast[0].type == 'REAL') and (str(ast[0].value) in self.__pdf_versions)):
             return True
         return False
 
@@ -374,10 +374,9 @@ class Arlington:
         @param ast: AST to be validated.
         @returns: True if a valid 'fn:IsPresent(' function. False otherwise
         """
-        if (len(ast) == 1) and (ast[0].type in ('KEY_NAME', 'INTEGER')):
-            return True
-        if (len(ast) >= 2) and (ast[0].type in ('KEY_PATH', 'KEY_NAME', 'INTEGER')):
-            return True
+        if (len(ast) >= 1):
+            if (isinstance(ast[0], list) or (ast[0].type in ('KEY_NAME', 'INTEGER', 'KEY_PATH', 'KEY_VALUE'))):
+                return True
         return False
 
     def validate_fn_stream_length(self, ast: AST) -> bool:

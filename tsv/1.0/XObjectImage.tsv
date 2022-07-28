@@ -3,7 +3,7 @@ Type	name	1.0		FALSE	FALSE	FALSE		[XObject]
 Subtype	name	1.0		TRUE	FALSE	FALSE		[Image]			
 Width	integer	1.0		TRUE	FALSE	FALSE					
 Height	integer	1.0		TRUE	FALSE	FALSE					
-ColorSpace	array;name	1.0		fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]	[fn:Not(@ImageMask==true)];[fn:Not(@ImageMask==true)]	[IndexedColorSpace];[]	
+ColorSpace	array;name	1.0		fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]	[fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))]	[IndexedColorSpace];[]	
 BitsPerComponent	integer	1.0		fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)) || (@ImageMask==true))	FALSE	FALSE		[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)]			
 ImageMask	boolean	1.0		FALSE	FALSE	FALSE	false				
 Decode	array	1.0		FALSE	FALSE	FALSE			[fn:Ignore(fn:Contains(@Filter,JPXDecode) && fn:Not(fn:IsPresent(ColorSpace)) && (@ImageMask==false))]	[ArrayOfNumbersGeneral]	

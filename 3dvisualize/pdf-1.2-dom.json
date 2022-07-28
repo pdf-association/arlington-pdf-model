@@ -1010,7 +1010,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": "fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0)))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -1142,7 +1142,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": "fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0)))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -1267,7 +1267,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.2,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": "fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0)))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -1387,7 +1387,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.2,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": "fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0)))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -6073,7 +6073,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(Size)==(2 * fn:ArrayLength(Encode)))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Encode)==(2 * fn:ArrayLength(Size)))]",
         "Link": "[ArrayOfIntegersGeneral]"
       },
       "BitsPerSample": {
@@ -8908,7 +8908,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
-        "SpecialCase": "[fn:Not(@ImageMask==true)];[fn:Not(@ImageMask==true)]",
+        "SpecialCase": "[fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))]",
         "Link": "[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,IndexedColorSpace,SeparationColorSpace,PatternColorSpace];[]"
       },
       "BitsPerComponent": {

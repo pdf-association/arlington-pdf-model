@@ -110,14 +110,14 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
 #include <crtdbg.h>
 
 /// @brief #define CRT_MEMORY_LEAK_CHECK to enable C RTL memory leak checking (slow!)
-#define CRT_MEMORY_LEAK_CHECK
+#undef CRT_MEMORY_LEAK_CHECK
 
 int wmain(int argc, wchar_t* argv[]) {
 #if defined(_DEBUG) && defined(CRT_MEMORY_LEAK_CHECK)
     int tmp = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
     tmp = tmp | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF; // | _CRTDBG_CHECK_ALWAYS_DF; // _CRTDBG_CHECK_ALWAYS_DF is VERY slow!!
     _CrtSetDbgFlag(tmp);
-    //_CrtSetBreakAlloc(26587171);
+    //_CrtSetBreakAlloc(93894);
 #endif // _DEBUG && CRT_MEMORY_LEAK_CHECK
 
     // Convert wchar_t* to char* for command line processing
@@ -243,13 +243,13 @@ int main(int argc, char* argv[]) {
     // --pdf can be a folder or a file
     s.clear();
     (void)sarge.getFlag("pdf", s);
-    if (!s.empty())
+    if (s.size() > 0)
         input_file = fs::absolute(s);
 
     // --out can be a folder or a file
     s.clear();
     (void)sarge.getFlag("out", s);
-    if (!s.empty())
+    if (s.size() > 0)
         save_path = fs::absolute(s);
 
     // Optional -f/--force <version>
@@ -270,7 +270,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Colorized output      " << (no_color ? "off" : "on") << std::endl;
         std::cout << "Clobber mode:         " << (clobber ? "on" : "off") << std::endl;
         std::cout << "Brief mode:           " << (terse ? "on" : "off") << std::endl;
-        if (!force_version.empty()) {
+        if (force_version.size() > 0) {
             std::cout << "Forced PDF version:   " << force_version << std::endl;
         }
         if (sarge.exists("validate")) {

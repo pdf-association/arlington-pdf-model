@@ -1529,7 +1529,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -1689,7 +1689,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -1842,7 +1842,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -1995,7 +1995,7 @@
          <VALUES>
             <VALUE type="dictionary">Appearance</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired((fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)&gt;0) || (fn:RectHeight(Rect)&gt;0)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -7838,7 +7838,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(Size)==(2 * fn:ArrayLength(Encode)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(Encode)==(2 * fn:ArrayLength(Size)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>BitsPerSample</NAME>
@@ -11522,7 +11522,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Not(@ImageMask==true)];[fn:Not(@ImageMask==true)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>BitsPerComponent</NAME>

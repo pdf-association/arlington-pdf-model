@@ -112,6 +112,7 @@ std::string ArlingtonPDFSDK::get_version_string()
 ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 {
     assert(ctx != nullptr);
+    assert(!pdf_filename.empty());
     auto pdfium_ctx = (pdfium_context*)ctx;
 
     // close previously opened document

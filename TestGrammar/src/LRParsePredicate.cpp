@@ -127,7 +127,7 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
                 p->arg[0] = new ASTNode(p);
                 s = LRParsePredicate(s, p->arg[0]);
 
-                assert(!s.empty());
+                assert(s.size() > 0);
                 if (s[0] == ',') {                          // COMMA = optional 2nd argument in predicate
                     s = s.substr(1, s.size() - 1);          // Remove COMMA
                     p->arg[1] = new ASTNode(p);
@@ -138,7 +138,7 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
                     s = LRParseExpression(s, p->arg[0]);
                 }
             }
-            assert(!s.empty() && (s[0] == ')'));
+            assert((s.size() > 0) && (s[0] == ')'));
             s = s.substr(1, s.size() - 1);                  // Consume ')' that ends predicate
         }
         else if ((m_type = ASTNodeType::ASTNT_ConstPDFBoolean, std::regex_search(s, m, r_StartsWithBool)) ||
@@ -217,7 +217,7 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
             assert(loop > 0);
         }
     }
-    while ((loop > 0) && ((nested_expressions > 0) || (!s.empty() && (s[0] != ',') && (s[0] != ')'))));
+    while ((loop > 0) && ((nested_expressions > 0) || ((s.size() >0) && (s[0] != ',') && (s[0] != ')'))));
 
     assert(stack.size() == 1); // root
     assert(nested_expressions == 0);
@@ -241,7 +241,7 @@ std::string LRParsePredicate(std::string s, ASTNode *root) {
     assert(root != nullptr);
     std::smatch     m, m1;
 
-    if (s.empty())
+    if (s.size() == 0)
         return s;
 
 #ifdef ARL_PARSER_DEBUG
@@ -261,7 +261,7 @@ std::string LRParsePredicate(std::string s, ASTNode *root) {
             root->arg[0] = new ASTNode(root);
             s = LRParsePredicate(s, root->arg[0]);      // arg[0] is possibly only argument
 
-            assert(!s.empty());
+            assert(s.size() > 0);
             if (s[0] == ',') {                          // COMMA = optional 2nd argument in predicate
                 s = s.substr(1, s.size() - 1);          // Remove COMMA
                 root->arg[1] = new ASTNode(root);
@@ -273,7 +273,7 @@ std::string LRParsePredicate(std::string s, ASTNode *root) {
                 s = LRParseExpression(s, root->arg[0]);
             }
         }
-        assert(!s.empty() && (s[0] == ')'));
+        assert((s.size() > 0) && (s[0] == ')'));
         s = s.substr(1, s.size() - 1);                  // Consume ')' that ends predicate
     }
     else {

@@ -3963,7 +3963,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
-        "SpecialCase": "[fn:Not(@ImageMask==true)];[fn:Not(@ImageMask==true)]",
+        "SpecialCase": "[fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))]",
         "Link": "[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,IndexedColorSpace];[]"
       },
       "BitsPerComponent": {

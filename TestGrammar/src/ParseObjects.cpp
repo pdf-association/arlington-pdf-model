@@ -105,13 +105,14 @@ bool CParsePDF::check_numeric_array(ArlPDFArray* arr, const int elems_to_check) 
 std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std::vector<std::string> links, const std::string obj_name) {
     assert(obj != nullptr);
 
-    if (links.empty()) // Nothing to choose from
+    if (links.size() == 0) // Nothing to choose from
         return "";
 
     if (links.size() == 1)  // Choice of 1
         return links[0];
 
     auto obj_type = obj->get_object_type();
+
     int  to_ret = -1;
     int  min_score = 1000;
 
@@ -191,7 +192,7 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
 #if defined(SCORING_DEBUG)
                             std::cout << (reqd_key ? " Required" : " Optional");
                             std::cout << " key " << vec[TSV_KEYNAME] << " value matched";
-                            if (!str_value.empty())
+                            if (str_value.size() > 0)
                                 std::cout << " '" << ToUtf8(str_value) << "'";
                             std::cout << ".";
 #endif
@@ -206,7 +207,7 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
 #if defined(SCORING_DEBUG)
                             std::cout << (reqd_key ? " Required" : " Optional");
                             std::cout << " key " << vec[TSV_KEYNAME] << " had wrong value";
-                            if (!str_value.empty())
+                            if (str_value.size() > 0)
                                 std::cout << " '" << ToUtf8(str_value) << "'";
                             std::cout << ".";
 #endif
@@ -280,7 +281,7 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
         return links[to_ret];
     }
 
-    output << COLOR_ERROR << "can't select any Link to validate PDF object " << strip_leading_whitespace(obj_name);
+    output << COLOR_ERROR << "can't select any Link to validate PDF object " << strip_leading_whitespace(obj_name) << " as " << PDFObjectType_strings[(int)obj_type];
     if (debug_mode)
         output << " (" << *obj << ")";
     output << COLOR_RESET;
@@ -549,10 +550,11 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::vector<std::st
                     std::wstring str = ((ArlPDFString*)obj1)->get_value();
                     std::string  as = ToUtf8(str);
                     std::string  best_link = recommended_link_for_object(obj2, links, as);
-                    assert(!best_link.empty());
-                    add_parse_object(obj, obj2, best_link, context+ "->[" + as + "]");
-                    delete obj1;
-                    continue;
+                    if (best_link.size() > 0)
+                        add_parse_object(obj, obj2, best_link, context + "->[" + as + "]");
+                    else
+                        delete obj2;
+
                 }
                 else {
                     // Error: name tree Names array did not have pairs of entries (obj2 == nullptr)
@@ -645,8 +647,10 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::vector<std::
                             int val = ((ArlPDFNumber*)obj1)->get_integer_value();
                             std::string  as = std::to_string(val);
                             std::string  best_link = recommended_link_for_object(obj2, links, as);
-                            assert(!best_link.empty());
-                            add_parse_object(obj, obj2, best_link, context + "->[" + as + "]");
+                            if (best_link.size() > 0)
+                                add_parse_object(obj, obj2, best_link, context + "->[" + as + "]");
+                            else
+                                delete obj2;
                         }
                         else {
                             // Error: every even entry in a number tree Nums array are supposed be objects
@@ -769,7 +773,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
 
     counter = 0;
 
-    while (!to_process.empty()) {
+    while (to_process.size() > 0) {
         context_shown = false;
 
         queue_elem elem = to_process.front();
@@ -863,7 +867,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                                 else if (FindInVector(v_ArlComplexTypes, arl_type)) {
                                     std::vector<std::string>  linkset = versioner.get_appropriate_linkset(vec[TSV_LINK]);
                                     std::string best_link = recommended_link_for_object(inner_obj, linkset, as);
-                                    if (!best_link.empty()) {
+                                    if (best_link.size() > 0) {
                                         if (vec[TSV_KEYNAME] != best_link)
                                             as = as + " (as " + best_link + ")";
                                         add_parse_object(dictObj, inner_obj, best_link, as); // DON'T DELETE inner_obj!
@@ -945,7 +949,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                                 else if (FindInVector(v_ArlComplexTypes, arl_type)) {
                                     std::vector<std::string>  linkset = versioner.get_appropriate_linkset(vec[TSV_LINK]);
                                     std::string best_link = recommended_link_for_object(inner_obj, linkset, as);
-                                    if (!best_link.empty()) {
+                                    if (best_link.size() > 0) {
                                         as = as + " (as " + best_link + ")";
                                         add_parse_object(dictObj, inner_obj, best_link, as); // DON'T DELETE inner_obj!
                                         kept_inner_obj = true;
@@ -1160,7 +1164,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                             std::string as = elem.context + "[" + std::to_string(i);
                             std::vector<std::string>  linkset = versioner.get_appropriate_linkset(tsv[idx][TSV_LINK]);
                             std::string best_link = recommended_link_for_object(item, linkset, as + "]");
-                            if (!best_link.empty()) {
+                            if (best_link.size() > 0) {
                                 as = as + " (as " + best_link + ")]";
                                 add_parse_object(arrayObj, item, best_link, as);
                                 item_kept = true;

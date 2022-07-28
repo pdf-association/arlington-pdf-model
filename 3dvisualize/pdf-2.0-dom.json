@@ -3301,7 +3301,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.6,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -3546,7 +3546,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.5,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -3818,7 +3818,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -4108,7 +4108,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -4381,7 +4381,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -4711,7 +4711,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -4973,7 +4973,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -5254,7 +5254,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -5862,7 +5862,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -6085,7 +6085,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.5,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -6408,7 +6408,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.5,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -6931,7 +6931,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.4,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[AppearancePrinterMark]"
@@ -7376,7 +7376,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.7,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -7890,7 +7890,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.5,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -8117,7 +8117,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -8408,7 +8408,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -8698,7 +8698,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.4,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -8960,7 +8960,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -9127,7 +9127,7 @@
         "Inheritable": false,
         "DefaultValue": "Draft",
         "PossibleValues": "[Approved,Experimental,NotApproved,AsIs,Expired,NotForPublicRelease,Confidential,Final,Sold,Departmental,ForComment,TopSecret,Draft,ForPublicRelease]",
-        "SpecialCase": "[fn:Not(@Name!=Stamp)]"
+        "SpecialCase": "[fn:Not(fn:IsRequired(fn:IsPresent(IT) && (@IT!=Stamp)))]"
       },
       "IT": {
         "Key": "IT",
@@ -9226,7 +9226,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -9488,7 +9488,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.2,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -10010,7 +10010,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -10273,7 +10273,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.6,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -10465,7 +10465,7 @@
         "Key": "AP",
         "Type": "dictionary",
         "SinceVersion": 1.2,
-        "Required": "fn:IsRequired((fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0))",
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[Appearance]"
@@ -20540,7 +20540,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(Size)==(2 * fn:ArrayLength(Encode)))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Encode)==(2 * fn:ArrayLength(Size)))]",
         "Link": "[ArrayOfIntegersGeneral]"
       },
       "BitsPerSample": {
@@ -31924,7 +31924,7 @@
         "Required": "fn:IsRequired((@R==C) && fn:InMap(trailer::Catalog::Names::EmbeddedFiles))",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Not((@R!=C) || fn:Not(fn:InMap(trailer::Catalog::Names::EmbeddedFiles)))]"
+        "SpecialCase": "[fn:Not(fn:IsPresent((@R!=C) || fn:Not(fn:InMap(trailer::Catalog::Names::EmbeddedFiles))))]"
       },
       "P": {
         "Key": "P",
@@ -34288,7 +34288,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
-        "SpecialCase": "[fn:Not(@ImageMask==true)];[fn:Not(@ImageMask==true)]",
+        "SpecialCase": "[fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))]",
         "Link": "[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]"
       },
       "BitsPerComponent": {
@@ -34362,7 +34362,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:SinceVersion(1.5,fn:Not(@SMaskInData>0))]",
+        "SpecialCase": "[fn:Not(fn:IsPresent(@SMaskInData>0))]",
         "Link": "[XObjectImageSoftMask]"
       },
       "SMaskInData": {

@@ -77,6 +77,7 @@ std::string ArlingtonPDFSDK::get_version_string()
 ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 {
     assert(ctx != nullptr);
+    assert(!pdf_filename.empty());
 
     QPDF* qpdfctx = (QPDF*)ctx;
     qpdfctx->processFile(pdf_filename.string().c_str(), nullptr);
@@ -403,7 +404,7 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 
     sort_keys();
     // Get the i-th sorted key name, allowing for no keys in a dictionary 
-    if ((!sorted_keys.empty()) && (index < sorted_keys.size()))
+    if ((sorted_keys.size() > 0) && (index < sorted_keys.size()))
         retval = sorted_keys[index];
 
 /*****

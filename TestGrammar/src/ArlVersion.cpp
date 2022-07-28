@@ -211,7 +211,7 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
     if (!found)
         version_reason = ArlVersionReason::Unknown;
 
-    assert((found && !arl_type.empty() && (arl_type_index >= 0)) || (!found && arl_type.empty() && (arl_type_index < 0)));
+    assert((found && (arl_type.size() > 0) && (arl_type_index >= 0)) || (!found && (arl_type.size() == 0) && (arl_type_index < 0)));
     assert((found && (version_reason != ArlVersionReason::Unknown)) || (!found && (version_reason == ArlVersionReason::Unknown)));
 }
 

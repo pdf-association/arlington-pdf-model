@@ -114,6 +114,7 @@ std::string ArlingtonPDFSDK::get_version_string()
 ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 {
     assert(ctx != nullptr);
+    assert(!pdf_filename.empty());
     auto pdfix_ctx = (pdfix_context*)ctx;
     if (pdfix_ctx->doc != nullptr) {
         pdfix_ctx->doc->Close();

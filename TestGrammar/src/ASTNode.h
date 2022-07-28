@@ -99,7 +99,7 @@ struct ASTNode {
 
     /// @brief output operator <<
     friend std::ostream& operator<<(std::ostream& ofs, const ASTNode& n) {
-        if (!n.node.empty())
+        if (n.node.size() > 0)
             ofs << "{" << ASTNodeType_strings[(int)n.type] << ":'" << n.node << "'";
         else
             ofs << "{''";
@@ -119,7 +119,7 @@ struct ASTNode {
     /// @brief  Validate if an AST node is correctly configured. Can only be done AFTER a full parse is completed.
     /// @return true if valid. false if the node is incorrect or partially populated.
     bool valid() {
-        bool ret_val = !node.empty();
+        bool ret_val = (node.size() > 0);
         if (ret_val && arg[0] != nullptr) {
             ret_val = ret_val && arg[0]->valid();
             if (ret_val && arg[1] != nullptr)

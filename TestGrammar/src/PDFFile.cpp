@@ -49,7 +49,7 @@ CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std
     : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr), 
       latest_feature_version("1.0"), deprecated(false), fully_implemented(true)
 {
-    if (!forced_ver.empty())
+    if (forced_ver.size() > 0)
         forced_version = forced_ver;
 
     // Get physical file size, reduced to an int for simplicity
@@ -133,7 +133,7 @@ std::vector<std::string> CPDFFile::split_key_path(std::string key)
 /// @returns   the object for the path or nullptr if it doesn't exist
 ArlPDFObject* CPDFFile::get_object_for_path(ArlPDFObject* parent, const std::vector<std::string>& arlpath) {
     assert(parent != nullptr);
-    assert(!arlpath.empty());
+    assert(arlpath.size() > 0);
 
     std::vector<std::string> path = arlpath;
     ArlPDFObject*            obj = parent;
@@ -879,7 +879,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                             delete out;
                             out = new ASTNode;
                             std::string s = LRParsePredicate(tsv_data[i][TSV_DEFAULTVALUE], out);
-                            assert(s.empty());
+                            assert(s.size() == 0);
                             assert(out->valid());
                             got_dv = true;
                             break;
@@ -1106,12 +1106,12 @@ std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
     }
 
     // Hard force to any version - expect lots of messages if this is wrong!!
-    if (!forced_version.empty()) {
+    if (forced_version.size() > 0) {
         ofs << COLOR_INFO << "Command line forced to version PDF " << forced_version << COLOR_RESET;
         pdf_version = forced_version;
     }
 
-    assert(!pdf_version.empty());
+    assert(pdf_version.size() > 0);
     assert(FindInVector(v_ArlPDFVersions, pdf_version));
 
     return pdf_version;
@@ -1144,7 +1144,7 @@ void CPDFFile::set_feature_version(const std::string& ver, const std::string& ar
 std::string CPDFFile::get_latest_feature_version_info()
 {
     std::string s = "version PDF " + latest_feature_version;
-    if (!latest_feature_arlington.empty()) {
+    if (latest_feature_arlington.size() > 0) {
         s = s + " (" + latest_feature_arlington;
         if (latest_feature_key.size() > 0) {
             s = s + "/" + latest_feature_key;
@@ -1804,7 +1804,7 @@ bool CPDFFile::fn_MustBeDirect(ArlPDFObject* parent, ArlPDFObject* obj, const AS
 /// @returns true if there are no cycles, false if cycles are detected or nodes are not dictionaries
 bool CPDFFile::fn_NoCycle(ArlPDFObject* obj, const std::string &key) {
     assert(obj != nullptr);
-    assert(!key.empty());
+    assert(key.size() > 0);
 
     if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeDictionary)
         return false;

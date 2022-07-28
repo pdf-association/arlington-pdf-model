@@ -62,7 +62,7 @@ private:
 
         queue_elem(ArlPDFObject* p, ArlPDFObject* o, const std::string &l, const std::string &c)
             : parent(p), object(o), link(l), context(c)
-            { /* constructor */ assert(object != nullptr); assert(!link.empty()); }
+            { /* constructor */ assert(object != nullptr); assert(link.size() > 0); }
     };
 
     /// @brief The list of PDF objects to process

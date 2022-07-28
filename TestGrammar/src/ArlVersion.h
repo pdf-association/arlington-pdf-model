@@ -92,7 +92,7 @@ public:
     /// @brief Constructor
     ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const int pdf_ver);
 
-    bool             object_matched_arlington_type() { return !arl_type.empty(); };
+    bool             object_matched_arlington_type() { return (arl_type.size() > 0); };
     std::string      get_object_arlington_type() { return arl_type_of_pdf_object; };
     std::string      get_matched_arlington_type() { return arl_type; };
     std::vector<std::string> get_appropriate_linkset(std::string arl_links);
