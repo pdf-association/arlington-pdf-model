@@ -1064,7 +1064,7 @@ std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
     if (hdr_ok)
         ofs << COLOR_INFO << "Header is version PDF " << pdf_header_version << COLOR_RESET;
     if (cat_ok)
-        ofs << COLOR_INFO << "Document Catalog/Version is version PDF " << pdf_catalog_version << COLOR_RESET;
+        ofs << COLOR_INFO << "Document Catalog/Version is PDF " << pdf_catalog_version << COLOR_RESET;
 
     if (hdr_ok && cat_ok) {
         // Choose latest version. Rely on ASCII for version computation

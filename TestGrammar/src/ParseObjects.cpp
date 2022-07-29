@@ -702,7 +702,7 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::vector<std::
                 else {
                     // Error: individual kid isn't dictionary in PDF number tree
                     show_context(fake_e);
-                    output << COLOR_ERROR << "number tree Kids array element number #" << i << " was not a dictionary for " << context;
+                    output << COLOR_ERROR << "number tree Kids array element number #" << i << " was not a dictionary for " << strip_leading_whitespace(context);
                     if (debug_mode && (item != nullptr))
                         output << " (" << *item << ")";
                     output << COLOR_RESET;
@@ -713,7 +713,7 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::vector<std::
         else {
             // Error: Kids isn't array in PDF number tree
             show_context(fake_e);
-            output << COLOR_ERROR << "number tree Kids object was not an array for " << context;
+            output << COLOR_ERROR << "number tree Kids object was not an array for " << strip_leading_whitespace(context);
             if (debug_mode)
                 output << " (" << *kids_obj << ")";
             output << COLOR_RESET;
@@ -887,7 +887,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                                 show_context(elem);
                                 bool reason_shown = false;
                                 if (reason == ArlVersionReason::After_fnBeforeVersion) {
-                                    output << COLOR_INFO << "detected a dictionary key version-based feature after obsolence in PDF";
+                                    output << COLOR_INFO << "detected a dictionary key version-based feature after obsolescence in PDF";
                                     reason_shown = true;
                                 }
                                 else if (reason == ArlVersionReason::Before_fnSinceVersion) {
@@ -971,7 +971,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                                 show_context(elem);
                                 bool reason_shown = false;
                                 if (reason == ArlVersionReason::After_fnBeforeVersion) {
-                                    output << COLOR_INFO << "detected a dictionary wildcard version-based feature after obsolence in PDF";
+                                    output << COLOR_INFO << "detected a dictionary wildcard version-based feature after obsolescence in PDF";
                                     reason_shown = true;
                                 }
                                 else if (reason == ArlVersionReason::Before_fnSinceVersion) {
@@ -1177,7 +1177,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                             show_context(elem);
                             bool reason_shown = false;
                             if (reason == ArlVersionReason::After_fnBeforeVersion) {
-                                output << COLOR_INFO << "detected an array version-based feature after obsolence in PDF";
+                                output << COLOR_INFO << "detected an array version-based feature after obsolescence in PDF";
                                 reason_shown = true;
                             }
                             else if (reason == ArlVersionReason::Before_fnSinceVersion) {

@@ -1045,7 +1045,7 @@ void process_dva_formal_rep_tree(const fs::path &tsv_dir, std::ostream& ofs, Arl
                 assert(obj != nullptr);
                 assert(obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary);
                 if (((ArlPDFDictionary*)obj)->has_key(L"FormalRepOf")) {
-                    ofs << COLOR_WARNING << "Adobe DVA comaparison did not check DVA key: " << ToUtf8(key) << COLOR_RESET;
+                    ofs << COLOR_WARNING << "Adobe DVA comparison did not check DVA key: " << ToUtf8(key) << COLOR_RESET;
                     missed++;
                 }
                 delete obj;
@@ -1071,7 +1071,7 @@ void process_dva_formal_rep_tree(const fs::path &tsv_dir, std::ostream& ofs, Arl
                     [&tsv](const CDVAArlingtonTuple& a) { return (a.link == tsv); });
 
                 if (result == mapped.end()) {
-                    ofs << COLOR_WARNING << "Adobe DVA comaparison did not check Arlington: " << tsv << COLOR_RESET;
+                    ofs << COLOR_WARNING << "Adobe DVA comparison did not check Arlington: " << tsv << COLOR_RESET;
                     missed++;
                 }
             }
