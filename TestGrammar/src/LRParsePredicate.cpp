@@ -28,11 +28,11 @@
 #include <math.h>
 #include <algorithm>
 
-/// @def define ARL_PARSER_DEBUG to enable very verbose debugging of predicate and expression parsing
+/// @def \#define ARL_PARSER_DEBUG to enable very verbose debugging of predicate and expression parsing
 #undef ARL_PARSER_DEBUG
 
 
-/// @brief define PP_DEBUG to get VERY verbose debugging of predicate processing (PP)
+/// @def \#define PP_DEBUG to get VERY verbose debugging of predicate processing (PP)
 #undef PP_DEBUG
 
 
