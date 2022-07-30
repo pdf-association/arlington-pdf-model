@@ -41,7 +41,7 @@
 namespace fs = std::filesystem;
 
 
-/// @def define ARL_PARSER_TESTING to test a small set of hard coded predicates
+/// @def \#define ARL_PARSER_TESTING to test a small set of hard coded predicates
 #undef ARL_PARSER_TESTING
 
 
@@ -404,9 +404,11 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
     ofs << "Arlington TSV data: " << fs::absolute(grammar_folder).lexically_normal() << std::endl;
 
 #ifdef ARL_PARSER_TESTING
-    ofs << "ARL_PARSER_TESTING #defined so processing hardcoded predicates only." << std::endl;
+    UNREFERENCED_FORMAL_PARAM(verbose);
+    ofs << COLOR_WARNING << "ARL_PARSER_TESTING was #defined so processing hardcoded predicates only!!" << COLOR_RESET;
 
     std::vector<std::string> parse_test_str = {
+        "fn:Eval(UR3::Reference::0::@TransformMethod==UR3)",
         "fn:SinceVersion(1.2,string-byte)",
         "(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))",
         "fn:Eval(fn:DefaultValue(@StateModel=='Marked','Unmarked') || fn:DefaultValue(@StateModel=='Review','None'))",
@@ -427,12 +429,11 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
 
     for (auto& s : parse_test_str) {
         do {
-            ofs << "In:  '" << s << "'" << std::endl;
+            ofs << COLOR_INFO << std::endl << "In:  '" << s << "'" << COLOR_RESET;
             assert(pred_root == nullptr);
             pred_root = new ASTNode();
             s = LRParsePredicate(s, pred_root);
-            ofs << "AST: " << *pred_root << std::endl;
-            ofs << "AST valid: " << (pred_root->valid() ? "true" : "false!") << std::endl;
+            ofs << COLOR_INFO << "AST: " << *pred_root << std::endl << "AST valid: " << (pred_root->valid() ? "true" : "false!") << COLOR_RESET;
             assert(pred_root->valid());
             delete pred_root;
             pred_root = nullptr;
@@ -442,8 +443,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
         } while (!s.empty());
     }
     return;
-#endif // ARL_PARSER_TESTING
-
+#else
     if (verbose)
         ofs << "Predicate reduction by regular expression is being attempted." << std::endl;
 
@@ -581,4 +581,5 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
     } // for
 
     ofs << "END" << std::endl;
+#endif // ARL_PARSER_TESTING
 }
