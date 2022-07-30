@@ -105,15 +105,15 @@ const std::string ArlString = "'[^']+'";
 /// Intersects with ArlLink and ArlPredfinedType.
 /// Examples: SomeKey, 3, *, 2*, parent::SomeKey, SomeKeyA::SomeKeyB::3, SomeKeyA::SomeKeyB::\@SomeKeyC,
 const std::string  ArlKeyBase = "[a-zA-Z0-9_\\.]+";
-const std::string  ArlKey = "([a-zA-Z]+\\:\\:)*(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
-const std::string  ArlKeyValue = "([a-zA-Z]+\\:\\:)*@(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
+const std::string  ArlKey = "([a-zA-Z]+::)*(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
+const std::string  ArlKeyValue = "(([a-zA-Z0-9]+::)*)@(" + ArlKeyBase + "|([0-9]+(\\*)?)+|\\*)+";
 
 
 /// @brief pre-defined Arlington Types (all lowercase with some sub-types include DASH and qualifier).
 /// Intersects with ArlLink and ArlKeyBase.
 const std::string ArlPredfinedType = "(array|bitmask|boolean|date|dictionary|integer|matrix|name|name-tree|null|number-tree|number|rectangle|stream|string-ascii|string-byte|string-text|string)";
 
-/// @brief Arlington Link name (i.e. TSV filename without extension). Only UNDERBAR, never DASH or PERIOD.
+/// @brief Arlington Link name (i.e. TSV filename without extension). Only UNDERBAR allowed. Never DASH or PERIOD.
 /// Intersects with ArlPredfinedType and ArlKeyBase.
 const std::string ArlLink = "[a-zA-Z0-9_]+";
 
@@ -129,11 +129,11 @@ const std::string ArlMathOp = "( \\* |\\+| \\- | mod )";
 /// e.g. "...) || (..." or "...) || fn:..."
 const std::string ArlLogicalOp = "( && | \\|\\| )";
 
-/// @brief Arlington PDF boolean keywords
+/// @brief Arlington PDF boolean keywords (case sensitive)
 const std::string ArlBooleans = "(true|false)";
 
-/// @brief Tolerance for floating-point comparison.
-/// Old Adobe PDF specs used to recommend 5 digits so go + / -half of that
+/// @brief Tolerance for floating-point equality and inequality comparison.
+/// Old Adobe PDF specs used to recommend 5 digits so go +/- half of that
 const double ArlNumberTolerance = 0.000005;
 
 #endif // ArlPredicates_h
