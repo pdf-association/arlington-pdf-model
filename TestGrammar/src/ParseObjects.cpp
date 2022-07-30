@@ -43,11 +43,11 @@ using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
 
 
-/// @brief \#define SCORING_DEBUG to see scoring inside recommended_link_for_object()
+/// @def \#define SCORING_DEBUG to see scoring inside recommended_link_for_object()
 #undef SCORING_DEBUG
 
 
-/// @brief \#define CHECKS_DEBUG to see the checking of values, etc. for each object
+/// @def \#define CHECKS_DEBUG to see details of the checking of values, Possible Values, Special Cases, etc. for each object
 #undef CHECKS_DEBUG
 
 
@@ -196,7 +196,7 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
                                 std::cout << " '" << ToUtf8(str_value) << "'";
                             std::cout << ".";
 #endif
-                            if ((vec[TSV_KEYNAME] == "Type") || (vec[TSV_KEYNAME] == "Subtype") || (vec[TSV_KEYNAME] == "S") || (vec[TSV_KEYNAME] == "Parent"))
+                            if ((vec[TSV_KEYNAME] == "Type") || (vec[TSV_KEYNAME] == "Subtype") || (vec[TSV_KEYNAME] == "S") || (vec[TSV_KEYNAME] == "Parent") || (vec[TSV_KEYNAME] == "TransformMethod"))
                                 link_score += -20;     // A disambiguating key exists with a correct value
                             else if ((obj_type == PDFObjectType::ArlPDFObjTypeArray) && (vec[TSV_KEYNAME] == "0"))
                                 link_score += (reqd_key ? -40 : -20); // Treat first element in an array that is not a wildcard as more important (e.g. disambiguate color spaces)
@@ -257,7 +257,7 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
 #if defined(SCORING_DEBUG)
                 std::cout << " All required keys good!";
 #endif
-                link_score += -5 * num_keys_matched;
+                link_score += -8 * num_keys_matched;
             }
             link_score += (int)(-10.0 * num_keys_matched / data_list.size());
 
@@ -306,10 +306,10 @@ ArlPDFObject* CParsePDF::find_via_inheritance(ArlPDFDictionary* obj, const std::
     if ((parent != nullptr) && (parent->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
         ArlPDFDictionary* parent_dict = (ArlPDFDictionary*)parent;
         ArlPDFObject* key_obj = parent_dict->get_value(key);
-        if (key_obj == nullptr)
-            key_obj = find_via_inheritance(parent_dict, key, depth+1);
-        delete parent;
-        return key_obj;
+if (key_obj == nullptr)
+key_obj = find_via_inheritance(parent_dict, key, depth + 1);
+delete parent;
+return key_obj;
     }
     return nullptr;
 }
@@ -328,7 +328,7 @@ ArlPDFObject* CParsePDF::find_via_inheritance(ArlPDFDictionary* obj, const std::
 /// @param[in]   grammar_file  the name Arlington PDF model filename used for error messages
 /// @param[in]   context       context (PDF DOM path)
 /// @param[in]   ofs           open output file stream (or cnull/cwnull for no output)
-void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject *object, const int key_index, const ArlTSVmatrix& tsv_data, const std::string &grammar_file, const std::string &context, std::ostream& ofs) {
+void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, const int key_index, const ArlTSVmatrix& tsv_data, const std::string& grammar_file, const std::string& context, std::ostream& ofs) {
     assert(parent != nullptr);
     assert(object != nullptr);
     assert(key_index >= 0);
@@ -348,7 +348,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject *object, con
 
     // Process version predicates properly, so if PDF version is BEFORE SinceVersion then will get a wrong type error
     ArlVersion versioner(object, tsv_data[key_idx], pdf_version);
-    std::vector<std::string>  linkset  = versioner.get_appropriate_linkset(tsv_data[key_idx][TSV_LINK]);
+    std::vector<std::string>  linkset = versioner.get_appropriate_linkset(tsv_data[key_idx][TSV_LINK]);
     std::string               arl_type = versioner.get_matched_arlington_type();
 
 #ifdef CHECKS_DEBUG
@@ -385,26 +385,30 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject *object, con
     }
 
     // String-ify the value of the PDF object for potential output messages
-    std::wstring        str_value; 
+    std::wstring        str_value;
     double              num_value;
     switch (object->get_object_type())
     {
-        case PDFObjectType::ArlPDFObjTypeBoolean:
-            if (((ArlPDFBoolean*)object)->get_value())
-                str_value = L"true";
-            else
-                str_value = L"false";
-            break;
+    case PDFObjectType::ArlPDFObjTypeBoolean:
+        if (((ArlPDFBoolean*)object)->get_value())
+            str_value = L"true";
+        else
+            str_value = L"false";
+        break;
 
-        case PDFObjectType::ArlPDFObjTypeNumber:
+    case PDFObjectType::ArlPDFObjTypeNumber:
             {
                 ArlPDFNumber* numobj = (ArlPDFNumber*)object;
                 if (numobj->is_integer_value()) {
-                    int ivalue = numobj->get_integer_value();
+                    long long ivalue = numobj->get_integer_value();
                     str_value = std::to_wstring(ivalue);
                     if ((arl_type == "bitmask") && (ivalue > 0xFFFFFFFF)) {
                         show_context(fake_e);
                         ofs << COLOR_WARNING << "bitmask was not a 32-bit value for key " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")" << COLOR_RESET;
+                    }
+                    if (((ivalue > 2147483647LL) || (ivalue < -2147483648LL)) && (pdf_version <= 17)) {
+                        show_context(fake_e);
+                        ofs << COLOR_WARNING << "integer value exceeds PDF 1.x integer range for " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")" << COLOR_RESET;
                     }
                 }
                 else {
@@ -420,6 +424,10 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject *object, con
 
         case PDFObjectType::ArlPDFObjTypeName:
             str_value = ((ArlPDFName*)object)->get_value();
+            if ((str_value.size() > 127) && (pdf_version <= 17)) {
+                show_context(fake_e);
+                ofs << COLOR_WARNING << "PDF 1.x names were limited to 127 bytes (was " << str_value.size() << ") for " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")" << COLOR_RESET;
+            }
             break;
 
         case PDFObjectType::ArlPDFObjTypeString:
@@ -494,8 +502,11 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject *object, con
         else
             ofs << COLOR_ERROR << "special case not correct: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
         ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_SPECIALCASE];
-        if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type()))
-            ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value) << " (" << *object << ")";
+        if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type())) {
+            ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value);
+            if (debug_mode)
+                ofs << " (" << *object << ")";
+        }
         ofs << COLOR_RESET;
     }
 
@@ -514,8 +525,11 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject *object, con
         else
             ofs << COLOR_ERROR << "wrong value for possible values: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
         ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES];
-        if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type()))
-            ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value) << " (" << *object << ")";
+        if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type())) {
+            ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value);
+            if (debug_mode)
+                ofs << " (" << *object << ")";
+        }
         ofs << COLOR_RESET;
     }
 #ifdef CHECKS_DEBUG
