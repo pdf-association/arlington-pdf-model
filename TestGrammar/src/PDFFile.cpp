@@ -363,11 +363,11 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             }
         }
         else if (in_ast->node == "fn:ArraySortAscending(") {
-            // 1 argument: name of key which is an array
+            // 2 arguments: name of key which is the array, step size
             assert(out_left != nullptr);
-            assert(out_right == nullptr);
+            assert(out_right != nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-            out->node = (fn_ArraySortAscending(parent, out_left) ? "true" : "false");
+            out->node = (fn_ArraySortAscending(parent, out_left, out_right) ? "true" : "false");
         }
         else if (in_ast->node == "fn:BeforeVersion(") {
             // right arg is optional
@@ -541,13 +541,13 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = "true";
         }
         else if (in_ast->node == "fn:MustBeDirect(") {
-            // optional 1 argument, which is a condition
+            // optional 1 argument, which is a key
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = (fn_MustBeDirect(parent, obj, out_left) ? "true" : "false");
         }
         else if (in_ast->node == "fn:MustBeIndirect(") {
-            // optional 1 argument, which is a condition
+            // optional 1 argument, which is a key
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = fn_MustBeDirect(parent, obj, out_left) ? "false" : "true";
@@ -1181,28 +1181,35 @@ int CPDFFile::fn_ArrayLength(ArlPDFObject* parent, const ASTNode* key) {
 /// Unsortable elements return false.
 /// 
 /// @param[in]  parent   the parent PDF array object 
-/// @param[in]  key
+/// @param[in]  arr_key  the key name of the array to be tested
+/// @param[in]  step     the step for the array indices. MUST be an integer.
 /// 
 /// @returns true if array is sorted in ascending order, false otherwise.
-bool CPDFFile::fn_ArraySortAscending(ArlPDFObject* parent, const ASTNode* key) {
+bool CPDFFile::fn_ArraySortAscending(ArlPDFObject* parent, const ASTNode* arr_key, const ASTNode* step) {
     assert(parent != nullptr);
-    assert(key != nullptr);
-    assert(key->type == ASTNodeType::ASTNT_Key);
+    assert(arr_key != nullptr);
+    assert(arr_key->type == ASTNodeType::ASTNT_Key);
+    assert(step != nullptr);
+    assert(step->type == ASTNodeType::ASTNT_ConstInt);
 
     bool retval = false;
-    auto key_parts = split_key_path(key->node);
+    int step_idx = key_to_array_index(step->node);
+    assert(step_idx >= 0);
+
+    auto key_parts = split_key_path(arr_key->node);
     ArlPDFObject* obj = get_object_for_path(parent, key_parts);
 
     if ((obj != nullptr) && (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
         ArlPDFArray* arr = (ArlPDFArray*)obj;
         if (arr->get_num_elements() > 0) {
-            // Make sure all array elements are a consistent numeric type
+            // Make sure all array elements are numeric 
             PDFObjectType obj_type = arr->get_value(0)->get_object_type();
             if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
                 ArlPDFNumber* elem = (ArlPDFNumber*)arr->get_value(0);
                 double       last_elem_val = elem->get_value();
                 double       this_elem_val;
-                for (int i = 1; i < arr->get_num_elements(); i++) {
+                // Need to check every N-th 
+                for (int i = step_idx; i < arr->get_num_elements(); i += step_idx) {
                     delete elem;
                     elem = (ArlPDFNumber*)arr->get_value(i);
                     if ((elem != nullptr) && (elem->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber)) {
@@ -1761,7 +1768,7 @@ bool CPDFFile::fn_IsPresent(ArlPDFObject* parent, std::string& key)
 
 
 /// @brief Checks if obj is an direct reference (i.e. NOT indirect)
-/// e.g. fn:MustBeDirect() or fn:MustBeDirect(fn:IsPresent(Encrypt))
+/// e.g. fn:MustBeDirect(), fn:MustBeDirect(ID::0) or fn:MustBeDirect(fn:IsPresent(Encrypt))
 ///
 /// @param[in]  parent  parent PDF object which might be referenced for other objects direct
 /// @param[in]  obj  PDF object which must be direct
@@ -1775,7 +1782,7 @@ bool CPDFFile::fn_MustBeDirect(ArlPDFObject* parent, ArlPDFObject* obj, const AS
     }
     else {
         if (arg->type == ASTNodeType::ASTNT_ConstPDFBoolean) {
-            // A reduced predicate expression...
+            // A reduced predicate expression that was true...
             if (arg->node == "true")
                 retval = !obj->is_indirect_ref();
         }
