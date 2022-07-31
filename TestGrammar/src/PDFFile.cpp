@@ -47,10 +47,14 @@ namespace fs = std::filesystem;
 /// @brief Constructor. Calculates some details about the PDF file
 CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver)
     : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr), 
-      latest_feature_version("1.0"), deprecated(false), fully_implemented(true)
+      latest_feature_version("1.0"), deprecated(false), fully_implemented(true), exact_version_compare(false)
 {
-    if (forced_ver.size() > 0)
-        forced_version = forced_ver;
+    if (forced_ver.size() > 0) {
+        if (forced_ver == "exact")
+            exact_version_compare = true;
+        else
+            forced_version = forced_ver;
+    }
 
     // Get physical file size, reduced to an int for simplicity
     filesize_bytes = (int)fs::file_size(pdf_filename);
@@ -908,7 +912,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 bool delete_val = false;
 
                 // To debug a specific predicate, uncomment and modify the following code. Add breakpoint to the 2nd line.
-                // if (key_parts[key_parts.size() - 1] == "SMaskInData")
+                // if (key_parts[key_parts.size() - 1] == "FontName")
                 //    delete_val = delete_val;
 
                 // Optimize for simple self-reference (where @key and current key are the same)
@@ -952,6 +956,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                             out->node = out->node + "::" + key_parts[i];
                     }
                     else {
+                        assert((tmp == nullptr) || tmp->valid());
                         delete out;
                         out = tmp;
                     }
@@ -1106,7 +1111,7 @@ bool CPDFFile::check_key_value(ArlPDFDictionary* dict, const std::wstring& key, 
 /// @returns              Always a valid 3-char version string ("1.0", "1.1", ..., "2.0")
 std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
 {
-    bool hdr_ok = ((pdf_header_version.size() == 3)  && FindInVector(v_ArlPDFVersions, pdf_header_version));
+    bool hdr_ok = ((pdf_header_version.size() == 3) && FindInVector(v_ArlPDFVersions, pdf_header_version));
     bool cat_ok = ((pdf_catalog_version.size() == 3) && FindInVector(v_ArlPDFVersions, pdf_catalog_version));
 
     pdf_version.clear();
@@ -1151,13 +1156,14 @@ std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
     }
 
     // To reduce lots of false warnings, snap transparency-aware PDF to 1.7
-    if ((pdf_version == "1.4") || (pdf_version == "1.5") || (pdf_version == "1.6")) {
+    if (!exact_version_compare && (forced_version.size() == 0) && ((pdf_version == "1.4") || (pdf_version == "1.5") || (pdf_version == "1.6"))) {
+        ofs << COLOR_INFO << "Rounding up PDF " << pdf_version << " to PDF 1.7" << COLOR_RESET;
         pdf_version = "1.7";
     }
 
     // Hard force to any version - expect lots of messages if this is wrong!!
     if (forced_version.size() > 0) {
-        ofs << COLOR_INFO << "Command line forced to version PDF " << forced_version << COLOR_RESET;
+        ofs << COLOR_INFO << "Command line forced to PDF " << forced_version << COLOR_RESET;
         pdf_version = forced_version;
     }
 
@@ -1193,7 +1199,7 @@ void CPDFFile::set_feature_version(const std::string& ver, const std::string& ar
 /// @brief returns the latest feature version details encountered so far as a human readable string. 
 std::string CPDFFile::get_latest_feature_version_info()
 {
-    std::string s = "version PDF " + latest_feature_version;
+    std::string s = " PDF " + latest_feature_version;
     if (latest_feature_arlington.size() > 0) {
         s = s + " (" + latest_feature_arlington;
         if (latest_feature_key.size() > 0) {

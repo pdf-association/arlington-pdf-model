@@ -363,7 +363,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
         if (obj_type != PDFObjectType::ArlPDFObjTypeNull) {
             show_context(fake_e);
             ofs << COLOR_ERROR << "wrong type: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
-            ofs << " should be " << tsv_data[key_idx][TSV_TYPE] << " and is " << versioner.get_object_arlington_type();
+            ofs << " should be " << tsv_data[key_idx][TSV_TYPE] << " in PDF " << std::fixed << std::setprecision(1) << double(pdf_version / 10.0) << " and is " << versioner.get_object_arlington_type();
             if (debug_mode)
                 ofs << " (" << *object << ")";
             ofs << COLOR_RESET;
@@ -501,6 +501,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
             ofs << COLOR_WARNING << "special case possibly incorrect (some predicates NOT supported): " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
         else
             ofs << COLOR_ERROR << "special case not correct: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
+        ofs << " in PDF " << std::fixed << std::setprecision(1) << double(pdf_version / 10.0);
         ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_SPECIALCASE];
         if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type())) {
             ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value);
@@ -524,7 +525,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
             ofs << COLOR_WARNING << "possibly wrong value for possible values (some predicates NOT supported): " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
         else
             ofs << COLOR_ERROR << "wrong value for possible values: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
-        ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES];
+        ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES] << " in PDF " << std::fixed << std::setprecision(1) << double(pdf_version / 10.0);
         if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type())) {
             ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value);
             if (debug_mode)
@@ -781,7 +782,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
 {
     pdfc = &pdf;
     std::string ver = pdfc->check_and_get_pdf_version(output); // will produce output messages
-    output << COLOR_INFO << "Processing as version PDF " << ver << COLOR_RESET;
+    output << COLOR_INFO << "Processing as PDF " << ver << COLOR_RESET;
     pdf_version = ((ver[0] - '0') * 10) + (ver[2] - '0');
     assert(((pdf_version >= 10) && (pdf_version <= 17)) || (pdf_version == 20));
 
@@ -897,7 +898,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                             }
                             // Report version mis-matches
                             ArlVersionReason reason = versioner.get_version_reason();
-                            if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown)) {
+                            if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown) && !pdfc->is_forced_version()) {
                                 show_context(elem);
                                 bool reason_shown = false;
                                 if (reason == ArlVersionReason::After_fnBeforeVersion) {
@@ -917,7 +918,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                                     reason_shown = true;
                                 }
                                 if (reason_shown) {
-                                    output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using " << (pdf_version / 10.0);
+                                    output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using PDF" << (pdf_version / 10.0);
                                     output << ") for " << elem.link << "/" << key_utf8 << COLOR_RESET;
                                 }
                             }
@@ -981,7 +982,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                             }
                             // Report version mis-matches
                             ArlVersionReason reason = versioner.get_version_reason();
-                            if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown)) {
+                            if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown) && !pdfc->is_forced_version()) {
                                 show_context(elem);
                                 bool reason_shown = false;
                                 if (reason == ArlVersionReason::After_fnBeforeVersion) {
@@ -1001,7 +1002,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                                     reason_shown = true;
                                 }
                                 if (reason_shown) {
-                                    output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using " << (pdf_version / 10.0);
+                                    output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using PDF " << (pdf_version / 10.0);
                                     output << ") for " << elem.link << "/" << key_utf8 << COLOR_RESET;
                                 }
                             }
@@ -1017,7 +1018,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                             output << COLOR_INFO << "third class key '" << key_utf8 << "' found in ";
                         else
                             output << COLOR_INFO << "unknown key '" << key_utf8 << "' is not defined in Arlington for ";
-                        output << elem.link << COLOR_RESET;
+                        output << elem.link << " in PDF " << std::fixed << std::setprecision(1) << double(pdf_version / 10.0) << COLOR_RESET;
                     }
                 }
                 else {
@@ -1187,7 +1188,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
 
                         // Report version mis-matches
                         ArlVersionReason reason = versioner.get_version_reason();
-                        if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown)) {
+                        if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown) && !pdfc->is_forced_version()) {
                             show_context(elem);
                             bool reason_shown = false;
                             if (reason == ArlVersionReason::After_fnBeforeVersion) {
@@ -1207,7 +1208,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                                 reason_shown = true;
                             }
                             if (reason_shown)
-                                output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using " << (pdf_version / 10.0) << ") for " << elem.link << "/" << i << COLOR_RESET;
+                                output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using PDF " << (pdf_version / 10.0) << ") for " << elem.link << "/" << i << COLOR_RESET;
                         }
                     }
                     else {

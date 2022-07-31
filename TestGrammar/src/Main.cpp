@@ -90,7 +90,7 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
             }
 
             parser.parse_object(pdf);
-            ofs << COLOR_INFO << "Latest Arlington feature was " << pdf.get_latest_feature_version_info() << " compared using PDF " << pdf.pdf_version << COLOR_RESET;
+            ofs << COLOR_INFO << "Latest Arlington feature was" << pdf.get_latest_feature_version_info() << " compared using " << (pdf.is_forced_version() ? "forced" : "") << " PDF " << pdf.pdf_version << COLOR_RESET;
         }
         else {
             ofs << COLOR_ERROR << "failed to acquire Trailer" << COLOR_RESET;
@@ -129,10 +129,6 @@ int wmain(int argc, wchar_t* argv[]) {
         size_t len = 1 + wcsrtombs(NULL, (const wchar_t**)&argv[i], 0, &state);
         char* mbstr = new char[len];
         wcsrtombs(mbstr, (const wchar_t**)&argv[i], len, &state);
-#if 0
-        printf("Arg %d: Multibyte string: '%s'\n", i, mbstr);
-        printf("Arg %d: Length, including '\\0': %zu\n", i, len);
-#endif // 0
         mbcsargv[i] = mbstr;
     }
 
@@ -147,7 +143,7 @@ int main(int argc, char* argv[]) {
 
     sarge.setDescription("Arlington PDF Model C++ P.o.C. version " TestGrammar_VERSION
         "\nChoose one of: --pdf, --checkdva or --validate.");
-    sarge.setUsage("TestGrammar --tsvdir <dir> [--force <ver>] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
+    sarge.setUsage("TestGrammar --tsvdir <dir> [--force <ver>|exact] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
     sarge.setArgument("h", "help", "This usage message.", false);
     sarge.setArgument("b", "brief", "terse output when checking PDFs. The full PDF DOM tree is NOT output.", false);
     sarge.setArgument("c", "checkdva", "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
@@ -157,7 +153,7 @@ int main(int argc, char* argv[]) {
     sarge.setArgument("m", "batchmode", "stop popup error dialog windows and redirect everything to console (Windows only, includes memory leak reports)", false);
     sarge.setArgument("o", "out", "output file or folder. Default is stdout. See --clobber for overwriting behavior", true);
     sarge.setArgument("p", "pdf", "input PDF file or folder.", true);
-    sarge.setArgument("f", "force", "force the PDF version to the specified value (1,0, 1.1, ..., 2.0). Requires --pdf", true);
+    sarge.setArgument("f", "force", "force the PDF version to the specified value (1,0, 1.1, ..., 2.0 or 'exact'). Requires --pdf", true);
     sarge.setArgument("t", "tsvdir", "[required] folder containing Arlington PDF model TSV file set.", true);
     sarge.setArgument("v", "validate", "validate the Arlington PDF model.", false);
 
@@ -254,8 +250,8 @@ int main(int argc, char* argv[]) {
 
     // Optional -f/--force <version>
     if (sarge.getFlag("force", s)) {
-        if (!FindInVector(v_ArlPDFVersions, s)) {
-            std::cerr << COLOR_ERROR << "-f/--force PDF version '" << s << "' is not valid!" << COLOR_RESET;
+        if (!FindInVector(v_ArlPDFVersions, s) && (s != "exact")) {
+            std::cerr << COLOR_ERROR << "-f/--force PDF version '" << s << "' is not valid! Needs to be '1.0', '1.1', ..., '1.7', '2.0' or 'exact'." << COLOR_RESET;
             sarge.printHelp();
             pdf_io.shutdown();
             return -1;
@@ -328,7 +324,7 @@ int main(int argc, char* argv[]) {
 
     try {
         if (input_file.empty()) {
-            std::cerr << COLOR_ERROR << "no PDF file or folder was specified!" << COLOR_RESET;
+            std::cerr << COLOR_ERROR << "no PDF file or folder was specified via --pdf! Or missing --validate or --checkdva." << COLOR_RESET;
             pdf_io.shutdown();
             return -1;
         }

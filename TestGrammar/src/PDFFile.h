@@ -57,6 +57,9 @@ private:
     /// @brief Forced PDF version from command line or empty()
     std::string             forced_version;
 
+    /// @brief Don't round off PDF versions - do an exact version compare (--force exact)
+    bool                    exact_version_compare;
+
     /// @brief Latest PDF version found in the PDF file (based on Arlington SinceVersion field). Initialized to "1.0".
     std::string             latest_feature_version;
 
@@ -152,6 +155,9 @@ public:
 
     /// @brief returns the latest feature version encountered so far as a human readable string.
     std::string get_latest_feature_version_info();
+
+    /// @brief whether a version override is being forced by --force
+    bool is_forced_version() { return (forced_version.size() > 0); }
 
     /// @brief Calculates an Arlington predicate expression
     ASTNode* ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth = 0);
