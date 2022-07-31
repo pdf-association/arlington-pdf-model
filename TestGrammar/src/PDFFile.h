@@ -111,7 +111,7 @@ private:
     bool fn_InMap(ArlPDFObject* obj, const ASTNode* map);
     bool fn_IsAssociatedFile(ArlPDFObject* obj);
     bool fn_IsEncryptedWrapper();
-    bool fn_IsLastInArray(ArlPDFObject* parent, ArlPDFObject* obj);
+    bool fn_IsLastInArray(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* key);
     bool fn_IsPDFTagged();
     bool fn_IsPresent(ArlPDFObject* parent, std::string& key);
     bool fn_MustBeDirect(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* arg);

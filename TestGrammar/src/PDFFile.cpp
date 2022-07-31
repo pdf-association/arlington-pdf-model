@@ -266,16 +266,32 @@ double CPDFFile::convert_node_to_double(const ASTNode* node) {
 
 
 /// @brief Processes an AST-Node by recursively descending and calculating the left and right predicates.
+/// Because keys referenced in predicates can be missing in a PDF this gets complicated...
+/// 
+/// If a key is not present in a PDF then an expression referencing that key (such as "@key" or fn:Predicate(key)) 
+/// cannot be determined. In this case nullptr is returned (as an ASTNode*) representing the indeterminate nature. 
+/// If the key IS present in the PDF then predicates, formulae, comparisons, etc.
+/// can be performed and a valid ASTNode* is returned. An obvious exception to this rule is fn:IsPresent() and there
+/// are a few others (e.g. numeric predicates such as fn:XxxLength() which will return -1 on such error).
+/// 
+/// When doing logical operators, a nullptr operand (meaning an indeterminate result) can be further processed by 
+/// evaluating the other half of the expression for OR (" || ") - there is NO short-circuit boolean evaluation here. 
+/// But this is not possible with AND (" && ") since both sides need to exist. Mathematical operations and comparisons 
+/// also cannot be processed if either of the operands is indeterminate.
+/// 
+/// Optional arguments vs indeterminate arguments can be identified by examining in_ast->arg[x]. If it is nullptr
+/// then the optional argument was NOT present. If in_ast->arg[x] is not nullptr, but one or both of out_left or 
+/// out_right variables are nullptr then this indicates indeterminism.
 ///
-/// @param[in]  parent           parent PDF object (e.g. the dictionary which contains obj as a key/value)
-/// @param[in]  obj              PDF object related to the predicate
-/// @param[in]  in_ast           input AST tree
+/// @param[in]  parent           parent PDF object (e.g. the dictionary which contains 'obj' as an entry or array as element)
+/// @param[in]  obj              PDF object related to the predicate. Never nullptr.
+/// @param[in]  in_ast           input AST tree. Never nullptr.
 /// @param[in]  tsv_data         the row of TSV data that is being processed
 /// @param[in]  key_idx          the index into the Arlington 'Key' field of the TSV data (>=0)
 /// @param[in]  type_idx         the index into the Arlington 'Type' field of 'Key' field of the TSV data  (>=0)
-/// @param[in]  depth            depth counter for recursion (visual indentation)
+/// @param[in]  depth            depth counter for recursion (visual indentation) (>=0)
 /// 
-/// @returns   Output AST 
+/// @returns   Output AST (always valid) or nullptr if indeterminate 
 ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth) 
 {
     assert(parent != nullptr);
@@ -348,8 +364,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
         //    grep -Po "fn:<predicate-name>\([^\t]*\)" *
         //
         if (in_ast->node == "fn:ArrayLength(") {
-            // 1 argument: name of key which is an array
-            assert(out_left != nullptr);
+            // 1 argument: name of key which is an array, could be indeterminate
             assert(out_right == nullptr);
             int len = fn_ArrayLength(parent, out_left);
             if (len >= 0) {
@@ -371,33 +386,33 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = (fn_ArraySortAscending(parent, out_left, out_right) ? "true" : "false");
         }
         else if (in_ast->node == "fn:BeforeVersion(") {
-            // right arg is optional
+            // 1st arg is required (a PDF version). 2nd arg is optional.
             delete out;
             out = fn_BeforeVersion(out_left, out_right);
         }
         else if (in_ast->node == "fn:BitClear(") {
-            // 1 argument: bit number
+            // 1 argument required: bit number 1-32. NEVER indeterminate.
             assert(out_left != nullptr);
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = fn_BitClear(obj, out_left) ? "true" : "false";
         }
         else if (in_ast->node == "fn:BitSet(") {
-            // 1 argument: bit number
+            // 1 argument required: bit number 1-32. NEVER indeterminate.
             assert(out_left != nullptr);
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = fn_BitSet(obj, out_left) ? "true" : "false";
         }
         else if (in_ast->node == "fn:BitsClear(") {
-            // 2 arguments: low bit, high bit
+            // 2 arguments: low bit, high bit. NEVER indeterminate.
             assert(out_left != nullptr);
             assert(out_right != nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = fn_BitsClear(obj, out_left, out_right) ? "true" : "false";
         }
         else if (in_ast->node == "fn:BitsSet(") {
-            // 2 arguments: low bit, high bit
+            // 2 arguments: low bit, high bit. NEVER indeterminate.
             assert(out_left != nullptr);
             assert(out_right != nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
@@ -405,11 +420,12 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
         }
         else if (in_ast->node == "fn:DefaultValue(") {
             // 2 arguments: condition, what the default value should be when condition is true
+            // 2nd argument is never indeterminate.
             delete out;
             out = fn_DefaultValue(out_left, out_right);
         }
         else if (in_ast->node == "fn:Deprecated(") {
-            // 2 arguments: version, what was deprecated in the version
+            // 2 arguments: version, what was deprecated in the version (1st argument)
             delete out;
             out = fn_Deprecated(out_left, out_right);
         }
@@ -441,7 +457,8 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = fn_FontHasLatinChars(obj) ? "true" : "false";
         }
         else if (in_ast->node == "fn:Ignore(") {
-            // 1 argument which is the condition for ignoring, which can be nullptr due to reduction
+            /// @todo - implement ignoring things...
+            // 1 argument which is the condition for ignoring, which can be nullptr due to reduction/indeterminism
             assert(out_right == nullptr);
             // just reduce to true as we will still report issues
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
@@ -463,7 +480,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = "true";
         }
         else if (in_ast->node == "fn:InMap(") {
-            // 1 argument which is the key name of the map, which can be nullptr due to reduction
+            // 1 argument which is the key name of the map, which can be nullptr due to reduction/indeterminism
             assert(out_left != nullptr);
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
@@ -484,15 +501,13 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = fn_IsEncryptedWrapper() ? "true" : "false";
         }
         else if (in_ast->node == "fn:IsLastInNumberFormatArray(") {
-            // 1 argument which is the key name of an array
-            assert(out_left != nullptr);
+            // 1 argument which is the key name of an array. COULD be indeterminate.
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-            out->node = fn_IsLastInArray(parent, obj) ? "true" : "false";
+            out->node = fn_IsLastInArray(parent, obj, out_left) ? "true" : "false";
         }
         else if (in_ast->node == "fn:IsMeaningful(") {
             // 1 argument which is a condition under which something is "meaningful"
-            assert(out_left != nullptr);
             assert(out_right == nullptr);
             // everything is meaningful when we are checking
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
@@ -506,13 +521,13 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = fn_IsPDFTagged() ? "true" : "false";
         }
         else if (in_ast->node == "fn:IsPDFVersion(") {
-            // 2 arguments: version, and whatever exists only in a single PDF version
+            // 2 arguments: version, and whatever exists only in a single PDF version. COULD be indeterminate
             delete out;
             out = fn_IsPDFVersion(out_left, out_right);
         }
         else if (in_ast->node == "fn:IsPresent(") {
             // 1 argument: condition that has already been reduced to true/false, or a key name, or could be 
-            // nullptr (e.g. missing key in an expression)
+            // nullptr/indeterminate (e.g. missing key in an expression)
             if (out_left != nullptr) {
                 assert(out_right == nullptr);
                 if (out_left->type == ASTNodeType::ASTNT_Key)
@@ -550,7 +565,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             if (in_ast->arg[0] == nullptr) {
-                // fn:MustBeDirect()
+                // fn:MustBeDirect() - no arguments
                 out->node = "true";
             }
             else {
@@ -566,10 +581,10 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
         }
         else if (in_ast->node == "fn:MustBeIndirect(") {
             // optional 1 argument, which is a key, an expression (reduced, possibly to nothing), or nothing
-            assert(out_right == nullptr);
+            assert(out_right == nullptr); 
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             if (in_ast->arg[0] == nullptr) {
-                // fn:MustBeIndirect()
+                // fn:MustBeIndirect()  - no arguments
                 out->node = "true";
             }
             else {
@@ -591,12 +606,17 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = fn_NoCycle(obj, tsv_data[key_idx][TSV_KEYNAME]) ? "true" : "false";
         }
         else if (in_ast->node == "fn:Not(") {
-            // 1 argument: invert the condition
-            assert(out_left != nullptr);
+            // 1 argument: invert the condition (could have been reduced to indeterminate)
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-            assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
-            out->node = (out_left->node == "false") ? "true" : "false";
+            if (out_left != nullptr) {
+                assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                out->node = (out_left->node == "false") ? "true" : "false";
+            }
+            else {
+                delete out;
+                out = nullptr;
+            }
         }
         else if (in_ast->node == "fn:NotStandard14Font(") {
             // no arguments
@@ -620,22 +640,18 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = fn_PageContainsStructContentItems(obj) ? "true" : "false";
         }
         else if (in_ast->node == "fn:PageProperty(") {
-            // 2 arguments: the page, a key on that page 
-            assert(out_left != nullptr);
-            assert(out_right != nullptr);
-            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-            out->node = fn_PageProperty(parent, out_left, out_right) ? "true" : "false";
+            // 2 arguments: the page, a key on that page. Either could be nullptr! 
+            delete out;
+            out = fn_PageProperty(parent, out_left, out_right);
         }
         else if (in_ast->node == "fn:RectHeight(") {
-            // 1 argument: key of the rectangle
-            assert(out_left != nullptr);
+            // 1 argument: key of the rectangle. Could be indeterminate.
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstNum;
             out->node = std::to_string(fn_RectHeight(parent, out_left));
         }
         else if (in_ast->node == "fn:RectWidth(") {
-            // 1 argument: key of the rectangle
-            assert(out_left != nullptr);
+            // 1 argument: key of the rectangle. Could be indeterminate.
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstNum;
             out->node = std::to_string(fn_RectWidth(parent, out_left));
@@ -645,6 +661,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out = fn_RequiredValue(obj, out_left, out_right);
         }
         else if (in_ast->node == "fn:SinceVersion(") {
+            // 2 args: version, and thing that was introduced
             delete out;
             out = fn_SinceVersion(out_left, out_right);
         }
@@ -667,7 +684,6 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
         }
         else if (in_ast->node == "fn:StringLength(") {
             // 1 argument: key name of the string
-            assert(out_left != nullptr);
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstInt;
             int len = fn_StringLength(parent, out_left);
@@ -1191,7 +1207,7 @@ std::string CPDFFile::get_latest_feature_version_info()
 
 
 /// @brief Returns the length of a PDF array object that is a key (or array element) 
-/// of another object.
+/// of another object. If key is indeterminate (nullptr), then returns -1.
 ///
 /// @param[in]  parent the parent PDF object to look up keys
 /// @param[in]  key    a relative or absolute key
@@ -1199,14 +1215,15 @@ std::string CPDFFile::get_latest_feature_version_info()
 /// @returns -1 on error or the array length (>= 0)
 int CPDFFile::fn_ArrayLength(ArlPDFObject* parent, const ASTNode* key) {
     assert(parent != nullptr);
-    assert(key != nullptr);
     int retval = -1;
 
-    auto key_parts = split_key_path(key->node);
-    ArlPDFObject *a = get_object_for_path(parent, key_parts);
-    if ((a != nullptr) && (a->get_object_type() == PDFObjectType::ArlPDFObjTypeArray))
-        retval = ((ArlPDFArray*)a)->get_num_elements();
-    delete a;
+    if (key != nullptr) {
+        auto key_parts = split_key_path(key->node);
+        ArlPDFObject* a = get_object_for_path(parent, key_parts);
+        if ((a != nullptr) && (a->get_object_type() == PDFObjectType::ArlPDFObjTypeArray))
+            retval = ((ArlPDFArray*)a)->get_num_elements();
+        delete a;
+    }
     return retval;
 }
 
@@ -1721,12 +1738,18 @@ bool CPDFFile::fn_IsEncryptedWrapper()
 ///  
 /// @param[in]  parent   parent object (assumed array)
 /// @param[in]  obj      the object (assumed to be a NumberFormat dictionary)
+/// @param[in]  key      key name. Must be "parent"
 /// 
 /// @returns true iff obj is the last number in the format array, false otherwise
-bool CPDFFile::fn_IsLastInArray(ArlPDFObject* parent, ArlPDFObject* obj)
+bool CPDFFile::fn_IsLastInArray(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* key)
 {
     assert(parent != nullptr);
     assert(obj != nullptr);
+  
+    if ((key->type != ASTNodeType::ASTNT_Key) || (key->node != "parent")) {
+        assert(false && "fn_IsLastInArray only supports 'parent' key!");
+        return false;
+    }
 
     if (parent->get_object_type() != PDFObjectType::ArlPDFObjTypeArray) {
 #ifdef PP_FN_DEBUG
@@ -1953,9 +1976,11 @@ bool CPDFFile::fn_PageContainsStructContentItems(ArlPDFObject* obj) {
 /// @returns a new ASTNode representing the value of the specified key on the specified page or nullptr on error
 ASTNode* CPDFFile::fn_PageProperty(ArlPDFObject* parent, ASTNode* pg, ASTNode* pg_key) {
     assert(parent != nullptr);
-    assert(pg != nullptr);
+
+    if ((pg == nullptr) || (pg_key == nullptr))
+        return nullptr;
+
     assert(pg->type == ASTNodeType::ASTNT_KeyValue);
-    assert(pg_key != nullptr);
     assert(pg_key->type == ASTNodeType::ASTNT_Key);
 
     auto pg_parts = split_key_path(pg->node);
@@ -1986,7 +2011,10 @@ ASTNode* CPDFFile::fn_PageProperty(ArlPDFObject* parent, ASTNode* pg, ASTNode* p
 /// @returns -1.0 on error
 double CPDFFile::fn_RectHeight(ArlPDFObject* parent, const ASTNode* key) {
     assert(parent != nullptr);
-    assert(key != nullptr);
+
+    if (key == nullptr)
+        return -1.0;
+
     assert(key->type == ASTNodeType::ASTNT_Key);
 
     auto key_parts = split_key_path(key->node);
@@ -2030,7 +2058,10 @@ double CPDFFile::fn_RectHeight(ArlPDFObject* parent, const ASTNode* key) {
 /// @returns -1.0 on error
 double CPDFFile::fn_RectWidth(ArlPDFObject* parent, const ASTNode* key) {
     assert(parent != nullptr);
-    assert(key != nullptr);
+
+    if (key == nullptr)
+        return -1.0;
+
     assert(key->type == ASTNodeType::ASTNT_Key);
 
     auto key_parts = split_key_path(key->node);
@@ -2181,7 +2212,8 @@ ASTNode* CPDFFile::fn_DefaultValue(const ASTNode* condition, const ASTNode* valu
 /// @returns Length of the PDF stream object or -1 on error.
 int CPDFFile::fn_StreamLength(ArlPDFObject* parent, const ASTNode* key) {
     assert(parent != nullptr);
-    assert(key != nullptr);
+    if (key == nullptr)
+        return -1;
     assert(key->type == ASTNodeType::ASTNT_Key);
 
     auto key_parts = split_key_path(key->node);
@@ -2221,7 +2253,9 @@ int CPDFFile::fn_StreamLength(ArlPDFObject* parent, const ASTNode* key) {
 /// @returns Length of the PDF string object or -1 if an error.
 int CPDFFile::fn_StringLength(ArlPDFObject* parent, const ASTNode* key) {
     assert(parent != nullptr);
-    assert(key != nullptr);
+    if (key == nullptr)
+        return - 1;
+
     assert(key->type == ASTNodeType::ASTNT_Key);
 
     auto key_parts = split_key_path(key->node);
@@ -2407,7 +2441,7 @@ bool CPDFFile::fn_Contains(ArlPDFObject* obj, const ASTNode* key, const ASTNode*
     
     // May have been recusively reduced (e.g. don't exist in the PDF)
     if ((key == nullptr) || (value == nullptr))
-        return true;
+        return false;
 
     assert(key->type == ASTNodeType::ASTNT_Key);
     bool retval = false;
