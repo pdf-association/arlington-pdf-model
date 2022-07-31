@@ -546,16 +546,42 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = "true";
         }
         else if (in_ast->node == "fn:MustBeDirect(") {
-            // optional 1 argument, which is a key
+            // optional 1 argument, which is a key, an expression (reduced, possibly to nothing), or nothing
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-            out->node = (fn_MustBeDirect(parent, obj, out_left) ? "true" : "false");
+            if (in_ast->arg[0] == nullptr) {
+                // fn:MustBeDirect()
+                out->node = "true";
+            }
+            else {
+                // there was an argument but may have been reduced to nullptr due to missing key, etc.
+                if (out_left != nullptr)
+                    out->node = fn_MustBeDirect(parent, obj, out_left) ? "true" : "false";
+                else {
+                    // indeterminate... (was an argument that got reduced to nullptr)
+                    delete out;
+                    out = nullptr;
+                }
+            }
         }
         else if (in_ast->node == "fn:MustBeIndirect(") {
-            // optional 1 argument, which is a key
+            // optional 1 argument, which is a key, an expression (reduced, possibly to nothing), or nothing
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-            out->node = fn_MustBeDirect(parent, obj, out_left) ? "false" : "true";
+            if (in_ast->arg[0] == nullptr) {
+                // fn:MustBeIndirect()
+                out->node = "true";
+            }
+            else {
+                // there was an argument but may have been reduced to nullptr due to missing key, etc.
+                if (out_left != nullptr)
+                    out->node = fn_MustBeDirect(parent, obj, out_left) ? "false" : "true";
+                else {
+                    // indeterminate... (was an argument that got reduced to nullptr)
+                    delete out;
+                    out = nullptr;
+                }
+            }
         }
         else if (in_ast->node == "fn:NoCycle(") {
             // no arguments

@@ -390,30 +390,22 @@ ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* parent, Arl
         assert((stack[0]->node == "fn:MustBeDirect(") || (stack[0]->node == "fn:MustBeIndirect("));
         assert(stack[0]->arg[1] == nullptr); // optional 1st argument only, never 2nd arg
 
-        ReferenceType ret_val = (stack[0]->node == "fn:MustBeDirect(") ? ReferenceType::MustBeDirect : ReferenceType::MustBeIndirect;
+        // No argument so avoid overheads
         if (stack[0]->arg[0] == nullptr)
-            return ret_val;
+            return  (stack[0]->node == "fn:MustBeDirect(") ? ReferenceType::MustBeDirect : ReferenceType::MustBeIndirect;
 
-        // Have a predicate with an internal expression (argument) that needs to be processed...
-        ASTNode* pp = pdfc->ProcessPredicate(parent, object, stack[0]->arg[0], key_idx, tsv, type_index);
-        assert(pp != nullptr);
-        assert(pp->valid());
-        assert(pp->type == ASTNodeType::ASTNT_ConstPDFBoolean);
-
-        // Answer should always be a true/false (boolean)
-        bool b = (pp->node == "true"); // Cache answer so can delete pp
-        delete pp;
-        if (pdfc->PredicateWasFullyProcessed())
-            if (b) {
-                return ret_val;
-            } 
-            else {
-                // was false so invert outer predicate
-                if (ret_val == ReferenceType::MustBeDirect) 
-                    return ReferenceType::MustBeIndirect; 
-                else if (ret_val == ReferenceType::MustBeIndirect) 
-                    return ReferenceType::MustBeDirect;   
-            }
+        // Was an argument - can still reduce to nullptr if keys not present, etc.
+        ASTNode* pp = pdfc->ProcessPredicate(parent, object, stack[0], key_idx, tsv, type_index);
+        if (pp != nullptr) {
+            assert(pp->valid() && (pp->type == ASTNodeType::ASTNT_ConstPDFBoolean));
+            assert(pdfc->PredicateWasFullyProcessed());
+            bool b = (pp->node == "true"); // Cache answer so can delete pp
+            delete pp;
+            if (stack[0]->node == "fn:MustBeIndirect(")
+                return (b ? ReferenceType::MustBeIndirect : ReferenceType::DontCare);
+            else // fn:MustBeDirect
+                return (b ? ReferenceType::MustBeDirect : ReferenceType::DontCare);
+        }
     }
     return ReferenceType::DontCare; // Default behaviour (incl. not fully processed predicates)
 }
