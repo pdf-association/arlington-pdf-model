@@ -501,13 +501,15 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
-   <td><code>fn:ArraySortAscending(<i>key</i>)</code></td>
+   <td><code>fn:ArraySortAscending(<i>key</i>,<i>integer</i>)</code></td>
    <td>
     <ul>
-     <li>Asserts <i>key</i> references something of type <code>array</code></li>
-     <li>Asserts that all array elements are sorted in ascending order. Requires that all array elements are numeric.</li>
-     <li>An empty array is sorted.</li>
+     <li>Asserts <i>key</i> references something of type <code>array</code>, and</li>
+     <li>Asserts that the <i>integer</i>-th array elements are sorted in ascending order.</li>
+     <li>Requires that all <i>integer</i>-th array elements are numeric. Other elements can be anything.</li>
+     <li>An empty array is always sorted.</li>
      <li>If <i>key</i> does not exist, is not an array, or has elements that are non-numeric, returns false.</li>
+     <li>e.g. <code>fn:ArraySortAscending(Index,2)</code> tests that the array elements at indices 0, 2, 4, ... are all sorted.</li>
     </ul>
    </td>
   </tr>
