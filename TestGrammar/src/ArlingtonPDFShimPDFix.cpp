@@ -43,8 +43,8 @@ Pdfix_statics;
 void* ArlingtonPDFSDK::ctx = nullptr;
 
 struct pdfix_context {
-    Pdfix* pdfix = nullptr;
-    PdfDoc* doc = nullptr;
+    Pdfix*      pdfix = nullptr;
+    PdfDoc*     doc = nullptr;
     ~pdfix_context() {
         if (doc != nullptr)
             doc->Close();
@@ -85,7 +85,7 @@ void ArlingtonPDFSDK::initialize()
 }
 
 
-/// @brief  Shutdown the PDF SDK
+/// @brief  Shutdown the PDFix SDK
 void ArlingtonPDFSDK::shutdown()
 {
     if (ctx != nullptr) {
@@ -256,7 +256,7 @@ PDFObjectType determine_object_type(PdsObject* pdfix_obj)
             break;
         case kPdsReference:
             {
-                // retval = PDFObjectType::ArlPDFObjTypeReference;
+                // retval = PDFObjectType::ArlPDFObjTypeReference
                 pdfix_obj = pdfix_resolve_indirect(pdfix_obj);
                 if (pdfix_obj == nullptr)
                     retval = PDFObjectType::ArlPDFObjTypeNull;
@@ -282,23 +282,22 @@ ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj) :
 {
     assert(object != nullptr);
     PdsObject* pdfix_obj = (PdsObject*)object;
+    assert(pdfix_obj != nullptr);
+    obj_nbr = pdfix_obj->GetId();
+    gen_nbr = 0; /// @todo - newer PDFix SDKs have pdfix_obj->GetGenId();
+    is_indirect = (obj_nbr != 0); // https://pdfix.github.io/pdfix_sdk_builds/en/6.17.0/html/struct_pds_object.html#a4103892417afc9f82e4bcc385940f4f8
     if (pdfix_obj->GetObjectType() == kPdsReference) {
         is_indirect = true;
         object = pdfix_resolve_indirect(pdfix_obj);
         assert(object != nullptr);
     }
-    else 
-        is_indirect = (pdfix_obj->GetId() == 0);
 
     type = determine_object_type(pdfix_obj);
-    obj_nbr = pdfix_obj->GetId();
-    gen_nbr = 0; /// @todo - newer PDFix SDK has pdfix_obj->GetGenId();
+
     if ((parent != nullptr) && (obj_nbr == 0)) {
-        // Populate with parents object & generation number but as negative to indicate parent
-        obj_nbr = parent->get_object_number();
-        if (obj_nbr > 0) obj_nbr *= -1;
-        gen_nbr = parent->get_generation_number();
-        if (gen_nbr > 0) gen_nbr *= -1;
+        // Populate with parents object & generation number but as negative to indicate "direct inside parent"
+        obj_nbr = -abs(parent->get_object_number());
+        gen_nbr = -abs(parent->get_generation_number());
     }
 }
 
