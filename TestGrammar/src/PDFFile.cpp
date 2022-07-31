@@ -1211,14 +1211,15 @@ bool CPDFFile::fn_ArraySortAscending(ArlPDFObject* parent, const ASTNode* arr_ke
         ArlPDFArray* arr = (ArlPDFArray*)obj;
         if (arr->get_num_elements() > 0) {
             // Make sure all array elements are numeric 
-            PDFObjectType obj_type = arr->get_value(0)->get_object_type();
-            if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
-                ArlPDFNumber* elem = (ArlPDFNumber*)arr->get_value(0);
+            ArlPDFObject* first_elem = arr->get_value(0);
+            assert(first_elem != nullptr);
+            if (first_elem->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber) {
+                ArlPDFNumber* elem = (ArlPDFNumber*)first_elem;
                 double       last_elem_val = elem->get_value();
+                delete elem;
                 double       this_elem_val;
                 // Need to check every N-th 
                 for (int i = step_idx; i < arr->get_num_elements(); i += step_idx) {
-                    delete elem;
                     elem = (ArlPDFNumber*)arr->get_value(i);
                     if ((elem != nullptr) && (elem->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber)) {
                         this_elem_val = elem->get_value();
@@ -1237,8 +1238,8 @@ bool CPDFFile::fn_ArraySortAscending(ArlPDFObject* parent, const ASTNode* arr_ke
                         delete obj;
                         return false; // inconsistent array element types
                     }
+                    delete elem;
                 } // for
-                delete elem;
                 retval = true;
             }
             else {
