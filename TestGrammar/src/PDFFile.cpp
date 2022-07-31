@@ -281,6 +281,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
     assert(parent != nullptr);
     assert(obj != nullptr);
     assert(in_ast != nullptr);
+    assert(in_ast->valid());
     assert(key_idx >= 0);
     assert(type_idx >= 0);
 
@@ -413,12 +414,17 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out = fn_Deprecated(out_left, out_right);
         }
         else if (in_ast->node == "fn:Eval(") {
-            // 1 argument, which is the reduced expression
-            assert(out_left != nullptr);
+            // 1 argument, which is the reduced expression. Arg can be nullptr due to things such as missing keys
             assert(out_right == nullptr);
             // Just strip this off...
-            out->type = out_left->type;
-            out->node = out_left->node;
+            if (out_left != nullptr) {
+                out->type = out_left->type;
+                out->node = out_left->node;
+            }
+            else {
+                delete out;
+                out = nullptr;
+            }
         }
         else if (in_ast->node == "fn:FileSize(") {
             // no arguments
@@ -435,8 +441,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = fn_FontHasLatinChars(obj) ? "true" : "false";
         }
         else if (in_ast->node == "fn:Ignore(") {
-            // 1 argument which is the condition for ignoring
-            assert(out_left != nullptr);
+            // 1 argument which is the condition for ignoring, which can be nullptr due to reduction
             assert(out_right == nullptr);
             // just reduce to true as we will still report issues
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
@@ -458,7 +463,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = "true";
         }
         else if (in_ast->node == "fn:InMap(") {
-            // 1 argument which is the key name of the map
+            // 1 argument which is the key name of the map, which can be nullptr due to reduction
             assert(out_left != nullptr);
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
@@ -565,7 +570,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
-            out->node = (out_left->node == "true") ? "false" : "true";
+            out->node = (out_left->node == "false") ? "true" : "false";
         }
         else if (in_ast->node == "fn:NotStandard14Font(") {
             // no arguments
@@ -672,15 +677,13 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
         case ASTNodeType::ASTNT_MathComp:
             {
                 // Math/logic comparison operators - cannot be start of an AST!
-                // Should have 2 operands (left, right) but due to predicates this can reduce to just 
-                // one in which case the output is just the non-nullptr boolean "true".
+                // Should have 2 operands (left, right) but due to predicate reduction this can reduce to just 
+                // one in which case the output is nullptr also, since cannot make any comparison.
                 out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
 
                 if ((out_left == nullptr) || (out_right == nullptr)) {
-                    out->node = "true";
-                    delete out_left;
-                    delete out_right;
-                    out_left = out_right = nullptr;
+                    delete out;
+                    out = nullptr;
                     break;
                 }
                 else if (in_ast->node == "==") {
@@ -862,6 +865,10 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 ArlPDFObject* val = nullptr;
                 bool delete_val = false;
 
+                // To debug a specific predicate, uncomment and modify the following code. Add breakpoint to the 2nd line.
+                // if (key_parts[key_parts.size() - 1] == "SMaskInData")
+                //    delete_val = delete_val;
+
                 // Optimize for simple self-reference (where @key and current key are the same)
                 bool self_refer = (key_parts.size() == 1) && (tsv_data[key_idx][TSV_KEYNAME] == key_parts[key_parts.size() - 1]);
                 if (!self_refer) {
@@ -885,6 +892,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                             break;
                         }
                     if (!got_dv) {
+                        // Return nullptr if @key doesn't exist
                         delete out;
                         out = nullptr;
                     }
