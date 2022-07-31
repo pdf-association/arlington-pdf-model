@@ -101,7 +101,7 @@ private:
     ASTNode* fn_Deprecated(const ASTNode* dep_ver, const ASTNode* thing);
     ASTNode* fn_IsPDFVersion(const ASTNode* ver_node, const ASTNode* thing);
     ASTNode* fn_SinceVersion(const ASTNode* ver_node, const ASTNode* thing);
-    bool fn_ArraySortAscending(ArlPDFObject* parent, const ASTNode *key);
+    bool fn_ArraySortAscending(ArlPDFObject* parent, const ASTNode *arr_key, const ASTNode* step);
     bool fn_BitClear(ArlPDFObject* obj, const ASTNode* bit_node);
     bool fn_BitSet(ArlPDFObject* obj, const ASTNode* bit_node);
     bool fn_BitsClear(ArlPDFObject* obj, const ASTNode* low_bit_node, const ASTNode* high_bit_node);
