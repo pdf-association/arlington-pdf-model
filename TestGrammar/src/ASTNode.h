@@ -117,9 +117,14 @@ struct ASTNode {
     }
 
     /// @brief  Validate if an AST node is correctly configured. Can only be done AFTER a full parse is completed.
+    /// 
     /// @return true if valid. false if the node is incorrect or partially populated.
     bool valid() const {
-        bool ret_val = (node.size() > 0);
+        bool ret_val = true;
+        if (type == ASTNodeType::ASTNT_Unknown)
+            return false;
+        if (type != ASTNodeType::ASTNT_Key)
+            ret_val = !node.empty();            // an empty PDF key "/" is valid, but nothing else can be empty
         if (ret_val && arg[0] != nullptr) {
             ret_val = ret_val && arg[0]->valid();
             if (ret_val && arg[1] != nullptr)
