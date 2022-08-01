@@ -918,7 +918,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                                     reason_shown = true;
                                 }
                                 if (reason_shown) {
-                                    output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using PDF" << (pdf_version / 10.0);
+                                    output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using PDF " << (pdf_version / 10.0);
                                     output << ") for " << elem.link << "/" << key_utf8 << COLOR_RESET;
                                 }
                             }
