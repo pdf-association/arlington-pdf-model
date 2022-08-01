@@ -14,8 +14,8 @@ C	array	1.6		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]
 StructParent	integer	1.6		FALSE	FALSE	FALSE					
 OC	dictionary	1.6		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
 AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications];[FileSpecification]	
-ca	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval((@ca>=0.0) && (@ca<=1.0))]			
-CA	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && (@CA<=1.0))]			
+ca	number	2.0		FALSE	FALSE	FALSE	1.0		[fn:Eval((@ca>=0.0) && (@ca<=1.0))]		
+CA	number	2.0		FALSE	FALSE	FALSE	1.0		[fn:Eval((@CA>=0.0) && (@CA<=1.0))]		
 BM	name	2.0		FALSE	FALSE	FALSE	Normal	[fn:Deprecated(1.4,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]			
 Lang	string-text	2.0		FALSE	FALSE	FALSE					
 3DD	dictionary;stream	1.6		TRUE	[FALSE];[TRUE]	FALSE				[3DReference];[3DStream]	

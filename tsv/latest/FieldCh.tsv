@@ -14,5 +14,5 @@ Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]
 DS	string-text	1.5		FALSE	FALSE	FALSE					
 RV	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 Opt	array	1.4		FALSE	FALSE	TRUE				[ArrayOfStringsText,ArrayOfArrays_2StringsText]	
-TI	integer	1.2		FALSE	FALSE	TRUE		[fn:Eval((@TI>0) && (@TI<fn:ArrayLength(Opt)))]			
+TI	integer	1.2		FALSE	FALSE	TRUE			[fn:Eval((@TI>0) && (@TI<fn:ArrayLength(Opt)))]		
 I	array	1.4		FALSE	FALSE	TRUE				[ArrayOfIntegersGeneral]	This entry shall be used when two or more elements in the Opt array have different names but the same export value or when the value of the choice field is an array. If the items identified by this entry differ from those in the V entry of the field dictionary (see discussion following this Table), the V entry shall be used

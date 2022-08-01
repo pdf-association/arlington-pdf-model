@@ -3,4 +3,4 @@ Type	name	2.0		FALSE	FALSE	FALSE		[Requirement]
 S	name	2.0		TRUE	FALSE	FALSE		[STEP]			according to ISO/TS 24064
 V	name	2.0		TRUE	FALSE	FALSE		[2020.0]			according to ISO/TS 24064
 RH	array;dictionary	2.0		FALSE	FALSE	FALSE	[[]];[]			[ArrayOfRequirementsHandlers];[RequirementsHandler]	
-Penalty	integer	2.0		FALSE	FALSE	FALSE	100	[fn:Eval((@Penalty>=0) && (@Penalty<=100))]			
+Penalty	integer	2.0		FALSE	FALSE	FALSE	100		[fn:Eval((@Penalty>=0) && (@Penalty<=100))]		

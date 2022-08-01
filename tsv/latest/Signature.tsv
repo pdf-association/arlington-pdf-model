@@ -15,5 +15,5 @@ ContactInfo	string-text	1.3		FALSE	FALSE	FALSE
 R	integer	1.3	2.0	FALSE	FALSE	FALSE			[fn:Ignore()]		
 V	integer	1.5		FALSE	FALSE	FALSE	0				
 Prop_Build	dictionary	1.5		FALSE	FALSE	FALSE				[_UniversalDictionary]	
-Prop_AuthTime	integer	1.5		FALSE	FALSE	FALSE		[fn:Eval(@Prop_AuthTime>=0)]	[fn:Ignore(@SubFilter==ETSI.RFC3161)]		
+Prop_AuthTime	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(@Prop_AuthTime>=0) && fn:Ignore(@SubFilter==ETSI.RFC3161)]		
 Prop_AuthType	name	1.5		FALSE	FALSE	FALSE					
