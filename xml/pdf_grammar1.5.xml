@@ -24608,6 +24608,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE>fn:Eval(UR3::Reference::0::@TransformMethod==UR3)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="Reference" object_number="293">
@@ -27013,6 +27014,7 @@
          <NAME>TransformMethod</NAME>
          <VALUES>
             <VALUE type="name">UR</VALUE>
+            <VALUE type="name">UR3</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -32498,7 +32500,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(((fn:ArrayLength(Index) mod 2)==0) &amp;&amp; fn:ArraySortAscending(Index))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(((fn:ArrayLength(Index) mod 2)==0) &amp;&amp; fn:ArraySortAscending(Index,2))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Prev</NAME>

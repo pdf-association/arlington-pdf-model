@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5	1.7	FALSE	FALSE	FALSE		[SigRef]			ISO 32000 does not mention Identity, but PDF 1.7 from Adobe (2006) does
+Type	name	1.5	1.7	FALSE	FALSE	FALSE		[SigRef]			Table 253. ISO 32000 does not mention Identity, but PDF 1.7 from Adobe (2006) does
 TransformMethod	name	1.5	1.7	TRUE	FALSE	FALSE		[Identity]			
 Data	array;boolean;dictionary;integer;name;stream;string	1.5	1.7	TRUE	[FALSE];[FALSE];[FALSE];[FALSE];[FALSE];[TRUE];[FALSE]	FALSE				[_UniversalArray];[];[_UniversalDictionary];[];[];[Stream];[]	*various
 DigestMethod	name	1.5	1.7	FALSE	FALSE	FALSE		[fn:Deprecated(2.0,MD5),fn:Deprecated(2.0,SHA1),SHA256,SHA384,SHA512,RIPEMD160]			

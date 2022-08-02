@@ -14938,7 +14938,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[fn:Eval((@Position>=0) && (@Position<=100))]",
-        "SpecialCase": "[fn:Ignore(@Position==N)]"
+        "SpecialCase": "[fn:Ignore(@Direction==N)]"
       }
     }
   },
@@ -26266,6 +26266,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(UR3::Reference::0::@TransformMethod==UR3)]",
         "Link": "[Signature]"
       }
     }
@@ -30266,7 +30267,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[UR]"
+        "PossibleValues": "[UR,UR3]"
       },
       "TransformParams": {
         "Key": "TransformParams",
@@ -35019,7 +35020,7 @@
         "Required": false,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(((fn:ArrayLength(Index) mod 2)==0) && fn:ArraySortAscending(Index))]",
+        "SpecialCase": "[fn:Eval(((fn:ArrayLength(Index) mod 2)==0) && fn:ArraySortAscending(Index,2))]",
         "Link": "[ArrayOfIntegersGeneral]"
       },
       "Prev": {
