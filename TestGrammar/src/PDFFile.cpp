@@ -1887,11 +1887,14 @@ bool CPDFFile::fn_NoCycle(ArlPDFObject* obj, const std::string &key) {
     obj_hash_list.insert(obj->get_hash_id());
     while ((node != nullptr) && (node->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
         auto node_hash = node->get_hash_id();
-        delete node;
         auto already_seen = obj_hash_list.insert(node_hash);
-        if (already_seen.second)  // Found a matching object so a cycle is present
+        if (already_seen.second) { // Found a matching object so a cycle is present 
+            delete node;
             return false;
-        node = (ArlPDFDictionary*)node->get_value(wkey);
+        }
+        ArlPDFDictionary* tmp = (ArlPDFDictionary*)node->get_value(wkey);
+        delete node;
+        node = tmp;
     };
     delete node;
     return true; 

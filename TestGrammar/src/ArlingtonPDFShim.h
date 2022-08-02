@@ -94,7 +94,7 @@ namespace ArlingtonPDFShim {
 
     public:
         ArlPDFObject() :
-            object(nullptr), obj_nbr(0), gen_nbr(0), type(PDFObjectType::ArlPDFObjTypeUnknown)
+            object(nullptr), obj_nbr(0), gen_nbr(0), type(PDFObjectType::ArlPDFObjTypeUnknown), is_indirect(false)
             { /* default constructor */ };
 
         explicit ArlPDFObject(ArlPDFObject* parent, void* obj);
