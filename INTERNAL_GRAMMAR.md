@@ -19,7 +19,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 * all TSV files will have matching numbers of `[`, `]` and `(`, `(`
 * for a single row in any TSV, spliting each field on ';' will either result in 1 or _N_.
 * files that represent PDF arrays match either `ArrayOf*.tsv`, `*Array.tsv` or `*ColorSpace.tsv`
-    - these are identifiable by having a Key name of `0`
+    - many are also identifiable by having a Key name of `0` (or `0*` or `*`)
     ```shell
     grep "^0" *.tsv
     ```
@@ -34,21 +34,30 @@ This document describes some strict rules for the Arlington PDF model, for both 
 # PDF Object conventions
 
 * There are NO leading SLASHES for PDF names (_ever_!)
-* PDF names don't use `#`-escaping
-* PDF strings use single quotes `'` and `'` (as `(` and `)` are ambiguous with expressions and single quotes are supported natively by Python `csv` module)
-* PDF arrays always use `[` and `]` (which requires some additional processing so as not to be confused with our [];[];[] syntax for complex fields)
-* Expressions with integers need to use integers
+* PDF names don't use `#`-escaping (currently unsupported)
+* PDF strings use single quotes `'` and `'` (since `(` and `)` are ambiguous with expressions and single quotes are supported natively by Python `csv` module)
+* Expressions with integers need to use integers. Integers can be used in place of numbers.
+* `*` represents a wildcard (i.e. anything). Other regex are not supported.
 * Leading `@` indicates "_value of_" a key or array element
 * PDF Booleans are `true` and `false` lowercase.
     - Uppercase `TRUE`/`FALSE` are reserved for logical Boolean TSV data fields such as the "Required" field.
 * expressions using `&&` or `||` logical operators need to be either fully bracketed or be just a predicate and have a single SPACE either side of the logical operator. precedence rules are NOT implemented.
+* the predefined Arlington paths `parent::` and `trailer::` represent the parent of the current object and file trailer (either traditional or a cross-reference stream) respectively. All other paths are relative from the containing PDF object
+* PDF arrays always use `[` and `]` (which may require some additional processing so as not to be confused with our [];[];[] syntax for complex fields)
+    - elements in a PDF array do **not** use COMMA-separators and are specified just like in PDF e.g. `[0 1 0]`
+    - if a PDF array needs to be specified as part of a complex typed key (`[];[];[]`) then 2 sets of `[` and `]` need to be used for the array values
+        - e.g. `[[0 1]];[123];[SomeThing]` might be a Default Value for a PDF key that can be an array, an integer or a name (alphabetically sorted in the "Type" field!) each with a default value.
+        - this extra pair of `[` and `]` is only needed for complex types.
 
 
 # TSV Data Fields
 
 *  A key or array element is so-called "complex" if it can be multiple values. This is represented by `[];[];[]`-type Expressions.
 *  Something is so called a "wildcard" if the "Key" field contains an ASTERISK.
-*  An array is so-called a "repeating array" if it requires N x a set of elements. This is represented by DIGIT+ASTERISK in the "Key" field  
+*  An array is so-called a "repeating array" if it requires N x a set of elements. This is represented by DIGIT+ASTERISK in the "Key" field.
+    - Repeating array elements with DIGIT+ASTERISK must be the _last_ rows in a TSV
+    - e.g. `0*` `1*` `2*` would be an array of 3 * _N_ triplets of elements
+    - e.g. `0` `1*` `2*` would be an array of 2 * _N_ + 1 elements, where the first element has a fixed definition, followed by repeating pairs of elements
 
 
 ## Column 1 - "Key"
@@ -231,11 +240,14 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 ## Column 8 - DefaultValue
 
+*   Represents a default value for the PDF key/array element. As such it is always a _single value_ for each Type.
+    * see "PossibleValues" field below for when multiple values need to be specified.
 *   Can be blank
-*   SQUARE-BRACKETS are only used for PDF arrays, in which case they must use double SQUARE-BRACKETS (not that lowercase `true`/`false` are the PDF keywords)
-    *  e.g. `[false false] vs [[false false]]``
-*   If there is a "DefaultValue" AND there are multiple types, then require a complex [];[];[] expression
-    *  If the "DefaultValue" is a PDF array, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
+*   SQUARE-BRACKETS are also used for PDF arrays, in which case they must use double SQUARE-BRACKETS if part of a complex type (not that lowercase `true`/`false` are the PDF keywords). If the array is the only valid type, then single SQUARE-BRACKETS are used.  PDF array elements are NOT separated with COMMAs.
+    *  e.g. `[[false false]];[123]` vs `[false false]`
+    * thus a complex expression can first be split by SEMI-COLON, then each portion has the SQUARE-BRACKETS stripped off - any remaining SQUARE-BRACKETS indicate an array.
+*   If there is a "DefaultValue" AND there are multiple types, then require a complex `[];[];[]` expression
+    *  If the "DefaultValue" is a PDF array _as part of a complex type_, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
 *   The only valid predicates are:
     *  `fn:ImplementationDependent()`, or
     *  `fn:DefaultValue(condition, value)` where _value_ must match the appropriate type (e.g. an integer for an integer key, a string for a string-\* key, etc), or
@@ -260,7 +272,14 @@ This document describes some strict rules for the Arlington PDF model, for both 
 ## Column 9 - "PossibleValues"
 
 *   Can be blank
+*   SQUARE-BRACKETS are only required for complex types. A single type does not use them.
+    - e.g. `12.34` is a valid default for a key which can only be a number
 *   SEMI-COLON separated, SQUARE-BRACKETS expressions that exactly match the number of items in "Type" column
+*   SQUARE-BRACKETS are also used for PDF arrays, in which case they must use double SQUARE-BRACKETS if part of a complex type. If the array is the only valid type, then single SQUARE-BRACKETS are used. PDF array elements are NOT separated with COMMAs - they are only used _between_ arrays.
+    *  e.g. `[[0 1],[1 0]];[Value1,Value2,Value3]` is a choice of 2 arrays `[0 1]` and `[1 0]` if the type is an array or a choice of `Value1` or `Value2` or `Value3` if the type was something else (e.g. name)
+    * thus a complex expression can first be split by SEMI-COLON, then each portion has the SQUARE-BRACKETS stripped off, then multiple options can be split by COMMA as any remaining SQUARE-BRACKETS indicate an array.
+*   If there is a "DefaultValue" AND there are multiple types, then require a complex `[];[];[]` expression
+    *  If the "DefaultValue" is a PDF array _as part of a complex type_, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
 *   **Python pretty-print/JSON:**
     *   A list or `None`
     *   If list, then length always matches length of "Type"
@@ -268,8 +287,6 @@ This document describes some strict rules for the Arlington PDF model, for both 
     ```shell
     grep -o "'PossibleValues': .*" dom.json | sed -e 's/^ *//' | sort | uniq
     ```
-*   _Issues:_
-    *   _inconsistent use of [] for Possible Values - cf. CalGrayDict vs Whitepoint_
 
 
 ## Column 10 - "SpecialCase"
@@ -296,8 +313,8 @@ This document describes some strict rules for the Arlington PDF model, for both 
     * `array`
     * `dictionary`
     * `stream`
-    * `name-tree`
-    * `number-tree`
+    * `name-tree` - the value represents the node in the tree, not how trees are specified
+    * `number-tree` - the value represents the node in the tree, not how trees are specified
 *   "Links" must NOT exist for selected fundamental "Types" (i.e. must be empty `[]` in the SEMI-COLON separated list):
     * `array`
     * `bitmask`
@@ -326,15 +343,15 @@ This document describes some strict rules for the Arlington PDF model, for both 
         *   Validity of list elements aligns with indexed "Type" data
 *   **Linux CLI test:**
     ```shell
-    cut -f 11 *.tsv | sort | uniq | grep -o "fn:[a-zA-Z]*" | sort | uniq
+    cut -f 11 *.tsv | sort | uniq | grep -o "fn:[a-zA-Z0-4]*" | sort | uniq
     ```
 
 ## Column 12- "Notes"
 
 *   Can be blank
 *   Free text - no validation possible
-*   Often contains a reference to a Table or clause from ISO 32000-2:2020 (PDF 2.0) or a PDF Association Errata issue link (GitHub URL)
-    * For dictionaries, this is normally the first key or the `Type` or `Subtype` row depending on what is differentiating the definition
+*   Often contains a reference to a Table or clause number from ISO 32000-2:2020 (PDF 2.0) or a PDF Association Errata issue link (as GitHub URL)
+    * For dictionaries, this is normally on the first key or the `Type` or `Subtype` row depending on what is the primary differentiating definition
 *   **Python pretty-print/JSON:**
     *   A string or `None`
 
