@@ -46,7 +46,7 @@ namespace fs = std::filesystem;
 
 /// @brief Constructor. Calculates some details about the PDF file
 CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver)
-    : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr), trailer_size(-1),
+    : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr), trailer_size(INT_MAX),
       latest_feature_version("1.0"), deprecated(false), fully_implemented(true), exact_version_compare(false)
 {
     if (forced_ver.size() > 0) {
