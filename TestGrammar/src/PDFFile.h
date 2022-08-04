@@ -83,6 +83,9 @@ private:
     /// @brief Trailer dictionary
     ArlPDFTrailer*          trailer;
 
+    /// @brief the value of the trailer /Size key (i.e. maximum object number + 1)
+    int                     trailer_size;
+
     /// @brief Document Catalog dictionary
     ArlPDFDictionary*       doccat;
 
@@ -146,6 +149,9 @@ public:
 
     /// @brief Returns the PDF files trailer dictionary or nullptr
     ArlPDFTrailer* get_trailer() { return trailer; };
+
+    /// @returns the trailer /Size key or -1
+    int get_trailer_size() { return trailer_size; }
 
     /// @brief PDF version to use when processing a PDF file (always a valid version)
     std::string  check_and_get_pdf_version(std::ostream& ofs);

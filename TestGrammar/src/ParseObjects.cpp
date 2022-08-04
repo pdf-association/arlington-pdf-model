@@ -840,6 +840,13 @@ void CParsePDF::parse_object(CPDFFile &pdf)
         // - then recursively calling validation for each container with link to other grammar file
         auto obj_type = elem.object->get_object_type();
 
+        // Check if object number is out-of-range as per trailer /Size
+        // Allow for multiple indirections and thus negative object numbers
+        if (abs(elem.object->get_object_number()) >= pdfc->get_trailer_size()) {
+            show_context(elem);
+            output << COLOR_ERROR << "object number " << abs(elem.object->get_object_number()) << " is illegal. trailer Size is " << pdfc->get_trailer_size() << COLOR_RESET;
+        }
+
         if ((obj_type == PDFObjectType::ArlPDFObjTypeDictionary) || (obj_type == PDFObjectType::ArlPDFObjTypeStream)) {
             ArlPDFDictionary* dictObj;
 
@@ -859,6 +866,12 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                 // might have wrong/malformed object. Key exists, but value does not.
                 // NEVER any predicates in the Arlington 'Key' field
                 if (inner_obj != nullptr) {
+                    // Check if object number is out-of-range as per trailer /Size
+                    if (inner_obj->get_object_number() >= pdfc->get_trailer_size()) {
+                        show_context(elem);
+                        output << COLOR_ERROR << "object number " << inner_obj->get_object_number() << " of key " << key_utf8 << " is illegal. trailer Size is " << pdfc->get_trailer_size() << COLOR_RESET;
+                    }
+
                     bool is_found = false;
                     int key_idx = -1;
                     for (auto& vec : tsv) {
@@ -1159,6 +1172,13 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                 bool item_kept = false;
                 if (item != nullptr) {
                     int idx = i; // TSV index
+
+                    // Check if object number is out-of-range as per trailer /Size
+                    // Allow for multiple indirections and this negative object numbers
+                    if (item->get_object_number() >= pdfc->get_trailer_size()) {
+                        show_context(elem);
+                        output << COLOR_ERROR << "object number " << item->get_object_number() << " of array element " << i << " is illegal. trailer Size is " << pdfc->get_trailer_size() << COLOR_RESET;
+                    }
 
                     // Adjust for array repeats
                     if (array_repeat_multiple >= 0)

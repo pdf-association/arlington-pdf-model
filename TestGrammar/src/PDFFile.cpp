@@ -46,7 +46,7 @@ namespace fs = std::filesystem;
 
 /// @brief Constructor. Calculates some details about the PDF file
 CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver)
-    : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr), 
+    : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr), trailer_size(-1),
       latest_feature_version("1.0"), deprecated(false), fully_implemented(true), exact_version_compare(false)
 {
     if (forced_ver.size() > 0) {
@@ -65,6 +65,16 @@ CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std
 
         // Get PDF version from file header.  No sanity checking is done.
         pdf_header_version = pdfsdk.get_pdf_version(trailer);
+
+        // Get the trailer Size key
+        if (trailer->has_key(L"Size")) {
+            ArlPDFObject* sz = trailer->get_value(L"Size");
+            if (sz != nullptr) {
+                if (((sz->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber)) && ((ArlPDFNumber*)sz)->is_integer_value()) {
+                    trailer_size = ((ArlPDFNumber*)sz)->get_integer_value();
+                }
+            }
+        }
 
         // Get the Document Catalog Version, if it exists. No sanity checking is done.
         if (trailer->has_key(L"Root")) {
