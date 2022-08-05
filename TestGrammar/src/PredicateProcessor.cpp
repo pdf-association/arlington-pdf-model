@@ -88,6 +88,8 @@ bool PredicateProcessor::ValidateTypeSyntax(const int key_idx) {
     std::string tsv_field = tsv[key_idx][TSV_TYPE];
 
     std::vector<std::string> type_list = split(tsv_field, ';');
+    if ((type_list.size() < 1) || (type_list[0].size() == 0))
+        return false;
     bool valid;
     for (auto& t : type_list) {
         std::smatch     m;
@@ -218,6 +220,7 @@ bool PredicateProcessor::ValidateRequiredSyntax(const int key_idx) {
         ASTNodeStack stack;
 
         std::string whats_left = LRParsePredicate(tsv_field, ast);
+        assert(ast->valid());
         EmptyPredicateAST();
         stack.push_back(ast);
         predicate_ast.push_back(stack);
@@ -440,6 +443,9 @@ bool PredicateProcessor::IsInheritable(const int key_idx) {
 
 /// @brief Validates an Arlington "DefaultValue" field (column 8)
 /// Can be pretty much anything but so as long as it parses, assume it is OK.
+/// DefaultValues are ONLY ever single values, so should be no COMMAs.
+/// Be careful of single typed array with Default Values as LRParsePredicate() does
+/// NOT support parsing of PDF-arrays.
 /// 
 /// @param[in]   key_idx   the index into TSV data for the key of interest
 ///
@@ -456,22 +462,29 @@ bool PredicateProcessor::ValidateDefaultValueSyntax(const int key_idx) {
     EmptyPredicateAST();
 
     if (tsv_field.find(";") != std::string::npos) {
-        // complex type [];[];[], so therefore everything has [ and ]
+        // complex type [];[];[], so therefore everything has outer [ and ], including PDF arrays
         std::vector<std::string> dv_list = split(tsv_field, ';');
 
         for (auto& dv : dv_list) {
             stack.clear();
-            if (dv.find("fn:") != std::string::npos) {
-                int loop = 0;
-                s = dv.substr(1, dv.size() - 2); // strip off '[' and ']'
+            int loop = 0;
+            assert(dv.size() >= 2);
+            s = dv.substr(1, dv.size() - 2); // strip off outer '[' and ']'
+            if ((s.size() == 0) || (s == "[]")) {
+                // was a "no value" (i.e. "[]") or is an empty PDF array (i.e. "[[]]")
+                // For the purposes of validation we don't care which
+                stack.push_back(nullptr);
+            }
+            else {
                 do {
                     ASTNode* n = new ASTNode();
 
                     s = LRParsePredicate(s, n);
+                    assert(n->valid());
                     stack.push_back(n);
                     loop++;
-                    while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
-                        s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
+                    while ((s.size() > 0) && (s[0] == ' ')) {
+                        s = s.substr(1, s.size() - 1); // skip over SPACEs
                     }
                 } while ((s.size() > 0) && (loop < 100));
                 if (loop >= 100) {
@@ -479,28 +492,57 @@ bool PredicateProcessor::ValidateDefaultValueSyntax(const int key_idx) {
                     return false;
                 }
             }
+            assert(stack.size() == 1);          // only ever a single value for a default
             predicate_ast.push_back(stack);
         } // for
+        assert(predicate_ast.size() > 1);       // was complex so must be at least 2 defaults: [a];[b]       
     }
     else {
-        // non-complex type - [ and ] may be PDF array with SPACE separators so don't strip
-        if (tsv_field.find("fn:") != std::string::npos) {
-            int loop = 0;
-            s = tsv_field;
-            do {
-                ASTNode* n = new ASTNode();
-                s = LRParsePredicate(s, n);
-                stack.push_back(n);
-                loop++;
-                while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
-                    s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
-                }
-            } while ((s.size() > 0) && (loop < 100));
-            if (loop >= 100) {
-                assert(false && "Arlington simple type DefaultValue field too long and complex!");
-                return false;
+        // non-complex type. Any '[' and ']' indicates a PDF array with SPACE separators between array elements
+        // May also have predicates.
+        int loop = 0;
+        std::vector<std::string> elems;
+        if (tsv_field[0] == '[') {
+            // DefaultValue is a single PDF array. Need to strip off array '[' and ']' as LRParsePredicate CANNOT handle PDF arrays with SPACE separators
+            // Then just "test parse" each element of the PDF array for the purposes of validation.
+            s = strip_leading_whitespace(tsv_field.substr(1, tsv_field.size() - 2));
+            elems = split(s, ' ');
+        }
+        else
+            elems.push_back(tsv_field);
+
+        for (auto elem : elems) {
+            s = strip_leading_whitespace(elem);  // required for PDF Array elements
+            if (s == "") {
+                // Was an empty PDF array "[]"
+                stack.push_back(nullptr);
             }
-        } 
+            else if (s[0] == '\'') {
+                // PDF strings not handled by LRParsePredicate due to containing a SPACE or COMMA
+                // e.g. NumberFormat/RT, PS, SS
+                ASTNode* n = new ASTNode();
+                n->type = ASTNodeType::ASTNT_ConstString;
+                n->node = s.substr(1, s.size() - 2); // strip SINGLE-QUOTE
+                stack.push_back(n);
+            }
+            else {
+                // PDF array element is integer, name, number, etc. - see if it parses cleanly
+                do {
+                    ASTNode* n = new ASTNode();
+                    s = LRParsePredicate(s, n);
+                    assert(n->valid());
+                    stack.push_back(n);
+                    loop++;
+                    while ((s.size() > 0) && (s[0] == ' ')) {
+                        s = s.substr(1, s.size() - 1); // skip over SPACEs
+                    }
+                } while ((s.size() > 0) && (loop < 100));
+                if (loop >= 100) {
+                    assert(false && "Arlington simple type DefaultValue field too long and complex!");
+                    return false;
+                }
+            }
+        }
         predicate_ast.push_back(stack);
     }
     return true;
@@ -608,6 +650,7 @@ bool PredicateProcessor::ValidatePossibleValuesSyntax(const int key_idx) {
             do {
                 ASTNode* n = new ASTNode();
                 s = LRParsePredicate(s, n);
+                assert(n->valid());
                 stack.push_back(n);
                 loop++;
                 while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
@@ -767,19 +810,26 @@ bool PredicateProcessor::ValidateSpecialCaseSyntax(const int key_idx) {
     for (auto& sc : sc_list) {
         int loop = 0;
         stack.clear();
-        s = sc.substr(1, sc.size() - 2); // strip off '[' and ']'
-        do {
-            ASTNode *n = new ASTNode();
-            s = LRParsePredicate(s, n);
-            stack.push_back(n);
-            loop++;
-            while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
-                s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
+        s = sc.substr(1, sc.size() - 2); // strip off outer '[' and ']'
+        if (s.size() == 0) {
+            // was empty "[];[...]"
+            stack.push_back(nullptr);
+        }
+        else {
+            do {
+                ASTNode* n = new ASTNode();
+                s = LRParsePredicate(s, n);
+                assert(n->valid());
+                stack.push_back(n);
+                loop++;
+                while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
+                    s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
+                }
+            } while ((s.size() > 0) && (loop < 100));
+            if (loop >= 100) {
+                assert(false && "Arlington complex type SpecialCase field too long and complex when validating!");
+                return false;
             }
-        } while ((s.size() > 0) && (loop < 100));
-        if (loop >= 100) {
-            assert(false && "Arlington complex type SpecialCase field too long and complex when validating!");
-            return false;
         }
         predicate_ast.push_back(stack);
     } // for

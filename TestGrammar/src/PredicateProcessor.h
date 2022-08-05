@@ -47,9 +47,11 @@ protected:
 
     /// @brief A vector of vector of predicate ASTs, as Arlington fields may be of form: 
     /// [fn:A(...),fn:B(...),fn:C(...)];[];[fn:X(...),fn:Y(...),fn:Z(...)]
-    /// - outer vector: supports each Arlington type (e.g. [A,B,C];[];[X,Y,Z])
+    /// - outer vector: supports each Arlington type (e.g. [A,B,C];[];['X','Y','Z'])
     /// - inner vector: supports predicates around each COMMA-separated values 
-    ///   for each type (e.g. the A,B,C; nullptr and X,Y,Z above)
+    ///   for each type (e.g. the A,B,C; nullptr and 'X','Y','Z' above)
+    /// Note that PDF arrays also use '[' and ']'. PDF strings use '\''
+    /// This is a class data mainly for debugging purposes.
     ASTNodeMatrix           predicate_ast;
 
     /// @brief returns true if object contains a valid value in pvalues w.r.t. to the TSV data indexed by key_idx
