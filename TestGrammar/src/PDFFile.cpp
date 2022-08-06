@@ -31,6 +31,7 @@
 #include <vector>
 #include <set>
 #include <limits>
+#include <climits>
 #include <bitset>
 #include <math.h>
 
@@ -73,6 +74,7 @@ CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std
                 if (((sz->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber)) && ((ArlPDFNumber*)sz)->is_integer_value()) {
                     trailer_size = ((ArlPDFNumber*)sz)->get_integer_value();
                 }
+                delete sz;
             }
         }
 
