@@ -49,7 +49,7 @@ const std::regex  r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersio
 
 
 /// @brief Regex to process "Key" fields
-/// Alphanumeric, integer, ASTERISK or <digit>+ASTERISK
+/// Alphanumeric, integer, ASTERISK or \<digit\>+ASTERISK
 /// - $1 = key name
 const std::regex  r_Keys("(\\*|[0-9]+|[0-9]+\\*|[a-zA-Z0-9\\-\\._]+)");
 
