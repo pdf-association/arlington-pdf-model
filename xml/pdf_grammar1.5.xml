@@ -29360,7 +29360,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful((@D==Split) || (@D==Blinds))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful((@S==Split) || (@S==Blinds))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>M</NAME>
@@ -29375,7 +29375,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful((@D==Split) || (@D==Box) || (@D==Fly))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful((@S==Split) || (@S==Box) || (@S==Fly))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Di</NAME>
@@ -29409,7 +29409,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(@D==Fly)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful(@S==Fly)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>B</NAME>
@@ -29422,7 +29422,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(@D==Fly)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful(@S==Fly)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="URI" object_number="339">

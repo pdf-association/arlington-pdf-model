@@ -25570,7 +25570,7 @@
         "Inheritable": false,
         "DefaultValue": "H",
         "PossibleValues": "[H,V]",
-        "SpecialCase": "[fn:IsMeaningful((@D==Split) || (@D==Blinds))]"
+        "SpecialCase": "[fn:IsMeaningful((@S==Split) || (@S==Blinds))]"
       },
       "M": {
         "Key": "M",
@@ -25581,7 +25581,7 @@
         "Inheritable": false,
         "DefaultValue": "I",
         "PossibleValues": "[I,O]",
-        "SpecialCase": "[fn:IsMeaningful((@D==Split) || (@D==Box) || (@D==Fly))]"
+        "SpecialCase": "[fn:IsMeaningful((@S==Split) || (@S==Box) || (@S==Fly))]"
       },
       "Di": {
         "Key": "Di",
@@ -25602,7 +25602,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "1.0",
-        "SpecialCase": "[fn:IsMeaningful(@D==Fly)]"
+        "SpecialCase": "[fn:IsMeaningful(@S==Fly)]"
       },
       "B": {
         "Key": "B",
@@ -25612,7 +25612,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "false",
-        "SpecialCase": "[fn:IsMeaningful(@D==Fly)]"
+        "SpecialCase": "[fn:IsMeaningful(@S==Fly)]"
       }
     }
   },

@@ -3546,7 +3546,7 @@
         "Inheritable": false,
         "DefaultValue": "H",
         "PossibleValues": "[H,V]",
-        "SpecialCase": "[fn:IsMeaningful((@D==Split) || (@D==Blinds))]"
+        "SpecialCase": "[fn:IsMeaningful((@S==Split) || (@S==Blinds))]"
       },
       "M": {
         "Key": "M",
@@ -3557,7 +3557,7 @@
         "Inheritable": false,
         "DefaultValue": "I",
         "PossibleValues": "[I,O]",
-        "SpecialCase": "[fn:IsMeaningful((@D==Split) || (@D==Box) || (@D==Fly))]"
+        "SpecialCase": "[fn:IsMeaningful((@S==Split) || (@S==Box) || (@S==Fly))]"
       },
       "Di": {
         "Key": "Di",
