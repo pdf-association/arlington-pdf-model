@@ -193,11 +193,11 @@ class Arlington:
 
     def validate_fn_array_sort_ascending(self, ast: AST) -> bool:
         """
-        Validates fn:ArraySortAscending(key)
+        Validates fn:ArraySortAscending(key, step)
         @param ast: AST to be validated.
         @returns: True if a valid function. False otherwise
         """
-        if (len(ast) == 1) and (ast[0].type in ('KEY_NAME')):
+        if ((len(ast) == 2) and (ast[0].type in ('KEY_NAME')) and (ast[1].type in ('INTEGER'))):
             return True
         return False
 
