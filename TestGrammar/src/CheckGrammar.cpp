@@ -271,8 +271,16 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
                 retval = false;
             }
 
+        // Check alphabetical sorting of Types
+        for (size_t i = 1; i < types.size(); i++) {
+            if (types[i] < types[i - 1]) {
+                report_stream << COLOR_ERROR << "Types " << vc[TSV_TYPE] << " are not alphabetically sorted for " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET;
+                retval = false;
+            }
+        }
+
         // Check versioining efficiency between SinceVersion field and all version-based predicates
-        if (verbose) {
+        if (verbose && (vc[TSV_SINCEVERSION].size() == 3)) {
             int key_introduced_v = string_to_pdf_version(vc[TSV_SINCEVERSION]);
             for (size_t i = 0; i < vc.size(); i++) {
                 int             pdf_ver;
