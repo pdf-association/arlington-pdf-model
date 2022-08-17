@@ -273,7 +273,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
 
         // Check versioining efficiency between SinceVersion field and all version-based predicates
         if (verbose) {
-            int key_introduced_v = (vc[TSV_SINCEVERSION][0] - '0') * 10 + (vc[TSV_SINCEVERSION][2] - '0');
+            int key_introduced_v = string_to_pdf_version(vc[TSV_SINCEVERSION]);
             for (size_t i = 0; i < vc.size(); i++) {
                 int             pdf_ver;
                 std::string     s;
@@ -281,8 +281,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
                 s = vc[i];
                 auto ver_predicate = s.find("fn:SinceVersion(");
                 while (ver_predicate != std::string::npos) {
-                    assert(FindInVector(v_ArlPDFVersions, s.substr(ver_predicate + 16, 3)));
-                    pdf_ver = (s[ver_predicate + 16] - '0') * 10 + (s[ver_predicate + 18] - '0');
+                    pdf_ver = string_to_pdf_version(s.substr(ver_predicate + 16, 3));
                     if (pdf_ver <= key_introduced_v) {
                         report_stream << COLOR_INFO << "fn:SinceVersion() " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << " field " << ArlingtonTSVFieldNames[i];
                         report_stream << " was introduced in " << vc[TSV_SINCEVERSION] << " but " << s.substr(ver_predicate) << COLOR_RESET;
@@ -294,8 +293,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
                 s = vc[i];
                 ver_predicate = s.find("fn:BeforeVersion(");
                 while (ver_predicate != std::string::npos) {
-                    assert(FindInVector(v_ArlPDFVersions, s.substr(ver_predicate + 17, 3)));
-                    pdf_ver = (s[ver_predicate + 17] - '0') * 10 + (s[ver_predicate + 19] - '0');
+                    pdf_ver = string_to_pdf_version(s.substr(ver_predicate + 17, 3));
                     if ((pdf_ver - 1) < key_introduced_v) {
                         report_stream << COLOR_INFO << "fn:BeforeVersion() " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << " field " << ArlingtonTSVFieldNames[i];
                         report_stream << " was introduced in " << vc[TSV_SINCEVERSION] << " but " << s.substr(ver_predicate) << COLOR_RESET;
@@ -307,8 +305,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
                 s = vc[i];
                 ver_predicate = s.find("fn:IsPDFVersion(");
                 while (ver_predicate != std::string::npos) {
-                    assert(FindInVector(v_ArlPDFVersions, s.substr(ver_predicate + 16, 3)));
-                    pdf_ver = (s[ver_predicate + 16] - '0') * 10 + (s[ver_predicate + 18] - '0');
+                    pdf_ver = string_to_pdf_version(s.substr(ver_predicate + 16, 3));
                     if (pdf_ver < key_introduced_v) {
                         report_stream << COLOR_INFO << "fn:IsPDFVersion() " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << " field " << ArlingtonTSVFieldNames[i];
                         report_stream << " was introduced in " << vc[TSV_SINCEVERSION] << " but " << s.substr(ver_predicate) << COLOR_RESET;

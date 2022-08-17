@@ -21,14 +21,14 @@ This document describes some strict rules for the Arlington PDF model, for both 
 * files that represent PDF arrays match either `ArrayOf*.tsv`, `*Array.tsv` or `*ColorSpace.tsv`
     - many are also identifiable by having a Key name of `0` (or `0*` or `*`)
     ```shell
-    grep "^0" *.tsv
+    grep "^0" *
     ```
 * files that represent PDF 'map' objects (meaning that the dictionary key name can be anything) match `*Map.tsv`
     - note that CMaps are in `CMapStream.tsv`
 * **NOT** all files that are PDF stream objects match `*Stream.tsv`
     - since each Arlington object is fully self-contained, many objects can be streams. The best method is to search for `DecodeParms` key instead:
     ```shell
-    grep "^DecodeParms" *.tsv | tsv-pretty
+    grep "^DecodeParms" * | tsv-pretty
     ```
 
 # PDF Object conventions
@@ -82,15 +82,15 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   String (as JSON dictionary key)
 *   **Linux CLI tests:**
     ```shell
-    cut -f 1 *.tsv | sort | uniq
+    cut -f 1 * | sort | uniq
     ```
 * files that define objects with an arbitrary number of keys or array elements use the wildcard `*`. If the line number of the wildcard is line 2 then it is a map-like object. If the line number is after 2, then are additional fixed keys/elements.
     ```shell
-    grep --line-numbers "^\*" *.tsv | tsv-pretty
+    grep --line-numbers "^\*" * | tsv-pretty
     ```
 * files that define arrays with repeating sequences of _N_ elements use the `digit+ASTERISK` syntax. Digit is currently restricted to a SINGLE digit 0-9.
    ```shell
-   grep "^[0-9]\*" *.tsv | tsv-pretty
+   grep "^[0-9]\*" * | tsv-pretty
    ```
 
 
@@ -133,22 +133,17 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   `grep "'Type': \[" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 2 *.tsv | sort | uniq
-    cut -f 2 *.tsv | sed -e "s/;/\n/g" | sort | uniq
+    cut -f 2 * | sort | uniq
+    cut -f 2 * | sed -e "s/;/\n/g" | sort | uniq
     ```
 
 
 ## Column 3 - "SinceVersion"
 
 *   Must not be blank
-*   Must be one of `1.0`, `1.1`, ... `1.7` or `2.0`
-*   In the future:
-    *   Set of versions may be increased - e.g. `2.1`
-    *   A small set of predicates might also be used
-        *   Either as "or" conjunction or by themselves to represent proprietary extensions? Examples include inline image
-            abbreviations used in Image XObjects; `DP` as an alias for `DecodeParams` by Adobe; the Apple `/AAPL` or `/PTEX` LaTeX
-            extensions; the various PDF 2.0 extension ISO specs being developed now
-            e.g., `fn:Extension(string)` or `2.0;fn:Extension(string)` where `string` might be `ISO-32002` or `AdobeExtensionLevel5`.
+*   Must be one of `1.0`, `1.1`, ... `1.7` or `2.0` or one of the predicates such as `fn:Extension(...)` or `fn:SinceVersion(...)`
+    - e.g. `fn:SinceVersion(2.0,fn:Extension(ISO_TS_12345))` or `fn:Extension(AAPL)`
+*   In the future the set of versions may be increased - e.g. `2.1`
 * Version-based predicates in other fields should all be based on versions explicitly AFTER the version in this column
 *   **Python pretty-print/JSON**
     *   Always a string (never blank)
@@ -156,7 +151,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   `grep "'SinceVersion'" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 3 *.tsv | sort | uniq
+    cut -f 3 * | sort | uniq
     ```
 
 
@@ -173,7 +168,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   `grep "'Deprecated': " dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 4 *.tsv | sort | uniq
+    cut -f 4 * | sort | uniq
     ```
 
 ## Column 5 - "Required"
@@ -195,7 +190,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   `grep "'Required': " dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 5 *.tsv | sort | uniq
+    cut -f 5 * | sort | uniq
     ```
 
 
@@ -221,7 +216,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   `grep "'IndirectReference':" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 6 *.tsv | sort | uniq
+    cut -f 6 * | sort | uniq
     ```
 
 
@@ -234,7 +229,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   `grep "'Inheritable'" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 7 *.tsv | sort | uniq
+    cut -f 7 * | sort | uniq
     ```
 
 
@@ -263,9 +258,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   `grep -o "'DefaultValue': .*" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 8 *.tsv | sort | uniq
-    cut -f 2,8 *.tsv | sort | uniq | grep -P "\t[[:graph:]]+.*" | tsv-pretty
-    cut -f 1,2,8 *.tsv | sort | uniq | grep -P "\t[[:graph:]]*\t[[:graph:]]+.*$" | tsv-pretty
+    cut -f 8 * | sort | uniq
+    cut -f 2,8 * | sort | uniq | grep -P "\t[[:graph:]]+.*" | tsv-pretty
+    cut -f 1,2,8 * | sort | uniq | grep -P "\t[[:graph:]]*\t[[:graph:]]+.*$" | tsv-pretty
     ```
 
 
@@ -343,7 +338,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
         *   Validity of list elements aligns with indexed "Type" data
 *   **Linux CLI test:**
     ```shell
-    cut -f 11 *.tsv | sort | uniq | grep -o "fn:[a-zA-Z0-4]*" | sort | uniq
+    cut -f 11 * | sort | uniq | grep -o "fn:[a-zA-Z0-4]*" | sort | uniq
     ```
 
 ## Column 12- "Notes"
@@ -387,19 +382,19 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 ```shell
 # List all predicates by names:
-grep --color=always -ho "fn:[[:alnum:]]*." *.tsv | sort | uniq
+grep --color=always -ho "fn:[[:alnum:]]*." * | sort | uniq
 
 # List all predicates and their Arguments
-grep -Pho "fn:[a-zA-Z0-9]+\((?:[^)(]+|(?R))*+\)" *.tsv | sort | uniq
+grep -Pho "fn:[a-zA-Z0-9]+\((?:[^)(]+|(?R))*+\)" * | sort | uniq
 
 # List all predicates that take no parameters:
-grep --color=always -Pho "fn:[a-zA-Z0-9]+\(\)" *.tsv | sort | uniq
+grep --color=always -Pho "fn:[a-zA-Z0-9]+\(\)" * | sort | uniq
 
 # List all parameter lists (but not function names) (and a few PDF strings too!):
-grep --color=always -Pho "\((?>[^()]|(?R))*\)" *.tsv | sort | uniq
+grep --color=always -Pho "\((?>[^()]|(?R))*\)" * | sort | uniq
 
 # List all predicates with their arguments:
-grep --color=always -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" *.tsv | sort | uniq
+grep --color=always -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" * | sort | uniq
 ```
 
 
@@ -627,6 +622,16 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>Calculates the expression <i>expr</i>.</li>
      <li>May involve multiple terms with logical operators <code> && </code> or <code> || </code>.</li>
      <li>The result of <i>expr</i> can be anything: a numeric value, true/false, a type, a statement.</li>
+    </ul>
+   </td>
+  </tr>
+  <tr>
+   <td><code>fn:Extension(<i>string</i>)</code></td>
+   <td>
+    <ul>
+     <li>Used in the "SinceVersion" field.</li>
+     <li>`string` is an identifier for the extension or subset that uses the same lexical conventions as for the "Key" field (e.g. no SPACEs).</li>
+     <li>In the "SinceVersion" identifies that the key or array element is only valid for the specified extension `string`. This may be combined with `fn:SinceVersion` to express a more nuanced introduction - e.g. `fn:SinceVersion(2.0,fn:Extension(ISO_TS_12345))`</li>
     </ul>
    </td>
   </tr>

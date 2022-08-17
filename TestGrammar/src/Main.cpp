@@ -31,6 +31,8 @@
 
 #include <exception>
 #include <iostream>
+#include <string>
+#include <vector>
 
 #if defined __linux__
 #include <cstring>
@@ -61,13 +63,14 @@ bool no_color = false;
 /// @brief Validates a single PDF file against the Arlington PDF model
 ///
 /// @param[in] pdf_file_name  PDF filename for processing
-/// @param[in] tsv_folder   the folder with the Arlington TSV model files
+/// @param[in] tsv_folder  the folder with the Arlington TSV model files
 /// @param[in] pdfsdk      the already initiated PDF SDK library to use
-/// @param[in,out]         ofs already open file stream for output
+/// @param[in] ofs         already open file stream for output
 /// @param[in] terse       terse style (brief) output (will sort | uniq better under Linux CLI)
 /// @param[in] debug_mode  verbose style output (PDF-file specific information e.g. object numbers)
 /// @param[in] forced_ver  forced PDF version or empty string to use PDF
-void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, const bool terse, const bool debug_mode, const std::string& forced_ver)
+/// @param[in] extns       list of extension names to support
+void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, const bool terse, const bool debug_mode, const std::string& forced_ver, std::vector<std::string>& extns)
 {
     try
     {
@@ -76,7 +79,7 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
         ofs << "PDF: " << fs::absolute(pdf_file_name).lexically_normal() << std::endl;
 
         CParsePDF parser(tsv_folder, ofs, terse, debug_mode);
-        CPDFFile  pdf(pdf_file_name, pdfsdk, forced_ver);
+        CPDFFile  pdf(pdf_file_name, pdfsdk, forced_ver, extns);
 
         ArlPDFTrailer* t = pdf.get_trailer();
         if (t != nullptr) {
@@ -90,7 +93,7 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
             }
 
             parser.parse_object(pdf);
-            ofs << COLOR_INFO << "Latest Arlington feature was" << pdf.get_latest_feature_version_info() << " compared using " << (pdf.is_forced_version() ? "forced" : "") << " PDF " << pdf.pdf_version << COLOR_RESET;
+            ofs << COLOR_INFO << "Latest Arlington feature was" << pdf.get_latest_feature_version_info() << " compared using" << (pdf.is_forced_version() ? " forced" : "") << " PDF " << pdf.pdf_version << COLOR_RESET;
         }
         else {
             ofs << COLOR_ERROR << "failed to acquire Trailer" << COLOR_RESET;
@@ -117,7 +120,7 @@ int wmain(int argc, wchar_t* argv[]) {
     int tmp = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
     tmp = tmp | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF; // | _CRTDBG_CHECK_ALWAYS_DF; // _CRTDBG_CHECK_ALWAYS_DF is VERY slow!!
     _CrtSetDbgFlag(tmp);
-    //_CrtSetBreakAlloc(93894);
+    //_CrtSetBreakAlloc(2987);
 #endif // _DEBUG && CRT_MEMORY_LEAK_CHECK
 
     // Convert wchar_t* to char* for command line processing
@@ -143,7 +146,7 @@ int main(int argc, char* argv[]) {
 
     sarge.setDescription("Arlington PDF Model C++ P.o.C. version " TestGrammar_VERSION
         "\nChoose one of: --pdf, --checkdva or --validate.");
-    sarge.setUsage("TestGrammar --tsvdir <dir> [--force <ver>|exact] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
+    sarge.setUsage("TestGrammar --tsvdir <dir> [--force <ver>|exact] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--extensions <extn1[,extn2]>] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
     sarge.setArgument("h", "help", "This usage message.", false);
     sarge.setArgument("b", "brief", "terse output when checking PDFs. The full PDF DOM tree is NOT output.", false);
     sarge.setArgument("c", "checkdva", "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
@@ -156,6 +159,7 @@ int main(int argc, char* argv[]) {
     sarge.setArgument("f", "force", "force the PDF version to the specified value (1,0, 1.1, ..., 2.0 or 'exact'). Requires --pdf", true);
     sarge.setArgument("t", "tsvdir", "[required] folder containing Arlington PDF model TSV file set.", true);
     sarge.setArgument("v", "validate", "validate the Arlington PDF model.", false);
+    sarge.setArgument("e", "extensions", "a comma-separated list of extensions.", true);
 
 #if defined(_WIN32) || defined(WIN32)
     if (!sarge.parseArguments(argc, mbcsargv)) {
@@ -199,6 +203,7 @@ int main(int argc, char* argv[]) {
     bool            clobber = sarge.exists("clobber");
     bool            debug_mode = sarge.exists("debug");
     bool            terse = sarge.exists("brief");
+    std::vector<std::string> supported_extns;
 
     no_color = sarge.exists("no-color");
 
@@ -209,12 +214,12 @@ int main(int argc, char* argv[]) {
     delete[] mbcsargv;
 
     if (sarge.exists("batchmode")) {
-        // Suppress windows dialogs for assertions, errors and mem leaks - send to stderr instead during batch CLI processing
-        _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE);
+        // Suppress popup dialogs for assertions, errors and mem leaks - send to stderr and debugger instead during batch CLI processing
+        _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE | _CRTDBG_MODE_DEBUG);
         _CrtSetReportFile(_CRT_WARN, _CRTDBG_FILE_STDERR);
-        _CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_FILE);
+        _CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_FILE | _CRTDBG_MODE_DEBUG);
         _CrtSetReportFile(_CRT_ERROR, _CRTDBG_FILE_STDERR);
-        _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
+        _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE | _CRTDBG_MODE_DEBUG);
         _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);
         // Suppress color as batchmode also implies post-processing grep, etc.
         no_color = true;
@@ -259,6 +264,11 @@ int main(int argc, char* argv[]) {
         force_version = s;
     }
 
+    // Optional -e/--extensions <extn1[,extn2]>
+    if (sarge.getFlag("extensions", s)) {
+        supported_extns = split(s, ',');
+    }
+
     if (debug_mode) {
         std::cout << "Arlington TSV folder: " << grammar_folder.lexically_normal() << std::endl;
         std::cout << "Output file/folder:   " << save_path.lexically_normal() << std::endl;
@@ -266,6 +276,16 @@ int main(int argc, char* argv[]) {
         std::cout << "Colorized output      " << (no_color ? "off" : "on") << std::endl;
         std::cout << "Clobber mode:         " << (clobber ? "on" : "off") << std::endl;
         std::cout << "Brief mode:           " << (terse ? "on" : "off") << std::endl;
+
+        if (supported_extns.size() > 0) {
+            std::cout << supported_extns.size() << " Extensions enabled: ";
+            for (size_t i = 0; i < supported_extns.size(); i++)
+                std::cout << supported_extns[i] << ((i < (supported_extns.size() - 1)) ? ", " : "");
+        }
+        else
+            std::cout << "Extensions enabled:   <none>";
+        std::cout << std::endl;
+
         if (force_version.size() > 0) {
             std::cout << "Forced PDF version:   " << force_version << std::endl;
         }
@@ -349,7 +369,7 @@ int main(int argc, char* argv[]) {
                         }
                         std::cout << "Processing " << entry.path().lexically_normal() << " to " << rptfile.lexically_normal() << std::endl;
                         ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
-                        process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, ofs, terse, debug_mode, force_version);
+                        process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, ofs, terse, debug_mode, force_version, supported_extns);
                         ofs.close();
                     }
                 }
@@ -379,7 +399,7 @@ int main(int argc, char* argv[]) {
                 }
                 ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
                 input_file = input_file.lexically_normal();
-                process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse, debug_mode, force_version);
+                process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse, debug_mode, force_version, supported_extns);
                 ofs.close();
                 std::cout << "DONE" << std::endl;
             }

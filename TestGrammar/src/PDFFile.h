@@ -30,6 +30,7 @@
 #include "ArlingtonTSVGrammarFile.h"
 
 #include <string>
+#include <vector>
 #include <filesystem>
 #include <iostream>
 
@@ -89,6 +90,9 @@ private:
     /// @brief Document Catalog dictionary
     ArlPDFDictionary*       doccat;
 
+    /// @brief List of names of extensions being supported. Default = empty list
+    std::vector<std::string>    extensions;
+
     /// @brief Method to check if a key value is within a prescribed set of values
     bool check_key_value(ArlPDFDictionary* dict, const std::wstring& key, const std::vector<std::wstring> values);
 
@@ -112,6 +116,7 @@ private:
     bool fn_BitSet(ArlPDFObject* obj, const ASTNode* bit_node);
     bool fn_BitsClear(ArlPDFObject* obj, const ASTNode* low_bit_node, const ASTNode* high_bit_node);
     bool fn_BitsSet(ArlPDFObject* obj, const ASTNode* low_bit_node, const ASTNode* high_bit_node);
+    bool fn_Extension(const ASTNode* extn);
     bool fn_FontHasLatinChars(ArlPDFObject* obj);
     bool fn_ImageIsStructContentItem(ArlPDFObject* obj);
     bool fn_InMap(ArlPDFObject* obj, const ASTNode* map);
@@ -140,7 +145,7 @@ public:
     /// @brief PDF version being used (always a valid version, default is "2.0"). PUBLIC
     std::string             pdf_version;
 
-    CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver);
+    CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver, const std::vector<std::string>& extns);
 
     ~CPDFFile() { /* destructor */ delete doccat; }
 
@@ -164,6 +169,9 @@ public:
 
     /// @brief whether a version override is being forced by --force
     bool is_forced_version() { return (forced_version.size() > 0); }
+
+    /// @brief returns the list of currently support extensions. Could be an empty vector.
+    std::vector<std::string> get_extensions() { return extensions; }
 
     /// @brief Calculates an Arlington predicate expression
     ASTNode* ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth = 0);

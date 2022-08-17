@@ -566,3 +566,23 @@ int key_to_array_index(const std::string& key) {
     }
     return i;
 }
+
+
+/// @brief Converts a PDF string to the integer equivalent x 10.
+/// 
+/// @param[in] vers   PDF version as a string. Should be precisely 3 chars.
+/// 
+/// @returns the PDF version x 10
+int string_to_pdf_version(const std::string& vers) {
+    assert(vers.size() == 3);
+    assert(isdigit(vers[0]));
+    assert(vers[1] == '.');
+    assert(isdigit(vers[2]));
+    assert(FindInVector(v_ArlPDFVersions, vers));
+
+    int pdf_ver = ((vers[0] - '0') * 10) + (vers[2] - '0');
+    assert((pdf_ver >= 10) && ((pdf_ver <= 17) || (pdf_ver == 20)));
+
+    return pdf_ver;
+}
+

@@ -46,9 +46,9 @@ namespace fs = std::filesystem;
 
 
 /// @brief Constructor. Calculates some details about the PDF file
-CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver)
+CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver, const std::vector<std::string>& extns)
     : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr), trailer_size(INT_MAX),
-      latest_feature_version("1.0"), deprecated(false), fully_implemented(true), exact_version_compare(false)
+      latest_feature_version("1.0"), deprecated(false), fully_implemented(true), exact_version_compare(false), extensions(extns)
 {
     if (forced_ver.size() > 0) {
         if (forced_ver == "exact")
@@ -454,6 +454,18 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 out->node = out_left->node;
             }
             else {
+                delete out;
+                out = nullptr;
+            }
+        }
+        else if (in_ast->node == "fn:Extension(") {
+            // 1 argument: extension name
+            assert(out_right == nullptr);
+            if (fn_Extension(out_left)) {
+                // Extension is being support - fake up a valid version
+            }
+            else {
+                // Extension is NOT being supported 
                 delete out;
                 out = nullptr;
             }
@@ -1193,17 +1205,17 @@ std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
 /// @param[in]  key   the key (or array index) of the feature we have just encountered
 void CPDFFile::set_feature_version(const std::string& ver, const std::string& arl, const std::string& key) 
 {
-    assert((ver.size() == 3) && FindInVector(v_ArlPDFVersions, ver));
-    assert((latest_feature_version.size() == 3) && FindInVector(v_ArlPDFVersions, latest_feature_version));
+    // Avoid processing extensions
+    if ((ver.size() == 3) && FindInVector(v_ArlPDFVersions, ver)) {
+        // Convert to 10 * PDF version
+        int pdf_v    = string_to_pdf_version(ver);
+        int latest_v = string_to_pdf_version(latest_feature_version);
 
-    // Convert to 10 * PDF version
-    int pdf_v = (ver[0] - '0') * 10 + (ver[2] - '0');
-    int latest_v = (latest_feature_version[0] - '0') * 10 + (latest_feature_version[2] - '0');
-
-    if (pdf_v > latest_v) {
-        latest_feature_version = ver;
-        latest_feature_arlington = arl;
-        latest_feature_key = key;
+        if (pdf_v > latest_v) {
+            latest_feature_version = ver;
+            latest_feature_arlington = arl;
+            latest_feature_key = key;
+        }
     }
 }
 
@@ -1495,6 +1507,23 @@ bool CPDFFile::fn_BitsSet(ArlPDFObject* obj, const ASTNode* low_bit_node, const 
 #ifdef PP_FN_DEBUG
         std::cout << "fn_BitsSet() was not a number!" << std::endl;
 #endif
+    }
+    return false;
+}
+
+
+/// @brief Determines if the specified extension is currently support or not 
+/// 
+/// @param[in]  extn   the name of the extension
+/// 
+/// @returns true if the extension is being support, false otherwise
+bool CPDFFile::fn_Extension(const ASTNode* extn) {
+    assert(extn != nullptr);
+    assert(extn->type == ASTNodeType::ASTNT_Key);
+
+    for (auto& e : extensions) {
+        if (extn->node == e)
+            return true;
     }
     return false;
 }
@@ -2308,12 +2337,10 @@ ASTNode* CPDFFile::fn_BeforeVersion(const ASTNode* ver_node, const ASTNode* thin
 
     assert(ver_node != nullptr);
     assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
-    assert(ver_node->node.size() == 3);
-    assert(FindInVector(v_ArlPDFVersions, ver_node->node));
 
     // Convert to 10 * PDF version
-    int pdf_v = (pdf_version[0] - '0') * 10 + (pdf_version[2] - '0');
-    int arl_v = (ver_node->node[0] - '0') * 10 + (ver_node->node[2] - '0');
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(ver_node->node);
 
     if (thing != nullptr) {
         if (pdf_v < arl_v) {
@@ -2345,12 +2372,10 @@ ASTNode* CPDFFile::fn_SinceVersion(const ASTNode* ver_node, const ASTNode* thing
 
     assert(ver_node != nullptr);
     assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
-    assert(ver_node->node.size() == 3);
-    assert(FindInVector(v_ArlPDFVersions, ver_node->node));
 
     // Convert to 10 * PDF version
-    int pdf_v = (pdf_version[0] - '0') * 10 + (pdf_version[2] - '0');
-    int arl_v = (ver_node->node[0] - '0') * 10 + (ver_node->node[2] - '0');
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(ver_node->node);
 
     if (thing != nullptr) {
         if (pdf_v >= arl_v) {
@@ -2385,12 +2410,10 @@ ASTNode* CPDFFile::fn_IsPDFVersion(const ASTNode* ver_node, const ASTNode* thing
 
     assert(ver_node != nullptr);
     assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
-    assert(ver_node->node.size() == 3);
-    assert(FindInVector(v_ArlPDFVersions, ver_node->node));
 
     // Convert to 10 * PDF version
-    int pdf_v = (pdf_version[0] - '0') * 10 + (pdf_version[2] - '0');
-    int arl_v = (ver_node->node[0] - '0') * 10 + (ver_node->node[2] - '0');
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(ver_node->node);
     if (thing != nullptr) {
         if (pdf_v == arl_v) {
             ASTNode* out = new ASTNode;
@@ -2423,12 +2446,10 @@ ASTNode* CPDFFile::fn_Deprecated(const ASTNode* dep_ver, const ASTNode* thing) {
 
     assert(dep_ver != nullptr);
     assert(dep_ver->type == ASTNodeType::ASTNT_ConstNum);
-    assert(dep_ver->node.size() == 3);
-    assert(FindInVector(v_ArlPDFVersions, dep_ver->node));
 
     // Convert to 10 * PDF version
-    int pdf_v = (pdf_version[0] - '0') * 10 + (pdf_version[2] - '0');
-    int arl_v = (dep_ver->node[0] - '0') * 10 + (dep_ver->node[2] - '0');
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(dep_ver->node);
 
     if (!deprecated)
         deprecated = (pdf_v >= arl_v);

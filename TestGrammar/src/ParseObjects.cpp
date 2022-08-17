@@ -179,7 +179,7 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
                     std::wstring   str_value;  // inner_object value from PDF as string (not used here)
 
                     // Get required-ness of key
-                    ArlVersion inner_versioner(inner_object, vec, pdf_version);
+                    ArlVersion inner_versioner(inner_object, vec, pdf_version, pdfc->get_extensions());
                     reqd_key = pp.IsRequired(obj, inner_object, key_idx, inner_versioner.get_arlington_type_index());
 
                     // Get deprecation of key
@@ -347,7 +347,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
     }
 
     // Process version predicates properly, so if PDF version is BEFORE SinceVersion then will get a wrong type error
-    ArlVersion versioner(object, tsv_data[key_idx], pdf_version);
+    ArlVersion versioner(object, tsv_data[key_idx], pdf_version, pdfc->get_extensions());
     std::vector<std::string>  linkset = versioner.get_appropriate_linkset(tsv_data[key_idx][TSV_LINK]);
     std::string               arl_type = versioner.get_matched_arlington_type();
 
@@ -783,8 +783,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
     pdfc = &pdf;
     std::string ver = pdfc->check_and_get_pdf_version(output); // will produce output messages
     output << COLOR_INFO << "Processing as PDF " << ver << COLOR_RESET;
-    pdf_version = ((ver[0] - '0') * 10) + (ver[2] - '0');
-    assert(((pdf_version >= 10) && (pdf_version <= 17)) || (pdf_version == 20));
+    pdf_version = string_to_pdf_version(ver);
 
     counter = 0;
 
@@ -883,7 +882,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                             pdf.set_feature_version(vec[TSV_SINCEVERSION], elem.link, key_utf8);
 
                             // Process version predicates properly (PDF version and object type aware)
-                            ArlVersion versioner(inner_obj, vec, pdf_version);
+                            ArlVersion versioner(inner_obj, vec, pdf_version, pdfc->get_extensions());
 
                             if (versioner.object_matched_arlington_type()) {
                                 std::string arl_type = versioner.get_matched_arlington_type();
@@ -935,6 +934,8 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                                     output << ") for " << elem.link << "/" << key_utf8 << COLOR_RESET;
                                 }
                             }
+                            if (versioner.is_unsupported_extension())
+                                is_found = false;
                             break;
                         }
                     } // for-each Arlington row
@@ -966,7 +967,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                         if (vec[TSV_KEYNAME] == "*") {
                             pdf.set_feature_version(vec[TSV_SINCEVERSION], elem.link, "dictionary wildcard");
                             // Process version predicates properly (PDF version and object type aware)
-                            ArlVersion versioner(inner_obj, vec, pdf_version);
+                            ArlVersion versioner(inner_obj, vec, pdf_version, pdfc->get_extensions());
                             if (versioner.object_matched_arlington_type()) {
                                 std::string as = elem.context + "->" + key_utf8;
                                 std::string arl_type = versioner.get_matched_arlington_type();
@@ -1050,7 +1051,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
             for (auto& vec : tsv) {
                 key_idx++;
                 // Check for missing required values in object, and parents if inheritable
-                ArlVersion versioner(dictObj, vec, pdf_version);
+                ArlVersion versioner(dictObj, vec, pdf_version, pdfc->get_extensions());
                 bool required_key = req_pp.IsRequired(elem.object, dictObj, key_idx, versioner.get_arlington_type_index());
 
                 if (required_key) {
@@ -1193,7 +1194,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
                         std::string idx_s = "[" + std::to_string(i) + "]";
                         pdf.set_feature_version(tsv[idx][TSV_SINCEVERSION], elem.link, idx_s);
                         // Process version predicates properly (version aware)
-                        ArlVersion versioner(item, tsv[idx], pdf_version);
+                        ArlVersion versioner(item, tsv[idx], pdf_version, pdfc->get_extensions());
                         std::string arl_type = versioner.get_matched_arlington_type();
                         if (FindInVector(v_ArlComplexTypes, arl_type)) {
                             std::string as = elem.context + "[" + std::to_string(i);

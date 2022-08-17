@@ -112,4 +112,7 @@ bool is_valid_pdf_date_string(const std::wstring& wdate);
 /// @brief Convert an Arlington key to an array index (should be an integer) or -1 on error
 int key_to_array_index(const std::string& key);
 
+/// @brief converts a PDF version string to the integer equivalent x 10
+int string_to_pdf_version(const std::string& vers);
+
 #endif // Utils_h

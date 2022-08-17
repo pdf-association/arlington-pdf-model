@@ -132,7 +132,18 @@ bool PredicateProcessor::ValidateSinceVersionSyntax(const int key_idx) {
 
     if (tsv_field.size() == 3)
         return FindInVector(v_ArlPDFVersions, tsv_field);
-    return false;
+    else {
+        // A predicate involving fn:Extension() or fn:SinceVersion
+        ASTNode* ast = new ASTNode();
+        ASTNodeStack stack;
+
+        std::string whats_left = LRParsePredicate(tsv_field, ast);
+        assert(ast->valid());
+        EmptyPredicateAST();
+        stack.push_back(ast);
+        predicate_ast.push_back(stack);
+        return (whats_left.size() == 0);
+    }
 }
 
 
@@ -147,11 +158,52 @@ bool PredicateProcessor::IsValidForPDFVersion(const int key_idx) {
     pdfc->ClearPredicateStatus();
 
     // PDF version "x.y" --> convert to integer as x*10 + y
-    assert(tsv_field.size() == 3);
+    int pdf_v = string_to_pdf_version(pdfc->pdf_version);
+    if (tsv_field.size() == 3) {
+        int tsv_v = string_to_pdf_version(tsv_field);
+        return (tsv_v <= pdf_v);
+    }
+    else {
+        ASTNode* ast = new ASTNode();
+        ASTNodeStack stack;
 
-    int pdf_v = pdfc->pdf_version[0] * 10 + pdfc->pdf_version[2];
-    int tsv_v = tsv_field[0]   * 10 + tsv_field[2];
-    return (tsv_v <= pdf_v);
+        std::string whats_left = LRParsePredicate(tsv_field, ast);
+        assert(ast->valid());
+        EmptyPredicateAST();
+        stack.push_back(ast);
+        predicate_ast.push_back(stack);
+        assert(whats_left.size() == 0);
+
+        // Process the AST - is independent of all PDF objects in a file
+        auto extns_supported = pdfc->get_extensions();
+        if (extns_supported.size() > 0) {
+            if (predicate_ast[0][0]->node == "fn:Extension(") {
+                return FindInVector(extns_supported, predicate_ast[0][1]->node);
+            }
+            else {
+                assert(predicate_ast[0][0]->node == "fn:SinceVersion(");
+                assert(predicate_ast[0][0]->arg[0] != nullptr); // a PDF version
+                assert(FindInVector(v_ArlPDFVersions, predicate_ast[0][0]->arg[0]->node)); // a valid PDF version
+                assert(predicate_ast[0][0]->arg[1] != nullptr); // the fn:Extension(...) predicate
+                assert(predicate_ast[0][0]->arg[1]->type == ASTNodeType::ASTNT_Predicate);  
+                assert(predicate_ast[0][0]->arg[1]->node == "fn:Extension(");
+                assert(predicate_ast[0][0]->arg[1]->arg[0] != nullptr); // the name of the extension
+                assert(predicate_ast[0][0]->arg[1]->arg[1] == nullptr); // no 2nd argument
+                assert(predicate_ast[0][0]->arg[1]->arg[0]->type == ASTNodeType::ASTNT_Key); // the name of the extension
+
+                if (FindInVector(extns_supported, predicate_ast[0][0]->arg[1]->arg[0]->node)) {
+                    // Extension is support, now check fn:SinceVersion() version
+                    int since_v = string_to_pdf_version(predicate_ast[0][0]->arg[0]->node);
+                    return (pdf_v >= since_v);
+                }
+                else {
+                    // Extension is not supported
+                    // fallthrough to return false
+                }
+            }
+        }
+    }
+    return false;
 };
 
 
@@ -188,11 +240,8 @@ bool PredicateProcessor::IsDeprecated(const int key_idx) {
         return false;
 
     // PDF version "x.y" --> convert to integer as x*10 + y
-    assert(tsv_field.size() == 3);
-    assert(pdfc->pdf_version.size() == 3);
-
-    int pdf_v = pdfc->pdf_version[0] * 10 + pdfc->pdf_version[2];
-    int tsv_v = tsv_field[0]   * 10 + tsv_field[2];
+    int pdf_v = string_to_pdf_version(pdfc->pdf_version);
+    int tsv_v = string_to_pdf_version(tsv_field);
     return (tsv_v >= pdf_v);
 };
 
@@ -904,9 +953,8 @@ std::string PredicateProcessor::ReduceLinkRow(const int key_idx) {
         if (std::regex_search(lnk, m, r_Links) && m.ready() && (m.size() == 4)) {
             // m[1] = predicate function name (no "fn:")
             // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
-            int pdf_v = pdfc->pdf_version[0] * 10 + pdfc->pdf_version[2];
-            assert(m[2].str().size() == 3);
-            int arl_v = m[2].str()[0] * 10 + m[2].str()[2];
+            int pdf_v = string_to_pdf_version(pdfc->pdf_version);
+            int arl_v = string_to_pdf_version(m[2].str());
             if (((m[1] == "SinceVersion")  && (pdf_v >= arl_v)) ||
                 ((m[1] == "BeforeVersion") && (pdf_v <  arl_v)) ||
                 ((m[1] == "IsPDFVersion")  && (pdf_v == arl_v)) ||
