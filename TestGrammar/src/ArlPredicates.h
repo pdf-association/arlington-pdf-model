@@ -24,6 +24,7 @@
 
 #include <string>
 #include <vector>
+#include <regex>
 
 /// @brief Arlington PDF version regex (1.0, 1.1, ... 1.7, 2.0).
 const std::string  ArlPDFVersion = "(1\\.[0-7]|2\\.0)";
@@ -135,5 +136,16 @@ const std::string ArlBooleans = "(true|false)";
 /// @brief Tolerance for floating-point equality and inequality comparison.
 /// Old Adobe PDF specs used to recommend 5 digits so go +/- half of that
 const double ArlNumberTolerance = 0.000005;
+
+
+extern const std::regex  r_Types;
+extern const std::regex  r_Keys;
+
+/// @brief Regexes for matching versioning predicates: $1 = PDF version "," $2 = Link or predefined Arlington type
+extern const std::regex  r_sinceVersionExtension;
+extern const std::regex  r_sinceVersion;
+extern const std::regex  r_beforeVersion;
+extern const std::regex  r_Deprecated;
+extern const std::regex  r_isPDFVersion;
 
 #endif // ArlPredicates_h

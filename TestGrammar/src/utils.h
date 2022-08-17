@@ -80,7 +80,7 @@ bool is_folder(const std::filesystem::path& p);
 bool is_file(const std::filesystem::path& p);
 
 /// @brief Split Arlington-style strings into vector based on separator character
-std::vector<std::string> split(const std::string& s, char separator);
+std::vector<std::string> split(const std::string& s, const char separator);
 
 /// @brief Arlington brute-force predicate removal for Type and Link fields
 std::string remove_type_link_predicates(const std::string& in);

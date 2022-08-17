@@ -239,6 +239,9 @@ After processing a tree of PDF files and saving the output into a folder via a c
 # Colorized output
 TestGrammar --brief --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/
 
+# Longer colorized output and enabling 3 extension sets
+TestGrammar --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/ --extensions AAPL,Malforms,ISO_TS_24064
+
 # Colorized output but ignoring the PDF version in all PDF files
 TestGrammar --force 2.0 --brief --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/
 
@@ -259,13 +262,10 @@ grep -B 1 "Error:" * | sort | uniq
 grep -B 1 "Warning:" * | sort | uniq
 grep -B 1 "Info:" * | sort | uniq
 
-# Summarized versioning of all PDFs
-grep "version PDF" *
-
 # Files that were not processed (likely password encrypted)
 grep "acquire Trailer" *
 
-# See what version of PDF actually got used
+# See what version of PDF actually got used and any enabled extensions
 grep "Processing file as PDF" *
 
 # Find PDFs that crashed, CTRL-C or did not complete
@@ -420,10 +420,10 @@ Info: Header is version PDF x.y
 Info: Document Catalog/Version is PDF x.y
 Info: Command line forced to PDF x.y
 Info: Rounding up PDF x.y to PDF a.b
-Info: Processing as PDF x.y
+Info: Processing as PDF x.y with extensions ...
 Info: Traditional trailer dictionary detected.
 Info: XRefStream detected.
-Info: Latest Arlington feature was PDF x.y (object/key) compared using PDF a.b
+Info: Latest Arlington feature was PDF x.y (object/key) compared using PDF a.b with extensions ...
 Info: found a PDF 1.4 Metadata key
 Info: found a PDF 2.0 Associated File AF key
 Info: second class key '...' is not defined in Arlington for ... in PDF x.y
@@ -445,11 +445,12 @@ Info: detected a dictionary wildcard version-based feature that was only in PDF 
 ```
 
 # Development
+
 ## Coding Conventions
 
 * platform independent C++17 with STL and minimal other dependencies (_no Boost please!_)
 * no tabs. 4 space indents
-* std::wstrings need to be used for many things (such as PDF names and strings from PDF files) - don't assume PDF content is always ASCII or UTF-8!
+* `std::wstring` needs to be used for many things (such as PDF names and strings from PDF files) - don't assume PDF content is always ASCII or UTF-8!
 * can safely assume Arlington TSV data is all ASCII/UTF-8
 * liberal comments with code readability ahead of efficiency and performance
 * classes and methods use Doxygen-style `/// @` comments (as supported by Visual Studio IDE)
@@ -458,9 +459,9 @@ Info: detected a dictionary wildcard version-based feature that was only in PDF 
 * do not create unnecessary dependencies on specific PDF SDKs - isolate through the shim layer
 * liberal use of asserts with the Arlington PDF model, which can be assumed to be correct (but never for data from PDF files!)
 * performance and memory is **not** critical (this is just a PoC!) - so long as a full Arlington model can be processed and reasonably-sized PDFs can be checked
-* some PDF SDKs do absorb far too much memory, are excessively slow or cause stack overflows. This is not the PoC's issue!
+* some PDF SDKs do absorb far too much memory, are excessively slow, cause stack overflows or have other issues. This is not the PoC's issue!
 
-## Debugging tips (most for `--pdf`)
+## Debugging tips (mostly for `--pdf`)
 
 * Ensure you validate the TSV file set before anything else! If validation fails, then PDF processing will undoubtedly be incorrect as it makes assumptions about correctness of data in the Arlington model!
 * Look at the top of various C++ files for #defines. e.g. in ParseObjects.cpp there is CHECKS_DEBUG and SCORING_DEBUG.
@@ -483,6 +484,7 @@ Checking PDF files requires a PDF SDK with certain key features (_we shouldn't n
 * not confuse values, such as integer and real numbers, so that they are expressed exactly as they appear in a PDF file - **this is a limiting factor for some PDF SDKs!**
 * return the raw bytes from the PDF file for PDF name and string objects, including empty names ("`/`")
 * not do any PDF version based processing while parsing
+* for encrypted PDFs, don't reject too early - at least be able to parse the unencrypted keys in dictionaries, etc.
 
 Another recent discovery of behavior differences between PDF SDKs is when a dictionary key is an indirect reference to an object that is well beyond the trailer `Size` key or maximum cross-reference table object number. In some cases, the PDF SDK "sees" the key, allowing it to be detected and the error that it is invalid is deferred until the TestGrammar app attempts to resolve the indirect reference (e.g. PDFix). Then an error message such as `Error: could not get value for key XXX` will be generated. Other PDF SDKs completely reject the key and the key is not at all visible so no error about can be reported - the key is completely invisible when using such PDF SDKs (e.g. pdfium).
 
@@ -600,12 +602,11 @@ Run `doxygen Doxyfile` to generate full documentation for the TestGrammar C++ Po
 # TODO
 
 - see the Doxygen output for miscellaneous improvements marked by `@todo` in the C++ source code
-- when processing PDF files, calculate all predicates
 - finish PDF SDK bindings for QPDF, MuPDF and a later/better version of pdfium
 - detect stack overflows, memory exhaustion and timeouts to be able to fail gracefully
 
 ---
 
-Copyright 2021 PDF Association, Inc. https://www.pdfa.org
+Copyright 2021-2022 PDF Association, Inc. https://www.pdfa.org
 
 This material is based upon work supported by the Defense Advanced Research Projects Agency (DARPA) under Contract No. HR001119C0079. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the Defense Advanced Research Projects Agency (DARPA). Approved for public release.

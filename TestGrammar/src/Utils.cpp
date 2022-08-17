@@ -47,10 +47,6 @@ extern HINSTANCE ghInstance;
 #include <sys/stat.h>
 #endif // _WIN32
 
-/// @brief Regexes for matching versioning predicates: $1 = PDF version "," $2 = Link or predefined Arlington type
-static const std::regex  r_sinceVersion("fn:SinceVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
-static const std::regex  r_isDeprecated("fn:Deprecated\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
-static const std::regex  r_isPDFVersion("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
 
 /// @brief Converts a Unicode string to UTF8
 ///
@@ -237,19 +233,30 @@ bool is_file(const std::filesystem::path& p)
 /// @param[in]  in      Arlington TSV Link or Type field that might contain predicates
 /// @returns            the Arlington "Links" field with all predicates removed
 std::string remove_type_link_predicates(const std::string& in) {
-    std::string     to_ret;
+    if (in == "")
+        return "";   // Common case for basic Arlington types
 
-    to_ret = std::regex_replace(in,     r_sinceVersion, "$2");
-    to_ret = std::regex_replace(to_ret, r_isPDFVersion, "$2");
-    to_ret = std::regex_replace(to_ret, r_isDeprecated, "$2");
+    std::string     to_ret = in;
+
+    // Specific order!
+    to_ret = std::regex_replace(to_ret, r_sinceVersionExtension, "$3");
+    to_ret = std::regex_replace(to_ret, r_sinceVersion,  "$2");
+    to_ret = std::regex_replace(to_ret, r_beforeVersion, "$2");
+    to_ret = std::regex_replace(to_ret, r_isPDFVersion,  "$2");
+    to_ret = std::regex_replace(to_ret, r_Deprecated,    "$2");
+    assert(to_ret.find("fn") == std::string::npos);
+    assert(to_ret.size() >= 3);
     return to_ret;
 }
 
 
-//////////////////////////////////////////////////////////////////////////
-//         TO BE DEPRECATED!
-//
-std::vector<std::string> split(const std::string& s, char separator) {
+/// @brief Split a string based on a single char separator
+/// 
+/// @param[in] s          string to split
+/// @param[in] separator  character to split
+/// 
+/// @returns a vector of strings.
+std::vector<std::string> split(const std::string& s, const char separator) {
   std::vector<std::string> output;
   std::string::size_type pos_prev = 0, pos_separator=0, pos_fn = 0, pos=0;
 

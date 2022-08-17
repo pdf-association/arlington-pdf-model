@@ -99,7 +99,6 @@ public:
     bool ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_idx);
 
     bool ValidateLinksSyntax(const int key_idx);
-    std::string ReduceLinkRow(const int key_idx);
 };
 
 #endif // PredicateProcessor_h

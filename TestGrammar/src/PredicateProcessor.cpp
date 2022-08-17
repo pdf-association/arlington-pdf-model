@@ -69,7 +69,12 @@ bool PredicateProcessor::ValidateKeySyntax(const int key_idx) {
     if (tsv_field.find("fn:") != std::string::npos)
         return false;
 
-    return std::regex_search(tsv_field, r_Keys);
+    // Ensure that the full key is matched entirely by the regex
+    std::smatch     m;
+    bool retval = std::regex_search(tsv_field, m, r_Keys);
+    assert(!m.suffix().matched);
+
+    return (retval && !m.suffix().matched);
 }
 
 
@@ -889,6 +894,7 @@ bool PredicateProcessor::ValidateSpecialCaseSyntax(const int key_idx) {
 
 /// @brief Validates an Arlington "Links" field (column 11)
 ///  - fn:SinceVersion(x.y,link)
+///  - fn:SinceVersion(x.y,fn:Extension(name,link))
 ///  - fn:Deprecated(x.y,link)
 ///  - fn:BeforeVersion(x.y,link)
 ///  - fn:IsPDFVersion(x.y,link)
@@ -905,77 +911,59 @@ bool PredicateProcessor::ValidateLinksSyntax(const int key_idx) {
         return true;
 
     std::vector<std::string> link_list = split(tsv_field, ';');
-    bool valid;
     for (auto& lnk : link_list) {
+        std::string s = lnk;
+        auto        idx = s.find("fn:");
         std::smatch     m;
-        if (std::regex_search(lnk, m, r_Links) && m.ready() && (m.size() == 4)) {
-            // m[1] = predicate function name (no "fn:")
-            // m[2] = PDF version "x.y"
-            // fn:BeforeVersion(1.0,xxx) makes no sense and fn:SinceVersion(1.0,xxx) is pointless overhead!!
-            valid = !(((m[1] == "BeforeVersion") || (m[1] == "SinceVersion")) && (m[2] == "1.0"));
+        bool valid = false;
+        while (idx != std::string::npos) {
+            s = s.substr(idx);
+            // Specific order!
+            if (std::regex_search(s, m, r_sinceVersionExtension) && m.ready() && (m.size() == 4)) {
+                // m[1] = PDF version "x.y" 
+                // m[2] = extension name
+                // m[3] = Arlington link (TSV filename)
+                valid = FindInVector(v_ArlPDFVersions, m[1]);
+                s = m.suffix();
+            }
+            else if (std::regex_search(s, m, r_sinceVersion) && m.ready() && (m.size() == 3)) {
+                // m[1] = PDF version "x.y" 
+                // m[2] = Arlington link (TSV filename)
+                // fn:SinceVersion(1.0,xxx) is pointless overhead for predicate processing
+                valid = (FindInVector(v_ArlPDFVersions, m[1]) && (m[1] != "1.0"));
+                s = m.suffix();
+            }
+            else if (std::regex_search(s, m, r_beforeVersion) && m.ready() && (m.size() == 3)) {
+                // m[1] = PDF version "x.y"
+                // m[2] = Arlington link (TSV filename)
+                // fn:BeforeVersion(1.0,xxx) makes no sense 
+                valid = (FindInVector(v_ArlPDFVersions, m[1]) && (m[1] != "1.0"));
+                s = m.suffix();
+            }
+            else if (std::regex_search(s, m, r_isPDFVersion) && m.ready() && (m.size() == 3)) {
+                // m[1] = PDF version "x.y"
+                // m[2] = Arlington link (TSV filename)
+                valid = FindInVector(v_ArlPDFVersions, m[1]);
+                s = m.suffix();
+            }
+            else if (std::regex_search(s, m, r_Deprecated) && m.ready() && (m.size() == 3)) {
+                // m[1] = PDF version "x.y" 
+                // m[2] = Arlington link (TSV filename)
+                valid = FindInVector(v_ArlPDFVersions, m[1]);
+                s = m.suffix();
+            }
+            else {
+                assert(false && "unexpected predicate in Arlington Links!");
+                valid = false;
+            }
+
+            // Short circuit further checking on first error
             if (!valid)
-                return false;
-            valid = FindInVector(v_ArlPDFVersions, m[2]);
-            if (!valid)
-                return false;
-            // m[3] = Arlington link (TSV filename)
-        }
-        else if (lnk.find("fn:") != std::string::npos)
-            return false;
+                return valid;
+            idx = s.find("fn:");
+        } // while
     } // for
     return true;
-}
-
-
-
-/// @brief Reduces an Arlington "Links" field (column 11) based on a PDF version
-///  - fn:SinceVersion(x.y,link)
-///  - fn:Deprecated(x.y,link)
-///  - fn:BeforeVersion(x.y,link)
-///  - fn:IsPDFVersion(x.y,link)
-/// 
-/// @param[in] key_idx      the row index into tsv_data matrix for this key
-///
-/// @returns an Arlington Links field with all predicates removed. May be empty string "".
-std::string PredicateProcessor::ReduceLinkRow(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
-    std::string tsv_field = tsv[key_idx][TSV_LINK];
-    pdfc->ClearPredicateStatus();
-
-    // Nothing to do?
-    if (tsv_field.find("fn:") == std::string::npos)
-        return tsv_field;
-
-    std::string to_ret = "";
-    std::vector<std::string> link_list = split(tsv_field, ';');
-    for (auto& lnk : link_list) {
-        std::smatch     m;
-        if (std::regex_search(lnk, m, r_Links) && m.ready() && (m.size() == 4)) {
-            // m[1] = predicate function name (no "fn:")
-            // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
-            int pdf_v = string_to_pdf_version(pdfc->pdf_version);
-            int arl_v = string_to_pdf_version(m[2].str());
-            if (((m[1] == "SinceVersion")  && (pdf_v >= arl_v)) ||
-                ((m[1] == "BeforeVersion") && (pdf_v <  arl_v)) ||
-                ((m[1] == "IsPDFVersion")  && (pdf_v == arl_v)) ||
-                ((m[1] == "Deprecated")    && (pdf_v <  arl_v))) {
-                // m[3] = Arlington link
-                if (to_ret == "")
-                    to_ret = m[3];
-                else
-                    to_ret += ";" + m[3].str();
-            }
-        }
-        else {
-            if (to_ret == "")
-                to_ret = lnk;
-            else
-                to_ret += ";" + lnk;
-        }
-    } // for
-
-    assert(to_ret.find("fn:") == std::string::npos);
-    return to_ret;
 }
 
 

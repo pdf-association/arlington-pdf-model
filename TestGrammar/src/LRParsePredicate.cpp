@@ -36,22 +36,26 @@
 #undef PP_DEBUG
 
 
-/// @brief Regex to process "Links" fields
-/// - $1 = predicate name
-/// - $2 = single Link (TSV filename) or single Arlington predefined Type
-const std::regex  r_Links("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(" + ArlPDFVersion + "\\,([a-zA-Z0-9_.]+)\\)");
+/// @brief Regexes for matching Link version-based predicates
+/// - $1 = PDF version 
+/// - $2 = Link
+const std::regex  r_sinceVersionExtension("fn:SinceVersion\\(" + ArlPDFVersion + "\\,fn:Extension\\(([A-Za-z0-9_\\-]+)\\,([A-Za-z0-9_\\-]+)\\)\\)");
+const std::regex  r_sinceVersion("fn:SinceVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
+const std::regex  r_beforeVersion("fn:BeforeVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
+const std::regex  r_Deprecated("fn:Deprecated\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
+const std::regex  r_isPDFVersion("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
 
 
-/// @brief Regex to process "Types" fields
+/// @brief Regex to process "Types" fields. Arlington types are all lowercase or have DASH
 /// - $1 = predicate name
-/// - $2 = single Link (TSV filename) or single Arlington predefined Type
+/// - $2 = single Arlington predefined Type
 const std::regex  r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(" + ArlPDFVersion + "\\,([a-z\\-]+)\\)");
 
 
-/// @brief Regex to process "Key" fields
-/// Alphanumeric, integer, ASTERISK or \<digit\>+ASTERISK
+/// @brief Regex to process "Key" fields. Very carefully ordered in this regex!!
+/// Alphanumeric with UNDERSCORE, DASH, COLON; integer; ASTERISK or \<digit\>+ASTERISK
 /// - $1 = key name
-const std::regex  r_Keys("(\\*|[0-9]+|[0-9]+\\*|[a-zA-Z0-9\\-\\._]+)");
+const std::regex  r_Keys("(\\*|[0-9]+\\*|[a-zA-Z0-9\\-\\._:]+|[0-9]+)");
 
 
 

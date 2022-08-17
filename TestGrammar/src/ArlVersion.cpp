@@ -206,9 +206,10 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
         assert(vec[TSV_SINCEVERSION].find("fn:") != std::string::npos);
 
         std::smatch       m;
-        if (std::regex_search(vec[TSV_SINCEVERSION], m, r_SinceVersionExtension) && m.ready() && (m.size() == 3)) {
+        if (std::regex_search(vec[TSV_SINCEVERSION], m, r_SinceVersionExtension) && m.ready() && (m.size() >= 3)) {
             // m[1] = PDF version "x.y"
             // m[2] = extension name
+            // m[3] = link
             int tsv_ver = string_to_pdf_version(m[1].str());
             if (FindInVector(extns, m[2].str()) && (pdf_ver >= tsv_ver))
                 since_ver = tsv_ver;
@@ -262,9 +263,10 @@ bool  ArlVersion::is_unsupported_extension() {
         assert(tsv[TSV_SINCEVERSION].find("fn:") != std::string::npos);
 
         std::smatch       m;
-        if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_SinceVersionExtension) && m.ready() && (m.size() == 3)) {
+        if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_SinceVersionExtension) && m.ready() && (m.size() >= 3)) {
             // m[1] = PDF version "x.y"
             // m[2] = extension name
+            // m[3] = link (optional)
             int tsv_ver = string_to_pdf_version(m[1].str());
             return !(FindInVector(supported_extensions, m[2].str()) && (pdf_version >= tsv_ver));
         }
@@ -311,18 +313,49 @@ std::vector<std::string>  ArlVersion::get_appropriate_linkset(std::string arl_li
         if (s.rfind("fn:", 0) == 0) {
             // s starts with a predicate
             std::smatch     m;
-            if (std::regex_search(s, m, r_Links) && m.ready() && (m.size() == 4)) {
-                // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
-                int arl_v = string_to_pdf_version(m[2].str());
 
-                // m[1] = predicate function name (no "fn:")
-                if (((m[1] == "SinceVersion") && (pdf_version >= arl_v)) ||
-                    ((m[1] == "BeforeVersion") && (pdf_version < arl_v)) ||
-                    ((m[1] == "IsPDFVersion") && (pdf_version == arl_v)) ||
-                    ((m[1] == "Deprecated") && (pdf_version < arl_v))) {
-                    // m[3] = Arlington link
-                    retval.push_back(m[3]);
-                }
+            // Specific order!
+            if (std::regex_search(s, m, r_sinceVersionExtension) && m.ready() && (m.size() == 4)) {
+                // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                // m[2] = extension name
+                // m[3] = Arlington link
+                int arl_v = string_to_pdf_version(m[1].str());
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);
+            }
+            else if (std::regex_search(s, m, r_sinceVersion) && m.ready() && (m.size() == 3)) {
+                // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                int arl_v = string_to_pdf_version(m[1].str());
+                if (pdf_version >= arl_v)
+                    retval.push_back(m[2]);     // m[2] = Arlington link
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);
+            }
+            else if (std::regex_search(s, m, r_beforeVersion) && m.ready() && (m.size() == 3)) {
+                // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                int arl_v = string_to_pdf_version(m[1].str());
+                if (pdf_version < arl_v)
+                    retval.push_back(m[2]);     // m[2] = Arlington link
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);
+            }
+            else if (std::regex_search(s, m, r_isPDFVersion) && m.ready() && (m.size() == 3)) {
+                // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
+                int arl_v = string_to_pdf_version(m[1].str());
+                if (pdf_version == arl_v)
+                    retval.push_back(m[2]);     // m[2] = Arlington link
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);
+            }
+            else if (std::regex_search(s, m, r_Deprecated) && m.ready() && (m.size() == 3)) {
+                // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
+                int arl_v = string_to_pdf_version(m[1].str());
+                if (pdf_version < arl_v)
+                    retval.push_back(m[2]);     // m[2] = Arlington link
                 s = m.suffix();
                 if (s[0] == ',')
                     s = s.substr(1);
