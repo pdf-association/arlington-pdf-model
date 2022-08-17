@@ -93,7 +93,13 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
             }
 
             parser.parse_object(pdf);
-            ofs << COLOR_INFO << "Latest Arlington feature was" << pdf.get_latest_feature_version_info() << " compared using" << (pdf.is_forced_version() ? " forced" : "") << " PDF " << pdf.pdf_version << COLOR_RESET;
+            ofs << COLOR_INFO << "Latest Arlington feature was" << pdf.get_latest_feature_version_info() << " compared using" << (pdf.is_forced_version() ? " forced" : "") << " PDF " << pdf.pdf_version;
+            if (extns.size() > 0) {
+                ofs << " with extensions ";
+                for (size_t i = 0; i < extns.size(); i++)
+                    ofs << extns[i] << ((i < (extns.size() - 1)) ? ", " : "");
+            }
+            ofs << COLOR_RESET;
         }
         else {
             ofs << COLOR_ERROR << "failed to acquire Trailer" << COLOR_RESET;

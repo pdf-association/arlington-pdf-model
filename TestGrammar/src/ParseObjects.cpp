@@ -782,7 +782,15 @@ void CParsePDF::parse_object(CPDFFile &pdf)
 {
     pdfc = &pdf;
     std::string ver = pdfc->check_and_get_pdf_version(output); // will produce output messages
-    output << COLOR_INFO << "Processing as PDF " << ver << COLOR_RESET;
+
+    output << COLOR_INFO << "Processing as PDF " << ver;
+    auto extns = pdfc->get_extensions();
+    if (extns.size() > 0) {
+        output << " with extensions ";
+        for (size_t i = 0; i < extns.size(); i++)
+            output << extns[i] << ((i < (extns.size() - 1)) ? ", " : "");
+    }
+    output << COLOR_RESET;
     pdf_version = string_to_pdf_version(ver);
 
     counter = 0;
