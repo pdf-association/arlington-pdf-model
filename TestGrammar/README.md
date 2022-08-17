@@ -142,8 +142,11 @@ TestGrammar --brief --tsvdir ./tsv/latest --extensions AAPL,Malforms --pdf /tmp/
 
 Prototyped extensions:
 - "AAPL": adds `AAPL:Keywords` to DocInfo, `AAPL:AA` boolean and the `AAPL:ST` Style dictionary to GraphicsStateParameter and adds a new dictionary object in `AAPL_ST.tsv`
+- "ISO_TS_24064": adds STEP AP 242 support as another 3D format for 3DStreams, and a new requirements dictionary in `RequirementsSTEP.tsv`
 - "ISO_TS_24654": adds `Path` to AnnotLink for non-rectangular links
-- "ISO_TS_32004": adds `KDFSalt` to Encryption*.tsv, `AuthCode` to FileTrailer and XRefStream and a new dictionary object in `AuthCode.tsv`
+- "ISO_TS_32003": adds AES-GCM support to PDF 2.0 by specifying additional values for some keys in Encryption dictionaries
+    - note that because encryption results in all streams and strings being encrypted, PDF SDK support will vary
+- "ISO_TS_32004": adds `KDFSalt` to Encryption*.tsv, `AuthCode` to FileTrailer and XRefStream, and a new dictionary object in `AuthCode.tsv`
 - "Malforms": adds misspelled `SubType` key to OptContentCreatorInfo as an alternate spelling of `Subtype` and misspelled `Blackls1` for `BlackIs1` (lowercase L instead of uppercase i) in FilterCCITTFaxDecode
     - the existing row is simply duplicated with the key spelling then changed and the official "SinceVersion" PDF version replaced with the extension predicate: `fn:Extension(Malforms)`.
     - because Optional Content was only introduced in PDF 1.5, the `SubType` malform predicate also uses the `fn:SinceVersion` predicate to further express this requirement for the misspelled key

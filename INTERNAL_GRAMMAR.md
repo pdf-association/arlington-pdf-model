@@ -142,7 +142,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 *   Must not be blank
 *   Must be one of `1.0`, `1.1`, ... `1.7` or `2.0` or one of the predicates  `fn:Extension(...)` or `fn:SinceVersion(...)`
-    - e.g. `fn:SinceVersion(2.0,fn:Extension(ISO_TS_12345))` or `fn:Extension(AAPL)`
+    - e.g. `fn:SinceVersion(2.0,fn:Extension(ISO_TS_12345))` or `fn:Extension(XYZ)`
 *   In the future the set of versions may be increased - e.g. `2.1`
 * Version-based predicates in other fields should all be based on versions explicitly AFTER the version in this column
 *   **Python pretty-print/JSON**
@@ -326,8 +326,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
     * `string-byte`
     * `string-text`
 *   Each sub-expression inside a SQUARE-BRACKET is a COMMA separate list of case-sensitive filenames of other TSV files (without `.tsv` extension)
-*   These sub-expressions MUST BE one of the four version-based predicates:
+*   These sub-expressions MUST BE one of these version-based predicates:
     *   `fn:SinceVersion(pdf-version,link)`
+    *   `fn:SinceVersion(pdf-version,fn:Extension(name,link))`
     *   `fn:Deprecated(pdf-version,link)`
     *   `fn:BeforeVersion(pdf-version,link)`
     *   `fn:IsPDFVersion(version,link)`
