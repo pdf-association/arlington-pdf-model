@@ -9,3 +9,4 @@ StmF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful((@V==4) || ((@V==5) 
 StrF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]		
 EFF	name	1.6		FALSE	FALSE	FALSE			[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]		
 EncryptMetadata	boolean	1.5		FALSE	FALSE	FALSE	true				
+KDFSalt	string-byte	fn:SinceVersion(2.0,fn:Extension(ISO_TS_32004))		FALSE	fn:MustBeDirect()	FALSE					ISO/TS 32004 integrity protection
