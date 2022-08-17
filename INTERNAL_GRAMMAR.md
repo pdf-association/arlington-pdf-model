@@ -141,7 +141,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 ## Column 3 - "SinceVersion"
 
 *   Must not be blank
-*   Must be one of `1.0`, `1.1`, ... `1.7` or `2.0` or one of the predicates such as `fn:Extension(...)` or `fn:SinceVersion(...)`
+*   Must be one of `1.0`, `1.1`, ... `1.7` or `2.0` or one of the predicates  `fn:Extension(...)` or `fn:SinceVersion(...)`
     - e.g. `fn:SinceVersion(2.0,fn:Extension(ISO_TS_12345))` or `fn:Extension(AAPL)`
 *   In the future the set of versions may be increased - e.g. `2.1`
 * Version-based predicates in other fields should all be based on versions explicitly AFTER the version in this column
@@ -626,12 +626,16 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
-   <td><code>fn:Extension(<i>string</i>)</code></td>
+   <td><code>fn:Extension(<i>name</i>)</code><br/>
+       <code>fn:Extension(<i>name</i>,<i>value</i>)</code></td>
    <td>
     <ul>
-     <li>Used in the "SinceVersion" field.</li>
-     <li>`string` is an identifier for the extension or subset that uses the same lexical conventions as for the "Key" field (e.g. no SPACEs).</li>
-     <li>In the "SinceVersion" identifies that the key or array element is only valid for the specified extension `string`. This may be combined with `fn:SinceVersion` to express a more nuanced introduction - e.g. `fn:SinceVersion(2.0,fn:Extension(ISO_TS_12345))`</li>
+     <li>Used in the "SinceVersion", "PossibleValues" or "SpecicalCase" fields.</li>
+     <li><i>name</i> is an identifier for the extension or subset that uses the same lexical conventions as for the "Key" field (e.g. no SPACEs).</li>
+     <li>In the "SinceVersion" field identifies that the key or array element is only valid for the specified extension <i>name</i>. This may be combined with <code>fn:SinceVersion</code> to express a version-based introduction such as with official ISO Technical Specifications</li>
+     <ul><li>e.g. <code>fn:SinceVersion(2.0,fn:Extension(ISO_TS_12345))</code></li></ul>
+     <li>In other fields such as "PossibleValues" or "SpecialCase" identifies that a specific value for the key or array element is only valid for the specified extension <i>name</i>. This may be combined with <code>fn:SinceVersion</code> to express a more nuanced introduction</li>
+     <ul><li>e.g. <code>fn:SinceVersion(2.0,fn:Extension(ISO_TS_12345,AESV99))</code></li></ul>
     </ul>
    </td>
   </tr>

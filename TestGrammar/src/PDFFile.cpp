@@ -459,16 +459,9 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             }
         }
         else if (in_ast->node == "fn:Extension(") {
-            // 1 argument: extension name
-            assert(out_right == nullptr);
-            if (fn_Extension(out_left)) {
-                // Extension is being support - fake up a valid version
-            }
-            else {
-                // Extension is NOT being supported 
-                delete out;
-                out = nullptr;
-            }
+            // 1 or 2 arguments: extension name (required), optional value (when used in fields except "SinceVersion")
+            delete out;
+            out = fn_Extension(out_left, out_right);
         }
         else if (in_ast->node == "fn:FileSize(") {
             // no arguments
@@ -1514,18 +1507,34 @@ bool CPDFFile::fn_BitsSet(ArlPDFObject* obj, const ASTNode* low_bit_node, const 
 
 /// @brief Determines if the specified extension is currently support or not 
 /// 
-/// @param[in]  extn   the name of the extension
+/// @param[in]  extn   the name of the extension (required)
+/// @param[in]  value  optional value that is added when the extension is supported
 /// 
 /// @returns true if the extension is being support, false otherwise
-bool CPDFFile::fn_Extension(const ASTNode* extn) {
+ASTNode* CPDFFile::fn_Extension(const ASTNode* extn, const ASTNode* value) {
     assert(extn != nullptr);
     assert(extn->type == ASTNodeType::ASTNT_Key);
 
-    for (auto& e : extensions) {
-        if (extn->node == e)
-            return true;
+    bool extn_supported = false;
+    for (auto& e : extensions)
+        if (extn->node == e) {
+            extn_supported = true;
+            break;
+        }
+
+    if (extn_supported) {
+        ASTNode* retval = new ASTNode;
+        if (value != nullptr) {
+            retval->type = value->type;
+            retval->node = value->node;
+        }
+        else {
+            retval->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            retval->node = "true";
+        }
+        return retval;
     }
-    return false;
+    return nullptr;
 }
 
 
