@@ -839,6 +839,7 @@ void CParsePDF::parse_object(CPDFFile &pdf)
         fs::path  grammar_file = grammar_folder;
         grammar_file /= elem.link + ".tsv";
         const ArlTSVmatrix &tsv = get_grammar(elem.link);
+        assert(tsv.size() > 0);
 
         // Validating as dictionary:
         // - going through all objects in dictionary
