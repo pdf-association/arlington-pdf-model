@@ -124,7 +124,7 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 
     //pdfium_ctx->parser->SetPassword(password);
     FX_DWORD err_code = pdfium_ctx->parser->StartParse((FX_LPCSTR)pdf_filename.string().c_str());
-    if (err_code) {
+    if ((err_code != PDFPARSE_ERROR_SUCCESS) && (err_code != PDFPARSE_ERROR_PASSWORD)) {
         delete pdfium_ctx->parser;
         pdfium_ctx->parser = nullptr;
         return nullptr;
