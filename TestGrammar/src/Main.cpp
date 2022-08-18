@@ -311,7 +311,7 @@ int main(int argc, char* argv[]) {
                 ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
             }
             else {
-                save_path /= "arl-validate.txt";
+                save_path /= (no_color ? "arl-validate.txt" : "arl-validate.ansi");
                 ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
             }
         }
@@ -330,7 +330,7 @@ int main(int argc, char* argv[]) {
                     ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
                 }
                 else {
-                    save_path /= "dva.txt";
+                    save_path /= (no_color ? "dva.txt" : "dva.ansi");
                     ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
                 }
             }
@@ -365,12 +365,18 @@ int main(int argc, char* argv[]) {
                     // To avoid file permission access errors, check filename extension first to skip over system files
                     if (iequals(entry.path().extension().string(), ".pdf") && entry.is_regular_file()) {
                         rptfile = save_path / entry.path().stem();
-                        rptfile.replace_extension(".txt"); // change .pdf to .txt
+                        if (no_color)
+                            rptfile.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
+                        else
+                            rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
                         if (!clobber) {
                             // if rptfile already exists then try a different filename by continuously appending underscores...
                             while (fs::exists(rptfile)) {
                                 rptfile.replace_filename(rptfile.stem().string() + "_");
-                                rptfile.replace_extension(".txt");
+                                if (no_color)
+                                    rptfile.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
+                                else
+                                    rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
                             }
                         }
                         std::cout << "Processing " << entry.path().lexically_normal() << " to " << rptfile.lexically_normal() << std::endl;
@@ -392,13 +398,19 @@ int main(int argc, char* argv[]) {
                 if (!save_path.empty()) {
                     if (is_folder(save_path)) {
                         save_path /= input_file.stem();
-                        save_path.replace_extension(".txt"); // change extension to .txt
+                        if (no_color)
+                            save_path.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
+                        else
+                            save_path.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
                     }
                     if (!clobber) {
                         // if output file already exists then try a different filename by continuously appending underscores...
                         while (fs::exists(save_path)) {
                             save_path.replace_filename(save_path.stem().string() + "_");
-                            save_path.replace_extension(".txt");
+                            if (no_color)
+                                save_path.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
+                            else
+                                save_path.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
                         }
                     }
                     std::cout << "Processing " << input_file.lexically_normal() << " to " << save_path.lexically_normal() << std::endl;
