@@ -48,7 +48,7 @@ namespace fs = std::filesystem;
 /// @brief Constructor. Calculates some details about the PDF file
 CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver, const std::vector<std::string>& extns)
     : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr), trailer_size(INT_MAX),
-      latest_feature_version("1.0"), deprecated(false), fully_implemented(true), exact_version_compare(false), extensions(extns)
+      latest_feature_version("1.0"), deprecated(false), fully_implemented(true), exact_version_compare(false)
 {
     if (forced_ver.size() > 0) {
         if (forced_ver == "exact")
@@ -56,6 +56,9 @@ CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std
         else
             forced_version = forced_ver;
     }
+
+    // Copy across the list of supported extensions
+    extensions = extns;
 
     // Get physical file size, reduced to an int for simplicity
     filesize_bytes = (int)fs::file_size(pdf_filename);

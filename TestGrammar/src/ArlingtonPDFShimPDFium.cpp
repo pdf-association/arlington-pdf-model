@@ -178,15 +178,19 @@ int ArlingtonPDFSDK::get_pdf_page_count(ArlPDFTrailer* trailer) {
 
 CPDF_Object* pdfium_resolve_indirect(const CPDF_Object* pdfium_obj) {
     assert(pdfium_obj != nullptr);
-    FX_DWORD    obj_num;
+    FX_DWORD     obj_num;
     CPDF_Object* pdf_ir;
+    int          i = 20;    // Maxiumum number of indirections via IRs allowed
 
     do {
         assert(pdfium_obj->GetType() == PDFOBJ_REFERENCE);
         obj_num = ((CPDF_Reference*)pdfium_obj)->GetRefObjNum();
         pdf_ir = ((pdfium_context*)ArlingtonPDFSDK::ctx)->parser->GetDocument()->GetIndirectObject(obj_num);
-    } while ((pdf_ir != nullptr) && (pdf_ir->GetType() == PDFOBJ_REFERENCE));
-    return pdf_ir;
+    } while ((pdf_ir != nullptr) && (pdf_ir->GetType() == PDFOBJ_REFERENCE) && (--i > 0));
+    if (i > 0)
+        return pdf_ir;
+    else
+        return nullptr; // too many indirections - may get converted to a CPDF_Null
 }
 
 
@@ -261,9 +265,10 @@ ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj) :
     if (is_indirect)
         pdf_obj = pdfium_resolve_indirect(pdf_obj);
 
-    // Object can be invalid (e.g. no valid object in PDF file) so substitute a null
+    // Object can be invalid (e.g. no valid object in PDF file or infinite loop of indirect references) 
+    // so substitute a null object as constructors cannot return nullptr
     if (pdf_obj == nullptr) 
-        pdf_obj = new CPDF_Null;
+        pdf_obj = new CPDF_Null; // will leak 12 bytes as no distinguishig between explicit null in PDF and this error situation
 
     // Proceed to populate class data
     type = determine_object_type(pdf_obj);
@@ -467,10 +472,12 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
     CPDF_Dictionary* obj = ((CPDF_Dictionary*)object);
 
     CFX_ByteString bstr = CFX_ByteString::FromUnicode(key.c_str());
-    CPDF_Object* type_key = obj->GetElement(bstr);
-    if (type_key != NULL)
-        retval = new ArlPDFObject(this, type_key);
-
+    CPDF_Object* key_value = obj->GetElement(bstr);
+    if (key_value != NULL) {
+        int t = key_value->GetType();
+        assert(t != PDFOBJ_INVALID);
+        retval = new ArlPDFObject(this, key_value);
+    }
     return retval;
 }
 

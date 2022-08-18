@@ -50,9 +50,10 @@ const std::regex  r_SinceVersionExtension("fn:SinceVersion\\(" + ArlPDFVersion +
 /// @param[in] pdf_ver      PDF version multiplied by 10
 /// @param[in] extns        a list of extension names to support
 ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const int pdf_ver, const std::vector<std::string>& extns)
-    : arl_version(0), version_reason(ArlVersionReason::Unknown), arl_type_index(-1), supported_extensions(extns)
+    : arl_version(0), version_reason(ArlVersionReason::Unknown), arl_type_index(-1)
 {
     tsv = vec;
+    supported_extensions = extns; // copy all the extensions being supported
 
     // Determine the Arlington equivalent for the PDF Object
     assert(obj != nullptr);
