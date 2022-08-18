@@ -46,6 +46,9 @@ struct pdfium_context {
     CPDF_ModuleMgr*     moduleMgr;
     CCodec_ModuleMgr*   codecModule;
 
+    /// @brief If unsupported encryption (standard or PKI) is in place (means string checks will fail)
+    bool            unsupported_encryption;
+
     pdfium_context() {
         /* Default constructor */
         parser = nullptr;
@@ -53,6 +56,7 @@ struct pdfium_context {
         codecModule = CCodec_ModuleMgr::Create();
         moduleMgr = CPDF_ModuleMgr::Get();
         moduleMgr->SetCodecModule(codecModule);
+        unsupported_encryption = false;
         // moduleMgr->InitPageModule();
         // moduleMgr->InitRenderModule();
         // moduleMgr->LoadEmbeddedGB1CMaps();
@@ -129,6 +133,8 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
         pdfium_ctx->parser = nullptr;
         return nullptr;
     }
+
+    pdfium_ctx->unsupported_encryption = ((err_code == PDFPARSE_ERROR_PASSWORD) || (err_code == PDFPARSE_ERROR_HANDLER));
 
     CPDF_Dictionary* trailr = pdfium_ctx->parser->GetTrailer();
     if (trailr != NULL) {
@@ -379,13 +385,22 @@ std::wstring ArlPDFString::get_value()
 {
     assert(object != nullptr);
     assert(((CPDF_Object*)object)->GetType() == PDFOBJ_STRING);
-    CPDF_String* obj  = ((CPDF_String*)object);
-    CFX_ByteString bs = obj->GetString();
+    
     std::wstring retval;
-    for (auto i = 0; i < bs.GetLength(); i++) {
-        wchar_t b = bs.GetAt(i);
-        retval = retval + b;
+    // Make error messages slightly more understandable in the case of unsupported encryption
+    assert(ArlingtonPDFSDK::ctx != nullptr);
+    if (((pdfium_context*)ArlingtonPDFSDK::ctx)->unsupported_encryption) {
+        retval = L"<!unsupported encryption!>";
     }
+    else {
+        CPDF_String* obj = ((CPDF_String*)object);
+        CFX_ByteString bs = obj->GetString();
+        for (auto i = 0; i < bs.GetLength(); i++) {
+            wchar_t b = bs.GetAt(i);
+            retval = retval + b;
+        }
+    }
+
     return retval;
 }
 
