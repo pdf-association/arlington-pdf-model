@@ -37,6 +37,12 @@
 #include "core/include/fpdfapi/fpdf_parser.h"
 #include "core/include/fpdfapi/fpdf_module.h"
 
+
+/// @brief \#define MARK_STRINGS_WHEN_ENCRYPTED to replace all string values when encrypted with standard text
+#ifndef MARK_STRINGS_WHEN_ENCRYPTED
+#undef MARK_STRINGS_WHEN_ENCRYPTED
+#endif
+
 using namespace ArlingtonPDFShim;
 
 void* ArlingtonPDFSDK::ctx = nullptr;
@@ -387,19 +393,20 @@ std::wstring ArlPDFString::get_value()
     assert(((CPDF_Object*)object)->GetType() == PDFOBJ_STRING);
     
     std::wstring retval;
-    // Make error messages slightly more understandable in the case of unsupported encryption
     assert(ArlingtonPDFSDK::ctx != nullptr);
-    if (((pdfium_context*)ArlingtonPDFSDK::ctx)->unsupported_encryption) {
+    CPDF_String* obj = ((CPDF_String*)object);
+    CFX_ByteString bs = obj->GetString();
+    for (auto i = 0; i < bs.GetLength(); i++) {
+        wchar_t b = bs.GetAt(i);
+        retval = retval + b;
+    }
+
+#ifdef MARK_STRINGS_WHEN_ENCRYPTED
+    // Make error messages slightly more understandable in the case of unsupported encryption
+    // Note that this will then break any predicate checks for the always-unencrypted strings described in clause 7.6.2 
+    if (((pdfium_context*)ArlingtonPDFSDK::ctx)->unsupported_encryption)
         retval = L"<!unsupported encryption!>";
-    }
-    else {
-        CPDF_String* obj = ((CPDF_String*)object);
-        CFX_ByteString bs = obj->GetString();
-        for (auto i = 0; i < bs.GetLength(); i++) {
-            wchar_t b = bs.GetAt(i);
-            retval = retval + b;
-        }
-    }
+#endif // MARK_STRINGS_WHEN_ENCRYPTED
 
     return retval;
 }
