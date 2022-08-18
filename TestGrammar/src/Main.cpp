@@ -70,8 +70,11 @@ bool no_color = false;
 /// @param[in] debug_mode  verbose style output (PDF-file specific information e.g. object numbers)
 /// @param[in] forced_ver  forced PDF version or empty string to use PDF
 /// @param[in] extns       list of extension names to support
-void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, const bool terse, const bool debug_mode, const std::string& forced_ver, std::vector<std::string>& extns)
+/// 
+/// @returns true on success. false on a fatal error
+bool process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, const bool terse, const bool debug_mode, const std::string& forced_ver, std::vector<std::string>& extns)
 {
+    bool retval = false;
     try
     {
         ofs << "BEGIN - TestGrammar " << TestGrammar_VERSION << " " << pdfsdk.get_version_string() << std::endl;
@@ -92,14 +95,16 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
                 parser.add_root_parse_object(t, "FileTrailer", "Trailer");
             }
 
-            parser.parse_object(pdf);
-            ofs << COLOR_INFO << "Latest Arlington feature was" << pdf.get_latest_feature_version_info() << " compared using" << (pdf.is_forced_version() ? " forced" : "") << " PDF " << pdf.pdf_version;
-            if (extns.size() > 0) {
-                ofs << " with extensions ";
-                for (size_t i = 0; i < extns.size(); i++)
-                    ofs << extns[i] << ((i < (extns.size() - 1)) ? ", " : "");
+            retval = parser.parse_object(pdf);
+            if (retval) {
+                ofs << COLOR_INFO << "Latest Arlington feature was" << pdf.get_latest_feature_version_info() << " compared using" << (pdf.is_forced_version() ? " forced" : "") << " PDF " << pdf.pdf_version;
+                if (extns.size() > 0) {
+                    ofs << " with extensions ";
+                    for (size_t i = 0; i < extns.size(); i++)
+                        ofs << extns[i] << ((i < (extns.size() - 1)) ? ", " : "");
+                }
+                ofs << COLOR_RESET;
             }
-            ofs << COLOR_RESET;
         }
         else {
             ofs << COLOR_ERROR << "failed to acquire Trailer" << COLOR_RESET;
@@ -107,10 +112,11 @@ void process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
     }
     catch (std::exception& ex) {
         ofs << COLOR_ERROR << "EXCEPTION: " << ex.what() << COLOR_RESET;
+        retval = false;
     }
 
-    // Finally...
     ofs << "END" << std::endl;
+    return retval;
 };
 
 
@@ -379,9 +385,13 @@ int main(int argc, char* argv[]) {
                                     rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
                             }
                         }
-                        std::cout << "Processing " << entry.path().lexically_normal() << " to " << rptfile.lexically_normal() << std::endl;
+                        std::cout << "Processing " << entry.path().lexically_normal() << " to " << rptfile.lexically_normal() << " ";
                         ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
-                        process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, ofs, terse, debug_mode, force_version, supported_extns);
+                        if (!process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, ofs, terse, debug_mode, force_version, supported_extns)) {
+                            std::cout << COLOR_ERROR_ANSI << "- FATAL ERROR!" << COLOR_RESET_ANSI;
+                            retval = -1;
+                        }
+                        std::cout << std::endl;
                         ofs.close();
                     }
                 }
@@ -417,9 +427,10 @@ int main(int argc, char* argv[]) {
                 }
                 ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
                 input_file = input_file.lexically_normal();
-                process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse, debug_mode, force_version, supported_extns);
+                if (!process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse, debug_mode, force_version, supported_extns))
+                    retval = -1;
                 ofs.close();
-                std::cout << "DONE" << std::endl;
+                std::cout << ((retval != 0) ? COLOR_ERROR_ANSI : "") << "DONE" << ((retval != 0) ? COLOR_RESET_ANSI : "") << std::endl;
             }
             else {
                 retval = -1;

@@ -120,7 +120,7 @@ public:
     void add_root_parse_object(ArlPDFObject* object, const std::string& link, const std::string& context);
 
     /// @brief begin analysing a PDF file from a "root" object (most likely the trailer)
-    void parse_object(CPDFFile& pdf);
+    bool parse_object(CPDFFile& pdf);
 };
 
 #endif // ParseObjects_h

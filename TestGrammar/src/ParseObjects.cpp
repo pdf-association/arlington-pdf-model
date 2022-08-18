@@ -778,7 +778,9 @@ void CParsePDF::show_context(queue_elem &e) {
 /// @brief Iteratively parse PDF objects from the to_process queue
 ///
 /// @param[in] pdf   reference to the PDF file object
-void CParsePDF::parse_object(CPDFFile &pdf)
+/// 
+/// @returns true on success. false on fatal errors (not PDF errors!).
+bool CParsePDF::parse_object(CPDFFile &pdf)
 {
     pdfc = &pdf;
     std::string ver = pdfc->check_and_get_pdf_version(output); // will produce output messages
@@ -839,7 +841,11 @@ void CParsePDF::parse_object(CPDFFile &pdf)
         fs::path  grammar_file = grammar_folder;
         grammar_file /= elem.link + ".tsv";
         const ArlTSVmatrix &tsv = get_grammar(elem.link);
-        assert(tsv.size() > 0);
+        if (tsv.size() == 0) {
+            output << COLOR_ERROR << "could not open " << grammar_file << COLOR_RESET;
+            delete elem.object;
+            return false;
+        }
 
         // Validating as dictionary:
         // - going through all objects in dictionary
@@ -1259,4 +1265,5 @@ void CParsePDF::parse_object(CPDFFile &pdf)
 
     // Clean up
     pdfc = nullptr;
+    return true;
 }
