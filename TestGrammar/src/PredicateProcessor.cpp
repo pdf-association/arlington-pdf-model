@@ -63,7 +63,7 @@ void PredicateProcessor::EmptyPredicateAST() {
 /// @returns  true if the TSV data is valid. false otherwise. 
 bool PredicateProcessor::ValidateKeySyntax(const int key_idx) {
     // no predicates allowed
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_KEYNAME];
 
     if (tsv_field.find("fn:") != std::string::npos)
@@ -89,7 +89,7 @@ bool PredicateProcessor::ValidateKeySyntax(const int key_idx) {
 /// 
 /// @returns true if the TSV data is valid. false otherwise.
 bool PredicateProcessor::ValidateTypeSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_TYPE];
 
     std::vector<std::string> type_list = split(tsv_field, ';');
@@ -132,7 +132,7 @@ bool PredicateProcessor::ValidateTypeSyntax(const int key_idx) {
 /// 
 /// @returns true if the TSV data is valid, false otherwise
 bool PredicateProcessor::ValidateSinceVersionSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_SINCEVERSION];
 
     if (tsv_field.size() == 3)
@@ -158,7 +158,7 @@ bool PredicateProcessor::ValidateSinceVersionSyntax(const int key_idx) {
 /// 
 /// @returns true if this row is valid for the specified by PDF version. false otherwise
 bool PredicateProcessor::IsValidForPDFVersion(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_SINCEVERSION];
     pdfc->ClearPredicateStatus();
 
@@ -219,7 +219,7 @@ bool PredicateProcessor::IsValidForPDFVersion(const int key_idx) {
 /// 
 /// @returns true if the field is valid, false otherwise
 bool PredicateProcessor::ValidateDeprecatedInSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_DEPRECATEDIN];
 
     if (tsv_field == "")
@@ -236,7 +236,7 @@ bool PredicateProcessor::ValidateDeprecatedInSyntax(const int key_idx) {
 /// 
 /// @returns true if this row is deprecated. false otherwise
 bool PredicateProcessor::IsDeprecated(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_DEPRECATEDIN];
 
     pdfc->ClearPredicateStatus();
@@ -264,7 +264,7 @@ bool PredicateProcessor::IsDeprecated(const int key_idx) {
 /// 
 /// @returns true if the TSV data is valid, false otherwise
 bool PredicateProcessor::ValidateRequiredSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_REQUIRED];
 
     if ((tsv_field == "TRUE") || (tsv_field == "FALSE"))
@@ -305,7 +305,7 @@ bool PredicateProcessor::IsRequired(ArlPDFObject* parent, ArlPDFObject* obj, con
     assert(obj != nullptr);
     bool retval = false;
 
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_REQUIRED];
     pdfc->ClearPredicateStatus();
     EmptyPredicateAST();
@@ -344,7 +344,7 @@ bool PredicateProcessor::IsRequired(ArlPDFObject* parent, ArlPDFObject* obj, con
 /// 
 /// @returns true if the TSV data is valid, false otherwise
 bool PredicateProcessor::ValidateIndirectRefSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_INDIRECTREF];
 
     if ((tsv_field == "TRUE") || (tsv_field == "FALSE") || (tsv_field == "fn:MustBeDirect()"))
@@ -387,7 +387,7 @@ bool PredicateProcessor::ValidateIndirectRefSyntax(const int key_idx) {
 /// @returns the requirement for indirectness: must be direct, must be indirect, or don't care
 ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_index) {
     assert(type_index >= 0);
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_INDIRECTREF];
     pdfc->ClearPredicateStatus();
 
@@ -475,7 +475,7 @@ ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* parent, Arl
 /// 
 /// @returns true if "TRUE" or "FALSE"
 bool PredicateProcessor::ValidateInheritableSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_INHERITABLE];
 
     return ((tsv_field == "TRUE") || (tsv_field == "FALSE"));
@@ -487,7 +487,7 @@ bool PredicateProcessor::ValidateInheritableSyntax(const int key_idx) {
 ///
 /// @returns true if the row is inheritable, false otherwise
 bool PredicateProcessor::IsInheritable(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_INHERITABLE];
     pdfc->ClearPredicateStatus();
 
@@ -505,7 +505,7 @@ bool PredicateProcessor::IsInheritable(const int key_idx) {
 ///
 /// @returns true if syntax is valid. false otherwise
 bool PredicateProcessor::ValidateDefaultValueSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_DEFAULTVALUE];
 
     if (tsv_field == "")
@@ -609,7 +609,7 @@ bool PredicateProcessor::ValidateDefaultValueSyntax(const int key_idx) {
 /// 
 /// @returns an ASTNode tree or nullptr if nothing or an error
 ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_DEFAULTVALUE];
     pdfc->ClearPredicateStatus();
 
@@ -685,7 +685,7 @@ ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx) {
 ///
 /// @returns true if syntax is valid. false otherwise
 bool PredicateProcessor::ValidatePossibleValuesSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_POSSIBLEVALUES];
 
     if (tsv_field == "")
@@ -730,7 +730,7 @@ bool PredicateProcessor::ValidatePossibleValuesSyntax(const int key_idx) {
 /// 
 /// @returns true if the PDF object matches something in the list and is thus a valid value.
 bool PredicateProcessor::IsValidValue(ArlPDFObject* object, const int key_idx, const std::string& pvalues) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_POSSIBLEVALUES];
     pdfc->ClearPredicateStatus();
 
@@ -850,7 +850,7 @@ bool PredicateProcessor::IsValidValue(ArlPDFObject* object, const int key_idx, c
 /// 
 /// @returns   true if the TSV data is valid. false otherwise.
 bool PredicateProcessor::ValidateSpecialCaseSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_SPECIALCASE];
 
     if (tsv_field == "")
@@ -903,7 +903,7 @@ bool PredicateProcessor::ValidateSpecialCaseSyntax(const int key_idx) {
 /// 
 /// @returns true if the TSV data is valid. false otherwise.
 bool PredicateProcessor::ValidateLinksSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_LINK];
 
     // Nothing to do?
@@ -980,7 +980,7 @@ bool PredicateProcessor::ValidateLinksSyntax(const int key_idx) {
 bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_idx) {
     assert(parent != nullptr);
     assert(object != nullptr);
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
 
     std::string tsv_field = tsv[key_idx][TSV_POSSIBLEVALUES];
     pdfc->ClearPredicateStatus();
@@ -1113,7 +1113,7 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object,
 bool PredicateProcessor::ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_idx) {
     assert(parent != nullptr);
     assert(object != nullptr);
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     assert(type_idx >= 0);
 
     std::string tsv_field = tsv[key_idx][TSV_SPECIALCASE];

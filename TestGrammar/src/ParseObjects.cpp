@@ -252,7 +252,7 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
             } // for-each key in TSV
 
             // If all required keys were good then get a bonus weighting to definitions with less keys
-            assert(num_keys_matched <= data_list.size());
+            assert(num_keys_matched <= (int)data_list.size());
             if (!a_required_key_was_bad) {
 #if defined(SCORING_DEBUG)
                 std::cout << " All required keys good!";
