@@ -424,6 +424,7 @@ class Arlington:
 
     # Validation functions for every Arlington declarative function
     __validate_fns = {
+        'fn:AlwaysUnencrypted(': validate_fn_void,
         'fn:ArrayLength(': validate_fn_array_length,
         'fn:ArraySortAscending(': validate_fn_array_sort_ascending,
         'fn:BeforeVersion(': validate_fn_version,

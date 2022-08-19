@@ -112,6 +112,7 @@ private:
     ASTNode* fn_IsPDFVersion(const ASTNode* ver_node, const ASTNode* thing);
     ASTNode* fn_SinceVersion(const ASTNode* ver_node, const ASTNode* thing);
     ASTNode* fn_Extension(const ASTNode* extn, const ASTNode* value);
+    bool fn_AlwaysUnencrypted(ArlPDFObject* obj);
     bool fn_ArraySortAscending(ArlPDFObject* parent, const ASTNode *arr_key, const ASTNode* step);
     bool fn_BitClear(ArlPDFObject* obj, const ASTNode* bit_node);
     bool fn_BitSet(ArlPDFObject* obj, const ASTNode* bit_node);

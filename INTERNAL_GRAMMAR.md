@@ -504,6 +504,14 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
 
 <table>
   <tr>
+   <td><code>fn:AlwaysUnencrypted()</code></td>
+   <td>
+    <ul>
+     <li>Asserts that the current key or array element is a PDF string object and is always unencrypted when the PDF file itself is encrypted.</li>
+    </ul>
+   </td>
+  </tr>
+  <tr>
    <td><code>fn:ArrayLength(<i>key</i>)</code></td>
    <td>
     <ul>
@@ -512,7 +520,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>If <i>key</i> does not exist or is not an array, returns -1.</li>
     </ul>
    </td>
-  </tr>
+  </tr>  
   <tr>
    <td><code>fn:ArraySortAscending(<i>key</i>,<i>integer</i>)</code></td>
    <td>

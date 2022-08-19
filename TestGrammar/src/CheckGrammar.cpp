@@ -105,6 +105,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
     }
 
     bool has_reqd_inheritable = false;
+    bool attempt_to_parse_predicates = true;
     int key_idx = -1;
     for (auto& vc : data_list) {
         // Add key of current row to a list to later check for duplicates
@@ -113,11 +114,15 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
 
         for (auto& col : vc) {
             // Check brackets are all balanced
-            if (std::count(std::begin(col), std::end(col), '[') != std::count(std::begin(col), std::end(col), ']'))
+            if (std::count(std::begin(col), std::end(col), '[') != std::count(std::begin(col), std::end(col), ']')) {
                 report_stream << COLOR_ERROR << "mismatched number of open '[' and close ']' set brackets '" << col << "' for " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET;
+                retval = attempt_to_parse_predicates = false;
+            }
 
-            if (std::count(std::begin(col), std::end(col), '(') != std::count(std::begin(col), std::end(col), ')'))
+            if (std::count(std::begin(col), std::end(col), '(') != std::count(std::begin(col), std::end(col), ')')) {
                 report_stream << COLOR_ERROR << "mismatched number of open '(' and close ')' brackets '" << col << "' for " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET;
+                retval = attempt_to_parse_predicates = false;
+            }
 
             // Locate all local variables (\@xxx) to see if they are also keys in this object
             /// @todo Variables in other objects (yyy::\@xxx) are NOT checked
@@ -127,31 +132,33 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
                 for (int i = 1; i < (int)m.size(); i += 2)
                     vars_list.push_back(m[i].str());
 
-            // Try and parse each predicate after isolating
-            std::vector<std::string>  list = split(col, ';');
-            for (auto& fn : list)
-                if (fn.find("fn:") != std::string::npos) {
-                    std::string s = fn;
-                    if ((s[0] == '[') && (s[s.size() - 1] == ']'))    // Strip enclosing [ and ]
-                        s = s.substr(1, s.size() - 2);
+            if (attempt_to_parse_predicates) {
+                // Try and parse each predicate after isolating
+                std::vector<std::string>  list = split(col, ';');
+                for (auto& fn : list)
+                    if (fn.find("fn:") != std::string::npos) {
+                        std::string s = fn;
+                        if ((s[0] == '[') && (s[s.size() - 1] == ']'))    // Strip enclosing [ and ]
+                            s = s.substr(1, s.size() - 2);
 
-                    while (!s.empty()) {
-                        // Sometimes the comma separated lists have whitespace between terms
-                        if (s[0] == ' ') {
-                            s = s.substr(1, s.size() - 1);
-                            assert((s[0] != '&') && (s[0] != '|') && (s[0] != 'm'));  // BAD: need SPACE before &&, ||, mod
-                        }
-                        assert(pred_root == nullptr);
-                        pred_root = new ASTNode();
-                        s = LRParsePredicate(s, pred_root);
-                        assert(pred_root->valid());
-                        delete pred_root;
-                        pred_root = nullptr;
-                        if (s.size() > 0)
-                            if ((s[0] == ',') || (s[0] == '[') || (s[0] == ']') || (s[0] == ';') || (s[0] == ' '))
+                        while (!s.empty()) {
+                            // Sometimes the comma separated lists have whitespace between terms
+                            if (s[0] == ' ') {
                                 s = s.substr(1, s.size() - 1);
-                    } // while
-                }
+                                assert((s[0] != '&') && (s[0] != '|') && (s[0] != 'm'));  // BAD: need SPACE before &&, ||, mod
+                            }
+                            assert(pred_root == nullptr);
+                            pred_root = new ASTNode();
+                            s = LRParsePredicate(s, pred_root);
+                            assert(pred_root->valid());
+                            delete pred_root;
+                            pred_root = nullptr;
+                            if (s.size() > 0)
+                                if ((s[0] == ',') || (s[0] == '[') || (s[0] == ']') || (s[0] == ';') || (s[0] == ' '))
+                                    s = s.substr(1, s.size() - 1);
+                        } // while
+                    }
+            }
         } // for col
 
         PredicateProcessor validator(nullptr, data_list);
@@ -160,32 +167,32 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
             retval = false;
         }
 
-        if (!validator.ValidateTypeSyntax(key_idx)) {
+        if (attempt_to_parse_predicates && !validator.ValidateTypeSyntax(key_idx)) {
             report_stream << COLOR_ERROR << "Type field validation error " << reader.get_tsv_name() << " for key " << vc[TSV_TYPE] << COLOR_RESET;
             retval = false;
         }
 
-        if (!validator.ValidateSinceVersionSyntax(key_idx)) {
+        if (attempt_to_parse_predicates && !validator.ValidateSinceVersionSyntax(key_idx)) {
             report_stream << COLOR_ERROR << "SinceVersion field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SINCEVERSION] << COLOR_RESET;
             retval = false;
         }
 
-        if (!validator.ValidateDeprecatedInSyntax(key_idx)) {
+        if (attempt_to_parse_predicates && !validator.ValidateDeprecatedInSyntax(key_idx)) {
             report_stream << COLOR_ERROR << "DeprecatedIn field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_DEPRECATEDIN] << COLOR_RESET;
             retval = false;
         }
 
-        if (!validator.ValidateRequiredSyntax(key_idx)) {
+        if (attempt_to_parse_predicates && !validator.ValidateRequiredSyntax(key_idx)) {
             report_stream << COLOR_ERROR << "Required field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_REQUIRED] << COLOR_RESET;
             retval = false;
         }
 
-        if (!validator.ValidateIndirectRefSyntax(key_idx)) {
+        if (attempt_to_parse_predicates && !validator.ValidateIndirectRefSyntax(key_idx)) {
             report_stream << COLOR_ERROR << "IndirectRef field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INDIRECTREF] << COLOR_RESET;
             retval = false;
         }
 
-        if (!validator.ValidateInheritableSyntax(key_idx)) {
+        if (attempt_to_parse_predicates && !validator.ValidateInheritableSyntax(key_idx)) {
             report_stream << COLOR_ERROR << "Inheritable field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_INHERITABLE] << COLOR_RESET;
             retval = false;
         }
@@ -193,22 +200,22 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
         if ((vc[TSV_INHERITABLE] == "TRUE") && (vc[TSV_REQUIRED] != "FALSE"))
             has_reqd_inheritable = true;
 
-        if (!validator.ValidateDefaultValueSyntax(key_idx)) {
+        if (attempt_to_parse_predicates && !validator.ValidateDefaultValueSyntax(key_idx)) {
             report_stream << COLOR_ERROR << "DefaultValue field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_DEFAULTVALUE] << COLOR_RESET;
             retval = false;
         }
 
-        if (!validator.ValidatePossibleValuesSyntax(key_idx)) {
+        if (attempt_to_parse_predicates && !validator.ValidatePossibleValuesSyntax(key_idx)) {
             report_stream << COLOR_ERROR << "PossibleValues field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_POSSIBLEVALUES] << COLOR_RESET;
             retval = false;
         }
 
-        if (!validator.ValidateSpecialCaseSyntax(key_idx)) {
+        if (attempt_to_parse_predicates && !validator.ValidateSpecialCaseSyntax(key_idx)) {
             report_stream << COLOR_ERROR << "SpecialCase field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_SPECIALCASE] << COLOR_RESET;
             retval = false;
         }
 
-        if (!validator.ValidateLinksSyntax(key_idx)) {
+        if (attempt_to_parse_predicates && !validator.ValidateLinksSyntax(key_idx)) {
             report_stream << COLOR_ERROR << "Link field validation error " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ": " << vc[TSV_LINK] << COLOR_RESET;
             retval = false;
         }

@@ -382,7 +382,14 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
         //
         //    grep -Po "fn:<predicate-name>\([^\t]*\)" *
         //
-        if (in_ast->node == "fn:ArrayLength(") {
+        if (in_ast->node == "fn:AlwaysUnencrypted(") {
+            // no arguments
+            assert(out_left == nullptr);
+            assert(out_right == nullptr);
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = (fn_AlwaysUnencrypted(obj) ? "true" : "false");
+        }
+        else if (in_ast->node == "fn:ArrayLength(") {
             // 1 argument: name of key which is an array, could be indeterminate
             assert(out_right == nullptr);
             int len = fn_ArrayLength(parent, out_left);
@@ -1229,6 +1236,21 @@ std::string CPDFFile::get_latest_feature_version_info()
     }
     return s;
 };
+
+
+
+/// @brief Asserts that a PDF string object is always to be unencrypted
+/// 
+/// @param[in] obj  PDF string object
+/// 
+/// @returns fakse if the object is not an unencrypted string 
+bool CPDFFile::fn_AlwaysUnencrypted(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeString)
+        return false;
+    /// @todo - how to determine if a string is encrypted or unencrypted???
+    return true;
+}
 
 
 
