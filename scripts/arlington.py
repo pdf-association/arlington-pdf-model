@@ -444,6 +444,7 @@ class Arlington:
         'fn:InMap(': validate_fn_in_map,
         'fn:IsAssociatedFile(': validate_fn_void,
         'fn:IsEncryptedWrapper(': validate_fn_void,
+        'fn:IsHexString(': validate_fn_void,
         'fn:IsLastInNumberFormatArray(': validate_fn_anything,
         'fn:IsMeaningful(': validate_fn_is_meaningful,
         'fn:IsPDFTagged(': validate_fn_void,

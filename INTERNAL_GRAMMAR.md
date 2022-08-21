@@ -508,6 +508,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li>Asserts that the current key or array element is a PDF string object and is always unencrypted when the PDF file itself is encrypted.</li>
+     <li>There are no parameters.</li>    
     </ul>
    </td>
   </tr>
@@ -725,6 +726,15 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>Only used in the "Required" field (column 5)</li>
      <li>Asserts that the current row needs to be a PDF 2.0 Encrypted Wrapper.</li>
      <li>Realistically this means <code>fn:IsRequired(fn:SinceVersion(2.0,fn:IsEncryptedWrapper()) ... )</code>.</li>
+     <li>There are no parameters.</li>    
+    </ul>
+   </td>
+  </tr>
+  <tr>
+   <td><code>fn:IsHexString()</code></td>
+   <td>
+    <ul>
+     <li>Asserts that the current object is PDF string object and that is a hex string (`<...>`).</li>
      <li>There are no parameters.</li>    
     </ul>
    </td>

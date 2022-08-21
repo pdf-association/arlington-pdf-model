@@ -531,6 +531,13 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = fn_IsEncryptedWrapper() ? "true" : "false";
         }
+        else if (in_ast->node == "fn:IsHexString(") {
+            // no arguments
+            assert(out_left == nullptr);
+            assert(out_right == nullptr);
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = fn_IsHexString(obj) ? "true" : "false";
+        }
         else if (in_ast->node == "fn:IsLastInNumberFormatArray(") {
             // 1 argument which is the key name of an array. COULD be indeterminate.
             assert(out_right == nullptr);
@@ -1248,8 +1255,31 @@ bool CPDFFile::fn_AlwaysUnencrypted(ArlPDFObject* obj) {
     assert(obj != nullptr);
     if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeString)
         return false;
-    /// @todo - how to determine if a string is encrypted or unencrypted???
+
+    ArlPDFString *str = (ArlPDFString*)obj;
+    std::wstring  val = str->get_value();
+
+    fully_implemented = false; /// @todo - how to determine if a string is encrypted or unencrypted???
     return true;
+}
+
+
+
+/// @brief Asserts that a PDF string object was expressed as a hexadecimal string
+/// 
+/// @param[in] obj  PDF string object
+/// 
+/// @returns fakse if the object was not a hexadecimal string 
+bool CPDFFile::fn_IsHexString(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeString)
+        return false;
+
+    ArlPDFString* str = (ArlPDFString*)obj;
+#if !defined(ARL_PDFSDK_PDFIUM) 
+    fully_implemented = false; /// @todo - how to determine if a string is hex for PDFix and other PDF SDKs???
+#endif
+    return str->is_hex_string();
 }
 
 

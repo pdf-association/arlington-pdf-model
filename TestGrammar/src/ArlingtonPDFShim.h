@@ -32,6 +32,15 @@
 #error Select the PDF SDK by defining one of: ARL_PDFSDK_PDFIUM, ARL_PDFSDK_PDFIX or ARL_PDFSDK_QPDF
 #endif
 
+
+
+/// @brief \#define MARK_STRINGS_WHEN_ENCRYPTED to replace all string values when encrypted with standard text
+#ifndef MARK_STRINGS_WHEN_ENCRYPTED
+#undef MARK_STRINGS_WHEN_ENCRYPTED
+const std::wstring UNSUPPORTED_ENCRYPTED_STRING_MARKER = L"<!unsupported encryption!>";
+#endif // MARK_STRINGS_WHEN_ENCRYPTED
+
+
 /// @namespace ArlingtonPDFShim
 /// A wafer thin shim layer to isolate a specific C/C++ PDF SDK library from the Arlington
 /// PDF Model proof-of-concept C++ application. By replacing the matching .cpp file,
@@ -161,6 +170,7 @@ namespace ArlingtonPDFShim {
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeString; };
 
         std::wstring get_value();
+        bool is_hex_string();
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFString& obj) {
             ofs << "string " << (ArlPDFObject)obj;
             return ofs;

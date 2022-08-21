@@ -391,6 +391,16 @@ std::wstring ArlPDFString::get_value()
     return retval;
 }
 
+/// @returns  Returns true if a PDF string object was a hex string
+bool ArlPDFString::is_hex_string()
+{
+    assert(object != nullptr);
+    assert(((PdsObject*)object)->GetObjectType() == kPdsString);
+    PdsString* obj = (PdsString*)object;
+    return false; /// @todo - how to know if hex string in PDFix??
+}
+
+
 
 /// @brief  Returns the name of a PDF name object as a string
 /// @return The string representation of a PDF name object (can be zero length)
