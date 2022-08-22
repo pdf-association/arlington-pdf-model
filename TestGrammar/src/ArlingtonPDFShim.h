@@ -258,17 +258,23 @@ namespace ArlingtonPDFShim {
     /// The trailer object of a PDF document (file)
     class ArlPDFTrailer : public ArlPDFDictionary {
     protected:
-        // Whether it is XRefStream or normal trailer
-        bool    is_xrefstm;
+        /// @brief Whether it is XRefStream or conventional trailer
+        bool            is_xrefstm;
+
+        /// @brief If unsupported encryption (standard or PKI) is in place (means string checks will fail)
+        bool            unsupported_encryption;
 
     public:
         ArlPDFTrailer(void* obj) : ArlPDFDictionary(nullptr, obj),
-            is_xrefstm(false)
+            is_xrefstm(false), unsupported_encryption(false)
             { /* constructor */ };
 
 
         void set_xrefstm(const bool is_xrefstream) { is_xrefstm = is_xrefstream; };
         bool get_xrefstm() { return is_xrefstm; };
+        void set_unsupported_encryption(const bool b) { unsupported_encryption = b; };
+        bool is_unsupported_encryption() { return unsupported_encryption; };
+
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFTrailer& obj) {
             ofs << "trailer " << (ArlPDFDictionary)obj << (obj.is_xrefstm ? " with xref " : "");
             return ofs;

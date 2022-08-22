@@ -46,9 +46,6 @@ struct pdfium_context {
     CPDF_ModuleMgr*     moduleMgr;
     CCodec_ModuleMgr*   codecModule;
 
-    /// @brief If unsupported encryption (standard or PKI) is in place (means string checks will fail)
-    bool            unsupported_encryption;
-
     pdfium_context() {
         /* Default constructor */
         parser = nullptr;
@@ -56,7 +53,6 @@ struct pdfium_context {
         codecModule = CCodec_ModuleMgr::Create();
         moduleMgr = CPDF_ModuleMgr::Get();
         moduleMgr->SetCodecModule(codecModule);
-        unsupported_encryption = false;
         // moduleMgr->InitPageModule();
         // moduleMgr->InitRenderModule();
         // moduleMgr->LoadEmbeddedGB1CMaps();
@@ -134,12 +130,12 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
         return nullptr;
     }
 
-    pdfium_ctx->unsupported_encryption = ((err_code == PDFPARSE_ERROR_PASSWORD) || (err_code == PDFPARSE_ERROR_HANDLER));
 
     CPDF_Dictionary* trailr = pdfium_ctx->parser->GetTrailer();
     if (trailr != NULL) {
         ArlPDFTrailer* trailer_obj = new ArlPDFTrailer(trailr);
         assert(trailer_obj != nullptr);
+        trailer_obj->set_unsupported_encryption((err_code == PDFPARSE_ERROR_PASSWORD) || (err_code == PDFPARSE_ERROR_HANDLER));
         trailer_obj->set_xrefstm(pdfium_ctx->parser->IsXRefStream());
         return trailer_obj;
     }

@@ -434,12 +434,12 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
             {
                 str_value = ((ArlPDFString*)object)->get_value();
                 // Warn if string starts with UTF-16LE byte-order-marker - DEPENDS ON PDF SDK!
-                if ((str_value.size() >= 2) && (str_value[0] == 255) && (str_value[1] == 254)) {
+                if ((str_value.size() >= 2) && (str_value[0] == 255) && (str_value[1] == 254) && !pdfc->get_trailer()->is_unsupported_encryption()) {
                     show_context(fake_e);
                     ofs << COLOR_WARNING << "string for key " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ") starts with UTF-16LE byte order marker" << COLOR_RESET;
                 }
                 // Warn if an ASCII string contains bytes in the unprintable area of ASCII (based on C++ isprint())
-                if (arl_type == "string-ascii") {
+                if ((arl_type == "string-ascii") && !pdfc->get_trailer()->is_unsupported_encryption()) {
                     bool pure_ascii = true;
                     for (size_t i = 0; i < str_value.size(); i++)
                         pure_ascii = pure_ascii && isprint(str_value[i]);
@@ -451,7 +451,10 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
                 // If Arlington says it is a date string then check if PDF string complies
                 if ((arl_type == "date") && (!is_valid_pdf_date_string(str_value))) {
                     show_context(fake_e);
-                    ofs << COLOR_ERROR << "invalid date string for key " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ") \"" << ToUtf8(str_value) << "\"" << COLOR_RESET;
+                    if (!pdfc->get_trailer()->is_unsupported_encryption())
+                        ofs << COLOR_ERROR << "invalid date string for key " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ") \"" << ToUtf8(str_value) << "\"" << COLOR_RESET;
+                    else
+                        ofs << COLOR_WARNING << "possibly invalid date string for key " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ") - unsupported encryption" << COLOR_RESET;
                 }
             }
             break;
@@ -504,9 +507,15 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
         ofs << " in PDF " << std::fixed << std::setprecision(1) << double(pdf_version / 10.0);
         ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_SPECIALCASE];
         if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type())) {
-            ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value);
-            if (debug_mode)
-                ofs << " (" << *object << ")";
+            if ((versioner.get_object_arlington_type().find("string") != std::string::npos) && pdfc->get_trailer()->is_unsupported_encryption()) {
+                // Don't output encrypted strings
+                ofs << " - string when unsupported encryption";
+            }
+            else {
+                ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value);
+                if (debug_mode)
+                    ofs << " (" << *object << ")";
+            }
         }
         ofs << COLOR_RESET;
     }
@@ -527,9 +536,15 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
             ofs << COLOR_ERROR << "wrong value for possible values: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
         ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES] << " in PDF " << std::fixed << std::setprecision(1) << double(pdf_version / 10.0);
         if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type())) {
-            ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value);
-            if (debug_mode)
-                ofs << " (" << *object << ")";
+            if ((versioner.get_object_arlington_type().find("string") != std::string::npos) && pdfc->get_trailer()->is_unsupported_encryption()) {
+                // Don't output encrypted strings
+                ofs << " - string when unsupported encryption";
+            }
+            else {
+                ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value);
+                if (debug_mode)
+                    ofs << " (" << *object << ")";
+            }
         }
         ofs << COLOR_RESET;
     }
