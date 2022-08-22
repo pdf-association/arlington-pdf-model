@@ -35,13 +35,16 @@ tsvreader = csv.DictReader(file, delimiter='\t')
 
 The latest release of Arlington includes:
 
-* significant data model updates and corrections,
+* significant data model updates and corrections (including refinement of many object definitions),
 * array naming convention of TSV files (`*Array*.tsv`, or `*ColorSpace.tsv` ) so that dictionaries and arrays are easily distinguishable,
 * significant documentation updates,
-* a fully consistent set of predicates for PDF object data integrity rules and requirements,
+* a large set of fully consistent predicates for PDF object data integrity rules and documented requirements,
 * a far more comprehensive validation of the Arlington PDF grammar (to avoid typos or other potential errors),
-* significant updates to the TestGrammar (C++) proof-of-concept application to confirm predicates and perform a detailed version-based assessment of PDF files
-* a far more detailed comparison with the Adobe DVA grammar.
+* fix for memory leaks and some performance improvements (albeit with a far more computationally expensive data model now due to predicate determination!)
+* significant updates to the TestGrammar (C++) proof-of-concept application to confirm predicates and perform a detailed version-based assessment of PDF files,
+* functionality in both the data model and TestGrammar (C++) proof-of-concept application to define and test for extensions (whether that be ISO subsets, ISO/TS technical specifications, proprietary extensions, malformations, or user-defined),
+* support for unsupported (unknown) encryption algorithms (_currently limited to pdfium PDF SDK only_)
+* a far more detailed comparison of the Arlington PDF Model with the Adobe DVA grammar.
 
 ### Limitations
 
