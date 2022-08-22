@@ -25,4 +25,4 @@ PA	dictionary	1.3		FALSE	FALSE	FALSE				[ActionURI]
 QuadPoints	array	1.6		FALSE	FALSE	FALSE				[ArrayOfQuadPoints]	
 BS	dictionary	1.6		FALSE	FALSE	FALSE				[BorderStyle]	
 ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	
-Path	array	fn:SinceVersion(2.0,fn:Extension(ISO_TS_24654))		FALSE	FALSE	FALSE				[ArrayOfArraysPaths]	ISO/TS 24654 non-rectangular links
+Path	array	fn:Extension(ISO_TS_24654,2.0)		FALSE	FALSE	FALSE				[ArrayOfArraysPaths]	ISO/TS 24654 non-rectangular links

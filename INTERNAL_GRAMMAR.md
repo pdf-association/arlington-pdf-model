@@ -141,8 +141,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
 ## Column 3 - "SinceVersion"
 
 *   Must not be blank
-*   Must be one of `1.0`, `1.1`, ... `1.7` or `2.0` or one of the predicates  `fn:Extension(...)` or `fn:SinceVersion(...)`
-    - e.g. `fn:SinceVersion(2.0,fn:Extension(ISO_TS_12345))` or `fn:Extension(XYZ)`
+*   Must resolve to one of `1.0`, `1.1`, ... `1.7` or `2.0`
+*   Can be a predicate such as `fn:Extension(...)` or `fn:Eval(...)`
+    - e.g. `fn:Extension(XYZ,2.0)` or `fn:Eval(fn:Extension(XYZ,1.3) || 1.6)`
 *   In the future the set of versions may be increased - e.g. `2.1`
 * Version-based predicates in other fields should all be based on versions explicitly AFTER the version in this column
 *   **Python pretty-print/JSON**
@@ -642,8 +643,12 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
     <ul>
      <li>Used in the "SinceVersion", "PossibleValues" or "SpecicalCase" fields.</li>
      <li><i>name</i> is an identifier for the extension or subset that uses the same lexical conventions as for the "Key" field (e.g. no SPACEs).</li>
-     <li>In the "SinceVersion" field identifies that the key or array element is only valid for the specified extension <i>name</i>. This may be combined with <code>fn:SinceVersion</code> to express a version-based introduction such as with official ISO Technical Specifications</li>
-     <ul><li>e.g. <code>fn:SinceVersion(2.0,fn:Extension(ISO_TS_12345))</code></li></ul>
+     <li>In the "SinceVersion" field must reduce down to a valid PDF version for when the key or array element or which extension <i>name</i> introduced the key/array element. This may be combined with <i>value</i> to express a version-based introduction such as ISO subsets:</li>
+     <ul>
+       <li><code>fn:Extension(XYZ)</code> - under extension XYZ for any PDF version</li>
+       <li><code>fn:Extension(XYZ,1.5)</code> - under extension XYZ but only since PDF 1.5</li>
+       <li><code>fn:Eval(fn:Extension(XYZ,1.6) || 2.0)</code> - under extension XYZ since PDF 1.6, but then became a standardized feature since PDF 2.0</li>
+     </ul>
      <li>In other fields such as "PossibleValues" or "SpecialCase" identifies that a specific value for the key or array element is only valid for the specified extension <i>name</i>. This may be combined with <code>fn:SinceVersion</code> to express a more nuanced introduction</li>
      <ul><li>e.g. <code>fn:SinceVersion(2.0,fn:Extension(ISO_TS_12345,AESV99))</code></li></ul>
     </ul>
