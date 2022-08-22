@@ -131,7 +131,7 @@ An exit code of 0 indicates successful processing. An exit code of -1 indicates 
 
 ### Understanding extensions
 
-As the Arlington PDF model is defined using text-based TSV files, it is very easy to extend the model to match a specific implementation or additional sets of requirements by patching an Arlington TSV model set of files. For example, you can suppress messages regarding specific malformations or proprietary extensions by simply adding definitions to the appropriate TSV file. Because these are not part of the official ISO PDF specification, these are referred to generically as "extensions" and the "SinceVersion" field which normally contains a PDF version is replaced by a predicate: `fn:Extension(name)` or `fn:SinceVersion(x.y,fn:Extension(name))` depending on whether the extension is version based or not.
+As the Arlington PDF model is defined using text-based TSV files, it is very easy to extend the model to match a specific implementation or additional sets of requirements by patching an Arlington TSV model set of files. For example, you can suppress messages regarding specific malformations or proprietary extensions by simply adding definitions to the appropriate TSV file. Because these are not part of the official ISO PDF specification, these are referred to generically as "extensions" and the "SinceVersion" field which normally contains a PDF version is replaced by a predicate: `fn:Extension(name,x.y)` or `fn:Extension(name)` depending on whether the extension is version based or not.
 
 The names of extensions are arbitrary but must following the conventions used in Arlington for keys: alphanumerics with UNDERSCORE. No SPACES, COMMAs or MINUS (dash). By default, no extensions are supported so a "pure specification" report is generated.
 
@@ -146,6 +146,7 @@ TestGrammar --brief --tsvdir ./tsv/latest --extensions ISO_TS_32003,ISO_TS_32004
 
 Prototyped extensions:
 - "AAPL": adds `AAPL:Keywords` to DocInfo, `AAPL:AA` boolean and the `AAPL:ST` Style dictionary to GraphicsStateParameter and adds a new dictionary object in `AAPL_ST.tsv`
+- "PDF_VT2": adds PDF/VT-2 support as a demo of how some aspects of a feature can occur in an extension before being later adopted and standardized by ISO 32000-2 (e.g. DParts, DPM, etc.). In this case, the "SinceVersion" field will have `fn:Extension(PDF_VT2,1.6) || 2.0)` for those keys that were adopted, or just `fn:Extension(PDF_VT2,1.6)` for those keys specific to PDF/VT-2. PDF/VT-2 is based on PDF/X-4 which is based on PDF 1.6.
 - "ISO_TS_24064": adds STEP AP 242 support as another 3D format for 3DStreams, and a new requirements dictionary in `RequirementsSTEP.tsv`
 - "ISO_TS_24654": adds `Path` to AnnotLink for non-rectangular links
 - "ISO_TS_32003": adds AES-GCM support to PDF 2.0 by specifying additional values for some keys in Encryption dictionaries
@@ -153,7 +154,7 @@ Prototyped extensions:
 - "ISO_TS_32004": adds `KDFSalt` to Encryption*.tsv, `AuthCode` to FileTrailer and XRefStream, and a new dictionary object in `AuthCode.tsv`
 - "Malforms": adds misspelled `SubType` key to OptContentCreatorInfo as an alternate spelling of `Subtype` and misspelled `Blackls1` for `BlackIs1` (lowercase L instead of uppercase i) in FilterCCITTFaxDecode
     - the existing row is simply duplicated with the key spelling then changed and the official "SinceVersion" PDF version replaced with the extension predicate: `fn:Extension(Malforms)`.
-    - because Optional Content was only introduced in PDF 1.5, the `SubType` malform predicate also uses the `fn:SinceVersion` predicate to further express this requirement for the misspelled key
+    - because Optional Content was only introduced in PDF 1.5, the `SubType` malform predicate also uses the `fn:Extension(Malforms,1.5)` predicate to further express this requirement for this misspelled key
 
     ```bash
     # See all the details for all extensions in an Arlington data set
