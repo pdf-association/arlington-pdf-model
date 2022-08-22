@@ -74,7 +74,7 @@ bool no_color = false;
 /// @returns true on success. false on a fatal error
 bool process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folder, ArlingtonPDFSDK& pdfsdk, std::ostream& ofs, const bool terse, const bool debug_mode, const std::string& forced_ver, std::vector<std::string>& extns)
 {
-    bool retval = false;
+    bool retval = true;
     try
     {
         ofs << "BEGIN - TestGrammar " << TestGrammar_VERSION << " " << pdfsdk.get_version_string() << std::endl;
