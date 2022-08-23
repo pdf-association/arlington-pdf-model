@@ -23,3 +23,7 @@ FFilter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWD
 FDecodeParms	array;dictionary	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
 DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(@DL>=0)]		
 XUID	array	1.0	1.3	FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral]	
+GTS_XID	string	fn:Extension(PDF_VT2,1.6)		FALSE	FALSE	FALSE					PDF/VT-2
+GTS_Scope	name	fn:Extension(PDF_VT2,1.6)		FALSE	FALSE	FALSE		[SingleUse,Record,File,Stream,Global,Unknown]			PDF/VT-2
+GTS_Env	string-text	fn:Extension(PDF_VT2,1.6)		fn:IsRequired((@GTS_Scope==Stream) || (@GTS_Scope==Global))	FALSE	FALSE					PDF/VT-2
+GTS_Encapsulated	boolean	fn:Extension(PDF_VT2,1.6)		FALSE	FALSE	FALSE					PDF/VT-2

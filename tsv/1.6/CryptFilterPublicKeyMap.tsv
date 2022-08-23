@@ -1,2 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-*	dictionary	1.5		TRUE	FALSE	FALSE				[CryptFilter,CryptFilterPublicKey]	
+DefaultCryptFilter	dictionary	1.5		FALSE	FALSE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(StdCF)))]	[CryptFilterPublicKey]	clause 7.6.4
+DefEmbeddedFile	dictionary	1.5		FALSE	FALSE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(StdCF)))]	[CryptFilterPublicKey]	clause 7.6.4
+*	dictionary	1.5		FALSE	FALSE	FALSE				[CryptFilterPublicKey]	

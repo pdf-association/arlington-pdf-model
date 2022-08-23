@@ -30,4 +30,4 @@ Collection	dictionary	1.7		FALSE	FALSE	FALSE				[Collection]
 NeedsRendering	boolean	1.0	2.0	FALSE	FALSE	FALSE	false				
 DSS	dictionary	2.0		FALSE	FALSE	FALSE				[DSS]	
 AF	array	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	
-DPartRoot	dictionary	2.0		FALSE	FALSE	FALSE				[DPartRoot]	
+DPartRoot	dictionary	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		FALSE	FALSE	FALSE				[DPartRoot]	

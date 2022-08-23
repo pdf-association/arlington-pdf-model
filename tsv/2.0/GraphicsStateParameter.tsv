@@ -29,3 +29,5 @@ TK	boolean	1.4		FALSE	FALSE	FALSE
 UseBlackPtComp	name	2.0		FALSE	FALSE	FALSE	Default	[OFF,ON,Default]			
 HTO	array	2.0		FALSE	FALSE	FALSE				[ArrayOf_2Numbers]	
 HTP	array	1.2	1.3	FALSE	FALSE	FALSE				[ArrayOf_2Integers]	
+AAPL:AA	boolean	fn:Extension(AAPL,1.2)		FALSE	FALSE	FALSE					Apple Anti-aliasing
+AAPL:ST	dictionary;name	fn:Extension(AAPL,1.2)		FALSE	FALSE	FALSE	[];[None]			[AAPL_ST];[]	Apple Gaussian blue drop-shadow style dictionary
