@@ -11,7 +11,7 @@
       </xs:simpleContent>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:element name="VALUE">
       <xs:complexType>
       <xs:simpleContent>
@@ -22,7 +22,7 @@
       </xs:simpleContent>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:element name="REQUIRED">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -30,25 +30,17 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  
+
   <xs:element name="INHERITABLE" type="xs:boolean"/>
 
   <xs:element name="INTRODUCED">
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:enumeration value="1.0"/>
-        <xs:enumeration value="1.1"/>
-        <xs:enumeration value="1.2"/>
-        <xs:enumeration value="1.3"/>
-        <xs:enumeration value="1.4"/>
-        <xs:enumeration value="1.5"/>
-        <xs:enumeration value="1.6"/>
-        <xs:enumeration value="1.7"/>
-        <xs:enumeration value="2.0"/>
+        <xs:pattern value="(1\.[0-7]|2\.0|fn:Extension\(.*\)|fn:Eval\(fn:Extension\(.*\))"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  
+
   <xs:element name="DEPRECATED" nillable="true">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -64,7 +56,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  
+
   <xs:element name="SPECIAL_CASE" type="xs:string"/>
 
   <!-- definition of attributes -->
@@ -76,18 +68,18 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:attribute>
-  
+
   <!-- file number in Arlington file set when sorted alphabetically -->
   <xs:attribute name="object_number" type="xs:integer"/>
 
   <xs:attribute name="isArray" type="xs:boolean"/>
-  
+
   <xs:attribute name="isDefaultValue" type="xs:boolean"/>
 
   <xs:attribute name="isWildcard" type="xs:boolean"/>
 
   <xs:attribute name="grammar_version" type="xs:string"/>
-  
+
   <!-- for now, always "ISO 32000-2:2020" -->
   <xs:attribute name="iso_ref" >
     <xs:simpleType>
@@ -96,7 +88,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:attribute>
-  
+
   <xs:attribute name="pdf_version">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -125,7 +117,7 @@
       <xs:attribute ref="iso_ref"/>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:element name="OBJECT">
     <xs:complexType>
       <xs:sequence>
@@ -136,7 +128,7 @@
       <xs:attribute ref="isArray"/>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:element name="ENTRY">
     <xs:complexType>
       <xs:sequence>
@@ -151,7 +143,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:element name="VALUES">
     <xs:complexType>
       <xs:sequence>
