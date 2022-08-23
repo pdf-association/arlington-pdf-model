@@ -1,6 +1,6 @@
 /*
  * XMLQuery.java
- * Copyright 2020 PDF Association, Inc. https://www.pdfa.org
+ * Copyright 2020-22 PDF Association, Inc. https://www.pdfa.org
  *
  * This material is based upon work supported by the Defense Advanced
  * Research Projects Agency (DARPA) under Contract No. HR001119C0079.
@@ -23,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.*;
 
 /**
  * Handles Arlington TSV data. In particular it understands the PDF version
@@ -44,7 +45,6 @@ public class TSVHandler {
      * so that the number of SEMI-COLON separated elements matches.
      */
     public class TypeListModifier {
-        private String      input_types;
         private String      output_types;
         private boolean[]   input_was_reduced; 
 
@@ -55,7 +55,7 @@ public class TSVHandler {
          */
         public TypeListModifier(String types) {
             String[] arr = types.split(";"); // split complex type
-            input_types = output_types = types;
+            output_types = types;
             input_was_reduced = new boolean[arr.length];
             for (int i = 0; i < arr.length; i++) {
                 input_was_reduced[i] = false;
@@ -132,7 +132,7 @@ public class TSVHandler {
     public final static double[] pdf_version = {1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0};
     
     /**
-     * The list of all Arlington pre-defined types that require a Link
+     * The list of all Arlington predefined types that require a Link. Alphabetical.
      */
     private final static String[] linked_types = {"array", "dictionary", "name-tree", "number-tree", "stream"};
         
@@ -209,36 +209,43 @@ public class TSVHandler {
                             System.out.println("Error: " + file_name + " had " + row.length + " rows, not 12!\n");
                         } 
                         else {
+                            // Field 0 = Key
                             String key_name = row[0];
                             
-                            // Type: complex type, SEMI-COLON separated, may have version-based predicates
+                            // Field 1 = Type: complex type, SEMI-COLON separated, may have version-based predicates
                             String data_type = row[1]; 
                             
-                            // SinceVersion: 1.0, 1.1, ..., 2.0 inclusive 
+                            // Field  2= SinceVersion: 1.0, 1.1, ..., 2.0 inclusive - may have predicates!
                             String since_version = row[2];
+                            
+                            // Field 3 = DeprecatedIn
                             String deprecated = row[3];
                             
-                            // Required: possibly wrapped in "fn:IsRequired(...)" with version-based predicates
+                            // Field 4 = Required possibly wrapped in "fn:IsRequired(...)" with version-based predicates
                             String required = row[4];
                             
-                            // IndirectReference: possibly complex so may need reduction
+                            // Field 5 = IndirectReference: possibly complex so may need reduction
                             String indirect_ref = row[5];
+                            
+                            // Field 6 = IndirectReference: possibly complex so may need reduction
                             String inheritable = row[6];
                             
-                            // DefaultValue: possibly complex so may need reduction
+                            // Field 7 = DefaultValue: possibly complex so may need reduction
                             String default_value = row[7];
                             
-                            // PossibleValues: possibly complex, may also have version-based predicates
+                            // Field 8 = PossibleValues: possibly complex, may also have version-based predicates
                             String possible_values = row[8];
                             
-                            // SpecialCase: possibly complex, may also have version-based predicates
+                            // Field 9 = SpecialCase: possibly complex, may also have version-based predicates
                             String special_case = row[9];
                             
-                            // Links: possibly complex, may also have version-based predicates
+                            // Field 10 = Links: possibly complex, may also have version-based predicates
                             String links = row[10];
+                            
+                            // Field 11 = Notes. Text
                             String notes = row[11];
                             
-                            if (Double.parseDouble(since_version) <= version) {
+                            if (reduceSinceVersion(since_version) <= version) {
                                 System.out.println("\tKept key: " + key_name);
                                 TypeListModifier types_reduced = reduceTypesForVersion(data_type, version);
                                 if (types_reduced.somethingReduced()) {
@@ -618,4 +625,42 @@ public class TSVHandler {
         return reqd;
     }
      
+    /**
+     * Processes an Arlington "SinceVersion" field that might contain version
+     * predicates and reduces it appropriately for the specified PDF version.
+     * Examples include:
+     * - fn:Extension(XYZ)
+     * - fn:Extension(XYZ,1.3)
+     * - fn:Eval(fn:Extension(XYZ,1.5) || 2.0)
+     *
+     * @param sincever  the SinceVersion field from an Arlington TSV file
+
+     * @return the lowest PDF version ("1.0", "1.1", etc)
+     */
+    public double reduceSinceVersion(String sincever) {
+        if (sincever.startsWith("fn:")) {
+            if (sincever.matches("fn:Extension\\([A-Za-z0-9_]+\\)")) {
+                // Predicate: fn:Extension(AAA) - all versions of PDF
+                return 1.0;
+            }
+            else {
+                // Predicate: fn:Extension(AAA,x.y) - only since x.y
+                Pattern p1 = Pattern.compile("fn:Extension\\([A-Za-z0-9_]+\\,([12]\\.[0-7])\\)");
+                Matcher m1 = p1.matcher(sincever);
+                if (m1.matches()) {
+                    return Double.parseDouble(m1.group(1));
+                }
+                Pattern p2 = Pattern.compile("fn:Eval\\(fn:Extension\\([A-Za-z0-9_]+\\,([12]\\.[0-7])\\) \\|\\| ([12]\\.[0-7])\\)");
+                Matcher m2 = p2.matcher(sincever);
+                if (m2.matches()) {
+                    return Double.parseDouble(m2.group(1));
+                }
+            }
+        }
+        else {
+            // Just a normal PDF version
+            return Double.parseDouble(sincever);
+        }
+        return 1.0; // Assume every PDF version
+    }
 }

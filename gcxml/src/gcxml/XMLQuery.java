@@ -17,7 +17,6 @@ package gcxml;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -30,7 +29,6 @@ import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -333,9 +331,7 @@ public class XMLQuery {
                     arrListTypes = evaluateXPath(doc, expression);
                     if (!arrListTypes.isEmpty()) {
                         System.out.println("\tThe following objects have /Type keys:");
-                        Iterator<String> listIterator = arrListTypes.iterator();
-                        while (listIterator.hasNext()) {
-                            String nodeValue = listIterator.next();
+                        for (String nodeValue : arrListTypes) {
                             System.out.println("\t\t" + nodeValue);
                         }
                     }
@@ -344,9 +340,7 @@ public class XMLQuery {
                     arrListTypes = evaluateXPath(doc, expression);
                     if (!arrListTypes.isEmpty()) {
                         System.out.println("\tThe following objects have /Subtype keys:");
-                        Iterator<String> listIterator = arrListTypes.iterator();
-                        while (listIterator.hasNext()) {
-                            String nodeValue = listIterator.next();
+                        for (String nodeValue : arrListTypes) {
                             System.out.println("\t\t" + nodeValue);
                         }
                     }
@@ -355,9 +349,7 @@ public class XMLQuery {
                     arrListTypes = evaluateXPath(doc, expression);
                     if (!arrListTypes.isEmpty()) {
                         System.out.println("\tThe following objects have /S (pseduonym for Subtype?) keys:");
-                        Iterator<String> listIterator = arrListTypes.iterator();
-                        while (listIterator.hasNext()) {
-                            String nodeValue = listIterator.next();
+                        for (String nodeValue : arrListTypes) {
                             System.out.println("\t\t" + nodeValue);
                         }
                     }
@@ -384,9 +376,7 @@ public class XMLQuery {
                     ArrayList<String> keys = getAllKeys(file.getName());
 
                     if (!keys.isEmpty()){
-                        Iterator<String> listIterator =  keys.iterator();
-                        while (listIterator.hasNext()) {
-                            String key = listIterator.next();
+                        for (String key : keys) {
                             if (keyCountMap.containsKey(key)) {
                                 for (Entry<String, Integer> entry : keyCountMap.entrySet()) {
                                     if (entry.getKey().equals(key)) {
@@ -516,13 +506,11 @@ public class XMLQuery {
         ArrayList<String> arrListTypes = evaluateXPath(doc, expression);
 
         if (!arrListTypes.isEmpty()) {
-            Iterator<String> listIterator = arrListTypes.iterator();
-            while (listIterator.hasNext()) {
-                String keyName = listIterator.next();
+            for (String keyName : arrListTypes) {
                 if (!keyName.contains("*") && !keyName.matches("^[0-9]+$")) {
                     allKeys.add(keyName);
                 }
-            } // while
+            }
         }
         return allKeys;
     }
@@ -583,10 +571,10 @@ public class XMLQuery {
      * @return the union of list1 and list2
      */
     public <T> List<T> union(List<T> list1, List<T> list2) {
-        Set<T> set = new HashSet<T>();
+        Set<T> set = new HashSet<>();
         set.addAll(list1);
         set.addAll(list2);
-        return new ArrayList<T>(set);
+        return new ArrayList<>(set);
     }
 
     /**
@@ -600,7 +588,7 @@ public class XMLQuery {
      * @return the intersection of list1 and list2
      */
     public <T> List<T> intersection(List<T> list1, List<T> list2) {
-        List<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<>();
         for (T t : list1) {
             if(list2.contains(t)) {
                 list.add(t);

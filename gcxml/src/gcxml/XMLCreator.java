@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
@@ -156,7 +158,7 @@ public class XMLCreator {
                     object_elem.setAttribute("id", file_name);
                     object_elem.setAttribute("object_number", String.format("%03d",object_count));
 
-                    boolean object_is_array = file_name.contains("Array");
+                    boolean object_is_array = file_name.contains("Array") || file_name.contains("ColorSpace");
 
                     while ((current_line = tsv_reader.readLine()) != null) {
                         String[] column_values = current_line.split(Character.toString(delimiter), -1);
@@ -164,7 +166,7 @@ public class XMLCreator {
 
                         // set instance varaibles for reporting purposes
                         current_entry = column_values[0];
-                        float current_entry_version = Float.parseFloat(column_values[2]);
+                        float current_entry_version = reduceSinceVersion(column_values[2]);
 
                         if (column_values[0].matches("^[0-9]+(\\*)?(?![a-zA-Z\\\\*])")) {
                             object_is_array = true;
@@ -570,5 +572,44 @@ public class XMLCreator {
         valueElem.setAttribute("type", t);
         valueElem.appendChild(new_doc.createTextNode(value));
         return valueElem;
+    }
+    
+    /**
+     * Processes an Arlington "SinceVersion" field that might contain version
+     * predicates and reduces it appropriately for the specified PDF version.
+     * Examples include:
+     * - fn:Extension(XYZ)
+     * - fn:Extension(XYZ,1.3)
+     * - fn:Eval(fn:Extension(XYZ,1.5) || 2.0)
+     *
+     * @param sincever  the SinceVersion field from an Arlington TSV file
+
+     * @return the lowest PDF version ("1.0", "1.1", etc)
+     */
+    public float reduceSinceVersion(String sincever) {
+        if (sincever.startsWith("fn:")) {
+            if (sincever.matches("fn:Extension\\([A-Za-z0-9_]+\\)")) {
+                // Predicate: fn:Extension(AAA) - all versions of PDF
+                return (float) 1.0;
+            }
+            else {
+                // Predicate: fn:Extension(AAA,x.y) - only since x.y
+                Pattern p1 = Pattern.compile("fn:Extension\\([A-Za-z0-9_]+\\,([12]\\.[0-7])\\)");
+                Matcher m1 = p1.matcher(sincever);
+                if (m1.matches()) {
+                    return Float.parseFloat(m1.group(1));
+                }
+                Pattern p2 = Pattern.compile("fn:Eval\\(fn:Extension\\([A-Za-z0-9_]+\\,([12]\\.[0-7])\\) \\|\\| ([12]\\.[0-7])\\)");
+                Matcher m2 = p2.matcher(sincever);
+                if (m2.matches()) {
+                    return Float.parseFloat(m2.group(1));
+                }
+            }
+        }
+        else {
+            // Just a normal PDF version
+            return Float.parseFloat(sincever);
+        }
+        return (float) 1.0; // Assume every PDF version
     }
 }
