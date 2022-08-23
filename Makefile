@@ -1,5 +1,5 @@
 #
-# Copyright 2021 PDF Association, Inc. https://www.pdfa.org
+# Copyright 2021-2022 PDF Association, Inc. https://www.pdfa.org
 #
 # This material is based upon work supported by the Defense Advanced
 # Research Projects Agency (DARPA) under Contract No. HR001119C0079.
@@ -13,13 +13,11 @@
 #
 # A simple makefile to automate some repetitive tasks. Typical usage:
 # $ make clean
-# $ make tsv > tsv.out
+# $ make tsv
 # $ make validate
 # $ make 3d
 # $ make pandas
-# $ make xml > xml.out
-#
-# Does NOT make the TestGrammar C++ PoC! Assumes TestGrammar is in the path.
+# $ make xml
 #
 
 XMLLINT ::= xmllint
@@ -34,6 +32,7 @@ clean:
 	rm -rf ./tsv/1.0/*.tsv ./tsv/1.1/*.tsv ./tsv/1.2/*.tsv ./tsv/1.3/*.tsv ./tsv/1.4/*.tsv
 	rm -rf ./tsv/1.5/*.tsv ./tsv/1.6/*.tsv ./tsv/1.7/*.tsv ./tsv/2.0/*.tsv
 	rm -rf ./gcxml/dist/gcxml.jar
+	rm -rf ./TestGrammar/bin/linux/TestGrammar*
 
 
 # Make the monolithic TSV file by combining all TSVs - suitable for Jupyter
@@ -58,11 +57,20 @@ pandas:
 	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/1.0 --outdir ./3dvisualize/
 
 
+# Build the TestGrammar C++ PoC app using PDFix (because build times are much faster)
+.PHONY: TestGrammar
+TestGrammar:
+	cmake -B ./TestGrammar/cmake-linux/debug -DPDFSDK_PDFIX=ON -DCMAKE_BUILD_TYPE=Debug ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/debug --config Debug
+	cmake -B ./TestGrammar/cmake-linux/release -DPDFSDK_PDFIX=ON -DCMAKE_BUILD_TYPE=Release ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/release --config Release
+	rm -rf ./TestGrammar/cmake-linux
+
+
 # Validate each of the existing TSV file sets using both the Python script and C++ PoC.
 # Does NOT create the TSVs!
 # Ensure to do a "make tsv" beforehand to refresh the PDF version specific file sets!
-.PHONY: validate
-validate:
+validate: TestGrammar
 	# Clean-up where gcxml is missing some capabilities...
 	rm -f ./tsv/1.3/ActionNOP.tsv ./tsv/1.3/ActionSetState.tsv
 	rm -f ./tsv/1.4/ActionNOP.tsv ./tsv/1.4/ActionSetState.tsv
@@ -128,11 +136,15 @@ xml: ./xml/pdf_grammar1.0.xml ./xml/pdf_grammar1.1.xml ./xml/pdf_grammar1.2.xml 
 	./xml/pdf_grammar1.4.xml ./xml/pdf_grammar1.5.xml ./xml/pdf_grammar1.6.xml ./xml/pdf_grammar1.7.xml ./xml/pdf_grammar2.0.xml
 	${XMLLINT} ${XMLLINT_FLAGS} --schema ./xml/schema/arlington-pdf.xsd $?
 
+
 # Create and validate XML files for each PDF version based on tsv/latest using the Java PoC app. SLOW!
 xml/%.xml: ./gcxml/dist/Gcxml.jar
 	echo "Creating XML: $(strip $(subst xml/pdf_grammar,,$(subst .xml,,$@)))"
 	java -jar ./gcxml/dist/gcxml.jar -xml $(strip $(subst xml/pdf_grammar,,$(subst .xml,,$@)))
 
+
 # Build the Java proof-of-concept application using "ant"
 ./gcxml/dist/Gcxml.jar:
 	( cd gcxml ; ant ; cd .. )
+
+
