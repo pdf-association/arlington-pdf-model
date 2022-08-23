@@ -1284,7 +1284,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[U3D,PRC]"
+        "PossibleValues": "[U3D,PRC,fn:Extension(ISO_TS_24064,STEP)]"
       },
       "VA": {
         "Key": "VA",
@@ -1797,6 +1797,66 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfViewParams]"
+      }
+    }
+  },
+  {
+    "id": "AAPL_ST",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Style]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Shadow]"
+      },
+      "Offset": {
+        "Key": "Offset",
+        "Type": "array",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_2Numbers]"
+      },
+      "Radius": {
+        "Key": "Radius",
+        "Type": "number",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@Radius>0)]"
+      },
+      "ColorSpace": {
+        "Key": "ColorSpace",
+        "Type": "array;name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
+        "Link": "[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace];[]"
+      },
+      "Color": {
+        "Key": "Color",
+        "Type": "array",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfNumbersGeneral]"
       }
     }
   },
@@ -5774,6 +5834,15 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]"
+      },
+      "Path": {
+        "Key": "Path",
+        "Type": "array",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfArraysPaths]"
       }
     }
   },
@@ -11330,7 +11399,7 @@
       "*": {
         "Key": "*",
         "Type": "array",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -11344,7 +11413,7 @@
       "*": {
         "Key": "*",
         "Type": "dictionary",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
@@ -12676,6 +12745,29 @@
     }
   },
   {
+    "id": "ArrayOf_2UnencrytpedStringsByte",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "string-byte",
+        "SinceVersion": 1.1,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
+      },
+      "1": {
+        "Key": "1",
+        "Type": "string-byte",
+        "SinceVersion": 1.1,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
+      }
+    }
+  },
+  {
     "id": "ArrayOf_3CenterOfRotationNumbers",
     "keys": {
       "0": {
@@ -13464,6 +13556,47 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "AuthCode",
+    "keys": {
+      "MACLocation": {
+        "Key": "MACLocation",
+        "Type": "name",
+        "SinceVersion": 2.0,
+        "Required": true,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "PossibleValues": "[Standalone,AttachedToSig]"
+      },
+      "ByteRange": {
+        "Key": "ByteRange",
+        "Type": "array",
+        "SinceVersion": 2.0,
+        "Required": "fn:IsRequired(@MACLocation==Standalone)",
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((ByteRange::@0==0) && (ByteRange::@1>0) && (ByteRange::@2>ByteRange::@1) && (ByteRange::@3>=0))]",
+        "Link": "[ArrayOf_4Integers]"
+      },
+      "MAC": {
+        "Key": "MAC",
+        "Type": "string-byte",
+        "SinceVersion": 2.0,
+        "Required": "fn:IsRequired(@MACLocation==Standalone)",
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false
+      },
+      "SigObjRef": {
+        "Key": "SigObjRef",
+        "Type": "dictionary",
+        "SinceVersion": 2.0,
+        "Required": "fn:IsRequired(@MACLocation==AttachedToSig)",
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[Signature,DocTimeStamp]"
       }
     }
   },
@@ -14473,7 +14606,7 @@
       "DPartRoot": {
         "Key": "DPartRoot",
         "Type": "dictionary",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15021,7 +15154,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "None",
-        "PossibleValues": "[None,fn:Deprecated(2.0,V2),fn:Deprecated(2.0,fn:SinceVersion(1.6,AESV2)),AESV3]"
+        "PossibleValues": "[None,fn:Deprecated(2.0,V2),fn:Deprecated(2.0,fn:SinceVersion(1.6,AESV2)),AESV3,fn:Extension(ISO_TS_32003,AESV4)]"
       },
       "AuthEvent": {
         "Key": "AuthEvent",
@@ -15065,26 +15198,6 @@
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(StdCF::@AuthEvent==DocOpen)]",
-        "Link": "[CryptFilter]"
-      },
-      "DefaultCryptFilter": {
-        "Key": "DefaultCryptFilter",
-        "Type": "dictionary",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(StdCF)))]",
-        "Link": "[CryptFilter]"
-      },
-      "DefEmbeddedFile": {
-        "Key": "DefEmbeddedFile",
-        "Type": "dictionary",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(StdCF)))]",
         "Link": "[CryptFilter]"
       },
       "*": {
@@ -15136,7 +15249,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "None",
-        "PossibleValues": "[None,V2,AESV2,AESV3]"
+        "PossibleValues": "[None,V2,AESV2,AESV3,fn:Extension(ISO_TS_32003,AESV4)]"
       },
       "AuthEvent": {
         "Key": "AuthEvent",
@@ -15163,14 +15276,66 @@
   {
     "id": "CryptFilterPublicKeyMap",
     "keys": {
+      "DefaultCryptFilter": {
+        "Key": "DefaultCryptFilter",
+        "Type": "dictionary",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(StdCF)))]",
+        "Link": "[CryptFilterPublicKey]"
+      },
+      "DefEmbeddedFile": {
+        "Key": "DefEmbeddedFile",
+        "Type": "dictionary",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(StdCF)))]",
+        "Link": "[CryptFilterPublicKey]"
+      },
       "*": {
         "Key": "*",
         "Type": "dictionary",
         "SinceVersion": 1.5,
-        "Required": true,
+        "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[CryptFilter,CryptFilterPublicKey]"
+        "Link": "[CryptFilterPublicKey]"
+      }
+    }
+  },
+  {
+    "id": "DPM",
+    "keys": {
+      "GTS_Managed": {
+        "Key": "GTS_Managed",
+        "Type": "dictionary",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[_UniversalDictionary]"
+      },
+      "GTS_Suspect": {
+        "Key": "GTS_Suspect",
+        "Type": "dictionary",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[_UniversalDictionary]"
+      },
+      "*": {
+        "Key": "*",
+        "Type": "array;boolean;dictionary;name;null;number;stream;string",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": "[false];[false];[false];[false];[false];[false];[true];[false]",
+        "Inheritable": false,
+        "Link": "[_UniversalArray];[];[_UniversalDictionary];[];[];[];[Stream];[]"
       }
     }
   },
@@ -15180,7 +15345,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15189,7 +15354,7 @@
       "Parent": {
         "Key": "Parent",
         "Type": "dictionary",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": true,
         "IndirectReference": true,
         "Inheritable": false,
@@ -15198,7 +15363,7 @@
       "DParts": {
         "Key": "DParts",
         "Type": "array",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": "fn:IsRequired(fn:Not(fn:IsPresent(Start)))",
         "IndirectReference": false,
         "Inheritable": false,
@@ -15207,7 +15372,7 @@
       "Start": {
         "Key": "Start",
         "Type": "dictionary",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": "fn:IsRequired(fn:Not(fn:IsPresent(DParts)))",
         "IndirectReference": true,
         "Inheritable": false,
@@ -15216,8 +15381,8 @@
       "End": {
         "Key": "End",
         "Type": "dictionary",
-        "SinceVersion": 2.0,
-        "Required": "fn:IsRequired(fn:IsPresent(Start))",
+        "SinceVersion": 1.6,
+        "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
@@ -15225,11 +15390,11 @@
       "DPM": {
         "Key": "DPM",
         "Type": "dictionary",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalDictionary]"
+        "Link": "[DPM]"
       },
       "AF": {
         "Key": "AF",
@@ -15257,7 +15422,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15266,7 +15431,7 @@
       "DPartRootNode": {
         "Key": "DPartRootNode",
         "Type": "dictionary",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": true,
         "IndirectReference": true,
         "Inheritable": false,
@@ -15275,7 +15440,7 @@
       "RecordLevel": {
         "Key": "RecordLevel",
         "Type": "integer",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -15284,8 +15449,8 @@
       "NodeNameList": {
         "Key": "NodeNameList",
         "Type": "array",
-        "SinceVersion": 2.0,
-        "Required": false,
+        "SinceVersion": 1.6,
+        "Required": "fn:IsRequired(fn:Extension(PDF_VT2))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfNamesGeneral]"
@@ -15311,7 +15476,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[VRI]"
+        "Link": "[VRIMap]"
       },
       "Certs": {
         "Key": "Certs",
@@ -16540,11 +16705,11 @@
       "V": {
         "Key": "V",
         "Type": "integer",
-        "SinceVersion": 1.4,
-        "Required": false,
+        "SinceVersion": 1.1,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[0,1,2,3,4,5]"
+        "PossibleValues": "[fn:Deprecated(1.1,0),fn:Deprecated(2.0,1),fn:Deprecated(2.0,fn:SinceVersion(1.4,2)),fn:Deprecated(2.0,fn:SinceVersion(1.4,3)),fn:Deprecated(2.0,fn:SinceVersion(1.5,4)),5,fn:Extension(ISO_TS_32003,6)]"
       },
       "Length": {
         "Key": "Length",
@@ -16604,6 +16769,15 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "true"
+      },
+      "KDFSalt": {
+        "Key": "KDFSalt",
+        "Type": "string-byte",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
       }
     }
   },
@@ -16635,7 +16809,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Deprecated(1.1,0),fn:Deprecated(2.0,1),fn:Deprecated(2.0,fn:SinceVersion(1.4,2)),fn:Deprecated(2.0,fn:SinceVersion(1.4,3)),fn:Deprecated(2.0,fn:SinceVersion(1.5,4)),5]"
+        "PossibleValues": "[fn:Deprecated(1.1,0),fn:Deprecated(2.0,1),fn:Deprecated(2.0,fn:SinceVersion(1.4,2)),fn:Deprecated(2.0,fn:SinceVersion(1.4,3)),fn:Deprecated(2.0,fn:SinceVersion(1.5,4)),5,fn:Extension(ISO_TS_32003,6)]"
       },
       "Length": {
         "Key": "Length",
@@ -16695,7 +16869,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Deprecated(2.0,fn:RequiredValue(@V<2,2)),fn:Deprecated(2.0,fn:RequiredValue((@V==2) || (@V==3),3)),fn:Deprecated(2.0,fn:RequiredValue(@V==4,4)),fn:Deprecated(2.0,fn:SinceVersion(2.0,5)),fn:RequiredValue(@V==5,6)]"
+        "PossibleValues": "[fn:Deprecated(2.0,fn:RequiredValue(@V<2,2)),fn:Deprecated(2.0,fn:RequiredValue((@V==2) || (@V==3),3)),fn:Deprecated(2.0,fn:RequiredValue(@V==4,4)),fn:Deprecated(2.0,fn:SinceVersion(2.0,5)),fn:RequiredValue(@V==5,6),fn:Extension(ISO_TS_32003,7)]"
       },
       "O": {
         "Key": "O",
@@ -16704,7 +16878,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(((@R<=4) && (fn:StringLength(O)==32)) || ((@R==6) && (fn:StringLength(O)==48)))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(O)==32)) || ((@R==6) && (fn:StringLength(O)==48))))]"
       },
       "U": {
         "Key": "U",
@@ -16713,7 +16887,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(((@R<=4) && (fn:StringLength(U)==32)) || ((@R==6) && (fn:StringLength(U)==48)))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(U)==32)) || ((@R==6) && (fn:StringLength(U)==48))))]"
       },
       "OE": {
         "Key": "OE",
@@ -16722,7 +16896,7 @@
         "Required": "fn:IsRequired(@R==6)",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:StringLength(OE)==32)]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (fn:StringLength(OE)==32))]"
       },
       "UE": {
         "Key": "UE",
@@ -16730,7 +16904,8 @@
         "SinceVersion": 1.1,
         "Required": "fn:IsRequired(@R==6)",
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
       },
       "P": {
         "Key": "P",
@@ -16739,7 +16914,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:BitsClear(1,2) && fn:BitsSet(7,8) && fn:SinceVersion(2.0,fn:BitSet(10)) && fn:BitsSet(13,32))]"
+        "SpecialCase": "[fn:Eval(fn:BitsClear(1,2) && fn:BitsSet(7,8) && fn:SinceVersion(2.0,fn:BitSet(10)) && (fn:SinceVersion(2.0,fn:Extension(ISO_TS_32004,fn:BitsSet(14,32))) || fn:BitsSet(13,32)))]"
       },
       "Perms": {
         "Key": "Perms",
@@ -16747,7 +16922,8 @@
         "SinceVersion": 1.1,
         "Required": "fn:IsRequired(@R==6)",
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
       },
       "EncryptMetadata": {
         "Key": "EncryptMetadata",
@@ -16758,6 +16934,15 @@
         "Inheritable": false,
         "DefaultValue": "true",
         "SpecialCase": "[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]"
+      },
+      "KDFSalt": {
+        "Key": "KDFSalt",
+        "Type": "string-byte",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
       }
     }
   },
@@ -17825,7 +18010,7 @@
         "IndirectReference": "fn:MustBeDirect(fn:IsPresent(Encrypt))",
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]",
-        "Link": "[ArrayOf_2StringsByte]"
+        "Link": "[ArrayOf_2UnencrytpedStringsByte]"
       },
       "XRefStm": {
         "Key": "XRefStm",
@@ -17835,6 +18020,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[fn:Eval((@XRefStm>=0) && (@XRefStm<=fn:FileSize()))]"
+      },
+      "AuthCode": {
+        "Key": "AuthCode",
+        "Type": "dictionary",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(Encrypt::@V>=5)]",
+        "Link": "[AuthCode]"
       }
     }
   },
@@ -17916,6 +18111,15 @@
         "DefaultValue": "0",
         "PossibleValues": "[fn:Eval(@DamagedRowsBeforeError>=0)]",
         "SpecialCase": "[fn:Ignore((@EndOfLine==false) || (@K<0))]"
+      },
+      "Blackls1": {
+        "Key": "Blackls1",
+        "Type": "boolean",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
       }
     }
   },
@@ -21224,6 +21428,24 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOf_2Integers]"
+      },
+      "AAPL:AA": {
+        "Key": "AAPL:AA",
+        "Type": "boolean",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "AAPL:ST": {
+        "Key": "AAPL:ST",
+        "Type": "dictionary;name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[];[None]",
+        "Link": "[AAPL_ST];[]"
       }
     }
   },
@@ -24885,6 +25107,15 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Artwork,Technical,*]"
+      },
+      "SubType": {
+        "Key": "SubType",
+        "Type": "name",
+        "SinceVersion": 1.5,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Artwork,Technical,*]"
       }
     }
   },
@@ -25821,7 +26052,7 @@
       "DPart": {
         "Key": "DPart",
         "Type": "dictionary",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.6,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -27876,12 +28107,12 @@
       },
       "V": {
         "Key": "V",
-        "Type": "name",
+        "Type": "dictionary;name",
         "SinceVersion": 2.0,
-        "Required": true,
+        "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[2020.0]"
+        "Link": "[Extensions];[]"
       },
       "RH": {
         "Key": "RH",
@@ -29969,7 +30200,8 @@
         "SinceVersion": 1.3,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && fn:IsHexString())]"
       },
       "Cert": {
         "Key": "Cert",
@@ -32598,6 +32830,20 @@
     }
   },
   {
+    "id": "VRIMap",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[VRI]"
+      }
+    }
+  },
+  {
     "id": "ViewParams",
     "keys": {
       "Instance": {
@@ -34241,6 +34487,39 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfIntegersGeneral]"
+      },
+      "GTS_XID": {
+        "Key": "GTS_XID",
+        "Type": "string",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "GTS_Scope": {
+        "Key": "GTS_Scope",
+        "Type": "name",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[SingleUse,Record,File,Stream,Global,Unknown]"
+      },
+      "GTS_Env": {
+        "Key": "GTS_Env",
+        "Type": "string-text",
+        "SinceVersion": 1.6,
+        "Required": "fn:IsRequired((@GTS_Scope==Stream) || (@GTS_Scope==Global))",
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "GTS_Encapsulated": {
+        "Key": "GTS_Encapsulated",
+        "Type": "boolean",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
       }
     }
   },
@@ -34523,6 +34802,39 @@
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(@DL>=0)]"
+      },
+      "GTS_XID": {
+        "Key": "GTS_XID",
+        "Type": "string",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "GTS_Scope": {
+        "Key": "GTS_Scope",
+        "Type": "name",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[SingleUse,Record,File,Stream,Global,Unknown]"
+      },
+      "GTS_Env": {
+        "Key": "GTS_Env",
+        "Type": "string-text",
+        "SinceVersion": 1.6,
+        "Required": "fn:IsRequired((@GTS_Scope==Stream) || (@GTS_Scope==Global))",
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "GTS_Encapsulated": {
+        "Key": "GTS_Encapsulated",
+        "Type": "boolean",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
       }
     }
   },
@@ -35147,6 +35459,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[EncryptionStandard,EncryptionPublicKey]"
+      },
+      "AuthCode": {
+        "Key": "AuthCode",
+        "Type": "dictionary",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(Encrypt::@V>=5)]",
+        "Link": "[AuthCode]"
       }
     }
   },

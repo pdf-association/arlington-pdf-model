@@ -36,6 +36,13 @@
             "name": "3DView dict"
         },
         {
+            "id": "AAPL_ST",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "AAPL_ST dict"
+        },
+        {
             "id": "ActionECMAScript",
             "val": 16,
             "group": "dict",
@@ -526,6 +533,20 @@
             "name": "ArrayOfCompressionFilterNames map"
         },
         {
+            "id": "ArrayOfDPartArrays",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfDPartArrays map"
+        },
+        {
+            "id": "ArrayOfDParts",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfDParts map"
+        },
+        {
             "id": "ArrayOfDashPatterns",
             "val": 1,
             "group": "map",
@@ -946,6 +967,13 @@
             "name": "ArrayOf_2StringsText array"
         },
         {
+            "id": "ArrayOf_2UnencrytpedStringsByte",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOf_2UnencrytpedStringsByte array"
+        },
+        {
             "id": "ArrayOf_3Integers",
             "val": 9,
             "group": "array",
@@ -1143,9 +1171,9 @@
         },
         {
             "id": "Catalog",
-            "val": 676,
+            "val": 729,
             "group": "dict",
-            "desc": "26 keys",
+            "desc": "27 keys",
             "color": "red",
             "name": "Catalog dict"
         },
@@ -1193,7 +1221,7 @@
         },
         {
             "id": "CryptFilterMap",
-            "val": 25,
+            "val": 9,
             "group": "map",
             "desc": "(unspecified)",
             "name": "CryptFilterMap map"
@@ -1207,10 +1235,31 @@
         },
         {
             "id": "CryptFilterPublicKeyMap",
-            "val": 1,
+            "val": 9,
             "group": "map",
             "desc": "(unspecified)",
             "name": "CryptFilterPublicKeyMap map"
+        },
+        {
+            "id": "DPM",
+            "val": 9,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "DPM map"
+        },
+        {
+            "id": "DPart",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "DPart dict"
+        },
+        {
+            "id": "DPartRoot",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "DPartRoot dict"
         },
         {
             "id": "Data",
@@ -1432,9 +1481,9 @@
         },
         {
             "id": "FilterCCITTFaxDecode",
-            "val": 64,
+            "val": 81,
             "group": "dict",
-            "desc": "8 keys",
+            "desc": "9 keys",
             "name": "FilterCCITTFaxDecode dict"
         },
         {
@@ -1649,9 +1698,9 @@
         },
         {
             "id": "GraphicsStateParameter",
-            "val": 784,
+            "val": 900,
             "group": "dict",
-            "desc": "28 keys",
+            "desc": "30 keys",
             "name": "GraphicsStateParameter dict"
         },
         {
@@ -2048,9 +2097,9 @@
         },
         {
             "id": "OptContentCreatorInfo",
-            "val": 4,
+            "val": 9,
             "group": "dict",
-            "desc": "2 keys",
+            "desc": "3 keys",
             "name": "OptContentCreatorInfo dict"
         },
         {
@@ -2167,9 +2216,9 @@
         },
         {
             "id": "PageObject",
-            "val": 961,
+            "val": 1024,
             "group": "dict",
-            "desc": "31 keys",
+            "desc": "32 keys",
             "name": "PageObject dict"
         },
         {
@@ -2741,16 +2790,16 @@
         },
         {
             "id": "XObjectFormType1",
-            "val": 576,
+            "val": 784,
             "group": "dict",
-            "desc": "24 keys",
+            "desc": "28 keys",
             "name": "XObjectFormType1 dict"
         },
         {
             "id": "XObjectImage",
-            "val": 729,
+            "val": 961,
             "group": "dict",
-            "desc": "27 keys",
+            "desc": "31 keys",
             "name": "XObjectImage dict"
         },
         {
@@ -2910,6 +2959,41 @@
             "target": "ArrayOfStringsText",
             "name": "3DView::U3DPath",
             "color": "red"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "AAPL_ST::Color"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "CalGrayColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "CalRGBColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "LabColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "ICCBasedColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "IndexedColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "ArrayOf_2Numbers",
+            "name": "AAPL_ST::Offset"
         },
         {
             "source": "ActionECMAScript",
@@ -11102,6 +11186,16 @@
             "name": "ArrayOfBeads::*"
         },
         {
+            "source": "ArrayOfDPartArrays",
+            "target": "ArrayOfDParts",
+            "name": "ArrayOfDPartArrays::*"
+        },
+        {
+            "source": "ArrayOfDParts",
+            "target": "DPart",
+            "name": "ArrayOfDParts::*"
+        },
+        {
             "source": "ArrayOfDecodeParams",
             "target": "FilterLZWDecode",
             "name": "ArrayOfDecodeParams::*"
@@ -11721,6 +11815,11 @@
         },
         {
             "source": "Catalog",
+            "target": "DPartRoot",
+            "name": "Catalog::DPartRoot"
+        },
+        {
+            "source": "Catalog",
             "target": "DestsMap",
             "name": "Catalog::Dests"
         },
@@ -12033,16 +12132,6 @@
         {
             "source": "CryptFilterMap",
             "target": "CryptFilter",
-            "name": "CryptFilterMap::DefEmbeddedFile"
-        },
-        {
-            "source": "CryptFilterMap",
-            "target": "CryptFilter",
-            "name": "CryptFilterMap::DefaultCryptFilter"
-        },
-        {
-            "source": "CryptFilterMap",
-            "target": "CryptFilter",
             "name": "CryptFilterMap::Identity"
         },
         {
@@ -12058,14 +12147,88 @@
         },
         {
             "source": "CryptFilterPublicKeyMap",
-            "target": "CryptFilter",
-            "name": "CryptFilterPublicKeyMap::*",
-            "color": "red"
+            "target": "CryptFilterPublicKey",
+            "name": "CryptFilterPublicKeyMap::*"
         },
         {
             "source": "CryptFilterPublicKeyMap",
             "target": "CryptFilterPublicKey",
-            "name": "CryptFilterPublicKeyMap::*",
+            "name": "CryptFilterPublicKeyMap::DefEmbeddedFile"
+        },
+        {
+            "source": "CryptFilterPublicKeyMap",
+            "target": "CryptFilterPublicKey",
+            "name": "CryptFilterPublicKeyMap::DefaultCryptFilter"
+        },
+        {
+            "source": "DPM",
+            "target": "_UniversalArray",
+            "name": "DPM::*"
+        },
+        {
+            "source": "DPM",
+            "target": "_UniversalDictionary",
+            "name": "DPM::*"
+        },
+        {
+            "source": "DPM",
+            "target": "Stream",
+            "name": "DPM::*"
+        },
+        {
+            "source": "DPM",
+            "target": "_UniversalDictionary",
+            "name": "DPM::GTS_Managed"
+        },
+        {
+            "source": "DPM",
+            "target": "_UniversalDictionary",
+            "name": "DPM::GTS_Suspect"
+        },
+        {
+            "source": "DPart",
+            "target": "DPM",
+            "name": "DPart::DPM"
+        },
+        {
+            "source": "DPart",
+            "target": "ArrayOfDPartArrays",
+            "name": "DPart::DParts",
+            "color": "red"
+        },
+        {
+            "source": "DPart",
+            "target": "PageObject",
+            "name": "DPart::End"
+        },
+        {
+            "source": "DPart",
+            "target": "DPart",
+            "name": "DPart::Parent",
+            "color": "red"
+        },
+        {
+            "source": "DPart",
+            "target": "DPartRoot",
+            "name": "DPart::Parent",
+            "color": "red"
+        },
+        {
+            "source": "DPart",
+            "target": "PageObject",
+            "name": "DPart::Start",
+            "color": "red"
+        },
+        {
+            "source": "DPartRoot",
+            "target": "DPart",
+            "name": "DPartRoot::DPartRootNode",
+            "color": "red"
+        },
+        {
+            "source": "DPartRoot",
+            "target": "ArrayOfNamesGeneral",
+            "name": "DPartRoot::NodeNameList",
             "color": "red"
         },
         {
@@ -12758,7 +12921,7 @@
         },
         {
             "source": "FileTrailer",
-            "target": "ArrayOf_2StringsByte",
+            "target": "ArrayOf_2UnencrytpedStringsByte",
             "name": "FileTrailer::ID",
             "color": "red"
         },
@@ -13560,6 +13723,11 @@
             "target": "ArrayOfNumbersGeneral",
             "name": "FunctionType4::Range",
             "color": "red"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "AAPL_ST",
+            "name": "GraphicsStateParameter::AAPL:ST"
         },
         {
             "source": "GraphicsStateParameter",
@@ -15475,6 +15643,11 @@
             "source": "PageObject",
             "target": "Stream",
             "name": "PageObject::Contents"
+        },
+        {
+            "source": "PageObject",
+            "target": "DPart",
+            "name": "PageObject::DPart"
         },
         {
             "source": "PageObject",

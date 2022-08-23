@@ -1,5 +1,65 @@
 [
   {
+    "id": "AAPL_ST",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Style]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Shadow]"
+      },
+      "Offset": {
+        "Key": "Offset",
+        "Type": "array",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_2Numbers]"
+      },
+      "Radius": {
+        "Key": "Radius",
+        "Type": "number",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@Radius>0)]"
+      },
+      "ColorSpace": {
+        "Key": "ColorSpace",
+        "Type": "array;name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
+        "Link": "[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace];[]"
+      },
+      "Color": {
+        "Key": "Color",
+        "Type": "array",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfNumbersGeneral]"
+      }
+    }
+  },
+  {
     "id": "ActionECMAScript",
     "keys": {
       "Type": {
@@ -7047,6 +7107,29 @@
     }
   },
   {
+    "id": "ArrayOf_2UnencrytpedStringsByte",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "string-byte",
+        "SinceVersion": 1.1,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
+      },
+      "1": {
+        "Key": "1",
+        "Type": "string-byte",
+        "SinceVersion": 1.1,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
+      }
+    }
+  },
+  {
     "id": "ArrayOf_3Integers",
     "keys": {
       "0": {
@@ -8769,26 +8852,6 @@
         "SpecialCase": "[fn:Eval(StdCF::@AuthEvent==DocOpen)]",
         "Link": "[CryptFilter]"
       },
-      "DefaultCryptFilter": {
-        "Key": "DefaultCryptFilter",
-        "Type": "dictionary",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(StdCF)))]",
-        "Link": "[CryptFilter]"
-      },
-      "DefEmbeddedFile": {
-        "Key": "DefEmbeddedFile",
-        "Type": "dictionary",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(StdCF)))]",
-        "Link": "[CryptFilter]"
-      },
       "*": {
         "Key": "*",
         "Type": "dictionary",
@@ -8865,14 +8928,34 @@
   {
     "id": "CryptFilterPublicKeyMap",
     "keys": {
+      "DefaultCryptFilter": {
+        "Key": "DefaultCryptFilter",
+        "Type": "dictionary",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(StdCF)))]",
+        "Link": "[CryptFilterPublicKey]"
+      },
+      "DefEmbeddedFile": {
+        "Key": "DefEmbeddedFile",
+        "Type": "dictionary",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(StdCF)))]",
+        "Link": "[CryptFilterPublicKey]"
+      },
       "*": {
         "Key": "*",
         "Type": "dictionary",
         "SinceVersion": 1.5,
-        "Required": true,
+        "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[CryptFilter,CryptFilterPublicKey]"
+        "Link": "[CryptFilterPublicKey]"
       }
     }
   },
@@ -9602,11 +9685,11 @@
       "V": {
         "Key": "V",
         "Type": "integer",
-        "SinceVersion": 1.4,
-        "Required": false,
+        "SinceVersion": 1.1,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[0,1,2,3,4,5]"
+        "PossibleValues": "[fn:Deprecated(1.1,0),1,fn:SinceVersion(1.4,2),fn:SinceVersion(1.4,3),fn:SinceVersion(1.5,4)]"
       },
       "Length": {
         "Key": "Length",
@@ -9757,7 +9840,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(((@R<=4) && (fn:StringLength(O)==32)) || ((@R==6) && (fn:StringLength(O)==48)))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(O)==32)) || ((@R==6) && (fn:StringLength(O)==48))))]"
       },
       "U": {
         "Key": "U",
@@ -9766,7 +9849,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(((@R<=4) && (fn:StringLength(U)==32)) || ((@R==6) && (fn:StringLength(U)==48)))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(U)==32)) || ((@R==6) && (fn:StringLength(U)==48))))]"
       },
       "OE": {
         "Key": "OE",
@@ -9775,7 +9858,7 @@
         "Required": "fn:IsRequired(@R==6)",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:StringLength(OE)==32)]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (fn:StringLength(OE)==32))]"
       },
       "UE": {
         "Key": "UE",
@@ -9783,7 +9866,8 @@
         "SinceVersion": 1.1,
         "Required": "fn:IsRequired(@R==6)",
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
       },
       "P": {
         "Key": "P",
@@ -9792,7 +9876,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:BitsClear(1,2) && fn:BitsSet(7,8) && fn:SinceVersion(2.0,fn:BitSet(10)) && fn:BitsSet(13,32))]"
+        "SpecialCase": "[fn:Eval(fn:BitsClear(1,2) && fn:BitsSet(7,8) && fn:SinceVersion(2.0,fn:BitSet(10)) && (fn:SinceVersion(2.0,fn:Extension(ISO_TS_32004,fn:BitsSet(14,32))) || fn:BitsSet(13,32)))]"
       },
       "Perms": {
         "Key": "Perms",
@@ -9800,7 +9884,8 @@
         "SinceVersion": 1.1,
         "Required": "fn:IsRequired(@R==6)",
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
       },
       "EncryptMetadata": {
         "Key": "EncryptMetadata",
@@ -10679,7 +10764,7 @@
         "IndirectReference": "fn:MustBeDirect(fn:IsPresent(Encrypt))",
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]",
-        "Link": "[ArrayOf_2StringsByte]"
+        "Link": "[ArrayOf_2UnencrytpedStringsByte]"
       },
       "XRefStm": {
         "Key": "XRefStm",
@@ -10770,6 +10855,15 @@
         "DefaultValue": "0",
         "PossibleValues": "[fn:Eval(@DamagedRowsBeforeError>=0)]",
         "SpecialCase": "[fn:Ignore((@EndOfLine==false) || (@K<0))]"
+      },
+      "Blackls1": {
+        "Key": "Blackls1",
+        "Type": "boolean",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
       }
     }
   },
@@ -13880,6 +13974,24 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOf_2Integers]"
+      },
+      "AAPL:AA": {
+        "Key": "AAPL:AA",
+        "Type": "boolean",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "AAPL:ST": {
+        "Key": "AAPL:ST",
+        "Type": "dictionary;name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[];[None]",
+        "Link": "[AAPL_ST];[]"
       }
     }
   },
@@ -17114,6 +17226,15 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Artwork,Technical,*]"
+      },
+      "SubType": {
+        "Key": "SubType",
+        "Type": "name",
+        "SinceVersion": 1.5,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Artwork,Technical,*]"
       }
     }
   },
@@ -19842,7 +19963,8 @@
         "SinceVersion": 1.3,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && fn:IsHexString())]"
       },
       "Cert": {
         "Key": "Cert",

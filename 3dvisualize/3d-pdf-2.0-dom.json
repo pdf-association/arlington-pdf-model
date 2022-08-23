@@ -120,6 +120,13 @@
             "name": "3DViewAddEntries dict"
         },
         {
+            "id": "AAPL_ST",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "AAPL_ST dict"
+        },
+        {
             "id": "ActionECMAScript",
             "val": 16,
             "group": "dict",
@@ -359,9 +366,9 @@
         },
         {
             "id": "AnnotLink",
-            "val": 676,
+            "val": 729,
             "group": "dict",
-            "desc": "26 keys",
+            "desc": "27 keys",
             "name": "AnnotLink dict"
         },
         {
@@ -1247,6 +1254,13 @@
             "name": "ArrayOf_2StringsText array"
         },
         {
+            "id": "ArrayOf_2UnencrytpedStringsByte",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOf_2UnencrytpedStringsByte array"
+        },
+        {
             "id": "ArrayOf_3CenterOfRotationNumbers",
             "val": 9,
             "group": "array",
@@ -1378,6 +1392,13 @@
             "group": "array",
             "desc": "9 elements",
             "name": "ArrayOf_9Numbers array"
+        },
+        {
+            "id": "AuthCode",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "AuthCode dict"
         },
         {
             "id": "Bead",
@@ -1585,7 +1606,7 @@
         },
         {
             "id": "CryptFilterMap",
-            "val": 25,
+            "val": 9,
             "group": "map",
             "desc": "(unspecified)",
             "name": "CryptFilterMap map"
@@ -1599,10 +1620,17 @@
         },
         {
             "id": "CryptFilterPublicKeyMap",
-            "val": 1,
+            "val": 9,
             "group": "map",
             "desc": "(unspecified)",
             "name": "CryptFilterPublicKeyMap map"
+        },
+        {
+            "id": "DPM",
+            "val": 9,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "DPM map"
         },
         {
             "id": "DPart",
@@ -1802,16 +1830,16 @@
         },
         {
             "id": "EncryptionPublicKey",
-            "val": 100,
+            "val": 121,
             "group": "dict",
-            "desc": "10 keys",
+            "desc": "11 keys",
             "name": "EncryptionPublicKey dict"
         },
         {
             "id": "EncryptionStandard",
-            "val": 256,
+            "val": 289,
             "group": "dict",
-            "desc": "16 keys",
+            "desc": "17 keys",
             "name": "EncryptionStandard dict"
         },
         {
@@ -1914,17 +1942,17 @@
         },
         {
             "id": "FileTrailer",
-            "val": 49,
+            "val": 64,
             "group": "dict",
-            "desc": "7 keys",
+            "desc": "8 keys",
             "color": "red",
             "name": "FileTrailer dict"
         },
         {
             "id": "FilterCCITTFaxDecode",
-            "val": 64,
+            "val": 81,
             "group": "dict",
-            "desc": "8 keys",
+            "desc": "9 keys",
             "name": "FilterCCITTFaxDecode dict"
         },
         {
@@ -2153,9 +2181,9 @@
         },
         {
             "id": "GraphicsStateParameter",
-            "val": 900,
+            "val": 1024,
             "group": "dict",
-            "desc": "30 keys",
+            "desc": "32 keys",
             "name": "GraphicsStateParameter dict"
         },
         {
@@ -2573,9 +2601,9 @@
         },
         {
             "id": "OptContentCreatorInfo",
-            "val": 4,
+            "val": 9,
             "group": "dict",
-            "desc": "2 keys",
+            "desc": "3 keys",
             "name": "OptContentCreatorInfo dict"
         },
         {
@@ -3503,6 +3531,13 @@
             "name": "VRI dict"
         },
         {
+            "id": "VRIMap",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "VRIMap map"
+        },
+        {
             "id": "ViewParams",
             "val": 4,
             "group": "dict",
@@ -3602,16 +3637,16 @@
         },
         {
             "id": "XObjectFormType1",
-            "val": 729,
+            "val": 961,
             "group": "dict",
-            "desc": "27 keys",
+            "desc": "31 keys",
             "name": "XObjectFormType1 dict"
         },
         {
             "id": "XObjectImage",
-            "val": 900,
+            "val": 1156,
             "group": "dict",
-            "desc": "30 keys",
+            "desc": "34 keys",
             "name": "XObjectImage dict"
         },
         {
@@ -3637,9 +3672,9 @@
         },
         {
             "id": "XRefStream",
-            "val": 256,
+            "val": 289,
             "group": "dict",
-            "desc": "16 keys",
+            "desc": "17 keys",
             "color": "red",
             "name": "XRefStream dict"
         },
@@ -4156,6 +4191,41 @@
             "target": "ArrayOfStringsText",
             "name": "3DViewAddEntries::U3DPath",
             "color": "red"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "AAPL_ST::Color"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "CalGrayColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "CalRGBColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "LabColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "ICCBasedColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "IndexedColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "ArrayOf_2Numbers",
+            "name": "AAPL_ST::Offset"
         },
         {
             "source": "ActionECMAScript",
@@ -10531,6 +10601,11 @@
         },
         {
             "source": "AnnotLink",
+            "target": "ArrayOfArraysPaths",
+            "name": "AnnotLink::Path"
+        },
+        {
+            "source": "AnnotLink",
             "target": "ArrayOfQuadPoints",
             "name": "AnnotLink::QuadPoints"
         },
@@ -15210,6 +15285,24 @@
             "color": "red"
         },
         {
+            "source": "AuthCode",
+            "target": "ArrayOf_4Integers",
+            "name": "AuthCode::ByteRange",
+            "color": "red"
+        },
+        {
+            "source": "AuthCode",
+            "target": "Signature",
+            "name": "AuthCode::SigObjRef",
+            "color": "red"
+        },
+        {
+            "source": "AuthCode",
+            "target": "DocTimeStamp",
+            "name": "AuthCode::SigObjRef",
+            "color": "red"
+        },
+        {
             "source": "Bead",
             "target": "BeadFirst",
             "name": "Bead::N",
@@ -15881,16 +15974,6 @@
         {
             "source": "CryptFilterMap",
             "target": "CryptFilter",
-            "name": "CryptFilterMap::DefEmbeddedFile"
-        },
-        {
-            "source": "CryptFilterMap",
-            "target": "CryptFilter",
-            "name": "CryptFilterMap::DefaultCryptFilter"
-        },
-        {
-            "source": "CryptFilterMap",
-            "target": "CryptFilter",
             "name": "CryptFilterMap::Identity"
         },
         {
@@ -15906,15 +15989,43 @@
         },
         {
             "source": "CryptFilterPublicKeyMap",
-            "target": "CryptFilter",
-            "name": "CryptFilterPublicKeyMap::*",
-            "color": "red"
+            "target": "CryptFilterPublicKey",
+            "name": "CryptFilterPublicKeyMap::*"
         },
         {
             "source": "CryptFilterPublicKeyMap",
             "target": "CryptFilterPublicKey",
-            "name": "CryptFilterPublicKeyMap::*",
-            "color": "red"
+            "name": "CryptFilterPublicKeyMap::DefEmbeddedFile"
+        },
+        {
+            "source": "CryptFilterPublicKeyMap",
+            "target": "CryptFilterPublicKey",
+            "name": "CryptFilterPublicKeyMap::DefaultCryptFilter"
+        },
+        {
+            "source": "DPM",
+            "target": "_UniversalArray",
+            "name": "DPM::*"
+        },
+        {
+            "source": "DPM",
+            "target": "_UniversalDictionary",
+            "name": "DPM::*"
+        },
+        {
+            "source": "DPM",
+            "target": "Stream",
+            "name": "DPM::*"
+        },
+        {
+            "source": "DPM",
+            "target": "_UniversalDictionary",
+            "name": "DPM::GTS_Managed"
+        },
+        {
+            "source": "DPM",
+            "target": "_UniversalDictionary",
+            "name": "DPM::GTS_Suspect"
         },
         {
             "source": "DPart",
@@ -15923,7 +16034,7 @@
         },
         {
             "source": "DPart",
-            "target": "_UniversalDictionary",
+            "target": "DPM",
             "name": "DPart::DPM"
         },
         {
@@ -15935,8 +16046,7 @@
         {
             "source": "DPart",
             "target": "PageObject",
-            "name": "DPart::End",
-            "color": "red"
+            "name": "DPart::End"
         },
         {
             "source": "DPart",
@@ -15970,7 +16080,8 @@
         {
             "source": "DPartRoot",
             "target": "ArrayOfNamesGeneral",
-            "name": "DPartRoot::NodeNameList"
+            "name": "DPartRoot::NodeNameList",
+            "color": "red"
         },
         {
             "source": "DSS",
@@ -15989,7 +16100,7 @@
         },
         {
             "source": "DSS",
-            "target": "VRI",
+            "target": "VRIMap",
             "name": "DSS::VRI"
         },
         {
@@ -16779,6 +16890,11 @@
         },
         {
             "source": "FileTrailer",
+            "target": "AuthCode",
+            "name": "FileTrailer::AuthCode"
+        },
+        {
+            "source": "FileTrailer",
             "target": "EncryptionStandard",
             "name": "FileTrailer::Encrypt"
         },
@@ -16789,7 +16905,7 @@
         },
         {
             "source": "FileTrailer",
-            "target": "ArrayOf_2StringsByte",
+            "target": "ArrayOf_2UnencrytpedStringsByte",
             "name": "FileTrailer::ID",
             "color": "red"
         },
@@ -17621,6 +17737,11 @@
             "target": "ArrayOfNumbersGeneral",
             "name": "FunctionType4::Range",
             "color": "red"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "AAPL_ST",
+            "name": "GraphicsStateParameter::AAPL:ST"
         },
         {
             "source": "GraphicsStateParameter",
@@ -20408,6 +20529,11 @@
             "name": "RequirementsSTEP::RH"
         },
         {
+            "source": "RequirementsSTEP",
+            "target": "Extensions",
+            "name": "RequirementsSTEP::V"
+        },
+        {
             "source": "RequirementsSeparationSimulation",
             "target": "ArrayOfRequirementsHandlers",
             "name": "RequirementsSeparationSimulation::RH"
@@ -22416,6 +22542,11 @@
             "name": "VRI::TS"
         },
         {
+            "source": "VRIMap",
+            "target": "VRI",
+            "name": "VRIMap::*"
+        },
+        {
             "source": "ViewParams",
             "target": "Stream",
             "name": "ViewParams::Data",
@@ -23530,6 +23661,11 @@
             "source": "XObjectMap",
             "target": "XObjectFormPSpassthrough",
             "name": "XObjectMap::*"
+        },
+        {
+            "source": "XRefStream",
+            "target": "AuthCode",
+            "name": "XRefStream::AuthCode"
         },
         {
             "source": "XRefStream",

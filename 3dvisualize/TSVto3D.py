@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-# Copyright 2020-2021 PDF Association, Inc. https://www.pdfa.org
+# Copyright 2020-2022 PDF Association, Inc. https://www.pdfa.org
 #
 # This material is based upon work supported by the Defense Advanced
 # Research Projects Agency (DARPA) under Contract No. HR001119C0079.
@@ -47,6 +47,25 @@ def FindPDFobject(arr, nm: str):
     return None
 
 
+def reduceSinceVersion(sincever: str):
+    # reduces the "SinceVersion" field and predicates to the lowest PDF version
+    if (sincever.startswith("fn:")):
+        if (sincever.startswith("fn:Extension\\([A-Za-z0-9_]+\\)")):
+            # Predicate: fn:Extension(AAA) - all versions of PDF
+            return 1.0
+        else:
+            # Predicate: fn:Extension(AAA,x.y) - only since x.y
+            m1 = re.match("fn:Extension\\([A-Za-z0-9_]+\\,([12]\\.[0-7])\\)", sincever)
+            if (m1 is not None):
+                return float(m1.group(1))
+            m2 = re.match("fn:Eval\\(fn:Extension\\([A-Za-z0-9_]+\\,([12]\\.[0-7])\\) \\|\\| ([12]\\.[0-7])\\)", sincever)
+            if (m2 is not None):
+                return float(m2.group(1))
+    else:
+        return float(sincever)      # Just a normal PDF version
+    return 1.0                      # Assume every PDF version
+
+
 def ArlingtonTo3D(tsvdir: str, outdir: str, pdfver: str):
     # Reads the TSV file set and creates 2 JSON outputs - one for 3D and one for VR
     jsonpdffile: str = os.path.join(outdir, "pdf-"+pdfver+"-dom.json")
@@ -70,8 +89,9 @@ def ArlingtonTo3D(tsvdir: str, outdir: str, pdfver: str):
                 # 'Key' is the first column of the OrderedDict so pull it out then delete it
                 keyname: str = row['Key']
                 row.popitem()
-                if (float(row['SinceVersion']) <= float(pdfver)):
-                    row['SinceVersion']: float = float(row['SinceVersion'])
+                # "SinceVersion" can have extension predicates
+                if (reduceSinceVersion(row['SinceVersion']) <= float(pdfver)):
+                    row['SinceVersion']: float = reduceSinceVersion(row['SinceVersion'])
                     if (len(row['DeprecatedIn']) > 0):
                         row['DeprecatedIn']: float = float(row['DeprecatedIn'])
                     if (row['Required'] in ["TRUE", "FALSE"]):
@@ -106,9 +126,13 @@ def ArlingtonTo3D(tsvdir: str, outdir: str, pdfver: str):
 
                 # Need to support PDF version predicates ("fn:SinceVersion(x.y,...)") in Links
                 # This Linux command can confirm all functions in Links:
-                #   cut -f 11 ../tsv/latest/*.tsv | grep -ho "fn:[a-zA-Z]*" | sort | uniq
+                #   cut -f 11 ./tsv/latest/* | grep -Pho "fn:[a-zA-Z0-9]+\(*" | sort | uniq
+                newlnks = re.sub(r"fn\:SinceVersion\(\d\.\d,fn:Extension\([A-Za-z0-9_]+,", "", newlnks)
                 newlnks = re.sub(r"fn\:SinceVersion\(\d\.\d,", "", newlnks)
+                newlnks = re.sub(r"fn\:BeforeVersion\(\d\.\d,", "", newlnks)
                 newlnks = re.sub(r"fn\:IsPDFVersion\(\d\.\d,", "", newlnks)
+                newlnks = re.sub(r"fn\:Deprecated\(\d\.\d,", "", newlnks)
+                newlnks = re.sub(r"fn:Extension\([A-Za-z0-9_]+,", "", newlnks)
                 newlnks = re.sub(r"\)", "", newlnks)
                 pdflinks = re.split(r"\;|\,|\]|\[", newlnks)
 

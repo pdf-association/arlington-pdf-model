@@ -746,6 +746,15 @@
         "DefaultValue": "0",
         "PossibleValues": "[fn:Eval(@DamagedRowsBeforeError>=0)]",
         "SpecialCase": "[fn:Ignore((@EndOfLine==false) || (@K<0))]"
+      },
+      "Blackls1": {
+        "Key": "Blackls1",
+        "Type": "boolean",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
       }
     }
   },

@@ -1,6 +1,13 @@
 {
     "nodes": [
         {
+            "id": "AAPL_ST",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "AAPL_ST dict"
+        },
+        {
             "id": "ActionGoTo",
             "val": 16,
             "group": "dict",
@@ -344,6 +351,13 @@
             "name": "ArrayOf_2StringsByte array"
         },
         {
+            "id": "ArrayOf_2UnencrytpedStringsByte",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOf_2UnencrytpedStringsByte array"
+        },
+        {
             "id": "ArrayOf_4AnnotBorderCharacteristics",
             "val": 16,
             "group": "array",
@@ -542,9 +556,9 @@
         },
         {
             "id": "EncryptionPublicKey",
-            "val": 1,
+            "val": 4,
             "group": "dict",
-            "desc": "1 keys",
+            "desc": "2 keys",
             "name": "EncryptionPublicKey dict"
         },
         {
@@ -606,9 +620,9 @@
         },
         {
             "id": "FilterCCITTFaxDecode",
-            "val": 64,
+            "val": 81,
             "group": "dict",
-            "desc": "8 keys",
+            "desc": "9 keys",
             "name": "FilterCCITTFaxDecode dict"
         },
         {
@@ -774,9 +788,9 @@
         },
         {
             "id": "GraphicsStateParameter",
-            "val": 64,
+            "val": 100,
             "group": "dict",
-            "desc": "8 keys",
+            "desc": "10 keys",
             "name": "GraphicsStateParameter dict"
         },
         {
@@ -1096,6 +1110,36 @@
         }
     ],
     "links": [
+        {
+            "source": "AAPL_ST",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "AAPL_ST::Color"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "CalGrayColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "CalRGBColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "LabColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "IndexedColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "ArrayOf_2Numbers",
+            "name": "AAPL_ST::Offset"
+        },
         {
             "source": "ActionGoTo",
             "target": "DestXYZArray",
@@ -3878,7 +3922,7 @@
         },
         {
             "source": "FileTrailer",
-            "target": "ArrayOf_2StringsByte",
+            "target": "ArrayOf_2UnencrytpedStringsByte",
             "name": "FileTrailer::ID",
             "color": "red"
         },
@@ -4307,6 +4351,11 @@
             "target": "ArrayOfIntegersGeneral",
             "name": "FunctionType0::Size",
             "color": "red"
+        },
+        {
+            "source": "GraphicsStateParameter",
+            "target": "AAPL_ST",
+            "name": "GraphicsStateParameter::AAPL:ST"
         },
         {
             "source": "GraphicsStateParameter",
