@@ -45,6 +45,10 @@ const std::regex  r_beforeVersion("fn:BeforeVersion\\(" + ArlPDFVersion + "\\,([
 const std::regex  r_Deprecated("fn:Deprecated\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
 const std::regex  r_isPDFVersion("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
 
+/// @brief when auto-generating Arlington PDF version data sets, the fn:SinceVersion(x.y,...) predicate can get removed
+/// resulting in just an fn:Extension(...) predicate
+const std::regex  r_LinkExtension("fn:Extension\\(([A-Za-z0-9_\\-]+)\\,([A-Za-z0-9_\\-]+)\\)");
+
 
 /// @brief Regex to process "Types" fields. Arlington types are all lowercase or have DASH
 /// - $1 = predicate name

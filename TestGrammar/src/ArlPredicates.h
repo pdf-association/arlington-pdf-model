@@ -141,11 +141,13 @@ const double ArlNumberTolerance = 0.000005;
 extern const std::regex  r_Types;
 extern const std::regex  r_Keys;
 
-/// @brief Regexes for matching versioning predicates: $1 = PDF version "," $2 = Link or predefined Arlington type
+/// @brief Regexes for matching versioning predicates
 extern const std::regex  r_sinceVersionExtension;
 extern const std::regex  r_sinceVersion;
 extern const std::regex  r_beforeVersion;
 extern const std::regex  r_Deprecated;
 extern const std::regex  r_isPDFVersion;
+extern const std::regex  r_LinkExtension;
+
 
 #endif // ArlPredicates_h

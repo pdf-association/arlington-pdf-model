@@ -388,6 +388,14 @@ std::vector<std::string>  ArlVersion::get_appropriate_linkset(std::string arl_li
                 if (s[0] == ',')
                     s = s.substr(1);
             }
+            else if (std::regex_search(s, m, r_LinkExtension) && m.ready() && (m.size() == 3)) {
+                // m[1] = named extension
+                // m[2] = link 
+                retval.push_back(m[2]);     // m[2] = Arlington link
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);
+            }
             else {
                 assert(false && "unexpected predicate in Arlington Links!");
                 s.clear();

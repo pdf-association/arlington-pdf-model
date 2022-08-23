@@ -125,7 +125,7 @@ bool process_single_pdf(const fs::path& pdf_file_name, const fs::path& tsv_folde
 #include <crtdbg.h>
 
 /// @brief #define CRT_MEMORY_LEAK_CHECK to enable C RTL memory leak checking (slow!)
-#undef CRT_MEMORY_LEAK_CHECK
+#define CRT_MEMORY_LEAK_CHECK
 
 int wmain(int argc, wchar_t* argv[]) {
 #if defined(_DEBUG) && defined(CRT_MEMORY_LEAK_CHECK)

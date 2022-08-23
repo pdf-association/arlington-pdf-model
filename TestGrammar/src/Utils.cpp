@@ -244,6 +244,7 @@ std::string remove_type_link_predicates(const std::string& in) {
     to_ret = std::regex_replace(to_ret, r_beforeVersion, "$2");
     to_ret = std::regex_replace(to_ret, r_isPDFVersion,  "$2");
     to_ret = std::regex_replace(to_ret, r_Deprecated,    "$2");
+    to_ret = std::regex_replace(to_ret, r_LinkExtension, "$2");
     assert(to_ret.find("fn") == std::string::npos);
     assert(to_ret.size() >= 3);
     return to_ret;

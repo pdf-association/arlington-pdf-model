@@ -952,9 +952,16 @@ bool PredicateProcessor::ValidateLinksSyntax(const int key_idx) {
                 valid = FindInVector(v_ArlPDFVersions, m[1]);
                 s = m.suffix();
             }
+            else if (std::regex_search(s, m, r_LinkExtension) && m.ready() && (m.size() == 3)) {
+                // m[1] = named extension --> NO VERSION! 
+                // m[2] = Arlington link (TSV filename)
+                valid = true;
+                s = m.suffix();
+            }
             else {
                 assert(false && "unexpected predicate in Arlington Links!");
                 valid = false;
+                s = "";
             }
 
             // Short circuit further checking on first error
