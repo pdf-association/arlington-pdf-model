@@ -144,15 +144,16 @@ TestGrammar --brief --tsvdir ./tsv/latest --extensions AAPL,Malforms --pdf /tmp/
 TestGrammar --brief --tsvdir ./tsv/latest --extensions ISO_TS_32003,ISO_TS_32004 --force 2.0 --pdf /tmp/folder_of_pdfs/ --out /tmp/out
 ```
 
-Prototyped extensions:
-- "AAPL": adds `AAPL:Keywords` to DocInfo, `AAPL:AA` boolean and the `AAPL:ST` Style dictionary to GraphicsStateParameter and adds a new dictionary object in `AAPL_ST.tsv`
+Prototyped extensions (mainly to experiment with expressing the necessary version and data dependency information):
+- "ADBE_Extn3" and "ADBE_Extn5": the [Adobe Extension Levels 3 and 5](https://www.pdfa.org/resource/pdf-specification-index/) on top of ISO 32000-1:2008 (PDF 1.7). In many cases, these are features that were lated adopted into PDF 2.0 by ISO.
+- "AAPL": adds `AAPL:Keywords` to DocInfo ([see doco](https://developer.apple.com/documentation/coregraphics/kcgpdfcontextkeywords)), `AAPL:AA` boolean and the `AAPL:ST` Style dictionary to GraphicsStateParameter and adds a new dictionary object in `AAPL_ST.tsv`
 - "PDF_VT2": adds PDF/VT-2 support as a demo of how some aspects of a feature can occur in an extension before being later adopted and standardized by ISO 32000-2 (e.g. DParts, DPM, etc.). In this case, the "SinceVersion" field will have `fn:Extension(PDF_VT2,1.6) || 2.0)` for those keys that were adopted, or just `fn:Extension(PDF_VT2,1.6)` for those keys specific to PDF/VT-2. PDF/VT-2 is based on PDF/X-4 which is based on PDF 1.6.
 - "ISO_TS_24064": adds STEP AP 242 support as another 3D format for 3DStreams, and a new requirements dictionary in `RequirementsSTEP.tsv`
 - "ISO_TS_24654": adds `Path` to AnnotLink for non-rectangular links
-- "ISO_TS_32003": adds AES-GCM support to PDF 2.0 by specifying additional values for some keys in Encryption dictionaries
+- "ISO_TS_32003": adds 256-bit AES-GCM support to PDF 2.0 by specifying additional values for some keys in Encryption dictionaries
     - note that because encryption results in all streams and strings being encrypted, PDF SDK support will vary
 - "ISO_TS_32004": adds `KDFSalt` to Encryption*.tsv, `AuthCode` to FileTrailer and XRefStream, and a new dictionary object in `AuthCode.tsv`
-- "Malforms": adds misspelled `SubType` key to OptContentCreatorInfo as an alternate spelling of `Subtype` and misspelled `Blackls1` for `BlackIs1` (lowercase L instead of uppercase i) in FilterCCITTFaxDecode
+- "Malforms": adds misspelled `SubType` key to OptContentCreatorInfo as an alternate spelling of `Subtype` and misspelled `Blackls1` for `BlackIs1` (lowercase L instead of uppercase i) in `FilterCCITTFaxDecode.tsv`
     - the existing row is simply duplicated with the key spelling then changed and the official "SinceVersion" PDF version replaced with the extension predicate: `fn:Extension(Malforms)`.
     - because Optional Content was only introduced in PDF 1.5, the `SubType` malform predicate also uses the `fn:Extension(Malforms,1.5)` predicate to further express this requirement for this misspelled key
 
