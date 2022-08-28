@@ -67,7 +67,9 @@ void ArlingtonPDFSDK::shutdown()
 /// @return version string
 std::string ArlingtonPDFSDK::get_version_string()
 {
-    return QPDF::QPDFVersion();
+    assert(ctx != nullptr);
+    /// @todo - fix return "QPDF " + ((QPDF*)ctx)->QPDFVersion();
+    return "QPDF " QPDF_VERSION;
 }
 
 
@@ -82,8 +84,7 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
     QPDF* qpdfctx = (QPDF*)ctx;
     qpdfctx->processFile(pdf_filename.string().c_str(), nullptr);
 
-    QPDFObjectHandle *trailer = new QPDFObjectHandle;
-    *trailer = qpdfctx->getTrailer();
+    QPDFObjectHandle* trailer = &qpdfctx->getTrailer();
 
     if (trailer->isDictionary())
     {
@@ -91,16 +92,6 @@ ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
 
         // if /Type key exists, then assume working with XRefStream
         trailer_obj->set_xrefstm(trailer->hasKey("/Type"));
-
-        int id = trailer->getObjectID();
-        QPDFObjectHandle root_key = qpdfctx->getRoot();
-        QPDFObject::object_type_e ot = root_key.getTypeCode();
-        id = root_key.getObjectID();
-
-        QPDFObjectHandle info_key = trailer->getKey("/Info");
-        ot = info_key.getTypeCode();
-        id = info_key.getObjectID();
-
         return trailer_obj;
     }
     return nullptr;
@@ -205,8 +196,8 @@ ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj) :
 
     // Object can be invalid (e.g. no valid object in PDF file or infinite loop of indirect references) 
     /// so substitute a null object as constructors cannot return nullptr
-    ///  if (pdf_obj == nullptr) 
-    /// @todo   pdf_obj = QPDFObjectHandle::newNull();
+    if (pdf_obj == nullptr) 
+        pdf_obj = &QPDFObjectHandle::newNull();
 
     // Proceed to populate class data
     type = determine_object_type(pdf_obj);
@@ -229,10 +220,10 @@ void ArlPDFObject::sort_keys()
 {
     if (sorted_keys.empty()) {
         assert(((QPDFObjectHandle*)object)->isDictionary());
-        auto obj = ((QPDFObjectHandle*)object)->getDict();
+        auto dict = ((QPDFObjectHandle*)object)->getDict();
 
         // Get all the keys in the dictionary
-        for (auto& k : obj.getKeys()) {
+        for (auto& k : dict.getKeys()) {
             sorted_keys.push_back(ToWString(k));
         }
         // Sort the keys
@@ -345,8 +336,8 @@ ArlPDFObject* ArlPDFArray::get_value(const int idx)
     assert(idx >= 0);
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isArray());
-    auto elem = obj->getArrayItem(idx);
-    ArlPDFObject *retval = new ArlPDFObject(this, &elem);
+    QPDFObjectHandle* elem = &obj->getArrayItem(idx);
+    ArlPDFObject *retval = new ArlPDFObject(this, elem);
     return retval;
 }
 
@@ -358,7 +349,7 @@ int ArlPDFDictionary::get_num_keys()
     assert(object != nullptr);
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isDictionary());
-    std::map<std::string, QPDFObjectHandle>  dict = obj->getDictAsMap();
+    auto  dict = obj->getDictAsMap();
     int retval = (int)dict.size();
     return retval;
 }
@@ -389,9 +380,9 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
     ArlPDFObject* retval = nullptr;
     std::string s = ToUtf8(key);
     if (obj->hasKey(s)) {
-        auto keyobj = obj->getKey(s);
-        if (keyobj.isInitialized())
-            retval = new ArlPDFObject(this, &keyobj);
+        QPDFObjectHandle* keyobj = &obj->getKey(s);
+        if (keyobj->isInitialized())
+            retval = new ArlPDFObject(this, keyobj);
     }
     return retval;
 }
@@ -411,10 +402,9 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
     if ((sorted_keys.size() > 0) && (index < sorted_keys.size()))
         retval = sorted_keys[index];
 
-
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isDictionary());
-    std::map<std::string, QPDFObjectHandle>  dict = obj->getDictAsMap();
+    auto dict = obj->getDictAsMap();
     if (index < dict.size()) {
         int i = 0;
         for (const auto& [ky, val] : dict)
