@@ -171,7 +171,7 @@ int main(int argc, char* argv[]) {
     sarge.setArgument("f", "force", "force the PDF version to the specified value (1,0, 1.1, ..., 2.0 or 'exact'). Requires --pdf", true);
     sarge.setArgument("t", "tsvdir", "[required] folder containing Arlington PDF model TSV file set.", true);
     sarge.setArgument("v", "validate", "validate the Arlington PDF model.", false);
-    sarge.setArgument("e", "extensions", "a comma-separated list of extensions.", true);
+    sarge.setArgument("e", "extensions", "a comma-separated list of extensions, or '*' for all extensions.", true);
 
 #if defined(_WIN32) || defined(WIN32)
     if (!sarge.parseArguments(argc, mbcsargv)) {

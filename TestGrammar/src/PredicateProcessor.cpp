@@ -913,62 +913,92 @@ bool PredicateProcessor::ValidateLinksSyntax(const int key_idx) {
     std::vector<std::string> link_list = split(tsv_field, ';');
     for (auto& lnk : link_list) {
         std::string s = lnk;
-        auto        idx = s.find("fn:");
-        std::smatch     m;
-        bool valid = false;
-        while (idx != std::string::npos) {
-            s = s.substr(idx);
-            // Specific order!
-            if (std::regex_search(s, m, r_sinceVersionExtension) && m.ready() && (m.size() == 4)) {
-                // m[1] = PDF version "x.y" 
-                // m[2] = extension name
-                // m[3] = Arlington link (TSV filename)
-                valid = FindInVector(v_ArlPDFVersions, m[1]);
-                s = m.suffix();
-            }
-            else if (std::regex_search(s, m, r_sinceVersion) && m.ready() && (m.size() == 3)) {
-                // m[1] = PDF version "x.y" 
-                // m[2] = Arlington link (TSV filename)
-                // fn:SinceVersion(1.0,xxx) is pointless overhead for predicate processing
-                valid = (FindInVector(v_ArlPDFVersions, m[1]) && (m[1] != "1.0"));
-                s = m.suffix();
-            }
-            else if (std::regex_search(s, m, r_beforeVersion) && m.ready() && (m.size() == 3)) {
-                // m[1] = PDF version "x.y"
-                // m[2] = Arlington link (TSV filename)
-                // fn:BeforeVersion(1.0,xxx) makes no sense 
-                valid = (FindInVector(v_ArlPDFVersions, m[1]) && (m[1] != "1.0"));
-                s = m.suffix();
-            }
-            else if (std::regex_search(s, m, r_isPDFVersion) && m.ready() && (m.size() == 3)) {
-                // m[1] = PDF version "x.y"
-                // m[2] = Arlington link (TSV filename)
-                valid = FindInVector(v_ArlPDFVersions, m[1]);
-                s = m.suffix();
-            }
-            else if (std::regex_search(s, m, r_Deprecated) && m.ready() && (m.size() == 3)) {
-                // m[1] = PDF version "x.y" 
-                // m[2] = Arlington link (TSV filename)
-                valid = FindInVector(v_ArlPDFVersions, m[1]);
-                s = m.suffix();
-            }
-            else if (std::regex_search(s, m, r_LinkExtension) && m.ready() && (m.size() == 3)) {
-                // m[1] = named extension --> NO VERSION! 
-                // m[2] = Arlington link (TSV filename)
-                valid = true;
-                s = m.suffix();
+        bool valid = true;
+        std::vector<std::string> links;
+
+        while (s.size() > 0) {
+            if (s.rfind("fn:", 0) == 0) {
+                std::smatch     m;
+
+                // next Link starts with "fn:"
+                if (std::regex_search(s, m, r_startsWithSinceVersionExtension) && m.ready() && (m.size() == 4)) {
+                    // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                    // m[2] = extension name
+                    // m[3] = Arlington link
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[3]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);            // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithSinceVersion) && m.ready() && (m.size() == 3)) {
+                    // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[2]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);       // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithBeforeVersion) && m.ready() && (m.size() == 3)) {
+                    // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[2]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);       // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithIsPDFVersion) && m.ready() && (m.size() == 3)) {
+                    // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[2]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);       // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithDeprecated) && m.ready() && (m.size() == 3)) {
+                    // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[2]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);       // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithLinkExtension) && m.ready() && (m.size() == 3)) {
+                    // m[1] = named extension
+                    // m[2] = link 
+                    links.push_back(m[2]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);       // skip COMMA
+                }
+                else {
+                    assert(false && "unexpected predicate in Arlington Links!");
+                    s.clear();
+                }
             }
             else {
-                assert(false && "unexpected predicate in Arlington Links!");
-                valid = false;
-                s = "";
+                // does NOT start with "fn:"
+                // copy link (up to next COMMA) to output
+                auto comma = s.find(',');
+                std::string l;
+                if (comma != std::string::npos) {
+                    l = s.substr(0, comma);
+                    s = s.substr(comma + 1);
+                }
+                else {
+                    l = s;
+                    s.clear();
+                }
+                if (l.size() == 0)
+                    return false;
+                links.push_back(l);
             }
-
-            // Short circuit further checking on first error
             if (!valid)
-                return valid;
-            idx = s.find("fn:");
+                return false;
         } // while
+        if (links.size() == 0)
+            return false;
+
     } // for
     return true;
 }

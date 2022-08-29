@@ -337,81 +337,87 @@ std::vector<std::string>  ArlVersion::get_appropriate_linkset(std::string arl_li
     }
 
     std::string s = appropriate_links;
+
     while (s.size() > 0) {
         if (s.rfind("fn:", 0) == 0) {
-            // s starts with a predicate
             std::smatch     m;
 
-            // Specific order!
-            if (std::regex_search(s, m, r_sinceVersionExtension) && m.ready() && (m.size() == 4)) {
-                // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
-                // m[2] = extension name
-                // m[3] = Arlington link
-                int arl_v = string_to_pdf_version(m[1].str());
+            // next Link starts with "fn:"
+            if (std::regex_search(s, m, r_startsWithSinceVersionExtension) && m.ready() && (m.size() == 4)) {
+                    // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                    // m[2] = extension name
+                    // m[3] = Arlington link
+                    int arl_v = string_to_pdf_version(m[1].str());
+                if (FindInVector(supported_extensions, m[2].str()))
+                    retval.push_back(m[3]);     // m[2] = Arlington link
                 s = m.suffix();
                 if (s[0] == ',')
-                    s = s.substr(1);
+                    s = s.substr(1);            // skip COMMA
             }
-            else if (std::regex_search(s, m, r_sinceVersion) && m.ready() && (m.size() == 3)) {
+            else if (std::regex_search(s, m, r_startsWithSinceVersion) && m.ready() && (m.size() == 3)) {
                 // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
                 int arl_v = string_to_pdf_version(m[1].str());
                 if (pdf_version >= arl_v)
                     retval.push_back(m[2]);     // m[2] = Arlington link
                 s = m.suffix();
                 if (s[0] == ',')
-                    s = s.substr(1);
+                    s = s.substr(1);            // skip COMMA
             }
-            else if (std::regex_search(s, m, r_beforeVersion) && m.ready() && (m.size() == 3)) {
+            else if (std::regex_search(s, m, r_startsWithBeforeVersion) && m.ready() && (m.size() == 3)) {
                 // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
                 int arl_v = string_to_pdf_version(m[1].str());
                 if (pdf_version < arl_v)
                     retval.push_back(m[2]);     // m[2] = Arlington link
                 s = m.suffix();
                 if (s[0] == ',')
-                    s = s.substr(1);
+                    s = s.substr(1);            // skip COMMA
             }
-            else if (std::regex_search(s, m, r_isPDFVersion) && m.ready() && (m.size() == 3)) {
+            else if (std::regex_search(s, m, r_startsWithIsPDFVersion) && m.ready() && (m.size() == 3)) {
                 // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
                 int arl_v = string_to_pdf_version(m[1].str());
                 if (pdf_version == arl_v)
                     retval.push_back(m[2]);     // m[2] = Arlington link
                 s = m.suffix();
                 if (s[0] == ',')
-                    s = s.substr(1);
+                    s = s.substr(1);            // skip COMMA
             }
-            else if (std::regex_search(s, m, r_Deprecated) && m.ready() && (m.size() == 3)) {
+            else if (std::regex_search(s, m, r_startsWithDeprecated) && m.ready() && (m.size() == 3)) {
                 // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
                 int arl_v = string_to_pdf_version(m[1].str());
                 if (pdf_version < arl_v)
                     retval.push_back(m[2]);     // m[2] = Arlington link
                 s = m.suffix();
                 if (s[0] == ',')
-                    s = s.substr(1);
+                    s = s.substr(1);            // skip COMMA
             }
-            else if (std::regex_search(s, m, r_LinkExtension) && m.ready() && (m.size() == 3)) {
+            else if (std::regex_search(s, m, r_startsWithLinkExtension) && m.ready() && (m.size() == 3)) {
                 // m[1] = named extension
                 // m[2] = link 
-                retval.push_back(m[2]);     // m[2] = Arlington link
+                if (FindInVector(supported_extensions, m[1].str()))
+                    retval.push_back(m[2]);     // m[2] = Arlington link
                 s = m.suffix();
                 if (s[0] == ',')
-                    s = s.substr(1);
+                    s = s.substr(1);            // skip COMMA
             }
             else {
                 assert(false && "unexpected predicate in Arlington Links!");
                 s.clear();
             }
         }
-        else if (s.find(',') != std::string::npos) {
-            // Next in list doesn't have a predicate
-            auto i = s.find(',');
-            retval.push_back(s.substr(0, i));
-            s = s.substr(i + 1);
-        }
         else {
-            // Must be the last thing in the list (no trailing COMMA)
-            assert((s.find(',') == std::string::npos) && (s.find("fn") == std::string::npos));
-            retval.push_back(s);
-            s.clear();
+            // does NOT start with "fn:"
+            // copy link (up to next COMMA) to output
+            auto comma = s.find(',');
+            std::string l;
+            if (comma != std::string::npos) {
+                l = s.substr(0, comma);
+                s = s.substr(comma + 1);
+            }
+            else {
+                l = s;
+                s.clear();
+            }
+            retval.push_back(l);
         }
     } // while
 

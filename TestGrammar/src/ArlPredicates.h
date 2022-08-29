@@ -141,7 +141,7 @@ const double ArlNumberTolerance = 0.000005;
 extern const std::regex  r_Types;
 extern const std::regex  r_Keys;
 
-/// @brief Regexes for matching versioning predicates
+/// @brief Regexes for matching versioning predicates (incl. extensions)
 extern const std::regex  r_sinceVersionExtension;
 extern const std::regex  r_sinceVersion;
 extern const std::regex  r_beforeVersion;
@@ -149,5 +149,11 @@ extern const std::regex  r_Deprecated;
 extern const std::regex  r_isPDFVersion;
 extern const std::regex  r_LinkExtension;
 
+extern const std::regex  r_startsWithSinceVersionExtension;
+extern const std::regex  r_startsWithSinceVersion;
+extern const std::regex  r_startsWithBeforeVersion;
+extern const std::regex  r_startsWithDeprecated;
+extern const std::regex  r_startsWithIsPDFVersion;
+extern const std::regex  r_startsWithLinkExtension;
 
 #endif // ArlPredicates_h

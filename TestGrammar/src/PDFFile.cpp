@@ -1572,7 +1572,7 @@ ASTNode* CPDFFile::fn_Extension(const ASTNode* extn, const ASTNode* value) {
 
     bool extn_supported = false;
     for (auto& e : extensions)
-        if (extn->node == e) {
+        if ((extn->node == e) || (e == "*")) {
             extn_supported = true;
             break;
         }

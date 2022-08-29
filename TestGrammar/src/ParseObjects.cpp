@@ -197,7 +197,7 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
                             std::cout << ".";
 #endif
                             if ((vec[TSV_KEYNAME] == "Type") || (vec[TSV_KEYNAME] == "Subtype") || (vec[TSV_KEYNAME] == "S") || (vec[TSV_KEYNAME] == "Parent") || (vec[TSV_KEYNAME] == "TransformMethod"))
-                                link_score += -20;     // A disambiguating key exists with a correct value
+                                link_score += -60;     // A disambiguating key exists with a correct value
                             else if ((obj_type == PDFObjectType::ArlPDFObjTypeArray) && (vec[TSV_KEYNAME] == "0"))
                                 link_score += (reqd_key ? -40 : -20); // Treat first element in an array that is not a wildcard as more important (e.g. disambiguate color spaces)
                             else

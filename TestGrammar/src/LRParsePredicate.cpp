@@ -36,7 +36,7 @@
 #undef PP_DEBUG
 
 
-/// @brief Regexes for matching Link version-based predicates
+/// @brief Regexes for matching Link version-based predicates (both at start-of-line and anywhere in a string)
 /// - $1 = PDF version 
 /// - $2 = Link
 const std::regex  r_sinceVersionExtension("fn:SinceVersion\\(" + ArlPDFVersion + "\\,fn:Extension\\(([A-Za-z0-9_\\-]+)\\,([A-Za-z0-9_\\-]+)\\)\\)");
@@ -44,6 +44,14 @@ const std::regex  r_sinceVersion("fn:SinceVersion\\(" + ArlPDFVersion + "\\,([A-
 const std::regex  r_beforeVersion("fn:BeforeVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
 const std::regex  r_Deprecated("fn:Deprecated\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
 const std::regex  r_isPDFVersion("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
+
+const std::regex  r_startsWithSinceVersionExtension("^fn:SinceVersion\\(" + ArlPDFVersion + "\\,fn:Extension\\(([A-Za-z0-9_\\-]+)\\,([A-Za-z0-9_\\-]+)\\)\\)");
+const std::regex  r_startsWithSinceVersion("^fn:SinceVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
+const std::regex  r_startsWithBeforeVersion("^fn:BeforeVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
+const std::regex  r_startsWithDeprecated("^fn:Deprecated\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
+const std::regex  r_startsWithIsPDFVersion("^fn:IsPDFVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
+const std::regex  r_startsWithLinkExtension("^fn:Extension\\(([A-Za-z0-9_\\-]+)\\,([A-Za-z0-9_\\-]+)\\)");
+
 
 /// @brief when auto-generating Arlington PDF version data sets, the fn:SinceVersion(x.y,...) predicate can get removed
 /// resulting in just an fn:Extension(...) predicate
