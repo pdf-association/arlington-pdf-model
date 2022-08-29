@@ -91,6 +91,9 @@ private:
     /// @brief list of supported extensions
     std::vector<std::string>    supported_extensions;
 
+    /// @brief true if supported_extensions contains the wildcard '*'
+    bool                        wildcard_extn;
+
 public:
     /// @brief Constructor
     ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const int pdf_ver, const std::vector<std::string>& extns);

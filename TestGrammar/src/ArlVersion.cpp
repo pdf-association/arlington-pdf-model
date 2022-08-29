@@ -62,6 +62,13 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
     tsv = vec;
     supported_extensions = extns; // copy all the extensions being supported
 
+    wildcard_extn = false;
+    for (auto& e : supported_extensions)
+        if (e == "*") {
+            wildcard_extn = true;
+            break;
+        }
+
     // Determine the Arlington equivalent for the PDF Object
     assert(obj != nullptr);
     switch (obj->get_object_type())
@@ -287,11 +294,11 @@ bool  ArlVersion::is_unsupported_extension() {
             // m[1] = extension name
             // m[2] = PDF version "x.y"
             int tsv_ver = string_to_pdf_version(m[2].str());
-            return !(FindInVector(supported_extensions, m[1].str()) && (pdf_version >= tsv_ver));
+            return !((FindInVector(supported_extensions, m[1].str()) || wildcard_extn) && (pdf_version >= tsv_ver));
         }
         else if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_ExtensionOnly) && m.ready() && (m.size() == 2)) {
             // m[1] = extension name
-            return !FindInVector(supported_extensions, m[1].str());
+            return !(FindInVector(supported_extensions, m[1].str()) || wildcard_extn);
         }
         else if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_EvalExtensionVersion) && m.ready() && (m.size() == 4)) {
             /// - m[1] = name of extension
@@ -299,7 +306,7 @@ bool  ArlVersion::is_unsupported_extension() {
             /// - m[3] = PDF version without extension
             int tsv_ver1 = string_to_pdf_version(m[2].str());
             int tsv_ver2 = string_to_pdf_version(m[3].str());
-            return !((FindInVector(supported_extensions, m[1].str()) && (pdf_version >= tsv_ver1)) || (pdf_version >= tsv_ver2));
+            return !(((FindInVector(supported_extensions, m[1].str()) || wildcard_extn) && (pdf_version >= tsv_ver1)) || (pdf_version >= tsv_ver2));
         }
         else {
             assert(false && "unexpected SinceVersion predicate!");
@@ -348,7 +355,7 @@ std::vector<std::string>  ArlVersion::get_appropriate_linkset(std::string arl_li
                     // m[2] = extension name
                     // m[3] = Arlington link
                     int arl_v = string_to_pdf_version(m[1].str());
-                if (FindInVector(supported_extensions, m[2].str()))
+                if (FindInVector(supported_extensions, m[2].str()) || wildcard_extn)
                     retval.push_back(m[3]);     // m[2] = Arlington link
                 s = m.suffix();
                 if (s[0] == ',')
@@ -393,7 +400,7 @@ std::vector<std::string>  ArlVersion::get_appropriate_linkset(std::string arl_li
             else if (std::regex_search(s, m, r_startsWithLinkExtension) && m.ready() && (m.size() == 3)) {
                 // m[1] = named extension
                 // m[2] = link 
-                if (FindInVector(supported_extensions, m[1].str()))
+                if (FindInVector(supported_extensions, m[1].str()) || wildcard_extn)
                     retval.push_back(m[2]);     // m[2] = Arlington link
                 s = m.suffix();
                 if (s[0] == ',')
