@@ -66,7 +66,7 @@ Options:
 -f, --force       force the PDF version to the specified value (1,0, 1.1, ..., 2.0). Requires --pdf
 -t, --tsvdir      [required] folder containing Arlington PDF model TSV file set.
 -v, --validate    validate the Arlington PDF model.
--e, --extensions   a comma-separated list of extensions.
+-e, --extensions   a comma-separated list of extensions, or '*' for all extensions.
 
 Built using <pdf-sdk vX.Y.Z>
 ```
@@ -141,7 +141,7 @@ Note also that the Extensions Dictionary in the PDF file is **not** consulted!
 
 ```bash
 TestGrammar --brief --tsvdir ./tsv/latest --extensions AAPL,Malforms --pdf /tmp/folder_of_pdfs/ --out /tmp/out
-TestGrammar --brief --tsvdir ./tsv/latest --extensions ISO_TS_32003,ISO_TS_32004 --force 2.0 --pdf /tmp/folder_of_pdfs/ --out /tmp/out
+TestGrammar --brief --tsvdir ./tsv/latest --extensions * --force 2.0 --pdf /tmp/folder_of_pdfs/ --out /tmp/out
 ```
 
 Prototyped extensions (mainly to experiment with expressing the necessary version and data dependency information):
