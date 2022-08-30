@@ -109,8 +109,12 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
     int key_idx = -1;
     for (auto& vc : data_list) {
         // Add key of current row to a list to later check for duplicates
+        // Arrays can have repeating sets so need to check for <digit>+ASTERISK and remove ASTERISK
         key_idx++;
-        keys_list.push_back(vc[TSV_KEYNAME]);
+        if ((vc[TSV_KEYNAME].size() == 2) && isdigit(vc[TSV_KEYNAME][0]) && (vc[TSV_KEYNAME][1] == '*'))
+            keys_list.push_back(vc[TSV_KEYNAME].substr(0,1));
+        else
+            keys_list.push_back(vc[TSV_KEYNAME]);
 
         for (auto& col : vc) {
             // Check brackets are all balanced
