@@ -940,7 +940,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                             }
                             // Report version mis-matches
                             ArlVersionReason reason = versioner.get_version_reason();
-                            if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown) && !pdfc->is_forced_version()) {
+                            if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown)) {
                                 show_context(elem);
                                 bool reason_shown = false;
                                 if (reason == ArlVersionReason::After_fnBeforeVersion) {
@@ -1026,7 +1026,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                             }
                             // Report version mis-matches
                             ArlVersionReason reason = versioner.get_version_reason();
-                            if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown) && !pdfc->is_forced_version()) {
+                            if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown)) {
                                 show_context(elem);
                                 bool reason_shown = false;
                                 if (reason == ArlVersionReason::After_fnBeforeVersion) {
@@ -1239,7 +1239,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
 
                         // Report version mis-matches
                         ArlVersionReason reason = versioner.get_version_reason();
-                        if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown) && !pdfc->is_forced_version()) {
+                        if ((reason != ArlVersionReason::OK) && (reason != ArlVersionReason::Unknown)) {
                             show_context(elem);
                             bool reason_shown = false;
                             if (reason == ArlVersionReason::After_fnBeforeVersion) {
