@@ -13,6 +13,8 @@
 #
 # A simple makefile to automate some repetitive tasks. Typical usage:
 # $ make clean
+# $ make TestGrammar-pdfix
+# $ make TestGrammar-pdfium
 # $ make tsv
 # $ make validate
 # $ make 3d
@@ -32,7 +34,7 @@ clean:
 	rm -rf ./tsv/1.0/*.tsv ./tsv/1.1/*.tsv ./tsv/1.2/*.tsv ./tsv/1.3/*.tsv ./tsv/1.4/*.tsv
 	rm -rf ./tsv/1.5/*.tsv ./tsv/1.6/*.tsv ./tsv/1.7/*.tsv ./tsv/2.0/*.tsv
 	rm -rf ./gcxml/dist/gcxml.jar
-	rm -rf ./TestGrammar/bin/linux/TestGrammar*
+	rm -rf ./TestGrammar/bin/linux/TestGrammar ./TestGrammar/bin/linux/TestGrammar_d
 
 
 # Make the monolithic TSV file by combining all TSVs - suitable for Jupyter
@@ -58,8 +60,8 @@ pandas:
 
 
 # Build the TestGrammar C++ PoC app using PDFix (because build times are much faster)
-.PHONY: TestGrammar
-TestGrammar:
+.PHONY: TestGrammar-pdfix
+TestGrammar-pdfix:
 	cmake -B ./TestGrammar/cmake-linux/debug -DPDFSDK_PDFIX=ON -DCMAKE_BUILD_TYPE=Debug ./TestGrammar
 	cmake --build ./TestGrammar/cmake-linux/debug --config Debug
 	cmake -B ./TestGrammar/cmake-linux/release -DPDFSDK_PDFIX=ON -DCMAKE_BUILD_TYPE=Release ./TestGrammar
@@ -67,10 +69,20 @@ TestGrammar:
 	rm -rf ./TestGrammar/cmake-linux
 
 
+# Build the TestGrammar C++ PoC app using PDFIUM (SLOW!)
+.PHONY: TestGrammar-pdfium
+TestGrammar-pdfium:
+	cmake -B ./TestGrammar/cmake-linux/debug -DPDFSDK_PDFIUM=ON -DCMAKE_BUILD_TYPE=Debug ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/debug --config Debug
+	cmake -B ./TestGrammar/cmake-linux/release -DPDFSDK_PDFIUM=ON -DCMAKE_BUILD_TYPE=Release ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/release --config Release
+	rm -rf ./TestGrammar/cmake-linux
+
+
 # Validate each of the existing TSV file sets using both the Python script and C++ PoC.
-# Does NOT create the TSVs!
+# Does NOT create the TSVs! Use the TestGrammar-pdfix because it is much quicker the build.
 # Ensure to do a "make tsv" beforehand to refresh the PDF version specific file sets!
-validate: TestGrammar
+validate: TestGrammar-pdfix
 	# Clean-up where gcxml is missing some capabilities...
 	rm -f ./tsv/1.3/ActionNOP.tsv ./tsv/1.3/ActionSetState.tsv
 	rm -f ./tsv/1.4/ActionNOP.tsv ./tsv/1.4/ActionSetState.tsv
