@@ -63,7 +63,7 @@ Options:
 -m, --batchmode   stop popup error dialog windows and redirect everything to console (Windows only, includes memory leak reports)
 -o, --out         output file or folder. Default is stdout. See --clobber for overwriting behavior
 -p, --pdf         input PDF file or folder.
--f, --force       force the PDF version to the specified value (1,0, 1.1, ..., 2.0). Requires --pdf
+-f, --force       force the PDF version to the specified value (1,0, 1.1, ..., 2.0 or 'exact'). Requires --pdf
 -t, --tsvdir      [required] folder containing Arlington PDF model TSV file set.
 -v, --validate    validate the Arlington PDF model.
 -e, --extensions   a comma-separated list of extensions, or '*' for all extensions.
@@ -142,12 +142,13 @@ Note also that the Extensions Dictionary in the PDF file is **not** consulted!
 ```bash
 TestGrammar --brief --tsvdir ./tsv/latest --extensions AAPL,Malforms --pdf /tmp/folder_of_pdfs/ --out /tmp/out
 TestGrammar --brief --tsvdir ./tsv/latest --extensions * --force 2.0 --pdf /tmp/folder_of_pdfs/ --out /tmp/out
+TestGrammar --brief --tsvdir ./tsv/latest --extensions * --force exact --pdf /tmp/folder_of_pdfs/ --out /tmp/out
 ```
 
 Prototyped extensions (mainly to experiment with expressing the necessary version and data dependency information):
-- "ADBE_Extn3" and "ADBE_Extn5": the [Adobe Extension Levels 3 and 5](https://www.pdfa.org/resource/pdf-specification-index/) on top of ISO 32000-1:2008 (PDF 1.7). In many cases, these are features that were lated adopted into PDF 2.0 by ISO.
+- "ADBE_Extn3" and "ADBE_Extn5": the [Adobe Extension Levels 3 and 5](https://www.pdfa.org/resource/pdf-specification-index/) on top of ISO 32000-1:2008 (PDF 1.7). In many cases, these are features that were later adopted into PDF 2.0 by ISO.
 - "AAPL": adds `AAPL:Keywords` to DocInfo ([see doco](https://developer.apple.com/documentation/coregraphics/kcgpdfcontextkeywords)), `AAPL:AA` boolean and the `AAPL:ST` Style dictionary to GraphicsStateParameter and adds a new dictionary object in `AAPL_ST.tsv`
-- "PDF_VT2": adds PDF/VT-2 support as a demo of how some aspects of a feature can occur in an extension before being later adopted and standardized by ISO 32000-2 (e.g. DParts, DPM, etc.). In this case, the "SinceVersion" field will have `fn:Extension(PDF_VT2,1.6) || 2.0)` for those keys that were adopted, or just `fn:Extension(PDF_VT2,1.6)` for those keys specific to PDF/VT-2. PDF/VT-2 is based on PDF/X-4 which is based on PDF 1.6.
+- "PDF_VT2": adds PDF/VT-2 support as a demo of how some aspects of a feature can occur in an extension before being later adopted and standardized by ISO 32000-2 (e.g. DParts, DPM, etc.), while other parts are not adopted (e.g. all the `GTS_xxx` keys). In this case, the "SinceVersion" field will have `fn:Extension(PDF_VT2,1.6) || 2.0)` for those keys that were adopted, or just `fn:Extension(PDF_VT2,1.6)` for those keys specific to PDF/VT-2. PDF/VT-2 is based on PDF/X-4 which is based on PDF 1.6.
 - "ISO_TS_24064": adds STEP AP 242 support as another 3D format for 3DStreams, and a new requirements dictionary in `RequirementsSTEP.tsv`
 - "ISO_TS_24654": adds `Path` to AnnotLink for non-rectangular links
 - "ISO_TS_32003": adds 256-bit AES-GCM support to PDF 2.0 by specifying additional values for some keys in Encryption dictionaries
@@ -159,10 +160,10 @@ Prototyped extensions (mainly to experiment with expressing the necessary versio
 
     ```bash
     # See all the details for all extensions in an Arlington data set
-    grep -P "fn:Extension\([^\t]+\)" *
+    grep -P "\t[^\t]*fn:Extension\([^\t]+" *
 
     # A list of all the unique extension names in an Arlington data set
-    grep -Pho "fn:Extension\([^\t)]+\)" * | sort | uniq
+    grep -Pho "fn:Extension\([^\t)]+\)\)?" * | sort | uniq
     ```
 
 ### Understanding errors and warnings
