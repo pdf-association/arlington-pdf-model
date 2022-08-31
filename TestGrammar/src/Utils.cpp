@@ -492,7 +492,7 @@ bool is_valid_pdf_date_string(const std::wstring& wdate) {
 
     // Convert from possible UTF-16 and strip off BOM
     std::string date = ToUtf8(wdate);
-    if ((date.size() >= 2) && (date[0] == 254) && (date[1] == 255)) {
+    if ((date.size() >= 2) && ((uint8_t)date[0] == (uint8_t)254) && ((uint8_t)date[1] == (uint8_t)255)) {
         date = date.substr(2);
     }
 
