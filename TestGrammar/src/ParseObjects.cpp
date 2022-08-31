@@ -1180,24 +1180,26 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                 output << COLOR_RESET;
             }
 
-            // For array repeats, all rows need to be <single-digit> '*' and always starts with "0*" up to "8*"
-            // Integer value of last row in TSV indicates the multiple of the length
+            // For array repeats, all rows need to be <single-digit> '*' - always starts with "0*" up to "9*"
+            // Integer value of last row in TSV indicates the multiple of the length.
             int array_repeat_multiple = -1;
             bool is_array_repeat = false;
             if (tsv[0][TSV_KEYNAME] == "0*") {
                 assert(first_pure_wildcard < 0);  // Should not have BOTH wildcard and array repeats
                 assert(tsv[tsv.size() - 1][TSV_KEYNAME].size() == 2);
                 array_repeat_multiple = (tsv[tsv.size() - 1][TSV_KEYNAME][0] - '0') + 1; // starts at "0*"
-                assert((array_repeat_multiple >= 0) && (array_repeat_multiple <= 8));
+                assert((array_repeat_multiple >= 0) && (array_repeat_multiple <= 9));
                 assert(tsv[tsv.size() - 1][TSV_KEYNAME][1] == '*');
                 is_array_repeat = true;
 
-                if ((array_size % array_repeat_multiple) != 0) {
+                // If all rows required then array length must be an exact multiple of the repeat
+                if (((array_size % array_repeat_multiple) != 0) && (first_optional_idx == -1)) {
                     show_context(elem);
                     output << COLOR_WARNING << "array length was not an exact multiple of " << array_repeat_multiple << " (was " << array_size << ") for " << elem.link << COLOR_RESET;
                 }
             }
 
+            int last_idx = -1;
             for (int i = 0; i < array_size; i++) {
                 ArlPDFObject* item = arrayObj->get_value(i);
                 bool item_kept = false;
@@ -1205,20 +1207,37 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                     int idx = i; // TSV index
 
                     // Check if object number is out-of-range as per trailer /Size
-                    // Allow for multiple indirections and this negative object numbers
+                    // Allow for multiple indirections and thus negative object numbers
                     if (item->get_object_number() >= pdfc->get_trailer_size()) {
                         show_context(elem);
                         output << COLOR_ERROR << "object number " << item->get_object_number() << " of array element " << i << " is illegal. trailer Size is " << pdfc->get_trailer_size() << COLOR_RESET;
                     }
 
-                    // Adjust for array repeats
-                    if (array_repeat_multiple >= 0)
+                    // Adjust for array repeats when only SOME rows are required (if last_idx was end of TSV array, then cycle back to start of TSV)
+                    if ((array_repeat_multiple > 0) && (first_optional_idx != -1) && (last_idx >= (tsv.size() - 1)))
+                        idx = 0;
+
+                    // Adjust for array repeats when all elements are required (so is always an exact multiple)
+                    if ((array_repeat_multiple > 0) && (first_optional_idx == -1))
                         idx = idx % array_repeat_multiple;
+                    
                     // Adjust for pure wildcards
-                    if ((first_pure_wildcard >= 0) && (idx > first_pure_wildcard))
+                    if ((first_pure_wildcard != -1) && (idx > first_pure_wildcard))
                         idx = first_pure_wildcard;
 
                     assert(idx >= 0);
+                    last_idx = idx;
+
+                    // For array repeats when only SOME rows are required (i.e. first_optional_idx != -1), need to decide if PDF object 'item' 
+                    // best matches the optional array element (at end of TSV) or if should cycle back around to match row 0 in TSV. Decide based
+                    // on PDF object of 'item'.
+                    {
+                        auto itm_type = item->get_object_type();
+                        if ((tsv[tsv.size() - 1][TSV_TYPE].find(ArlingtonPDFShim::PDFObjectType_strings[(int)itm_type]) == std::string::npos) &&
+                            (tsv[0][TSV_TYPE].find(ArlingtonPDFShim::PDFObjectType_strings[(int)itm_type]) != std::string::npos))
+                            idx = 0;
+                    }
+
                     if (idx < (int)tsv.size()) {
                         check_everything(arrayObj, item, idx, tsv, elem.link, elem.context, output);
                         std::string idx_s = "[" + std::to_string(i) + "]";
