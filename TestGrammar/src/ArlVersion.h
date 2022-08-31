@@ -106,7 +106,7 @@ public:
     int              get_arlington_type_index() { return arl_type_index; };
 
     ArlVersionReason get_version_reason() { return version_reason; };
-    int get_reason_version() { return arl_version; }
+    int get_reason_version() { return arl_version; };
 
     bool is_unsupported_extension();
 };
