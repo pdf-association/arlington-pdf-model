@@ -102,7 +102,7 @@ std::string ToUtf8(const std::wstring& wstr) {
     std::wstring ws = wstr;
 
     // Check for UTF-16BE or UTF-8 BOM strings
-    if ((ws.size() >= 2) && (ws[0] == 254) && (ws[1] == 255)) {
+    if ((ws.size() >= 2) && (ws[0] == (wchar_t)254) && (ws[1] == (wchar_t)255)) {
         // Handle UTF-16BE
         ws = ws.substr(2);
 
@@ -115,7 +115,7 @@ std::string ToUtf8(const std::wstring& wstr) {
         }
         return utf8;
     }
-    else if ((ws.size() >= 3) && (ws[0] == 239) && (ws[1] == 187) && (ws[1] == 191)) {
+    else if ((ws.size() >= 3) && (ws[0] == (wchar_t)239) && (ws[1] == (wchar_t)187) && (ws[1] == (wchar_t)191)) {
         // Strip UTF-8 BOM for PDF 2.0
         ws = ws.substr(3);
     }
