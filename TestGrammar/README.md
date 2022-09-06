@@ -184,6 +184,15 @@ Inheritance is only tested for keys that are also "Required" in the Arlington PD
 
 Predicates with the Arlington special syntax `parent::` are not supported and as a result will always generate a warning message when they are checked.
 
+## Exit codes
+
+The following exit codes can occur (refer to https://www.geeksforgeeks.org/exit-codes-in-c-c-with-examples/):
+
+* 0 = no error
+* -1 (255) = fatal error occurred, such as bad command line options or some kind of PDF SDK failure
+* 134 = assertion failure
+* 139 = seg-fault
+
 ## Understanding output
 
 Examining extant PDF files against the specification-derived Arlington PDF model can produce a lot of output. Using simple CLI commands such as `head`, `tail` and `grep` can be used to bulk analyze a directory full of output files.
