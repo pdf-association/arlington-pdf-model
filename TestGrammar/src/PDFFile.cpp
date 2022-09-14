@@ -231,10 +231,10 @@ ArlPDFObject* CPDFFile::get_object_for_path(ArlPDFObject* parent, const std::vec
                     if (dict != nullptr) {
                         ArlPDFObject* a;
                         if (path[0] != "*")
-                            a = ((ArlPDFDictionary*)dict)->get_value(ToWString(path[0]));
+                            a = dict->get_value(ToWString(path[0]));
                         else {
-                            auto key = ((ArlPDFDictionary*)obj)->get_key_name_by_index(0);
-                            a = ((ArlPDFDictionary*)obj)->get_value(key);
+                            auto key = dict->get_key_name_by_index(0);
+                            a = dict->get_value(key);
                         }
                         delete dict;
                         if (delete_obj)
