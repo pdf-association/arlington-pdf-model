@@ -1,12 +1,12 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.4		FALSE	FALSE	FALSE		[XObject]			
+Type	name	1.4		FALSE	FALSE	FALSE		[XObject]			Table87 + Table 143
 Subtype	name	1.4		TRUE	FALSE	FALSE		[Image]			
 Width	integer	1.4		TRUE	FALSE	FALSE			[fn:Eval(@Width==parent::@Width)]		
 Height	integer	1.4		TRUE	FALSE	FALSE			[fn:Eval(@Height==parent::@Height)]		
 ColorSpace	name	1.4		TRUE	FALSE	FALSE		[DeviceGray]			
 BitsPerComponent	integer	1.4		TRUE	FALSE	FALSE		[fn:RequiredValue((fn:Contains(@Filter,CCITTFaxDecode) || fn:Contains(@Filter,JBIG2Decode)),1),2,4,fn:RequiredValue((fn:Contains(@Filter,RunLengthDecode) || fn:Contains(@Filter,DCTDecode)),8),fn:SinceVersion(1.5,16)]			
 Intent	name	1.4		FALSE	FALSE	FALSE					
-ImageMask	boolean	1.4		FALSE	FALSE	FALSE	false	[false]			
+ImageMask	boolean	1.4		FALSE	FALSE	FALSE	false		[fn:Eval(@ImageMask==false)]		Table 143
 Name	name	1.4	2.0	FALSE	FALSE	FALSE					
 Decode	array	1.4		FALSE	FALSE	FALSE	[0 1]			[ArrayOfNumbersGeneral]	
 Interpolate	boolean	1.4		FALSE	FALSE	FALSE	false				
