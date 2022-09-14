@@ -718,6 +718,44 @@ bool PredicateProcessor::ValidatePossibleValuesSyntax(const int key_idx) {
         }
         predicate_ast.push_back(stack);
     }
+
+    std::string types_field = remove_type_link_predicates(tsv[key_idx][TSV_TYPE]);
+    std::vector<std::string> type_list = split(types_field, ';');
+    assert(type_list.size() == predicate_ast.size());
+
+    for (size_t i = 0; i < type_list.size(); i++) {
+        std::string typ = type_list[i];
+        if (typ == "name") {
+            // PDF Names are raw with no leading SLASH - can string match
+            // PDF SDKs have sorted out #-escapes 
+        }
+        else if (typ.find("string") != std::string::npos) {
+            // PDF Strings are single quoted in Arlington 
+        }
+        else if ((typ == "integer") || (typ == "number") || (typ == "bitmask")) {
+            // Integers can be directly matched numerically
+            // Real number need a tolerance for matching
+        }
+        else if (typ == "array") {
+            // Arrays can have Possible Values e.g. XObjectImageMask Decode = [[0,1],[1,0]] 
+        }
+        else if ((typ == "boolean") ||  
+                 (typ == "date") ||      
+                 (typ == "dictionary") ||
+                 (typ == "matrix") ||
+                 (typ == "null") ||
+                 (typ == "rectangle") ||
+                 (typ == "stream")) {
+            if (!((pv_list[i] == "[]") || (pv_list[i].size() == 0))) {
+                // Arrays, Booleans, Dates, Dictionaries, Matrices, null, Rectangles, Streams don't have Possible Values!
+                return false;
+            }
+        }
+        else {
+            // unknown type when validating Possible Values!
+            return false;
+        }
+    }
     return true;
 }
 
