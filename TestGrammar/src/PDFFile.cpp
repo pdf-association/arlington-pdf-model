@@ -1717,7 +1717,7 @@ bool CPDFFile::fn_InMap(ArlPDFObject* obj, const ASTNode* map) {
         if (keys[1] == "Catalog") {
             assert((keys[2] == "Dests") || (keys[2] == "Names"));
             o = doccat->get_value(ToWString(keys[2]));
-            if (keys.size() == 4) {
+            if ((o != nullptr) && (keys.size() == 4)) {
                 ArlPDFObject* o1 = ((ArlPDFDictionary*)o)->get_value(ToWString(keys[3]));
                 if ((o1 == nullptr) || (o1->get_object_type() != PDFObjectType::ArlPDFObjTypeDictionary)) {
                     delete o1;
