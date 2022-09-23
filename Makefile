@@ -15,6 +15,7 @@
 # $ make clean
 # $ make TestGrammar-pdfix
 # $ make TestGrammar-pdfium
+# $ make TestGrammar-qpdf
 # $ make tsv
 # $ make validate
 # $ make 3d
@@ -75,6 +76,16 @@ TestGrammar-pdfium:
 	cmake -B ./TestGrammar/cmake-linux/debug -DPDFSDK_PDFIUM=ON -DCMAKE_BUILD_TYPE=Debug ./TestGrammar
 	cmake --build ./TestGrammar/cmake-linux/debug --config Debug
 	cmake -B ./TestGrammar/cmake-linux/release -DPDFSDK_PDFIUM=ON -DCMAKE_BUILD_TYPE=Release ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/release --config Release
+	rm -rf ./TestGrammar/cmake-linux
+
+
+# Build the TestGrammar C++ PoC app using QPDF (because build times are much faster)
+.PHONY: TestGrammar-qpdf
+TestGrammar-qpdf:
+	cmake -B ./TestGrammar/cmake-linux/debug -DPDFSDK_QPDF=ON -DCMAKE_BUILD_TYPE=Debug ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/debug --config Debug
+	cmake -B ./TestGrammar/cmake-linux/release -DPDFSDK_QPDF=ON -DCMAKE_BUILD_TYPE=Release ./TestGrammar
 	cmake --build ./TestGrammar/cmake-linux/release --config Release
 	rm -rf ./TestGrammar/cmake-linux
 
