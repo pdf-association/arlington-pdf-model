@@ -63,6 +63,7 @@ pandas:
 # Build the TestGrammar C++ PoC app using PDFix (because build times are much faster)
 .PHONY: TestGrammar-pdfix
 TestGrammar-pdfix:
+	rm -rf ./TestGrammar/cmake-linux
 	cmake -B ./TestGrammar/cmake-linux/debug -DPDFSDK_PDFIX=ON -DCMAKE_BUILD_TYPE=Debug ./TestGrammar
 	cmake --build ./TestGrammar/cmake-linux/debug --config Debug
 	cmake -B ./TestGrammar/cmake-linux/release -DPDFSDK_PDFIX=ON -DCMAKE_BUILD_TYPE=Release ./TestGrammar
@@ -73,6 +74,7 @@ TestGrammar-pdfix:
 # Build the TestGrammar C++ PoC app using PDFIUM (SLOW!)
 .PHONY: TestGrammar-pdfium
 TestGrammar-pdfium:
+	rm -rf ./TestGrammar/cmake-linux
 	cmake -B ./TestGrammar/cmake-linux/debug -DPDFSDK_PDFIUM=ON -DCMAKE_BUILD_TYPE=Debug ./TestGrammar
 	cmake --build ./TestGrammar/cmake-linux/debug --config Debug
 	cmake -B ./TestGrammar/cmake-linux/release -DPDFSDK_PDFIUM=ON -DCMAKE_BUILD_TYPE=Release ./TestGrammar
@@ -83,6 +85,7 @@ TestGrammar-pdfium:
 # Build the TestGrammar C++ PoC app using QPDF (because build times are much faster)
 .PHONY: TestGrammar-qpdf
 TestGrammar-qpdf:
+	rm -rf ./TestGrammar/cmake-linux
 	cmake -B ./TestGrammar/cmake-linux/debug -DPDFSDK_QPDF=ON -DCMAKE_BUILD_TYPE=Debug ./TestGrammar
 	cmake --build ./TestGrammar/cmake-linux/debug --config Debug
 	cmake -B ./TestGrammar/cmake-linux/release -DPDFSDK_QPDF=ON -DCMAKE_BUILD_TYPE=Release ./TestGrammar
