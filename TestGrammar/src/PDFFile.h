@@ -70,9 +70,6 @@ private:
     /// @brief Key related to latest PDF version found in the PDF file (could also be free text)
     std::string             latest_feature_key;
 
-    /// @brief whether PDF file uses xref stream or a traditional trailer
-    bool                    has_xref_stream;
-
     /// @brief flags whether a predicate expression involved fn:Deprecate(...)
     bool                    deprecated;
 
@@ -81,14 +78,8 @@ private:
     /// Only initialized to true at the start of ProcessPredicate()
     bool                    fully_implemented;
 
-    /// @brief Trailer dictionary
-    ArlPDFTrailer*          trailer;
-
     /// @brief the value of the trailer /Size key (i.e. maximum object number + 1)
     int                     trailer_size;
-
-    /// @brief Document Catalog dictionary
-    ArlPDFDictionary*       doccat;
 
     /// @brief List of names of extensions being supported. Default = empty list
     std::vector<std::string>    extensions;
@@ -149,16 +140,13 @@ public:
 
     CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver, const std::vector<std::string>& extns);
 
-    ~CPDFFile() { /* destructor */ delete doccat; }
+    ~CPDFFile() { /* destructor  delete doccat; */ };
 
-    /// @brief returns true iff the PDF file uses cross-reference streams
-    bool uses_xref_stream() { return has_xref_stream; };
-
-    /// @brief Returns the PDF files trailer dictionary or nullptr
-    ArlPDFTrailer* get_trailer() { return trailer; };
+    /// @brief Returns the PDF files trailer dictionary or nullptr on error. DO NOT FREE!
+    ArlPDFTrailer* get_ptr_to_trailer() { return pdfsdk.get_trailer(); };
 
     /// @returns the trailer /Size key or -1
-    int get_trailer_size() { return trailer_size; }
+    int get_trailer_size() { return trailer_size; };
 
     /// @brief PDF version to use when processing a PDF file (always a valid version)
     std::string  check_and_get_pdf_version(std::ostream& ofs);
@@ -169,7 +157,7 @@ public:
     /// @brief returns the latest feature version encountered so far as a human readable string.
     std::string get_latest_feature_version_info();
 
-    /// @brief whether a version override is being forced by --force
+    /// @brief whether a version override is being forced by --force (could be a PDF version or 'exact')
     bool is_forced_version() { return (forced_version.size() > 0); }
 
     /// @brief returns the list of currently support extensions. Could be an empty vector.

@@ -47,7 +47,7 @@ namespace fs = std::filesystem;
 
 /// @brief Constructor. Calculates some details about the PDF file
 CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver, const std::vector<std::string>& extns)
-    : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr), trailer_size(INT_MAX),
+    : pdf_filename(pdf_file), pdfsdk(pdf_sdk), trailer_size(INT_MAX),
       latest_feature_version("1.0"), deprecated(false), fully_implemented(true), exact_version_compare(false)
 {
     if (forced_ver.size() > 0) {
@@ -63,13 +63,11 @@ CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std
     // Get physical file size, reduced to an int for simplicity
     filesize_bytes = (int)fs::file_size(pdf_filename);
 
-    trailer = pdfsdk.get_trailer(pdf_file.wstring());
+    // Get PDF version from file header.  No sanity checking is done.
+    pdf_header_version = pdfsdk.get_pdf_version();
+
+    auto trailer = pdfsdk.get_trailer();
     if (trailer != nullptr) {
-        has_xref_stream = trailer->get_xrefstm();
-
-        // Get PDF version from file header.  No sanity checking is done.
-        pdf_header_version = pdfsdk.get_pdf_version(trailer);
-
         // Get the trailer Size key
         if (trailer->has_key(L"Size")) {
             ArlPDFObject* sz = trailer->get_value(L"Size");
@@ -82,24 +80,16 @@ CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std
         }
 
         // Get the Document Catalog Version, if it exists. No sanity checking is done.
-        if (trailer->has_key(L"Root")) {
-            ArlPDFObject* dc = trailer->get_value(L"Root");
-            if (dc != nullptr) {
-                if ((dc->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-                    doccat = (ArlPDFDictionary*)dc;
-                    ArlPDFObject* doc_cat_ver_obj = doccat->get_value(L"Version");
+        {
+            auto doccat = pdfsdk.get_document_catalog();
+            ArlPDFObject* doc_cat_ver_obj = doccat->get_value(L"Version");
 
-                    if (doc_cat_ver_obj != nullptr) {
-                        if (doc_cat_ver_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeName) {
-                            std::wstring doccat_ver = ((ArlPDFName*)doc_cat_ver_obj)->get_value();
-                            pdf_catalog_version = ToUtf8(doccat_ver);
-                        }
-                        delete doc_cat_ver_obj;
-                    }
+            if (doc_cat_ver_obj != nullptr) {
+                if (doc_cat_ver_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeName) {
+                    std::wstring doccat_ver = ((ArlPDFName*)doc_cat_ver_obj)->get_value();
+                    pdf_catalog_version = ToUtf8(doccat_ver);
                 }
-                else {
-                    delete dc; // DocCatalog was not a dictionary (wtf?) so can delete
-                }
+                delete doc_cat_ver_obj;
             }
         }
     }
@@ -165,12 +155,12 @@ ArlPDFObject* CPDFFile::get_object_for_path(ArlPDFObject* parent, const std::vec
 
     // some special case handling
     if ((path_len >= 2) && (path[0] == "trailer") && (path[1] == "Catalog")) {
-        obj = doccat;
+        obj = pdfsdk.get_document_catalog();
         path.erase(path.begin());
         path.erase(path.begin());
     }
     else if ((path_len >= 1) && (path[0] == "trailer")) {
-        obj = trailer;
+        obj = pdfsdk.get_trailer();
         path.erase(path.begin());
     }
 
@@ -223,7 +213,7 @@ ArlPDFObject* CPDFFile::get_object_for_path(ArlPDFObject* parent, const std::vec
                         delete obj;
                     obj = a;
                     delete_obj = true;
-            }
+                }
                 break;
             case PDFObjectType::ArlPDFObjTypeStream:
                 {
@@ -1716,6 +1706,7 @@ bool CPDFFile::fn_InMap(ArlPDFObject* obj, const ASTNode* map) {
     if (keys[0] == "trailer") {
         if (keys[1] == "Catalog") {
             assert((keys[2] == "Dests") || (keys[2] == "Names"));
+            auto doccat = pdfsdk.get_document_catalog();
             o = doccat->get_value(ToWString(keys[2]));
             if ((o != nullptr) && (keys.size() == 4)) {
                 ArlPDFObject* o1 = ((ArlPDFDictionary*)o)->get_value(ToWString(keys[3]));
@@ -1728,8 +1719,10 @@ bool CPDFFile::fn_InMap(ArlPDFObject* obj, const ASTNode* map) {
                 o = o1;
             }
         }
-        else 
-            o = trailer->get_value(ToWString(keys[1]));
+        else {
+            auto t = pdfsdk.get_trailer();
+            o = t->get_value(ToWString(keys[1]));
+        }
     }
 
     bool retval = false;
@@ -1765,6 +1758,7 @@ bool CPDFFile::fn_IsAssociatedFile(ArlPDFObject* obj)
     auto obj_hash = obj->get_hash_id();
 
     // Locate 'obj' in the AF array based on matching hashes...
+    auto doccat = pdfsdk.get_document_catalog();
     ArlPDFObject* af = doccat->get_value(L"AF");
     if ((af != nullptr) && (af->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
         /// walk AF array of File Specification dictionaries looking for 'obj'
@@ -1799,6 +1793,7 @@ bool CPDFFile::fn_IsEncryptedWrapper()
 {
     bool retval = false;
 
+    auto doccat = pdfsdk.get_document_catalog();
     ArlPDFObject* collection = doccat->get_value(L"Collection");
     if ((collection != nullptr) && (collection->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
         ArlPDFObject* view = ((ArlPDFDictionary*)collection)->get_value(L"View");
@@ -1895,18 +1890,20 @@ bool CPDFFile::fn_IsLastInArray(ArlPDFObject* parent, ArlPDFObject* obj, const A
 /// @brief determine if PDF file is a Tagged PDF via DocCat::MarkInfo::Marked == true
 bool CPDFFile::fn_IsPDFTagged() 
 {
-    assert(doccat != nullptr);
     bool retval = false;
 
-    ArlPDFObject *mi = doccat->get_value(L"MarkInfo");
-    if ((mi != nullptr) && (mi->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-        ArlPDFObject* marked = ((ArlPDFDictionary *)mi)->get_value(L"Marked");
-        if ((marked != nullptr) && (marked->get_object_type() == PDFObjectType::ArlPDFObjTypeBoolean)) {
-            retval = ((ArlPDFBoolean*)marked)->get_value();
+    auto doccat = pdfsdk.get_document_catalog();
+    if (doccat != nullptr) {
+        ArlPDFObject* mi = doccat->get_value(L"MarkInfo");
+        if ((mi != nullptr) && (mi->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+            ArlPDFObject* marked = ((ArlPDFDictionary*)mi)->get_value(L"Marked");
+            if ((marked != nullptr) && (marked->get_object_type() == PDFObjectType::ArlPDFObjTypeBoolean)) {
+                retval = ((ArlPDFBoolean*)marked)->get_value();
+            }
+            delete marked;
         }
-        delete marked;
+        delete mi;
     }
-    delete mi;
     return retval;
 }
 
@@ -2531,7 +2528,7 @@ ASTNode* CPDFFile::fn_Deprecated(const ASTNode* dep_ver, const ASTNode* thing) {
 /// @brief Returns the number of pages in the PDF file or -1 on error
 /// @returns Number of pages in the PDF file or -1 on error
 int CPDFFile::fn_NumberOfPages() {
-    return pdfsdk.get_pdf_page_count(trailer);
+    return pdfsdk.get_pdf_page_count();
 }
 
 

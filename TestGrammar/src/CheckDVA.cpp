@@ -1096,30 +1096,32 @@ void CheckDVA(ArlingtonPDFShim::ArlingtonPDFSDK &pdfsdk, const std::filesystem::
         ofs << "Arlington TSV data: " << fs::absolute(grammar_folder).lexically_normal() << std::endl;
         ofs << "Adobe DVA FormalRep file: " << fs::absolute(dva_file).lexically_normal() << std::endl;
 
-        ArlPDFTrailer* trailer = pdfsdk.get_trailer(dva_file.wstring());
-        if (trailer != nullptr) {
-            ArlPDFObject* root = trailer->get_value(L"Root");
-            if ((root != nullptr) && (root->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-                // Adobe DVA COS object tree starts at DocCat::FormalRepTree
-                ArlPDFObject* formal_rep = ((ArlPDFDictionary *)root)->get_value(L"FormalRepTree");
-                if ((formal_rep != nullptr) && (formal_rep->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-                    ArlPDFDictionary* formal_rep_dict = (ArlPDFDictionary*)formal_rep;
-                    process_dva_formal_rep_tree(grammar_folder, ofs, formal_rep_dict, terse);
+        if (pdfsdk.open_pdf(dva_file, L"")) {
+            ArlPDFTrailer* trailer = pdfsdk.get_trailer();
+                if (trailer != nullptr) {
+                    ArlPDFObject* root = trailer->get_value(L"Root");
+                        if ((root != nullptr) && (root->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                            // Adobe DVA COS object tree starts at DocCat::FormalRepTree
+                            ArlPDFObject* formal_rep = ((ArlPDFDictionary*)root)->get_value(L"FormalRepTree");
+                                if ((formal_rep != nullptr) && (formal_rep->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                                    ArlPDFDictionary* formal_rep_dict = (ArlPDFDictionary*)formal_rep;
+                                        process_dva_formal_rep_tree(grammar_folder, ofs, formal_rep_dict, terse);
+                                }
+                                else {
+                                    ofs << COLOR_ERROR << "failed to acquire Trailer/Root/FormalRepTree" << COLOR_RESET;
+                                }
+                            delete formal_rep;
+                        }
+                        else {
+                            ofs << COLOR_ERROR << "failed to acquire Trailer/Root" << COLOR_RESET;
+                        }
+                    delete root;
                 }
                 else {
-                    ofs << COLOR_ERROR << "failed to acquire Trailer/Root/FormalRepTree" << COLOR_RESET;
+                    ofs << COLOR_ERROR << "failed to acquire Trailer" << COLOR_RESET;
                 }
-                delete formal_rep;
-            }
-            else {
-                ofs << COLOR_ERROR << "failed to acquire Trailer/Root" << COLOR_RESET;
-            }
-            delete root;
+            delete trailer;
         }
-        else {
-            ofs << COLOR_ERROR << "failed to acquire Trailer" << COLOR_RESET;
-        }
-        delete trailer;
     }
     catch (std::exception& ex) {
         ofs << COLOR_ERROR << "EXCEPTION: " << ex.what() << COLOR_RESET;

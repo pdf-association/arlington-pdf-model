@@ -44,21 +44,36 @@ using namespace ArlingtonPDFShim;
 void* ArlingtonPDFSDK::ctx = nullptr;
 
 
+struct qpdf_context {
+    QPDF*               qpdf_ctx  = nullptr;
+    ArlPDFTrailer*      pdf_trailer = nullptr;
+    ArlPDFDictionary*   pdf_catalog = nullptr;
+
+    ~qpdf_context() {
+    }
+};
+
+
 /// @brief Initialize the PDF SDK. May throw exceptions.
 void ArlingtonPDFSDK::initialize()
 {
     assert(ctx == nullptr);
 
     // Assign to void context
-    ctx = new QPDF();
+    qpdf_context* qctx = new qpdf_context;
+    qctx->qpdf_ctx = new QPDF();
+    ctx = qctx;
 }
 
 
 /// @brief  Shutdown the PDF SDK
 void ArlingtonPDFSDK::shutdown()
 {
-    if (ctx != nullptr)
-        delete ctx;
+    qpdf_context* qctx = (qpdf_context*)ctx;
+    if (qctx->qpdf_ctx != nullptr)
+        delete qctx->qpdf_ctx;
+    if (qctx != nullptr)
+        delete qctx;
     ctx = nullptr;
 }
 
@@ -67,48 +82,93 @@ void ArlingtonPDFSDK::shutdown()
 /// @return version string
 std::string ArlingtonPDFSDK::get_version_string()
 {
-    assert(ctx != nullptr);
-    /// @todo - fix return "QPDF " + ((QPDF*)ctx)->QPDFVersion();
     return "QPDF " QPDF_VERSION;
 }
 
 
-/// @brief   Opens a PDF file (no password) and locates trailer dictionary
-/// @param   pdf_filename[in] PDF filename
-/// @return  handle to PDF trailer dictionary or nullptr if trailer is not locatable
-ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
+/// @brief   Opens a PDF file (optional password) 
+/// 
+/// @param[in]   pdf_filename PDF filename
+/// @param[in]   password     optional password
+///    
+/// @return  true if PDF can be opened, false otherwise
+bool ArlingtonPDFSDK::open_pdf(const std::filesystem::path& pdf_filename, const std::wstring& password)
 {
     assert(ctx != nullptr);
+    qpdf_context* qctx = (qpdf_context*)ctx;
+    assert(qctx->qpdf_ctx != nullptr);
     assert(!pdf_filename.empty());
 
-    QPDF* qpdfctx = (QPDF*)ctx;
-    qpdfctx->processFile(pdf_filename.string().c_str(), nullptr);
+    if (password.size() > 0)
+        qctx->qpdf_ctx->processFile(pdf_filename.string().c_str(), ToUtf8(password).c_str());
+    else
+        qctx->qpdf_ctx->processFile(pdf_filename.string().c_str());
 
-    QPDFObjectHandle* trailer = &qpdfctx->getTrailer();
+    auto t = qctx->qpdf_ctx->getTrailer();
+    QPDFObjectHandle* trailer = &t;
 
-    if (trailer->isDictionary())
-    {
-        ArlPDFTrailer* trailer_obj = new ArlPDFTrailer(trailer);
-
-        // if /Type key exists, then assume working with XRefStream
-        trailer_obj->set_xrefstm(trailer->hasKey("/Type"));
-        return trailer_obj;
+    if (trailer->isDictionary()) {
+        qctx->pdf_trailer = new ArlPDFTrailer(trailer, 
+                                            trailer->hasKey("/Type"),
+                                            qctx->qpdf_ctx->isEncrypted(), 
+                                            false
+                                     );
+        auto r = qctx->qpdf_ctx->getRoot();
+        qctx->pdf_catalog = new ArlPDFDictionary(qctx->pdf_trailer, &r, false);
+        return true;
     }
-    return nullptr;
+    return false;
 }
+
+
+
+/// @brief Close a previously opened PDF file. Frees all memory for a file so multiple PDFs don't accumulate leaked memory.
+void ArlingtonPDFSDK::close_pdf() {
+    assert(ctx != nullptr);
+    auto qpdf_ctx = (qpdf_context*)ctx;
+
+    delete qpdf_ctx->pdf_catalog;
+    qpdf_ctx->pdf_catalog = nullptr;
+
+    delete qpdf_ctx->pdf_trailer;
+    qpdf_ctx->pdf_trailer = nullptr;
+}
+
+
+
+/// @brief  Gets the PDF trailer dictionary-like object
+/// 
+/// @returns   PDF trailer dictionary
+ArlPDFTrailer* ArlingtonPDFSDK::get_trailer() {
+    assert(ctx != nullptr);
+    qpdf_context* qctx = (qpdf_context*)ctx;
+    assert(qctx->qpdf_ctx != nullptr);
+    return qctx->pdf_trailer;
+}
+
+
+
+/// @brief  Gets the PDF document catalog 
+/// 
+/// @returns   PDF trailer dictionary
+ArlPDFDictionary* ArlingtonPDFSDK::get_document_catalog() {
+    assert(ctx != nullptr);
+    qpdf_context* qctx = (qpdf_context*)ctx;
+    assert(qctx->qpdf_ctx != nullptr);
+    return qctx->pdf_catalog;
+}
+
 
 
 /// @brief  Gets the PDF version of the current PDF file
 /// 
-/// @param trailer   trailer of the PDF
-/// 
 /// @returns   PDF version string 
-std::string ArlingtonPDFSDK::get_pdf_version(ArlPDFTrailer* trailer) {
+std::string ArlingtonPDFSDK::get_pdf_version() {
     assert(ctx != nullptr);
-    assert(trailer != nullptr);
-
-    QPDF* qpdfctx = (QPDF*)ctx;
-    return qpdfctx->getPDFVersion();
+    qpdf_context* qctx = (qpdf_context*)ctx;
+    assert(qctx->qpdf_ctx != nullptr);
+    auto v = qctx->qpdf_ctx->getPDFVersion();
+    return v;
 }
 
 
@@ -117,10 +177,11 @@ std::string ArlingtonPDFSDK::get_pdf_version(ArlPDFTrailer* trailer) {
 /// @param[in] trailer   trailer of the PDF
 /// 
 /// @returns   number of pages in the PDF or -1 on error
-int ArlingtonPDFSDK::get_pdf_page_count(ArlPDFTrailer* trailer) {
+int ArlingtonPDFSDK::get_pdf_page_count() {
     assert(ctx != nullptr);
-    assert(trailer != nullptr);
-    return 99999; /// @todo
+    qpdf_context* qctx = (qpdf_context*)ctx;
+    assert(qctx->qpdf_ctx != nullptr);
+    return 99999; /// @todo - QPDF page count
 }
 
 
@@ -134,7 +195,7 @@ std::string ArlPDFObject::get_hash_id()
 }
 
 
-/// @brief  Returns the PDF object type of an object
+/// @brief  Returns the PDF object type of a QPDF object
 /// @return PDFObjectType enum value
 PDFObjectType determine_object_type(QPDFObjectHandle *obj)
 {
@@ -145,29 +206,29 @@ PDFObjectType determine_object_type(QPDFObjectHandle *obj)
 
     switch (obj->getTypeCode())
     {
-        case QPDFObject::object_type_e::ot_boolean:
+        case qpdf_object_type_e::ot_boolean:
             retval = PDFObjectType::ArlPDFObjTypeBoolean;
             break;
-        case QPDFObject::object_type_e::ot_integer:
-        case QPDFObject::object_type_e::ot_real:
+        case qpdf_object_type_e::ot_integer:
+        case qpdf_object_type_e::ot_real:
             retval = PDFObjectType::ArlPDFObjTypeNumber;    // Integer or Real (or bitmask)
             break;
-        case QPDFObject::object_type_e::ot_string:
+        case qpdf_object_type_e::ot_string:
             retval = PDFObjectType::ArlPDFObjTypeString;    // Any type of string
             break;
-        case QPDFObject::object_type_e::ot_name:
+        case qpdf_object_type_e::ot_name:
             retval = PDFObjectType::ArlPDFObjTypeName;
             break;
-        case QPDFObject::object_type_e::ot_array:
+        case qpdf_object_type_e::ot_array:
             retval = PDFObjectType::ArlPDFObjTypeArray;     // incl. rectangle or matrix
             break;
-        case QPDFObject::object_type_e::ot_dictionary:
+        case qpdf_object_type_e::ot_dictionary:
             retval = PDFObjectType::ArlPDFObjTypeDictionary;
             break;
-        case QPDFObject::object_type_e::ot_stream:
+        case qpdf_object_type_e::ot_stream:
             retval = PDFObjectType::ArlPDFObjTypeStream;
             break;
-        case QPDFObject::object_type_e::ot_null:
+        case qpdf_object_type_e::ot_null:
             retval = PDFObjectType::ArlPDFObjTypeNull;
             break;
         default:
@@ -181,13 +242,13 @@ PDFObjectType determine_object_type(QPDFObjectHandle *obj)
 
 
 /// @brief Constructor taking a parent PDF object and a PDF SDK generic pointer of an object
-ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj) :
-    object(obj)
+ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj, const bool can_delete) :
+    object(obj), deleteable(can_delete)
 {
     assert(object != nullptr);
     QPDFObjectHandle* pdf_obj = (QPDFObjectHandle*)obj;
     auto obj_type = pdf_obj->getTypeCode();
-    assert((obj_type != QPDFObject::object_type_e::ot_uninitialized) && (obj_type != QPDFObject::object_type_e::ot_reserved));
+    assert((obj_type != qpdf_object_type_e::ot_uninitialized) && (obj_type != qpdf_object_type_e::ot_reserved));
     is_indirect = pdf_obj->isIndirect();
 
     /// @todo Resolve the indirect reference to a terminating object
@@ -196,8 +257,10 @@ ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj) :
 
     // Object can be invalid (e.g. no valid object in PDF file or infinite loop of indirect references) 
     /// so substitute a null object as constructors cannot return nullptr
-    if (pdf_obj == nullptr) 
-        pdf_obj = &QPDFObjectHandle::newNull();
+    if (pdf_obj == nullptr) {
+        auto n = QPDFObjectHandle::newNull();
+        pdf_obj = &n;
+    }
 
     // Proceed to populate class data
     type = determine_object_type(pdf_obj);
@@ -336,7 +399,8 @@ ArlPDFObject* ArlPDFArray::get_value(const int idx)
     assert(idx >= 0);
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isArray());
-    QPDFObjectHandle* elem = &obj->getArrayItem(idx);
+    auto e = obj->getArrayItem(idx);
+    QPDFObjectHandle* elem = &e;
     ArlPDFObject *retval = new ArlPDFObject(this, elem);
     return retval;
 }
@@ -363,7 +427,7 @@ bool ArlPDFDictionary::has_key(std::wstring key)
     assert(object != nullptr);
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isDictionary());
-    std::string s = ToUtf8(key);
+    std::string s = ToUtf8(key); 
     bool retval = obj->hasKey(s);
     return retval;
 }
@@ -380,7 +444,8 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
     ArlPDFObject* retval = nullptr;
     std::string s = ToUtf8(key);
     if (obj->hasKey(s)) {
-        QPDFObjectHandle* keyobj = &obj->getKey(s);
+        auto o = obj->getKey(s); 
+        QPDFObjectHandle* keyobj = &o;
         if (keyobj->isInitialized())
             retval = new ArlPDFObject(this, keyobj);
     }
