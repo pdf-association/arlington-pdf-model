@@ -57,16 +57,17 @@ Options:
 -h, --help        This usage message.
 -b, --brief       terse output when checking PDFs. The full PDF DOM tree is NOT output.
 -c, --checkdva    Adobe DVA formal-rep PDF file to compare against Arlington PDF model.
--d, --debug       output additional debugging information (verbose!)
-    --clobber     always overwrite PDF output report files (--pdf) rather than append underscores
-    --no-color    disable colorized text output (useful when redirecting or piping output)
--m, --batchmode   stop popup error dialog windows and redirect everything to console (Windows only, includes memory leak reports)
--o, --out         output file or folder. Default is stdout. See --clobber for overwriting behavior
+-d, --debug       output additional debugging information.
+    --clobber     always overwrite PDF output report files (--pdf) rather than append underscores.
+    --no-color    disable colorized text output (useful when redirecting or piping output).
+-m, --batchmode   stop popup error dialog windows and redirect everything to console (Windows only, includes memory leak reports).
+-o, --out         output file or folder. Default is stdout. See --clobber for overwriting behavior.
 -p, --pdf         input PDF file or folder.
--f, --force       force the PDF version to the specified value (1,0, 1.1, ..., 2.0 or 'exact'). Requires --pdf
+-f, --force       force the PDF version to the specified value (1,0, 1.1, ..., 2.0 or 'exact'). Only applicable to --pdf.
 -t, --tsvdir      [required] folder containing Arlington PDF model TSV file set.
 -v, --validate    validate the Arlington PDF model.
--e, --extensions   a comma-separated list of extensions, or '*' for all extensions.
+-e, --extensions  a comma-separated list of extensions, or '*' for all extensions.
+    --password    password. Only applicable to --pdf.
 
 Built using <pdf-sdk vX.Y.Z>
 ```
@@ -314,6 +315,7 @@ Error: DVA Bounds/Equals was not an array for ...
 Error: failed to acquire Trailer/Root/FormalRepTree
 Error: failed to acquire Trailer/Root
 Error: failed to acquire Trailer
+Error: failed to open PDF
 Error: EXCEPTION: ...
 Error: empty Arlington TSV grammar file: ...
 Error: wrong number of columns in TSV file: ...
@@ -542,12 +544,16 @@ TestGrammar has the following module dependencies:
 
 * QPDF: an OSS C++ PDF SDK (`ARL_PDFSDK_QPDF`)
   - still work-in-progress / incomplete - **DO NOT USE!**
-  - download `qpdf-10.x.y-bin-msvc64.zip` from https://github.com/qpdf/qpdf/releases
-  - place into `./qpdf`
+  - download `qpdf-x.y.z-bin-msvc64.zip` from https://github.com/qpdf/qpdf/releases (for Windows x64)
+  - extract into `./qpdf`
+  - download `qpdf-x.y.z-bin-linux.zip` from https://github.com/qpdf/qpdf/releases (for Linux x64)
+  - extract into `./qpdf`
+  - download `qpdf-external-libs-bin.zip` from https://github.com/qpdf/external-libs/releases (for Windows x64)
+  - extract into `./qpdf/external-libs`
 
-* MuPDF: an OSS C/C++ PDF SDK (_in the future_)
+* MuPDF: an OSS C/C++ PDF SDK (_in the future_: `ARL_PDFSDK_MUPDF`)
 
-* PoDoFo: an OSS C/C++ PDF SDK (_in the future_)
+* PoDoFo: an OSS C/C++ PDF SDK (_in the future_: `ARL_PDFSDK_PODOFO`)
 
 ## Building
 
