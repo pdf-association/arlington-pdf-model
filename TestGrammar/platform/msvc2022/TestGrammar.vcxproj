@@ -756,7 +756,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\crypto.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\jpeg.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\ssl.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\z.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -774,7 +774,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\crypto.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\jpeg.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\ssl.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\z.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -789,13 +789,14 @@
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\pdfix;$(ProjectDir)..\..\qpdf\include;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <WarningLevel>Level3</WarningLevel>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\crypto.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\jpeg.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\ssl.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\z.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -810,13 +811,14 @@
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\pdfix;$(ProjectDir)..\..\qpdf\include;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <WarningLevel>Level3</WarningLevel>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\crypto.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\jpeg.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\ssl.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\z.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
