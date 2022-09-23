@@ -673,11 +673,18 @@
             "name": "ArrayOfArrays_2StringsText map"
         },
         {
-            "id": "ArrayOfAttributes",
+            "id": "ArrayOfAttributeObjects",
             "val": 1,
             "group": "map",
             "desc": "(unspecified)",
-            "name": "ArrayOfAttributes map"
+            "name": "ArrayOfAttributeObjects map"
+        },
+        {
+            "id": "ArrayOfAttributeRevisions",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOfAttributeRevisions array"
         },
         {
             "id": "ArrayOfBeads",
@@ -699,6 +706,13 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfBooleansGeneral map"
+        },
+        {
+            "id": "ArrayOfClassNamesRevisions",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOfClassNamesRevisions array"
         },
         {
             "id": "ArrayOfCompressionFilterNames",
@@ -1408,6 +1422,13 @@
             "name": "ArrayOf_9Numbers array"
         },
         {
+            "id": "ArrayOf_RoleMapNS",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOf_RoleMapNS array"
+        },
+        {
             "id": "AuthCode",
             "val": 16,
             "group": "dict",
@@ -1795,7 +1816,7 @@
         },
         {
             "id": "DocInfo",
-            "val": 121,
+            "val": 144,
             "group": "map",
             "desc": "(unspecified)",
             "name": "DocInfo map"
@@ -2531,9 +2552,9 @@
         },
         {
             "id": "Name",
-            "val": 100,
+            "val": 121,
             "group": "dict",
-            "desc": "10 keys",
+            "desc": "11 keys",
             "name": "Name dict"
         },
         {
@@ -3165,6 +3186,13 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "RoleMap map"
+        },
+        {
+            "id": "RoleMapNS",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "RoleMapNS map"
         },
         {
             "id": "Separation",
@@ -14910,54 +14938,109 @@
             "name": "ArrayOfArrays_2StringsText::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardLayoutAttributesBLSE",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardLayoutAttributesColumn",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardLayoutAttributesILSE",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardTableAttributes",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardListAttributes",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardPrintFieldAttributes",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardArtifactAttributes",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "UserPropertiesAttributes",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "NSOAttributes",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardLayoutAttributesBLSE",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardLayoutAttributesColumn",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardLayoutAttributesILSE",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardTableAttributes",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardListAttributes",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardPrintFieldAttributes",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardArtifactAttributes",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "UserPropertiesAttributes",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "NSOAttributes",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
             "target": "Stream",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
         },
         {
             "source": "ArrayOfBeads",
@@ -15567,6 +15650,12 @@
             "color": "red"
         },
         {
+            "source": "ArrayOf_RoleMapNS",
+            "target": "Namespace",
+            "name": "ArrayOf_RoleMapNS::1",
+            "color": "red"
+        },
+        {
             "source": "AuthCode",
             "target": "ArrayOf_4Integers",
             "name": "AuthCode::ByteRange",
@@ -16090,6 +16179,11 @@
             "source": "CharProcMap",
             "target": "Stream",
             "name": "CharProcMap::*"
+        },
+        {
+            "source": "ClassMap",
+            "target": "ArrayOfAttributeObjects",
+            "name": "ClassMap::*"
         },
         {
             "source": "ClassMap",
@@ -19330,8 +19424,13 @@
             "name": "Name::URLS"
         },
         {
+            "source": "Name",
+            "target": "Stream",
+            "name": "Name::XFAResources"
+        },
+        {
             "source": "Namespace",
-            "target": "RoleMap",
+            "target": "RoleMapNS",
             "name": "Namespace::RoleMapNS"
         },
         {
@@ -20396,7 +20495,8 @@
         {
             "source": "RelatedFilesArray",
             "target": "EmbeddedFileStream",
-            "name": "RelatedFilesArray::1*"
+            "name": "RelatedFilesArray::1*",
+            "color": "red"
         },
         {
             "source": "RenditionBE",
@@ -21026,6 +21126,11 @@
             "source": "RichMediaWindow",
             "target": "RichMediaWidth",
             "name": "RichMediaWindow::Width"
+        },
+        {
+            "source": "RoleMapNS",
+            "target": "ArrayOf_RoleMapNS",
+            "name": "RoleMapNS::*"
         },
         {
             "source": "Separation",
@@ -22466,7 +22571,7 @@
         },
         {
             "source": "StructElem",
-            "target": "ArrayOfAttributes",
+            "target": "ArrayOfAttributeRevisions",
             "name": "StructElem::A"
         },
         {
@@ -22531,7 +22636,7 @@
         },
         {
             "source": "StructElem",
-            "target": "ArrayOfNamesGeneral",
+            "target": "ArrayOfClassNamesRevisions",
             "name": "StructElem::C"
         },
         {

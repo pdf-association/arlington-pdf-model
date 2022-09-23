@@ -365,11 +365,18 @@
             "name": "ArrayOfArrays_2StringsText map"
         },
         {
-            "id": "ArrayOfAttributes",
+            "id": "ArrayOfAttributeObjects",
             "val": 1,
             "group": "map",
             "desc": "(unspecified)",
-            "name": "ArrayOfAttributes map"
+            "name": "ArrayOfAttributeObjects map"
+        },
+        {
+            "id": "ArrayOfAttributeRevisions",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOfAttributeRevisions array"
         },
         {
             "id": "ArrayOfBeads",
@@ -384,6 +391,13 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfBlendModes map"
+        },
+        {
+            "id": "ArrayOfClassNamesRevisions",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOfClassNamesRevisions array"
         },
         {
             "id": "ArrayOfCompressionFilterNames",
@@ -4873,44 +4887,87 @@
             "name": "ArrayOfArrays_2StringsText::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardLayoutAttributesBLSE",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardLayoutAttributesColumn",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardLayoutAttributesILSE",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardTableAttributes",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardListAttributes",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardPrintFieldAttributes",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeObjects",
             "target": "StandardArtifactAttributes",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeObjects::*"
         },
         {
-            "source": "ArrayOfAttributes",
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardLayoutAttributesBLSE",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardLayoutAttributesColumn",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardLayoutAttributesILSE",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardTableAttributes",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardListAttributes",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardPrintFieldAttributes",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
+            "target": "StandardArtifactAttributes",
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfAttributeRevisions",
             "target": "Stream",
-            "name": "ArrayOfAttributes::*"
+            "name": "ArrayOfAttributeRevisions::0*",
+            "color": "red"
         },
         {
             "source": "ArrayOfBeads",
@@ -5556,6 +5613,11 @@
             "source": "CharProcMap",
             "target": "Stream",
             "name": "CharProcMap::*"
+        },
+        {
+            "source": "ClassMap",
+            "target": "ArrayOfAttributeObjects",
+            "name": "ClassMap::*"
         },
         {
             "source": "ClassMap",
@@ -8257,7 +8319,8 @@
         {
             "source": "RelatedFilesArray",
             "target": "EmbeddedFileStream",
-            "name": "RelatedFilesArray::1*"
+            "name": "RelatedFilesArray::1*",
+            "color": "red"
         },
         {
             "source": "Resource",
@@ -9344,7 +9407,7 @@
         },
         {
             "source": "StructElem",
-            "target": "ArrayOfAttributes",
+            "target": "ArrayOfAttributeRevisions",
             "name": "StructElem::A"
         },
         {
@@ -9389,7 +9452,7 @@
         },
         {
             "source": "StructElem",
-            "target": "ArrayOfNamesGeneral",
+            "target": "ArrayOfClassNamesRevisions",
             "name": "StructElem::C"
         },
         {

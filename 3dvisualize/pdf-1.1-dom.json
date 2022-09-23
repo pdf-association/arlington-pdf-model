@@ -1479,6 +1479,15 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      },
+      "*": {
+        "Key": "*",
+        "Type": "string-text",
+        "SinceVersion": 1.1,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
       }
     }
   },

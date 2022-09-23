@@ -2780,7 +2780,7 @@
    <OBJECT id="ArrayOfTags" isArray="true" object_number="044">
       <ENTRY>
          <NAME isWildcard="true">0*</NAME>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -2790,7 +2790,7 @@
       </ENTRY>
       <ENTRY>
          <NAME isWildcard="true">1*</NAME>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string-ascii">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -4597,6 +4597,25 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>fn:Extension(AAPL)</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>GTS_PDFXVersion</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string-text">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(PDF_X)</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME isWildcard="true">*</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string-text">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
    <OBJECT id="Encoding" object_number="078">

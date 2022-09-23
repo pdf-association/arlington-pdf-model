@@ -11324,16 +11324,39 @@
     }
   },
   {
-    "id": "ArrayOfAttributes",
+    "id": "ArrayOfAttributeObjects",
     "keys": {
       "*": {
         "Key": "*",
-        "Type": "dictionary;integer;stream",
+        "Type": "dictionary",
         "SinceVersion": 1.3,
         "Required": false,
-        "IndirectReference": "[false];[false];[true]",
+        "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes];[];[Stream]"
+        "Link": "[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfAttributeRevisions",
+    "keys": {
+      "0*": {
+        "Key": "0*",
+        "Type": "dictionary;stream",
+        "SinceVersion": 1.3,
+        "Required": true,
+        "IndirectReference": "[false];[true]",
+        "Inheritable": false,
+        "Link": "[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes];[Stream]"
+      },
+      "1*": {
+        "Key": "1*",
+        "Type": "integer",
+        "SinceVersion": 1.3,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@1>=0)]"
       }
     }
   },
@@ -11376,6 +11399,28 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOfClassNamesRevisions",
+    "keys": {
+      "0*": {
+        "Key": "0*",
+        "Type": "name",
+        "SinceVersion": 1.3,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "1*": {
+        "Key": "1*",
+        "Type": "integer",
+        "SinceVersion": 1.3,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@1>=0)]"
       }
     }
   },
@@ -12274,7 +12319,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Deprecated(2.0,fn:SinceVersion(1.6,adbe.pkcs7.detached)),fn:Deprecated(2.0,fn:SinceVersion(1.6,adbe.pkcs7.sha1)),adbe.x509.rsa_sha1,ETSI.CAdES.detached,ETSI.RFC3161]"
+        "PossibleValues": "[adbe.pkcs7.detached,fn:Deprecated(2.0,fn:SinceVersion(1.6,adbe.pkcs7.sha1)),adbe.x509.rsa_sha1,ETSI.CAdES.detached,ETSI.RFC3161]"
       }
     }
   },
@@ -12409,7 +12454,7 @@
         "Type": "integer",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": false,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -12418,7 +12463,7 @@
         "Type": "string-ascii",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": false,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       }
@@ -13556,6 +13601,28 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOf_RoleMapNS",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "name",
+        "SinceVersion": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "1": {
+        "Key": "1",
+        "Type": "dictionary",
+        "SinceVersion": 2.0,
+        "Required": true,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[Namespace]"
       }
     }
   },
@@ -14752,12 +14819,12 @@
     "keys": {
       "*": {
         "Key": "*",
-        "Type": "dictionary",
+        "Type": "array;dictionary",
         "SinceVersion": 1.3,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes]"
+        "Link": "[ArrayOfAttributeObjects];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes]"
       }
     }
   },
@@ -16263,7 +16330,7 @@
       "*": {
         "Key": "*",
         "Type": "string-text",
-        "SinceVersion": 1.4,
+        "SinceVersion": 1.1,
         "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
@@ -17927,7 +17994,7 @@
       "Thumb": {
         "Key": "Thumb",
         "Type": "stream",
-        "SinceVersion": 2.0,
+        "SinceVersion": 1.7,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
@@ -24284,6 +24351,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[RenditionMedia,RenditionSelector]"
+      },
+      "XFAResources": {
+        "Key": "XFAResources",
+        "Type": "name-tree",
+        "SinceVersion": 1.7,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[Stream]"
       }
     }
   },
@@ -24323,7 +24400,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[RoleMap]"
+        "Link": "[RoleMapNS]"
       }
     }
   },
@@ -26696,7 +26773,7 @@
         "Key": "0*",
         "Type": "string",
         "SinceVersion": 1.3,
-        "Required": false,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -26704,7 +26781,7 @@
         "Key": "1*",
         "Type": "stream",
         "SinceVersion": 1.3,
-        "Required": false,
+        "Required": true,
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[EmbeddedFileStream]"
@@ -29006,6 +29083,20 @@
     }
   },
   {
+    "id": "RoleMapNS",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "array;name",
+        "SinceVersion": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_RoleMapNS];[]"
+      }
+    }
+  },
+  {
     "id": "Separation",
     "keys": {
       "Pages": {
@@ -30192,7 +30283,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Deprecated(2.0,fn:SinceVersion(1.6,adbe.pkcs7.detached)),fn:Deprecated(2.0,fn:SinceVersion(1.6,adbe.pkcs7.sha1)),adbe.x509.rsa_sha1,ETSI.CAdES.detached,ETSI.RFC3161]"
+        "PossibleValues": "[adbe.pkcs7.detached,fn:Deprecated(2.0,fn:SinceVersion(1.6,adbe.pkcs7.sha1)),adbe.x509.rsa_sha1,ETSI.CAdES.detached,ETSI.RFC3161]"
       },
       "Contents": {
         "Key": "Contents",
@@ -31918,7 +32009,7 @@
         "Required": false,
         "IndirectReference": "[false];[false];[true]",
         "Inheritable": false,
-        "Link": "[ArrayOfAttributes];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes];[Stream]"
+        "Link": "[ArrayOfAttributeRevisions];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes];[Stream]"
       },
       "C": {
         "Key": "C",
@@ -31927,7 +32018,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfNamesGeneral];[]"
+        "Link": "[ArrayOfClassNamesRevisions];[]"
       },
       "R": {
         "Key": "R",
@@ -35172,7 +35263,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "false",
-        "PossibleValues": "[false]"
+        "SpecialCase": "[fn:Eval(@ImageMask==false)]"
       },
       "Name": {
         "Key": "Name",

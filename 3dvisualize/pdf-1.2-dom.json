@@ -2043,7 +2043,7 @@
         "Type": "integer",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": false,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -2052,7 +2052,7 @@
         "Type": "string-ascii",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": false,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       }
@@ -3499,6 +3499,15 @@
         "Key": "ModDate",
         "Type": "date",
         "SinceVersion": 1.1,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "*": {
+        "Key": "*",
+        "Type": "string-text",
+        "SinceVersion": 1.1,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false

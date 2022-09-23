@@ -24,7 +24,7 @@ StructParents	integer	1.3		fn:IsRequired(fn:PageContainsStructContentItems())	FA
 ID	string-byte	1.3		FALSE	FALSE	FALSE					https://github.com/pdf-association/pdf-issues/issues/106
 PZ	number	1.3		FALSE	FALSE	FALSE					
 SeparationInfo	dictionary	1.3		FALSE	FALSE	FALSE				[Separation]	
-Tabs	name	1.5		FALSE	FALSE	FALSE		[R,C,S,A,W]			
+Tabs	name	1.5		FALSE	FALSE	FALSE		[R,C,S]			
 TemplateInstantiated	name	1.5		fn:IsRequired(fn:InMap(trailer::Catalog::Names::Pages) || fn:InMap(trailer::Catalog::Names::Templates))	FALSE	FALSE					
 PresSteps	dictionary	1.5		FALSE	FALSE	FALSE				[NavNode]	
 Hid	boolean	1.1	1.3	FALSE	FALSE	TRUE	false				
