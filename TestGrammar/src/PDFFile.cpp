@@ -1056,7 +1056,7 @@ ASTNode* CPDFFile::convert_basic_object_to_ast(ArlPDFObject* obj)
 
     case PDFObjectType::ArlPDFObjTypeBoolean:
         ast_obj->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-        ast_obj->node = std::to_string(((ArlPDFBoolean*)obj)->get_value());
+        ast_obj->node = ((ArlPDFBoolean*)obj)->get_value() ? "true" : "false";
         return ast_obj;
 
     case PDFObjectType::ArlPDFObjTypeString:
