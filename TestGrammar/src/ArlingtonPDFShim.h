@@ -114,10 +114,10 @@ namespace ArlingtonPDFShim {
         explicit ArlPDFObject(ArlPDFObject* parent, void* obj, const bool can_delete = true);
 
         ~ArlPDFObject()
-        { /* default destructor */ sorted_keys.clear(); assert(deleteable); }
+            { /* default destructor */ sorted_keys.clear(); assert(deleteable); }
         
         PDFObjectType get_object_type() { return type; };
-        int   get_object_number()       { return obj_nbr;  };
+        int   get_object_number()       { return obj_nbr; };
         int   get_generation_number()   { return gen_nbr; };
         bool  is_indirect_ref()         { return is_indirect; };
         bool  is_deleteable()           { return deleteable; };

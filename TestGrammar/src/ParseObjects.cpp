@@ -1234,7 +1234,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                     // For array repeats when only SOME rows are required (i.e. first_optional_idx != -1), need to decide if PDF object 'item' 
                     // best matches the optional array element (at end of TSV) or if should cycle back around to match row 0 in TSV. Decide based
                     // on PDF object of 'item'.
-                    {
+                    if (first_optional_idx != -1) {
                         auto itm_type = item->get_object_type();
                         if ((tsv[tsv.size() - 1][TSV_TYPE].find(ArlingtonPDFShim::PDFObjectType_strings[(int)itm_type]) == std::string::npos) &&
                             (tsv[0][TSV_TYPE].find(ArlingtonPDFShim::PDFObjectType_strings[(int)itm_type]) != std::string::npos))
