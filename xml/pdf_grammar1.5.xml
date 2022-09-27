@@ -24813,14 +24813,15 @@
       <ENTRY>
          <NAME>DocMDP</NAME>
          <VALUES>
-            <VALUE type="dictionary">SignatureReferenceDocMDP</VALUE>
+            <VALUE type="dictionary">Signature</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">false</VALUE>
+            <VALUE type="dictionary">true</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DocMDP::Reference)&gt;=1)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>UR3</NAME>

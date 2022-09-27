@@ -22173,9 +22173,10 @@
         "Type": "dictionary",
         "SinceVersion": 1.5,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
-        "Link": "[SignatureReferenceDocMDP]"
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(DocMDP::Reference)>=1)]",
+        "Link": "[Signature]"
       },
       "UR3": {
         "Key": "UR3",
