@@ -521,6 +521,13 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = fn_IsEncryptedWrapper() ? "true" : "false";
         }
+        else if (in_ast->node == "fn:IsFieldName(") {
+            // one argument: key-value
+            assert(out_left != nullptr);
+            assert(out_right == nullptr);
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = fn_IsFieldName(obj) ? "true" : "false";
+        }
         else if (in_ast->node == "fn:IsHexString(") {
             // no arguments
             assert(out_left == nullptr);
@@ -1240,7 +1247,7 @@ std::string CPDFFile::get_latest_feature_version_info()
 /// 
 /// @param[in] obj  PDF string object
 /// 
-/// @returns fakse if the object is not an unencrypted string 
+/// @returns false if the object is not an unencrypted string 
 bool CPDFFile::fn_AlwaysUnencrypted(ArlPDFObject* obj) {
     assert(obj != nullptr);
     if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeString)
@@ -1255,11 +1262,32 @@ bool CPDFFile::fn_AlwaysUnencrypted(ArlPDFObject* obj) {
 
 
 
+/// @brief Asserts that a PDF string object is a valid PDF partial Field Name according to clause 12.7.4.2.
+/// This means it needs to be a non-empty string and not contain a PERIOD (".").
+/// 
+/// @param[in] obj  PDF string object
+/// 
+/// @returns false if the object is not a valid PDF field name
+bool CPDFFile::fn_IsFieldName(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeString)
+        return false;
+
+    ArlPDFString* str = (ArlPDFString*)obj;
+    std::wstring s = str->get_value();
+    if ((s.size() > 0) && (s.find('.') == std::string::npos)) {
+        return true;
+    }
+    return false;
+}
+
+
+
 /// @brief Asserts that a PDF string object was expressed as a hexadecimal string
 /// 
 /// @param[in] obj  PDF string object
 /// 
-/// @returns fakse if the object was not a hexadecimal string 
+/// @returns false if the object was not a hexadecimal string 
 bool CPDFFile::fn_IsHexString(ArlPDFObject* obj) {
     assert(obj != nullptr);
     if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeString)

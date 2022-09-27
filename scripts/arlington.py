@@ -389,6 +389,16 @@ class Arlington:
                 return True
         return False
 
+    def validate_fn_is_field_name(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid 'fn:IsFieldName(' function. False otherwise
+        """
+        if (len(ast) >= 1):
+            if (isinstance(ast[0], list) or (ast[0].type in ('KEY_VALUE'))):
+                return True
+        return False
+
     def validate_fn_stream_length(self, ast: AST) -> bool:
         """
         @param ast: AST to be validated.
@@ -444,6 +454,7 @@ class Arlington:
         'fn:InMap(': validate_fn_in_map,
         'fn:IsAssociatedFile(': validate_fn_void,
         'fn:IsEncryptedWrapper(': validate_fn_void,
+        'fn:IsFieldName(': validate_fn_is_field_name,
         'fn:IsHexString(': validate_fn_void,
         'fn:IsLastInNumberFormatArray(': validate_fn_anything,
         'fn:IsMeaningful(': validate_fn_is_meaningful,

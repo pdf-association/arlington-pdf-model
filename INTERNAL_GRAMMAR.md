@@ -736,6 +736,14 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
+   <td><code>fn:IsFieldName(<i>value</i>)</code></td>
+   <td>
+    <ul>
+     <li>Asserts that the value is a PDF string object and that is a valid partial Field Name according to clause 12.7.4.2 of ISO 32000-2:2020.</li>
+    </ul>
+   </td>
+  </tr>
+  <tr>
    <td><code>fn:IsHexString()</code></td>
    <td>
     <ul>
