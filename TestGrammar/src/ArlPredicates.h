@@ -105,7 +105,7 @@ const std::string ArlString = "'[^']+'";
 /// @brief Arlington key or array index regex, including path separator "::" and wildcards.
 /// Intersects with ArlLink and ArlPredfinedType.
 /// Examples: SomeKey, 3, *, 2*, parent::SomeKey, SomeKeyA::SomeKeyB::3, SomeKeyA::SomeKeyB::\@SomeKeyC,
-const std::string  ArlKeyBase = "[a-zA-Z0-9_\\.]+";
+const std::string  ArlKeyBase = "[a-zA-Z0-9_\\.\\-]+";
 const std::string  ArlKey = "([a-zA-Z]+::)*(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
 const std::string  ArlKeyValue = "(([a-zA-Z0-9]+::)*)@(" + ArlKeyBase + "|([0-9]+(\\*)?)+|\\*)+";
 
