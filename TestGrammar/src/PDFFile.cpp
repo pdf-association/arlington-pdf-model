@@ -912,8 +912,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                     out->node = out_left->node;
                     break;
                 }
-                else if ((out_left == nullptr) && (out_right != nullptr)) {
-                    assert(out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                else if ((out_left == nullptr) && (out_right != nullptr) && (out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean)) {
                     out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
                     out->node = out_right->node;
                     // swap nodes
@@ -927,21 +926,37 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                     break;
                 }
 
-                assert((out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean) && (out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean));
-                if (in_ast->node == " && ") {
-                    // logical AND - if only 1 arg then it is that arg
-                    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-                    out->node = ((out_left->node == "true") && (out_right->node == "true")) ? "true" : "false";
-                }
-                else if (in_ast->node == " || ") {
-                    // logical OR
-                    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-                    out->node = ((out_left->node == "true") || (out_right->node == "true")) ? "true" : "false";
+                if (((out_left == nullptr) || (out_left->type == ASTNodeType::ASTNT_ConstNum)) || (out_right->type == ASTNodeType::ASTNT_ConstNum)) {
+                    // Coming from SinceVersion field: fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0) type expression
+                    assert(in_ast->node == " || ");
+                    out->type = ASTNodeType::ASTNT_ConstNum;
+                    if (out_left != nullptr)
+                        out->node = out_left->node;
+                    else
+                        out->node = out_right->node;
+                    delete out_left;
+                    out_left = nullptr;
+                    delete out_right;
+                    out_right = nullptr;
+                    break;
                 }
                 else {
-                    assert(false && "unexpected logical operator!");
-                    delete out;
-                    out = nullptr;
+                    assert((out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean) && (out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean));
+                    if (in_ast->node == " && ") {
+                        // logical AND - if only 1 arg then it is that arg
+                        out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                        out->node = ((out_left->node == "true") && (out_right->node == "true")) ? "true" : "false";
+                    }
+                    else if (in_ast->node == " || ") {
+                        // logical OR
+                        out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                        out->node = ((out_left->node == "true") || (out_right->node == "true")) ? "true" : "false";
+                    }
+                    else {
+                        assert(false && "unexpected logical operator!");
+                        delete out;
+                        out = nullptr;
+                    }
                 }
             }
             break;

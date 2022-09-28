@@ -75,7 +75,7 @@ public:
     bool ValidateTypeSyntax(const int key_idx);
     
     bool ValidateSinceVersionSyntax(const int key_idx);
-    bool IsValidForPDFVersion(const int key_idx);
+    bool IsValidForPDFVersion(ArlPDFObject* parent, ArlPDFObject* obj, const int key_idx);
     
     bool ValidateDeprecatedInSyntax(const int key_idx);
     bool IsDeprecated(const int key_idx);

@@ -152,12 +152,17 @@ bool PredicateProcessor::ValidateSinceVersionSyntax(const int key_idx) {
 }
 
 
-/// @brief Determines if the current Arlington row is valid based on the "SinceVersion" field (column 3)
+/// @brief Determines if the current Arlington row is valid based on the "SinceVersion" field (column 3).
+/// - fn:Eval(fn:Extension(xxx,1.6) || 2.0)
+/// - fn:Extension(xxx)
+/// - fn:Extension(xxx,1.2)
 ///
+/// @param[in]   parent      the parent object (needed for predicates)
+/// @param[in]   obj         the object of the current key
 /// @param[in]   key_idx     the key index into the TSV data
 /// 
 /// @returns true if this row is valid for the specified by PDF version. false otherwise
-bool PredicateProcessor::IsValidForPDFVersion(const int key_idx) {
+bool PredicateProcessor::IsValidForPDFVersion(ArlPDFObject* parent, ArlPDFObject* obj, const int key_idx) {
     assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_SINCEVERSION];
     pdfc->ClearPredicateStatus();
@@ -179,37 +184,27 @@ bool PredicateProcessor::IsValidForPDFVersion(const int key_idx) {
         predicate_ast.push_back(stack);
         assert(whats_left.size() == 0);
 
-        // Process the AST - is independent of all PDF objects in a file
-        auto extns_supported = pdfc->get_extensions();
-        if (extns_supported.size() > 0) {
-            if (predicate_ast[0][0]->node == "fn:Extension(") {
-                return FindInVector(extns_supported, predicate_ast[0][1]->node);
+        // Process the AST
+        assert(predicate_ast[0][0]->node.find("fn:") != std::string::npos);
+        assert(predicate_ast[0][0]->arg[0] != nullptr); 
+        auto eval = pdfc->ProcessPredicate(parent, obj, predicate_ast[0][0], key_idx, tsv, 0);
+        bool retval = false;
+        if (eval != nullptr) {
+            if (eval->type == ASTNodeType::ASTNT_ConstNum) {
+                // output is a PDF version
+                int tsv_v = string_to_pdf_version(eval->node);
+                delete eval;
+                retval = (pdf_v >= tsv_v);
             }
             else {
-                assert(predicate_ast[0][0]->node == "fn:SinceVersion(");
-                assert(predicate_ast[0][0]->arg[0] != nullptr); // a PDF version
-                assert(FindInVector(v_ArlPDFVersions, predicate_ast[0][0]->arg[0]->node)); // a valid PDF version
-                assert(predicate_ast[0][0]->arg[1] != nullptr); // the fn:Extension(...) predicate
-                assert(predicate_ast[0][0]->arg[1]->type == ASTNodeType::ASTNT_Predicate);  
-                assert(predicate_ast[0][0]->arg[1]->node == "fn:Extension(");
-                assert(predicate_ast[0][0]->arg[1]->arg[0] != nullptr); // the name of the extension
-                assert(predicate_ast[0][0]->arg[1]->arg[1] == nullptr); // no 2nd argument
-                assert(predicate_ast[0][0]->arg[1]->arg[0]->type == ASTNodeType::ASTNT_Key); // the name of the extension
-
-                if (FindInVector(extns_supported, predicate_ast[0][0]->arg[1]->arg[0]->node)) {
-                    // Extension is support, now check fn:SinceVersion() version
-                    int since_v = string_to_pdf_version(predicate_ast[0][0]->arg[0]->node);
-                    return (pdf_v >= since_v);
-                }
-                else {
-                    // Extension is not supported
-                    // fallthrough to return false
-                }
+                assert(eval->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                retval = (eval->node == "true");
+                delete eval;
             }
         }
+        return retval;
     }
-    return false;
-};
+}
 
 
 /// @brief Validates an Arlington "DeprecatedIn" field (column 4)
@@ -293,6 +288,8 @@ bool PredicateProcessor::ValidateRequiredSyntax(const int key_idx) {
 ///   . \@key==... or \@key!=...
 ///   . use of Arlington-PDF-Path "::", "parent::"
 ///   . various highly specialized predicates: fn:IsEncryptedWrapper(), fn:NotStandard14Font(), ...
+/// 
+/// Also need to consider SinceVersion which might be fn:Extension(...)
 ///
 /// @param[in]   parent      the parent object (needed for predicates)
 /// @param[in]   obj         the object of the current key
@@ -306,6 +303,12 @@ bool PredicateProcessor::IsRequired(ArlPDFObject* parent, ArlPDFObject* obj, con
     bool retval = false;
 
     assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
+    bool is_valid = IsValidForPDFVersion(parent, obj, key_idx);
+
+    // If it is not valid for the PDF version, then cannot be required
+    if (!is_valid)
+        return false;
+
     std::string tsv_field = tsv[key_idx][TSV_REQUIRED];
     pdfc->ClearPredicateStatus();
     EmptyPredicateAST();
