@@ -273,6 +273,15 @@ class Arlington:
             return True
         return False
 
+    def validate_fn_colorants(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 2) and (ast[0].type == 'KEY_PATH') and (ast[1].type == 'INTEGER'):
+            return True
+        return False
+
     def validate_fn_ignore(self, ast: AST) -> bool:
         """
         @param ast: AST to be validated.
@@ -449,6 +458,8 @@ class Arlington:
         'fn:FontHasLatinChars(': validate_fn_void,
         'fn:PageProperty(': validate_fn_get_page_property,
         'fn:Ignore(': validate_fn_ignore,
+        'fn:HasProcessColorants(': validate_fn_colorants,
+        'fn:HasSpotColorants(': validate_fn_colorants,
         'fn:ImageIsStructContentItem(': validate_fn_void,
         'fn:ImplementationDependent(': validate_fn_void,
         'fn:InMap(': validate_fn_in_map,
