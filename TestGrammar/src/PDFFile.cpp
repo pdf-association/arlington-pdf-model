@@ -477,6 +477,20 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = fn_FontHasLatinChars(obj) ? "true" : "false";
         }
+        else if (in_ast->node == "fn:HasProcessColorants(") {
+            // one argument - an array object of names
+            assert(out_left != nullptr);
+            assert(out_right == nullptr);
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = fn_HasProcessColorants(parent, out_left) ? "true" : "false";
+        }
+        else if (in_ast->node == "fn:HasSpotColorants(") {
+            // one argument - an array object of names
+            assert(out_left != nullptr);
+            assert(out_right == nullptr);
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = fn_HasSpotColorants(parent, out_left) ? "true" : "false";
+        }
         else if (in_ast->node == "fn:Ignore(") {
             /// @todo - implement ignoring things...
             // 1 argument which is the condition for ignoring, which can be nullptr due to reduction/indeterminism
@@ -1656,6 +1670,73 @@ bool CPDFFile::fn_FontHasLatinChars(ArlPDFObject* obj)
     delete t;
     return true;
 }
+
+
+
+/// @brief Checks to see if the PDF array object of names contains at least one process colorant name.
+/// Process colorant names are Cyan, Magenta, Yellow, Black.
+/// 
+/// @param[in] parent    PDF parent object
+/// @param[in] obj_ref   key name of a PDF array object of names
+/// 
+/// @returns true if the array contains a process colorant name
+bool CPDFFile::fn_HasProcessColorants(ArlPDFObject *parent, const ASTNode* obj_ref) {
+    assert(obj_ref != nullptr);
+    assert(obj_ref->type == ASTNodeType::ASTNT_Key);
+    auto key_parts = split_key_path(obj_ref->node);
+    auto obj = get_object_for_path(parent, key_parts);
+
+    if ((obj == nullptr) || (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeArray))
+        return false;
+
+    auto arr = (ArlPDFArray*)obj;
+    for (int i = 0; i < arr->get_num_elements(); i++) {
+        auto o = arr->get_value(i);
+        if ((o != nullptr) && (o->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
+            auto nm = ((ArlPDFName*)o)->get_value();
+            if ((nm == L"Cyan") || (nm == L"Magenta") || (nm == L"Yellow") || (nm == L"Black")) {
+                delete o;
+                return true;
+            }
+        }
+        delete o;
+    }
+    return false;
+}
+
+
+
+/// @brief Checks to see if the PDF array object of names contains at least one spot colorant name.
+/// For this app, a spot colorant name is considered any name other than the CMYK process colorants.
+/// 
+/// @param[in] parent    PDF parent object
+/// @param[in] obj_ref   key name to a PDF array object of names
+/// 
+/// @returns true if the array contains a spot colorant name
+bool CPDFFile::fn_HasSpotColorants(ArlPDFObject* parent, const ASTNode* obj_ref) {
+    assert(obj_ref != nullptr);
+    assert(obj_ref->type == ASTNodeType::ASTNT_Key);
+    auto key_parts = split_key_path(obj_ref->node);
+    auto obj = get_object_for_path(parent, key_parts);
+
+    if ((obj == nullptr) || (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeArray))
+        return false;
+
+    auto arr = (ArlPDFArray*)obj;
+    for (int i = 0; i < arr->get_num_elements(); i++) {
+        auto o = arr->get_value(i);
+        if ((o != nullptr) && (o->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
+            auto nm = ((ArlPDFName*)o)->get_value();
+            if ((nm != L"Cyan") && (nm != L"Magenta") && (nm != L"Yellow") && (nm != L"Black") && (nm.size() > 0)) {
+                delete o;
+                return true;
+            }
+        }
+        delete o;
+    }
+    return false;
+}
+
 
 
 /// @brief Checks if a PDF image object is a structure content item

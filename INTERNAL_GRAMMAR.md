@@ -382,7 +382,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 # Linux CLI voodoo
 
-```shell
+```bash
 # List all predicates by names:
 grep --color=always -ho "fn:[[:alnum:]]*." * | sort | uniq
 
@@ -404,7 +404,7 @@ grep --color=always -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" * | sort | uniq
 
 Any Linux command that outputs a row can be piped through `tsv-pretty` to improve readability.
 
-```shell
+```bash
 # Pretty columnized output:
 tsv-pretty Catalog.tsv
 
@@ -672,6 +672,22 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>Asserts that the current font descriptor object (the PDF object that contains the row with this predicate) has Latin characters.</li>
      <li>Checks that the PDF object has the entry <code>/Type /FontDescriptor</code>.</li>
      <li>There are no parameters.</li>
+    </ul>
+   </td>
+  </tr>
+  <tr>
+   <td><code>fn:HasProcessColorants(<i>array</i>)</code></td>
+   <td>
+    <ul>
+     <li>Asserts that the given array object of names contains at least one process colorant name (Cyan, Magenta, Yellow or Black).</li>
+    </ul>
+   </td>
+  </tr>
+  <tr>
+   <td><code>fn:HasSpotColorants(<i>array</i>)</code></td>
+   <td>
+    <ul>
+     <li>Asserts that the given array object of names contains at least one spot colorant name. A spot colorant is any name besides the CMYK colorant names.</li>
     </ul>
    </td>
   </tr>

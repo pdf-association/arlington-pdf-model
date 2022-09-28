@@ -110,6 +110,8 @@ private:
     bool fn_BitsClear(ArlPDFObject* obj, const ASTNode* low_bit_node, const ASTNode* high_bit_node);
     bool fn_BitsSet(ArlPDFObject* obj, const ASTNode* low_bit_node, const ASTNode* high_bit_node);
     bool fn_FontHasLatinChars(ArlPDFObject* obj);
+    bool fn_HasProcessColorants(ArlPDFObject* parent, const ASTNode* obj_ref);
+    bool fn_HasSpotColorants(ArlPDFObject* parent, const ASTNode* obj_ref);
     bool fn_ImageIsStructContentItem(ArlPDFObject* obj);
     bool fn_InMap(ArlPDFObject* obj, const ASTNode* map);
     bool fn_IsAssociatedFile(ArlPDFObject* obj);
