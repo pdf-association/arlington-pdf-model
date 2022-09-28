@@ -259,37 +259,37 @@ After processing a tree of PDF files and saving the output into a folder via a c
 # Colorized output
 TestGrammar --brief --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/
 
-# Longer colorized output and enabling 3 extension sets
-TestGrammar --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/ --extensions AAPL,Malforms,ISO_TS_24064
+# Longer colorized output, with object numbers and enabling 3 extension sets
+TestGrammar --debug --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/ --extensions AAPL,Malforms,ISO_TS_24064
 
 # Colorized output but ignoring the PDF version in all PDF files
 TestGrammar --force 2.0 --brief --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/
 
-# Non-colorized output
-TestGrammar --force 2.0 --extensions ISO_TS_32003,ISO_TS_32004 --brief --batchmode --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/
+# Non-colorized output with all extensions supported
+TestGrammar --force 2.0 --extensions * --brief --batchmode --no-color --tsvdir ../arlington-pdf-model/tsv/latest --out . --pdf ../test/
 ```
 
 The following Linux CLI commands can be useful in filtering the output (note that by **not** using the start-of-line regex `^` these CLIs will work with both text and colorized output):
 
 ```bash
 # Get a more unique set of messages without PDF filenames. May include PDF object numbers if --debug was specified.
-grep -Ph "Error:" * | sort | uniq
-grep -Ph "Warning:" * | sort | uniq
-grep -Ph "Info:" * | sort | uniq
+grep --text -Ph "Error:" * | sort | uniq
+grep --text -Ph "Warning:" * | sort | uniq
+grep --text -Ph "Info:" * | sort | uniq
 
 # Get messages with their context line (the line before the message). If more than 1 message per context change the line count...
-grep -B 1 "Error:" * | sort | uniq
-grep -B 1 "Warning:" * | sort | uniq
-grep -B 1 "Info:" * | sort | uniq
+grep --text -B 1 "Error:" * | sort | uniq
+grep --text -B 1 "Warning:" * | sort | uniq
+grep --text -B 1 "Info:" * | sort | uniq
 
 # Files that were not processed (likely encrypted or corrupted - depends on PDF SDK)
-grep "acquire Trailer" *
+grep --text "acquire Trailer" *
 
 # See what version of PDF actually got used and any enabled extensions
-grep "Processing file as PDF" *
+grep --text "Processing file as PDF" *
 
 # Find PDFs that crashed, CTRL-C or did not complete
-grep --files-without-match "END" *
+grep --text --files-without-match "END" *
 ```
 
 # All messages
