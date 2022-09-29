@@ -1,13 +1,13 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-FT	name	1.2		TRUE	FALSE	TRUE		[Ch]			
+FT	name	1.2		TRUE	FALSE	TRUE		[Ch]			Table 226 and Table 234
 Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,fn:SinceVersion(1.3,FieldSig),Field]	
 Kids	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFields]	
 T	string-text	1.2		FALSE	FALSE	FALSE					
 TU	string-text	1.3		FALSE	FALSE	FALSE					
 TM	string-text	1.3		FALSE	FALSE	FALSE					
 Ff	bitmask	1.2		FALSE	FALSE	TRUE			[fn:Eval(fn:BitsClear(4,14) && fn:BitClear(21) && fn:BitsClear(24,26) && fn:BitsClear(28,32))]		
-V	string-text	1.2		FALSE	FALSE	TRUE					
-DV	string-text	1.2		FALSE	FALSE	TRUE					
+V	array;string-text	1.2		FALSE	FALSE	TRUE				[ArrayOfStringsText];[]	
+DV	array;string-text	1.2		FALSE	FALSE	TRUE				[ArrayOfStringsText];[]	
 AA	dictionary	1.3		FALSE	FALSE	FALSE				[AddActionFormField]	
 DA	string	1.2		TRUE	FALSE	TRUE					
 Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]			
