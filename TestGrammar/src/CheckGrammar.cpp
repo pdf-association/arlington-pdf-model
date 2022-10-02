@@ -264,11 +264,26 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
             }
         }
 
-        if (vc[TSV_DEFAULTVALUE] != "")
+        if (vc[TSV_DEFAULTVALUE] != "") {
             if (types.size() != default_val.size()) {
                 report_stream << COLOR_ERROR << "wrong # of types vs. # of DefaultValue " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET;
                 retval = false;
             }
+            // Check that each DefaultValue, if they exist, are also one of the PossibleValues and is also valid according to SpecialCase
+            for (int i = 0; i < types.size(); i++) {
+                auto dv = validator.GetDefaultValue(key_idx, i);
+                if ((dv != nullptr) && verbose) {
+                    if ((possible_vals.size() > i) && (possible_vals[i] != "") && (possible_vals[i] != "[]")) {
+                        /// @todo - check DefaultValue against PossibleValues for the i-th type. Need a PDF object so just report
+                        report_stream << COLOR_WARNING << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ":\t\tDefaultValue[" << i << "] = " << *dv << "\t\tPossibleValues[" << i << "] = " << possible_vals[i] << COLOR_RESET;
+                    }
+                    if ((specialcase_vals.size() > i) && (specialcase_vals[i] != "") && (specialcase_vals[i] != "[]")) {
+                        /// @todo - check DefaultValue against SpecialCase field for the i-th type. Need a PDF object so just report
+                        report_stream << COLOR_WARNING << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ":\t\tDefaultValue[" << i << "] = " << *dv << "\t\tSpecialCase[" << i << "] = " << specialcase_vals[i] << COLOR_RESET;
+                    }
+                }
+            }
+        }
 
         if (vc[TSV_POSSIBLEVALUES] != "")
             if (types.size() != possible_vals.size()) {

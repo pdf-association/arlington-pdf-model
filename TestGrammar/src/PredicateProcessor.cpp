@@ -518,90 +518,38 @@ bool PredicateProcessor::ValidateDefaultValueSyntax(const int key_idx) {
     ASTNodeStack stack;
     EmptyPredicateAST();
 
+    std::vector<std::string> dv_list = split(tsv_field, ';');
     if (tsv_field.find(";") != std::string::npos) {
-        // complex type [];[];[], so therefore everything has outer [ and ], including PDF arrays
-        std::vector<std::string> dv_list = split(tsv_field, ';');
-
+        // complex type [];[];[], so therefore everything has [ and ], which need to be removed
         for (auto& dv : dv_list) {
-            stack.clear();
-            int loop = 0;
-            assert(dv.size() >= 2);
-            s = dv.substr(1, dv.size() - 2); // strip off outer '[' and ']'
-            if ((s.size() == 0) || (s == "[]")) {
-                // was a "no value" (i.e. "[]") or is an empty PDF array (i.e. "[[]]")
-                // For the purposes of validation we don't care which
-                stack.push_back(nullptr);
-            }
-            else {
-                do {
-                    ASTNode* n = new ASTNode();
-
-                    s = LRParsePredicate(s, n);
-                    assert(n->valid());
-                    stack.push_back(n);
-                    loop++;
-                    while ((s.size() > 0) && (s[0] == ' ')) {
-                        s = s.substr(1, s.size() - 1); // skip over SPACEs
-                    }
-                } while ((s.size() > 0) && (loop < 100));
-                if (loop >= 100) {
-                    assert(false && "Arlington complex type DefaultValue field too long and complex!");
-                    return false;
-                }
-            }
-            assert(stack.size() == 1);          // only ever a single value for a default
-            predicate_ast.push_back(stack);
-        } // for
-        assert(predicate_ast.size() > 1);       // was complex so must be at least 2 defaults: [a];[b]       
-    }
-    else {
-        // non-complex type. Any '[' and ']' indicates a PDF array with SPACE separators between array elements
-        // May also have predicates.
-        int loop = 0;
-        std::vector<std::string> elems;
-        if (tsv_field[0] == '[') {
-            // DefaultValue is a single PDF array. Need to strip off array '[' and ']' as LRParsePredicate CANNOT handle PDF arrays with SPACE separators
-            // Then just "test parse" each element of the PDF array for the purposes of validation.
-            s = strip_leading_whitespace(tsv_field.substr(1, tsv_field.size() - 2));
-            elems = split(s, ' ');
+            assert(dv[0] == '[');
+            s = dv.substr(1, dv.size() - 2);
+            dv = s;
         }
-        else
-            elems.push_back(tsv_field);
+    }
 
-        for (auto elem : elems) {
-            s = strip_leading_whitespace(elem);  // required for PDF Array elements
-            if (s == "") {
-                // Was an empty PDF array "[]"
-                stack.push_back(nullptr);
-            }
-            else if (s[0] == '\'') {
-                // PDF strings not handled by LRParsePredicate due to containing a SPACE or COMMA
-                // e.g. NumberFormat/RT, PS, SS
+    for (auto& dv : dv_list) {
+        stack.clear();
+        int loop = 0;
+        // LRParsePredicate does not support PDF-arrays so ignore them
+        if (dv[0] != '[') {
+            do {
                 ASTNode* n = new ASTNode();
-                n->type = ASTNodeType::ASTNT_ConstString;
-                n->node = s.substr(1, s.size() - 2); // strip SINGLE-QUOTE
+                s = LRParsePredicate(dv, n);
                 stack.push_back(n);
-            }
-            else {
-                // PDF array element is integer, name, number, etc. - see if it parses cleanly
-                do {
-                    ASTNode* n = new ASTNode();
-                    s = LRParsePredicate(s, n);
-                    assert(n->valid());
-                    stack.push_back(n);
-                    loop++;
-                    while ((s.size() > 0) && (s[0] == ' ')) {
-                        s = s.substr(1, s.size() - 1); // skip over SPACEs
-                    }
-                } while ((s.size() > 0) && (loop < 100));
-                if (loop >= 100) {
-                    assert(false && "Arlington simple type DefaultValue field too long and complex!");
-                    return false;
+                loop++;
+                while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
+                    s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                 }
+            } while ((s.size() > 0) && (loop < 100));
+            if (loop >= 100) {
+                assert(false && "Arlington DefaultValue field too long and complex!");
+                return false;
             }
         }
         predicate_ast.push_back(stack);
-    }
+    } // for
+
     return true;
 }
 
@@ -609,12 +557,17 @@ bool PredicateProcessor::ValidateDefaultValueSyntax(const int key_idx) {
 /// @brief Converts the DefaultValue for the specified Arlington type into an ASTNode tree
 /// 
 /// @param[in]   key_idx   the index into TSV data for the key of interest
+/// @param[in]   type_idx  the index into TSV data for the Type field
 /// 
 /// @returns an ASTNode tree or nullptr if nothing or an error
-ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx) {
+ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx, const int type_idx) {
     assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
+    assert(type_idx >= 0);
     std::string tsv_field = tsv[key_idx][TSV_DEFAULTVALUE];
-    pdfc->ClearPredicateStatus();
+
+    // Only when processing a PDF file, not when validating the grammar
+    if (pdfc != nullptr)
+        pdfc->ClearPredicateStatus();
 
     if (tsv_field == "") 
         return nullptr;
@@ -623,41 +576,24 @@ ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx) {
     ASTNodeStack stack;
     EmptyPredicateAST();
 
+    std::vector<std::string> dv_list = split(tsv_field, ';');
     if (tsv_field.find(";") != std::string::npos) {
-        // complex type [];[];[], so therefore everything has [ and ]
-        std::vector<std::string> dv_list = split(tsv_field, ';');
-
+        // complex type [];[];[], so therefore everything has [ and ], which need to be removed
         for (auto& dv : dv_list) {
-            stack.clear();
-            if (dv.find("fn:") != std::string::npos) {
-                int loop = 0;
-                s = dv.substr(1, dv.size() - 2); // strip off '[' and ']'
-                do {
-                    ASTNode* n = new ASTNode();
-
-                    s = LRParsePredicate(s, n);
-                    stack.push_back(n);
-                    loop++;
-                    while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
-                        s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
-                    }
-                } while ((s.size() > 0) && (loop < 100));
-                if (loop >= 100) {
-                    assert(false && "Arlington complex type DefaultValue field too long and complex!");
-                    return nullptr;
-                }
-            }
-            predicate_ast.push_back(stack);
-        } // for
+            assert(dv[0] == '[');
+            s = dv.substr(1, dv.size() - 2); 
+            dv = s;
+        }
     }
-    else {
-        // non-complex type - [ and ] may be PDF array with SPACE separators so don't strip
-        if (tsv_field.find("fn:") != std::string::npos) {
-            int loop = 0;
-            s = tsv_field;
+
+    for (auto& dv : dv_list) {
+        stack.clear();
+        int loop = 0;
+        // LRParsePredicate does not support PDF-arrays so ignore them
+        if (dv[0] != '[') {
             do {
                 ASTNode* n = new ASTNode();
-                s = LRParsePredicate(s, n);
+                s = LRParsePredicate(dv, n);
                 stack.push_back(n);
                 loop++;
                 while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
@@ -665,16 +601,16 @@ ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx) {
                 }
             } while ((s.size() > 0) && (loop < 100));
             if (loop >= 100) {
-                assert(false && "Arlington simple type DefaultValue field too long and complex!");
+                assert(false && "Arlington DefaultValue field too long and complex!");
                 return nullptr;
             }
         }
         predicate_ast.push_back(stack);
-    }
+    } // for
 
     // Parsed the DefaultValue, now work out which AST to return based in Type index (idx)
-    if (key_idx < (int)predicate_ast.size())
-        return predicate_ast[key_idx][0];
+    if ((type_idx < (int)predicate_ast.size()) && (!predicate_ast[type_idx].empty()))
+        return predicate_ast[type_idx][0];
     else
         return nullptr;
 }
