@@ -37,7 +37,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 * PDF names don't use `#`-escaping (currently unsupported)
 * PDF strings use single quotes `'` and `'` (since `(` and `)` are ambiguous with expressions and single quotes are supported natively by Python `csv` module)
 * Expressions with integers need to use integers. Integers can be used in place of numbers.
-* `*` represents a wildcard (i.e. anything). Other regex are not supported.
+* `*` represents a wildcard (i.e. anything). Other regex are not supported. Wildcards can be used in the Key field and in the PossibleValues field for names (when the PDF standard specifically states that other arbitrary names can be used)
 * Leading `@` indicates "_value of_" a key or array element
 * PDF Booleans are `true` and `false` lowercase.
     - Uppercase `TRUE`/`FALSE` are reserved for logical Boolean TSV data fields such as the "Required" field.
@@ -117,11 +117,11 @@ This document describes some strict rules for the Arlington PDF model, for both 
     * `string-byte`
     * `string-text`
 *   Each type may also be wrapped in a version-based declarative function (e.g. `fn:SinceVersion(version,type)` or
-    `fn:Deprecated(version,type)` ).
+    `fn:Deprecated(version,type)`).
 *   When a declarative function is used, the internal simple type is still kept in its alphabetic sort order
 * The following predefined Arlington types ALWAYS REQUIRE a link:
     - `array`, `dictionary`, `name-tree`, `number-tree`, `stream`
-* The following predefined Arlington types NEVER have a link (they are the basic Arlington types):
+* The following predefined Arlington types NEVER have a link (they are the primitive Arlington types):
     - `bitmask`, `boolean`, `date`, `integer`, `matrix`, `name`, `null`, `number`, `rectangle`, `string`, `string-ascii`, `string-byte`, `string-text`
 *   **Python pretty-print/JSON:**
     *   Always a list
@@ -147,7 +147,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   In the future the set of versions may be increased - e.g. `2.1`
 * Version-based predicates in other fields should all be based on versions explicitly AFTER the version in this column
 *   **Python pretty-print/JSON**
-    *   Always a string (never blank)
+    *   Always a string (never blank!)
     *   Value is one of the values listed above
     *   `grep "'SinceVersion'" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
@@ -276,6 +276,8 @@ This document describes some strict rules for the Arlington PDF model, for both 
     * thus a complex expression can first be split by SEMI-COLON, then each portion has the SQUARE-BRACKETS stripped off, then multiple options can be split by COMMA as any remaining SQUARE-BRACKETS indicate an array.
 *   If there is a "DefaultValue" AND there are multiple types, then require a complex `[];[];[]` expression
     *  If the "DefaultValue" is a PDF array _as part of a complex type_, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
+*   For keys or arrays that are PDF names, a wildcard `*` indicates that any arbitrary name is _explicitly_ permitted according to the PDF specification along with formally defined values (e.g. OptContentCreatorInfo, Subtype key: `[Artwork,Technical,*]`).
+    *  Do not use `*` as the _only_ value - since an empty cell has the same meaning as "anything is OK"
 *   **Python pretty-print/JSON:**
     *   A list or `None`
     *   If list, then length always matches length of "Type"
