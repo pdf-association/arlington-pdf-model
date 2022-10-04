@@ -726,15 +726,19 @@ bool PredicateProcessor::IsValidValue(ArlPDFObject* object, const int key_idx, c
             {
                 // PDF Names are raw with no leading SLASH - can string match
                 // PDF SDKs have sorted out #-escapes 
+                // Also support wildcard "*" in Arlington grammar meaning any name matches
                 std::string nm = ToUtf8(((ArlPDFName*)object)->get_value());
-                auto it = std::find(val_list.begin(), val_list.end(), nm);
-                retval = (it != val_list.end());
+                for (auto& v : val_list)
+                    if ((nm == v) || (v == "*")) { // Support wildcard name matching
+                        retval = true;
+                        break;
+                    }
             }
             break;
 
         case PDFObjectType::ArlPDFObjTypeString:
             {
-                // PDF Strings are single quoted in Arlington so strip then string match
+                // PDF Strings are single quoted in Arlington so add then string match
                 // PDF SDKs have sorted out hex strings, escapes, etc.
                 std::string s = "'" + ToUtf8(((ArlPDFString*)object)->get_value()) + "'";
                 auto it = std::find(val_list.begin(), val_list.end(), s);

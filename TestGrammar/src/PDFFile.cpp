@@ -1126,13 +1126,14 @@ ASTNode* CPDFFile::convert_basic_object_to_ast(ArlPDFObject* obj)
 ///
 /// @param[in] dict     dictionary object
 /// @param[in] key      the key name or array index
-/// @param[in] values   a set of values to match
+/// @param[in] values   a set of values to match. "*" will be interpreted as wildcard and will match anything for certain kinds of PDF objects.
 ///
 /// @returns true if the key value matches something in the values set
 bool CPDFFile::check_key_value(ArlPDFDictionary* dict, const std::wstring& key, const std::vector<std::wstring> values)
 {
     assert(dict != nullptr);
     assert(key.find(L"::") == std::string::npos);
+    assert(key.find('*') == std::string::npos);
 
     ArlPDFObject* val_obj = dict->get_value(key);
 
@@ -1142,17 +1143,36 @@ bool CPDFFile::check_key_value(ArlPDFDictionary* dict, const std::wstring& key, 
         case PDFObjectType::ArlPDFObjTypeString:
             val = ((ArlPDFString*)val_obj)->get_value();
             delete val_obj;
-            for (auto& i : values)
-                if (val == i)
+            for (auto& v : values)
+                if (val == v)
                     return true;
             break;
 
         case PDFObjectType::ArlPDFObjTypeName:
             val = ((ArlPDFName*)val_obj)->get_value();
             delete val_obj;
-            for (auto& i : values)
-                if (val == i)
+            for (auto& v : values)
+                if ((val == v) || (v == L"*"))      // Support wildcard matching for PDF names in Arlington
                     return true;
+            break;
+
+        case PDFObjectType::ArlPDFObjTypeNumber:
+            if (((ArlPDFNumber*)val_obj)->is_integer_value()) {
+                int i = ((ArlPDFNumber*)val_obj)->get_integer_value();
+                delete val_obj;
+                val = ToWString(std::to_string(i));
+                for (auto& v : values)
+                    if (val == v) 
+                        return true;
+            }
+            else {
+                double d = ((ArlPDFNumber*)val_obj)->get_value();
+                delete val_obj;
+                // Cannot compare doubles as strings due to unknown precision
+                for (auto& v : values)
+                    if (fabs(std::stod(v) - d) <= ArlNumberTolerance)
+                        return true;
+            }
             break;
 
         default: /* fallthrough */
