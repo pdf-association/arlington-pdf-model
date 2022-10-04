@@ -5,7 +5,7 @@ C	integer	1.2	2.0	FALSE	FALSE	FALSE	1	[fn:Eval(@C>0)]			number of sound channels
 B	integer	1.2	2.0	FALSE	FALSE	FALSE	8	[fn:Eval(@B>0)]			bits per sample value per channel
 E	name	1.2	2.0	FALSE	FALSE	FALSE	Raw	[Raw,Signed,muLaw,ALaw]			
 CO	name	1.2	2.0	FALSE	FALSE	FALSE					
-CP	array;dictionary;stream	1.2	2.0	FALSE	[FALSE];[FALSE];[TRUE]	FALSE				[_UniversalArray];[_UniversalDictionary];[Stream]	*various
+CP	array;dictionary;stream	1.2	2.0	FALSE	[FALSE];[FALSE];[TRUE]	FALSE				[_UniversalArray];[_UniversalDictionary];[Stream]	various
 Length	integer	1.2		TRUE	FALSE	FALSE					
 Filter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	
 DecodeParms	array;dictionary	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,fn:SinceVersion(1.5,FilterCrypt)]	
