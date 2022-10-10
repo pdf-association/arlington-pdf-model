@@ -1,11 +1,11 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-FT	name	1.2		TRUE	FALSE	TRUE		[Tx]			
-Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,Field]	
+FT	name	1.2		TRUE	FALSE	TRUE		[Tx]			Table 226, Table 228 and Table 231
+Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,Field]	
 Kids	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFields]	
 T	string-text	1.2		FALSE	FALSE	FALSE					
-Ff	bitmask	1.2		FALSE	FALSE	TRUE			[fn:Eval(fn:BitsClear(15,20) && fn:BitClear(22) && fn:BitsClear(27,32))]		
+Ff	bitmask	1.2		FALSE	FALSE	TRUE			[fn:Eval(fn:BitsClear(15,20) && fn:BeforeVersion(1.4,fn:BitClear(21)) && fn:BitClear(22) && fn:BeforeVersion(1.4,fn:BitsClear(23,24)) && fn:BeforeVersion(1.5,fn:BitsClear(25,26)) && fn:BitsClear(27,32))]		Table 231
 V	stream;string-text	1.2		FALSE	[TRUE];[FALSE]	TRUE				[Stream];[]	
 DV	stream;string-text	1.2		FALSE	[TRUE];[FALSE]	TRUE				[Stream];[]	
 DA	string	1.2		TRUE	FALSE	TRUE					
 Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]			
-MaxLen	integer	1.2		FALSE	FALSE	TRUE					
+MaxLen	integer	1.2		FALSE	FALSE	TRUE			[fn:Eval(@MaxLen>=0)]		Table 232

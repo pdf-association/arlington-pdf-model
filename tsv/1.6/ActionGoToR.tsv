@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.1		FALSE	FALSE	FALSE		[Action]			
+Type	name	1.1		FALSE	FALSE	FALSE		[Action]			Table 203
 S	name	1.1		TRUE	FALSE	FALSE		[GoToR]			
 Next	array;dictionary	1.2		FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript]	
 F	dictionary;string	1.1		TRUE	FALSE	FALSE				[FileSpecification];[]	
-D	array;name;string-byte	1.1		TRUE	FALSE	FALSE				[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]	*must be a pagenumber not Page Object
+D	array;name;string-byte	1.1		TRUE	FALSE	FALSE				[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]	must be a pagenumber not Page Object
 NewWindow	boolean	1.2		FALSE	FALSE	FALSE					

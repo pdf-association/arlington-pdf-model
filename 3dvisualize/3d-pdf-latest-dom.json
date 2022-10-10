@@ -610,6 +610,13 @@
             "name": "ArrayOf4Functions array"
         },
         {
+            "id": "ArrayOfActionHideAnnots",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfActionHideAnnots map"
+        },
+        {
             "id": "ArrayOfActions",
             "val": 1,
             "group": "map",
@@ -664,13 +671,6 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfArraysXPTSValues map"
-        },
-        {
-            "id": "ArrayOfArrays_2StringsText",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "ArrayOfArrays_2StringsText map"
         },
         {
             "id": "ArrayOfAttributeObjects",
@@ -783,6 +783,13 @@
             "group": "array",
             "desc": "2 elements",
             "name": "ArrayOfDuration array"
+        },
+        {
+            "id": "ArrayOfFieldChoiceOpt",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfFieldChoiceOpt map"
         },
         {
             "id": "ArrayOfFieldID",
@@ -930,6 +937,13 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfNavigatorLayoutNames map"
+        },
+        {
+            "id": "ArrayOfNonNegativeIntegersGeneral",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfNonNegativeIntegersGeneral map"
         },
         {
             "id": "ArrayOfNumberFormats",
@@ -1213,10 +1227,10 @@
         },
         {
             "id": "ArrayOfXFA",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "ArrayOfXFA map"
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOfXFA array"
         },
         {
             "id": "ArrayOfXPTSValues",
@@ -1282,11 +1296,11 @@
             "name": "ArrayOf_2StringsText array"
         },
         {
-            "id": "ArrayOf_2UnencrytpedStringsByte",
+            "id": "ArrayOf_2UnencryptedStringsByte",
             "val": 4,
             "group": "array",
             "desc": "2 elements",
-            "name": "ArrayOf_2UnencrytpedStringsByte array"
+            "name": "ArrayOf_2UnencryptedStringsByte array"
         },
         {
             "id": "ArrayOf_3CenterOfRotationNumbers",
@@ -1359,11 +1373,11 @@
             "name": "ArrayOf_4BorderStyleNames array"
         },
         {
-            "id": "ArrayOf_4BorderThicknessIntegers",
+            "id": "ArrayOf_4BorderThicknessNumbers",
             "val": 16,
             "group": "array",
             "desc": "4 elements",
-            "name": "ArrayOf_4BorderThicknessIntegers array"
+            "name": "ArrayOf_4BorderThicknessNumbers array"
         },
         {
             "id": "ArrayOf_4ColourSpaceEntries",
@@ -1920,18 +1934,32 @@
             "name": "Field dict"
         },
         {
-            "id": "FieldBtn",
+            "id": "FieldBtnCheckbox",
             "val": 225,
             "group": "dict",
             "desc": "15 keys",
-            "name": "FieldBtn dict"
+            "name": "FieldBtnCheckbox dict"
         },
         {
-            "id": "FieldCh",
+            "id": "FieldBtnPush",
+            "val": 196,
+            "group": "dict",
+            "desc": "14 keys",
+            "name": "FieldBtnPush dict"
+        },
+        {
+            "id": "FieldBtnRadio",
+            "val": 225,
+            "group": "dict",
+            "desc": "15 keys",
+            "name": "FieldBtnRadio dict"
+        },
+        {
+            "id": "FieldChoice",
             "val": 289,
             "group": "dict",
             "desc": "17 keys",
-            "name": "FieldCh dict"
+            "name": "FieldChoice dict"
         },
         {
             "id": "FieldMDPTransformParameters",
@@ -5196,139 +5224,175 @@
         },
         {
             "source": "ActionHide",
-            "target": "ArrayOfActions",
+            "target": "ArrayOfActionHideAnnots",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionGoTo",
+            "target": "AnnotText",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionGoToR",
+            "target": "AnnotLink",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionGoToE",
+            "target": "AnnotFreeText",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionGoToDp",
+            "target": "AnnotLine",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionLaunch",
+            "target": "AnnotSquare",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionNOP",
+            "target": "AnnotCircle",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionSetState",
+            "target": "AnnotPolygon",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionThread",
+            "target": "AnnotPolyLine",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionURI",
+            "target": "AnnotHighlight",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionSound",
+            "target": "AnnotUnderline",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionMovie",
+            "target": "AnnotSquiggly",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionHide",
+            "target": "AnnotStrikeOut",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionNamed",
+            "target": "AnnotCaret",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionSubmitForm",
+            "target": "AnnotStamp",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionResetForm",
+            "target": "AnnotInk",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionImportData",
+            "target": "AnnotPopup",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionSetOCGState",
+            "target": "AnnotFileAttachment",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionRendition",
+            "target": "AnnotSound",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionTransition",
+            "target": "AnnotMovie",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionGoTo3DView",
+            "target": "AnnotScreen",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionECMAScript",
+            "target": "AnnotWidget",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionRichMediaExecute",
+            "target": "AnnotPrinterMark",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "AnnotTrapNetwork",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "AnnotWatermark",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "Annot3D",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "AnnotRedact",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "AnnotProjection",
+            "name": "ActionHide::T",
+            "color": "red"
+        },
+        {
+            "source": "ActionHide",
+            "target": "AnnotRichMedia",
             "name": "ActionHide::T",
             "color": "red"
         },
@@ -14652,6 +14716,146 @@
             "color": "red"
         },
         {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotText",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotLink",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotFreeText",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotLine",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotSquare",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotCircle",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotPolygon",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotPolyLine",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotHighlight",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotUnderline",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotSquiggly",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotStrikeOut",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotCaret",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotStamp",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotInk",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotPopup",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotFileAttachment",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotSound",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotMovie",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotScreen",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotWidget",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotPrinterMark",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotTrapNetwork",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotWatermark",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "Annot3D",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotRedact",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotProjection",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotRichMedia",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
             "source": "ArrayOfActions",
             "target": "ActionGoTo",
             "name": "ArrayOfActions::*"
@@ -14933,11 +15137,6 @@
             "name": "ArrayOfArraysXPTSValues::*"
         },
         {
-            "source": "ArrayOfArrays_2StringsText",
-            "target": "ArrayOf_2StringsText",
-            "name": "ArrayOfArrays_2StringsText::*"
-        },
-        {
             "source": "ArrayOfAttributeObjects",
             "target": "StandardLayoutAttributesBLSE",
             "name": "ArrayOfAttributeObjects::*"
@@ -15110,18 +15309,33 @@
             "name": "ArrayOfDevExtensions::*"
         },
         {
+            "source": "ArrayOfFieldChoiceOpt",
+            "target": "ArrayOf_2StringsText",
+            "name": "ArrayOfFieldChoiceOpt::*"
+        },
+        {
             "source": "ArrayOfFieldID",
             "target": "FieldTx",
             "name": "ArrayOfFieldID::*"
         },
         {
             "source": "ArrayOfFieldID",
-            "target": "FieldBtn",
+            "target": "FieldBtnPush",
             "name": "ArrayOfFieldID::*"
         },
         {
             "source": "ArrayOfFieldID",
-            "target": "FieldCh",
+            "target": "FieldBtnCheckbox",
+            "name": "ArrayOfFieldID::*"
+        },
+        {
+            "source": "ArrayOfFieldID",
+            "target": "FieldBtnRadio",
+            "name": "ArrayOfFieldID::*"
+        },
+        {
+            "source": "ArrayOfFieldID",
+            "target": "FieldChoice",
             "name": "ArrayOfFieldID::*"
         },
         {
@@ -15141,12 +15355,22 @@
         },
         {
             "source": "ArrayOfFields",
-            "target": "FieldBtn",
+            "target": "FieldBtnPush",
             "name": "ArrayOfFields::*"
         },
         {
             "source": "ArrayOfFields",
-            "target": "FieldCh",
+            "target": "FieldBtnCheckbox",
+            "name": "ArrayOfFields::*"
+        },
+        {
+            "source": "ArrayOfFields",
+            "target": "FieldBtnRadio",
+            "name": "ArrayOfFields::*"
+        },
+        {
+            "source": "ArrayOfFields",
+            "target": "FieldChoice",
             "name": "ArrayOfFields::*"
         },
         {
@@ -15618,7 +15842,8 @@
         {
             "source": "ArrayOfXFA",
             "target": "Stream",
-            "name": "ArrayOfXFA::*"
+            "name": "ArrayOfXFA::1*",
+            "color": "red"
         },
         {
             "source": "ArrayOf_4AnnotBorderCharacteristics",
@@ -16984,12 +17209,22 @@
         },
         {
             "source": "Field",
-            "target": "FieldBtn",
+            "target": "FieldBtnPush",
             "name": "Field::Parent"
         },
         {
             "source": "Field",
-            "target": "FieldCh",
+            "target": "FieldBtnCheckbox",
+            "name": "Field::Parent"
+        },
+        {
+            "source": "Field",
+            "target": "FieldBtnRadio",
+            "name": "Field::Parent"
+        },
+        {
+            "source": "Field",
+            "target": "FieldChoice",
             "name": "Field::Parent"
         },
         {
@@ -17003,104 +17238,234 @@
             "name": "Field::Parent"
         },
         {
-            "source": "FieldBtn",
+            "source": "FieldBtnCheckbox",
             "target": "AddActionFormField",
-            "name": "FieldBtn::AA"
+            "name": "FieldBtnCheckbox::AA"
         },
         {
-            "source": "FieldBtn",
+            "source": "FieldBtnCheckbox",
             "target": "ArrayOfFields",
-            "name": "FieldBtn::Kids"
+            "name": "FieldBtnCheckbox::Kids"
         },
         {
-            "source": "FieldBtn",
+            "source": "FieldBtnCheckbox",
             "target": "ArrayOfStringsText",
-            "name": "FieldBtn::Opt"
+            "name": "FieldBtnCheckbox::Opt"
         },
         {
-            "source": "FieldBtn",
+            "source": "FieldBtnCheckbox",
             "target": "FieldTx",
-            "name": "FieldBtn::Parent"
+            "name": "FieldBtnCheckbox::Parent"
         },
         {
-            "source": "FieldBtn",
-            "target": "FieldBtn",
-            "name": "FieldBtn::Parent"
+            "source": "FieldBtnCheckbox",
+            "target": "FieldBtnPush",
+            "name": "FieldBtnCheckbox::Parent"
         },
         {
-            "source": "FieldBtn",
-            "target": "FieldCh",
-            "name": "FieldBtn::Parent"
+            "source": "FieldBtnCheckbox",
+            "target": "FieldBtnCheckbox",
+            "name": "FieldBtnCheckbox::Parent"
         },
         {
-            "source": "FieldBtn",
+            "source": "FieldBtnCheckbox",
+            "target": "FieldBtnRadio",
+            "name": "FieldBtnCheckbox::Parent"
+        },
+        {
+            "source": "FieldBtnCheckbox",
+            "target": "FieldChoice",
+            "name": "FieldBtnCheckbox::Parent"
+        },
+        {
+            "source": "FieldBtnCheckbox",
             "target": "FieldSig",
-            "name": "FieldBtn::Parent"
+            "name": "FieldBtnCheckbox::Parent"
         },
         {
-            "source": "FieldBtn",
+            "source": "FieldBtnCheckbox",
             "target": "Field",
-            "name": "FieldBtn::Parent"
+            "name": "FieldBtnCheckbox::Parent"
         },
         {
-            "source": "FieldBtn",
+            "source": "FieldBtnCheckbox",
             "target": "Stream",
-            "name": "FieldBtn::RV"
+            "name": "FieldBtnCheckbox::RV"
         },
         {
-            "source": "FieldCh",
+            "source": "FieldBtnPush",
             "target": "AddActionFormField",
-            "name": "FieldCh::AA"
+            "name": "FieldBtnPush::AA"
         },
         {
-            "source": "FieldCh",
-            "target": "ArrayOfIntegersGeneral",
-            "name": "FieldCh::I"
-        },
-        {
-            "source": "FieldCh",
+            "source": "FieldBtnPush",
             "target": "ArrayOfFields",
-            "name": "FieldCh::Kids"
+            "name": "FieldBtnPush::Kids"
         },
         {
-            "source": "FieldCh",
-            "target": "ArrayOfStringsText",
-            "name": "FieldCh::Opt"
-        },
-        {
-            "source": "FieldCh",
-            "target": "ArrayOfArrays_2StringsText",
-            "name": "FieldCh::Opt"
-        },
-        {
-            "source": "FieldCh",
+            "source": "FieldBtnPush",
             "target": "FieldTx",
-            "name": "FieldCh::Parent"
+            "name": "FieldBtnPush::Parent"
         },
         {
-            "source": "FieldCh",
-            "target": "FieldBtn",
-            "name": "FieldCh::Parent"
+            "source": "FieldBtnPush",
+            "target": "FieldBtnPush",
+            "name": "FieldBtnPush::Parent"
         },
         {
-            "source": "FieldCh",
-            "target": "FieldCh",
-            "name": "FieldCh::Parent"
+            "source": "FieldBtnPush",
+            "target": "FieldBtnCheckbox",
+            "name": "FieldBtnPush::Parent"
         },
         {
-            "source": "FieldCh",
+            "source": "FieldBtnPush",
+            "target": "FieldBtnRadio",
+            "name": "FieldBtnPush::Parent"
+        },
+        {
+            "source": "FieldBtnPush",
+            "target": "FieldChoice",
+            "name": "FieldBtnPush::Parent"
+        },
+        {
+            "source": "FieldBtnPush",
             "target": "FieldSig",
-            "name": "FieldCh::Parent"
+            "name": "FieldBtnPush::Parent"
         },
         {
-            "source": "FieldCh",
+            "source": "FieldBtnPush",
             "target": "Field",
-            "name": "FieldCh::Parent"
+            "name": "FieldBtnPush::Parent"
         },
         {
-            "source": "FieldCh",
+            "source": "FieldBtnPush",
             "target": "Stream",
-            "name": "FieldCh::RV"
+            "name": "FieldBtnPush::RV"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "AddActionFormField",
+            "name": "FieldBtnRadio::AA"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "ArrayOfFields",
+            "name": "FieldBtnRadio::Kids"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "ArrayOfStringsText",
+            "name": "FieldBtnRadio::Opt"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "FieldTx",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "FieldBtnPush",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "FieldBtnCheckbox",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "FieldBtnRadio",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "FieldChoice",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "FieldSig",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "Field",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "Stream",
+            "name": "FieldBtnRadio::RV"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "AddActionFormField",
+            "name": "FieldChoice::AA"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "ArrayOfStringsText",
+            "name": "FieldChoice::DV"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "ArrayOfNonNegativeIntegersGeneral",
+            "name": "FieldChoice::I"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "ArrayOfFields",
+            "name": "FieldChoice::Kids"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "ArrayOfFieldChoiceOpt",
+            "name": "FieldChoice::Opt"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "FieldTx",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "FieldBtnPush",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "FieldBtnCheckbox",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "FieldBtnRadio",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "FieldChoice",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "FieldSig",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "Field",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "Stream",
+            "name": "FieldChoice::RV"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "ArrayOfStringsText",
+            "name": "FieldChoice::V"
         },
         {
             "source": "FieldMDPTransformParameters",
@@ -17140,12 +17505,22 @@
         },
         {
             "source": "FieldSig",
-            "target": "FieldBtn",
+            "target": "FieldBtnPush",
             "name": "FieldSig::Parent"
         },
         {
             "source": "FieldSig",
-            "target": "FieldCh",
+            "target": "FieldBtnCheckbox",
+            "name": "FieldSig::Parent"
+        },
+        {
+            "source": "FieldSig",
+            "target": "FieldBtnRadio",
+            "name": "FieldSig::Parent"
+        },
+        {
+            "source": "FieldSig",
+            "target": "FieldChoice",
             "name": "FieldSig::Parent"
         },
         {
@@ -17200,12 +17575,22 @@
         },
         {
             "source": "FieldTx",
-            "target": "FieldBtn",
+            "target": "FieldBtnPush",
             "name": "FieldTx::Parent"
         },
         {
             "source": "FieldTx",
-            "target": "FieldCh",
+            "target": "FieldBtnCheckbox",
+            "name": "FieldTx::Parent"
+        },
+        {
+            "source": "FieldTx",
+            "target": "FieldBtnRadio",
+            "name": "FieldTx::Parent"
+        },
+        {
+            "source": "FieldTx",
+            "target": "FieldChoice",
             "name": "FieldTx::Parent"
         },
         {
@@ -17296,7 +17681,7 @@
         },
         {
             "source": "FileTrailer",
-            "target": "ArrayOf_2UnencrytpedStringsByte",
+            "target": "ArrayOf_2UnencryptedStringsByte",
             "name": "FileTrailer::ID",
             "color": "red"
         },
@@ -22366,7 +22751,7 @@
         },
         {
             "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_4BorderThicknessIntegers",
+            "target": "ArrayOf_4BorderThicknessNumbers",
             "name": "StandardLayoutAttributesBLSE::BorderThickness"
         },
         {
@@ -22416,7 +22801,7 @@
         },
         {
             "source": "StandardLayoutAttributesColumn",
-            "target": "ArrayOf_4BorderThicknessIntegers",
+            "target": "ArrayOf_4BorderThicknessNumbers",
             "name": "StandardLayoutAttributesColumn::BorderThickness"
         },
         {
@@ -22461,7 +22846,7 @@
         },
         {
             "source": "StandardLayoutAttributesILSE",
-            "target": "ArrayOf_4BorderThicknessIntegers",
+            "target": "ArrayOf_4BorderThicknessNumbers",
             "name": "StandardLayoutAttributesILSE::BorderThickness"
         },
         {

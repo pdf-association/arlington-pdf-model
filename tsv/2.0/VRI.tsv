@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	2.0		FALSE	FALSE	FALSE		[VRI]			
+Type	name	2.0		FALSE	FALSE	FALSE		[VRI]			Table 262
 Cert	array	2.0		FALSE	FALSE	FALSE				[ArrayOfStreamsGeneral]	
-CRL	array	2.0		TRUE	FALSE	FALSE				[ArrayOfStreamsGeneral]	
-OCSP	array	2.0		TRUE	FALSE	FALSE				[ArrayOfStreamsGeneral]	
+CRL	array	2.0		fn:IsRequired(fn:ArrayLength(parent::CRLs)>0)	FALSE	FALSE				[ArrayOfStreamsGeneral]	
+OCSP	array	2.0		fn:IsRequired(fn:ArrayLength(parent::OCSPs)>0)	FALSE	FALSE				[ArrayOfStreamsGeneral]	
 TU	date	2.0		FALSE	FALSE	FALSE					
 TS	stream	2.0		FALSE	TRUE	FALSE				[Stream]	

@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-ExtGState	dictionary	1.2		FALSE	FALSE	FALSE				[GraphicsStateParameterMap]	*
-ColorSpace	dictionary	1.0		FALSE	FALSE	FALSE				[ColorSpaceMap]	*
-Pattern	dictionary	1.2		FALSE	FALSE	FALSE				[PatternMap]	*
-XObject	dictionary	1.0		FALSE	FALSE	FALSE				[XObjectMap]	*
-Font	dictionary	1.0		FALSE	FALSE	FALSE				[FontMap]	*
-ProcSet	array	1.0	2.0	FALSE	FALSE	FALSE				[ArrayOfNamesForProcSet]	*, Clause 14.2 says deprecated in 1.4
-Properties	dictionary	1.2		FALSE	FALSE	FALSE				[_UniversalDictionary]	*
+ExtGState	dictionary	1.2		FALSE	FALSE	FALSE				[GraphicsStateParameterMap]	Table 34
+ColorSpace	dictionary	1.0		FALSE	FALSE	FALSE				[ColorSpaceMap]	
+Pattern	dictionary	1.2		FALSE	FALSE	FALSE				[PatternMap]	
+XObject	dictionary	1.0		FALSE	FALSE	FALSE				[XObjectMap]	
+Font	dictionary	1.0		FALSE	FALSE	FALSE				[FontMap]	
+ProcSet	array	1.0	2.0	FALSE	FALSE	FALSE				[ArrayOfNamesForProcSet]	Clause 14.2 says deprecated in 1.4
+Properties	dictionary	1.2		FALSE	FALSE	FALSE				[_UniversalDictionary]	

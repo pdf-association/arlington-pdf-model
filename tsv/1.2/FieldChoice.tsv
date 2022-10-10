@@ -1,0 +1,11 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+FT	name	1.2		TRUE	FALSE	TRUE		[Ch]			Table 226 and Table 234
+Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,Field]	
+Kids	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFields]	
+T	string-text	1.2		FALSE	FALSE	FALSE					
+Ff	bitmask	1.2		FALSE	FALSE	TRUE			[fn:Eval(fn:BitsClear(4,14) && fn:BitClear(21) && fn:BeforeVersion(1.4,fn:BitsClear(22,23)) && fn:BitsClear(24,26) && fn:BeforeVersion(1.5,fn:BitClear(27)) && fn:BitsClear(28,32))]		Table 233
+V	array;string-text	1.2		FALSE	FALSE	TRUE				[ArrayOfStringsText];[]	
+DV	array;string-text	1.2		FALSE	FALSE	TRUE				[ArrayOfStringsText];[]	
+DA	string	1.2		TRUE	FALSE	TRUE					
+Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]			
+TI	integer	1.2		FALSE	FALSE	TRUE	0	[fn:Eval((@TI>=0) && (@TI<fn:ArrayLength(Opt)))]			

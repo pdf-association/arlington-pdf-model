@@ -763,7 +763,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2UnencrytpedStringsByte" isArray="true" object_number="021">
+   <OBJECT id="ArrayOf_2UnencryptedStringsByte" isArray="true" object_number="021">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2145,7 +2145,7 @@
       <ENTRY>
          <NAME>ID</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOf_2UnencrytpedStringsByte</VALUE>
+            <VALUE type="array">ArrayOf_2UnencryptedStringsByte</VALUE>
          </VALUES>
          <REQUIRED>fn:IsRequired(fn:IsPresent(Encrypt))</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -4963,7 +4963,7 @@
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
             <VALUE type="name">false</VALUE>
@@ -4980,7 +4980,7 @@
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)) || (@ImageMask==true))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>

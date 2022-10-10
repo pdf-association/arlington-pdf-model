@@ -2863,7 +2863,7 @@
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
             <VALUE type="name">false</VALUE>
@@ -2880,7 +2880,7 @@
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)) || (@ImageMask==true))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>

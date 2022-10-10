@@ -193,9 +193,10 @@
         "Type": "array;dictionary;string-text",
         "SinceVersion": 1.2,
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": "[false];[true];[false]",
         "Inheritable": false,
-        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData];[]"
+        "SpecialCase": "[];[];[fn:Eval(fn:IsFieldName(@T))]",
+        "Link": "[ArrayOfActionHideAnnots];[AnnotText,AnnotLink,AnnotSound,AnnotMovie,AnnotWidget];[]"
       },
       "H": {
         "Key": "H",
@@ -453,7 +454,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[NextPage,PrevPage,FirstPage,LastPage]"
+        "PossibleValues": "[NextPage,PrevPage,FirstPage,LastPage,*]"
       }
     }
   },
@@ -1731,6 +1732,21 @@
     }
   },
   {
+    "id": "ArrayOfActionHideAnnots",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary;string-text",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": "[true];[false]",
+        "Inheritable": false,
+        "SpecialCase": "[];[fn:Eval(fn:IsFieldName(@*))]",
+        "Link": "[AnnotText,AnnotLink,AnnotSound,AnnotMovie,AnnotWidget];[]"
+      }
+    }
+  },
+  {
     "id": "ArrayOfActions",
     "keys": {
       "*": {
@@ -1875,7 +1891,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[FieldTx,FieldBtn,FieldCh,Field];[]"
+        "Link": "[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,Field];[]"
       }
     }
   },
@@ -1889,7 +1905,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[FieldTx,FieldBtn,FieldCh,Field,AnnotWidget]"
+        "Link": "[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,Field,AnnotWidget]"
       }
     }
   },
@@ -2036,6 +2052,19 @@
     }
   },
   {
+    "id": "ArrayOfStringsText",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "string-text",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      }
+    }
+  },
+  {
     "id": "ArrayOfTags",
     "keys": {
       "0*": {
@@ -2157,7 +2186,7 @@
     }
   },
   {
-    "id": "ArrayOf_2UnencrytpedStringsByte",
+    "id": "ArrayOf_2UnencryptedStringsByte",
     "keys": {
       "0": {
         "Key": "0",
@@ -3689,7 +3718,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[FieldTx,FieldBtn,FieldCh,Field]"
+        "Link": "[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,Field]"
       },
       "Kids": {
         "Key": "Kids",
@@ -3720,7 +3749,7 @@
     }
   },
   {
-    "id": "FieldBtn",
+    "id": "FieldBtnCheckbox",
     "keys": {
       "FT": {
         "Key": "FT",
@@ -3738,7 +3767,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[FieldTx,FieldBtn,FieldCh,Field]"
+        "Link": "[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,Field]"
       },
       "Kids": {
         "Key": "Kids",
@@ -3764,7 +3793,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": true,
-        "SpecialCase": "[fn:Eval(fn:BitsClear(4,14) && fn:BitsClear(18,25) && fn:BitsClear(27,32))]"
+        "SpecialCase": "[fn:Eval(fn:BitsClear(4,14) && fn:BitsClear(16,25) && fn:BitsClear(27,32))]"
       },
       "DA": {
         "Key": "DA",
@@ -3803,7 +3832,7 @@
     }
   },
   {
-    "id": "FieldCh",
+    "id": "FieldBtnPush",
     "keys": {
       "FT": {
         "Key": "FT",
@@ -3812,7 +3841,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": true,
-        "PossibleValues": "[Ch]"
+        "PossibleValues": "[Btn]"
       },
       "Parent": {
         "Key": "Parent",
@@ -3821,7 +3850,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[FieldTx,FieldBtn,FieldCh,Field]"
+        "Link": "[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,Field]"
       },
       "Kids": {
         "Key": "Kids",
@@ -3847,23 +3876,194 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": true,
-        "SpecialCase": "[fn:Eval(fn:BitsClear(4,14) && fn:BitClear(21) && fn:BitsClear(24,26) && fn:BitsClear(28,32))]"
+        "SpecialCase": "[fn:Eval(fn:BitsClear(4,14) && fn:BitClear(16) && fn:BitSet(17) && fn:BitsClear(18,25) && fn:BitsClear(27,32))]"
+      },
+      "DA": {
+        "Key": "DA",
+        "Type": "string",
+        "SinceVersion": 1.2,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": true
+      },
+      "Q": {
+        "Key": "Q",
+        "Type": "integer",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0",
+        "PossibleValues": "[0,1,2]"
       },
       "V": {
         "Key": "V",
-        "Type": "string-text",
+        "Type": "name",
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true
+        "Inheritable": true,
+        "SpecialCase": "[fn:Ignore()]"
       },
       "DV": {
         "Key": "DV",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "SpecialCase": "[fn:Ignore()]"
+      }
+    }
+  },
+  {
+    "id": "FieldBtnRadio",
+    "keys": {
+      "FT": {
+        "Key": "FT",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "PossibleValues": "[Btn]"
+      },
+      "Parent": {
+        "Key": "Parent",
+        "Type": "dictionary",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,Field]"
+      },
+      "Kids": {
+        "Key": "Kids",
+        "Type": "array",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfFields]"
+      },
+      "T": {
+        "Key": "T",
         "Type": "string-text",
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Ff": {
+        "Key": "Ff",
+        "Type": "bitmask",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "SpecialCase": "[fn:Eval(fn:BitsClear(4,14) && fn:BitSet(16) && fn:BitsClear(17,25) && fn:BitsClear(27,32))]"
+      },
+      "DA": {
+        "Key": "DA",
+        "Type": "string",
+        "SinceVersion": 1.2,
+        "Required": true,
+        "IndirectReference": false,
         "Inheritable": true
+      },
+      "Q": {
+        "Key": "Q",
+        "Type": "integer",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0",
+        "PossibleValues": "[0,1,2]"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "Off"
+      },
+      "DV": {
+        "Key": "DV",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true
+      }
+    }
+  },
+  {
+    "id": "FieldChoice",
+    "keys": {
+      "FT": {
+        "Key": "FT",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "PossibleValues": "[Ch]"
+      },
+      "Parent": {
+        "Key": "Parent",
+        "Type": "dictionary",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,Field]"
+      },
+      "Kids": {
+        "Key": "Kids",
+        "Type": "array",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfFields]"
+      },
+      "T": {
+        "Key": "T",
+        "Type": "string-text",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Ff": {
+        "Key": "Ff",
+        "Type": "bitmask",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "SpecialCase": "[fn:Eval(fn:BitsClear(4,14) && fn:BitClear(21) && fn:BeforeVersion(1.4,fn:BitsClear(22,23)) && fn:BitsClear(24,26) && fn:BeforeVersion(1.5,fn:BitClear(27)) && fn:BitsClear(28,32))]"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "array;string-text",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "Link": "[ArrayOfStringsText];[]"
+      },
+      "DV": {
+        "Key": "DV",
+        "Type": "array;string-text",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "Link": "[ArrayOfStringsText];[]"
       },
       "DA": {
         "Key": "DA",
@@ -3890,7 +4090,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": true,
-        "PossibleValues": "[fn:Eval((@TI>0) && (@TI<fn:ArrayLength(Opt)))]"
+        "DefaultValue": "0",
+        "PossibleValues": "[fn:Eval((@TI>=0) && (@TI<fn:ArrayLength(Opt)))]"
       }
     }
   },
@@ -3913,7 +4114,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[FieldTx,FieldBtn,FieldCh,Field]"
+        "Link": "[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,Field]"
       },
       "Kids": {
         "Key": "Kids",
@@ -3939,7 +4140,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": true,
-        "SpecialCase": "[fn:Eval(fn:BitsClear(15,20) && fn:BitClear(22) && fn:BitsClear(27,32))]"
+        "SpecialCase": "[fn:Eval(fn:BitsClear(15,20) && fn:BeforeVersion(1.4,fn:BitClear(21)) && fn:BitClear(22) && fn:BeforeVersion(1.4,fn:BitsClear(23,24)) && fn:BeforeVersion(1.5,fn:BitsClear(25,26)) && fn:BitsClear(27,32))]"
       },
       "V": {
         "Key": "V",
@@ -3983,7 +4184,8 @@
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": true
+        "Inheritable": true,
+        "SpecialCase": "[fn:Eval(@MaxLen>=0)]"
       }
     }
   },
@@ -4118,7 +4320,7 @@
         "IndirectReference": "fn:MustBeDirect(fn:IsPresent(Encrypt))",
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]",
-        "Link": "[ArrayOf_2UnencrytpedStringsByte]"
+        "Link": "[ArrayOf_2UnencryptedStringsByte]"
       }
     }
   },
@@ -4419,6 +4621,7 @@
         "Required": false,
         "IndirectReference": "[false];[true]",
         "Inheritable": false,
+        "PossibleValues": "[Identity];[]",
         "Link": "[];[Stream]"
       },
       "ToUnicode": {
@@ -4520,9 +4723,10 @@
         "Key": "CIDToGIDMap",
         "Type": "name;stream",
         "SinceVersion": 1.2,
-        "Required": true,
+        "Required": "fn:IsRequired(fn:SinceVersion(2.0) && fn:IsPresent(FontDescriptor::FontFile2))",
         "IndirectReference": "[false];[true]",
         "Inheritable": false,
+        "PossibleValues": "[Identity];[]",
         "Link": "[];[Stream]"
       },
       "ToUnicode": {
@@ -6185,7 +6389,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(Encode)==(2 * fn:ArrayLength(Size)))]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Domain)==(2 * fn:ArrayLength(Size)))]",
         "Link": "[ArrayOfIntegersGeneral]"
       },
       "BitsPerSample": {
@@ -6225,7 +6429,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "@Range",
-        "SpecialCase": "[fn:Eval((fn:ArrayLength(Decode) mod 2)==0)]",
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Decode)==fn:ArrayLength(Range))]",
         "Link": "[ArrayOfNumbersGeneral]"
       }
     }
@@ -9034,7 +9238,7 @@
         "Key": "ColorSpace",
         "Type": "array;name",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))",
+        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
@@ -9045,7 +9249,7 @@
         "Key": "BitsPerComponent",
         "Type": "integer",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)) || (@ImageMask==true))",
+        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)]"

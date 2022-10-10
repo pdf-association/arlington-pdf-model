@@ -631,7 +631,7 @@
     }
   },
   {
-    "id": "ArrayOf_2UnencrytpedStringsByte",
+    "id": "ArrayOf_2UnencryptedStringsByte",
     "keys": {
       "0": {
         "Key": "0",
@@ -1764,7 +1764,7 @@
         "IndirectReference": "fn:MustBeDirect(fn:IsPresent(Encrypt))",
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]",
-        "Link": "[ArrayOf_2UnencrytpedStringsByte]"
+        "Link": "[ArrayOf_2UnencryptedStringsByte]"
       }
     }
   },
@@ -4011,7 +4011,7 @@
         "Key": "ColorSpace",
         "Type": "array;name",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))",
+        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
@@ -4022,7 +4022,7 @@
         "Key": "BitsPerComponent",
         "Type": "integer",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)) || (@ImageMask==true))",
+        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)]"

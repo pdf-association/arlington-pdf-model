@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.4		FALSE	FALSE	FALSE		[XObject]			Table87 + Table 143
 Subtype	name	1.4		TRUE	FALSE	FALSE		[Image]			
-Width	integer	1.4		TRUE	FALSE	FALSE			[fn:Eval(@Width==parent::@Width)]		
-Height	integer	1.4		TRUE	FALSE	FALSE			[fn:Eval(@Height==parent::@Height)]		
+Width	integer	1.4		TRUE	FALSE	FALSE			[fn:Eval(fn:IsPresent(Matte) && (@Width==parent::@Width))]		
+Height	integer	1.4		TRUE	FALSE	FALSE			[fn:Eval(fn:IsPresent(Matte) && (@Height==parent::@Height))]		
 ColorSpace	name	1.4		TRUE	FALSE	FALSE		[DeviceGray]			
 BitsPerComponent	integer	1.4		TRUE	FALSE	FALSE		[fn:RequiredValue((fn:Contains(@Filter,CCITTFaxDecode) || fn:Contains(@Filter,JBIG2Decode)),1),2,4,fn:RequiredValue((fn:Contains(@Filter,RunLengthDecode) || fn:Contains(@Filter,DCTDecode)),8),16]			
 Intent	name	1.4		FALSE	FALSE	FALSE					

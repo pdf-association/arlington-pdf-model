@@ -129,6 +129,18 @@ validate: TestGrammar-pdfix
 	sed -E 's/\[fn\:Not\(fn\:IsRequired\(fn\:IsPresent\(IT\) && \(\@IT!=Stamp\)\)\)\]//g' ./tsv/1.7/AnnotStamp-BEFORE.tsv > ./tsv/1.7/AnnotStamp.tsv
 	rm ./tsv/1.7/AnnotStamp-BEFORE.tsv
 
+	mv ./tsv/1.3/DeviceNDict.tsv ./tsv/1.3/DeviceNDict-BEFORE.tsv
+	sed -E 's/fn:IsRequired\(fn:SinceVersion\(1.6,\(@Subtype==NChannel\)\) && fn:HasSpotColorants\(parent::1\)\)/FALSE/g' ./tsv/1.3/DeviceNDict-BEFORE.tsv > ./tsv/1.3/DeviceNDict.tsv
+	rm ./tsv/1.3/DeviceNDict-BEFORE.tsv
+
+	mv ./tsv/1.4/DeviceNDict.tsv ./tsv/1.4/DeviceNDict-BEFORE.tsv
+	sed -E 's/fn:IsRequired\(fn:SinceVersion\(1.6,\(@Subtype==NChannel\)\) && fn:HasSpotColorants\(parent::1\)\)/FALSE/g' ./tsv/1.4/DeviceNDict-BEFORE.tsv > ./tsv/1.4/DeviceNDict.tsv
+	rm ./tsv/1.4/DeviceNDict-BEFORE.tsv
+
+	mv ./tsv/1.5/DeviceNDict.tsv ./tsv/1.5/DeviceNDict-BEFORE.tsv
+	sed -E 's/fn:IsRequired\(fn:SinceVersion\(1.6,\(@Subtype==NChannel\)\) && fn:HasSpotColorants\(parent::1\)\)/FALSE/g' ./tsv/1.5/DeviceNDict-BEFORE.tsv > ./tsv/1.5/DeviceNDict.tsv
+	rm ./tsv/1.5/DeviceNDict-BEFORE.tsv
+
 	TestGrammar --tsvdir ./tsv/1.0/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.0/ --validate
 	TestGrammar --tsvdir ./tsv/1.1/ --validate
