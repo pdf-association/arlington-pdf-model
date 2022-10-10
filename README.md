@@ -291,7 +291,13 @@ A CLI utility that can validate an Arlington grammar (set of TSV files), compare
 
 A CLI Java-based proof of concept application that can convert the main Arlington TSV file set (in `./tsv/latest`) into PDF version specific file sets in both TSV and XML formats. The XML format is defined by [this schema](xml/schema/objects.xsd). In addition, some research oriented queries can be performed using the XML as input. Detailed documentation is now located in [gcxml/README.md](gcxml/README.md).
 
-The Java gcxml.jar file must be run in this top-level folder (such that `./tsv/` and `./xml/` are both sub-folders).
+The Java gcxml.jar file must be run in this top-level folder (such that `./tsv/` and `./xml/` are both sub-folders):
+
+```bash
+java -jar ./gcxml/dist/gcxml.jar -xml
+```
+
+NOTE: some functionality of `gcxml` may no longer work as the TSV model has been improved. It is currently only used to convert the TSV data to XML, but the XML processing may be rotted.
 
 ## 3D and VR visualizations
 
