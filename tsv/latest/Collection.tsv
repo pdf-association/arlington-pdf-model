@@ -2,7 +2,7 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.7		FALSE	FALSE	FALSE		[Collection]			Table 153
 Schema	dictionary	1.7		FALSE	FALSE	FALSE				[CollectionSchema]	
 D	string-byte	1.7		fn:IsRequired(fn:SinceVersion(2.0,fn:IsEncryptedWrapper()))	FALSE	FALSE					
-View	name	1.7		fn:IsRequired(fn:SinceVersion(2.0,fn:IsEncryptedWrapper()))	FALSE	FALSE	D	[D,T,H,fn:SinceVersion(2.0,C)]	[fn:Eval(fn:SinceVersion(2.0,((fn:IsEncryptedWrapper() && (@View==H)) || (fn:IsPresent(Navigator) && (@View==C)))))]		
+View	name	1.7		fn:IsRequired(fn:SinceVersion(2.0,fn:IsEncryptedWrapper()))	FALSE	FALSE	D	[D,T,H,fn:SinceVersion(2.0,C)]	[fn:Eval(fn:SinceVersion(2.0,((fn:IsEncryptedWrapper() && (@View==H)) || (fn:IsPresent(Navigator) && (@View==C)) || (@View!=C)))]		
 Navigator	dictionary	2.0		fn:IsRequired(@View==C)	TRUE	FALSE				[Navigator]	
 Colors	dictionary	2.0		FALSE	FALSE	FALSE				[CollectionColors]	
 Sort	dictionary	1.7		FALSE	FALSE	FALSE				[CollectionSort]	
