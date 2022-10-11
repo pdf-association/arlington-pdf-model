@@ -895,12 +895,34 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
+   <td><code>fn:NumberOfPages()<code></td>
+   <td>
+    <ul>
+     <li>Number of pages in the PDF document (integer value).</li>
+     <li>For valid PDFs will always be 1 or greater.</li>
+     <li>Takes no parameters.</li>
+    </ul>
+   </td>
+  </tr>
+  <tr>
    <td><code>fn:PageContainsStructContentItems()</code></td>
    <td>
     <ul>
      <li>Asserts that the page contains the structure content item represented by the integer value of the current row.</li>
      <li>Only used in the "Required" field, as in <code>fn:IsRequired(fn:PageContainsStructContentItems())</code>.</li>
      <li>There are no parameters.</li>   
+    </ul>
+   </td>
+  </tr>
+  <tr>
+   <td><code>fn:PageProperty(<i>page-ref</i>,<i>key</i>)</code></td>
+   <td>
+    <ul>
+     <li>References a property (i.e. dictionary entry) of a page, that cannot be accessed via a fixed or relative Arlington path (using <code>::</code>).</li>
+     <li>The page is defined by the first parameter <i>page-ref</i> which is a reference to a Page Object.</li>
+     <li>The page property can be a key or key-value and is defined by the second parameter.</li>
+     <li>e.g. <code>fn:ArrayLength(fn:PageProperty(@P,Annots))</code></li>
+     <li>e.g. <code>fn:Eval(@A==fn:PageProperty(@P,Annots::@NM)</code></li>
     </ul>
    </td>
   </tr>
