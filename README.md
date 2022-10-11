@@ -12,6 +12,12 @@
 &nbsp;&nbsp;&nbsp;
 ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCJL_M0VH2lm65gvGVarUTKQ?style=social)
 
+## TL;DR
+
+The Arlington PDF Model is all about a machine-readable model data for PDF objects, **_not_** about code, runtimes, or tooling. If you want to start somewhere, start by exploring the TSV data model files at a Linux prompt, or in a Jupyter Notebook with the JSON equivalent (see [./scripts/README.md](./scripts/README.md#arlington-to-pandaspy)).
+
+The starting assumption is that you are a software developer and already know about the PDF document object model, PDF syntax, and how PDF files generally 'work'. You also have experience in debugging valid and invalid PDFs.
+
 ## Background
 
 The Arlington PDF Model is a specification-derived, machine-readable definition of the full PDF document object model (DOM) as defined by the official PDF 2.0 specification [ISO 32000-2:2020](https://www.iso.org/standard/75839.html) and its [related resolved errata](https://www.pdfa.org/pdf-issues/). It provides an easy-to-process structured definition of all formally defined PDF objects (dictionaries, arrays and map objects) and their relationships beginning with the file trailer using a simple text-based syntax and a small set of declarative functions. The Arlington PDF Model is applicable to both parsers (PDF readers) and unparsers (PDF writers).
