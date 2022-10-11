@@ -813,11 +813,16 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
-   <td><code>fn:IsPresent(<i>key</i> or <i>expr</i>)</code></td>
+   <td><code>fn:IsPresent(<i>key</i> or <i>expr</i>)</code><br>
+       <code>fn:IsPresent(<i>key</i> or <i>expr</i>,<i>cond</i>)</code>
+   </td>
    <td>
     <ul>
-     <li>Asserts that <i>key</i> must be present in a PDF, or that the expression </i>expr</i> is true.</li>
+     <li>Can have one or two parameters.</li>
+     <li>For a single parameter: asserts that <i>key</i> must be present in a PDF, or that the expression </i>expr</i> is true. False otherwise.</li>
      <li>e.g. <code>fn:IsPresent(StructParent)</code> or <code>fn:IsPresent(@SMaskInData>0)</code></li>
+     <li>For two parameters: asserts that <b>only</b> when <i>key</i>is present in a PDF, or when the expression </i>expr</i> is true, that <i>cond</i> should be evaluated.</li>
+     <li>e.g. <code>fn:Eval(fn:IsPresent(Matte,(@Width==parent::@Width)))</code></li>
     </ul>
    </td>
   </tr>

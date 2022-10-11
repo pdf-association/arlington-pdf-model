@@ -575,20 +575,52 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out = fn_IsPDFVersion(out_left, out_right);
         }
         else if (in_ast->node == "fn:IsPresent(") {
-            // 1 argument: condition that has already been reduced to true/false, or a key name, or could be 
-            // nullptr/indeterminate (e.g. missing key in an expression)
-            if (out_left != nullptr) {
-                assert(out_right == nullptr);
-                if (out_left->type == ASTNodeType::ASTNT_Key)
-                    out->node = (fn_IsPresent(parent, out_left->node) ? "true" : "false");
+            // Need to check in_ast->arg[] to see if 1 or 2 argument version first:
+            // If 1 argument: condition that has already been reduced to true/false, or a key name, or could be 
+            // nullptr/indeterminate (e.g. missing key in an expression). In that case the result is a boolean
+            // false.
+            // If 2 arguments: 2nd argument (condition) only applies if the 1st argument resolved to true. But due
+            // to missing keys the 1st argument could have resolved to nullptr in which case the result is a nullptr.
+            if ((in_ast->arg[0] != nullptr) && (in_ast->arg[1] != nullptr)) {
+                // 2 argument version
+                bool l = false;
+                if (out_left != nullptr) {
+                    if (out_left->type == ASTNodeType::ASTNT_Key)
+                        l = fn_IsPresent(parent, out_left->node);
+                    else {
+                        // Was probably @key or a condition...
+                        assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                        l = (out_left->node == "true");
+                    }
+                }
+                if (l) {
+                    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                    out->node = "false";
+                    if (out_right != nullptr) {
+                        assert(out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                        out->node = out_right->node;
+                    }
+                }
                 else {
-                    assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
-                    out->node = out_left->node;
+                    // 1st argument didn't exist/wasn't true so ignore 2nd argument. NOT FALSE!!!
+                    delete out;
+                    out = nullptr;
                 }
             }
-            else
+            else {
+                // 1 argument version
+                assert(out_right == nullptr);
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
                 out->node = "false";
-            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                if (out_left != nullptr) {
+                    if (out_left->type == ASTNodeType::ASTNT_Key)
+                        out->node = (fn_IsPresent(parent, out_left->node) ? "true" : "false");
+                    else {
+                        assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                        out->node = out_left->node;
+                    }
+                }
+            }
         }
         else if (in_ast->node == "fn:IsRequired(") {
             // 1 argument: condition that has already been reduced to true/false, or could be nullptr (e.g. missing key)
