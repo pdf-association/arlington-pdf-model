@@ -187,7 +187,7 @@ bool PredicateProcessor::IsValidForPDFVersion(ArlPDFObject* parent, ArlPDFObject
         // Process the AST
         assert(predicate_ast[0][0]->node.find("fn:") != std::string::npos);
         assert(predicate_ast[0][0]->arg[0] != nullptr); 
-        auto eval = pdfc->ProcessPredicate(parent, obj, predicate_ast[0][0], key_idx, tsv, 0);
+        auto eval = pdfc->ProcessPredicate(parent, obj, predicate_ast[0][0], key_idx, tsv, 0, 0, false);
         bool retval = false;
         if (eval != nullptr) {
             if (eval->type == ASTNodeType::ASTNT_ConstNum) {
@@ -327,7 +327,7 @@ bool PredicateProcessor::IsRequired(ArlPDFObject* parent, ArlPDFObject* obj, con
         assert(whats_left.size() == 0);
 
         /// Process the AST using the PDF objects - expect reduction to a boolean true/false
-        ASTNode* pp = pdfc->ProcessPredicate(parent, obj, predicate_ast[0][0], key_idx, tsv, type_idx);
+        ASTNode* pp = pdfc->ProcessPredicate(parent, obj, predicate_ast[0][0], key_idx, tsv, type_idx, 0, false);
         assert(pp != nullptr);
         assert(pp->valid());
         assert(pp->type == ASTNodeType::ASTNT_ConstPDFBoolean);
@@ -455,7 +455,7 @@ ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* parent, Arl
             return  (stack[0]->node == "fn:MustBeDirect(") ? ReferenceType::MustBeDirect : ReferenceType::MustBeIndirect;
 
         // Was an argument - can still reduce to nullptr if keys not present, etc.
-        ASTNode* pp = pdfc->ProcessPredicate(parent, object, stack[0], key_idx, tsv, type_index);
+        ASTNode* pp = pdfc->ProcessPredicate(parent, object, stack[0], key_idx, tsv, type_index, 0, false);
         if (pp != nullptr) {
             assert(pp->valid() && (pp->type == ASTNodeType::ASTNT_ConstPDFBoolean));
             assert(pdfc->PredicateWasFullyProcessed());
@@ -1075,7 +1075,7 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object,
 
         case ASTNodeType::ASTNT_Predicate:
             {
-                ASTNode *pp = pdfc->ProcessPredicate(parent, object, n, key_idx, tsv, type_idx);
+                ASTNode *pp = pdfc->ProcessPredicate(parent, object, n, key_idx, tsv, type_idx, 0, false);
                 if (pp != nullptr) {
                     // Booleans can either be a valid value OR the result of an fn:Eval(...) calculation
                     ASTNodeType pp_type = pp->type;
@@ -1195,7 +1195,7 @@ bool PredicateProcessor::ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object,
     ASTNode* n = stack[0];
     if (n->type == ASTNodeType::ASTNT_Predicate) {
         bool valid = true;
-        ASTNode* pp = pdfc->ProcessPredicate(parent, object, n, key_idx, tsv, type_idx);
+        ASTNode* pp = pdfc->ProcessPredicate(parent, object, n, key_idx, tsv, type_idx, 0, true);
         // SpecialCase can return nullptr only when versioning makes everything go away...
         if (pp != nullptr) {
             assert(pp->valid());

@@ -299,9 +299,10 @@ double CPDFFile::convert_node_to_double(const ASTNode* node) {
 /// @param[in]  key_idx          the index into the Arlington 'Key' field of the TSV data (>=0)
 /// @param[in]  type_idx         the index into the Arlington 'Type' field of 'Key' field of the TSV data  (>=0)
 /// @param[in]  depth            depth counter for recursion (visual indentation) (>=0)
+/// @param[in]  use_default_values  true if Default Values should be used when a key-value (@Key) is not present
 /// 
 /// @returns   Output AST (always valid) or nullptr if indeterminate 
-ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth) 
+ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth, const bool use_default_values)
 {
     assert(parent != nullptr);
     assert(obj != nullptr);
@@ -327,7 +328,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
     if (in_ast->arg[0] != nullptr) {
         bool current_processing_state = fully_implemented;
         fully_implemented = true;
-        out_left = ProcessPredicate(parent, obj, in_ast->arg[0], key_idx, tsv_data, type_idx, depth + 1);
+        out_left = ProcessPredicate(parent, obj, in_ast->arg[0], key_idx, tsv_data, type_idx, depth + 1, use_default_values);
         fully_implemented = current_processing_state && fully_implemented;
 #ifdef PP_AST_DEBUG
         if (out_left != nullptr) { std::cout << std::string(depth * 2, ' ') << " Out-Left:  " << *out_left << std::endl; }
@@ -340,7 +341,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
     if (in_ast->arg[1] != nullptr) {
         bool current_processing_state = fully_implemented;
         fully_implemented = true;
-        out_right = ProcessPredicate(parent, obj, in_ast->arg[1], key_idx, tsv_data, type_idx, depth + 1);
+        out_right = ProcessPredicate(parent, obj, in_ast->arg[1], key_idx, tsv_data, type_idx, depth + 1, use_default_values);
         fully_implemented = current_processing_state && fully_implemented;
 #ifdef PP_AST_DEBUG
         if (out_right != nullptr) { std::cout << std::string(depth * 2, ' ') << " Out-Right:  " << *out_right << std::endl; }
@@ -1016,8 +1017,11 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 else 
                     val = obj;  // Self-reference
 
-                if ((val == nullptr) && (key_parts.size() == 1)) {
-                    // Don't have a value from the PDF for "@Key", try getting "DefaultValue" for "Key" from Arlington.
+                // Don't have a value from the PDF for "@Key", try getting "DefaultValue" for "Key" from Arlington.
+                // Only want to use Default Values for SpecialCase processing. When processing Required field
+                // this should not required - it would indicate a logical error in the PDF specification! 
+                // See Issue #30: https://github.com/pdf-association/arlington-pdf-model/issues/30#issuecomment-1276804889
+                if ((val == nullptr) && (key_parts.size() == 1) && use_default_values) {
                     bool got_dv = false;
                     for (int i = 0; i < (int)tsv_data.size(); i++)
                         if ((tsv_data[i][TSV_KEYNAME] == key_parts[0]) && (tsv_data[i][TSV_DEFAULTVALUE] != "")) {

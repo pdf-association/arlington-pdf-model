@@ -167,7 +167,7 @@ public:
     std::vector<std::string> get_extensions() { return extensions; }
 
     /// @brief Calculates an Arlington predicate expression
-    ASTNode* ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth = 0);
+    ASTNode* ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth, const bool use_default_values);
 
     void ClearPredicateStatus() { deprecated = false; fully_implemented = true; };
     bool PredicateWasDeprecated() { return deprecated; };
