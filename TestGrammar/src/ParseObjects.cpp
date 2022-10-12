@@ -1217,7 +1217,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                     }
 
                     // Adjust for array repeats when only SOME rows are required (if last_idx was end of TSV array, then cycle back to start of TSV)
-                    if ((array_repeat_multiple > 0) && (first_optional_idx != -1) && (last_idx >= (tsv.size() - 1)))
+                    if ((array_repeat_multiple > 0) && (first_optional_idx != -1) && (last_idx >= ((int)tsv.size() - 1)))
                         idx = 0;
 
                     // Adjust for array repeats when all elements are required (so is always an exact multiple)

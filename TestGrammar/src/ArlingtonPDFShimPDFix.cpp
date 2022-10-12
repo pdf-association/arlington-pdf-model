@@ -546,7 +546,7 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(const int index)
 
     sort_keys();
     // Get the i-th sorted key name, allowing for no keys in a dictionary
-    if ((!sorted_keys.empty()) && (index < sorted_keys.size()))
+    if ((!sorted_keys.empty()) && (index < (int)sorted_keys.size()))
         retval = sorted_keys[index];
 
     return retval;
