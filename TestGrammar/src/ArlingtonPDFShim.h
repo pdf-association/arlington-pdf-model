@@ -146,7 +146,7 @@ namespace ArlingtonPDFShim {
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeBoolean; };
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFBoolean& obj) {
-            ofs << "boolean " << (ArlPDFObject)obj;
+            ofs << "boolean " << (ArlPDFObject&)obj;
             return ofs;
         };
 
@@ -164,7 +164,7 @@ namespace ArlingtonPDFShim {
         int    get_integer_value();
         double get_value();
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNumber& obj) {
-            ofs << "number " << (ArlPDFObject)obj;
+            ofs << "number " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -180,7 +180,7 @@ namespace ArlingtonPDFShim {
         bool is_hex_string();
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFString& obj) {
-            ofs << "string " << (ArlPDFObject)obj;
+            ofs << "string " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -195,7 +195,7 @@ namespace ArlingtonPDFShim {
         std::wstring get_value();
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFName& obj) {
-            ofs << "name " << (ArlPDFObject)obj;
+            ofs << "name " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -208,7 +208,7 @@ namespace ArlingtonPDFShim {
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeNull; };
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNull& obj) {
-            ofs << "null " << (ArlPDFObject)obj;
+            ofs << "null " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -224,7 +224,7 @@ namespace ArlingtonPDFShim {
         ArlPDFObject* get_value(const int idx);
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFArray& obj) {
-            ofs << "array " << (ArlPDFObject)obj;
+            ofs << "array " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -245,7 +245,7 @@ namespace ArlingtonPDFShim {
         std::wstring get_key_name_by_index(const int index);
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFDictionary& obj) {
-            ofs << "dictionary " << (ArlPDFObject)obj;
+            ofs << "dictionary " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -260,7 +260,7 @@ namespace ArlingtonPDFShim {
         ArlPDFDictionary* get_dictionary();
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFStream& obj) {
-            ofs << "stream " << (ArlPDFObject)obj;
+            ofs << "stream " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -291,7 +291,7 @@ namespace ArlingtonPDFShim {
         bool is_unsupported_encryption() { return has_unsupported_encryption; };
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFTrailer& obj) {
-            ofs << "trailer " << (ArlPDFDictionary)obj << (obj.has_encryption ? (obj.has_unsupported_encryption ? " with unsupported encryption"  : " encrypted") : "") << (obj.has_xrefstm ? " with XRefStm " : "");
+            ofs << "trailer " << (ArlPDFDictionary&)obj << (obj.has_encryption ? (obj.has_unsupported_encryption ? " with unsupported encryption"  : " encrypted") : "") << (obj.has_xrefstm ? " with XRefStm " : "");
             return ofs;
         }
     };

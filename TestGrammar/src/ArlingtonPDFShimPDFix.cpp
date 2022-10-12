@@ -168,9 +168,11 @@ void ArlingtonPDFSDK::close_pdf() {
     assert(ctx != nullptr);
     auto pdfix_ctx = (pdfix_context*)ctx;
 
+    pdfix_ctx->pdf_catalog->force_deleteable();
     delete pdfix_ctx->pdf_catalog;
     pdfix_ctx->pdf_catalog = nullptr;
 
+    pdfix_ctx->pdf_trailer->force_deleteable();
     delete pdfix_ctx->pdf_trailer;
     pdfix_ctx->pdf_trailer = nullptr;
 
