@@ -1,6 +1,6 @@
 # Arlington PDF Model Grammar Validation Rules
 
-This document describes some strict rules for the Arlington PDF model, for both the data and the predicates (custom declarative functions that start `fn:`). Only some of these rules are currently implemented by various PoCs, but everything is precisely documented here.
+This document describes some strict rules for the Arlington PDF model, for both the data and the predicates (custom declarative predicates that start `fn:`). Only some of these rules are currently implemented by various PoCs, but everything is precisely documented here.
 
 
 # TSV file rules
@@ -76,8 +76,6 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   If expressing a PDF array with `integer+ASTERISK` (and all rows are the same) then the "Required" column should be TRUE if all _N_ entries must always be repeated as a full set (e.g. in pairs or quads).
 *   In the future (and will require code changes!):
     *   "Key" names with `#`-escapes
-    *   _How should we define malforms??? e.g. `/type` vs `/Type`; `/SubType` vs `/Subtype`; `/BlackIs1` (uppercase i) vs `/Blackls1` (lowercase L). Are these separate rows in a TSV, a "SpecialCase" column or wrapped in a declarative
-       function in the "Key" column? (e.g. `Type;fn:Malform(type,...)`). Need to consider impact on Linux CLI processing, such as grep._
 *   **Python pretty-print/JSON**
     *   String (as JSON dictionary key)
 *   **Linux CLI tests:**
@@ -116,9 +114,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
     * `string-ascii`
     * `string-byte`
     * `string-text`
-*   Each type may also be wrapped in a version-based declarative function (e.g. `fn:SinceVersion(version,type)` or
+*   Each type may also be wrapped in a version-based predicate (e.g. `fn:SinceVersion(version,type)` or
     `fn:Deprecated(version,type)`).
-*   When a declarative function is used, the internal simple type is still kept in its alphabetic sort order
+*   When a predicate is used, the internal simple type is still kept in its alphabetic sort order
 * The following predefined Arlington types ALWAYS REQUIRE a link:
     - `array`, `dictionary`, `name-tree`, `number-tree`, `stream`
 * The following predefined Arlington types NEVER have a link (they are the primitive Arlington types):
@@ -128,7 +126,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   List elements are either:
         *   Strings for the basic types listed above
         *   Python lists for predicates - a simple search through the list for a match to the types above is
-            sufficient (if understanding the declarative function is not required)
+            sufficient (if understanding the predicate is not required)
     *   _Not to be confused with "/Type" keys which is why the `[` is included in this grep!_
     *   `grep "'Type': \[" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
@@ -177,8 +175,8 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   Must not be blank
 *   Either:
     *   Single word: `FALSE` or `TRUE` (uppercase only)
-    *   The declarative function `fn:IsRequired(...)` - no SQUARE BRACKETS!
-        *   This may then have further nested functions (e.g. `fn:SinceVersion`, `fn:IsPresent`, `fn:Not`)
+    *   The predicate `fn:IsRequired(...)` - no SQUARE BRACKETS!
+        *   This may then have further nested predicates (e.g. `fn:SinceVersion`, `fn:IsPresent`, `fn:Not`)
 *   If "Key" column contains ASTERISK (as a wildcard), then "Required" field must be FALSE
     *   Cannot require an infinite number of keys! If need at least one element, then have explicit first rows
         with "Required"==`TRUE` followed by ASTERISK with "Required"==`FALSE`)
@@ -187,7 +185,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   List length is always 1
     *   List element is either:
         *   Boolean
-        *   Python list for functions which must be `fn:IsRequired(`
+        *   Python list for predicates which must be `fn:IsRequired(`
     *   `grep "'Required': " dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
     ```shell
@@ -201,7 +199,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   Streams must always have "IndirectReference" as `TRUE`
 *   Either:
     *   Single word: `FALSE` or `TRUE` (uppercase only, as it is not a PDF keyword!); or
-    *   Single declarative function `fn:MustBeDirect()` or `fn:MustBeIndirect()` indicating that the corresponding key/array element must
+    *   Single predicate `fn:MustBeDirect()` or `fn:MustBeIndirect()` indicating that the corresponding key/array element must
         be a direct object or not
     *   `[];[];[]` style expression - SEMI-COLON separated, SQUARE-BRACKETS expressions that exactly match the
         number of items in the "Type" column. Only the values `TRUE` or `FALSE` can be used inside each `[...]`.
@@ -212,7 +210,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   List length always matches length of "Type" column
     *   List elements are either:
         *   Python Boolean (`True`/`False`)
-        *   Python list for functions where the outer-most declarative function must be `fn:IsRequired(`, with
+        *   Python list for predicates where the outer-most predicate must be `fn:IsRequired(`, with
             an optional argument for a condition
     *   `grep "'IndirectReference':" dom.json | sed -e 's/^ *//' | sort | uniq`
 *   **Linux CLI tests:**
@@ -253,7 +251,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   A list or `None`
     *   If list, then length always matches length of "Type"
     *   If list element is also a list then it is either:
-        *   Declarative function with 1st element being a FUNC_NAME token
+        *   Predicate with 1st element being a FUNC_NAME token
         *   "Key" value (`@key`) with 1st element being a KEY_VALUE token
         *   A PDF array (1st token is anything else) - including an empty PDF array
     *   `grep -o "'DefaultValue': .*" dom.json | sed -e 's/^ *//' | sort | uniq`
@@ -291,8 +289,10 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 *   Can be blank
 *   SEMI-COLON separated, SQUARE-BRACKETED complex expressions that exactly match the number of items in "Type" column
-*   Each expression inside a SQUARE-BRACKET is a declarative function that calculates to TRUE/FALSE.
-    * TRUE means that it is a valid, FALSE means it would be invalid
+*   Each expression inside a SQUARE-BRACKET is a predicate that reduces to TRUE/FALSE or is indeterminable.
+    * TRUE means that it is a valid, FALSE means it would be invalid.
+*   A SpecialCase predicate is not meant to reflect all rules from the PDF specification (_things are declarative, not programmatic!_)
+    * It should not test for required/optional-ness, whether an object is indirect or not, etc. as those rules should live in the other fields
 *   **Python pretty-print/JSON:**
     *   A list or `None`
     *   If list, then length always matches length of "Type"
@@ -349,7 +349,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 *   Can be blank
 *   Free text - no validation possible
-*   Often contains a reference to a Table or clause number from ISO 32000-2:2020 (PDF 2.0) or a PDF Association Errata issue link (as GitHub URL)
+*   Often contains a reference to Table(s) or clause number(s) from ISO 32000-2:2020 (PDF 2.0) or a PDF Association Errata issue link (as GitHub URL)
     * For dictionaries, this is normally on the first key or the `Type` or `Subtype` row depending on what is the primary differentiating definition
 *   **Python pretty-print/JSON:**
     *   A string or `None`
@@ -357,36 +357,50 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 # Validation of predicates (declarative functions)
 
-*   `_parent::_` (all lowercase) is a special keyword that forms the basis of a conceptual "relative" path in the PDF DOM
-*   `_trailer::_` (all lowercase) is a special keyword that forms the basis of a conceptual "absolute" path in the PDF DOM. Arlington always starts with the trailer, so that trailer keys and values can be used in predicates.
-*   `null` (all lowercase) is the PDF null object (_Note: it is a valid type_)
-*   Change to use PDFPath ([https://github.com/pdf-association/PDFPath](https://github.com/pdf-association/PDFPath))
-    *   Paths to objects are separated by `::` (double COLONs)
-        *   e.g. `parent::@Key`. `Object::Key`, `Object::&lt;0-based integer&gt;`
-    *   `Key`_means `key is present` (Key is case-sensitive match)
-    *   `@Key` means `value of key` (Key is case-sensitive match)
-*   `true` and `false` (all lowercase) are the PDF keywords (required for explicit comparison with `@key`) - uppercase `TRUE` and `FALSE` **never** get used in functions
-*   All functions start with `fn:` (case-sensitive, COLON)
-*   All functions are CamelCase case sensitive with BRACKETS `(` and `)` and do NOT use Digits, DASH or UNDERSCOREs (i.e. must match a simple alpha word regex)
-*   Functions can have 0, 1 or 2 arguments that are COMMA separated
-    *   Functions need to end with `()` for zero arguments
+First and foremost, the predicate system is not based on **functional programming**!
+
+The best way to understand an expression with a predicate is to read it out aloud, from left to right.
+Its verbalization should relatively closely match wording found in the PDF specification.
+Predicate simplifcation is **avoided** so that wording (when read aloud) is kept as close as possible to wording in the PDF specification.
+
+
+*   the internal Arlington grammar is loosely typed (so things need to match or be interpreted as matching the "Type" field (column 2)).
+    *  integers may be used in place of numbers (_but not vice-versa!_)
+*   `_parent::_` (all lowercase) is a special Arlington grammar keyword that forms the basis of a conceptual "relative" path in the PDF DOM. There can be multiple `parent::`s.
+*   `_trailer::_` (all lowercase) is a special Arlington grammar keyword that forms the basis of a conceptual "absolute" path in the PDF DOM. Arlington always starts with the trailer, so that trailer keys and values can also be used in predicates.
+*   `null` (all lowercase) is the PDF null object (_Note: it is also valid predefined Arlington type_). `null` might also be used in "DefaultValue" or "PossibleValue" fields.
+*   `Key` means `key is present` (`Key` is case-sensitive match)
+*   `@Key` means `the value of key` (`Key` is case-sensitive match).
+*   Paths in the PDF DOM are separated by `::` (double COLONs)
+    *   e.g. `parent::@Key`. `KeyA::KeyB`, `trailer::Catalog::Size`, `Object::&lt;0-based integer&gt;`
+    *   the `@` operator only applies to the right-most portion
+    *  The `@` sign is always required for math and comparison operations.
+    *  The predefined Arlington types used with `@` are the primitive types such as boolean, integer, number, string-*, name, etc.
+    *  It is also possible to use an array for certain predicates such as `fn:Contains(...)`
+    *  For complex types, if the "DefaultValue" for KeyA is `@KeyB` then it means that the "default value for Key A is the value of Key B" and so long as Keys A and B both have the same type then this is acceptable.
+*   `true` and `false` (all lowercase) are the PDF keywords (required for explicit comparison with `@key`) - uppercase `TRUE` and `FALSE` **never** get used in predicates as they represent Arlington model values such as for "Required", "IndirectReference" or "Inheritable" fields.
+*   All predicates start with `fn:` (case-sensitive, single COLON) followed by an uppercase character (`A`-'Z')
+*   All predicate names are CamelCase case sensitive with BRACKETS `(` and `)` and do NOT use DASH or UNDERSCOREs (i.e. must match a simple alphanumeric regex)
+*   Predicates can have 0, 1 or 2 arguments that are always COMMA separated
+    *   Predicates need to end with `()` for zero arguments
     *   Arguments always within `(...)`
-    *   Functions can nest (as arguments of other functions)
-*   Support two C/C++ style boolean operators: && (logical and), || (logical or)
+    *   Predicates can nest (as arguments of other Predicates)
+*   Support two C/C++ style boolean operators: `&&` (logical and), `||` (logical or). There is also a special `fn:Not(...)` predicate.
 *   Support six C/C++ style comparison operators: &lt;. &lt;=, &gt;, &gt;=, ==, !=
 *   NO bit-wise operators - _use predicates instead_
-*   NO unary NOT (`!`) operator (_implement as a presdicate `fn:Not(...)`_)
+*   NO unary NOT (`!`) operator (_use predicate `fn:Not(...)`_)
 *   All expressions MUST be fully bracketed between Boolean operators (_to avoid defining precedence rules_)
-*   NO conditional if/then, switch or loop style statements _ - its declarative!_
-*   NO local variables_ - its declarative!_
-*   Using comparison operators requires that the expression is wrapped in `fn:Eval(...)``
+*   NO conditional if/then, switch or loop style statements - _its purely declarative!_
+*   NO local variables - _its purely declarative!_
+*   Using comparison operators requires that the full expression is wrapped in `fn:Eval(...)`
 
+*   FUTURE: change to use PDFPath ([https://github.com/pdf-association/PDFPath](https://github.com/pdf-association/PDFPath))
 
 # Linux CLI voodoo
 
 ```bash
 # List all predicates by names:
-grep --color=always -ho "fn:[[:alnum:]]*." * | sort | uniq
+grep --color=always -ho "fn:[[:alnum:]]*" * | sort | uniq
 
 # List all predicates and their Arguments
 grep -Pho "fn:[a-zA-Z0-9]+\((?:[^)(]+|(?R))*+\)" * | sort | uniq
@@ -394,7 +408,7 @@ grep -Pho "fn:[a-zA-Z0-9]+\((?:[^)(]+|(?R))*+\)" * | sort | uniq
 # List all predicates that take no parameters:
 grep --color=always -Pho "fn:[a-zA-Z0-9]+\(\)" * | sort | uniq
 
-# List all parameter lists (but not function names) (and a few PDF strings too!):
+# List all parameter lists (but not predicate names) (and a few PDF strings too!):
 grep --color=always -Pho "\((?>[^()]|(?R))*\)" * | sort | uniq
 
 # List all predicates with their arguments:
@@ -404,7 +418,7 @@ grep --color=always -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" * | sort | uniq
 
 # EBay TSV Utilities
 
-Any Linux command that outputs a row can be piped through `tsv-pretty` to improve readability.
+Any Linux command that outputs a row from an Arlington TSV data file can be piped through `tsv-pretty` to improve readability.
 
 ```bash
 # Pretty columnized output:
@@ -421,13 +435,15 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 # "Type" includes 'string-byte':
 tsv-filter -H --regex Type:.\*string-byte\* --ge SinceVersion:1.5 *.tsv
+
+# Find all annotations which have the ExData key
+grep ^ExData Annot* | tsv-pretty
 ```
 
 # Parameters to predicates
 
-The term "reduction" is used to describe how predicates and their parameters get recursively processed from the inside
-to the outer-most predicate. At any point a predicate or argument can be indeterminable. This can occur if a PDF does
-not have a key, of the key is the wrong type,
+The term "reduction" is used to describe how predicates and their parameters get recursively processed from left-to-right.
+At any point a predicate or argument can be indeterminable, such as when a PDF does not have a key, or if the key is the wrong type, etc.
 
 When thinking about predicates, it is important to remember that not all the parameters (arguments) to predicates will
 exist - thus only a portion of a predicate statement may be determinable when checking a PDF file. For example, a
@@ -461,49 +477,13 @@ the same as not present!
     </ul>
    </td>
   </tr>
-  <tr>
-   <td><code><i>expr</i></code>
-   </td>
-   <td>
-    <ul>
-     <li>Mathematical expression (or a constant)</li>
-     <li>Explicit bracketing <code>(...)</code> required (no order of operation!)</li>
-     <li>Mathematical operators are <code>+</code> (addition), <code> - </code> (subtraction, NOT unary negation!), <code>*</code> (multiple), and <code> mod </code> (modulo). Unary negation can be achieved by multiplication with -1.</li>
-     <li>References to PDF objects need <code>@</code> to get the value of key/array element</li>
-     <li>Can use nested predicates that represent an integer or number (e.g. `fn:ArrayLength()`)</li>
-    </ul>
-   </td>
-  </tr>
-  <tr>
-   <td><code><i>cond</i></code>
-   </td>
-   <td>
-    <ul>
-     <li>A Boolean expression, including nested predicates, mathematical expressions that use comparison operators, and Boolean sub-expressions</li>
-     <li>Use <code>==</code>, <code>!=</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&lt;</code> mathematical comparison operators</li>
-     <li>Use <code>==</code>, <code>!=</code>, <code> && </code> (AND) or <code> || </code> (OR) logical operators (there is no NOT operator, use the `fn:Not()` predicate instead)</li>
-    </ul>
-   </td>
-  </tr>
-  <tr>
-   <td><code><i>statement</i></code>
-   </td>
-   <td>
-    <ul>
-     <li>A PDF object (e.g. name, string, real, integer, array, null) -e.g. <code>KeyName</code></li>
-     <li>A mathematical expression (like <code><i>expr</i></code>) - e.g. <code>(fn:ArrayLength(KeyName) mod 2)</code></li>
-     <li>An Arlington predefined type - if in "Type" (column 2)  - e.g. the last parameter in the predicate of <code>fn:SinceVersion(1.5,array);name</code></li>
-     <li>An Arlington link (TSV filename)- if in "Link" (column 11) - e.g. the last parameter in <code>fn:SinceVersion(1.2,SomeDict)</code> which might be in the "DefaultValue" or "SpecialCase" field</li>
-    </ul>
-   </td>
-  </tr>
 </table>
 
 
 # Predicates (declarative functions)
 
 **Do not use additional whitespace!**
-Single SPACE characters are only required around logical operators (` &&` and ` || `), MINUS (` - `) and the ` mod ` mathematical operators.
+Single SPACE characters are only required around logical operators (` &&` and ` || `), MINUS (` - `) and the ` mod ` mathematical operator.
 
 <table>
   <tr>
@@ -519,9 +499,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:ArrayLength(<i>key</i>)</code></td>
    <td>
     <ul>
-     <li>asserts <i>key</i> references something of type <code>array</code>.</li>
-     <li>If <i>key</i> exists, returns an integer value >= 0.</li>
-     <li>If <i>key</i> does not exist or is not an array, returns -1.</li>
+     <li>Asserts that <i>key</i> exists and is an array, and returns the array length as an integer value >= 0.</li>
+     <li>There is only one parameter and it should be an array.</li>
     </ul>
    </td>
   </tr>  
@@ -531,9 +510,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
     <ul>
      <li>Asserts <i>key</i> references something of type <code>array</code>, and</li>
      <li>Asserts that the <i>integer</i>-th array elements are sorted in ascending order.</li>
-     <li>Requires that all <i>integer</i>-th array elements are numeric. Other elements can be anything.</li>
-     <li>An empty array is always sorted.</li>
-     <li>If <i>key</i> does not exist, is not an array, or has elements that are non-numeric, returns false.</li>
+     <li>Requires that all <i>integer</i>-th array elements are numeric. Other array elements however can be anything.</li>
+     <li>An empty array will be considered sorted.</li>
      <li>e.g. <code>fn:ArraySortAscending(Index,2)</code> tests that the array elements at indices 0, 2, 4, ... are all sorted.</li>
     </ul>
    </td>
@@ -544,8 +522,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li><i>version</i> must be 1.1, ..., 2.0 (1.0 makes no sense!).</li>
-     <li>Asserts that optional <i>statement</i> only applies before (i.e. less than) PDF <i>version</i>.</li>
-     <li><i>assertion</i> is a <code>fn:Eval(...)</code> expression that only applies before <i>version</i>.</li>
+     <li>Asserts that the optional <i>statement</i> only applies before (i.e. strictly less than) PDF <i>version</i>.</li>
      <li><i>version</i> must also make sense in light of the "SinceVersion" and "DeprecatedIn" fields for the current row (i.e. is between them).</li>      
     </ul>
    </td>
@@ -595,22 +572,21 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
-   <td><code>fn:Contains(<i>key-value</i>,<i>statement</i>)</code></td>
+   <td><code>fn:Contains(<i>array-key</i>,<i>value</i>)</code></td>
    <td>
     <ul>
-     <li>Determines if a key that can be of multiple types, contains ("is") <i>statement</i></li>
+     <li>Asserts that a key that is an array (and thus can hold multiple values), contains <i>value</i></li>
      <li>Example are stream <code>Filter</code> keys which can be an array or a name, so testing this cannot just use <code>@Filter==XXX</code> as this will only work if Filter is a name  as the <code>@</code> logic returns <code>true</code> for an array to indicate existence.</li>
-     <li>Always use <code>@key</code> for </i>key-value</i></li>
+     <li>Always use <code>@array-key</code> for </i>array-key</i></li>
     </ul>
    </td>
   </tr>  
   <tr>
-   <td><code>fn:DefaultValue(<i>condition</i>,<i>statement</i>)</code></td>
+   <td><code>fn:DefaultValue(<i>condition</i>,<i>value</i>)</code></td>
    <td>
     <ul>
-     <li>A conditionally-based default value.
-     <li>If <i>condition</i> is true, then the Default Value is specified by <i>statement</i>.</li>
-     <li>If <i>condition</i> is false, then there is no Default Value specified.</li>
+     <li>States a conditionally-based default value.</li>
+     <li>When <i>condition</i> is true, then the Default Value is specified by <i>value</i>.</li>
      <li>Only used in "DefaultValue" field (column 8).</li>
     </ul>
    </td>
@@ -619,10 +595,10 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:Deprecated(<i>version</i>,<i>statement</i>)</code></td>
    <td>
     <ul>
-     <li>indicates that <i>statement</i> was deprecated, such as a type ("Type" field), a value (e.g. "PossibleValues" field ) or a link</li>
+     <li>indicates that <i>statement</i> was deprecated, such as a type (in "Type" field), a value (e.g. in "PossibleValues" field ) or a link</li>
      <li>The <i>version</i> is inclusive of the deprecation (i.e. when the feature was first stated it was deprecated).</li>
-     <li>Obsolescence is different to deprecation: deprecation is allowed/permitted but is strongly recommended against ("should not"). Obsolescence is a "shall not" appear in a PDF.</li>
-     <li><i>version</i> must also make sense in light of the "SinceVersion" and "DeprecatedIn" fields for the current row (i.e. is between them).</li>
+     <li>Obsolescence is different to deprecation in ISO 32000: deprecation is allowed/permitted but is strongly recommended against ("should not"). Obsolescence is a "shall not" appear in a PDF.</li>
+     <li><i>version</i> must also make logical sense in light of the "SinceVersion" and "DeprecatedIn" fields for the current row (i.e. is between them).</li>
      </ul>
    </td>
   </tr>
@@ -632,9 +608,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
     <ul>
      <li>In the "SpecialCase" field, always the outer-most predicate</li>
      <li>For other fields such as "Required", "IndirectRef", can be the 2nd most outer predicate (for example, directly inside <code>fn:IsRequired()</code> or <code>fn:MustBeDirect()</code>)</li>
-     <li>Calculates the expression <i>expr</i>.</li>
-     <li>May involve multiple terms with logical operators <code> && </code> or <code> || </code>.</li>
-     <li>The result of <i>expr</i> can be anything: a numeric value, true/false, a type, a statement.</li>
+     <li>Evaluates the expression <i>expr</i> that may involve multiple terms with logical operators <code> && </code> or <code> || </code>.</li>
+     <li>The result of <i>expr</i> can be anything: a numeric value, true/false, a type, a statement but must be appropriate to its usage.</li>
     </ul>
    </td>
   </tr>
@@ -644,11 +619,11 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li>Used in the "SinceVersion", "PossibleValues" or "SpecicalCase" fields.</li>
-     <li><i>name</i> is an identifier for the extension or subset that uses the same lexical conventions as for the "Key" field (e.g. no SPACEs).</li>
+     <li><i>name</i> is an arbitrary identifier for the extension or subset and uses the same lexical conventions as for the "Key" field (e.g. no SPACEs).</li>
      <li>In the "SinceVersion" field must reduce down to a valid PDF version for when the key or array element or which extension <i>name</i> introduced the key/array element. This may be combined with <i>value</i> to express a version-based introduction such as ISO subsets:</li>
      <ul>
        <li><code>fn:Extension(XYZ)</code> - under extension XYZ for any PDF version</li>
-       <li><code>fn:Extension(XYZ,1.5)</code> - under extension XYZ but only since PDF 1.5</li>
+       <li><code>fn:Extension(XYZ,1.5)</code> - under extension XYZ but only since PDF 1.5 (inclusive)</li>
        <li><code>fn:Eval(fn:Extension(XYZ,1.6) || 2.0)</code> - under extension XYZ since PDF 1.6, but then became a standardized feature since PDF 2.0</li>
      </ul>
      <li>In other fields such as "PossibleValues" or "SpecialCase" identifies that a specific value for the key or array element is only valid for the specified extension <i>name</i>. This may be combined with <code>fn:SinceVersion</code> to express a more nuanced introduction</li>
@@ -660,10 +635,11 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:FileSize()</code></td>
    <td>
     <ul>
-     <li>Represents the length of the "PDF file" in bytes (from <code>%PDF-<i>x.y</i></code> to last <code>%%EOF</code>).</li>
+     <li>Represents the length of the "PDF file" in bytes (from <code>%PDF-<i>x.y</i></code> to last <code>%%EOF</code> but in reality depends on PDF SDK).</li>
      <li>Will always be an integer > 0.</li>
      <li>There are no parameters.</li>
      <li>This may not be the same as the physical file size!</li>
+     <li>This is mostly used as an upper integer bound for key values that represent byte offsets.</li>
     </ul>
    </td>
   </tr>
@@ -681,7 +657,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:HasProcessColorants(<i>array</i>)</code></td>
    <td>
     <ul>
-     <li>Asserts that the given array object of names contains at least one process colorant name (Cyan, Magenta, Yellow or Black).</li>
+     <li>Asserts that the given array object of PDF names contains at least one process colorant name (Cyan, Magenta, Yellow or Black).</li>
     </ul>
    </td>
   </tr>
@@ -689,7 +665,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:HasSpotColorants(<i>array</i>)</code></td>
    <td>
     <ul>
-     <li>Asserts that the given array object of names contains at least one spot colorant name. A spot colorant is any name besides the CMYK colorant names.</li>
+     <li>Asserts that the given array object of PDF names contains at least one spot colorant name. A spot colorant is any name besides the CMYK colorant names.</li>
     </ul>
    </td>
   </tr>
@@ -697,7 +673,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:Ignore()</code><br/><code>fn:Ignore(<i>expr</i>)</code></td>
    <td>
     <ul>
-     <li>Asserts that the current row is to be ignored when <code><i>expr</i></code> evaluates to true, or ignored all the time (no parameter).</li>
+     <li>Zero or one parameters.</li>
+     <li>Asserts that the current row (key or array element) is to be ignored when <code><i>expr</i></code> evaluates to true, or ignored all the time (no parameter).</li>
      <li>Only used in "SpecialCase" field (column 10).</li>
     </ul>
    </td>
@@ -706,8 +683,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:ImageIsStructContentItem()</code></td>
    <td>
     <ul>
-     <li>Asserts that a PDF image object is a structure content item.</li>
-     <li>Checks that the PDF object has the entry <code>/Subtype /Image</code>.</li>
+     <li>Asserts that a PDF image object is a Tagged PDF structure content item.</li>
+     <li>Asserts that the PDF object has the entry <code>/Subtype /Image</code>.</li>
      <li>There are no parameters.</li>
     </ul>
    </td>
@@ -716,7 +693,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:ImplementationDependent()</code></td>
    <td>
     <ul>
-     <li>Asserts that the current row is formally defined to be implementation dependent in the PDF specifications.</li>
+     <li>Asserts that the current row (key or array element) is formally defined to be implementation dependent in the PDF specifications.</li>
      <li>There are no parameters.</li>
     </ul>
    </td>
@@ -726,8 +703,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li><i>key</i> must be a map object (<code>name-tree</code> or <code>number-tree</code>).</li>
-     <li>Asserts that the current row object is in the specified map.</li>
-     <li>Objects are matched by their hash (object/generation number pair).</li>
+     <li>Asserts that the current row (key or array element) is in the specified map.</li>
     </ul>
    </td>
   </tr>
@@ -735,9 +711,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:IsAssociatedFile()</code></td>
    <td>
     <ul>
-     <li>Only used in the "Required" field (column 5)</li>
-     <li>Asserts that the current row needs to be a PDF 2.0 Associated File.</li>
-     <li>Realistically this means <code>fn:IsRequired(fn:SinceVersion(2.0,fn:IsAssociatedFile()) ...)</code>.</li>
+     <li>Asserts that the containing object of the current row (key or array element) needs to be a PDF 2.0 Associated File object.</li>
      <li>There are no parameters.</li>
     </ul>
    </td>
@@ -746,9 +720,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:IsEncryptedWrapper()</code></td>
    <td>
     <ul>
-     <li>Only used in the "Required" field (column 5)</li>
-     <li>Asserts that the current row needs to be a PDF 2.0 Encrypted Wrapper.</li>
-     <li>Realistically this means <code>fn:IsRequired(fn:SinceVersion(2.0,fn:IsEncryptedWrapper()) ... )</code>.</li>
+     <li>Asserts that the current PDF file needs to be a PDF 2.0 Encrypted Wrapper.</li>
      <li>There are no parameters.</li>    
     </ul>
    </td>
@@ -758,6 +730,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li>Asserts that the value is a PDF string object and that is a valid partial Field Name according to clause 12.7.4.2 of ISO 32000-2:2020.</li>
+     <li>There is one key-value (<code>@key</code>) parameter.</li>    
     </ul>
    </td>
   </tr>
@@ -765,7 +738,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:IsHexString()</code></td>
    <td>
     <ul>
-     <li>Asserts that the current object is PDF string object and that is a hex string (`<...>`).</li>
+     <li>Asserts that the current object is a PDF string object and that was in the PDF as a hex string (`<...>`).</li>
      <li>There are no parameters.</li>    
     </ul>
    </td>
@@ -774,8 +747,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:IsLastInNumberFormatArray(<i>key</i>)</code></td>
    <td>
     <ul>
-     <li>Asserts that the current row is the last array element in a number format array (normally the immediate parent).</li>
-     <li>Realistically this means <code>fn:IsMeaningful(fn:IsLastInNumberFormatArray(parent))</code></li>
+     <li>Asserts that the current row is the last array element in a number format array (normally the containing object).</li>
     </ul>
    </td>
   </tr>
@@ -784,8 +756,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li>Asserts that the current row is only "meaningful" (<b>precise quote from ISO 32000-2:2020!</b>) when <i>condition</i> is true.</li>
-     <li>Only used in the "SpecialCase" field (column 10).</li>
      <li>Possibly the inverse of <code>fn:Ignore(...)</code>!</li>
+     <li>See also [Errata #6](https://github.com/pdf-association/pdf-issues/issues/6)</li>
     </ul>
    </td>
   </tr>
@@ -802,11 +774,12 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
   <tr>
    <td>
     <code>fn:IsPDFVersion(<i>version</i>)</code>
-    <code>fn:IsPDFVersion(<i>version</i>,<i>statement</i>)<code>
+    <code>fn:IsPDFVersion(<i>version</i>,<i>statement</i>)</code>
    </td>
    <td>
     <ul>
-     <li>If no optional <i>statement</i>, then always true for the stated PDF version <i>version</i>.</li>
+     <li>Can have one or two parameters.</li>
+     <li>If no optional <i>statement</i>, then always TRUE for the stated PDF version <i>version</i>.</li>
      <li>Otherwise asserts that the optional <i>statement</i> only applies to the stated PDF version <i>version</i>. This might be a type, a possible value, a new kind of linked object, etc.</li>
      <li><i>version</i> must also make sense in light of the "SinceVersion" and "DeprecatedIn" fields for the current row (i.e. is between them).</li>
     </ul>
@@ -814,14 +787,14 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
   </tr>
   <tr>
    <td><code>fn:IsPresent(<i>key</i> or <i>expr</i>)</code><br>
-       <code>fn:IsPresent(<i>key</i> or <i>expr</i>,<i>cond</i>)</code>
+       <code>fn:IsPresent(<i>key</i>,<i>cond</i>)</code>
    </td>
    <td>
     <ul>
      <li>Can have one or two parameters.</li>
-     <li>For a single parameter: asserts that <i>key</i> must be present in a PDF, or that the expression </i>expr</i> is true. False otherwise.</li>
+     <li>For a single parameter: asserts that the current row (key or array element) must be present in a PDF if <i>key</i> is present, or when the expression </i>expr</i> is true.</li>
      <li>e.g. <code>fn:IsPresent(StructParent)</code> or <code>fn:IsPresent(@SMaskInData>0)</code></li>
-     <li>For two parameters: asserts that <b>only</b> when <i>key</i>is present in a PDF, or when the expression </i>expr</i> is true, that <i>cond</i> should be evaluated.</li>
+     <li>For two parameters: asserts that <b>only</b> when <i>key</i>is present in a PDF, that <i>cond</i> should be true.</li>
      <li>e.g. <code>fn:Eval(fn:IsPresent(Matte,(@Width==parent::@Width)))</code></li>
     </ul>
    </td>
@@ -830,7 +803,6 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:IsRequired(<i>condition</i>)</code></td>
    <td>
     <ul>
-     <li>Only occurs in "Required" field and must always be the outer-most predicate.</li>
      <li><i>condition</i> is a conditional expression that resolves to a Boolean (true/false).</li>
      <li>If <i>condition</i> evaluates to true, then asserts that the current key is required.</li>
      <li>If <i>condition</i> evaluates to false, then asserts that the current key is optional.</li>
@@ -841,7 +813,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:KeyNameIsColorant()</code></td>
    <td>
     <ul>
-     <li>Asserts that the current (arbitrary) key is also a colorant name.</li>
+     <li>Asserts that the current (arbitrary) key or array element is also a colorant name.</li>
      <li>There are no parameters.</li>   
     </ul>
    </td>
@@ -854,7 +826,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li>Only ever used in the "IndirectRef" field.</li>
-     <li>If <i>condition</i> is true, then asserts that the current key value must be a direct object.</li>
+     <li>If <i>condition</i> is true or is not specified, then asserts that the current key value must be a direct object.</li>
      <li>if <i>condition</i> is false, then asserts that the current key value can be either direct or indirect.</li>
     </ul>
  </td>
@@ -867,7 +839,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li>Only ever used in the "IndirectRef" field.</li>
-     <li>If <i>condition</i> is true, the current key value must be an indirect object.
+     <li>If <i>condition</i> is true or not specified, the current key value must be an indirect object.
      <li>If <i>condition</i> is false, the current key value can be direct or indirect.
     </ul>
  </td>
@@ -876,7 +848,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:NoCycle()<code></td>
    <td>
     <ul>
-     <li>Asserts that the PDF file shall not contain any cycles (loops) using this key to key into the linked list of objects.</li>
+     <li>Asserts that the PDF file shall not contain any cycles (loops) when using the current key or array index to key into the linked list of objects.</li>
      <li>There are no parameters.</li>       
     </ul>
    </td>
@@ -895,7 +867,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <ul>
     <li>Asserts that the current font object is not one of the Standard 14 Type 1 fonts.</li>
     <li>Requires /Type /Font /Subtype /Type1 and that /BaseFont is not a Standard 14 Type 1 font name.</li>
-    <li>Only used in the "Required" field, as in <code>fn:IsRequired(fn:SinceVersion(2.0) || fn:NotStandard14Font())</code>.</li>
+    <li>e.g. <code>fn:IsRequired(fn:SinceVersion(2.0) || fn:NotStandard14Font())</code>.</li>
    </ul>
    </td>
   </tr>
@@ -905,7 +877,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
     <ul>
      <li>Number of pages in the PDF document (integer value).</li>
      <li>For valid PDFs will always be 1 or greater.</li>
-     <li>Takes no parameters.</li>
+     <li>There are no parameters.</li>
+     <li>Mostly used as an upper-bound for key values that represent a PDF page index</li>
     </ul>
    </td>
   </tr>
@@ -913,7 +886,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:PageContainsStructContentItems()</code></td>
    <td>
     <ul>
-     <li>Asserts that the page contains the structure content item represented by the integer value of the current row.</li>
+     <li>Asserts that the current PDF page contains the structure content item represented by the integer value of the current row.</li>
      <li>Only used in the "Required" field, as in <code>fn:IsRequired(fn:PageContainsStructContentItems())</code>.</li>
      <li>There are no parameters.</li>   
     </ul>
@@ -924,7 +897,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li>References a property (i.e. dictionary entry) of a page, that cannot be accessed via a fixed or relative Arlington path (using <code>::</code>).</li>
-     <li>The page is defined by the first parameter <i>page-ref</i> which is a reference to a Page Object.</li>
+     <li>The page is defined by the first parameter <i>page-ref</i> which is a value-reference (<code>@Key</code>) to a Page Object.</li>
      <li>The page property can be a key or key-value and is defined by the second parameter.</li>
      <li>e.g. <code>fn:ArrayLength(fn:PageProperty(@P,Annots))</code></li>
      <li>e.g. <code>fn:Eval(@A==fn:PageProperty(@P,Annots::@NM)</code></li>
@@ -936,7 +909,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li><i>key</i> needs to be <code>rectangle</code> in Arlington predefined types.</li>
-     <li>Returns a number >= 0.0, representing the height of the rectangle, or -1 if <i>key</i> doesn't exist.</li>
+     <li>Returns a number >= 0.0, representing the height of the rectangle.</li>
      <li>Needs to be wrapped inside the <code>fn:Eval(...)</code> predicate.</li>
     </ul>
    </td>
@@ -946,7 +919,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
     <li><i>key</i> needs to be <code>rectangle</code> in Arlington predefined types.</li>
-    <li>Returns a number >= 0.0, representing the width of the rectangle, or -1 if <i>key</i> doesn't exist.</li>
+    <li>Returns a number >= 0.0, representing the width of the rectangle.</li>
     <li>Needs to be wrapped inside the <code>fn:Eval(...)</code> predicate.</li>
     </ul>
    </td>
@@ -961,7 +934,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
-   <td><code>fn:SinceVersion(<i>version</i>)</code></br><code>fn:SinceVersion(<i>version</i>,<i>statement</i>)</code></td>
+   <td><code>fn:SinceVersion(<i>version</i>)</code></br>
+       <code>fn:SinceVersion(<i>version</i>,<i>statement</i>)</code></td>
    <td>
     <ul>
      <li>If no optional <i>statement</i>, then always true for the stated PDF version <i>version</i> and later.</li>
@@ -974,7 +948,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:StreamLength(<i>key</i>)</code></td>
    <td>
     <ul>
-     <li><i>key</i> needs to be a stream and returns an integer >= 0, or -1 if not present.</li>
+     <li><i>key</i> needs to be a stream and returns an integer >= 0 representing the compressed stream length.</li>
      <li>Uses the value of the streams' <code>/Length</code> key, rather than reading and decoding actual streams.</li>
      <li>Needs to be wrapped inside <code>fn:Eval(...)</code>.</li>
      <li>e.g. <code>fn:Eval(fn:StreamLength(DL)==(@Width * @Height))</code></li>
@@ -985,7 +959,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:StringLength(<i>key</i>)</code></td>
    <td>
     <ul>
-     <li><i>key</i> needs to be a string object and returns an integer >= 0, or -1 on error.</li>
+     <li><i>key</i> needs to be a string object and returns an integer >= 0. Empty strings (length 0) are valid in PDF.</li>
      <li>Needs to be used inside <code>fn:Eval(...)</code>.</li>
      <li> e.g. <code>fn:Eval(fn:StringLength(Panose)==12)</code>
     </ul>
@@ -1000,10 +974,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
 - Check array length requirements of all `array` search hits - *done up to Table 95*
 
 - Check ranges of all `integer` search hits - *done up to Table 170*.
-See also: [https://github.com/pdf-association/pdf-issues/issues/15](https://github.com/pdf-association/pdf-issues/issues/15)
+See also: [Errata #15](https://github.com/pdf-association/pdf-issues/issues/15)
 
 - Read every Table for dictionary keys and update declarative rules - *done up to Table 186 Popup Annots*
 
 - Check ranges of all `number` search hits - *not started yet*
-
-- Apply all approved Errata for ISO 32000-2:2020 from https://pdf-issues.pdfa.org/
