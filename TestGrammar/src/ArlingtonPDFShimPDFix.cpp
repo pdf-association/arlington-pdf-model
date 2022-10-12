@@ -34,6 +34,7 @@
 #include <fstream>
 
 #include "Pdfix.h"
+#include "ArlPredicates.h"
 #include "utils.h"
 
 using namespace ArlingtonPDFShim;
@@ -214,25 +215,12 @@ ArlPDFDictionary* ArlingtonPDFSDK::get_document_catalog()
 std::string ArlingtonPDFSDK::get_pdf_version() {
     assert(ctx != nullptr);
     auto pdfix_ctx = (pdfix_context*)ctx;
-    assert(!pdfix_ctx->pdf_file.empty());
+    assert(pdfix_ctx->doc != nullptr);
 
-    // Brute force approach to find first line in the PDF file with "%PDF-x.y"
-    std::fstream pdf_f(pdfix_ctx->pdf_file, std::ios::in);
-    if (pdf_f.good()) {
-        std::string s;
-        size_t      len = 0;
-
-        while ((len < 4096) && std::getline(pdf_f, s)) {
-            auto i = s.find("%PDF-");
-            len += s.size();
-            if (i != std::string::npos) {
-                return s.substr(i+5, 3);
-            }
-        }
-    }
-    pdf_f.close();
-
-    return "2.0"; /// @todo - how to get PDF header version properly from PDFix??
+    int hdr = pdfix_ctx->doc->GetVersion(); // https://pdfix.github.io/pdfix_sdk_builds/en/6.17.0/html/struct_pdf_doc.html#a2c758395b48f2c84ab7fcbdbd118f745
+    std::string s = std::to_string(hdr / 10) + "." + std::to_string(hdr % 10);
+    assert(FindInVector(v_ArlPDFVersions, s));
+    return s;
 }
 
 
@@ -332,7 +320,7 @@ ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj, const bool can_delet
     PdsObject* pdfix_obj = (PdsObject*)object;
     assert(pdfix_obj != nullptr);
     obj_nbr = pdfix_obj->GetId();
-    gen_nbr = 0; /// @todo - newer PDFix SDKs have pdfix_obj->GetGenId();
+    gen_nbr = pdfix_obj->GetGenId(); 
     is_indirect = (obj_nbr != 0); // https://pdfix.github.io/pdfix_sdk_builds/en/6.17.0/html/struct_pds_object.html#a4103892417afc9f82e4bcc385940f4f8
     if (pdfix_obj->GetObjectType() == kPdsReference) {
         is_indirect = true;
