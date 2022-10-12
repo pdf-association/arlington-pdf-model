@@ -354,7 +354,7 @@ std::vector<std::string>  ArlVersion::get_appropriate_linkset(std::string arl_li
                     // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
                     // m[2] = extension name
                     // m[3] = Arlington link
-                    int arl_v = string_to_pdf_version(m[1].str());
+                    // int arl_v = string_to_pdf_version(m[1].str());
                 if (FindInVector(supported_extensions, m[2].str()) || wildcard_extn)
                     retval.push_back(m[3]);     // m[2] = Arlington link
                 s = m.suffix();
