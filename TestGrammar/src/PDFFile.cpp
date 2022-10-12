@@ -1021,18 +1021,20 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 // Only want to use Default Values for SpecialCase processing. When processing Required field
                 // this should not required - it would indicate a logical error in the PDF specification! 
                 // See Issue #30: https://github.com/pdf-association/arlington-pdf-model/issues/30#issuecomment-1276804889
-                if ((val == nullptr) && (key_parts.size() == 1) && use_default_values) {
+                if ((val == nullptr) && (key_parts.size() == 1)) {
                     bool got_dv = false;
-                    for (int i = 0; i < (int)tsv_data.size(); i++)
-                        if ((tsv_data[i][TSV_KEYNAME] == key_parts[0]) && (tsv_data[i][TSV_DEFAULTVALUE] != "")) {
-                            delete out;
-                            out = new ASTNode;
-                            std::string s = LRParsePredicate(tsv_data[i][TSV_DEFAULTVALUE], out);
-                            assert(s.size() == 0);
-                            assert(out->valid());
-                            got_dv = true;
-                            break;
-                        }
+                    if (use_default_values) {
+                        for (int i = 0; i < (int)tsv_data.size(); i++)
+                            if ((tsv_data[i][TSV_KEYNAME] == key_parts[0]) && (tsv_data[i][TSV_DEFAULTVALUE] != "")) {
+                                delete out;
+                                out = new ASTNode;
+                                std::string s = LRParsePredicate(tsv_data[i][TSV_DEFAULTVALUE], out);
+                                assert(s.size() == 0);
+                                assert(out->valid());
+                                got_dv = true;
+                                break;
+                            }
+                    }
                     if (!got_dv) {
                         // Return nullptr if @key doesn't exist
                         delete out;
