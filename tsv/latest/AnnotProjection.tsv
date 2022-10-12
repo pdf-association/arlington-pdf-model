@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	2.0		FALSE	FALSE	FALSE		[Annot]			
+Type	name	2.0		FALSE	FALSE	FALSE		[Annot]			Table 166 and Table 172 and clause 12.5.6.24 (markup annot)
 Subtype	name	2.0		TRUE	FALSE	FALSE		[Projection]			
 Rect	rectangle	2.0		TRUE	FALSE	FALSE					
 Contents	string-text	2.0		FALSE	FALSE	FALSE					
@@ -26,4 +26,4 @@ IRT	dictionary	2.0		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,An
 Subj	string-text	2.0		FALSE	FALSE	FALSE					
 RT	name	2.0		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 IT	name	2.0		FALSE	FALSE	FALSE					
-ExData	dictionary	2.0		FALSE	FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]	
+ExData	dictionary	2.0		FALSE	FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]	2D markup annots only

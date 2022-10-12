@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	2.0		FALSE	FALSE	FALSE		[Annot]			
+Type	name	2.0		FALSE	FALSE	FALSE		[Annot]			Table 166 and Table 333 (NOT markup annot)
 Subtype	name	2.0		TRUE	FALSE	FALSE		[RichMedia]			
 Rect	rectangle	2.0		TRUE	FALSE	FALSE					
 Contents	string-text	2.0		FALSE	FALSE	FALSE					
@@ -20,4 +20,3 @@ BM	name	2.0		FALSE	FALSE	FALSE	Normal	[fn:Deprecated(1.4,Compatible),Normal,Mult
 Lang	string-text	2.0		FALSE	FALSE	FALSE					
 RichMediaContent	dictionary	2.0		TRUE	FALSE	FALSE				[RichMediaContent]	
 RichMediaSettings	dictionary	2.0		FALSE	FALSE	FALSE				[RichMediaSettings]	
-ExData	dictionary	2.0		FALSE	FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]	

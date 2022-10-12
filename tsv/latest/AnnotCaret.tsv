@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5		FALSE	FALSE	FALSE		[Annot]			
+Type	name	1.5		FALSE	FALSE	FALSE		[Annot]			Table 166 and Table 172 and Table 183 (markup annot)
 Subtype	name	1.5		TRUE	FALSE	FALSE		[Caret]			
 Rect	rectangle	1.5		TRUE	FALSE	FALSE					
 Contents	string-text	1.5		FALSE	FALSE	FALSE					
@@ -28,4 +28,4 @@ RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]
 IT	name	1.6		FALSE	FALSE	FALSE					
 RD	rectangle	1.5		FALSE	FALSE	FALSE			[fn:Eval((RD::@0>=0) && (RD::@1>=0) && (RD::@2>=0) && (RD::@3>=0) && ((RD::@1+RD::@3)<fn:RectHeight(Rect)) && ((RD::@0+RD::@2)<fn:RectWidth(Rect)))]		
 Sy	name	1.5		FALSE	FALSE	FALSE	None	[P,None]			
-ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	
+ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	2D markup annots only 
