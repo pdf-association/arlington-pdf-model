@@ -302,6 +302,8 @@ class Arlington:
         """
         if (len(ast) == 2) and (ast[0].type == 'KEY_PATH') and (ast[1].type in ('KEY_NAME', 'INTEGER')):
             return True
+        elif (len(ast) == 1) and (ast[0].type == 'KEY_NAME'):
+            return True
         return False
 
     def validate_fn_is_meaningful(self, ast: AST) -> bool:

@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	2.0		FALSE	FALSE	FALSE		[3DMeasure]			
+Type	name	2.0		FALSE	FALSE	FALSE		[3DMeasure]			Table 326 and Table 327 Linear measurement
 Subtype	name	2.0		TRUE	FALSE	FALSE		[LD3]			
 TRL	string-text	2.0		FALSE	FALSE	FALSE					
 AP	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
@@ -9,10 +9,10 @@ A2	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]
 N2	string-text	2.0		FALSE	FALSE	FALSE					
 TP	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
 TY	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
-TS	number	2.0		FALSE	FALSE	FALSE	12				
+TS	number	2.0		FALSE	FALSE	FALSE	12				text point size
 C	array	2.0		FALSE	FALSE	FALSE	[1 1 1]			[ArrayOf_3RGBNumbers]	
 V	number	2.0		TRUE	FALSE	FALSE					
 U	string-text	2.0		TRUE	FALSE	FALSE					
-P	integer	2.0		FALSE	FALSE	FALSE	3				
+P	integer	2.0		FALSE	FALSE	FALSE	3	[fn:Eval(@P>=0)]			precision digits
 UT	string-text	2.0		FALSE	FALSE	FALSE					
 S	dictionary	2.0		FALSE	FALSE	FALSE				[AnnotProjection]	
