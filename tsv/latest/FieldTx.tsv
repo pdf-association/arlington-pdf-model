@@ -13,4 +13,4 @@ DA	string	1.2		TRUE	FALSE	TRUE
 Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]			
 DS	string-text	1.5		FALSE	FALSE	FALSE					
 RV	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
-MaxLen	integer	1.2		FALSE	FALSE	TRUE			[fn:Eval(@MaxLen>=0)]		Table 232
+MaxLen	integer	1.2		FALSE	FALSE	TRUE			[fn:Eval(@MaxLen>=0)]		Table 232 and https://github.com/pdf-association/pdf-issues/issues/191
