@@ -1,12 +1,12 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	2.0		FALSE	FALSE	FALSE		[3DMeasure]			Table 326
+Type	name	2.0		FALSE	FALSE	FALSE		[3DMeasure]			Table 326 and Table 331 3D comment note
 Subtype	name	2.0		TRUE	FALSE	FALSE		[3DC]			
 TRL	string-text	2.0		FALSE	FALSE	FALSE					
 A1	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
 N1	string-text	2.0		FALSE	FALSE	FALSE					
 TP	array	2.0		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
 TB	array	2.0		FALSE	FALSE	FALSE				[ArrayOf_2Integers]	
-TS	number	2.0		FALSE	FALSE	FALSE	12				
+TS	number	2.0		FALSE	FALSE	FALSE	12				text point size
 C	array	2.0		FALSE	FALSE	FALSE	[1 1 1]			[ArrayOf_3RGBNumbers]	
 UT	string-text	2.0		FALSE	FALSE	FALSE					
-S	dictionary	2.0		FALSE	FALSE	FALSE				[AnnotProjection]	
+S	dictionary	2.0		FALSE	TRUE	FALSE				[AnnotProjection]	

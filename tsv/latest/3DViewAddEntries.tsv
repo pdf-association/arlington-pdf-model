@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	2.0		FALSE	FALSE	FALSE		[3DView]			
+Type	name	2.0		FALSE	FALSE	FALSE		[3DView]			Table 315 and Table 344 - for rich media only
 XN	string	2.0		TRUE	FALSE	FALSE					
 IN	string	2.0		FALSE	FALSE	FALSE	@XN				
 MS	name	2.0		FALSE	FALSE	FALSE					
@@ -15,5 +15,5 @@ LS	dictionary	2.0		FALSE	FALSE	FALSE				[3DLightingScheme]
 SA	array	2.0		FALSE	FALSE	FALSE				[ArrayOf3DCrossSection]	
 NA	array	2.0		FALSE	FALSE	FALSE				[ArrayOf3DNode]	
 NR	boolean	2.0		FALSE	FALSE	FALSE	false				
-Snapshot	stream	2.0		FALSE	TRUE	FALSE				[Stream]	
+Snapshot	stream	2.0		FALSE	TRUE	FALSE				[XObjectImage]	
 Params	array	2.0		FALSE	FALSE	FALSE				[ArrayOfViewParams]	
