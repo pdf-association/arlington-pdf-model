@@ -242,11 +242,15 @@ PdsObject* pdfix_resolve_indirect(PdsObject* pdfix_obj) {
     assert(pdfix_obj != nullptr);
     int        obj_num;
     PdsObject* pdf_ir = pdfix_obj;
+    int loop_count = 100;
 
     do {
         assert(pdf_ir->GetObjectType() == kPdsReference);
         obj_num = pdf_ir->GetId();
         pdf_ir = ((pdfix_context*)ArlingtonPDFSDK::ctx)->doc->GetObjectById(obj_num);
+        loop_count--;
+        if (loop_count == 0)
+            return nullptr;
     } while ((pdf_ir != nullptr) && (pdf_ir->GetObjectType() == kPdsReference));
     return pdf_ir;
 }
@@ -325,7 +329,10 @@ ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj, const bool can_delet
     if (pdfix_obj->GetObjectType() == kPdsReference) {
         is_indirect = true;
         object = pdfix_resolve_indirect(pdfix_obj);
-        assert(object != nullptr);
+        if (object == nullptr) {
+            throw std::runtime_error("PDFix could not resolve indirect reference for object " + std::to_string(obj_nbr));
+            /// @todo - replace with PdfDoc::CreateNull() in a future PDFix version
+        }
     }
 
     type = determine_object_type(pdfix_obj);
