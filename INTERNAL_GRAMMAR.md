@@ -80,11 +80,12 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   String (as JSON dictionary key)
 *   **Linux CLI tests:**
     ```shell
-    cut -f 1 * | sort | uniq
+    # List of all key names and array indices
+    cut -f 1 * | sort -u
     ```
 * files that define objects with an arbitrary number of keys or array elements use the wildcard `*`. If the line number of the wildcard is line 2 then it is a map-like object. If the line number is after 2, then are additional fixed keys/elements.
     ```shell
-    grep --line-numbers "^\*" * | tsv-pretty
+    grep --line-number "^\*" * | sed -e 's/\:/\t/g' | tsv-pretty
     ```
 * files that define arrays with repeating sequences of _N_ elements use the `digit+ASTERISK` syntax. Digit is currently restricted to a SINGLE digit 0-9.
    ```shell
@@ -128,11 +129,11 @@ This document describes some strict rules for the Arlington PDF model, for both 
         *   Python lists for predicates - a simple search through the list for a match to the types above is
             sufficient (if understanding the predicate is not required)
     *   _Not to be confused with "/Type" keys which is why the `[` is included in this grep!_
-    *   `grep "'Type': \[" dom.json | sed -e 's/^ *//' | sort | uniq`
+    *   `grep "'Type': \[" dom.json | sed -e 's/^ *//' | sort -u`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 2 * | sort | uniq
-    cut -f 2 * | sed -e "s/;/\n/g" | sort | uniq
+    cut -f 2 * | sort -u
+    cut -f 2 * | sed -e "s/;/\n/g" | sort -u
     ```
 
 
@@ -147,10 +148,10 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   **Python pretty-print/JSON**
     *   Always a string (never blank!)
     *   Value is one of the values listed above
-    *   `grep "'SinceVersion'" dom.json | sed -e 's/^ *//' | sort | uniq`
+    *   `grep "'SinceVersion'" dom.json | sed -e 's/^ *//' | sort -u`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 3 * | sort | uniq
+    cut -f 3 * | sort -u
     ```
 
 
@@ -164,10 +165,10 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   **Python pretty-print/JSON**
     *   A string or `None`
     *   Value is one of the values listed above
-    *   `grep "'Deprecated': " dom.json | sed -e 's/^ *//' | sort | uniq`
+    *   `grep "'Deprecated': " dom.json | sed -e 's/^ *//' | sort -u`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 4 * | sort | uniq
+    cut -f 4 * | sort -u
     ```
 
 ## Column 5 - "Required"
@@ -186,10 +187,10 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   List element is either:
         *   Boolean
         *   Python list for predicates which must be `fn:IsRequired(`
-    *   `grep "'Required': " dom.json | sed -e 's/^ *//' | sort | uniq`
+    *   `grep "'Required': " dom.json | sed -e 's/^ *//' | sort -u`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 5 * | sort | uniq
+    cut -f 5 * | sort -u
     ```
 
 
@@ -212,10 +213,10 @@ This document describes some strict rules for the Arlington PDF model, for both 
         *   Python Boolean (`True`/`False`)
         *   Python list for predicates where the outer-most predicate must be `fn:IsRequired(`, with
             an optional argument for a condition
-    *   `grep "'IndirectReference':" dom.json | sed -e 's/^ *//' | sort | uniq`
+    *   `grep "'IndirectReference':" dom.json | sed -e 's/^ *//' | sort -u`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 6 * | sort | uniq
+    cut -f 6 * | sort -u
     ```
 
 
@@ -225,10 +226,10 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   Single word: `FALSE` or `TRUE` (uppercase only, as it is not a PDF keyword!)
 *   **Python pretty-print/JSON:**
     *   Always a boolean
-    *   `grep "'Inheritable'" dom.json | sed -e 's/^ *//' | sort | uniq`
+    *   `grep "'Inheritable'" dom.json | sed -e 's/^ *//' | sort -u`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 7 * | sort | uniq
+    cut -f 7 * | sort -u
     ```
 
 
@@ -254,12 +255,12 @@ This document describes some strict rules for the Arlington PDF model, for both 
         *   Predicate with 1st element being a FUNC_NAME token
         *   "Key" value (`@key`) with 1st element being a KEY_VALUE token
         *   A PDF array (1st token is anything else) - including an empty PDF array
-    *   `grep -o "'DefaultValue': .*" dom.json | sed -e 's/^ *//' | sort | uniq`
+    *   `grep -o "'DefaultValue': .*" dom.json | sed -e 's/^ *//' | sort -u`
 *   **Linux CLI tests:**
     ```shell
-    cut -f 8 * | sort | uniq
-    cut -f 2,8 * | sort | uniq | grep -P "\t[[:graph:]]+.*" | tsv-pretty
-    cut -f 1,2,8 * | sort | uniq | grep -P "\t[[:graph:]]*\t[[:graph:]]+.*$" | tsv-pretty
+    cut -f 8 * | sort -u
+    cut -f 2,8 * | sort -u | grep -P "\t[[:graph:]]+.*" | tsv-pretty
+    cut -f 1,2,8 * | sort -u | grep -P "\t[[:graph:]]*\t[[:graph:]]+.*$" | tsv-pretty
     ```
 
 
@@ -281,7 +282,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   If list, then length always matches length of "Type"
         *   Elements can be anything, including `None`
     ```shell
-    grep -o "'PossibleValues': .*" dom.json | sed -e 's/^ *//' | sort | uniq
+    grep -o "'PossibleValues': .*" dom.json | sed -e 's/^ *//' | sort -u
     ```
 
 
@@ -298,7 +299,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
     *   If list, then length always matches length of "Type"
         *   Elements can be anything, including `None`
     ```shell
-    grep -o "'SpecialCase': .*" dom.json | sed -e 's/^ *//' | sort | uniq
+    grep -o "'SpecialCase': .*" dom.json | sed -e 's/^ *//' | sort -u
     ```
 
 
@@ -342,7 +343,8 @@ This document describes some strict rules for the Arlington PDF model, for both 
         *   Validity of list elements aligns with indexed "Type" data
 *   **Linux CLI test:**
     ```shell
-    cut -f 11 * | sort | uniq | grep -o "fn:[a-zA-Z0-4]*" | sort | uniq
+    # A list of all predicates used in the Link field (column 11)
+    cut -f 11 * | sort -u | grep -o "fn:[a-zA-Z0-4]*" | sort -u
     ```
 
 ## Column 12- "Notes"
@@ -350,9 +352,14 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   Can be blank
 *   Free text - no validation possible
 *   Often contains a reference to Table(s) or clause number(s) from ISO 32000-2:2020 (PDF 2.0) or a PDF Association Errata issue link (as GitHub URL)
-    * For dictionaries, this is normally on the first key or the `Type` or `Subtype` row depending on what is the primary differentiating definition
+    * For dictionaries, this is normally on the first key (2nd row) or the `Type` or `Subtype` row depending on what is the primary differentiating definition
 *   **Python pretty-print/JSON:**
     *   A string or `None`
+*   **Linux CLI voodoo:**
+    ```shell
+    # A list of Table numbers referenced in an Arlington TSV file set
+    grep --color=none -Pho "(?<=Table) [0-9]*" * | sort -un
+    ```
 
 
 # Validation of predicates (declarative functions)
@@ -400,19 +407,19 @@ Predicate simplifcation is **avoided** so that wording (when read aloud) is kept
 
 ```bash
 # List all predicates by names:
-grep --color=always -ho "fn:[[:alnum:]]*" * | sort | uniq
+grep --color=always -ho "fn:[[:alnum:]]*" * | sort -u
 
 # List all predicates and their Arguments
-grep -Pho "fn:[a-zA-Z0-9]+\((?:[^)(]+|(?R))*+\)" * | sort | uniq
+grep -Pho "fn:[a-zA-Z0-9]+\((?:[^)(]+|(?R))*+\)" * | sort -u
 
 # List all predicates that take no parameters:
-grep --color=always -Pho "fn:[a-zA-Z0-9]+\(\)" * | sort | uniq
+grep --color=always -Pho "fn:[a-zA-Z0-9]+\(\)" * | sort -u
 
 # List all parameter lists (but not predicate names) (and a few PDF strings too!):
-grep --color=always -Pho "\((?>[^()]|(?R))*\)" * | sort | uniq
+grep --color=always -Pho "\((?>[^()]|(?R))*\)" * | sort -u
 
 # List all predicates with their arguments:
-grep --color=always -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" * | sort | uniq
+grep --color=always -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" * | sort -u
 ```
 
 
