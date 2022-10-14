@@ -197,9 +197,9 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
                             std::cout << ".";
 #endif
                             if ((vec[TSV_KEYNAME] == "Type") || (vec[TSV_KEYNAME] == "Subtype") || (vec[TSV_KEYNAME] == "S") || (vec[TSV_KEYNAME] == "Parent") || (vec[TSV_KEYNAME] == "TransformMethod"))
-                                link_score += -60;     // A disambiguating key exists with a correct value
+                                link_score += -80;     // A disambiguating key exists with a correct value
                             else if ((obj_type == PDFObjectType::ArlPDFObjTypeArray) && (vec[TSV_KEYNAME] == "0"))
-                                link_score += (reqd_key ? -40 : -20); // Treat first element in an array that is not a wildcard as more important (e.g. disambiguate color spaces)
+                                link_score += (reqd_key ? -60 : -20); // Treat first element in an array that is not a wildcard as more important (e.g. disambiguate color spaces)
                             else
                                 link_score += (reqd_key ? -10 : -4); // some other key with a correct value
                         }
@@ -920,13 +920,13 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                             if (versioner.object_matched_arlington_type()) {
                                 std::string arl_type = versioner.get_matched_arlington_type();
                                 std::string as = elem.context + "->" + key_utf8;
+                                std::vector<std::string>  full_linkset = versioner.get_full_linkset(vec[TSV_LINK]);
                                 if (arl_type == "number-tree")
-                                    parse_number_tree((ArlPDFDictionary*)inner_obj, versioner.get_full_linkset(vec[TSV_LINK]), as + " (as number-tree)");
+                                    parse_number_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as number-tree)");
                                 else if (arl_type == "name-tree")
-                                    parse_name_tree((ArlPDFDictionary*)inner_obj, versioner.get_full_linkset(vec[TSV_LINK]), as + " (as name-tree)");
+                                    parse_name_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as name-tree)");
                                 else if (FindInVector(v_ArlComplexTypes, arl_type)) {
-                                    std::vector<std::string>  linkset = versioner.get_appropriate_linkset(vec[TSV_LINK]);
-                                    std::string best_link = recommended_link_for_object(inner_obj, linkset, as);
+                                    std::string best_link = recommended_link_for_object(inner_obj, full_linkset, as);
                                     if (best_link.size() > 0) {
                                         if (vec[TSV_KEYNAME] != best_link)
                                             as = as + " (as " + best_link + ")";
@@ -1004,13 +1004,13 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                             if (versioner.object_matched_arlington_type()) {
                                 std::string as = elem.context + "->" + key_utf8;
                                 std::string arl_type = versioner.get_matched_arlington_type();
+                                std::vector<std::string>  full_linkset = versioner.get_full_linkset(vec[TSV_LINK]);
                                 if (arl_type == "number-tree")
-                                    parse_number_tree((ArlPDFDictionary*)inner_obj, versioner.get_full_linkset(vec[TSV_LINK]), as + " (as number-tree)");
+                                    parse_number_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as number-tree)");
                                 else if (arl_type == "name-tree")
-                                    parse_name_tree((ArlPDFDictionary*)inner_obj, versioner.get_full_linkset(vec[TSV_LINK]), as + " (as name-tree)");
+                                    parse_name_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as name-tree)");
                                 else if (FindInVector(v_ArlComplexTypes, arl_type)) {
-                                    std::vector<std::string>  linkset = versioner.get_appropriate_linkset(vec[TSV_LINK]);
-                                    std::string best_link = recommended_link_for_object(inner_obj, linkset, as);
+                                    std::string best_link = recommended_link_for_object(inner_obj, full_linkset, as);
                                     if (best_link.size() > 0) {
                                         as = as + " (as " + best_link + ")";
                                         add_parse_object(dictObj, inner_obj, best_link, as); // DON'T DELETE inner_obj!
@@ -1250,8 +1250,8 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                         std::string arl_type = versioner.get_matched_arlington_type();
                         if (FindInVector(v_ArlComplexTypes, arl_type)) {
                             std::string as = elem.context + "[" + std::to_string(i);
-                            std::vector<std::string>  linkset = versioner.get_appropriate_linkset(tsv[idx][TSV_LINK]);
-                            std::string best_link = recommended_link_for_object(item, linkset, as + "]");
+                            std::vector<std::string>  full_linkset = versioner.get_full_linkset(tsv[idx][TSV_LINK]);
+                            std::string best_link = recommended_link_for_object(item, full_linkset, as + "]");
                             if (best_link.size() > 0) {
                                 as = as + " (as " + best_link + ")]";
                                 add_parse_object(arrayObj, item, best_link, as);
