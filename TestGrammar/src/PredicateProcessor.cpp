@@ -637,9 +637,10 @@ bool PredicateProcessor::ValidatePossibleValuesSyntax(const int key_idx) {
 
     for (auto& pv : pv_list) {
         stack.clear();
+        assert((pv[0] == '[') && (pv[pv.size() - 1] == ']'));
+        s = pv.substr(1, pv.size() - 2); // strip off '[' and ']'
         if (pv.find("fn:") != std::string::npos) {
             int loop = 0;
-            s = pv.substr(1, pv.size() - 2); // strip off '[' and ']'
             do {
                 ASTNode* n = new ASTNode();
                 s = LRParsePredicate(s, n);
@@ -888,7 +889,7 @@ bool PredicateProcessor::ValidateLinksSyntax(const int key_idx) {
     std::string tsv_field = tsv[key_idx][TSV_LINK];
 
     // Nothing to do?
-    if (tsv_field.find("fn:") == std::string::npos)
+    if (tsv_field == "")
         return true;
 
     std::vector<std::string> link_list = split(tsv_field, ';');
@@ -1019,9 +1020,10 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object,
 
     for (auto& pv : pv_list) {
         stack.clear();
+        assert((pv[0] == '[') && (pv[pv.size() - 1] == ']'));
+        std::string s = pv.substr(1, pv.size() - 2); // strip off '[' and ']'
         if (pv.find("fn:") != std::string::npos) {
             int loop = 0;
-            std::string s = pv.substr(1, pv.size() - 2); // strip off '[' and ']'
             do {
                 ASTNode* n = new ASTNode();
                 s = LRParsePredicate(s, n);
@@ -1157,9 +1159,10 @@ bool PredicateProcessor::ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object,
 
     for (auto& sc : sc_list) {
         stack.clear();
+        assert((sc[0] == '[') && (sc[sc.size() - 1] == ']'));
+        std::string s = sc.substr(1, sc.size() - 2); // strip off '[' and ']'
         if (sc.find("fn:") != std::string::npos) {
             int loop = 0;
-            std::string s = sc.substr(1, sc.size() - 2); // strip off '[' and ']'
             do {
                 ASTNode* n = new ASTNode();
                 s = LRParsePredicate(s, n);
