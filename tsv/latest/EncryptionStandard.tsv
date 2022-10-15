@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Filter	name	1.1		TRUE	FALSE	FALSE	Standard	[Standard]			Table 20 + Table 21
+Filter	name	1.1		TRUE	FALSE	FALSE	Standard	[Standard]			Table 20 and Table 21
 SubFilter	name	1.3		FALSE	FALSE	FALSE					
 V	integer	1.1		TRUE	FALSE	FALSE		[fn:Deprecated(1.1,0),fn:Deprecated(2.0,1),fn:Deprecated(2.0,fn:SinceVersion(1.4,2)),fn:Deprecated(2.0,fn:SinceVersion(1.4,3)),fn:Deprecated(2.0,fn:SinceVersion(1.5,4)),fn:SinceVersion(2.0,5),fn:SinceVersion(2.0,fn:Extension(ISO_TS_32003,6))]			
 Length	integer	1.4	2.0	FALSE	FALSE	FALSE	40	[fn:Eval((@Length>=40) && (@Length<=128) && ((@Length mod 8)==0))]	[fn:IsMeaningful((@V==2) || (@V==3))]		
