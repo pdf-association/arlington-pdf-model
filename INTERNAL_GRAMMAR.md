@@ -358,9 +358,9 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   **Linux CLI voodoo:**
     ```shell
     # A list of Table numbers referenced in an Arlington TSV file set
-    grep --color=none -Pho "(?<=Table) [0-9]*" * | sort -un
+    grep --color=none -Pho "(?<=Table) [0-9]+" * | sort -un
     # Some PDF objects are defined by prose in clauses, not Tables
-    grep "[Cc]lause [0-9\.]*" * | sort -u 
+    grep "[Cc]lause [0-9\.]+" * | sort -u 
     ```
 
 
