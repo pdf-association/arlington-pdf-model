@@ -359,8 +359,10 @@ This document describes some strict rules for the Arlington PDF model, for both 
     ```shell
     # A list of Table numbers referenced in an Arlington TSV file set
     grep --color=none -Pho "(?<=Table) [0-9]+" * | sort -un
-    # Some PDF objects are defined by prose in clauses, not Tables
-    grep "[Cc]lause [0-9\.]+" * | sort -u 
+    # Some PDF objects are defined by prose in clauses, rather than Tables
+    grep "Clause [0-9\.]*" *
+    # Find all TSV files in a data set that do not have either a Table number or Clause reference
+    grep -PL "(Table )|(Clause )" *
     ```
 
 
