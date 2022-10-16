@@ -117,7 +117,7 @@ bool process_single_pdf(
 
                 retval = parser.parse_object(pdf);
                 if (retval) {
-                    ofs << COLOR_INFO << "Latest Arlington feature was" << pdf.get_latest_feature_version_info() << " compared using" << (pdf.is_forced_version() ? " forced" : "") << " PDF " << pdf.pdf_version;
+                    ofs << COLOR_INFO << "Latest Arlington object was" << pdf.get_latest_feature_version_info() << " compared using" << (pdf.is_forced_version() ? " forced" : "") << " PDF " << pdf.pdf_version;
                     if (extns.size() > 0) {
                         ofs << " with extensions ";
                         for (size_t i = 0; i < extns.size(); i++)
@@ -150,7 +150,7 @@ bool process_single_pdf(
 #include <crtdbg.h>
 
 /// @brief #define CRT_MEMORY_LEAK_CHECK to enable C RTL memory leak checking (slow!)
-#undef CRT_MEMORY_LEAK_CHECK
+#define CRT_MEMORY_LEAK_CHECK
 
 int wmain(int argc, wchar_t* argv[]) {
 #if defined(_DEBUG) && defined(CRT_MEMORY_LEAK_CHECK)
