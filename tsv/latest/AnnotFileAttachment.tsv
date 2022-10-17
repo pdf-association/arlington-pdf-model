@@ -27,5 +27,5 @@ Subj	string-text	1.5		FALSE	FALSE	FALSE
 RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 IT	name	1.6		FALSE	FALSE	FALSE					
 FS	dictionary;string	1.3		TRUE	FALSE	FALSE				[FileSpecification];[]	
-Name	name	1.3		FALSE	FALSE	FALSE	PushPin	[Graph,PushPin,Paperclip,Tag]			
+Name	name	1.3		FALSE	FALSE	FALSE	PushPin	[Graph,PushPin,Paperclip,Tag,*]			
 ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	2D markup annots only 
