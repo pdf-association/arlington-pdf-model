@@ -141,16 +141,10 @@ bool ArlingtonPDFSDK::open_pdf(const std::filesystem::path& pdf_filename, const 
             // if /Type key exists, then assume working with XRefStream
             PdsObject* type_key = trailer->Get(L"Type");
 
-            // If /Encrypt key exists, then assume encrypted PDF
-            // pdfix_ctx->doc->IsSecured()
-            PdsObject* enc_key = trailer->Get(L"Encrypt");
-
-            /// @todo - how to determine if supported or unsupported encryption
-
             pdfix_ctx->pdf_trailer = new ArlPDFTrailer(trailer, 
-                                                (type_key != nullptr),  // has a xref stream
-                                                (enc_key != nullptr),   // is encrypted
-                                                false                   // is unsupported encryption
+                                                (type_key != nullptr),          // has a xref stream?
+                                                pdfix_ctx->doc->IsSecured(),    // is encrypted?
+                                                false                           /// @todo - is unsupported encryption? 
                                          );
             pdfix_ctx->pdf_catalog = new ArlPDFDictionary(pdfix_ctx->pdf_trailer, pdfix_ctx->doc->GetRootObject(), false);
             return true;
