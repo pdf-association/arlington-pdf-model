@@ -23,5 +23,5 @@ Lang	string-text	2.0		FALSE	FALSE	FALSE
 3DA	dictionary	1.6		FALSE	FALSE	FALSE				[3DActivation]	
 3DI	boolean	1.6		FALSE	FALSE	FALSE	true				
 3DB	rectangle	1.6		FALSE	FALSE	FALSE	@Rect				
-3DU	dictionary	2.0		FALSE	FALSE	FALSE				[3DUnits]	
+3DU	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[3DUnits]	
 GEO	dictionary	2.0		FALSE	FALSE	FALSE				[MeasureGEO]	

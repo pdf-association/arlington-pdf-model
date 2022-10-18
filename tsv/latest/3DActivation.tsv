@@ -5,6 +5,6 @@ D	name	1.6		FALSE	FALSE	FALSE	PI	[PC,PI,XD]
 DIS	name	1.6		FALSE	FALSE	FALSE	U	[U,I,L]			
 TB	boolean	1.7		FALSE	FALSE	FALSE	true				
 NP	boolean	1.7		FALSE	FALSE	FALSE	false				
-Style	name	2.0		FALSE	FALSE	FALSE	Embedded	[Embedded,Windowed]			
-Window	dictionary	2.0		FALSE	FALSE	FALSE				[RichMediaWindow]	
-Transparent	boolean	2.0		FALSE	FALSE	FALSE	false				
+Style	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE	Embedded	[Embedded,Windowed]			
+Window	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[RichMediaWindow]	
+Transparent	boolean	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE	false				

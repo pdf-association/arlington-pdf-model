@@ -15,5 +15,5 @@ LS	dictionary	2.0		FALSE	FALSE	FALSE				[3DLightingScheme]
 SA	array	2.0		FALSE	FALSE	FALSE				[ArrayOf3DCrossSection]	
 NA	array	2.0		FALSE	FALSE	FALSE				[ArrayOf3DNode]	
 NR	boolean	2.0		FALSE	FALSE	FALSE	false				
-Snapshot	stream	2.0		FALSE	TRUE	FALSE				[XObjectImage]	
-Params	array	2.0		FALSE	FALSE	FALSE				[ArrayOfViewParams]	
+Snapshot	stream	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	TRUE	FALSE				[XObjectImage]	
+Params	array	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfViewParams]	
