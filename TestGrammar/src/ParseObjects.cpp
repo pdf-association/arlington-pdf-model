@@ -363,7 +363,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
         if (obj_type != PDFObjectType::ArlPDFObjTypeNull) {
             show_context(fake_e);
             ofs << COLOR_ERROR << "wrong type: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
-            ofs << " should be " << tsv_data[key_idx][TSV_TYPE] << " in PDF " << std::fixed << std::setprecision(1) << double(pdf_version / 10.0) << " and is " << versioner.get_object_arlington_type();
+            ofs << " should be " << tsv_data[key_idx][TSV_TYPE] << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << " and is " << versioner.get_object_arlington_type();
             if (debug_mode)
                 ofs << " (" << *object << ")";
             ofs << COLOR_RESET;
@@ -381,7 +381,8 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
     if ((ir == ReferenceType::MustBeIndirect) && (!object->is_indirect_ref() &&
         (obj_type != PDFObjectType::ArlPDFObjTypeNull) && (obj_type != PDFObjectType::ArlPDFObjTypeReference))) {
         show_context(fake_e);
-        ofs << COLOR_ERROR << "not an indirect reference as required: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")" << COLOR_RESET;
+        ofs << COLOR_ERROR << "not an indirect reference as required: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ") ";
+        ofs << "in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << COLOR_RESET;
     }
 
     // String-ify the value of the PDF object for potential output messages
@@ -453,7 +454,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
                 if ((arl_type == "date") && (!is_valid_pdf_date_string(str_value))) {
                     show_context(fake_e);
                     if (!t->is_unsupported_encryption())
-                        ofs << COLOR_ERROR << "invalid date string for key " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ") \"" << ToUtf8(str_value) << "\"" << COLOR_RESET;
+                        ofs << COLOR_ERROR << "invalid date string for key " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << "): \"" << ToUtf8(str_value) << "\"" << COLOR_RESET;
                     else
                         ofs << COLOR_WARNING << "possibly invalid date string for key " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ") - unsupported encryption" << COLOR_RESET;
                 }
@@ -505,7 +506,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
             ofs << COLOR_WARNING << "special case possibly incorrect (some predicates NOT supported): " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
         else
             ofs << COLOR_ERROR << "special case not correct: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
-        ofs << " in PDF " << std::fixed << std::setprecision(1) << double(pdf_version / 10.0);
+        ofs << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0);
         ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_SPECIALCASE];
         if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type())) {
             auto t = pdfc->get_ptr_to_trailer();
@@ -536,7 +537,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
             ofs << COLOR_WARNING << "possibly wrong value for possible values (some predicates NOT supported): " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
         else
             ofs << COLOR_ERROR << "wrong value for possible values: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
-        ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES] << " in PDF " << std::fixed << std::setprecision(1) << double(pdf_version / 10.0);
+        ofs << " should be: " << tsv_data[key_idx][TSV_TYPE] << " " << tsv_data[key_idx][TSV_POSSIBLEVALUES] << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0);
         if (FindInVector(v_ArlNonComplexTypes, versioner.get_object_arlington_type())) {
             auto t = pdfc->get_ptr_to_trailer();
             if ((versioner.get_object_arlington_type().find("string") != std::string::npos) && t->is_unsupported_encryption()) {
@@ -963,7 +964,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                                     reason_shown = true;
                                 }
                                 if (reason_shown) {
-                                    output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using PDF " << (pdf_version / 10.0);
+                                    output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0);
                                     output << ") for " << elem.link << "/" << key_utf8 << COLOR_RESET;
                                 }
                             }
@@ -1025,7 +1026,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                                 // PDF object type is not correct to Arlington for wildcard!
                                 show_context(elem);
                                 output << COLOR_ERROR << "wrong type for dictionary wildcard for " << elem.link << "/" << ToUtf8(key);
-                                output << ": wanted " << vec[TSV_TYPE] << ", PDF was " << versioner.get_object_arlington_type() << COLOR_RESET;
+                                output << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << ": wanted " << vec[TSV_TYPE] << ", PDF was " << versioner.get_object_arlington_type() << COLOR_RESET;
                             }
                             // Report version mis-matches
                             ArlVersionReason reason = versioner.get_version_reason();
@@ -1049,7 +1050,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                                     reason_shown = true;
                                 }
                                 if (reason_shown) {
-                                    output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using PDF " << (pdf_version / 10.0);
+                                    output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0);
                                     output << ") for " << elem.link << "/" << key_utf8 << COLOR_RESET;
                                 }
                             }
@@ -1065,7 +1066,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                             output << COLOR_INFO << "third class key '" << key_utf8 << "' found in ";
                         else
                             output << COLOR_INFO << "unknown key '" << key_utf8 << "' is not defined in Arlington for ";
-                        output << elem.link << " in PDF " << std::fixed << std::setprecision(1) << double(pdf_version / 10.0) << COLOR_RESET;
+                        output << elem.link << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << COLOR_RESET;
                     }
                 }
                 else {
@@ -1099,7 +1100,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                                 output << COLOR_ERROR << "non-inheritable required key does not exist: ";
                             else
                                 output << COLOR_WARNING << "non-inheritable required key may not exist: ";
-                            output << vec[TSV_KEYNAME] << " (" << elem.link << ")";
+                            output << vec[TSV_KEYNAME] << " (" << elem.link << ") in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0);
                             if (debug_mode)
                                 output << " (" << *dictObj << ")";
                             if ((vec[TSV_REQUIRED].find("fn:") != std::string::npos) || !req_pp.WasFullyImplemented())
@@ -1115,7 +1116,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                                     output << COLOR_ERROR << "inheritable required key does not exist: ";
                                 else
                                     output << COLOR_WARNING << "inheritable required key may not exist: ";
-                                output << vec[TSV_KEYNAME] << " (" << elem.link << ")";
+                                output << vec[TSV_KEYNAME] << " (" << elem.link << ") in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0);
                                 if (debug_mode)
                                     output << " (" << *dictObj << ")";
                                 if ((vec[TSV_REQUIRED].find("fn:") != std::string::npos) || !req_pp.WasFullyImplemented())
@@ -1129,7 +1130,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                 else if (!req_pp.WasFullyImplemented()) {
                     // Partial support is a warning as don't know if really required or not
                     show_context(elem);
-                    output << COLOR_WARNING << "required key may not exist: " << vec[TSV_KEYNAME] << " (" << elem.link << ")";
+                    output << COLOR_WARNING << "required key may not exist: " << vec[TSV_KEYNAME] << " (" << elem.link << ") in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0);
                     if (debug_mode)
                         output << " (" << *dictObj << ")";
                     output << " because " << vec[TSV_REQUIRED] << COLOR_RESET;
@@ -1177,10 +1178,10 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
             if ((first_optional_idx > 0) && (array_size < first_optional_idx)) {
                 show_context(elem);
                 output << COLOR_ERROR << "minimum required array length incorrect for " << elem.link;
-                output << ", wanted " << first_optional_idx << ", got " << array_size;
+                output << ": wanted " << first_optional_idx << ", got " << array_size;
                 if (debug_mode)
                     output << " (" << *arrayObj << ")";
-                output << COLOR_RESET;
+                output << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << COLOR_RESET;
             }
 
             // For array repeats, all rows need to be <single-digit> '*' - always starts with "0*" up to "9*"
@@ -1198,7 +1199,8 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                 // If all rows required then array length must be an exact multiple of the repeat
                 if (((array_size % array_repeat_multiple) != 0) && (first_optional_idx == -1)) {
                     show_context(elem);
-                    output << COLOR_WARNING << "array length was not an exact multiple of " << array_repeat_multiple << " (was " << array_size << ") for " << elem.link << COLOR_RESET;
+                    output << COLOR_WARNING << "array length was not an exact multiple of " << array_repeat_multiple << " (was " << array_size << ") for " << elem.link;
+                    output << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << COLOR_RESET;
                 }
             }
 
@@ -1281,12 +1283,12 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                                 reason_shown = true;
                             }
                             if (reason_shown)
-                                output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (using PDF " << (pdf_version / 10.0) << ") for " << elem.link << "/" << i << COLOR_RESET;
+                                output << std::fixed << std::setprecision(1) << (versioner.get_reason_version() / 10.0) << " (in PDF " << (pdf_version / 10.0) << ") for " << elem.link << "/" << i << COLOR_RESET;
                         }
                     }
                     else {
                         show_context(elem);
-                        output << COLOR_INFO << "array was longer than needed for " << elem.link << "/" << i << COLOR_RESET;
+                        output << COLOR_INFO << "array was longer than needed in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << " for " << elem.link << "/" << i << COLOR_RESET;
                     }
                 }
                 if (!item_kept)
@@ -1295,7 +1297,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
         }
         else {
             show_context(elem);
-            output << COLOR_ERROR << "unexpected object type " << PDFObjectType_strings[(int)obj_type] << " for " << elem.link << COLOR_RESET;
+            output << COLOR_ERROR << "unexpected object type " << PDFObjectType_strings[(int)obj_type] << " for " << elem.link << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << COLOR_RESET;
         }
         if (elem.object->is_deleteable())
             delete elem.object;
