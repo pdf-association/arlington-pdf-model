@@ -514,9 +514,9 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
                 ofs << " - string when unsupported encryption";
             }
             else {
-                ofs << " and is " << versioner.get_object_arlington_type();
+                ofs << " and is " << versioner.get_object_arlington_type() << "==" << ToUtf8(str_value);
                 if (debug_mode)
-                    ofs << "==" << ToUtf8(str_value) << " (" << *object << ")";
+                    ofs << " (" << *object << ")";
             }
         }
         ofs << COLOR_RESET;
