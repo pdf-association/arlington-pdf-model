@@ -16,4 +16,4 @@ Duplex	name	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[Simplex,DuplexF
 PickTrayByPDFSize	boolean	1.7		FALSE	FALSE	FALSE	false				
 PrintPageRange	array	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()			[ArrayOfIntegersGeneral]	
 NumCopies	integer	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[fn:Eval(@NumCopies>0)]			
-Enforce	array	2.0		FALSE	FALSE	FALSE				[ArrayOfNamesForEnforce]	
+Enforce	array	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfNamesForEnforce]	
