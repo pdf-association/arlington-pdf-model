@@ -27,7 +27,7 @@ The TestGrammar (C++17) proof of concept application is a multi-platform command
     - all messages are prefixed with `Error:`, `Warning:` or `Info:` to enable post-processing
     - messages can be colorized
     - a specific PDF version can be forced via the command line (`--force`) for validating a PDF file (_PDFIUM only!_).
-    - the PDF version of the latest feature is reported (the actual listed feature may be one of many - it is the first feature of that version that was encountered). This version may be different to the PDF header version, the optional DocCatalog/Version key or the `--force` PDF version on the command line
+    - the PDF version of one of the latest PDF objects is reported (the actual listed feature may be one of many - it is the first feature of that version that was encountered). This version may be different to the PDF header version, the optional DocCatalog/Version key or the `--force` PDF version on the command line. Note that this feature does not record if a specific value of a key is used.
     - allow defined extensions to be included and checked as part of the model. This can include ISO/TS technical specifications, proprietary extensions or even a set of malforms.
 3. recursively validates a folder containing many PDF files.
     - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting.
@@ -240,9 +240,9 @@ Processing file as version PDF X.Y
 Processing file as version PDF X.Y with extensions A, B, C
 ```
 
-The second last line of every successful output file will report the PDF version of an arbitrary Arlington definition (file/key):
+The second last line of every successful output file will report the PDF version of an arbitrary Arlington object definition (file/key) - this does **not** include key values introduced in a specific version of PDF:
 ```
-Info: Latest Arlington feature was version PDF x.y (file/key) with extensions A, B, C
+Info: Latest Arlington object was version PDF x.y (file/key) with extensions A, B, C
 ```   
 
 The last line of every output should always be `END` on a line by itself. If this is missing, then it means that the TestGrammar application has not cleanly completed processing (_crash? unhandled exception? assertion failure? stack overflow? timeout?_).
@@ -444,7 +444,7 @@ Info: Rounding up PDF x.y to PDF a.b
 Info: Processing as PDF x.y with extensions ...
 Info: Traditional trailer dictionary detected.
 Info: XRefStream detected.
-Info: Latest Arlington feature was PDF x.y (object/key) compared using PDF a.b with extensions ...
+Info: Latest Arlington object was PDF x.y (object/key) compared using PDF a.b with extensions ...
 Info: found a PDF 1.4 Metadata key
 Info: found a PDF 2.0 Associated File AF key
 Info: second class key '...' is not defined in Arlington for ... in PDF x.y
@@ -499,14 +499,16 @@ Info: detected a dictionary wildcard version-based feature that was only in PDF 
 Checking PDF files requires a PDF SDK with certain key features (_we shouldn't need to write yet-another PDF parser!_). Key features required of a PDF SDK are:
 * able to iterate over all keys in PDF dictionaries and arrays, including any additional keys not defined in the PDF spec. Keys are sorted alphabetically by the PoC so output from different PDF SDKs is hopefully in the same order.
 * able to test if a specific key name exists in a PDF dictionary
-* able to report the true number of array elements  
-* able to report key value type against the 9 PDF basic object types (integer, number, boolean, name, string, dictionary, stream, array, null)
+* able to report the true number of array elements (not renumbered if there is a **null** object)
+* able to report key value type against the 9 PDF basic object types (integer, number, boolean, name, string, dictionary, stream, array, null). Note that there needs to be a capability to distinguish between integer and real numbers, and not suppress explicit or implicit **null** objects via the API - **this is a limiting factor for some PDF SDKs!**  
 * able to report if a key value is direct or an indirect reference - **this is a big limiting factor for many PDF SDKs!**  
 * able to treat the trailer as a PDF dictionary and report if key values are direct or indirect references - **this is a big limiting factor for many PDF SDKs!**  
 * able to report PDF object number for objects that are not direct - **this is a limiting factor for some PDF SDKs!**  
 * not confuse values, such as integer and real numbers, so that they are expressed exactly as they appear in a PDF file - **this is a limiting factor for some PDF SDKs!**
-* return the raw bytes from the PDF file for PDF name and string objects, including empty names ("`/`")
+* return the **raw** bytes from the PDF file for PDF name and string objects, including empty names ("`/`")
 * not do any PDF version based processing while parsing
+* report if a string object was expressed as a hex string - **this is a limiting factor for some PDF SDKs!**  
+* allow processing of the PDF DOM even if an unsupported encryption algorithm is present (since only strings and streams are encrypted, PDF dictionaries and arrays can still be processed!) - **this is a limiting factor for some PDF SDKs!**  
 * for encrypted PDFs, don't reject too early - at least be able to parse the unencrypted keys and most values in dictionaries, etc.
     - obviously PDF files that use cross-reference streams or object streams will not be processable
     - predicates that check the attributes or value of a PDF string object will also generated error messages since the string length and value are not known
