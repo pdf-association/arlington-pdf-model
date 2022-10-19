@@ -330,8 +330,11 @@ namespace ArlingtonPDFShim {
         /// @brief Returns document catalog (Trailer::Root) of an already opened PDF. DO NOT DELETE.
         ArlPDFDictionary* get_document_catalog();
 
-        /// @brief Get the PDF version of an already opened PDF file
+        /// @brief Get the PDF version of an already opened PDF file as a string of length 3
         std::string get_pdf_version();
+
+        /// @brief Get the PDF version of an already opened PDF file as an integer * 10
+        int get_pdf_version_number();
 
         /// @brief Get number of pages (>= 0) in the already opened PDF. -1 on error.
         int get_pdf_page_count();

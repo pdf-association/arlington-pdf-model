@@ -1229,7 +1229,7 @@ bool CPDFFile::check_key_value(ArlPDFDictionary* dict, const std::wstring& key, 
 /// @returns              Always a valid 3-char version string ("1.0", "1.1", ..., "2.0")
 std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
 {
-    bool hdr_ok = ((pdf_header_version.size() == 3) && FindInVector(v_ArlPDFVersions, pdf_header_version));
+    bool hdr_ok = ((pdf_header_version.size() == 3)  && FindInVector(v_ArlPDFVersions, pdf_header_version));
     bool cat_ok = ((pdf_catalog_version.size() == 3) && FindInVector(v_ArlPDFVersions, pdf_catalog_version));
 
     pdf_version.clear();
@@ -1271,6 +1271,14 @@ std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
         // Both must be bad - assume latest version
         ofs << COLOR_ERROR << "Both Document Catalog and header versions are invalid. Assuming PDF 2.0." << COLOR_RESET;
         pdf_version = "2.0";
+    }
+
+    // See if XRefStream is wrong for final PDF version (i.e. before PDF 1.5)
+    if (get_ptr_to_trailer()->is_xrefstm()) {
+        if ((pdf_version[0] == '1') && (pdf_version[2] < '5'))
+            ofs << COLOR_ERROR << "XRefStream is present in PDF " << pdf_version << " before introduction in PDF 1.5." << COLOR_RESET;
+        else if ((pdf_header_version[0] == '1') && (pdf_header_version[2] < '5'))
+            ofs << COLOR_WARNING << "XRefStream is present in file with header %PDF-" << pdf_header_version << " and Document Catalog Version of PDF " << pdf_catalog_version << COLOR_RESET;
     }
 
     // To reduce lots of false warnings, snap transparency-aware PDF to 1.7

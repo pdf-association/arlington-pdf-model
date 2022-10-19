@@ -218,9 +218,9 @@ ArlPDFDictionary* ArlingtonPDFSDK::get_document_catalog()
 
 
 
-/// @brief  Gets the PDF version of the current PDF file
+/// @brief  Gets the PDF version of the current PDF file as a string of length 3
 ///
-/// @returns   PDF version string
+/// @returns   PDF version string (always length 3)
 std::string ArlingtonPDFSDK::get_pdf_version() {
     assert(ctx != nullptr);
 
@@ -231,6 +231,18 @@ std::string ArlingtonPDFSDK::get_pdf_version() {
     char version_str[6];
     snprintf(version_str, 4, "%1.1f", ver / 10.0);
     return version_str;
+}
+
+
+/// @brief  Gets the PDF version of the current PDF file as an integer * 10
+///
+/// @returns   PDF version multiplied by 10
+int ArlingtonPDFSDK::get_pdf_version_number() {
+    assert(ctx != nullptr);
+
+    auto pdfium_ctx = (pdfium_context*)ctx;
+    assert(pdfium_ctx->parser != nullptr);
+    return pdfium_ctx->parser->GetFileVersion();
 }
 
 

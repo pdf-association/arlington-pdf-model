@@ -160,9 +160,9 @@ ArlPDFDictionary* ArlingtonPDFSDK::get_document_catalog() {
 
 
 
-/// @brief  Gets the PDF version of the current PDF file
+/// @brief  Gets the PDF version of the current PDF file as a string of length 3
 /// 
-/// @returns   PDF version string 
+/// @returns   PDF version string (always length 3)
 std::string ArlingtonPDFSDK::get_pdf_version() {
     assert(ctx != nullptr);
     qpdf_context* qctx = (qpdf_context*)ctx;
@@ -170,6 +170,19 @@ std::string ArlingtonPDFSDK::get_pdf_version() {
     auto v = qctx->qpdf_ctx->getPDFVersion();
     return v;
 }
+
+
+/// @brief  Gets the PDF version of the current PDF file as an integer * 10
+/// 
+/// @returns   PDF version multiplied by 10
+int ArlingtonPDFSDK::get_pdf_version_number() {
+    assert(ctx != nullptr);
+    qpdf_context* qctx = (qpdf_context*)ctx;
+    assert(qctx->qpdf_ctx != nullptr);
+    auto v = qctx->qpdf_ctx->getVersionAsPDFVersion();
+    return (v.getMajor() * 10) + v.getMinor();
+}
+
 
 
 /// @brief  Gets the number of pages in the PDF file

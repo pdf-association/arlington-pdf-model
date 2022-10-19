@@ -203,7 +203,7 @@ ArlPDFDictionary* ArlingtonPDFSDK::get_document_catalog()
 
 
 
-/// @brief  Gets the PDF version of the PDF file
+/// @brief  Gets the PDF version of the PDF file as a string of length 3
 ///
 /// @returns   PDF version string
 std::string ArlingtonPDFSDK::get_pdf_version() {
@@ -215,6 +215,17 @@ std::string ArlingtonPDFSDK::get_pdf_version() {
     std::string s = std::to_string(hdr / 10) + "." + std::to_string(hdr % 10);
     assert(FindInVector(v_ArlPDFVersions, s));
     return s;
+}
+
+
+/// @brief  Gets the PDF version of the PDF file as an integer * 10
+///
+/// @returns   PDF version multiplied by 10
+int ArlingtonPDFSDK::get_pdf_version_number() {
+    assert(ctx != nullptr);
+    auto pdfix_ctx = (pdfix_context*)ctx;
+    assert(pdfix_ctx->doc != nullptr);
+    return pdfix_ctx->doc->GetVersion(); // https://pdfix.github.io/pdfix_sdk_builds/en/6.17.0/html/struct_pdf_doc.html#a2c758395b48f2c84ab7fcbdbd118f745
 }
 
 
