@@ -629,6 +629,13 @@ export LD_LIBRARY_PATH=$PWD/bin/linux:$LD_LIBRARY_PATH
 
 Follow the instructions for Linux. Compiled binaries will be in [TestGrammar/bin/darwin](./bin/darwin).
 
+If using a PDFix build, then the shared library `libpdfix.dylib` must also be accessible. The following commands may help:
+
+```bash
+export DYLD_LIBRARY_PATH=$PWD/bin/darwin:$DYLD_LIBRARY_PATH
+```
+
+
 ## Code documentation
 
 Run `doxygen Doxyfile` to generate full documentation for the TestGrammar C++ PoC application. Then open [./doc/html/index.html](./doc/html/index.html). `dot` is also required. Please keep the Doxygen warning free, so that the code comments are kept maintained.
