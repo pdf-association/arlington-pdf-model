@@ -64,7 +64,8 @@ const std::vector<std::string>  v_ArlAllTypes = {
         "string-text"
 };
 
-/// @brief Arlingon pre-defined types which REQUIRE a Link - aka "Complex types" (alphabetically pre-sorted vector)
+/// @brief Arlingon pre-defined types which CAN HAVE a Link - aka "Complex types" (alphabetically pre-sorted vector)
+/// Note that Links are optional for name- and number-trees!
 const std::vector<std::string>  v_ArlComplexTypes = {
     "array",
     "dictionary",
@@ -143,6 +144,7 @@ extern const std::regex  r_Keys;
 
 /// @brief Regexes for matching versioning predicates (incl. extensions)
 extern const std::regex  r_sinceVersionExtension;
+extern const std::regex  r_isPDFVersionExtension;
 extern const std::regex  r_sinceVersion;
 extern const std::regex  r_beforeVersion;
 extern const std::regex  r_Deprecated;
@@ -150,6 +152,7 @@ extern const std::regex  r_isPDFVersion;
 extern const std::regex  r_LinkExtension;
 
 extern const std::regex  r_startsWithSinceVersionExtension;
+extern const std::regex  r_startsWithIsPDFVersionExtension;
 extern const std::regex  r_startsWithSinceVersion;
 extern const std::regex  r_startsWithBeforeVersion;
 extern const std::regex  r_startsWithDeprecated;

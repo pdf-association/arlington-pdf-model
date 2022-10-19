@@ -5,7 +5,7 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -14,7 +14,7 @@
       "Subtype": {
         "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -23,7 +23,7 @@
       "Offset": {
         "Key": "Offset",
         "Type": "array",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -32,7 +32,7 @@
       "Radius": {
         "Key": "Radius",
         "Type": "number",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -41,7 +41,7 @@
       "ColorSpace": {
         "Key": "ColorSpace",
         "Type": "array;name",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -51,7 +51,7 @@
       "Color": {
         "Key": "Color",
         "Type": "array",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -284,7 +284,7 @@
         "Key": "F",
         "Type": "dictionary;string",
         "SinceVersion": 1.1,
-        "Required": true,
+        "Required": "fn:IsRequired(fn:Not(fn:IsPresent(Win) || fn:IsPresent(Mac) || fn:IsPresent(Unix)))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[FileSpecification];[]"
@@ -963,7 +963,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -1469,7 +1469,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -1789,6 +1789,35 @@
     }
   },
   {
+    "id": "ArrayOfCIDGlyphMetricsW",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "array;integer;number",
+        "SinceVersion": 1.2,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfNumbersGeneral];[];[]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfCIDGlyphMetricsW2",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "array;integer;number",
+        "SinceVersion": 1.2,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((fn:ArrayLength(1) mod 3)==0)];[];[]",
+        "Link": "[ArrayOfNumbersGeneral];[];[]"
+      }
+    }
+  },
+  {
     "id": "ArrayOfCompressionFilterNames",
     "keys": {
       "*": {
@@ -2020,6 +2049,40 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOfOPI2Inks",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[monochrome]"
+      },
+      "1*": {
+        "Key": "1*",
+        "Type": "string",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "2*": {
+        "Key": "2*",
+        "Type": "number",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval((@2>=0) && (@2<=1))]"
       }
     }
   },
@@ -3251,6 +3314,24 @@
   {
     "id": "ColorSpaceMap",
     "keys": {
+      "DefaultRGB": {
+        "Key": "DefaultRGB",
+        "Type": "array",
+        "SinceVersion": 1.1,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CalRGBColorSpace]"
+      },
+      "DefaultGray": {
+        "Key": "DefaultGray",
+        "Type": "array",
+        "SinceVersion": 1.1,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CalGrayColorSpace,SeparationColorSpace]"
+      },
       "*": {
         "Key": "*",
         "Type": "array;name",
@@ -3627,7 +3708,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]"
+        "SpecialCase": "[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]"
       },
       "R": {
         "Key": "R",
@@ -3636,7 +3717,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:RequiredValue(@V<2,2),fn:RequiredValue((@V==2) || (@V==3),3),fn:RequiredValue(@V==4,4),fn:SinceVersion(2.0,5)]"
+        "PossibleValues": "[fn:RequiredValue(@V<2,2),fn:RequiredValue((@V==2) || (@V==3),3),fn:RequiredValue(@V==4,4),fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,5)),fn:SinceVersion(2.0,5)]"
       },
       "O": {
         "Key": "O",
@@ -3645,7 +3726,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(O)==32)) || ((@R==6) && (fn:StringLength(O)==48))))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(O)==32)) || (((@R==5) || (@R==6)) && (fn:StringLength(O)==48))))]"
       },
       "U": {
         "Key": "U",
@@ -3654,13 +3735,13 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(U)==32)) || ((@R==6) && (fn:StringLength(U)==48))))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(U)==32)) || (((@R==5) || (@R==6)) && (fn:StringLength(U)==48))))]"
       },
       "OE": {
         "Key": "OE",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (fn:StringLength(OE)==32))]"
@@ -3669,7 +3750,7 @@
         "Key": "UE",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
@@ -3687,7 +3768,7 @@
         "Key": "Perms",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
@@ -4593,7 +4674,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfCIDGlyphMetricsW]"
       },
       "DW2": {
         "Key": "DW2",
@@ -4612,7 +4693,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfCIDGlyphMetricsW2]"
       },
       "CIDToGIDMap": {
         "Key": "CIDToGIDMap",
@@ -4698,7 +4779,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfCIDGlyphMetricsW]"
       },
       "DW2": {
         "Key": "DW2",
@@ -4717,7 +4798,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfCIDGlyphMetricsW2]"
       },
       "CIDToGIDMap": {
         "Key": "CIDToGIDMap",
@@ -6547,7 +6628,7 @@
       "AAPL:AA": {
         "Key": "AAPL:AA",
         "Type": "boolean",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
@@ -6555,7 +6636,7 @@
       "AAPL:ST": {
         "Key": "AAPL:ST",
         "Type": "dictionary;name",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -7033,7 +7114,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@L>0)]"
       },
       "H": {
         "Key": "H",
@@ -7050,7 +7132,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@O>0)]"
       },
       "E": {
         "Key": "E",
@@ -7058,7 +7141,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval((@E>0) && (@E<=@L))]"
       },
       "N": {
         "Key": "N",
@@ -7066,7 +7150,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@N>0)]"
       },
       "T": {
         "Key": "T",
@@ -7074,7 +7159,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@T>0)]"
       },
       "P": {
         "Key": "P",
@@ -7083,7 +7169,8 @@
         "Required": false,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
-        "DefaultValue": "0"
+        "DefaultValue": "0",
+        "PossibleValues": "[fn:Eval(@P>=0)]"
       }
     }
   },
@@ -7172,6 +7259,7 @@
         "Required": false,
         "IndirectReference": "[false];[true]",
         "Inheritable": false,
+        "DefaultValue": "[false];[]",
         "Link": "[];[XObjectImage]"
       }
     }
@@ -7220,7 +7308,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "1.0"
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@Volume>=-1) && (@Volume<=1))]"
       },
       "ShowControls": {
         "Key": "ShowControls",
@@ -7558,9 +7647,10 @@
         "Type": "array",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPresent(CropRect))",
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval((Size::@0>0) && (Size::@1>0))]",
         "Link": "[ArrayOf_2Numbers]"
       },
       "CropRect": {
@@ -7568,7 +7658,7 @@
         "Type": "rectangle",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPresent(Size))",
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -7589,7 +7679,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray];[]"
+        "PossibleValues": "[];[full_color,registration]",
+        "Link": "[ArrayOfOPI2Inks];[]"
       },
       "IncludedImageDimensions": {
         "Key": "IncludedImageDimensions",
@@ -7599,6 +7690,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval((IncludedImageDimensions::@0>0) && (IncludedImageDimensions::@1>0))]",
         "Link": "[ArrayOf_2Integers]"
       },
       "IncludedImageQuality": {
@@ -7609,7 +7701,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[1.0,2.0,3.0]"
+        "PossibleValues": "[1,2,3]"
       }
     }
   },

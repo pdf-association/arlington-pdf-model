@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.2	2.0	FALSE	FALSE	FALSE		[Action]			
-S	name	1.2	2.0	TRUE	FALSE	FALSE		[Sound]			Table 196 and Table 212
+Type	name	1.2	2.0	FALSE	FALSE	FALSE		[Action]			Table 196 and Table 212
+S	name	1.2	2.0	TRUE	FALSE	FALSE		[Sound]			
 Next	array;dictionary	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript]	
 Sound	stream	1.2	2.0	TRUE	TRUE	FALSE				[SoundObject]	
 Volume	number	1.2	2.0	FALSE	FALSE	FALSE	1.0	[fn:Eval((@Volume>=-1) && (@Volume<=1))]			

@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5		TRUE	fn:MustBeDirect()	FALSE		[XRef]			Table 5 + Table 15 + Table 17
+Type	name	1.5		TRUE	fn:MustBeDirect()	FALSE		[XRef]			Table 5 and Table 15 and Table 17
 Size	integer	1.5		TRUE	fn:MustBeDirect()	FALSE		[fn:Eval(@Size>1)]			
 Index	array	1.5		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(((fn:ArrayLength(Index) mod 2)==0) && fn:ArraySortAscending(Index,2))]	[ArrayOfIntegersGeneral]	must be even array length
 Prev	integer	1.5		FALSE	fn:MustBeDirect()	FALSE		[fn:Eval((@Prev>=0) && (@Prev<=fn:FileSize()))]			
@@ -15,4 +15,4 @@ Root	dictionary	1.5		TRUE	TRUE	FALSE				[Catalog]
 Info	dictionary	1.5		FALSE	fn:MustBeIndirect(fn:BeforeVersion(2.0))	FALSE				[DocInfo]	https://github.com/pdf-association/pdf-issues/issues/106
 ID	array	1.5		TRUE	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE			[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]	[ArrayOf_2StringsByte]	
 Encrypt	dictionary	1.5		FALSE	FALSE	FALSE				[EncryptionStandard,EncryptionPublicKey]	
-AuthCode	dictionary	fn:Extension(ISO_TS_32004,2.0)		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(Encrypt::@V>=5)]	[AuthCode]	ISO/TS 32004 integrity protection
+AuthCode	dictionary	fn:Extension(ISO_TS_32004)		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(Encrypt::@V>=5)]	[AuthCode]	ISO/TS 32004 integrity protection

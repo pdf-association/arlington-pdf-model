@@ -97,7 +97,7 @@
         "Key": "F",
         "Type": "dictionary;string",
         "SinceVersion": 1.1,
-        "Required": true,
+        "Required": "fn:IsRequired(fn:Not(fn:IsPresent(Win) || fn:IsPresent(Mac) || fn:IsPresent(Unix)))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[FileSpecification];[]"
@@ -287,7 +287,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -1199,6 +1199,24 @@
   {
     "id": "ColorSpaceMap",
     "keys": {
+      "DefaultRGB": {
+        "Key": "DefaultRGB",
+        "Type": "array",
+        "SinceVersion": 1.1,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CalRGBColorSpace]"
+      },
+      "DefaultGray": {
+        "Key": "DefaultGray",
+        "Type": "array",
+        "SinceVersion": 1.1,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CalGrayColorSpace]"
+      },
       "*": {
         "Key": "*",
         "Type": "array;name",
@@ -1575,7 +1593,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]"
+        "SpecialCase": "[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]"
       },
       "R": {
         "Key": "R",
@@ -1584,7 +1602,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:RequiredValue(@V<2,2),fn:RequiredValue((@V==2) || (@V==3),3),fn:RequiredValue(@V==4,4),fn:SinceVersion(2.0,5)]"
+        "PossibleValues": "[fn:RequiredValue(@V<2,2),fn:RequiredValue((@V==2) || (@V==3),3),fn:RequiredValue(@V==4,4),fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,5)),fn:SinceVersion(2.0,5)]"
       },
       "O": {
         "Key": "O",
@@ -1593,7 +1611,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(O)==32)) || ((@R==6) && (fn:StringLength(O)==48))))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(O)==32)) || (((@R==5) || (@R==6)) && (fn:StringLength(O)==48))))]"
       },
       "U": {
         "Key": "U",
@@ -1602,13 +1620,13 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(U)==32)) || ((@R==6) && (fn:StringLength(U)==48))))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(U)==32)) || (((@R==5) || (@R==6)) && (fn:StringLength(U)==48))))]"
       },
       "OE": {
         "Key": "OE",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (fn:StringLength(OE)==32))]"
@@ -1617,7 +1635,7 @@
         "Key": "UE",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
@@ -1635,7 +1653,7 @@
         "Key": "Perms",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"

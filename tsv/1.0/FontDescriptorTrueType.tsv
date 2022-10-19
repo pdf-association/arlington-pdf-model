@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		TRUE	FALSE	FALSE		[FontDescriptor]			
+Type	name	1.0		TRUE	FALSE	FALSE		[FontDescriptor]			Table 120
 FontName	name	1.0		TRUE	FALSE	FALSE			[fn:Eval(@FontName==parent::@BaseFont)]		
-Flags	bitmask	1.0		TRUE	FALSE	FALSE			[fn:Eval(fn:BitClear(5) && fn:BitsClear(8,16) && fn:BitsClear(20,32))]		
+Flags	bitmask	1.0		TRUE	FALSE	FALSE			[fn:Eval(fn:BitClear(5) && fn:BitsClear(8,16) && fn:BitsClear(20,32))]		Table 121
 FontBBox	rectangle	1.0		TRUE	FALSE	FALSE					
 ItalicAngle	number	1.0		TRUE	FALSE	FALSE					
 Ascent	number	1.0		TRUE	FALSE	FALSE					

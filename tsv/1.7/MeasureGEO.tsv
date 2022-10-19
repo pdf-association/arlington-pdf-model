@@ -1,0 +1,7 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Bounds	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
+GCS	dictionary	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE				[GeographicCoordinateSystem,ProjectedCoordinateSystem]	
+DCS	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[GeographicCoordinateSystem,ProjectedCoordinateSystem]	
+PDU	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[ArrayOf3PDUNames]	Preferred Display Units
+GPTS	array	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
+LPTS	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	

@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.6		FALSE	FALSE	FALSE		[Annot]			
+Type	name	1.6		FALSE	FALSE	FALSE		[Annot]			Table 166 and Table 309 (NOT markup annot)
 Subtype	name	1.6		TRUE	FALSE	FALSE		[3D]			
 Rect	rectangle	1.6		TRUE	FALSE	FALSE					
 Contents	string-text	1.6		FALSE	FALSE	FALSE					
@@ -22,7 +22,6 @@ Lang	string-text	2.0		FALSE	FALSE	FALSE
 3DV	dictionary;integer;name;string	1.6		FALSE	FALSE	FALSE				[3DView];[];[];[]	
 3DA	dictionary	1.6		FALSE	FALSE	FALSE				[3DActivation]	
 3DI	boolean	1.6		FALSE	FALSE	FALSE	true				
-3DB	rectangle	1.6		FALSE	FALSE	FALSE					
-3DU	dictionary	2.0		FALSE	FALSE	FALSE				[3DUnits]	
+3DB	rectangle	1.6		FALSE	FALSE	FALSE	@Rect				
+3DU	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[3DUnits]	
 GEO	dictionary	2.0		FALSE	FALSE	FALSE				[MeasureGEO]	
-ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]	

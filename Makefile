@@ -13,14 +13,16 @@
 #
 # A simple makefile to automate some repetitive tasks. Typical usage:
 # $ make clean
-# $ make TestGrammar-pdfix
-# $ make TestGrammar-pdfium
-# $ make TestGrammar-qpdf
 # $ make tsv
 # $ make validate
 # $ make 3d
-# $ make pandas
 # $ make xml
+# $ make pandas  <-- this is not GitHub!
+#
+# To manually build the different TestGrammar PoC apps:
+# $ make TestGrammar-pdfix
+# $ make TestGrammar-pdfium
+# $ make TestGrammar-qpdf
 #
 
 XMLLINT ::= xmllint
@@ -32,8 +34,7 @@ clean:
 	rm -rf ./3dvisualize/*.json
 	rm -rf ./xml/*.xml
 	rm -rf ./scripts/*.tsv
-	rm -rf ./tsv/1.0/*.tsv ./tsv/1.1/*.tsv ./tsv/1.2/*.tsv ./tsv/1.3/*.tsv ./tsv/1.4/*.tsv
-	rm -rf ./tsv/1.5/*.tsv ./tsv/1.6/*.tsv ./tsv/1.7/*.tsv ./tsv/2.0/*.tsv
+	rm -rf ./tsv/1.?/*.tsv ./tsv/2.0/*.tsv
 	rm -rf ./gcxml/dist/gcxml.jar
 	rm -rf ./TestGrammar/bin/linux/TestGrammar ./TestGrammar/bin/linux/TestGrammar_d
 

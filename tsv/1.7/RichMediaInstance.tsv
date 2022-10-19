@@ -1,0 +1,5 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE		[RichMediaInstance]			Table 343
+Subtype	name	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE		[3D,Sound,Video,fn:Extension(ADBE_Extn3,Flash)]			
+Asset	dictionary	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE				[FileSpecification]	
+Params	dictionary	fn:Extension(ADBE_Extn3)	2.0	FALSE	FALSE	FALSE			[fn:Eval(@Subtype==Flash)]	[RichMediaParams]	Adobe Extension Level 3, Table 9.51b

@@ -453,8 +453,8 @@ public class XMLCreator {
             if ("array".equals(t) ||
                 "dictionary".equals(t) ||
                 "stream".equals(t) ||
-                "number-tree".equals(t) ||
-                "name-tree".equals(t)) {
+                ("number-tree".equals(t) && !links.isBlank()) ||
+                ("name-tree".equals(t) && !links.isBlank())) {
                 // Strip [ and ]
                 assert (arr_links[i].charAt(0) == '[') : "No opening [ on Links";
                 assert (arr_links[i].charAt(arr_links[i].length()-1) == ']') : "No closing ] on Links";

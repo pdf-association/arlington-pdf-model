@@ -305,7 +305,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
             }
         }
 
-        // Check versioining efficiency between SinceVersion field and all version-based predicates
+        // Check versioning efficiency between SinceVersion field and all version-based predicates
         if (verbose && (vc[TSV_SINCEVERSION].size() == 3)) {
             int key_introduced_v = string_to_pdf_version(vc[TSV_SINCEVERSION]);
             for (size_t i = 0; i < vc.size(); i++) {

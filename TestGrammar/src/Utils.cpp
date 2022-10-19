@@ -240,12 +240,13 @@ std::string remove_type_link_predicates(const std::string& in) {
 
     // Specific order!
     to_ret = std::regex_replace(to_ret, r_sinceVersionExtension, "$3");
+    to_ret = std::regex_replace(to_ret, r_isPDFVersionExtension, "$3");
     to_ret = std::regex_replace(to_ret, r_sinceVersion,  "$2");
     to_ret = std::regex_replace(to_ret, r_beforeVersion, "$2");
     to_ret = std::regex_replace(to_ret, r_isPDFVersion,  "$2");
     to_ret = std::regex_replace(to_ret, r_Deprecated,    "$2");
     to_ret = std::regex_replace(to_ret, r_LinkExtension, "$2");
-    assert(to_ret.find("fn") == std::string::npos);
+    assert(to_ret.find("fn:") == std::string::npos);
     assert(to_ret.size() >= 3);
     return to_ret;
 }

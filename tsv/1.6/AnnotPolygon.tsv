@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.5		FALSE	FALSE	FALSE		[Annot]			
+Type	name	1.5		FALSE	FALSE	FALSE		[Annot]			Table 166 and Table 172 and Table 181 (markup annot)
 Subtype	name	1.5		TRUE	FALSE	FALSE		[Polygon]			
 Rect	rectangle	1.5		TRUE	FALSE	FALSE					
 Contents	string-text	1.5		FALSE	FALSE	FALSE					
@@ -9,10 +9,11 @@ M	date;string-text	1.5		FALSE	FALSE	FALSE
 F	bitmask	1.5		FALSE	FALSE	FALSE	0		[fn:Eval(fn:BeforeVersion(1.7,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]		
 AP	dictionary	1.5		fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0)))	FALSE	FALSE				[Appearance]	
 AS	name	1.5		fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))	FALSE	FALSE					
-Border	array	1.5		FALSE	FALSE	FALSE	[0 0 1]		[fn:Ignore(BS)]	[ArrayOf_4AnnotBorderCharacteristics]	
+Border	array	1.5		FALSE	FALSE	FALSE	[0 0 1]		[fn:Ignore(fn:IsPresent(BS))]	[ArrayOf_4AnnotBorderCharacteristics]	
 C	array	1.5		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
 StructParent	integer	1.5		FALSE	FALSE	FALSE					
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
+CA	number	1.5		FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && (@CA<=1.0))]			
 T	string-text	1.5		FALSE	FALSE	FALSE					
 Popup	dictionary	1.5		FALSE	TRUE	FALSE				[AnnotPopup]	
 RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	

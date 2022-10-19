@@ -129,7 +129,7 @@
          <VALUES>
             <VALUE type="dictionary">FileSpecification</VALUE>
          </VALUES>
-         <REQUIRED>true</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:IsPresent(Win) || fn:IsPresent(Mac) || fn:IsPresent(Unix)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
             <VALUE type="string">false</VALUE>
@@ -364,7 +364,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Ignore(BS)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Ignore(fn:IsPresent(BS))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
@@ -1457,6 +1457,30 @@
    </OBJECT>
    <OBJECT id="ColorSpaceMap" isArray="true" object_number="034">
       <ENTRY>
+         <NAME>DefaultRGB</NAME>
+         <VALUES>
+            <VALUE type="array">CalRGBColorSpace</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.1</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DefaultGray</NAME>
+         <VALUES>
+            <VALUE type="array">CalGrayColorSpace</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.1</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="array">CalGrayColorSpace</VALUE>
@@ -1928,7 +1952,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>R</NAME>
@@ -1936,6 +1960,7 @@
             <VALUE type="integer">fn:RequiredValue(@V&lt;2,2)</VALUE>
             <VALUE type="integer">fn:RequiredValue((@V==2) || (@V==3),3)</VALUE>
             <VALUE type="integer">fn:RequiredValue(@V==4,4)</VALUE>
+            <VALUE type="integer">fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,5))</VALUE>
             <VALUE type="integer">fn:SinceVersion(2.0,5)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
@@ -1953,7 +1978,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted() &amp;&amp; (((@R&lt;=4) &amp;&amp; (fn:StringLength(O)==32)) || ((@R==6) &amp;&amp; (fn:StringLength(O)==48))))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted() &amp;&amp; (((@R&lt;=4) &amp;&amp; (fn:StringLength(O)==32)) || (((@R==5) || (@R==6)) &amp;&amp; (fn:StringLength(O)==48))))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>U</NAME>
@@ -1963,11 +1988,11 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted() &amp;&amp; (((@R&lt;=4) &amp;&amp; (fn:StringLength(U)==32)) || ((@R==6) &amp;&amp; (fn:StringLength(U)==48))))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted() &amp;&amp; (((@R&lt;=4) &amp;&amp; (fn:StringLength(U)==32)) || (((@R==5) || (@R==6)) &amp;&amp; (fn:StringLength(U)==48))))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>OE</NAME>
-         <REQUIRED>fn:IsRequired(@R==6)</REQUIRED>
+         <REQUIRED>fn:IsRequired((@R==5) || (@R==6))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string-byte">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -1977,7 +2002,7 @@
       </ENTRY>
       <ENTRY>
          <NAME>UE</NAME>
-         <REQUIRED>fn:IsRequired(@R==6)</REQUIRED>
+         <REQUIRED>fn:IsRequired((@R==5) || (@R==6))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string-byte">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -1997,7 +2022,7 @@
       </ENTRY>
       <ENTRY>
          <NAME>Perms</NAME>
-         <REQUIRED>fn:IsRequired(@R==6)</REQUIRED>
+         <REQUIRED>fn:IsRequired((@R==5) || (@R==6))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string-byte">false</VALUE>
          </INDIRECT_REFERENCE>

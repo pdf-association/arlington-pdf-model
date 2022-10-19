@@ -55,7 +55,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Ignore(BS)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Ignore(fn:IsPresent(BS))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Dest</NAME>

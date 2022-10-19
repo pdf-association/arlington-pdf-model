@@ -85,7 +85,7 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
     case PDFObjectType::ArlPDFObjTypeBoolean:     arl_type_of_pdf_object = "boolean"; break;
     case PDFObjectType::ArlPDFObjTypeName:        arl_type_of_pdf_object = "name"; break;
     case PDFObjectType::ArlPDFObjTypeNull:        arl_type_of_pdf_object = "null"; break;
-    case PDFObjectType::ArlPDFObjTypeStream:      arl_type_of_pdf_object = "stream"; break;
+    case PDFObjectType::ArlPDFObjTypeStream:      arl_type_of_pdf_object = "stream"; break;     // or "name-tree" or "number-tree"
     case PDFObjectType::ArlPDFObjTypeString:      arl_type_of_pdf_object = "string"; break;     // or "date" or "string-*"...
     case PDFObjectType::ArlPDFObjTypeArray:       arl_type_of_pdf_object = "array"; break;      // or "rectangle" or "matrix"
     case PDFObjectType::ArlPDFObjTypeDictionary:  arl_type_of_pdf_object = "dictionary"; break; // or "name-tree" or "number-tree"
@@ -109,7 +109,7 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
     // - try exact match first
     // - if object was integer look for bitmask
     // - if object was array look for rectangle and matrix
-    // - if object was dictionary look for name-tree or number-tree
+    // - name-trees and number-trees support dicts, arrays and streams
     // - if object was string look for date or string-*
     std::string arl_types = vec[TSV_TYPE];
     bool found = false;
@@ -194,7 +194,11 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
                 ((arl_type_of_pdf_object == "array") && (t =="rectangle")) ||
                 ((arl_type_of_pdf_object == "array") && (t == "matrix")) ||
                 ((arl_type_of_pdf_object == "dictionary") && (t == "name-tree")) ||
+                ((arl_type_of_pdf_object == "stream") && (t == "name-tree")) ||
+                ((arl_type_of_pdf_object == "array") && (t == "name-tree")) ||
                 ((arl_type_of_pdf_object == "dictionary") && (t == "number-tree")) ||
+                ((arl_type_of_pdf_object == "stream") && (t == "number-tree")) ||
+                ((arl_type_of_pdf_object == "array") && (t == "number-tree")) ||
                 ((arl_type_of_pdf_object == "string") && (t == "date")) ||
                 ((arl_type_of_pdf_object == "string") && (t.find("string-") != std::string::npos))) {
                 arl_type_index = i;
@@ -355,6 +359,17 @@ std::vector<std::string>  ArlVersion::get_appropriate_linkset(std::string arl_li
                     // m[2] = extension name
                     // m[3] = Arlington link
                     // int arl_v = string_to_pdf_version(m[1].str());
+                if (FindInVector(supported_extensions, m[2].str()) || wildcard_extn)
+                    retval.push_back(m[3]);     // m[2] = Arlington link
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);            // skip COMMA
+            }
+            else if (std::regex_search(s, m, r_startsWithIsPDFVersionExtension) && m.ready() && (m.size() == 4)) {
+                // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                // m[2] = extension name
+                // m[3] = Arlington link
+                // int arl_v = string_to_pdf_version(m[1].str());
                 if (FindInVector(supported_extensions, m[2].str()) || wildcard_extn)
                     retval.push_back(m[3]);     // m[2] = Arlington link
                 s = m.suffix();

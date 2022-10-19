@@ -59,6 +59,34 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "false"
+      },
+      "Style": {
+        "Key": "Style",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "Embedded",
+        "PossibleValues": "[Embedded,Windowed]"
+      },
+      "Window": {
+        "Key": "Window",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaWindow]"
+      },
+      "Transparent": {
+        "Key": "Transparent",
+        "Type": "boolean",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
       }
     }
   },
@@ -91,7 +119,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "0"
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Ignore(@Subtype==None)]"
       },
       "TM": {
         "Key": "TM",
@@ -100,7 +129,9 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "1"
+        "DefaultValue": "1",
+        "PossibleValues": "[fn:Eval(@TM>0)]",
+        "SpecialCase": "[fn:Ignore(@Subtype==None)]"
       }
     }
   },
@@ -196,7 +227,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "0.5"
+        "DefaultValue": "0.5",
+        "PossibleValues": "[fn:Eval((@PO>=0) && (@PO<=1))]"
       },
       "PC": {
         "Key": "PC",
@@ -259,6 +291,807 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Artwork,None,White,Day,Night,Hard,Primary,Blue,Red,Cube,CAD,Headlamp]"
+      }
+    }
+  },
+  {
+    "id": "3DMeasure3DC",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[3DMeasure]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[3DC]"
+      },
+      "TRL": {
+        "Key": "TRL",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "A1": {
+        "Key": "A1",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "N1": {
+        "Key": "N1",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "TP": {
+        "Key": "TP",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TB": {
+        "Key": "TB",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_2Integers]"
+      },
+      "TS": {
+        "Key": "TS",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "12"
+      },
+      "C": {
+        "Key": "C",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[1 1 1]",
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "UT": {
+        "Key": "UT",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "S": {
+        "Key": "S",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[AnnotProjection]"
+      }
+    }
+  },
+  {
+    "id": "3DMeasureAD3",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[3DMeasure]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[AD3]"
+      },
+      "TRL": {
+        "Key": "TRL",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "AP": {
+        "Key": "AP",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "A1": {
+        "Key": "A1",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "D1": {
+        "Key": "D1",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "N1": {
+        "Key": "N1",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "A2": {
+        "Key": "A2",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "D2": {
+        "Key": "D2",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "N2": {
+        "Key": "N2",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "TP": {
+        "Key": "TP",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TX": {
+        "Key": "TX",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TY": {
+        "Key": "TY",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TS": {
+        "Key": "TS",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "12"
+      },
+      "C": {
+        "Key": "C",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[1 1 1]",
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "P": {
+        "Key": "P",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "3",
+        "PossibleValues": "[fn:Eval(@P>=0)]"
+      },
+      "UT": {
+        "Key": "UT",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "DR": {
+        "Key": "DR",
+        "Type": "boolean",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "true"
+      },
+      "S": {
+        "Key": "S",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[AnnotProjection]"
+      }
+    }
+  },
+  {
+    "id": "3DMeasureLD3",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[3DMeasure]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[LD3]"
+      },
+      "TRL": {
+        "Key": "TRL",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "AP": {
+        "Key": "AP",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "A1": {
+        "Key": "A1",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "N1": {
+        "Key": "N1",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "A2": {
+        "Key": "A2",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "N2": {
+        "Key": "N2",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "TP": {
+        "Key": "TP",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TY": {
+        "Key": "TY",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TS": {
+        "Key": "TS",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "12"
+      },
+      "C": {
+        "Key": "C",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[1 1 1]",
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "U": {
+        "Key": "U",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "P": {
+        "Key": "P",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "3",
+        "PossibleValues": "[fn:Eval(@P>=0)]"
+      },
+      "UT": {
+        "Key": "UT",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "S": {
+        "Key": "S",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[AnnotProjection]"
+      }
+    }
+  },
+  {
+    "id": "3DMeasurePD3",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[3DMeasure]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[PD3]"
+      },
+      "TRL": {
+        "Key": "TRL",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "AP": {
+        "Key": "AP",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "A1": {
+        "Key": "A1",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "N1": {
+        "Key": "N1",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "A2": {
+        "Key": "A2",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "N2": {
+        "Key": "N2",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "D1": {
+        "Key": "D1",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TP": {
+        "Key": "TP",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TY": {
+        "Key": "TY",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TS": {
+        "Key": "TS",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "12"
+      },
+      "C": {
+        "Key": "C",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[1 1 1]",
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "U": {
+        "Key": "U",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "P": {
+        "Key": "P",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "3",
+        "PossibleValues": "[fn:Eval(@P>=0)]"
+      },
+      "UT": {
+        "Key": "UT",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "S": {
+        "Key": "S",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[AnnotProjection]"
+      }
+    }
+  },
+  {
+    "id": "3DMeasureRD3",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[3DMeasure]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RD3]"
+      },
+      "TRL": {
+        "Key": "TRL",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "AP": {
+        "Key": "AP",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "A1": {
+        "Key": "A1",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "A2": {
+        "Key": "A2",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "N2": {
+        "Key": "N2",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "A3": {
+        "Key": "A3",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "A4": {
+        "Key": "A4",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TP": {
+        "Key": "TP",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TX": {
+        "Key": "TX",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "TY": {
+        "Key": "TY",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3Numbers]"
+      },
+      "EL": {
+        "Key": "EL",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "60"
+      },
+      "TS": {
+        "Key": "TS",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "12"
+      },
+      "C": {
+        "Key": "C",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[1 1 1]",
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "U": {
+        "Key": "U",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "P": {
+        "Key": "P",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "3",
+        "PossibleValues": "[fn:Eval(@P>=0)]"
+      },
+      "UT": {
+        "Key": "UT",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "SC": {
+        "Key": "SC",
+        "Type": "boolean",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      },
+      "R": {
+        "Key": "R",
+        "Type": "boolean",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "true"
+      },
+      "S": {
+        "Key": "S",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[AnnotProjection]"
       }
     }
   },
@@ -362,6 +1195,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[DeviceRGB 0 0 0]",
+        "SpecialCase": "[fn:Ignore((@Subtype==Solid) || (@Subtype==Transparent) || (@Subtype==ShadedWireframe) || (@Subtype==ShadedVertices))]",
         "Link": "[ArrayOf_4ColourSpaceEntries]"
       },
       "FC": {
@@ -382,7 +1216,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "0.5"
+        "DefaultValue": "0.5",
+        "PossibleValues": "[fn:Eval((@O>=0) && (@O<=1))]"
       },
       "CV": {
         "Key": "CV",
@@ -533,6 +1368,89 @@
     }
   },
   {
+    "id": "3DUnits",
+    "keys": {
+      "TSm": {
+        "Key": "TSm",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1"
+      },
+      "TSn": {
+        "Key": "TSn",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1"
+      },
+      "TU": {
+        "Key": "TU",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": "fn:IsRequired(fn:IsPresent(TSm) || fn:IsPresent(TSn))",
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "USm": {
+        "Key": "USm",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1"
+      },
+      "USn": {
+        "Key": "USn",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1"
+      },
+      "UU": {
+        "Key": "UU",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": "fn:IsRequired(fn:IsPresent(USm) || fn:IsPresent(USn))",
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "DSm": {
+        "Key": "DSm",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1"
+      },
+      "DSn": {
+        "Key": "DSn",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1"
+      },
+      "DU": {
+        "Key": "DU",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": "fn:IsRequired(fn:IsPresent(DSm) || fn:IsPresent(DSn))",
+        "IndirectReference": false,
+        "Inheritable": false
+      }
+    }
+  },
+  {
     "id": "3DView",
     "keys": {
       "Type": {
@@ -667,6 +1585,29 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "false"
+      }
+    }
+  },
+  {
+    "id": "3DViewAddEntries",
+    "keys": {
+      "Snapshot": {
+        "Key": "Snapshot",
+        "Type": "stream",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[XObjectImage]"
+      },
+      "Params": {
+        "Key": "Params",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfViewParams]"
       }
     }
   },
@@ -1113,7 +2054,7 @@
         "Key": "F",
         "Type": "dictionary;string",
         "SinceVersion": 1.1,
-        "Required": true,
+        "Required": "fn:IsRequired(fn:Not(fn:IsPresent(Win) || fn:IsPresent(Mac) || fn:IsPresent(Unix)))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[FileSpecification];[]"
@@ -1296,7 +2237,7 @@
         "Key": "R",
         "Type": "dictionary",
         "SinceVersion": 1.5,
-        "Required": false,
+        "Required": "fn:IsRequired((@OP==0) || (@OP==4))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[RenditionSelector,RenditionMedia]"
@@ -1305,8 +2246,8 @@
         "Key": "AN",
         "Type": "dictionary",
         "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
+        "Required": "fn:IsRequired((@OP>=0) && (@OP<=4))",
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[AnnotScreen]"
       },
@@ -1316,7 +2257,8 @@
         "SinceVersion": 1.5,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval((@OP>=0) && (@OP<=4))]"
       },
       "JS": {
         "Key": "JS",
@@ -1378,6 +2320,65 @@
         "DefaultValue": "0",
         "PossibleValues": "[0,1]",
         "SpecialCase": "[fn:Eval(fn:BitsClear(2,32))]"
+      }
+    }
+  },
+  {
+    "id": "ActionRichMediaExecute",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Action]"
+      },
+      "S": {
+        "Key": "S",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaExecute]"
+      },
+      "Next": {
+        "Key": "Next",
+        "Type": "array;dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]"
+      },
+      "TA": {
+        "Key": "TA",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[AnnotRichMedia]"
+      },
+      "TI": {
+        "Key": "TI",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[RichMediaInstance]"
+      },
+      "CMD": {
+        "Key": "CMD",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaCommand]"
       }
     }
   },
@@ -2205,16 +3206,17 @@
         "SinceVersion": 1.6,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "DefaultValue": "@Rect"
       },
-      "ExData": {
-        "Key": "ExData",
+      "3DU": {
+        "Key": "3DU",
         "Type": "dictionary",
         "SinceVersion": 1.7,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[3DUnits]"
       }
     }
   },
@@ -2343,6 +3345,16 @@
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
       },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
+      },
       "T": {
         "Key": "T",
         "Type": "string-text",
@@ -2439,7 +3451,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -2540,7 +3552,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -2568,6 +3580,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
+      },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
       },
       "T": {
         "Key": "T",
@@ -2682,7 +3704,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -2811,6 +3833,16 @@
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
       },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
+      },
       "T": {
         "Key": "T",
         "Type": "string-text",
@@ -2898,7 +3930,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "PushPin",
-        "PossibleValues": "[Graph,PushPin,Paperclip,Tag]"
+        "PossibleValues": "[Graph,PushPin,Paperclip,Tag,*]"
       },
       "ExData": {
         "Key": "ExData",
@@ -2907,7 +3939,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -3009,7 +4041,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -3037,6 +4069,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
+      },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
       },
       "T": {
         "Key": "T",
@@ -3191,7 +4233,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -3320,6 +4362,16 @@
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
       },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
+      },
       "T": {
         "Key": "T",
         "Type": "string-text",
@@ -3406,7 +4458,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -3507,7 +4559,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -3535,6 +4587,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
+      },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
       },
       "T": {
         "Key": "T",
@@ -3631,7 +4693,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -3732,7 +4794,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -3760,6 +4822,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
+      },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
       },
       "T": {
         "Key": "T",
@@ -3944,7 +5016,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -4045,7 +5117,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -4128,15 +5200,6 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[BorderStyle]"
-      },
-      "ExData": {
-        "Key": "ExData",
-        "Type": "dictionary",
-        "SinceVersion": 1.7,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
       }
     }
   },
@@ -4307,16 +5370,6 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[];[MovieActivation]"
-      },
-      "ExData": {
-        "Key": "ExData",
-        "Type": "dictionary",
-        "SinceVersion": 1.7,
-        "DeprecatedIn": 2.0,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
       }
     }
   },
@@ -4417,7 +5470,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -4445,6 +5498,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
+      },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
       },
       "T": {
         "Key": "T",
@@ -4582,7 +5645,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -4683,7 +5746,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -4711,6 +5774,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
+      },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
       },
       "T": {
         "Key": "T",
@@ -4848,7 +5921,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -4992,16 +6065,8 @@
         "SinceVersion": 1.3,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
-      },
-      "ExData": {
-        "Key": "ExData",
-        "Type": "dictionary",
-        "SinceVersion": 1.7,
-        "Required": false,
-        "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "DefaultValue": "false"
       }
     }
   },
@@ -5137,7 +6202,214 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[ColorBar,RegistrationTarget]"
+        "PossibleValues": "[ColorBar,RegistrationTarget,*]"
+      }
+    }
+  },
+  {
+    "id": "AnnotProjection",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Annot]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Projection]"
+      },
+      "Rect": {
+        "Key": "Rect",
+        "Type": "rectangle",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Contents": {
+        "Key": "Contents",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "P": {
+        "Key": "P",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[PageObject]"
+      },
+      "NM": {
+        "Key": "NM",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "M": {
+        "Key": "M",
+        "Type": "date;string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "F": {
+        "Key": "F",
+        "Type": "bitmask",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval(fn:BitsClear(11,32))]"
+      },
+      "AP": {
+        "Key": "AP",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[Appearance]"
+      },
+      "AS": {
+        "Key": "AS",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": "fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))",
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Border": {
+        "Key": "Border",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[0 0 1]",
+        "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
+      },
+      "C": {
+        "Key": "C",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_4NumbersColorAnnotation]"
+      },
+      "StructParent": {
+        "Key": "StructParent",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "OC": {
+        "Key": "OC",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[OptContentGroup,OptContentMembership]"
+      },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
+      },
+      "T": {
+        "Key": "T",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Popup": {
+        "Key": "Popup",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[AnnotPopup]"
+      },
+      "RC": {
+        "Key": "RC",
+        "Type": "stream;string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": "[true];[false]",
+        "Inheritable": false,
+        "Link": "[Stream];[]"
+      },
+      "CreationDate": {
+        "Key": "CreationDate",
+        "Type": "date",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "IRT": {
+        "Key": "IRT",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": "fn:IsRequired(fn:IsPresent(RT))",
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]"
+      },
+      "Subj": {
+        "Key": "Subj",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "RT": {
+        "Key": "RT",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "R",
+        "PossibleValues": "[R,Group]",
+        "SpecialCase": "[fn:IsMeaningful(fn:IsPresent(IRT))]"
+      },
+      "IT": {
+        "Key": "IT",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
       },
       "ExData": {
         "Key": "ExData",
@@ -5146,7 +6418,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]"
       }
     }
   },
@@ -5274,6 +6546,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
+      },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
       },
       "T": {
         "Key": "T",
@@ -5412,7 +6694,152 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
+      }
+    }
+  },
+  {
+    "id": "AnnotRichMedia",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Annot]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMedia]"
+      },
+      "Rect": {
+        "Key": "Rect",
+        "Type": "rectangle",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Contents": {
+        "Key": "Contents",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "P": {
+        "Key": "P",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[PageObject]"
+      },
+      "NM": {
+        "Key": "NM",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "M": {
+        "Key": "M",
+        "Type": "date;string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "F": {
+        "Key": "F",
+        "Type": "bitmask",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval(fn:BitsClear(11,32))]"
+      },
+      "AP": {
+        "Key": "AP",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": "fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0)))",
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[Appearance]"
+      },
+      "AS": {
+        "Key": "AS",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": "fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))",
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Border": {
+        "Key": "Border",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[0 0 1]",
+        "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
+      },
+      "C": {
+        "Key": "C",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_4NumbersColorAnnotation]"
+      },
+      "StructParent": {
+        "Key": "StructParent",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "OC": {
+        "Key": "OC",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[OptContentGroup,OptContentMembership]"
+      },
+      "RichMediaContent": {
+        "Key": "RichMediaContent",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaContent]"
+      },
+      "RichMediaSettings": {
+        "Key": "RichMediaSettings",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaSettings]"
       }
     }
   },
@@ -5575,15 +7002,6 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[AddActionScreenAnnotation]"
-      },
-      "ExData": {
-        "Key": "ExData",
-        "Type": "dictionary",
-        "SinceVersion": 1.7,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
       }
     }
   },
@@ -5726,6 +7144,17 @@
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
       },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
+      },
       "T": {
         "Key": "T",
         "Type": "string-text",
@@ -5831,7 +7260,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -5932,7 +7361,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -6074,7 +7503,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -6203,6 +7632,16 @@
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
       },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
+      },
       "T": {
         "Key": "T",
         "Type": "string-text",
@@ -6289,7 +7728,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -6418,6 +7857,16 @@
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
       },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
+      },
       "T": {
         "Key": "T",
         "Type": "string-text",
@@ -6497,7 +7946,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -6626,6 +8075,16 @@
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
       },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
+      },
       "T": {
         "Key": "T",
         "Type": "string-text",
@@ -6712,7 +8171,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -6841,6 +8300,16 @@
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
       },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
+      },
       "T": {
         "Key": "T",
         "Type": "string-text",
@@ -6956,7 +8425,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -7115,7 +8584,7 @@
         "Required": "fn:IsRequired(fn:IsPresent(AnnotStates) && fn:Not(fn:IsPresent(LastModified)))",
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfTrapNetVersionObjects]"
       },
       "AnnotStates": {
         "Key": "AnnotStates",
@@ -7264,6 +8733,16 @@
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
       },
+      "CA": {
+        "Key": "CA",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@CA>=0.0) && (@CA<=1.0))]"
+      },
       "T": {
         "Key": "T",
         "Type": "string-text",
@@ -7350,7 +8829,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
+        "Link": "[ExData3DMarkup,ExDataMarkupGeo]"
       }
     }
   },
@@ -7488,15 +8967,6 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[FixedPrint]"
-      },
-      "ExData": {
-        "Key": "ExData",
-        "Type": "dictionary",
-        "SinceVersion": 1.7,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
       }
     }
   },
@@ -7597,7 +9067,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -7681,15 +9151,6 @@
         "Inheritable": false,
         "Link": "[Field]"
       },
-      "ExData": {
-        "Key": "ExData",
-        "Type": "dictionary",
-        "SinceVersion": 1.7,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ExData3DMarkup]"
-      },
       "Kids": {
         "Key": "Kids",
         "Type": "array",
@@ -7730,6 +9191,16 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      },
+      "PMD": {
+        "Key": "PMD",
+        "Type": "dictionary",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[PaperMetaData]"
       }
     }
   },
@@ -8120,9 +9591,41 @@
         "Type": "dictionary",
         "SinceVersion": 1.6,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[3DView]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOf3PDUNames",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[M,KM,FT,USFT,MI,NM,SQM,HA,SQKM,SQFT,A,SQMI,DEG,GRD]"
+      },
+      "1": {
+        "Key": "1",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[M,KM,FT,USFT,MI,NM,SQM,HA,SQKM,SQFT,A,SQMI,DEG,GRD]"
+      },
+      "2": {
+        "Key": "2",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[M,KM,FT,USFT,MI,NM,SQM,HA,SQKM,SQFT,A,SQMI,DEG,GRD]"
       }
     }
   },
@@ -8220,7 +9723,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotPolyLine,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotTrapNetwork,AnnotWatermark,Annot3D,AnnotRedact]"
+        "Link": "[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotPolyLine,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotTrapNetwork,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]"
       }
     }
   },
@@ -8263,6 +9766,21 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfURLStrings]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfArraysXPTSValues",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(*)==fn:ArrayLength(parent::Names))]",
+        "Link": "[ArrayOfXPTSValues]"
       }
     }
   },
@@ -8342,6 +9860,35 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOfCIDGlyphMetricsW",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "array;integer;number",
+        "SinceVersion": 1.2,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfNumbersGeneral];[];[]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfCIDGlyphMetricsW2",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "array;integer;number",
+        "SinceVersion": 1.2,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((fn:ArrayLength(1) mod 3)==0)];[];[]",
+        "Link": "[ArrayOfNumbersGeneral];[];[]"
       }
     }
   },
@@ -8646,6 +10193,21 @@
     }
   },
   {
+    "id": "ArrayOfIndirectFileSpecifications",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "SpecialCase": "[fn:InMap(parent::RichMediaContent::Assets)]",
+        "Link": "[FileSpecification]"
+      }
+    }
+  },
+  {
     "id": "ArrayOfInkList",
     "keys": {
       "*": {
@@ -8699,6 +10261,21 @@
     }
   },
   {
+    "id": "ArrayOfNamesForEnforce",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[PrintScaling]",
+        "SpecialCase": "[fn:Eval(parent::@PrintScaling!=AppDefault)]"
+      }
+    }
+  },
+  {
     "id": "ArrayOfNamesForPrintingOrder",
     "keys": {
       "*": {
@@ -8736,6 +10313,20 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOfNamesInPtData",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[LAT,LON,ALT]"
       }
     }
   },
@@ -8893,6 +10484,40 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOfOPI2Inks",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[monochrome]"
+      },
+      "1*": {
+        "Key": "1*",
+        "Type": "string",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "2*": {
+        "Key": "2*",
+        "Type": "number",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval((@2>=0) && (@2<=1))]"
       }
     }
   },
@@ -9087,6 +10712,49 @@
     }
   },
   {
+    "id": "ArrayOfRichMediaConfiguration",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[RichMediaConfiguration]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfRichMediaCuePoints",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaCuePoint]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfRichMediaInstances",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[RichMediaInstance]"
+      }
+    }
+  },
+  {
     "id": "ArrayOfSignatureReferences",
     "keys": {
       "*": {
@@ -9275,6 +10943,36 @@
     }
   },
   {
+    "id": "ArrayOfTrapNetVersionObjects",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "array;dictionary;stream",
+        "SinceVersion": 1.3,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": "[true];[true];[true]",
+        "Inheritable": false,
+        "Link": "[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[OPIVersion13Dict,OPIVersion20Dict,GraphicsStateParameter,PatternType2,ShadingType1,ShadingType2,ShadingType3,XObjectFormType1,XObjectImage,XObjectFormPS,XObjectFormPSpassthrough,FontType1,FontTrueType,FontMultipleMaster,FontType3,FontType0,FontCIDType0,FontCIDType2];[PatternType1,ShadingType4,ShadingType5,ShadingType6,ShadingType7,Stream]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfTrapRegions",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary",
+        "SinceVersion": 1.3,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[TrapRegion]"
+      }
+    }
+  },
+  {
     "id": "ArrayOfURLStrings",
     "keys": {
       "*": {
@@ -9316,6 +11014,20 @@
     }
   },
   {
+    "id": "ArrayOfViewParams",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ViewParams]"
+      }
+    }
+  },
+  {
     "id": "ArrayOfViewports",
     "keys": {
       "*": {
@@ -9345,6 +11057,34 @@
     }
   },
   {
+    "id": "ArrayOfWebCaptureImages",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "stream",
+        "SinceVersion": 1.3,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[XObjectImage]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfWebCapturePages",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary",
+        "SinceVersion": 1.3,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[PageObject]"
+      }
+    }
+  },
+  {
     "id": "ArrayOfXFA",
     "keys": {
       "0*": {
@@ -9365,6 +11105,19 @@
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[Stream]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfXPTSValues",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
       }
     }
   },
@@ -9630,6 +11383,35 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[fn:Eval(@2>=0)]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOf_3Numbers",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "1": {
+        "Key": "1",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "2": {
+        "Key": "2",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
       }
     }
   },
@@ -10307,6 +12089,21 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOf_ArrayOfNumbers",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "array",
+        "SinceVersion": 1.3,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfNumbersGeneral]"
       }
     }
   },
@@ -11325,7 +13122,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "0"
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval(fn:BitsClear(8,32))]"
       },
       "Subject": {
         "Key": "Subject",
@@ -11457,8 +13255,27 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "D",
-        "PossibleValues": "[D,T,H]",
-        "SpecialCase": "[fn:Eval(fn:SinceVersion(2.0,((fn:IsEncryptedWrapper() && (@View==H)) || (fn:IsPresent(Navigator) && (@View==C)))))]"
+        "PossibleValues": "[D,T,H,fn:Extension(ADBE_Extn3,C)]",
+        "SpecialCase": "[fn:Eval(fn:SinceVersion(2.0,((fn:IsEncryptedWrapper() && (@View==H)) || (fn:IsPresent(Navigator) && (@View==C)) || (@View!=C))))]"
+      },
+      "Navigator": {
+        "Key": "Navigator",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": "fn:IsRequired(@View==C)",
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[Navigator]"
+      },
+      "Colors": {
+        "Key": "Colors",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CollectionColors]"
       },
       "Sort": {
         "Key": "Sort",
@@ -11468,6 +13285,86 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[CollectionSort]"
+      },
+      "Folders": {
+        "Key": "Folders",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[CollectionFolder]"
+      },
+      "Split": {
+        "Key": "Split",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CollectionSplit]"
+      },
+      "Resources": {
+        "Key": "Resources",
+        "Type": "name-tree",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[Stream]"
+      }
+    }
+  },
+  {
+    "id": "CollectionColors",
+    "keys": {
+      "Background": {
+        "Key": "Background",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "CardBackground": {
+        "Key": "CardBackground",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "CardBorder": {
+        "Key": "CardBorder",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "PrimaryText": {
+        "Key": "PrimaryText",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "SecondaryText": {
+        "Key": "SecondaryText",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_3RGBNumbers]"
       }
     }
   },
@@ -11490,7 +13387,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[S,D,N,F,Desc,ModDate,CreationDate,Size]"
+        "PossibleValues": "[S,D,N,F,Desc,ModDate,CreationDate,Size,fn:Extension(ADBE_Extn3,CompressedSize)]"
       },
       "N": {
         "Key": "N",
@@ -11525,6 +13422,114 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "false"
+      }
+    }
+  },
+  {
+    "id": "CollectionFolder",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Folder]"
+      },
+      "ID": {
+        "Key": "ID",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Name": {
+        "Key": "Name",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Parent": {
+        "Key": "Parent",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[CollectionFolder]"
+      },
+      "Child": {
+        "Key": "Child",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[CollectionFolder]"
+      },
+      "Next": {
+        "Key": "Next",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[CollectionFolder]"
+      },
+      "CI": {
+        "Key": "CI",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CollectionItem]"
+      },
+      "Desc": {
+        "Key": "Desc",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "CreationDate": {
+        "Key": "CreationDate",
+        "Type": "date",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "ModDate": {
+        "Key": "ModDate",
+        "Type": "date",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Thumb": {
+        "Key": "Thumb",
+        "Type": "stream",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[Thumbnail]"
+      },
+      "Free": {
+        "Key": "Free",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfNumbersGeneral]"
       }
     }
   },
@@ -11608,6 +13613,30 @@
     }
   },
   {
+    "id": "CollectionSplit",
+    "keys": {
+      "Direction": {
+        "Key": "Direction",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[H,V,N]"
+      },
+      "Position": {
+        "Key": "Position",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval((@Position>=0) && (@Position<=100))]",
+        "SpecialCase": "[fn:Ignore(@Direction==N)]"
+      }
+    }
+  },
+  {
     "id": "CollectionSubitem",
     "keys": {
       "Type": {
@@ -11640,6 +13669,33 @@
   {
     "id": "ColorSpaceMap",
     "keys": {
+      "DefaultRGB": {
+        "Key": "DefaultRGB",
+        "Type": "array",
+        "SinceVersion": 1.1,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CalRGBColorSpace,ICCBasedColorSpace,DeviceNColorSpace]"
+      },
+      "DefaultCMYK": {
+        "Key": "DefaultCMYK",
+        "Type": "array",
+        "SinceVersion": 1.3,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ICCBasedColorSpace,DeviceNColorSpace]"
+      },
+      "DefaultGray": {
+        "Key": "DefaultGray",
+        "Type": "array",
+        "SinceVersion": 1.1,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CalGrayColorSpace,ICCBasedColorSpace,SeparationColorSpace,DeviceNColorSpace]"
+      },
       "*": {
         "Key": "*",
         "Type": "array;name",
@@ -11686,7 +13742,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "None",
-        "PossibleValues": "[None,V2,fn:SinceVersion(1.6,AESV2)]"
+        "PossibleValues": "[None,V2,fn:SinceVersion(1.6,AESV2),fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,AESV3))]"
       },
       "AuthEvent": {
         "Key": "AuthEvent",
@@ -11781,7 +13837,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "None",
-        "PossibleValues": "[None,V2,AESV2,AESV3]"
+        "PossibleValues": "[None,V2,fn:SinceVersion(1.6,AESV2),fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,AESV3))]"
       },
       "AuthEvent": {
         "Key": "AuthEvent",
@@ -11862,12 +13918,12 @@
       },
       "*": {
         "Key": "*",
-        "Type": "array;boolean;dictionary;name;null;number;stream;string",
+        "Type": "array;boolean;date;dictionary;integer;name;number;string-text",
         "SinceVersion": 1.6,
         "Required": false,
-        "IndirectReference": "[false];[false];[false];[false];[false];[false];[true];[false]",
+        "IndirectReference": "[false];[false];[false];[false];[false];[false];[false];[false]",
         "Inheritable": false,
-        "Link": "[_UniversalArray];[];[_UniversalDictionary];[];[];[];[Stream];[]"
+        "Link": "[_UniversalArray];[];[];[_UniversalDictionary];[];[];[];[]"
       }
     }
   },
@@ -12381,6 +14437,15 @@
   {
     "id": "DictionaryOfFunctions",
     "keys": {
+      "Default": {
+        "Key": "Default",
+        "Type": "dictionary;stream",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": "[false];[true]",
+        "Inheritable": false,
+        "Link": "[FunctionType2,FunctionType3];[FunctionType0,FunctionType4]"
+      },
       "*": {
         "Key": "*",
         "Type": "dictionary;stream",
@@ -12658,7 +14723,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalDictionary]"
+        "Link": "[SignatureBuildPropDict]"
       },
       "Prop_AuthTime": {
         "Key": "Prop_AuthTime",
@@ -12672,6 +14737,15 @@
         "Key": "Prop_AuthType",
         "Type": "name",
         "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "ADBE_Build": {
+        "Key": "ADBE_Build",
+        "Type": "string",
+        "SinceVersion": 1.3,
+        "DeprecatedIn": 1.5,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
@@ -12895,7 +14969,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Deprecated(1.1,0),1,fn:SinceVersion(1.4,2),fn:SinceVersion(1.4,3),fn:SinceVersion(1.5,4)]"
+        "PossibleValues": "[fn:Deprecated(1.1,0),1,fn:SinceVersion(1.4,2),fn:SinceVersion(1.4,3),fn:SinceVersion(1.5,4),fn:Extension(ADBE_Extn3,5)]"
       },
       "Length": {
         "Key": "Length",
@@ -12926,7 +15000,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "Identity",
-        "SpecialCase": "[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]"
+        "SpecialCase": "[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]"
       },
       "StrF": {
         "Key": "StrF",
@@ -12936,7 +15010,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "Identity",
-        "SpecialCase": "[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]"
+        "SpecialCase": "[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]"
       },
       "EFF": {
         "Key": "EFF",
@@ -12945,7 +15019,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]"
+        "SpecialCase": "[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]"
       },
       "EncryptMetadata": {
         "Key": "EncryptMetadata",
@@ -12986,7 +15060,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Deprecated(1.1,0),1,fn:SinceVersion(1.4,2),fn:SinceVersion(1.4,3),fn:SinceVersion(1.5,4)]"
+        "PossibleValues": "[fn:Deprecated(1.1,0),1,fn:SinceVersion(1.4,2),fn:SinceVersion(1.4,3),fn:SinceVersion(1.5,4),fn:Extension(ADBE_Extn3,5)]"
       },
       "Length": {
         "Key": "Length",
@@ -12997,7 +15071,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "40",
-        "PossibleValues": "[fn:Eval((@Length>=40) && (@Length<=128) && ((@Length mod 8)==0))]",
+        "PossibleValues": "[fn:Eval((@Length>=40) && ((@Length<=128) || fn:Extension(ADBE_Extn3,(@Length<=256))) && ((@Length mod 8)==0))]",
         "SpecialCase": "[fn:IsMeaningful((@V==2) || (@V==3))]"
       },
       "CF": {
@@ -13018,7 +15092,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "Identity",
-        "SpecialCase": "[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]"
+        "SpecialCase": "[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]"
       },
       "StrF": {
         "Key": "StrF",
@@ -13028,7 +15102,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "Identity",
-        "SpecialCase": "[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]"
+        "SpecialCase": "[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]"
       },
       "EFF": {
         "Key": "EFF",
@@ -13037,7 +15111,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]"
+        "SpecialCase": "[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]"
       },
       "R": {
         "Key": "R",
@@ -13046,7 +15120,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:RequiredValue(@V<2,2),fn:RequiredValue((@V==2) || (@V==3),3),fn:RequiredValue(@V==4,4),fn:SinceVersion(2.0,5)]"
+        "PossibleValues": "[fn:RequiredValue(@V<2,2),fn:RequiredValue((@V==2) || (@V==3),3),fn:RequiredValue(@V==4,4),fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,5)),fn:SinceVersion(2.0,5)]"
       },
       "O": {
         "Key": "O",
@@ -13055,7 +15129,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(O)==32)) || ((@R==6) && (fn:StringLength(O)==48))))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(O)==32)) || (((@R==5) || (@R==6)) && (fn:StringLength(O)==48))))]"
       },
       "U": {
         "Key": "U",
@@ -13064,13 +15138,13 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(U)==32)) || ((@R==6) && (fn:StringLength(U)==48))))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(U)==32)) || (((@R==5) || (@R==6)) && (fn:StringLength(U)==48))))]"
       },
       "OE": {
         "Key": "OE",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (fn:StringLength(OE)==32))]"
@@ -13079,7 +15153,7 @@
         "Key": "UE",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
@@ -13097,7 +15171,7 @@
         "Key": "Perms",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
@@ -13105,7 +15179,7 @@
       "EncryptMetadata": {
         "Key": "EncryptMetadata",
         "Type": "boolean",
-        "SinceVersion": 1.3,
+        "SinceVersion": 1.5,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -13160,6 +15234,61 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ExDataMarkupGeo",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[ExData]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[MarkupGeo]"
+      }
+    }
+  },
+  {
+    "id": "ExDataProjection",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[ExData]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[3DM]"
+      },
+      "M3DREF": {
+        "Key": "M3DREF",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[3DMeasure3DC,3DMeasureAD3,3DMeasureLD3,3DMeasurePD3,3DMeasureRD3]"
       }
     }
   },
@@ -14825,7 +16954,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfCIDGlyphMetricsW]"
       },
       "DW2": {
         "Key": "DW2",
@@ -14844,7 +16973,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfCIDGlyphMetricsW2]"
       },
       "CIDToGIDMap": {
         "Key": "CIDToGIDMap",
@@ -14930,7 +17059,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfCIDGlyphMetricsW]"
       },
       "DW2": {
         "Key": "DW2",
@@ -14949,7 +17078,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfCIDGlyphMetricsW2]"
       },
       "CIDToGIDMap": {
         "Key": "CIDToGIDMap",
@@ -17368,6 +19497,38 @@
     }
   },
   {
+    "id": "GeographicCoordinateSystem",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[GEOGCS]"
+      },
+      "EPSG": {
+        "Key": "EPSG",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(WKT)))]"
+      },
+      "WKT": {
+        "Key": "WKT",
+        "Type": "string-ascii",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(EPSG)))]"
+      }
+    }
+  },
+  {
     "id": "GraphicsStateParameter",
     "keys": {
       "Type": {
@@ -18401,7 +20562,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "A",
+        "DefaultValue": "P",
         "PossibleValues": "[A,P]"
       },
       "A": {
@@ -18412,6 +20573,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0.5 0.5]",
+        "SpecialCase": "[fn:Eval((A::@0>=0) && (A::@0<=1) && (A::@1>=0) && (A::@1<=1))]",
         "Link": "[ArrayOf_2Numbers]"
       },
       "FB": {
@@ -18865,7 +21027,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@L>0)]"
       },
       "H": {
         "Key": "H",
@@ -18882,7 +21045,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@O>0)]"
       },
       "E": {
         "Key": "E",
@@ -18890,7 +21054,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval((@E>0) && (@E<=@L))]"
       },
       "N": {
         "Key": "N",
@@ -18898,7 +21063,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@N>0)]"
       },
       "T": {
         "Key": "T",
@@ -18906,7 +21072,8 @@
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": "fn:MustBeDirect()",
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval(@T>0)]"
       },
       "P": {
         "Key": "P",
@@ -18915,7 +21082,8 @@
         "Required": false,
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
-        "DefaultValue": "0"
+        "DefaultValue": "0",
+        "PossibleValues": "[fn:Eval(@P>=0)]"
       }
     }
   },
@@ -19045,6 +21213,65 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "MeasureGEO",
+    "keys": {
+      "Bounds": {
+        "Key": "Bounds",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfNumbersGeneral]"
+      },
+      "GCS": {
+        "Key": "GCS",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[GeographicCoordinateSystem,ProjectedCoordinateSystem]"
+      },
+      "DCS": {
+        "Key": "DCS",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[GeographicCoordinateSystem,ProjectedCoordinateSystem]"
+      },
+      "PDU": {
+        "Key": "PDU",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf3PDUNames]"
+      },
+      "GPTS": {
+        "Key": "GPTS",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfNumbersGeneral]"
+      },
+      "LPTS": {
+        "Key": "LPTS",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfNumbersGeneral]"
       }
     }
   },
@@ -20172,6 +22399,7 @@
         "Required": false,
         "IndirectReference": "[false];[true]",
         "Inheritable": false,
+        "DefaultValue": "[false];[]",
         "Link": "[];[XObjectImage]"
       }
     }
@@ -20220,7 +22448,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "1.0"
+        "DefaultValue": "1.0",
+        "PossibleValues": "[fn:Eval((@Volume>=-1) && (@Volume<=1))]"
       },
       "ShowControls": {
         "Key": "ShowControls",
@@ -20389,7 +22618,7 @@
       "XFAResources": {
         "Key": "XFAResources",
         "Type": "name-tree",
-        "SinceVersion": 1.7,
+        "SinceVersion": 1.0,
         "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
@@ -20453,6 +22682,132 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "Navigator",
+    "keys": {
+      "SWF": {
+        "Key": "SWF",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Name": {
+        "Key": "Name",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Desc": {
+        "Key": "Desc",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Category": {
+        "Key": "Category",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "ID": {
+        "Key": "ID",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Version": {
+        "Key": "Version",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "APIVersion": {
+        "Key": "APIVersion",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "LoadType": {
+        "Key": "LoadType",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "Default",
+        "PossibleValues": "[Module,Default]"
+      },
+      "Icon": {
+        "Key": "Icon",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Locale": {
+        "Key": "Locale",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Strings": {
+        "Key": "Strings",
+        "Type": "name-tree",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "InitialFields": {
+        "Key": "InitialFields",
+        "Type": "dictionary",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CollectionSchema]"
+      },
+      "Resources": {
+        "Key": "Resources",
+        "Type": "name-tree",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[Stream]"
       }
     }
   },
@@ -20830,9 +23185,10 @@
         "Type": "array",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPresent(CropRect))",
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval((Size::@0>0) && (Size::@1>0))]",
         "Link": "[ArrayOf_2Numbers]"
       },
       "CropRect": {
@@ -20840,7 +23196,7 @@
         "Type": "rectangle",
         "SinceVersion": 1.2,
         "DeprecatedIn": 2.0,
-        "Required": false,
+        "Required": "fn:IsRequired(fn:IsPresent(Size))",
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -20861,7 +23217,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray];[]"
+        "PossibleValues": "[];[full_color,registration]",
+        "Link": "[ArrayOfOPI2Inks];[]"
       },
       "IncludedImageDimensions": {
         "Key": "IncludedImageDimensions",
@@ -20871,6 +23228,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval((IncludedImageDimensions::@0>0) && (IncludedImageDimensions::@1>0))]",
         "Link": "[ArrayOf_2Integers]"
       },
       "IncludedImageQuality": {
@@ -20881,7 +23239,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[1.0,2.0,3.0]"
+        "PossibleValues": "[1,2,3]"
       }
     }
   },
@@ -21698,7 +24056,8 @@
         "SinceVersion": 1.4,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[GTS_PDFX,GTS_PDFA1,ISO_PDFE1]"
       },
       "OutputCondition": {
         "Key": "OutputCondition",
@@ -22014,7 +24373,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[R,C,S]"
+        "PossibleValues": "[R,C,S,fn:Extension(ADBE_Extn3,A),fn:Extension(ADBE_Extn3,W)]"
       },
       "TemplateInstantiated": {
         "Key": "TemplateInstantiated",
@@ -22228,6 +24587,133 @@
         "Inheritable": false,
         "DefaultValue": "0",
         "PossibleValues": "[fn:Eval((@Rotate mod 90)==0)]"
+      }
+    }
+  },
+  {
+    "id": "PaperMetaData",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[PaperMetaData]"
+      },
+      "Version": {
+        "Key": "Version",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[1]"
+      },
+      "Resolution": {
+        "Key": "Resolution",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "300",
+        "SpecialCase": "[fn:Eval(@Resolution>0)]"
+      },
+      "Caption": {
+        "Key": "Caption",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Symbology": {
+        "Key": "Symbology",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[PDF417,QRCode,DataMatrix]"
+      },
+      "Width": {
+        "Key": "Width",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@Width>0)]"
+      },
+      "Height": {
+        "Key": "Height",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@Height>0)]"
+      },
+      "XSymWidth": {
+        "Key": "XSymWidth",
+        "Type": "integer",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@XSymWidth>0)]"
+      },
+      "YSymHeight": {
+        "Key": "YSymHeight",
+        "Type": "integer",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@YSymHeight>0)]"
+      },
+      "ECC": {
+        "Key": "ECC",
+        "Type": "integer",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": "fn:IsRequired((@Symbology==PDF417) || (@Symbology==QRCode))",
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval((@ECC>=0) && (((@Symbology==PDF417) && (@ECC<=8)) || (@Symbology==QRCode) && (@ECC<=3)))]"
+      },
+      "nCodeWordRow": {
+        "Key": "nCodeWordRow",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:IsMeaningful(@Symbology==PDF417)]"
+      },
+      "nCodeWordCol": {
+        "Key": "nCodeWordCol",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:IsMeaningful(@Symbology==PDF417)]"
       }
     }
   },
@@ -22506,6 +24992,77 @@
     }
   },
   {
+    "id": "PointData",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[PtData]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Cloud]"
+      },
+      "Names": {
+        "Key": "Names",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfNamesInPtData]"
+      },
+      "XPTS": {
+        "Key": "XPTS",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfArraysXPTSValues]"
+      }
+    }
+  },
+  {
+    "id": "ProjectedCoordinateSystem",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[PROJCS]"
+      },
+      "EPSG": {
+        "Key": "EPSG",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": "fn:IsRequired(fn:Not(fn:IsPresent(WKT)))",
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "WKT": {
+        "Key": "WKT",
+        "Type": "string-ascii",
+        "SinceVersion": 1.7,
+        "Required": "fn:IsRequired(fn:Not(fn:IsPresent(EPSG)))",
+        "IndirectReference": false,
+        "Inheritable": false
+      }
+    }
+  },
+  {
     "id": "Projection",
     "keys": {
       "Subtype": {
@@ -22544,7 +25101,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "PossibleValues": "[fn:Eval(@N>=0)]",
+        "PossibleValues": "[fn:Eval(((@Subtype==P) && (@N>0)) || ((@Subtype==O) && (@N>=0)))]",
         "SpecialCase": "[fn:IsMeaningful(@CS==XNF)]"
       },
       "FOV": {
@@ -22553,7 +25110,9 @@
         "SinceVersion": 1.6,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval((@FOV>=0) && (@FOV<=180))]",
+        "SpecialCase": "[fn:Ignore(@Subtype!=P)]"
       },
       "PS": {
         "Key": "PS",
@@ -22944,6 +25503,695 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[_UniversalDictionary]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaActivation",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaActivation]"
+      },
+      "Condition": {
+        "Key": "Condition",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "XA",
+        "PossibleValues": "[XA,PO,PV]"
+      },
+      "Animation": {
+        "Key": "Animation",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaAnimation]"
+      },
+      "View": {
+        "Key": "View",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[3DView,3DViewAddEntries]"
+      },
+      "Configuration": {
+        "Key": "Configuration",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[RichMediaConfiguration]"
+      },
+      "Presentation": {
+        "Key": "Presentation",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaPresentation]"
+      },
+      "Scripts": {
+        "Key": "Scripts",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfIndirectFileSpecifications]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaAnimation",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaAnimation]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "None",
+        "PossibleValues": "[None,Linear,Oscillating]"
+      },
+      "PlayCount": {
+        "Key": "PlayCount",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "-1",
+        "SpecialCase": "[fn:Ignore(@Subtype==None)]"
+      },
+      "Speed": {
+        "Key": "Speed",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1",
+        "PossibleValues": "[fn:Eval(@Speed>0)]",
+        "SpecialCase": "[fn:Ignore(@Subtype==None)]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaCommand",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaCommand]"
+      },
+      "C": {
+        "Key": "C",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "A": {
+        "Key": "A",
+        "Type": "array;boolean;integer;number;string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaCommandArray];[];[];[];[]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaCommandArray",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "boolean;integer;number;string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "RichMediaConfiguration",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaConfiguration]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[3D,Sound,Video]"
+      },
+      "Name": {
+        "Key": "Name",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Instances": {
+        "Key": "Instances",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfRichMediaInstances]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaContent",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaContent]"
+      },
+      "Assets": {
+        "Key": "Assets",
+        "Type": "name-tree",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[FileSpecification]"
+      },
+      "Configurations": {
+        "Key": "Configurations",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Configurations)>0)]",
+        "Link": "[ArrayOfRichMediaConfiguration]"
+      },
+      "Views": {
+        "Key": "Views",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf3DView]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaCuePoint",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[CuePoint]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Navigation,Event]"
+      },
+      "Name": {
+        "Key": "Name",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Time": {
+        "Key": "Time",
+        "Type": "number",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "A": {
+        "Key": "A",
+        "Type": "dictionary",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ActionGoTo,ActionGoToR,ActionGoToE,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaDeactivation",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaDeactivation]"
+      },
+      "Condition": {
+        "Key": "Condition",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "XD",
+        "PossibleValues": "[XD,PC,PI]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaHeight",
+    "keys": {
+      "Default": {
+        "Key": "Default",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "216",
+        "PossibleValues": "[fn:Eval(@Default>0)]"
+      },
+      "Max": {
+        "Key": "Max",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "432",
+        "PossibleValues": "[fn:Eval(@Max>0)]"
+      },
+      "Min": {
+        "Key": "Min",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "72",
+        "PossibleValues": "[fn:Eval(@Min>0)]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaInstance",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaInstance]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[3D,Sound,Video,fn:Extension(ADBE_Extn3,Flash)]"
+      },
+      "Asset": {
+        "Key": "Asset",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[FileSpecification]"
+      },
+      "Params": {
+        "Key": "Params",
+        "Type": "dictionary",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@Subtype==Flash)]",
+        "Link": "[RichMediaParams]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaParams",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaParams]"
+      },
+      "FlashVars": {
+        "Key": "FlashVars",
+        "Type": "stream;string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": "[true];[false]",
+        "Inheritable": false,
+        "Link": "[Stream];[]"
+      },
+      "Binding": {
+        "Key": "Binding",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "None",
+        "PossibleValues": "[None,Foreground,Background,Material]"
+      },
+      "BindingMaterial": {
+        "Key": "BindingMaterial",
+        "Type": "string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": "fn:IsRequired(@Binding==Material)",
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "CuePoints": {
+        "Key": "CuePoints",
+        "Type": "array",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfRichMediaCuePoints]"
+      },
+      "Seetings": {
+        "Key": "Seetings",
+        "Type": "stream;string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": "[true];[false]",
+        "Inheritable": false,
+        "Link": "[Stream];[]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaPosition",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaPosition]"
+      },
+      "HAlign": {
+        "Key": "HAlign",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "Far",
+        "PossibleValues": "[Near,Center,Far]"
+      },
+      "VAlign": {
+        "Key": "VAlign",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "Near",
+        "PossibleValues": "[Near,Center,Far]"
+      },
+      "HOffset": {
+        "Key": "HOffset",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "18"
+      },
+      "VOffset": {
+        "Key": "VOffset",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "18"
+      }
+    }
+  },
+  {
+    "id": "RichMediaPresentation",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaPresentation]"
+      },
+      "Style": {
+        "Key": "Style",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "Embedded",
+        "PossibleValues": "[Embedded,Windowed]"
+      },
+      "Window": {
+        "Key": "Window",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaWindow]"
+      },
+      "Transparent": {
+        "Key": "Transparent",
+        "Type": "boolean",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      },
+      "NavigationPane": {
+        "Key": "NavigationPane",
+        "Type": "boolean",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      },
+      "Toolbar": {
+        "Key": "Toolbar",
+        "Type": "boolean",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      },
+      "PassContextClick": {
+        "Key": "PassContextClick",
+        "Type": "boolean",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      }
+    }
+  },
+  {
+    "id": "RichMediaSettings",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaSettings]"
+      },
+      "Activation": {
+        "Key": "Activation",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaActivation]"
+      },
+      "Deactivation": {
+        "Key": "Deactivation",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaDeactivation]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaWidth",
+    "keys": {
+      "Default": {
+        "Key": "Default",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "288",
+        "PossibleValues": "[fn:Eval(@Default>0)]"
+      },
+      "Max": {
+        "Key": "Max",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "576",
+        "PossibleValues": "[fn:Eval(@Max>0)]"
+      },
+      "Min": {
+        "Key": "Min",
+        "Type": "integer",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "72",
+        "PossibleValues": "[fn:Eval(@Min>0)]"
+      }
+    }
+  },
+  {
+    "id": "RichMediaWindow",
+    "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[RichMediaWindow]"
+      },
+      "Width": {
+        "Key": "Width",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaWidth]"
+      },
+      "Height": {
+        "Key": "Height",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaHeight]"
+      },
+      "Position": {
+        "Key": "Position",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaPosition]"
       }
     }
   },
@@ -23979,6 +27227,15 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfStringsText]"
+      },
+      "P": {
+        "Key": "P",
+        "Type": "number",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[1,2,3]"
       }
     }
   },
@@ -24001,7 +27258,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "0"
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval(fn:BeforeVersion(2.0,fn:BitsClear(8,32)) && fn:BitsClear(10,32))]"
       },
       "Filter": {
         "Key": "Filter",
@@ -24086,6 +27344,23 @@
       "AddRevInfo": {
         "Key": "AddRevInfo",
         "Type": "boolean",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "LockDocument": {
+        "Key": "LockDocument",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[true,false,auto]"
+      },
+      "AppearanceFilter": {
+        "Key": "AppearanceFilter",
+        "Type": "string-text",
         "SinceVersion": 1.7,
         "Required": false,
         "IndirectReference": false,
@@ -24257,6 +27532,283 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "SignatureBuildDataAppDict",
+    "keys": {
+      "Name": {
+        "Key": "Name",
+        "Type": "name",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Date": {
+        "Key": "Date",
+        "Type": "string-text",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "R": {
+        "Key": "R",
+        "Type": "number",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "PreRelease": {
+        "Key": "PreRelease",
+        "Type": "boolean",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      },
+      "OS": {
+        "Key": "OS",
+        "Type": "array",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfStringsText]"
+      },
+      "NonEFontNoWarn": {
+        "Key": "NonEFontNoWarn",
+        "Type": "boolean",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "TrustedMode": {
+        "Key": "TrustedMode",
+        "Type": "boolean",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "number",
+        "SinceVersion": 1.5,
+        "DeprecatedIn": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "REx": {
+        "Key": "REx",
+        "Type": "string-text",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "SignatureBuildDataDict",
+    "keys": {
+      "Name": {
+        "Key": "Name",
+        "Type": "name",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Date": {
+        "Key": "Date",
+        "Type": "string-text",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "R": {
+        "Key": "R",
+        "Type": "number",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "PreRelease": {
+        "Key": "PreRelease",
+        "Type": "boolean",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      },
+      "OS": {
+        "Key": "OS",
+        "Type": "array",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfStringsText]"
+      },
+      "NonEFontNoWarn": {
+        "Key": "NonEFontNoWarn",
+        "Type": "boolean",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "TrustedMode": {
+        "Key": "TrustedMode",
+        "Type": "boolean",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "number",
+        "SinceVersion": 1.5,
+        "DeprecatedIn": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "SignatureBuildDataSigQDict",
+    "keys": {
+      "Name": {
+        "Key": "Name",
+        "Type": "name",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Date": {
+        "Key": "Date",
+        "Type": "string-text",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "R": {
+        "Key": "R",
+        "Type": "number",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "PreRelease": {
+        "Key": "PreRelease",
+        "Type": "boolean",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      },
+      "OS": {
+        "Key": "OS",
+        "Type": "array",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfStringsText]"
+      },
+      "NonEFontNoWarn": {
+        "Key": "NonEFontNoWarn",
+        "Type": "boolean",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "TrustedMode": {
+        "Key": "TrustedMode",
+        "Type": "boolean",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "number",
+        "SinceVersion": 1.5,
+        "DeprecatedIn": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "Preview": {
+        "Key": "Preview",
+        "Type": "boolean",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
+      }
+    }
+  },
+  {
+    "id": "SignatureBuildPropDict",
+    "keys": {
+      "Filter": {
+        "Key": "Filter",
+        "Type": "dictionary",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "Link": "[SignatureBuildDataDict]"
+      },
+      "PubSec": {
+        "Key": "PubSec",
+        "Type": "dictionary",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "Link": "[SignatureBuildDataDict]"
+      },
+      "App": {
+        "Key": "App",
+        "Type": "dictionary",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "Link": "[SignatureBuildDataAppDict]"
+      },
+      "SigQ": {
+        "Key": "SigQ",
+        "Type": "dictionary",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "Link": "[SignatureBuildDataSigQDict]"
       }
     }
   },
@@ -24495,7 +28047,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalDictionary]"
+        "Link": "[XObjectImage,EmbeddedFileStream]"
       },
       "StartResource": {
         "Key": "StartResource",
@@ -24504,7 +28056,8 @@
         "DeprecatedIn": 2.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:InMap(Resources)]"
       }
     }
   },
@@ -24537,6 +28090,16 @@
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[XObjectFormType1]"
+      },
+      "BC": {
+        "Key": "BC",
+        "Type": "array",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Ignore()]",
+        "Link": "[ArrayOfNumbersGeneral]"
       },
       "TR": {
         "Key": "TR",
@@ -24579,6 +28142,7 @@
         "Required": true,
         "IndirectReference": true,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval((G::Group::@S==Transparency) && fn:IsPresent(G::Group::CS))]",
         "Link": "[XObjectFormType1]"
       },
       "BC": {
@@ -24676,6 +28240,15 @@
   {
     "id": "Solidities",
     "keys": {
+      "Default": {
+        "Key": "Default",
+        "Type": "number",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Eval((@Default>=0) && (@Default<=1))]"
+      },
       "*": {
         "Key": "*",
         "Type": "number",
@@ -24683,7 +28256,6 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "0",
         "PossibleValues": "[fn:Eval((@*>=0) && (@*<=1))]"
       }
     }
@@ -24869,7 +28441,8 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "PossibleValues": "[0,1,2]"
+        "PossibleValues": "[0,1,2]",
+        "SpecialCase": "[fn:Eval(parent::@S==SPS)]"
       },
       "C": {
         "Key": "C",
@@ -24878,6 +28451,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(parent::@S==SPS)]",
         "Link": "[WebCaptureCommand]"
       }
     }
@@ -24901,7 +28475,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[Pagination,Layout,Page]"
+        "PossibleValues": "[Pagination,Layout,Page,fn:Extension(ADBE_Extn3,BatesN)]"
       },
       "BBox": {
         "Key": "BBox",
@@ -24929,6 +28503,16 @@
         "Inheritable": false,
         "PossibleValues": "[Header,Footer,Watermark]",
         "SpecialCase": "[fn:IsMeaningful((@Type==Pagination) || (@Type==Inline))]"
+      },
+      "Contents": {
+        "Key": "Contents",
+        "Type": "array;string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfStringsText];[]"
       }
     }
   },
@@ -25976,7 +29560,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval((@A>=0) && (@A<fn:ArrayLength(fn:PageProperty(@P,Annots))))];[fn:Eval(@A==fn:PageProperty(@P,Annots::NM))]"
+        "PossibleValues": "[fn:Eval((@A>=0) && (@A<fn:ArrayLength(fn:PageProperty(@P,Annots))))];[fn:Eval(@A==fn:PageProperty(@P,Annots::@NM))]"
       },
       "T": {
         "Key": "T",
@@ -26298,6 +29882,30 @@
     }
   },
   {
+    "id": "TrapRegion",
+    "keys": {
+      "TP": {
+        "Key": "TP",
+        "Type": "name",
+        "SinceVersion": 1.3,
+        "DeprecatedIn": 2.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false
+      },
+      "TZ": {
+        "Key": "TZ",
+        "Type": "array",
+        "SinceVersion": 1.3,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOf_ArrayOfNumbers]"
+      }
+    }
+  },
+  {
     "id": "URI",
     "keys": {
       "Base": {
@@ -26328,6 +29936,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(C)>=1)]",
         "Link": "[ArrayOfArraysURLStrings]"
       }
     }
@@ -26564,6 +30173,29 @@
     }
   },
   {
+    "id": "ViewParams",
+    "keys": {
+      "Instance": {
+        "Key": "Instance",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[RichMediaInstance]"
+      },
+      "Data": {
+        "Key": "Data",
+        "Type": "stream;string-text",
+        "SinceVersion": 1.7,
+        "Required": true,
+        "IndirectReference": "[true];[false]",
+        "Inheritable": false,
+        "Link": "[Stream];[]"
+      }
+    }
+  },
+  {
     "id": "ViewerPreferences",
     "keys": {
       "HideToolbar": {
@@ -26731,7 +30363,17 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "fn:ImplementationDependent()"
+        "DefaultValue": "fn:ImplementationDependent()",
+        "PossibleValues": "[fn:Eval(@NumCopies>0)]"
+      },
+      "Enforce": {
+        "Key": "Enforce",
+        "Type": "array",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfNamesForEnforce]"
       }
     }
   },
@@ -26824,16 +30466,18 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "1"
+        "DefaultValue": "1",
+        "SpecialCase": "[fn:Eval(@L>=1)]"
       },
       "F": {
         "Key": "F",
-        "Type": "integer",
+        "Type": "bitmask",
         "SinceVersion": 1.3,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "0"
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval(fn:BitsClear(4,32))]"
       },
       "P": {
         "Key": "P",
@@ -26850,7 +30494,8 @@
         "SinceVersion": 1.3,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "DefaultValue": "'application/x-www-form-urlencoded'"
       },
       "H": {
         "Key": "H",
@@ -26930,7 +30575,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfWebCaptureImages]"
       },
       "SI": {
         "Key": "SI",
@@ -26964,6 +30609,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(O)==fn:ArrayLength(R))];[fn:Eval(@R>0)]",
         "Link": "[ArrayOfIntegersGeneral];[]"
       }
     }
@@ -26978,7 +30624,8 @@
         "DeprecatedIn": 2.0,
         "Required": true,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[1]"
       },
       "C": {
         "Key": "C",
@@ -27028,7 +30675,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfWebCapturePages]"
       },
       "SI": {
         "Key": "SI",
@@ -27499,6 +31146,24 @@
         "IndirectReference": false,
         "Inheritable": false
       },
+      "Measure": {
+        "Key": "Measure",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[MeasureRL,MeasureGEO]"
+      },
+      "PtData": {
+        "Key": "PtData",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[PointData]"
+      },
       "Length": {
         "Key": "Length",
         "Type": "integer",
@@ -27744,6 +31409,26 @@
         "IndirectReference": false,
         "Inheritable": false
       },
+      "Measure": {
+        "Key": "Measure",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[MeasureRL]"
+      },
+      "PtData": {
+        "Key": "PtData",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[PointData]"
+      },
       "Length": {
         "Key": "Length",
         "Type": "integer",
@@ -27847,7 +31532,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalArray]"
+        "Link": "[ArrayOfTrapRegions]"
       },
       "TrapStyles": {
         "Key": "TrapStyles",
@@ -28005,6 +31690,24 @@
         "Required": "fn:IsRequired(fn:BeforeVersion(1.3))",
         "IndirectReference": false,
         "Inheritable": false
+      },
+      "Measure": {
+        "Key": "Measure",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[MeasureRL,MeasureGEO]"
+      },
+      "PtData": {
+        "Key": "PtData",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[PointData]"
       },
       "Length": {
         "Key": "Length",
@@ -28304,6 +32007,24 @@
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
       },
+      "Measure": {
+        "Key": "Measure",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[MeasureRL,MeasureGEO]"
+      },
+      "PtData": {
+        "Key": "PtData",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[PointData]"
+      },
       "Length": {
         "Key": "Length",
         "Type": "integer",
@@ -28571,6 +32292,24 @@
         "Inheritable": false,
         "Link": "[OptContentGroup,OptContentMembership]"
       },
+      "Measure": {
+        "Key": "Measure",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[MeasureRL,MeasureGEO]"
+      },
+      "PtData": {
+        "Key": "PtData",
+        "Type": "dictionary",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[PointData]"
+      },
       "Length": {
         "Key": "Length",
         "Type": "integer",
@@ -28669,7 +32408,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:IsPresent(Matte) && (@Width==parent::@Width))]"
+        "SpecialCase": "[fn:Eval(fn:IsPresent(Matte,(@Width==parent::@Width)))]"
       },
       "Height": {
         "Key": "Height",
@@ -28678,7 +32417,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:IsPresent(Matte) && (@Height==parent::@Height))]"
+        "SpecialCase": "[fn:Eval(fn:IsPresent(Matte,(@Height==parent::@Height)))]"
       },
       "ColorSpace": {
         "Key": "ColorSpace",
@@ -28751,6 +32490,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Matte)>0)]",
         "Link": "[ArrayOfNumbersGeneral]"
       },
       "Metadata": {

@@ -1,0 +1,21 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE		[3DMeasure]			Table 326 and Table 329 angular measurement
+Subtype	name	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE		[AD3]			
+TRL	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+AP	array	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
+A1	array	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
+D1	array	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
+N1	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+A2	array	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
+D2	array	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
+N2	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+TP	array	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
+TX	array	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
+TY	array	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE				[ArrayOf_3Numbers]	
+TS	number	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	12				text point size
+C	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	[1 1 1]			[ArrayOf_3RGBNumbers]	
+V	number	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE					
+P	integer	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	3	[fn:Eval(@P>=0)]			precision digits
+UT	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+DR	boolean	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	true				
+S	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[AnnotProjection]	

@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.3	2.0	FALSE	FALSE	FALSE		[Annot]			
-Subtype	name	1.3	2.0	TRUE	FALSE	FALSE		[TrapNet]			clause 14.11.6
+Type	name	1.3	2.0	FALSE	FALSE	FALSE		[Annot]			Clause 12.5.6.21 and Table 403. NOT markup annot. 
+Subtype	name	1.3	2.0	TRUE	FALSE	FALSE		[TrapNet]			Clause 14.11.6
 Rect	rectangle	1.3	2.0	TRUE	FALSE	FALSE					
 Contents	string	1.3	2.0	FALSE	FALSE	FALSE					
 P	dictionary	1.3	2.0	FALSE	TRUE	FALSE				[PageObject]	
@@ -19,6 +19,6 @@ CA	number	2.0	2.0	FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && (@CA<=1.0))]
 BM	name	2.0	2.0	FALSE	FALSE	FALSE	Normal	[fn:Deprecated(1.4,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]			
 Lang	string	2.0	2.0	FALSE	FALSE	FALSE					
 LastModified	date	1.4	2.0	fn:IsRequired(fn:Not(fn:IsPresent(Version)) && fn:Not(fn:IsPresent(AnnotStates)))	FALSE	FALSE					
-Version	array	1.3	2.0	fn:IsRequired(fn:IsPresent(AnnotStates) && fn:Not(fn:IsPresent(LastModified)))	FALSE	FALSE				[_UniversalArray]	
+Version	array	1.3	2.0	fn:IsRequired(fn:IsPresent(AnnotStates) && fn:Not(fn:IsPresent(LastModified)))	FALSE	FALSE				[ArrayOfTrapNetVersionObjects]	
 AnnotStates	array	1.3	2.0	fn:IsRequired(fn:IsPresent(Version) && fn:Not(fn:IsPresent(LastModified)))	FALSE	FALSE				[ArrayOfAnnotStates]	
 FontFauxing	array	1.3	2.0	FALSE	FALSE	FALSE				[ArrayOfFonts]	

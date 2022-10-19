@@ -1,0 +1,5 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE		[RichMediaAnimation]			Table 337
+Subtype	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	None	[None,Linear,Oscillating]			
+PlayCount	integer	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	-1		[fn:Ignore(@Subtype==None)]		
+Speed	number	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	1	[fn:Eval(@Speed>0)]	[fn:Ignore(@Subtype==None)]		

@@ -204,6 +204,20 @@
             "name": "ArrayOfBeads map"
         },
         {
+            "id": "ArrayOfCIDGlyphMetricsW",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfCIDGlyphMetricsW map"
+        },
+        {
+            "id": "ArrayOfCIDGlyphMetricsW2",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfCIDGlyphMetricsW2 map"
+        },
+        {
             "id": "ArrayOfCompressionFilterNames",
             "val": 1,
             "group": "map",
@@ -300,6 +314,13 @@
             "group": "array",
             "desc": "5 elements",
             "name": "ArrayOfOPI13Color array"
+        },
+        {
+            "id": "ArrayOfOPI2Inks",
+            "val": 9,
+            "group": "array",
+            "desc": "3 elements",
+            "name": "ArrayOfOPI2Inks array"
         },
         {
             "id": "ArrayOfPageTreeNodeKids",
@@ -507,7 +528,7 @@
         },
         {
             "id": "ColorSpaceMap",
-            "val": 1,
+            "val": 9,
             "group": "map",
             "desc": "(unspecified)",
             "name": "ColorSpaceMap map"
@@ -3263,6 +3284,18 @@
             "name": "ArrayOfBeads::*"
         },
         {
+            "source": "ArrayOfCIDGlyphMetricsW2",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "ArrayOfCIDGlyphMetricsW2::*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfCIDGlyphMetricsW",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "ArrayOfCIDGlyphMetricsW::*",
+            "color": "red"
+        },
+        {
             "source": "ArrayOfDecodeParams",
             "target": "FilterLZWDecode",
             "name": "ArrayOfDecodeParams::*"
@@ -3732,6 +3765,21 @@
             "name": "ColorSpaceMap::*"
         },
         {
+            "source": "ColorSpaceMap",
+            "target": "CalGrayColorSpace",
+            "name": "ColorSpaceMap::DefaultGray"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "SeparationColorSpace",
+            "name": "ColorSpaceMap::DefaultGray"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "CalRGBColorSpace",
+            "name": "ColorSpaceMap::DefaultRGB"
+        },
+        {
             "source": "Dest0Array",
             "target": "PageObject",
             "name": "Dest0Array::0",
@@ -4105,12 +4153,12 @@
         },
         {
             "source": "FontCIDType0",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW",
             "name": "FontCIDType0::W"
         },
         {
             "source": "FontCIDType0",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW2",
             "name": "FontCIDType0::W2"
         },
         {
@@ -4143,12 +4191,12 @@
         },
         {
             "source": "FontCIDType2",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW",
             "name": "FontCIDType2::W"
         },
         {
             "source": "FontCIDType2",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW2",
             "name": "FontCIDType2::W2"
         },
         {
@@ -4813,13 +4861,14 @@
         },
         {
             "source": "OPIVersion20Dict",
-            "target": "_UniversalArray",
+            "target": "ArrayOfOPI2Inks",
             "name": "OPIVersion20Dict::Inks"
         },
         {
             "source": "OPIVersion20Dict",
             "target": "ArrayOf_2Numbers",
-            "name": "OPIVersion20Dict::Size"
+            "name": "OPIVersion20Dict::Size",
+            "color": "red"
         },
         {
             "source": "OPIVersion20Dict",

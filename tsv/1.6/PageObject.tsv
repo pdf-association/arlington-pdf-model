@@ -29,5 +29,5 @@ TemplateInstantiated	name	1.5		fn:IsRequired(fn:InMap(trailer::Catalog::Names::P
 PresSteps	dictionary	1.5		FALSE	FALSE	FALSE				[NavNode]	
 UserUnit	number	1.6		FALSE	FALSE	FALSE	1.0				
 VP	array	1.6		FALSE	FALSE	FALSE				[ArrayOfViewports]	
-DPart	dictionary	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		FALSE	FALSE	FALSE				[DPart]	
+DPart	dictionary	fn:Extension(PDF_VT2,1.6)		FALSE	FALSE	FALSE				[DPart]	
 Hid	boolean	1.1	1.3	FALSE	FALSE	TRUE	false				

@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.3		TRUE	FALSE	FALSE		[DocTimeStamp]			
+Type	name	1.3		TRUE	FALSE	FALSE		[DocTimeStamp]			Table 255
 Filter	name	1.3		TRUE	FALSE	FALSE					Inheritable from Parent
 SubFilter	name	1.3		FALSE	FALSE	FALSE		[ETSI.RFC3161]			
 Contents	string-byte	1.3		TRUE	FALSE	FALSE					
@@ -14,6 +14,7 @@ Reason	string	1.3		FALSE	FALSE	FALSE
 ContactInfo	string	1.3		FALSE	FALSE	FALSE					
 R	integer	1.3		FALSE	FALSE	FALSE					
 V	integer	1.5		FALSE	FALSE	FALSE	0				
-Prop_Build	dictionary	1.5		FALSE	FALSE	FALSE				[_UniversalDictionary]	
+Prop_Build	dictionary	1.5		FALSE	FALSE	FALSE				[SignatureBuildPropDict]	
 Prop_AuthTime	integer	1.5		FALSE	FALSE	FALSE					
 Prop_AuthType	name	1.5		FALSE	FALSE	FALSE					
+ADBE_Build	string	1.3	1.5	FALSE	FALSE	FALSE					Adobe "Digital Signature Build Dictionary Specification"

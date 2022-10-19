@@ -2,9 +2,9 @@
     "nodes": [
         {
             "id": "3DActivation",
-            "val": 36,
+            "val": 81,
             "group": "dict",
-            "desc": "6 keys",
+            "desc": "9 keys",
             "name": "3DActivation dict"
         },
         {
@@ -36,6 +36,41 @@
             "name": "3DLightingScheme dict"
         },
         {
+            "id": "3DMeasure3DC",
+            "val": 121,
+            "group": "dict",
+            "desc": "11 keys",
+            "name": "3DMeasure3DC dict"
+        },
+        {
+            "id": "3DMeasureAD3",
+            "val": 400,
+            "group": "dict",
+            "desc": "20 keys",
+            "name": "3DMeasureAD3 dict"
+        },
+        {
+            "id": "3DMeasureLD3",
+            "val": 289,
+            "group": "dict",
+            "desc": "17 keys",
+            "name": "3DMeasureLD3 dict"
+        },
+        {
+            "id": "3DMeasurePD3",
+            "val": 324,
+            "group": "dict",
+            "desc": "18 keys",
+            "name": "3DMeasurePD3 dict"
+        },
+        {
+            "id": "3DMeasureRD3",
+            "val": 484,
+            "group": "dict",
+            "desc": "22 keys",
+            "name": "3DMeasureRD3 dict"
+        },
+        {
             "id": "3DNode",
             "val": 25,
             "group": "dict",
@@ -64,11 +99,25 @@
             "name": "3DStream dict"
         },
         {
+            "id": "3DUnits",
+            "val": 81,
+            "group": "dict",
+            "desc": "9 keys",
+            "name": "3DUnits dict"
+        },
+        {
             "id": "3DView",
             "val": 225,
             "group": "dict",
             "desc": "15 keys",
             "name": "3DView dict"
+        },
+        {
+            "id": "3DViewAddEntries",
+            "val": 4,
+            "group": "dict",
+            "desc": "2 keys",
+            "name": "3DViewAddEntries dict"
         },
         {
             "id": "AAPL_ST",
@@ -160,6 +209,13 @@
             "group": "dict",
             "desc": "5 keys",
             "name": "ActionResetForm dict"
+        },
+        {
+            "id": "ActionRichMediaExecute",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "ActionRichMediaExecute dict"
         },
         {
             "id": "ActionSetOCGState",
@@ -254,114 +310,128 @@
         },
         {
             "id": "AnnotCaret",
-            "val": 625,
+            "val": 676,
             "group": "dict",
-            "desc": "25 keys",
+            "desc": "26 keys",
             "name": "AnnotCaret dict"
         },
         {
             "id": "AnnotCircle",
-            "val": 729,
+            "val": 784,
             "group": "dict",
-            "desc": "27 keys",
+            "desc": "28 keys",
             "name": "AnnotCircle dict"
         },
         {
             "id": "AnnotFileAttachment",
-            "val": 625,
+            "val": 676,
             "group": "dict",
-            "desc": "25 keys",
+            "desc": "26 keys",
             "name": "AnnotFileAttachment dict"
         },
         {
             "id": "AnnotFreeText",
-            "val": 961,
+            "val": 1024,
             "group": "dict",
-            "desc": "31 keys",
+            "desc": "32 keys",
             "name": "AnnotFreeText dict"
         },
         {
             "id": "AnnotHighlight",
-            "val": 576,
+            "val": 625,
             "group": "dict",
-            "desc": "24 keys",
+            "desc": "25 keys",
             "name": "AnnotHighlight dict"
         },
         {
             "id": "AnnotInk",
-            "val": 625,
+            "val": 676,
             "group": "dict",
-            "desc": "25 keys",
+            "desc": "26 keys",
             "name": "AnnotInk dict"
         },
         {
             "id": "AnnotLine",
-            "val": 1156,
+            "val": 1225,
             "group": "dict",
-            "desc": "34 keys",
+            "desc": "35 keys",
             "name": "AnnotLine dict"
         },
         {
             "id": "AnnotLink",
-            "val": 441,
+            "val": 400,
             "group": "dict",
-            "desc": "21 keys",
+            "desc": "20 keys",
             "name": "AnnotLink dict"
         },
         {
             "id": "AnnotMovie",
-            "val": 324,
+            "val": 289,
             "group": "dict",
-            "desc": "18 keys",
+            "desc": "17 keys",
             "name": "AnnotMovie dict"
         },
         {
             "id": "AnnotPolyLine",
-            "val": 841,
+            "val": 900,
             "group": "dict",
-            "desc": "29 keys",
+            "desc": "30 keys",
             "name": "AnnotPolyLine dict"
         },
         {
             "id": "AnnotPolygon",
-            "val": 841,
+            "val": 900,
             "group": "dict",
-            "desc": "29 keys",
+            "desc": "30 keys",
             "name": "AnnotPolygon dict"
         },
         {
             "id": "AnnotPopup",
-            "val": 289,
+            "val": 256,
             "group": "dict",
-            "desc": "17 keys",
+            "desc": "16 keys",
             "name": "AnnotPopup dict"
         },
         {
             "id": "AnnotPrinterMark",
-            "val": 256,
+            "val": 225,
             "group": "dict",
-            "desc": "16 keys",
+            "desc": "15 keys",
             "name": "AnnotPrinterMark dict"
         },
         {
-            "id": "AnnotRedact",
-            "val": 900,
+            "id": "AnnotProjection",
+            "val": 576,
             "group": "dict",
-            "desc": "30 keys",
+            "desc": "24 keys",
+            "name": "AnnotProjection dict"
+        },
+        {
+            "id": "AnnotRedact",
+            "val": 961,
+            "group": "dict",
+            "desc": "31 keys",
             "name": "AnnotRedact dict"
         },
         {
-            "id": "AnnotScreen",
-            "val": 361,
+            "id": "AnnotRichMedia",
+            "val": 256,
             "group": "dict",
-            "desc": "19 keys",
+            "desc": "16 keys",
+            "name": "AnnotRichMedia dict"
+        },
+        {
+            "id": "AnnotScreen",
+            "val": 324,
+            "group": "dict",
+            "desc": "18 keys",
             "name": "AnnotScreen dict"
         },
         {
             "id": "AnnotSound",
-            "val": 625,
+            "val": 676,
             "group": "dict",
-            "desc": "25 keys",
+            "desc": "26 keys",
             "name": "AnnotSound dict"
         },
         {
@@ -373,30 +443,30 @@
         },
         {
             "id": "AnnotSquiggly",
-            "val": 576,
+            "val": 625,
             "group": "dict",
-            "desc": "24 keys",
+            "desc": "25 keys",
             "name": "AnnotSquiggly dict"
         },
         {
             "id": "AnnotStamp",
-            "val": 529,
+            "val": 576,
             "group": "dict",
-            "desc": "23 keys",
+            "desc": "24 keys",
             "name": "AnnotStamp dict"
         },
         {
             "id": "AnnotStrikeOut",
-            "val": 576,
+            "val": 625,
             "group": "dict",
-            "desc": "24 keys",
+            "desc": "25 keys",
             "name": "AnnotStrikeOut dict"
         },
         {
             "id": "AnnotText",
-            "val": 729,
+            "val": 784,
             "group": "dict",
-            "desc": "27 keys",
+            "desc": "28 keys",
             "name": "AnnotText dict"
         },
         {
@@ -408,16 +478,16 @@
         },
         {
             "id": "AnnotUnderline",
-            "val": 576,
+            "val": 625,
             "group": "dict",
-            "desc": "24 keys",
+            "desc": "25 keys",
             "name": "AnnotUnderline dict"
         },
         {
             "id": "AnnotWatermark",
-            "val": 256,
+            "val": 225,
             "group": "dict",
-            "desc": "16 keys",
+            "desc": "15 keys",
             "name": "AnnotWatermark dict"
         },
         {
@@ -505,6 +575,13 @@
             "name": "ArrayOf3DView map"
         },
         {
+            "id": "ArrayOf3PDUNames",
+            "val": 9,
+            "group": "array",
+            "desc": "3 elements",
+            "name": "ArrayOf3PDUNames array"
+        },
+        {
             "id": "ArrayOf4Functions",
             "val": 16,
             "group": "array",
@@ -561,6 +638,13 @@
             "name": "ArrayOfArraysURLStrings map"
         },
         {
+            "id": "ArrayOfArraysXPTSValues",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfArraysXPTSValues map"
+        },
+        {
             "id": "ArrayOfAttributeObjects",
             "val": 1,
             "group": "map",
@@ -594,6 +678,20 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfBooleansGeneral map"
+        },
+        {
+            "id": "ArrayOfCIDGlyphMetricsW",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfCIDGlyphMetricsW map"
+        },
+        {
+            "id": "ArrayOfCIDGlyphMetricsW2",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfCIDGlyphMetricsW2 map"
         },
         {
             "id": "ArrayOfClassNamesRevisions",
@@ -729,6 +827,13 @@
             "name": "ArrayOfImageAlternates map"
         },
         {
+            "id": "ArrayOfIndirectFileSpecifications",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfIndirectFileSpecifications map"
+        },
+        {
             "id": "ArrayOfInkList",
             "val": 1,
             "group": "map",
@@ -757,6 +862,13 @@
             "name": "ArrayOfMultiLangText map"
         },
         {
+            "id": "ArrayOfNamesForEnforce",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfNamesForEnforce map"
+        },
+        {
             "id": "ArrayOfNamesForPrintingOrder",
             "val": 1,
             "group": "map",
@@ -776,6 +888,13 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfNamesGeneral map"
+        },
+        {
+            "id": "ArrayOfNamesInPtData",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfNamesInPtData map"
         },
         {
             "id": "ArrayOfNonNegativeIntegersGeneral",
@@ -841,6 +960,13 @@
             "name": "ArrayOfOPI13Color array"
         },
         {
+            "id": "ArrayOfOPI2Inks",
+            "val": 9,
+            "group": "array",
+            "desc": "3 elements",
+            "name": "ArrayOfOPI2Inks array"
+        },
+        {
             "id": "ArrayOfOptContentGroups",
             "val": 1,
             "group": "map",
@@ -902,6 +1028,27 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfRequirementsHandlers map"
+        },
+        {
+            "id": "ArrayOfRichMediaConfiguration",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfRichMediaConfiguration map"
+        },
+        {
+            "id": "ArrayOfRichMediaCuePoints",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfRichMediaCuePoints map"
+        },
+        {
+            "id": "ArrayOfRichMediaInstances",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfRichMediaInstances map"
         },
         {
             "id": "ArrayOfSignatureReferences",
@@ -995,6 +1142,20 @@
             "name": "ArrayOfThreads map"
         },
         {
+            "id": "ArrayOfTrapNetVersionObjects",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfTrapNetVersionObjects map"
+        },
+        {
+            "id": "ArrayOfTrapRegions",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfTrapRegions map"
+        },
+        {
             "id": "ArrayOfURLStrings",
             "val": 1,
             "group": "map",
@@ -1016,6 +1177,13 @@
             "name": "ArrayOfVersions map"
         },
         {
+            "id": "ArrayOfViewParams",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfViewParams map"
+        },
+        {
             "id": "ArrayOfViewports",
             "val": 1,
             "group": "map",
@@ -1030,11 +1198,32 @@
             "name": "ArrayOfWebCaptureCommands map"
         },
         {
+            "id": "ArrayOfWebCaptureImages",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfWebCaptureImages map"
+        },
+        {
+            "id": "ArrayOfWebCapturePages",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfWebCapturePages map"
+        },
+        {
             "id": "ArrayOfXFA",
             "val": 4,
             "group": "array",
             "desc": "2 elements",
             "name": "ArrayOfXFA array"
+        },
+        {
+            "id": "ArrayOfXPTSValues",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfXPTSValues map"
         },
         {
             "id": "ArrayOfXRefWIntegers",
@@ -1112,6 +1301,13 @@
             "group": "array",
             "desc": "3 elements",
             "name": "ArrayOf_3Integers array"
+        },
+        {
+            "id": "ArrayOf_3Numbers",
+            "val": 9,
+            "group": "array",
+            "desc": "3 elements",
+            "name": "ArrayOf_3Numbers array"
         },
         {
             "id": "ArrayOf_3OrientationNumbers",
@@ -1217,6 +1413,13 @@
             "group": "array",
             "desc": "9 elements",
             "name": "ArrayOf_9Numbers array"
+        },
+        {
+            "id": "ArrayOf_ArrayOfNumbers",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOf_ArrayOfNumbers map"
         },
         {
             "id": "Bead",
@@ -1347,10 +1550,17 @@
         },
         {
             "id": "Collection",
+            "val": 100,
+            "group": "dict",
+            "desc": "10 keys",
+            "name": "Collection dict"
+        },
+        {
+            "id": "CollectionColors",
             "val": 25,
             "group": "dict",
             "desc": "5 keys",
-            "name": "Collection dict"
+            "name": "CollectionColors dict"
         },
         {
             "id": "CollectionField",
@@ -1358,6 +1568,13 @@
             "group": "dict",
             "desc": "6 keys",
             "name": "CollectionField dict"
+        },
+        {
+            "id": "CollectionFolder",
+            "val": 144,
+            "group": "dict",
+            "desc": "12 keys",
+            "name": "CollectionFolder dict"
         },
         {
             "id": "CollectionItem",
@@ -1381,6 +1598,13 @@
             "name": "CollectionSort dict"
         },
         {
+            "id": "CollectionSplit",
+            "val": 4,
+            "group": "dict",
+            "desc": "2 keys",
+            "name": "CollectionSplit dict"
+        },
+        {
             "id": "CollectionSubitem",
             "val": 9,
             "group": "dict",
@@ -1389,7 +1613,7 @@
         },
         {
             "id": "ColorSpaceMap",
-            "val": 1,
+            "val": 16,
             "group": "map",
             "desc": "(unspecified)",
             "name": "ColorSpaceMap map"
@@ -1536,7 +1760,7 @@
         },
         {
             "id": "DictionaryOfFunctions",
-            "val": 1,
+            "val": 4,
             "group": "map",
             "desc": "(unspecified)",
             "name": "DictionaryOfFunctions map"
@@ -1557,9 +1781,9 @@
         },
         {
             "id": "DocTimeStamp",
-            "val": 324,
+            "val": 361,
             "group": "dict",
-            "desc": "18 keys",
+            "desc": "19 keys",
             "name": "DocTimeStamp dict"
         },
         {
@@ -1603,6 +1827,20 @@
             "group": "dict",
             "desc": "5 keys",
             "name": "ExData3DMarkup dict"
+        },
+        {
+            "id": "ExDataMarkupGeo",
+            "val": 4,
+            "group": "dict",
+            "desc": "2 keys",
+            "name": "ExDataMarkupGeo dict"
+        },
+        {
+            "id": "ExDataProjection",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "ExDataProjection dict"
         },
         {
             "id": "Extensions",
@@ -1921,6 +2159,13 @@
             "name": "GammaArray array"
         },
         {
+            "id": "GeographicCoordinateSystem",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "GeographicCoordinateSystem dict"
+        },
+        {
             "id": "GraphicsStateParameter",
             "val": 900,
             "group": "dict",
@@ -2073,6 +2318,13 @@
             "group": "dict",
             "desc": "5 keys",
             "name": "MarkedContentReference dict"
+        },
+        {
+            "id": "MeasureGEO",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "MeasureGEO dict"
         },
         {
             "id": "MeasureRL",
@@ -2262,6 +2514,13 @@
             "group": "dict",
             "desc": "6 keys",
             "name": "NavNode dict"
+        },
+        {
+            "id": "Navigator",
+            "val": 169,
+            "group": "dict",
+            "desc": "13 keys",
+            "name": "Navigator dict"
         },
         {
             "id": "NumberFormat",
@@ -2467,6 +2726,13 @@
             "name": "PageTreeNodeRoot dict"
         },
         {
+            "id": "PaperMetaData",
+            "val": 144,
+            "group": "dict",
+            "desc": "12 keys",
+            "name": "PaperMetaData dict"
+        },
+        {
             "id": "PatternColorSpace",
             "val": 4,
             "group": "array",
@@ -2500,6 +2766,20 @@
             "group": "dict",
             "desc": "2 keys",
             "name": "Permissions dict"
+        },
+        {
+            "id": "PointData",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "PointData dict"
+        },
+        {
+            "id": "ProjectedCoordinateSystem",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "ProjectedCoordinateSystem dict"
         },
         {
             "id": "Projection",
@@ -2570,6 +2850,118 @@
             "group": "dict",
             "desc": "8 keys",
             "name": "Resource dict"
+        },
+        {
+            "id": "RichMediaActivation",
+            "val": 49,
+            "group": "dict",
+            "desc": "7 keys",
+            "name": "RichMediaActivation dict"
+        },
+        {
+            "id": "RichMediaAnimation",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "RichMediaAnimation dict"
+        },
+        {
+            "id": "RichMediaCommand",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "RichMediaCommand dict"
+        },
+        {
+            "id": "RichMediaCommandArray",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "RichMediaCommandArray map"
+        },
+        {
+            "id": "RichMediaConfiguration",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "RichMediaConfiguration dict"
+        },
+        {
+            "id": "RichMediaContent",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "RichMediaContent dict"
+        },
+        {
+            "id": "RichMediaCuePoint",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "RichMediaCuePoint dict"
+        },
+        {
+            "id": "RichMediaDeactivation",
+            "val": 4,
+            "group": "dict",
+            "desc": "2 keys",
+            "name": "RichMediaDeactivation dict"
+        },
+        {
+            "id": "RichMediaHeight",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "RichMediaHeight dict"
+        },
+        {
+            "id": "RichMediaInstance",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "RichMediaInstance dict"
+        },
+        {
+            "id": "RichMediaParams",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "RichMediaParams dict"
+        },
+        {
+            "id": "RichMediaPosition",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "RichMediaPosition dict"
+        },
+        {
+            "id": "RichMediaPresentation",
+            "val": 49,
+            "group": "dict",
+            "desc": "7 keys",
+            "name": "RichMediaPresentation dict"
+        },
+        {
+            "id": "RichMediaSettings",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "RichMediaSettings dict"
+        },
+        {
+            "id": "RichMediaWidth",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "RichMediaWidth dict"
+        },
+        {
+            "id": "RichMediaWindow",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "RichMediaWindow dict"
         },
         {
             "id": "RoleMap",
@@ -2650,16 +3042,16 @@
         },
         {
             "id": "SigFieldLock",
-            "val": 9,
+            "val": 16,
             "group": "dict",
-            "desc": "3 keys",
+            "desc": "4 keys",
             "name": "SigFieldLock dict"
         },
         {
             "id": "SigFieldSeedValue",
-            "val": 144,
+            "val": 196,
             "group": "dict",
-            "desc": "12 keys",
+            "desc": "14 keys",
             "name": "SigFieldSeedValue dict"
         },
         {
@@ -2668,6 +3060,34 @@
             "group": "dict",
             "desc": "18 keys",
             "name": "Signature dict"
+        },
+        {
+            "id": "SignatureBuildDataAppDict",
+            "val": 81,
+            "group": "dict",
+            "desc": "9 keys",
+            "name": "SignatureBuildDataAppDict dict"
+        },
+        {
+            "id": "SignatureBuildDataDict",
+            "val": 64,
+            "group": "dict",
+            "desc": "8 keys",
+            "name": "SignatureBuildDataDict dict"
+        },
+        {
+            "id": "SignatureBuildDataSigQDict",
+            "val": 81,
+            "group": "dict",
+            "desc": "9 keys",
+            "name": "SignatureBuildDataSigQDict dict"
+        },
+        {
+            "id": "SignatureBuildPropDict",
+            "val": 16,
+            "group": "dict",
+            "desc": "4 keys",
+            "name": "SignatureBuildPropDict dict"
         },
         {
             "id": "SignatureReferenceDocMDP",
@@ -2706,9 +3126,9 @@
         },
         {
             "id": "SoftMaskAlpha",
-            "val": 16,
+            "val": 25,
             "group": "dict",
-            "desc": "4 keys",
+            "desc": "5 keys",
             "name": "SoftMaskAlpha dict"
         },
         {
@@ -2727,7 +3147,7 @@
         },
         {
             "id": "Solidities",
-            "val": 1,
+            "val": 4,
             "group": "map",
             "desc": "(unspecified)",
             "name": "Solidities map"
@@ -2748,9 +3168,9 @@
         },
         {
             "id": "StandardArtifactAttributes",
-            "val": 25,
+            "val": 36,
             "group": "dict",
-            "desc": "5 keys",
+            "desc": "6 keys",
             "name": "StandardArtifactAttributes dict"
         },
         {
@@ -2873,6 +3293,13 @@
             "name": "Transition dict"
         },
         {
+            "id": "TrapRegion",
+            "val": 4,
+            "group": "dict",
+            "desc": "2 keys",
+            "name": "TrapRegion dict"
+        },
+        {
             "id": "URI",
             "val": 1,
             "group": "dict",
@@ -2943,10 +3370,17 @@
             "name": "UserProperty dict"
         },
         {
-            "id": "ViewerPreferences",
-            "val": 289,
+            "id": "ViewParams",
+            "val": 4,
             "group": "dict",
-            "desc": "17 keys",
+            "desc": "2 keys",
+            "name": "ViewParams dict"
+        },
+        {
+            "id": "ViewerPreferences",
+            "val": 324,
+            "group": "dict",
+            "desc": "18 keys",
             "name": "ViewerPreferences dict"
         },
         {
@@ -3021,37 +3455,37 @@
         },
         {
             "id": "XObjectFormPrinterMark",
-            "val": 625,
+            "val": 729,
             "group": "dict",
-            "desc": "25 keys",
+            "desc": "27 keys",
             "name": "XObjectFormPrinterMark dict"
         },
         {
             "id": "XObjectFormTrapNet",
-            "val": 729,
+            "val": 841,
             "group": "dict",
-            "desc": "27 keys",
+            "desc": "29 keys",
             "name": "XObjectFormTrapNet dict"
         },
         {
             "id": "XObjectFormType1",
-            "val": 784,
+            "val": 900,
             "group": "dict",
-            "desc": "28 keys",
+            "desc": "30 keys",
             "name": "XObjectFormType1 dict"
         },
         {
             "id": "XObjectImage",
-            "val": 961,
+            "val": 1089,
             "group": "dict",
-            "desc": "31 keys",
+            "desc": "33 keys",
             "name": "XObjectImage dict"
         },
         {
             "id": "XObjectImageMask",
-            "val": 625,
+            "val": 729,
             "group": "dict",
-            "desc": "25 keys",
+            "desc": "27 keys",
             "name": "XObjectImageMask dict"
         },
         {
@@ -3093,6 +3527,11 @@
     ],
     "links": [
         {
+            "source": "3DActivation",
+            "target": "RichMediaWindow",
+            "name": "3DActivation::Window"
+        },
+        {
             "source": "3DBackground",
             "target": "ArrayOf_3RGBNumbers",
             "name": "3DBackground::C"
@@ -3117,6 +3556,233 @@
             "source": "3DCrossSection",
             "target": "ArrayOf_4ColourSpaceEntries",
             "name": "3DCrossSection::PC"
+        },
+        {
+            "source": "3DMeasure3DC",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasure3DC::A1",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasure3DC",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "3DMeasure3DC::C"
+        },
+        {
+            "source": "3DMeasure3DC",
+            "target": "AnnotProjection",
+            "name": "3DMeasure3DC::S"
+        },
+        {
+            "source": "3DMeasure3DC",
+            "target": "ArrayOf_2Integers",
+            "name": "3DMeasure3DC::TB"
+        },
+        {
+            "source": "3DMeasure3DC",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasure3DC::TP",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureAD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureAD3::A1",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureAD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureAD3::A2",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureAD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureAD3::AP",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureAD3",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "3DMeasureAD3::C"
+        },
+        {
+            "source": "3DMeasureAD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureAD3::D1",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureAD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureAD3::D2",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureAD3",
+            "target": "AnnotProjection",
+            "name": "3DMeasureAD3::S"
+        },
+        {
+            "source": "3DMeasureAD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureAD3::TP",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureAD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureAD3::TX",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureAD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureAD3::TY",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureLD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureLD3::A1",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureLD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureLD3::A2",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureLD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureLD3::AP",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureLD3",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "3DMeasureLD3::C"
+        },
+        {
+            "source": "3DMeasureLD3",
+            "target": "AnnotProjection",
+            "name": "3DMeasureLD3::S"
+        },
+        {
+            "source": "3DMeasureLD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureLD3::TP",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureLD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureLD3::TY",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasurePD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasurePD3::A1",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasurePD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasurePD3::A2",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasurePD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasurePD3::AP",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasurePD3",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "3DMeasurePD3::C"
+        },
+        {
+            "source": "3DMeasurePD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasurePD3::D1",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasurePD3",
+            "target": "AnnotProjection",
+            "name": "3DMeasurePD3::S"
+        },
+        {
+            "source": "3DMeasurePD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasurePD3::TP",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasurePD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasurePD3::TY",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureRD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureRD3::A1",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureRD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureRD3::A2",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureRD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureRD3::A3"
+        },
+        {
+            "source": "3DMeasureRD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureRD3::A4"
+        },
+        {
+            "source": "3DMeasureRD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureRD3::AP",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureRD3",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "3DMeasureRD3::C"
+        },
+        {
+            "source": "3DMeasureRD3",
+            "target": "AnnotProjection",
+            "name": "3DMeasureRD3::S"
+        },
+        {
+            "source": "3DMeasureRD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureRD3::TP",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureRD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureRD3::TX",
+            "color": "red"
+        },
+        {
+            "source": "3DMeasureRD3",
+            "target": "ArrayOf_3Numbers",
+            "name": "3DMeasureRD3::TY",
+            "color": "red"
         },
         {
             "source": "3DNode",
@@ -3265,6 +3931,16 @@
             "target": "ArrayOfStringsText",
             "name": "3DView::U3DPath",
             "color": "red"
+        },
+        {
+            "source": "3DViewAddEntries",
+            "target": "ArrayOfViewParams",
+            "name": "3DViewAddEntries::Params"
+        },
+        {
+            "source": "3DViewAddEntries",
+            "target": "XObjectImage",
+            "name": "3DViewAddEntries::Snapshot"
         },
         {
             "source": "AAPL_ST",
@@ -4546,7 +5222,8 @@
         {
             "source": "ActionRendition",
             "target": "AnnotScreen",
-            "name": "ActionRendition::AN"
+            "name": "ActionRendition::AN",
+            "color": "red"
         },
         {
             "source": "ActionRendition",
@@ -4651,12 +5328,14 @@
         {
             "source": "ActionRendition",
             "target": "RenditionSelector",
-            "name": "ActionRendition::R"
+            "name": "ActionRendition::R",
+            "color": "red"
         },
         {
             "source": "ActionRendition",
             "target": "RenditionMedia",
-            "name": "ActionRendition::R"
+            "name": "ActionRendition::R",
+            "color": "red"
         },
         {
             "source": "ActionResetForm",
@@ -4757,6 +5436,123 @@
             "source": "ActionResetForm",
             "target": "ActionECMAScript",
             "name": "ActionResetForm::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "RichMediaCommand",
+            "name": "ActionRichMediaExecute::CMD",
+            "color": "red"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ArrayOfActions",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionGoTo",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionGoToR",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionGoToE",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionLaunch",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionThread",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionURI",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionSound",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionMovie",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionHide",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionNamed",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionSubmitForm",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionResetForm",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionImportData",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionSetOCGState",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionRendition",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionTransition",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionGoTo3DView",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionECMAScript",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "ActionRichMediaExecute",
+            "name": "ActionRichMediaExecute::Next"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "AnnotRichMedia",
+            "name": "ActionRichMediaExecute::TA",
+            "color": "red"
+        },
+        {
+            "source": "ActionRichMediaExecute",
+            "target": "RichMediaInstance",
+            "name": "ActionRichMediaExecute::TI"
         },
         {
             "source": "ActionSetOCGState",
@@ -7158,6 +7954,11 @@
         },
         {
             "source": "Annot3D",
+            "target": "3DUnits",
+            "name": "Annot3D::3DU"
+        },
+        {
+            "source": "Annot3D",
             "target": "3DView",
             "name": "Annot3D::3DV"
         },
@@ -7176,11 +7977,6 @@
             "source": "Annot3D",
             "target": "ArrayOf_4NumbersColorAnnotation",
             "name": "Annot3D::C"
-        },
-        {
-            "source": "Annot3D",
-            "target": "ExData3DMarkup",
-            "name": "Annot3D::ExData"
         },
         {
             "source": "Annot3D",
@@ -7216,6 +8012,11 @@
         {
             "source": "AnnotCaret",
             "target": "ExData3DMarkup",
+            "name": "AnnotCaret::ExData"
+        },
+        {
+            "source": "AnnotCaret",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotCaret::ExData"
         },
         {
@@ -7420,6 +8221,11 @@
         },
         {
             "source": "AnnotCircle",
+            "target": "ExDataMarkupGeo",
+            "name": "AnnotCircle::ExData"
+        },
+        {
+            "source": "AnnotCircle",
             "target": "ArrayOf_4NumbersColorAnnotation",
             "name": "AnnotCircle::IC"
         },
@@ -7611,6 +8417,11 @@
         {
             "source": "AnnotFileAttachment",
             "target": "ExData3DMarkup",
+            "name": "AnnotFileAttachment::ExData"
+        },
+        {
+            "source": "AnnotFileAttachment",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotFileAttachment::ExData"
         },
         {
@@ -7826,6 +8637,11 @@
         },
         {
             "source": "AnnotFreeText",
+            "target": "ExDataMarkupGeo",
+            "name": "AnnotFreeText::ExData"
+        },
+        {
+            "source": "AnnotFreeText",
             "target": "AnnotText",
             "name": "AnnotFreeText::IRT",
             "color": "red"
@@ -8012,6 +8828,11 @@
         {
             "source": "AnnotHighlight",
             "target": "ExData3DMarkup",
+            "name": "AnnotHighlight::ExData"
+        },
+        {
+            "source": "AnnotHighlight",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotHighlight::ExData"
         },
         {
@@ -8213,6 +9034,11 @@
         {
             "source": "AnnotInk",
             "target": "ExData3DMarkup",
+            "name": "AnnotInk::ExData"
+        },
+        {
+            "source": "AnnotInk",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotInk::ExData"
         },
         {
@@ -8419,6 +9245,11 @@
         {
             "source": "AnnotLine",
             "target": "ExData3DMarkup",
+            "name": "AnnotLine::ExData"
+        },
+        {
+            "source": "AnnotLine",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotLine::ExData"
         },
         {
@@ -8743,11 +9574,6 @@
         },
         {
             "source": "AnnotLink",
-            "target": "ExData3DMarkup",
-            "name": "AnnotLink::ExData"
-        },
-        {
-            "source": "AnnotLink",
             "target": "OptContentGroup",
             "name": "AnnotLink::OC"
         },
@@ -8791,11 +9617,6 @@
             "source": "AnnotMovie",
             "target": "ArrayOf_4NumbersColorAnnotation",
             "name": "AnnotMovie::C"
-        },
-        {
-            "source": "AnnotMovie",
-            "target": "ExData3DMarkup",
-            "name": "AnnotMovie::ExData"
         },
         {
             "source": "AnnotMovie",
@@ -8847,6 +9668,11 @@
         {
             "source": "AnnotPolyLine",
             "target": "ExData3DMarkup",
+            "name": "AnnotPolyLine::ExData"
+        },
+        {
+            "source": "AnnotPolyLine",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotPolyLine::ExData"
         },
         {
@@ -9072,6 +9898,11 @@
         },
         {
             "source": "AnnotPolygon",
+            "target": "ExDataMarkupGeo",
+            "name": "AnnotPolygon::ExData"
+        },
+        {
+            "source": "AnnotPolygon",
             "target": "ArrayOf_4NumbersColorAnnotation",
             "name": "AnnotPolygon::IC"
         },
@@ -9277,11 +10108,6 @@
         },
         {
             "source": "AnnotPopup",
-            "target": "ExData3DMarkup",
-            "name": "AnnotPopup::ExData"
-        },
-        {
-            "source": "AnnotPopup",
             "target": "OptContentGroup",
             "name": "AnnotPopup::OC"
         },
@@ -9433,11 +10259,6 @@
         },
         {
             "source": "AnnotPrinterMark",
-            "target": "ExData3DMarkup",
-            "name": "AnnotPrinterMark::ExData"
-        },
-        {
-            "source": "AnnotPrinterMark",
             "target": "OptContentGroup",
             "name": "AnnotPrinterMark::OC"
         },
@@ -9450,6 +10271,217 @@
             "source": "AnnotPrinterMark",
             "target": "PageObject",
             "name": "AnnotPrinterMark::P"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "Appearance",
+            "name": "AnnotProjection::AP"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "ArrayOf_4AnnotBorderCharacteristics",
+            "name": "AnnotProjection::Border"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "ArrayOf_4NumbersColorAnnotation",
+            "name": "AnnotProjection::C"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "ExData3DMarkup",
+            "name": "AnnotProjection::ExData"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "ExDataMarkupGeo",
+            "name": "AnnotProjection::ExData"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "ExDataProjection",
+            "name": "AnnotProjection::ExData"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotText",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotLink",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotFreeText",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotLine",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotSquare",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotCircle",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotPolygon",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotHighlight",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotUnderline",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotSquiggly",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotStrikeOut",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotCaret",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotStamp",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotInk",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotPopup",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotFileAttachment",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotSound",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotMovie",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotScreen",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotWidget",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotPrinterMark",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotWatermark",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "Annot3D",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotRedact",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotProjection",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotRichMedia",
+            "name": "AnnotProjection::IRT",
+            "color": "red"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "OptContentGroup",
+            "name": "AnnotProjection::OC"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "OptContentMembership",
+            "name": "AnnotProjection::OC"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "PageObject",
+            "name": "AnnotProjection::P"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "AnnotPopup",
+            "name": "AnnotProjection::Popup"
+        },
+        {
+            "source": "AnnotProjection",
+            "target": "Stream",
+            "name": "AnnotProjection::RC"
         },
         {
             "source": "AnnotRedact",
@@ -9470,6 +10502,11 @@
         {
             "source": "AnnotRedact",
             "target": "ExData3DMarkup",
+            "name": "AnnotRedact::ExData"
+        },
+        {
+            "source": "AnnotRedact",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotRedact::ExData"
         },
         {
@@ -9657,6 +10694,48 @@
             "name": "AnnotRedact::RO"
         },
         {
+            "source": "AnnotRichMedia",
+            "target": "Appearance",
+            "name": "AnnotRichMedia::AP",
+            "color": "red"
+        },
+        {
+            "source": "AnnotRichMedia",
+            "target": "ArrayOf_4AnnotBorderCharacteristics",
+            "name": "AnnotRichMedia::Border"
+        },
+        {
+            "source": "AnnotRichMedia",
+            "target": "ArrayOf_4NumbersColorAnnotation",
+            "name": "AnnotRichMedia::C"
+        },
+        {
+            "source": "AnnotRichMedia",
+            "target": "OptContentGroup",
+            "name": "AnnotRichMedia::OC"
+        },
+        {
+            "source": "AnnotRichMedia",
+            "target": "OptContentMembership",
+            "name": "AnnotRichMedia::OC"
+        },
+        {
+            "source": "AnnotRichMedia",
+            "target": "PageObject",
+            "name": "AnnotRichMedia::P"
+        },
+        {
+            "source": "AnnotRichMedia",
+            "target": "RichMediaContent",
+            "name": "AnnotRichMedia::RichMediaContent",
+            "color": "red"
+        },
+        {
+            "source": "AnnotRichMedia",
+            "target": "RichMediaSettings",
+            "name": "AnnotRichMedia::RichMediaSettings"
+        },
+        {
             "source": "AnnotScreen",
             "target": "ActionGoTo",
             "name": "AnnotScreen::A"
@@ -9769,11 +10848,6 @@
         },
         {
             "source": "AnnotScreen",
-            "target": "ExData3DMarkup",
-            "name": "AnnotScreen::ExData"
-        },
-        {
-            "source": "AnnotScreen",
             "target": "AppearanceCharacteristics",
             "name": "AnnotScreen::MK"
         },
@@ -9811,6 +10885,11 @@
         {
             "source": "AnnotSound",
             "target": "ExData3DMarkup",
+            "name": "AnnotSound::ExData"
+        },
+        {
+            "source": "AnnotSound",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotSound::ExData"
         },
         {
@@ -10021,6 +11100,11 @@
         },
         {
             "source": "AnnotSquare",
+            "target": "ExDataMarkupGeo",
+            "name": "AnnotSquare::ExData"
+        },
+        {
+            "source": "AnnotSquare",
             "target": "ArrayOf_4NumbersColorAnnotation",
             "name": "AnnotSquare::IC"
         },
@@ -10212,6 +11296,11 @@
         {
             "source": "AnnotSquiggly",
             "target": "ExData3DMarkup",
+            "name": "AnnotSquiggly::ExData"
+        },
+        {
+            "source": "AnnotSquiggly",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotSquiggly::ExData"
         },
         {
@@ -10412,6 +11501,11 @@
         },
         {
             "source": "AnnotStamp",
+            "target": "ExDataMarkupGeo",
+            "name": "AnnotStamp::ExData"
+        },
+        {
+            "source": "AnnotStamp",
             "target": "AnnotText",
             "name": "AnnotStamp::IRT",
             "color": "red"
@@ -10598,6 +11692,11 @@
         {
             "source": "AnnotStrikeOut",
             "target": "ExData3DMarkup",
+            "name": "AnnotStrikeOut::ExData"
+        },
+        {
+            "source": "AnnotStrikeOut",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotStrikeOut::ExData"
         },
         {
@@ -10794,6 +11893,11 @@
         {
             "source": "AnnotText",
             "target": "ExData3DMarkup",
+            "name": "AnnotText::ExData"
+        },
+        {
+            "source": "AnnotText",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotText::ExData"
         },
         {
@@ -11009,7 +12113,7 @@
         },
         {
             "source": "AnnotTrapNetwork",
-            "target": "_UniversalArray",
+            "target": "ArrayOfTrapNetVersionObjects",
             "name": "AnnotTrapNetwork::Version",
             "color": "red"
         },
@@ -11032,6 +12136,11 @@
         {
             "source": "AnnotUnderline",
             "target": "ExData3DMarkup",
+            "name": "AnnotUnderline::ExData"
+        },
+        {
+            "source": "AnnotUnderline",
+            "target": "ExDataMarkupGeo",
             "name": "AnnotUnderline::ExData"
         },
         {
@@ -11227,11 +12336,6 @@
         },
         {
             "source": "AnnotWatermark",
-            "target": "ExData3DMarkup",
-            "name": "AnnotWatermark::ExData"
-        },
-        {
-            "source": "AnnotWatermark",
             "target": "FixedPrint",
             "name": "AnnotWatermark::FixedPrint"
         },
@@ -11368,11 +12472,6 @@
         },
         {
             "source": "AnnotWidget",
-            "target": "ExData3DMarkup",
-            "name": "AnnotWidget::ExData"
-        },
-        {
-            "source": "AnnotWidget",
             "target": "ArrayOfFields",
             "name": "AnnotWidget::Kids"
         },
@@ -11395,6 +12494,11 @@
             "source": "AnnotWidget",
             "target": "PageObject",
             "name": "AnnotWidget::P"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "PaperMetaData",
+            "name": "AnnotWidget::PMD"
         },
         {
             "source": "AnnotWidget",
@@ -12051,6 +13155,16 @@
             "name": "ArrayOfAnnots::*"
         },
         {
+            "source": "ArrayOfAnnots",
+            "target": "AnnotProjection",
+            "name": "ArrayOfAnnots::*"
+        },
+        {
+            "source": "ArrayOfAnnots",
+            "target": "AnnotRichMedia",
+            "name": "ArrayOfAnnots::*"
+        },
+        {
             "source": "ArrayOfArraysInkList",
             "target": "ArrayOfInkList",
             "name": "ArrayOfArraysInkList::*"
@@ -12064,6 +13178,11 @@
             "source": "ArrayOfArraysURLStrings",
             "target": "ArrayOfURLStrings",
             "name": "ArrayOfArraysURLStrings::*"
+        },
+        {
+            "source": "ArrayOfArraysXPTSValues",
+            "target": "ArrayOfXPTSValues",
+            "name": "ArrayOfArraysXPTSValues::*"
         },
         {
             "source": "ArrayOfAttributeObjects",
@@ -12179,6 +13298,18 @@
             "source": "ArrayOfBeads",
             "target": "Bead",
             "name": "ArrayOfBeads::*"
+        },
+        {
+            "source": "ArrayOfCIDGlyphMetricsW2",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "ArrayOfCIDGlyphMetricsW2::*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfCIDGlyphMetricsW",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "ArrayOfCIDGlyphMetricsW::*",
+            "color": "red"
         },
         {
             "source": "ArrayOfDPartArrays",
@@ -12414,6 +13545,11 @@
             "name": "ArrayOfImageAlternates::*"
         },
         {
+            "source": "ArrayOfIndirectFileSpecifications",
+            "target": "FileSpecification",
+            "name": "ArrayOfIndirectFileSpecifications::*"
+        },
+        {
             "source": "ArrayOfMediaPlayerInfo",
             "target": "MediaPlayerInfo",
             "name": "ArrayOfMediaPlayerInfo::*"
@@ -12514,6 +13650,21 @@
             "name": "ArrayOfRequirementsHandlers::*"
         },
         {
+            "source": "ArrayOfRichMediaConfiguration",
+            "target": "RichMediaConfiguration",
+            "name": "ArrayOfRichMediaConfiguration::*"
+        },
+        {
+            "source": "ArrayOfRichMediaCuePoints",
+            "target": "RichMediaCuePoint",
+            "name": "ArrayOfRichMediaCuePoints::*"
+        },
+        {
+            "source": "ArrayOfRichMediaInstances",
+            "target": "RichMediaInstance",
+            "name": "ArrayOfRichMediaInstances::*"
+        },
+        {
             "source": "ArrayOfSignatureReferences",
             "target": "SignatureReferenceDocMDP",
             "name": "ArrayOfSignatureReferences::*"
@@ -12579,9 +13730,179 @@
             "name": "ArrayOfThreads::*"
         },
         {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "CalGrayColorSpace",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "CalRGBColorSpace",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "LabColorSpace",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "ICCBasedColorSpace",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "IndexedColorSpace",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "SeparationColorSpace",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "DeviceNColorSpace",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "PatternColorSpace",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "OPIVersion13Dict",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "OPIVersion20Dict",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "GraphicsStateParameter",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "PatternType2",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "ShadingType1",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "ShadingType2",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "ShadingType3",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "XObjectFormType1",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "XObjectImage",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "XObjectFormPS",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "XObjectFormPSpassthrough",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "FontType1",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "FontTrueType",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "FontMultipleMaster",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "FontType3",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "FontType0",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "FontCIDType0",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "FontCIDType2",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "PatternType1",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "ShadingType4",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "ShadingType5",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "ShadingType6",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "ShadingType7",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapNetVersionObjects",
+            "target": "Stream",
+            "name": "ArrayOfTrapNetVersionObjects::*"
+        },
+        {
+            "source": "ArrayOfTrapRegions",
+            "target": "TrapRegion",
+            "name": "ArrayOfTrapRegions::*"
+        },
+        {
             "source": "ArrayOfUserProperty",
             "target": "UserProperty",
             "name": "ArrayOfUserProperty::*"
+        },
+        {
+            "source": "ArrayOfViewParams",
+            "target": "ViewParams",
+            "name": "ArrayOfViewParams::*"
         },
         {
             "source": "ArrayOfViewports",
@@ -12592,6 +13913,16 @@
             "source": "ArrayOfWebCaptureCommands",
             "target": "WebCaptureCommand",
             "name": "ArrayOfWebCaptureCommands::*"
+        },
+        {
+            "source": "ArrayOfWebCaptureImages",
+            "target": "XObjectImage",
+            "name": "ArrayOfWebCaptureImages::*"
+        },
+        {
+            "source": "ArrayOfWebCapturePages",
+            "target": "PageObject",
+            "name": "ArrayOfWebCapturePages::*"
         },
         {
             "source": "ArrayOfXFA",
@@ -12627,6 +13958,11 @@
             "target": "ArrayOf_3RGBNumbers",
             "name": "ArrayOf_4BorderColors::3",
             "color": "red"
+        },
+        {
+            "source": "ArrayOf_ArrayOfNumbers",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "ArrayOf_ArrayOfNumbers::*"
         },
         {
             "source": "Bead",
@@ -13152,6 +14488,27 @@
         },
         {
             "source": "Collection",
+            "target": "CollectionColors",
+            "name": "Collection::Colors"
+        },
+        {
+            "source": "Collection",
+            "target": "CollectionFolder",
+            "name": "Collection::Folders"
+        },
+        {
+            "source": "Collection",
+            "target": "Navigator",
+            "name": "Collection::Navigator",
+            "color": "red"
+        },
+        {
+            "source": "Collection",
+            "target": "Stream",
+            "name": "Collection::Resources"
+        },
+        {
+            "source": "Collection",
             "target": "CollectionSchema",
             "name": "Collection::Schema"
         },
@@ -13159,6 +14516,66 @@
             "source": "Collection",
             "target": "CollectionSort",
             "name": "Collection::Sort"
+        },
+        {
+            "source": "Collection",
+            "target": "CollectionSplit",
+            "name": "Collection::Split"
+        },
+        {
+            "source": "CollectionColors",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "CollectionColors::Background"
+        },
+        {
+            "source": "CollectionColors",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "CollectionColors::CardBackground"
+        },
+        {
+            "source": "CollectionColors",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "CollectionColors::CardBorder"
+        },
+        {
+            "source": "CollectionColors",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "CollectionColors::PrimaryText"
+        },
+        {
+            "source": "CollectionColors",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "CollectionColors::SecondaryText"
+        },
+        {
+            "source": "CollectionFolder",
+            "target": "CollectionItem",
+            "name": "CollectionFolder::CI"
+        },
+        {
+            "source": "CollectionFolder",
+            "target": "CollectionFolder",
+            "name": "CollectionFolder::Child"
+        },
+        {
+            "source": "CollectionFolder",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "CollectionFolder::Free"
+        },
+        {
+            "source": "CollectionFolder",
+            "target": "CollectionFolder",
+            "name": "CollectionFolder::Next"
+        },
+        {
+            "source": "CollectionFolder",
+            "target": "CollectionFolder",
+            "name": "CollectionFolder::Parent"
+        },
+        {
+            "source": "CollectionFolder",
+            "target": "Thumbnail",
+            "name": "CollectionFolder::Thumb"
         },
         {
             "source": "CollectionItem",
@@ -13222,6 +14639,51 @@
             "name": "ColorSpaceMap::*"
         },
         {
+            "source": "ColorSpaceMap",
+            "target": "ICCBasedColorSpace",
+            "name": "ColorSpaceMap::DefaultCMYK"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "DeviceNColorSpace",
+            "name": "ColorSpaceMap::DefaultCMYK"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "CalGrayColorSpace",
+            "name": "ColorSpaceMap::DefaultGray"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "ICCBasedColorSpace",
+            "name": "ColorSpaceMap::DefaultGray"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "SeparationColorSpace",
+            "name": "ColorSpaceMap::DefaultGray"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "DeviceNColorSpace",
+            "name": "ColorSpaceMap::DefaultGray"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "CalRGBColorSpace",
+            "name": "ColorSpaceMap::DefaultRGB"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "ICCBasedColorSpace",
+            "name": "ColorSpaceMap::DefaultRGB"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "DeviceNColorSpace",
+            "name": "ColorSpaceMap::DefaultRGB"
+        },
+        {
             "source": "ColorantsDict",
             "target": "SeparationColorSpace",
             "name": "ColorantsDict::*"
@@ -13270,11 +14732,6 @@
         {
             "source": "DPM",
             "target": "_UniversalDictionary",
-            "name": "DPM::*"
-        },
-        {
-            "source": "DPM",
-            "target": "Stream",
             "name": "DPM::*"
         },
         {
@@ -13573,6 +15030,26 @@
             "name": "DictionaryOfFunctions::*"
         },
         {
+            "source": "DictionaryOfFunctions",
+            "target": "FunctionType2",
+            "name": "DictionaryOfFunctions::Default"
+        },
+        {
+            "source": "DictionaryOfFunctions",
+            "target": "FunctionType3",
+            "name": "DictionaryOfFunctions::Default"
+        },
+        {
+            "source": "DictionaryOfFunctions",
+            "target": "FunctionType0",
+            "name": "DictionaryOfFunctions::Default"
+        },
+        {
+            "source": "DictionaryOfFunctions",
+            "target": "FunctionType4",
+            "name": "DictionaryOfFunctions::Default"
+        },
+        {
             "source": "DocTimeStamp",
             "target": "ArrayOfIntegersGeneral",
             "name": "DocTimeStamp::ByteRange"
@@ -13589,7 +15066,7 @@
         },
         {
             "source": "DocTimeStamp",
-            "target": "_UniversalDictionary",
+            "target": "SignatureBuildPropDict",
             "name": "DocTimeStamp::Prop_Build"
         },
         {
@@ -13729,6 +15206,36 @@
             "source": "ExData3DMarkup",
             "target": "3DView",
             "name": "ExData3DMarkup::3DV",
+            "color": "red"
+        },
+        {
+            "source": "ExDataProjection",
+            "target": "3DMeasure3DC",
+            "name": "ExDataProjection::M3DREF",
+            "color": "red"
+        },
+        {
+            "source": "ExDataProjection",
+            "target": "3DMeasureAD3",
+            "name": "ExDataProjection::M3DREF",
+            "color": "red"
+        },
+        {
+            "source": "ExDataProjection",
+            "target": "3DMeasureLD3",
+            "name": "ExDataProjection::M3DREF",
+            "color": "red"
+        },
+        {
+            "source": "ExDataProjection",
+            "target": "3DMeasurePD3",
+            "name": "ExDataProjection::M3DREF",
+            "color": "red"
+        },
+        {
+            "source": "ExDataProjection",
+            "target": "3DMeasureRD3",
+            "name": "ExDataProjection::M3DREF",
             "color": "red"
         },
         {
@@ -14280,12 +15787,12 @@
         },
         {
             "source": "FontCIDType0",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW",
             "name": "FontCIDType0::W"
         },
         {
             "source": "FontCIDType0",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW2",
             "name": "FontCIDType0::W2"
         },
         {
@@ -14318,12 +15825,12 @@
         },
         {
             "source": "FontCIDType2",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW",
             "name": "FontCIDType2::W"
         },
         {
             "source": "FontCIDType2",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW2",
             "name": "FontCIDType2::W2"
         },
         {
@@ -15823,6 +17330,49 @@
             "name": "MarkedContentReference::StmOwn"
         },
         {
+            "source": "MeasureGEO",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "MeasureGEO::Bounds"
+        },
+        {
+            "source": "MeasureGEO",
+            "target": "GeographicCoordinateSystem",
+            "name": "MeasureGEO::DCS"
+        },
+        {
+            "source": "MeasureGEO",
+            "target": "ProjectedCoordinateSystem",
+            "name": "MeasureGEO::DCS"
+        },
+        {
+            "source": "MeasureGEO",
+            "target": "GeographicCoordinateSystem",
+            "name": "MeasureGEO::GCS",
+            "color": "red"
+        },
+        {
+            "source": "MeasureGEO",
+            "target": "ProjectedCoordinateSystem",
+            "name": "MeasureGEO::GCS",
+            "color": "red"
+        },
+        {
+            "source": "MeasureGEO",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "MeasureGEO::GPTS",
+            "color": "red"
+        },
+        {
+            "source": "MeasureGEO",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "MeasureGEO::LPTS"
+        },
+        {
+            "source": "MeasureGEO",
+            "target": "ArrayOf3PDUNames",
+            "name": "MeasureGEO::PDU"
+        },
+        {
             "source": "MeasureRL",
             "target": "ArrayOfNumberFormats",
             "name": "MeasureRL::A",
@@ -16454,6 +18004,17 @@
             "name": "NavNode::Prev"
         },
         {
+            "source": "Navigator",
+            "target": "CollectionSchema",
+            "name": "Navigator::InitialFields"
+        },
+        {
+            "source": "Navigator",
+            "target": "Stream",
+            "name": "Navigator::Resources",
+            "color": "red"
+        },
+        {
             "source": "OPIVersion13",
             "target": "OPIVersion13Dict",
             "name": "OPIVersion13::1.3"
@@ -16522,13 +18083,14 @@
         },
         {
             "source": "OPIVersion20Dict",
-            "target": "_UniversalArray",
+            "target": "ArrayOfOPI2Inks",
             "name": "OPIVersion20Dict::Inks"
         },
         {
             "source": "OPIVersion20Dict",
             "target": "ArrayOf_2Numbers",
-            "name": "OPIVersion20Dict::Size"
+            "name": "OPIVersion20Dict::Size",
+            "color": "red"
         },
         {
             "source": "OPIVersion20Dict",
@@ -17219,6 +18781,18 @@
             "name": "Permissions::UR3"
         },
         {
+            "source": "PointData",
+            "target": "ArrayOfNamesInPtData",
+            "name": "PointData::Names",
+            "color": "red"
+        },
+        {
+            "source": "PointData",
+            "target": "ArrayOfArraysXPTSValues",
+            "name": "PointData::XPTS",
+            "color": "red"
+        },
+        {
             "source": "Reference",
             "target": "FileSpecification",
             "name": "Reference::F",
@@ -17341,6 +18915,232 @@
             "source": "Resource",
             "target": "XObjectMap",
             "name": "Resource::XObject"
+        },
+        {
+            "source": "RichMediaActivation",
+            "target": "RichMediaAnimation",
+            "name": "RichMediaActivation::Animation"
+        },
+        {
+            "source": "RichMediaActivation",
+            "target": "RichMediaConfiguration",
+            "name": "RichMediaActivation::Configuration"
+        },
+        {
+            "source": "RichMediaActivation",
+            "target": "RichMediaPresentation",
+            "name": "RichMediaActivation::Presentation"
+        },
+        {
+            "source": "RichMediaActivation",
+            "target": "ArrayOfIndirectFileSpecifications",
+            "name": "RichMediaActivation::Scripts"
+        },
+        {
+            "source": "RichMediaActivation",
+            "target": "3DView",
+            "name": "RichMediaActivation::View"
+        },
+        {
+            "source": "RichMediaActivation",
+            "target": "3DViewAddEntries",
+            "name": "RichMediaActivation::View"
+        },
+        {
+            "source": "RichMediaCommand",
+            "target": "RichMediaCommandArray",
+            "name": "RichMediaCommand::A"
+        },
+        {
+            "source": "RichMediaConfiguration",
+            "target": "ArrayOfRichMediaInstances",
+            "name": "RichMediaConfiguration::Instances"
+        },
+        {
+            "source": "RichMediaContent",
+            "target": "FileSpecification",
+            "name": "RichMediaContent::Assets"
+        },
+        {
+            "source": "RichMediaContent",
+            "target": "ArrayOfRichMediaConfiguration",
+            "name": "RichMediaContent::Configurations",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaContent",
+            "target": "ArrayOf3DView",
+            "name": "RichMediaContent::Views"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionGoTo",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionGoToR",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionGoToE",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionLaunch",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionThread",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionURI",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionSound",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionMovie",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionHide",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionNamed",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionSubmitForm",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionResetForm",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionImportData",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionSetOCGState",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionRendition",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionTransition",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionGoTo3DView",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionECMAScript",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaCuePoint",
+            "target": "ActionRichMediaExecute",
+            "name": "RichMediaCuePoint::A",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaInstance",
+            "target": "FileSpecification",
+            "name": "RichMediaInstance::Asset",
+            "color": "red"
+        },
+        {
+            "source": "RichMediaInstance",
+            "target": "RichMediaParams",
+            "name": "RichMediaInstance::Params"
+        },
+        {
+            "source": "RichMediaParams",
+            "target": "ArrayOfRichMediaCuePoints",
+            "name": "RichMediaParams::CuePoints"
+        },
+        {
+            "source": "RichMediaParams",
+            "target": "Stream",
+            "name": "RichMediaParams::FlashVars"
+        },
+        {
+            "source": "RichMediaParams",
+            "target": "Stream",
+            "name": "RichMediaParams::Seetings"
+        },
+        {
+            "source": "RichMediaPresentation",
+            "target": "RichMediaWindow",
+            "name": "RichMediaPresentation::Window"
+        },
+        {
+            "source": "RichMediaSettings",
+            "target": "RichMediaActivation",
+            "name": "RichMediaSettings::Activation"
+        },
+        {
+            "source": "RichMediaSettings",
+            "target": "RichMediaDeactivation",
+            "name": "RichMediaSettings::Deactivation"
+        },
+        {
+            "source": "RichMediaWindow",
+            "target": "RichMediaHeight",
+            "name": "RichMediaWindow::Height"
+        },
+        {
+            "source": "RichMediaWindow",
+            "target": "RichMediaPosition",
+            "name": "RichMediaWindow::Position"
+        },
+        {
+            "source": "RichMediaWindow",
+            "target": "RichMediaWidth",
+            "name": "RichMediaWindow::Width"
         },
         {
             "source": "Separation",
@@ -18305,6 +20105,41 @@
             "name": "Signature::Reference"
         },
         {
+            "source": "SignatureBuildDataAppDict",
+            "target": "ArrayOfStringsText",
+            "name": "SignatureBuildDataAppDict::OS"
+        },
+        {
+            "source": "SignatureBuildDataDict",
+            "target": "ArrayOfStringsText",
+            "name": "SignatureBuildDataDict::OS"
+        },
+        {
+            "source": "SignatureBuildDataSigQDict",
+            "target": "ArrayOfStringsText",
+            "name": "SignatureBuildDataSigQDict::OS"
+        },
+        {
+            "source": "SignatureBuildPropDict",
+            "target": "SignatureBuildDataAppDict",
+            "name": "SignatureBuildPropDict::App"
+        },
+        {
+            "source": "SignatureBuildPropDict",
+            "target": "SignatureBuildDataDict",
+            "name": "SignatureBuildPropDict::Filter"
+        },
+        {
+            "source": "SignatureBuildPropDict",
+            "target": "SignatureBuildDataDict",
+            "name": "SignatureBuildPropDict::PubSec"
+        },
+        {
+            "source": "SignatureBuildPropDict",
+            "target": "SignatureBuildDataSigQDict",
+            "name": "SignatureBuildPropDict::SigQ"
+        },
+        {
             "source": "SignatureReferenceDocMDP",
             "target": "_UniversalArray",
             "name": "SignatureReferenceDocMDP::Data"
@@ -18387,9 +20222,20 @@
         },
         {
             "source": "SlideShow",
-            "target": "_UniversalDictionary",
+            "target": "XObjectImage",
             "name": "SlideShow::Resources",
             "color": "red"
+        },
+        {
+            "source": "SlideShow",
+            "target": "EmbeddedFileStream",
+            "name": "SlideShow::Resources",
+            "color": "red"
+        },
+        {
+            "source": "SoftMaskAlpha",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "SoftMaskAlpha::BC"
         },
         {
             "source": "SoftMaskAlpha",
@@ -18548,6 +20394,11 @@
             "source": "StandardArtifactAttributes",
             "target": "ArrayOf_4NamesForAttached",
             "name": "StandardArtifactAttributes::Attached"
+        },
+        {
+            "source": "StandardArtifactAttributes",
+            "target": "ArrayOfStringsText",
+            "name": "StandardArtifactAttributes::Contents"
         },
         {
             "source": "StandardLayoutAttributesBLSE",
@@ -19039,6 +20890,11 @@
             "name": "Thumbnail::Filter"
         },
         {
+            "source": "TrapRegion",
+            "target": "ArrayOf_ArrayOfNumbers",
+            "name": "TrapRegion::TZ"
+        },
+        {
             "source": "URLAlias",
             "target": "ArrayOfArraysURLStrings",
             "name": "URLAlias::C"
@@ -19085,6 +20941,23 @@
             "target": "Stream",
             "name": "UserProperty::V",
             "color": "red"
+        },
+        {
+            "source": "ViewParams",
+            "target": "Stream",
+            "name": "ViewParams::Data",
+            "color": "red"
+        },
+        {
+            "source": "ViewParams",
+            "target": "RichMediaInstance",
+            "name": "ViewParams::Instance",
+            "color": "red"
+        },
+        {
+            "source": "ViewerPreferences",
+            "target": "ArrayOfNamesForEnforce",
+            "name": "ViewerPreferences::Enforce"
         },
         {
             "source": "ViewerPreferences",
@@ -19140,7 +21013,7 @@
         },
         {
             "source": "WebCaptureImageSet",
-            "target": "_UniversalArray",
+            "target": "ArrayOfWebCaptureImages",
             "name": "WebCaptureImageSet::O",
             "color": "red"
         },
@@ -19169,7 +21042,7 @@
         },
         {
             "source": "WebCapturePageSet",
-            "target": "_UniversalArray",
+            "target": "ArrayOfWebCapturePages",
             "name": "WebCapturePageSet::O",
             "color": "red"
         },
@@ -19373,6 +21246,16 @@
         },
         {
             "source": "XObjectFormPrinterMark",
+            "target": "MeasureRL",
+            "name": "XObjectFormPrinterMark::Measure"
+        },
+        {
+            "source": "XObjectFormPrinterMark",
+            "target": "MeasureGEO",
+            "name": "XObjectFormPrinterMark::Measure"
+        },
+        {
+            "source": "XObjectFormPrinterMark",
             "target": "Metadata",
             "name": "XObjectFormPrinterMark::Metadata"
         },
@@ -19400,6 +21283,11 @@
             "source": "XObjectFormPrinterMark",
             "target": "PagePiece",
             "name": "XObjectFormPrinterMark::PieceInfo"
+        },
+        {
+            "source": "XObjectFormPrinterMark",
+            "target": "PointData",
+            "name": "XObjectFormPrinterMark::PtData"
         },
         {
             "source": "XObjectFormPrinterMark",
@@ -19473,6 +21361,11 @@
         },
         {
             "source": "XObjectFormTrapNet",
+            "target": "MeasureRL",
+            "name": "XObjectFormTrapNet::Measure"
+        },
+        {
+            "source": "XObjectFormTrapNet",
             "target": "Metadata",
             "name": "XObjectFormTrapNet::Metadata"
         },
@@ -19503,6 +21396,11 @@
         },
         {
             "source": "XObjectFormTrapNet",
+            "target": "PointData",
+            "name": "XObjectFormTrapNet::PtData"
+        },
+        {
+            "source": "XObjectFormTrapNet",
             "target": "Reference",
             "name": "XObjectFormTrapNet::Ref"
         },
@@ -19518,7 +21416,7 @@
         },
         {
             "source": "XObjectFormTrapNet",
-            "target": "_UniversalArray",
+            "target": "ArrayOfTrapRegions",
             "name": "XObjectFormTrapNet::TrapRegions"
         },
         {
@@ -19583,6 +21481,16 @@
         },
         {
             "source": "XObjectFormType1",
+            "target": "MeasureRL",
+            "name": "XObjectFormType1::Measure"
+        },
+        {
+            "source": "XObjectFormType1",
+            "target": "MeasureGEO",
+            "name": "XObjectFormType1::Measure"
+        },
+        {
+            "source": "XObjectFormType1",
             "target": "Metadata",
             "name": "XObjectFormType1::Metadata"
         },
@@ -19610,6 +21518,11 @@
             "source": "XObjectFormType1",
             "target": "PagePiece",
             "name": "XObjectFormType1::PieceInfo"
+        },
+        {
+            "source": "XObjectFormType1",
+            "target": "PointData",
+            "name": "XObjectFormType1::PtData"
         },
         {
             "source": "XObjectFormType1",
@@ -19782,6 +21695,16 @@
         },
         {
             "source": "XObjectImage",
+            "target": "MeasureRL",
+            "name": "XObjectImage::Measure"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "MeasureGEO",
+            "name": "XObjectImage::Measure"
+        },
+        {
+            "source": "XObjectImage",
             "target": "Metadata",
             "name": "XObjectImage::Metadata"
         },
@@ -19804,6 +21727,11 @@
             "source": "XObjectImage",
             "target": "OPIVersion20",
             "name": "XObjectImage::OPI"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "PointData",
+            "name": "XObjectImage::PtData"
         },
         {
             "source": "XObjectImage",
@@ -19907,6 +21835,16 @@
         },
         {
             "source": "XObjectImageMask",
+            "target": "MeasureRL",
+            "name": "XObjectImageMask::Measure"
+        },
+        {
+            "source": "XObjectImageMask",
+            "target": "MeasureGEO",
+            "name": "XObjectImageMask::Measure"
+        },
+        {
+            "source": "XObjectImageMask",
             "target": "Metadata",
             "name": "XObjectImageMask::Metadata"
         },
@@ -19929,6 +21867,11 @@
             "source": "XObjectImageMask",
             "target": "OPIVersion20",
             "name": "XObjectImageMask::OPI"
+        },
+        {
+            "source": "XObjectImageMask",
+            "target": "PointData",
+            "name": "XObjectImageMask::PtData"
         },
         {
             "source": "XObjectImageMask",

@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-HideToolbar	boolean	1.2		FALSE	FALSE	FALSE	false				
+HideToolbar	boolean	1.2		FALSE	FALSE	FALSE	false				Table 147
 HideMenubar	boolean	1.2		FALSE	FALSE	FALSE	false				
 HideWindowUI	boolean	1.2		FALSE	FALSE	FALSE	false				
 FitWindow	boolean	1.2		FALSE	FALSE	FALSE	false				
@@ -15,4 +15,5 @@ PrintScaling	name	1.6		FALSE	FALSE	FALSE	AppDefault	[None,AppDefault]
 Duplex	name	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[Simplex,DuplexFlipShortEdge,DuplexFlipLongEdge]			
 PickTrayByPDFSize	boolean	1.7		FALSE	FALSE	FALSE	false				
 PrintPageRange	array	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()			[ArrayOfIntegersGeneral]	
-NumCopies	integer	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()				
+NumCopies	integer	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[fn:Eval(@NumCopies>0)]			
+Enforce	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[ArrayOfNamesForEnforce]	

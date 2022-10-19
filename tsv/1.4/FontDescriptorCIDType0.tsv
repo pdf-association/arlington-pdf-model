@@ -1,7 +1,7 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.2		TRUE	FALSE	FALSE		[FontDescriptor]			
+Type	name	1.2		TRUE	FALSE	FALSE		[FontDescriptor]			Table 120 and Table 122
 FontName	name	1.2		TRUE	FALSE	FALSE			[fn:Eval(@FontName==parent::@BaseFont)]		
-Flags	bitmask	1.2		TRUE	FALSE	FALSE			[fn:Eval(fn:BitClear(5) && fn:BitsClear(8,16) && fn:BitsClear(20,32))]		
+Flags	bitmask	1.2		TRUE	FALSE	FALSE			[fn:Eval(fn:BitClear(5) && fn:BitsClear(8,16) && fn:BitsClear(20,32))]		Table 121
 FontBBox	rectangle	1.2		TRUE	FALSE	FALSE					
 ItalicAngle	number	1.2		TRUE	FALSE	FALSE					
 Ascent	number	1.2		TRUE	FALSE	FALSE					
@@ -14,8 +14,8 @@ StemH	number	1.2		FALSE	FALSE	FALSE	0
 AvgWidth	number	1.2		FALSE	FALSE	FALSE	0				
 MaxWidth	number	1.2		FALSE	FALSE	FALSE	0				
 MissingWidth	number	1.2		FALSE	FALSE	FALSE	0				
-FontFile	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile2)) && fn:Not(fn:IsPresent(FontFile3)))]	[FontFile]	
-FontFile3	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile)) && fn:Not(fn:IsPresent(FontFile2)))]	[FontFile3CIDType0]	
+FontFile	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile2)) && fn:Not(fn:IsPresent(FontFile3)))]	[FontFile]	Table 124
+FontFile3	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile)) && fn:Not(fn:IsPresent(FontFile2)))]	[FontFile3CIDType0]	Table 124
 Style	dictionary	1.2		FALSE	FALSE	FALSE				[StyleDict]	
 FD	dictionary	1.2		FALSE	FALSE	FALSE				[FDDict]	
 CIDSet	stream	1.2	2.0	FALSE	TRUE	FALSE				[Stream]	

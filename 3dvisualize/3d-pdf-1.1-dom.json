@@ -241,7 +241,7 @@
         },
         {
             "id": "ColorSpaceMap",
-            "val": 1,
+            "val": 9,
             "group": "map",
             "desc": "(unspecified)",
             "name": "ColorSpaceMap map"
@@ -994,6 +994,16 @@
             "source": "ColorSpaceMap",
             "target": "IndexedColorSpace",
             "name": "ColorSpaceMap::*"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "CalGrayColorSpace",
+            "name": "ColorSpaceMap::DefaultGray"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "CalRGBColorSpace",
+            "name": "ColorSpaceMap::DefaultRGB"
         },
         {
             "source": "Dest0Array",

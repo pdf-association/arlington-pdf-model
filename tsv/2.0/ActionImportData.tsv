@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.2		FALSE	FALSE	FALSE		[Action]			
+Type	name	1.2		FALSE	FALSE	FALSE		[Action]			Table 196 and Table 243
 S	name	1.2		TRUE	FALSE	FALSE		[ImportData]			
 Next	array;dictionary	1.2		FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
 F	dictionary;string	1.2		TRUE	FALSE	FALSE				[FileSpecification];[]	

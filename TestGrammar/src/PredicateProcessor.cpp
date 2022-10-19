@@ -126,7 +126,10 @@ bool PredicateProcessor::ValidateTypeSyntax(const int key_idx) {
 
 
 /// @brief Validates an Arlington "SinceVersion" field (column 3)
-/// - only "1.0" or "1.1" or ... or "1.7 or "2.0"
+/// - "1.0" or "1.1" or ... or "1.7 or "2.0"
+/// - fn:Extension(AAA)
+/// - fn:Extension(AAA,x.y)
+/// - fn:Eval(fn:Extension(AAA,x.y) || a.b)
 /// 
 /// @param[in]   key_idx     the key index into the TSV data
 /// 
@@ -137,8 +140,8 @@ bool PredicateProcessor::ValidateSinceVersionSyntax(const int key_idx) {
 
     if (tsv_field.size() == 3)
         return FindInVector(v_ArlPDFVersions, tsv_field);
-    else {
-        // A predicate involving fn:Extension() or fn:SinceVersion
+    else if (tsv_field.find("fn:") != std::string::npos) {
+        // A predicate involving fn:Extension(...)
         ASTNode* ast = new ASTNode();
         ASTNodeStack stack;
 
@@ -149,6 +152,7 @@ bool PredicateProcessor::ValidateSinceVersionSyntax(const int key_idx) {
         predicate_ast.push_back(stack);
         return (whats_left.size() == 0);
     }
+    return false;
 }
 
 
@@ -904,6 +908,16 @@ bool PredicateProcessor::ValidateLinksSyntax(const int key_idx) {
 
                 // next Link starts with "fn:"
                 if (std::regex_search(s, m, r_startsWithSinceVersionExtension) && m.ready() && (m.size() == 4)) {
+                    // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                    // m[2] = extension name
+                    // m[3] = Arlington link
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[3]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);            // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithIsPDFVersionExtension) && m.ready() && (m.size() == 4)) {
                     // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
                     // m[2] = extension name
                     // m[3] = Arlington link

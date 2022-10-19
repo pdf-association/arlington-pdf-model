@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.5		FALSE	FALSE	FALSE		[SV]			Table 237
-Ff	bitmask	1.7		FALSE	FALSE	FALSE	0				
+Ff	bitmask	1.7		FALSE	FALSE	FALSE	0		[fn:Eval(fn:BeforeVersion(2.0,fn:BitsClear(8,32)) && fn:BitsClear(10,32))]		
 Filter	name	1.5		FALSE	FALSE	FALSE					
 SubFilter	array	1.5		FALSE	FALSE	FALSE				[ArrayOfSignatureSubFilterNames]	
 DigestMethod	array	1.7		FALSE	FALSE	FALSE				[ArrayOfDigestMethod]	https://github.com/pdf-association/pdf-issues/issues/159
@@ -11,5 +11,5 @@ MDP	dictionary	1.6		FALSE	FALSE	FALSE				[MDPDict]
 TimeStamp	dictionary	1.6		FALSE	FALSE	FALSE				[TimeStampDict]	
 LegalAttestation	array	1.6		FALSE	FALSE	FALSE				[ArrayOfStringsText]	
 AddRevInfo	boolean	1.7		FALSE	FALSE	FALSE					
-LockDocument	name	2.0		FALSE	FALSE	FALSE		[true,false,auto]			
-AppearanceFilter	string-text	2.0		FALSE	FALSE	FALSE					
+LockDocument	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE		[true,false,auto]			
+AppearanceFilter	string-text	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE					

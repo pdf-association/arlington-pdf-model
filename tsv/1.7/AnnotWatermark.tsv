@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.6		FALSE	FALSE	FALSE		[Annot]			
+Type	name	1.6		FALSE	FALSE	FALSE		[Annot]			Table 166 and Table 193 (NOT markup annot)
 Subtype	name	1.6		TRUE	FALSE	FALSE		[Watermark]			
 Rect	rectangle	1.6		TRUE	FALSE	FALSE					
 Contents	string-text	1.6		FALSE	FALSE	FALSE					
@@ -14,4 +14,3 @@ C	array	1.6		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]
 StructParent	integer	1.6		FALSE	FALSE	FALSE					
 OC	dictionary	1.6		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
 FixedPrint	dictionary	1.6		FALSE	FALSE	FALSE				[FixedPrint]	
-ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup]	

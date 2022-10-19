@@ -119,7 +119,10 @@ This document describes some strict rules for the Arlington PDF model, for both 
     `fn:Deprecated(version,type)`).
 *   When a predicate is used, the internal simple type is still kept in its alphabetic sort order
 * The following predefined Arlington types ALWAYS REQUIRE a link:
-    - `array`, `dictionary`, `name-tree`, `number-tree`, `stream`
+    - `array`, `dictionary`, `stream`
+* The following predefined Arlington types MAY have a link (this is because name and number trees can have nodes which are the primitive Arlington types below or a complex type above):
+    - `name-tree`, `number-tree`
+    - e.g. `Navigator\Strings` is a name-tree of string objects
 * The following predefined Arlington types NEVER have a link (they are the primitive Arlington types):
     - `bitmask`, `boolean`, `date`, `integer`, `matrix`, `name`, `null`, `number`, `rectangle`, `string`, `string-ascii`, `string-byte`, `string-text`
 *   **Python pretty-print/JSON:**
@@ -333,6 +336,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   These sub-expressions MUST BE one of these version-based predicates:
     *   `fn:SinceVersion(pdf-version,link)`
     *   `fn:SinceVersion(pdf-version,fn:Extension(name,link))`
+    *   `fn:IsPDFVersion(pdf-version,fn:Extension(name,link))`
     *   `fn:Deprecated(pdf-version,link)`
     *   `fn:BeforeVersion(pdf-version,link)`
     *   `fn:IsPDFVersion(version,link)`

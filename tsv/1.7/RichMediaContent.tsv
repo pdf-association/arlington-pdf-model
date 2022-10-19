@@ -1,0 +1,5 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE		[RichMediaContent]			Table 341
+Assets	name-tree	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[FileSpecification]	
+Configurations	array	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(Configurations)>0)]	[ArrayOfRichMediaConfiguration]	https://github.com/pdf-association/pdf-issues/issues/166
+Views	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[ArrayOf3DView]	

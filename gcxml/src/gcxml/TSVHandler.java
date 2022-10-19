@@ -245,8 +245,14 @@ public class TSVHandler {
                             // Field 11 = Notes. Text
                             String notes = row[11];
                             
-                            if (reduceSinceVersion(since_version) <= version) {
+                            var updated_since_ver = new StringBuilder("");
+                            if (reduceSinceVersion(since_version, version, updated_since_ver) <= version) {
                                 System.out.println("\tKept key: " + key_name);
+                                assert(!updated_since_ver.toString().isBlank());
+                                if (!since_version.equals(updated_since_ver.toString())) {
+                                    System.out.println("\t\tPredicate = " + updated_since_ver);
+                                    since_version = updated_since_ver.toString();
+                                }
                                 TypeListModifier types_reduced = reduceTypesForVersion(data_type, version);
                                 if (types_reduced.somethingReduced()) {
                                     // At least one type got reduced so need to
@@ -634,33 +640,81 @@ public class TSVHandler {
      * - fn:Eval(fn:Extension(XYZ,1.5) || 2.0)
      *
      * @param sincever  the SinceVersion field from an Arlington TSV file
-
+     * @param for_version the PDF version we are currently processing
+     * @param reduced_sincever output string for the PDF version being created
+     * 
      * @return the lowest PDF version ("1.0", "1.1", etc)
      */
-    public double reduceSinceVersion(String sincever) {
+    public double reduceSinceVersion(String sincever, double for_version, final StringBuilder reduced_sincever) {
+        Double arl_extn_ver;
+        
+        assert(!sincever.isBlank()) : "never have an empty SinceVersion field";
+                
         if (sincever.startsWith("fn:")) {
-            if (sincever.matches("fn:Extension\\([A-Za-z0-9_]+\\)")) {
-                // Predicate: fn:Extension(AAA) - all versions of PDF
+            if (sincever.startsWith("fn:Eval")) {
+                // Predicate: fn:Eval(fn:Extension(AAA,x.y) || a.b) - extension AA since PDF x.y or part of core PDF since a.b
+                Pattern p = Pattern.compile("fn:Eval\\(fn:Extension\\(([A-Za-z0-9_]+)\\,([12]\\.[0-7])\\) \\|\\| ([12]\\.[0-7])\\)");
+                Matcher m = p.matcher(sincever);
+                // m.group(1) = extension name
+                // m.group(2) = extension PDF version
+                // m.group(3) = core PDF version
+                if (m.matches()) {
+                    arl_extn_ver = Double.valueOf(m.group(2));
+                    if (for_version < arl_extn_ver) {
+                        // want to exclude as TSV will not exist
+                        return 99;
+                    }
+                    else if (for_version == arl_extn_ver) {
+                        // reduce expression to "fn:Extension(AAA,x.y)"
+                        String s = "fn:Extension("+ m.group(1) + "," + m.group(2) + ")";
+                        reduced_sincever.append(s);
+                        return arl_extn_ver;
+                    }
+                    else {
+                        // after the extension-specific version so same as TSV input
+                        reduced_sincever.append(sincever);
+                        return arl_extn_ver;
+                    }
+                }
+                assert(false) : "Unexpected processing of fn:Eval(fn:Extension(AAA,x.y) || a.b)!";
+            }
+            else if (sincever.contains(",")) {
+                // Predicate: fn:Extension(AAA,x.y) - extension AAA but only since x.y
+                Pattern p = Pattern.compile("fn:Extension\\(([A-Za-z0-9_]+)\\,([12]\\.[0-7])\\)");
+                Matcher m = p.matcher(sincever);
+                // m.group(1) = extension name
+                // m.group(2) = extension PDF version
+                if (m.matches()) {
+                    arl_extn_ver = Double.valueOf(m.group(2));
+                    if (for_version < arl_extn_ver) {
+                        // want to drop as TSV will not exist
+                        return 99;
+                    }
+                    else if (for_version == arl_extn_ver) {
+                        // reduce to just "fn:Extension(AAA)"
+                        String s = "fn:Extension(" + m.group(1) + ")";
+                        reduced_sincever.append(s);
+                        return arl_extn_ver;
+                    }
+                    else { // for_version > arl_extn_ver
+                        // same as input
+                        reduced_sincever.append(sincever);
+                        return arl_extn_ver;
+                    }
+                }
+                assert(false) : "Unexpected processing of fn:Extension(AAA,x.y)";
+            }
+            else { // Predicate: fn:Extension(AAA) = keep for all versions of PDF
+                reduced_sincever.append(sincever);
                 return 1.0;
             }
-            else {
-                // Predicate: fn:Extension(AAA,x.y) - only since x.y
-                Pattern p1 = Pattern.compile("fn:Extension\\([A-Za-z0-9_]+\\,([12]\\.[0-7])\\)");
-                Matcher m1 = p1.matcher(sincever);
-                if (m1.matches()) {
-                    return Double.parseDouble(m1.group(1));
-                }
-                Pattern p2 = Pattern.compile("fn:Eval\\(fn:Extension\\([A-Za-z0-9_]+\\,([12]\\.[0-7])\\) \\|\\| ([12]\\.[0-7])\\)");
-                Matcher m2 = p2.matcher(sincever);
-                if (m2.matches()) {
-                    return Double.parseDouble(m2.group(1));
-                }
-            }
         }
-        else {
-            // Just a normal PDF version
+        else { // Just a normal PDF version
+            reduced_sincever.append(sincever);
             return Double.parseDouble(sincever);
         }
-        return 1.0; // Assume every PDF version
+        assert(false) : "Unexpected processing in reduceSinceVersion() method";
+        return 99;
     }
+    
 }
