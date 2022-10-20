@@ -12,7 +12,7 @@ Java-based proof of concept CLI utility that can:
 
 1. gives answers to various researcher-type queries that illustrate how XPath can be used against the XML files.
 
-To compile, run `ant` from this directory or use [Apache NetBeans](https://netbeans.apache.org/). Output JAR will be in `dist/gcxml.jar`.
+To compile, run `ant` from this directory or use [Apache NetBeans](https://netbeans.apache.org/) or JetBrains [IntelliJ IDEA Community edition](https://www.jetbrains.com/idea/). Output JAR will be in `dist/gcxml.jar`.
 
 ## Notes
 
