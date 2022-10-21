@@ -69,7 +69,7 @@ const std::regex  r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersio
 /// @brief Regex to process "Key" fields. Very carefully ordered in this regex!!
 /// Alphanumeric with UNDERSCORE, DASH, COLON; integer; ASTERISK or \<digit\>+ASTERISK
 /// - $1 = key name
-const std::regex  r_Keys("(\\*|[0-9]+\\*|[a-zA-Z0-9\\-\\._:]+|[0-9]+)");
+const std::regex  r_Keys("([0-9]+\\*|[a-zA-Z0-9\\-\\._:\\*]+|[0-9]+|\\*)");
 
 
 
