@@ -113,7 +113,7 @@ private:
 
 public:
     CParsePDF(const fs::path& tsv_folder, std::ostream &ofs, const bool terser_output, const bool debug_output)
-        : grammar_folder(tsv_folder), output(ofs), terse(terser_output), pdfc(nullptr), counter(0), context_shown(false), debug_mode(debug_output)
+        : grammar_folder(tsv_folder), output(ofs), terse(terser_output), pdfc(nullptr), counter(0), context_shown(false), debug_mode(debug_output), pdf_version(0)
         { /* constructor */ }
 
     /// @brief add an object to be checked

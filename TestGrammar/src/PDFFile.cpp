@@ -2755,7 +2755,7 @@ bool CPDFFile::fn_Contains(ArlPDFObject* obj, const ASTNode* key, const ASTNode*
     if ((key == nullptr) || (value == nullptr))
         return false;
 
-    assert((key->type == ASTNodeType::ASTNT_Key) || (key->type == ASTNodeType::ASTNT_Key));
+    assert((key->type == ASTNodeType::ASTNT_Key) || (key->type == ASTNodeType::ASTNT_ConstInt));
     bool retval = false;
 
     if (key->type == value->type)
