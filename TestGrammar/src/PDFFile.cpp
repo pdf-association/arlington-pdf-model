@@ -120,14 +120,15 @@ std::vector<std::string> CPDFFile::split_key_path(std::string key)
         keys.push_back(key);
     }
 
-    // Only the FINAL portion of a path can have the '@' for value-of or contain a wildcard. 
-    for (size_t i = 0; i < keys.size() - 1; i++)
-        assert((keys[i][0] != '@') && (keys[i].find('*') == std::string::npos));
+    // Only the FINAL portion of a path can have the '@' for value-of 
+    for (size_t i = 0; i < keys.size() - 1; i++) {
+        assert(keys[i][0] != '@');
+    }
 
-    // "parent" and "trailer" are pre-defined and can only be in the 1st portion. These do NOT
-    // match any Arlington TSV filename by design.
-    for (size_t i = 1; i < keys.size(); i++)
+    // "parent" and "trailer" are pre-defined and can only be in the very 1st portion. 
+    for (size_t i = 1; i < keys.size(); i++) {
         assert((keys[i] != "parent") && (keys[i] != "trailer"));
+    }
 
     return keys;
 }
