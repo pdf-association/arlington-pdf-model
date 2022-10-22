@@ -355,18 +355,24 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 *   Can be blank
 *   Free text - no validation possible
-*   Often contains a reference to Table(s) or clause number(s) from ISO 32000-2:2020 (PDF 2.0) or a PDF Association Errata issue link (as GitHub URL)
-    * For dictionaries, this is normally on the first key (2nd row) or the `Type` or `Subtype` row depending on what is the primary differentiating definition
+*   Often contains a reference to Table(s) (search for case sensitive "Table ") or clause number(s) (search for case sensitive "Clause ") from ISO 32000-2:2020 (PDF 2.0) or a PDF Association Errata issue link (as GitHub URL) where the Arlington machine-readable definition is defined.
+    * For dictionaries, this is normally on the first key on the `Type` or `Subtype` row depending on what is the primary differentiating definition
+    * Note that this is **not** where an object is referenced from, but where its key and values are **defined**. Sometimes this is within body text prose of ISO 32000-2:2020 (so outside a Table and a Clause reference is used) or as prose within the "Description" cell of some other key in another Table. _Where_ an object is referenced is encoded by the Arlington PDF Model "Link" field - just grep for the case-sensitive TSV file (no extension)!
+*   The spreadsheet [Arlington-vs-ISO32K-Tables.xlsx](Arlington-vs-ISO32K-Tables.xlsx) provides a cross reference from all mentions of "Table" within the Arlington PDF Model against the an index of every Table in ISO 32000-2:2020 as published by ISO. Tables that are not mentioned anywhere in Arlington TSV files _may_ indicate poor coverage in the Arlington PDF Model - or that the table is inappropriate for incorporating into the Arlington PDF Model.
+    * Current known limitations include no support for FDF; less-than-perfect definition for Linearization objects; and no definition of content streams.
+    * Note also that Arlington does additionally reference other ISO and Adobe publications, sometimes also with specific clause and Table references (such as for Adobe Extension Level 3).
 *   **Python pretty-print/JSON:**
     *   A string or `None`
 *   **Linux CLI voodoo:**
     ```shell
-    # A list of Table numbers referenced in an Arlington TSV file set
-    grep --color=none -Pho "(?<=Table) [0-9]+" * | sort -un
-    # Some PDF objects are defined by prose in clauses, rather than Tables
-    grep "Clause [0-9\.]*" *
     # Find all TSV files in a data set that do not have either a Table number or Clause reference
     grep -PL "(Table )|(Clause )" *
+    # A list of most (but not all!) Table numbers referenced in an Arlington TSV file set. Does not capture Annex tables.
+    grep --color=none -Pho "(?<=Table) [0-9]+" * | sort -un
+    # Some PDF objects are defined by prose in clauses, rather than Tables
+    grep -Pho "Clause [0-9A-H\.]*" * | sort -u
+    # Find all ISO publication that are explicitly referenced
+    grep -Pho "ISO[^_]*$" * | sort -u
     ```
 
 
