@@ -10,8 +10,8 @@ Ref	dictionary	1.4		FALSE	FALSE	FALSE				[Reference]
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]	
 PieceInfo	dictionary	1.3		FALSE	FALSE	FALSE				[PagePiece]	
 LastModified	date	1.3		fn:IsRequired(fn:IsPresent(PieceInfo))	FALSE	FALSE					
-StructParent	integer	1.3		FALSE	FALSE	FALSE			[fn:Not(fn:IsPresent(StructParents))]		
-StructParents	integer	1.3		FALSE	FALSE	FALSE			[fn:Not(fn:IsPresent(StructParent))]		
+StructParent	integer	1.3		FALSE	FALSE	FALSE			[fn:Not(fn:IsPresent(StructParents))]		Table 359
+StructParents	integer	1.3		FALSE	FALSE	FALSE			[fn:Not(fn:IsPresent(StructParent))]		Table 359
 OPI	dictionary	1.2	2.0	FALSE	FALSE	FALSE				[OPIVersion13,OPIVersion20]	
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
 Name	name	1.0	2.0	fn:IsRequired(fn:BeforeVersion(1.3))	FALSE	FALSE					
@@ -19,10 +19,10 @@ AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications];[FileS
 Measure	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[MeasureRL,MeasureGEO]	
 PtData	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[PointData]	
 Length	integer	1.0		TRUE	FALSE	FALSE					from stream
-Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	
+Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	Table 6
 DecodeParms	array;dictionary	1.0		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,fn:SinceVersion(1.2,FilterFlateDecode),fn:SinceVersion(1.5,FilterCrypt)]	
 F	dictionary;string	1.2		FALSE	FALSE	FALSE				[FileSpecification];[]	
-FFilter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	
+FFilter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	Table 6
 FDecodeParms	array;dictionary	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,fn:SinceVersion(1.5,FilterCrypt)]	
 DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(@DL>=0)]		
 XUID	array	1.0	1.3	FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral]	
