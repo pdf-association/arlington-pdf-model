@@ -14,7 +14,7 @@ Alternates	array	1.3		FALSE	FALSE	FALSE				[ArrayOfImageAlternates]
 SMask	stream	1.4		FALSE	TRUE	FALSE			[fn:Not(fn:IsPresent(@SMaskInData>0))]	[XObjectImageSoftMask]	
 SMaskInData	integer	1.5		FALSE	FALSE	FALSE		[0,1,2]			
 Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
-StructParent	integer	1.3		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					
+StructParent	integer	1.3		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					Table 359
 ID	string-byte	1.3		FALSE	FALSE	FALSE					
 OPI	dictionary	1.2	2.0	FALSE	FALSE	FALSE			[fn:Ignore(@ImageMask==true)]	[OPIVersion13,OPIVersion20]	
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]	

@@ -726,7 +726,7 @@
    <OBJECT id="ArrayOf_2DashNumbers" isArray="true" object_number="019">
       <ENTRY>
          <NAME>0</NAME>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -735,7 +735,7 @@
       </ENTRY>
       <ENTRY>
          <NAME>1</NAME>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -859,6 +859,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:IsPresent(2))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>2</NAME>

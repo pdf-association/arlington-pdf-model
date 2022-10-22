@@ -883,13 +883,6 @@
             "name": "ArrayOfIndirectFileSpecifications map"
         },
         {
-            "id": "ArrayOfInkList",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "ArrayOfInkList map"
-        },
-        {
             "id": "ArrayOfIntegersGeneral",
             "val": 1,
             "group": "map",
@@ -902,13 +895,6 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfMediaPlayerInfo map"
-        },
-        {
-            "id": "ArrayOfMultiLangText",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "ArrayOfMultiLangText map"
         },
         {
             "id": "ArrayOfNamesForEnforce",
@@ -1037,6 +1023,13 @@
             "name": "ArrayOfOptContentGroups map"
         },
         {
+            "id": "ArrayOfOptContentOrderElements",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfOptContentOrderElements map"
+        },
+        {
             "id": "ArrayOfOptContentOrders",
             "val": 4,
             "group": "map",
@@ -1142,11 +1135,18 @@
             "name": "ArrayOfSoftwareIdentifiers map"
         },
         {
-            "id": "ArrayOfSourceInformations",
+            "id": "ArrayOfSoftwareVersions",
             "val": 1,
             "group": "map",
             "desc": "(unspecified)",
-            "name": "ArrayOfSourceInformations map"
+            "name": "ArrayOfSoftwareVersions map"
+        },
+        {
+            "id": "ArrayOfSourceInformation",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfSourceInformation map"
         },
         {
             "id": "ArrayOfStreamsGeneral",
@@ -1245,13 +1245,6 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfUserProperty map"
-        },
-        {
-            "id": "ArrayOfVersions",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "ArrayOfVersions map"
         },
         {
             "id": "ArrayOfViewParams",
@@ -1949,9 +1942,9 @@
         },
         {
             "id": "EncryptionPublicKey",
-            "val": 121,
+            "val": 144,
             "group": "dict",
-            "desc": "11 keys",
+            "desc": "12 keys",
             "name": "EncryptionPublicKey dict"
         },
         {
@@ -1981,6 +1974,13 @@
             "group": "dict",
             "desc": "3 keys",
             "name": "ExDataProjection dict"
+        },
+        {
+            "id": "ExportFormatAttributes",
+            "val": 4,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ExportFormatAttributes map"
         },
         {
             "id": "Extensions",
@@ -3518,9 +3518,9 @@
         },
         {
             "id": "StandardLayoutAttributesBLSE",
-            "val": 784,
+            "val": 961,
             "group": "dict",
-            "desc": "28 keys",
+            "desc": "31 keys",
             "name": "StandardLayoutAttributesBLSE dict"
         },
         {
@@ -15194,7 +15194,7 @@
         },
         {
             "source": "ArrayOfArraysInkList",
-            "target": "ArrayOfInkList",
+            "target": "ArrayOfNumbersGeneral",
             "name": "ArrayOfArraysInkList::*"
         },
         {
@@ -15495,37 +15495,44 @@
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontType1",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontTrueType",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontMultipleMaster",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontType3",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontType0",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontCIDType0",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontCIDType2",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFonts",
@@ -15640,13 +15647,18 @@
         },
         {
             "source": "ArrayOfOptContentGroups",
-            "target": "ArrayOfOptContentOrders",
+            "target": "OptContentGroup",
             "name": "ArrayOfOptContentGroups::*"
         },
         {
-            "source": "ArrayOfOptContentGroups",
+            "source": "ArrayOfOptContentOrderElements",
+            "target": "ArrayOfOptContentOrders",
+            "name": "ArrayOfOptContentOrderElements::*"
+        },
+        {
+            "source": "ArrayOfOptContentOrderElements",
             "target": "OptContentGroup",
-            "name": "ArrayOfOptContentGroups::*"
+            "name": "ArrayOfOptContentOrderElements::*"
         },
         {
             "source": "ArrayOfOptContentOrders",
@@ -15656,7 +15668,8 @@
         {
             "source": "ArrayOfOptContentOrders",
             "target": "OptContentGroup",
-            "name": "ArrayOfOptContentOrders::0"
+            "name": "ArrayOfOptContentOrders::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfOutputIntents",
@@ -15874,9 +15887,9 @@
             "name": "ArrayOfSoftwareIdentifiers::*"
         },
         {
-            "source": "ArrayOfSourceInformations",
+            "source": "ArrayOfSourceInformation",
             "target": "SourceInformation",
-            "name": "ArrayOfSourceInformations::*"
+            "name": "ArrayOfSourceInformation::*"
         },
         {
             "source": "ArrayOfStreamsGeneral",
@@ -17581,6 +17594,21 @@
             "color": "red"
         },
         {
+            "source": "ExportFormatAttributes",
+            "target": "_UniversalArray",
+            "name": "ExportFormatAttributes::*"
+        },
+        {
+            "source": "ExportFormatAttributes",
+            "target": "_UniversalDictionary",
+            "name": "ExportFormatAttributes::*"
+        },
+        {
+            "source": "ExportFormatAttributes",
+            "target": "Stream",
+            "name": "ExportFormatAttributes::*"
+        },
+        {
             "source": "Extensions",
             "target": "ArrayOfDevExtensions",
             "name": "Extensions::*"
@@ -18112,7 +18140,7 @@
         },
         {
             "source": "FloatingWindowParameters",
-            "target": "ArrayOfMultiLangText",
+            "target": "ArrayOfStringsText",
             "name": "FloatingWindowParameters::TT"
         },
         {
@@ -19779,7 +19807,7 @@
         },
         {
             "source": "MediaClipData",
-            "target": "ArrayOfMultiLangText",
+            "target": "ArrayOfStringsText",
             "name": "MediaClipData::Alt"
         },
         {
@@ -19816,7 +19844,7 @@
         },
         {
             "source": "MediaClipSection",
-            "target": "ArrayOfMultiLangText",
+            "target": "ArrayOfStringsText",
             "name": "MediaClipSection::Alt"
         },
         {
@@ -20616,7 +20644,7 @@
         },
         {
             "source": "OptContentConfig",
-            "target": "ArrayOfOptContentGroups",
+            "target": "ArrayOfOptContentOrderElements",
             "name": "OptContentConfig::Order"
         },
         {
@@ -21074,37 +21102,44 @@
         {
             "source": "PatternColorSpace",
             "target": "CalGrayColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "CalRGBColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "LabColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "ICCBasedColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "IndexedColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "SeparationColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "DeviceNColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternMap",
@@ -23190,12 +23225,12 @@
         },
         {
             "source": "SoftwareIdentifier",
-            "target": "ArrayOfVersions",
+            "target": "ArrayOfSoftwareVersions",
             "name": "SoftwareIdentifier::H"
         },
         {
             "source": "SoftwareIdentifier",
-            "target": "ArrayOfVersions",
+            "target": "ArrayOfSoftwareVersions",
             "name": "SoftwareIdentifier::L"
         },
         {
@@ -23881,6 +23916,12 @@
         },
         {
             "source": "UserProperty",
+            "target": "_UniversalArray",
+            "name": "UserProperty::V",
+            "color": "red"
+        },
+        {
+            "source": "UserProperty",
             "target": "_UniversalDictionary",
             "name": "UserProperty::V",
             "color": "red"
@@ -24011,7 +24052,7 @@
         },
         {
             "source": "WebCaptureImageSet",
-            "target": "ArrayOfSourceInformations",
+            "target": "ArrayOfSourceInformation",
             "name": "WebCaptureImageSet::SI",
             "color": "red"
         },
@@ -24034,7 +24075,7 @@
         },
         {
             "source": "WebCapturePageSet",
-            "target": "ArrayOfSourceInformations",
+            "target": "ArrayOfSourceInformation",
             "name": "WebCapturePageSet::SI",
             "color": "red"
         },

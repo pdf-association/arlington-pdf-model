@@ -11,7 +11,7 @@ Interpolate	boolean	1.3		FALSE	FALSE	FALSE	false
 Alternates	array	1.3		FALSE	FALSE	FALSE				[ArrayOfImageAlternates]	
 SMask	stream	1.4		FALSE	TRUE	FALSE				[XObjectImageSoftMask]	
 Name	name	1.3	2.0	FALSE	FALSE	FALSE					
-StructParent	integer	1.3		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					
+StructParent	integer	1.3		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					Table 359
 ID	string	1.3		FALSE	FALSE	FALSE					
 OPI	dictionary	1.3	2.0	FALSE	FALSE	FALSE			[fn:Ignore()]	[OPIVersion13,OPIVersion20]	
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]	

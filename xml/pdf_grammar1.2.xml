@@ -2618,7 +2618,7 @@
             <VALUE type="integer">fn:Eval(@0&gt;0)</VALUE>
             <VALUE type="string-byte">fn:Eval(fn:StringLength(0)==8)</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
             <VALUE type="string-byte">false</VALUE>
@@ -2632,7 +2632,7 @@
          <VALUES>
             <VALUE type="integer">fn:Eval(@1&gt;0)</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -2756,6 +2756,9 @@
    <OBJECT id="ArrayOfOPI13Color" isArray="true" object_number="044">
       <ENTRY>
          <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="number">fn:Eval((@0&gt;=0) &amp;&amp; (@0&lt;=1))</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
@@ -2765,6 +2768,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="number">fn:Eval((@1&gt;=0) &amp;&amp; (@1&lt;=1))</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
@@ -2774,6 +2780,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="number">fn:Eval((@2&gt;=0) &amp;&amp; (@2&lt;=1))</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
@@ -2783,6 +2792,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>3</NAME>
+         <VALUES>
+            <VALUE type="number">fn:Eval((@3&gt;=0) &amp;&amp; (@3&lt;=1))</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
@@ -2792,6 +2804,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>4</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="string-byte">'Black'</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string-byte">false</VALUE>
@@ -2917,7 +2932,7 @@
    <OBJECT id="ArrayOf_2DashNumbers" isArray="true" object_number="051">
       <ENTRY>
          <NAME>0</NAME>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -2926,7 +2941,7 @@
       </ENTRY>
       <ENTRY>
          <NAME>1</NAME>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -3166,6 +3181,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:IsPresent(2))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>2</NAME>
@@ -10461,7 +10477,7 @@
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
             <VALUE type="name">false</VALUE>

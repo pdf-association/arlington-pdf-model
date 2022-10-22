@@ -519,13 +519,6 @@
             "name": "ArrayOfImageAlternates map"
         },
         {
-            "id": "ArrayOfInkList",
-            "val": 1,
-            "group": "map",
-            "desc": "(unspecified)",
-            "name": "ArrayOfInkList map"
-        },
-        {
             "id": "ArrayOfIntegersGeneral",
             "val": 1,
             "group": "map",
@@ -603,11 +596,11 @@
             "name": "ArrayOfQuadPoints array"
         },
         {
-            "id": "ArrayOfSourceInformations",
+            "id": "ArrayOfSourceInformation",
             "val": 1,
             "group": "map",
             "desc": "(unspecified)",
-            "name": "ArrayOfSourceInformations map"
+            "name": "ArrayOfSourceInformation map"
         },
         {
             "id": "ArrayOfStreamsGeneral",
@@ -1060,9 +1053,9 @@
         },
         {
             "id": "EncryptionPublicKey",
-            "val": 25,
+            "val": 36,
             "group": "dict",
-            "desc": "5 keys",
+            "desc": "6 keys",
             "name": "EncryptionPublicKey dict"
         },
         {
@@ -5109,7 +5102,7 @@
         },
         {
             "source": "ArrayOfArraysInkList",
-            "target": "ArrayOfInkList",
+            "target": "ArrayOfNumbersGeneral",
             "name": "ArrayOfArraysInkList::*"
         },
         {
@@ -5342,37 +5335,44 @@
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontType1",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontTrueType",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontMultipleMaster",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontType3",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontType0",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontCIDType0",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
             "target": "FontCIDType2",
-            "name": "ArrayOfFontAndSize::0"
+            "name": "ArrayOfFontAndSize::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFonts",
@@ -5461,9 +5461,9 @@
             "name": "ArrayOfPages::*"
         },
         {
-            "source": "ArrayOfSourceInformations",
+            "source": "ArrayOfSourceInformation",
             "target": "SourceInformation",
-            "name": "ArrayOfSourceInformations::*"
+            "name": "ArrayOfSourceInformation::*"
         },
         {
             "source": "ArrayOfStreamsGeneral",
@@ -8889,37 +8889,44 @@
         {
             "source": "PatternColorSpace",
             "target": "CalGrayColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "CalRGBColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "LabColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "ICCBasedColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "IndexedColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "SeparationColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "DeviceNColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternMap",
@@ -10475,7 +10482,7 @@
         },
         {
             "source": "WebCaptureImageSet",
-            "target": "ArrayOfSourceInformations",
+            "target": "ArrayOfSourceInformation",
             "name": "WebCaptureImageSet::SI",
             "color": "red"
         },
@@ -10498,7 +10505,7 @@
         },
         {
             "source": "WebCapturePageSet",
-            "target": "ArrayOfSourceInformations",
+            "target": "ArrayOfSourceInformation",
             "name": "WebCapturePageSet::SI",
             "color": "red"
         },

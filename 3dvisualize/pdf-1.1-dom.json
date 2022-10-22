@@ -595,7 +595,7 @@
         "Key": "0",
         "Type": "number",
         "SinceVersion": 1.1,
-        "Required": false,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -603,7 +603,7 @@
         "Key": "1",
         "Type": "number",
         "SinceVersion": 1.1,
-        "Required": false,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       }
@@ -713,7 +713,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval((@1>=0) && (@1<=1))]"
+        "PossibleValues": "[fn:Eval((@1>=0) && (@1<=1))]",
+        "SpecialCase": "[fn:Eval(fn:IsPresent(2))]"
       },
       "2": {
         "Key": "2",

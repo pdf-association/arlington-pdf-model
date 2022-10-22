@@ -14,5 +14,5 @@ OE	string-byte	1.1		fn:IsRequired((@R==5) || (@R==6))	FALSE	FALSE			[fn:Eval(fn:
 UE	string-byte	1.1		fn:IsRequired((@R==5) || (@R==6))	FALSE	FALSE			[fn:Eval(fn:AlwaysUnencrypted())]		
 P	bitmask	1.1		TRUE	FALSE	FALSE			[fn:Eval(fn:BitsClear(1,2) && fn:BitsSet(7,8) && fn:SinceVersion(2.0,fn:BitSet(10)) && (fn:SinceVersion(2.0,fn:Extension(ISO_TS_32004,fn:BitsSet(14,32))) || fn:BitsSet(13,32)))]		Table 22
 Perms	string-byte	1.1		fn:IsRequired((@R==5) || (@R==6))	FALSE	FALSE			[fn:Eval(fn:AlwaysUnencrypted())]		
-EncryptMetadata	boolean	1.5		FALSE	FALSE	FALSE	true		[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]		
+EncryptMetadata	boolean	1.5		FALSE	FALSE	FALSE	true		[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]		
 KDFSalt	string-byte	fn:Extension(ISO_TS_32004)		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(fn:AlwaysUnencrypted())]		ISO/TS 32004 integrity protection

@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-O	name	1.3		TRUE	FALSE	FALSE		[Layout]			Table 376 and Table 377 and Table 378 and Table 380
+O	name	1.3		TRUE	FALSE	FALSE		[Layout]			Table 360 and Table 376 and Table 377 and Table 378 and Table 380
 Placement	name	1.4		FALSE	FALSE	FALSE		[Inline,Before,Start,End]			
 WritingMode	name	1.4		FALSE	FALSE	TRUE	LrTb	[LrTb,RlTb,TbRl,TbLr,LrBt,RlBt,BtRl,BtLr]			
 BackgroundColor	array	1.5		FALSE	FALSE	FALSE				[ArrayOf_3RGBNumbers]	
@@ -16,7 +16,7 @@ TextDecorationType	name	1.4		FALSE	FALSE	TRUE	None	[None,Underline,Overline,Line
 RubyAlign	name	1.5		FALSE	FALSE	TRUE	Distribute	[Start,Center,End,Justify,Distribute]			
 RubyPosition	name	1.5		FALSE	FALSE	TRUE	Before	[Before,After,Warichu,Inline]			
 GlyphOrientationVertical	integer;name	1.5		FALSE	FALSE	TRUE	[];[Auto]	[-180,-90,0,90,180,270,360];[Auto]			https://github.com/pdf-association/pdf-issues/issues/152
-SpaceBefore	number	1.4		FALSE	FALSE	FALSE	0				
+SpaceBefore	number	1.4		FALSE	FALSE	FALSE	0		[fn:Eval(@Placement!=Inline)]		
 SpaceAfter	number	1.4		FALSE	FALSE	FALSE	0		[fn:Eval(@Placement!=Inline)]		
-StartIndent	number	1.4		FALSE	FALSE	TRUE	0				
-EndIndent	number	1.4		FALSE	FALSE	TRUE	0				
+StartIndent	number	1.4		FALSE	FALSE	TRUE	0		[fn:Eval(@Placement!=Inline)]		
+EndIndent	number	1.4		FALSE	FALSE	TRUE	0		[fn:Eval(@Placement!=Inline)]		

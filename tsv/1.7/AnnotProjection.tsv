@@ -6,12 +6,12 @@ Contents	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE
 P	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[PageObject]	
 NM	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
 M	date;string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
-F	bitmask	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	0		[fn:Eval(fn:BitsClear(11,32))]		
+F	bitmask	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	0		[fn:Eval(fn:BitsClear(11,32))]		Table 167
 AP	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[Appearance]	
 AS	name	fn:Extension(ADBE_Extn3,1.7)		fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))	FALSE	FALSE					
 Border	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
 C	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
-StructParent	integer	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+StructParent	integer	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					Table 359
 OC	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
 CA	number	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && (@CA<=1.0))]			
 T	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					

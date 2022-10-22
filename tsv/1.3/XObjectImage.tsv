@@ -12,7 +12,7 @@ Decode	array	1.0		FALSE	FALSE	FALSE			[fn:Ignore(fn:Contains(@Filter,JPXDecode) 
 Interpolate	boolean	1.0		FALSE	FALSE	FALSE	false				
 Alternates	array	1.3		FALSE	FALSE	FALSE				[ArrayOfImageAlternates]	
 Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
-StructParent	integer	1.3		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					
+StructParent	integer	1.3		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					Table 359
 ID	string-byte	1.3		FALSE	FALSE	FALSE					
 OPI	dictionary	1.2	2.0	FALSE	FALSE	FALSE			[fn:Ignore(@ImageMask==true)]	[OPIVersion13,OPIVersion20]	
 Length	integer	1.0		TRUE	FALSE	FALSE					

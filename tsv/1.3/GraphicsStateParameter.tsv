@@ -5,7 +5,7 @@ LC	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval((@LC>=0) && (@LC<=2))]			Table 53
 LJ	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval((@LJ>=0) && (@LJ<=2))]			Table 54
 ML	number	1.3		FALSE	FALSE	FALSE		[fn:Eval(@ML>=1)]			
 D	array	1.3		FALSE	FALSE	FALSE				[ArrayOfGSPDashPatterns]	
-RI	name	1.3		FALSE	FALSE	FALSE		[AbsoluteColorimetric,RelativeColorimetric,Saturation,Perceptual]			
+RI	name	1.3		FALSE	FALSE	FALSE		[AbsoluteColorimetric,RelativeColorimetric,Saturation,Perceptual]			Table 69
 OP	boolean	1.2		FALSE	FALSE	FALSE					
 op	boolean	1.3		FALSE	FALSE	FALSE					
 OPM	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval((@OPM>=0) && (@OPM<=1))]			
