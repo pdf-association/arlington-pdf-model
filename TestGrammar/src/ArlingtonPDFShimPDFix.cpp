@@ -203,7 +203,9 @@ ArlPDFDictionary* ArlingtonPDFSDK::get_document_catalog()
 
 
 
-/// @brief  Gets the PDF version of the PDF file as a string of length 3
+/// @brief  Gets the PDF version of the PDF file as a string of length 3.
+/// Note that for corrupted and invalid PDFs, this can be an out-of-range value!
+/// e.g verapdf\corpus\veraPDF-corpus-staging\PDF_A-1b\6.1 File structure\6.1.2 File header\veraPDF test suite 6-1-2-t01-fail-b.pdf
 ///
 /// @returns   PDF version string
 std::string ArlingtonPDFSDK::get_pdf_version() {
@@ -212,13 +214,15 @@ std::string ArlingtonPDFSDK::get_pdf_version() {
     assert(pdfix_ctx->doc != nullptr);
 
     int hdr = pdfix_ctx->doc->GetVersion(); // https://pdfix.github.io/pdfix_sdk_builds/en/6.17.0/html/struct_pdf_doc.html#a2c758395b48f2c84ab7fcbdbd118f745
-    std::string s = std::to_string(hdr / 10) + "." + std::to_string(hdr % 10);
-    assert(FindInVector(v_ArlPDFVersions, s));
-    return s;
+    char version_str[6];
+    snprintf(version_str, 4, "%1.1f", hdr / 10.0);
+    return version_str;
 }
 
 
 /// @brief  Gets the PDF version of the PDF file as an integer * 10
+/// Note that for corrupted and invalid PDFs, this can be an out-of-range value!
+/// e.g verapdf\corpus\veraPDF-corpus-staging\PDF_A-1b\6.1 File structure\6.1.2 File header\veraPDF test suite 6-1-2-t01-fail-b.pdf
 ///
 /// @returns   PDF version multiplied by 10
 int ArlingtonPDFSDK::get_pdf_version_number() {

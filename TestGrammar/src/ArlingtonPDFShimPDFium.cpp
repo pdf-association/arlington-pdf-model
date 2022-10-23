@@ -218,7 +218,9 @@ ArlPDFDictionary* ArlingtonPDFSDK::get_document_catalog()
 
 
 
-/// @brief  Gets the PDF version of the current PDF file as a string of length 3
+/// @brief  Gets the PDF version of the current PDF file as a string of length 3.
+/// Note that for corrupted and invalid PDFs, this can be an out-of-range value!
+/// e.g verapdf\corpus\veraPDF-corpus-staging\PDF_A-1b\6.1 File structure\6.1.2 File header\veraPDF test suite 6-1-2-t01-fail-b.pdf
 ///
 /// @returns   PDF version string (always length 3)
 std::string ArlingtonPDFSDK::get_pdf_version() {
@@ -235,6 +237,8 @@ std::string ArlingtonPDFSDK::get_pdf_version() {
 
 
 /// @brief  Gets the PDF version of the current PDF file as an integer * 10
+/// Note that for corrupted and invalid PDFs, this can be an out-of-range value!
+/// e.g verapdf\corpus\veraPDF-corpus-staging\PDF_A-1b\6.1 File structure\6.1.2 File header\veraPDF test suite 6-1-2-t01-fail-b.pdf
 ///
 /// @returns   PDF version multiplied by 10
 int ArlingtonPDFSDK::get_pdf_version_number() {
