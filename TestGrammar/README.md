@@ -361,9 +361,11 @@ Error: -f/--force PDF version '...' is not valid!
 Error: --checkdva argument '...' was not a valid PDF file!
 Error: no PDF file or folder was specified!
 Error: --pdf argument '...' was not a valid file!
+Error: Bad header is version PDF ...
+Error: Bad Document Catalog/Version is PDF ...
 Error: Document Catalog major version is earlier than PDF header version! Ignoring.
 Error: Document Catalog minor version is earlier than PDF header version! Ignoring.
-Error: Both Document Catalog and header versions are invalid. Assuming PDF 2.0.
+Error: Both Document Catalog and header versions are invalid or missing. Assuming PDF 2.0.
 Error: XRefStream is present in PDF x.y before introduction in PDF 1.5.
 Error: can't select any Link to validate PDF object ...
 Error: recursive inheritance depth of x exceeded for ...
@@ -439,6 +441,8 @@ From `grep COLOR_INFO src/*.cpp`:
 ```
 Info: Adobe DVA comparison did not check ... Adobe DVA keys
 Info: Adobe DVA comparison did not check ... Arlington definitions
+Info: Encrypted PDF
+Info: Unsupported encryption
 Info: Header is version PDF x.y
 Info: Document Catalog/Version is PDF x.y
 Info: Command line forced to PDF x.y

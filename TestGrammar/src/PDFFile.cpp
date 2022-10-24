@@ -1278,7 +1278,7 @@ std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
     }
     else {
         // Both must be bad - assume latest version
-        ofs << COLOR_ERROR << "Both Document Catalog and header versions are invalid. Assuming PDF 2.0." << COLOR_RESET;
+        ofs << COLOR_ERROR << "Both Document Catalog and header versions are invalid or missing. Assuming PDF 2.0." << COLOR_RESET;
         pdf_version = "2.0";
     }
 
