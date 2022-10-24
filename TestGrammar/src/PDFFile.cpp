@@ -1254,6 +1254,7 @@ std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
         }
         else if (pdf_catalog_version[0] < pdf_header_version[0]) {
             ofs << COLOR_ERROR << "Document Catalog major version is earlier than PDF header version! Ignoring." << COLOR_RESET;
+            pdf_version = pdf_header_version;
         }
         else { // major version digit is the same. Check minor digit
             if (pdf_catalog_version[2] > pdf_header_version[2]) {
