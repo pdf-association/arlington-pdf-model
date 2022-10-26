@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	2.0		FALSE	FALSE	FALSE		[Navigator]			Table 160
-Layout	array;name	2.0		TRUE	FALSE	FALSE		[];[D,T,H,FilmStrip,FreeForm,Linear,Tree]		[ArrayOfNavigatorLayoutNames];[]	
+Layout	array;name	2.0		TRUE	FALSE	FALSE		[];[D,T,H,FilmStrip,FreeForm,Linear,Tree,*]		[ArrayOfNavigatorLayoutNames];[]	
 SWF	string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	TRUE	FALSE	FALSE					Adobe Extension Level 3 only
 Name	string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	FALSE	FALSE					Adobe Extension Level 3 only
 Desc	string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	FALSE	FALSE					Adobe Extension Level 3 only
