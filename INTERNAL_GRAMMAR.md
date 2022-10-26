@@ -279,13 +279,19 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   If there is a "DefaultValue" AND there are multiple types, then require a complex `[];[];[]` expression
     *  If the "DefaultValue" is a PDF array _as part of a complex type_, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
 *   For keys or arrays that are PDF names, a wildcard `*` indicates that any arbitrary name is _explicitly_ permitted according to the PDF specification along with formally defined values (e.g. OptContentCreatorInfo, Subtype key: `[Artwork,Technical,*]`).
-    *  Do not use `*` as the _only_ value - since an empty cell has the same meaning as "anything is OK"
+    *  Do not use `*` as the _only_ value - since an empty cell has the same meaning as "anything is OK" although there is some subtle nuances regarding whether custom keys have to be 2nd class names or can be really anything. See [Errata #229](https://github.com/pdf-association/pdf-issues/issues/229)
+    * The TestGrammar PoC will no longer report an error about unexpected values in this case, but produce an informational (`Info:`) message instead (so it is visible that a non-standard value is being used).
 *   **Python pretty-print/JSON:**
     *   A list or `None`
     *   If list, then length always matches length of "Type"
         *   Elements can be anything, including `None`
     ```shell
     grep -o "'PossibleValues': .*" dom.json | sed -e 's/^ *//' | sort -u
+    ```
+*   **Linux CLI tests:**    
+    ```shell
+    # Lists those PDF objects which explicitly support any name
+    grep -P ",\*" *
     ```
 
 
