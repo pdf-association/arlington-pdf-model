@@ -266,8 +266,12 @@ bool PredicateProcessor::ValidateRequiredSyntax(const int key_idx) {
     assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_REQUIRED];
 
-    if ((tsv_field == "TRUE") || (tsv_field == "FALSE"))
+    if ((tsv_field == "TRUE") || (tsv_field == "FALSE")) {
+        // Wildcards must have Required be FALSE
+        if ((tsv[key_idx][TSV_KEYNAME] == "*") && (tsv_field != "FALSE"))
+            return false;
         return true;
+    }
     else if ((tsv_field.find("fn:IsRequired(") == 0) && (tsv_field[tsv_field.size()-1] == ')')) {
         ASTNode *ast = new ASTNode();
         ASTNodeStack stack;

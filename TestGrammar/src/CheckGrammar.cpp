@@ -387,11 +387,12 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
     }
 
     // Check "*" wildcard key - must be last (duplicate keys already checked above)
-    if (std::find(std::begin(keys_list), std::end(keys_list), "*") != std::end(keys_list))
+    if (std::find(std::begin(keys_list), std::end(keys_list), "*") != std::end(keys_list)) {
         if (keys_list[keys_list.size() - 1] != "*") {
             report_stream << COLOR_ERROR << "wildcard key '*' in " << reader.get_tsv_name() << " was not last key" << COLOR_RESET;
             retval = false;
         }
+    }
 
     // Array filenames match "ArrayOf*" or "*Array"
     auto filename = reader.get_tsv_name();
