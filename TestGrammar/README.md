@@ -136,14 +136,14 @@ As the Arlington PDF model is defined using text-based TSV files, it is very eas
 
 The names of extensions are arbitrary but must following the conventions used in Arlington for keys: alphanumerics with UNDERSCORE. No SPACES, COMMAs or MINUS (dash). By default, no extensions are supported so a "pure specification" report is generated.
 
-The TestGrammar CLI option `-e` or `--extensions` is used to specify a COMMA-separated list of case-sensitive extension names to support. Enabling support means that keys matching these extension names will **not** get reported as unknown keys and that these keys will also be further checked against their Arlington definitions. The default is not to enable any extensions - i.e. it is a "pure" check against ISO 32000-2:202.
+The TestGrammar CLI option `-e` or `--extensions` is used to specify a COMMA-separated list of case-sensitive extension names to support. Enabling support means that keys matching these extension names will **not** get reported as unknown keys and that these keys will also be further checked against their Arlington definitions. The default is not to enable any extensions - i.e. it is a "pure" check against ISO 32000-2:202. Use `--extensions *` (or `--extensions \*` on Linux to stop globbing by bash) to include all extensions when checking the PDF file.
 
 Note also that the Extensions Dictionary in the PDF file is **not** consulted!
 
 ```bash
 TestGrammar --brief --tsvdir ./tsv/latest --extensions AAPL,Malforms --pdf /tmp/folder_of_pdfs/ --out /tmp/out
-TestGrammar --brief --tsvdir ./tsv/latest --extensions * --force 2.0 --pdf /tmp/folder_of_pdfs/ --out /tmp/out
-TestGrammar --brief --tsvdir ./tsv/latest --extensions * --force exact --pdf /tmp/folder_of_pdfs/ --out /tmp/out
+TestGrammar --brief --tsvdir ./tsv/latest --extensions \* --force 2.0 --pdf /tmp/folder_of_pdfs/ --out /tmp/out
+TestGrammar --brief --tsvdir ./tsv/latest --extensions \* --force exact --pdf /tmp/folder_of_pdfs/ --out /tmp/out
 ```
 
 Prototyped extensions (mainly to experiment with expressing the necessary version and data dependency information):
