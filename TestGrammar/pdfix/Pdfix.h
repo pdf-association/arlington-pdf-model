@@ -22,7 +22,7 @@
 #endif
 
 #define PDFIX_VERSION_MAJOR 6
-#define PDFIX_VERSION_MINOR 18
+#define PDFIX_VERSION_MINOR 19
 #define PDFIX_VERSION_PATCH 0
 #define MAX_INT 2147483647
 #define MIN_INT -2147483647
@@ -1020,6 +1020,7 @@ enum {
   kEnumForms = 0x08,
   kEnumFormNoStruct = 0x10,
   kEnumChildrenFirst = 0x20,
+  kEnumChars = 0x40,
 } ;
 
 
@@ -1603,6 +1604,7 @@ struct PdsNumber : PdsObject {
 struct PdsString : PdsObject {
   virtual int GetValue(_out_ char* buffer, int len) const = 0;
   virtual int GetText(_out_ wchar_t* buffer, int len) const = 0;
+  virtual bool IsHexValue() const = 0;
   std::wstring GetText() {
     std::wstring buffer;
     buffer.resize(GetText(nullptr, 0));
@@ -1977,15 +1979,23 @@ struct PdeArtifact : PdeContainer {
 };
 
 struct PdeCell : PdeContainer {
+  virtual bool GetRowHeader() const = 0;
+  virtual void SetRowHeader(bool header) = 0;
+  virtual bool GetColHeader() const = 0;
+  virtual void SetColHeader(bool header) = 0;
   virtual int GetRowSpan() const = 0;
+  virtual void SetRowSpan(int span) = 0;
   virtual int GetColSpan() const = 0;
+  virtual void SetColSpan(int span) = 0;
   virtual bool HasBorderGraphicState(int index) const = 0;
   virtual PdeCell* GetSpanCell() = 0;
 };
 
 struct PdeTable : PdeContainer {
   virtual int GetNumRows() const = 0;
+  virtual void SetNumRows(int num) = 0;
   virtual int GetNumCols() const = 0;
+  virtual void SetNumCols(int num) = 0;
   virtual PdeCell* GetCell(int row, int col) = 0;
   virtual PdfAlignment GetRowAlignment(int row) const = 0;
   virtual PdfAlignment GetColAlignment(int col) const = 0;
@@ -2370,7 +2380,7 @@ struct PdfDigSig : PdfBaseDigSig {
   virtual bool SetPfxFile(const wchar_t* pfx_file, const wchar_t* pfx_password) = 0;
 };
 
-#if defined _WIN32 && defined _MSC_VER 
+#if defined _WIN32 && defined _MSC_VER
 struct PdfCertDigSig : PdfBaseDigSig {
   virtual bool SetPfxFile(const wchar_t* pfx_file, const wchar_t* pfx_password) = 0;
   virtual bool SetCertContext(void* cert_context) = 0;
@@ -3059,12 +3069,13 @@ struct PsAuthorization {
 
 struct PsAccountAuthorization : PsAuthorization {
   virtual bool Authorize(const wchar_t* email, const wchar_t* serial_number) = 0;
+  virtual bool Reset() = 0;
 };
 
 struct PsStandardAuthorization : PsAuthorization {
   virtual bool Activate(const wchar_t* serial_number) = 0;
   virtual bool Deactivate() = 0;
-  virtual bool Update() = 0;
+  virtual bool Update(bool local) = 0;
   virtual bool Reset() = 0;
 };
 
@@ -3215,7 +3226,7 @@ extern GetPdfixProcType GetPdfix;
 
 class PdfixException : public std::exception {
 public:
-  PdfixException() { 
+  PdfixException() {
     m_code = (GetPdfix ? GetPdfix()->GetErrorType() : 1);
     m_what = (GetPdfix ? GetPdfix()->GetError() : "Unknown Error");
   }
