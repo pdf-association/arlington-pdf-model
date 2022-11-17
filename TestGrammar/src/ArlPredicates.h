@@ -24,6 +24,7 @@
 
 #include <string>
 #include <vector>
+#include <regex>
 
 /// @brief Arlington PDF version regex (1.0, 1.1, ... 1.7, 2.0).
 const std::string  ArlPDFVersion = "(1\\.[0-7]|2\\.0)";
@@ -63,7 +64,8 @@ const std::vector<std::string>  v_ArlAllTypes = {
         "string-text"
 };
 
-/// @brief Arlingon pre-defined types which REQUIRE a Link - aka "Complex types" (alphabetically pre-sorted vector)
+/// @brief Arlingon pre-defined types which CAN HAVE a Link - aka "Complex types" (alphabetically pre-sorted vector)
+/// Note that Links are optional for name- and number-trees!
 const std::vector<std::string>  v_ArlComplexTypes = {
     "array",
     "dictionary",
@@ -104,8 +106,8 @@ const std::string ArlString = "'[^']+'";
 /// @brief Arlington key or array index regex, including path separator "::" and wildcards.
 /// Intersects with ArlLink and ArlPredfinedType.
 /// Examples: SomeKey, 3, *, 2*, parent::SomeKey, SomeKeyA::SomeKeyB::3, SomeKeyA::SomeKeyB::\@SomeKeyC,
-const std::string  ArlKeyBase = "[a-zA-Z0-9_\\.]+";
-const std::string  ArlKey = "([a-zA-Z]+::)*(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
+const std::string  ArlKeyBase = "[a-zA-Z0-9_\\.\\-]+";
+const std::string  ArlKey = "([a-zA-Z\\*]+::)*(" + ArlKeyBase + "|[0-9]+(\\*)?|\\*)+";
 const std::string  ArlKeyValue = "(([a-zA-Z0-9]+::)*)@(" + ArlKeyBase + "|([0-9]+(\\*)?)+|\\*)+";
 
 
@@ -135,5 +137,26 @@ const std::string ArlBooleans = "(true|false)";
 /// @brief Tolerance for floating-point equality and inequality comparison.
 /// Old Adobe PDF specs used to recommend 5 digits so go +/- half of that
 const double ArlNumberTolerance = 0.000005;
+
+
+extern const std::regex  r_Types;
+extern const std::regex  r_Keys;
+
+/// @brief Regexes for matching versioning predicates (incl. extensions)
+extern const std::regex  r_sinceVersionExtension;
+extern const std::regex  r_isPDFVersionExtension;
+extern const std::regex  r_sinceVersion;
+extern const std::regex  r_beforeVersion;
+extern const std::regex  r_Deprecated;
+extern const std::regex  r_isPDFVersion;
+extern const std::regex  r_LinkExtension;
+
+extern const std::regex  r_startsWithSinceVersionExtension;
+extern const std::regex  r_startsWithIsPDFVersionExtension;
+extern const std::regex  r_startsWithSinceVersion;
+extern const std::regex  r_startsWithBeforeVersion;
+extern const std::regex  r_startsWithDeprecated;
+extern const std::regex  r_startsWithIsPDFVersion;
+extern const std::regex  r_startsWithLinkExtension;
 
 #endif // ArlPredicates_h

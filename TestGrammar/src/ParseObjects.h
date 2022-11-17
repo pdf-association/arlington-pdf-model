@@ -113,14 +113,14 @@ private:
 
 public:
     CParsePDF(const fs::path& tsv_folder, std::ostream &ofs, const bool terser_output, const bool debug_output)
-        : grammar_folder(tsv_folder), output(ofs), terse(terser_output), pdfc(nullptr), counter(0), context_shown(false), debug_mode(debug_output)
+        : grammar_folder(tsv_folder), output(ofs), terse(terser_output), pdfc(nullptr), counter(0), context_shown(false), debug_mode(debug_output), pdf_version(0)
         { /* constructor */ }
 
     /// @brief add an object to be checked
     void add_root_parse_object(ArlPDFObject* object, const std::string& link, const std::string& context);
 
     /// @brief begin analysing a PDF file from a "root" object (most likely the trailer)
-    void parse_object(CPDFFile& pdf);
+    bool parse_object(CPDFFile& pdf);
 };
 
 #endif // ParseObjects_h

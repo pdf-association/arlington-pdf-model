@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		TRUE	FALSE	FALSE		[Font]			
-Subtype	name	1.0		TRUE	FALSE	FALSE		[Type1]			Table 109
+Type	name	1.0		TRUE	FALSE	FALSE		[Font]			Table 109
+Subtype	name	1.0		TRUE	FALSE	FALSE		[Type1]			
 Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
 BaseFont	name	1.0		TRUE	FALSE	FALSE					
 FirstChar	integer	1.0		fn:IsRequired(fn:NotStandard14Font())	FALSE	FALSE					

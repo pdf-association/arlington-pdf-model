@@ -55,7 +55,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Ignore(BS)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Ignore(fn:IsPresent(BS))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Dest</NAME>
@@ -452,7 +452,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ColorSpaceMap" object_number="015">
+   <OBJECT id="ColorSpaceMap" isArray="true" object_number="015">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -703,6 +703,27 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
+      <ENTRY>
+         <NAME>AAPL:Keywords</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStringsText</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(AAPL)</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>GTS_PDFXVersion</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string-text">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(PDF_X)</INTRODUCED>
+      </ENTRY>
    </OBJECT>
    <OBJECT id="Encoding" object_number="021">
       <ENTRY>
@@ -894,6 +915,18 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
          <SPECIAL_CASE>fn:Ignore((@EndOfLine==false) || (@K&lt;0))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Blackls1</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="boolean">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(Malforms)</INTRODUCED>
       </ENTRY>
    </OBJECT>
    <OBJECT id="FilterDCTDecode" object_number="024">
@@ -2830,7 +2863,7 @@
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
             <VALUE type="name">false</VALUE>
@@ -2847,7 +2880,7 @@
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)) || (@ImageMask==true))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>

@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.2		FALSE	FALSE	FALSE		[Action]			
+Type	name	1.2		FALSE	FALSE	FALSE		[Action]			Table 196 and Table 214
 S	name	1.2		TRUE	FALSE	FALSE		[Hide]			
 Next	array;dictionary	1.2		FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
-T	array;dictionary;string-text	1.2		TRUE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute];[]	
+T	array;dictionary;string-text	1.2		TRUE	[FALSE];[TRUE];[FALSE]	FALSE			[];[];[fn:Eval(fn:IsFieldName(@T))]	[ArrayOfActionHideAnnots];[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotPolyLine,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotTrapNetwork,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia];[]	
 H	boolean	1.2		FALSE	FALSE	FALSE	true				

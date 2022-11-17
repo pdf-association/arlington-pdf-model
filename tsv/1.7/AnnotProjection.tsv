@@ -1,0 +1,25 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE		[Annot]			Table 166 and Table 172 and Clause 12.5.6.24 (markup annot)
+Subtype	name	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE		[Projection]			
+Rect	rectangle	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE					
+Contents	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+P	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[PageObject]	
+NM	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+M	date;string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+F	bitmask	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	0		[fn:Eval(fn:BitsClear(11,32))]		Table 167
+AP	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[Appearance]	
+AS	name	fn:Extension(ADBE_Extn3,1.7)		fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))	FALSE	FALSE					
+Border	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
+C	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
+StructParent	integer	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					Table 359
+OC	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
+CA	number	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && (@CA<=1.0))]			
+T	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+Popup	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[AnnotPopup]	
+RC	stream;string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
+CreationDate	date	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+IRT	dictionary	fn:Extension(ADBE_Extn3,1.7)		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
+Subj	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+RT	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
+IT	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+ExData	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[ExData3DMarkup,ExDataMarkupGeo,ExDataProjection]	2D markup annots only

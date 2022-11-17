@@ -25,12 +25,23 @@
 #include <iostream>
 #include <filesystem>
 #include <vector>
+#include <memory>
+#include <cassert>
 
 /// @brief Choose which PDF SDK you want to use. Some may have more functionality than others.
 /// This is set in CMakeLists.txt or the TestGrammar | Properties | Preprocessor dialog for Visual Studio
 #if !defined(ARL_PDFSDK_PDFIUM) && !defined(ARL_PDFSDK_PDFIX) && !defined(ARL_PDFSDK_QPDF)
 #error Select the PDF SDK by defining one of: ARL_PDFSDK_PDFIUM, ARL_PDFSDK_PDFIX or ARL_PDFSDK_QPDF
 #endif
+
+
+
+/// @brief \#define MARK_STRINGS_WHEN_ENCRYPTED to replace all string values when encrypted with standard text
+#ifndef MARK_STRINGS_WHEN_ENCRYPTED
+#undef MARK_STRINGS_WHEN_ENCRYPTED
+const std::wstring UNSUPPORTED_ENCRYPTED_STRING_MARKER = L"<!unsupported encryption!>";
+#endif // MARK_STRINGS_WHEN_ENCRYPTED
+
 
 /// @namespace ArlingtonPDFShim
 /// A wafer thin shim layer to isolate a specific C/C++ PDF SDK library from the Arlington
@@ -85,6 +96,9 @@ namespace ArlingtonPDFShim {
 
         /// @brief true iff is an indirect reference
         bool            is_indirect;
+
+        /// @brief deleteable underlying PDF SDK object (NO for trailer, doccat)
+        bool            deleteable;
         
         /// @brief Sort all dictionary keys so guaranteed same order across PDF SDKs
         std::vector<std::wstring>   sorted_keys;
@@ -93,19 +107,21 @@ namespace ArlingtonPDFShim {
         virtual void sort_keys();
 
     public:
-        ArlPDFObject() :
-            object(nullptr), obj_nbr(0), gen_nbr(0), type(PDFObjectType::ArlPDFObjTypeUnknown), is_indirect(false)
+        ArlPDFObject(const bool can_delete = true) :
+            object(nullptr), obj_nbr(0), gen_nbr(0), type(PDFObjectType::ArlPDFObjTypeUnknown), is_indirect(false), deleteable(can_delete)
             { /* default constructor */ };
 
-        explicit ArlPDFObject(ArlPDFObject* parent, void* obj);
+        explicit ArlPDFObject(ArlPDFObject* parent, void* obj, const bool can_delete = true);
 
         ~ArlPDFObject()
-            { /* destructor */ sorted_keys.clear(); }
+            { /* default destructor */ sorted_keys.clear(); assert(deleteable); }
         
         PDFObjectType get_object_type() { return type; };
-        int   get_object_number() { return obj_nbr;  };
-        int   get_generation_number() { return gen_nbr; };
-        bool  is_indirect_ref() { return is_indirect; };
+        int   get_object_number()       { return obj_nbr; };
+        int   get_generation_number()   { return gen_nbr; };
+        bool  is_indirect_ref()         { return is_indirect; };
+        bool  is_deleteable()           { return deleteable; };
+        void  force_deleteable()        { deleteable = true; };
         std::string get_hash_id();
 
         /// @brief output operator <<
@@ -130,7 +146,7 @@ namespace ArlingtonPDFShim {
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeBoolean; };
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFBoolean& obj) {
-            ofs << "boolean " << (ArlPDFObject)obj;
+            ofs << "boolean " << (ArlPDFObject&)obj;
             return ofs;
         };
 
@@ -148,7 +164,7 @@ namespace ArlingtonPDFShim {
         int    get_integer_value();
         double get_value();
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNumber& obj) {
-            ofs << "number " << (ArlPDFObject)obj;
+            ofs << "number " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -161,8 +177,10 @@ namespace ArlingtonPDFShim {
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeString; };
 
         std::wstring get_value();
+        bool is_hex_string();
+
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFString& obj) {
-            ofs << "string " << (ArlPDFObject)obj;
+            ofs << "string " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -175,8 +193,9 @@ namespace ArlingtonPDFShim {
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeString; };
 
         std::wstring get_value();
+
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFName& obj) {
-            ofs << "name " << (ArlPDFObject)obj;
+            ofs << "name " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -184,13 +203,12 @@ namespace ArlingtonPDFShim {
     /// @class ArlPDFNull
     /// PDF null object
     class ArlPDFNull : public ArlPDFObject {
-        using ArlPDFObject::ArlPDFObject;
     public:
         ArlPDFNull(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeNull; };
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNull& obj) {
-            ofs << "null " << (ArlPDFObject)obj;
+            ofs << "null " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -204,8 +222,9 @@ namespace ArlingtonPDFShim {
 
         int get_num_elements();
         ArlPDFObject* get_value(const int idx);
+
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFArray& obj) {
-            ofs << "array " << (ArlPDFObject)obj;
+            ofs << "array " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -214,7 +233,7 @@ namespace ArlingtonPDFShim {
     /// PDF Dictionary object
     class ArlPDFDictionary : public ArlPDFObject {
     public:
-        ArlPDFDictionary(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+        ArlPDFDictionary(ArlPDFObject* parent, void* obj, const bool can_delete = true) : ArlPDFObject(parent, obj, can_delete)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeDictionary; };
 
         // For keys by name...
@@ -224,8 +243,9 @@ namespace ArlingtonPDFShim {
         // For iterating keys...
         int get_num_keys();
         std::wstring get_key_name_by_index(const int index);
+
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFDictionary& obj) {
-            ofs << "dictionary " << (ArlPDFObject)obj;
+            ofs << "dictionary " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -238,8 +258,9 @@ namespace ArlingtonPDFShim {
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeStream; };
 
         ArlPDFDictionary* get_dictionary();
+
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFStream& obj) {
-            ofs << "stream " << (ArlPDFObject)obj;
+            ofs << "stream " << (ArlPDFObject&)obj;
             return ofs;
         };
     };
@@ -248,51 +269,75 @@ namespace ArlingtonPDFShim {
     /// The trailer object of a PDF document (file)
     class ArlPDFTrailer : public ArlPDFDictionary {
     protected:
-        // Whether it is XRefStream or normal trailer
-        bool    is_xrefstm;
+        /// @brief Whether it is XRefStream or conventional trailer
+        const bool            has_xrefstm;
+
+        /// @brief PDF is encrypted
+        const bool            has_encryption;
+
+        /// @brief If unsupported encryption (standard or PKI) is in place (means all string checks will warn)
+        const bool            has_unsupported_encryption;
 
     public:
-        ArlPDFTrailer(void* obj) : ArlPDFDictionary(nullptr, obj),
-            is_xrefstm(false)
+        ArlPDFTrailer(void* obj, const bool has_xref, const bool encrypted, const bool unsupport_enc) : ArlPDFDictionary(nullptr, obj, false),
+            has_xrefstm(has_xref), has_encryption(encrypted), has_unsupported_encryption(unsupport_enc)
             { /* constructor */ };
 
+        ~ArlPDFTrailer() 
+            { /* destructor */ };
 
-        void set_xrefstm(const bool is_xrefstream) { is_xrefstm = is_xrefstream; };
-        bool get_xrefstm() { return is_xrefstm; };
+        bool is_xrefstm() { return has_xrefstm; };
+        bool is_encrypted() { return has_encryption; };
+        bool is_unsupported_encryption() { return has_unsupported_encryption; };
+
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFTrailer& obj) {
-            ofs << "trailer " << (ArlPDFDictionary)obj << (obj.is_xrefstm ? " with xref " : "");
+            ofs << "trailer " << (ArlPDFDictionary&)obj << (obj.has_encryption ? (obj.has_unsupported_encryption ? " with unsupported encryption"  : " encrypted") : "") << (obj.has_xrefstm ? " with XRefStm " : "");
             return ofs;
         }
     };
+
+
 
     /// @class ArlingtonPDFSDK
     /// Arlington PDF SDK
     class ArlingtonPDFSDK {
     public:
         /// @brief Untyped PDF SDK context object. Needs casting appropriately
-        static void    *ctx;
+        static void* ctx;
 
         /// @brief PDF SDK constructor
         explicit ArlingtonPDFSDK()
             { /* constructor */ ctx = nullptr; };
 
-        /// @brief Initialize the PDF SDK. Throws exceptions on error.
+        /// @brief Initialize the PDF SDK. Can throw exceptions on error.
         void initialize();
 
         /// @brief Shutdown the PDF SDK
         void shutdown();
 
-        /// @brief Get human-readable version string of PDF SDK
+        /// @brief Get human-readable name and version string of PDF SDK
         std::string get_version_string();
 
-        /// @brief Open a PDF file (no password) and returns trailer object.
-        ArlPDFTrailer *get_trailer(std::filesystem::path pdf_filename);
+        /// @brief Open a PDF file (optional password) 
+        bool open_pdf(const std::filesystem::path& pdf_filename, const std::wstring& password);
 
-        /// @brief Get the PDF version of a PDF file
-        std::string get_pdf_version(ArlPDFTrailer* trailer);
+        /// @brief Close a previously opened PDF and free all memory and resources
+        void close_pdf();
 
-        /// @brief Get number of pages in the PDF. -1 on error
-        int get_pdf_page_count(ArlPDFTrailer* trailer);
+        /// @brief Returns trailer dictionary-like object of an already opened PDF. DO NOT DELETE.
+        ArlPDFTrailer*  get_trailer();
+         
+        /// @brief Returns document catalog (Trailer::Root) of an already opened PDF. DO NOT DELETE.
+        ArlPDFDictionary* get_document_catalog();
+
+        /// @brief Get the PDF version of an already opened PDF file as a string of length 3
+        std::string get_pdf_version();
+
+        /// @brief Get the PDF version of an already opened PDF file as an integer * 10
+        int get_pdf_version_number();
+
+        /// @brief Get number of pages (>= 0) in the already opened PDF. -1 on error.
+        int get_pdf_page_count();
     };
 
 }; // namespace

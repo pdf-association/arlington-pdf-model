@@ -1,11 +1,12 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Recipients	array	1.3		fn:IsRequired((@SubFilter==adbe.pkcs7.s3) || (@SubFilter==adbe.pkcs7.s4))	FALSE	FALSE				[ArrayOfStringsByte]	Table 23
+Recipients	array	1.3		fn:IsRequired((@SubFilter==adbe.pkcs7.s3) || (@SubFilter==adbe.pkcs7.s4))	FALSE	FALSE				[ArrayOfStringsByte]	Table 23, https://github.com/pdf-association/pdf-issues/issues/16
+P	bitmask	1.3	2.0	FALSE	FALSE	FALSE	0		[fn:Eval(fn:BitsClear(13,32))]		Table 23 and Table 24 - removed from ISO 32000-2:2020
 Filter	name	1.1		TRUE	FALSE	FALSE		[Adobe.PubSec,AdobePPKLite]			Table 20
 SubFilter	name	1.3		FALSE	FALSE	FALSE		[adbe.pkcs7.s3,adbe.pkcs7.s4,adbe.pkcs7.s5]			
-V	integer	1.4		FALSE	FALSE	FALSE		[0,1,2,3,4,5]			
+V	integer	1.1		TRUE	FALSE	FALSE		[fn:Deprecated(1.1,0),1,fn:SinceVersion(1.4,2),fn:SinceVersion(1.4,3),fn:SinceVersion(1.5,4)]			
 Length	integer	1.4	2.0	FALSE	FALSE	FALSE	40	[fn:Eval((@Length>=40) && (@Length<=128) && ((@Length mod 8)==0))]			
 CF	dictionary	1.5		FALSE	FALSE	FALSE			[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]	[CryptFilterMap,CryptFilterPublicKeyMap]	
-StmF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]		
-StrF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]		
-EFF	name	1.6		FALSE	FALSE	FALSE			[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]		
+StmF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]		
+StrF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]		
+EFF	name	1.6		FALSE	FALSE	FALSE			[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]		
 EncryptMetadata	boolean	1.5		FALSE	FALSE	FALSE	true				

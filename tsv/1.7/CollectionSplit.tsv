@@ -1,0 +1,3 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Direction	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE		[H,V,N]			
+Position	number	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE		[fn:Eval((@Position>=0) && (@Position<=100))]	[fn:Ignore(@Direction==N)]		

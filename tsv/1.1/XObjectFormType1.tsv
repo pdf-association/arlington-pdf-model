@@ -1,11 +1,11 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		FALSE	FALSE	FALSE		[XObject]			
+Type	name	1.0		FALSE	FALSE	FALSE		[XObject]			Table 5 and Table 93
 Subtype	name	1.0		TRUE	FALSE	FALSE		[Form]			
 FormType	integer	1.0		TRUE	FALSE	FALSE		[1]			
 BBox	rectangle	1.0		TRUE	FALSE	FALSE					
 Matrix	matrix	1.0		TRUE	FALSE	FALSE	[1 0 0 1 0 0]				
 Name	name	1.0	2.0	TRUE	FALSE	FALSE					
-Length	integer	1.0		TRUE	FALSE	FALSE					* from stream
-Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	
+Length	integer	1.0		TRUE	FALSE	FALSE					from stream
+Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	Table 6
 DecodeParms	array;dictionary	1.0		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode]	
 XUID	array	1.0	1.3	FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral]	

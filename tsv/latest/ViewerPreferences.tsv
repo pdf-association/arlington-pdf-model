@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-HideToolbar	boolean	1.2		FALSE	FALSE	FALSE	false				
+HideToolbar	boolean	1.2		FALSE	FALSE	FALSE	false				Table 147
 HideMenubar	boolean	1.2		FALSE	FALSE	FALSE	false				
 HideWindowUI	boolean	1.2		FALSE	FALSE	FALSE	false				
 FitWindow	boolean	1.2		FALSE	FALSE	FALSE	false				
@@ -11,9 +11,9 @@ ViewArea	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimB
 ViewClip	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			
 PrintArea	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			
 PrintClip	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			
-PrintScaling	name	1.6		FALSE	FALSE	FALSE	AppDefault	[None,AppDefault]			
+PrintScaling	name	1.6		FALSE	FALSE	FALSE	AppDefault	[None,AppDefault,*]			
 Duplex	name	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[Simplex,DuplexFlipShortEdge,DuplexFlipLongEdge]			
 PickTrayByPDFSize	boolean	1.7		FALSE	FALSE	FALSE	false				
 PrintPageRange	array	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()			[ArrayOfIntegersGeneral]	
-NumCopies	integer	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()				
-Enforce	array	2.0		FALSE	FALSE	FALSE				[ArrayOfNamesForEnforce]	
+NumCopies	integer	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[fn:Eval(@NumCopies>0)]			
+Enforce	array	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfNamesForEnforce]	

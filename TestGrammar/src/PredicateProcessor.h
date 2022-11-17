@@ -75,7 +75,7 @@ public:
     bool ValidateTypeSyntax(const int key_idx);
     
     bool ValidateSinceVersionSyntax(const int key_idx);
-    bool IsValidForPDFVersion(const int key_idx);
+    bool IsValidForPDFVersion(ArlPDFObject* parent, ArlPDFObject* obj, const int key_idx);
     
     bool ValidateDeprecatedInSyntax(const int key_idx);
     bool IsDeprecated(const int key_idx);
@@ -90,7 +90,7 @@ public:
     bool IsInheritable(const int key_idx);
 
     bool ValidateDefaultValueSyntax(const int key_idx);
-    ASTNode* GetDefaultValue(const int key_idx);
+    ASTNode* GetDefaultValue(const int key_idx, const int type_idx);
 
     bool ValidatePossibleValuesSyntax(const int key_idx);
     bool ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_idx);
@@ -99,7 +99,6 @@ public:
     bool ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_idx);
 
     bool ValidateLinksSyntax(const int key_idx);
-    std::string ReduceLinkRow(const int key_idx);
 };
 
 #endif // PredicateProcessor_h

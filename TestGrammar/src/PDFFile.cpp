@@ -46,8 +46,8 @@ namespace fs = std::filesystem;
 
 
 /// @brief Constructor. Calculates some details about the PDF file
-CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver)
-    : pdf_filename(pdf_file), pdfsdk(pdf_sdk), has_xref_stream(false), doccat(nullptr), trailer_size(INT_MAX),
+CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std::string& forced_ver, const std::vector<std::string>& extns)
+    : pdf_filename(pdf_file), pdfsdk(pdf_sdk), trailer_size(INT_MAX),
       latest_feature_version("1.0"), deprecated(false), fully_implemented(true), exact_version_compare(false)
 {
     if (forced_ver.size() > 0) {
@@ -57,16 +57,17 @@ CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std
             forced_version = forced_ver;
     }
 
+    // Copy across the list of supported extensions
+    extensions = extns;
+
     // Get physical file size, reduced to an int for simplicity
     filesize_bytes = (int)fs::file_size(pdf_filename);
 
-    trailer = pdfsdk.get_trailer(pdf_file.wstring());
+    // Get PDF version from file header.  No sanity checking is done.
+    pdf_header_version = pdfsdk.get_pdf_version();
+
+    auto trailer = pdfsdk.get_trailer();
     if (trailer != nullptr) {
-        has_xref_stream = trailer->get_xrefstm();
-
-        // Get PDF version from file header.  No sanity checking is done.
-        pdf_header_version = pdfsdk.get_pdf_version(trailer);
-
         // Get the trailer Size key
         if (trailer->has_key(L"Size")) {
             ArlPDFObject* sz = trailer->get_value(L"Size");
@@ -79,24 +80,16 @@ CPDFFile::CPDFFile(const fs::path& pdf_file, ArlingtonPDFSDK& pdf_sdk, const std
         }
 
         // Get the Document Catalog Version, if it exists. No sanity checking is done.
-        if (trailer->has_key(L"Root")) {
-            ArlPDFObject* dc = trailer->get_value(L"Root");
-            if (dc != nullptr) {
-                if ((dc->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-                    doccat = (ArlPDFDictionary*)dc;
-                    ArlPDFObject* doc_cat_ver_obj = doccat->get_value(L"Version");
+        {
+            auto doccat = pdfsdk.get_document_catalog();
+            ArlPDFObject* doc_cat_ver_obj = doccat->get_value(L"Version");
 
-                    if (doc_cat_ver_obj != nullptr) {
-                        if (doc_cat_ver_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeName) {
-                            std::wstring doccat_ver = ((ArlPDFName*)doc_cat_ver_obj)->get_value();
-                            pdf_catalog_version = ToUtf8(doccat_ver);
-                        }
-                        delete doc_cat_ver_obj;
-                    }
+            if (doc_cat_ver_obj != nullptr) {
+                if (doc_cat_ver_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeName) {
+                    std::wstring doccat_ver = ((ArlPDFName*)doc_cat_ver_obj)->get_value();
+                    pdf_catalog_version = ToUtf8(doccat_ver);
                 }
-                else {
-                    delete dc; // DocCatalog was not a dictionary (wtf?) so can delete
-                }
+                delete doc_cat_ver_obj;
             }
         }
     }
@@ -127,14 +120,15 @@ std::vector<std::string> CPDFFile::split_key_path(std::string key)
         keys.push_back(key);
     }
 
-    // Only the FINAL portion of a path can have the '@' for value-of or contain a wildcard. 
-    for (size_t i = 0; i < keys.size() - 1; i++)
-        assert((keys[i][0] != '@') && (keys[i].find('*') == std::string::npos));
+    // Only the FINAL portion of a path can have the '@' for value-of 
+    for (size_t i = 0; i < keys.size() - 1; i++) {
+        assert(keys[i][0] != '@');
+    }
 
-    // "parent" and "trailer" are pre-defined and can only be in the 1st portion. These do NOT
-    // match any Arlington TSV filename by design.
-    for (size_t i = 1; i < keys.size(); i++)
+    // "parent" and "trailer" are pre-defined and can only be in the very 1st portion. 
+    for (size_t i = 1; i < keys.size(); i++) {
         assert((keys[i] != "parent") && (keys[i] != "trailer"));
+    }
 
     return keys;
 }
@@ -144,7 +138,7 @@ std::vector<std::string> CPDFFile::split_key_path(std::string key)
 /// @brief  Gets the object mentioned by an Arlington path.
 /// 
 /// @param[in]   parent           a parent object (such that a single path is IN this object)
-/// @param[in]   arlpath          the Arlington path broken down as vector
+/// @param[in]   arlpath          the Arlington path broken down as a vector
 /// 
 /// @returns   the object for the path or nullptr if it doesn't exist
 ArlPDFObject* CPDFFile::get_object_for_path(ArlPDFObject* parent, const std::vector<std::string>& arlpath) {
@@ -162,12 +156,12 @@ ArlPDFObject* CPDFFile::get_object_for_path(ArlPDFObject* parent, const std::vec
 
     // some special case handling
     if ((path_len >= 2) && (path[0] == "trailer") && (path[1] == "Catalog")) {
-        obj = doccat;
+        obj = pdfsdk.get_document_catalog();
         path.erase(path.begin());
         path.erase(path.begin());
     }
     else if ((path_len >= 1) && (path[0] == "trailer")) {
-        obj = trailer;
+        obj = pdfsdk.get_trailer();
         path.erase(path.begin());
     }
 
@@ -220,7 +214,7 @@ ArlPDFObject* CPDFFile::get_object_for_path(ArlPDFObject* parent, const std::vec
                         delete obj;
                     obj = a;
                     delete_obj = true;
-            }
+                }
                 break;
             case PDFObjectType::ArlPDFObjTypeStream:
                 {
@@ -228,10 +222,10 @@ ArlPDFObject* CPDFFile::get_object_for_path(ArlPDFObject* parent, const std::vec
                     if (dict != nullptr) {
                         ArlPDFObject* a;
                         if (path[0] != "*")
-                            a = ((ArlPDFDictionary*)dict)->get_value(ToWString(path[0]));
+                            a = dict->get_value(ToWString(path[0]));
                         else {
-                            auto key = ((ArlPDFDictionary*)obj)->get_key_name_by_index(0);
-                            a = ((ArlPDFDictionary*)obj)->get_value(key);
+                            auto key = dict->get_key_name_by_index(0);
+                            a = dict->get_value(key);
                         }
                         delete dict;
                         if (delete_obj)
@@ -306,9 +300,10 @@ double CPDFFile::convert_node_to_double(const ASTNode* node) {
 /// @param[in]  key_idx          the index into the Arlington 'Key' field of the TSV data (>=0)
 /// @param[in]  type_idx         the index into the Arlington 'Type' field of 'Key' field of the TSV data  (>=0)
 /// @param[in]  depth            depth counter for recursion (visual indentation) (>=0)
+/// @param[in]  use_default_values  true if Default Values should be used when a key-value (@Key) is not present
 /// 
 /// @returns   Output AST (always valid) or nullptr if indeterminate 
-ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth) 
+ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth, const bool use_default_values)
 {
     assert(parent != nullptr);
     assert(obj != nullptr);
@@ -334,7 +329,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
     if (in_ast->arg[0] != nullptr) {
         bool current_processing_state = fully_implemented;
         fully_implemented = true;
-        out_left = ProcessPredicate(parent, obj, in_ast->arg[0], key_idx, tsv_data, type_idx, depth + 1);
+        out_left = ProcessPredicate(parent, obj, in_ast->arg[0], key_idx, tsv_data, type_idx, depth + 1, use_default_values);
         fully_implemented = current_processing_state && fully_implemented;
 #ifdef PP_AST_DEBUG
         if (out_left != nullptr) { std::cout << std::string(depth * 2, ' ') << " Out-Left:  " << *out_left << std::endl; }
@@ -347,7 +342,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
     if (in_ast->arg[1] != nullptr) {
         bool current_processing_state = fully_implemented;
         fully_implemented = true;
-        out_right = ProcessPredicate(parent, obj, in_ast->arg[1], key_idx, tsv_data, type_idx, depth + 1);
+        out_right = ProcessPredicate(parent, obj, in_ast->arg[1], key_idx, tsv_data, type_idx, depth + 1, use_default_values);
         fully_implemented = current_processing_state && fully_implemented;
 #ifdef PP_AST_DEBUG
         if (out_right != nullptr) { std::cout << std::string(depth * 2, ' ') << " Out-Right:  " << *out_right << std::endl; }
@@ -379,8 +374,15 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
         //
         //    grep -Po "fn:<predicate-name>\([^\t]*\)" *
         //
-        if (in_ast->node == "fn:ArrayLength(") {
-            // 1 argument: name of key which is an array, could be indeterminate
+        if (in_ast->node == "fn:AlwaysUnencrypted(") {
+            // no arguments
+            assert(out_left == nullptr);
+            assert(out_right == nullptr);
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = (fn_AlwaysUnencrypted(obj) ? "true" : "false");
+        }
+        else if (in_ast->node == "fn:ArrayLength(") {
+            // 1 argument: name of key (or an integer array index) which is an array, could be indeterminate
             assert(out_right == nullptr);
             int len = fn_ArrayLength(parent, out_left);
             if (len >= 0) {
@@ -395,7 +397,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             }
         }
         else if (in_ast->node == "fn:ArraySortAscending(") {
-            // 2 arguments: name of key which is the array, step size
+            // 2 arguments: name of key key (or an integer array index) which is the array, step size
             assert(out_left != nullptr);
             assert(out_right != nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
@@ -458,6 +460,11 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 out = nullptr;
             }
         }
+        else if (in_ast->node == "fn:Extension(") {
+            // 1 or 2 arguments: extension name (required), optional value (when used in fields except "SinceVersion")
+            delete out;
+            out = fn_Extension(out_left, out_right);
+        }
         else if (in_ast->node == "fn:FileSize(") {
             // no arguments
             assert(out_left == nullptr);
@@ -471,6 +478,20 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = fn_FontHasLatinChars(obj) ? "true" : "false";
+        }
+        else if (in_ast->node == "fn:HasProcessColorants(") {
+            // one argument - an array object of names
+            assert(out_left != nullptr);
+            assert(out_right == nullptr);
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = fn_HasProcessColorants(parent, out_left) ? "true" : "false";
+        }
+        else if (in_ast->node == "fn:HasSpotColorants(") {
+            // one argument - an array object of names
+            assert(out_left != nullptr);
+            assert(out_right == nullptr);
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = fn_HasSpotColorants(parent, out_left) ? "true" : "false";
         }
         else if (in_ast->node == "fn:Ignore(") {
             /// @todo - implement ignoring things...
@@ -496,7 +517,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = "true";
         }
         else if (in_ast->node == "fn:InMap(") {
-            // 1 argument which is the key name of the map, which can be nullptr due to reduction/indeterminism
+            // 1 argument which is the key name key (or an integer array index) of the map, which can be nullptr due to reduction/indeterminism
             assert(out_left != nullptr);
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
@@ -516,8 +537,22 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = fn_IsEncryptedWrapper() ? "true" : "false";
         }
+        else if (in_ast->node == "fn:IsFieldName(") {
+            // one argument: key-value
+            assert(out_left != nullptr);
+            assert(out_right == nullptr);
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = fn_IsFieldName(obj) ? "true" : "false";
+        }
+        else if (in_ast->node == "fn:IsHexString(") {
+            // no arguments
+            assert(out_left == nullptr);
+            assert(out_right == nullptr);
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = fn_IsHexString(obj) ? "true" : "false";
+        }
         else if (in_ast->node == "fn:IsLastInNumberFormatArray(") {
-            // 1 argument which is the key name of an array. COULD be indeterminate.
+            // 1 argument which is the key name key (or an integer array index) of an array. COULD be indeterminate.
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = fn_IsLastInArray(parent, obj, out_left) ? "true" : "false";
@@ -542,20 +577,54 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out = fn_IsPDFVersion(out_left, out_right);
         }
         else if (in_ast->node == "fn:IsPresent(") {
-            // 1 argument: condition that has already been reduced to true/false, or a key name, or could be 
-            // nullptr/indeterminate (e.g. missing key in an expression)
-            if (out_left != nullptr) {
-                assert(out_right == nullptr);
-                if (out_left->type == ASTNodeType::ASTNT_Key)
-                    out->node = (fn_IsPresent(parent, out_left->node) ? "true" : "false");
+            // Need to check in_ast->arg[] to see if 1 or 2 argument version first:
+            // If 1 argument: condition that has already been reduced to true/false, or a key name, or could be 
+            // nullptr/indeterminate (e.g. missing key in an expression). In that case the result is a boolean
+            // false.
+            // If 2 arguments: 2nd argument (condition) only applies if the 1st argument resolved to true. But due
+            // to missing keys the 1st argument could have resolved to nullptr in which case the result is a nullptr.
+            //
+            // Note that key names here can be integers (array index), wildcard '*' or integer+'*'!! 
+            if ((in_ast->arg[0] != nullptr) && (in_ast->arg[1] != nullptr)) {
+                // 2 argument version
+                bool l = false;
+                if (out_left != nullptr) {
+                    if ((out_left->type == ASTNodeType::ASTNT_Key) || (out_left->type == ASTNodeType::ASTNT_ConstInt))
+                        l = fn_IsPresent(parent, out_left->node);
+                    else {
+                        // Was probably a condition...
+                        assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                        l = (out_left->node == "true");
+                    }
+                }
+                if (l) {
+                    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                    out->node = "false";
+                    if (out_right != nullptr) {
+                        assert(out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                        out->node = out_right->node;
+                    }
+                }
                 else {
-                    assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
-                    out->node = out_left->node;
+                    // 1st argument didn't exist/wasn't true so ignore 2nd argument. NOT FALSE!!!
+                    delete out;
+                    out = nullptr;
                 }
             }
-            else
+            else {
+                // 1 argument version
+                assert(out_right == nullptr);
+                out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
                 out->node = "false";
-            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                if (out_left != nullptr) {
+                    if ((out_left->type == ASTNodeType::ASTNT_Key) || (out_left->type == ASTNodeType::ASTNT_ConstInt))
+                        out->node = (fn_IsPresent(parent, out_left->node) ? "true" : "false");
+                    else {
+                        assert(out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                        out->node = out_left->node;
+                    }
+                }
+            }
         }
         else if (in_ast->node == "fn:IsRequired(") {
             // 1 argument: condition that has already been reduced to true/false, or could be nullptr (e.g. missing key)
@@ -577,7 +646,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = "true";
         }
         else if (in_ast->node == "fn:MustBeDirect(") {
-            // optional 1 argument, which is a key, an expression (reduced, possibly to nothing), or nothing
+            // optional 1 argument, which is a key/array index, an expression (reduced, possibly to nothing), or nothing
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             if (in_ast->arg[0] == nullptr) {
@@ -596,7 +665,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             }
         }
         else if (in_ast->node == "fn:MustBeIndirect(") {
-            // optional 1 argument, which is a key, an expression (reduced, possibly to nothing), or nothing
+            // optional 1 argument, which is a key/array index, an expression (reduced, possibly to nothing), or nothing
             assert(out_right == nullptr); 
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             if (in_ast->arg[0] == nullptr) {
@@ -656,18 +725,18 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->node = fn_PageContainsStructContentItems(obj) ? "true" : "false";
         }
         else if (in_ast->node == "fn:PageProperty(") {
-            // 2 arguments: the page, a key on that page. Either could be nullptr! 
+            // 2 arguments: the page, a key (NEVER an array index!) on that page. Either could be nullptr! 
             delete out;
             out = fn_PageProperty(parent, out_left, out_right);
         }
         else if (in_ast->node == "fn:RectHeight(") {
-            // 1 argument: key of the rectangle. Could be indeterminate.
+            // 1 argument: key or integer array index of the rectangle. Could be indeterminate.
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstNum;
             out->node = std::to_string(fn_RectHeight(parent, out_left));
         }
         else if (in_ast->node == "fn:RectWidth(") {
-            // 1 argument: key of the rectangle. Could be indeterminate.
+            // 1 argument: key or integer array index of the rectangle. Could be indeterminate.
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstNum;
             out->node = std::to_string(fn_RectWidth(parent, out_left));
@@ -682,7 +751,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out = fn_SinceVersion(out_left, out_right);
         }
         else if (in_ast->node == "fn:StreamLength(") {
-            // 1 argument: key name of the stream
+            // 1 argument: key name or integer array index of the stream
             assert(out_left != nullptr);
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstInt;
@@ -699,7 +768,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             }
         }
         else if (in_ast->node == "fn:StringLength(") {
-            // 1 argument: key name of the string
+            // 1 argument: key name or integer array index of the string
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstInt;
             int len = fn_StringLength(parent, out_left);
@@ -715,7 +784,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             }
         }
         else if (in_ast->node == "fn:Contains(") {
-            // 2 arguments: key name and a value, but either may have been reduced
+            // 2 arguments: key name or integer array index and a value, but either may have been reduced
             if (out_left == nullptr) {
                 delete out_right;
                 out_right = nullptr;
@@ -879,8 +948,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                     out->node = out_left->node;
                     break;
                 }
-                else if ((out_left == nullptr) && (out_right != nullptr)) {
-                    assert(out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                else if ((out_left == nullptr) && (out_right != nullptr) && (out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean)) {
                     out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
                     out->node = out_right->node;
                     // swap nodes
@@ -894,26 +962,42 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                     break;
                 }
 
-                assert((out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean) && (out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean));
-                if (in_ast->node == " && ") {
-                    // logical AND - if only 1 arg then it is that arg
-                    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-                    out->node = ((out_left->node == "true") && (out_right->node == "true")) ? "true" : "false";
-                }
-                else if (in_ast->node == " || ") {
-                    // logical OR
-                    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-                    out->node = ((out_left->node == "true") || (out_right->node == "true")) ? "true" : "false";
+                if (((out_left == nullptr) || (out_left->type == ASTNodeType::ASTNT_ConstNum)) || (out_right->type == ASTNodeType::ASTNT_ConstNum)) {
+                    // Coming from SinceVersion field: fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0) type expression
+                    assert(in_ast->node == " || ");
+                    out->type = ASTNodeType::ASTNT_ConstNum;
+                    if (out_left != nullptr)
+                        out->node = out_left->node;
+                    else
+                        out->node = out_right->node;
+                    delete out_left;
+                    out_left = nullptr;
+                    delete out_right;
+                    out_right = nullptr;
+                    break;
                 }
                 else {
-                    assert(false && "unexpected logical operator!");
-                    delete out;
-                    out = nullptr;
+                    assert((out_left->type == ASTNodeType::ASTNT_ConstPDFBoolean) && (out_right->type == ASTNodeType::ASTNT_ConstPDFBoolean));
+                    if (in_ast->node == " && ") {
+                        // logical AND - if only 1 arg then it is that arg
+                        out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                        out->node = ((out_left->node == "true") && (out_right->node == "true")) ? "true" : "false";
+                    }
+                    else if (in_ast->node == " || ") {
+                        // logical OR
+                        out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+                        out->node = ((out_left->node == "true") || (out_right->node == "true")) ? "true" : "false";
+                    }
+                    else {
+                        assert(false && "unexpected logical operator!");
+                        delete out;
+                        out = nullptr;
+                    }
                 }
             }
             break;
 
-        case ASTNodeType::ASTNT_KeyValue: // "@keyname"
+        case ASTNodeType::ASTNT_KeyValue: // "@keyname" - key name or integer array index ("@1")
             {
                 auto key_parts = split_key_path(in_ast->node);
                 assert(key_parts[key_parts.size() -1 ][0] == '@');
@@ -936,19 +1020,24 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 else 
                     val = obj;  // Self-reference
 
+                // Don't have a value from the PDF for "@Key", try getting "DefaultValue" for "Key" from Arlington.
+                // Only want to use Default Values for SpecialCase processing. When processing Required field
+                // this should not required - it would indicate a logical error in the PDF specification! 
+                // See Issue #30: https://github.com/pdf-association/arlington-pdf-model/issues/30#issuecomment-1276804889
                 if ((val == nullptr) && (key_parts.size() == 1)) {
-                    // Don't have a value from the PDF for "@Key", try getting "DefaultValue" for "Key" from Arlington.
                     bool got_dv = false;
-                    for (int i = 0; i < (int)tsv_data.size(); i++)
-                        if ((tsv_data[i][TSV_KEYNAME] == key_parts[0]) && (tsv_data[i][TSV_DEFAULTVALUE] != "")) {
-                            delete out;
-                            out = new ASTNode;
-                            std::string s = LRParsePredicate(tsv_data[i][TSV_DEFAULTVALUE], out);
-                            assert(s.size() == 0);
-                            assert(out->valid());
-                            got_dv = true;
-                            break;
-                        }
+                    if (use_default_values) {
+                        for (int i = 0; i < (int)tsv_data.size(); i++)
+                            if ((tsv_data[i][TSV_KEYNAME] == key_parts[0]) && (tsv_data[i][TSV_DEFAULTVALUE] != "")) {
+                                delete out;
+                                out = new ASTNode;
+                                std::string s = LRParsePredicate(tsv_data[i][TSV_DEFAULTVALUE], out);
+                                assert(s.size() == 0);
+                                assert(out->valid());
+                                got_dv = true;
+                                break;
+                            }
+                    }
                     if (!got_dv) {
                         // Return nullptr if @key doesn't exist
                         delete out;
@@ -1044,7 +1133,7 @@ ASTNode* CPDFFile::convert_basic_object_to_ast(ArlPDFObject* obj)
 
     case PDFObjectType::ArlPDFObjTypeBoolean:
         ast_obj->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-        ast_obj->node = std::to_string(((ArlPDFBoolean*)obj)->get_value());
+        ast_obj->node = ((ArlPDFBoolean*)obj)->get_value() ? "true" : "false";
         return ast_obj;
 
     case PDFObjectType::ArlPDFObjTypeString:
@@ -1078,13 +1167,14 @@ ASTNode* CPDFFile::convert_basic_object_to_ast(ArlPDFObject* obj)
 ///
 /// @param[in] dict     dictionary object
 /// @param[in] key      the key name or array index
-/// @param[in] values   a set of values to match
+/// @param[in] values   a set of values to match. "*" will be interpreted as wildcard and will match anything for certain kinds of PDF objects.
 ///
 /// @returns true if the key value matches something in the values set
 bool CPDFFile::check_key_value(ArlPDFDictionary* dict, const std::wstring& key, const std::vector<std::wstring> values)
 {
     assert(dict != nullptr);
     assert(key.find(L"::") == std::string::npos);
+    assert(key.find('*') == std::string::npos);
 
     ArlPDFObject* val_obj = dict->get_value(key);
 
@@ -1094,17 +1184,36 @@ bool CPDFFile::check_key_value(ArlPDFDictionary* dict, const std::wstring& key, 
         case PDFObjectType::ArlPDFObjTypeString:
             val = ((ArlPDFString*)val_obj)->get_value();
             delete val_obj;
-            for (auto& i : values)
-                if (val == i)
+            for (auto& v : values)
+                if (val == v)
                     return true;
             break;
 
         case PDFObjectType::ArlPDFObjTypeName:
             val = ((ArlPDFName*)val_obj)->get_value();
             delete val_obj;
-            for (auto& i : values)
-                if (val == i)
+            for (auto& v : values)
+                if ((val == v) || (v == L"*"))      // Support wildcard matching for PDF names in Arlington
                     return true;
+            break;
+
+        case PDFObjectType::ArlPDFObjTypeNumber:
+            if (((ArlPDFNumber*)val_obj)->is_integer_value()) {
+                int i = ((ArlPDFNumber*)val_obj)->get_integer_value();
+                delete val_obj;
+                val = ToWString(std::to_string(i));
+                for (auto& v : values)
+                    if (val == v) 
+                        return true;
+            }
+            else {
+                double d = ((ArlPDFNumber*)val_obj)->get_value();
+                delete val_obj;
+                // Cannot compare doubles as strings due to unknown precision
+                for (auto& v : values)
+                    if (fabs(std::stod(v) - d) <= ArlNumberTolerance)
+                        return true;
+            }
             break;
 
         default: /* fallthrough */
@@ -1123,15 +1232,20 @@ bool CPDFFile::check_key_value(ArlPDFDictionary* dict, const std::wstring& key, 
 /// @returns              Always a valid 3-char version string ("1.0", "1.1", ..., "2.0")
 std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
 {
-    bool hdr_ok = ((pdf_header_version.size() == 3) && FindInVector(v_ArlPDFVersions, pdf_header_version));
+    bool hdr_ok = ((pdf_header_version.size() == 3)  && FindInVector(v_ArlPDFVersions, pdf_header_version));
     bool cat_ok = ((pdf_catalog_version.size() == 3) && FindInVector(v_ArlPDFVersions, pdf_catalog_version));
 
     pdf_version.clear();
 
     if (hdr_ok)
         ofs << COLOR_INFO << "Header is version PDF " << pdf_header_version << COLOR_RESET;
+    else 
+        ofs << COLOR_ERROR << "Bad header is version PDF " << pdf_header_version << COLOR_RESET;
+
     if (cat_ok)
         ofs << COLOR_INFO << "Document Catalog/Version is PDF " << pdf_catalog_version << COLOR_RESET;
+    else if (pdf_catalog_version.size() > 0)
+        ofs << COLOR_ERROR << "Bad Document Catalog/Version is PDF " << pdf_catalog_version << COLOR_RESET;
 
     if (hdr_ok && cat_ok) {
         // Choose latest version. Rely on ASCII for version computation
@@ -1140,6 +1254,7 @@ std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
         }
         else if (pdf_catalog_version[0] < pdf_header_version[0]) {
             ofs << COLOR_ERROR << "Document Catalog major version is earlier than PDF header version! Ignoring." << COLOR_RESET;
+            pdf_version = pdf_header_version;
         }
         else { // major version digit is the same. Check minor digit
             if (pdf_catalog_version[2] > pdf_header_version[2]) {
@@ -1163,8 +1278,16 @@ std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
     }
     else {
         // Both must be bad - assume latest version
-        ofs << COLOR_ERROR << "Both Document Catalog and header versions are invalid. Assuming PDF 2.0." << COLOR_RESET;
+        ofs << COLOR_ERROR << "Both Document Catalog and header versions are invalid or missing. Assuming PDF 2.0." << COLOR_RESET;
         pdf_version = "2.0";
+    }
+
+    // See if XRefStream is wrong for final PDF version (i.e. before PDF 1.5)
+    if (get_ptr_to_trailer()->is_xrefstm()) {
+        if ((pdf_version[0] == '1') && (pdf_version[2] < '5'))
+            ofs << COLOR_ERROR << "XRefStream is present in PDF " << pdf_version << " before introduction in PDF 1.5." << COLOR_RESET;
+        else if ((pdf_header_version[0] == '1') && (pdf_header_version[2] < '5'))
+            ofs << COLOR_WARNING << "XRefStream is present in file with header %PDF-" << pdf_header_version << " and Document Catalog Version of PDF " << pdf_catalog_version << COLOR_RESET;
     }
 
     // To reduce lots of false warnings, snap transparency-aware PDF to 1.7
@@ -1193,17 +1316,17 @@ std::string CPDFFile::check_and_get_pdf_version(std::ostream& ofs)
 /// @param[in]  key   the key (or array index) of the feature we have just encountered
 void CPDFFile::set_feature_version(const std::string& ver, const std::string& arl, const std::string& key) 
 {
-    assert((ver.size() == 3) && FindInVector(v_ArlPDFVersions, ver));
-    assert((latest_feature_version.size() == 3) && FindInVector(v_ArlPDFVersions, latest_feature_version));
+    // Avoid processing extensions
+    if ((ver.size() == 3) && FindInVector(v_ArlPDFVersions, ver)) {
+        // Convert to 10 * PDF version
+        int pdf_v    = string_to_pdf_version(ver);
+        int latest_v = string_to_pdf_version(latest_feature_version);
 
-    // Convert to 10 * PDF version
-    int pdf_v = (ver[0] - '0') * 10 + (ver[2] - '0');
-    int latest_v = (latest_feature_version[0] - '0') * 10 + (latest_feature_version[2] - '0');
-
-    if (pdf_v > latest_v) {
-        latest_feature_version = ver;
-        latest_feature_arlington = arl;
-        latest_feature_key = key;
+        if (pdf_v > latest_v) {
+            latest_feature_version = ver;
+            latest_feature_arlington = arl;
+            latest_feature_key = key;
+        }
     }
 }
 
@@ -1221,6 +1344,65 @@ std::string CPDFFile::get_latest_feature_version_info()
     }
     return s;
 };
+
+
+
+/// @brief Asserts that a PDF string object is always to be unencrypted
+/// 
+/// @param[in] obj  PDF string object
+/// 
+/// @returns false if the object is not an unencrypted string 
+bool CPDFFile::fn_AlwaysUnencrypted(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeString)
+        return false;
+
+    ArlPDFString *str = (ArlPDFString*)obj;
+    std::wstring  val = str->get_value();
+
+    fully_implemented = false; /// @todo - how to determine if a string is encrypted or unencrypted???
+    return true;
+}
+
+
+
+/// @brief Asserts that a PDF string object is a valid PDF partial Field Name according to clause 12.7.4.2.
+/// This means it needs to be a non-empty string and not contain a PERIOD (".").
+/// 
+/// @param[in] obj  PDF string object
+/// 
+/// @returns false if the object is not a valid PDF field name
+bool CPDFFile::fn_IsFieldName(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeString)
+        return false;
+
+    ArlPDFString* str = (ArlPDFString*)obj;
+    std::wstring s = str->get_value();
+    if ((s.size() > 0) && (s.find('.') == std::string::npos)) {
+        return true;
+    }
+    return false;
+}
+
+
+
+/// @brief Asserts that a PDF string object was expressed as a hexadecimal string
+/// 
+/// @param[in] obj  PDF string object
+/// 
+/// @returns false if the object was not a hexadecimal string 
+bool CPDFFile::fn_IsHexString(ArlPDFObject* obj) {
+    assert(obj != nullptr);
+    if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeString)
+        return false;
+
+    ArlPDFString* str = (ArlPDFString*)obj;
+#if !defined(ARL_PDFSDK_PDFIUM) 
+    fully_implemented = false; /// @todo - how to determine if a string is hex for PDFix and other PDF SDKs???
+#endif
+    return str->is_hex_string();
+}
 
 
 
@@ -1250,14 +1432,14 @@ int CPDFFile::fn_ArrayLength(ArlPDFObject* parent, const ASTNode* key) {
 /// Unsortable elements return false.
 /// 
 /// @param[in]  parent   the parent PDF array object 
-/// @param[in]  arr_key  the key name of the array to be tested
+/// @param[in]  arr_key  the key name or an integer array index of the array to be tested
 /// @param[in]  step     the step for the array indices. MUST be an integer.
 /// 
 /// @returns true if array is sorted in ascending order, false otherwise.
 bool CPDFFile::fn_ArraySortAscending(ArlPDFObject* parent, const ASTNode* arr_key, const ASTNode* step) {
     assert(parent != nullptr);
     assert(arr_key != nullptr);
-    assert(arr_key->type == ASTNodeType::ASTNT_Key);
+    assert((arr_key->type == ASTNodeType::ASTNT_Key) || (arr_key->type == ASTNodeType::ASTNT_ConstInt));
     assert(step != nullptr);
     assert(step->type == ASTNodeType::ASTNT_ConstInt);
 
@@ -1500,6 +1682,39 @@ bool CPDFFile::fn_BitsSet(ArlPDFObject* obj, const ASTNode* low_bit_node, const 
 }
 
 
+/// @brief Determines if the specified extension is currently support or not 
+/// 
+/// @param[in]  extn   the name of the extension (required)
+/// @param[in]  value  optional value that is added when the extension is supported
+/// 
+/// @returns true if the extension is being support, false otherwise
+ASTNode* CPDFFile::fn_Extension(const ASTNode* extn, const ASTNode* value) {
+    assert(extn != nullptr);
+    assert(extn->type == ASTNodeType::ASTNT_Key); // extension names look like keys
+
+    bool extn_supported = false;
+    for (auto& e : extensions)
+        if ((extn->node == e) || (e == "*")) {
+            extn_supported = true;
+            break;
+        }
+
+    if (extn_supported) {
+        ASTNode* retval = new ASTNode;
+        if (value != nullptr) {
+            retval->type = value->type;
+            retval->node = value->node;
+        }
+        else {
+            retval->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            retval->node = "true";
+        }
+        return retval;
+    }
+    return nullptr;
+}
+
+
 /// @brief Just assume that all fonts in PDF files have at least 1 Latin character. 
 /// Used by FontDescriptors for CapHeight: e.g. fn:IsRequired(fn:FontHasLatinChars())
 /// 
@@ -1545,6 +1760,73 @@ bool CPDFFile::fn_FontHasLatinChars(ArlPDFObject* obj)
     delete t;
     return true;
 }
+
+
+
+/// @brief Checks to see if the PDF array object of names contains at least one process colorant name.
+/// Process colorant names are Cyan, Magenta, Yellow, Black.
+/// 
+/// @param[in] parent    PDF parent object
+/// @param[in] obj_ref   key name or an integer array index of a PDF array object of names
+/// 
+/// @returns true if the array contains a process colorant name
+bool CPDFFile::fn_HasProcessColorants(ArlPDFObject *parent, const ASTNode* obj_ref) {
+    assert(obj_ref != nullptr);
+    assert((obj_ref->type == ASTNodeType::ASTNT_Key) || (obj_ref->type == ASTNodeType::ASTNT_ConstInt));
+    auto key_parts = split_key_path(obj_ref->node);
+    auto obj = get_object_for_path(parent, key_parts);
+
+    if ((obj == nullptr) || (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeArray))
+        return false;
+
+    auto arr = (ArlPDFArray*)obj;
+    for (int i = 0; i < arr->get_num_elements(); i++) {
+        auto o = arr->get_value(i);
+        if ((o != nullptr) && (o->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
+            auto nm = ((ArlPDFName*)o)->get_value();
+            if ((nm == L"Cyan") || (nm == L"Magenta") || (nm == L"Yellow") || (nm == L"Black")) {
+                delete o;
+                return true;
+            }
+        }
+        delete o;
+    }
+    return false;
+}
+
+
+
+/// @brief Checks to see if the PDF array object of names contains at least one spot colorant name.
+/// For this app, a spot colorant name is considered any name other than the CMYK process colorants.
+/// 
+/// @param[in] parent    PDF parent object
+/// @param[in] obj_ref   key name or an integer array index to a PDF array object of names
+/// 
+/// @returns true if the array contains a spot colorant name
+bool CPDFFile::fn_HasSpotColorants(ArlPDFObject* parent, const ASTNode* obj_ref) {
+    assert(obj_ref != nullptr);
+    assert((obj_ref->type == ASTNodeType::ASTNT_Key) || (obj_ref->type == ASTNodeType::ASTNT_ConstInt));
+    auto key_parts = split_key_path(obj_ref->node);
+    auto obj = get_object_for_path(parent, key_parts);
+
+    if ((obj == nullptr) || (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeArray))
+        return false;
+
+    auto arr = (ArlPDFArray*)obj;
+    for (int i = 0; i < arr->get_num_elements(); i++) {
+        auto o = arr->get_value(i);
+        if ((o != nullptr) && (o->get_object_type() == PDFObjectType::ArlPDFObjTypeName)) {
+            auto nm = ((ArlPDFName*)o)->get_value();
+            if ((nm != L"Cyan") && (nm != L"Magenta") && (nm != L"Yellow") && (nm != L"Black") && (nm.size() > 0)) {
+                delete o;
+                return true;
+            }
+        }
+        delete o;
+    }
+    return false;
+}
+
 
 
 /// @brief Checks if a PDF image object is a structure content item
@@ -1598,13 +1880,13 @@ bool CPDFFile::fn_ImageIsStructContentItem(ArlPDFObject* obj)
 ///  e.g. fn:InMap(RichMediaContent::Assets)
 /// 
 /// @param[in]  obj   a PDF object
-/// @param[in]  map   the name of a PDF map
+/// @param[in]  map   the name or an integer array index of a PDF map
 /// 
 /// @returns  true iff obj is in the specified map, false otherwise
 bool CPDFFile::fn_InMap(ArlPDFObject* obj, const ASTNode* map) {
     assert(obj != nullptr);
     assert(map != nullptr);
-    assert(map->type == ASTNodeType::ASTNT_Key);
+    assert((map->type == ASTNodeType::ASTNT_Key) || (map->type == ASTNodeType::ASTNT_ConstInt));
 
     auto keys = split_key_path(map->node);
 
@@ -1623,8 +1905,9 @@ bool CPDFFile::fn_InMap(ArlPDFObject* obj, const ASTNode* map) {
     if (keys[0] == "trailer") {
         if (keys[1] == "Catalog") {
             assert((keys[2] == "Dests") || (keys[2] == "Names"));
+            auto doccat = pdfsdk.get_document_catalog();
             o = doccat->get_value(ToWString(keys[2]));
-            if (keys.size() == 4) {
+            if ((o != nullptr) && (keys.size() == 4)) {
                 ArlPDFObject* o1 = ((ArlPDFDictionary*)o)->get_value(ToWString(keys[3]));
                 if ((o1 == nullptr) || (o1->get_object_type() != PDFObjectType::ArlPDFObjTypeDictionary)) {
                     delete o1;
@@ -1635,8 +1918,10 @@ bool CPDFFile::fn_InMap(ArlPDFObject* obj, const ASTNode* map) {
                 o = o1;
             }
         }
-        else 
-            o = trailer->get_value(ToWString(keys[1]));
+        else {
+            auto t = pdfsdk.get_trailer();
+            o = t->get_value(ToWString(keys[1]));
+        }
     }
 
     bool retval = false;
@@ -1672,6 +1957,7 @@ bool CPDFFile::fn_IsAssociatedFile(ArlPDFObject* obj)
     auto obj_hash = obj->get_hash_id();
 
     // Locate 'obj' in the AF array based on matching hashes...
+    auto doccat = pdfsdk.get_document_catalog();
     ArlPDFObject* af = doccat->get_value(L"AF");
     if ((af != nullptr) && (af->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
         /// walk AF array of File Specification dictionaries looking for 'obj'
@@ -1706,6 +1992,7 @@ bool CPDFFile::fn_IsEncryptedWrapper()
 {
     bool retval = false;
 
+    auto doccat = pdfsdk.get_document_catalog();
     ArlPDFObject* collection = doccat->get_value(L"Collection");
     if ((collection != nullptr) && (collection->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
         ArlPDFObject* view = ((ArlPDFDictionary*)collection)->get_value(L"View");
@@ -1764,7 +2051,7 @@ bool CPDFFile::fn_IsLastInArray(ArlPDFObject* parent, ArlPDFObject* obj, const A
     assert(parent != nullptr);
     assert(obj != nullptr);
   
-    if ((key->type != ASTNodeType::ASTNT_Key) || (key->node != "parent")) {
+    if (((key->type != ASTNodeType::ASTNT_Key) && (key->type != ASTNodeType::ASTNT_ConstInt)) || (key->node != "parent")) {
         assert(false && "fn_IsLastInArray only supports 'parent' key!");
         return false;
     }
@@ -1802,18 +2089,20 @@ bool CPDFFile::fn_IsLastInArray(ArlPDFObject* parent, ArlPDFObject* obj, const A
 /// @brief determine if PDF file is a Tagged PDF via DocCat::MarkInfo::Marked == true
 bool CPDFFile::fn_IsPDFTagged() 
 {
-    assert(doccat != nullptr);
     bool retval = false;
 
-    ArlPDFObject *mi = doccat->get_value(L"MarkInfo");
-    if ((mi != nullptr) && (mi->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-        ArlPDFObject* marked = ((ArlPDFDictionary *)mi)->get_value(L"Marked");
-        if ((marked != nullptr) && (marked->get_object_type() == PDFObjectType::ArlPDFObjTypeBoolean)) {
-            retval = ((ArlPDFBoolean*)marked)->get_value();
+    auto doccat = pdfsdk.get_document_catalog();
+    if (doccat != nullptr) {
+        ArlPDFObject* mi = doccat->get_value(L"MarkInfo");
+        if ((mi != nullptr) && (mi->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+            ArlPDFObject* marked = ((ArlPDFDictionary*)mi)->get_value(L"Marked");
+            if ((marked != nullptr) && (marked->get_object_type() == PDFObjectType::ArlPDFObjTypeBoolean)) {
+                retval = ((ArlPDFBoolean*)marked)->get_value();
+            }
+            delete marked;
         }
-        delete marked;
+        delete mi;
     }
-    delete mi;
     return retval;
 }
 
@@ -1862,7 +2151,7 @@ bool CPDFFile::fn_MustBeDirect(ArlPDFObject* parent, ArlPDFObject* obj, const AS
             if (arg->node == "true")
                 retval = !obj->is_indirect_ref();
         }
-        else if (arg->type == ASTNodeType::ASTNT_Key) {
+        else if ((arg->type == ASTNodeType::ASTNT_Key) || (arg->type == ASTNodeType::ASTNT_ConstInt)) {
             // Look up key and reduce to true (present) or false (not present). NOT value-of-a-key (@keyname)!
             auto key_parts = split_key_path(arg->node);
             ArlPDFObject* val = get_object_for_path(parent, key_parts);
@@ -2001,8 +2290,8 @@ ASTNode* CPDFFile::fn_PageProperty(ArlPDFObject* parent, ASTNode* pg, ASTNode* p
     if ((pg == nullptr) || (pg_key == nullptr))
         return nullptr;
 
-    assert(pg->type == ASTNodeType::ASTNT_KeyValue);
-    assert(pg_key->type == ASTNodeType::ASTNT_Key);
+    assert(pg->type == ASTNodeType::ASTNT_KeyValue); 
+    assert(pg_key->type == ASTNodeType::ASTNT_Key);  // never an integer array index!
 
     auto pg_parts = split_key_path(pg->node);
     ArlPDFObject* pg_obj = get_object_for_path(parent, pg_parts);
@@ -2029,6 +2318,10 @@ ASTNode* CPDFFile::fn_PageProperty(ArlPDFObject* parent, ASTNode* pg, ASTNode* p
 
 
 /// @brief Returns the height of a PDF rectangle (>=0.0).
+/// 
+/// @param[in]   parent
+/// @param[in]   key or or an integer array index of rectangle
+/// 
 /// @returns -1.0 on error
 double CPDFFile::fn_RectHeight(ArlPDFObject* parent, const ASTNode* key) {
     assert(parent != nullptr);
@@ -2036,7 +2329,7 @@ double CPDFFile::fn_RectHeight(ArlPDFObject* parent, const ASTNode* key) {
     if (key == nullptr)
         return -1.0;
 
-    assert(key->type == ASTNodeType::ASTNT_Key);
+    assert((key->type == ASTNodeType::ASTNT_Key) || (key->type == ASTNodeType::ASTNT_ConstInt));
 
     auto key_parts = split_key_path(key->node);
     ArlPDFObject* r = get_object_for_path(parent, key_parts);
@@ -2076,6 +2369,10 @@ double CPDFFile::fn_RectHeight(ArlPDFObject* parent, const ASTNode* key) {
 
 
 /// @brief Returns the width of a PDF rectangle (>=0.0).
+/// 
+/// @param[in]   parent
+/// @param[in]   key or or an integer array index of rectangle
+/// 
 /// @returns -1.0 on error
 double CPDFFile::fn_RectWidth(ArlPDFObject* parent, const ASTNode* key) {
     assert(parent != nullptr);
@@ -2083,7 +2380,7 @@ double CPDFFile::fn_RectWidth(ArlPDFObject* parent, const ASTNode* key) {
     if (key == nullptr)
         return -1.0;
 
-    assert(key->type == ASTNodeType::ASTNT_Key);
+    assert((key->type == ASTNodeType::ASTNT_Key) || (key->type == ASTNodeType::ASTNT_ConstInt));
 
     auto key_parts = split_key_path(key->node);
     ArlPDFObject* r = get_object_for_path(parent, key_parts);
@@ -2230,12 +2527,16 @@ ASTNode* CPDFFile::fn_DefaultValue(const ASTNode* condition, const ASTNode* valu
 
 
 /// @brief Stream Length is according to /Length key value, not actual stream data. 
+/// 
+/// @param[in] parent    parent object
+/// @param[in] key       key name or integer array index of a stream
+/// 
 /// @returns Length of the PDF stream object or -1 on error.
 int CPDFFile::fn_StreamLength(ArlPDFObject* parent, const ASTNode* key) {
     assert(parent != nullptr);
     if (key == nullptr)
         return -1;
-    assert(key->type == ASTNodeType::ASTNT_Key);
+    assert((key->type == ASTNodeType::ASTNT_Key) || (key->type == ASTNodeType::ASTNT_ConstInt));
 
     auto key_parts = split_key_path(key->node);
     ArlPDFObject* o = get_object_for_path(parent, key_parts);
@@ -2271,13 +2572,17 @@ int CPDFFile::fn_StreamLength(ArlPDFObject* parent, const ASTNode* key) {
 
 
 /// @brief Returns length of a PDF string object (>= 0). 
+/// 
+/// @param[in] parent    parent object
+/// @param[in] key       key name or integer array index of a PDF string
+/// 
 /// @returns Length of the PDF string object or -1 if an error.
 int CPDFFile::fn_StringLength(ArlPDFObject* parent, const ASTNode* key) {
     assert(parent != nullptr);
     if (key == nullptr)
         return - 1;
 
-    assert(key->type == ASTNodeType::ASTNT_Key);
+    assert((key->type == ASTNodeType::ASTNT_Key) || (key->type == ASTNodeType::ASTNT_ConstInt));
 
     auto key_parts = split_key_path(key->node);
     ArlPDFObject* o = get_object_for_path(parent, key_parts);
@@ -2308,12 +2613,10 @@ ASTNode* CPDFFile::fn_BeforeVersion(const ASTNode* ver_node, const ASTNode* thin
 
     assert(ver_node != nullptr);
     assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
-    assert(ver_node->node.size() == 3);
-    assert(FindInVector(v_ArlPDFVersions, ver_node->node));
 
     // Convert to 10 * PDF version
-    int pdf_v = (pdf_version[0] - '0') * 10 + (pdf_version[2] - '0');
-    int arl_v = (ver_node->node[0] - '0') * 10 + (ver_node->node[2] - '0');
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(ver_node->node);
 
     if (thing != nullptr) {
         if (pdf_v < arl_v) {
@@ -2345,12 +2648,10 @@ ASTNode* CPDFFile::fn_SinceVersion(const ASTNode* ver_node, const ASTNode* thing
 
     assert(ver_node != nullptr);
     assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
-    assert(ver_node->node.size() == 3);
-    assert(FindInVector(v_ArlPDFVersions, ver_node->node));
 
     // Convert to 10 * PDF version
-    int pdf_v = (pdf_version[0] - '0') * 10 + (pdf_version[2] - '0');
-    int arl_v = (ver_node->node[0] - '0') * 10 + (ver_node->node[2] - '0');
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(ver_node->node);
 
     if (thing != nullptr) {
         if (pdf_v >= arl_v) {
@@ -2385,12 +2686,10 @@ ASTNode* CPDFFile::fn_IsPDFVersion(const ASTNode* ver_node, const ASTNode* thing
 
     assert(ver_node != nullptr);
     assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
-    assert(ver_node->node.size() == 3);
-    assert(FindInVector(v_ArlPDFVersions, ver_node->node));
 
     // Convert to 10 * PDF version
-    int pdf_v = (pdf_version[0] - '0') * 10 + (pdf_version[2] - '0');
-    int arl_v = (ver_node->node[0] - '0') * 10 + (ver_node->node[2] - '0');
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(ver_node->node);
     if (thing != nullptr) {
         if (pdf_v == arl_v) {
             ASTNode* out = new ASTNode;
@@ -2423,12 +2722,10 @@ ASTNode* CPDFFile::fn_Deprecated(const ASTNode* dep_ver, const ASTNode* thing) {
 
     assert(dep_ver != nullptr);
     assert(dep_ver->type == ASTNodeType::ASTNT_ConstNum);
-    assert(dep_ver->node.size() == 3);
-    assert(FindInVector(v_ArlPDFVersions, dep_ver->node));
 
     // Convert to 10 * PDF version
-    int pdf_v = (pdf_version[0] - '0') * 10 + (pdf_version[2] - '0');
-    int arl_v = (dep_ver->node[0] - '0') * 10 + (dep_ver->node[2] - '0');
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(dep_ver->node);
 
     if (!deprecated)
         deprecated = (pdf_v >= arl_v);
@@ -2446,14 +2743,14 @@ ASTNode* CPDFFile::fn_Deprecated(const ASTNode* dep_ver, const ASTNode* thing) {
 /// @brief Returns the number of pages in the PDF file or -1 on error
 /// @returns Number of pages in the PDF file or -1 on error
 int CPDFFile::fn_NumberOfPages() {
-    return pdfsdk.get_pdf_page_count(trailer);
+    return pdfsdk.get_pdf_page_count();
 }
 
 
 /// @brief Looks up a value in an object. Returns true if it is present
 ///  
 /// @param[in] obj       PDF object
-/// @param[in] key       a key
+/// @param[in] key       a key or integer array index
 /// @param[in] value     the value we are looking for
 /// 
 /// @returns true if obj contains value (e.g. equal if a name, in an array if array)
@@ -2464,7 +2761,7 @@ bool CPDFFile::fn_Contains(ArlPDFObject* obj, const ASTNode* key, const ASTNode*
     if ((key == nullptr) || (value == nullptr))
         return false;
 
-    assert(key->type == ASTNodeType::ASTNT_Key);
+    assert((key->type == ASTNodeType::ASTNT_Key) || (key->type == ASTNodeType::ASTNT_ConstInt));
     bool retval = false;
 
     if (key->type == value->type)

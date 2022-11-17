@@ -97,7 +97,7 @@
         "Key": "F",
         "Type": "dictionary;string",
         "SinceVersion": 1.1,
-        "Required": true,
+        "Required": "fn:IsRequired(fn:Not(fn:IsPresent(Win) || fn:IsPresent(Mac) || fn:IsPresent(Unix)))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[FileSpecification];[]"
@@ -287,7 +287,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -595,7 +595,7 @@
         "Key": "0",
         "Type": "number",
         "SinceVersion": 1.1,
-        "Required": false,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -603,7 +603,7 @@
         "Key": "1",
         "Type": "number",
         "SinceVersion": 1.1,
-        "Required": false,
+        "Required": true,
         "IndirectReference": false,
         "Inheritable": false
       }
@@ -627,6 +627,29 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
+      }
+    }
+  },
+  {
+    "id": "ArrayOf_2UnencryptedStringsByte",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "string-byte",
+        "SinceVersion": 1.1,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
+      },
+      "1": {
+        "Key": "1",
+        "Type": "string-byte",
+        "SinceVersion": 1.1,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
       }
     }
   },
@@ -690,7 +713,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval((@1>=0) && (@1<=1))]"
+        "PossibleValues": "[fn:Eval((@1>=0) && (@1<=1))]",
+        "SpecialCase": "[fn:Eval(fn:IsPresent(2))]"
       },
       "2": {
         "Key": "2",
@@ -1176,6 +1200,24 @@
   {
     "id": "ColorSpaceMap",
     "keys": {
+      "DefaultRGB": {
+        "Key": "DefaultRGB",
+        "Type": "array",
+        "SinceVersion": 1.1,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CalRGBColorSpace]"
+      },
+      "DefaultGray": {
+        "Key": "DefaultGray",
+        "Type": "array",
+        "SinceVersion": 1.1,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[CalGrayColorSpace]"
+      },
       "*": {
         "Key": "*",
         "Type": "array;name",
@@ -1456,6 +1498,15 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      },
+      "*": {
+        "Key": "*",
+        "Type": "string-text",
+        "SinceVersion": 1.1,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false
       }
     }
   },
@@ -1502,6 +1553,15 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Adobe.PubSec,AdobePPKLite]"
+      },
+      "V": {
+        "Key": "V",
+        "Type": "integer",
+        "SinceVersion": 1.1,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[fn:Deprecated(1.1,0),1,fn:SinceVersion(1.4,2),fn:SinceVersion(1.4,3),fn:SinceVersion(1.5,4)]"
       }
     }
   },
@@ -1534,7 +1594,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && fn:SinceVersion(2.0)))]"
+        "SpecialCase": "[fn:IsMeaningful(((@V==4) && fn:SinceVersion(1.5)) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]"
       },
       "R": {
         "Key": "R",
@@ -1543,7 +1603,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:RequiredValue(@V<2,2),fn:RequiredValue((@V==2) || (@V==3),3),fn:RequiredValue(@V==4,4),fn:SinceVersion(2.0,5)]"
+        "PossibleValues": "[fn:RequiredValue(@V<2,2),fn:RequiredValue((@V==2) || (@V==3),3),fn:RequiredValue(@V==4,4),fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,5)),fn:SinceVersion(2.0,5)]"
       },
       "O": {
         "Key": "O",
@@ -1552,7 +1612,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(((@R<=4) && (fn:StringLength(O)==32)) || ((@R==6) && (fn:StringLength(O)==48)))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(O)==32)) || (((@R==5) || (@R==6)) && (fn:StringLength(O)==48))))]"
       },
       "U": {
         "Key": "U",
@@ -1561,24 +1621,25 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(((@R<=4) && (fn:StringLength(U)==32)) || ((@R==6) && (fn:StringLength(U)==48)))]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (((@R<=4) && (fn:StringLength(U)==32)) || (((@R==5) || (@R==6)) && (fn:StringLength(U)==48))))]"
       },
       "OE": {
         "Key": "OE",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:StringLength(OE)==32)]"
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted() && (fn:StringLength(OE)==32))]"
       },
       "UE": {
         "Key": "UE",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
       },
       "P": {
         "Key": "P",
@@ -1587,15 +1648,16 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:BitsClear(1,2) && fn:BitsSet(7,8) && fn:SinceVersion(2.0,fn:BitSet(10)) && fn:BitsSet(13,32))]"
+        "SpecialCase": "[fn:Eval(fn:BitsClear(1,2) && fn:BitsSet(7,8) && fn:SinceVersion(2.0,fn:BitSet(10)) && (fn:SinceVersion(2.0,fn:Extension(ISO_TS_32004,fn:BitsSet(14,32))) || fn:BitsSet(13,32)))]"
       },
       "Perms": {
         "Key": "Perms",
         "Type": "string-byte",
         "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(@R==6)",
+        "Required": "fn:IsRequired((@R==5) || (@R==6))",
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
       }
     }
   },
@@ -1721,7 +1783,7 @@
         "IndirectReference": "fn:MustBeDirect(fn:IsPresent(Encrypt))",
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]",
-        "Link": "[ArrayOf_2StringsByte]"
+        "Link": "[ArrayOf_2UnencryptedStringsByte]"
       }
     }
   },
@@ -1803,6 +1865,15 @@
         "DefaultValue": "0",
         "PossibleValues": "[fn:Eval(@DamagedRowsBeforeError>=0)]",
         "SpecialCase": "[fn:Ignore((@EndOfLine==false) || (@K<0))]"
+      },
+      "Blackls1": {
+        "Key": "Blackls1",
+        "Type": "boolean",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
       }
     }
   },
@@ -3959,7 +4030,7 @@
         "Key": "ColorSpace",
         "Type": "array;name",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))",
+        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
@@ -3970,7 +4041,7 @@
         "Key": "BitsPerComponent",
         "Type": "integer",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)) || (@ImageMask==true))",
+        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)]"

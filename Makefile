@@ -1,5 +1,5 @@
 #
-# Copyright 2021 PDF Association, Inc. https://www.pdfa.org
+# Copyright 2021-2022 PDF Association, Inc. https://www.pdfa.org
 #
 # This material is based upon work supported by the Defense Advanced
 # Research Projects Agency (DARPA) under Contract No. HR001119C0079.
@@ -11,15 +11,21 @@
 # SPDX-License-Identifier: Apache-2.0
 # Contributors: Peter Wyatt, PDF Association
 #
-# A simple makefile to automate some repetitive tasks. Typical usage:
-# $ make clean
-# $ make tsv > tsv.out
-# $ make validate
-# $ make 3d
-# $ make pandas
-# $ make xml > xml.out
+# A simple makefile to automate some repetitive tasks.
+# May require copying dylibs, etc to well known locations on some platforms
 #
-# Does NOT make the TestGrammar C++ PoC! Assumes TestGrammar is in the path.
+# First, manually build one of TestGrammar PoC apps (PDFix is fastest):
+#  $ make TestGrammar-pdfix     OR
+#  $ make TestGrammar-pdfium    OR
+#  $ make TestGrammar-qpdf
+#
+# Then:
+#  $ make clean
+#  $ make tsv
+#  $ make validate
+#  $ make 3d
+#  $ make xml
+#  $ make pandas  <-- Optional, this is not GitHub!
 #
 
 XMLLINT ::= xmllint
@@ -28,11 +34,8 @@ XMLLINT_FLAGS ::= --noout
 # Clean up all outputs that can be re-created
 .PHONY: clean
 clean:
-	rm -rf ./3dvisualize/*.json
-	rm -rf ./xml/*.xml
-	rm -rf ./scripts/*.tsv
-	rm -rf ./tsv/1.0/*.tsv ./tsv/1.1/*.tsv ./tsv/1.2/*.tsv ./tsv/1.3/*.tsv ./tsv/1.4/*.tsv
-	rm -rf ./tsv/1.5/*.tsv ./tsv/1.6/*.tsv ./tsv/1.7/*.tsv ./tsv/2.0/*.tsv
+	rm -rf ./3dvisualize/*.json ./xml/*.xml ./scripts/*.tsv
+	rm -rf ./tsv/1.?/*.tsv ./tsv/2.0/*.tsv
 	rm -rf ./gcxml/dist/gcxml.jar
 
 
@@ -58,10 +61,45 @@ pandas:
 	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/1.0 --outdir ./3dvisualize/
 
 
+# Build the TestGrammar C++ PoC app using PDFix (because build times are much faster)
+.PHONY: TestGrammar-pdfix
+TestGrammar-pdfix:
+	rm -rf ./TestGrammar/bin/linux/TestGrammar ./TestGrammar/bin/linux/TestGrammar_d
+	rm -rf ./TestGrammar/cmake-linux
+	cmake -B ./TestGrammar/cmake-linux/debug -DPDFSDK_PDFIX=ON -DCMAKE_BUILD_TYPE=Debug ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/debug --config Debug
+	cmake -B ./TestGrammar/cmake-linux/release -DPDFSDK_PDFIX=ON -DCMAKE_BUILD_TYPE=Release ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/release --config Release
+	rm -rf ./TestGrammar/cmake-linux
+
+
+# Build the TestGrammar C++ PoC app using PDFIUM (SLOW!)
+.PHONY: TestGrammar-pdfium
+TestGrammar-pdfium:
+	rm -rf ./TestGrammar/bin/linux/TestGrammar ./TestGrammar/bin/linux/TestGrammar_d
+	rm -rf ./TestGrammar/cmake-linux
+	cmake -B ./TestGrammar/cmake-linux/debug -DPDFSDK_PDFIUM=ON -DCMAKE_BUILD_TYPE=Debug ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/debug --config Debug
+	cmake -B ./TestGrammar/cmake-linux/release -DPDFSDK_PDFIUM=ON -DCMAKE_BUILD_TYPE=Release ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/release --config Release
+	rm -rf ./TestGrammar/cmake-linux
+
+
+# Build the TestGrammar C++ PoC app using QPDF (because build times are much faster)
+.PHONY: TestGrammar-qpdf
+TestGrammar-qpdf:
+	rm -rf ./TestGrammar/bin/linux/TestGrammar ./TestGrammar/bin/linux/TestGrammar_d
+	rm -rf ./TestGrammar/cmake-linux
+	cmake -B ./TestGrammar/cmake-linux/debug -DPDFSDK_QPDF=ON -DCMAKE_BUILD_TYPE=Debug ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/debug --config Debug
+	cmake -B ./TestGrammar/cmake-linux/release -DPDFSDK_QPDF=ON -DCMAKE_BUILD_TYPE=Release ./TestGrammar
+	cmake --build ./TestGrammar/cmake-linux/release --config Release
+	rm -rf ./TestGrammar/cmake-linux
+
+
 # Validate each of the existing TSV file sets using both the Python script and C++ PoC.
 # Does NOT create the TSVs!
 # Ensure to do a "make tsv" beforehand to refresh the PDF version specific file sets!
-.PHONY: validate
 validate:
 	# Clean-up where gcxml is missing some capabilities...
 	rm -f ./tsv/1.3/ActionNOP.tsv ./tsv/1.3/ActionSetState.tsv
@@ -94,6 +132,18 @@ validate:
 	mv ./tsv/1.7/AnnotStamp.tsv ./tsv/1.7/AnnotStamp-BEFORE.tsv
 	sed -E 's/\[fn\:Not\(fn\:IsRequired\(fn\:IsPresent\(IT\) && \(\@IT!=Stamp\)\)\)\]//g' ./tsv/1.7/AnnotStamp-BEFORE.tsv > ./tsv/1.7/AnnotStamp.tsv
 	rm ./tsv/1.7/AnnotStamp-BEFORE.tsv
+
+	mv ./tsv/1.3/DeviceNDict.tsv ./tsv/1.3/DeviceNDict-BEFORE.tsv
+	sed -E 's/fn:IsRequired\(fn:SinceVersion\(1.6,\(@Subtype==NChannel\)\) && fn:HasSpotColorants\(parent::1\)\)/FALSE/g' ./tsv/1.3/DeviceNDict-BEFORE.tsv > ./tsv/1.3/DeviceNDict.tsv
+	rm ./tsv/1.3/DeviceNDict-BEFORE.tsv
+
+	mv ./tsv/1.4/DeviceNDict.tsv ./tsv/1.4/DeviceNDict-BEFORE.tsv
+	sed -E 's/fn:IsRequired\(fn:SinceVersion\(1.6,\(@Subtype==NChannel\)\) && fn:HasSpotColorants\(parent::1\)\)/FALSE/g' ./tsv/1.4/DeviceNDict-BEFORE.tsv > ./tsv/1.4/DeviceNDict.tsv
+	rm ./tsv/1.4/DeviceNDict-BEFORE.tsv
+
+	mv ./tsv/1.5/DeviceNDict.tsv ./tsv/1.5/DeviceNDict-BEFORE.tsv
+	sed -E 's/fn:IsRequired\(fn:SinceVersion\(1.6,\(@Subtype==NChannel\)\) && fn:HasSpotColorants\(parent::1\)\)/FALSE/g' ./tsv/1.5/DeviceNDict-BEFORE.tsv > ./tsv/1.5/DeviceNDict.tsv
+	rm ./tsv/1.5/DeviceNDict-BEFORE.tsv
 
 	TestGrammar --tsvdir ./tsv/1.0/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.0/ --validate
@@ -128,10 +178,12 @@ xml: ./xml/pdf_grammar1.0.xml ./xml/pdf_grammar1.1.xml ./xml/pdf_grammar1.2.xml 
 	./xml/pdf_grammar1.4.xml ./xml/pdf_grammar1.5.xml ./xml/pdf_grammar1.6.xml ./xml/pdf_grammar1.7.xml ./xml/pdf_grammar2.0.xml
 	${XMLLINT} ${XMLLINT_FLAGS} --schema ./xml/schema/arlington-pdf.xsd $?
 
+
 # Create and validate XML files for each PDF version based on tsv/latest using the Java PoC app. SLOW!
 xml/%.xml: ./gcxml/dist/Gcxml.jar
 	echo "Creating XML: $(strip $(subst xml/pdf_grammar,,$(subst .xml,,$@)))"
 	java -jar ./gcxml/dist/gcxml.jar -xml $(strip $(subst xml/pdf_grammar,,$(subst .xml,,$@)))
+
 
 # Build the Java proof-of-concept application using "ant"
 ./gcxml/dist/Gcxml.jar:

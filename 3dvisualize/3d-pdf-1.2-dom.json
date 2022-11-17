@@ -1,6 +1,13 @@
 {
     "nodes": [
         {
+            "id": "AAPL_ST",
+            "val": 36,
+            "group": "dict",
+            "desc": "6 keys",
+            "name": "AAPL_ST dict"
+        },
+        {
             "id": "ActionGoTo",
             "val": 16,
             "group": "dict",
@@ -169,6 +176,13 @@
             "name": "ArrayOf4Functions array"
         },
         {
+            "id": "ArrayOfActionHideAnnots",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfActionHideAnnots map"
+        },
+        {
             "id": "ArrayOfActions",
             "val": 1,
             "group": "map",
@@ -188,6 +202,20 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfBeads map"
+        },
+        {
+            "id": "ArrayOfCIDGlyphMetricsW",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfCIDGlyphMetricsW map"
+        },
+        {
+            "id": "ArrayOfCIDGlyphMetricsW2",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfCIDGlyphMetricsW2 map"
         },
         {
             "id": "ArrayOfCompressionFilterNames",
@@ -288,6 +316,13 @@
             "name": "ArrayOfOPI13Color array"
         },
         {
+            "id": "ArrayOfOPI2Inks",
+            "val": 9,
+            "group": "array",
+            "desc": "3 elements",
+            "name": "ArrayOfOPI2Inks array"
+        },
+        {
             "id": "ArrayOfPageTreeNodeKids",
             "val": 1,
             "group": "map",
@@ -300,6 +335,13 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfStreamsGeneral map"
+        },
+        {
+            "id": "ArrayOfStringsText",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfStringsText map"
         },
         {
             "id": "ArrayOfTags",
@@ -342,6 +384,13 @@
             "group": "array",
             "desc": "2 elements",
             "name": "ArrayOf_2StringsByte array"
+        },
+        {
+            "id": "ArrayOf_2UnencryptedStringsByte",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOf_2UnencryptedStringsByte array"
         },
         {
             "id": "ArrayOf_4AnnotBorderCharacteristics",
@@ -479,7 +528,7 @@
         },
         {
             "id": "ColorSpaceMap",
-            "val": 1,
+            "val": 9,
             "group": "map",
             "desc": "(unspecified)",
             "name": "ColorSpaceMap map"
@@ -528,10 +577,10 @@
         },
         {
             "id": "DocInfo",
-            "val": 64,
-            "group": "dict",
-            "desc": "8 keys",
-            "name": "DocInfo dict"
+            "val": 81,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "DocInfo map"
         },
         {
             "id": "Encoding",
@@ -542,9 +591,9 @@
         },
         {
             "id": "EncryptionPublicKey",
-            "val": 1,
+            "val": 4,
             "group": "dict",
-            "desc": "1 keys",
+            "desc": "2 keys",
             "name": "EncryptionPublicKey dict"
         },
         {
@@ -569,18 +618,32 @@
             "name": "Field dict"
         },
         {
-            "id": "FieldBtn",
+            "id": "FieldBtnCheckbox",
             "val": 81,
             "group": "dict",
             "desc": "9 keys",
-            "name": "FieldBtn dict"
+            "name": "FieldBtnCheckbox dict"
         },
         {
-            "id": "FieldCh",
+            "id": "FieldBtnPush",
+            "val": 81,
+            "group": "dict",
+            "desc": "9 keys",
+            "name": "FieldBtnPush dict"
+        },
+        {
+            "id": "FieldBtnRadio",
+            "val": 81,
+            "group": "dict",
+            "desc": "9 keys",
+            "name": "FieldBtnRadio dict"
+        },
+        {
+            "id": "FieldChoice",
             "val": 100,
             "group": "dict",
             "desc": "10 keys",
-            "name": "FieldCh dict"
+            "name": "FieldChoice dict"
         },
         {
             "id": "FieldTx",
@@ -606,9 +669,9 @@
         },
         {
             "id": "FilterCCITTFaxDecode",
-            "val": 64,
+            "val": 81,
             "group": "dict",
-            "desc": "8 keys",
+            "desc": "9 keys",
             "name": "FilterCCITTFaxDecode dict"
         },
         {
@@ -774,9 +837,9 @@
         },
         {
             "id": "GraphicsStateParameter",
-            "val": 64,
+            "val": 100,
             "group": "dict",
-            "desc": "8 keys",
+            "desc": "10 keys",
             "name": "GraphicsStateParameter dict"
         },
         {
@@ -1097,6 +1160,36 @@
     ],
     "links": [
         {
+            "source": "AAPL_ST",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "AAPL_ST::Color"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "CalGrayColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "CalRGBColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "LabColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "IndexedColorSpace",
+            "name": "AAPL_ST::ColorSpace"
+        },
+        {
+            "source": "AAPL_ST",
+            "target": "ArrayOf_2Numbers",
+            "name": "AAPL_ST::Offset"
+        },
+        {
             "source": "ActionGoTo",
             "target": "DestXYZArray",
             "name": "ActionGoTo::D",
@@ -1377,91 +1470,37 @@
         },
         {
             "source": "ActionHide",
-            "target": "ArrayOfActions",
+            "target": "ArrayOfActionHideAnnots",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionGoTo",
+            "target": "AnnotText",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionGoToR",
+            "target": "AnnotLink",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionLaunch",
+            "target": "AnnotSound",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionNOP",
+            "target": "AnnotMovie",
             "name": "ActionHide::T",
             "color": "red"
         },
         {
             "source": "ActionHide",
-            "target": "ActionSetState",
-            "name": "ActionHide::T",
-            "color": "red"
-        },
-        {
-            "source": "ActionHide",
-            "target": "ActionThread",
-            "name": "ActionHide::T",
-            "color": "red"
-        },
-        {
-            "source": "ActionHide",
-            "target": "ActionURI",
-            "name": "ActionHide::T",
-            "color": "red"
-        },
-        {
-            "source": "ActionHide",
-            "target": "ActionSound",
-            "name": "ActionHide::T",
-            "color": "red"
-        },
-        {
-            "source": "ActionHide",
-            "target": "ActionMovie",
-            "name": "ActionHide::T",
-            "color": "red"
-        },
-        {
-            "source": "ActionHide",
-            "target": "ActionHide",
-            "name": "ActionHide::T",
-            "color": "red"
-        },
-        {
-            "source": "ActionHide",
-            "target": "ActionNamed",
-            "name": "ActionHide::T",
-            "color": "red"
-        },
-        {
-            "source": "ActionHide",
-            "target": "ActionSubmitForm",
-            "name": "ActionHide::T",
-            "color": "red"
-        },
-        {
-            "source": "ActionHide",
-            "target": "ActionResetForm",
-            "name": "ActionHide::T",
-            "color": "red"
-        },
-        {
-            "source": "ActionHide",
-            "target": "ActionImportData",
+            "target": "AnnotWidget",
             "name": "ActionHide::T",
             "color": "red"
         },
@@ -3115,6 +3154,31 @@
             "color": "red"
         },
         {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotText",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotLink",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotSound",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotMovie",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
+            "source": "ArrayOfActionHideAnnots",
+            "target": "AnnotWidget",
+            "name": "ArrayOfActionHideAnnots::*"
+        },
+        {
             "source": "ArrayOfActions",
             "target": "ActionGoTo",
             "name": "ArrayOfActions::*"
@@ -3220,6 +3284,18 @@
             "name": "ArrayOfBeads::*"
         },
         {
+            "source": "ArrayOfCIDGlyphMetricsW2",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "ArrayOfCIDGlyphMetricsW2::*",
+            "color": "red"
+        },
+        {
+            "source": "ArrayOfCIDGlyphMetricsW",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "ArrayOfCIDGlyphMetricsW::*",
+            "color": "red"
+        },
+        {
             "source": "ArrayOfDecodeParams",
             "target": "FilterLZWDecode",
             "name": "ArrayOfDecodeParams::*"
@@ -3258,12 +3334,22 @@
         },
         {
             "source": "ArrayOfFieldID",
-            "target": "FieldBtn",
+            "target": "FieldBtnPush",
             "name": "ArrayOfFieldID::*"
         },
         {
             "source": "ArrayOfFieldID",
-            "target": "FieldCh",
+            "target": "FieldBtnCheckbox",
+            "name": "ArrayOfFieldID::*"
+        },
+        {
+            "source": "ArrayOfFieldID",
+            "target": "FieldBtnRadio",
+            "name": "ArrayOfFieldID::*"
+        },
+        {
+            "source": "ArrayOfFieldID",
+            "target": "FieldChoice",
             "name": "ArrayOfFieldID::*"
         },
         {
@@ -3278,12 +3364,22 @@
         },
         {
             "source": "ArrayOfFields",
-            "target": "FieldBtn",
+            "target": "FieldBtnPush",
             "name": "ArrayOfFields::*"
         },
         {
             "source": "ArrayOfFields",
-            "target": "FieldCh",
+            "target": "FieldBtnCheckbox",
+            "name": "ArrayOfFields::*"
+        },
+        {
+            "source": "ArrayOfFields",
+            "target": "FieldBtnRadio",
+            "name": "ArrayOfFields::*"
+        },
+        {
+            "source": "ArrayOfFields",
+            "target": "FieldChoice",
             "name": "ArrayOfFields::*"
         },
         {
@@ -3669,6 +3765,21 @@
             "name": "ColorSpaceMap::*"
         },
         {
+            "source": "ColorSpaceMap",
+            "target": "CalGrayColorSpace",
+            "name": "ColorSpaceMap::DefaultGray"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "SeparationColorSpace",
+            "name": "ColorSpaceMap::DefaultGray"
+        },
+        {
+            "source": "ColorSpaceMap",
+            "target": "CalRGBColorSpace",
+            "name": "ColorSpaceMap::DefaultRGB"
+        },
+        {
             "source": "Dest0Array",
             "target": "PageObject",
             "name": "Dest0Array::0",
@@ -3763,12 +3874,22 @@
         },
         {
             "source": "Field",
-            "target": "FieldBtn",
+            "target": "FieldBtnPush",
             "name": "Field::Parent"
         },
         {
             "source": "Field",
-            "target": "FieldCh",
+            "target": "FieldBtnCheckbox",
+            "name": "Field::Parent"
+        },
+        {
+            "source": "Field",
+            "target": "FieldBtnRadio",
+            "name": "Field::Parent"
+        },
+        {
+            "source": "Field",
+            "target": "FieldChoice",
             "name": "Field::Parent"
         },
         {
@@ -3777,54 +3898,154 @@
             "name": "Field::Parent"
         },
         {
-            "source": "FieldBtn",
+            "source": "FieldBtnCheckbox",
             "target": "ArrayOfFields",
-            "name": "FieldBtn::Kids"
+            "name": "FieldBtnCheckbox::Kids"
         },
         {
-            "source": "FieldBtn",
+            "source": "FieldBtnCheckbox",
             "target": "FieldTx",
-            "name": "FieldBtn::Parent"
+            "name": "FieldBtnCheckbox::Parent"
         },
         {
-            "source": "FieldBtn",
-            "target": "FieldBtn",
-            "name": "FieldBtn::Parent"
+            "source": "FieldBtnCheckbox",
+            "target": "FieldBtnPush",
+            "name": "FieldBtnCheckbox::Parent"
         },
         {
-            "source": "FieldBtn",
-            "target": "FieldCh",
-            "name": "FieldBtn::Parent"
+            "source": "FieldBtnCheckbox",
+            "target": "FieldBtnCheckbox",
+            "name": "FieldBtnCheckbox::Parent"
         },
         {
-            "source": "FieldBtn",
+            "source": "FieldBtnCheckbox",
+            "target": "FieldBtnRadio",
+            "name": "FieldBtnCheckbox::Parent"
+        },
+        {
+            "source": "FieldBtnCheckbox",
+            "target": "FieldChoice",
+            "name": "FieldBtnCheckbox::Parent"
+        },
+        {
+            "source": "FieldBtnCheckbox",
             "target": "Field",
-            "name": "FieldBtn::Parent"
+            "name": "FieldBtnCheckbox::Parent"
         },
         {
-            "source": "FieldCh",
+            "source": "FieldBtnPush",
             "target": "ArrayOfFields",
-            "name": "FieldCh::Kids"
+            "name": "FieldBtnPush::Kids"
         },
         {
-            "source": "FieldCh",
+            "source": "FieldBtnPush",
             "target": "FieldTx",
-            "name": "FieldCh::Parent"
+            "name": "FieldBtnPush::Parent"
         },
         {
-            "source": "FieldCh",
-            "target": "FieldBtn",
-            "name": "FieldCh::Parent"
+            "source": "FieldBtnPush",
+            "target": "FieldBtnPush",
+            "name": "FieldBtnPush::Parent"
         },
         {
-            "source": "FieldCh",
-            "target": "FieldCh",
-            "name": "FieldCh::Parent"
+            "source": "FieldBtnPush",
+            "target": "FieldBtnCheckbox",
+            "name": "FieldBtnPush::Parent"
         },
         {
-            "source": "FieldCh",
+            "source": "FieldBtnPush",
+            "target": "FieldBtnRadio",
+            "name": "FieldBtnPush::Parent"
+        },
+        {
+            "source": "FieldBtnPush",
+            "target": "FieldChoice",
+            "name": "FieldBtnPush::Parent"
+        },
+        {
+            "source": "FieldBtnPush",
             "target": "Field",
-            "name": "FieldCh::Parent"
+            "name": "FieldBtnPush::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "ArrayOfFields",
+            "name": "FieldBtnRadio::Kids"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "FieldTx",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "FieldBtnPush",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "FieldBtnCheckbox",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "FieldBtnRadio",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "FieldChoice",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldBtnRadio",
+            "target": "Field",
+            "name": "FieldBtnRadio::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "ArrayOfStringsText",
+            "name": "FieldChoice::DV"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "ArrayOfFields",
+            "name": "FieldChoice::Kids"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "FieldTx",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "FieldBtnPush",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "FieldBtnCheckbox",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "FieldBtnRadio",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "FieldChoice",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "Field",
+            "name": "FieldChoice::Parent"
+        },
+        {
+            "source": "FieldChoice",
+            "target": "ArrayOfStringsText",
+            "name": "FieldChoice::V"
         },
         {
             "source": "FieldTx",
@@ -3843,12 +4064,22 @@
         },
         {
             "source": "FieldTx",
-            "target": "FieldBtn",
+            "target": "FieldBtnPush",
             "name": "FieldTx::Parent"
         },
         {
             "source": "FieldTx",
-            "target": "FieldCh",
+            "target": "FieldBtnCheckbox",
+            "name": "FieldTx::Parent"
+        },
+        {
+            "source": "FieldTx",
+            "target": "FieldBtnRadio",
+            "name": "FieldTx::Parent"
+        },
+        {
+            "source": "FieldTx",
+            "target": "FieldChoice",
             "name": "FieldTx::Parent"
         },
         {
@@ -3878,7 +4109,7 @@
         },
         {
             "source": "FileTrailer",
-            "target": "ArrayOf_2StringsByte",
+            "target": "ArrayOf_2UnencryptedStringsByte",
             "name": "FileTrailer::ID",
             "color": "red"
         },
@@ -3922,12 +4153,12 @@
         },
         {
             "source": "FontCIDType0",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW",
             "name": "FontCIDType0::W"
         },
         {
             "source": "FontCIDType0",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW2",
             "name": "FontCIDType0::W2"
         },
         {
@@ -3960,12 +4191,12 @@
         },
         {
             "source": "FontCIDType2",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW",
             "name": "FontCIDType2::W"
         },
         {
             "source": "FontCIDType2",
-            "target": "_UniversalArray",
+            "target": "ArrayOfCIDGlyphMetricsW2",
             "name": "FontCIDType2::W2"
         },
         {
@@ -4310,6 +4541,11 @@
         },
         {
             "source": "GraphicsStateParameter",
+            "target": "AAPL_ST",
+            "name": "GraphicsStateParameter::AAPL:ST"
+        },
+        {
+            "source": "GraphicsStateParameter",
             "target": "FunctionType0",
             "name": "GraphicsStateParameter::BG"
         },
@@ -4625,13 +4861,14 @@
         },
         {
             "source": "OPIVersion20Dict",
-            "target": "_UniversalArray",
+            "target": "ArrayOfOPI2Inks",
             "name": "OPIVersion20Dict::Inks"
         },
         {
             "source": "OPIVersion20Dict",
             "target": "ArrayOf_2Numbers",
-            "name": "OPIVersion20Dict::Size"
+            "name": "OPIVersion20Dict::Size",
+            "color": "red"
         },
         {
             "source": "OPIVersion20Dict",
@@ -4860,27 +5097,32 @@
         {
             "source": "PatternColorSpace",
             "target": "CalGrayColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "CalRGBColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "LabColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "IndexedColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternColorSpace",
             "target": "SeparationColorSpace",
-            "name": "PatternColorSpace::1"
+            "name": "PatternColorSpace::1",
+            "color": "red"
         },
         {
             "source": "PatternMap",

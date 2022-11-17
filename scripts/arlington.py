@@ -85,7 +85,7 @@ class ArlingtonFnLexer(sly.Lexer):
     # Key name which is numeric array index ([0-9+) and is potentially ambiguous with integers.
     # Array indices are integers, or integer followed by ASTERISK (wildcard) - need to use SPACEs to disambiguate with TIMES
     KEY_PATH     = r'(parent::)?(([a-zA-Z]|[a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[a-zA-Z])[a-zA-Z0-9_\.\-]*::)+'
-    KEY_NAME     = r'([_a-zA-Z]|[_a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[_a-zA-Z])[a-zA-Z0-9_\.\-]*'
+    KEY_NAME     = r'([_a-zA-Z]|[_a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[_a-zA-Z])[a-zA-Z0-9_:\.\-]*'
     PDF_PATH     = r'::'
     ARRAY_START  = r'\['
     ARRAY_END    = r'\]'
@@ -201,6 +201,16 @@ class Arlington:
             return True
         return False
 
+    def validate_fn_extension(self, ast: AST) -> bool:
+        """
+        Validates the fn:Extension predicate with a first argument that a name and an optional second argument.
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if ((len(ast) >= 1) and (ast[0].type == 'KEY_NAME')):
+            return True
+        return False
+
     def validate_fn_version(self, ast: AST) -> bool:
         """
         Validates a declarative function with a first argument that is a PDF version string and optional
@@ -263,6 +273,15 @@ class Arlington:
             return True
         return False
 
+    def validate_fn_colorants(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid function. False otherwise
+        """
+        if (len(ast) == 2) and (ast[0].type == 'KEY_PATH') and (ast[1].type == 'INTEGER'):
+            return True
+        return False
+
     def validate_fn_ignore(self, ast: AST) -> bool:
         """
         @param ast: AST to be validated.
@@ -282,6 +301,8 @@ class Arlington:
         @returns: True if a valid function. False otherwise
         """
         if (len(ast) == 2) and (ast[0].type == 'KEY_PATH') and (ast[1].type in ('KEY_NAME', 'INTEGER')):
+            return True
+        elif (len(ast) == 1) and (ast[0].type == 'KEY_NAME'):
             return True
         return False
 
@@ -379,6 +400,16 @@ class Arlington:
                 return True
         return False
 
+    def validate_fn_is_field_name(self, ast: AST) -> bool:
+        """
+        @param ast: AST to be validated.
+        @returns: True if a valid 'fn:IsFieldName(' function. False otherwise
+        """
+        if (len(ast) >= 1):
+            if (isinstance(ast[0], list) or (ast[0].type in ('KEY_VALUE'))):
+                return True
+        return False
+
     def validate_fn_stream_length(self, ast: AST) -> bool:
         """
         @param ast: AST to be validated.
@@ -414,6 +445,7 @@ class Arlington:
 
     # Validation functions for every Arlington declarative function
     __validate_fns = {
+        'fn:AlwaysUnencrypted(': validate_fn_void,
         'fn:ArrayLength(': validate_fn_array_length,
         'fn:ArraySortAscending(': validate_fn_array_sort_ascending,
         'fn:BeforeVersion(': validate_fn_version,
@@ -428,11 +460,15 @@ class Arlington:
         'fn:FontHasLatinChars(': validate_fn_void,
         'fn:PageProperty(': validate_fn_get_page_property,
         'fn:Ignore(': validate_fn_ignore,
+        'fn:HasProcessColorants(': validate_fn_colorants,
+        'fn:HasSpotColorants(': validate_fn_colorants,
         'fn:ImageIsStructContentItem(': validate_fn_void,
         'fn:ImplementationDependent(': validate_fn_void,
         'fn:InMap(': validate_fn_in_map,
         'fn:IsAssociatedFile(': validate_fn_void,
         'fn:IsEncryptedWrapper(': validate_fn_void,
+        'fn:IsFieldName(': validate_fn_is_field_name,
+        'fn:IsHexString(': validate_fn_void,
         'fn:IsLastInNumberFormatArray(': validate_fn_anything,
         'fn:IsMeaningful(': validate_fn_is_meaningful,
         'fn:IsPDFTagged(': validate_fn_void,
@@ -449,6 +485,7 @@ class Arlington:
         'fn:RectHeight(': validate_fn_rect,
         'fn:RectWidth(': validate_fn_rect,
         'fn:RequiredValue(': validate_fn_required_value,
+        'fn:Extension(': validate_fn_extension,
         'fn:SinceVersion(': validate_fn_version,
         'fn:StreamLength(': validate_fn_stream_length,
         'fn:StringLength(': validate_fn_string_length,
@@ -711,6 +748,9 @@ class Arlington:
                         if (row['Required'] is not None) and not isinstance(row['Required'], list):
                             row['Required'] = [row['Required']]
 
+                        # SinceVersion now has basic predicates for Extensions
+                        row['SinceVersion'] = self._parse_functions(row['SinceVersion'], 'SinceVersion', obj_name, keyname)
+
                         # Optional, but must be a known PDF version
                         if (row['DeprecatedIn'] == ''):
                             row['DeprecatedIn'] = None
@@ -842,7 +882,7 @@ class Arlington:
                 logging.debug("Validating %s::%s", obj_name, keyname)
 
                 # Check validity of key names and array indices
-                m = re.search(r'^[a-zA-Z0-9_\-\.]*\*?$', keyname)
+                m = re.search(r'^[a-zA-Z0-9_:\-\.]*\*?$', keyname)
                 if (m is None):
                     logging.error("Key '%s' in object %s has unexpected characters", keyname, obj_name)
 
@@ -852,7 +892,15 @@ class Arlington:
                 if not is_sorted:
                     logging.error("Types '%s' are not sorted alphabetically for %s::%s", row['Type'], obj_name, keyname)
 
-                if (row['SinceVersion'] not in self.__pdf_versions):
+                if isinstance(row['SinceVersion'], list):
+                    for v in row['SinceVersion']:
+                        if (v[0].type != 'FUNC_NAME') and ((v[0].value != 'fn:IsExtension(') or (v[0].value != 'fn:SinceVersion(')):
+                            logging.error("SinceVersion predicate '%s' is not correct for %s::%s", v, obj_name, keyname)
+                elif isinstance(row['SinceVersion'], float):
+                    v = row['SinceVersion']
+                    if (v != 1.0) and (v != 1.1) and (v != 1.2) and (v != 1.3) and (v != 1.4) and (v != 1.5) and (v != 1.6) and (v != 1.7) and (v != 2.0):
+                        logging.error("SinceVersion '%s' in %s::%s has unexpected version!", row['SinceVersion'], obj_name, keyname)
+                else:
                     logging.error("SinceVersion '%s' in %s::%s has unexpected value!", row['SinceVersion'], obj_name, keyname)
 
                 if (row['DeprecatedIn'] is not None) and (row['DeprecatedIn'] not in self.__pdf_versions):

@@ -44,7 +44,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(BS)]",
+        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "Dest": {
@@ -746,6 +746,15 @@
         "DefaultValue": "0",
         "PossibleValues": "[fn:Eval(@DamagedRowsBeforeError>=0)]",
         "SpecialCase": "[fn:Ignore((@EndOfLine==false) || (@K<0))]"
+      },
+      "Blackls1": {
+        "Key": "Blackls1",
+        "Type": "boolean",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "false"
       }
     }
   },
@@ -2310,7 +2319,7 @@
         "Key": "ColorSpace",
         "Type": "array;name",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))",
+        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
@@ -2321,7 +2330,7 @@
         "Key": "BitsPerComponent",
         "Type": "integer",
         "SinceVersion": 1.0,
-        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)) || (@ImageMask==true))",
+        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)]"

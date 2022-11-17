@@ -63,13 +63,18 @@ void PredicateProcessor::EmptyPredicateAST() {
 /// @returns  true if the TSV data is valid. false otherwise. 
 bool PredicateProcessor::ValidateKeySyntax(const int key_idx) {
     // no predicates allowed
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_KEYNAME];
 
     if (tsv_field.find("fn:") != std::string::npos)
         return false;
 
-    return std::regex_search(tsv_field, r_Keys);
+    // Ensure that the full key is matched entirely by the regex
+    std::smatch     m;
+    bool retval = std::regex_search(tsv_field, m, r_Keys);
+    assert(!m.suffix().matched);
+
+    return (retval && !m.suffix().matched);
 }
 
 
@@ -84,7 +89,7 @@ bool PredicateProcessor::ValidateKeySyntax(const int key_idx) {
 /// 
 /// @returns true if the TSV data is valid. false otherwise.
 bool PredicateProcessor::ValidateTypeSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_TYPE];
 
     std::vector<std::string> type_list = split(tsv_field, ';');
@@ -121,38 +126,89 @@ bool PredicateProcessor::ValidateTypeSyntax(const int key_idx) {
 
 
 /// @brief Validates an Arlington "SinceVersion" field (column 3)
-/// - only "1.0" or "1.1" or ... or "1.7 or "2.0"
+/// - "1.0" or "1.1" or ... or "1.7 or "2.0"
+/// - fn:Extension(AAA)
+/// - fn:Extension(AAA,x.y)
+/// - fn:Eval(fn:Extension(AAA,x.y) || a.b)
 /// 
 /// @param[in]   key_idx     the key index into the TSV data
 /// 
 /// @returns true if the TSV data is valid, false otherwise
 bool PredicateProcessor::ValidateSinceVersionSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_SINCEVERSION];
 
     if (tsv_field.size() == 3)
         return FindInVector(v_ArlPDFVersions, tsv_field);
+    else if (tsv_field.find("fn:") != std::string::npos) {
+        // A predicate involving fn:Extension(...)
+        ASTNode* ast = new ASTNode();
+        ASTNodeStack stack;
+
+        std::string whats_left = LRParsePredicate(tsv_field, ast);
+        assert(ast->valid());
+        EmptyPredicateAST();
+        stack.push_back(ast);
+        predicate_ast.push_back(stack);
+        return (whats_left.size() == 0);
+    }
     return false;
 }
 
 
-/// @brief Determines if the current Arlington row is valid based on the "SinceVersion" field (column 3)
+/// @brief Determines if the current Arlington row is valid based on the "SinceVersion" field (column 3).
+/// - fn:Eval(fn:Extension(xxx,1.6) || 2.0)
+/// - fn:Extension(xxx)
+/// - fn:Extension(xxx,1.2)
 ///
+/// @param[in]   parent      the parent object (needed for predicates)
+/// @param[in]   obj         the object of the current key
 /// @param[in]   key_idx     the key index into the TSV data
 /// 
 /// @returns true if this row is valid for the specified by PDF version. false otherwise
-bool PredicateProcessor::IsValidForPDFVersion(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+bool PredicateProcessor::IsValidForPDFVersion(ArlPDFObject* parent, ArlPDFObject* obj, const int key_idx) {
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_SINCEVERSION];
     pdfc->ClearPredicateStatus();
 
     // PDF version "x.y" --> convert to integer as x*10 + y
-    assert(tsv_field.size() == 3);
+    int pdf_v = string_to_pdf_version(pdfc->pdf_version);
+    if (tsv_field.size() == 3) {
+        int tsv_v = string_to_pdf_version(tsv_field);
+        return (tsv_v <= pdf_v);
+    }
+    else {
+        ASTNode* ast = new ASTNode();
+        ASTNodeStack stack;
 
-    int pdf_v = pdfc->pdf_version[0] * 10 + pdfc->pdf_version[2];
-    int tsv_v = tsv_field[0]   * 10 + tsv_field[2];
-    return (tsv_v <= pdf_v);
-};
+        std::string whats_left = LRParsePredicate(tsv_field, ast);
+        assert(ast->valid());
+        EmptyPredicateAST();
+        stack.push_back(ast);
+        predicate_ast.push_back(stack);
+        assert(whats_left.size() == 0);
+
+        // Process the AST
+        assert(predicate_ast[0][0]->node.find("fn:") != std::string::npos);
+        assert(predicate_ast[0][0]->arg[0] != nullptr); 
+        auto eval = pdfc->ProcessPredicate(parent, obj, predicate_ast[0][0], key_idx, tsv, 0, 0, false);
+        bool retval = false;
+        if (eval != nullptr) {
+            if (eval->type == ASTNodeType::ASTNT_ConstNum) {
+                // output is a PDF version
+                int tsv_v = string_to_pdf_version(eval->node);
+                delete eval;
+                retval = (pdf_v >= tsv_v);
+            }
+            else {
+                assert(eval->type == ASTNodeType::ASTNT_ConstPDFBoolean);
+                retval = (eval->node == "true");
+                delete eval;
+            }
+        }
+        return retval;
+    }
+}
 
 
 /// @brief Validates an Arlington "DeprecatedIn" field (column 4)
@@ -162,7 +218,7 @@ bool PredicateProcessor::IsValidForPDFVersion(const int key_idx) {
 /// 
 /// @returns true if the field is valid, false otherwise
 bool PredicateProcessor::ValidateDeprecatedInSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_DEPRECATEDIN];
 
     if (tsv_field == "")
@@ -179,7 +235,7 @@ bool PredicateProcessor::ValidateDeprecatedInSyntax(const int key_idx) {
 /// 
 /// @returns true if this row is deprecated. false otherwise
 bool PredicateProcessor::IsDeprecated(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_DEPRECATEDIN];
 
     pdfc->ClearPredicateStatus();
@@ -188,11 +244,8 @@ bool PredicateProcessor::IsDeprecated(const int key_idx) {
         return false;
 
     // PDF version "x.y" --> convert to integer as x*10 + y
-    assert(tsv_field.size() == 3);
-    assert(pdfc->pdf_version.size() == 3);
-
-    int pdf_v = pdfc->pdf_version[0] * 10 + pdfc->pdf_version[2];
-    int tsv_v = tsv_field[0]   * 10 + tsv_field[2];
+    int pdf_v = string_to_pdf_version(pdfc->pdf_version);
+    int tsv_v = string_to_pdf_version(tsv_field);
     return (tsv_v >= pdf_v);
 };
 
@@ -210,11 +263,15 @@ bool PredicateProcessor::IsDeprecated(const int key_idx) {
 /// 
 /// @returns true if the TSV data is valid, false otherwise
 bool PredicateProcessor::ValidateRequiredSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_REQUIRED];
 
-    if ((tsv_field == "TRUE") || (tsv_field == "FALSE"))
+    if ((tsv_field == "TRUE") || (tsv_field == "FALSE")) {
+        // Wildcards must have Required be FALSE
+        if ((tsv[key_idx][TSV_KEYNAME] == "*") && (tsv_field != "FALSE"))
+            return false;
         return true;
+    }
     else if ((tsv_field.find("fn:IsRequired(") == 0) && (tsv_field[tsv_field.size()-1] == ')')) {
         ASTNode *ast = new ASTNode();
         ASTNodeStack stack;
@@ -239,6 +296,8 @@ bool PredicateProcessor::ValidateRequiredSyntax(const int key_idx) {
 ///   . \@key==... or \@key!=...
 ///   . use of Arlington-PDF-Path "::", "parent::"
 ///   . various highly specialized predicates: fn:IsEncryptedWrapper(), fn:NotStandard14Font(), ...
+/// 
+/// Also need to consider SinceVersion which might be fn:Extension(...)
 ///
 /// @param[in]   parent      the parent object (needed for predicates)
 /// @param[in]   obj         the object of the current key
@@ -251,7 +310,13 @@ bool PredicateProcessor::IsRequired(ArlPDFObject* parent, ArlPDFObject* obj, con
     assert(obj != nullptr);
     bool retval = false;
 
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
+    bool is_valid = IsValidForPDFVersion(parent, obj, key_idx);
+
+    // If it is not valid for the PDF version, then cannot be required
+    if (!is_valid)
+        return false;
+
     std::string tsv_field = tsv[key_idx][TSV_REQUIRED];
     pdfc->ClearPredicateStatus();
     EmptyPredicateAST();
@@ -270,7 +335,7 @@ bool PredicateProcessor::IsRequired(ArlPDFObject* parent, ArlPDFObject* obj, con
         assert(whats_left.size() == 0);
 
         /// Process the AST using the PDF objects - expect reduction to a boolean true/false
-        ASTNode* pp = pdfc->ProcessPredicate(parent, obj, predicate_ast[0][0], key_idx, tsv, type_idx);
+        ASTNode* pp = pdfc->ProcessPredicate(parent, obj, predicate_ast[0][0], key_idx, tsv, type_idx, 0, false);
         assert(pp != nullptr);
         assert(pp->valid());
         assert(pp->type == ASTNodeType::ASTNT_ConstPDFBoolean);
@@ -290,7 +355,7 @@ bool PredicateProcessor::IsRequired(ArlPDFObject* parent, ArlPDFObject* obj, con
 /// 
 /// @returns true if the TSV data is valid, false otherwise
 bool PredicateProcessor::ValidateIndirectRefSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_INDIRECTREF];
 
     if ((tsv_field == "TRUE") || (tsv_field == "FALSE") || (tsv_field == "fn:MustBeDirect()"))
@@ -333,7 +398,7 @@ bool PredicateProcessor::ValidateIndirectRefSyntax(const int key_idx) {
 /// @returns the requirement for indirectness: must be direct, must be indirect, or don't care
 ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_index) {
     assert(type_index >= 0);
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_INDIRECTREF];
     pdfc->ClearPredicateStatus();
 
@@ -398,7 +463,7 @@ ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* parent, Arl
             return  (stack[0]->node == "fn:MustBeDirect(") ? ReferenceType::MustBeDirect : ReferenceType::MustBeIndirect;
 
         // Was an argument - can still reduce to nullptr if keys not present, etc.
-        ASTNode* pp = pdfc->ProcessPredicate(parent, object, stack[0], key_idx, tsv, type_index);
+        ASTNode* pp = pdfc->ProcessPredicate(parent, object, stack[0], key_idx, tsv, type_index, 0, false);
         if (pp != nullptr) {
             assert(pp->valid() && (pp->type == ASTNodeType::ASTNT_ConstPDFBoolean));
             assert(pdfc->PredicateWasFullyProcessed());
@@ -421,7 +486,7 @@ ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* parent, Arl
 /// 
 /// @returns true if "TRUE" or "FALSE"
 bool PredicateProcessor::ValidateInheritableSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_INHERITABLE];
 
     return ((tsv_field == "TRUE") || (tsv_field == "FALSE"));
@@ -433,7 +498,7 @@ bool PredicateProcessor::ValidateInheritableSyntax(const int key_idx) {
 ///
 /// @returns true if the row is inheritable, false otherwise
 bool PredicateProcessor::IsInheritable(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_INHERITABLE];
     pdfc->ClearPredicateStatus();
 
@@ -451,7 +516,7 @@ bool PredicateProcessor::IsInheritable(const int key_idx) {
 ///
 /// @returns true if syntax is valid. false otherwise
 bool PredicateProcessor::ValidateDefaultValueSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_DEFAULTVALUE];
 
     if (tsv_field == "")
@@ -461,90 +526,38 @@ bool PredicateProcessor::ValidateDefaultValueSyntax(const int key_idx) {
     ASTNodeStack stack;
     EmptyPredicateAST();
 
+    std::vector<std::string> dv_list = split(tsv_field, ';');
     if (tsv_field.find(";") != std::string::npos) {
-        // complex type [];[];[], so therefore everything has outer [ and ], including PDF arrays
-        std::vector<std::string> dv_list = split(tsv_field, ';');
-
+        // complex type [];[];[], so therefore everything has [ and ], which need to be removed
         for (auto& dv : dv_list) {
-            stack.clear();
-            int loop = 0;
-            assert(dv.size() >= 2);
-            s = dv.substr(1, dv.size() - 2); // strip off outer '[' and ']'
-            if ((s.size() == 0) || (s == "[]")) {
-                // was a "no value" (i.e. "[]") or is an empty PDF array (i.e. "[[]]")
-                // For the purposes of validation we don't care which
-                stack.push_back(nullptr);
-            }
-            else {
-                do {
-                    ASTNode* n = new ASTNode();
-
-                    s = LRParsePredicate(s, n);
-                    assert(n->valid());
-                    stack.push_back(n);
-                    loop++;
-                    while ((s.size() > 0) && (s[0] == ' ')) {
-                        s = s.substr(1, s.size() - 1); // skip over SPACEs
-                    }
-                } while ((s.size() > 0) && (loop < 100));
-                if (loop >= 100) {
-                    assert(false && "Arlington complex type DefaultValue field too long and complex!");
-                    return false;
-                }
-            }
-            assert(stack.size() == 1);          // only ever a single value for a default
-            predicate_ast.push_back(stack);
-        } // for
-        assert(predicate_ast.size() > 1);       // was complex so must be at least 2 defaults: [a];[b]       
-    }
-    else {
-        // non-complex type. Any '[' and ']' indicates a PDF array with SPACE separators between array elements
-        // May also have predicates.
-        int loop = 0;
-        std::vector<std::string> elems;
-        if (tsv_field[0] == '[') {
-            // DefaultValue is a single PDF array. Need to strip off array '[' and ']' as LRParsePredicate CANNOT handle PDF arrays with SPACE separators
-            // Then just "test parse" each element of the PDF array for the purposes of validation.
-            s = strip_leading_whitespace(tsv_field.substr(1, tsv_field.size() - 2));
-            elems = split(s, ' ');
+            assert(dv[0] == '[');
+            s = dv.substr(1, dv.size() - 2);
+            dv = s;
         }
-        else
-            elems.push_back(tsv_field);
+    }
 
-        for (auto elem : elems) {
-            s = strip_leading_whitespace(elem);  // required for PDF Array elements
-            if (s == "") {
-                // Was an empty PDF array "[]"
-                stack.push_back(nullptr);
-            }
-            else if (s[0] == '\'') {
-                // PDF strings not handled by LRParsePredicate due to containing a SPACE or COMMA
-                // e.g. NumberFormat/RT, PS, SS
+    for (auto& dv : dv_list) {
+        stack.clear();
+        int loop = 0;
+        // LRParsePredicate does not support PDF-arrays so ignore them
+        if (dv[0] != '[') {
+            do {
                 ASTNode* n = new ASTNode();
-                n->type = ASTNodeType::ASTNT_ConstString;
-                n->node = s.substr(1, s.size() - 2); // strip SINGLE-QUOTE
+                s = LRParsePredicate(dv, n);
                 stack.push_back(n);
-            }
-            else {
-                // PDF array element is integer, name, number, etc. - see if it parses cleanly
-                do {
-                    ASTNode* n = new ASTNode();
-                    s = LRParsePredicate(s, n);
-                    assert(n->valid());
-                    stack.push_back(n);
-                    loop++;
-                    while ((s.size() > 0) && (s[0] == ' ')) {
-                        s = s.substr(1, s.size() - 1); // skip over SPACEs
-                    }
-                } while ((s.size() > 0) && (loop < 100));
-                if (loop >= 100) {
-                    assert(false && "Arlington simple type DefaultValue field too long and complex!");
-                    return false;
+                loop++;
+                while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
+                    s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
                 }
+            } while ((s.size() > 0) && (loop < 100));
+            if (loop >= 100) {
+                assert(false && "Arlington DefaultValue field too long and complex!");
+                return false;
             }
         }
         predicate_ast.push_back(stack);
-    }
+    } // for
+
     return true;
 }
 
@@ -552,12 +565,17 @@ bool PredicateProcessor::ValidateDefaultValueSyntax(const int key_idx) {
 /// @brief Converts the DefaultValue for the specified Arlington type into an ASTNode tree
 /// 
 /// @param[in]   key_idx   the index into TSV data for the key of interest
+/// @param[in]   type_idx  the index into TSV data for the Type field
 /// 
 /// @returns an ASTNode tree or nullptr if nothing or an error
-ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx, const int type_idx) {
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
+    assert(type_idx >= 0);
     std::string tsv_field = tsv[key_idx][TSV_DEFAULTVALUE];
-    pdfc->ClearPredicateStatus();
+
+    // Only when processing a PDF file, not when validating the grammar
+    if (pdfc != nullptr)
+        pdfc->ClearPredicateStatus();
 
     if (tsv_field == "") 
         return nullptr;
@@ -566,41 +584,24 @@ ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx) {
     ASTNodeStack stack;
     EmptyPredicateAST();
 
+    std::vector<std::string> dv_list = split(tsv_field, ';');
     if (tsv_field.find(";") != std::string::npos) {
-        // complex type [];[];[], so therefore everything has [ and ]
-        std::vector<std::string> dv_list = split(tsv_field, ';');
-
+        // complex type [];[];[], so therefore everything has [ and ], which need to be removed
         for (auto& dv : dv_list) {
-            stack.clear();
-            if (dv.find("fn:") != std::string::npos) {
-                int loop = 0;
-                s = dv.substr(1, dv.size() - 2); // strip off '[' and ']'
-                do {
-                    ASTNode* n = new ASTNode();
-
-                    s = LRParsePredicate(s, n);
-                    stack.push_back(n);
-                    loop++;
-                    while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
-                        s = s.substr(1, s.size() - 1); // skip over COMMAs and SPACEs
-                    }
-                } while ((s.size() > 0) && (loop < 100));
-                if (loop >= 100) {
-                    assert(false && "Arlington complex type DefaultValue field too long and complex!");
-                    return nullptr;
-                }
-            }
-            predicate_ast.push_back(stack);
-        } // for
+            assert(dv[0] == '[');
+            s = dv.substr(1, dv.size() - 2); 
+            dv = s;
+        }
     }
-    else {
-        // non-complex type - [ and ] may be PDF array with SPACE separators so don't strip
-        if (tsv_field.find("fn:") != std::string::npos) {
-            int loop = 0;
-            s = tsv_field;
+
+    for (auto& dv : dv_list) {
+        stack.clear();
+        int loop = 0;
+        // LRParsePredicate does not support PDF-arrays so ignore them
+        if (dv[0] != '[') {
             do {
                 ASTNode* n = new ASTNode();
-                s = LRParsePredicate(s, n);
+                s = LRParsePredicate(dv, n);
                 stack.push_back(n);
                 loop++;
                 while ((s.size() > 0) && ((s[0] == ',') || (s[0] == ' '))) {
@@ -608,16 +609,16 @@ ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx) {
                 }
             } while ((s.size() > 0) && (loop < 100));
             if (loop >= 100) {
-                assert(false && "Arlington simple type DefaultValue field too long and complex!");
+                assert(false && "Arlington DefaultValue field too long and complex!");
                 return nullptr;
             }
         }
         predicate_ast.push_back(stack);
-    }
+    } // for
 
     // Parsed the DefaultValue, now work out which AST to return based in Type index (idx)
-    if (key_idx < (int)predicate_ast.size())
-        return predicate_ast[key_idx][0];
+    if ((type_idx < (int)predicate_ast.size()) && (!predicate_ast[type_idx].empty()))
+        return predicate_ast[type_idx][0];
     else
         return nullptr;
 }
@@ -631,7 +632,7 @@ ASTNode* PredicateProcessor::GetDefaultValue(const int key_idx) {
 ///
 /// @returns true if syntax is valid. false otherwise
 bool PredicateProcessor::ValidatePossibleValuesSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_POSSIBLEVALUES];
 
     if (tsv_field == "")
@@ -644,9 +645,10 @@ bool PredicateProcessor::ValidatePossibleValuesSyntax(const int key_idx) {
 
     for (auto& pv : pv_list) {
         stack.clear();
+        assert((pv[0] == '[') && (pv[pv.size() - 1] == ']'));
+        s = pv.substr(1, pv.size() - 2); // strip off '[' and ']'
         if (pv.find("fn:") != std::string::npos) {
             int loop = 0;
-            s = pv.substr(1, pv.size() - 2); // strip off '[' and ']'
             do {
                 ASTNode* n = new ASTNode();
                 s = LRParsePredicate(s, n);
@@ -664,6 +666,44 @@ bool PredicateProcessor::ValidatePossibleValuesSyntax(const int key_idx) {
         }
         predicate_ast.push_back(stack);
     }
+
+    std::string types_field = remove_type_link_predicates(tsv[key_idx][TSV_TYPE]);
+    std::vector<std::string> type_list = split(types_field, ';');
+    assert(type_list.size() == predicate_ast.size());
+
+    for (size_t i = 0; i < type_list.size(); i++) {
+        std::string typ = type_list[i];
+        if (typ == "name") {
+            // PDF Names are raw with no leading SLASH - can string match
+            // PDF SDKs have sorted out #-escapes 
+        }
+        else if (typ.find("string") != std::string::npos) {
+            // PDF Strings are single quoted in Arlington 
+        }
+        else if ((typ == "integer") || (typ == "number") || (typ == "bitmask")) {
+            // Integers can be directly matched numerically
+            // Real number need a tolerance for matching
+        }
+        else if (typ == "array") {
+            // Arrays can have Possible Values e.g. XObjectImageMask Decode = [[0,1],[1,0]] 
+        }
+        else if ((typ == "boolean") ||  
+                 (typ == "date") ||      
+                 (typ == "dictionary") ||
+                 (typ == "matrix") ||
+                 (typ == "null") ||
+                 (typ == "rectangle") ||
+                 (typ == "stream")) {
+            if (!((pv_list[i] == "[]") || (pv_list[i].size() == 0))) {
+                // Arrays, Booleans, Dates, Dictionaries, Matrices, null, Rectangles, Streams don't have Possible Values!
+                return false;
+            }
+        }
+        else {
+            // unknown type when validating Possible Values!
+            return false;
+        }
+    }
     return true;
 }
 
@@ -676,7 +716,7 @@ bool PredicateProcessor::ValidatePossibleValuesSyntax(const int key_idx) {
 /// 
 /// @returns true if the PDF object matches something in the list and is thus a valid value.
 bool PredicateProcessor::IsValidValue(ArlPDFObject* object, const int key_idx, const std::string& pvalues) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_POSSIBLEVALUES];
     pdfc->ClearPredicateStatus();
 
@@ -695,15 +735,19 @@ bool PredicateProcessor::IsValidValue(ArlPDFObject* object, const int key_idx, c
             {
                 // PDF Names are raw with no leading SLASH - can string match
                 // PDF SDKs have sorted out #-escapes 
+                // Also support wildcard "*" in Arlington grammar meaning any name matches
                 std::string nm = ToUtf8(((ArlPDFName*)object)->get_value());
-                auto it = std::find(val_list.begin(), val_list.end(), nm);
-                retval = (it != val_list.end());
+                for (auto& v : val_list)
+                    if ((nm == v) || (v == "*")) { // Support wildcard name matching
+                        retval = true;
+                        break;
+                    }
             }
             break;
 
         case PDFObjectType::ArlPDFObjTypeString:
             {
-                // PDF Strings are single quoted in Arlington so strip then string match
+                // PDF Strings are single quoted in Arlington so add then string match
                 // PDF SDKs have sorted out hex strings, escapes, etc.
                 std::string s = "'" + ToUtf8(((ArlPDFString*)object)->get_value()) + "'";
                 auto it = std::find(val_list.begin(), val_list.end(), s);
@@ -796,7 +840,7 @@ bool PredicateProcessor::IsValidValue(ArlPDFObject* object, const int key_idx, c
 /// 
 /// @returns   true if the TSV data is valid. false otherwise.
 bool PredicateProcessor::ValidateSpecialCaseSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_SPECIALCASE];
 
     if (tsv_field == "")
@@ -840,6 +884,7 @@ bool PredicateProcessor::ValidateSpecialCaseSyntax(const int key_idx) {
 
 /// @brief Validates an Arlington "Links" field (column 11)
 ///  - fn:SinceVersion(x.y,link)
+///  - fn:SinceVersion(x.y,fn:Extension(name,link))
 ///  - fn:Deprecated(x.y,link)
 ///  - fn:BeforeVersion(x.y,link)
 ///  - fn:IsPDFVersion(x.y,link)
@@ -848,86 +893,114 @@ bool PredicateProcessor::ValidateSpecialCaseSyntax(const int key_idx) {
 /// 
 /// @returns true if the TSV data is valid. false otherwise.
 bool PredicateProcessor::ValidateLinksSyntax(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_LINK];
 
     // Nothing to do?
-    if (tsv_field.find("fn:") == std::string::npos)
+    if (tsv_field == "")
         return true;
 
     std::vector<std::string> link_list = split(tsv_field, ';');
-    bool valid;
     for (auto& lnk : link_list) {
-        std::smatch     m;
-        if (std::regex_search(lnk, m, r_Links) && m.ready() && (m.size() == 4)) {
-            // m[1] = predicate function name (no "fn:")
-            // m[2] = PDF version "x.y"
-            // fn:BeforeVersion(1.0,xxx) makes no sense and fn:SinceVersion(1.0,xxx) is pointless overhead!!
-            valid = !(((m[1] == "BeforeVersion") || (m[1] == "SinceVersion")) && (m[2] == "1.0"));
+        std::string s = lnk;
+        bool valid = true;
+        std::vector<std::string> links;
+
+        while (s.size() > 0) {
+            if (s.rfind("fn:", 0) == 0) {
+                std::smatch     m;
+
+                // next Link starts with "fn:"
+                if (std::regex_search(s, m, r_startsWithSinceVersionExtension) && m.ready() && (m.size() == 4)) {
+                    // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                    // m[2] = extension name
+                    // m[3] = Arlington link
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[3]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);            // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithIsPDFVersionExtension) && m.ready() && (m.size() == 4)) {
+                    // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                    // m[2] = extension name
+                    // m[3] = Arlington link
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[3]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);            // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithSinceVersion) && m.ready() && (m.size() == 3)) {
+                    // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[2]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);       // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithBeforeVersion) && m.ready() && (m.size() == 3)) {
+                    // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[2]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);       // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithIsPDFVersion) && m.ready() && (m.size() == 3)) {
+                    // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[2]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);       // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithDeprecated) && m.ready() && (m.size() == 3)) {
+                    // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
+                    valid = FindInVector(v_ArlPDFVersions, m[1]);
+                    links.push_back(m[2]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);       // skip COMMA
+                }
+                else if (std::regex_search(s, m, r_startsWithLinkExtension) && m.ready() && (m.size() == 3)) {
+                    // m[1] = named extension
+                    // m[2] = link 
+                    links.push_back(m[2]);     // m[2] = Arlington link
+                    s = m.suffix();
+                    if (s[0] == ',')
+                        s = s.substr(1);       // skip COMMA
+                }
+                else {
+                    assert(false && "unexpected predicate in Arlington Links!");
+                    s.clear();
+                }
+            }
+            else {
+                // does NOT start with "fn:"
+                // copy link (up to next COMMA) to output
+                auto comma = s.find(',');
+                std::string l;
+                if (comma != std::string::npos) {
+                    l = s.substr(0, comma);
+                    s = s.substr(comma + 1);
+                }
+                else {
+                    l = s;
+                    s.clear();
+                }
+                if (l.size() == 0)
+                    return false;
+                links.push_back(l);
+            }
             if (!valid)
                 return false;
-            valid = FindInVector(v_ArlPDFVersions, m[2]);
-            if (!valid)
-                return false;
-            // m[3] = Arlington link (TSV filename)
-        }
-        else if (lnk.find("fn:") != std::string::npos)
+        } // while
+        if (links.size() == 0)
             return false;
+
     } // for
     return true;
-}
-
-
-
-/// @brief Reduces an Arlington "Links" field (column 11) based on a PDF version
-///  - fn:SinceVersion(x.y,link)
-///  - fn:Deprecated(x.y,link)
-///  - fn:BeforeVersion(x.y,link)
-///  - fn:IsPDFVersion(x.y,link)
-/// 
-/// @param[in] key_idx      the row index into tsv_data matrix for this key
-///
-/// @returns an Arlington Links field with all predicates removed. May be empty string "".
-std::string PredicateProcessor::ReduceLinkRow(const int key_idx) {
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
-    std::string tsv_field = tsv[key_idx][TSV_LINK];
-    pdfc->ClearPredicateStatus();
-
-    // Nothing to do?
-    if (tsv_field.find("fn:") == std::string::npos)
-        return tsv_field;
-
-    std::string to_ret = "";
-    std::vector<std::string> link_list = split(tsv_field, ';');
-    for (auto& lnk : link_list) {
-        std::smatch     m;
-        if (std::regex_search(lnk, m, r_Links) && m.ready() && (m.size() == 4)) {
-            // m[1] = predicate function name (no "fn:")
-            // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
-            int pdf_v = pdfc->pdf_version[0] * 10 + pdfc->pdf_version[2];
-            assert(m[2].str().size() == 3);
-            int arl_v = m[2].str()[0] * 10 + m[2].str()[2];
-            if (((m[1] == "SinceVersion")  && (pdf_v >= arl_v)) ||
-                ((m[1] == "BeforeVersion") && (pdf_v <  arl_v)) ||
-                ((m[1] == "IsPDFVersion")  && (pdf_v == arl_v)) ||
-                ((m[1] == "Deprecated")    && (pdf_v <  arl_v))) {
-                // m[3] = Arlington link
-                if (to_ret == "")
-                    to_ret = m[3];
-                else
-                    to_ret += ";" + m[3].str();
-            }
-        }
-        else {
-            if (to_ret == "")
-                to_ret = lnk;
-            else
-                to_ret += ";" + lnk;
-        }
-    } // for
-
-    assert(to_ret.find("fn:") == std::string::npos);
-    return to_ret;
 }
 
 
@@ -944,7 +1017,7 @@ std::string PredicateProcessor::ReduceLinkRow(const int key_idx) {
 bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_idx) {
     assert(parent != nullptr);
     assert(object != nullptr);
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
 
     std::string tsv_field = tsv[key_idx][TSV_POSSIBLEVALUES];
     pdfc->ClearPredicateStatus();
@@ -965,9 +1038,10 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object,
 
     for (auto& pv : pv_list) {
         stack.clear();
+        assert((pv[0] == '[') && (pv[pv.size() - 1] == ']'));
+        std::string s = pv.substr(1, pv.size() - 2); // strip off '[' and ']'
         if (pv.find("fn:") != std::string::npos) {
             int loop = 0;
-            std::string s = pv.substr(1, pv.size() - 2); // strip off '[' and ']'
             do {
                 ASTNode* n = new ASTNode();
                 s = LRParsePredicate(s, n);
@@ -1021,7 +1095,7 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object,
 
         case ASTNodeType::ASTNT_Predicate:
             {
-                ASTNode *pp = pdfc->ProcessPredicate(parent, object, n, key_idx, tsv, type_idx);
+                ASTNode *pp = pdfc->ProcessPredicate(parent, object, n, key_idx, tsv, type_idx, 0, false);
                 if (pp != nullptr) {
                     // Booleans can either be a valid value OR the result of an fn:Eval(...) calculation
                     ASTNodeType pp_type = pp->type;
@@ -1077,7 +1151,7 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object,
 bool PredicateProcessor::ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_idx) {
     assert(parent != nullptr);
     assert(object != nullptr);
-    assert((key_idx >= 0) && (key_idx < tsv.size()));
+    assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     assert(type_idx >= 0);
 
     std::string tsv_field = tsv[key_idx][TSV_SPECIALCASE];
@@ -1103,9 +1177,10 @@ bool PredicateProcessor::ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object,
 
     for (auto& sc : sc_list) {
         stack.clear();
+        assert((sc[0] == '[') && (sc[sc.size() - 1] == ']'));
+        std::string s = sc.substr(1, sc.size() - 2); // strip off '[' and ']'
         if (sc.find("fn:") != std::string::npos) {
             int loop = 0;
-            std::string s = sc.substr(1, sc.size() - 2); // strip off '[' and ']'
             do {
                 ASTNode* n = new ASTNode();
                 s = LRParsePredicate(s, n);
@@ -1141,7 +1216,7 @@ bool PredicateProcessor::ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object,
     ASTNode* n = stack[0];
     if (n->type == ASTNodeType::ASTNT_Predicate) {
         bool valid = true;
-        ASTNode* pp = pdfc->ProcessPredicate(parent, object, n, key_idx, tsv, type_idx);
+        ASTNode* pp = pdfc->ProcessPredicate(parent, object, n, key_idx, tsv, type_idx, 0, true);
         // SpecialCase can return nullptr only when versioning makes everything go away...
         if (pp != nullptr) {
             assert(pp->valid());

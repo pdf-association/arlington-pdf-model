@@ -35,7 +35,7 @@
 #
 import fileinput
 import pprint
-from typing import List, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Union
 import sly        # type: ignore
 
 
@@ -64,10 +64,10 @@ class ArlingtonFnLexer(sly.Lexer):
 
     # String containing ignored characters between tokens (just SPACE)
     # Because we are reading from stdin and/or text files, also ignore EOLs
-    ignore = ' \r\n'
+    ignore = ' '
 
     # Regular expression rules for tokens
-    FUNC_NAME    = r'fn\:[A-Z][a-zA-Z14]+\('
+    FUNC_NAME    = r'fn\:[A-Z][a-zA-Z0-9]+\('
     PDF_TRUE     = r'(true)|(TRUE)'
     PDF_FALSE    = r'(false)|(FALSE)'
     PDF_STRING   = r'\'[^\']+\''
@@ -79,7 +79,7 @@ class ArlingtonFnLexer(sly.Lexer):
     # Key name which is numeric array index (0-9*) is ambiguous with integers.
     # Array indices are integers, or integer + ASTERISK (wildcard) - need to use SPACEs to disambiguate
     KEY_PATH     = r'(parent::)?(([a-zA-Z]|[a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[a-zA-Z])[a-zA-Z0-9_\.\-]*::)+'
-    KEY_NAME     = r'([_a-zA-Z]|[_a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[_a-zA-Z])[a-zA-Z0-9_\.\-]*'
+    KEY_NAME     = r'([_a-zA-Z]|[_a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[_a-zA-Z])[a-zA-Z0-9_:\.\-]*'
     PDF_PATH     = r'::'
     ARRAY_START  = r'\['
     ARRAY_END    = r'\]'
@@ -122,6 +122,18 @@ class ArlingtonFnLexer(sly.Lexer):
         return t
 
 
+# Terse version of sly.lex.Token.__str__/__repr__ dunder methods
+def MyTokenStr(self) -> str:
+    return "TOKEN(type='%s', value='%s')" % (self.type, self.value)
+
+
+# Function to JSON-ify sly.lex.Token objects
+def sly_lex_Token_to_json(self) -> Dict[str, Union[str, sly.lex.Token]]:
+    if isinstance(self, sly.lex.Token):
+        return {'object': 'sly.lex.Token', 'type': self.type, 'value': self.value}
+    return {'error': '!not a sly.lex.Token!'}
+
+
 def ToNestedAST(stk: List[sly.lex.Token], idx: int = 0) -> Tuple[int, List[sly.lex.Token]]:
     """
     Assumes a fully valid parse tree with fully bracketed "( .. )" expressions.
@@ -158,6 +170,13 @@ def ToNestedAST(stk: List[sly.lex.Token], idx: int = 0) -> Tuple[int, List[sly.l
 
 
 if __name__ == '__main__':
+    # "Monkey patch" sly.lex.Token __str__ and __repr__ dunder methods to make JSON nicer
+    # Don't do this if we want to read the JSON back in!
+    old_str = sly.lex.Token.__str__
+    sly.lex.Token.__str__  = MyTokenStr
+    old_repr = sly.lex.Token.__repr__
+    sly.lex.Token.__repr__ = MyTokenStr
+
     lexer  = ArlingtonFnLexer()
 
     i: int
@@ -168,6 +187,7 @@ if __name__ == '__main__':
 
     for line in fileinput.input():
         # Skip blank lines and those starting with '#' (comments)
+        line = line.strip()
         if (line != '') and (line[0] != '#'):
             stk: List[sly.lex.Token] = []
             print(line, end='')
@@ -176,7 +196,7 @@ if __name__ == '__main__':
                 stk.append(tok)
             print()
             i, ast = ToNestedAST(stk)
-            # pprint.pprint(ast)
+            #pprint.pprint(ast)
             for j, a in enumerate(ast):
                 # De-tokenize only the top level PDF keynames
                 if (not isinstance(a, list)) and (a.type == 'KEY_NAME'):

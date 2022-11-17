@@ -47,10 +47,6 @@ extern HINSTANCE ghInstance;
 #include <sys/stat.h>
 #endif // _WIN32
 
-/// @brief Regexes for matching versioning predicates: $1 = PDF version "," $2 = Link or predefined Arlington type
-static const std::regex  r_sinceVersion("fn:SinceVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
-static const std::regex  r_isDeprecated("fn:Deprecated\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
-static const std::regex  r_isPDFVersion("fn:IsPDFVersion\\(" + ArlPDFVersion + "\\,([A-Za-z0-9_\\-]+)\\)");
 
 /// @brief Converts a Unicode string to UTF8
 ///
@@ -106,7 +102,7 @@ std::string ToUtf8(const std::wstring& wstr) {
     std::wstring ws = wstr;
 
     // Check for UTF-16BE or UTF-8 BOM strings
-    if ((ws.size() >= 2) && (ws[0] == 254) && (ws[1] == 255)) {
+    if ((ws.size() >= 2) && (ws[0] == (wchar_t)254) && (ws[1] == (wchar_t)255)) {
         // Handle UTF-16BE
         ws = ws.substr(2);
 
@@ -119,7 +115,7 @@ std::string ToUtf8(const std::wstring& wstr) {
         }
         return utf8;
     }
-    else if ((ws.size() >= 3) && (ws[0] == 239) && (ws[1] == 187) && (ws[1] == 191)) {
+    else if ((ws.size() >= 3) && (ws[0] == (wchar_t)239) && (ws[1] == (wchar_t)187) && (ws[1] == (wchar_t)191)) {
         // Strip UTF-8 BOM for PDF 2.0
         ws = ws.substr(3);
     }
@@ -237,19 +233,32 @@ bool is_file(const std::filesystem::path& p)
 /// @param[in]  in      Arlington TSV Link or Type field that might contain predicates
 /// @returns            the Arlington "Links" field with all predicates removed
 std::string remove_type_link_predicates(const std::string& in) {
-    std::string     to_ret;
+    if (in == "")
+        return "";   // Common case for basic Arlington types
 
-    to_ret = std::regex_replace(in,     r_sinceVersion, "$2");
-    to_ret = std::regex_replace(to_ret, r_isPDFVersion, "$2");
-    to_ret = std::regex_replace(to_ret, r_isDeprecated, "$2");
+    std::string     to_ret = in;
+
+    // Specific order!
+    to_ret = std::regex_replace(to_ret, r_sinceVersionExtension, "$3");
+    to_ret = std::regex_replace(to_ret, r_isPDFVersionExtension, "$3");
+    to_ret = std::regex_replace(to_ret, r_sinceVersion,  "$2");
+    to_ret = std::regex_replace(to_ret, r_beforeVersion, "$2");
+    to_ret = std::regex_replace(to_ret, r_isPDFVersion,  "$2");
+    to_ret = std::regex_replace(to_ret, r_Deprecated,    "$2");
+    to_ret = std::regex_replace(to_ret, r_LinkExtension, "$2");
+    assert(to_ret.find("fn:") == std::string::npos);
+    assert(to_ret.size() >= 3);
     return to_ret;
 }
 
 
-//////////////////////////////////////////////////////////////////////////
-//         TO BE DEPRECATED!
-//
-std::vector<std::string> split(const std::string& s, char separator) {
+/// @brief Split a string based on a single char separator
+/// 
+/// @param[in] s          string to split
+/// @param[in] separator  character to split
+/// 
+/// @returns a vector of strings.
+std::vector<std::string> split(const std::string& s, const char separator) {
   std::vector<std::string> output;
   std::string::size_type pos_prev = 0, pos_separator=0, pos_fn = 0, pos=0;
 
@@ -484,7 +493,7 @@ bool is_valid_pdf_date_string(const std::wstring& wdate) {
 
     // Convert from possible UTF-16 and strip off BOM
     std::string date = ToUtf8(wdate);
-    if ((date.size() >= 2) && (date[0] == 254) && (date[1] == 255)) {
+    if ((date.size() >= 2) && ((uint8_t)date[0] == (uint8_t)254) && ((uint8_t)date[1] == (uint8_t)255)) {
         date = date.substr(2);
     }
 
@@ -566,3 +575,23 @@ int key_to_array_index(const std::string& key) {
     }
     return i;
 }
+
+
+/// @brief Converts a PDF string to the integer equivalent x 10.
+/// 
+/// @param[in] vers   PDF version as a string. Should be precisely 3 chars.
+/// 
+/// @returns the PDF version x 10
+int string_to_pdf_version(const std::string& vers) {
+    assert(vers.size() == 3);
+    assert(isdigit(vers[0]));
+    assert(vers[1] == '.');
+    assert(isdigit(vers[2]));
+    assert(FindInVector(v_ArlPDFVersions, vers));
+
+    int pdf_ver = ((vers[0] - '0') * 10) + (vers[2] - '0');
+    assert((pdf_ver >= 10) && ((pdf_ver <= 17) || (pdf_ver == 20)));
+
+    return pdf_ver;
+}
+

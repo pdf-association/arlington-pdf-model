@@ -12,6 +12,12 @@
 &nbsp;&nbsp;&nbsp;
 ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCJL_M0VH2lm65gvGVarUTKQ?style=social)
 
+## TL;DR
+
+The Arlington PDF Model is all about a machine-readable model data for PDF objects, **_not_** about code, runtimes, or tooling. If you want to start somewhere, start by exploring the TSV data model files at a Linux prompt, or in a Jupyter Notebook with the JSON equivalent (see [./scripts/README.md](./scripts/README.md#arlington-to-pandaspy)).
+
+The starting assumption is that you are a software developer and already know about the PDF document object model, PDF syntax, and how PDF files generally 'work'. You also have experience in debugging valid and invalid PDFs.
+
 ## Background
 
 The Arlington PDF Model is a specification-derived, machine-readable definition of the full PDF document object model (DOM) as defined by the official PDF 2.0 specification [ISO 32000-2:2020](https://www.iso.org/standard/75839.html) and its [related resolved errata](https://www.pdfa.org/pdf-issues/). It provides an easy-to-process structured definition of all formally defined PDF objects (dictionaries, arrays and map objects) and their relationships beginning with the file trailer using a simple text-based syntax and a small set of declarative functions. The Arlington PDF Model is applicable to both parsers (PDF readers) and unparsers (PDF writers).
@@ -35,13 +41,16 @@ tsvreader = csv.DictReader(file, delimiter='\t')
 
 The latest release of Arlington includes:
 
-* significant data model updates and corrections,
+* significant data model updates and corrections (including refinement of many object definitions),
 * array naming convention of TSV files (`*Array*.tsv`, or `*ColorSpace.tsv` ) so that dictionaries and arrays are easily distinguishable,
 * significant documentation updates,
-* a fully consistent set of predicates for PDF object data integrity rules and requirements,
+* a large set of fully consistent predicates for PDF object data integrity rules and documented requirements,
 * a far more comprehensive validation of the Arlington PDF grammar (to avoid typos or other potential errors),
-* significant updates to the TestGrammar (C++) proof-of-concept application to confirm predicates and perform a detailed version-based assessment of PDF files
-* a far more detailed comparison with the Adobe DVA grammar.
+* fix for memory leaks and some performance improvements (albeit with a far more computationally expensive data model now due to predicate determination!)
+* significant updates to the TestGrammar (C++) proof-of-concept application to confirm predicates and perform a detailed version-based assessment of PDF files,
+* functionality in both the data model and TestGrammar (C++) proof-of-concept application to define and test for extensions (whether that be ISO subsets, ISO/TS technical specifications, proprietary extensions, malformations, or user-defined),
+* support for unsupported (unknown) encryption algorithms (_currently limited to pdfium PDF SDK only_)
+* a far more detailed comparison of the Arlington PDF Model with the Adobe DVA grammar.
 
 ### Limitations
 
@@ -288,7 +297,13 @@ A CLI utility that can validate an Arlington grammar (set of TSV files), compare
 
 A CLI Java-based proof of concept application that can convert the main Arlington TSV file set (in `./tsv/latest`) into PDF version specific file sets in both TSV and XML formats. The XML format is defined by [this schema](xml/schema/objects.xsd). In addition, some research oriented queries can be performed using the XML as input. Detailed documentation is now located in [gcxml/README.md](gcxml/README.md).
 
-The Java gcxml.jar file must be run in this top-level folder (such that `./tsv/` and `./xml/` are both sub-folders).
+The Java gcxml.jar file must be run in this top-level folder (such that `./tsv/` and `./xml/` are both sub-folders):
+
+```bash
+java -jar ./gcxml/dist/gcxml.jar -xml
+```
+
+NOTE: some functionality of `gcxml` may no longer work as the TSV model has been improved. It is currently only used to convert the TSV data to XML, but the XML processing may be rotted.
 
 ## 3D and VR visualizations
 

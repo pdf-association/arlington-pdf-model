@@ -80,7 +80,7 @@ bool is_folder(const std::filesystem::path& p);
 bool is_file(const std::filesystem::path& p);
 
 /// @brief Split Arlington-style strings into vector based on separator character
-std::vector<std::string> split(const std::string& s, char separator);
+std::vector<std::string> split(const std::string& s, const char separator);
 
 /// @brief Arlington brute-force predicate removal for Type and Link fields
 std::string remove_type_link_predicates(const std::string& in);
@@ -111,5 +111,8 @@ bool is_valid_pdf_date_string(const std::wstring& wdate);
 
 /// @brief Convert an Arlington key to an array index (should be an integer) or -1 on error
 int key_to_array_index(const std::string& key);
+
+/// @brief converts a PDF version string to the integer equivalent x 10
+int string_to_pdf_version(const std::string& vers);
 
 #endif // Utils_h

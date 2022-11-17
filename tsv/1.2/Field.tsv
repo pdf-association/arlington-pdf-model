@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtn,FieldCh,Field]	
+Parent	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,Field]	Table 226
 Kids	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFields]	
 T	string-text	1.2		FALSE	FALSE	FALSE					
 Ff	bitmask	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:BitsClear(4,32))]		

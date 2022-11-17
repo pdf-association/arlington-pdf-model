@@ -12,6 +12,7 @@
 *.pyc
 *.tlog
 *.recipe
+.vs/
 CMakeCache*
 scripts/.ipynb_*
 scripts/__pycache__/
@@ -20,10 +21,12 @@ gcxml/nbproject/private/
 gcxml/build/
 gcxml/dist/javadoc/
 gcxml/dist/*.jar
+gcxml/.idea/
+gcxml/out/
 TestGrammar/cmake*
 TestGrammar/build
 TestGrammar/platform/msvc2019/.vs/
 TestGrammar/platform/msvc2022/.vs/
 TestGrammar/qpdf
 TestGrammar/doc
-TestGrammar/bin/linux/TestGrammar*
+TestGrammar/bin/*/TestGrammar*

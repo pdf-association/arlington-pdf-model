@@ -29,9 +29,9 @@
 #include <algorithm>
 #include <string>
 #include <cassert>
+#include "utils.h"
 
-
-//pdfium
+// pdfium
 #include "core/include/fxcodec/fx_codec.h"
 #include "core/include/fxge/fx_ge.h"
 #include "core/include/fpdfapi/fpdf_parser.h"
@@ -45,9 +45,16 @@ struct pdfium_context {
     CPDF_Parser*        parser;
     CPDF_ModuleMgr*     moduleMgr;
     CCodec_ModuleMgr*   codecModule;
+    FX_DWORD            open_err_code;
+
+    ArlPDFTrailer*      pdf_trailer;
+    ArlPDFDictionary*   pdf_catalog;
 
     pdfium_context() {
         /* Default constructor */
+        open_err_code = PDFPARSE_ERROR_SUCCESS;
+        pdf_trailer = nullptr;
+        pdf_catalog = nullptr;
         parser = nullptr;
         CPDF_ModuleMgr::Create();
         codecModule = CCodec_ModuleMgr::Create();
@@ -78,6 +85,8 @@ struct pdfium_context {
     };
 };
 
+
+
 /// @brief Initialize the PDF SDK. May throw exceptions.
 void ArlingtonPDFSDK::initialize()
 {
@@ -85,6 +94,8 @@ void ArlingtonPDFSDK::initialize()
     auto pdfium_ctx = new pdfium_context;
     ctx = pdfium_ctx;
 }
+
+
 
 /// @brief  Shutdown the PDF SDK
 void ArlingtonPDFSDK::shutdown()
@@ -95,6 +106,8 @@ void ArlingtonPDFSDK::shutdown()
     }
 }
 
+
+
 /// @brief  Returns human readable version string for PDF SDK that is being used
 /// @returns version string
 std::string ArlingtonPDFSDK::get_version_string()
@@ -104,71 +117,144 @@ std::string ArlingtonPDFSDK::get_version_string()
 }
 
 
-/// @brief   Opens a PDF file (no password) and locates trailer dictionary
+/// @brief   Opens a PDF file (optional password) 
 ///
 /// @param[in]   pdf_filename PDF filename
+/// @param[in]   password     optional password
 ///
-/// @returns  handle to PDF trailer dictionary or nullptr if trailer is not locatable
-ArlPDFTrailer *ArlingtonPDFSDK::get_trailer(std::filesystem::path pdf_filename)
+/// @returns  true if PDF file was opened successfully. false othewise.
+bool ArlingtonPDFSDK::open_pdf(const std::filesystem::path& pdf_filename, const std::wstring &password)
 {
     assert(ctx != nullptr);
     assert(!pdf_filename.empty());
     auto pdfium_ctx = (pdfium_context*)ctx;
 
-    // close previously opened document
+    // close any previously opened document
     if (pdfium_ctx->parser != nullptr) {
         pdfium_ctx->parser->CloseParser();
-        delete(pdfium_ctx->parser);
+        delete pdfium_ctx->parser;
     }
     pdfium_ctx->parser = new CPDF_Parser;
 
-    //pdfium_ctx->parser->SetPassword(password);
-    FX_DWORD err_code = pdfium_ctx->parser->StartParse((FX_LPCSTR)pdf_filename.string().c_str());
-    if (err_code) {
+    if (password.size() > 0)
+        pdfium_ctx->parser->SetPassword(ToUtf8(password).c_str());
+
+    pdfium_ctx->open_err_code = pdfium_ctx->parser->StartParse((FX_LPCSTR)pdf_filename.string().c_str());
+    if ((pdfium_ctx->open_err_code != PDFPARSE_ERROR_SUCCESS) && (pdfium_ctx->open_err_code != PDFPARSE_ERROR_PASSWORD) && (pdfium_ctx->open_err_code != PDFPARSE_ERROR_HANDLER)) {
         delete pdfium_ctx->parser;
         pdfium_ctx->parser = nullptr;
-        return nullptr;
+        return false;
     }
 
+    // make master trailer and document catalog dictionaries
     CPDF_Dictionary* trailr = pdfium_ctx->parser->GetTrailer();
+    assert(trailr != NULL);
     if (trailr != NULL) {
-        ArlPDFTrailer* trailer_obj = new ArlPDFTrailer(trailr);
-        assert(trailer_obj != nullptr);
-        trailer_obj->set_xrefstm(pdfium_ctx->parser->IsXRefStream());
-        return trailer_obj;
+        assert(trailr->GetType() == PDFOBJ_DICTIONARY);
+        pdfium_ctx->pdf_trailer = new ArlPDFTrailer(trailr,
+                                        pdfium_ctx->parser->IsXRefStream(),
+                                        pdfium_ctx->parser->IsEncrypted(),
+                                        (pdfium_ctx->open_err_code == PDFPARSE_ERROR_PASSWORD) || (pdfium_ctx->open_err_code == PDFPARSE_ERROR_HANDLER)
+                                    );
+
+        auto dc_dict = trailr->GetDict("Root");
+        if (dc_dict != nullptr) {
+            pdfium_ctx->pdf_catalog = new ArlPDFDictionary(pdfium_ctx->pdf_trailer, dc_dict, false);
+            return true;
+        }
     }
 
-    return nullptr;
+    return false;
 }
 
 
-/// @brief  Gets the PDF version of the current PDF file
-///
-/// @param[in] trailer   trailer of the PDF
-///
-/// @returns   PDF version string
-std::string ArlingtonPDFSDK::get_pdf_version(ArlPDFTrailer* trailer) {
+
+/// @brief Close a previously opened PDF file. Frees all memory for a file so multiple PDFs don't accumulate leaked memory.
+void ArlingtonPDFSDK::close_pdf() {
     assert(ctx != nullptr);
-    assert(trailer != nullptr);
+    auto pdfium_ctx = (pdfium_context*)ctx;
+
+    pdfium_ctx->pdf_catalog->force_deleteable();
+    delete pdfium_ctx->pdf_catalog;
+    pdfium_ctx->pdf_catalog = nullptr;
+    
+    pdfium_ctx->pdf_trailer->force_deleteable();
+    delete pdfium_ctx->pdf_trailer;
+    pdfium_ctx->pdf_trailer = nullptr;
+
+    if (pdfium_ctx->parser != nullptr) {
+        pdfium_ctx->parser->CloseParser();
+        delete pdfium_ctx->parser;
+        pdfium_ctx->parser = nullptr;
+    }
+}
+
+
+
+/// @brief   Returns the trailer dictionary-like object for an already opened PDF
+///
+/// @returns  handle to PDF trailer dictionary. nullptr on error.
+ArlPDFTrailer* ArlingtonPDFSDK::get_trailer()
+{
+    assert(ctx != nullptr);
+    auto pdfium_ctx = (pdfium_context*)ctx;
+    assert(pdfium_ctx->pdf_trailer != nullptr);
+    return pdfium_ctx->pdf_trailer;
+}
+
+
+
+/// @brief   Returns the document catalog for an already opened PDF
+///
+/// @returns  handle to document catalog. nullptr on error.
+ArlPDFDictionary* ArlingtonPDFSDK::get_document_catalog()
+{
+    assert(ctx != nullptr);
+    auto pdfium_ctx = (pdfium_context*)ctx;
+    assert(pdfium_ctx->pdf_catalog != nullptr);
+    return pdfium_ctx->pdf_catalog;
+}
+
+
+
+
+/// @brief  Gets the PDF version of the current PDF file as a string of length 3.
+/// Note that for corrupted and invalid PDFs, this can be an out-of-range value!
+/// e.g verapdf\corpus\veraPDF-corpus-staging\PDF_A-1b\6.1 File structure\6.1.2 File header\veraPDF test suite 6-1-2-t01-fail-b.pdf
+///
+/// @returns   PDF version string (always length 3)
+std::string ArlingtonPDFSDK::get_pdf_version() {
+    assert(ctx != nullptr);
 
     auto pdfium_ctx = (pdfium_context*)ctx;
     assert(pdfium_ctx->parser != nullptr);
     int ver = pdfium_ctx->parser->GetFileVersion();
     // ver = PDF header version x 10 (so PDF 1.3 = 13)
-    char version_str[4];
+    char version_str[6];
     snprintf(version_str, 4, "%1.1f", ver / 10.0);
     return version_str;
 }
 
 
+/// @brief  Gets the PDF version of the current PDF file as an integer * 10
+/// Note that for corrupted and invalid PDFs, this can be an out-of-range value!
+/// e.g verapdf\corpus\veraPDF-corpus-staging\PDF_A-1b\6.1 File structure\6.1.2 File header\veraPDF test suite 6-1-2-t01-fail-b.pdf
+///
+/// @returns   PDF version multiplied by 10
+int ArlingtonPDFSDK::get_pdf_version_number() {
+    assert(ctx != nullptr);
+
+    auto pdfium_ctx = (pdfium_context*)ctx;
+    assert(pdfium_ctx->parser != nullptr);
+    return pdfium_ctx->parser->GetFileVersion();
+}
+
+
 /// @brief  Gets the number of pages in the PDF file
 ///
-/// @param[in] trailer   trailer of the PDF
-///
 /// @returns   number of pages in the PDF or -1 on error
-int ArlingtonPDFSDK::get_pdf_page_count(ArlPDFTrailer* trailer) {
+int ArlingtonPDFSDK::get_pdf_page_count() {
     assert(ctx != nullptr);
-    assert(trailer != nullptr);
 
     auto pdfium_ctx = (pdfium_context*)ctx;
     assert(pdfium_ctx->parser != nullptr);
@@ -178,15 +264,19 @@ int ArlingtonPDFSDK::get_pdf_page_count(ArlPDFTrailer* trailer) {
 
 CPDF_Object* pdfium_resolve_indirect(const CPDF_Object* pdfium_obj) {
     assert(pdfium_obj != nullptr);
-    FX_DWORD    obj_num;
+    FX_DWORD     obj_num;
     CPDF_Object* pdf_ir;
+    int          i = 20;    // Maxiumum number of indirections via IRs allowed
 
     do {
         assert(pdfium_obj->GetType() == PDFOBJ_REFERENCE);
         obj_num = ((CPDF_Reference*)pdfium_obj)->GetRefObjNum();
         pdf_ir = ((pdfium_context*)ArlingtonPDFSDK::ctx)->parser->GetDocument()->GetIndirectObject(obj_num);
-    } while ((pdf_ir != nullptr) && (pdf_ir->GetType() == PDFOBJ_REFERENCE));
-    return pdf_ir;
+    } while ((pdf_ir != nullptr) && (pdf_ir->GetType() == PDFOBJ_REFERENCE) && (--i > 0));
+    if (i > 0)
+        return pdf_ir;
+    else
+        return nullptr; // too many indirections - may get converted to a CPDF_Null
 }
 
 
@@ -248,8 +338,8 @@ PDFObjectType determine_object_type(CPDF_Object* pdfium_obj)
 
 
 /// @brief Constructor taking a parent PDF object and a PDF SDK generic pointer of an object
-ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj) :
-    object(obj)
+ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj, const bool can_delete) :
+    object(obj), deleteable(can_delete)
 {
     assert(object != nullptr);
     CPDF_Object* pdf_obj = (CPDF_Object*)obj;
@@ -261,16 +351,17 @@ ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj) :
     if (is_indirect)
         pdf_obj = pdfium_resolve_indirect(pdf_obj);
 
-    // Object can be invalid (e.g. no valid object in PDF file) so substitute a null
+    // Object can be invalid (e.g. no valid object in PDF file or infinite loop of indirect references) 
+    // so substitute a null object as constructors cannot return nullptr
     if (pdf_obj == nullptr) 
-        pdf_obj = new CPDF_Null;
+        pdf_obj = new CPDF_Null; /// @todo will leak 12 bytes as no distinguishig between explicit null in PDF and this error situation
 
     // Proceed to populate class data
     type = determine_object_type(pdf_obj);
     obj_nbr = pdf_obj->GetObjNum();
     gen_nbr = pdf_obj->GetGenNum();
     if ((parent != nullptr) && (obj_nbr == 0)) {
-        // Populate with parents object & generation number but as negative to indicate parent
+        // Populate with parents object & generation number but as negative to indicate parent. NOT for trailer as it is parentless!
         obj_nbr = parent->get_object_number();
         if (obj_nbr > 0) obj_nbr *= -1;
         gen_nbr = parent->get_generation_number();
@@ -369,19 +460,40 @@ double ArlPDFNumber::get_value()
 
 
 /// @brief  Returns the bytes of a PDF string object
-/// @return The bytes of a PDF string object (can be zero length)
+/// @returns The bytes of a PDF string object (can be zero length)
 std::wstring ArlPDFString::get_value()
 {
     assert(object != nullptr);
     assert(((CPDF_Object*)object)->GetType() == PDFOBJ_STRING);
-    CPDF_String* obj  = ((CPDF_String*)object);
-    CFX_ByteString bs = obj->GetString();
+    
     std::wstring retval;
+    CPDF_String* obj = ((CPDF_String*)object);
+    CFX_ByteString bs = obj->GetString();
     for (auto i = 0; i < bs.GetLength(); i++) {
         wchar_t b = bs.GetAt(i);
         retval = retval + b;
     }
+
+#ifdef MARK_STRINGS_WHEN_ENCRYPTED
+    // Make error messages slightly more understandable in the case of unsupported encryption
+    // Note that this will then break any predicate checks for the always-unencrypted strings described in clause 7.6.2 
+    assert(ArlingtonPDFSDK::ctx != nullptr);
+    if (((pdfium_context*)ArlingtonPDFSDK::ctx)->unsupported_encryption)
+        retval = UNSUPPORTED_ENCRYPTED_STRING_MARKER;
+#endif // MARK_STRINGS_WHEN_ENCRYPTED
+
     return retval;
+}
+
+
+/// @returns  Returns true if a PDF string object was a hex string
+bool ArlPDFString::is_hex_string()
+{
+    assert(object != nullptr);
+    assert(((CPDF_Object*)object)->GetType() == PDFOBJ_STRING);
+
+    CPDF_String* obj = ((CPDF_String*)object);
+    return (obj->IsHex() != 0);
 }
 
 
@@ -464,13 +576,15 @@ ArlPDFObject* ArlPDFDictionary::get_value(std::wstring key)
     assert(object != nullptr);
     assert(((CPDF_Object*)object)->GetType() == PDFOBJ_DICTIONARY);
     ArlPDFObject* retval = nullptr;
-    CPDF_Dictionary* obj = ((CPDF_Dictionary*)object);
+    CPDF_Dictionary* dict = ((CPDF_Dictionary*)object);
 
     CFX_ByteString bstr = CFX_ByteString::FromUnicode(key.c_str());
-    CPDF_Object* type_key = obj->GetElement(bstr);
-    if (type_key != NULL)
-        retval = new ArlPDFObject(this, type_key);
-
+    CPDF_Object* key_value = dict->GetElement(bstr);
+    if (key_value != NULL) {
+        int t = key_value->GetType();
+        assert(t != PDFOBJ_INVALID);
+        retval = new ArlPDFObject(this, key_value);
+    }
     return retval;
 }
 

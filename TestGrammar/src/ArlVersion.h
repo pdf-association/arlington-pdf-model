@@ -88,9 +88,15 @@ private:
     /// @brief any versioning from Arlington TSV data
     ArlVersionReason    version_reason;
 
+    /// @brief list of supported extensions
+    std::vector<std::string>    supported_extensions;
+
+    /// @brief true if supported_extensions contains the wildcard '*'
+    bool                        wildcard_extn;
+
 public:
     /// @brief Constructor
-    ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const int pdf_ver);
+    ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const int pdf_ver, const std::vector<std::string>& extns);
 
     bool             object_matched_arlington_type() { return (arl_type.size() > 0); };
     std::string      get_object_arlington_type() { return arl_type_of_pdf_object; };
@@ -100,7 +106,9 @@ public:
     int              get_arlington_type_index() { return arl_type_index; };
 
     ArlVersionReason get_version_reason() { return version_reason; };
-    int get_reason_version() { return arl_version; }
+    int get_reason_version() { return arl_version; };
+
+    bool is_unsupported_extension();
 };
 
 #endif // ArlVersion_h

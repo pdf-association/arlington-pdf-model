@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.1		FALSE	FALSE	FALSE		[Trans]			
+Type	name	1.1		FALSE	FALSE	FALSE		[Trans]			Table 164
 S	name	1.1		FALSE	FALSE	FALSE	R	[Split,Blinds,Box,Wipe,Dissolve,Glitter,R,Fly,Push,Cover,Uncover,Fade]			
 D	number	1.1		FALSE	FALSE	FALSE	1	[fn:Eval(@D>=0)]			
 Dm	name	1.1		FALSE	FALSE	FALSE	H	[H,V]	[fn:IsMeaningful((@S==Split) || (@S==Blinds))]		

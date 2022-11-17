@@ -1,2 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+DefaultRGB	array	1.1		FALSE	FALSE	FALSE				[CalRGBColorSpace]	Table 34
+DefaultGray	array	1.1		FALSE	FALSE	FALSE				[CalGrayColorSpace]	
 *	array;name	1.0		FALSE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,IndexedColorSpace];[]	

@@ -32,15 +32,42 @@
 
 using namespace ArlingtonPDFShim;
 
+/// @brief "SinceVersion" field extension predicate regex (version-less)
+/// - m[1] = name of extension
+const std::regex  r_ExtensionOnly("^fn:Extension\\((" + ArlKeyBase + ")\\)");
+
+
+/// @brief "SinceVersion" field version-based extension predicate regex
+/// - m[1] = name of extension
+/// - m[2] = PDF version
+const std::regex  r_ExtensionVersion("^fn:Extension\\((" + ArlKeyBase + ")\\,(" + ArlPDFVersion + ")\\)");
+
+
+/// @brief "SinceVersion" field version-based extension predicate regex
+/// - m[1] = name of extension
+/// - m[2] = PDF version for extension
+/// - m[3] = PDF version without extension
+const std::regex  r_EvalExtensionVersion("^fn:Eval\\(fn:Extension\\((" + ArlKeyBase + ")\\," + ArlPDFVersion + "\\) \\|\\| " + ArlPDFVersion + "\\)");
+
+
 /// @brief Constructor to handle version complexities
 ///
 /// @param[in] obj          PDF object
 /// @param[in] vec          the row from the Arlington TSV file (including all predicates and complexity ([];[];[]))
 /// @param[in] pdf_ver      PDF version multiplied by 10
-ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const int pdf_ver)
+/// @param[in] extns        a list of extension names to support
+ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const int pdf_ver, const std::vector<std::string>& extns)
     : arl_version(0), version_reason(ArlVersionReason::Unknown), arl_type_index(-1)
 {
     tsv = vec;
+    supported_extensions = extns; // copy all the extensions being supported
+
+    wildcard_extn = false;
+    for (auto& e : supported_extensions)
+        if (e == "*") {
+            wildcard_extn = true;
+            break;
+        }
 
     // Determine the Arlington equivalent for the PDF Object
     assert(obj != nullptr);
@@ -58,7 +85,7 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
     case PDFObjectType::ArlPDFObjTypeBoolean:     arl_type_of_pdf_object = "boolean"; break;
     case PDFObjectType::ArlPDFObjTypeName:        arl_type_of_pdf_object = "name"; break;
     case PDFObjectType::ArlPDFObjTypeNull:        arl_type_of_pdf_object = "null"; break;
-    case PDFObjectType::ArlPDFObjTypeStream:      arl_type_of_pdf_object = "stream"; break;
+    case PDFObjectType::ArlPDFObjTypeStream:      arl_type_of_pdf_object = "stream"; break;     // or "name-tree" or "number-tree"
     case PDFObjectType::ArlPDFObjTypeString:      arl_type_of_pdf_object = "string"; break;     // or "date" or "string-*"...
     case PDFObjectType::ArlPDFObjTypeArray:       arl_type_of_pdf_object = "array"; break;      // or "rectangle" or "matrix"
     case PDFObjectType::ArlPDFObjTypeDictionary:  arl_type_of_pdf_object = "dictionary"; break; // or "name-tree" or "number-tree"
@@ -82,7 +109,7 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
     // - try exact match first
     // - if object was integer look for bitmask
     // - if object was array look for rectangle and matrix
-    // - if object was dictionary look for name-tree or number-tree
+    // - name-trees and number-trees support dicts, arrays and streams
     // - if object was string look for date or string-*
     std::string arl_types = vec[TSV_TYPE];
     bool found = false;
@@ -151,8 +178,7 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
                     }
 
                     s = m[2].str();
-                    assert(FindInVector(v_ArlPDFVersions, s));
-                    arl_version = ((s[0] - '0') * 10) + (s[2] - '0');
+                    arl_version = string_to_pdf_version(s);
 
                     assert(FindInVector(v_ArlAllTypes, m[3]));
                     t = m[3];
@@ -168,7 +194,11 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
                 ((arl_type_of_pdf_object == "array") && (t =="rectangle")) ||
                 ((arl_type_of_pdf_object == "array") && (t == "matrix")) ||
                 ((arl_type_of_pdf_object == "dictionary") && (t == "name-tree")) ||
+                ((arl_type_of_pdf_object == "stream") && (t == "name-tree")) ||
+                ((arl_type_of_pdf_object == "array") && (t == "name-tree")) ||
                 ((arl_type_of_pdf_object == "dictionary") && (t == "number-tree")) ||
+                ((arl_type_of_pdf_object == "stream") && (t == "number-tree")) ||
+                ((arl_type_of_pdf_object == "array") && (t == "number-tree")) ||
                 ((arl_type_of_pdf_object == "string") && (t == "date")) ||
                 ((arl_type_of_pdf_object == "string") && (t.find("string-") != std::string::npos))) {
                 arl_type_index = i;
@@ -181,16 +211,51 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
     } // if !found
 
     // Override predicates with SinceVersion and DeprecatedIn fields
-    int since_ver = ((vec[TSV_SINCEVERSION][0] - '0') * 10) + (vec[TSV_SINCEVERSION][2] - '0');
-    assert((since_ver >= 10) && ((since_ver <= 17) || (since_ver == 20)));
-    if (found && (pdf_version < since_ver)) {
-        arl_version = since_ver;
-        version_reason = ArlVersionReason::Before_fnSinceVersion;
+    int since_ver = 0;
+    if (FindInVector(v_ArlPDFVersions, vec[TSV_SINCEVERSION])) {
+        // Simple PDF version
+        since_ver = string_to_pdf_version(vec[TSV_SINCEVERSION]);
+        if (found && (pdf_version < since_ver)) {
+            arl_version = since_ver;
+            version_reason = ArlVersionReason::Before_fnSinceVersion;
+        }
+    }
+    else {
+        // Predicate-based "SinceVersion" field with fn:Extension(...), fn:Extension(...,x.y) or a fn:Eval which evaluates
+        // to a PDF version 
+        assert(vec[TSV_SINCEVERSION].find("fn:") != std::string::npos);
+
+        std::smatch       m;
+        if (std::regex_search(vec[TSV_SINCEVERSION], m, r_ExtensionVersion) && m.ready() && (m.size() >= 3)) {
+            // - m[1] = name of extension
+            // - m[2] = PDF version
+            int tsv_ver = string_to_pdf_version(m[2].str());
+            if (FindInVector(extns, m[1].str()) && (pdf_ver >= tsv_ver))
+                since_ver = tsv_ver;
+        }
+        else if (std::regex_search(vec[TSV_SINCEVERSION], m, r_ExtensionOnly) && m.ready() && (m.size() == 2)) {
+            // m[1] = extension name
+            if (FindInVector(extns, m[1].str()))
+                since_ver = pdf_ver;
+        }
+        else if (std::regex_search(vec[TSV_SINCEVERSION], m, r_EvalExtensionVersion) && m.ready() && (m.size() == 4)) {
+            /// - m[1] = name of extension
+            /// - m[2] = PDF version for extension
+            /// - m[3] = PDF version without extension
+            int tsv_ver1 = string_to_pdf_version(m[2].str());
+            int tsv_ver2 = string_to_pdf_version(m[3].str());
+            if (FindInVector(extns, m[1].str()) && (pdf_ver >= tsv_ver1))
+                since_ver = tsv_ver1;
+            else
+                since_ver = tsv_ver2;
+        }
+        else {
+            assert(false && "unexpected SinceVersion predicate!");
+        }
     }
 
     if (found && (vec[TSV_DEPRECATEDIN] != "")) {
-        int deprecated_ver = ((vec[TSV_DEPRECATEDIN][0] - '0') * 10) + (vec[TSV_DEPRECATEDIN][2] - '0');
-        assert((deprecated_ver >= 10) && ((deprecated_ver <= 17) || (deprecated_ver == 20)));
+        int deprecated_ver = string_to_pdf_version(vec[TSV_DEPRECATEDIN]);
         if (pdf_version >= deprecated_ver) {
             arl_version = deprecated_ver;
             version_reason = ArlVersionReason::Is_fnDeprecated;
@@ -214,6 +279,46 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
     assert((found && (arl_type.size() > 0) && (arl_type_index >= 0)) || (!found && (arl_type.size() == 0) && (arl_type_index < 0)));
     assert((found && (version_reason != ArlVersionReason::Unknown)) || (!found && (version_reason == ArlVersionReason::Unknown)));
 }
+
+
+
+/// @returns true if the current key is an unsupported extension and not part of an official PDF specification.
+/// This effectively means that a key will be reported as an undocument key if this method returns true.
+bool  ArlVersion::is_unsupported_extension() {
+    if (FindInVector(v_ArlPDFVersions, tsv[TSV_SINCEVERSION])) {
+        // Simple PDF version
+        return false;
+    }
+    else {
+        // Predicate-based "SinceVersion" field with fn:SinceVersion(x.y,fn:Extension(...)) or fn:Extension(...)
+        assert(tsv[TSV_SINCEVERSION].find("fn:") != std::string::npos);
+
+        std::smatch       m;
+        if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_ExtensionVersion) && m.ready() && (m.size() >= 3)) {
+            // m[1] = extension name
+            // m[2] = PDF version "x.y"
+            int tsv_ver = string_to_pdf_version(m[2].str());
+            return !((FindInVector(supported_extensions, m[1].str()) || wildcard_extn) && (pdf_version >= tsv_ver));
+        }
+        else if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_ExtensionOnly) && m.ready() && (m.size() == 2)) {
+            // m[1] = extension name
+            return !(FindInVector(supported_extensions, m[1].str()) || wildcard_extn);
+        }
+        else if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_EvalExtensionVersion) && m.ready() && (m.size() == 4)) {
+            /// - m[1] = name of extension
+            /// - m[2] = PDF version for extension
+            /// - m[3] = PDF version without extension
+            int tsv_ver1 = string_to_pdf_version(m[2].str());
+            int tsv_ver2 = string_to_pdf_version(m[3].str());
+            return !(((FindInVector(supported_extensions, m[1].str()) || wildcard_extn) && (pdf_version >= tsv_ver1)) || (pdf_version >= tsv_ver2));
+        }
+        else {
+            assert(false && "unexpected SinceVersion predicate!");
+        }
+    }
+    return true;
+}
+
 
 
 /// @brief Return an appropriate reduced Arlington Link set AFTER processing predicates for the current PDF object and PDF version.
@@ -243,44 +348,98 @@ std::vector<std::string>  ArlVersion::get_appropriate_linkset(std::string arl_li
     }
 
     std::string s = appropriate_links;
+
     while (s.size() > 0) {
         if (s.rfind("fn:", 0) == 0) {
-            // s starts with a predicate
             std::smatch     m;
-            if (std::regex_search(s, m, r_Links) && m.ready() && (m.size() == 4)) {
-                // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
-                assert(m[2].str().size() == 3);
-                int arl_v = ((m[2].str()[0] - '0') * 10) + (m[2].str()[2] - '0');
-                assert((arl_v >= 10) && ((arl_v <= 17) || (arl_v == 20)));
 
-                // m[1] = predicate function name (no "fn:")
-                if (((m[1] == "SinceVersion") && (pdf_version >= arl_v)) ||
-                    ((m[1] == "BeforeVersion") && (pdf_version < arl_v)) ||
-                    ((m[1] == "IsPDFVersion") && (pdf_version == arl_v)) ||
-                    ((m[1] == "Deprecated") && (pdf_version < arl_v))) {
+            // next Link starts with "fn:"
+            if (std::regex_search(s, m, r_startsWithSinceVersionExtension) && m.ready() && (m.size() == 4)) {
+                    // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                    // m[2] = extension name
                     // m[3] = Arlington link
-                    retval.push_back(m[3]);
-                }
+                    // int arl_v = string_to_pdf_version(m[1].str());
+                if (FindInVector(supported_extensions, m[2].str()) || wildcard_extn)
+                    retval.push_back(m[3]);     // m[2] = Arlington link
                 s = m.suffix();
                 if (s[0] == ',')
-                    s = s.substr(1);
+                    s = s.substr(1);            // skip COMMA
+            }
+            else if (std::regex_search(s, m, r_startsWithIsPDFVersionExtension) && m.ready() && (m.size() == 4)) {
+                // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                // m[2] = extension name
+                // m[3] = Arlington link
+                // int arl_v = string_to_pdf_version(m[1].str());
+                if (FindInVector(supported_extensions, m[2].str()) || wildcard_extn)
+                    retval.push_back(m[3]);     // m[2] = Arlington link
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);            // skip COMMA
+            }
+            else if (std::regex_search(s, m, r_startsWithSinceVersion) && m.ready() && (m.size() == 3)) {
+                // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                int arl_v = string_to_pdf_version(m[1].str());
+                if (pdf_version >= arl_v)
+                    retval.push_back(m[2]);     // m[2] = Arlington link
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);            // skip COMMA
+            }
+            else if (std::regex_search(s, m, r_startsWithBeforeVersion) && m.ready() && (m.size() == 3)) {
+                // m[1] = PDF version "x.y" --> convert to integer as x*10 + y
+                int arl_v = string_to_pdf_version(m[1].str());
+                if (pdf_version < arl_v)
+                    retval.push_back(m[2]);     // m[2] = Arlington link
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);            // skip COMMA
+            }
+            else if (std::regex_search(s, m, r_startsWithIsPDFVersion) && m.ready() && (m.size() == 3)) {
+                // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
+                int arl_v = string_to_pdf_version(m[1].str());
+                if (pdf_version == arl_v)
+                    retval.push_back(m[2]);     // m[2] = Arlington link
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);            // skip COMMA
+            }
+            else if (std::regex_search(s, m, r_startsWithDeprecated) && m.ready() && (m.size() == 3)) {
+                // m[2] = PDF version "x.y" --> convert to integer as x*10 + y
+                int arl_v = string_to_pdf_version(m[1].str());
+                if (pdf_version < arl_v)
+                    retval.push_back(m[2]);     // m[2] = Arlington link
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);            // skip COMMA
+            }
+            else if (std::regex_search(s, m, r_startsWithLinkExtension) && m.ready() && (m.size() == 3)) {
+                // m[1] = named extension
+                // m[2] = link 
+                if (FindInVector(supported_extensions, m[1].str()) || wildcard_extn)
+                    retval.push_back(m[2]);     // m[2] = Arlington link
+                s = m.suffix();
+                if (s[0] == ',')
+                    s = s.substr(1);            // skip COMMA
             }
             else {
                 assert(false && "unexpected predicate in Arlington Links!");
                 s.clear();
             }
         }
-        else if (s.find(',') != std::string::npos) {
-            // Next in list doesn't have a predicate
-            auto i = s.find(',');
-            retval.push_back(s.substr(0, i));
-            s = s.substr(i + 1);
-        }
         else {
-            // Must be the last thing in the list (no trailing COMMA)
-            assert((s.find(',') == std::string::npos) && (s.find("fn") == std::string::npos));
-            retval.push_back(s);
-            s.clear();
+            // does NOT start with "fn:"
+            // copy link (up to next COMMA) to output
+            auto comma = s.find(',');
+            std::string l;
+            if (comma != std::string::npos) {
+                l = s.substr(0, comma);
+                s = s.substr(comma + 1);
+            }
+            else {
+                l = s;
+                s.clear();
+            }
+            retval.push_back(l);
         }
     } // while
 

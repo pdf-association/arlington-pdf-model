@@ -1,0 +1,13 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE		[Folder]			Table 159
+ID	integer	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE					
+Name	string-text	fn:Extension(ADBE_Extn3,1.7)		TRUE	FALSE	FALSE					
+Parent	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[CollectionFolder]	
+Child	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[CollectionFolder]	
+Next	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[CollectionFolder]	
+CI	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[CollectionItem]	
+Desc	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+CreationDate	date	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+ModDate	date	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
+Thumb	stream	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[Thumbnail]	
+Free	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	only used by root folder

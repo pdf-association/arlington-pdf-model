@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	2.0		TRUE	FALSE	FALSE		[GEOGCS]			
-EPSG	integer	2.0		FALSE	FALSE	FALSE					
-WKT	string-ascii	2.0		FALSE	FALSE	FALSE					
+Type	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		TRUE	FALSE	FALSE		[GEOGCS]			Table 270
+EPSG	integer	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(WKT)))]		
+WKT	string-ascii	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(EPSG)))]		

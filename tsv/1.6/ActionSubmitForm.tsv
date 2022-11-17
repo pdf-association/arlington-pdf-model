@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-S	name	1.2		TRUE	FALSE	FALSE		[SubmitForm]			
+S	name	1.2		TRUE	FALSE	FALSE		[SubmitForm]			Table 196 and Table 239
 F	dictionary;string	1.2		TRUE	FALSE	FALSE				[FileSpecification];[]	
 Fields	array	1.2		FALSE	FALSE	FALSE				[ArrayOfFieldID]	
-Flags	bitmask	1.2		FALSE	FALSE	FALSE	0		[fn:Eval(fn:BitClear(13) && fn:BitsClear(15,32))]		see https://github.com/pdf-association/pdf-issues/issues/122
+Flags	bitmask	1.2		FALSE	FALSE	FALSE	0		[fn:Eval(fn:BitClear(13) && fn:BitsClear(15,32))]		Table 240, https://github.com/pdf-association/pdf-issues/issues/122
 CharSet	string	1.2		FALSE	FALSE	FALSE		['utf-8','utf-16','Shift-JIS','BigFive','GBK','UHC']			see https://github.com/pdf-association/pdf-issues/issues/122

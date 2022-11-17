@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.1		fn:IsRequired(fn:IsPresent(EF) || fn:IsPresent(EP) || fn:IsPresent(RF))	FALSE	FALSE		[Filespec]			
+Type	name	1.1		fn:IsRequired(fn:IsPresent(EF) || fn:IsPresent(EP) || fn:IsPresent(RF))	FALSE	FALSE		[Filespec]			Table 43
 FS	name	1.1		FALSE	FALSE	FALSE					
 F	string	1.1		fn:IsRequired(fn:Not(fn:IsPresent(DOS)) && fn:Not(fn:IsPresent(Mac)) && fn:Not(fn:IsPresent(Unix)))	FALSE	FALSE					
 DOS	string-byte	1.1	2.0	FALSE	FALSE	FALSE					

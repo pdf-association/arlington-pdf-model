@@ -25,12 +25,7 @@
 #include "ASTNode.h"
 
 #include <string>
-#include <regex>
 
-
-extern const std::regex  r_Links;
-extern const std::regex  r_Types;
-extern const std::regex  r_Keys;
 
 /// @brief Left-to-right recursive descent parser, based on regex pattern matching
 std::string LRParsePredicate(std::string s, ASTNode *root);

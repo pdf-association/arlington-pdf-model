@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.3	2.0	FALSE	FALSE	FALSE		[XObject]			
+Type	name	1.3	2.0	FALSE	FALSE	FALSE		[XObject]			Table 93 and Table 404
 Subtype	name	1.3	2.0	TRUE	FALSE	FALSE		[Form]			
 FormType	integer	1.3	2.0	FALSE	FALSE	FALSE		[1]			
 BBox	rectangle	1.3	2.0	TRUE	FALSE	FALSE					
@@ -10,8 +10,8 @@ Ref	dictionary	1.4	2.0	FALSE	FALSE	FALSE				[Reference]
 Metadata	stream	1.4	2.0	FALSE	TRUE	FALSE				[Metadata]	
 PieceInfo	dictionary	1.3	2.0	FALSE	FALSE	FALSE				[PagePiece]	
 LastModified	date	1.3	2.0	fn:IsRequired(fn:IsPresent(PieceInfo))	FALSE	FALSE					
-StructParent	integer	1.3	2.0	FALSE	FALSE	FALSE					
-StructParents	integer	1.3	2.0	FALSE	FALSE	FALSE					
+StructParent	integer	1.3	2.0	FALSE	FALSE	FALSE					Table 359
+StructParents	integer	1.3	2.0	FALSE	FALSE	FALSE					Table 359
 OPI	dictionary	1.3	2.0	FALSE	FALSE	FALSE				[OPIVersion13,OPIVersion20]	
 OC	dictionary	1.5	2.0	FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
 Name	name	1.3	2.0	FALSE	FALSE	FALSE					
@@ -22,7 +22,7 @@ F	dictionary;string	1.3	2.0	FALSE	FALSE	FALSE				[FileSpecification];[]
 FFilter	array;name	1.3	2.0	FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,Crypt]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	
 FDecodeParms	array;dictionary	1.3	2.0	FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,FilterCrypt]	
 DL	integer	1.5	2.0	FALSE	FALSE	FALSE			[fn:Eval(@DL>=0)]		
-PCM	name	1.3	2.0	FALSE	FALSE	FALSE					*from trapnet appearance
-SeparationColorNames	array	1.3	2.0	FALSE	FALSE	FALSE				[ArrayOfNamesGeneral]	
-TrapRegions	array	1.3	2.0	FALSE	FALSE	FALSE				[_UniversalArray]	
-TrapStyles	string-text	1.3	2.0	FALSE	FALSE	FALSE					
+PCM	name	1.3	2.0	TRUE	FALSE	FALSE		[DeviceGray,DeviceRGB,DeviceCMYK,DeviceCMY,DeviceRGBK,DeviceN]			Table 404
+SeparationColorNames	array	1.3	2.0	FALSE	FALSE	FALSE				[ArrayOfNamesGeneral]	Table 404
+TrapRegions	array	1.3	2.0	FALSE	FALSE	FALSE				[ArrayOfTrapRegions]	Table 404
+TrapStyles	string-text	1.3	2.0	FALSE	FALSE	FALSE					Table 404

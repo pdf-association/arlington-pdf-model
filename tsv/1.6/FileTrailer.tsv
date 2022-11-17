@@ -1,8 +1,8 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Size	integer	1.0		TRUE	fn:MustBeDirect()	FALSE		[fn:Eval(@Size>0)]			Table 15 + Table 19
+Size	integer	1.0		TRUE	fn:MustBeDirect()	FALSE		[fn:Eval(@Size>0)]			Table 15 and Table 19
 Prev	integer	1.0		FALSE	fn:MustBeDirect()	FALSE		[fn:Eval((@Prev>=0) && (@Prev<=fn:FileSize()))]			
 Root	dictionary	1.0		TRUE	TRUE	FALSE				[Catalog]	
 Encrypt	dictionary	1.1		FALSE	FALSE	FALSE				[EncryptionStandard,EncryptionPublicKey]	
 Info	dictionary	1.0		FALSE	fn:MustBeIndirect(fn:BeforeVersion(2.0))	FALSE				[DocInfo]	https://github.com/pdf-association/pdf-issues/issues/106
-ID	array	1.1		fn:IsRequired(fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE			[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]	[ArrayOf_2StringsByte]	
+ID	array	1.1		fn:IsRequired(fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE			[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]	[ArrayOf_2UnencryptedStringsByte]	
 XRefStm	integer	1.5		FALSE	FALSE	FALSE		[fn:Eval((@XRefStm>=0) && (@XRefStm<=fn:FileSize()))]			

@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.0		FALSE	FALSE	FALSE		[XObject]			
+Type	name	1.0		FALSE	FALSE	FALSE		[XObject]			Table 5 and Table 93
 Subtype	name	1.0		TRUE	FALSE	FALSE		[Form]			
 FormType	integer	1.0		fn:IsRequired(fn:BeforeVersion(1.3))	FALSE	FALSE		[1]			
 BBox	rectangle	1.0		TRUE	FALSE	FALSE					
@@ -10,14 +10,14 @@ Ref	dictionary	1.4		FALSE	FALSE	FALSE				[Reference]
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]	
 PieceInfo	dictionary	1.3		FALSE	FALSE	FALSE				[PagePiece]	
 LastModified	date	1.3		fn:IsRequired(fn:IsPresent(PieceInfo))	FALSE	FALSE					
-StructParent	integer	1.3		FALSE	FALSE	FALSE			[fn:Not(fn:IsPresent(StructParents))]		
-StructParents	integer	1.3		FALSE	FALSE	FALSE			[fn:Not(fn:IsPresent(StructParent))]		
+StructParent	integer	1.3		FALSE	FALSE	FALSE			[fn:Not(fn:IsPresent(StructParents))]		Table 359
+StructParents	integer	1.3		FALSE	FALSE	FALSE			[fn:Not(fn:IsPresent(StructParent))]		Table 359
 OPI	dictionary	1.2	2.0	FALSE	FALSE	FALSE				[OPIVersion13,OPIVersion20]	
 Name	name	1.0	2.0	fn:IsRequired(fn:BeforeVersion(1.3))	FALSE	FALSE					
-Length	integer	1.0		TRUE	FALSE	FALSE					* from stream
-Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	
+Length	integer	1.0		TRUE	FALSE	FALSE					from stream
+Filter	array;name	1.0		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	Table 6
 DecodeParms	array;dictionary	1.0		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
 F	dictionary;string	1.2		FALSE	FALSE	FALSE				[FileSpecification];[]	
-FFilter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	
+FFilter	array;name	1.2		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	Table 6
 FDecodeParms	array;dictionary	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
 XUID	array	1.0	1.3	FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral]	

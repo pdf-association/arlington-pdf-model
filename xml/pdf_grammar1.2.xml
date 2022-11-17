@@ -1,6 +1,85 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <PDF grammar_version="0.5.0" iso_ref="ISO 32000-2:2020" pdf_version="1.2">
-   <OBJECT id="ActionGoTo" object_number="000">
+   <OBJECT id="AAPL_ST" object_number="000">
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Style</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(AAPL,1.2)</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Subtype</NAME>
+         <VALUES>
+            <VALUE type="name">Shadow</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(AAPL,1.2)</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Offset</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_2Numbers</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(AAPL,1.2)</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Radius</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(AAPL,1.2)</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(@Radius&gt;0)</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ColorSpace</NAME>
+         <VALUES>
+            <VALUE type="array">CalGrayColorSpace</VALUE>
+            <VALUE type="array">CalRGBColorSpace</VALUE>
+            <VALUE type="array">LabColorSpace</VALUE>
+            <VALUE type="array">IndexedColorSpace</VALUE>
+            <VALUE type="name">DeviceCMYK</VALUE>
+            <VALUE type="name">DeviceRGB</VALUE>
+            <VALUE type="name">DeviceGray</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(AAPL,1.2)</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Color</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(AAPL,1.2)</INTRODUCED>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ActionGoTo" object_number="001">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -68,7 +147,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionGoToR" object_number="001">
+   <OBJECT id="ActionGoToR" object_number="002">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -158,7 +237,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionHide" object_number="002">
+   <OBJECT id="ActionHide" object_number="003">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -211,28 +290,22 @@
       <ENTRY>
          <NAME>T</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfActions</VALUE>
-            <VALUE type="dictionary">ActionGoTo</VALUE>
-            <VALUE type="dictionary">ActionGoToR</VALUE>
-            <VALUE type="dictionary">ActionLaunch</VALUE>
-            <VALUE type="dictionary">ActionThread</VALUE>
-            <VALUE type="dictionary">ActionURI</VALUE>
-            <VALUE type="dictionary">ActionSound</VALUE>
-            <VALUE type="dictionary">ActionMovie</VALUE>
-            <VALUE type="dictionary">ActionHide</VALUE>
-            <VALUE type="dictionary">ActionNamed</VALUE>
-            <VALUE type="dictionary">ActionSubmitForm</VALUE>
-            <VALUE type="dictionary">ActionResetForm</VALUE>
-            <VALUE type="dictionary">ActionImportData</VALUE>
+            <VALUE type="array">ArrayOfActionHideAnnots</VALUE>
+            <VALUE type="dictionary">AnnotText</VALUE>
+            <VALUE type="dictionary">AnnotLink</VALUE>
+            <VALUE type="dictionary">AnnotSound</VALUE>
+            <VALUE type="dictionary">AnnotMovie</VALUE>
+            <VALUE type="dictionary">AnnotWidget</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
-            <VALUE type="dictionary">false</VALUE>
+            <VALUE type="dictionary">true</VALUE>
             <VALUE type="string-text">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
+         <SPECIAL_CASE>];[];[fn:Eval(fn:IsFieldName(@T))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>H</NAME>
@@ -247,7 +320,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionImportData" object_number="003">
+   <OBJECT id="ActionImportData" object_number="004">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -311,7 +384,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionLaunch" object_number="004">
+   <OBJECT id="ActionLaunch" object_number="005">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -366,7 +439,7 @@
          <VALUES>
             <VALUE type="dictionary">FileSpecification</VALUE>
          </VALUES>
-         <REQUIRED>true</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:IsPresent(Win) || fn:IsPresent(Mac) || fn:IsPresent(Unix)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">false</VALUE>
             <VALUE type="string">false</VALUE>
@@ -417,7 +490,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionMovie" object_number="005">
+   <OBJECT id="ActionMovie" object_number="006">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -511,7 +584,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionNOP" object_number="006">
+   <OBJECT id="ActionNOP" object_number="007">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -539,7 +612,7 @@
          <DEPRECATED>1.2</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionNamed" object_number="007">
+   <OBJECT id="ActionNamed" object_number="008">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -596,6 +669,7 @@
             <VALUE type="name">PrevPage</VALUE>
             <VALUE type="name">FirstPage</VALUE>
             <VALUE type="name">LastPage</VALUE>
+            <VALUE type="name">*</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -605,7 +679,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionResetForm" object_number="008">
+   <OBJECT id="ActionResetForm" object_number="009">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -683,7 +757,7 @@
          <SPECIAL_CASE>fn:Eval(fn:BitsClear(2,32))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionSetState" object_number="009">
+   <OBJECT id="ActionSetState" object_number="010">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -740,7 +814,7 @@
          <DEPRECATED>1.2</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionSound" object_number="010">
+   <OBJECT id="ActionSound" object_number="011">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -860,7 +934,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionSubmitForm" object_number="011">
+   <OBJECT id="ActionSubmitForm" object_number="012">
       <ENTRY>
          <NAME>S</NAME>
          <VALUES>
@@ -929,7 +1003,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionThread" object_number="012">
+   <OBJECT id="ActionThread" object_number="013">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -1022,7 +1096,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ActionURI" object_number="013">
+   <OBJECT id="ActionURI" object_number="014">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -1094,7 +1168,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="AddActionPageObject" object_number="014">
+   <OBJECT id="AddActionPageObject" object_number="015">
       <ENTRY>
          <NAME>O</NAME>
          <VALUES>
@@ -1142,7 +1216,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="AddActionWidgetAnnotation" object_number="015">
+   <OBJECT id="AddActionWidgetAnnotation" object_number="016">
       <ENTRY>
          <NAME>E</NAME>
          <VALUES>
@@ -1282,7 +1356,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="AnnotLink" object_number="016">
+   <OBJECT id="AnnotLink" object_number="017">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -1381,7 +1455,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Ignore(BS)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Ignore(fn:IsPresent(BS))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
@@ -1452,7 +1526,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="AnnotMovie" object_number="017">
+   <OBJECT id="AnnotMovie" object_number="018">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -1612,7 +1686,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="AnnotSound" object_number="018">
+   <OBJECT id="AnnotSound" object_number="019">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -1771,7 +1845,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="AnnotText" object_number="019">
+   <OBJECT id="AnnotText" object_number="020">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -1924,7 +1998,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="AnnotWidget" object_number="020">
+   <OBJECT id="AnnotWidget" object_number="021">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -2023,7 +2097,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
-         <SPECIAL_CASE>fn:Ignore(BS)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Ignore(fn:IsPresent(BS))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
@@ -2156,7 +2230,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Appearance" object_number="021">
+   <OBJECT id="Appearance" object_number="022">
       <ENTRY>
          <NAME>N</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2191,7 +2265,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="AppearanceCharacteristics" object_number="022">
+   <OBJECT id="AppearanceCharacteristics" object_number="023">
       <ENTRY>
          <NAME>R</NAME>
          <VALUES>
@@ -2314,7 +2388,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf4Functions" isArray="true" object_number="023">
+   <OBJECT id="ArrayOf4Functions" isArray="true" object_number="024">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2352,7 +2426,27 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfActions" isArray="true" object_number="024">
+   <OBJECT id="ArrayOfActionHideAnnots" isArray="true" object_number="025">
+      <ENTRY>
+         <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AnnotText</VALUE>
+            <VALUE type="dictionary">AnnotLink</VALUE>
+            <VALUE type="dictionary">AnnotSound</VALUE>
+            <VALUE type="dictionary">AnnotMovie</VALUE>
+            <VALUE type="dictionary">AnnotWidget</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="dictionary">true</VALUE>
+            <VALUE type="string-text">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <SPECIAL_CASE>];[fn:Eval(fn:IsFieldName(@*))</SPECIAL_CASE>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfActions" isArray="true" object_number="026">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -2377,7 +2471,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfAnnots" isArray="true" object_number="025">
+   <OBJECT id="ArrayOfAnnots" isArray="true" object_number="027">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -2395,7 +2489,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfBeads" isArray="true" object_number="026">
+   <OBJECT id="ArrayOfBeads" isArray="true" object_number="028">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -2410,7 +2504,40 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfCompressionFilterNames" isArray="true" object_number="027">
+   <OBJECT id="ArrayOfCIDGlyphMetricsW" isArray="true" object_number="029">
+      <ENTRY>
+         <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="integer">false</VALUE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfCIDGlyphMetricsW2" isArray="true" object_number="030">
+      <ENTRY>
+         <NAME isWildcard="true">*</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="integer">false</VALUE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((fn:ArrayLength(1) mod 3)==0)];[];[</SPECIAL_CASE>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfCompressionFilterNames" isArray="true" object_number="031">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -2428,7 +2555,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDashPatterns" isArray="true" object_number="028">
+   <OBJECT id="ArrayOfDashPatterns" isArray="true" object_number="032">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
@@ -2439,7 +2566,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDecodeParams" isArray="true" object_number="029">
+   <OBJECT id="ArrayOfDecodeParams" isArray="true" object_number="033">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -2457,7 +2584,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDescendantFonts" isArray="true" object_number="030">
+   <OBJECT id="ArrayOfDescendantFonts" isArray="true" object_number="034">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -2472,7 +2599,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDifferences" isArray="true" object_number="031">
+   <OBJECT id="ArrayOfDifferences" isArray="true" object_number="035">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
@@ -2484,14 +2611,14 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfDuration" isArray="true" object_number="032">
+   <OBJECT id="ArrayOfDuration" isArray="true" object_number="036">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
             <VALUE type="integer">fn:Eval(@0&gt;0)</VALUE>
             <VALUE type="string-byte">fn:Eval(fn:StringLength(0)==8)</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
             <VALUE type="string-byte">false</VALUE>
@@ -2505,7 +2632,7 @@
          <VALUES>
             <VALUE type="integer">fn:Eval(@1&gt;0)</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -2514,13 +2641,15 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfFieldID" isArray="true" object_number="033">
+   <OBJECT id="ArrayOfFieldID" isArray="true" object_number="037">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">FieldTx</VALUE>
-            <VALUE type="dictionary">FieldBtn</VALUE>
-            <VALUE type="dictionary">FieldCh</VALUE>
+            <VALUE type="dictionary">FieldBtnPush</VALUE>
+            <VALUE type="dictionary">FieldBtnCheckbox</VALUE>
+            <VALUE type="dictionary">FieldBtnRadio</VALUE>
+            <VALUE type="dictionary">FieldChoice</VALUE>
             <VALUE type="dictionary">Field</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -2532,13 +2661,15 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfFields" isArray="true" object_number="034">
+   <OBJECT id="ArrayOfFields" isArray="true" object_number="038">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="dictionary">FieldTx</VALUE>
-            <VALUE type="dictionary">FieldBtn</VALUE>
-            <VALUE type="dictionary">FieldCh</VALUE>
+            <VALUE type="dictionary">FieldBtnPush</VALUE>
+            <VALUE type="dictionary">FieldBtnCheckbox</VALUE>
+            <VALUE type="dictionary">FieldBtnRadio</VALUE>
+            <VALUE type="dictionary">FieldChoice</VALUE>
             <VALUE type="dictionary">Field</VALUE>
             <VALUE type="dictionary">AnnotWidget</VALUE>
          </VALUES>
@@ -2550,7 +2681,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfFilterNames" isArray="true" object_number="035">
+   <OBJECT id="ArrayOfFilterNames" isArray="true" object_number="039">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -2570,7 +2701,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfFunctions" isArray="true" object_number="036">
+   <OBJECT id="ArrayOfFunctions" isArray="true" object_number="040">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
@@ -2581,7 +2712,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfIntegersGeneral" isArray="true" object_number="037">
+   <OBJECT id="ArrayOfIntegersGeneral" isArray="true" object_number="041">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
@@ -2592,7 +2723,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfNamesForProcSet" isArray="true" object_number="038">
+   <OBJECT id="ArrayOfNamesForProcSet" isArray="true" object_number="042">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -2611,7 +2742,7 @@
          <DEPRECATED>1.4</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfNumbersGeneral" isArray="true" object_number="039">
+   <OBJECT id="ArrayOfNumbersGeneral" isArray="true" object_number="043">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
@@ -2622,9 +2753,12 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfOPI13Color" isArray="true" object_number="040">
+   <OBJECT id="ArrayOfOPI13Color" isArray="true" object_number="044">
       <ENTRY>
          <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="number">fn:Eval((@0&gt;=0) &amp;&amp; (@0&lt;=1))</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
@@ -2634,6 +2768,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>1</NAME>
+         <VALUES>
+            <VALUE type="number">fn:Eval((@1&gt;=0) &amp;&amp; (@1&lt;=1))</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
@@ -2643,6 +2780,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>2</NAME>
+         <VALUES>
+            <VALUE type="number">fn:Eval((@2&gt;=0) &amp;&amp; (@2&lt;=1))</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
@@ -2652,6 +2792,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>3</NAME>
+         <VALUES>
+            <VALUE type="number">fn:Eval((@3&gt;=0) &amp;&amp; (@3&lt;=1))</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
@@ -2661,6 +2804,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>4</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="string-byte">'Black'</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string-byte">false</VALUE>
@@ -2669,7 +2815,45 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfPageTreeNodeKids" isArray="true" object_number="041">
+   <OBJECT id="ArrayOfOPI2Inks" isArray="true" object_number="045">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="name">monochrome</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+      </ENTRY>
+      <ENTRY>
+         <NAME isWildcard="true">1*</NAME>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+      </ENTRY>
+      <ENTRY>
+         <NAME isWildcard="true">2*</NAME>
+         <VALUES>
+            <VALUE type="number">fn:Eval((@2&gt;=0) &amp;&amp; (@2&lt;=1))</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfPageTreeNodeKids" isArray="true" object_number="046">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -2684,7 +2868,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfStreamsGeneral" isArray="true" object_number="042">
+   <OBJECT id="ArrayOfStreamsGeneral" isArray="true" object_number="047">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -2698,10 +2882,21 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfTags" isArray="true" object_number="043">
+   <OBJECT id="ArrayOfStringsText" isArray="true" object_number="048">
+      <ENTRY>
+         <NAME isWildcard="true">*</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string-text">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfTags" isArray="true" object_number="049">
       <ENTRY>
          <NAME isWildcard="true">0*</NAME>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -2711,7 +2906,7 @@
       </ENTRY>
       <ENTRY>
          <NAME isWildcard="true">1*</NAME>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string-ascii">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -2720,7 +2915,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfThreads" isArray="true" object_number="044">
+   <OBJECT id="ArrayOfThreads" isArray="true" object_number="050">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -2734,10 +2929,10 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2DashNumbers" isArray="true" object_number="045">
+   <OBJECT id="ArrayOf_2DashNumbers" isArray="true" object_number="051">
       <ENTRY>
          <NAME>0</NAME>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -2746,7 +2941,7 @@
       </ENTRY>
       <ENTRY>
          <NAME>1</NAME>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="number">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -2754,7 +2949,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2Integers" isArray="true" object_number="046">
+   <OBJECT id="ArrayOf_2Integers" isArray="true" object_number="052">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2774,7 +2969,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2Numbers" isArray="true" object_number="047">
+   <OBJECT id="ArrayOf_2Numbers" isArray="true" object_number="053">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2794,7 +2989,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2StringsByte" isArray="true" object_number="048">
+   <OBJECT id="ArrayOf_2StringsByte" isArray="true" object_number="054">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2814,7 +3009,29 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4AnnotBorderCharacteristics" isArray="true" object_number="049">
+   <OBJECT id="ArrayOf_2UnencryptedStringsByte" isArray="true" object_number="055">
+      <ENTRY>
+         <NAME>0</NAME>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string-byte">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted())</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>1</NAME>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string-byte">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted())</SPECIAL_CASE>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOf_4AnnotBorderCharacteristics" isArray="true" object_number="056">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -2864,7 +3081,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4Integers" isArray="true" object_number="050">
+   <OBJECT id="ArrayOf_4Integers" isArray="true" object_number="057">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2902,7 +3119,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4Numbers" isArray="true" object_number="051">
+   <OBJECT id="ArrayOf_4Numbers" isArray="true" object_number="058">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -2940,7 +3157,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4NumbersColorAnnotation" isArray="true" object_number="052">
+   <OBJECT id="ArrayOf_4NumbersColorAnnotation" isArray="true" object_number="059">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -2964,6 +3181,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:IsPresent(2))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>2</NAME>
@@ -2990,7 +3208,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_8Numbers" isArray="true" object_number="053">
+   <OBJECT id="ArrayOf_8Numbers" isArray="true" object_number="060">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -3064,7 +3282,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_9Numbers" isArray="true" object_number="054">
+   <OBJECT id="ArrayOf_9Numbers" isArray="true" object_number="061">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -3147,7 +3365,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Bead" object_number="055">
+   <OBJECT id="Bead" object_number="062">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3220,7 +3438,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="BeadFirst" object_number="056">
+   <OBJECT id="BeadFirst" object_number="063">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3293,7 +3511,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="BlackpointArray" isArray="true" object_number="057">
+   <OBJECT id="BlackpointArray" isArray="true" object_number="064">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3331,7 +3549,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="BorderStyle" object_number="058">
+   <OBJECT id="BorderStyle" object_number="065">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3389,7 +3607,7 @@
          <SPECIAL_CASE>fn:Ignore(@S!=D)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CIDFontDescriptorMetrics" object_number="059">
+   <OBJECT id="CIDFontDescriptorMetrics" object_number="066">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3561,7 +3779,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CIDSystemInfo" object_number="060">
+   <OBJECT id="CIDSystemInfo" object_number="067">
       <ENTRY>
          <NAME>Registry</NAME>
          <REQUIRED>true</REQUIRED>
@@ -3590,7 +3808,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CMapStream" object_number="061">
+   <OBJECT id="CMapStream" object_number="068">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3805,7 +4023,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CalGrayColorSpace" isArray="true" object_number="062">
+   <OBJECT id="CalGrayColorSpace" isArray="true" object_number="069">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3831,7 +4049,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CalGrayDict" object_number="063">
+   <OBJECT id="CalGrayDict" object_number="070">
       <ENTRY>
          <NAME>WhitePoint</NAME>
          <VALUES>
@@ -3871,7 +4089,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CalRGBColorSpace" isArray="true" object_number="064">
+   <OBJECT id="CalRGBColorSpace" isArray="true" object_number="071">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3897,7 +4115,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CalRGBDict" object_number="065">
+   <OBJECT id="CalRGBDict" object_number="072">
       <ENTRY>
          <NAME>WhitePoint</NAME>
          <VALUES>
@@ -3950,7 +4168,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Catalog" object_number="066">
+   <OBJECT id="Catalog" object_number="073">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4137,7 +4355,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="CharProcMap" object_number="067">
+   <OBJECT id="CharProcMap" object_number="074">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -4151,7 +4369,32 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ColorSpaceMap" object_number="068">
+   <OBJECT id="ColorSpaceMap" isArray="true" object_number="075">
+      <ENTRY>
+         <NAME>DefaultRGB</NAME>
+         <VALUES>
+            <VALUE type="array">CalRGBColorSpace</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.1</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DefaultGray</NAME>
+         <VALUES>
+            <VALUE type="array">CalGrayColorSpace</VALUE>
+            <VALUE type="array">SeparationColorSpace</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.1</INTRODUCED>
+      </ENTRY>
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -4174,7 +4417,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest0Array" isArray="true" object_number="069">
+   <OBJECT id="Dest0Array" isArray="true" object_number="076">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -4203,7 +4446,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest1Array" isArray="true" object_number="070">
+   <OBJECT id="Dest1Array" isArray="true" object_number="077">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -4244,7 +4487,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Dest4Array" isArray="true" object_number="071">
+   <OBJECT id="Dest4Array" isArray="true" object_number="078">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -4312,7 +4555,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DestDict" object_number="072">
+   <OBJECT id="DestDict" object_number="079">
       <ENTRY>
          <NAME>D</NAME>
          <VALUES>
@@ -4329,7 +4572,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DestXYZArray" isArray="true" object_number="073">
+   <OBJECT id="DestXYZArray" isArray="true" object_number="080">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -4387,7 +4630,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DestsMap" object_number="074">
+   <OBJECT id="DestsMap" object_number="081">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -4406,7 +4649,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DocInfo" object_number="075">
+   <OBJECT id="DocInfo" object_number="082">
       <ENTRY>
          <NAME>Title</NAME>
          <REQUIRED>false</REQUIRED>
@@ -4485,8 +4728,39 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
+      <ENTRY>
+         <NAME>AAPL:Keywords</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStringsText</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(AAPL)</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>GTS_PDFXVersion</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string-text">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(PDF_X)</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME isWildcard="true">*</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string-text">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.1</INTRODUCED>
+         <DEPRECATED>2.0</DEPRECATED>
+      </ENTRY>
    </OBJECT>
-   <OBJECT id="Encoding" object_number="076">
+   <OBJECT id="Encoding" object_number="083">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4526,7 +4800,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="EncryptionPublicKey" object_number="077">
+   <OBJECT id="EncryptionPublicKey" object_number="084">
       <ENTRY>
          <NAME>Filter</NAME>
          <VALUES>
@@ -4540,8 +4814,24 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
+      <ENTRY>
+         <NAME>V</NAME>
+         <VALUES>
+            <VALUE type="integer">fn:Deprecated(1.1,0)</VALUE>
+            <VALUE type="integer">1</VALUE>
+            <VALUE type="integer">fn:SinceVersion(1.4,2)</VALUE>
+            <VALUE type="integer">fn:SinceVersion(1.4,3)</VALUE>
+            <VALUE type="integer">fn:SinceVersion(1.5,4)</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="integer">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.1</INTRODUCED>
+      </ENTRY>
    </OBJECT>
-   <OBJECT id="EncryptionStandard" object_number="078">
+   <OBJECT id="EncryptionStandard" object_number="085">
       <ENTRY>
          <NAME>Filter</NAME>
          <VALUES>
@@ -4579,7 +4869,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; fn:SinceVersion(2.0)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:IsMeaningful(((@V==4) &amp;&amp; fn:SinceVersion(1.5)) || ((@V==5) &amp;&amp; (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>R</NAME>
@@ -4587,6 +4877,7 @@
             <VALUE type="integer">fn:RequiredValue(@V&lt;2,2)</VALUE>
             <VALUE type="integer">fn:RequiredValue((@V==2) || (@V==3),3)</VALUE>
             <VALUE type="integer">fn:RequiredValue(@V==4,4)</VALUE>
+            <VALUE type="integer">fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,5))</VALUE>
             <VALUE type="integer">fn:SinceVersion(2.0,5)</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
@@ -4604,7 +4895,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(((@R&lt;=4) &amp;&amp; (fn:StringLength(O)==32)) || ((@R==6) &amp;&amp; (fn:StringLength(O)==48)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted() &amp;&amp; (((@R&lt;=4) &amp;&amp; (fn:StringLength(O)==32)) || (((@R==5) || (@R==6)) &amp;&amp; (fn:StringLength(O)==48))))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>U</NAME>
@@ -4614,26 +4905,27 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(((@R&lt;=4) &amp;&amp; (fn:StringLength(U)==32)) || ((@R==6) &amp;&amp; (fn:StringLength(U)==48)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted() &amp;&amp; (((@R&lt;=4) &amp;&amp; (fn:StringLength(U)==32)) || (((@R==5) || (@R==6)) &amp;&amp; (fn:StringLength(U)==48))))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>OE</NAME>
-         <REQUIRED>fn:IsRequired(@R==6)</REQUIRED>
+         <REQUIRED>fn:IsRequired((@R==5) || (@R==6))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string-byte">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:StringLength(OE)==32)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted() &amp;&amp; (fn:StringLength(OE)==32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>UE</NAME>
-         <REQUIRED>fn:IsRequired(@R==6)</REQUIRED>
+         <REQUIRED>fn:IsRequired((@R==5) || (@R==6))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string-byte">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted())</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>P</NAME>
@@ -4643,19 +4935,20 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:BitsClear(1,2) &amp;&amp; fn:BitsSet(7,8) &amp;&amp; fn:SinceVersion(2.0,fn:BitSet(10)) &amp;&amp; fn:BitsSet(13,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:BitsClear(1,2) &amp;&amp; fn:BitsSet(7,8) &amp;&amp; fn:SinceVersion(2.0,fn:BitSet(10)) &amp;&amp; (fn:SinceVersion(2.0,fn:Extension(ISO_TS_32004,fn:BitsSet(14,32))) || fn:BitsSet(13,32)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Perms</NAME>
-         <REQUIRED>fn:IsRequired(@R==6)</REQUIRED>
+         <REQUIRED>fn:IsRequired((@R==5) || (@R==6))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string-byte">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted())</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FDDict" object_number="079">
+   <OBJECT id="FDDict" object_number="086">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -4669,13 +4962,15 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Field" object_number="080">
+   <OBJECT id="Field" object_number="087">
       <ENTRY>
          <NAME>Parent</NAME>
          <VALUES>
             <VALUE type="dictionary">FieldTx</VALUE>
-            <VALUE type="dictionary">FieldBtn</VALUE>
-            <VALUE type="dictionary">FieldCh</VALUE>
+            <VALUE type="dictionary">FieldBtnPush</VALUE>
+            <VALUE type="dictionary">FieldBtnCheckbox</VALUE>
+            <VALUE type="dictionary">FieldBtnRadio</VALUE>
+            <VALUE type="dictionary">FieldChoice</VALUE>
             <VALUE type="dictionary">Field</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -4717,7 +5012,7 @@
          <SPECIAL_CASE>fn:Eval(fn:BitsClear(4,32))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FieldBtn" object_number="081">
+   <OBJECT id="FieldBtnCheckbox" object_number="088">
       <ENTRY>
          <NAME>FT</NAME>
          <VALUES>
@@ -4734,8 +5029,10 @@
          <NAME>Parent</NAME>
          <VALUES>
             <VALUE type="dictionary">FieldTx</VALUE>
-            <VALUE type="dictionary">FieldBtn</VALUE>
-            <VALUE type="dictionary">FieldCh</VALUE>
+            <VALUE type="dictionary">FieldBtnPush</VALUE>
+            <VALUE type="dictionary">FieldBtnCheckbox</VALUE>
+            <VALUE type="dictionary">FieldBtnRadio</VALUE>
+            <VALUE type="dictionary">FieldChoice</VALUE>
             <VALUE type="dictionary">Field</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -4774,7 +5071,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:BitsClear(4,14) &amp;&amp; fn:BitsClear(18,25) &amp;&amp; fn:BitsClear(27,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:BitsClear(4,14) &amp;&amp; fn:BitsClear(16,25) &amp;&amp; fn:BitsClear(27,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>DA</NAME>
@@ -4819,11 +5116,11 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FieldCh" object_number="082">
+   <OBJECT id="FieldBtnPush" object_number="089">
       <ENTRY>
          <NAME>FT</NAME>
          <VALUES>
-            <VALUE type="name">Ch</VALUE>
+            <VALUE type="name">Btn</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -4836,8 +5133,10 @@
          <NAME>Parent</NAME>
          <VALUES>
             <VALUE type="dictionary">FieldTx</VALUE>
-            <VALUE type="dictionary">FieldBtn</VALUE>
-            <VALUE type="dictionary">FieldCh</VALUE>
+            <VALUE type="dictionary">FieldBtnPush</VALUE>
+            <VALUE type="dictionary">FieldBtnCheckbox</VALUE>
+            <VALUE type="dictionary">FieldBtnRadio</VALUE>
+            <VALUE type="dictionary">FieldChoice</VALUE>
             <VALUE type="dictionary">Field</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -4876,13 +5175,146 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:BitsClear(4,14) &amp;&amp; fn:BitClear(21) &amp;&amp; fn:BitsClear(24,26) &amp;&amp; fn:BitsClear(28,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:BitsClear(4,14) &amp;&amp; fn:BitClear(16) &amp;&amp; fn:BitSet(17) &amp;&amp; fn:BitsClear(18,25) &amp;&amp; fn:BitsClear(27,32))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DA</NAME>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Q</NAME>
+         <VALUES>
+            <VALUE type="integer">0</VALUE>
+            <VALUE type="integer">1</VALUE>
+            <VALUE type="integer">2</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="integer">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
       <ENTRY>
          <NAME>V</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <SPECIAL_CASE>fn:Ignore()</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DV</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <SPECIAL_CASE>fn:Ignore()</SPECIAL_CASE>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FieldBtnRadio" object_number="090">
+      <ENTRY>
+         <NAME>FT</NAME>
+         <VALUES>
+            <VALUE type="name">Btn</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Parent</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FieldTx</VALUE>
+            <VALUE type="dictionary">FieldBtnPush</VALUE>
+            <VALUE type="dictionary">FieldBtnCheckbox</VALUE>
+            <VALUE type="dictionary">FieldBtnRadio</VALUE>
+            <VALUE type="dictionary">FieldChoice</VALUE>
+            <VALUE type="dictionary">Field</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="dictionary">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Kids</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfFields</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>T</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
             <VALUE type="string-text">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Ff</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="bitmask">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:BitsClear(4,14) &amp;&amp; fn:BitSet(16) &amp;&amp; fn:BitsClear(17,25) &amp;&amp; fn:BitsClear(27,32))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DA</NAME>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Q</NAME>
+         <VALUES>
+            <VALUE type="integer">0</VALUE>
+            <VALUE type="integer">1</VALUE>
+            <VALUE type="integer">2</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="integer">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>V</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="name">Off</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
@@ -4891,6 +5323,94 @@
          <NAME>DV</NAME>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="FieldChoice" object_number="091">
+      <ENTRY>
+         <NAME>FT</NAME>
+         <VALUES>
+            <VALUE type="name">Ch</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Parent</NAME>
+         <VALUES>
+            <VALUE type="dictionary">FieldTx</VALUE>
+            <VALUE type="dictionary">FieldBtnPush</VALUE>
+            <VALUE type="dictionary">FieldBtnCheckbox</VALUE>
+            <VALUE type="dictionary">FieldBtnRadio</VALUE>
+            <VALUE type="dictionary">FieldChoice</VALUE>
+            <VALUE type="dictionary">Field</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="dictionary">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Kids</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfFields</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>T</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="string-text">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Ff</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="bitmask">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:BitsClear(4,14) &amp;&amp; fn:BitClear(21) &amp;&amp; fn:BeforeVersion(1.4,fn:BitsClear(22,23)) &amp;&amp; fn:BitsClear(24,26) &amp;&amp; fn:BeforeVersion(1.5,fn:BitClear(27)) &amp;&amp; fn:BitsClear(28,32))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>V</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStringsText</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="string-text">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>DV</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStringsText</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
             <VALUE type="string-text">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>true</INHERITABLE>
@@ -4923,7 +5443,8 @@
       <ENTRY>
          <NAME>TI</NAME>
          <VALUES>
-            <VALUE type="integer">fn:Eval((@TI&gt;0) &amp;&amp; (@TI&lt;fn:ArrayLength(Opt)))</VALUE>
+            <VALUE type="integer">fn:Eval((@TI&gt;=0) &amp;&amp; (@TI&lt;fn:ArrayLength(Opt)))</VALUE>
+            <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -4933,7 +5454,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FieldTx" object_number="083">
+   <OBJECT id="FieldTx" object_number="092">
       <ENTRY>
          <NAME>FT</NAME>
          <VALUES>
@@ -4950,8 +5471,10 @@
          <NAME>Parent</NAME>
          <VALUES>
             <VALUE type="dictionary">FieldTx</VALUE>
-            <VALUE type="dictionary">FieldBtn</VALUE>
-            <VALUE type="dictionary">FieldCh</VALUE>
+            <VALUE type="dictionary">FieldBtnPush</VALUE>
+            <VALUE type="dictionary">FieldBtnCheckbox</VALUE>
+            <VALUE type="dictionary">FieldBtnRadio</VALUE>
+            <VALUE type="dictionary">FieldChoice</VALUE>
             <VALUE type="dictionary">Field</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -4990,7 +5513,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:BitsClear(15,20) &amp;&amp; fn:BitClear(22) &amp;&amp; fn:BitsClear(27,32))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:BitsClear(15,20) &amp;&amp; fn:BeforeVersion(1.4,fn:BitClear(21)) &amp;&amp; fn:BitClear(22) &amp;&amp; fn:BeforeVersion(1.4,fn:BitsClear(23,24)) &amp;&amp; fn:BeforeVersion(1.5,fn:BitsClear(25,26)) &amp;&amp; fn:BitsClear(27,32))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>V</NAME>
@@ -5050,9 +5573,10 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>true</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(@MaxLen&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FileSpecification" object_number="084">
+   <OBJECT id="FileSpecification" object_number="093">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -5138,7 +5662,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FileTrailer" object_number="085">
+   <OBJECT id="FileTrailer" object_number="094">
       <ENTRY>
          <NAME>Size</NAME>
          <VALUES>
@@ -5203,7 +5727,7 @@
       <ENTRY>
          <NAME>ID</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOf_2StringsByte</VALUE>
+            <VALUE type="array">ArrayOf_2UnencryptedStringsByte</VALUE>
          </VALUES>
          <REQUIRED>fn:IsRequired(fn:IsPresent(Encrypt))</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5214,7 +5738,7 @@
          <SPECIAL_CASE>fn:Eval(fn:MustBeDirect(ID::0) &amp;&amp; fn:MustBeDirect(ID::1))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FilterCCITTFaxDecode" object_number="086">
+   <OBJECT id="FilterCCITTFaxDecode" object_number="095">
       <ENTRY>
          <NAME>K</NAME>
          <VALUES>
@@ -5315,8 +5839,20 @@
          <INTRODUCED>1.0</INTRODUCED>
          <SPECIAL_CASE>fn:Ignore((@EndOfLine==false) || (@K&lt;0))</SPECIAL_CASE>
       </ENTRY>
+      <ENTRY>
+         <NAME>Blackls1</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="boolean">false</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="boolean">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(Malforms)</INTRODUCED>
+      </ENTRY>
    </OBJECT>
-   <OBJECT id="FilterDCTDecode" object_number="087">
+   <OBJECT id="FilterDCTDecode" object_number="096">
       <ENTRY>
          <NAME>ColorTransform</NAME>
          <VALUES>
@@ -5331,7 +5867,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FilterFlateDecode" object_number="088">
+   <OBJECT id="FilterFlateDecode" object_number="097">
       <ENTRY>
          <NAME>Predictor</NAME>
          <VALUES>
@@ -5396,7 +5932,7 @@
          <SPECIAL_CASE>fn:Ignore(@Predictor&lt;=1)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FilterLZWDecode" object_number="089">
+   <OBJECT id="FilterLZWDecode" object_number="098">
       <ENTRY>
          <NAME>Predictor</NAME>
          <VALUES>
@@ -5475,7 +6011,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontCIDType0" object_number="090">
+   <OBJECT id="FontCIDType0" object_number="099">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -5548,7 +6084,7 @@
       <ENTRY>
          <NAME>W</NAME>
          <VALUES>
-            <VALUE type="array">_UniversalArray</VALUE>
+            <VALUE type="array">ArrayOfCIDGlyphMetricsW</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5573,7 +6109,7 @@
       <ENTRY>
          <NAME>W2</NAME>
          <VALUES>
-            <VALUE type="array">_UniversalArray</VALUE>
+            <VALUE type="array">ArrayOfCIDGlyphMetricsW2</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5585,6 +6121,7 @@
       <ENTRY>
          <NAME>CIDToGIDMap</NAME>
          <VALUES>
+            <VALUE type="name">Identity</VALUE>
             <VALUE type="stream">Stream</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -5608,7 +6145,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontCIDType2" object_number="091">
+   <OBJECT id="FontCIDType2" object_number="100">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -5681,7 +6218,7 @@
       <ENTRY>
          <NAME>W</NAME>
          <VALUES>
-            <VALUE type="array">_UniversalArray</VALUE>
+            <VALUE type="array">ArrayOfCIDGlyphMetricsW</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5706,7 +6243,7 @@
       <ENTRY>
          <NAME>W2</NAME>
          <VALUES>
-            <VALUE type="array">_UniversalArray</VALUE>
+            <VALUE type="array">ArrayOfCIDGlyphMetricsW2</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5718,9 +6255,10 @@
       <ENTRY>
          <NAME>CIDToGIDMap</NAME>
          <VALUES>
+            <VALUE type="name">Identity</VALUE>
             <VALUE type="stream">Stream</VALUE>
          </VALUES>
-         <REQUIRED>true</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:SinceVersion(2.0) &amp;&amp; fn:IsPresent(FontDescriptor::FontFile2))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="name">false</VALUE>
             <VALUE type="stream">true</VALUE>
@@ -5741,7 +6279,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontDescriptorCIDType0" object_number="092">
+   <OBJECT id="FontDescriptorCIDType0" object_number="101">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -5967,7 +6505,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontDescriptorCIDType2" object_number="093">
+   <OBJECT id="FontDescriptorCIDType2" object_number="102">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -6193,7 +6731,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontDescriptorTrueType" object_number="094">
+   <OBJECT id="FontDescriptorTrueType" object_number="103">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -6382,7 +6920,7 @@
          <SPECIAL_CASE>fn:Eval(fn:Not(fn:IsPresent(FontFile)) &amp;&amp; fn:Not(fn:IsPresent(FontFile3)))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontDescriptorType1" object_number="095">
+   <OBJECT id="FontDescriptorType1" object_number="104">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -6580,7 +7118,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontDescriptorType3" object_number="096">
+   <OBJECT id="FontDescriptorType3" object_number="105">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -6743,7 +7281,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontFile" object_number="097">
+   <OBJECT id="FontFile" object_number="106">
       <ENTRY>
          <NAME>Length1</NAME>
          <REQUIRED>false</REQUIRED>
@@ -6789,7 +7327,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontFile2" object_number="098">
+   <OBJECT id="FontFile2" object_number="107">
       <ENTRY>
          <NAME>Length1</NAME>
          <REQUIRED>fn:IsRequired(parent::parent::@Subtype==TrueType)</REQUIRED>
@@ -6922,7 +7460,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontFile3CIDType0" object_number="099">
+   <OBJECT id="FontFile3CIDType0" object_number="108">
       <ENTRY>
          <NAME>Length1</NAME>
          <REQUIRED>false</REQUIRED>
@@ -7058,7 +7596,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontFile3Type1" object_number="100">
+   <OBJECT id="FontFile3Type1" object_number="109">
       <ENTRY>
          <NAME>Length1</NAME>
          <REQUIRED>false</REQUIRED>
@@ -7104,7 +7642,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontFileType1" object_number="101">
+   <OBJECT id="FontFileType1" object_number="110">
       <ENTRY>
          <NAME>Length1</NAME>
          <REQUIRED>true</REQUIRED>
@@ -7145,7 +7683,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontMap" object_number="102">
+   <OBJECT id="FontMap" object_number="111">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -7165,7 +7703,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontMultipleMaster" object_number="103">
+   <OBJECT id="FontMultipleMaster" object_number="112">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -7280,7 +7818,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontTrueType" object_number="104">
+   <OBJECT id="FontTrueType" object_number="113">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -7395,7 +7933,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontType0" object_number="105">
+   <OBJECT id="FontType0" object_number="114">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -7528,7 +8066,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontType1" object_number="106">
+   <OBJECT id="FontType1" object_number="115">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -7644,7 +8182,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontType3" object_number="107">
+   <OBJECT id="FontType3" object_number="116">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -7788,7 +8326,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FunctionType0" object_number="108">
+   <OBJECT id="FunctionType0" object_number="117">
       <ENTRY>
          <NAME>FunctionType</NAME>
          <VALUES>
@@ -7838,7 +8376,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(Encode)==(2 * fn:ArrayLength(Size)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(Domain)==(2 * fn:ArrayLength(Size)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>BitsPerSample</NAME>
@@ -7898,10 +8436,10 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval((fn:ArrayLength(Decode) mod 2)==0)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(Decode)==fn:ArrayLength(Range))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="GammaArray" isArray="true" object_number="109">
+   <OBJECT id="GammaArray" isArray="true" object_number="118">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -7942,7 +8480,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="GraphicsStateParameter" object_number="110">
+   <OBJECT id="GraphicsStateParameter" object_number="119">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -8036,8 +8574,32 @@
          <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED>1.3</DEPRECATED>
       </ENTRY>
+      <ENTRY>
+         <NAME>AAPL:AA</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="boolean">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(AAPL,1.2)</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>AAPL:ST</NAME>
+         <VALUES>
+            <VALUE type="dictionary">AAPL_ST</VALUE>
+            <VALUE isDefaultValue="true" type="dictionary">[]</VALUE>
+            <VALUE isDefaultValue="true" type="name">[None]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="dictionary">false</VALUE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>fn:Extension(AAPL,1.2)</INTRODUCED>
+      </ENTRY>
    </OBJECT>
-   <OBJECT id="GraphicsStateParameterMap" object_number="111">
+   <OBJECT id="GraphicsStateParameterMap" object_number="120">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -8051,7 +8613,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="HalftoneType1" object_number="112">
+   <OBJECT id="HalftoneType1" object_number="121">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -8167,7 +8729,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="HalftoneType10" object_number="113">
+   <OBJECT id="HalftoneType10" object_number="122">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -8239,7 +8801,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="HalftoneType5" object_number="114">
+   <OBJECT id="HalftoneType5" object_number="123">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -8305,7 +8867,7 @@
          <SPECIAL_CASE>fn:KeyNameIsColorant()];[fn:KeyNameIsColorant()</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="HalftoneType6" object_number="115">
+   <OBJECT id="HalftoneType6" object_number="124">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -8377,7 +8939,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="IndexedColorSpace" isArray="true" object_number="116">
+   <OBJECT id="IndexedColorSpace" isArray="true" object_number="125">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -8435,7 +8997,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="InteractiveForm" object_number="117">
+   <OBJECT id="InteractiveForm" object_number="126">
       <ENTRY>
          <NAME>Fields</NAME>
          <VALUES>
@@ -8497,7 +9059,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabColorSpace" isArray="true" object_number="118">
+   <OBJECT id="LabColorSpace" isArray="true" object_number="127">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -8523,7 +9085,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabDict" object_number="119">
+   <OBJECT id="LabDict" object_number="128">
       <ENTRY>
          <NAME>WhitePoint</NAME>
          <VALUES>
@@ -8561,7 +9123,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabRangeArray" isArray="true" object_number="120">
+   <OBJECT id="LabRangeArray" isArray="true" object_number="129">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -8615,7 +9177,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LinearizationParameterDict" object_number="121">
+   <OBJECT id="LinearizationParameterDict" object_number="130">
       <ENTRY>
          <NAME>Linearized</NAME>
          <VALUES>
@@ -8630,6 +9192,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>L</NAME>
+         <VALUES>
+            <VALUE type="integer">fn:Eval(@L&gt;0)</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
@@ -8652,6 +9217,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>O</NAME>
+         <VALUES>
+            <VALUE type="integer">fn:Eval(@O&gt;0)</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
@@ -8661,6 +9229,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>E</NAME>
+         <VALUES>
+            <VALUE type="integer">fn:Eval((@E&gt;0) &amp;&amp; (@E&lt;=@L))</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
@@ -8670,6 +9241,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>N</NAME>
+         <VALUES>
+            <VALUE type="integer">fn:Eval(@N&gt;0)</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
@@ -8679,6 +9253,9 @@
       </ENTRY>
       <ENTRY>
          <NAME>T</NAME>
+         <VALUES>
+            <VALUE type="integer">fn:Eval(@T&gt;0)</VALUE>
+         </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">fn:MustBeDirect()</VALUE>
@@ -8689,6 +9266,7 @@
       <ENTRY>
          <NAME>P</NAME>
          <VALUES>
+            <VALUE type="integer">fn:Eval(@P&gt;=0)</VALUE>
             <VALUE isDefaultValue="true" type="integer">0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -8699,7 +9277,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MicrosoftWindowsLaunchParam" object_number="122">
+   <OBJECT id="MicrosoftWindowsLaunchParam" object_number="131">
       <ENTRY>
          <NAME>F</NAME>
          <REQUIRED>true</REQUIRED>
@@ -8746,7 +9324,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Movie" object_number="123">
+   <OBJECT id="Movie" object_number="132">
       <ENTRY>
          <NAME>F</NAME>
          <VALUES>
@@ -8791,7 +9369,9 @@
       <ENTRY>
          <NAME>Poster</NAME>
          <VALUES>
+            <VALUE isDefaultValue="true" type="boolean">[false]</VALUE>
             <VALUE type="stream">XObjectImage</VALUE>
+            <VALUE isDefaultValue="true" type="stream">[]</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8803,7 +9383,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MovieActivation" object_number="124">
+   <OBJECT id="MovieActivation" object_number="133">
       <ENTRY>
          <NAME>Start</NAME>
          <VALUES>
@@ -8855,6 +9435,7 @@
       <ENTRY>
          <NAME>Volume</NAME>
          <VALUES>
+            <VALUE type="number">fn:Eval((@Volume&gt;=-1) &amp;&amp; (@Volume&lt;=1))</VALUE>
             <VALUE isDefaultValue="true" type="number">1.0</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -8938,7 +9519,7 @@
          <SPECIAL_CASE>fn:Eval((FWPosition::@0&gt;=0.0) &amp;&amp; (FWPosition::@0&lt;=1.0) &amp;&amp; (FWPosition::@1&gt;=0.0) &amp;&amp; (FWPosition::@1&lt;=1.0))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Name" object_number="125">
+   <OBJECT id="Name" object_number="134">
       <ENTRY>
          <NAME>Dests</NAME>
          <VALUES>
@@ -8956,7 +9537,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OPIVersion13" object_number="126">
+   <OBJECT id="OPIVersion13" object_number="135">
       <ENTRY>
          <NAME>1.3</NAME>
          <VALUES>
@@ -8971,7 +9552,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OPIVersion13Dict" object_number="127">
+   <OBJECT id="OPIVersion13Dict" object_number="136">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -9188,7 +9769,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OPIVersion20" object_number="128">
+   <OBJECT id="OPIVersion20" object_number="137">
       <ENTRY>
          <NAME>2.0</NAME>
          <VALUES>
@@ -9203,7 +9784,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OPIVersion20Dict" object_number="129">
+   <OBJECT id="OPIVersion20Dict" object_number="138">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -9272,17 +9853,18 @@
          <VALUES>
             <VALUE type="array">ArrayOf_2Numbers</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:IsPresent(CropRect))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE>fn:Eval((Size::@0&gt;0) &amp;&amp; (Size::@1&gt;0))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>CropRect</NAME>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:IsPresent(Size))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="rectangle">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -9303,7 +9885,9 @@
       <ENTRY>
          <NAME>Inks</NAME>
          <VALUES>
-            <VALUE type="array">_UniversalArray</VALUE>
+            <VALUE type="array">ArrayOfOPI2Inks</VALUE>
+            <VALUE type="name">full_color</VALUE>
+            <VALUE type="name">registration</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9326,13 +9910,14 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
+         <SPECIAL_CASE>fn:Eval((IncludedImageDimensions::@0&gt;0) &amp;&amp; (IncludedImageDimensions::@1&gt;0))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>IncludedImageQuality</NAME>
          <VALUES>
-            <VALUE type="number">1.0</VALUE>
-            <VALUE type="number">2.0</VALUE>
-            <VALUE type="number">3.0</VALUE>
+            <VALUE type="number">1</VALUE>
+            <VALUE type="number">2</VALUE>
+            <VALUE type="number">3</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9343,7 +9928,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Outline" object_number="130">
+   <OBJECT id="Outline" object_number="139">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -9393,7 +9978,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OutlineItem" object_number="131">
+   <OBJECT id="OutlineItem" object_number="140">
       <ENTRY>
          <NAME>Title</NAME>
          <REQUIRED>true</REQUIRED>
@@ -9516,7 +10101,7 @@
          <SPECIAL_CASE>fn:Not(fn:IsPresent(Dest))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageObject" object_number="132">
+   <OBJECT id="PageObject" object_number="141">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -9686,7 +10271,7 @@
          <DEPRECATED>1.3</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageTreeNode" object_number="133">
+   <OBJECT id="PageTreeNode" object_number="142">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -9783,7 +10368,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageTreeNodeRoot" object_number="134">
+   <OBJECT id="PageTreeNodeRoot" object_number="143">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -9867,7 +10452,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PatternColorSpace" isArray="true" object_number="135">
+   <OBJECT id="PatternColorSpace" isArray="true" object_number="144">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -9892,7 +10477,7 @@
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
             <VALUE type="name">false</VALUE>
@@ -9901,7 +10486,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PatternMap" object_number="136">
+   <OBJECT id="PatternMap" object_number="145">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <REQUIRED>false</REQUIRED>
@@ -9912,7 +10497,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PatternType1" object_number="137">
+   <OBJECT id="PatternType1" object_number="146">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -10118,7 +10703,7 @@
          <DEPRECATED>1.3</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Resource" object_number="138">
+   <OBJECT id="Resource" object_number="147">
       <ENTRY>
          <NAME>ExtGState</NAME>
          <VALUES>
@@ -10205,7 +10790,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SeparationColorSpace" isArray="true" object_number="139">
+   <OBJECT id="SeparationColorSpace" isArray="true" object_number="148">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10255,7 +10840,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="SoundObject" object_number="140">
+   <OBJECT id="SoundObject" object_number="149">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -10447,7 +11032,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Stream" object_number="141">
+   <OBJECT id="Stream" object_number="150">
       <ENTRY>
          <NAME>Length</NAME>
          <REQUIRED>true</REQUIRED>
@@ -10549,7 +11134,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StyleDict" object_number="142">
+   <OBJECT id="StyleDict" object_number="151">
       <ENTRY>
          <NAME>Panose</NAME>
          <REQUIRED>false</REQUIRED>
@@ -10561,7 +11146,7 @@
          <SPECIAL_CASE>fn:Eval(fn:StringLength(Panose)==12)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thread" object_number="143">
+   <OBJECT id="Thread" object_number="152">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -10599,7 +11184,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thumbnail" object_number="144">
+   <OBJECT id="Thumbnail" object_number="153">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -10686,7 +11271,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Transition" object_number="145">
+   <OBJECT id="Transition" object_number="154">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -10788,7 +11373,7 @@
          <SPECIAL_CASE>fn:Eval((((@Di==90) || (@Di==180)) &amp;&amp; (@S==Wipe)) || ((@Di==315) &amp;&amp; (@S==Glitter)))];[fn:Eval(((@Di==None) &amp;&amp; (@S==Fly) &amp;&amp; (@SS!=1.0)))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URI" object_number="146">
+   <OBJECT id="URI" object_number="155">
       <ENTRY>
          <NAME>Base</NAME>
          <REQUIRED>false</REQUIRED>
@@ -10799,7 +11384,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ViewerPreferences" object_number="147">
+   <OBJECT id="ViewerPreferences" object_number="156">
       <ENTRY>
          <NAME>HideToolbar</NAME>
          <VALUES>
@@ -10878,7 +11463,7 @@
          <SPECIAL_CASE>fn:IsMeaningful(trailer::Catalog::@PageMode==FullScreen)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WhitepointArray" isArray="true" object_number="148">
+   <OBJECT id="WhitepointArray" isArray="true" object_number="157">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10916,7 +11501,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPS" object_number="149">
+   <OBJECT id="XObjectFormPS" object_number="158">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -11055,7 +11640,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPSpassthrough" object_number="150">
+   <OBJECT id="XObjectFormPSpassthrough" object_number="159">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -11259,7 +11844,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormType1" object_number="151">
+   <OBJECT id="XObjectFormType1" object_number="160">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -11459,7 +12044,7 @@
          <DEPRECATED>1.3</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImage" object_number="152">
+   <OBJECT id="XObjectImage" object_number="161">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -11515,7 +12100,7 @@
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
             <VALUE type="name">false</VALUE>
@@ -11532,7 +12117,7 @@
             <VALUE type="integer">4</VALUE>
             <VALUE type="integer">fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)</VALUE>
          </VALUES>
-         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode)) || (@ImageMask==true))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -11711,7 +12296,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectMap" object_number="153">
+   <OBJECT id="XObjectMap" object_number="162">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -11728,7 +12313,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="_UniversalArray" isArray="true" object_number="154">
+   <OBJECT id="_UniversalArray" isArray="true" object_number="163">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -11751,7 +12336,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="_UniversalDictionary" object_number="155">
+   <OBJECT id="_UniversalDictionary" object_number="164">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
