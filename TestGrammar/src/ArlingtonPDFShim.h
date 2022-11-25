@@ -244,6 +244,9 @@ namespace ArlingtonPDFShim {
         int get_num_keys();
         std::wstring get_key_name_by_index(const int index);
 
+        bool has_duplicate_keys();
+        std::vector<std::string>& get_duplicate_keys();
+
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFDictionary& obj) {
             ofs << "dictionary " << (ArlPDFObject&)obj;
             return ofs;

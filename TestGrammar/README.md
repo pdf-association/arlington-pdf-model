@@ -368,6 +368,7 @@ Error: Document Catalog minor version is earlier than PDF header version! Ignori
 Error: Both Document Catalog and header versions are invalid or missing. Assuming PDF 2.0.
 Error: XRefStream is present in PDF x.y before introduction in PDF 1.5.
 Error: can't select any Link to validate PDF object ...
+Error: Duplicate dictionary key: ...
 Error: recursive inheritance depth of x exceeded for ...
 Error: wrong type: ...
 Error: not an indirect reference as required: ...
@@ -518,6 +519,8 @@ Checking PDF files requires a PDF SDK with certain key features (_we shouldn't n
 * for encrypted PDFs, don't reject too early - at least be able to parse the unencrypted keys and most values in dictionaries, etc.
     - obviously PDF files that use cross-reference streams or object streams will not be processable
     - predicates that check the attributes or value of a PDF string object will also generated error messages since the string length and value are not known
+* ability to detect and report duplicate keys in dictionaries - **this is a limiting factor for some PDF SDKs!** 
+    - the pdfium in GitHub has been modified to support this configuration
 
 Another recent discovery of behavior differences between PDF SDKs is when a dictionary key is an indirect reference to an object that is well beyond the trailer `Size` key or maximum cross-reference table object number. In some cases, the PDF SDK "sees" the key, allowing it to be detected and the error that it is invalid is deferred until the TestGrammar app attempts to resolve the indirect reference (e.g. PDFix). Then an error message such as `Error: could not get value for key XXX` will be generated. Other PDF SDKs completely reject the key and the key is not at all visible so no error about can be reported - the key is completely invisible when using such PDF SDKs (e.g. pdfium).
 

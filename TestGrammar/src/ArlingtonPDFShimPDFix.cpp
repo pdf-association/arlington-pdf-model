@@ -558,6 +558,25 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(const int index)
     return retval;
 }
 
+
+/// @brief Returns true if the dictionary has one or more duplicate keys
+/// @return true if the dictionary has one or more duplicate keys
+bool ArlPDFDictionary::has_duplicate_keys()
+{
+    return false; /// @todo - unsupported
+}
+
+
+/// @brief Returns the list of duplicate keys in the dictionary.
+/// @return List of duplicate keys in the dictionary
+std::vector<std::string>& ArlPDFDictionary::get_duplicate_keys()
+{
+    assert(false && "PDFix does not support duplicate key detection!");
+    std::vector<std::string> dummy;
+    return dummy;
+}
+
+
 /// @brief  Gets the dictionary associated with the PDF stream
 /// @return the PDF dictionary object
 ArlPDFDictionary* ArlPDFStream::get_dictionary()

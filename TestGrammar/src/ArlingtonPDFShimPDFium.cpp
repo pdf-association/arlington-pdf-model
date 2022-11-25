@@ -199,6 +199,7 @@ ArlPDFTrailer* ArlingtonPDFSDK::get_trailer()
     assert(ctx != nullptr);
     auto pdfium_ctx = (pdfium_context*)ctx;
     assert(pdfium_ctx->pdf_trailer != nullptr);
+    auto b = pdfium_ctx->parser->IsXRefStream();
     return pdfium_ctx->pdf_trailer;
 }
 
@@ -608,6 +609,31 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(const int index)
 
     return retval;
 }
+
+
+/// @brief Returns true if the dictionary has one or more duplicate keys.
+/// Note that pdfium has been modified to report this capability!!
+/// @return true if the dictionary has one or more duplicate keys
+bool ArlPDFDictionary::has_duplicate_keys()
+{
+    assert(object != nullptr);
+    assert(((CPDF_Object*)object)->GetType() == PDFOBJ_DICTIONARY);
+    CPDF_Dictionary* dict = ((CPDF_Dictionary*)object);
+    return dict->HasDuplicateKeys();
+}
+
+
+/// @brief Returns the list of duplicate keys in the dictionary.
+/// Note that pdfium has been modified to report this capability!!
+/// @return List of duplicate keys in the dictionary
+std::vector<std::string>& ArlPDFDictionary::get_duplicate_keys()
+{
+    assert(object != nullptr);
+    assert(((CPDF_Object*)object)->GetType() == PDFOBJ_DICTIONARY);
+    CPDF_Dictionary* dict = ((CPDF_Dictionary*)object);
+    return dict->GetDuplicateKeys();
+}
+
 
 /// @brief  Gets the dictionary associated with the PDF stream
 /// @return the PDF dictionary object

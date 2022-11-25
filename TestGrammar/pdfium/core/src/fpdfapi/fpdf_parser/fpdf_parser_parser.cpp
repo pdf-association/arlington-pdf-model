@@ -172,13 +172,16 @@ FX_DWORD CPDF_Parser::StartParse(IFX_FileRead* pFileAccess, FX_BOOL bReParse, FX
             return PDFPARSE_ERROR_FORMAT;
         }
         m_LastXRefOffset = (FX_FILESIZE)FXSYS_atoi64(xrefpos_str);
+        gSuppressDuplicateKeys = TRUE;
         if (!LoadAllCrossRefV4(m_LastXRefOffset) && !LoadAllCrossRefV5(m_LastXRefOffset)) {
             if (!RebuildCrossRef()) {
+                gSuppressDuplicateKeys = FALSE;
                 return PDFPARSE_ERROR_FORMAT;
             }
             bXRefRebuilt = TRUE;
             m_LastXRefOffset = 0;
         }
+        gSuppressDuplicateKeys = FALSE;
     } else {
         if (!RebuildCrossRef()) {
             return PDFPARSE_ERROR_FORMAT;
@@ -768,6 +771,8 @@ FX_BOOL CPDF_Parser::RebuildCrossRef()
                                 if (pObject) {
                                     int iType =	pObject->GetType();
                                     if (iType == PDFOBJ_STREAM) {
+                                        // A rebuilt PDF is using a cross-reference stream... 
+                                        m_bXRefStream = TRUE;
                                         CPDF_Stream* pStream = (CPDF_Stream*)pObject;
                                         CPDF_Dictionary* pDict = pStream->GetDict();
                                         if (pDict) {
@@ -2176,8 +2181,9 @@ CPDF_Object* CPDF_SyntaxParser::GetObject(CPDF_IndirectObjects* pObjList, FX_DWO
         if (IsSignatureDict(pDict)) {
             FX_FILESIZE dwSavePos = m_Pos;
             m_Pos = dwSignValuePos;
-            CPDF_Object* pObj = GetObject(pObjList, objnum, gennum, level + 1, NULL, FALSE);
-            pDict->SetAt(FX_BSTRC("Contents"), pObj);
+            ///Arlington: Avoid "duplicate key" entries for /Contents key of UR3 signatures
+            ///Arlington: CPDF_Object* pObj = GetObject(pObjList, objnum, gennum, level + 1, NULL, FALSE);
+            ///Arlington: pDict->SetAt(FX_BSTRC("Contents"), pObj);
             m_Pos = dwSavePos;
         }
         if (pContext) {
@@ -2858,7 +2864,7 @@ FX_BOOL CPDF_DataAvail::IsObjectsAvail(CFX_PtrArray& obj_array, FX_BOOL bParsePa
                     if (!size.IsValid()) {
                         break;
                     }
-                    if (size.ValueOrDie() > m_dwFileLen) {
+                    if (size.ValueOrDie() > (FX_DWORD)m_dwFileLen) {
                         size = m_dwFileLen - offset;
                     } else {
                         size = original_size + 512;
@@ -3089,7 +3095,7 @@ CPDF_Object* CPDF_DataAvail::GetObject(FX_DWORD objnum, IFX_DownloadHints* pHint
         return NULL;
     }
 
-    if (size.ValueOrDie() > m_dwFileLen) {
+    if (size.ValueOrDie() > (FX_DWORD)m_dwFileLen) {
         size = m_dwFileLen - offset;
     } else {
         size = original_size + 512;

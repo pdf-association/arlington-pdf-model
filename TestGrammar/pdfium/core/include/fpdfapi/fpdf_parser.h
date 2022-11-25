@@ -12,6 +12,7 @@
 #ifndef _FPDF_OBJECTS_
 #include "fpdf_objects.h"
 #endif
+extern FX_BOOL gSuppressDuplicateKeys;
 class CPDF_Document;
 class IPDF_DocParser;
 class CPDF_Parser;

@@ -533,6 +533,17 @@ public:
     }
 
     void					AddValue(FX_BSTR key, CPDF_Object* pObj);
+
+    FX_BOOL                 HasDuplicateKeys()
+    {
+        return m_Map.HasDuplicateKeys();
+    }
+
+    std::vector<std::string>&    GetDuplicateKeys()
+    {
+        return m_Map.GetDuplicateKeys();
+    }
+
 protected:
 
     ~CPDF_Dictionary();

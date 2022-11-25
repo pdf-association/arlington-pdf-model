@@ -495,6 +495,23 @@ std::wstring ArlPDFDictionary::get_key_name_by_index(int index)
 }
 
 
+/// @brief Returns true if the dictionary has one or more duplicate keys
+/// @return true if the dictionary has one or more duplicate keys
+bool ArlPDFDictionary::has_duplicate_keys()
+{
+    return false; /// @todo - unsupported
+}
+
+
+/// @brief Returns the list of duplicate keys in the dictionary.
+/// @return List of duplicate keys in the dictionary
+std::vector<std::string>& ArlPDFDictionary::get_duplicate_keys()
+{
+    assert(false && "QPDF does not support duplicate key detection!");
+    std::vector<std::string> dummy;
+    return dummy;
+}
+
 
 ArlPDFDictionary* ArlPDFStream::get_dictionary() {
     assert(object != nullptr);

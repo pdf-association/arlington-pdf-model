@@ -6,6 +6,9 @@
 
 #include "../../include/fxcrt/fx_ext.h"
 #include "plex.h"
+// Global to suppress capturing duplicate keys (such as when rebuilding PDFs and encountering multiple trailers)
+FX_BOOL gSuppressDuplicateKeys = FALSE;
+
 static void ConstructElement(CFX_ByteString* pNewData)
 {
     new (pNewData) CFX_ByteString();
@@ -522,6 +525,8 @@ void CFX_CMapByteStringToPtr::SetAt(FX_BSTR key, void* value)
         if (!_CompactStringSame(pKey, (FX_LPCBYTE)key, key_len)) {
             continue;
         }
+        if (!gSuppressDuplicateKeys)
+            duplicateKeys.push_back(key.GetCStr());
         *(void**)(pKey + 1) = value;
         return;
     }

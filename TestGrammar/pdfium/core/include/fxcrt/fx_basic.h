@@ -18,6 +18,8 @@
 #ifndef _FX_STREAM_H_
 #include "fx_stream.h"
 #endif
+#include <vector>
+#include <string>
 class CFX_BinaryBuf : public CFX_Object
 {
 public:
@@ -1028,9 +1030,22 @@ public:
     int				GetCount() const;
 
     void			AddValue(FX_BSTR key, void* pValue);
+
+    FX_BOOL         HasDuplicateKeys()
+    {
+        return (duplicateKeys.size() > 0);
+    }
+
+    std::vector<std::string>& GetDuplicateKeys()
+    {
+        return duplicateKeys;
+    }
+
 private:
 
     CFX_BaseSegmentedArray			m_Buffer;
+
+    std::vector<std::string>        duplicateKeys;
 };
 class CFX_PtrList : public CFX_Object
 {
