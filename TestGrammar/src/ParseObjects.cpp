@@ -889,6 +889,15 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
             else
                 dictObj = (ArlPDFDictionary*)elem.object;
 
+            // Check for duplicate keys of the same name. Depends on underlying PDF SDK!!
+            // https://assets.devoted.com/plan-documents/2022/DH-DisenrollmentForm-2022-ENG.pdf
+            if (dictObj->has_duplicate_keys()) {
+                show_context(elem);
+                auto dup_keys = dictObj->get_duplicate_keys();
+                for (auto dup_key : dup_keys)
+                    output << COLOR_ERROR << "Duplicate dictionary key: " << dup_key << COLOR_RESET;
+            }
+
             auto dict_num_keys = dictObj->get_num_keys();
             for (int i = 0; i < dict_num_keys; i++) {
                 std::wstring key = dictObj->get_key_name_by_index(i);
