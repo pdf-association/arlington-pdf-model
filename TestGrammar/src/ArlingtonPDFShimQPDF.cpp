@@ -503,12 +503,13 @@ bool ArlPDFDictionary::has_duplicate_keys()
 }
 
 
+static std::vector<std::string> dummy;
+
 /// @brief Returns the list of duplicate keys in the dictionary.
 /// @return List of duplicate keys in the dictionary
 std::vector<std::string>& ArlPDFDictionary::get_duplicate_keys()
 {
     assert(false && "QPDF does not support duplicate key detection!");
-    std::vector<std::string> dummy;
     return dummy;
 }
 

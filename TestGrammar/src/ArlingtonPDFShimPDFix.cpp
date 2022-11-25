@@ -135,11 +135,12 @@ bool ArlingtonPDFSDK::open_pdf(const std::filesystem::path& pdf_filename, const 
     pdfix_ctx->doc = pdfix_ctx->pdfix->OpenDoc(pdf_filename.wstring().data(), password.data());
 
     if (pdfix_ctx->doc != nullptr) {
-        PdsDictionary* trailer = pdfix_ctx->doc->GetTrailerObject();
+        auto trailer = pdfix_ctx->doc->GetTrailerObject();
         if (trailer != nullptr)
         {
+            assert(trailer->GetObjectType() == kPdsDictionary);
             // if /Type key exists, then assume working with XRefStream
-            PdsObject* type_key = trailer->Get(L"Type");
+            PdsObject* type_key = trailer->Get(L"Type"); 
 
             pdfix_ctx->pdf_trailer = new ArlPDFTrailer(trailer, 
                                                 (type_key != nullptr),          // has a xref stream?
@@ -449,7 +450,7 @@ bool ArlPDFString::is_hex_string()
     assert(object != nullptr);
     assert(((PdsObject*)object)->GetObjectType() == kPdsString);
     PdsString* obj = (PdsString*)object;
-    return false; /// @todo - how to know if hex string in PDFix??
+    return obj->IsHexValue(); 
 }
 
 
@@ -566,13 +567,13 @@ bool ArlPDFDictionary::has_duplicate_keys()
     return false; /// @todo - unsupported
 }
 
+static std::vector<std::string> dummy;
 
 /// @brief Returns the list of duplicate keys in the dictionary.
 /// @return List of duplicate keys in the dictionary
 std::vector<std::string>& ArlPDFDictionary::get_duplicate_keys()
 {
     assert(false && "PDFix does not support duplicate key detection!");
-    std::vector<std::string> dummy;
     return dummy;
 }
 
