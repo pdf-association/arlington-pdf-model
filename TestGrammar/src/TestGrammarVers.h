@@ -54,6 +54,6 @@
 #endif
 
 /// @brief String showing version, build date/time, compiler, platform and configuration
-#define TestGrammar_VERSION "v0.8 built " __DATE__ " " __TIME__ " (" TG_COMPILER " " TG_PLATFORM " " TG_CONFIG ")"
+#define TestGrammar_VERSION "v0.81 built " __DATE__ " " __TIME__ " (" TG_COMPILER " " TG_PLATFORM " " TG_CONFIG ")"
 
 #endif // TestGrammarVers_h
