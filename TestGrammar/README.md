@@ -50,8 +50,7 @@ The command line options are very similar to the Python proof-of-concept:
 Arlington PDF Model C++ P.o.C. version vX.Y built <date>> <time> (<platform & compiler details>)
 Choose one of: --pdf, --checkdva or --validate.
 
-Usage:
-        TestGrammar --tsvdir <dir> [--force <ver>] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--extensions <extn1[,extn2]>] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
+Usage: TestGrammar --tsvdir <dir> [--force <ver>] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--extensions <extn1[,extn2]>] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
 
 Options:
 -h, --help        This usage message.
@@ -72,7 +71,7 @@ Options:
 Built using <pdf-sdk vX.Y.Z>
 ```
 
-`Info:` messages are cyan, `Warning:` messages are yellow, and `Error:` messages are red.
+`Info:` messages are <span style="color:cyan">cyan</span>, `Warning:` messages are <span style="color:yellow">yellow</span>, and `Error:` messages are <span style="color:red">red</span>.
 
 ### Notes
 
@@ -296,7 +295,7 @@ grep --text --files-without-match "END" *
 
 This is a list of all messages that can occur from the PoC so that post-processing can be done based on grep, etc. Specific messages will only occur for `--validate`, `--check`, `--pdf` or for invalid command line options. `...` indicates additional information which may further vary depending on both the PDF SDK in use and if `--debug` is also specified.
 
-## Error messages (red)
+## <span style="color:red">Error messages (red)</span>
 
 From `grep COLOR_ERORR src/*.cpp`:
 
@@ -404,7 +403,7 @@ Error: array using numbered wildcards (integer+'*') need to be contiguous last r
 Error: object number ... is illegal. trailer Size is ...
 ```
 
-## Warning messages (yellow)
+## <span style="color:yellow">Warning messages (yellow)<span>
 
 From `grep COLOR_WARN src/*.cpp`:
 
@@ -435,7 +434,7 @@ Warning: array length was not an exact multiple of x (was y) for ...
 Warning: object identified in two different contexts. Originally: ...; second: ...
 ```
 
-## Informational messages (cyan)
+## <span style="color:cyan">Informational messages (cyan)<span>
 
 From `grep COLOR_INFO src/*.cpp`:
 
@@ -512,15 +511,20 @@ Checking PDF files requires a PDF SDK with certain key features (_we shouldn't n
 * able to treat the trailer as a PDF dictionary and report if key values are direct or indirect references - **this is a big limiting factor for many PDF SDKs!**  
 * able to report PDF object number for objects that are not direct - **this is a limiting factor for some PDF SDKs!**  
 * not confuse values, such as integer and real numbers, so that they are expressed exactly as they appear in a PDF file - **this is a limiting factor for some PDF SDKs!**
-* return the **raw** bytes from the PDF file for PDF name and string objects, including empty names ("`/`")
+* return the **raw** bytes from the PDF file for PDF name and string objects, including empty names ("`/`") - **this is a limiting factor for some PDF SDKs!**
 * not do any PDF version based processing while parsing
 * report if a string object was expressed as a hex string - **this is a limiting factor for some PDF SDKs!**  
+    - PDFix added support in v6.19.0
 * allow processing of the PDF DOM even if an unsupported encryption algorithm is present (since only strings and streams are encrypted, PDF dictionaries and arrays can still be processed!) - **this is a limiting factor for some PDF SDKs!**  
 * for encrypted PDFs, don't reject too early - at least be able to parse the unencrypted keys and most values in dictionaries, etc.
     - obviously PDF files that use cross-reference streams or object streams will not be processable
-    - predicates that check the attributes or value of a PDF string object will also generated error messages since the string length and value are not known
+    - predicates that check the attributes or value of a PDF string object will also generated error messages since the unencrytped string length and value are not known
 * ability to detect and report duplicate keys in dictionaries - **this is a limiting factor for some PDF SDKs!** 
-    - the pdfium in GitHub has been modified to support this configuration
+    - the pdfium in GitHub has been modified (hacked!) to support this configuration
+    - e.g. https://assets.devoted.com/plan-documents/2022/DH-DisenrollmentForm-2022-ENG.pdf
+* PDF SDKs suport trailers in very different ways, especially for rebuilt PDFs and hybrid PDFs. This results in different keys in trailer dictionaries!
+    - e.g. https://www.ema.europa.eu/en/documents/product-information/cerdelga-epar-product-information_fr.pdf
+
 
 Another recent discovery of behavior differences between PDF SDKs is when a dictionary key is an indirect reference to an object that is well beyond the trailer `Size` key or maximum cross-reference table object number. In some cases, the PDF SDK "sees" the key, allowing it to be detected and the error that it is invalid is deferred until the TestGrammar app attempts to resolve the indirect reference (e.g. PDFix). Then an error message such as `Error: could not get value for key XXX` will be generated. Other PDF SDKs completely reject the key and the key is not at all visible so no error about can be reported - the key is completely invisible when using such PDF SDKs (e.g. pdfium).
 
@@ -532,9 +536,9 @@ TestGrammar has the following module dependencies:
 
 * PDFium: OSS PDF SDK (`ARL_PDFSDK_PDFIUM`)
   - this is the **default PDF SDK used** as it provides the most functionality, has source code, and is debuggable if things don't work as expected
-  - a local copy of pdfium is used to reduce the build complexity and time - and to fix a number of issues.
+  - a local copy of pdfium is used to reduce the build complexity and time - and has been modified to fix a number of issues.
   - reduced source code located in `./pdfium`
-  - PDFium is also slightly modified in order to validate whether key values are direct or indirect references in trailer and normal PDF objects
+  - PDFium is also modified in order to validate whether key values are direct or indirect references in trailer and normal PDF objects and to support duplicate key detection
   - can support unknown encryption algorithms
   - see `src/ArlingtonPDFShimPDFium.cpp`
 
