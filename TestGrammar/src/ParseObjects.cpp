@@ -784,7 +784,7 @@ void CParsePDF::add_root_parse_object(ArlPDFObject* object, const std::string& l
 /// @param[in] e    the element
 void CParsePDF::show_context(queue_elem &e) {
     if (!context_shown) {
-        output << COLOR_RESET << std::setw(8) << counter << ": " << e.context;
+        output << COLOR_RESET_NO_EOL << std::setw(8) << counter << ": " << e.context;
         if (debug_mode)
             output << " (" << *e.object << ")";
         output << std::endl;
