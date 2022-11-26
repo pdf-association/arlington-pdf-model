@@ -2168,6 +2168,8 @@ CPDF_Object* CPDF_SyntaxParser::GetObject(CPDF_IndirectObjects* pObjList, FX_DWO
             if (pObj == NULL) {
                 continue;
             }
+            /// Arlington: Avoid "duplicate key" entries for /Contents key of UR3 signatures
+            gSuppressDuplicateKeys = TRUE;
             if (key.GetLength() == 1) {
                 pDict->SetAt(CFX_ByteStringC(((FX_LPCSTR)key) + 1, key.GetLength() - 1), pObj);
             } else {
@@ -2177,13 +2179,16 @@ CPDF_Object* CPDF_SyntaxParser::GetObject(CPDF_IndirectObjects* pObjList, FX_DWO
                     pDict->AddValue(CFX_ByteStringC(((FX_LPCSTR)key) + 1, key.GetLength() - 1), pObj);
                 }
             }
+            gSuppressDuplicateKeys = FALSE;
         }
         if (IsSignatureDict(pDict)) {
             FX_FILESIZE dwSavePos = m_Pos;
             m_Pos = dwSignValuePos;
-            ///Arlington: Avoid "duplicate key" entries for /Contents key of UR3 signatures
-            ///Arlington: CPDF_Object* pObj = GetObject(pObjList, objnum, gennum, level + 1, NULL, FALSE);
-            ///Arlington: pDict->SetAt(FX_BSTRC("Contents"), pObj);
+            CPDF_Object* pObj = GetObject(pObjList, objnum, gennum, level + 1, NULL, FALSE);
+            /// Arlington: Avoid "duplicate key" entries for /Contents key of UR3 signatures
+            gSuppressDuplicateKeys = TRUE;
+            pDict->SetAt(FX_BSTRC("Contents"), pObj);
+            gSuppressDuplicateKeys = FALSE;
             m_Pos = dwSavePos;
         }
         if (pContext) {
@@ -2444,7 +2449,9 @@ CPDF_Stream* CPDF_SyntaxParser::ReadStream(CPDF_Dictionary* pDict, PARSE_CONTEXT
                     len --;
                 }
                 len = (FX_DWORD)offset;
+                gSuppressDuplicateKeys = TRUE;
                 pDict->SetAtInteger(FX_BSTRC("Length"), len);
+                gSuppressDuplicateKeys = FALSE;
             } else {
                 m_Pos = StreamStartPos;
                 if (FindTag(FX_BSTRC("endobj"), 0) < 0) {
