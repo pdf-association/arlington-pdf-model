@@ -172,16 +172,17 @@ FX_DWORD CPDF_Parser::StartParse(IFX_FileRead* pFileAccess, FX_BOOL bReParse, FX
             return PDFPARSE_ERROR_FORMAT;
         }
         m_LastXRefOffset = (FX_FILESIZE)FXSYS_atoi64(xrefpos_str);
+        FX_BOOL old_gSuppressDuplicateKeys = gSuppressDuplicateKeys;
         gSuppressDuplicateKeys = TRUE;
         if (!LoadAllCrossRefV4(m_LastXRefOffset) && !LoadAllCrossRefV5(m_LastXRefOffset)) {
             if (!RebuildCrossRef()) {
-                gSuppressDuplicateKeys = FALSE;
+                gSuppressDuplicateKeys = old_gSuppressDuplicateKeys;
                 return PDFPARSE_ERROR_FORMAT;
             }
             bXRefRebuilt = TRUE;
             m_LastXRefOffset = 0;
         }
-        gSuppressDuplicateKeys = FALSE;
+        gSuppressDuplicateKeys = old_gSuppressDuplicateKeys;
     } else {
         if (!RebuildCrossRef()) {
             return PDFPARSE_ERROR_FORMAT;
@@ -2169,6 +2170,7 @@ CPDF_Object* CPDF_SyntaxParser::GetObject(CPDF_IndirectObjects* pObjList, FX_DWO
                 continue;
             }
             /// Arlington: Avoid "duplicate key" entries for /Contents key of UR3 signatures
+            FX_BOOL old_gSuppressDuplicateKeys = gSuppressDuplicateKeys;
             gSuppressDuplicateKeys = TRUE;
             if (key.GetLength() == 1) {
                 pDict->SetAt(CFX_ByteStringC(((FX_LPCSTR)key) + 1, key.GetLength() - 1), pObj);
@@ -2179,16 +2181,16 @@ CPDF_Object* CPDF_SyntaxParser::GetObject(CPDF_IndirectObjects* pObjList, FX_DWO
                     pDict->AddValue(CFX_ByteStringC(((FX_LPCSTR)key) + 1, key.GetLength() - 1), pObj);
                 }
             }
-            gSuppressDuplicateKeys = FALSE;
+            gSuppressDuplicateKeys = old_gSuppressDuplicateKeys;
         }
         if (IsSignatureDict(pDict)) {
             FX_FILESIZE dwSavePos = m_Pos;
             m_Pos = dwSignValuePos;
             CPDF_Object* pObj = GetObject(pObjList, objnum, gennum, level + 1, NULL, FALSE);
-            /// Arlington: Avoid "duplicate key" entries for /Contents key of UR3 signatures
+            FX_BOOL old_gSuppressDuplicateKeys = gSuppressDuplicateKeys;
             gSuppressDuplicateKeys = TRUE;
             pDict->SetAt(FX_BSTRC("Contents"), pObj);
-            gSuppressDuplicateKeys = FALSE;
+            gSuppressDuplicateKeys = old_gSuppressDuplicateKeys;
             m_Pos = dwSavePos;
         }
         if (pContext) {
@@ -2449,9 +2451,10 @@ CPDF_Stream* CPDF_SyntaxParser::ReadStream(CPDF_Dictionary* pDict, PARSE_CONTEXT
                     len --;
                 }
                 len = (FX_DWORD)offset;
+                FX_BOOL old_gSuppressDuplicateKeys = gSuppressDuplicateKeys;
                 gSuppressDuplicateKeys = TRUE;
                 pDict->SetAtInteger(FX_BSTRC("Length"), len);
-                gSuppressDuplicateKeys = FALSE;
+                gSuppressDuplicateKeys = old_gSuppressDuplicateKeys;
             } else {
                 m_Pos = StreamStartPos;
                 if (FindTag(FX_BSTRC("endobj"), 0) < 0) {
