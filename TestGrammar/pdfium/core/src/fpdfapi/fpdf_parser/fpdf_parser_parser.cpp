@@ -771,14 +771,14 @@ FX_BOOL CPDF_Parser::RebuildCrossRef()
                                 if (pObject) {
                                     int iType =	pObject->GetType();
                                     if (iType == PDFOBJ_STREAM) {
-                                        // A rebuilt PDF is using a cross-reference stream... 
-                                        m_bXRefStream = TRUE;
                                         CPDF_Stream* pStream = (CPDF_Stream*)pObject;
                                         CPDF_Dictionary* pDict = pStream->GetDict();
                                         if (pDict) {
                                             if (pDict->KeyExist(FX_BSTRC("Type"))) {
                                                 CFX_ByteString bsValue = pDict->GetString(FX_BSTRC("Type"));
                                                 if (bsValue == FX_BSTRC("XRef") && pDict->KeyExist(FX_BSTRC("Size"))) {
+                                                    // A rebuilt PDF is using a cross-reference stream... 
+                                                    m_bXRefStream = TRUE;
                                                     CPDF_Object* pRoot = pDict->GetElement(FX_BSTRC("Root"));
                                                     if (pRoot && pRoot->GetDict() && pRoot->GetDict()->GetElement(FX_BSTRC("Pages"))) {
                                                         if (m_pTrailer) {
