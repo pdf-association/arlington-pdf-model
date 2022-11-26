@@ -157,6 +157,23 @@ bool ArlingtonPDFSDK::open_pdf(const std::filesystem::path& pdf_filename, const 
                                         (pdfium_ctx->open_err_code == PDFPARSE_ERROR_PASSWORD) || (pdfium_ctx->open_err_code == PDFPARSE_ERROR_HANDLER)
                                     );
 
+        /// @todo pdfium has an array of other trailers but this is not set up when a rebuild is done. ???
+        /// May be useful for testing if all trailers have the correct keys ???
+        /******************
+        CFX_ArrayTemplate<CPDF_Dictionary*>* other_trailers = pdfium_ctx->parser->GetOtherTrailers();
+        std::cout << "Number of other trailers = " << other_trailers->GetSize() << std::endl;
+        for (int i = 0; i < other_trailers->GetSize(); i++) {
+            CPDF_Dictionary* t = other_trailers->GetAt(i);
+            FX_POSITION pos = t->GetStartPos();
+            int j = 0;
+            while (pos) {
+                CFX_ByteString key;
+                CPDF_Object* o = t->GetNextElement(pos, key);
+                std::cout << i << "[" << j++ << "] = " << std::string(o->GetString()) << std::endl;
+            }
+        }
+        *******************/
+
         auto dc_dict = trailr->GetDict("Root");
         if (dc_dict != nullptr) {
             pdfium_ctx->pdf_catalog = new ArlPDFDictionary(pdfium_ctx->pdf_trailer, dc_dict, false);
