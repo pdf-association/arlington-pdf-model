@@ -2169,9 +2169,6 @@ CPDF_Object* CPDF_SyntaxParser::GetObject(CPDF_IndirectObjects* pObjList, FX_DWO
             if (pObj == NULL) {
                 continue;
             }
-            /// Arlington: Avoid "duplicate key" entries for /Contents key of UR3 signatures
-            FX_BOOL old_gSuppressDuplicateKeys = gSuppressDuplicateKeys;
-            gSuppressDuplicateKeys = TRUE;
             if (key.GetLength() == 1) {
                 pDict->SetAt(CFX_ByteStringC(((FX_LPCSTR)key) + 1, key.GetLength() - 1), pObj);
             } else {
@@ -2181,7 +2178,6 @@ CPDF_Object* CPDF_SyntaxParser::GetObject(CPDF_IndirectObjects* pObjList, FX_DWO
                     pDict->AddValue(CFX_ByteStringC(((FX_LPCSTR)key) + 1, key.GetLength() - 1), pObj);
                 }
             }
-            gSuppressDuplicateKeys = old_gSuppressDuplicateKeys;
         }
         if (IsSignatureDict(pDict)) {
             FX_FILESIZE dwSavePos = m_Pos;
