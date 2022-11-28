@@ -1,4 +1,4 @@
-%PDF-1.5
+%PDF-1.9
 %
 % DO NOT ATTEMPT TO OPEN THIS PDF WITH A PDF VIEWER!!!
 %
@@ -55,6 +55,7 @@ endobj
 /PieceInfo << 
 	/Blah << 
 		/LastModified (is not a Date!) 
+		/LastModified (is a duplicate key for direct dictionary)
 		/Data 123 
 		>> 
 	>> %% Page is missing valid LastModified key: fn:IsRequired(fn:IsPresent(PieceInfo))
@@ -86,6 +87,7 @@ endobj
 5 0 obj
 <<
 /Type /Font
+/Type /Font %% duplicate key
 /Subtype /Type3
 /FontBBox [-36 -36 786 786]
 /FontMatrix [0.001 0 0 0.001 0 0 1 2 4 ] %% Too many elements in a matrix
@@ -113,7 +115,7 @@ endstream
 endobj
 
 8 0 obj
-<< /Length 0 >>
+<< /Length 0 /XX_ThirdClassKey 12.34 /AAPL_SecondClass (2nd class name) >>
 stream
 % CharProc for /Glyph1
 endstream
@@ -126,7 +128,7 @@ endobj
 % Missing required Rect key
 /F 999 % should fail bitmask predicate
 /CA 1.1 % bad value
-/Metadata 4 0 R % Metadata
+/Metadata 4 0 R % generic Metadata key
 >>
 endobj
 
@@ -134,13 +136,13 @@ endobj
 <<
 /Type /Font 
 /Subtype /CIDFontType0
-/BaseFont /BaseFontName
+/BaseFont /AnExceedinglyLongBaseFontNameThatExceedsThe127LimitThatWasSpecifiedInEarlierVersionsOfPDFAndThatKeepsGoingAndGoingAndGoingSoItTriggersTheWarning
 /FontDescriptor << 
 	/Style << /Panose (Not 12 characters long) >> %% fails [fn:Eval(fn:StringLength(Panose)==12)]
 	/Flags 458863 % SHOULD PASS 32 bit check! (bits 1-4,6-7,17-19 --> as zero-based: 0-3,5-6,16-18)
 	/FontWeight 250 % not a predefined value
 	/Descent 123 % not <= 0
-	/FontName /BaseFontName %%% THIS IS CORRECT! (matches parent::BaseFont
+	/FontName /BaseFontName %%% THIS IS CORRECT! (matches parent::BaseFont)
 >>
 /AF << >> %% Associated File
 >>
