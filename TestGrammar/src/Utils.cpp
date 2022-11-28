@@ -448,7 +448,7 @@ bool check_valid_array_definition(const std::string& fname, const std::vector<st
 
 
 /// @brief Regex for PDF second class names according to Annex E of ISO 32000-2:2020
-static const std::regex r_SecondClassName("^([a-zA-Z0-9_\\-]{4,5}(_|:)|XX)");
+static const std::regex r_SecondClassName("^([a-zA-Z0-9_\\-]{4,5}(_|:))");
 
 
 /// @brief  Tests if a key is a valid PDF second class name according to Annex E of ISO 32000-2:2020
