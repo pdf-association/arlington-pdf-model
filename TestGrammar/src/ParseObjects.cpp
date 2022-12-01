@@ -565,6 +565,8 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
 /// @param[in,out] context
 /// @param[in]     root         true if the root node of a Name tree
 void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::vector<std::string> &links, const std::string context, const bool root) {
+    assert(obj != nullptr);
+    assert(obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary);
     ArlPDFObject *kids_obj   = obj->get_value(L"Kids");
     ArlPDFObject *names_obj  = obj->get_value(L"Names");
     //ArlPDFObject *limits_obj = obj->get_value(L"Limits");
@@ -660,6 +662,8 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::vector<std::st
 /// @param[in,out] context
 /// @param[in]     root         true if the root node of a Name tree
 void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::vector<std::string>&links, const std::string context, const bool root) {
+    assert(obj != nullptr);
+    assert(obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary);
     ArlPDFObject *kids_obj   = obj->get_value(L"Kids");
     ArlPDFObject *nums_obj   = obj->get_value(L"Nums");
     // ArlPDFObject *limits_obj = obj->get_value(L"Limits");
@@ -931,10 +935,23 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                                 std::string arl_type = versioner.get_matched_arlington_type();
                                 std::string as = elem.context + "->" + key_utf8;
                                 std::vector<std::string>  full_linkset = versioner.get_full_linkset(vec[TSV_LINK]);
-                                if (arl_type == "number-tree")
-                                    parse_number_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as number-tree)");
-                                else if (arl_type == "name-tree")
-                                    parse_name_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as name-tree)");
+                                auto t = inner_obj->get_object_type();
+                                if (arl_type == "number-tree") {
+                                    if (t != PDFObjectType::ArlPDFObjTypeDictionary) {
+                                        show_context(elem);
+                                        output << COLOR_ERROR << "number-tree was not a dictionary for " << elem.link << "/" << key_utf8 << " (was " << PDFObjectType_strings[(int)t] << ")" << COLOR_RESET;
+                                    }
+                                    else // safe to cast as dict
+                                        parse_number_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as number-tree)");
+                                }
+                                else if (arl_type == "name-tree") {
+                                    if (t != PDFObjectType::ArlPDFObjTypeDictionary) {
+                                        show_context(elem);
+                                        output << COLOR_ERROR << "name-tree was not a dictionary for " << elem.link << "/" << key_utf8 << " (was " << PDFObjectType_strings[(int)t] << ")" << COLOR_RESET;
+                                    }
+                                    else // safe to cast as dict
+                                        parse_name_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as name-tree)");
+                                }
                                 else if (FindInVector(v_ArlComplexTypes, arl_type)) {
                                     std::string best_link = recommended_link_for_object(inner_obj, full_linkset, as);
                                     if (best_link.size() > 0) {
@@ -1015,10 +1032,23 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                                 std::string as = elem.context + "->" + key_utf8;
                                 std::string arl_type = versioner.get_matched_arlington_type();
                                 std::vector<std::string>  full_linkset = versioner.get_full_linkset(vec[TSV_LINK]);
-                                if (arl_type == "number-tree")
-                                    parse_number_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as number-tree)");
-                                else if (arl_type == "name-tree")
-                                    parse_name_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as name-tree)");
+                                auto t = inner_obj->get_object_type();
+                                if (arl_type == "number-tree") {
+                                    if (t != PDFObjectType::ArlPDFObjTypeDictionary) {
+                                        show_context(elem);
+                                        output << COLOR_ERROR << "number-tree was not a dictionary for " << elem.link << "/* (was " << PDFObjectType_strings[(int)t] << ")" << COLOR_RESET;
+                                    }
+                                    else // safe to cast to dict
+                                        parse_number_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as number-tree)");
+                                }
+                                else if (arl_type == "name-tree") {
+                                    if (t != PDFObjectType::ArlPDFObjTypeDictionary) {
+                                        show_context(elem);
+                                        output << COLOR_ERROR << "name-tree was not a dictionary for " << elem.link << "/* (was " << PDFObjectType_strings[(int)t] << ")" << COLOR_RESET;
+                                    }
+                                    else // safe to cast to dict
+                                        parse_name_tree((ArlPDFDictionary*)inner_obj, full_linkset, as + " (as name-tree)");
+                                }
                                 else if (FindInVector(v_ArlComplexTypes, arl_type)) {
                                     std::string best_link = recommended_link_for_object(inner_obj, full_linkset, as);
                                     if (best_link.size() > 0) {
