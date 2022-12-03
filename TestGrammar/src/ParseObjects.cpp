@@ -1061,8 +1061,8 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                                     assert(FindInVector(v_ArlNonComplexTypes, arl_type));
                                 is_found = true;
                             }
-                            else {
-                                // PDF object type is not correct to Arlington for wildcard!
+                            else if (inner_obj->get_object_type() != PDFObjectType::ArlPDFObjTypeNull) {
+                                // PDF object type is not correct to Arlington for wildcard. Explicit "null" is always allowed.
                                 show_context(elem);
                                 output << COLOR_ERROR << "wrong type for dictionary wildcard for " << elem.link << "/" << ToUtf8(key);
                                 output << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << ": wanted " << vec[TSV_TYPE] << ", PDF was " << versioner.get_object_arlington_type() << COLOR_RESET;
