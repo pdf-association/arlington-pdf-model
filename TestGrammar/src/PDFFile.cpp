@@ -1008,7 +1008,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 bool delete_val = false;
 
                 // To debug a specific predicate, uncomment and modify the following code. Add breakpoint to the 2nd line.
-                // if (key_parts[key_parts.size() - 1] == "FontName")
+                // if (key_parts[key_parts.size() - 1] == "ImageMask")
                 //    delete_val = delete_val;
 
                 // Optimize for simple self-reference (where @key and current key are the same)
@@ -1047,14 +1047,9 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
                 else {
                     ASTNode *tmp = convert_basic_object_to_ast(val);
                     if ((tmp == nullptr) && (in_ast->node.find("parent::") == std::string::npos)) {
-                        // @Key reference was to a complex PDF object (array, dictionary, stream) - or PDF null object
-                        // Re-instate the key (without the '@') so containing predicate can handle. See fn_Contains().
-                        /// @todo - does not support Arlington paths with "parent::"
-                        assert(out != nullptr); 
-                        out->type = ASTNodeType::ASTNT_Key;
-                        out->node = key_parts[0];
-                        for (int i = 1; i < (int)key_parts.size(); i++)
-                            out->node = out->node + "::" + key_parts[i];
+                        // Return nullptr if @key doesn't exist
+                        delete out;
+                        out = nullptr;
                     }
                     else {
                         assert((tmp == nullptr) || tmp->valid());
