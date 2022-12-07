@@ -1197,8 +1197,16 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                 }
             }
 
-            // Determine first row index that is optional (not Required field == "TRUE")
-            int first_optional_idx  = -1;
+            // "idx" = a valid array index 0 ... N-1
+            // "num" = size of something
+            int first_optional_idx = -1;
+            int pure_wildcard_idx = -1;
+            int first_row_to_repeat_idx = -1;
+            int num_array_rows_fixed = 0;
+            int num_array_rows_repeats = 0;
+            int num_required_rows = 0;
+
+            // Determine first row index that is optional (Required field != "TRUE")
             for (int i = 0; i < (int)tsv.size(); i++) {
                 if (tsv[i][TSV_REQUIRED] != "TRUE") {
                     first_optional_idx = i;
@@ -1206,10 +1214,12 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                 }
             } // for
 
-            // Determine (pure) wildcard status - array repeats handled separately
-            int first_pure_wildcard = -1;
+            num_required_rows = (int)tsv.size() - (first_optional_idx + 1);
+
+            // Determine (pure) wildcard status - array repeat sets handled separately below.
+            // Pure wildcards are always the LAST row in the TSV
             if (tsv[tsv.size() - 1][TSV_KEYNAME] == "*")
-                first_pure_wildcard = (int)tsv.size() - 1;
+                pure_wildcard_idx = (int)tsv.size() - 1;
 
             int array_size = arrayObj->get_num_elements();
 
@@ -1223,24 +1233,34 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                 output << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << COLOR_RESET;
             }
 
-            // For array repeats, all rows need to be <single-digit> '*' - always starts with "0*" up to "9*"
-            // Integer value of last row in TSV indicates the multiple of the length.
-            int array_repeat_multiple = -1;
-            bool is_array_repeat = false;
-            if (tsv[0][TSV_KEYNAME] == "0*") {
-                assert(first_pure_wildcard < 0);  // Should not have BOTH wildcard and array repeats
-                assert(tsv[tsv.size() - 1][TSV_KEYNAME].size() == 2);
-                array_repeat_multiple = (tsv[tsv.size() - 1][TSV_KEYNAME][0] - '0') + 1; // starts at "0*"
-                assert((array_repeat_multiple >= 0) && (array_repeat_multiple <= 9));
-                assert(tsv[tsv.size() - 1][TSV_KEYNAME][1] == '*');
-                is_array_repeat = true;
-
-                // If all rows required then array length must be an exact multiple of the repeat
-                if (((array_size % array_repeat_multiple) != 0) && (first_optional_idx == -1)) {
-                    show_context(elem);
-                    output << COLOR_WARNING << "array length was not an exact multiple of " << array_repeat_multiple << " (was " << array_size << ") for " << elem.link;
-                    output << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << COLOR_RESET;
+            // For array repeat sets, rows need to be <single-digit>+'*' 
+            for (int i = 0; i < (int)tsv.size(); i++) {
+                if (tsv[i][TSV_KEYNAME].find('*') == std::string::npos) {
+                    assert(num_array_rows_repeats == 0);
+                    assert(first_row_to_repeat_idx < 0);
+                    num_array_rows_fixed++;
                 }
+                else { // pure wildcard or <integer>+'*'
+                    num_array_rows_repeats++;
+                    if (first_row_to_repeat_idx < 0)
+                        first_row_to_repeat_idx = i;
+                }
+            } // for
+            assert(num_array_rows_fixed + num_array_rows_repeats == tsv.size());
+
+            // Array must always contain sufficient required rows  
+            if (array_size < num_required_rows) {
+                show_context(elem);
+                output << COLOR_ERROR << "array length was too short (needed " << num_required_rows << ", was " << array_size << ") for " << elem.link << COLOR_RESET;
+            }
+
+            // If all rows required (both fixed and repeating) AND some repeating rows, then array length less the number of fixed rows
+            // must be an exact multiple of the repeat
+            if ((num_required_rows == (int)tsv.size()) && (num_array_rows_repeats > 0) && 
+                ((((array_size - num_array_rows_fixed) % num_array_rows_repeats)) != 0) && (first_optional_idx == -1)) {
+                show_context(elem);
+                output << COLOR_WARNING << "array length was not an exact multiple of " << num_required_rows << " (was " << array_size << ") for " << elem.link;
+                output << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << COLOR_RESET;
             }
 
             int last_idx = -1;
@@ -1250,36 +1270,33 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                 if (item != nullptr) {
                     int idx = i; // TSV index
 
-                    // Check if object number is out-of-range as per trailer /Size
-                    // Allow for multiple indirections and thus negative object numbers
+                    // Check if object number is out-of-range as per trailer /Size.
+                    // Allow for multiple indirections and thus negative object numbers.
                     if (item->get_object_number() >= pdfc->get_trailer_size()) {
                         show_context(elem);
                         output << COLOR_ERROR << "object number " << item->get_object_number() << " of array element " << i << " is illegal. trailer Size is " << pdfc->get_trailer_size() << COLOR_RESET;
                     }
 
-                    // Adjust for array repeats when only SOME rows are required (if last_idx was end of TSV array, then cycle back to start of TSV)
-                    if ((array_repeat_multiple > 0) && (first_optional_idx != -1) && (last_idx >= ((int)tsv.size() - 1)))
-                        idx = 0;
-
-                    // Adjust for array repeats when all elements are required (so is always an exact multiple)
-                    if ((array_repeat_multiple > 0) && (first_optional_idx == -1))
-                        idx = idx % array_repeat_multiple;
+                    // Adjust for array repeats when only SOME rows are required.
+                    // If last_idx was at the end of the TSV, then cycle back to first row that repeats in the TSV
+                    if ((num_array_rows_repeats > 0) && (first_optional_idx != -1) && (last_idx >= ((int)tsv.size() - 1)))
+                        idx = first_row_to_repeat_idx;
                     
-                    // Adjust for pure wildcards
-                    if ((first_pure_wildcard != -1) && (idx > first_pure_wildcard))
-                        idx = first_pure_wildcard;
+                    // Adjust for pure wildcards (only ever one row, which is the last in the TSV)
+                    if ((pure_wildcard_idx != -1) && (idx > pure_wildcard_idx))
+                        idx = pure_wildcard_idx;
 
                     assert(idx >= 0);
                     last_idx = idx;
 
                     // For array repeats when only SOME rows are required (i.e. first_optional_idx != -1), need to decide if PDF object 'item' 
-                    // best matches the optional array element or if should cycle back around to match row 0 in TSV. Decide based
-                    // on precise PDF object of 'item'.
+                    // best matches the optional array element or if should cycle back around to match the first repeating row in the TSV. 
+                    // Decide based on precise PDF object of 'item'.
                     if ((first_optional_idx != -1) && (idx >= first_optional_idx)) {
                         auto itm_type = item->get_object_type();
                         if ((tsv[tsv.size() - 1][TSV_TYPE].find(ArlingtonPDFShim::PDFObjectType_strings[(int)itm_type]) == std::string::npos) &&
                             (tsv[first_optional_idx][TSV_TYPE].find(ArlingtonPDFShim::PDFObjectType_strings[(int)itm_type]) != std::string::npos))
-                            idx = 0;
+                            idx = first_row_to_repeat_idx;
                     }
 
                     if (idx < (int)tsv.size()) {
@@ -1326,8 +1343,8 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                         }
                     }
                     else {
-                        show_context(elem);
-                        output << COLOR_INFO << "array was longer than needed in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << " for " << elem.link << "/" << i << COLOR_RESET;
+                        // show_context(elem);
+                        // output << COLOR_INFO << "array was longer than needed in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << " for " << elem.link << "/" << i << COLOR_RESET;
                     }
                 }
                 if (!item_kept)
