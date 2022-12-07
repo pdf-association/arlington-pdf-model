@@ -756,13 +756,8 @@ bool PredicateProcessor::IsValidValue(ArlPDFObject* object, const int key_idx, c
             break;
 
         case PDFObjectType::ArlPDFObjTypeNumber:
-            if (((ArlPDFNumber*)object)->is_integer_value()) {
-                // Integers can be directly matched numerically
-                int num_value = ((ArlPDFNumber*)object)->get_integer_value();
-                auto it = std::find(val_list.begin(), val_list.end(), std::to_string(num_value));
-                retval = (it != val_list.end());
-            }
-            else {
+            {
+                // PDF integers can be used in place of real numbers...
                 // Real number need a tolerance for matching
                 double num_value = ((ArlPDFNumber*)object)->get_value();
                 for (auto& it : val_list) {
