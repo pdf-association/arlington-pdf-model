@@ -54,7 +54,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 *  A key or array element is so-called "complex" if it can be multiple values. This is represented by `[];[];[]`-type Expressions.
 *  Something is so called a "wildcard" if the "Key" field contains an ASTERISK.
-*  An array is so-called a "repeating array" if it requires N x a set of elements. This is represented by DIGIT+ASTERISK in the "Key" field.
+*  An array is so-called a "repeating array" if it requires _N_ x a set of elements. This is represented by DIGIT+ASTERISK in the "Key" field.
     - Repeating array elements with DIGIT+ASTERISK must be the _last_ rows in a TSV
     - e.g. `0*` `1*` `2*` would be an array of 3 * _N_ triplets of elements
     - e.g. `0` `1*` `2*` would be an array of 2 * _N_ + 1 elements, where the first element has a fixed definition, followed by repeating pairs of elements
@@ -72,10 +72,8 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   If expressing a PDF array, then "Key" name is really an integer array index.
     - Zero-based increasing (always by 1) integers always starting at ZERO (0), with an optional ASTERISK appended after the digit (indicating repeat)
     - Or just an ASTERISK `*` meaning that any number of array elements may exist
-*   If expressing a PDF array with `digit+ASTERISK` and then the last set of rows must all be `digit+ASTERISK` (indicating a repeating group of _N_ starting at array element 0 (numbered 0 to _N_-1) array elements).
-*   If expressing a PDF array with `integer+ASTERISK` (and all rows are the same) then the "Required" column should be TRUE if all _N_ entries must always be repeated as a full set (e.g. in pairs or quads).
-*   In the future (and will require code changes!):
-    *   "Key" names with `#`-escapes
+*   If expressing a PDF array a repeat set of array elements then use `digit+ASTERISK` where the last set of rows must all be `digit+ASTERISK` (indicating a repeating group of _N_ elements starting at array element _M_ (so array starts with a fixed set (non-repeating) array elements 0 to _M_-1, followed by the repeating set of element _M_ to (_M_ + _N_-1)) array elements).
+*   If expressing a PDF array with `digit+ASTERISK`  then the "Required" column should be TRUE if all _N_ entries must always be repeated as a full set (e.g. in pairs or quads).
 *   **Python pretty-print/JSON**
     *   String (as JSON dictionary key)
 *   **Linux CLI tests:**
