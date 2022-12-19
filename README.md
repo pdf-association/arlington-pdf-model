@@ -175,13 +175,17 @@ A single key in a dictionary can often be of different types. A common example i
 These Linux commands lists all combinations of the Arlington types used in PDF:
 
 ```bash
-cut -f 2 * | sort | uniq
-cut -f 2 * | sed -e 's/;/\n/g' | sort | uniq
+cut -f 2 * | sort -u
+cut -f 2 * | sed -e 's/;/\n/g' | sed -e 's/fn:[a-zA-Z]+(.\..,\([a-z\-]+\))//g' | sort -u
 ```
 
 ### SinceVersion
 
-Field 3 defines the PDF version when the relevant key or array element was introduced, as described in ISO 32000-2:2020. All TSV rows must have a valid (non-empty) "SinceVersion" entry. Valid values are PDF versions: `1.0`, `1.1`, ..., `1.7`, or `2.0`.
+Field 3 defines the PDF version when the relevant key or array element was introduced, as described in ISO 32000-2:2020. All TSV rows must have a valid (non-empty) "SinceVersion" entry. Valid values are PDF versions: `1.0`, `1.1`, ..., `1.7`, or `2.0`, or a `fn:Extension` or `fn:Eval` predicate.
+
+```bash
+cut -f 3 * | sort -u
+```
 
 ### DeprecatedIn
 
@@ -210,7 +214,7 @@ integer;string | ... | \[1,3,99];\[(Hello),(World)] | ...
 
 </div>
 
-Often times it is necessary to use a predicate (`fn:`) for situations when values are valid.
+Often times it is necessary to use a predicate (`fn:Xxxx`) for situations when values are valid.
 
 
 ### SpecialCase
@@ -310,7 +314,7 @@ NOTE: some functionality of `gcxml` may no longer work as the TSV model has been
 The latest Arlington PDF Models for each PDF version can be visualized in 3D or using VR goggles at [https://safedocs.pdfa.org](https://safedocs.pdfa.org).
 
 
-## Linux commands
+## Linux CLI commands
 
 Basic Linux commands can be used on an Arlington TSV data set (`cut`, `grep`, `sed`, etc.), however field (column) numbering needs to be remembered and screen display can be messed up unless you have a wide monitor and small fonts. Alternative more specialized utilities such as the [EBay TSV-Utilities](https://github.com/eBay/tsv-utils) or [GNU datamash](https://www.gnu.org/software/datamash/) can also be used.
 
@@ -325,62 +329,64 @@ tabs 1,20,37,50,64,73,91,103,118,140,158,175,190,210,230
 cd ./tsv/latest
 
 # Confirm consistent field headers across all TSV files
-head -qn1 * | sort | uniq | sed -e 's/\t/\\t/g'
+head -qn1 * | sort -u | sed -e 's/\t/\\t/g'
 # Correct response: Key\tType\tSinceVersion\tDeprecatedIn\tRequired\tIndirectReference\tInheritable\tDefaultValue\tPossibleValues\tSpecialCase\tLink\tNote
 
+# Unique set of key names (case-sensitive strings), array indices (0-based integers) or '*' for dictionary or array maps
+cut -f 1 * | sort -u
+grep -Pho "^[^\t]+" * | sort -u
+# Those PDF objects that have a defined /Type key
+grep --files-with-match "^Type" *
+
 # Confirm the Type field
-cut -f 2 * | grep -v "fn:" | sort | uniq
+cut -f 2 * | grep -v "fn:" | sort -u
 # Correct response: each line only has Types listed above, separated by semi-colons, sorted alphabetically.
-cut -f 2 * | grep -v "fn:" | sed -e 's/;/\n/g' | sort | uniq
-# Correct response: Type, array, boolean, date, dictionary, integer, name, name-tree, nll, number,
+cut -f 2 * | grep -v "fn:" | sed -e 's/;/\n/g' | sort -u
+# Correct response: Type, array, boolean, date, dictionary, integer, matrix, name, name-tree, nll, number,
 #                   number-tree, rectangle, stream, string, string-ascii, string-byte, string-text
-#                   and version-based predicates (fn:SinceVersion, fn:Deprecated, etc).
 
 # Confirm all "SinceVersion" values
-cut -f 3 * | sort | uniq
-# Correct response: pdf-version values 1.0, ..., 2.0, fn:SinceVersion, etc. predicates No blank lines.
+cut -f 3 * | sort -u
+# Correct response: pdf-version values 1.0, ..., 2.0, fn:Extension, fn"Eval and SinceVersion (column title). No blank lines.
 
 # Confirm all "DeprecatedIn" values
-cut -f 4 * | sort | uniq
-# Correct response: pdf-version values 1.0, ..., 2.0, fn:DeprecatedIn. Blank lines OK.
+cut -f 4 * | sort -u
+# Correct response: pdf-version values 1.0, ..., 2.0, DeprecatedIn. Blank lines OK.
 
 # Confirm all "Required" values (TRUE, FALSE or fn:IsRequired predicate)
-cut -f 5 * | sort | uniq
+cut -f 5 * | sort -u
 # Correct response: TRUE, FALSE, Required, fn:IsRequired(...). No blank lines.
 
 # Confirm all "IndirectReference" values (TRUE, FALSE or fn:MustBeDirect() predicate)
-cut -f 6 * | sort | uniq
-# Correct response: TRUE, FALSE, IndirectReference or a fn:MustBeDirect() predicate. No blank lines.
+cut -f 6 * | sed -e 's/;/\n/g' | sort -u
+# Correct response: TRUE, FALSE, [TRUE], [FALSE], IndirectReference or a fn:MustBeDirect(...) predicate. No blank lines.
 
 # Field 7 is "Inheritable" (TRUE or FALSE)
-cut -f 7 * | sort | uniq
+cut -f 7 * | sort -u
 # Correct response: TRUE, FALSE, Inheritable.
 
 # Field 8 is "DefaultValue"
-cut -f 8 * | sort | uniq
+cut -f 8 * | sort -u
 
 # Field 9 is "PossibleValues"
-cut -f 9 * | sort | uniq
+cut -f 9 * | sort -u
 # Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK.
 
 # Field 10: List all "SpecialCases"
-cut -f 10 * | sort | uniq
+cut -f 10 * | sort -u
 
 # Field 11: Sets of "Link" to other TSV objects
-cut -f 11 * | sort | uniq
+cut -f 11 * | sort -u
 # Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK.
 
 # All "Notes" from field 12 (free form text)
-cut -f 12 * | sort | uniq
+cut -f 12 * | sort -u
 
 # Set of all unique custom predicates (starting "fn:")
-grep -ho "fn:[a-zA-Z]*" * | sort | uniq
+grep -Pho "fn:[^,\(]+\(" * | sort -u
 
 # Custom predicates with context
-grep -Pho "fn:[^\t]*" * | sort | uniq
-
-# Unique set of key names (case-sensitive strings), array indices (0-based integers) or '*' for dictionary or array maps
-cut -f 1 * | sort | uniq
+grep -Pho "fn:[^\t]*" * | sort -u
 ```
 
 Example of a GNU `datamash check` command that can confirm that all TSV files in an Arlington data set have the correct number of fields:
@@ -393,20 +399,20 @@ If the monolithic single TSV file `pandas.tsv` created by [scripts/arlington-to-
 
 ```bash
 # Count the number of unique PDF objects and keys in an Arlington PDF Model
-datamash --headers --sort countunique Object < pandas.tsv
-datamash --headers --sort countunique Key < pandas.tsv
+datamash --headers --sort countunique Object < ./scripts/pandas.tsv
+datamash --headers --sort countunique Key < ./scripts/pandas.tsv
 
 # Count number of keys / array elements in each object
-datamash --headers --sort groupby 1 count 1 < pandas.tsv
+datamash --headers --sort groupby 1 count 1 < ./scripts/pandas.tsv
 
 # Count the number of new keys / array elements introduced in each PDF version
-datamash --headers --sort groupBy SinceVersion count SinceVersion < pandas.tsv
+datamash --headers --sort groupBy SinceVersion count SinceVersion < ./scripts/pandas.tsv
 
 # Count the number of keys / array elements that got deprecated in each PDF version
-datamash --headers --sort groupBy DeprecatedIn count DeprecatedIn < pandas.tsv
+datamash --headers --sort groupBy DeprecatedIn count DeprecatedIn < ./scripts/pandas.tsv
 
 # For each PDF object, when was it first introduced and when was something last added to it
-datamash -H --round=1 --group Object min SinceVersion max SinceVersion < pandas.tsv
+datamash -H --round=1 --group Object min SinceVersion max SinceVersion < ./scripts/pandas.tsv
 ```
 
 Examples of the more powerful [EBay TSV-Utilities](https://github.com/eBay/tsv-utils) commands. Note that Linux shell requires the use of backslash to stop shell expansion. These commands can use TSV field names:
@@ -427,6 +433,10 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 * "[_Demystifying PDF through a machine-readable definition_](https://langsec.org/spw21/papers.html#pdfReadable)"; Peter Wyatt, LangSec Workshop at IEEE Security & Privacy, May 27th and 28th, 2021 \[[Paper](https://github.com/gangtan/LangSec-papers-and-slides/raw/main/langsec21/papers/Wyatt_LangSec21.pdf)] \[[Talk Video](https://www.youtube.com/watch?v=c1Lxf-JMcH4)]
 
 * "[_The Arlington PDF Model_](PDF-Days-2021-Arlington-PDF-model.pdf)" \[presentation], Peter Wyatt, PDF Asssociation's "PDF Days 2021" online event, Tuesday 28 Sept 2021.
+
+* "[_Strategies for Testing PDF Files_](https://www.pdfa.org/presentation/strategies-for-testing-pdf-files/)", PDF Days Europe 2022, Michael Demey, iText Group NV.
+
+* "[_BFO PDF Library 2.27.2 - introducing the Arlington Model_](https://bfo.com/blog/2022/12/05/bfo_pdf_library_2_27_2_introducing_the_arlington_model/)", blog post, 5 Dec 2022Mike Bremford, BFO.
 
 ---
 
