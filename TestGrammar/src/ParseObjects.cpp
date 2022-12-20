@@ -1197,14 +1197,14 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                 }
             }
 
-            // "idx" = a valid array index 0 ... N-1
-            // "num" = size of something
-            int first_optional_idx = -1;
-            int pure_wildcard_idx = -1;
-            int first_row_to_repeat_idx = -1;
-            int num_array_rows_fixed = 0;
-            int num_array_rows_repeats = 0;
-            int num_required_rows = 0;
+            // "_idx" = a valid array index 0 ... N-1 or -1 (invalid)
+            // "num_" = size of something (0 ... N)
+            int first_optional_idx = -1;        // first optional row index in TSV
+            int pure_wildcard_idx = -1;         // row index of pure wildcard in TSV (always the last row)
+            int first_row_to_repeat_idx = -1;   // first row index of repeating set
+            int num_array_rows_fixed = 0;       // non-repeating rows (always BEFORE any repeating set)
+            int num_array_rows_repeats = 0;     // number of rows in repeating set
+            int num_required_rows = 0;          // required across all rows
 
             // Determine first row index that is optional (Required field != "TRUE")
             for (int i = 0; i < (int)tsv.size(); i++) {
@@ -1214,7 +1214,13 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                 }
             } // for
 
-            num_required_rows = (int)tsv.size() - (first_optional_idx + 1);
+            // Number of required elements (TSV rows) in PDF array
+            if (first_optional_idx == -1)
+                num_required_rows = (int)tsv.size();    // all rows required
+            else if (first_optional_idx == 0)
+                num_required_rows = 0;                  // no rows required
+            else
+                num_required_rows = (int)tsv.size() - first_optional_idx;   // some rows required, some not
 
             // Determine (pure) wildcard status - array repeat sets handled separately below.
             // Pure wildcards are always the LAST row in the TSV
@@ -1224,7 +1230,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
             int array_size = arrayObj->get_num_elements();
 
             // Are all required rows present?
-            if ((first_optional_idx > 0) && (array_size < first_optional_idx)) {
+            if ((first_optional_idx >= 0) && (array_size < first_optional_idx)) {
                 show_context(elem);
                 output << COLOR_ERROR << "minimum required array length incorrect for " << elem.link;
                 output << ": wanted " << first_optional_idx << ", got " << array_size;
@@ -1233,28 +1239,32 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                 output << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << COLOR_RESET;
             }
 
-            // For array repeat sets, rows need to be <single-digit>+'*' 
+            // For array repeat sets, rows in repeating set need to be DIGIT + '*' 
+            // DIGIT is not checked here. Assumed to be valid.
             for (int i = 0; i < (int)tsv.size(); i++) {
                 if (tsv[i][TSV_KEYNAME].find('*') == std::string::npos) {
                     assert(num_array_rows_repeats == 0);
                     assert(first_row_to_repeat_idx < 0);
                     num_array_rows_fixed++;
                 }
-                else { // pure wildcard or <integer>+'*'
+                else { // pure wildcard ('*') or array repeat (DIGIT + '*')
                     num_array_rows_repeats++;
                     if (first_row_to_repeat_idx < 0)
                         first_row_to_repeat_idx = i;
                 }
             } // for
-            assert(num_array_rows_fixed + num_array_rows_repeats == tsv.size());
 
-            // Array must always contain sufficient required rows  
+            // Sanity check local variables 
+            assert(num_array_rows_fixed + num_array_rows_repeats == (int)tsv.size());
+            assert((first_optional_idx == -1) || (first_row_to_repeat_idx == -1) || (first_optional_idx >= first_row_to_repeat_idx));
+
+            // PDF array object must always contain sufficient required rows  
             if (array_size < num_required_rows) {
                 show_context(elem);
                 output << COLOR_ERROR << "array length was too short (needed " << num_required_rows << ", was " << array_size << ") for " << elem.link << COLOR_RESET;
             }
 
-            // If all rows required (both fixed and repeating) AND some repeating rows, then array length less the number of fixed rows
+            // If all rows required (both fixed + repeating) AND some repeating rows, then array length less the number of fixed rows
             // must be an exact multiple of the repeat
             if ((num_required_rows == (int)tsv.size()) && (num_array_rows_repeats > 0) && 
                 ((((array_size - num_array_rows_fixed) % num_array_rows_repeats)) != 0) && (first_optional_idx == -1)) {
@@ -1263,12 +1273,12 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                 output << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << COLOR_RESET;
             }
 
-            int last_idx = -1;
+            int last_idx = -1; // Keep track of previous TSV row (so can loop for repeat sets)
             for (int i = 0; i < array_size; i++) {
                 ArlPDFObject* item = arrayObj->get_value(i);
                 bool item_kept = false;
                 if (item != nullptr) {
-                    int idx = i; // TSV index
+                    int idx = -1; // initialize as invalid TSV index
 
                     // Check if object number is out-of-range as per trailer /Size.
                     // Allow for multiple indirections and thus negative object numbers.
@@ -1277,27 +1287,43 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                         output << COLOR_ERROR << "object number " << item->get_object_number() << " of array element " << i << " is illegal. trailer Size is " << pdfc->get_trailer_size() << COLOR_RESET;
                     }
 
-                    // Adjust for array repeats when only SOME rows are required.
-                    // If last_idx was at the end of the TSV, then cycle back to first row that repeats in the TSV
-                    if ((num_array_rows_repeats > 0) && (first_optional_idx != -1) && (last_idx >= ((int)tsv.size() - 1)))
-                        idx = first_row_to_repeat_idx;
-                    
-                    // Adjust for pure wildcards (only ever one row, which is the last in the TSV)
-                    if ((pure_wildcard_idx != -1) && (idx > pure_wildcard_idx))
+                    // Arlington data model array repeat sets and required/optional logic
+                    if ((pure_wildcard_idx != -1) && (i >= pure_wildcard_idx)) {
+                        // Adjust for pure wildcards (only ever one row, which is always the last in the TSV)
                         idx = pure_wildcard_idx;
-
-                    assert(idx >= 0);
-                    last_idx = idx;
-
-                    // For array repeats when only SOME rows are required (i.e. first_optional_idx != -1), need to decide if PDF object 'item' 
-                    // best matches the optional array element or if should cycle back around to match the first repeating row in the TSV. 
-                    // Decide based on precise PDF object of 'item'.
-                    if ((first_optional_idx != -1) && (idx >= first_optional_idx)) {
-                        auto itm_type = item->get_object_type();
-                        if ((tsv[tsv.size() - 1][TSV_TYPE].find(ArlingtonPDFShim::PDFObjectType_strings[(int)itm_type]) == std::string::npos) &&
-                            (tsv[first_optional_idx][TSV_TYPE].find(ArlingtonPDFShim::PDFObjectType_strings[(int)itm_type]) != std::string::npos))
+                    }
+                    else if ((num_array_rows_repeats > 0) && (first_optional_idx == -1) && ((last_idx + 1) >= first_row_to_repeat_idx)) {
+                        // Adjust for array repeats when ALL rows are required.
+                        // If last_idx is within the repeat set then increment, otherwise cycle back to first row that repeats in the TSV
+                        if ((last_idx + 1) < (int)tsv.size())
+                            idx = last_idx + 1;
+                        else
                             idx = first_row_to_repeat_idx;
                     }
+                    else  if (((num_array_rows_repeats > 0) && (first_optional_idx != -1) && ((last_idx + 1) >= first_optional_idx))) {
+                        // For array repeat sets when only SOME rows are required (i.e. first_optional_idx != -1), need to decide if PDF object 'item' 
+                        // best matches the optional array element at/near the end of the repeat set, or if should cycle back around to match the first 
+                        // repeating set row in the TSV. 
+                        // Decide based on precise PDF object type of 'item'.
+                        auto itm_type = item->get_object_type();
+                        if (tsv[first_optional_idx][TSV_TYPE].find(ArlingtonPDFShim::PDFObjectType_strings[(int)itm_type]) != std::string::npos) {
+                            // types matched for next optional index so keep going in this repeat set
+                            idx = last_idx + 1;
+                        }
+                        else {
+                            // types did NOT match optional index, so start at beginning of repeat set again
+                            idx = first_row_to_repeat_idx;
+                        }
+                    }
+
+                    if (idx < 0) {
+                        // None of the above special case processing kicked in...
+                        idx = last_idx + 1;
+                    }
+
+                    // Check valid TSV range
+                    assert((idx >= 0) && (idx < (int)tsv.size()));
+                    last_idx = idx;
 
                     if (idx < (int)tsv.size()) {
                         check_everything(arrayObj, item, idx, tsv, elem.link, elem.context, output);
