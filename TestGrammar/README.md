@@ -246,9 +246,13 @@ Info: Latest Arlington object was version PDF x.y (file/key) with extensions A, 
 
 The last line of every output should always be `END` on a line by itself. If this is missing, then it means that the TestGrammar application has not cleanly completed processing (_crash? unhandled exception? assertion failure? stack overflow? timeout?_).
 
-## Using a helpful editor
+## Using helpful editors
 
-The [free Atom editor](https://atom.io/) has a useful plugin called [language-ansi-styles](https://atom.io/packages/language-ansi-styles) that will support the ANSI terminal codes that are used for the colorization of messages. When `--no-color` is **not** specified, the output files from TestGrammar will use a file extension of `.ansi`. When `--no-color` **is** specified, the output files from TestGrammar have a normal `.txt` extension. Associating `.ansi` files with Atom then provides a good experience. Ubunutu and Windows CMD shells both support colorized output.
+When `--no-color` is **not** specified, the output files from TestGrammar will use a file extension of `.ansi`. When `--no-color` **is** specified, the output files from TestGrammar have a normal `.txt` extension. Associating `.ansi` files with Atom then provides a good experience. Linux, Mac and Windows CLI prompts all support colorized output.
+
+Microsoft's free [Visual Studio Code](https://code.visualstudio.com/) has several extensions which support ANSI color codes such as [ANSI Colors](https://marketplace.visualstudio.com/items?itemName=iliazeus.vscode-ansi), as well as extensions to support automatic column widths in TSV ([VSCode TSV](https://marketplace.visualstudio.com/items?itemName=ctenbrinke.vscode-tsv)) and colorized columns in TSV files ([Rainbow CSV](https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv)). 
+
+The free [Atom editor](https://atom.io/) has a useful plugin called [language-ansi-styles](https://atom.io/packages/language-ansi-styles) that will support the ANSI terminal codes that are used for the colorization of messages. 
 
 ## Useful post-processing
 

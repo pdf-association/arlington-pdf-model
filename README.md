@@ -313,6 +313,11 @@ NOTE: some functionality of `gcxml` may no longer work as the TSV model has been
 
 The latest Arlington PDF Models for each PDF version can be visualized in 3D or using VR goggles at [https://safedocs.pdfa.org](https://safedocs.pdfa.org).
 
+## Helpful editors
+
+When `--no-color` is **not** specified, the output files from the TestGrammar proof-of-concept application will use a file extension of `.ansi`. When `--no-color` **is** specified, the output files from TestGrammar have a normal `.txt` extension. Associating `.ansi` files with Atom then provides a good experience. Linux, Mac and Windows CLI prompts all support colorized output.
+
+Microsoft's free [Visual Studio Code](https://code.visualstudio.com/) has several extensions which support ANSI color codes such as [ANSI Colors](https://marketplace.visualstudio.com/items?itemName=iliazeus.vscode-ansi), as well as extensions to support automatic column widths in TSV ([VSCode TSV](https://marketplace.visualstudio.com/items?itemName=ctenbrinke.vscode-tsv)) and colorized columns in TSV files ([Rainbow CSV](https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv)). 
 
 ## Linux CLI commands
 
