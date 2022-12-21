@@ -130,11 +130,20 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
 #endif
         const ArlTSVmatrix& data_list = get_grammar(links[i]);
 
+
         int key_idx = -1;
         auto link_score = 0;
         if ((obj_type == PDFObjectType::ArlPDFObjTypeDictionary) ||
             (obj_type == PDFObjectType::ArlPDFObjTypeStream) ||
             (obj_type == PDFObjectType::ArlPDFObjTypeArray)) {
+
+            if (obj_type == PDFObjectType::ArlPDFObjTypeArray) {
+                // For arrays, use the number of array elements to assist in a better match (but not for wildcards or repeating sets)
+                int num_array_elements = ((ArlPDFArray*)obj)->get_num_elements();
+                if ((num_array_elements == (int)data_list.size()) && (data_list[data_list.size() - 1][TSV_KEYNAME].find('*') != std::string::npos))
+                    link_score += -20;
+            }
+
             int num_keys_matched = 0;
             bool a_required_key_was_bad = false;
             PredicateProcessor pp(pdfc, data_list);
@@ -176,13 +185,13 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
                 // have an inner object match key/array index, check "Possible Values" and compute score
                 if (inner_object != nullptr) {
                     num_keys_matched++;
-                    std::wstring   str_value;  // inner_object value from PDF as string (not used here)
+                    std::wstring   str_value;  // inner_object value from PDF as string
 
-                    // Get required-ness of key
+                    // Get required-ness of key/array element
                     ArlVersion inner_versioner(inner_object, vec, pdf_version, pdfc->get_extensions());
                     reqd_key = pp.IsRequired(obj, inner_object, key_idx, inner_versioner.get_arlington_type_index());
 
-                    // Get deprecation of key
+                    // Get deprecation of key/array element
                     deprecated_in_arl = pp.IsDeprecated(key_idx);
 
                     if (inner_versioner.object_matched_arlington_type()) {
@@ -191,43 +200,51 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
                         if (possible_values_ok) {
 #if defined(SCORING_DEBUG)
                             std::cout << (reqd_key ? " Required" : " Optional");
-                            std::cout << " key " << vec[TSV_KEYNAME] << " value matched";
+                            std::cout << " key/array element " << vec[TSV_KEYNAME] << " value matched";
                             if (str_value.size() > 0)
                                 std::cout << " '" << ToUtf8(str_value) << "'";
                             std::cout << ".";
 #endif
                             if ((vec[TSV_KEYNAME] == "Type") || (vec[TSV_KEYNAME] == "Subtype") || (vec[TSV_KEYNAME] == "S") || (vec[TSV_KEYNAME] == "Parent") || (vec[TSV_KEYNAME] == "TransformMethod"))
-                                link_score += -80;     // A disambiguating key exists with a correct value
-                            else if ((obj_type == PDFObjectType::ArlPDFObjTypeArray) && (vec[TSV_KEYNAME] == "0"))
-                                link_score += (reqd_key ? -60 : -20); // Treat first element in an array that is not a wildcard as more important (e.g. disambiguate color spaces)
+                                link_score += -80;     // A highly disambiguating key exists with a correct value
+                            else if (obj_type == PDFObjectType::ArlPDFObjTypeArray) {
+                                if (vec[TSV_KEYNAME] == "0")
+                                    link_score += (reqd_key ? -60 : -20); // Treat 1st array element that is not a wildcard as more important (e.g. disambiguate color spaces)
+                                else
+                                    link_score += (reqd_key ? -10 : -4); // some other array element with a correct value
+                            }
                             else
                                 link_score += (reqd_key ? -10 : -4); // some other key with a correct value
                         }
                         else {
 #if defined(SCORING_DEBUG)
                             std::cout << (reqd_key ? " Required" : " Optional");
-                            std::cout << " key " << vec[TSV_KEYNAME] << " had wrong value";
+                            std::cout << " key/array element " << vec[TSV_KEYNAME] << " had wrong value";
                             if (str_value.size() > 0)
                                 std::cout << " '" << ToUtf8(str_value) << "'";
                             std::cout << ".";
 #endif
                             if ((vec[TSV_KEYNAME] == "Type") || (vec[TSV_KEYNAME] == "Subtype") || (vec[TSV_KEYNAME] == "S"))
                                 link_score += +10;  // Type or Subtype key BUT with explicitly wrong value
-                            else if ((obj_type == PDFObjectType::ArlPDFObjTypeArray) && (vec[TSV_KEYNAME] == "0"))
-                                link_score += +7;   // Treat first element in an array that is not a wildcard as more important (e.g. disambiguate color spaces)
+                            else if (obj_type == PDFObjectType::ArlPDFObjTypeArray) {
+                                if (vec[TSV_KEYNAME] == "0")
+                                    link_score += +7;   // Treat 1st array element that is not a wildcard as more important (e.g. disambiguate color spaces)
+                                else
+                                    link_score += +5; // some other array element but NOT a correct value
+                            }
                             else
                                 link_score += +5; // some other key but NOT a correct value
                             if (reqd_key)
                                 a_required_key_was_bad = true;
                         }
 
-                        if (deprecated_in_arl) // but key is deprecated...
+                        if (deprecated_in_arl) // but if key/array element is deprecated...
                             link_score += +8;
                     }
                     else {
 #if defined(SCORING_DEBUG)
                         std::cout << (reqd_key ? " Required" : " Optional");
-                        std::cout << " key " << vec[TSV_KEYNAME] << " was wrong type.";
+                        std::cout << " key/array element " << vec[TSV_KEYNAME] << " was wrong type.";
 #endif
                         if ((vec[TSV_KEYNAME] == "Type") || (vec[TSV_KEYNAME] == "Subtype") || (vec[TSV_KEYNAME] == "S"))
                             link_score += +20; // disambiguating key exists with WRONG TYPE
@@ -243,7 +260,7 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
                 else {
                     if (reqd_key) {
 #if defined(SCORING_DEBUG)
-                        std::cout << " Required key " << vec[TSV_KEYNAME] << " missing.";
+                        std::cout << " Required key/array element " << vec[TSV_KEYNAME] << " missing.";
 #endif
                         link_score += +12; // required key is missing!
                         a_required_key_was_bad = true;
@@ -255,14 +272,14 @@ std::string CParsePDF::recommended_link_for_object(ArlPDFObject* obj, const std:
             assert(num_keys_matched <= (int)data_list.size());
             if (!a_required_key_was_bad) {
 #if defined(SCORING_DEBUG)
-                std::cout << " All required keys good!";
+                std::cout << " All required keys/array elements good!";
 #endif
                 link_score += -8 * num_keys_matched;
             }
             link_score += (int)(-10.0 * num_keys_matched / data_list.size());
 
 #if defined(SCORING_DEBUG)
-           std::cout << " Number of keys matched = " << num_keys_matched << " of " << data_list.size() << ". Score = " << link_score << std::endl;
+           std::cout << " Number of keys/array elements matched = " << num_keys_matched << " of " << data_list.size() << ". Score = " << link_score << std::endl;
 #endif
 
             // remembering the lowest score
@@ -1322,7 +1339,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                     }
 
                     // Check valid TSV range
-                    assert((idx >= 0) && (idx < (int)tsv.size()));
+                    assert(idx >= 0);
                     last_idx = idx;
 
                     if (idx < (int)tsv.size()) {
@@ -1369,8 +1386,9 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                         }
                     }
                     else {
-                        // show_context(elem);
-                        // output << COLOR_INFO << "array was longer than needed in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << " for " << elem.link << "/" << i << COLOR_RESET;
+                        show_context(elem);
+                        output << COLOR_INFO << "array was longer than needed (wanted " << (int)tsv.size() << ", got " << array_size;
+                        output << ") in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << " for " << elem.link << "/" << i+1 << COLOR_RESET;
                     }
                 }
                 if (!item_kept)
