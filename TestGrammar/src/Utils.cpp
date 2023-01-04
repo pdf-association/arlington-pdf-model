@@ -595,3 +595,32 @@ int string_to_pdf_version(const std::string& vers) {
     return pdf_ver;
 }
 
+
+/// @brief all types of possible whitespace to remove
+const static std::string toRemove = " \n\r\t\f\v"; 
+
+
+/// @brief Generic whitespace trimming of left side of strings (NOT for use with TSV data!)
+/// @param[in] s string
+/// @returns trimmed string
+std::string leftTrim(const std::string& s) {
+    auto start = s.find_first_not_of(toRemove);                     // finding the index just after white spaces
+    return (start == std::string::npos) ? "" : s.substr(start);     // removed leading white spaces
+}
+
+
+/// @brief Generic whitespace trimming of right side of strings (NOT for use with TSV data!)
+/// @param[in] s string
+/// @returns trimmed string
+std::string rightTrim(const std::string& s) {
+    auto end = s.find_last_not_of(toRemove);                        // finding the index just before white spaces
+    return (end == std::string::npos) ? "" : s.substr(0, end + 1);  // removed trailing white spaces
+}
+
+
+/// @brief Generic whitespace trimming of strings (NOT for use with TSV data!)
+/// @param[in] s string
+/// @returns trimmed string
+std::string trim(const std::string& s) {
+    return rightTrim(leftTrim(s));
+}

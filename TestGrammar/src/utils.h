@@ -118,4 +118,13 @@ int key_to_array_index(const std::string& key);
 /// @brief converts a PDF version string to the integer equivalent x 10
 int string_to_pdf_version(const std::string& vers);
 
+/// @brief Generic whitespace trimming of left side of strings (NOT for use with TSV data!)
+std::string leftTrim(const std::string& s);
+
+/// @brief Generic whitespace trimming of right side of strings (NOT for use with TSV data!)
+std::string rightTrim(const std::string & s);
+
+/// @brief Generic whitespace trimming of strings (NOT for use with TSV data!)
+std::string trim(const std::string & s);
+
 #endif // Utils_h
