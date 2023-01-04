@@ -94,17 +94,21 @@ bool process_single_pdf(
         if (pdfsdk.open_pdf(pdf_file_name, pwd)) {
             CParsePDF parser(tsv_folder, ofs, terse, debug_mode);
             CPDFFile  pdf(pdf_file_name, pdfsdk, forced_ver, extns);
-
+            std::string s;
             ArlPDFTrailer* t = pdfsdk.get_trailer();
             if (t != nullptr) {
                 if (t->is_xrefstm()) {
                     ofs << COLOR_INFO << "XRefStream detected." << COLOR_RESET;
-                    parser.add_root_parse_object(t, "XRefStream", "Trailer (as XRefStream)");
+                    s = "Trailer (as XRefStream)";
+                    parser.add_root_parse_object(t, "XRefStream", s);
                 }
                 else {
                     ofs << COLOR_INFO << "Traditional trailer dictionary detected." << COLOR_RESET;
-                    parser.add_root_parse_object(t, "FileTrailer", "Trailer");
+                    s = "Trailer";
+                    parser.add_root_parse_object(t, "FileTrailer", s);
                 }
+
+                parser.add_root_parse_object(pdfsdk.get_document_catalog(), "Catalog", s + "->Root (as Catalog)");
 
                 if (t->is_encrypted()) {
                     if (t->is_unsupported_encryption()) {
@@ -183,7 +187,7 @@ int main(int argc, char* argv[]) {
 
     sarge.setDescription("Arlington PDF Model C++ P.o.C. version " TestGrammar_VERSION
         "\nChoose one of: --pdf, --checkdva or --validate.");
-    sarge.setUsage("TestGrammar --tsvdir <dir> [--force <ver>|exact] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--extensions <extn1[,extn2]>] [--password <pwd>] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
+    sarge.setUsage("TestGrammar --tsvdir <dir> [--force <ver>|exact] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--extensions <extn1[,extn2]>] [--password <pwd>] [--exclude string | @textfile.txt] [--dryrun] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
     sarge.setArgument("h", "help", "This usage message.", false);
     sarge.setArgument("b", "brief", "terse output when checking PDFs. The full PDF DOM tree is NOT output.", false);
     sarge.setArgument("c", "checkdva", "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
@@ -198,6 +202,8 @@ int main(int argc, char* argv[]) {
     sarge.setArgument("v", "validate", "validate the Arlington PDF model.", false);
     sarge.setArgument("e", "extensions", "a comma-separated list of extensions, or '*' for all extensions.", true);
     sarge.setArgument("",  "password", "password. Only applicable to --pdf.", true);
+    sarge.setArgument("",  "exclude", "PDF exclusion string or filelist (# is a comment). Only applicable to --pdf.", true);
+    sarge.setArgument("",  "dryrun", "Dry run - don't do any actual processing.", false);
 
 #if defined(_WIN32) || defined(WIN32)
     if (!sarge.parseArguments(argc, mbcsargv)) {
@@ -225,6 +231,7 @@ int main(int argc, char* argv[]) {
             delete[] mbcsargv[i];
         delete[] mbcsargv;
 #endif
+        std::cout << COLOR_RESET;
         sarge.printHelp();
         std::cout << "\nBuilt using " << pdf_io.get_version_string() << std::endl;
         pdf_io.shutdown();
@@ -242,7 +249,11 @@ int main(int argc, char* argv[]) {
     bool            clobber = sarge.exists("clobber");
     bool            debug_mode = sarge.exists("debug");
     bool            terse = sarge.exists("brief");
-    std::vector<std::string> supported_extns;
+    std::vector<std::string> supported_extns; // --extensions
+    bool            exclude_as_string = false;
+    std::filesystem::path     exclusion_filename;
+    std::vector<std::string> exclusions; // --exclude
+    bool            dryrun = sarge.exists("dryrun");
 
     no_color = sarge.exists("no-color");
 
@@ -313,14 +324,54 @@ int main(int argc, char* argv[]) {
         pdf_password = ToWString(s);
     }
 
+    //Optional --exclude <string> | @filelist.txt
+    if (sarge.getFlag("exclude", s)) 
+        if (s.size() > 0)
+        {
+            if (s[0] == '@') {
+                // treat as a filename (remove leading '@')
+                exclusion_filename = s.substr(1, s.size() - 1);
+                exclude_as_string = false;
+
+                std::ifstream exclusion_file(exclusion_filename);
+                while (std::getline(exclusion_file, s)) {
+                    s = trim(s);
+                    if ((s.size() > 0) && (s[0] != '#'))
+                        exclusions.push_back(s);
+                }
+                exclusion_file.close();
+
+                if (exclusions.size() == 0)
+                    std::cerr << COLOR_ERROR << "--exclude '" << exclusion_filename << "' was invalid or empty!" << COLOR_RESET;
+            }
+            else {
+                // treat as a string
+                exclusions.push_back(s);
+                exclude_as_string = true;
+            }
+        }
+
+
     if (debug_mode) {
-        std::cout << "Arlington TSV folder: " << grammar_folder.lexically_normal() << std::endl;
-        std::cout << "Output file/folder:   " << save_path.lexically_normal() << std::endl;
-        std::cout << "PDF file/folder:      " << input_file.lexically_normal() << std::endl;
+        std::cout << COLOR_RESET_NO_EOL;
+        std::cout << "TestGrammar version:  " << TestGrammar_VERSION << std::endl;
+        std::cout << "PDF SDK:              " << pdf_io.get_version_string() << std::endl;
+        std::cout << "Arlington TSV folder: " << fs::absolute(grammar_folder.lexically_normal()) << std::endl;
+        std::cout << "Output file/folder:   " << fs::absolute(save_path.lexically_normal()) << std::endl;
+        std::cout << "PDF file/folder:      " << fs::absolute(input_file.lexically_normal()) << std::endl;
         std::cout << "Colorized output      " << (no_color ? "off" : "on") << std::endl;
         std::cout << "Clobber mode:         " << (clobber ? "on" : "off") << std::endl;
+        std::cout << "Dry run:              " << (dryrun ? "on" : "off") << std::endl;
         std::cout << "Brief mode:           " << (terse ? "on" : "off") << std::endl;
-        std::cout << "Password:             " << ToUtf8(pdf_password) << std::endl;
+        std::cout << "Password:             '" << ToUtf8(pdf_password) << "'" << std::endl;
+        if (exclusions.size() > 0) {
+            if (exclude_as_string)
+                std::cout << "Exclusion string:     '" << exclusions.at(0) << "'" << std::endl;
+            else
+                std::cout << "Exclusion filename:   " << fs::absolute(exclusion_filename.lexically_normal()) << " (" << exclusions.size() << " lines)" << std::endl;
+        }
+        else
+            std::cout << "Exclusions enabled:   <none>" << std::endl;
 
         if (supported_extns.size() > 0) {
             std::cout << supported_extns.size() << " Extensions enabled: ";
@@ -341,6 +392,8 @@ int main(int argc, char* argv[]) {
             (void)sarge.getFlag("checkdva", s);
             std::cout << "Adobe DVA FormalRep:  " << fs::absolute(s).lexically_normal() << std::endl;
         }
+
+        std::cout << std::endl;
     }
 
     // Validate the Arlington PDF grammar itself?
@@ -354,7 +407,8 @@ int main(int argc, char* argv[]) {
                 ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
             }
         }
-        ValidateGrammarFolder(grammar_folder, debug_mode, (save_path.empty() ? std::cout : ofs));
+        if (!dryrun)
+            ValidateGrammarFolder(grammar_folder, debug_mode, (save_path.empty() ? std::cout : ofs));
         ofs.close();
         pdf_io.shutdown();
         return 0;
@@ -375,7 +429,8 @@ int main(int argc, char* argv[]) {
             }
             if (!ofs.is_open())
                 std::cout << std::endl;
-            CheckDVA(pdf_io, input_file.lexically_normal(), grammar_folder, (save_path.empty() ? std::cout : ofs), terse);
+            if (!dryrun)
+                CheckDVA(pdf_io, input_file.lexically_normal(), grammar_folder, (save_path.empty() ? std::cout : ofs), terse);
             ofs.close();
             pdf_io.shutdown();
             return 0;
@@ -394,14 +449,14 @@ int main(int argc, char* argv[]) {
             return -1;
         }
 
-        // single PDF file or folder of files?
+        // single PDF file or recurse a folder of PDF files?
         if (is_folder(input_file)) {
             fs::path        rptfile;
             std::error_code ec;
 
             for (const auto& entry : fs::recursive_directory_iterator(input_file)) {
                 try {
-                    // To avoid file permission access errors, check filename extension first to skip over system files
+                    // To avoid some file permission access errors, check filename extension first to skip over system files
                     if (iequals(entry.path().extension().string(), ".pdf") && entry.is_regular_file()) {
                         rptfile = save_path / entry.path().stem();
                         if (no_color)
@@ -418,14 +473,46 @@ int main(int argc, char* argv[]) {
                                     rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
                             }
                         }
-                        std::cout << "Processing " << entry.path().lexically_normal() << " to " << rptfile.lexically_normal() << " ";
-                        ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
-                        if (!process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, ofs, terse, debug_mode, force_version, supported_extns, pdf_password)) {
-                            std::cout << COLOR_ERROR_ANSI << "- FATAL ERROR!" << COLOR_RESET_ANSI;
-                            retval = -1;
+
+                        bool exclude_for_processing = false;
+                        for (auto& excl : exclusions) {
+                            s = entry.path().lexically_normal().string();
+                            if (s.find(excl) != std::string::npos) {
+                                exclude_for_processing = true;
+                            }
+#if defined(_WIN32) || defined(WIN32)
+                            // Microsoft Windows path separator is a BACKSLASH which is very annoying in C++!
+                            s = std::regex_replace(s, std::regex("\\\\"), "/");
+                            if (s.find(excl) != std::string::npos) {
+                                exclude_for_processing = true;
+                            }
+#endif // _WIN32/WIN32
+                            else {
+                                try {
+                                    if (std::regex_match(s, std::regex(excl))) {
+                                        exclude_for_processing = true;
+                                    }
+                                }
+                                catch (...) { // const std::regex_error& e 
+                                    // ignore exceptions from regex creation and process PDF file
+                                }
+                            }
+                        } // for
+
+                        if (!exclude_for_processing) {
+                            std::cout << "Processing " << entry.path().lexically_normal() << " to " << rptfile.lexically_normal() << " ";
+                            ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
+                            if (!dryrun)
+                                if (!process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, ofs, terse, debug_mode, force_version, supported_extns, pdf_password)) {
+                                    std::cout << COLOR_ERROR_ANSI << "- FATAL ERROR!" << COLOR_RESET_ANSI;
+                                    retval = -1;
+                                }
+                            ofs.close();
+                        }
+                        else {
+                            std::cout << COLOR_INFO_ANSI << "Excluded " << entry.path().lexically_normal() << COLOR_RESET_ANSI;
                         }
                         std::cout << std::endl;
-                        ofs.close();
                     }
                 }
                 catch (const std::exception& e) {
@@ -460,8 +547,9 @@ int main(int argc, char* argv[]) {
                 }
                 ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
                 input_file = input_file.lexically_normal();
-                if (!process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse, debug_mode, force_version, supported_extns, pdf_password))
-                    retval = -1;
+                if (!dryrun)
+                    if (!process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse, debug_mode, force_version, supported_extns, pdf_password))
+                        retval = -1;
                 ofs.close();
                 std::cout << ((retval != 0) ? COLOR_ERROR_ANSI : "") << "DONE" << ((retval != 0) ? COLOR_RESET_ANSI : "") << std::endl;
             }

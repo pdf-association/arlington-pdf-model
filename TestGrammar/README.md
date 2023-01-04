@@ -33,6 +33,7 @@ The TestGrammar (C++17) proof of concept application is a multi-platform command
     - for PDFs with duplicate filenames, an underscore is appended to the report filename to avoid overwriting.
     - for ease of post-processing large quantities of log files from corpora, there are also `--batchmode` and `--no-color` options that can be specified
     - using `--brief` will also keep output log size under control
+    - using `--dryrun` will list the PDFs that will get processed
 4. compares the Arlington PDF model grammar with the Adobe DVA Formal Representation
     - the understanding of the Adobe DVA model is hard-coded with a mix of asserts and error messages. For this reason it is best to always use a debug build at least once to confirm the Adobe FormalRep is understood by this PoC!
     - a manually curated list of multiple DVA objects that combine to be equivalent to an Arlington TSV file is hard-coded.
@@ -50,7 +51,8 @@ The command line options are very similar to the Python proof-of-concept:
 Arlington PDF Model C++ P.o.C. version vX.Y built <date>> <time> (<platform & compiler details>)
 Choose one of: --pdf, --checkdva or --validate.
 
-Usage: TestGrammar --tsvdir <dir> [--force <ver>] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--extensions <extn1[,extn2]>] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
+Usage: 
+TestGrammar --tsvdir <dir> [--force <ver>|exact] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--extensions <extn1[,extn2]>] [--password <pwd>] [--exclude string | @textfile.txt] [--dryrun] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
 
 Options:
 -h, --help        This usage message.
@@ -67,6 +69,8 @@ Options:
 -v, --validate    validate the Arlington PDF model.
 -e, --extensions  a comma-separated list of extensions, or '*' for all extensions.
     --password    password. Only applicable to --pdf.
+    --exclude      PDF exclusion string or filelist (# is a comment). Only applicable to --pdf.
+    --dryrun       Dry run - don't do any actual processing.    
 
 Built using <pdf-sdk vX.Y.Z>
 ```
@@ -120,6 +124,23 @@ Indirect is different for key Dests: DVA==TRUE vs Arlington==FALSE
 ## PDF file check (--pdf)
 
 When processing PDF files, is recommended to use `--brief` to see a single line of context (i.e. the PDF DOM path of the object) immediately prior to all related `Error:`, `Warning:` or `Info:` messages. Each line of context is preceded by a number indicating a reference number in the PDF DOM - this is mainly useful for debugging. Numbers will match between runs for the same PDF SDK when using `--brief` and not. Somewhat counter-intuitively, both `--brief` and `--debug` can be used together: `--debug` will output PDF file specific information such as object numbers which can make bulk post-processing (e.g. using `grep`) more difficult to locate unique messages.
+
+The `--exclude` option specifies either a regex pattern string or a text file (`--exclude @file.txt` where the `@` symbol indicates a file) for matching against each full PDF filename and path when recursively processing folders of PDF. This allows specific files or folders to be excluded from processing. The excluded files are listed to **stdout** with <span style="color:cyan">cyan</span> colored text. Lines that start with `#` in the text file are treated as comments and ignored. Blank lines are also ignored. Leading and trailing whitespace is also stripped from each line. Text lines should either specify a PDF file or use valid C++ regex strings - any match will _exclude_ the file from being processed. Because Microsoft Windows uses BACKSLASH as the path separator and this is the C++ escape character there is some complexity - here is what a `file.txt` might look like under Windows:
+
+```
+# Lines starting with # are comments and are ignored
+# Ignore any PDF that has 'test' in the file or folder name
+.*test.*
+
+# Ignore a specific folder
+/Users/fred/Documents/RichMedia/
+
+# Ignore specific PDFs - on Windows either will work 
+C:\Users\fred\Downloads\do-not-process.pdf
+C:/Users/fred/Downloads/also-ignore.pdf
+```
+
+`--dryrun` option allows a recursive folder of PDF files to be simulated without actually doing any of the slow processing. Note that this will still create `.ansi` or `.txt` output files of zero length in the `--out` folder. This is very useful for testing file system permissions and `--exclude` command line options when also using `--debug`.
 
 Due to a **severe** lack of compliance with PDF versions in real-world files, if a PDF file is between 1.4 and 1.7 inclusive, it will automatically be processed as PDF 1.7. Files with versions 1.3 or earlier or PDF 2.0 are processed as per the PDF standard (where the Catalog/Version key can override the PDF header comment line). Use the `--force` command line option to override this default behavior.
 
