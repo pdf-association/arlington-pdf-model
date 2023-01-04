@@ -300,7 +300,7 @@ double CPDFFile::convert_node_to_double(const ASTNode* node) {
 /// @param[in]  key_idx          the index into the Arlington 'Key' field of the TSV data (>=0)
 /// @param[in]  type_idx         the index into the Arlington 'Type' field of 'Key' field of the TSV data  (>=0)
 /// @param[in]  depth            depth counter for recursion (visual indentation) (>=0)
-/// @param[in]  use_default_values  true if Default Values should be used when a key-value (@Key) is not present
+/// @param[in]  use_default_values  true if Default Values should be used when a key-value (\@Key) is not present
 /// 
 /// @returns   Output AST (always valid) or nullptr if indeterminate 
 ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth, const bool use_default_values)
