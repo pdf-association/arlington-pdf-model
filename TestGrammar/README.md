@@ -34,6 +34,7 @@ The TestGrammar (C++17) proof of concept application is a multi-platform command
     - for ease of post-processing large quantities of log files from corpora, there are also `--batchmode` and `--no-color` options that can be specified
     - using `--brief` will also keep output log size under control
     - using `--dryrun` will list the PDFs that will get processed
+    - using `--allfiles` will attenpt to parse every file (regardless of extension) as a PDF
 4. compares the Arlington PDF model grammar with the Adobe DVA Formal Representation
     - the understanding of the Adobe DVA model is hard-coded with a mix of asserts and error messages. For this reason it is best to always use a debug build at least once to confirm the Adobe FormalRep is understood by this PoC!
     - a manually curated list of multiple DVA objects that combine to be equivalent to an Arlington TSV file is hard-coded.
@@ -52,7 +53,7 @@ Arlington PDF Model C++ P.o.C. version vX.Y built <date>> <time> (<platform & co
 Choose one of: --pdf, --checkdva or --validate.
 
 Usage: 
-TestGrammar --tsvdir <dir> [--force <ver>|exact] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--extensions <extn1[,extn2]>] [--password <pwd>] [--exclude string | @textfile.txt] [--dryrun] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
+TestGrammar --tsvdir <dir> [--force <ver>|exact] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--extensions <extn1[,extn2]>] [--password <pwd>] [--exclude string | @textfile.txt] [--dryrun] [--allfiles] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]
 
 Options:
 -h, --help        This usage message.
@@ -63,14 +64,15 @@ Options:
     --no-color    disable colorized text output (useful when redirecting or piping output).
 -m, --batchmode   stop popup error dialog windows and redirect everything to console (Windows only, includes memory leak reports).
 -o, --out         output file or folder. Default is stdout. See --clobber for overwriting behavior.
--p, --pdf         input PDF file or folder.
+-p, --pdf         input PDF file, folder, or text file of PDF files/folders.
 -f, --force       force the PDF version to the specified value (1,0, 1.1, ..., 2.0 or 'exact'). Only applicable to --pdf.
 -t, --tsvdir      [required] folder containing Arlington PDF model TSV file set.
 -v, --validate    validate the Arlington PDF model.
 -e, --extensions  a comma-separated list of extensions, or '*' for all extensions.
     --password    password. Only applicable to --pdf.
     --exclude      PDF exclusion string or filelist (# is a comment). Only applicable to --pdf.
-    --dryrun       Dry run - don't do any actual processing.    
+    --dryrun       Dry run - don't do any actual processing.
+    -a, --allfiles     Process all files regardless of file extension.
 
 Built using <pdf-sdk vX.Y.Z>
 ```
@@ -123,7 +125,25 @@ Indirect is different for key Dests: DVA==TRUE vs Arlington==FALSE
 
 ## PDF file check (--pdf)
 
+The `--pdf` option compares a PDF against a specific Arlington model and reports all differences and violations. This options accepts:
+    - the name of an individual PDF file - it is expected to have a `.pdf` extension unless `--allfiles` is also specified;
+    - a folder which is recursively processed (see also the `--allfiles` option described below);
+    - a text file of file and folder names (`--pdf @filelist.txt`) - `#` is used as a comment line and blank lines are also ignored. _Regex expressions are **NOT** supported!_ This is useful to include a set of folders or an explicit list of specific files. The syntax is somewhat platform dependent - Windows supports both `/` and `\` as shown in this example: 
+
+ ```
+ # Comment lines start with # and are ignored. So are blank lines. No regex! Explicit files or folders only.
+C:/Users/fred/Downloads/FolderToTest
+
+\Users\peter\Downloads\file.pdf
+..\..\Users\fred\Downloads\file_of_interest.pdf
+\Users\fred\XXX
+ ```   
+
+If a single file is specified, then output will go stdout if no `--out` option is specified. If a folder or filelist is used then output is written to files (either `.ansi` for colorized output or `.txt` for pure text) in the current directory or the directory specified by `--out`.
+
 When processing PDF files, is recommended to use `--brief` to see a single line of context (i.e. the PDF DOM path of the object) immediately prior to all related `Error:`, `Warning:` or `Info:` messages. Each line of context is preceded by a number indicating a reference number in the PDF DOM - this is mainly useful for debugging. Numbers will match between runs for the same PDF SDK when using `--brief` and not. Somewhat counter-intuitively, both `--brief` and `--debug` can be used together: `--debug` will output PDF file specific information such as object numbers which can make bulk post-processing (e.g. using `grep`) more difficult to locate unique messages.
+
+By default all files with a `.pdf` extension will be processed. The `--allfiles` option can be used to attempt to process every regular file (such as in SafeDocs/JPL CommonCrawl repos which don't have file extensions). Obviously non-PDF files should all error gracefully with a <span style="color:red">"Error: failed to open PDF"</span> error message. 
 
 The `--exclude` option specifies either a regex pattern string or a text file (`--exclude @file.txt` where the `@` symbol indicates a file) for matching against each full PDF filename and path when recursively processing folders of PDF. This allows specific files or folders to be excluded from processing. The excluded files are listed to **stdout** with <span style="color:cyan">cyan</span> colored text. Lines that start with `#` in the text file are treated as comments and ignored. Blank lines are also ignored. Leading and trailing whitespace is also stripped from each line. Text lines should either specify a PDF file or use valid C++ regex strings - any match will _exclude_ the file from being processed. Because Microsoft Windows uses BACKSLASH as the path separator and this is the C++ escape character there is some complexity - here is what a `file.txt` might look like under Windows:
 
@@ -140,7 +160,11 @@ C:\Users\fred\Downloads\do-not-process.pdf
 C:/Users/fred/Downloads/also-ignore.pdf
 ```
 
-`--dryrun` option allows a recursive folder of PDF files to be simulated without actually doing any of the slow processing. Note that this will still create `.ansi` or `.txt` output files of zero length in the `--out` folder. This is very useful for testing file system permissions and `--exclude` command line options when also using `--debug`.
+Note that the `--exclude` option can be used to override explicit PDFs when using the `--pdf @filelist.txt` option. 
+
+`--dryrun` option allows a recursive folder of PDF files to be simulated without actually doing any of the slow processing. Note that this will still create `.ansi` or `.txt` output files of zero length in the `--out` folder. This is very useful for testing file system permissions, `--pdf @filelist.txt` and `--exclude @filelist.txt` command line options when also using `--debug`. It is thus possible to determine if any output will file will be clobbered by comparing the number of processed files to the number of .ansi/.txt files produced.
+
+`--clobber` will overwrite output files if PDF files of the same name are encountered.
 
 Due to a **severe** lack of compliance with PDF versions in real-world files, if a PDF file is between 1.4 and 1.7 inclusive, it will automatically be processed as PDF 1.7. Files with versions 1.3 or earlier or PDF 2.0 are processed as per the PDF standard (where the Catalog/Version key can override the PDF header comment line). Use the `--force` command line option to override this default behavior.
 
