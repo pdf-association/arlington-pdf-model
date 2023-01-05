@@ -187,7 +187,7 @@ int main(int argc, char* argv[]) {
 
     sarge.setDescription("Arlington PDF Model C++ P.o.C. version " TestGrammar_VERSION
         "\nChoose one of: --pdf, --checkdva or --validate.");
-    sarge.setUsage("TestGrammar --tsvdir <dir> [--force <ver>|exact] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--extensions <extn1[,extn2]>] [--password <pwd>] [--exclude string | @textfile.txt] [--dryrun] [--validate | --checkdva <formalrep> | --pdf <fname|dir> ]");
+    sarge.setUsage("TestGrammar --tsvdir <dir> [--force <ver>|exact] [--out <fname|dir>] [--no-color] [--clobber] [--debug] [--brief] [--extensions <extn1[,extn2]>] [--password <pwd>] [--exclude string | @textfile.txt] [--dryrun] [--allfiles] [--validate | --checkdva <formalrep> | --pdf <fname|dir|@file.txt> ]");
     sarge.setArgument("h", "help", "This usage message.", false);
     sarge.setArgument("b", "brief", "terse output when checking PDFs. The full PDF DOM tree is NOT output.", false);
     sarge.setArgument("c", "checkdva", "Adobe DVA formal-rep PDF file to compare against Arlington PDF model.", true);
@@ -196,7 +196,7 @@ int main(int argc, char* argv[]) {
     sarge.setArgument("",  "no-color", "disable colorized text output (useful when redirecting or piping output)", false);
     sarge.setArgument("m", "batchmode", "stop popup error dialog windows and redirect everything to console (Windows only, includes memory leak reports).", false);
     sarge.setArgument("o", "out", "output file or folder. Default is stdout. See --clobber for overwriting behavior.", true);
-    sarge.setArgument("p", "pdf", "input PDF file or folder.", true);
+    sarge.setArgument("p", "pdf", "input PDF file, folder, or text file of PDF files/folders.", true);
     sarge.setArgument("f", "force", "force the PDF version to the specified value (1,0, 1.1, ..., 2.0 or 'exact'). Only applicable to --pdf.", true);
     sarge.setArgument("t", "tsvdir", "[required] folder containing Arlington PDF model TSV file set.", true);
     sarge.setArgument("v", "validate", "validate the Arlington PDF model.", false);
@@ -204,6 +204,7 @@ int main(int argc, char* argv[]) {
     sarge.setArgument("",  "password", "password. Only applicable to --pdf.", true);
     sarge.setArgument("",  "exclude", "PDF exclusion string or filelist (# is a comment). Only applicable to --pdf.", true);
     sarge.setArgument("",  "dryrun", "Dry run - don't do any actual processing.", false);
+    sarge.setArgument("a", "allfiles", "Process all files regardless of file extension.", false);
 
 #if defined(_WIN32) || defined(WIN32)
     if (!sarge.parseArguments(argc, mbcsargv)) {
@@ -238,22 +239,27 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
-    int             retval = 0;         // return value to O/S
-    std::string     s;                  // temp
-    fs::path        grammar_folder;     // folder with TSV files (must exist)
-    fs::path        save_path;          // output file or folder. Optional.
-    fs::path        input_file;         // input PDF or Adobe DVA
+    int             retval = 0;         // final return code to O/S
+    std::string     s;                  // temp variable
+    fs::path        grammar_folder;     // folder with TSV files (required and must exist)
+    fs::path        save_path;          // output file or folder. Optional. Default is "." or to stdout
+    fs::path        input_filename;     // --pdf @filename.txt
+    bool            input_is_a_file = false; // --pdf
+    std::vector<fs::path> input_list;   // --pdf files and folder list
     std::ofstream   ofs;                // output filestream
     std::string     force_version;      // Optional forced PDF version
     std::wstring    pdf_password;       // Optional password
     bool            clobber = sarge.exists("clobber");
     bool            debug_mode = sarge.exists("debug");
     bool            terse = sarge.exists("brief");
-    std::vector<std::string> supported_extns; // --extensions
-    bool            exclude_as_string = false;
-    std::filesystem::path     exclusion_filename;
-    std::vector<std::string> exclusions; // --exclude
     bool            dryrun = sarge.exists("dryrun");
+    bool            all_files = sarge.exists("allfiles");
+    std::vector<std::string> supported_extns;       // --extensions
+    bool            exclude_as_string = false;      // --exclude
+    fs::path        exclusion_filename;             // --exclude
+    std::vector<std::string> exclusions;            // --exclude
+    unsigned int    count = 0;                      // number of files processed
+
 
     no_color = sarge.exists("no-color");
 
@@ -289,19 +295,48 @@ int main(int argc, char* argv[]) {
         pdf_io.shutdown();
         return -1;
     }
-    grammar_folder = fs::absolute(s);
-
-    // --pdf can be a folder or a file
-    s.clear();
-    (void)sarge.getFlag("pdf", s);
-    if (s.size() > 0)
-        input_file = fs::absolute(s);
+    grammar_folder = fs::absolute(s).lexically_normal();
 
     // --out can be a folder or a file
     s.clear();
     (void)sarge.getFlag("out", s);
     if (s.size() > 0)
-        save_path = fs::absolute(s);
+        save_path = fs::absolute(s).lexically_normal();
+
+    // --pdf can be a folder, or a single PDF file, or "@file.txt"
+    s.clear();
+    (void)sarge.getFlag("pdf", s);
+    if (s.size() > 0) {
+        if (s[0] != '@') {
+            // either file or folder.
+            input_list.push_back(fs::absolute(s));
+            try {
+                input_is_a_file = fs::is_regular_file(input_list.at(0));
+            }
+            catch (...) {
+                input_is_a_file = false; // assume a folder
+            }
+        }
+        else {
+            // File list. Treat arg as a filename (remove leading '@')
+            input_filename = s.substr(1, s.size() - 1);
+            input_filename = fs::absolute(input_filename).lexically_normal();
+
+            std::ifstream input_filelist(input_filename);
+            while (std::getline(input_filelist, s)) {
+                s = trim(s);
+                if ((s.size() > 0) && (s[0] != '#'))
+                    input_list.push_back(fs::absolute(s));
+            }
+            input_filelist.close();
+
+            if (input_list.size() == 0)
+                std::cerr << COLOR_ERROR << "--pdf '" << input_filename << "' was invalid or empty!" << COLOR_RESET;
+        }
+    }
+    // If doing more than 1 PDF then output to files in current dir if not otherwise specified
+    if (!input_is_a_file && save_path.empty())
+        save_path = fs::absolute(".").lexically_normal();
 
     // Optional -f/--force <version>
     if (sarge.getFlag("force", s)) {
@@ -331,6 +366,7 @@ int main(int argc, char* argv[]) {
             if (s[0] == '@') {
                 // treat as a filename (remove leading '@')
                 exclusion_filename = s.substr(1, s.size() - 1);
+                exclusion_filename = fs::absolute(exclusion_filename).lexically_normal();
                 exclude_as_string = false;
 
                 std::ifstream exclusion_file(exclusion_filename);
@@ -351,24 +387,41 @@ int main(int argc, char* argv[]) {
             }
         }
 
-
+    // Dump all the processed command line options to screen (stdout)
     if (debug_mode) {
         std::cout << COLOR_RESET_NO_EOL;
         std::cout << "TestGrammar version:  " << TestGrammar_VERSION << std::endl;
         std::cout << "PDF SDK:              " << pdf_io.get_version_string() << std::endl;
-        std::cout << "Arlington TSV folder: " << fs::absolute(grammar_folder.lexically_normal()) << std::endl;
-        std::cout << "Output file/folder:   " << fs::absolute(save_path.lexically_normal()) << std::endl;
-        std::cout << "PDF file/folder:      " << fs::absolute(input_file.lexically_normal()) << std::endl;
+        std::cout << "Arlington TSV folder: " << grammar_folder << std::endl;
+        if (save_path.empty())
+            std::cout << "Output:               stdout" << std::endl;
+        else
+            std::cout << "Output file/folder:   " << save_path << std::endl;
+        if (input_list.size() == 0)
+            std::cout << "PDF file/folder:      <none>"<< std::endl;
+        else if (input_list.size() == 1) {
+            if (input_is_a_file)
+                std::cout << "PDF file:  ";
+            else
+                std::cout << "PDF folder:";
+            std::cout << "           " << input_list.at(0).lexically_normal() << std::endl;
+        }
+        else 
+            std::cout << "PDF file list:        " << input_filename << " (" << input_list.size() << " lines)" << std::endl;
         std::cout << "Colorized output      " << (no_color ? "off" : "on") << std::endl;
         std::cout << "Clobber mode:         " << (clobber ? "on" : "off") << std::endl;
         std::cout << "Dry run:              " << (dryrun ? "on" : "off") << std::endl;
+        std::cout << "All files:            " << (all_files ? "on" : "off  (*.pdf only)") << std::endl;
         std::cout << "Brief mode:           " << (terse ? "on" : "off") << std::endl;
-        std::cout << "Password:             '" << ToUtf8(pdf_password) << "'" << std::endl;
+        if (pdf_password.size() == 0)
+            std::cout << "Password:             <none>" << std::endl;
+        else
+            std::cout << "Password:             '" << ToUtf8(pdf_password) << "'" << std::endl;
         if (exclusions.size() > 0) {
             if (exclude_as_string)
                 std::cout << "Exclusion string:     '" << exclusions.at(0) << "'" << std::endl;
             else
-                std::cout << "Exclusion filename:   " << fs::absolute(exclusion_filename.lexically_normal()) << " (" << exclusions.size() << " lines)" << std::endl;
+                std::cout << "Exclusion filename:   " << exclusion_filename << " (" << exclusions.size() << " lines)" << std::endl;
         }
         else
             std::cout << "Exclusions enabled:   <none>" << std::endl;
@@ -407,6 +460,7 @@ int main(int argc, char* argv[]) {
                 ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
             }
         }
+        count++;
         if (!dryrun)
             ValidateGrammarFolder(grammar_folder, debug_mode, (save_path.empty() ? std::cout : ofs));
         ofs.close();
@@ -414,10 +468,10 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
-    // Compare Adobe DVA vs Arlington PDF Model
+    // Compare Adobe DVA FormalRep vs Arlington PDF Model
     if (sarge.getFlag("checkdva", s)) {
-        input_file = s;
-        if (is_file(input_file) && fs::exists(input_file)) {
+        input_list.push_back(fs::absolute(s));
+        if (is_file(input_list.at(0)) && fs::exists(input_list.at(0))) {
             if (!save_path.empty()) {
                 if (!is_folder(save_path)) {
                     ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
@@ -429,49 +483,64 @@ int main(int argc, char* argv[]) {
             }
             if (!ofs.is_open())
                 std::cout << std::endl;
+            count++;
             if (!dryrun)
-                CheckDVA(pdf_io, input_file.lexically_normal(), grammar_folder, (save_path.empty() ? std::cout : ofs), terse);
+                CheckDVA(pdf_io, input_list.at(0).lexically_normal(), grammar_folder, (save_path.empty() ? std::cout : ofs), terse);
             ofs.close();
             pdf_io.shutdown();
             return 0;
         }
         else {
-            std::cerr << COLOR_ERROR << "--checkdva argument '" << input_file << "' was not a valid PDF file!" << COLOR_RESET;
+            std::cerr << COLOR_ERROR << "--checkdva argument '" << s << "' was not a valid PDF file!" << COLOR_RESET;
             pdf_io.shutdown();
             return -1;
         }
     }
 
+    if (input_list.size() == 0) {
+        std::cerr << COLOR_ERROR << "no PDF file, folder, or file list was specified via --pdf! Or missing --validate or --checkdva." << COLOR_RESET;
+        pdf_io.shutdown();
+        return -1;
+    }
+
     try {
-        if (input_file.empty()) {
-            std::cerr << COLOR_ERROR << "no PDF file or folder was specified via --pdf! Or missing --validate or --checkdva." << COLOR_RESET;
-            pdf_io.shutdown();
-            return -1;
-        }
+        for (auto& input_file : input_list) {
+            fs::recursive_directory_iterator dir_iter;
+            fs::directory_entry              entry;
+            bool is_folder = false;
+            try {
+                // Attempt first as a folder - will throw a C++ exception if a file or is otherwise invalid
+                dir_iter = fs::recursive_directory_iterator(input_file, fs::directory_options::skip_permission_denied);
+                entry = *dir_iter++;
+                is_folder = true;
+            }
+            catch (...) {
+                // had an error as a folder name, treat as a normal file
+                entry = fs::directory_entry(input_file);
+                is_folder = false;
+            }
 
-        // single PDF file or recurse a folder of PDF files?
-        if (is_folder(input_file)) {
-            fs::path        rptfile;
-            std::error_code ec;
-
-            for (const auto& entry : fs::recursive_directory_iterator(input_file)) {
-                try {
-                    // To avoid some file permission access errors, check filename extension first to skip over system files
-                    if (iequals(entry.path().extension().string(), ".pdf") && entry.is_regular_file()) {
-                        rptfile = save_path / entry.path().stem();
-                        if (no_color)
-                            rptfile.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
-                        else
-                            rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
-                        if (!clobber) {
-                            // if rptfile already exists then try a different filename by continuously appending underscores...
-                            while (fs::exists(rptfile)) {
-                                rptfile.replace_filename(rptfile.stem().string() + "_");
-                                if (no_color)
-                                    rptfile.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
-                                else
-                                    rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
+            try {
+                do {
+                    if (entry.is_regular_file() && (all_files || iequals(entry.path().extension().string(), ".pdf"))) {
+                        fs::path  rptfile;
+                        if (!save_path.empty()) {
+                            rptfile = save_path / entry.path().stem();
+                            if (no_color)
+                                rptfile.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
+                            else
+                                rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
+                            if (!clobber) {
+                                // if rptfile already exists then try a different filename by continuously appending underscores...
+                                while (fs::exists(rptfile)) {
+                                    rptfile.replace_filename(rptfile.stem().string() + "_");
+                                    if (no_color)
+                                        rptfile.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
+                                    else
+                                        rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
+                                }
                             }
+                            rptfile = fs::absolute(rptfile).lexically_normal();
                         }
 
                         bool exclude_for_processing = false;
@@ -494,70 +563,49 @@ int main(int argc, char* argv[]) {
                                     }
                                 }
                                 catch (...) { // const std::regex_error& e 
-                                    // ignore exceptions from regex creation and process PDF file
+                                    // ignore all exceptions from regex creation and process PDF file
                                 }
                             }
                         } // for
 
                         if (!exclude_for_processing) {
-                            std::cout << "Processing " << entry.path().lexically_normal() << " to " << rptfile.lexically_normal() << " ";
-                            ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
+                            std::cout << "Processing " << entry.path().lexically_normal() << " to ";
+                            if (rptfile.empty())
+                                std::cout << "stdout ";
+                            else {
+                                std::cout << rptfile << " ";
+                                ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
+                            }
+                            count++;
                             if (!dryrun)
-                                if (!process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, ofs, terse, debug_mode, force_version, supported_extns, pdf_password)) {
-                                    std::cout << COLOR_ERROR_ANSI << "- FATAL ERROR!" << COLOR_RESET_ANSI;
+                                if (!process_single_pdf(entry.path().lexically_normal(), grammar_folder, pdf_io, (rptfile.empty() ? std::cout : ofs) , terse, debug_mode, force_version, supported_extns, pdf_password)) {
+                                    std::cout << COLOR_ERROR << "- FATAL ERROR!" << COLOR_RESET_NO_EOL;
                                     retval = -1;
                                 }
-                            ofs.close();
+                            if (!rptfile.empty())
+                                ofs.close();
                         }
                         else {
-                            std::cout << COLOR_INFO_ANSI << "Excluded " << entry.path().lexically_normal() << COLOR_RESET_ANSI;
+                            std::cout << COLOR_INFO << "Excluded " << entry.path().lexically_normal() << COLOR_RESET_NO_EOL;
                         }
                         std::cout << std::endl;
                     }
-                }
-                catch (const std::exception& e) {
-                    retval = -1;
-                    std::cerr << COLOR_ERROR << "EXCEPTION " << e.what() << COLOR_RESET;
-                }
-            } // for
-            std::cout << "DONE" << std::endl;
-        }
-        else {
-            // Just a single PDF file (doesn't have to be a regular file!) to try and process ...
-            if (fs::exists(input_file)) {
-                if (!save_path.empty()) {
-                    if (is_folder(save_path)) {
-                        save_path /= input_file.stem();
-                        if (no_color)
-                            save_path.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
-                        else
-                            save_path.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
+                    else if (!entry.exists()) {
+                        std::cout << COLOR_ERROR << "Invalid PDF file/folder " << entry.path().lexically_normal() << COLOR_RESET;
                     }
-                    if (!clobber) {
-                        // if output file already exists then try a different filename by continuously appending underscores...
-                        while (fs::exists(save_path)) {
-                            save_path.replace_filename(save_path.stem().string() + "_");
-                            if (no_color)
-                                save_path.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
-                            else
-                                save_path.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
-                        }
+
+                    if (is_folder) {
+                        // Recursively processing a folder so get next file
+                        entry = *dir_iter++;
                     }
-                    std::cout << "Processing " << input_file.lexically_normal() << " to " << save_path.lexically_normal() << std::endl;
-                }
-                ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
-                input_file = input_file.lexically_normal();
-                if (!dryrun)
-                    if (!process_single_pdf(input_file, grammar_folder, pdf_io, (save_path.empty() ? std::cout : ofs), terse, debug_mode, force_version, supported_extns, pdf_password))
-                        retval = -1;
-                ofs.close();
-                std::cout << ((retval != 0) ? COLOR_ERROR_ANSI : "") << "DONE" << ((retval != 0) ? COLOR_RESET_ANSI : "") << std::endl;
+                } while (dir_iter != fs::end(dir_iter));
             }
-            else {
+            catch (const std::exception& e) {
                 retval = -1;
-                std::cerr << COLOR_ERROR << "--pdf argument '" << input_file << "' was not a valid file!" << COLOR_RESET;
+                std::cerr << std::endl << COLOR_ERROR << "EXCEPTION " << e.what() << COLOR_RESET;
             }
         }
+        std::cout << "DONE - " << count << " files processed" << std::endl;
     }
     catch (const std::exception& e) {
         retval = -1;
