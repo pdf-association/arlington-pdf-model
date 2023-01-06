@@ -1981,9 +1981,9 @@ bool CPDFFile::fn_InKeyMap(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNod
 /// structures, indexed via strings. THEY ARE NOT DICTIONARIES (although the root node of a name-tree is)!!!
 ///  e.g. fn:InNameTree(trailer::Catalog::Names::Dests)
 /// 
-/// @param[in]  parent the PDF parent object (needed in case map is a relative key)
-/// @param[in]  obj    the current PDF object - expected to be a PDF string
-/// @param[in]  map    the name of the PDF name-tree
+/// @param[in]  parent   the PDF parent object (needed in case map is a relative key)
+/// @param[in]  obj      the current PDF object - expected to be a PDF string
+/// @param[in]  nametree the name of the PDF name-tree
 /// 
 /// @returns  true iff obj is in the specified name-tree, false otherwise
 bool CPDFFile::fn_InNameTree(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* nametree) {
