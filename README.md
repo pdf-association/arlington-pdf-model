@@ -228,7 +228,7 @@ fn:BitSet
 fn:BitsClear
 fn:BitsSet
 fn:Deprecated
-fn:Expr
+fn:Eval
 fn:ImageIsStructContentItem
 fn:ImplementationDependent
 fn:IsAssociatedFile
@@ -245,6 +245,7 @@ fn:PageContainsStructContentItems
 fn:RequiredValue
 fn:SinceVersion
 fn:StringLength
+...
 ```
 
 ### Link
