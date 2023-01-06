@@ -515,7 +515,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
 #ifdef CHECKS_DEBUG
     ofs << "SpecialCase = {" << (checks_passed ? "OK" : "not OK") << (pp.WasFullyImplemented() ? "" : ",partial implementation") << (pp.SomethingWasDeprecated() ? ",deprecated" : "") << "} ";
 #endif
-    if (!checks_passed) {
+    if (!checks_passed || !pp.WasFullyImplemented()) {
         show_context(fake_e);
         // If predicates ARE fully processed then we know it is the right or wrong value.
         // If predicates are partially processed then just a warning with additional output
@@ -546,7 +546,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
 #ifdef CHECKS_DEBUG
     ofs << "PossibleValues = {" << (checks_passed ? "OK" : "not OK") << (pp.WasFullyImplemented() ? "" : ",partial implementation") << (pp.SomethingWasDeprecated() ? ",deprecated" : "") << "} ";
 #endif
-    if (!checks_passed) {
+    if (!checks_passed || !pp.WasFullyImplemented()) {
         show_context(fake_e);
         // If predicates ARE fully processed then we know it is the right or wrong value.
         // If predicates are partially processed then just a warning with additional output

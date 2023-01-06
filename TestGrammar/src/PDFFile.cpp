@@ -516,12 +516,19 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, con
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
             out->node = "true";
         }
-        else if (in_ast->node == "fn:InMap(") {
-            // 1 argument which is the key name key (or an integer array index) of the map, which can be nullptr due to reduction/indeterminism
+        else if (in_ast->node == "fn:InKeyMap(") {
+            // 1 argument which is the key of the dictionary map, which can be nullptr due to reduction/indeterminism
             assert(out_left != nullptr);
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-            out->node = fn_InMap(obj, out_left) ? "true" : "false";
+            out->node = fn_InKeyMap(parent, obj, out_left) ? "true" : "false";
+        }
+        else if (in_ast->node == "fn:InNameTree(") {
+            // 1 argument which is the name-tree key, which can be nullptr due to reduction/indeterminism
+            assert(out_left != nullptr);
+            assert(out_right == nullptr);
+            out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+            out->node = fn_InNameTree(parent, obj, out_left) ? "true" : "false";
         }
         else if (in_ast->node == "fn:IsAssociatedFile(") {
             // no arguments
@@ -1871,65 +1878,207 @@ bool CPDFFile::fn_ImageIsStructContentItem(ArlPDFObject* obj)
 }
 
 
-/// @brief Returns true if obj is in the specified map
-///  e.g. fn:InMap(RichMediaContent::Assets)
+/// @brief Returns true if obj is in the specified dictionary-map (arbitary keys).
+///  e.g. fn:InKeyMap(trailer::Catalog::Dests)
 /// 
-/// @param[in]  obj   a PDF object
-/// @param[in]  map   the name or an integer array index of a PDF map
+/// @param[in]  parent the PDF parent object (needed in case map is a relative key)
+/// @param[in]  obj    the current PDF object - expected to be a PDF name
+/// @param[in]  map    the name of the PDF dict-map
 /// 
-/// @returns  true iff obj is in the specified map, false otherwise
-bool CPDFFile::fn_InMap(ArlPDFObject* obj, const ASTNode* map) {
+/// @returns  true iff obj is in the specified dict-map, false otherwise
+bool CPDFFile::fn_InKeyMap(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* map) {
+    assert(parent != nullptr);
     assert(obj != nullptr);
     assert(map != nullptr);
-    assert((map->type == ASTNodeType::ASTNT_Key) || (map->type == ASTNodeType::ASTNT_ConstInt));
+    assert(map->type == ASTNodeType::ASTNT_Key);
+
+    auto parent_type = parent->get_object_type();
+    auto obj_type = obj->get_object_type();
+
+    // Dictionary maps require name indexing!
+    if (obj_type != PDFObjectType::ArlPDFObjTypeName)
+        return false;
+
+    // Relative keys to dict-maps require parent to be a dictionary
+    if (parent_type != PDFObjectType::ArlPDFObjTypeDictionary)
+        return false;
+
+    auto parent_dict = (ArlPDFDictionary*)parent;
 
     auto keys = split_key_path(map->node);
+    assert(keys[keys.size() - 1][0] != '@');    // Never "@key" as the final key
 
-    // Assumptions about code below
-    assert((keys.size() == 3) || (keys.size() == 4)); 
-    assert(keys[keys.size() - 1][0] != '@');            // No "@key" as the final key
-
-    if (keys[0] != "trailer") {
-        // don't support "parent::" or anything else
+    if (keys[0] == "parent") {                  /// @todo Don't support "parent::" 
         fully_implemented = false;
         return false;
     }
 
-    ArlPDFObject* o = nullptr;
+    ArlPDFObject* map_obj = nullptr;
 
     if (keys[0] == "trailer") {
+        // Hardcoded support for trailer and trailer::Catalog as common
+        assert(keys.size() >= 3);
         if (keys[1] == "Catalog") {
-            assert((keys[2] == "Dests") || (keys[2] == "Names"));
             auto doccat = pdfsdk.get_document_catalog();
-            o = doccat->get_value(ToWString(keys[2]));
-            if ((o != nullptr) && (keys.size() == 4)) {
-                ArlPDFObject* o1 = ((ArlPDFDictionary*)o)->get_value(ToWString(keys[3]));
+            map_obj = doccat->get_value(ToWString(keys[2]));
+            if ((map_obj != nullptr) && (keys.size() == 4) && (map_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                ArlPDFObject* o1 = ((ArlPDFDictionary*)map_obj)->get_value(ToWString(keys[3]));
                 if ((o1 == nullptr) || (o1->get_object_type() != PDFObjectType::ArlPDFObjTypeDictionary)) {
                     delete o1;
-                    delete o;
+                    delete map_obj;
                     return false;
                 }
-                delete o;
-                o = o1;
+                delete map_obj;
+                map_obj = o1;
             }
         }
         else {
             auto t = pdfsdk.get_trailer();
-            o = t->get_value(ToWString(keys[1]));
+            map_obj = t->get_value(ToWString(keys[1]));
         }
+    }
+    else if (keys.size() == 1) {
+        auto k = ToWString(keys[0]);
+        if (parent_dict->has_key(k))
+            map_obj = parent_dict->get_value(k);
+    }
+    else {
+        /// @todo TBD
+        assert(false && "unexpected fn_InKeyMap() Arlington path::key expression!");
+        fully_implemented = false;
+        return false;
     }
 
     bool retval = false;
-    if ((o != nullptr) && (o->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-        /// @todo - need to process name-tree/number-tree maps to see if object is present
-        /// based on matching hash IDs. For now assume it matches just because there the map exists!
-        fully_implemented = false;
-        retval = true;
+    if ((map_obj != nullptr) && (map_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+        auto map_dict = (ArlPDFDictionary*)map_obj;
+        if (obj_type == PDFObjectType::ArlPDFObjTypeName) {
+            // Check to see if obj (name) is a key in map dict
+            retval = map_dict->has_key(((ArlPDFName*)obj)->get_value());
+        }
+        else {
+            // Checking VALUE of all keys in map - need to iterate to locate same PDF object by hash ID
+            for (int i = 0; i < map_dict->get_num_keys(); i++) {
+                auto k1 = map_dict->get_key_name_by_index(i);
+                auto o1 = map_dict->get_value(k1);
+                if ((o1->get_hash_id() == obj->get_hash_id()) && (obj_type == o1->get_object_type())) {
+                    delete o1;
+                    retval = true;
+                    break;
+                }
+                delete o1;
+            }
+        }
     }
 
-    delete o;
+    delete map_obj;
     return retval;
 }
+
+
+
+/// @brief Returns true if obj is in the specified PDF name-tree. PDF name-trees are complex data
+/// structures, indexed via strings. THEY ARE NOT DICTIONARIES (although the root node of a name-tree is)!!!
+///  e.g. fn:InNameTree(trailer::Catalog::Names::Dests)
+/// 
+/// @param[in]  parent the PDF parent object (needed in case map is a relative key)
+/// @param[in]  obj    the current PDF object - expected to be a PDF string
+/// @param[in]  map    the name of the PDF name-tree
+/// 
+/// @returns  true iff obj is in the specified name-tree, false otherwise
+bool CPDFFile::fn_InNameTree(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* nametree) {
+    assert(parent != nullptr);
+    assert(obj != nullptr);
+    assert(nametree != nullptr);
+    assert(nametree->type == ASTNodeType::ASTNT_Key);
+
+    auto parent_type = parent->get_object_type();
+    auto obj_type = obj->get_object_type();
+
+    // Name-trees require name indexing!
+    if (obj_type != PDFObjectType::ArlPDFObjTypeString)
+        return false;
+
+    // Relative keys to name-trees require parent to be a dictionary
+    if (parent_type != PDFObjectType::ArlPDFObjTypeDictionary)
+        return false;
+
+    auto parent_dict = (ArlPDFDictionary*)parent;
+
+    auto keys = split_key_path(nametree->node);
+    assert(keys[keys.size() - 1][0] != '@');    // Never "@key" as the final key
+
+    if (keys[0] == "parent") {                  /// @todo Don't support "parent::" 
+        fully_implemented = false;
+        return false;
+    }
+
+    ArlPDFObject* nametree_obj = nullptr;
+
+    if (keys[0] == "trailer") {
+        // Hardcoded support for trailer and trailer::Catalog as common
+        assert(keys.size() >= 3);
+        if (keys[1] == "Catalog") {
+            auto doccat = pdfsdk.get_document_catalog();
+            nametree_obj = doccat->get_value(ToWString(keys[2]));
+            if ((nametree_obj != nullptr) && (keys.size() == 4) && (nametree_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                ArlPDFObject* o1 = ((ArlPDFDictionary*)nametree_obj)->get_value(ToWString(keys[3]));
+                if ((o1 == nullptr) || (o1->get_object_type() != PDFObjectType::ArlPDFObjTypeDictionary)) {
+                    delete o1;
+                    delete nametree_obj;
+                    return false;
+                }
+                delete nametree_obj;
+                nametree_obj = o1;
+            }
+        }
+        else {
+            auto t = pdfsdk.get_trailer();
+            nametree_obj = t->get_value(ToWString(keys[1]));
+        }
+    }
+    else if (keys.size() == 1) {
+        auto k = ToWString(keys[0]);
+        if (parent_dict->has_key(k))
+            nametree_obj = parent_dict->get_value(k);
+    }
+    else {
+        /// @todo TBD
+        assert(false && "unexpected fn_InNameTree() Arlington path::key expression!");
+        fully_implemented = false;
+        return false;
+    }
+
+    bool retval = false;
+    if ((nametree_obj != nullptr) && (nametree_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+        auto obj_str = ((ArlPDFString*)obj)->get_value();
+        auto nametree_dict = (ArlPDFDictionary*)nametree_obj;
+        auto names = nametree_dict->get_value(L"Names");
+        if ((names != nullptr) && (names->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
+            /// @todo Ignore Limits and test every odd element in the array
+            auto names_arr = (ArlPDFArray*)names;
+            for (int i = 0; i < names_arr->get_num_elements(); i += 2) {
+                auto o = names_arr->get_value(i);
+                if ((o != nullptr) && (o->get_object_type() == PDFObjectType::ArlPDFObjTypeString)) {
+                    if (((ArlPDFString*)o)->get_value() == obj_str) {
+                        delete o;
+                        retval = true;
+                        break;
+                    }
+                }
+                delete o;
+            }
+        }
+        else {
+            fully_implemented = false; /// @todo implement proper name tree support
+        }
+        delete names;
+    }
+
+    delete nametree_obj;
+    return retval;
+}
+
 
 
 /// @brief Check if obj (which should be a File Specification dicionary) is in 

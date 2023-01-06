@@ -113,7 +113,8 @@ private:
     bool fn_HasProcessColorants(ArlPDFObject* parent, const ASTNode* obj_ref);
     bool fn_HasSpotColorants(ArlPDFObject* parent, const ASTNode* obj_ref);
     bool fn_ImageIsStructContentItem(ArlPDFObject* obj);
-    bool fn_InMap(ArlPDFObject* obj, const ASTNode* map);
+    bool fn_InKeyMap(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* map);
+    bool fn_InNameTree(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* nametree);
     bool fn_IsAssociatedFile(ArlPDFObject* obj);
     bool fn_IsEncryptedWrapper();
     bool fn_IsFieldName(ArlPDFObject* obj);

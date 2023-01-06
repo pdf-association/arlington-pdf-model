@@ -333,10 +333,10 @@ int main(int argc, char* argv[]) {
             if (input_list.size() == 0)
                 std::cerr << COLOR_ERROR << "--pdf '" << input_filename << "' was invalid or empty!" << COLOR_RESET;
         }
+        // If doing more than 1 PDF then output to files in current dir if not otherwise specified
+        if (!input_is_a_file && save_path.empty())
+            save_path = fs::absolute(".").lexically_normal();
     }
-    // If doing more than 1 PDF then output to files in current dir if not otherwise specified
-    if (!input_is_a_file && save_path.empty())
-        save_path = fs::absolute(".").lexically_normal();
 
     // Optional -f/--force <version>
     if (sarge.getFlag("force", s)) {
@@ -508,14 +508,20 @@ int main(int argc, char* argv[]) {
             fs::recursive_directory_iterator dir_iter;
             fs::directory_entry              entry;
             bool is_folder = false;
-            try {
-                // Attempt first as a folder - will throw a C++ exception if a file or is otherwise invalid
-                dir_iter = fs::recursive_directory_iterator(input_file, fs::directory_options::skip_permission_denied);
-                entry = *dir_iter++;
-                is_folder = true;
+            if (fs::is_directory(input_file)) {
+                try {
+                    // Attempt first as a folder - will throw a C++ exception if invalid
+                    dir_iter = fs::recursive_directory_iterator(input_file, fs::directory_options::skip_permission_denied);
+                    entry = *dir_iter++;
+                    is_folder = true;
+                }
+                catch (...) {
+                    // had an error as a folder name, try anyway as a normal file
+                    entry = fs::directory_entry(input_file);
+                    is_folder = false;
+                }
             }
-            catch (...) {
-                // had an error as a folder name, treat as a normal file
+            else {
                 entry = fs::directory_entry(input_file);
                 is_folder = false;
             }

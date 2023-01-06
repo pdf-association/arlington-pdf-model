@@ -724,11 +724,22 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
-   <td><code>fn:InMap(<i>key</i>)</code></td>
+   <td><code>fn:InKeyMap(<i>key</i>)</code></td>
    <td>
     <ul>
-     <li><i>key</i> must be a map object (<code>name-tree</code> or <code>number-tree</code>).</li>
-     <li>Asserts that the current row (key or array element) is in the specified map.</li>
+     <li><i>key</i> is a reference to a PDF dictionary which can have arbitrary key names.</li>
+     <li>Asserts that the current row (key or array element) and which must be a PDF name exists as a key in the specified map dictionary.</li>
+     <li><i>Note that this predicate is <b>not</b> for use with name-trees or number-trees!</i></li>
+    </ul>
+   </td>
+  </tr>
+  <tr>
+   <td><code>fn:InNameTree(<i>key</i>)</code></td>
+   <td>
+    <ul>
+     <li><i>key</i> is a reference to a PDF name-tree which use PDF strings as indices. Names trees are complex PDF data structures that use strings as indices.</li>
+     <li>Asserts that the current row (key or array element) and which must be a PDF string exists in the specified name-tree.</li>
+     <li><i>Note that this predicate is <b>not</b> for use with dictionaries that support arbitrary key names or number-trees!</i></li>
     </ul>
    </td>
   </tr>
