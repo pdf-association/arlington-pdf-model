@@ -1219,6 +1219,13 @@
             "name": "ArrayOfXPTSValues map"
         },
         {
+            "id": "ArrayOfXRefIndexIntegers",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "ArrayOfXRefIndexIntegers array"
+        },
+        {
             "id": "ArrayOfXRefWIntegers",
             "val": 9,
             "group": "array",
@@ -1331,11 +1338,11 @@
             "name": "ArrayOf_4AnnotBorderCharacteristics array"
         },
         {
-            "id": "ArrayOf_4BorderColors",
+            "id": "ArrayOf_4BorderColorArrays",
             "val": 16,
             "group": "array",
             "desc": "4 elements",
-            "name": "ArrayOf_4BorderColors array"
+            "name": "ArrayOf_4BorderColorArrays array"
         },
         {
             "id": "ArrayOf_4BorderStyleNames",
@@ -1364,13 +1371,6 @@
             "group": "array",
             "desc": "4 elements",
             "name": "ArrayOf_4Integers array"
-        },
-        {
-            "id": "ArrayOf_4NamesForAttached",
-            "val": 16,
-            "group": "array",
-            "desc": "4 elements",
-            "name": "ArrayOf_4NamesForAttached array"
         },
         {
             "id": "ArrayOf_4Numbers",
@@ -2488,13 +2488,6 @@
             "name": "MovieActivation dict"
         },
         {
-            "id": "NSOAttributes",
-            "val": 1,
-            "group": "dict",
-            "desc": "1 keys",
-            "name": "NSOAttributes dict"
-        },
-        {
             "id": "Name",
             "val": 121,
             "group": "dict",
@@ -3160,55 +3153,6 @@
             "name": "SourceInformation dict"
         },
         {
-            "id": "StandardArtifactAttributes",
-            "val": 36,
-            "group": "dict",
-            "desc": "6 keys",
-            "name": "StandardArtifactAttributes dict"
-        },
-        {
-            "id": "StandardLayoutAttributesBLSE",
-            "val": 900,
-            "group": "dict",
-            "desc": "30 keys",
-            "name": "StandardLayoutAttributesBLSE dict"
-        },
-        {
-            "id": "StandardLayoutAttributesColumn",
-            "val": 144,
-            "group": "dict",
-            "desc": "12 keys",
-            "name": "StandardLayoutAttributesColumn dict"
-        },
-        {
-            "id": "StandardLayoutAttributesILSE",
-            "val": 441,
-            "group": "dict",
-            "desc": "21 keys",
-            "name": "StandardLayoutAttributesILSE dict"
-        },
-        {
-            "id": "StandardListAttributes",
-            "val": 4,
-            "group": "dict",
-            "desc": "2 keys",
-            "name": "StandardListAttributes dict"
-        },
-        {
-            "id": "StandardPrintFieldAttributes",
-            "val": 25,
-            "group": "dict",
-            "desc": "5 keys",
-            "name": "StandardPrintFieldAttributes dict"
-        },
-        {
-            "id": "StandardTableAttributes",
-            "val": 36,
-            "group": "dict",
-            "desc": "6 keys",
-            "name": "StandardTableAttributes dict"
-        },
-        {
             "id": "Stream",
             "val": 49,
             "group": "dict",
@@ -3228,6 +3172,13 @@
             "group": "dict",
             "desc": "7 keys",
             "name": "StructTreeRoot dict"
+        },
+        {
+            "id": "StructureAttributesDict",
+            "val": 2209,
+            "group": "dict",
+            "desc": "47 keys",
+            "name": "StructureAttributesDict dict"
         },
         {
             "id": "StyleDict",
@@ -3347,13 +3298,6 @@
             "group": "dict",
             "desc": "9 keys",
             "name": "URTransformParameters dict"
-        },
-        {
-            "id": "UserPropertiesAttributes",
-            "val": 4,
-            "group": "dict",
-            "desc": "2 keys",
-            "name": "UserPropertiesAttributes dict"
         },
         {
             "id": "UserProperty",
@@ -4324,8 +4268,7 @@
         {
             "source": "ActionGoToE",
             "target": "FileSpecification",
-            "name": "ActionGoToE::F",
-            "color": "red"
+            "name": "ActionGoToE::F"
         },
         {
             "source": "ActionGoToE",
@@ -13179,100 +13122,12 @@
         },
         {
             "source": "ArrayOfAttributeObjects",
-            "target": "StandardLayoutAttributesBLSE",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardLayoutAttributesColumn",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardLayoutAttributesILSE",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardTableAttributes",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardListAttributes",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardPrintFieldAttributes",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardArtifactAttributes",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "UserPropertiesAttributes",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "NSOAttributes",
+            "target": "StructureAttributesDict",
             "name": "ArrayOfAttributeObjects::*"
         },
         {
             "source": "ArrayOfAttributeRevisions",
-            "target": "StandardLayoutAttributesBLSE",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardLayoutAttributesColumn",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardLayoutAttributesILSE",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardTableAttributes",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardListAttributes",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardPrintFieldAttributes",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardArtifactAttributes",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "UserPropertiesAttributes",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "NSOAttributes",
+            "target": "StructureAttributesDict",
             "name": "ArrayOfAttributeRevisions::0*",
             "color": "red"
         },
@@ -13295,14 +13150,12 @@
         {
             "source": "ArrayOfCIDGlyphMetricsW2",
             "target": "ArrayOfNumbersGeneral",
-            "name": "ArrayOfCIDGlyphMetricsW2::*",
-            "color": "red"
+            "name": "ArrayOfCIDGlyphMetricsW2::*"
         },
         {
             "source": "ArrayOfCIDGlyphMetricsW",
             "target": "ArrayOfNumbersGeneral",
-            "name": "ArrayOfCIDGlyphMetricsW::*",
-            "color": "red"
+            "name": "ArrayOfCIDGlyphMetricsW::*"
         },
         {
             "source": "ArrayOfDPartArrays",
@@ -13942,27 +13795,27 @@
             "name": "ArrayOf_4AnnotBorderCharacteristics::3"
         },
         {
-            "source": "ArrayOf_4BorderColors",
+            "source": "ArrayOf_4BorderColorArrays",
             "target": "ArrayOf_3RGBNumbers",
-            "name": "ArrayOf_4BorderColors::0",
+            "name": "ArrayOf_4BorderColorArrays::0",
             "color": "red"
         },
         {
-            "source": "ArrayOf_4BorderColors",
+            "source": "ArrayOf_4BorderColorArrays",
             "target": "ArrayOf_3RGBNumbers",
-            "name": "ArrayOf_4BorderColors::1",
+            "name": "ArrayOf_4BorderColorArrays::1",
             "color": "red"
         },
         {
-            "source": "ArrayOf_4BorderColors",
+            "source": "ArrayOf_4BorderColorArrays",
             "target": "ArrayOf_3RGBNumbers",
-            "name": "ArrayOf_4BorderColors::2",
+            "name": "ArrayOf_4BorderColorArrays::2",
             "color": "red"
         },
         {
-            "source": "ArrayOf_4BorderColors",
+            "source": "ArrayOf_4BorderColorArrays",
             "target": "ArrayOf_3RGBNumbers",
-            "name": "ArrayOf_4BorderColors::3",
+            "name": "ArrayOf_4BorderColorArrays::3",
             "color": "red"
         },
         {
@@ -14449,47 +14302,7 @@
         },
         {
             "source": "ClassMap",
-            "target": "StandardLayoutAttributesBLSE",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardLayoutAttributesColumn",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardLayoutAttributesILSE",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardTableAttributes",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardListAttributes",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardPrintFieldAttributes",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardArtifactAttributes",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "UserPropertiesAttributes",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "NSOAttributes",
+            "target": "StructureAttributesDict",
             "name": "ClassMap::*"
         },
         {
@@ -17317,7 +17130,7 @@
         },
         {
             "source": "MarkedContentReference",
-            "target": "Stream",
+            "target": "XObjectFormType1",
             "name": "MarkedContentReference::Stm"
         },
         {
@@ -20404,156 +20217,6 @@
             "name": "SourceInformation::C"
         },
         {
-            "source": "StandardArtifactAttributes",
-            "target": "ArrayOf_4NamesForAttached",
-            "name": "StandardArtifactAttributes::Attached"
-        },
-        {
-            "source": "StandardArtifactAttributes",
-            "target": "ArrayOfStringsText",
-            "name": "StandardArtifactAttributes::Contents"
-        },
-        {
-            "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_3RGBNumbers",
-            "name": "StandardLayoutAttributesBLSE::BackgroundColor"
-        },
-        {
-            "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_4BorderColors",
-            "name": "StandardLayoutAttributesBLSE::BorderColor"
-        },
-        {
-            "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_3RGBNumbers",
-            "name": "StandardLayoutAttributesBLSE::BorderColor"
-        },
-        {
-            "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_4BorderStyleNames",
-            "name": "StandardLayoutAttributesBLSE::BorderStyle"
-        },
-        {
-            "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_4BorderThicknessNumbers",
-            "name": "StandardLayoutAttributesBLSE::BorderThickness"
-        },
-        {
-            "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_3RGBNumbers",
-            "name": "StandardLayoutAttributesBLSE::Color"
-        },
-        {
-            "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_4Integers",
-            "name": "StandardLayoutAttributesBLSE::Padding"
-        },
-        {
-            "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_4BorderStyleNames",
-            "name": "StandardLayoutAttributesBLSE::TBorderStyle"
-        },
-        {
-            "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_4Integers",
-            "name": "StandardLayoutAttributesBLSE::TPadding"
-        },
-        {
-            "source": "StandardLayoutAttributesBLSE",
-            "target": "ArrayOf_3RGBNumbers",
-            "name": "StandardLayoutAttributesBLSE::TextDecorationColor"
-        },
-        {
-            "source": "StandardLayoutAttributesColumn",
-            "target": "ArrayOf_3RGBNumbers",
-            "name": "StandardLayoutAttributesColumn::BackgroundColor"
-        },
-        {
-            "source": "StandardLayoutAttributesColumn",
-            "target": "ArrayOf_4BorderColors",
-            "name": "StandardLayoutAttributesColumn::BorderColor"
-        },
-        {
-            "source": "StandardLayoutAttributesColumn",
-            "target": "ArrayOf_3RGBNumbers",
-            "name": "StandardLayoutAttributesColumn::BorderColor"
-        },
-        {
-            "source": "StandardLayoutAttributesColumn",
-            "target": "ArrayOf_4BorderStyleNames",
-            "name": "StandardLayoutAttributesColumn::BorderStyle"
-        },
-        {
-            "source": "StandardLayoutAttributesColumn",
-            "target": "ArrayOf_4BorderThicknessNumbers",
-            "name": "StandardLayoutAttributesColumn::BorderThickness"
-        },
-        {
-            "source": "StandardLayoutAttributesColumn",
-            "target": "ArrayOf_3RGBNumbers",
-            "name": "StandardLayoutAttributesColumn::Color"
-        },
-        {
-            "source": "StandardLayoutAttributesColumn",
-            "target": "ArrayOfNumbersGeneral",
-            "name": "StandardLayoutAttributesColumn::ColumnGap"
-        },
-        {
-            "source": "StandardLayoutAttributesColumn",
-            "target": "ArrayOfNumbersGeneral",
-            "name": "StandardLayoutAttributesColumn::ColumnWidths"
-        },
-        {
-            "source": "StandardLayoutAttributesColumn",
-            "target": "ArrayOf_4Integers",
-            "name": "StandardLayoutAttributesColumn::Padding"
-        },
-        {
-            "source": "StandardLayoutAttributesILSE",
-            "target": "ArrayOf_3RGBNumbers",
-            "name": "StandardLayoutAttributesILSE::BackgroundColor"
-        },
-        {
-            "source": "StandardLayoutAttributesILSE",
-            "target": "ArrayOf_4BorderColors",
-            "name": "StandardLayoutAttributesILSE::BorderColor"
-        },
-        {
-            "source": "StandardLayoutAttributesILSE",
-            "target": "ArrayOf_3RGBNumbers",
-            "name": "StandardLayoutAttributesILSE::BorderColor"
-        },
-        {
-            "source": "StandardLayoutAttributesILSE",
-            "target": "ArrayOf_4BorderStyleNames",
-            "name": "StandardLayoutAttributesILSE::BorderStyle"
-        },
-        {
-            "source": "StandardLayoutAttributesILSE",
-            "target": "ArrayOf_4BorderThicknessNumbers",
-            "name": "StandardLayoutAttributesILSE::BorderThickness"
-        },
-        {
-            "source": "StandardLayoutAttributesILSE",
-            "target": "ArrayOf_3RGBNumbers",
-            "name": "StandardLayoutAttributesILSE::Color"
-        },
-        {
-            "source": "StandardLayoutAttributesILSE",
-            "target": "ArrayOf_4Integers",
-            "name": "StandardLayoutAttributesILSE::Padding"
-        },
-        {
-            "source": "StandardLayoutAttributesILSE",
-            "target": "ArrayOf_3RGBNumbers",
-            "name": "StandardLayoutAttributesILSE::TextDecorationColor"
-        },
-        {
-            "source": "StandardTableAttributes",
-            "target": "ArrayOfStringsByte",
-            "name": "StandardTableAttributes::Headers"
-        },
-        {
             "source": "Stream",
             "target": "ArrayOfDecodeParams",
             "name": "Stream::DecodeParms"
@@ -20645,47 +20308,7 @@
         },
         {
             "source": "StructElem",
-            "target": "StandardLayoutAttributesBLSE",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardLayoutAttributesColumn",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardLayoutAttributesILSE",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardTableAttributes",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardListAttributes",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardPrintFieldAttributes",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardArtifactAttributes",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "UserPropertiesAttributes",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "NSOAttributes",
+            "target": "StructureAttributesDict",
             "name": "StructElem::A"
         },
         {
@@ -20789,6 +20412,82 @@
             "source": "StructTreeRoot",
             "target": "RoleMap",
             "name": "StructTreeRoot::RoleMap"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "StructureAttributesDict::BackgroundColor"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOf_4BorderColorArrays",
+            "name": "StructureAttributesDict::BorderColor"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "StructureAttributesDict::BorderColor"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOf_4BorderStyleNames",
+            "name": "StructureAttributesDict::BorderStyle"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOf_4BorderThicknessNumbers",
+            "name": "StructureAttributesDict::BorderThickness"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "StructureAttributesDict::Color"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "StructureAttributesDict::ColumnGap"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOfNumbersGeneral",
+            "name": "StructureAttributesDict::ColumnWidths"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOfStringsText",
+            "name": "StructureAttributesDict::Contents"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOfStringsByte",
+            "name": "StructureAttributesDict::Headers"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOfUserProperty",
+            "name": "StructureAttributesDict::P",
+            "color": "red"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOf_4Integers",
+            "name": "StructureAttributesDict::Padding"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOf_4BorderStyleNames",
+            "name": "StructureAttributesDict::TBorderStyle"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOf_4Integers",
+            "name": "StructureAttributesDict::TPadding"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOf_3RGBNumbers",
+            "name": "StructureAttributesDict::TextDecorationColor"
         },
         {
             "source": "Target",
@@ -20936,12 +20635,6 @@
             "source": "URTransformParameters",
             "target": "URTransformParamSignatureArray",
             "name": "URTransformParameters::Signature"
-        },
-        {
-            "source": "UserPropertiesAttributes",
-            "target": "ArrayOfUserProperty",
-            "name": "UserPropertiesAttributes::P",
-            "color": "red"
         },
         {
             "source": "UserProperty",
@@ -22080,7 +21773,7 @@
         },
         {
             "source": "XRefStream",
-            "target": "ArrayOfIntegersGeneral",
+            "target": "ArrayOfXRefIndexIntegers",
             "name": "XRefStream::Index"
         },
         {

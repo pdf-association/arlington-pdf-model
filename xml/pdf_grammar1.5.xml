@@ -8928,6 +8928,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(*)&gt;0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="ArrayOfArraysURLStrings" isArray="true" object_number="062">
@@ -8948,13 +8949,7 @@
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
-            <VALUE type="dictionary">StandardLayoutAttributesBLSE</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesColumn</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesILSE</VALUE>
-            <VALUE type="dictionary">StandardTableAttributes</VALUE>
-            <VALUE type="dictionary">StandardListAttributes</VALUE>
-            <VALUE type="dictionary">StandardPrintFieldAttributes</VALUE>
-            <VALUE type="dictionary">StandardArtifactAttributes</VALUE>
+            <VALUE type="dictionary">StructureAttributesDict</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -8968,13 +8963,7 @@
       <ENTRY>
          <NAME isWildcard="true">0*</NAME>
          <VALUES>
-            <VALUE type="dictionary">StandardLayoutAttributesBLSE</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesColumn</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesILSE</VALUE>
-            <VALUE type="dictionary">StandardTableAttributes</VALUE>
-            <VALUE type="dictionary">StandardListAttributes</VALUE>
-            <VALUE type="dictionary">StandardPrintFieldAttributes</VALUE>
-            <VALUE type="dictionary">StandardArtifactAttributes</VALUE>
+            <VALUE type="dictionary">StructureAttributesDict</VALUE>
             <VALUE type="stream">Stream</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
@@ -8988,7 +8977,7 @@
       <ENTRY>
          <NAME isWildcard="true">1*</NAME>
          <VALUES>
-            <VALUE type="integer">fn:Eval(@1&gt;=0)</VALUE>
+            <VALUE type="integer">fn:Eval(@1*&gt;=0)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9050,7 +9039,7 @@
          <VALUES>
             <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
-         <REQUIRED>true</REQUIRED>
+         <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
             <VALUE type="integer">false</VALUE>
@@ -9066,7 +9055,7 @@
          <VALUES>
             <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
-         <REQUIRED>true</REQUIRED>
+         <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
             <VALUE type="integer">false</VALUE>
@@ -9090,7 +9079,7 @@
       <ENTRY>
          <NAME isWildcard="true">1*</NAME>
          <VALUES>
-            <VALUE type="integer">fn:Eval(@1&gt;=0)</VALUE>
+            <VALUE type="integer">fn:Eval(@1*&gt;=0)</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9635,7 +9624,7 @@
       <ENTRY>
          <NAME isWildcard="true">2*</NAME>
          <VALUES>
-            <VALUE type="number">fn:Eval((@2&gt;=0) &amp;&amp; (@2&lt;=1))</VALUE>
+            <VALUE type="number">fn:Eval((@2*&gt;=0) &amp;&amp; (@2*&lt;=1))</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -9857,7 +9846,9 @@
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
-            <VALUE type="name">fn:SinceVersion(1.6,adbe.pkcs7.sha1)</VALUE>
+            <VALUE type="name">adbe.pkcs7.detached</VALUE>
+            <VALUE type="name">adbe.pkcs7.sha1</VALUE>
+            <VALUE type="name">adbe.x509.rsa_sha1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -10129,7 +10120,29 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOfXRefWIntegers" isArray="true" object_number="124">
+   <OBJECT id="ArrayOfXRefIndexIntegers" isArray="true" object_number="124">
+      <ENTRY>
+         <NAME isWildcard="true">0*</NAME>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="integer">fn:MustBeDirect()</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(@0*&gt;=0)</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME isWildcard="true">1*</NAME>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="integer">fn:MustBeDirect()</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(@1*&gt;=0)</SPECIAL_CASE>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="ArrayOfXRefWIntegers" isArray="true" object_number="125">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10137,7 +10150,7 @@
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="integer">false</VALUE>
+            <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
@@ -10149,7 +10162,7 @@
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="integer">false</VALUE>
+            <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
@@ -10161,13 +10174,13 @@
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="integer">false</VALUE>
+            <VALUE type="integer">fn:MustBeDirect()</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2Booleans" isArray="true" object_number="125">
+   <OBJECT id="ArrayOf_2Booleans" isArray="true" object_number="126">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -10187,7 +10200,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2DashNumbers" isArray="true" object_number="126">
+   <OBJECT id="ArrayOf_2DashNumbers" isArray="true" object_number="127">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -10207,7 +10220,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2Integers" isArray="true" object_number="127">
+   <OBJECT id="ArrayOf_2Integers" isArray="true" object_number="128">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -10227,7 +10240,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2LineEndingsNames" isArray="true" object_number="128">
+   <OBJECT id="ArrayOf_2LineEndingsNames" isArray="true" object_number="129">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10271,7 +10284,7 @@
          <INTRODUCED>1.4</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2Numbers" isArray="true" object_number="129">
+   <OBJECT id="ArrayOf_2Numbers" isArray="true" object_number="130">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -10291,7 +10304,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2StringsByte" isArray="true" object_number="130">
+   <OBJECT id="ArrayOf_2StringsByte" isArray="true" object_number="131">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -10311,7 +10324,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2StringsText" isArray="true" object_number="131">
+   <OBJECT id="ArrayOf_2StringsText" isArray="true" object_number="132">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -10331,7 +10344,7 @@
          <INTRODUCED>1.4</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_2UnencryptedStringsByte" isArray="true" object_number="132">
+   <OBJECT id="ArrayOf_2UnencryptedStringsByte" isArray="true" object_number="133">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -10353,7 +10366,7 @@
          <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted())</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_3Integers" isArray="true" object_number="133">
+   <OBJECT id="ArrayOf_3Integers" isArray="true" object_number="134">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10391,7 +10404,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_3RGBNumbers" isArray="true" object_number="134">
+   <OBJECT id="ArrayOf_3RGBNumbers" isArray="true" object_number="135">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10429,7 +10442,7 @@
          <INTRODUCED>1.4</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4AnnotBorderCharacteristics" isArray="true" object_number="135">
+   <OBJECT id="ArrayOf_4AnnotBorderCharacteristics" isArray="true" object_number="136">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10479,7 +10492,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4BorderColors" isArray="true" object_number="136">
+   <OBJECT id="ArrayOf_4BorderColorArrays" isArray="true" object_number="137">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10533,7 +10546,7 @@
          <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4BorderStyleNames" isArray="true" object_number="137">
+   <OBJECT id="ArrayOf_4BorderStyleNames" isArray="true" object_number="138">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10623,7 +10636,7 @@
          <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4BorderThicknessNumbers" isArray="true" object_number="138">
+   <OBJECT id="ArrayOf_4BorderThicknessNumbers" isArray="true" object_number="139">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -10677,7 +10690,7 @@
          <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ArrayOf_4Integers" isArray="true" object_number="139">
+   <OBJECT id="ArrayOf_4Integers" isArray="true" object_number="140">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -10713,71 +10726,6 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
-      </ENTRY>
-   </OBJECT>
-   <OBJECT id="ArrayOf_4NamesForAttached" isArray="true" object_number="140">
-      <ENTRY>
-         <NAME>0</NAME>
-         <VALUES>
-            <VALUE type="name">Top</VALUE>
-            <VALUE type="name">Bottom</VALUE>
-            <VALUE type="name">Left</VALUE>
-            <VALUE type="name">Right</VALUE>
-         </VALUES>
-         <REQUIRED>true</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>1</NAME>
-         <VALUES>
-            <VALUE type="name">Top</VALUE>
-            <VALUE type="name">Bottom</VALUE>
-            <VALUE type="name">Left</VALUE>
-            <VALUE type="name">Right</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(@1!=@0)</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>2</NAME>
-         <VALUES>
-            <VALUE type="name">Top</VALUE>
-            <VALUE type="name">Bottom</VALUE>
-            <VALUE type="name">Left</VALUE>
-            <VALUE type="name">Right</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval((@2!=@0) &amp;&amp; (@2!=@1))</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>3</NAME>
-         <VALUES>
-            <VALUE type="name">Top</VALUE>
-            <VALUE type="name">Bottom</VALUE>
-            <VALUE type="name">Left</VALUE>
-            <VALUE type="name">Right</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval((@3!=@0) &amp;&amp; (@3!=@1) &amp;&amp; (@3!=@2))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="ArrayOf_4Numbers" isArray="true" object_number="141">
@@ -12491,13 +12439,7 @@
          <NAME isWildcard="true">*</NAME>
          <VALUES>
             <VALUE type="array">ArrayOfAttributeObjects</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesBLSE</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesColumn</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesILSE</VALUE>
-            <VALUE type="dictionary">StandardTableAttributes</VALUE>
-            <VALUE type="dictionary">StandardListAttributes</VALUE>
-            <VALUE type="dictionary">StandardPrintFieldAttributes</VALUE>
-            <VALUE type="dictionary">StandardArtifactAttributes</VALUE>
+            <VALUE type="dictionary">StructureAttributesDict</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -15390,6 +15332,10 @@
       </ENTRY>
       <ENTRY>
          <NAME>FS</NAME>
+         <VALUES>
+            <VALUE type="name">URL</VALUE>
+            <VALUE type="name">*</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="name">false</VALUE>
@@ -15711,7 +15657,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:InMap(trailer::Encrypt::CF)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:InKeyMap(trailer::Encrypt::CF)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="FilterDCTDecode" object_number="203">
@@ -21720,7 +21666,7 @@
       <ENTRY>
          <NAME>Stm</NAME>
          <VALUES>
-            <VALUE type="stream">Stream</VALUE>
+            <VALUE type="stream">XObjectFormType1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -24972,6 +24918,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent(@Type==Template))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>LastModified</NAME>
@@ -25125,6 +25072,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent(@Type==Template))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Dur</NAME>
@@ -25250,7 +25198,7 @@
       </ENTRY>
       <ENTRY>
          <NAME>TemplateInstantiated</NAME>
-         <REQUIRED>fn:IsRequired(fn:InMap(trailer::Catalog::Names::Pages) || fn:InMap(trailer::Catalog::Names::Templates))</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:InNameTree(trailer::Catalog::Names::Pages) || fn:InNameTree(trailer::Catalog::Names::Templates))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="name">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -27848,7 +27796,7 @@
          <NAME>SubFilter</NAME>
          <VALUES>
             <VALUE type="name">adbe.pkcs7.detached</VALUE>
-            <VALUE type="name">fn:SinceVersion(1.5,adbe.pkcs7.sha1)</VALUE>
+            <VALUE type="name">fn:SinceVersion(1.4,adbe.pkcs7.sha1)</VALUE>
             <VALUE type="name">adbe.x509.rsa_sha1</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -28678,7 +28626,7 @@
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
-         <SPECIAL_CASE>fn:InMap(Resources)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:InNameTree(Resources)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="SoftMaskAlpha" object_number="340">
@@ -29181,1078 +29129,7 @@
          <SPECIAL_CASE>fn:Eval(parent::@S==SPS)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StandardArtifactAttributes" object_number="345">
-      <ENTRY>
-         <NAME>O</NAME>
-         <VALUES>
-            <VALUE type="name">Artifact</VALUE>
-         </VALUES>
-         <REQUIRED>true</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Type</NAME>
-         <VALUES>
-            <VALUE type="name">Pagination</VALUE>
-            <VALUE type="name">Layout</VALUE>
-            <VALUE type="name">Page</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BBox</NAME>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="rectangle">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Attached</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4NamesForAttached</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-   </OBJECT>
-   <OBJECT id="StandardLayoutAttributesBLSE" object_number="346">
-      <ENTRY>
-         <NAME>O</NAME>
-         <VALUES>
-            <VALUE type="name">Layout</VALUE>
-         </VALUES>
-         <REQUIRED>true</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Placement</NAME>
-         <VALUES>
-            <VALUE type="name">Block</VALUE>
-            <VALUE type="name">Before</VALUE>
-            <VALUE type="name">Start</VALUE>
-            <VALUE type="name">End</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>WritingMode</NAME>
-         <VALUES>
-            <VALUE type="name">LrTb</VALUE>
-            <VALUE type="name">RlTb</VALUE>
-            <VALUE type="name">TbRl</VALUE>
-            <VALUE type="name">TbLr</VALUE>
-            <VALUE type="name">LrBt</VALUE>
-            <VALUE type="name">RlBt</VALUE>
-            <VALUE type="name">BtRl</VALUE>
-            <VALUE type="name">BtLr</VALUE>
-            <VALUE isDefaultValue="true" type="name">LrTb</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BackgroundColor</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BorderColor</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4BorderColors</VALUE>
-            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BorderStyle</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4BorderStyleNames</VALUE>
-            <VALUE isDefaultValue="true" type="array">[]</VALUE>
-            <VALUE type="name">None</VALUE>
-            <VALUE type="name">Hidden</VALUE>
-            <VALUE type="name">Dotted</VALUE>
-            <VALUE type="name">Dashed</VALUE>
-            <VALUE type="name">Solid</VALUE>
-            <VALUE type="name">Double</VALUE>
-            <VALUE type="name">Groove</VALUE>
-            <VALUE type="name">Ridge</VALUE>
-            <VALUE type="name">Inset</VALUE>
-            <VALUE type="name">Outset</VALUE>
-            <VALUE isDefaultValue="true" type="name">[None]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BorderThickness</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4BorderThicknessNumbers</VALUE>
-            <VALUE isDefaultValue="true" type="array">[]</VALUE>
-            <VALUE isDefaultValue="true" type="number">[0]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Padding</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4Integers</VALUE>
-            <VALUE isDefaultValue="true" type="array">[]</VALUE>
-            <VALUE isDefaultValue="true" type="number">[0]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Color</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>SpaceBefore</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="number">0</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>SpaceAfter</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="number">0</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>StartIndent</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="number">0</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>EndIndent</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="number">0</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>TextIndent</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="number">0</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>TextAlign</NAME>
-         <VALUES>
-            <VALUE type="name">Start</VALUE>
-            <VALUE type="name">Center</VALUE>
-            <VALUE type="name">End</VALUE>
-            <VALUE type="name">Justify</VALUE>
-            <VALUE isDefaultValue="true" type="name">Start</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BBox</NAME>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="rectangle">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Width</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="name">[Auto]</VALUE>
-            <VALUE isDefaultValue="true" type="number">[]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Height</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="name">[Auto]</VALUE>
-            <VALUE isDefaultValue="true" type="number">[]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BlockAlign</NAME>
-         <VALUES>
-            <VALUE type="name">Before</VALUE>
-            <VALUE type="name">Middle</VALUE>
-            <VALUE type="name">After</VALUE>
-            <VALUE type="name">Justify</VALUE>
-            <VALUE isDefaultValue="true" type="name">Before</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>InlineAlign</NAME>
-         <VALUES>
-            <VALUE type="name">Start</VALUE>
-            <VALUE type="name">Center</VALUE>
-            <VALUE type="name">End</VALUE>
-            <VALUE isDefaultValue="true" type="name">Start</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>TBorderStyle</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4BorderStyleNames</VALUE>
-            <VALUE isDefaultValue="true" type="array">[]</VALUE>
-            <VALUE isDefaultValue="true" type="name">[None]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>TPadding</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4Integers</VALUE>
-            <VALUE isDefaultValue="true" type="array">[]</VALUE>
-            <VALUE isDefaultValue="true" type="integer">[0]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="integer">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BaselineShift</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="number">0</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>LineHeight</NAME>
-         <VALUES>
-            <VALUE type="name">Normal</VALUE>
-            <VALUE type="name">Auto</VALUE>
-            <VALUE isDefaultValue="true" type="name">[Normal]</VALUE>
-            <VALUE isDefaultValue="true" type="number">[]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>TextDecorationColor</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>TextDecorationThickness</NAME>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>TextDecorationType</NAME>
-         <VALUES>
-            <VALUE type="name">None</VALUE>
-            <VALUE type="name">Underline</VALUE>
-            <VALUE type="name">Overline</VALUE>
-            <VALUE type="name">LineThrough</VALUE>
-            <VALUE isDefaultValue="true" type="name">None</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>RubyAlign</NAME>
-         <VALUES>
-            <VALUE type="name">Start</VALUE>
-            <VALUE type="name">Center</VALUE>
-            <VALUE type="name">End</VALUE>
-            <VALUE type="name">Justify</VALUE>
-            <VALUE type="name">Distribute</VALUE>
-            <VALUE isDefaultValue="true" type="name">Distribute</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>RubyPosition</NAME>
-         <VALUES>
-            <VALUE type="name">Before</VALUE>
-            <VALUE type="name">After</VALUE>
-            <VALUE type="name">Warichu</VALUE>
-            <VALUE type="name">Inline</VALUE>
-            <VALUE isDefaultValue="true" type="name">Before</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>GlyphOrientationVertical</NAME>
-         <VALUES>
-            <VALUE type="integer">-180</VALUE>
-            <VALUE type="integer">-90</VALUE>
-            <VALUE type="integer">0</VALUE>
-            <VALUE type="integer">90</VALUE>
-            <VALUE type="integer">180</VALUE>
-            <VALUE type="integer">270</VALUE>
-            <VALUE type="integer">360</VALUE>
-            <VALUE isDefaultValue="true" type="integer">[]</VALUE>
-            <VALUE type="name">Auto</VALUE>
-            <VALUE isDefaultValue="true" type="name">[Auto]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="integer">false</VALUE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-   </OBJECT>
-   <OBJECT id="StandardLayoutAttributesColumn" object_number="347">
-      <ENTRY>
-         <NAME>O</NAME>
-         <VALUES>
-            <VALUE type="name">Layout</VALUE>
-         </VALUES>
-         <REQUIRED>true</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Placement</NAME>
-         <VALUES>
-            <VALUE type="name">Block</VALUE>
-            <VALUE type="name">Inline</VALUE>
-            <VALUE type="name">Before</VALUE>
-            <VALUE type="name">Start</VALUE>
-            <VALUE type="name">End</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>WritingMode</NAME>
-         <VALUES>
-            <VALUE type="name">LrTb</VALUE>
-            <VALUE type="name">RlTb</VALUE>
-            <VALUE type="name">TbRl</VALUE>
-            <VALUE type="name">TbLr</VALUE>
-            <VALUE type="name">LrBt</VALUE>
-            <VALUE type="name">RlBt</VALUE>
-            <VALUE type="name">BtRl</VALUE>
-            <VALUE type="name">BtLr</VALUE>
-            <VALUE isDefaultValue="true" type="name">LrTb</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BackgroundColor</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BorderColor</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4BorderColors</VALUE>
-            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BorderStyle</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4BorderStyleNames</VALUE>
-            <VALUE isDefaultValue="true" type="array">[]</VALUE>
-            <VALUE type="name">None</VALUE>
-            <VALUE type="name">Hidden</VALUE>
-            <VALUE type="name">Dotted</VALUE>
-            <VALUE type="name">Dashed</VALUE>
-            <VALUE type="name">Solid</VALUE>
-            <VALUE type="name">Double</VALUE>
-            <VALUE type="name">Groove</VALUE>
-            <VALUE type="name">Ridge</VALUE>
-            <VALUE type="name">Inset</VALUE>
-            <VALUE type="name">Outset</VALUE>
-            <VALUE isDefaultValue="true" type="name">[None]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BorderThickness</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4BorderThicknessNumbers</VALUE>
-            <VALUE isDefaultValue="true" type="array">[]</VALUE>
-            <VALUE isDefaultValue="true" type="number">[0]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Padding</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4Integers</VALUE>
-            <VALUE isDefaultValue="true" type="array">[]</VALUE>
-            <VALUE isDefaultValue="true" type="number">[0]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Color</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-   </OBJECT>
-   <OBJECT id="StandardLayoutAttributesILSE" object_number="348">
-      <ENTRY>
-         <NAME>O</NAME>
-         <VALUES>
-            <VALUE type="name">Layout</VALUE>
-         </VALUES>
-         <REQUIRED>true</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Placement</NAME>
-         <VALUES>
-            <VALUE type="name">Inline</VALUE>
-            <VALUE type="name">Before</VALUE>
-            <VALUE type="name">Start</VALUE>
-            <VALUE type="name">End</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>WritingMode</NAME>
-         <VALUES>
-            <VALUE type="name">LrTb</VALUE>
-            <VALUE type="name">RlTb</VALUE>
-            <VALUE type="name">TbRl</VALUE>
-            <VALUE type="name">TbLr</VALUE>
-            <VALUE type="name">LrBt</VALUE>
-            <VALUE type="name">RlBt</VALUE>
-            <VALUE type="name">BtRl</VALUE>
-            <VALUE type="name">BtLr</VALUE>
-            <VALUE isDefaultValue="true" type="name">LrTb</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BackgroundColor</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BorderColor</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4BorderColors</VALUE>
-            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BorderStyle</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4BorderStyleNames</VALUE>
-            <VALUE isDefaultValue="true" type="array">[]</VALUE>
-            <VALUE type="name">None</VALUE>
-            <VALUE type="name">Hidden</VALUE>
-            <VALUE type="name">Dotted</VALUE>
-            <VALUE type="name">Dashed</VALUE>
-            <VALUE type="name">Solid</VALUE>
-            <VALUE type="name">Double</VALUE>
-            <VALUE type="name">Groove</VALUE>
-            <VALUE type="name">Ridge</VALUE>
-            <VALUE type="name">Inset</VALUE>
-            <VALUE type="name">Outset</VALUE>
-            <VALUE isDefaultValue="true" type="name">[None]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BorderThickness</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4BorderThicknessNumbers</VALUE>
-            <VALUE isDefaultValue="true" type="array">[]</VALUE>
-            <VALUE isDefaultValue="true" type="number">[0]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Padding</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_4Integers</VALUE>
-            <VALUE isDefaultValue="true" type="array">[]</VALUE>
-            <VALUE isDefaultValue="true" type="number">[0]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Color</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>BaselineShift</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="number">0</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>LineHeight</NAME>
-         <VALUES>
-            <VALUE type="name">Normal</VALUE>
-            <VALUE type="name">Auto</VALUE>
-            <VALUE isDefaultValue="true" type="name">[Normal]</VALUE>
-            <VALUE isDefaultValue="true" type="number">[]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>TextDecorationColor</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>TextDecorationThickness</NAME>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>TextDecorationType</NAME>
-         <VALUES>
-            <VALUE type="name">None</VALUE>
-            <VALUE type="name">Underline</VALUE>
-            <VALUE type="name">Overline</VALUE>
-            <VALUE type="name">LineThrough</VALUE>
-            <VALUE isDefaultValue="true" type="name">None</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>RubyAlign</NAME>
-         <VALUES>
-            <VALUE type="name">Start</VALUE>
-            <VALUE type="name">Center</VALUE>
-            <VALUE type="name">End</VALUE>
-            <VALUE type="name">Justify</VALUE>
-            <VALUE type="name">Distribute</VALUE>
-            <VALUE isDefaultValue="true" type="name">Distribute</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>RubyPosition</NAME>
-         <VALUES>
-            <VALUE type="name">Before</VALUE>
-            <VALUE type="name">After</VALUE>
-            <VALUE type="name">Warichu</VALUE>
-            <VALUE type="name">Inline</VALUE>
-            <VALUE isDefaultValue="true" type="name">Before</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>GlyphOrientationVertical</NAME>
-         <VALUES>
-            <VALUE type="integer">-180</VALUE>
-            <VALUE type="integer">-90</VALUE>
-            <VALUE type="integer">0</VALUE>
-            <VALUE type="integer">90</VALUE>
-            <VALUE type="integer">180</VALUE>
-            <VALUE type="integer">270</VALUE>
-            <VALUE type="integer">360</VALUE>
-            <VALUE isDefaultValue="true" type="integer">[]</VALUE>
-            <VALUE type="name">Auto</VALUE>
-            <VALUE isDefaultValue="true" type="name">[Auto]</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="integer">false</VALUE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.5</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>SpaceBefore</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="number">0</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(@Placement!=Inline)</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>SpaceAfter</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="number">0</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(@Placement!=Inline)</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>StartIndent</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="number">0</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(@Placement!=Inline)</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>EndIndent</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="number">0</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="number">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(@Placement!=Inline)</SPECIAL_CASE>
-      </ENTRY>
-   </OBJECT>
-   <OBJECT id="StandardListAttributes" object_number="349">
-      <ENTRY>
-         <NAME>O</NAME>
-         <VALUES>
-            <VALUE type="name">List</VALUE>
-         </VALUES>
-         <REQUIRED>true</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>ListNumbering</NAME>
-         <VALUES>
-            <VALUE type="name">None</VALUE>
-            <VALUE type="name">Unordered</VALUE>
-            <VALUE type="name">Description</VALUE>
-            <VALUE type="name">Disc</VALUE>
-            <VALUE type="name">Circle</VALUE>
-            <VALUE type="name">Square</VALUE>
-            <VALUE type="name">Ordered</VALUE>
-            <VALUE type="name">Decimal</VALUE>
-            <VALUE type="name">UpperRoman</VALUE>
-            <VALUE type="name">LowerRoman</VALUE>
-            <VALUE type="name">UpperAlpha</VALUE>
-            <VALUE type="name">LowerAlpha</VALUE>
-            <VALUE isDefaultValue="true" type="name">None</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>true</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-   </OBJECT>
-   <OBJECT id="StandardPrintFieldAttributes" object_number="350">
-      <ENTRY>
-         <NAME>O</NAME>
-         <VALUES>
-            <VALUE type="name">PrintField</VALUE>
-         </VALUES>
-         <REQUIRED>true</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Role</NAME>
-         <VALUES>
-            <VALUE type="name">rb</VALUE>
-            <VALUE type="name">cb</VALUE>
-            <VALUE type="name">pb</VALUE>
-            <VALUE type="name">tv</VALUE>
-            <VALUE type="name">lb</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-   </OBJECT>
-   <OBJECT id="StandardTableAttributes" object_number="351">
-      <ENTRY>
-         <NAME>O</NAME>
-         <VALUES>
-            <VALUE type="name">Table</VALUE>
-         </VALUES>
-         <REQUIRED>true</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.3</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>RowSpan</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="integer">1</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="integer">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>ColSpan</NAME>
-         <VALUES>
-            <VALUE isDefaultValue="true" type="integer">1</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="integer">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Headers</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOfStringsByte</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Scope</NAME>
-         <VALUES>
-            <VALUE type="name">Row</VALUE>
-            <VALUE type="name">Column</VALUE>
-            <VALUE type="name">Both</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.4</INTRODUCED>
-      </ENTRY>
-   </OBJECT>
-   <OBJECT id="Stream" object_number="352">
+   <OBJECT id="Stream" object_number="345">
       <ENTRY>
          <NAME>Length</NAME>
          <REQUIRED>true</REQUIRED>
@@ -30374,7 +29251,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StructElem" object_number="353">
+   <OBJECT id="StructElem" object_number="346">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30452,13 +29329,7 @@
          <VALUES>
             <VALUE type="array">ArrayOfAttributeRevisions</VALUE>
             <VALUE type="array">fn:Eval(fn:ArrayLength(A)&gt;=1)</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesBLSE</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesColumn</VALUE>
-            <VALUE type="dictionary">StandardLayoutAttributesILSE</VALUE>
-            <VALUE type="dictionary">StandardTableAttributes</VALUE>
-            <VALUE type="dictionary">StandardListAttributes</VALUE>
-            <VALUE type="dictionary">StandardPrintFieldAttributes</VALUE>
-            <VALUE type="dictionary">StandardArtifactAttributes</VALUE>
+            <VALUE type="dictionary">StructureAttributesDict</VALUE>
             <VALUE type="stream">Stream</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
@@ -30543,7 +29414,7 @@
          <INTRODUCED>1.4</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StructTreeRoot" object_number="354">
+   <OBJECT id="StructTreeRoot" object_number="347">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30633,7 +29504,596 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="StyleDict" object_number="355">
+   <OBJECT id="StructureAttributesDict" object_number="348">
+      <ENTRY>
+         <NAME>O</NAME>
+         <VALUES>
+            <VALUE type="name">Layout</VALUE>
+            <VALUE type="name">List</VALUE>
+            <VALUE type="name">Table</VALUE>
+            <VALUE type="name">XML-1.00</VALUE>
+            <VALUE type="name">HTML-3.20</VALUE>
+            <VALUE type="name">HTML-4.01</VALUE>
+            <VALUE type="name">OEB-1.00</VALUE>
+            <VALUE type="name">RTF-1.05</VALUE>
+            <VALUE type="name">CSS-1</VALUE>
+            <VALUE type="name">CSS-2</VALUE>
+            <VALUE type="name">*</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.3</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Placement</NAME>
+         <VALUES>
+            <VALUE type="name">Block</VALUE>
+            <VALUE type="name">Before</VALUE>
+            <VALUE type="name">Start</VALUE>
+            <VALUE type="name">End</VALUE>
+            <VALUE type="name">fn:BeforeVersion(2.0,Inline)</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>WritingMode</NAME>
+         <VALUES>
+            <VALUE type="name">LrTb</VALUE>
+            <VALUE type="name">RlTb</VALUE>
+            <VALUE type="name">TbRl</VALUE>
+            <VALUE isDefaultValue="true" type="name">LrTb</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BackgroundColor</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BorderColor</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4BorderColorArrays</VALUE>
+            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BorderStyle</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4BorderStyleNames</VALUE>
+            <VALUE isDefaultValue="true" type="array">[]</VALUE>
+            <VALUE type="name">None</VALUE>
+            <VALUE type="name">Hidden</VALUE>
+            <VALUE type="name">Dotted</VALUE>
+            <VALUE type="name">Dashed</VALUE>
+            <VALUE type="name">Solid</VALUE>
+            <VALUE type="name">Double</VALUE>
+            <VALUE type="name">Groove</VALUE>
+            <VALUE type="name">Ridge</VALUE>
+            <VALUE type="name">Inset</VALUE>
+            <VALUE type="name">Outset</VALUE>
+            <VALUE isDefaultValue="true" type="name">[None]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BorderThickness</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4BorderThicknessNumbers</VALUE>
+            <VALUE isDefaultValue="true" type="array">[]</VALUE>
+            <VALUE isDefaultValue="true" type="number">[0]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Padding</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4Integers</VALUE>
+            <VALUE isDefaultValue="true" type="array">[]</VALUE>
+            <VALUE isDefaultValue="true" type="number">[0]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Color</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>SpaceBefore</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>SpaceAfter</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>StartIndent</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>EndIndent</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TextIndent</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TextAlign</NAME>
+         <VALUES>
+            <VALUE type="name">Start</VALUE>
+            <VALUE type="name">Center</VALUE>
+            <VALUE type="name">End</VALUE>
+            <VALUE type="name">Justify</VALUE>
+            <VALUE isDefaultValue="true" type="name">Start</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BBox</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="rectangle">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(((@O==Layout) || (@O==Artifact)) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Width</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="name">[Auto]</VALUE>
+            <VALUE isDefaultValue="true" type="number">[]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Height</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="name">[Auto]</VALUE>
+            <VALUE isDefaultValue="true" type="number">[]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BlockAlign</NAME>
+         <VALUES>
+            <VALUE type="name">Before</VALUE>
+            <VALUE type="name">Middle</VALUE>
+            <VALUE type="name">After</VALUE>
+            <VALUE type="name">Justify</VALUE>
+            <VALUE isDefaultValue="true" type="name">Before</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>InlineAlign</NAME>
+         <VALUES>
+            <VALUE type="name">Start</VALUE>
+            <VALUE type="name">Center</VALUE>
+            <VALUE type="name">End</VALUE>
+            <VALUE isDefaultValue="true" type="name">Start</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TBorderStyle</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4BorderStyleNames</VALUE>
+            <VALUE isDefaultValue="true" type="array">[]</VALUE>
+            <VALUE type="name">None</VALUE>
+            <VALUE type="name">Hidden</VALUE>
+            <VALUE type="name">Dotted</VALUE>
+            <VALUE type="name">Dashed</VALUE>
+            <VALUE type="name">Solid</VALUE>
+            <VALUE type="name">Double</VALUE>
+            <VALUE type="name">Groove</VALUE>
+            <VALUE type="name">Ridge</VALUE>
+            <VALUE type="name">Inset</VALUE>
+            <VALUE type="name">Outset</VALUE>
+            <VALUE isDefaultValue="true" type="name">[None]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TPadding</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_4Integers</VALUE>
+            <VALUE isDefaultValue="true" type="array">[]</VALUE>
+            <VALUE isDefaultValue="true" type="integer">[0]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="integer">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>BaselineShift</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="number">0</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>LineHeight</NAME>
+         <VALUES>
+            <VALUE type="name">Normal</VALUE>
+            <VALUE type="name">Auto</VALUE>
+            <VALUE isDefaultValue="true" type="name">[Normal]</VALUE>
+            <VALUE isDefaultValue="true" type="number">[]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TextDecorationColor</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOf_3RGBNumbers</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TextDecorationThickness</NAME>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="number">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>TextDecorationType</NAME>
+         <VALUES>
+            <VALUE type="name">None</VALUE>
+            <VALUE type="name">Underline</VALUE>
+            <VALUE type="name">Overline</VALUE>
+            <VALUE type="name">LineThrough</VALUE>
+            <VALUE isDefaultValue="true" type="name">None</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>RubyAlign</NAME>
+         <VALUES>
+            <VALUE type="name">Start</VALUE>
+            <VALUE type="name">Center</VALUE>
+            <VALUE type="name">End</VALUE>
+            <VALUE type="name">Justify</VALUE>
+            <VALUE type="name">Distribute</VALUE>
+            <VALUE isDefaultValue="true" type="name">Distribute</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>RubyPosition</NAME>
+         <VALUES>
+            <VALUE type="name">Before</VALUE>
+            <VALUE type="name">After</VALUE>
+            <VALUE type="name">Warichu</VALUE>
+            <VALUE type="name">Inline</VALUE>
+            <VALUE isDefaultValue="true" type="name">Before</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>GlyphOrientationVertical</NAME>
+         <VALUES>
+            <VALUE type="integer">-180</VALUE>
+            <VALUE type="integer">-90</VALUE>
+            <VALUE type="integer">0</VALUE>
+            <VALUE type="integer">90</VALUE>
+            <VALUE type="integer">180</VALUE>
+            <VALUE type="integer">270</VALUE>
+            <VALUE type="integer">360</VALUE>
+            <VALUE isDefaultValue="true" type="integer">[]</VALUE>
+            <VALUE type="name">Auto</VALUE>
+            <VALUE isDefaultValue="true" type="name">[Auto]</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="integer">false</VALUE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ListNumbering</NAME>
+         <VALUES>
+            <VALUE type="name">None</VALUE>
+            <VALUE type="name">Disc</VALUE>
+            <VALUE type="name">Circle</VALUE>
+            <VALUE type="name">Square</VALUE>
+            <VALUE type="name">Ordered</VALUE>
+            <VALUE type="name">Decimal</VALUE>
+            <VALUE type="name">UpperRoman</VALUE>
+            <VALUE type="name">LowerRoman</VALUE>
+            <VALUE type="name">UpperAlpha</VALUE>
+            <VALUE type="name">LowerAlpha</VALUE>
+            <VALUE isDefaultValue="true" type="name">None</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>true</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==List) || ((@O!=Layout) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Role</NAME>
+         <VALUES>
+            <VALUE type="name">rb</VALUE>
+            <VALUE type="name">cb</VALUE>
+            <VALUE type="name">pb</VALUE>
+            <VALUE type="name">tv</VALUE>
+            <VALUE type="name">lb</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==PrintField) || ((@O!=Layout) &amp;&amp; (@O!=List) &amp;&amp; (@O!=Table) &amp;&amp; (@O!=Artifact)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>RowSpan</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="integer">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Table) || ((@O!=Layout) &amp;&amp; (@O!=List) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Artifact)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>ColSpan</NAME>
+         <VALUES>
+            <VALUE isDefaultValue="true" type="integer">1</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="integer">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Table) || ((@O!=Layout) &amp;&amp; (@O!=List) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Artifact)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Headers</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfStringsByte</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Table) || ((@O!=Layout) &amp;&amp; (@O!=List) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Artifact)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Scope</NAME>
+         <VALUES>
+            <VALUE type="name">Row</VALUE>
+            <VALUE type="name">Column</VALUE>
+            <VALUE type="name">Both</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Table) || ((@O!=Layout) &amp;&amp; (@O!=List) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Artifact)))</SPECIAL_CASE>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Pagination</VALUE>
+            <VALUE type="name">Layout</VALUE>
+            <VALUE type="name">Page</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval((@O==Artifact) || ((@O!=Layout) &amp;&amp; (@O!=List) &amp;&amp; (@O!=PrintField) &amp;&amp; (@O!=Table)))</SPECIAL_CASE>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="StyleDict" object_number="349">
       <ENTRY>
          <NAME>Panose</NAME>
          <REQUIRED>false</REQUIRED>
@@ -30645,7 +30105,7 @@
          <SPECIAL_CASE>fn:Eval(fn:StringLength(Panose)==12)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thread" object_number="356">
+   <OBJECT id="Thread" object_number="350">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30683,7 +30143,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thumbnail" object_number="357">
+   <OBJECT id="Thumbnail" object_number="351">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30890,7 +30350,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Timespan" object_number="358">
+   <OBJECT id="Timespan" object_number="352">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -30925,7 +30385,7 @@
          <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Transition" object_number="359">
+   <OBJECT id="Transition" object_number="353">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -31053,7 +30513,7 @@
          <SPECIAL_CASE>fn:IsMeaningful(@S==Fly)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="TrapRegion" object_number="360">
+   <OBJECT id="TrapRegion" object_number="354">
       <ENTRY>
          <NAME>TP</NAME>
          <REQUIRED>true</REQUIRED>
@@ -31078,7 +30538,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URI" object_number="361">
+   <OBJECT id="URI" object_number="355">
       <ENTRY>
          <NAME>Base</NAME>
          <REQUIRED>false</REQUIRED>
@@ -31089,7 +30549,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URLAlias" object_number="362">
+   <OBJECT id="URLAlias" object_number="356">
       <ENTRY>
          <NAME>U</NAME>
          <REQUIRED>true</REQUIRED>
@@ -31113,7 +30573,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(C)&gt;=1)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamAnnotsArray" isArray="true" object_number="363">
+   <OBJECT id="URTransformParamAnnotsArray" isArray="true" object_number="357">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -31135,7 +30595,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamDocumentArray" isArray="true" object_number="364">
+   <OBJECT id="URTransformParamDocumentArray" isArray="true" object_number="358">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -31150,7 +30610,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamFormArray" isArray="true" object_number="365">
+   <OBJECT id="URTransformParamFormArray" isArray="true" object_number="359">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -31173,7 +30633,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParamSignatureArray" isArray="true" object_number="366">
+   <OBJECT id="URTransformParamSignatureArray" isArray="true" object_number="360">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -31188,7 +30648,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URTransformParameters" object_number="367">
+   <OBJECT id="URTransformParameters" object_number="361">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -31278,7 +30738,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="ViewerPreferences" object_number="368">
+   <OBJECT id="ViewerPreferences" object_number="362">
       <ENTRY>
          <NAME>HideToolbar</NAME>
          <VALUES>
@@ -31455,7 +30915,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureCommand" object_number="369">
+   <OBJECT id="WebCaptureCommand" object_number="363">
       <ENTRY>
          <NAME>URL</NAME>
          <REQUIRED>true</REQUIRED>
@@ -31538,7 +30998,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureCommandSettings" object_number="370">
+   <OBJECT id="WebCaptureCommandSettings" object_number="364">
       <ENTRY>
          <NAME>G</NAME>
          <VALUES>
@@ -31564,7 +31024,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureImageSet" object_number="371">
+   <OBJECT id="WebCaptureImageSet" object_number="365">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -31657,7 +31117,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(O)==fn:ArrayLength(R))];[fn:Eval(@R&gt;0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCaptureInfo" object_number="372">
+   <OBJECT id="WebCaptureInfo" object_number="366">
       <ENTRY>
          <NAME>V</NAME>
          <VALUES>
@@ -31685,7 +31145,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WebCapturePageSet" object_number="373">
+   <OBJECT id="WebCapturePageSet" object_number="367">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -31782,7 +31242,7 @@
          <INTRODUCED>1.3</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WhitepointArray" isArray="true" object_number="374">
+   <OBJECT id="WhitepointArray" isArray="true" object_number="368">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -31820,7 +31280,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPS" object_number="375">
+   <OBJECT id="XObjectFormPS" object_number="369">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -31961,7 +31421,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPSpassthrough" object_number="376">
+   <OBJECT id="XObjectFormPSpassthrough" object_number="370">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32168,7 +31628,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPrinterMark" object_number="377">
+   <OBJECT id="XObjectFormPrinterMark" object_number="371">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32478,7 +31938,7 @@
          <INTRODUCED>1.4</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormTrapNet" object_number="378">
+   <OBJECT id="XObjectFormTrapNet" object_number="372">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -32842,7 +32302,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormType1" object_number="379">
+   <OBJECT id="XObjectFormType1" object_number="373">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33146,7 +32606,7 @@
          <DEPRECATED>1.3</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImage" object_number="380">
+   <OBJECT id="XObjectImage" object_number="374">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33237,6 +32697,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Ignore(@ImageMask==true)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>ImageMask</NAME>
@@ -33249,6 +32710,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(((@ImageMask==true) &amp;&amp; (@BitsPerComponent==1) &amp;&amp; fn:Not(fn:IsPresent(ColorSpace)) &amp;&amp; fn:Not(fn:IsPresent(Mask))) || (@ImageMask==false))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Mask</NAME>
@@ -33263,7 +32725,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:Not(fn:IsPresent(ImageMask))];[fn:Not(fn:IsPresent(ImageMask))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Decode</NAME>
@@ -33518,7 +32980,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImageMask" object_number="381">
+   <OBJECT id="XObjectImageMask" object_number="375">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33581,7 +33043,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:Ignore()</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Ignore(@ImageMask==true)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>ImageMask</NAME>
@@ -33594,6 +33056,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(((@ImageMask==true) &amp;&amp; (@BitsPerComponent==1) &amp;&amp; fn:Not(fn:IsPresent(ColorSpace)) &amp;&amp; fn:Not(fn:IsPresent(Mask))) || (@ImageMask==false))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Decode</NAME>
@@ -33844,7 +33307,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImageSoftMask" object_number="382">
+   <OBJECT id="XObjectImageSoftMask" object_number="376">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -33910,7 +33373,7 @@
             <VALUE type="integer">fn:RequiredValue((fn:Contains(@Filter,RunLengthDecode) || fn:Contains(@Filter,DCTDecode)),8)</VALUE>
             <VALUE type="integer">16</VALUE>
          </VALUES>
-         <REQUIRED>true</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="integer">false</VALUE>
          </INDIRECT_REFERENCE>
@@ -33925,6 +33388,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.4</INTRODUCED>
+         <SPECIAL_CASE>fn:Ignore(@ImageMask==true)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>ImageMask</NAME>
@@ -34120,7 +33584,7 @@
          <SPECIAL_CASE>fn:Eval(@DL&gt;=0)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectMap" object_number="383">
+   <OBJECT id="XObjectMap" object_number="377">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -34137,7 +33601,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XRefStream" object_number="384">
+   <OBJECT id="XRefStream" object_number="378">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -34165,7 +33629,7 @@
       <ENTRY>
          <NAME>Index</NAME>
          <VALUES>
-            <VALUE type="array">ArrayOfIntegersGeneral</VALUE>
+            <VALUE type="array">ArrayOfXRefIndexIntegers</VALUE>
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -34228,7 +33692,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval((fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter)) &amp;&amp; (fn:Not(fn:Contains(@Filter,Crypt))))];[</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>DecodeParms</NAME>
@@ -34258,6 +33722,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.5</INTRODUCED>
+         <SPECIAL_CASE>];[fn:Eval(fn:AlwaysUnencrypted())</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>FFilter</NAME>
@@ -34358,7 +33823,7 @@
          <INTRODUCED>1.5</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="_UniversalArray" isArray="true" object_number="385">
+   <OBJECT id="_UniversalArray" isArray="true" object_number="379">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -34381,7 +33846,7 @@
          <INTRODUCED>1.2</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="_UniversalDictionary" object_number="386">
+   <OBJECT id="_UniversalDictionary" object_number="380">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>

@@ -11,7 +11,7 @@ ViewArea	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimB
 ViewClip	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			
 PrintArea	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			
 PrintClip	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			
-PrintScaling	name	1.6		FALSE	FALSE	FALSE	AppDefault	[None,AppDefault]			
+PrintScaling	name	1.6		FALSE	FALSE	FALSE	AppDefault	[None,AppDefault,*]			
 Duplex	name	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[Simplex,DuplexFlipShortEdge,DuplexFlipLongEdge]			
 PickTrayByPDFSize	boolean	1.7		FALSE	FALSE	FALSE	false				
 PrintPageRange	array	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()			[ArrayOfIntegersGeneral]	

@@ -1,2 +1,2 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-*	name	1.5		FALSE	FALSE	FALSE		[fn:SinceVersion(1.6,adbe.pkcs7.sha1)]			Table 260 and Table 237, SubFilter cell
+*	name	1.5		FALSE	FALSE	FALSE		[adbe.pkcs7.detached,adbe.pkcs7.sha1,adbe.x509.rsa_sha1]			Table 260 and Table 237, SubFilter cell and https://github.com/pdf-association/pdf-issues/issues/219

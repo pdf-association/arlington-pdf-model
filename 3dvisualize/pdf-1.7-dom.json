@@ -1837,7 +1837,7 @@
         "Key": "F",
         "Type": "dictionary;string",
         "SinceVersion": 1.6,
-        "Required": true,
+        "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[FileSpecification];[]"
@@ -9751,6 +9751,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(*)>0)]",
         "Link": "[ArrayOfOptContentGroups]"
       }
     }
@@ -9794,7 +9795,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes]"
+        "Link": "[StructureAttributesDict]"
       }
     }
   },
@@ -9808,7 +9809,7 @@
         "Required": true,
         "IndirectReference": "[false];[true]",
         "Inheritable": false,
-        "Link": "[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes];[Stream]"
+        "Link": "[StructureAttributesDict];[Stream]"
       },
       "1*": {
         "Key": "1*",
@@ -9817,7 +9818,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@1>=0)]"
+        "PossibleValues": "[fn:Eval(@1*>=0)]"
       }
     }
   },
@@ -9870,7 +9871,7 @@
         "Key": "*",
         "Type": "array;integer;number",
         "SinceVersion": 1.2,
-        "Required": true,
+        "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfNumbersGeneral];[];[]"
@@ -9884,7 +9885,7 @@
         "Key": "*",
         "Type": "array;integer;number",
         "SinceVersion": 1.2,
-        "Required": true,
+        "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval((fn:ArrayLength(1) mod 3)==0)];[];[]",
@@ -9910,7 +9911,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@1>=0)]"
+        "PossibleValues": "[fn:Eval(@1*>=0)]"
       }
     }
   },
@@ -10202,7 +10203,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:InMap(parent::RichMediaContent::Assets)]",
+        "SpecialCase": "[fn:InNameTree(parent::RichMediaContent::Assets)]",
         "Link": "[FileSpecification]"
       }
     }
@@ -10496,7 +10497,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval((@2>=0) && (@2<=1))]"
+        "PossibleValues": "[fn:Eval((@2*>=0) && (@2*<=1))]"
       }
     }
   },
@@ -10772,7 +10773,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[adbe.pkcs7.detached,fn:SinceVersion(1.6,adbe.pkcs7.sha1),adbe.x509.rsa_sha1]"
+        "PossibleValues": "[adbe.pkcs7.detached,adbe.pkcs7.sha1,adbe.x509.rsa_sha1]"
       }
     }
   },
@@ -11116,6 +11117,29 @@
     }
   },
   {
+    "id": "ArrayOfXRefIndexIntegers",
+    "keys": {
+      "0*": {
+        "Key": "0*",
+        "Type": "integer",
+        "SinceVersion": 1.5,
+        "Required": true,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@0*>=0)]"
+      },
+      "1*": {
+        "Key": "1*",
+        "Type": "integer",
+        "SinceVersion": 1.5,
+        "Required": true,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(@1*>=0)]"
+      }
+    }
+  },
+  {
     "id": "ArrayOfXRefWIntegers",
     "keys": {
       "0": {
@@ -11123,7 +11147,7 @@
         "Type": "integer",
         "SinceVersion": 1.5,
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
         "PossibleValues": "[fn:Eval(@0>=0)]"
       },
@@ -11132,7 +11156,7 @@
         "Type": "integer",
         "SinceVersion": 1.5,
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
         "PossibleValues": "[fn:Eval(@1>0)]"
       },
@@ -11141,7 +11165,7 @@
         "Type": "integer",
         "SinceVersion": 1.5,
         "Required": true,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
         "PossibleValues": "[fn:Eval(@2>=0)]"
       }
@@ -11565,7 +11589,7 @@
     }
   },
   {
-    "id": "ArrayOf_4BorderColors",
+    "id": "ArrayOf_4BorderColorArrays",
     "keys": {
       "0": {
         "Key": "0",
@@ -11762,50 +11786,6 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
-      }
-    }
-  },
-  {
-    "id": "ArrayOf_4NamesForAttached",
-    "keys": {
-      "0": {
-        "Key": "0",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Top,Bottom,Left,Right]"
-      },
-      "1": {
-        "Key": "1",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Top,Bottom,Left,Right]",
-        "SpecialCase": "[fn:Eval(@1!=@0)]"
-      },
-      "2": {
-        "Key": "2",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Top,Bottom,Left,Right]",
-        "SpecialCase": "[fn:Eval((@2!=@0) && (@2!=@1))]"
-      },
-      "3": {
-        "Key": "3",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Top,Bottom,Left,Right]",
-        "SpecialCase": "[fn:Eval((@3!=@0) && (@3!=@1) && (@3!=@2))]"
       }
     }
   },
@@ -12847,7 +12827,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.7,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
         "Link": "[Extensions]"
       },
@@ -13181,7 +13161,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "Browser",
-        "PossibleValues": "[Browser]"
+        "PossibleValues": "[Browser,*]"
       }
     }
   },
@@ -13209,7 +13189,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfAttributeObjects];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes]"
+        "Link": "[ArrayOfAttributeObjects];[StructureAttributesDict]"
       }
     }
   },
@@ -16342,7 +16322,8 @@
         "SinceVersion": 1.1,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "PossibleValues": "[URL,*]"
       },
       "F": {
         "Key": "F",
@@ -16630,7 +16611,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "Identity",
-        "SpecialCase": "[fn:InMap(trailer::Encrypt::CF)]"
+        "SpecialCase": "[fn:InKeyMap(trailer::Encrypt::CF)]"
       }
     }
   },
@@ -21202,7 +21183,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "Link": "[Stream]"
+        "Link": "[XObjectFormType1]"
       },
       "StmOwn": {
         "Key": "StmOwn",
@@ -22512,20 +22493,6 @@
         "DefaultValue": "[0.5 0.5]",
         "SpecialCase": "[fn:Eval((FWPosition::@0>=0.0) && (FWPosition::@0<=1.0) && (FWPosition::@1>=0.0) && (FWPosition::@1<=1.0))]",
         "Link": "[ArrayOf_2Numbers]"
-      }
-    }
-  },
-  {
-    "id": "NSOAttributes",
-    "keys": {
-      "O": {
-        "Key": "O",
-        "Type": "name",
-        "SinceVersion": 1.6,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[NSO]"
       }
     }
   },
@@ -24170,6 +24137,7 @@
         "Required": "fn:IsRequired(@Type!=Template)",
         "IndirectReference": true,
         "Inheritable": false,
+        "SpecialCase": "[fn:Not(fn:IsPresent(@Type==Template))]",
         "Link": "[PageTreeNode,PageTreeNodeRoot]"
       },
       "LastModified": {
@@ -24286,6 +24254,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Not(fn:IsPresent(@Type==Template))]",
         "Link": "[ArrayOfBeads]"
       },
       "Dur": {
@@ -24387,7 +24356,7 @@
         "Key": "TemplateInstantiated",
         "Type": "name",
         "SinceVersion": 1.5,
-        "Required": "fn:IsRequired(fn:InMap(trailer::Catalog::Names::Pages) || fn:InMap(trailer::Catalog::Names::Templates))",
+        "Required": "fn:IsRequired(fn:InNameTree(trailer::Catalog::Names::Pages) || fn:InNameTree(trailer::Catalog::Names::Templates))",
         "IndirectReference": false,
         "Inheritable": false
       },
@@ -24699,7 +24668,7 @@
         "Required": "fn:IsRequired((@Symbology==PDF417) || (@Symbology==QRCode))",
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval((@ECC>=0) && (((@Symbology==PDF417) && (@ECC<=8)) || (@Symbology==QRCode) && (@ECC<=3)))]"
+        "PossibleValues": "[fn:Eval((@ECC>=0) && (((@Symbology==PDF417) && (@ECC<=8)) || ((@Symbology==QRCode) && (@ECC<=3))))]"
       },
       "nCodeWordRow": {
         "Key": "nCodeWordRow",
@@ -27404,7 +27373,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[adbe.pkcs7.detached,fn:SinceVersion(1.5,adbe.pkcs7.sha1),adbe.x509.rsa_sha1]"
+        "PossibleValues": "[adbe.pkcs7.detached,fn:SinceVersion(1.4,adbe.pkcs7.sha1),adbe.x509.rsa_sha1]"
       },
       "Contents": {
         "Key": "Contents",
@@ -28065,7 +28034,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:InMap(Resources)]"
+        "SpecialCase": "[fn:InNameTree(Resources)]"
       }
     }
   },
@@ -28465,813 +28434,6 @@
     }
   },
   {
-    "id": "StandardArtifactAttributes",
-    "keys": {
-      "O": {
-        "Key": "O",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Artifact]"
-      },
-      "Type": {
-        "Key": "Type",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Pagination,Layout,Page,fn:Extension(ADBE_Extn3,BatesN)]"
-      },
-      "BBox": {
-        "Key": "BBox",
-        "Type": "rectangle",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "Attached": {
-        "Key": "Attached",
-        "Type": "array",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOf_4NamesForAttached]"
-      },
-      "Subtype": {
-        "Key": "Subtype",
-        "Type": "name",
-        "SinceVersion": 1.7,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Header,Footer,Watermark]",
-        "SpecialCase": "[fn:IsMeaningful((@Type==Pagination) || (@Type==Inline))]"
-      },
-      "Contents": {
-        "Key": "Contents",
-        "Type": "array;string-text",
-        "SinceVersion": 1.0,
-        "DeprecatedIn": 2.0,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfStringsText];[]"
-      }
-    }
-  },
-  {
-    "id": "StandardLayoutAttributesBLSE",
-    "keys": {
-      "O": {
-        "Key": "O",
-        "Type": "name",
-        "SinceVersion": 1.3,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Layout]"
-      },
-      "Placement": {
-        "Key": "Placement",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Block,Before,Start,End]"
-      },
-      "WritingMode": {
-        "Key": "WritingMode",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "LrTb",
-        "PossibleValues": "[LrTb,RlTb,TbRl,TbLr,LrBt,RlBt,BtRl,BtLr]"
-      },
-      "BackgroundColor": {
-        "Key": "BackgroundColor",
-        "Type": "array",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOf_3RGBNumbers]"
-      },
-      "BorderColor": {
-        "Key": "BorderColor",
-        "Type": "array",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "Link": "[ArrayOf_4BorderColors,ArrayOf_3RGBNumbers]"
-      },
-      "BorderStyle": {
-        "Key": "BorderStyle",
-        "Type": "array;name",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "[];[None]",
-        "PossibleValues": "[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]",
-        "Link": "[ArrayOf_4BorderStyleNames];[]"
-      },
-      "BorderThickness": {
-        "Key": "BorderThickness",
-        "Type": "array;number",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "[];[0]",
-        "Link": "[ArrayOf_4BorderThicknessNumbers];[]"
-      },
-      "Padding": {
-        "Key": "Padding",
-        "Type": "array;number",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "[];[0]",
-        "Link": "[ArrayOf_4Integers];[]"
-      },
-      "Color": {
-        "Key": "Color",
-        "Type": "array",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "Link": "[ArrayOf_3RGBNumbers]"
-      },
-      "SpaceBefore": {
-        "Key": "SpaceBefore",
-        "Type": "number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "0"
-      },
-      "SpaceAfter": {
-        "Key": "SpaceAfter",
-        "Type": "number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "0"
-      },
-      "StartIndent": {
-        "Key": "StartIndent",
-        "Type": "number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "0"
-      },
-      "EndIndent": {
-        "Key": "EndIndent",
-        "Type": "number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "0"
-      },
-      "TextIndent": {
-        "Key": "TextIndent",
-        "Type": "number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "0"
-      },
-      "TextAlign": {
-        "Key": "TextAlign",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "Start",
-        "PossibleValues": "[Start,Center,End,Justify]"
-      },
-      "BBox": {
-        "Key": "BBox",
-        "Type": "rectangle",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
-      },
-      "Width": {
-        "Key": "Width",
-        "Type": "name;number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "[Auto];[]"
-      },
-      "Height": {
-        "Key": "Height",
-        "Type": "name;number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "[Auto];[]"
-      },
-      "BlockAlign": {
-        "Key": "BlockAlign",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "Before",
-        "PossibleValues": "[Before,Middle,After,Justify]"
-      },
-      "InlineAlign": {
-        "Key": "InlineAlign",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "Start",
-        "PossibleValues": "[Start,Center,End]"
-      },
-      "TBorderStyle": {
-        "Key": "TBorderStyle",
-        "Type": "array;name",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "[];[None]",
-        "Link": "[ArrayOf_4BorderStyleNames];[]"
-      },
-      "TPadding": {
-        "Key": "TPadding",
-        "Type": "array;integer",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "[];[0]",
-        "Link": "[ArrayOf_4Integers];[]"
-      },
-      "BaselineShift": {
-        "Key": "BaselineShift",
-        "Type": "number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "0"
-      },
-      "LineHeight": {
-        "Key": "LineHeight",
-        "Type": "name;number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "[Normal];[]",
-        "PossibleValues": "[Normal,Auto];[]"
-      },
-      "TextDecorationColor": {
-        "Key": "TextDecorationColor",
-        "Type": "array",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "Link": "[ArrayOf_3RGBNumbers]"
-      },
-      "TextDecorationThickness": {
-        "Key": "TextDecorationThickness",
-        "Type": "number",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true
-      },
-      "TextDecorationType": {
-        "Key": "TextDecorationType",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "None",
-        "PossibleValues": "[None,Underline,Overline,LineThrough]"
-      },
-      "RubyAlign": {
-        "Key": "RubyAlign",
-        "Type": "name",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "Distribute",
-        "PossibleValues": "[Start,Center,End,Justify,Distribute]"
-      },
-      "RubyPosition": {
-        "Key": "RubyPosition",
-        "Type": "name",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "Before",
-        "PossibleValues": "[Before,After,Warichu,Inline]"
-      },
-      "GlyphOrientationVertical": {
-        "Key": "GlyphOrientationVertical",
-        "Type": "integer;name",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "[];[Auto]",
-        "PossibleValues": "[-180,-90,0,90,180,270,360];[Auto]"
-      }
-    }
-  },
-  {
-    "id": "StandardLayoutAttributesColumn",
-    "keys": {
-      "O": {
-        "Key": "O",
-        "Type": "name",
-        "SinceVersion": 1.3,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Layout]"
-      },
-      "Placement": {
-        "Key": "Placement",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Block,Inline,Before,Start,End]"
-      },
-      "WritingMode": {
-        "Key": "WritingMode",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "LrTb",
-        "PossibleValues": "[LrTb,RlTb,TbRl,TbLr,LrBt,RlBt,BtRl,BtLr]"
-      },
-      "BackgroundColor": {
-        "Key": "BackgroundColor",
-        "Type": "array",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOf_3RGBNumbers]"
-      },
-      "BorderColor": {
-        "Key": "BorderColor",
-        "Type": "array",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "Link": "[ArrayOf_4BorderColors,ArrayOf_3RGBNumbers]"
-      },
-      "BorderStyle": {
-        "Key": "BorderStyle",
-        "Type": "array;name",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "[];[None]",
-        "PossibleValues": "[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]",
-        "Link": "[ArrayOf_4BorderStyleNames];[]"
-      },
-      "BorderThickness": {
-        "Key": "BorderThickness",
-        "Type": "array;number",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "[];[0]",
-        "Link": "[ArrayOf_4BorderThicknessNumbers];[]"
-      },
-      "Padding": {
-        "Key": "Padding",
-        "Type": "array;number",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "[];[0]",
-        "Link": "[ArrayOf_4Integers];[]"
-      },
-      "Color": {
-        "Key": "Color",
-        "Type": "array",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "Link": "[ArrayOf_3RGBNumbers]"
-      },
-      "ColumnCount": {
-        "Key": "ColumnCount",
-        "Type": "integer",
-        "SinceVersion": 1.6,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "1"
-      },
-      "ColumnGap": {
-        "Key": "ColumnGap",
-        "Type": "array;number",
-        "SinceVersion": 1.6,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfNumbersGeneral];[]"
-      },
-      "ColumnWidths": {
-        "Key": "ColumnWidths",
-        "Type": "array;number",
-        "SinceVersion": 1.6,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfNumbersGeneral];[]"
-      }
-    }
-  },
-  {
-    "id": "StandardLayoutAttributesILSE",
-    "keys": {
-      "O": {
-        "Key": "O",
-        "Type": "name",
-        "SinceVersion": 1.3,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Layout]"
-      },
-      "Placement": {
-        "Key": "Placement",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Inline,Before,Start,End]"
-      },
-      "WritingMode": {
-        "Key": "WritingMode",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "LrTb",
-        "PossibleValues": "[LrTb,RlTb,TbRl,TbLr,LrBt,RlBt,BtRl,BtLr]"
-      },
-      "BackgroundColor": {
-        "Key": "BackgroundColor",
-        "Type": "array",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOf_3RGBNumbers]"
-      },
-      "BorderColor": {
-        "Key": "BorderColor",
-        "Type": "array",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "Link": "[ArrayOf_4BorderColors,ArrayOf_3RGBNumbers]"
-      },
-      "BorderStyle": {
-        "Key": "BorderStyle",
-        "Type": "array;name",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "[];[None]",
-        "PossibleValues": "[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]",
-        "Link": "[ArrayOf_4BorderStyleNames];[]"
-      },
-      "BorderThickness": {
-        "Key": "BorderThickness",
-        "Type": "array;number",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "[];[0]",
-        "Link": "[ArrayOf_4BorderThicknessNumbers];[]"
-      },
-      "Padding": {
-        "Key": "Padding",
-        "Type": "array;number",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "[];[0]",
-        "Link": "[ArrayOf_4Integers];[]"
-      },
-      "Color": {
-        "Key": "Color",
-        "Type": "array",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "Link": "[ArrayOf_3RGBNumbers]"
-      },
-      "BaselineShift": {
-        "Key": "BaselineShift",
-        "Type": "number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "0"
-      },
-      "LineHeight": {
-        "Key": "LineHeight",
-        "Type": "name;number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "[Normal];[]",
-        "PossibleValues": "[Normal,Auto];[]"
-      },
-      "TextDecorationColor": {
-        "Key": "TextDecorationColor",
-        "Type": "array",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "Link": "[ArrayOf_3RGBNumbers]"
-      },
-      "TextDecorationThickness": {
-        "Key": "TextDecorationThickness",
-        "Type": "number",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true
-      },
-      "TextDecorationType": {
-        "Key": "TextDecorationType",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "None",
-        "PossibleValues": "[None,Underline,Overline,LineThrough]"
-      },
-      "RubyAlign": {
-        "Key": "RubyAlign",
-        "Type": "name",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "Distribute",
-        "PossibleValues": "[Start,Center,End,Justify,Distribute]"
-      },
-      "RubyPosition": {
-        "Key": "RubyPosition",
-        "Type": "name",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "Before",
-        "PossibleValues": "[Before,After,Warichu,Inline]"
-      },
-      "GlyphOrientationVertical": {
-        "Key": "GlyphOrientationVertical",
-        "Type": "integer;name",
-        "SinceVersion": 1.5,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "[];[Auto]",
-        "PossibleValues": "[-180,-90,0,90,180,270,360];[Auto]"
-      },
-      "SpaceBefore": {
-        "Key": "SpaceBefore",
-        "Type": "number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(@Placement!=Inline)]"
-      },
-      "SpaceAfter": {
-        "Key": "SpaceAfter",
-        "Type": "number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(@Placement!=Inline)]"
-      },
-      "StartIndent": {
-        "Key": "StartIndent",
-        "Type": "number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(@Placement!=Inline)]"
-      },
-      "EndIndent": {
-        "Key": "EndIndent",
-        "Type": "number",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(@Placement!=Inline)]"
-      }
-    }
-  },
-  {
-    "id": "StandardListAttributes",
-    "keys": {
-      "O": {
-        "Key": "O",
-        "Type": "name",
-        "SinceVersion": 1.3,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[List]"
-      },
-      "ListNumbering": {
-        "Key": "ListNumbering",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": true,
-        "DefaultValue": "None",
-        "PossibleValues": "[None,Unordered,Description,Disc,Circle,Square,Ordered,Decimal,UpperRoman,LowerRoman,UpperAlpha,LowerAlpha]"
-      }
-    }
-  },
-  {
-    "id": "StandardPrintFieldAttributes",
-    "keys": {
-      "O": {
-        "Key": "O",
-        "Type": "name",
-        "SinceVersion": 1.3,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[PrintField]"
-      },
-      "Role": {
-        "Key": "Role",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[rb,cb,pb,tv,lb]"
-      },
-      "Checked": {
-        "Key": "Checked",
-        "Type": "name",
-        "SinceVersion": 1.7,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "off",
-        "PossibleValues": "[on,off,neutral]"
-      },
-      "checked": {
-        "Key": "checked",
-        "Type": "name",
-        "SinceVersion": 1.7,
-        "DeprecatedIn": 2.0,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "off",
-        "PossibleValues": "[on,off,neutral]"
-      },
-      "Desc": {
-        "Key": "Desc",
-        "Type": "string-text",
-        "SinceVersion": 1.7,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
-      }
-    }
-  },
-  {
-    "id": "StandardTableAttributes",
-    "keys": {
-      "O": {
-        "Key": "O",
-        "Type": "name",
-        "SinceVersion": 1.3,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Table]"
-      },
-      "RowSpan": {
-        "Key": "RowSpan",
-        "Type": "integer",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "1"
-      },
-      "ColSpan": {
-        "Key": "ColSpan",
-        "Type": "integer",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "DefaultValue": "1"
-      },
-      "Headers": {
-        "Key": "Headers",
-        "Type": "array",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfStringsByte]"
-      },
-      "Scope": {
-        "Key": "Scope",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Row,Column,Both]"
-      },
-      "Summary": {
-        "Key": "Summary",
-        "Type": "string-text",
-        "SinceVersion": 1.7,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
-      }
-    }
-  },
-  {
     "id": "Stream",
     "keys": {
       "Length": {
@@ -29407,7 +28569,7 @@
         "IndirectReference": "[false];[false];[true]",
         "Inheritable": false,
         "PossibleValues": "[fn:Eval(fn:ArrayLength(A)>=1)];[];[]",
-        "Link": "[ArrayOfAttributeRevisions];[StandardLayoutAttributesBLSE,StandardLayoutAttributesColumn,StandardLayoutAttributesILSE,StandardTableAttributes,StandardListAttributes,StandardPrintFieldAttributes,StandardArtifactAttributes,UserPropertiesAttributes,NSOAttributes];[Stream]"
+        "Link": "[ArrayOfAttributeRevisions];[StructureAttributesDict];[Stream]"
       },
       "C": {
         "Key": "C",
@@ -29539,6 +28701,496 @@
     }
   },
   {
+    "id": "StructureAttributesDict",
+    "keys": {
+      "O": {
+        "Key": "O",
+        "Type": "name",
+        "SinceVersion": 1.3,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[UserProperties,Layout,List,PrintField,Table,XML-1.00,HTML-3.20,HTML-4.01,OEB-1.00,RTF-1.05,CSS-1,CSS-2,*]"
+      },
+      "Placement": {
+        "Key": "Placement",
+        "Type": "name",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Block,Before,Start,End,fn:BeforeVersion(2.0,Inline)]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "WritingMode": {
+        "Key": "WritingMode",
+        "Type": "name",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "LrTb",
+        "PossibleValues": "[LrTb,RlTb,TbRl]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "BackgroundColor": {
+        "Key": "BackgroundColor",
+        "Type": "array",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "BorderColor": {
+        "Key": "BorderColor",
+        "Type": "array",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOf_4BorderColorArrays,ArrayOf_3RGBNumbers]"
+      },
+      "BorderStyle": {
+        "Key": "BorderStyle",
+        "Type": "array;name",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[];[None]",
+        "PossibleValues": "[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOf_4BorderStyleNames];[]"
+      },
+      "BorderThickness": {
+        "Key": "BorderThickness",
+        "Type": "array;number",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "[];[0]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOf_4BorderThicknessNumbers];[]"
+      },
+      "Padding": {
+        "Key": "Padding",
+        "Type": "array;number",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[];[0]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOf_4Integers];[]"
+      },
+      "Color": {
+        "Key": "Color",
+        "Type": "array",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "SpaceBefore": {
+        "Key": "SpaceBefore",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "SpaceAfter": {
+        "Key": "SpaceAfter",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "StartIndent": {
+        "Key": "StartIndent",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "EndIndent": {
+        "Key": "EndIndent",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "TextIndent": {
+        "Key": "TextIndent",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "TextAlign": {
+        "Key": "TextAlign",
+        "Type": "name",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "Start",
+        "PossibleValues": "[Start,Center,End,Justify]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "BBox": {
+        "Key": "BBox",
+        "Type": "rectangle",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(((@O==Layout) || (@O==Artifact)) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "Width": {
+        "Key": "Width",
+        "Type": "name;number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[Auto];[]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "Height": {
+        "Key": "Height",
+        "Type": "name;number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "[Auto];[]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "BlockAlign": {
+        "Key": "BlockAlign",
+        "Type": "name",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "Before",
+        "PossibleValues": "[Before,Middle,After,Justify]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "InlineAlign": {
+        "Key": "InlineAlign",
+        "Type": "name",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "Start",
+        "PossibleValues": "[Start,Center,End]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "TBorderStyle": {
+        "Key": "TBorderStyle",
+        "Type": "array;name",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "[];[None]",
+        "PossibleValues": "[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOf_4BorderStyleNames];[]"
+      },
+      "TPadding": {
+        "Key": "TPadding",
+        "Type": "array;integer",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "[];[0]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOf_4Integers];[]"
+      },
+      "BaselineShift": {
+        "Key": "BaselineShift",
+        "Type": "number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "0",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "LineHeight": {
+        "Key": "LineHeight",
+        "Type": "name;number",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "[Normal];[]",
+        "PossibleValues": "[Normal,Auto];[]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "TextDecorationColor": {
+        "Key": "TextDecorationColor",
+        "Type": "array",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOf_3RGBNumbers]"
+      },
+      "TextDecorationThickness": {
+        "Key": "TextDecorationThickness",
+        "Type": "number",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "TextDecorationType": {
+        "Key": "TextDecorationType",
+        "Type": "name",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "None",
+        "PossibleValues": "[None,Underline,Overline,LineThrough]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "RubyAlign": {
+        "Key": "RubyAlign",
+        "Type": "name",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "Distribute",
+        "PossibleValues": "[Start,Center,End,Justify,Distribute]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "RubyPosition": {
+        "Key": "RubyPosition",
+        "Type": "name",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "Before",
+        "PossibleValues": "[Before,After,Warichu,Inline]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "GlyphOrientationVertical": {
+        "Key": "GlyphOrientationVertical",
+        "Type": "integer;name",
+        "SinceVersion": 1.5,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "[];[Auto]",
+        "PossibleValues": "[-180,-90,0,90,180,270,360];[Auto]",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "ColumnCount": {
+        "Key": "ColumnCount",
+        "Type": "integer",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1",
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "ColumnGap": {
+        "Key": "ColumnGap",
+        "Type": "array;number",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOfNumbersGeneral];[]"
+      },
+      "ColumnWidths": {
+        "Key": "ColumnWidths",
+        "Type": "array;number",
+        "SinceVersion": 1.6,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOfNumbersGeneral];[]"
+      },
+      "ListNumbering": {
+        "Key": "ListNumbering",
+        "Type": "name",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": true,
+        "DefaultValue": "None",
+        "PossibleValues": "[None,Disc,Circle,Square,Ordered,Decimal,UpperRoman,LowerRoman,UpperAlpha,LowerAlpha]",
+        "SpecialCase": "[fn:Eval((@O==List) || ((@O!=Layout) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "Role": {
+        "Key": "Role",
+        "Type": "name",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[rb,cb,pb,tv,lb]",
+        "SpecialCase": "[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]"
+      },
+      "Checked": {
+        "Key": "Checked",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "off",
+        "PossibleValues": "[on,off,neutral]",
+        "SpecialCase": "[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]"
+      },
+      "checked": {
+        "Key": "checked",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "off",
+        "PossibleValues": "[on,off,neutral]",
+        "SpecialCase": "[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]"
+      },
+      "Desc": {
+        "Key": "Desc",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]"
+      },
+      "RowSpan": {
+        "Key": "RowSpan",
+        "Type": "integer",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1",
+        "SpecialCase": "[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]"
+      },
+      "ColSpan": {
+        "Key": "ColSpan",
+        "Type": "integer",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "DefaultValue": "1",
+        "SpecialCase": "[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]"
+      },
+      "Headers": {
+        "Key": "Headers",
+        "Type": "array",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]",
+        "Link": "[ArrayOfStringsByte]"
+      },
+      "Scope": {
+        "Key": "Scope",
+        "Type": "name",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Row,Column,Both]",
+        "SpecialCase": "[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]"
+      },
+      "Summary": {
+        "Key": "Summary",
+        "Type": "string-text",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]"
+      },
+      "P": {
+        "Key": "P",
+        "Type": "array",
+        "SinceVersion": 1.6,
+        "Required": "fn:IsRequired(@O==UserProperties)",
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfUserProperty]"
+      },
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.4,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Pagination,Layout,Page,fn:Extension(ADBE_Extn3,BatesN)]",
+        "SpecialCase": "[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "Subtype": {
+        "Key": "Subtype",
+        "Type": "name",
+        "SinceVersion": 1.7,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Header,Footer,Watermark]",
+        "SpecialCase": "[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))]"
+      },
+      "Contents": {
+        "Key": "Contents",
+        "Type": "array;string-text",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 2.0,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))]",
+        "Link": "[ArrayOfStringsText];[]"
+      }
+    }
+  },
+  {
     "id": "StyleDict",
     "keys": {
       "Panose": {
@@ -29557,7 +29209,7 @@
     "keys": {
       "*": {
         "Key": "*",
-        "Type": "string",
+        "Type": "string-text",
         "SinceVersion": 1.7,
         "Required": false,
         "IndirectReference": false,
@@ -29581,19 +29233,19 @@
         "Key": "N",
         "Type": "string-byte",
         "SinceVersion": 1.6,
-        "Required": "fn:IsRequired((@R==C) && fn:InMap(trailer::Catalog::Names::EmbeddedFiles))",
+        "Required": "fn:IsRequired((@R==C) && fn:InNameTree(trailer::Catalog::Names::EmbeddedFiles))",
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Not(fn:IsPresent((@R!=C) || fn:Not(fn:InMap(trailer::Catalog::Names::EmbeddedFiles))))]"
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent((@R==C) && fn:InNameTree(trailer::Catalog::Names::EmbeddedFiles))))]"
       },
       "P": {
         "Key": "P",
         "Type": "integer;string-byte",
         "SinceVersion": 1.6,
-        "Required": "fn:IsRequired(@R==C)",
+        "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval((@P>=0) && (@P<fn:NumberOfPages()))];[fn:InMap(trailer::Catalog::Dests)]"
+        "PossibleValues": "[fn:Eval((@P>=0) && (@P<fn:NumberOfPages()))];[fn:InNameTree(trailer::Catalog::Names::Dests)]"
       },
       "A": {
         "Key": "A",
@@ -30153,29 +29805,6 @@
     }
   },
   {
-    "id": "UserPropertiesAttributes",
-    "keys": {
-      "O": {
-        "Key": "O",
-        "Type": "name",
-        "SinceVersion": 1.6,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[UserProperties]"
-      },
-      "P": {
-        "Key": "P",
-        "Type": "array",
-        "SinceVersion": 1.6,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfUserProperty]"
-      }
-    }
-  },
-  {
     "id": "UserProperty",
     "keys": {
       "N": {
@@ -30368,7 +29997,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "AppDefault",
-        "PossibleValues": "[None,AppDefault]"
+        "PossibleValues": "[None,AppDefault,*]"
       },
       "Duplex": {
         "Key": "Duplex",
@@ -31928,7 +31557,8 @@
         "SinceVersion": 1.1,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Ignore(@ImageMask==true)]"
       },
       "ImageMask": {
         "Key": "ImageMask",
@@ -31937,7 +31567,8 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "false"
+        "DefaultValue": "false",
+        "SpecialCase": "[fn:Eval(((@ImageMask==true) && (@BitsPerComponent==1) && fn:Not(fn:IsPresent(ColorSpace)) && fn:Not(fn:IsPresent(Mask))) || (@ImageMask==false))]"
       },
       "Mask": {
         "Key": "Mask",
@@ -31946,7 +31577,7 @@
         "Required": false,
         "IndirectReference": "[false];[true]",
         "Inheritable": false,
-        "SpecialCase": "[fn:Not(fn:IsPresent(ImageMask))];[fn:Not(fn:IsPresent(ImageMask))]",
+        "SpecialCase": "[fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))]",
         "Link": "[ArrayOfIntegersGeneral];[XObjectImageMask]"
       },
       "Decode": {
@@ -32224,7 +31855,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Ignore()]"
+        "SpecialCase": "[fn:Ignore(@ImageMask==true)]"
       },
       "ImageMask": {
         "Key": "ImageMask",
@@ -32233,7 +31864,8 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "DefaultValue": "true"
+        "DefaultValue": "true",
+        "SpecialCase": "[fn:Eval(((@ImageMask==true) && (@BitsPerComponent==1) && fn:Not(fn:IsPresent(ColorSpace)) && fn:Not(fn:IsPresent(Mask))) || (@ImageMask==false))]"
       },
       "Decode": {
         "Key": "Decode",
@@ -32475,7 +32107,7 @@
         "Key": "BitsPerComponent",
         "Type": "integer",
         "SinceVersion": 1.4,
-        "Required": true,
+        "Required": "fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[fn:RequiredValue((fn:Contains(@Filter,CCITTFaxDecode) || fn:Contains(@Filter,JBIG2Decode)),1),2,4,fn:RequiredValue((fn:Contains(@Filter,RunLengthDecode) || fn:Contains(@Filter,DCTDecode)),8),16]"
@@ -32486,7 +32118,8 @@
         "SinceVersion": 1.4,
         "Required": false,
         "IndirectReference": false,
-        "Inheritable": false
+        "Inheritable": false,
+        "SpecialCase": "[fn:Ignore(@ImageMask==true)]"
       },
       "ImageMask": {
         "Key": "ImageMask",
@@ -32658,7 +32291,7 @@
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(((fn:ArrayLength(Index) mod 2)==0) && fn:ArraySortAscending(Index,2))]",
-        "Link": "[ArrayOfIntegersGeneral]"
+        "Link": "[ArrayOfXRefIndexIntegers]"
       },
       "Prev": {
         "Key": "Prev",
@@ -32695,7 +32328,7 @@
         "IndirectReference": "fn:MustBeDirect()",
         "Inheritable": false,
         "PossibleValues": "[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]",
-        "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
+        "SpecialCase": "[fn:Eval((fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter)) && (fn:Not(fn:Contains(@Filter,Crypt))))];[]",
         "Link": "[ArrayOfCompressionFilterNames];[]"
       },
       "DecodeParms": {
@@ -32715,6 +32348,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[];[fn:Eval(fn:AlwaysUnencrypted())]",
         "Link": "[FileSpecification];[]"
       },
       "FFilter": {

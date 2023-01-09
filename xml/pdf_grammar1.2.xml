@@ -2510,7 +2510,7 @@
          <VALUES>
             <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
-         <REQUIRED>true</REQUIRED>
+         <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
             <VALUE type="integer">false</VALUE>
@@ -2526,7 +2526,7 @@
          <VALUES>
             <VALUE type="array">ArrayOfNumbersGeneral</VALUE>
          </VALUES>
-         <REQUIRED>true</REQUIRED>
+         <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="array">false</VALUE>
             <VALUE type="integer">false</VALUE>
@@ -2842,7 +2842,7 @@
       <ENTRY>
          <NAME isWildcard="true">2*</NAME>
          <VALUES>
-            <VALUE type="number">fn:Eval((@2&gt;=0) &amp;&amp; (@2&lt;=1))</VALUE>
+            <VALUE type="number">fn:Eval((@2*&gt;=0) &amp;&amp; (@2*&lt;=1))</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -5591,6 +5591,10 @@
       </ENTRY>
       <ENTRY>
          <NAME>FS</NAME>
+         <VALUES>
+            <VALUE type="name">URL</VALUE>
+            <VALUE type="name">*</VALUE>
+         </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="name">false</VALUE>
@@ -10127,6 +10131,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent(@Type==Template))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Resources</NAME>
@@ -10211,6 +10216,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Not(fn:IsPresent(@Type==Template))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Dur</NAME>
@@ -12132,6 +12138,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
+         <SPECIAL_CASE>fn:Ignore(@ImageMask==true)</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>ImageMask</NAME>
@@ -12144,6 +12151,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(((@ImageMask==true) &amp;&amp; (@BitsPerComponent==1) &amp;&amp; fn:Not(fn:IsPresent(ColorSpace)) &amp;&amp; fn:Not(fn:IsPresent(Mask))) || (@ImageMask==false))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>Decode</NAME>

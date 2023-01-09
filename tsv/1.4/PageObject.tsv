@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.0		TRUE	FALSE	FALSE		[Page,Template]			Table 31
-Parent	dictionary	1.0		fn:IsRequired(@Type!=Template)	TRUE	FALSE				[PageTreeNode,PageTreeNodeRoot]	
+Parent	dictionary	1.0		fn:IsRequired(@Type!=Template)	TRUE	FALSE			[fn:Not(fn:IsPresent(@Type==Template))]	[PageTreeNode,PageTreeNodeRoot]	
 LastModified	date	1.3		fn:IsRequired(fn:IsPresent(PieceInfo))	FALSE	FALSE					
 Resources	dictionary	1.0		TRUE	FALSE	TRUE				[Resource]	Inheritable from Parent
 MediaBox	rectangle	1.0		TRUE	FALSE	TRUE					Inheritable from Parent
@@ -13,7 +13,7 @@ Contents	array;stream	1.0		FALSE	[FALSE];[TRUE]	FALSE				[ArrayOfStreamsGeneral]
 Rotate	integer	1.0		FALSE	FALSE	TRUE	0	[fn:Eval((@Rotate mod 90)==0)]			Inheritable from Parent
 Group	dictionary	1.4		FALSE	FALSE	FALSE				[GroupAttributes]	
 Thumb	stream	1.0		FALSE	TRUE	FALSE				[Thumbnail]	
-B	array	1.1		FALSE	FALSE	FALSE				[ArrayOfBeads]	
+B	array	1.1		FALSE	FALSE	FALSE			[fn:Not(fn:IsPresent(@Type==Template))]	[ArrayOfBeads]	
 Dur	number	1.1		FALSE	FALSE	FALSE					
 Trans	dictionary	1.1		FALSE	FALSE	FALSE				[Transition]	
 Annots	array	1.0		FALSE	FALSE	FALSE				[ArrayOfAnnots]	

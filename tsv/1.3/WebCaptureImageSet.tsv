@@ -4,6 +4,6 @@ S	name	1.3		TRUE	FALSE	FALSE		[SIS]
 ID	string	1.3		TRUE	FALSE	FALSE					
 O	array	1.3		TRUE	FALSE	FALSE				[ArrayOfWebCaptureImages]	
 SI	array;dictionary	1.3		TRUE	FALSE	FALSE				[ArrayOfSourceInformation];[SourceInformation]	
-CT	string	1.3		FALSE	FALSE	FALSE					
+CT	string	1.3		FALSE	FALSE	FALSE					shall conform to the content type specification described in Internet RFC 2045
 TS	date	1.3		FALSE	FALSE	FALSE					
 R	array;integer	1.3		TRUE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(O)==fn:ArrayLength(R))];[fn:Eval(@R>0)]	[ArrayOfIntegersGeneral];[]	

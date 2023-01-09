@@ -778,13 +778,6 @@
             "name": "ArrayOf_4Integers array"
         },
         {
-            "id": "ArrayOf_4NamesForAttached",
-            "val": 16,
-            "group": "array",
-            "desc": "4 elements",
-            "name": "ArrayOf_4NamesForAttached array"
-        },
-        {
             "id": "ArrayOf_4Numbers",
             "val": 16,
             "group": "array",
@@ -1781,55 +1774,6 @@
             "name": "SourceInformation dict"
         },
         {
-            "id": "StandardArtifactAttributes",
-            "val": 16,
-            "group": "dict",
-            "desc": "4 keys",
-            "name": "StandardArtifactAttributes dict"
-        },
-        {
-            "id": "StandardLayoutAttributesBLSE",
-            "val": 289,
-            "group": "dict",
-            "desc": "17 keys",
-            "name": "StandardLayoutAttributesBLSE dict"
-        },
-        {
-            "id": "StandardLayoutAttributesColumn",
-            "val": 9,
-            "group": "dict",
-            "desc": "3 keys",
-            "name": "StandardLayoutAttributesColumn dict"
-        },
-        {
-            "id": "StandardLayoutAttributesILSE",
-            "val": 100,
-            "group": "dict",
-            "desc": "10 keys",
-            "name": "StandardLayoutAttributesILSE dict"
-        },
-        {
-            "id": "StandardListAttributes",
-            "val": 4,
-            "group": "dict",
-            "desc": "2 keys",
-            "name": "StandardListAttributes dict"
-        },
-        {
-            "id": "StandardPrintFieldAttributes",
-            "val": 4,
-            "group": "dict",
-            "desc": "2 keys",
-            "name": "StandardPrintFieldAttributes dict"
-        },
-        {
-            "id": "StandardTableAttributes",
-            "val": 25,
-            "group": "dict",
-            "desc": "5 keys",
-            "name": "StandardTableAttributes dict"
-        },
-        {
             "id": "Stream",
             "val": 36,
             "group": "dict",
@@ -1849,6 +1793,13 @@
             "group": "dict",
             "desc": "7 keys",
             "name": "StructTreeRoot dict"
+        },
+        {
+            "id": "StructureAttributesDict",
+            "val": 576,
+            "group": "dict",
+            "desc": "24 keys",
+            "name": "StructureAttributesDict dict"
         },
         {
             "id": "StyleDict",
@@ -5112,78 +5063,12 @@
         },
         {
             "source": "ArrayOfAttributeObjects",
-            "target": "StandardLayoutAttributesBLSE",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardLayoutAttributesColumn",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardLayoutAttributesILSE",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardTableAttributes",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardListAttributes",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardPrintFieldAttributes",
-            "name": "ArrayOfAttributeObjects::*"
-        },
-        {
-            "source": "ArrayOfAttributeObjects",
-            "target": "StandardArtifactAttributes",
+            "target": "StructureAttributesDict",
             "name": "ArrayOfAttributeObjects::*"
         },
         {
             "source": "ArrayOfAttributeRevisions",
-            "target": "StandardLayoutAttributesBLSE",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardLayoutAttributesColumn",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardLayoutAttributesILSE",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardTableAttributes",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardListAttributes",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardPrintFieldAttributes",
-            "name": "ArrayOfAttributeRevisions::0*",
-            "color": "red"
-        },
-        {
-            "source": "ArrayOfAttributeRevisions",
-            "target": "StandardArtifactAttributes",
+            "target": "StructureAttributesDict",
             "name": "ArrayOfAttributeRevisions::0*",
             "color": "red"
         },
@@ -5206,14 +5091,12 @@
         {
             "source": "ArrayOfCIDGlyphMetricsW2",
             "target": "ArrayOfNumbersGeneral",
-            "name": "ArrayOfCIDGlyphMetricsW2::*",
-            "color": "red"
+            "name": "ArrayOfCIDGlyphMetricsW2::*"
         },
         {
             "source": "ArrayOfCIDGlyphMetricsW",
             "target": "ArrayOfNumbersGeneral",
-            "name": "ArrayOfCIDGlyphMetricsW::*",
-            "color": "red"
+            "name": "ArrayOfCIDGlyphMetricsW::*"
         },
         {
             "source": "ArrayOfDecodeParams",
@@ -6069,37 +5952,7 @@
         },
         {
             "source": "ClassMap",
-            "target": "StandardLayoutAttributesBLSE",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardLayoutAttributesColumn",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardLayoutAttributesILSE",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardTableAttributes",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardListAttributes",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardPrintFieldAttributes",
-            "name": "ClassMap::*"
-        },
-        {
-            "source": "ClassMap",
-            "target": "StandardArtifactAttributes",
+            "target": "StructureAttributesDict",
             "name": "ClassMap::*"
         },
         {
@@ -8337,7 +8190,7 @@
         },
         {
             "source": "MarkedContentReference",
-            "target": "Stream",
+            "target": "XObjectFormType1",
             "name": "MarkedContentReference::Stm"
         },
         {
@@ -10115,16 +9968,6 @@
             "name": "SourceInformation::C"
         },
         {
-            "source": "StandardArtifactAttributes",
-            "target": "ArrayOf_4NamesForAttached",
-            "name": "StandardArtifactAttributes::Attached"
-        },
-        {
-            "source": "StandardTableAttributes",
-            "target": "ArrayOfStringsByte",
-            "name": "StandardTableAttributes::Headers"
-        },
-        {
             "source": "Stream",
             "target": "ArrayOfDecodeParams",
             "name": "Stream::DecodeParms"
@@ -10206,37 +10049,7 @@
         },
         {
             "source": "StructElem",
-            "target": "StandardLayoutAttributesBLSE",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardLayoutAttributesColumn",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardLayoutAttributesILSE",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardTableAttributes",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardListAttributes",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardPrintFieldAttributes",
-            "name": "StructElem::A"
-        },
-        {
-            "source": "StructElem",
-            "target": "StandardArtifactAttributes",
+            "target": "StructureAttributesDict",
             "name": "StructElem::A"
         },
         {
@@ -10340,6 +10153,11 @@
             "source": "StructTreeRoot",
             "target": "RoleMap",
             "name": "StructTreeRoot::RoleMap"
+        },
+        {
+            "source": "StructureAttributesDict",
+            "target": "ArrayOfStringsByte",
+            "name": "StructureAttributesDict::Headers"
         },
         {
             "source": "Thread",

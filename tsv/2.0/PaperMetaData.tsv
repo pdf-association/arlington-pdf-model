@@ -8,6 +8,6 @@ Width	number	fn:Extension(ADBE_Extn3,1.7)	2.0	TRUE	FALSE	FALSE			[fn:Eval(@Width
 Height	number	fn:Extension(ADBE_Extn3,1.7)	2.0	TRUE	FALSE	FALSE			[fn:Eval(@Height>0)]		
 XSymWidth	integer	fn:Extension(ADBE_Extn3,1.7)	2.0	TRUE	FALSE	FALSE			[fn:Eval(@XSymWidth>0)]		
 YSymHeight	integer	fn:Extension(ADBE_Extn3,1.7)	2.0	TRUE	FALSE	FALSE			[fn:Eval(@YSymHeight>0)]		
-ECC	integer	fn:Extension(ADBE_Extn3,1.7)	2.0	fn:IsRequired((@Symbology==PDF417) || (@Symbology==QRCode))	FALSE	FALSE		[fn:Eval((@ECC>=0) && (((@Symbology==PDF417) && (@ECC<=8)) || (@Symbology==QRCode) && (@ECC<=3)))]			
+ECC	integer	fn:Extension(ADBE_Extn3,1.7)	2.0	fn:IsRequired((@Symbology==PDF417) || (@Symbology==QRCode))	FALSE	FALSE		[fn:Eval((@ECC>=0) && (((@Symbology==PDF417) && (@ECC<=8)) || ((@Symbology==QRCode) && (@ECC<=3))))]			
 nCodeWordRow	number	fn:Extension(ADBE_Extn3,1.7)	1.7	FALSE	FALSE	FALSE	0		[fn:IsMeaningful(@Symbology==PDF417)]		
 nCodeWordCol	number	fn:Extension(ADBE_Extn3,1.7)	1.7	FALSE	FALSE	FALSE	0		[fn:IsMeaningful(@Symbology==PDF417)]		

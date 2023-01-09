@@ -5,8 +5,8 @@ Width	integer	1.0		TRUE	FALSE	FALSE
 Height	integer	1.0		TRUE	FALSE	FALSE					
 ColorSpace	array;name	1.0		fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]	[fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))]	[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,IndexedColorSpace,SeparationColorSpace,PatternColorSpace];[]	
 BitsPerComponent	integer	1.0		fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))	FALSE	FALSE		[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8)]			
-Intent	name	1.1		FALSE	FALSE	FALSE					
-ImageMask	boolean	1.0		FALSE	FALSE	FALSE	false				
+Intent	name	1.1		FALSE	FALSE	FALSE			[fn:Ignore(@ImageMask==true)]		
+ImageMask	boolean	1.0		FALSE	FALSE	FALSE	false		[fn:Eval(((@ImageMask==true) && (@BitsPerComponent==1) && fn:Not(fn:IsPresent(ColorSpace)) && fn:Not(fn:IsPresent(Mask))) || (@ImageMask==false))]		
 Decode	array	1.0		FALSE	FALSE	FALSE			[fn:Ignore(fn:Contains(@Filter,JPXDecode) && fn:Not(fn:IsPresent(ColorSpace)) && (@ImageMask==false))]	[ArrayOfNumbersGeneral]	
 Interpolate	boolean	1.0		FALSE	FALSE	FALSE	false				
 Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					

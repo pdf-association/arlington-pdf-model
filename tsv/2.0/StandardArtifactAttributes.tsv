@@ -1,7 +1,0 @@
-Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-O	name	1.4		TRUE	FALSE	FALSE		[Artifact]			Table 360 and Table 376 and Table 385
-Type	name	1.4		FALSE	FALSE	FALSE		[Pagination,Layout,Page,Inline]			
-BBox	rectangle	1.4		FALSE	FALSE	FALSE					
-Attached	array	1.4		FALSE	FALSE	FALSE				[ArrayOf_4NamesForAttached]	
-Subtype	name	1.7		FALSE	FALSE	FALSE		[Header,Footer,Watermark,PageNum,Bates,LineNum,Redaction]	[fn:IsMeaningful((@Type==Pagination) || (@Type==Inline))]		
-Contents	array;string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	FALSE	FALSE				[ArrayOfStringsText];[]	
