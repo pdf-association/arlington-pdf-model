@@ -6,7 +6,7 @@ All scripts require Python3 and are cross-platform (tested on both Windows and L
 
 This script concatenates an entire Arlington TSV file set specified with the `-t`/`--tsvdir` command line option into a single monolithic TSV file (default file is called `pandas.tsv`, otherwise specify with `-s`/`--save` command line option. An additional first column (i.e. added to the **left** of the standard Arlington fields) represents the Arlington TSV filename (a.k.a. PDF object). This combined TSV is then suitable for processing directly in Jupyter Notebooks using [pandas](https://pandas.pydata.org/).
 
-An example Jupyter Notebook is provided at [Arlington.ipynb](Arlington.ipynb).
+An example Jupyter Notebook is provided at [./Jupyter/Arlington.ipynb](./Jupyter/Arlington.ipynb).
 
 ###  [arlington-fn-lex.py](arlington-fn-lex.py)
 
