@@ -1359,10 +1359,15 @@ bool CPDFFile::fn_AlwaysUnencrypted(ArlPDFObject* obj) {
     if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeString)
         return false;
 
+    // Avoid false warnings as unencryptped PDFs always have unencrypted strings
+    ArlPDFTrailer* t = pdfsdk.get_trailer();
+    if (!t->is_encrypted())
+        return true;
+
     ArlPDFString *str = (ArlPDFString*)obj;
     std::wstring  val = str->get_value();
 
-    fully_implemented = false; /// @todo - how to determine if a string is encrypted or unencrypted???
+    fully_implemented = false; /// @todo - how to determine if a string in an encrypted PDF is encrypted or unencrypted???
     return true;
 }
 
