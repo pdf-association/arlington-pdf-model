@@ -951,7 +951,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
-   <td><code>fn:RectWidth(<i>rect</i>)</code></td>
+   <td><code>fn:RectWidth(<i>key</i>)</code></td>
    <td>
     <ul>
     <li><i>key</i> needs to be <code>rectangle</code> in Arlington predefined types.</li>
