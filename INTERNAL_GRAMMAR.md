@@ -16,7 +16,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 * Last row in TSV needs EOL after last TAB.
 * TSV file names are case sensitive.
 * TSV file extensions are always `.tsv` (lowercase) but are not present in the TSV data itself.
-* all TSV files will have matching numbers of `[`, `]` and `(`, `(`
+* all TSV files will have matching numbers of `[`, `]` and `(`, `)`
 * for a single row in any TSV, spliting each field on ';' will either result in 1 or _N_.
 * files that represent PDF arrays match either `ArrayOf*.tsv`, `*Array.tsv` or `*ColorSpace.tsv`
     - many are also identifiable by having a Key name of `0` (or `0*` or `*`)
