@@ -56,6 +56,102 @@ typedef struct _ValidationContext  {
 static ASTNode* pred_root = nullptr;
 
 
+/// @brief Checks to make sure all keys and key-values referenced in an AST are also 
+/// keys in the current TSV data object.
+/// Does NOT check keys that use Arlington paths "::".
+/// Recursive.
+/// 
+/// @param[in]  tsv_name           name of the Arlington TSV data file
+/// @param[in]  tsv                the Arlington TSV data for the single PDF object 'tsv_name`
+/// @param[in]  predicate          The predicate as stored in the TSV.
+/// @param[in]  ast                a partial AST. Can be nullptr (from recurision).
+/// @param[in,out] report_stream   stream to writer validation messages to
+///  
+void check_keys_in_predicate(const std::string& tsv_name, const ArlTSVmatrix& tsv, const std::string predicate, const ASTNode* ast, std::ostream& report_stream) {
+    if (ast == nullptr)
+        return;
+
+    // Recursively descend down the AST
+    check_keys_in_predicate(tsv_name, tsv, predicate, ast->arg[0], report_stream);
+    check_keys_in_predicate(tsv_name, tsv, predicate, ast->arg[1], report_stream);
+
+    std::string key;
+
+    if (ast->type == ASTNodeType::ASTNT_KeyValue) {
+        if (ast->node.find("::") != std::string::npos) {
+            std::vector<std::string>    keys;
+            std::string                 s = ast->node;
+            auto sep = s.find("::");
+            if (sep != std::string::npos) {
+                // Have a multi-part path with "::" separators between keys
+                do {
+                    keys.push_back(s.substr(0, sep));
+                    s = s.substr(sep + 2);
+                    sep = s.find("::");
+                } while (sep != std::string::npos);
+                keys.push_back(s);
+            }
+
+            /// @todo not fully supported Arlington paths validation into different objects (e.g. parent:Key)
+            report_stream << COLOR_WARNING << "Arlington key-value (@key) with path '::' in " << tsv_name << " " << predicate << " not fully validated" << COLOR_RESET;
+            if ((keys[0] == "parent") || (keys[0] == "trailer"))
+                return;
+            // first key in path is testable - doesn't have '@'
+            key = keys[0];
+        }
+        else
+            key = ast->node.substr(1); // strip off '@'
+    }
+    else if (ast->type == ASTNodeType::ASTNT_Key) {
+        if (ast->node.find("::") != std::string::npos) {
+            std::vector<std::string>    keys;
+            std::string                 s = ast->node;
+            auto sep = s.find("::");
+            if (sep != std::string::npos) {
+                // Have a multi-part path with "::" separators between keys
+                do {
+                    keys.push_back(s.substr(0, sep));
+                    s = s.substr(sep + 2);
+                    sep = s.find("::");
+                } while (sep != std::string::npos);
+                keys.push_back(s);
+            }
+
+            /// @todo not fully supported Arlington paths validation into different objects (e.g. parent:Key)
+            report_stream << COLOR_WARNING << "Arlington key with path '::' in " << tsv_name << " " << predicate << " not fully validated" << COLOR_RESET;
+            if ((keys[0] == "parent") || (keys[0] == "trailer"))
+                return;
+            // first key in path is testable
+            key = keys[0];
+        }
+        else
+            key = ast->node;
+    }
+    else {
+        // Not a key or key-value
+        return;
+    }
+
+    assert(key.size() > 0);
+    assert(key[0] != '@');
+
+    bool found_key = false;
+    for (auto& k : tsv)
+        if (k[TSV_KEYNAME] == key) {
+            found_key = true;
+            break;
+        }
+
+    if (!found_key) {
+        // Check to see if key (ast->node) was the name of an fn:Extension() or a value of an equality/inequality
+        if ((predicate.find("fn:Extension(" + ast->node + ",") == std::string::npos) && 
+            (predicate.find("==" + ast->node) == std::string::npos) &&
+            (predicate.find("!=" + ast->node) == std::string::npos))
+            report_stream << COLOR_WARNING << "key " << key << " was not found as a key in " << tsv_name << " in predicate " << predicate << COLOR_RESET;
+    }
+}
+
+
 /// @brief  Checks the validity of a single Arlington PDF Model TSV file with knowledge of PDF type:
 /// - correct # of columns (TAB separated)
 /// - correct headings (first line)
@@ -75,7 +171,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
     std::vector<std::string>    vars_list;
 
     if (verbose)
-        report_stream << reader.get_tsv_name() << ":" << std::endl;
+        report_stream << COLOR_INFO << reader.get_tsv_name() << ":" << COLOR_RESET;
 
     if (data_list.empty()) {
         report_stream << COLOR_ERROR << "empty Arlington TSV grammar file: " << reader.get_tsv_name() << COLOR_RESET;
@@ -130,11 +226,15 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
 
             // Locate all local variables (\@xxx) to see if they are also keys in this object
             /// @todo Variables in other objects (yyy::\@xxx) are NOT checked
-            std::smatch  m;
-            const std::regex   r_LocalKeyValue("[^:]@([a-zA-Z0-9_]+)");
-            if (std::regex_search(col, m, r_LocalKeyValue) && m.ready() && (m.size() > 0))
-                for (int i = 1; i < (int)m.size(); i += 2)
-                    vars_list.push_back(m[i].str());
+            const std::regex r_LocalKeyValue("[^:]@([a-zA-Z0-9_]+)");
+            auto r_begin = std::sregex_iterator(col.begin(), col.end(), r_LocalKeyValue);
+            auto r_end   = std::sregex_iterator();
+
+            for (std::sregex_iterator it = r_begin; it != r_end; ++it) {
+                std::smatch match = *it;
+                if (!FindInVector(vars_list, match[1].str()))
+                    vars_list.push_back(match[1].str());
+            }
 
             if (attempt_to_parse_predicates) {
                 // Try and parse each predicate after isolating
@@ -147,14 +247,16 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
 
                         while (!s.empty()) {
                             // Sometimes the comma separated lists have whitespace between terms
-                            if (s[0] == ' ') {
-                                s = s.substr(1, s.size() - 1);
-                                assert((s[0] != '&') && (s[0] != '|') && (s[0] != 'm'));  // BAD: need SPACE before &&, ||, mod
-                            }
+                            //if (s[0] == ' ') {
+                            //    s = s.substr(1, s.size() - 1);
+                            //    assert((s[0] != '&') && (s[0] != '|') && (s[0] != 'm'));  // BAD: need SPACE before &&, ||, mod
+                            //}
                             assert(pred_root == nullptr);
                             pred_root = new ASTNode();
                             s = LRParsePredicate(s, pred_root);
                             assert(pred_root->valid());
+                            if ((fn.find("fn:Eval(") != std::string::npos) && verbose)
+                                check_keys_in_predicate(reader.get_tsv_name(), data_list, fn, pred_root, report_stream);
                             delete pred_root;
                             pred_root = nullptr;
                             if (s.size() > 0)
@@ -163,7 +265,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
                         } // while
                     }
             }
-        } // for col
+        } // for-each col in a TSV row
 
         PredicateProcessor validator(nullptr, data_list);
         if (!validator.ValidateKeySyntax(key_idx)) {
@@ -275,11 +377,11 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
                 if ((dv != nullptr) && verbose) {
                     if (((int)possible_vals.size() > i) && (possible_vals[i] != "") && (possible_vals[i] != "[]")) {
                         /// @todo - check DefaultValue against PossibleValues for the i-th type. Need a PDF object so just report
-                        report_stream << COLOR_WARNING << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ":\t\tDefaultValue[" << i << "] = " << *dv << "\t\tPossibleValues[" << i << "] = " << possible_vals[i] << COLOR_RESET;
+                        /// report_stream << COLOR_WARNING << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ":\t\tDefaultValue[" << i << "] = " << *dv << "\t\tPossibleValues[" << i << "] = " << possible_vals[i] << COLOR_RESET;
                     }
                     if (((int)specialcase_vals.size() > i) && (specialcase_vals[i] != "") && (specialcase_vals[i] != "[]")) {
                         /// @todo - check DefaultValue against SpecialCase field for the i-th type. Need a PDF object so just report
-                        report_stream << COLOR_WARNING << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ":\t\tDefaultValue[" << i << "] = " << *dv << "\t\tSpecialCase[" << i << "] = " << specialcase_vals[i] << COLOR_RESET;
+                        /// report_stream << COLOR_WARNING << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << ":\t\tDefaultValue[" << i << "] = " << *dv << "\t\tSpecialCase[" << i << "] = " << specialcase_vals[i] << COLOR_RESET;
                     }
                 }
             }
@@ -357,7 +459,7 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
     if (vars_list.size() > 0) {
         for (auto& v : vars_list)
             if (std::find(std::begin(keys_list), std::end(keys_list), v) == std::end(keys_list))
-                report_stream << COLOR_WARNING << "referenced variable @" << v << " not a key in " << reader.get_tsv_name() << COLOR_RESET;
+                report_stream << COLOR_ERROR << "referenced variable @" << v << " not a key in " << reader.get_tsv_name() << COLOR_RESET;
     }
 
     // Check for duplicate keys in this TSV file
@@ -432,7 +534,7 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
     ValidationContext               vcxt;
     fs::path                        gf;
 
-    ofs << "BEGIN - Arlington Validation Report - TestGrammar " << TestGrammar_VERSION << std::endl;
+    ofs << "BEGIN - Arlington Internal Grammar Validation Report - TestGrammar " << TestGrammar_VERSION << std::endl;
     ofs << "Arlington TSV data: " << fs::absolute(grammar_folder).lexically_normal() << std::endl;
 
 #ifdef ARL_PARSER_TESTING
@@ -476,9 +578,6 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
     }
     return;
 #else
-    if (verbose)
-        ofs << "Predicate reduction by regular expression is being attempted." << std::endl;
-
     // Multiple entry points into later Arlington grammars.
     vcxt.tsv_name = "FileTrailer";
     vcxt.type = "dictionary";
@@ -574,13 +673,6 @@ void ValidateGrammarFolder(const fs::path& grammar_folder, bool verbose, std::os
                 ofs << COLOR_ERROR << "linked file " << gf.stem() << " failed to load!" << COLOR_RESET;
         }
     } // while
-
-    if (verbose) {
-        ofs << std::endl;
-        for (auto& a : processed)
-            ofs << COLOR_INFO << a.tsv_name << " as " << a.type << COLOR_RESET;
-        ofs << std::endl;
-    }
 
     // Iterate across all physical files in the folder to append anything that exists but is so far unreferenced
     for (const auto& entry : fs::directory_iterator(grammar_folder)) {
