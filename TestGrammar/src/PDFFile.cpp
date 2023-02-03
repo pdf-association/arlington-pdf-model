@@ -2896,13 +2896,14 @@ int CPDFFile::fn_NumberOfPages() {
 }
 
 
-/// @brief Looks up a value in an object. Returns true if it is present
+/// @brief Looks up a value in an object that could be of different types. Returns true if it is present.
+///   e.g. typical usage: fn:Contains(@Filter,JPXDecode)  where Filter might be a name or an array
 ///  
-/// @param[in] obj       PDF object
-/// @param[in] key       a key or integer array index
-/// @param[in] value     the value we are looking for
+/// @param[in] obj       PDF object. 
+/// @param[in] key       a key or integer array index (@Filter in the example above)
+/// @param[in] value     the value we are looking for (JPXDecode in the example above)
 /// 
-/// @returns true if obj contains value (e.g. equal if a name, in an array if array)
+/// @returns true if obj contains value (e.g. equal if a name, in the array if array)
 bool CPDFFile::fn_Contains(ArlPDFObject* obj, const ASTNode* key, const ASTNode* value) {
     assert(obj != nullptr);
     
@@ -2925,7 +2926,7 @@ bool CPDFFile::fn_Contains(ArlPDFObject* obj, const ASTNode* key, const ASTNode*
                 ASTNode* v = convert_basic_object_to_ast(elem);
                 if (v == nullptr) {
                     // Array reference was another complex PDF object (array, dictionary, stream) or null
-                    /// @todo - handle complex nested references for fn_Contains
+                    /// @todo - handle complex nested references for fn_Contains. Not currently required.
                 }
                 else if (v->type == value->type)
                     retval = (v->node == value->node);
@@ -2934,6 +2935,7 @@ bool CPDFFile::fn_Contains(ArlPDFObject* obj, const ASTNode* key, const ASTNode*
             }
         }
         break;
+        case PDFObjectType::ArlPDFObjTypeNumber:
         case PDFObjectType::ArlPDFObjTypeBoolean:
         case PDFObjectType::ArlPDFObjTypeString:
         case PDFObjectType::ArlPDFObjTypeName:
@@ -2946,7 +2948,6 @@ bool CPDFFile::fn_Contains(ArlPDFObject* obj, const ASTNode* key, const ASTNode*
         break;
         case PDFObjectType::ArlPDFObjTypeNull:
             break;
-        case PDFObjectType::ArlPDFObjTypeNumber:        // Need to support number/integer
         case PDFObjectType::ArlPDFObjTypeDictionary:
         case PDFObjectType::ArlPDFObjTypeStream:
         default:
