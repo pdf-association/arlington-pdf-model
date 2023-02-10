@@ -401,7 +401,7 @@ Predicate simplifcation is **avoided** so that wording (when read aloud) is kept
     *   the `@` operator only applies to the right-most portion
     *  The `@` sign is always required for math and comparison operations.
     *  The predefined Arlington types used with `@` are the primitive types such as boolean, integer, number, string-*, name, etc.
-    *  It is also possible to use an array for certain predicates such as `fn:Contains(...)`
+    *  It is also possible to use the key name of an array for certain predicates such as `fn:Contains(...)`
     *  For complex types, if the "DefaultValue" for KeyA is `@KeyB` then it means that the "default value for Key A is the value of Key B" and so long as Keys A and B both have the same type then this is acceptable.
 *   `true` and `false` (all lowercase) are the PDF keywords (required for explicit comparison with `@key`) - uppercase `TRUE` and `FALSE` **never** get used in predicates as they represent Arlington model values such as for "Required", "IndirectReference" or "Inheritable" fields.
 *   All predicates start with `fn:` (case-sensitive, single COLON) followed by an uppercase character (`A`-'Z')
@@ -597,11 +597,11 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
-   <td><code>fn:Contains(<i>array-key</i>,<i>value</i>)</code></td>
+   <td><code>fn:Contains(<i>key</i>,<i>value</i>)</code></td>
    <td>
     <ul>
-     <li>Asserts that a key that is an array (and thus can hold multiple values), contains <i>value</i></li>
-     <li>Example are stream <code>Filter</code> keys which can be an array or a name, so testing this cannot just use <code>@Filter==XXX</code> as this will only work if Filter is a name  as the <code>@</code> logic returns <code>true</code> for an array to indicate existence.</li>
+     <li>Asserts that <i>key</i> is an array object (and thus can hold multiple values) containing <i>value</i>, or a PDF name object having the value <i>value</i>.</li>
+     <li>Specific use-case are stream <code>Filter</code> keys which can be an array or a name, so testing this cannot just use <code>@Filter==XXX</code> as this will only work if Filter is a name as the <code>@</code> logic returns <code>true</code> for an array to indicate existence.</li>
      <li>Always use <code>@array-key</code> for </i>array-key</i></li>
     </ul>
    </td>
@@ -861,7 +861,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
    <td>
     <ul>
-     <li>Only ever used in the "IndirectRef" field.</li>
+     <li>Commonly used in the "IndirectRef" field.</li>
      <li>If <i>condition</i> is true or is not specified, then asserts that the current key value must be a direct object.</li>
      <li>if <i>condition</i> is false, then asserts that the current key value can be either direct or indirect.</li>
     </ul>
