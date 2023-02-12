@@ -444,6 +444,8 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * "[_BFO PDF Library 2.27.2 - introducing the Arlington Model_](https://bfo.com/blog/2022/12/05/bfo_pdf_library_2_27_2_introducing_the_arlington_model/)", blog post, 5 Dec 2022Mike Bremford, BFO.
 
+* "[_DARPA SafeDocs: an approach to secure parsing and information interchange formats_](https://www.microsoft.com/en-us/research/video/research-talk-darpa-safedocs-an-approach-to-secure-parsing-and-information-interchange-formats/)", \[30 minute presentation Video] Sergey Bratus, Microsoft Research Summit 2021, 20 October 2021.
+
 ---
 
 Copyright 2021-22 PDF Association, Inc. https://www.pdfa.org
