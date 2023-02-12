@@ -164,7 +164,14 @@ Note that the `--exclude` option can be used to override explicit PDFs when usin
 
 `--dryrun` option allows a recursive folder of PDF files to be simulated without actually doing any of the slow processing. Note that this will still create `.ansi` or `.txt` output files of zero length in the `--out` folder. This is very useful for testing file system permissions, `--pdf @filelist.txt` and `--exclude @filelist.txt` command line options when also using `--debug`. It is thus possible to determine if any output will file will be clobbered by comparing the number of processed files to the number of .ansi/.txt files produced.
 
-`--clobber` will overwrite output files if PDF files of the same name are encountered.
+`--clobber` will overwrite output files if files of the same name are encountered. The default behaviour is to **avoid** overwriting output files by appending underscores (`_`) to the filename (before the extension) until there is no filename collision. 
+
+| | `--out` option is a file | `--out` option is a folder | no `--out` specified |
+| --- | --- | --- | --- |
+| `--pdf` option is a file: | output of single PDF is written to the specified file. _**Always clobbers!**_ | output written to file named after the PDF file with extension changed to `.txt` or `.ansi` depending on `--no-color` option. `--clobber` option will be obeyed | output of single PDF to stdout. |
+| `--pdf` option is folder: | all outout written to the single specified file. `--clobber` option will be obeyed. | output written to individual files, each named after the PDF file with the extension is changed to `.txt` or `.ansi` depending on `--no-color` option. `--clobber` option will be obeyed. | output from all PDFs to stdout. |
+
+Note that the `--out` option will **not** create any folders!
 
 Due to a **severe** lack of compliance with PDF versions in real-world files, if a PDF file is between 1.4 and 1.7 inclusive, it will automatically be processed as PDF 1.7. Files with versions 1.3 or earlier or PDF 2.0 are processed as per the PDF standard (where the Catalog/Version key can override the PDF header comment line). Use the `--force` command line option to override this default behavior.
 

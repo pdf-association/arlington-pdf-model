@@ -243,6 +243,8 @@ int main(int argc, char* argv[]) {
     std::string     s;                  // temp variable
     fs::path        grammar_folder;     // folder with TSV files (required and must exist)
     fs::path        save_path;          // output file or folder. Optional. Default is "." or to stdout
+    bool            save_file_is_folder = false; // true iff save_path is an existing folder
+    bool            save_file_is_file   = false; // true iff save_path is a file in an existing folder (will not mkdir!)
     fs::path        input_filename;     // --pdf @filename.txt
     bool            input_is_a_file = false; // --pdf
     std::vector<fs::path> input_list;   // --pdf files and folder list
@@ -300,8 +302,22 @@ int main(int argc, char* argv[]) {
     // --out can be a folder or a file
     s.clear();
     (void)sarge.getFlag("out", s);
-    if (s.size() > 0)
+    if (s.size() > 0) {
         save_path = fs::absolute(s).lexically_normal();
+        save_file_is_folder = is_folder(save_path);
+        save_file_is_file   = is_file(save_path);
+        if (!save_file_is_folder && !save_file_is_file) {
+            auto p = save_path.parent_path();
+            if (!is_folder(p)) {
+                std::cerr << COLOR_ERROR << "-o/--out \"" << p << "\" is not a valid folder!" << COLOR_RESET;
+                sarge.printHelp();
+                pdf_io.shutdown();
+                return -1;
+            }
+            auto e = save_path.extension();
+            save_file_is_file = true;  // new file in existing folder
+        }
+    }
 
     // --pdf can be a folder, or a single PDF file, or "@file.txt"
     s.clear();
@@ -333,9 +349,6 @@ int main(int argc, char* argv[]) {
             if (input_list.size() == 0)
                 std::cerr << COLOR_ERROR << "--pdf '" << input_filename << "' was invalid or empty!" << COLOR_RESET;
         }
-        // If doing more than 1 PDF then output to files in current dir if not otherwise specified
-        if (!input_is_a_file && save_path.empty())
-            save_path = fs::absolute(".").lexically_normal();
     }
 
     // Optional -f/--force <version>
@@ -396,7 +409,7 @@ int main(int argc, char* argv[]) {
         if (save_path.empty())
             std::cout << "Output:               stdout" << std::endl;
         else
-            std::cout << "Output file/folder:   " << save_path << std::endl;
+            std::cout << "Output " << (save_file_is_file ? "file:          " : "folder:        ") << save_path << std::endl;
         if (input_list.size() == 0)
             std::cout << "PDF file/folder:      <none>"<< std::endl;
         else if (input_list.size() == 1) {
@@ -411,7 +424,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Colorized output      " << (no_color ? "off" : "on") << std::endl;
         std::cout << "Clobber mode:         " << (clobber ? "on" : "off") << std::endl;
         std::cout << "Dry run:              " << (dryrun ? "on" : "off") << std::endl;
-        std::cout << "All files:            " << (all_files ? "on" : "off  (*.pdf only)") << std::endl;
+        std::cout << "All files:            " << (all_files ? "on (*.* wildcard)" : "off  (*.pdf only)") << std::endl;
         std::cout << "Brief mode:           " << (terse ? "on" : "off") << std::endl;
         if (pdf_password.size() == 0)
             std::cout << "Password:             <none>" << std::endl;
@@ -452,7 +465,7 @@ int main(int argc, char* argv[]) {
     // Validate the Arlington PDF grammar itself?
     if (sarge.exists("validate")) {
         if (!save_path.empty()) {
-            if (!is_folder(save_path)) {
+            if (save_file_is_file) {
                 ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
             }
             else {
@@ -473,7 +486,7 @@ int main(int argc, char* argv[]) {
         input_list.push_back(fs::absolute(s));
         if (is_file(input_list.at(0)) && fs::exists(input_list.at(0))) {
             if (!save_path.empty()) {
-                if (!is_folder(save_path)) {
+                if (save_file_is_file) {
                     ofs.open(save_path, std::ofstream::out | std::ofstream::trunc);
                 }
                 else {
@@ -531,22 +544,27 @@ int main(int argc, char* argv[]) {
                     if (entry.is_regular_file() && (all_files || iequals(entry.path().extension().string(), ".pdf"))) {
                         fs::path  rptfile;
                         if (!save_path.empty()) {
-                            rptfile = save_path / entry.path().stem();
-                            if (no_color)
-                                rptfile.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
-                            else
-                                rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
-                            if (!clobber) {
-                                // if rptfile already exists then try a different filename by continuously appending underscores...
-                                while (fs::exists(rptfile)) {
-                                    rptfile.replace_filename(rptfile.stem().string() + "_");
-                                    if (no_color)
-                                        rptfile.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
-                                    else
-                                        rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
+                            if (save_file_is_folder) {
+                                rptfile = save_path / entry.path().stem();
+                                if (no_color)
+                                    rptfile.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
+                                else
+                                    rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
+                                if (!clobber) {
+                                    // if rptfile already exists then try a different filename by continuously appending underscores...
+                                    while (fs::exists(rptfile)) {
+                                        rptfile.replace_filename(rptfile.stem().string() + "_");
+                                        if (no_color)
+                                            rptfile.replace_extension(".txt");  // change .pdf to .txt for uncolorized output
+                                        else
+                                            rptfile.replace_extension(".ansi"); // change .pdf to .ansi if colorized output
+                                    }
                                 }
+                                rptfile = fs::absolute(rptfile).lexically_normal();
                             }
-                            rptfile = fs::absolute(rptfile).lexically_normal();
+                            else { // save_file_is_file
+                                rptfile = fs::absolute(save_path).lexically_normal();
+                            }
                         }
 
                         bool exclude_for_processing = false;
@@ -579,8 +597,8 @@ int main(int argc, char* argv[]) {
                             if (rptfile.empty())
                                 std::cout << "stdout ";
                             else {
-                                std::cout << rptfile << " ";
-                                ofs.open(rptfile, std::ofstream::out | std::ofstream::trunc);
+                                std::cout << rptfile << ((is_folder && !clobber) ? " (appended) " : " ");
+                                ofs.open(rptfile, std::ofstream::out | ((is_folder && !clobber) ? std::ofstream::app : std::ofstream::trunc));
                             }
                             count++;
                             if (!dryrun)
