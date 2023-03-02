@@ -66,6 +66,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   Case sensitive (as per PDF spec)
 *   No duplicates keys in any single TSV file
 *   Only alphanumeric, `.`, `-`, `_` or ASTERISK characters (no whitespace or other special characters)
+    * The proprietary Apple APPL extensions also use `:` (COLON) as in `AAPL:ST`
 *   If a dictionary, then "Key" may also be an ASTERISK `*` meaning wildcard, so anything is allowed
 *   If ASTERISK `*` by itself then must be last row in TSV file
 *   If ASTERISK `*` by itself then "Required" column must be FALSE
@@ -199,6 +200,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 *   Must not be blank
 *   Streams must always have "IndirectReference" as `TRUE`
+*   For name- and number-trees, the value represents what the direct/indirect requirements of the values of tree (e.g. if it is a stream, it would be `TRUE`) 
 *   Either:
     *   Single word: `FALSE` or `TRUE` (uppercase only, as it is not a PDF keyword!); or
     *   Single predicate `fn:MustBeDirect()` or `fn:MustBeIndirect()` indicating that the corresponding key/array element must
