@@ -4,4 +4,4 @@ FlashVars	stream;string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	[TRUE];[FALS
 Binding	name	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	FALSE	FALSE	None	[None,Foreground,Background,Material]			
 BindingMaterial	string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	fn:IsRequired(@Binding==Material)	FALSE	FALSE					
 CuePoints	array	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	FALSE	FALSE				[ArrayOfRichMediaCuePoints]	
-Seetings	stream;string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
+Settings	stream;string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
