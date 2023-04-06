@@ -12,6 +12,9 @@
 &nbsp;&nbsp;&nbsp;
 ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCJL_M0VH2lm65gvGVarUTKQ?style=social)
 
+Get your [zero-cost copy of ISO 32000-2 now](https://www.pdfa.org/announcing-no-cost-access-to-iso-32000-2-pdf-2-0/)! Includes ISO-approved errata and new PDF 2.0 crypto extensions. This is what the Arlington PDF Model is based on...
+
+
 ## TL;DR
 
 The Arlington PDF Model is all about a machine-readable model data for PDF objects, **_not_** about code, runtimes, or tooling. If you want to start somewhere, start by exploring the TSV data model files at a Linux prompt, or in a Jupyter Notebook with the JSON equivalent (see [./scripts/README.md](./scripts/README.md#arlington-to-pandaspy)).
