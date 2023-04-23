@@ -14,6 +14,9 @@ Currently the Arlington PDF Model defines all PDF objects defined by, or mention
 * ISO 32000-2:2020 subclause 14.13 _Associated files_ permits the `AF` key to be any dictionary or stream. This is **not** explicitly modelled across every dictionary in the current Arlington PDF model. Arlington only defines an `AF` entry when ISO 32000-2:2020 explicitly declares it. 
     - In the future, a `AF` entry might be added to every dictionary or stream object. Please add comments to [Issue #65](https://github.com/pdf-association/arlington-pdf-model/issues/65) if you feel strongly one way or the other.
 
+* assumptions about duplicate keys, keys with `null` values, and keys that are indirect references are currently **not** encoded in the Arlington PDF Model:
+    - e.g. consider `<< /Type /Bar /Type Boo >>`, `<< /Type null /Type /Bar >>` and `<< 10 0 R /Bar >>` when `10 0 obj /Type endobj`
+    - in ISO 32000-2 keys are required to be direct objects. Prior to PDF 2.0 there was no such statement so old implementations vary. 
 
 ## Limitations
 
@@ -40,6 +43,8 @@ Currently the Arlington PDF Model defines all PDF objects defined by, or mention
 
 This section makes suggestions to users who are implementing technology based on the Arlington PDF Model:
 
+* lexing and parsing differences between PDF libraries **will** result in different behavior! There is **not** necessarily one true answer for a PDF file that has errors! 
+
 * don't focus on PDF versions. It is widely accepted/known that PDF versions are not a reliable indicator of features.
     - This is why the [TestGrammar C++ PoC](TestGrammar) "rounds up" PDF versions... see the `--force` command line option.
 
@@ -57,3 +62,8 @@ This section makes suggestions to users who are implementing technology based on
 * some predicates may make no sense for your use-case... this is because the Arlington PDF Model reflects what the spec states, not how it is to be interpreted!
 
 * be careful about making assumptions of streams vs dictionaries. As far as the Arlington PDF Model is concerned there is no real difference... 
+
+* remember that an encrypted PDF file (_even with unknown encryption!_) can still be checked - only `string-*`s and `stream`s can't. But this is highly dependent on the PDF library and API in use as to whether this actually works.
+
+* remember that PDF dictionaries with duplicate keys **do** exist in the wild however many PDF libraries and APIs will hide this fact from users.
+
