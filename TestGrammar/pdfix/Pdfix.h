@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2022 PDFix (http://pdfix.net). All Rights Reserved.
+// Copyright (c) 2023 PDFix (http://pdfix.net). All Rights Reserved.
 // This file was generated automatically
 ////////////////////////////////////////////////////////////////////////////////
 #ifndef _Pdfix_h
@@ -22,7 +22,7 @@
 #endif
 
 #define PDFIX_VERSION_MAJOR 6
-#define PDFIX_VERSION_MINOR 19
+#define PDFIX_VERSION_MINOR 20
 #define PDFIX_VERSION_PATCH 0
 #define MAX_INT 2147483647
 #define MIN_INT -2147483647
@@ -142,6 +142,7 @@ typedef int PdfTableType;
 typedef int PdfWordFlags;
 typedef int PdfTextLineFlags;
 typedef int PdfTextFlags;
+typedef int PdfCellScope;
 typedef int PdfElementFlags;
 typedef int PdfPageInsertFlags;
 typedef int PdsContentFlags;
@@ -770,6 +771,12 @@ enum {
   kTextFlagNoteCaption = 0x0008,
   kTextFlagFilling = 0x010,
   kTextFlagAllCaps = 0x020,
+} ;
+
+enum {
+  kCellScopeNone = 0x00,
+  kCellScopeRow = 0x01,
+  kCellScopeCol = 0x02,
 } ;
 
 enum {
@@ -1497,6 +1504,7 @@ typedef struct _PdfHtmlParams {
 typedef struct _PdfJsonParams {
   int struct_tree;
   int page_map;
+  int page_content;
   int text;
   int text_style;
   int text_state;
@@ -1506,6 +1514,7 @@ typedef struct _PdfJsonParams {
   _PdfJsonParams() {
     struct_tree = 0;
     page_map = 0;
+    page_content = 0;
     text = 0;
     text_style = 0;
     text_state = 0;
@@ -1513,9 +1522,10 @@ typedef struct _PdfJsonParams {
     bbox = 0;
     graphics_state = 0;
   }
-  _PdfJsonParams(int _struct_tree, int _page_map, int _text, int _text_style, int _text_state, int _images, int _bbox, int _graphics_state) {
+  _PdfJsonParams(int _struct_tree, int _page_map, int _page_content, int _text, int _text_style, int _text_state, int _images, int _bbox, int _graphics_state) {
     struct_tree = _struct_tree;
     page_map = _page_map;
+    page_content = _page_content;
     text = _text;
     text_style = _text_style;
     text_state = _text_state;
@@ -1910,6 +1920,8 @@ struct PdeElement {
   virtual bool SetActualText(const wchar_t* text) = 0;
   virtual int GetTag(_out_ wchar_t* buffer, int len) const = 0;
   virtual bool SetTag(const wchar_t* text) = 0;
+  virtual int GetTagId(_out_ wchar_t* buffer, int len) const = 0;
+  virtual bool SetTagId(const wchar_t* id) = 0;
   virtual int GetFlags() const = 0;
   virtual bool SetFlags(int flags) = 0;
   virtual int GetStateFlags() const = 0;
@@ -1938,6 +1950,12 @@ struct PdeElement {
     std::wstring buffer;
     buffer.resize(GetTag(nullptr, 0));
     GetTag((wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
+  std::wstring GetTagId() {
+    std::wstring buffer;
+    buffer.resize(GetTagId(nullptr, 0));
+    GetTagId((wchar_t*)buffer.c_str(), (int)buffer.size());
     return buffer;
   }
 };
@@ -1979,16 +1997,30 @@ struct PdeArtifact : PdeContainer {
 };
 
 struct PdeCell : PdeContainer {
-  virtual bool GetRowHeader() const = 0;
-  virtual void SetRowHeader(bool header) = 0;
-  virtual bool GetColHeader() const = 0;
-  virtual void SetColHeader(bool header) = 0;
+  virtual int GetRowNum() const = 0;
+  virtual bool SetRowNum(int row) = 0;
+  virtual int GetColNum() const = 0;
+  virtual bool SetColNum(int col) = 0;
+  virtual bool GetHeader() const = 0;
+  virtual bool SetHeader(bool header) = 0;
+  virtual PdfCellScope GetHeaderScope() const = 0;
+  virtual bool SetHeaderScope(PdfCellScope scope) = 0;
   virtual int GetRowSpan() const = 0;
-  virtual void SetRowSpan(int span) = 0;
+  virtual bool SetRowSpan(int span) = 0;
   virtual int GetColSpan() const = 0;
-  virtual void SetColSpan(int span) = 0;
+  virtual bool SetColSpan(int span) = 0;
   virtual bool HasBorderGraphicState(int index) const = 0;
-  virtual PdeCell* GetSpanCell() = 0;
+  virtual PdeCell* GetSpanCell() const = 0;
+  virtual int GetNumAssociatedHeaders() const = 0;
+  virtual int GetAssociatedHeader(int index, _out_ wchar_t* buffer, int len) const = 0;
+  virtual bool AddAssociatedHeader(const wchar_t* id) = 0;
+  virtual bool RemoveAssociatedHeader(int index) = 0;
+  std::wstring GetAssociatedHeader(int index) {
+    std::wstring buffer;
+    buffer.resize(GetAssociatedHeader(index, nullptr, 0));
+    GetAssociatedHeader(index, (wchar_t*)buffer.c_str(), (int)buffer.size());
+    return buffer;
+  }
 };
 
 struct PdeTable : PdeContainer {
@@ -2380,7 +2412,7 @@ struct PdfDigSig : PdfBaseDigSig {
   virtual bool SetPfxFile(const wchar_t* pfx_file, const wchar_t* pfx_password) = 0;
 };
 
-#if defined _WIN32 && defined _MSC_VER
+#if defined _WIN32 && defined _MSC_VER 
 struct PdfCertDigSig : PdfBaseDigSig {
   virtual bool SetPfxFile(const wchar_t* pfx_file, const wchar_t* pfx_password) = 0;
   virtual bool SetCertContext(void* cert_context) = 0;
@@ -3018,6 +3050,7 @@ struct PdsStructTree {
   virtual PdsStructElement* AddNewChild(const wchar_t* type, int index) = 0;
   virtual PdfDoc* GetDoc() = 0;
   virtual bool RepairParentTree(PdfCancelProc cancel_proc, void* cancel_data) = 0;
+  virtual bool RepairIdTree(PdfCancelProc cancel_proc, void* cancel_data) = 0;
 };
 
 struct PdfConversion {
@@ -3101,6 +3134,7 @@ struct PsCommand {
   virtual bool EmbedFonts(PdfCancelProc cancel_proc, void* cancel_data) = 0;
   virtual bool AddMissingUnicode(PdfCancelProc cancel_proc, void* cancel_data) = 0;
   virtual bool RepairParentTree(PdfCancelProc cancel_proc, void* cancel_data) = 0;
+  virtual bool RepairIdTree(PdfCancelProc cancel_proc, void* cancel_data) = 0;
   virtual bool CreateBookmarks(PdfCancelProc cancel_proc, void* cancel_data) = 0;
   virtual bool ArtifactContent(PdfPage* page, PdfCancelProc cancel_proc, void* cancel_data) = 0;
   virtual bool FlattenFormXObject(PdfPage* page, PdfCancelProc cancel_proc, void* cancel_data) = 0;
@@ -3226,7 +3260,7 @@ extern GetPdfixProcType GetPdfix;
 
 class PdfixException : public std::exception {
 public:
-  PdfixException() {
+  PdfixException() { 
     m_code = (GetPdfix ? GetPdfix()->GetErrorType() : 1);
     m_what = (GetPdfix ? GetPdfix()->GetError() : "Unknown Error");
   }
