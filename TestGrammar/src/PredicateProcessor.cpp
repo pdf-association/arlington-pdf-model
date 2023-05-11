@@ -779,12 +779,12 @@ bool PredicateProcessor::IsValidValue(ArlPDFObject* object, const int key_idx, c
 
         case PDFObjectType::ArlPDFObjTypeArray:
             {
-                // Arrays can have Possible Values e.g. XObjectImageMask Decode = [[0,1],[1,0]] 
+                // Arrays can have Possible Values e.g. XObjectImageMask Decode = [[0 1],[1 0]] 
                 ArlPDFArray* arr = (ArlPDFArray*)object;
                 int arr_len = arr->get_num_elements();
                 for (int i = 0; (i < (int)val_list.size()) && !retval; i++) {
                     assert((val_list[i][0] == '[') && (pvalues[val_list[i].size() - 1] == ']'));
-                    if ((arr_len == 2) && ((val_list[i] == "[0,1]") || (val_list[i] == "[1,0]"))) {
+                    if ((arr_len == 2) && ((val_list[i] == "[0 1]") || (val_list[i] == "[1 0]"))) {
                         /// @todo - Hard-coded only for Decode arrays!
                         ArlPDFNumber* a0 = (ArlPDFNumber*)arr->get_value(0);
                         ArlPDFNumber* a1 = (ArlPDFNumber*)arr->get_value(1);
