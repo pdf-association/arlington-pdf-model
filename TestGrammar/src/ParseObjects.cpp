@@ -43,12 +43,22 @@ using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
 
 
-/// @def \#define SCORING_DEBUG to see scoring inside recommended_link_for_object()
+#ifdef DO_DOXYGEN
+/// @def SCORING_DEBUG 
+/// @brief see scoring inside recommended_link_for_object()
+#define SCORING_DEBUG
+#else
 #undef SCORING_DEBUG
+#endif
 
 
-/// @def \#define CHECKS_DEBUG to see details of the checking of values, Possible Values, Special Cases, etc. for each object
+#ifdef DO_DOXYGEN
+/// @def CHECKS_DEBUG 
+/// @brief see details of the checking of values, Possible Values, Special Cases, etc. for each object
+#define CHECKS_DEBUG
+#else
 #undef CHECKS_DEBUG
+#endif
 
 
 /// @brief Locates & reads in a single Arlington TSV grammar file. The input data is not altered or validated.

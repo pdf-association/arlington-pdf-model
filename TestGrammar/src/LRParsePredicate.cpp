@@ -28,12 +28,23 @@
 #include <math.h>
 #include <algorithm>
 
-/// @def \#define ARL_PARSER_DEBUG to enable very verbose debugging of predicate and expression parsing
+
+#ifdef DO_DOXYGEN
+/// @def ARL_PARSER_DEBUG 
+/// @brief enables very verbose debugging of predicate and expression parsing
+#define ARL_PARSER_DEBUG
+#else
 #undef ARL_PARSER_DEBUG
+#endif
 
 
-/// @def \#define PP_DEBUG to get VERY verbose debugging of predicate processing (PP)
+#ifdef DO_DOXYGEN
+/// @def PP_DEBUG 
+/// @brief get VERY verbose debugging of predicate processing (PP)
+#define PP_DEBUG
+#else
 #undef PP_DEBUG
+#endif
 
 
 /// @brief Regexes for matching Link version-based predicates (both at start-of-line and anywhere in a string)

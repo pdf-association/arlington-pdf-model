@@ -153,8 +153,13 @@ bool process_single_pdf(
 #if defined(_WIN32) || defined(WIN32)
 #include <crtdbg.h>
 
-/// @brief #define CRT_MEMORY_LEAK_CHECK to enable C RTL memory leak checking (slow!)
+#ifdef DO_DOXYGEN
+/// @def CRT_MEMORY_LEAK_CHECK
+/// @brief enables C RTL memory leak checking (slow!) under Microsoft Windows
+#define CRT_MEMORY_LEAK_CHECK
+#else
 #undef CRT_MEMORY_LEAK_CHECK
+#endif
 
 int wmain(int argc, wchar_t* argv[]) {
 #if defined(_DEBUG) && defined(CRT_MEMORY_LEAK_CHECK)

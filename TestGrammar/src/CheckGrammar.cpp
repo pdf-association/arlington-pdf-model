@@ -41,9 +41,13 @@
 namespace fs = std::filesystem;
 
 
-/// @def \#define ARL_PARSER_TESTING to test a small set of hard coded predicates
+#ifdef DO_DOXYGEN
+/// @def ARL_PARSER_TESTING 
+/// @brief tests a small set of hard coded predicates
+#define ARL_PARSER_TESTING
+#else 
 #undef ARL_PARSER_TESTING
-
+#endif
 
 /// @brief When validating, need to know context of TSV (array, dict, stream, name-tree, number-tree)
 typedef struct _ValidationContext  {
