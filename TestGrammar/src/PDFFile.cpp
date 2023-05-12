@@ -2897,10 +2897,10 @@ int CPDFFile::fn_NumberOfPages() {
 
 
 /// @brief Looks up a value in an object that could be of different types. Returns true if it is present.
-///   e.g. typical usage: fn:Contains(@Filter,JPXDecode)  where Filter might be a name or an array
+///   e.g. typical usage: fn:Contains(\@Filter,JPXDecode)  where Filter might be a name or an array
 ///  
 /// @param[in] obj       PDF object. 
-/// @param[in] key       a key or integer array index (@Filter in the example above)
+/// @param[in] key       a key or integer array index (\@Filter in the example above)
 /// @param[in] value     the value we are looking for (JPXDecode in the example above)
 /// 
 /// @returns true if obj contains value (e.g. equal if a name, in the array if array)
