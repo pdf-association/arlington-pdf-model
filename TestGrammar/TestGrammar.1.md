@@ -7,9 +7,11 @@ TestGrammar - a multi-platform portable proof-of-concept Arlington PDF Model app
 
 # SYNOPSIS
 
-**TestGrammar** [OPTIONS]... --validate
-**TestGrammar** [OPTIONS]... --checkdva <file>
-**TestGrammar** [OPTIONS]... --pdf <fname|dir|@file.txt>
+**TestGrammar** [ OPTIONS ] `--validate`
+
+**TestGrammar** [ OPTIONS ] `--checkdva` _`<file>`_
+
+**TestGrammar** [ OPTIONS ] `--pdf` _`<fname|dir|@file.txt>`_
 
 **TestGrammar_d** is the debug version of **TestGrammar**.
 
@@ -21,7 +23,7 @@ TestGrammar - a multi-platform portable proof-of-concept Arlington PDF Model app
 
 Options may be specified in any order and single letter and long-form options may be mixed. Many options have single letter abbreviations which always use a single _`-`_ (DASH). Long-form options aways require two DASHES _`--`_. Some options also have mandatory additional arguments:
 
-****-h, --help**
+**-h, --help**
 : Display a brief usage message.
 
 **-b, --brief**
