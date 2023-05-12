@@ -75,16 +75,16 @@ public:
     bool ValidateTypeSyntax(const int key_idx);
     
     bool ValidateSinceVersionSyntax(const int key_idx);
-    bool IsValidForPDFVersion(ArlPDFObject* parent, ArlPDFObject* obj, const int key_idx);
+    bool IsValidForPDFVersion(ArlPDFObject* container, ArlPDFObject* obj, const int key_idx);
     
     bool ValidateDeprecatedInSyntax(const int key_idx);
     bool IsDeprecated(const int key_idx);
 
     bool ValidateRequiredSyntax(const int key_idx);
-    bool IsRequired(ArlPDFObject* parent, ArlPDFObject* obj, const int key_idx, const int type_idx);
+    bool IsRequired(ArlPDFObject* container, ArlPDFObject* obj, const int key_idx, const int type_idx);
 
     bool ValidateIndirectRefSyntax(const int key_idx);
-    ReferenceType ReduceIndirectRefRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_index);
+    ReferenceType ReduceIndirectRefRow(ArlPDFObject* container, ArlPDFObject* object, const int key_idx, const int type_index);
 
     bool ValidateInheritableSyntax(const int key_idx);
     bool IsInheritable(const int key_idx);
@@ -93,10 +93,10 @@ public:
     ASTNode* GetDefaultValue(const int key_idx, const int type_idx);
 
     bool ValidatePossibleValuesSyntax(const int key_idx);
-    bool ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_idx);
+    bool ReducePVRow(ArlPDFObject* container, ArlPDFObject* object, const int key_idx, const int type_idx);
 
     bool ValidateSpecialCaseSyntax(const int key_idx);
-    bool ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_idx);
+    bool ReduceSCRow(ArlPDFObject* container, ArlPDFObject* object, const int key_idx, const int type_idx);
 
     bool ValidateLinksSyntax(const int key_idx);
 };

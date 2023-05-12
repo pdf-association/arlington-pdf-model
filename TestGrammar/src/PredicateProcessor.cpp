@@ -161,12 +161,12 @@ bool PredicateProcessor::ValidateSinceVersionSyntax(const int key_idx) {
 /// - fn:Extension(xxx)
 /// - fn:Extension(xxx,1.2)
 ///
-/// @param[in]   parent      the parent object (needed for predicates)
+/// @param[in]   container   the container object (needed for predicates)
 /// @param[in]   obj         the object of the current key
 /// @param[in]   key_idx     the key index into the TSV data
 /// 
 /// @returns true if this row is valid for the specified by PDF version. false otherwise
-bool PredicateProcessor::IsValidForPDFVersion(ArlPDFObject* parent, ArlPDFObject* obj, const int key_idx) {
+bool PredicateProcessor::IsValidForPDFVersion(ArlPDFObject* container, ArlPDFObject* obj, const int key_idx) {
     assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_SINCEVERSION];
     pdfc->ClearPredicateStatus();
@@ -191,7 +191,7 @@ bool PredicateProcessor::IsValidForPDFVersion(ArlPDFObject* parent, ArlPDFObject
         // Process the AST
         assert(predicate_ast[0][0]->node.find("fn:") != std::string::npos);
         assert(predicate_ast[0][0]->arg[0] != nullptr); 
-        auto eval = pdfc->ProcessPredicate(parent, obj, predicate_ast[0][0], key_idx, tsv, 0, 0, false);
+        auto eval = pdfc->ProcessPredicate(container, obj, predicate_ast[0][0], key_idx, tsv, 0, 0, false);
         bool retval = false;
         if (eval != nullptr) {
             if (eval->type == ASTNodeType::ASTNT_ConstNum) {
@@ -287,7 +287,7 @@ bool PredicateProcessor::ValidateRequiredSyntax(const int key_idx) {
 }
 
 
-/// @brief Reduces an Arlington "Required" field (column 5) for a given PDF version and parent PDF object.
+/// @brief Reduces an Arlington "Required" field (column 5) for a given PDF version and container PDF object.
 /// - either TRUE, FALSE or fn:IsRequired(...)
 /// - NO SEMI-COLONs or [ ]
 /// - inner can be very flexible, including logical && and || expressions:
@@ -299,19 +299,19 @@ bool PredicateProcessor::ValidateRequiredSyntax(const int key_idx) {
 /// 
 /// Also need to consider SinceVersion which might be fn:Extension(...)
 ///
-/// @param[in]   parent      the parent object (needed for predicates)
+/// @param[in]   container   the container object (needed for predicates)
 /// @param[in]   obj         the object of the current key
 /// @param[in]   key_idx     the key index into the TSV data
 /// @param[in]   type_idx    the index into the 'Type' field
 /// 
 /// @returns true if field is required for the PDF version and PDF object
-bool PredicateProcessor::IsRequired(ArlPDFObject* parent, ArlPDFObject* obj, const int key_idx, const int type_idx) {
-    assert(parent != nullptr);
+bool PredicateProcessor::IsRequired(ArlPDFObject* container, ArlPDFObject* obj, const int key_idx, const int type_idx) {
+    assert(container != nullptr);
     assert(obj != nullptr);
     bool retval = false;
 
     assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
-    bool is_valid = IsValidForPDFVersion(parent, obj, key_idx);
+    bool is_valid = IsValidForPDFVersion(container, obj, key_idx);
 
     // If it is not valid for the PDF version, then cannot be required
     if (!is_valid)
@@ -335,7 +335,7 @@ bool PredicateProcessor::IsRequired(ArlPDFObject* parent, ArlPDFObject* obj, con
         assert(whats_left.size() == 0);
 
         /// Process the AST using the PDF objects - expect reduction to a boolean true/false
-        ASTNode* pp = pdfc->ProcessPredicate(parent, obj, predicate_ast[0][0], key_idx, tsv, type_idx, 0, false);
+        ASTNode* pp = pdfc->ProcessPredicate(container, obj, predicate_ast[0][0], key_idx, tsv, type_idx, 0, false);
         assert(pp != nullptr);
         assert(pp->valid());
         assert(pp->type == ASTNodeType::ASTNT_ConstPDFBoolean);
@@ -390,13 +390,13 @@ bool PredicateProcessor::ValidateIndirectRefSyntax(const int key_idx) {
 /// - fn:MustBeIndirect(...)
 /// Untested but should also handle complex array with predicates in the future
 /// 
-/// @param[in]   parent      the parent object (needed for predicates)
+/// @param[in]   container   the container object (needed for predicates)
 /// @param[in]   object      the object of the current key
 /// @param[in]   key_idx     the key index into the TSV data
 /// @param[in]   type_index  the index into the 'Type' field
 /// 
 /// @returns the requirement for indirectness: must be direct, must be indirect, or don't care
-ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_index) {
+ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* container, ArlPDFObject* object, const int key_idx, const int type_index) {
     assert(type_index >= 0);
     assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     std::string tsv_field = tsv[key_idx][TSV_INDIRECTREF];
@@ -463,7 +463,7 @@ ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* parent, Arl
             return  (stack[0]->node == "fn:MustBeDirect(") ? ReferenceType::MustBeDirect : ReferenceType::MustBeIndirect;
 
         // Was an argument - can still reduce to nullptr if keys not present, etc.
-        ASTNode* pp = pdfc->ProcessPredicate(parent, object, stack[0], key_idx, tsv, type_index, 0, false);
+        ASTNode* pp = pdfc->ProcessPredicate(container, object, stack[0], key_idx, tsv, type_index, 0, false);
         if (pp != nullptr) {
             assert(pp->valid() && (pp->type == ASTNodeType::ASTNT_ConstPDFBoolean));
             assert(pdfc->PredicateWasFullyProcessed());
@@ -1003,14 +1003,14 @@ bool PredicateProcessor::ValidateLinksSyntax(const int key_idx) {
 /// @brief Reduces an Arlington "PossibleValues" row (column 9)
 /// Can be pretty much anything.
 ///
-/// @param[in] parent       PDF object of parent (that contains object) so dict, array or stream
-/// @param[in] object       PDF object (in parent)
+/// @param[in] container    PDF container object (that contains object) so dict, array or stream
+/// @param[in] object       PDF object (in container)
 /// @param[in] key_idx      the row index into tsv_data matrix for this key
 /// @param[in] type_idx     the index in the 'Type' field of the Arlington TSV data 
 /// 
 /// @returns true if syntax is valid. false otherwise
-bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_idx) {
-    assert(parent != nullptr);
+bool PredicateProcessor::ReducePVRow(ArlPDFObject* container, ArlPDFObject* object, const int key_idx, const int type_idx) {
+    assert(container != nullptr);
     assert(object != nullptr);
     assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
 
@@ -1090,7 +1090,7 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object,
 
         case ASTNodeType::ASTNT_Predicate:
             {
-                ASTNode *pp = pdfc->ProcessPredicate(parent, object, n, key_idx, tsv, type_idx, 0, false);
+                ASTNode *pp = pdfc->ProcessPredicate(container, object, n, key_idx, tsv, type_idx, 0, false);
                 if (pp != nullptr) {
                     // Booleans can either be a valid value OR the result of an fn:Eval(...) calculation
                     ASTNodeType pp_type = pp->type;
@@ -1137,14 +1137,14 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* parent, ArlPDFObject* object,
 /// @brief Reduces an Arlington "PossibleValues" row (column 9)
 /// Can be pretty much anything.
 ///
-/// @param[in] parent       PDF object of parent (that contains object) so dict, array or stream
-/// @param[in] object       PDF object (in parent)
+/// @param[in] container    PDF container object (that contains object) so dict, array or stream
+/// @param[in] object       PDF object (in container)
 /// @param[in] key_idx      the row index into tsv_data matrix for this key
 /// @param[in] type_idx     the index in the 'Type' field of the Arlington TSV data 
 /// 
 /// @returns true if syntax is valid. false otherwise
-bool PredicateProcessor::ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object, const int key_idx, const int type_idx) {
-    assert(parent != nullptr);
+bool PredicateProcessor::ReduceSCRow(ArlPDFObject* container, ArlPDFObject* object, const int key_idx, const int type_idx) {
+    assert(container != nullptr);
     assert(object != nullptr);
     assert((key_idx >= 0) && (key_idx < (int)tsv.size()));
     assert(type_idx >= 0);
@@ -1211,7 +1211,7 @@ bool PredicateProcessor::ReduceSCRow(ArlPDFObject* parent, ArlPDFObject* object,
     ASTNode* n = stack[0];
     if (n->type == ASTNodeType::ASTNT_Predicate) {
         bool valid = true;
-        ASTNode* pp = pdfc->ProcessPredicate(parent, object, n, key_idx, tsv, type_idx, 0, true);
+        ASTNode* pp = pdfc->ProcessPredicate(container, object, n, key_idx, tsv, type_idx, 0, true);
         // SpecialCase can return nullptr only when versioning makes everything go away...
         if (pp != nullptr) {
             assert(pp->valid());

@@ -55,13 +55,13 @@ private:
     /// @brief Data structure for recursive processing of the ArlPDFObjects
     /// @todo - lifetime management of recursive parent objects AND not blow out memory!
     struct queue_elem {
-        ArlPDFObject* parent;   // PDF object of parent (can be null for trailer)
-        ArlPDFObject* object;   // PDF object (e.g. of a key)
-        std::string   link;     // Arlington TSV filename
-        std::string   context;  // PDF DOM path
+        ArlPDFObject* container;    // PDF container object (can be null for trailer)
+        ArlPDFObject* object;       // PDF object (e.g. of a key)
+        std::string   link;         // Arlington TSV filename
+        std::string   context;      // PDF DOM path
 
         queue_elem(ArlPDFObject* p, ArlPDFObject* o, const std::string &l, const std::string &c)
-            : parent(p), object(o), link(l), context(c)
+            : container(p), object(o), link(l), context(c)
             { /* constructor */ assert(object != nullptr); assert(link.size() > 0); }
     };
 
@@ -105,11 +105,11 @@ private:
     std::string recommended_link_for_object(ArlPDFObject* obj, const std::vector<std::string> links, const std::string obj_name);
 
     bool check_numeric_array(ArlPDFArray* arr, const int elems_to_check);
-    void check_everything(ArlPDFObject* parent, ArlPDFObject* obj, const int key_idx, const ArlTSVmatrix& tsv_data, const std::string& grammar_file, const std::string& context, std::ostream& ofs);
+    void check_everything(ArlPDFObject* container, ArlPDFObject* obj, const int key_idx, const ArlTSVmatrix& tsv_data, const std::string& grammar_file, const std::string& context, std::ostream& ofs);
     ArlPDFObject* find_via_inheritance(ArlPDFDictionary* obj, const std::wstring& key, const int depth = 0);
 
     /// @brief add an object to be checked
-    void add_parse_object(ArlPDFObject* parent, ArlPDFObject* object, const std::string& link, const std::string& context);
+    void add_parse_object(ArlPDFObject* container, ArlPDFObject* object, const std::string& link, const std::string& context);
 
 public:
     CParsePDF(const fs::path& tsv_folder, std::ostream &ofs, const bool terser_output, const bool debug_output)

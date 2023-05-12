@@ -104,38 +104,38 @@ private:
     ASTNode* fn_SinceVersion(const ASTNode* ver_node, const ASTNode* thing);
     ASTNode* fn_Extension(const ASTNode* extn, const ASTNode* value);
     bool fn_AlwaysUnencrypted(ArlPDFObject* obj);
-    bool fn_ArraySortAscending(ArlPDFObject* parent, const ASTNode *arr_key, const ASTNode* step);
+    bool fn_ArraySortAscending(ArlPDFObject* container, const ASTNode *arr_key, const ASTNode* step);
     bool fn_BitClear(ArlPDFObject* obj, const ASTNode* bit_node);
     bool fn_BitSet(ArlPDFObject* obj, const ASTNode* bit_node);
     bool fn_BitsClear(ArlPDFObject* obj, const ASTNode* low_bit_node, const ASTNode* high_bit_node);
     bool fn_BitsSet(ArlPDFObject* obj, const ASTNode* low_bit_node, const ASTNode* high_bit_node);
     bool fn_FontHasLatinChars(ArlPDFObject* obj);
-    bool fn_HasProcessColorants(ArlPDFObject* parent, const ASTNode* obj_ref);
-    bool fn_HasSpotColorants(ArlPDFObject* parent, const ASTNode* obj_ref);
+    bool fn_HasProcessColorants(ArlPDFObject* container, const ASTNode* obj_ref);
+    bool fn_HasSpotColorants(ArlPDFObject* container, const ASTNode* obj_ref);
     bool fn_ImageIsStructContentItem(ArlPDFObject* obj);
-    bool fn_InKeyMap(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* map);
-    bool fn_InNameTree(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* nametree);
+    bool fn_InKeyMap(ArlPDFObject* container, ArlPDFObject* obj, const ASTNode* map);
+    bool fn_InNameTree(ArlPDFObject* container, ArlPDFObject* obj, const ASTNode* nametree);
     bool fn_IsAssociatedFile(ArlPDFObject* obj);
     bool fn_IsEncryptedWrapper();
     bool fn_IsFieldName(ArlPDFObject* obj);
     bool fn_IsHexString(ArlPDFObject* obj);
-    bool fn_IsLastInArray(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* key);
+    bool fn_IsLastInArray(ArlPDFObject* container, ArlPDFObject* obj, const ASTNode* key);
     bool fn_IsPDFTagged();
-    bool fn_IsPresent(ArlPDFObject* parent, std::string& key);
-    bool fn_MustBeDirect(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* arg);
+    bool fn_IsPresent(ArlPDFObject* container, std::string& key);
+    bool fn_MustBeDirect(ArlPDFObject* container, ArlPDFObject* obj, const ASTNode* arg);
     bool fn_NoCycle(ArlPDFObject* obj, const std::string& key);
-    bool fn_NotStandard14Font(ArlPDFObject* parent);
+    bool fn_NotStandard14Font(ArlPDFObject* container);
     bool fn_PageContainsStructContentItems(ArlPDFObject* obj);
     bool fn_Contains(ArlPDFObject* obj, const ASTNode* key, const ASTNode* value);
-    ASTNode* fn_PageProperty(ArlPDFObject* parent, ASTNode* pg, ASTNode* pg_key);
-    ASTNode* fn_RequiredValue(ArlPDFObject* parent, const ASTNode* condition, const ASTNode* value);
+    ASTNode* fn_PageProperty(ArlPDFObject* container, ASTNode* pg, ASTNode* pg_key);
+    ASTNode* fn_RequiredValue(ArlPDFObject* container, const ASTNode* condition, const ASTNode* value);
     ASTNode* fn_DefaultValue(const ASTNode* condition, const ASTNode* value);
-    double fn_RectHeight(ArlPDFObject* parent, const ASTNode* key);
-    double fn_RectWidth(ArlPDFObject* parent, const ASTNode* key);
-    int  fn_ArrayLength(ArlPDFObject* parent, const ASTNode* key);
+    double fn_RectHeight(ArlPDFObject* container, const ASTNode* key);
+    double fn_RectWidth(ArlPDFObject* container, const ASTNode* key);
+    int  fn_ArrayLength(ArlPDFObject* container, const ASTNode* key);
     int  fn_NumberOfPages();
-    int  fn_StreamLength(ArlPDFObject* parent, const ASTNode* key);
-    int  fn_StringLength(ArlPDFObject* parent, const ASTNode* key);
+    int  fn_StreamLength(ArlPDFObject* container, const ASTNode* key);
+    int  fn_StringLength(ArlPDFObject* container, const ASTNode* key);
     int  fn_FileSize() { return filesize_bytes; }
 
 public:
@@ -168,7 +168,7 @@ public:
     std::vector<std::string> get_extensions() { return extensions; }
 
     /// @brief Calculates an Arlington predicate expression
-    ASTNode* ProcessPredicate(ArlPDFObject* parent, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth, const bool use_default_values);
+    ASTNode* ProcessPredicate(ArlPDFObject* container, ArlPDFObject* obj, const ASTNode* in_ast, const int key_idx, const ArlTSVmatrix& tsv_data, const int type_idx, int depth, const bool use_default_values);
 
     void ClearPredicateStatus() { deprecated = false; fully_implemented = true; };
     bool PredicateWasDeprecated() { return deprecated; };

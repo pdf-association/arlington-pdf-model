@@ -338,20 +338,20 @@ return key_obj;
 ///   - possible value
 ///  Can output lots of error, warning and info messages!
 ///
-/// @param[in]   parent        parent PDF object (e.g. the dictionary which contains object as a key/value)
+/// @param[in]   container     container PDF object (e.g. the dictionary which contains object as a key/value)
 /// @param[in]   object        the PDF object to check
 /// @param[in]   key_index     >= 0. Row index into TSV data for this PDF object
 /// @param[in]   tsv_data      the full Arlington PDF model data read from a TSV
 /// @param[in]   grammar_file  the name Arlington PDF model filename used for error messages
 /// @param[in]   context       context (PDF DOM path)
 /// @param[in]   ofs           open output file stream (or cnull/cwnull for no output)
-void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, const int key_index, const ArlTSVmatrix& tsv_data, const std::string& grammar_file, const std::string& context, std::ostream& ofs) {
-    assert(parent != nullptr);
+void CParsePDF::check_everything(ArlPDFObject* container, ArlPDFObject* object, const int key_index, const ArlTSVmatrix& tsv_data, const std::string& grammar_file, const std::string& context, std::ostream& ofs) {
+    assert(container != nullptr);
     assert(object != nullptr);
     assert(key_index >= 0);
     auto obj_type = object->get_object_type();
 
-    queue_elem fake_e(parent, object, grammar_file, context);
+    queue_elem fake_e(container, object, grammar_file, context);
 
     // Need to cope with wildcard keys "*" or <digit>* for arrays in TSV data as key_index might be beyond rows in tsv_data[]
     int key_idx = key_index;
@@ -392,7 +392,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
     }
 
     PredicateProcessor pp(pdfc, tsv_data);
-    ReferenceType ir = pp.ReduceIndirectRefRow(parent, object, key_idx, versioner.get_arlington_type_index());
+    ReferenceType ir = pp.ReduceIndirectRefRow(container, object, key_idx, versioner.get_arlington_type_index());
 
     // Also treat null object as though the key is nonexistent (i.e. don't report an error)
     if ((ir == ReferenceType::MustBeIndirect) && (!object->is_indirect_ref() &&
@@ -511,7 +511,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
 
     bool checks_passed;
     // Check Arlington Special Case field
-    checks_passed = pp.ReduceSCRow(parent, object, key_idx, versioner.get_arlington_type_index());
+    checks_passed = pp.ReduceSCRow(container, object, key_idx, versioner.get_arlington_type_index());
 #ifdef CHECKS_DEBUG
     ofs << "SpecialCase = {" << (checks_passed ? "OK" : "not OK") << (pp.WasFullyImplemented() ? "" : ",partial implementation") << (pp.SomethingWasDeprecated() ? ",deprecated" : "") << "} ";
 #endif
@@ -541,7 +541,7 @@ void CParsePDF::check_everything(ArlPDFObject* parent, ArlPDFObject* object, con
     }
 
     // Check value against Arlington PossibleValue field
-    checks_passed = pp.ReducePVRow(parent, object, key_idx, versioner.get_arlington_type_index());
+    checks_passed = pp.ReducePVRow(container, object, key_idx, versioner.get_arlington_type_index());
     
 #ifdef CHECKS_DEBUG
     ofs << "PossibleValues = {" << (checks_passed ? "OK" : "not OK") << (pp.WasFullyImplemented() ? "" : ",partial implementation") << (pp.SomethingWasDeprecated() ? ",deprecated" : "") << "} ";
@@ -780,12 +780,12 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::vector<std::
 
 /// @brief Queues a PDF object for processing against an Arlington link, and with a PDF path context
 ///
-/// @param[in]     parent       parent PDF object that contains object (nullptr for root objects)
+/// @param[in]     container    container PDF object that contains object (nullptr for root objects)
 /// @param[in]     object       PDF object (not nullptr)
 /// @param[in]     link         Arlington link (TSV filename)
 /// @param[in,out] context      current content (PDF path)
-void CParsePDF::add_parse_object(ArlPDFObject* parent, ArlPDFObject* object, const std::string& link, const std::string& context) {
-    to_process.emplace(parent, object, link, context);
+void CParsePDF::add_parse_object(ArlPDFObject* container, ArlPDFObject* object, const std::string& link, const std::string& context) {
+    to_process.emplace(container, object, link, context);
 }
 
 
