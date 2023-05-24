@@ -25,6 +25,6 @@ CreationDate	date	1.5		FALSE	FALSE	FALSE
 IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 Subj	string-text	1.5		FALSE	FALSE	FALSE					
 RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
-Name	name	1.3		FALSE	FALSE	FALSE	Draft	[Approved,Experimental,NotApproved,AsIs,Expired,NotForPublicRelease,Confidential,Final,Sold,Departmental,ForComment,TopSecret,Draft,ForPublicRelease,*]	[fn:Not(fn:IsRequired(fn:IsPresent(IT) && fn:SinceVersion(2.0,(@IT!=Stamp))))]		
+Name	name	1.3		FALSE	FALSE	FALSE	Draft	[Approved,Experimental,NotApproved,AsIs,Expired,NotForPublicRelease,Confidential,Final,Sold,Departmental,ForComment,TopSecret,Draft,ForPublicRelease,*]	[fn:SinceVersion(2.0,fn:Not(fn:IsPresent(fn:IsPresent(IT) && (@IT!=Stamp))))]		
 IT	name	2.0		FALSE	FALSE	FALSE	Stamp	[StampSnapshot,StampImage,Stamp]			intent
 ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,ExDataMarkupGeo)),fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	2D markup annots only 
