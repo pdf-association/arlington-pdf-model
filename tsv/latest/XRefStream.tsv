@@ -12,7 +12,7 @@ FFilter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWD
 FDecodeParms	array;dictionary	1.5		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
 DL	integer	1.5		FALSE	FALSE	FALSE		[fn:Eval(@DL>=0)]	[fn:Eval(@DL>=0)]		
 Root	dictionary	1.5		TRUE	TRUE	FALSE				[Catalog]	
-Info	dictionary	1.5		FALSE	fn:MustBeIndirect(fn:BeforeVersion(2.0))	FALSE				[DocInfo]	https://github.com/pdf-association/pdf-issues/issues/106
+Info	dictionary	1.5		fn:IsRequired(fn:IsPresent(trailer::Catalog::PieceInfo))	fn:MustBeIndirect(fn:BeforeVersion(2.0))	FALSE			[fn:Eval(fn:IsPresent(trailer::Catalog::PieceInfo,IsPresent(trailer::Catalog::PieceInfo::ModDate)))]	[DocInfo]	https://github.com/pdf-association/pdf-issues/issues/106
 ID	array	1.5		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE				[TrailerIDArray]	
 Encrypt	dictionary	1.5		FALSE	FALSE	FALSE				[EncryptionStandard,EncryptionPublicKey]	
 AuthCode	dictionary	fn:Extension(ISO_TS_32004,2.0)		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(Encrypt::@V>=5)]	[AuthCode]	ISO/TS 32004 integrity protection
