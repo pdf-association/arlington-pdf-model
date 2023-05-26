@@ -355,8 +355,8 @@ PDFObjectType determine_object_type(CPDF_Object* pdfium_obj)
 }
 
 
-/// @brief Constructor taking a parent PDF object and a PDF SDK generic pointer of an object
-ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj, const bool can_delete) :
+/// @brief Constructor taking a container PDF object and a PDF SDK generic pointer of an object
+ArlPDFObject::ArlPDFObject(ArlPDFObject * container, void* obj, const bool can_delete) :
     object(obj), deleteable(can_delete)
 {
     assert(object != nullptr);
@@ -376,14 +376,16 @@ ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj, const bool can_delet
 
     // Proceed to populate class data
     type = determine_object_type(pdf_obj);
-    obj_nbr = pdf_obj->GetObjNum();
-    gen_nbr = pdf_obj->GetGenNum();
-    if ((parent != nullptr) && (obj_nbr == 0)) {
-        // Populate with parents object & generation number but as negative to indicate parent. NOT for trailer as it is parentless!
-        obj_nbr = parent->get_object_number();
-        if (obj_nbr > 0) obj_nbr *= -1;
-        gen_nbr = parent->get_generation_number();
-        if (gen_nbr > 0) gen_nbr *= -1;
+    obj_id.object_num  = pdf_obj->GetObjNum();
+    obj_id.generation_num = pdf_obj->GetGenNum();
+    if ((container != nullptr) && (obj_id.object_num == 0)) {
+        // Populate with container object & generation number but as negative to indicate container. NOT for trailer as it is parentless!
+        obj_id.object_num = container->get_object_number();
+        if (obj_id.object_num > 0) 
+            obj_id.object_num *= -1;
+        obj_id.generation_num = container->get_generation_number();
+        if (obj_id.generation_num > 0)  
+            obj_id.generation_num *= -1;
     }
     object = pdf_obj;
 }
@@ -396,7 +398,7 @@ std::string ArlPDFObject::get_hash_id()
 {
     assert(object != nullptr);
     if (((CPDF_Object*)object)->GetType() != PDFOBJ_REFERENCE) {
-        return std::to_string(obj_nbr) + "_" + std::to_string(gen_nbr);
+        return std::to_string(obj_id.object_num) + "_" + std::to_string(obj_id.generation_num);
     }
     else {
         CPDF_Reference* r = (CPDF_Reference*)object;

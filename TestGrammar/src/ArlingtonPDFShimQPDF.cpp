@@ -254,8 +254,8 @@ PDFObjectType determine_object_type(QPDFObjectHandle *obj)
 
 
 
-/// @brief Constructor taking a parent PDF object and a PDF SDK generic pointer of an object
-ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj, const bool can_delete) :
+/// @brief Constructor taking a container PDF object and a PDF SDK generic pointer of an object
+ArlPDFObject::ArlPDFObject(ArlPDFObject *container, void* obj, const bool can_delete) :
     object(obj), deleteable(can_delete)
 {
     assert(object != nullptr);
@@ -277,14 +277,16 @@ ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj, const bool can_delet
 
     // Proceed to populate class data
     type = determine_object_type(pdf_obj);
-    obj_nbr = pdf_obj->getObjectID();
-    gen_nbr = pdf_obj->getGeneration();
-    if ((parent != nullptr) && (obj_nbr == 0)) {
-        // Populate with parents object & generation number but as negative to indicate parent
-        obj_nbr = parent->get_object_number();
-        if (obj_nbr > 0) obj_nbr *= -1;
-        gen_nbr = parent->get_generation_number();
-        if (gen_nbr > 0) gen_nbr *= -1;
+    obj_id.object_num     = pdf_obj->getObjectID();
+    obj_id.generation_num = pdf_obj->getGeneration();
+    if ((container != nullptr) && (obj_id.object_num == 0)) {
+        // Populate with parents object & generation number but as negative to indicate container
+        obj_id.object_num = container->get_object_number();
+        if (obj_id.object_num > 0)
+            obj_id.object_num *= -1;
+        obj_id.generation_num = container->get_generation_number();
+        if (obj_id.generation_num > 0)
+            obj_id.generation_num *= -1;
     }
     object = pdf_obj;
 }

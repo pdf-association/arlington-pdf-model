@@ -325,32 +325,32 @@ PDFObjectType determine_object_type(PdsObject* pdfix_obj)
 
 
 /// @brief constructor
-/// @param[in] parent    the parent object (so can get the object and generation numbers)
+/// @param[in] container the container object (so can get the object and generation numbers)
 /// @param[in] obj       the object
-ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj, const bool can_delete) :
+ArlPDFObject::ArlPDFObject(ArlPDFObject * container, void* obj, const bool can_delete) :
     object(obj), deleteable(can_delete)
 {
     assert(object != nullptr);
     PdsObject* pdfix_obj = (PdsObject*)object;
     assert(pdfix_obj != nullptr);
-    obj_nbr = pdfix_obj->GetId();
-    gen_nbr = pdfix_obj->GetGenId(); 
-    is_indirect = (obj_nbr != 0); // https://pdfix.github.io/pdfix_sdk_builds/en/6.17.0/html/struct_pds_object.html#a4103892417afc9f82e4bcc385940f4f8
+    obj_id.object_num     = pdfix_obj->GetId();
+    obj_id.generation_num = pdfix_obj->GetGenId(); 
+    is_indirect = (obj_id.object_num != 0); // https://pdfix.github.io/pdfix_sdk_builds/en/6.17.0/html/struct_pds_object.html#a4103892417afc9f82e4bcc385940f4f8
     if (pdfix_obj->GetObjectType() == kPdsReference) {
         is_indirect = true;
         object = pdfix_resolve_indirect(pdfix_obj);
         if (object == nullptr) {
-            throw std::runtime_error("PDFix could not resolve indirect reference for object " + std::to_string(obj_nbr));
+            throw std::runtime_error("PDFix could not resolve indirect reference for object " + std::to_string(obj_id.object_num));
             /// @todo - replace with PdfDoc::CreateNull() in a future PDFix version
         }
     }
 
     type = determine_object_type(pdfix_obj);
 
-    if ((parent != nullptr) && (obj_nbr == 0)) {
-        // Populate with parents object & generation number but as negative to indicate "direct inside parent"
-        obj_nbr = -abs(parent->get_object_number());
-        gen_nbr = -abs(parent->get_generation_number());
+    if ((container != nullptr) && (obj_id.object_num == 0)) {
+        // Populate with container object & generation number but as negative to indicate "direct inside a container object"
+        obj_id.object_num = -abs(container->get_object_number());
+        obj_id.generation_num = -abs(container->get_generation_number());
     }
 }
 
@@ -361,7 +361,7 @@ ArlPDFObject::ArlPDFObject(ArlPDFObject *parent, void* obj, const bool can_delet
 std::string ArlPDFObject::get_hash_id()
 {
   assert(object != nullptr);
-  return std::to_string(obj_nbr) + "_" + std::to_string(gen_nbr);
+  return std::to_string(obj_id.object_num) + "_" + std::to_string(obj_id.generation_num);
 }
 
 

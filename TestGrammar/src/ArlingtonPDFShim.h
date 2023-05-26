@@ -82,6 +82,11 @@ namespace ArlingtonPDFShim {
     typedef struct _object_id {
         int object_num;         // valid if != 0. Negative means direct in another object
         int generation_num;     // valid if >= 0
+
+        _object_id() : 
+            object_num(0), generation_num(-1)
+            { /* default constructor to invalid values */ };
+
     } object_id;
 
     /// @class ArlPDFObject
@@ -94,11 +99,11 @@ namespace ArlingtonPDFShim {
         /// @brief pointer to PDF SDK dependent data object
         void*           object;
 
-        /// @brief PDF object number from underlying PDF SDK. Or parent if negative.
-        int             obj_nbr;
+        /// @brief PDF object identifier. Or direct in a parent if negative.
+        object_id       obj_id;
 
-        /// @brief PDF generation number from underlying PDF SDK. Or parent if negative.
-        int             gen_nbr;
+        /// @brief PDF object identifier of parent. Or direct in a parent if negative.
+        object_id       parent_id;
 
         /// @brief true iff is an indirect reference
         bool            is_indirect;
@@ -114,17 +119,18 @@ namespace ArlingtonPDFShim {
 
     public:
         ArlPDFObject(const bool can_delete = true) :
-            object(nullptr), obj_nbr(0), gen_nbr(0), type(PDFObjectType::ArlPDFObjTypeUnknown), is_indirect(false), deleteable(can_delete)
+            object(nullptr), type(PDFObjectType::ArlPDFObjTypeUnknown), is_indirect(false), deleteable(can_delete)
             { /* default constructor */ };
 
-        explicit ArlPDFObject(ArlPDFObject* parent, void* obj, const bool can_delete = true);
+        explicit ArlPDFObject(ArlPDFObject* container, void* obj, const bool can_delete = true);
 
         ~ArlPDFObject()
             { /* default destructor */ sorted_keys.clear(); assert(deleteable); }
         
         PDFObjectType get_object_type() { return type; };
-        int   get_object_number()       { return obj_nbr; };
-        int   get_generation_number()   { return gen_nbr; };
+        int   get_object_number()       { return obj_id.object_num; };
+        int   get_generation_number()   { return obj_id.generation_num; };
+        bool  has_valid_parent()        { return ((parent_id.object_num != 0) && (parent_id.generation_num >= 0)); };
         bool  is_indirect_ref()         { return is_indirect; };
         bool  is_deleteable()           { return deleteable; };
         void  force_deleteable()        { deleteable = true; };
@@ -133,10 +139,10 @@ namespace ArlingtonPDFShim {
         /// @brief output operator <<
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFObject& obj) {
             if (obj.object != nullptr) {
-                if (obj.obj_nbr > 0)
-                    ofs << "obj " << obj.obj_nbr << " " << obj.gen_nbr;
-                else if (obj.obj_nbr < 0)
-                    ofs << "parent obj " << abs(obj.obj_nbr) << " " << abs(obj.gen_nbr);
+                if (obj.obj_id.object_num > 0)
+                    ofs << "obj " << obj.obj_id.object_num << " " << obj.obj_id.generation_num;
+                else if (obj.obj_id.object_num < 0)
+                    ofs << "container obj " << abs(obj.obj_id.object_num) << " " << abs(obj.obj_id.generation_num);
                 else
                     ofs << "direct-obj";
             }
@@ -148,7 +154,7 @@ namespace ArlingtonPDFShim {
     /// PDF Boolean object
     class ArlPDFBoolean : public ArlPDFObject {
     public:
-        ArlPDFBoolean(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+        ArlPDFBoolean(ArlPDFObject* container, void* obj) : ArlPDFObject(container, obj)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeBoolean; };
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFBoolean& obj) {
@@ -163,7 +169,7 @@ namespace ArlingtonPDFShim {
     /// PDF Number object
     class ArlPDFNumber : public ArlPDFObject {
     public:
-        ArlPDFNumber(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+        ArlPDFNumber(ArlPDFObject* container, void* obj) : ArlPDFObject(container, obj)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeNumber; };
 
         bool   is_integer_value();
@@ -179,7 +185,7 @@ namespace ArlingtonPDFShim {
     /// PDF string object
     class ArlPDFString : public ArlPDFObject {
     public:
-        ArlPDFString(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+        ArlPDFString(ArlPDFObject* container, void* obj) : ArlPDFObject(container, obj)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeString; };
 
         std::wstring get_value();
@@ -195,7 +201,7 @@ namespace ArlingtonPDFShim {
     /// PDF Name object
     class ArlPDFName : public ArlPDFObject {
     public:
-        ArlPDFName(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+        ArlPDFName(ArlPDFObject* container, void* obj) : ArlPDFObject(container, obj)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeString; };
 
         std::wstring get_value();
@@ -210,7 +216,7 @@ namespace ArlingtonPDFShim {
     /// PDF null object
     class ArlPDFNull : public ArlPDFObject {
     public:
-        ArlPDFNull(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+        ArlPDFNull(ArlPDFObject* container, void* obj) : ArlPDFObject(container, obj)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeNull; };
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNull& obj) {
@@ -223,7 +229,7 @@ namespace ArlingtonPDFShim {
     /// PDF Array object
     class ArlPDFArray : public ArlPDFObject {
     public:
-        ArlPDFArray(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+        ArlPDFArray(ArlPDFObject* container, void* obj) : ArlPDFObject(container, obj)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeArray; };
 
         int get_num_elements();
@@ -239,7 +245,7 @@ namespace ArlingtonPDFShim {
     /// PDF Dictionary object
     class ArlPDFDictionary : public ArlPDFObject {
     public:
-        ArlPDFDictionary(ArlPDFObject* parent, void* obj, const bool can_delete = true) : ArlPDFObject(parent, obj, can_delete)
+        ArlPDFDictionary(ArlPDFObject* container, void* obj, const bool can_delete = true) : ArlPDFObject(container, obj, can_delete)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeDictionary; };
 
         // For keys by name...
@@ -263,7 +269,7 @@ namespace ArlingtonPDFShim {
     /// PDF stream object
     class ArlPDFStream : public ArlPDFObject {
     public:
-        ArlPDFStream(ArlPDFObject* parent, void* obj) : ArlPDFObject(parent, obj)
+        ArlPDFStream(ArlPDFObject* container, void* obj) : ArlPDFObject(container, obj)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeStream; };
 
         ArlPDFDictionary* get_dictionary();
