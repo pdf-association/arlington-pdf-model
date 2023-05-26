@@ -404,9 +404,13 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* container, ArlPDFObject* obj, 
             out->node = (fn_ArraySortAscending(container, out_left, out_right) ? "true" : "false");
         }
         else if (in_ast->node == "fn:BeforeVersion(") {
-            // 1st arg is required (a PDF version). 2nd arg is optional.
+            // 1 or 2 args: version, and optionally thing that was introduced
             delete out;
-            out = fn_BeforeVersion(out_left, out_right);
+            if (in_ast->arg[1] == nullptr)
+                out = fn_BeforeVersion(out_left);            // 1 argument version
+            else
+                out = fn_BeforeVersion(out_left, out_right); // 2 argument version - out_right might have reduced to nullptr
+
         }
         else if (in_ast->node == "fn:BitClear(") {
             // 1 argument required: bit number 1-32. NEVER indeterminate.
@@ -443,9 +447,12 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* container, ArlPDFObject* obj, 
             out = fn_DefaultValue(out_left, out_right);
         }
         else if (in_ast->node == "fn:Deprecated(") {
-            // 2 arguments: version, what was deprecated in the version (1st argument)
+            // 1 or 2 args: version, and optionally thing that was deprecated
             delete out;
-            out = fn_Deprecated(out_left, out_right);
+            if (in_ast->arg[1] == nullptr)
+                out = fn_Deprecated(out_left);            // 1 argument version
+            else
+                out = fn_Deprecated(out_left, out_right); // 2 argument version - out_right might have reduced to nullptr
         }
         else if (in_ast->node == "fn:Eval(") {
             // 1 argument, which is the reduced expression. Arg can be nullptr due to things such as missing keys
@@ -463,7 +470,10 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* container, ArlPDFObject* obj, 
         else if (in_ast->node == "fn:Extension(") {
             // 1 or 2 arguments: extension name (required), optional value (when used in fields except "SinceVersion")
             delete out;
-            out = fn_Extension(out_left, out_right);
+            if (in_ast->arg[1] == nullptr)
+                out = fn_Extension(out_left);            // 1 argument version
+            else
+                out = fn_Extension(out_left, out_right); // 2 argument version - out_right might have reduced to nullptr
         }
         else if (in_ast->node == "fn:FileSize(") {
             // no arguments
@@ -579,9 +589,12 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* container, ArlPDFObject* obj, 
             out->node = fn_IsPDFTagged() ? "true" : "false";
         }
         else if (in_ast->node == "fn:IsPDFVersion(") {
-            // 2 arguments: version, and whatever exists only in a single PDF version. COULD be indeterminate
+            // 1 or 2 args: version, and optionally thing that was introduced
             delete out;
-            out = fn_IsPDFVersion(out_left, out_right);
+            if (in_ast->arg[1] == nullptr)
+                out = fn_IsPDFVersion(out_left);            // 1 argument version
+            else
+                out = fn_IsPDFVersion(out_left, out_right); // 2 argument version - out_right might have reduced to nullptr
         }
         else if (in_ast->node == "fn:IsPresent(") {
             // Need to check in_ast->arg[] to see if 1 or 2 argument version first:
@@ -753,9 +766,12 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* container, ArlPDFObject* obj, 
             out = fn_RequiredValue(obj, out_left, out_right);
         }
         else if (in_ast->node == "fn:SinceVersion(") {
-            // 2 args: version, and thing that was introduced
+            // 1 or 2 args: version, and optionally thing that was introduced
             delete out;
-            out = fn_SinceVersion(out_left, out_right);
+            if (in_ast->arg[1] == nullptr) 
+                out = fn_SinceVersion(out_left);            // 1 argument version
+            else
+                out = fn_SinceVersion(out_left, out_right); // 2 argument version - out_right might have reduced to nullptr
         }
         else if (in_ast->node == "fn:StreamLength(") {
             // 1 argument: key name or integer array index of the stream
@@ -1689,34 +1705,48 @@ bool CPDFFile::fn_BitsSet(ArlPDFObject* obj, const ASTNode* low_bit_node, const 
 }
 
 
-/// @brief Determines if the specified extension is currently support or not 
+/// @brief Determines if the specified extension is currently supported or not 
+/// 
+/// @param[in]  extn   the name of the extension (required)
+/// 
+/// @returns true if the extension is being support, false otherwise
+ASTNode* CPDFFile::fn_Extension(const ASTNode * extn) {
+    assert(extn != nullptr);
+    assert(extn->type == ASTNodeType::ASTNT_Key); // extension names look like keys
+
+    ASTNode* retval = new ASTNode;
+    retval->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+    retval->node = "false";
+
+    for (auto& e : extensions)
+        if ((extn->node == e) || (e == "*")) {
+            retval->node = "true";
+            return retval;
+        }
+    return retval;
+}
+
+
+/// @brief Determines if the specified extension is currently supported or not.
+/// 2 argument version, where value might be nullptr if it doesn't exist in a PDF. 
 /// 
 /// @param[in]  extn   the name of the extension (required)
 /// @param[in]  value  optional value that is added when the extension is supported
 /// 
-/// @returns true if the extension is being support, false otherwise
+/// @returns true if the extension is being support, false otherwise. Or nullptr if value 
+/// was indeterminate (i.e. nullptr)
 ASTNode* CPDFFile::fn_Extension(const ASTNode* extn, const ASTNode* value) {
     assert(extn != nullptr);
     assert(extn->type == ASTNodeType::ASTNT_Key); // extension names look like keys
 
-    bool extn_supported = false;
-    for (auto& e : extensions)
-        if ((extn->node == e) || (e == "*")) {
-            extn_supported = true;
-            break;
-        }
-
-    if (extn_supported) {
-        ASTNode* retval = new ASTNode;
-        if (value != nullptr) {
-            retval->type = value->type;
-            retval->node = value->node;
-        }
-        else {
-            retval->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-            retval->node = "true";
-        }
-        return retval;
+    if (value != nullptr) {
+        for (auto& e : extensions)
+            if ((extn->node == e) || (e == "*")) {
+                ASTNode* retval = new ASTNode;
+                retval->type = value->type;
+                retval->node = value->node;
+                return retval;
+            }
     }
     return nullptr;
 }
@@ -2748,8 +2778,31 @@ int CPDFFile::fn_StringLength(ArlPDFObject* container, const ASTNode* key) {
 }
 
 
+/// @brief BeforeVersion means introduced prior to specific PDF version.
+/// 1 argument version just checks PDF version vs Arlington version.
+/// 
+/// @param[in] ver_node  version from Arlington PDF model
+/// 
+/// @returns ASTNode with "true" or "false" depending on PDF version
+ASTNode* CPDFFile::fn_BeforeVersion(const ASTNode* ver_node) {
+    assert(pdf_version.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, pdf_version));
+
+    assert(ver_node != nullptr);
+    assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
+
+    // Convert to 10 * PDF version
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(ver_node->node);
+
+    ASTNode* out = new ASTNode;
+    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+    out->node = (pdf_v < arl_v) ? "true" : "false";
+    return out;
+}
+
+
 /// @brief BeforeVersion means a feature was introduced prior to specific PDF version:
-///   - fn:IsRequired(fn:BeforeVersion(1.3))
 ///   - fn:Eval((\@Colors>=1) && fn:BeforeVersion(1.3,fn:Eval(\@Colors<=4)))
 /// 
 /// @param[in] ver_node  version from Arlington PDF model
@@ -2767,25 +2820,43 @@ ASTNode* CPDFFile::fn_BeforeVersion(const ASTNode* ver_node, const ASTNode* thin
     int pdf_v = string_to_pdf_version(pdf_version);
     int arl_v = string_to_pdf_version(ver_node->node);
 
-    if (thing != nullptr) {
-        if (pdf_v < arl_v) {
-            ASTNode* out = new ASTNode;
-            out->type = thing->type;
-            out->node = thing->node;
-            return out;
-        }
-    }
-    else { // thing == nullptr
+    if ((thing != nullptr) && (pdf_v < arl_v)) {
         ASTNode* out = new ASTNode;
-        out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-        out->node = (pdf_v < arl_v) ? "true" : "false";
+        out->type = thing->type;
+        out->node = thing->node;
         return out;
     }
     return nullptr;
 }
 
 
-/// @brief SinceVersion means a feature was introduced in a specific PDF version
+/// @brief SinceVersion means a feature was introduced in a specific PDF version.
+/// 1 argument version just checks PDF version vs Arlington version.
+/// 
+/// @param[in] ver_node  version when introduced from Arlington PDF model
+/// 
+/// @returns AST-Node node with "true" or "false"
+ASTNode* CPDFFile::fn_SinceVersion(const ASTNode* ver_node) {
+    assert(pdf_version.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, pdf_version));
+
+    assert(ver_node != nullptr);
+    assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
+
+    // Convert to 10 * PDF version
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(ver_node->node);
+
+    ASTNode* out = new ASTNode;
+    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+    out->node = (pdf_v >= arl_v) ? "true" : "false";
+    return out;
+}
+
+
+/// @brief SinceVersion means a feature was introduced in a specific PDF version.
+/// Only used with the 2-argument version. If thing is nullptr then
+/// it doesn't exist in the PDF and this predicate also returns nullptr.
 /// 
 /// @param[in] ver_node  version when feature 'thing' was introduced from Arlington PDF model
 /// @param[in] thing     (optional) the feature that was introduced
@@ -2802,18 +2873,10 @@ ASTNode* CPDFFile::fn_SinceVersion(const ASTNode* ver_node, const ASTNode* thing
     int pdf_v = string_to_pdf_version(pdf_version);
     int arl_v = string_to_pdf_version(ver_node->node);
 
-    if (thing != nullptr) {
-        if (pdf_v >= arl_v) {
-            ASTNode* out = new ASTNode;
-            out->type = thing->type;
-            out->node = thing->node;
-            return out;
-        }
-    }
-    else { // thing == nullptr
+    if ((thing != nullptr) &&  (pdf_v >= arl_v)) {
         ASTNode* out = new ASTNode;
-        out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-        out->node = (pdf_v >= arl_v) ? "true" : "false";
+        out->type = thing->type;
+        out->node = thing->node;
         return out;
     }
     return nullptr;
@@ -2822,8 +2885,34 @@ ASTNode* CPDFFile::fn_SinceVersion(const ASTNode* ver_node, const ASTNode* thing
 
 /// @brief IsPDFVersion means a feature was introduced for only a specific PDF version:
 ///   - fn:IsRequired(fn:IsPDFVersion(1.0))
+/// 1 argument version just checks PDF version vs Arlington version.
+/// 
+/// @param[in] ver_node  version when introduced from Arlington PDF model
+/// 
+/// @returns AST-Node with "true" or "false" depending on PDF version
+ASTNode* CPDFFile::fn_IsPDFVersion(const ASTNode* ver_node) {
+    assert(pdf_version.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, pdf_version));
+
+    assert(ver_node != nullptr);
+    assert(ver_node->type == ASTNodeType::ASTNT_ConstNum);
+
+    // Convert to 10 * PDF version
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(ver_node->node);
+
+    ASTNode* out = new ASTNode;
+    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+    out->node = (pdf_v == arl_v) ? "true" : "false";
+    return out;
+}
+
+
+/// @brief IsPDFVersion means a feature was introduced for only a specific PDF version:
 ///   - fn:IsPDFVersion(1.0,fn:BitsClear(2,32))
 ///   - fn:IsPDFVersion(1.2,ActionNOP)
+/// Only used with the 2-argument version. If thing is nullptr then
+/// it doesn't exist in the PDF and this predicate also returns nullptr.
 /// 
 /// @param[in] ver_node  version when feature 'thing' was introduced from Arlington PDF model
 /// @param[in] thing     (optional) the feature that was introduced
@@ -2839,21 +2928,41 @@ ASTNode* CPDFFile::fn_IsPDFVersion(const ASTNode* ver_node, const ASTNode* thing
     // Convert to 10 * PDF version
     int pdf_v = string_to_pdf_version(pdf_version);
     int arl_v = string_to_pdf_version(ver_node->node);
-    if (thing != nullptr) {
-        if (pdf_v == arl_v) {
-            ASTNode* out = new ASTNode;
-            out->type = thing->type;
-            out->node = thing->node;
-            return out;
-        }
-    }
-    else { // thing == nullptr
+    if ((thing != nullptr) && (pdf_v == arl_v)) {
         ASTNode* out = new ASTNode;
-        out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
-        out->node = (pdf_v == arl_v) ? "true" : "false";
+        out->type = thing->type;
+        out->node = thing->node;
         return out;
     }
     return nullptr;
+}
+
+
+/// @brief Deprecated predicate. If PDF version is BEFORE Arlington's deprecated version, then return 
+/// true, else false.
+///
+/// @param[in] dep_ver  version when deprecated from the Arlington PDF model (1st arg to predicate)
+/// 
+/// @returns AST-Node "true" if at or after a PDF version
+ASTNode* CPDFFile::fn_Deprecated(const ASTNode* dep_ver) {
+    assert(pdf_version.size() == 3);
+    assert(FindInVector(v_ArlPDFVersions, pdf_version));
+
+    assert(dep_ver != nullptr);
+    assert(dep_ver->type == ASTNodeType::ASTNT_ConstNum);
+
+    // Convert to 10 * PDF version
+    int pdf_v = string_to_pdf_version(pdf_version);
+    int arl_v = string_to_pdf_version(dep_ver->node);
+
+    // Flag globally for warnings
+    if (!deprecated)
+        deprecated = (pdf_v >= arl_v);
+
+    ASTNode* out = new ASTNode;
+    out->type = ASTNodeType::ASTNT_ConstPDFBoolean;
+    out->node = (pdf_v < arl_v) ? "true" : "false";
+    return out;
 }
 
 
@@ -2876,6 +2985,7 @@ ASTNode* CPDFFile::fn_Deprecated(const ASTNode* dep_ver, const ASTNode* thing) {
     int pdf_v = string_to_pdf_version(pdf_version);
     int arl_v = string_to_pdf_version(dep_ver->node);
 
+    // Flag globally for warnings
     if (!deprecated)
         deprecated = (pdf_v >= arl_v);
 

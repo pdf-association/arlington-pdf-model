@@ -78,6 +78,12 @@ namespace ArlingtonPDFShim {
         "Indirect Reference"
     };
 
+    /// @brief a PDF object ID comprising object and generation numbers
+    typedef struct _object_id {
+        int object_num;         // valid if != 0. Negative means direct in another object
+        int generation_num;     // valid if >= 0
+    } object_id;
+
     /// @class ArlPDFObject
     /// Base class PDF object
     class ArlPDFObject {
@@ -88,7 +94,7 @@ namespace ArlingtonPDFShim {
         /// @brief pointer to PDF SDK dependent data object
         void*           object;
 
-        /// @brief PDF bject number from underlying PDF SDK. Or parent if negative.
+        /// @brief PDF object number from underlying PDF SDK. Or parent if negative.
         int             obj_nbr;
 
         /// @brief PDF generation number from underlying PDF SDK. Or parent if negative.

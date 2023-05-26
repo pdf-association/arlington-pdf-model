@@ -98,11 +98,20 @@ private:
 
     double convert_node_to_double(const ASTNode* node);
 
+    // Arlington version-based predicates come in 2 flavors: 1 and 2 arguments
+    // Because the 2nd argument can be nullptr (e.g. if not in a PDF file) then need separate 
+    // implementations to disambiguate
+    ASTNode* fn_BeforeVersion(const ASTNode* ver_node);
     ASTNode* fn_BeforeVersion(const ASTNode* ver_node, const ASTNode* thing);
+    ASTNode* fn_Deprecated(const ASTNode* dep_ver);
     ASTNode* fn_Deprecated(const ASTNode* dep_ver, const ASTNode* thing);
+    ASTNode* fn_IsPDFVersion(const ASTNode* ver_node);
     ASTNode* fn_IsPDFVersion(const ASTNode* ver_node, const ASTNode* thing);
+    ASTNode* fn_SinceVersion(const ASTNode* ver_node);
     ASTNode* fn_SinceVersion(const ASTNode* ver_node, const ASTNode* thing);
+    ASTNode* fn_Extension(const ASTNode* extn);
     ASTNode* fn_Extension(const ASTNode* extn, const ASTNode* value);
+
     bool fn_AlwaysUnencrypted(ArlPDFObject* obj);
     bool fn_ArraySortAscending(ArlPDFObject* container, const ASTNode *arr_key, const ASTNode* step);
     bool fn_BitClear(ArlPDFObject* obj, const ASTNode* bit_node);
