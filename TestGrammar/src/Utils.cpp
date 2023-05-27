@@ -95,8 +95,8 @@ std::string ToUtf8(const wchar_t unicode) {
 #if !defined(_MSC_VER)
 // Apple Mac compiler complains about std::wstring_convert<> so suppress deprecation warning
 // until there is an official replacement
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #endif
 /// @brief Converts a potentially Unicode wide string to UTF8/ASCII
 ///
@@ -131,6 +131,19 @@ std::string ToUtf8(const std::wstring& wstr) {
     while (len-- > 0)
         out.append(ToUtf8(*buffer++));
     return out;
+}
+
+
+/// @brief Converts a std::string to std::wstring
+///
+/// @param[in] s input string
+///
+/// @returns   wide string equivalent  of the input string
+std::wstring ToWString(const std::string& s)
+{
+    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+    std::wstring wide = converter.from_bytes(s);
+    return wide;
 }
 #if !defined(_MSC_VER)
 #pragma GCC diagnostic pop
@@ -196,19 +209,6 @@ std::wstring utf8ToUtf16(const std::string& str) {
             return result; // encoding incorrect
     }   // while
     return result;
-}
-
-
-/// @brief Converts a std::string to std::wstring
-///
-/// @param[in] s input string
-///
-/// @returns   wide string equivalent  of the input string
-std::wstring ToWString(const std::string& s)
-{
-    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-    std::wstring wide = converter.from_bytes(s);
-    return wide;
 }
 
 
