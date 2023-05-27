@@ -92,7 +92,12 @@ std::string ToUtf8(const wchar_t unicode) {
 }
 
 
-
+#if !defined(_MSC_VER)
+// Apple Mac compiler complains about std::wstring_convert<> so suppress deprecation warning
+// until there is an official replacement
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 /// @brief Converts a potentially Unicode wide string to UTF8/ASCII
 ///
 /// @param[in] wstr Unicode input, potentially with a BOM
@@ -127,6 +132,9 @@ std::string ToUtf8(const std::wstring& wstr) {
         out.append(ToUtf8(*buffer++));
     return out;
 }
+#if !defined(_MSC_VER)
+#pragma GCC diagnostic pop
+#endif
 
 
 /// @brief Converts UTF8 input string to UTF16 wide string
