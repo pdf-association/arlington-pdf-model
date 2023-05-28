@@ -52,7 +52,7 @@ This document describes some strict rules for the Arlington PDF model, for both 
 
 # TSV Data Fields
 
-*  A key or array element is so-called "complex" if it can be multiple values. This is represented by `[];[];[]`-type Expressions.
+*  A key or array element is so-called "complex" if it can be multiple values. This is represented by `[];[];[]`-type expressions.
 *  Something is so called a "wildcard" if the "Key" field contains an ASTERISK.
 *  An array is so-called a "repeating array" if it requires _N_ x a set of elements. This is represented by DIGIT+ASTERISK in the "Key" field.
     - Repeating array elements with DIGIT+ASTERISK must be the _last_ rows in a TSV
@@ -70,11 +70,11 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   If a dictionary, then "Key" may also be an ASTERISK `*` meaning wildcard, so anything is allowed
 *   If ASTERISK `*` by itself then must be last row in TSV file
 *   If ASTERISK `*` by itself then "Required" column must be FALSE
-*   If expressing a PDF array, then "Key" name is really an integer array index.
+*   If representing a PDF array, then "Key" name is really an integer array index.
     - Zero-based increasing (always by 1) integers always starting at ZERO (0), with an optional ASTERISK appended after the digit (indicating repeat)
     - Or just an ASTERISK `*` meaning that any number of array elements may exist
-*   If expressing a PDF array a repeat set of array elements then use `digit+ASTERISK` where the last set of rows must all be `digit+ASTERISK` (indicating a repeating group of _N_ elements starting at array element _M_ (so array starts with a fixed set (non-repeating) array elements 0 to _M_-1, followed by the repeating set of element _M_ to (_M_ + _N_-1)) array elements).
-*   If expressing a PDF array with `digit+ASTERISK`  then the "Required" column should be TRUE if all _N_ entries must always be repeated as a full set (e.g. in pairs or quads).
+*   If representing a PDF array with a repeating set of array elements (such as alternating pairs of elements) then use `digit+ASTERISK` where the last set of rows must all be `digit+ASTERISK` (indicating a repeating group of _N_ elements starting at array element _M_ (so array starts with a fixed set (non-repeating) array elements 0 to _M_-1, followed by the repeating set of element _M_ to (_M_ + _N_-1)) array elements).
+*   If representing a PDF array with `digit+ASTERISK`  then the "Required" column should be TRUE if all _N_ entries must always be repeated as a full set (e.g. in pairs or quads).
 *   **Python pretty-print/JSON**
     *   String (as JSON dictionary key)
 *   **Linux CLI tests:**
@@ -697,11 +697,13 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
-   <td><code>fn:Ignore()</code><br/><code>fn:Ignore(<i>expr</i>)</code></td>
+   <td>
+    <code>fn:Ignore()</code><br/>
+    <code>fn:Ignore(<i>condition</i>)</code></td>
    <td>
     <ul>
      <li>Zero or one parameters.</li>
-     <li>Asserts that the current row (key or array element) is to be ignored when <code><i>expr</i></code> evaluates to true, or ignored all the time (no parameter).</li>
+     <li>Asserts that the current row (key or array element) is to be ignored when <code><i>condition</i></code> evaluates to true, or ignored all the time (no parameter).</li>
      <li>Only used in "SpecialCase" field (column 10).</li>
     </ul>
    </td>
@@ -825,14 +827,14 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
   </tr>
   <tr>
    <td><code>fn:IsPresent(<i>key</i> or <i>expr</i>)</code><br>
-       <code>fn:IsPresent(<i>key</i>,<i>cond</i>)</code>
+       <code>fn:IsPresent(<i>key</i>,<i>condition</i>)</code>
    </td>
    <td>
     <ul>
      <li>Can have one or two parameters.</li>
      <li>For a single parameter: asserts that the current row (key or array element) must be present in a PDF if <i>key</i> is present, or when the expression </i>expr</i> is true.</li>
      <li>e.g. <code>fn:IsPresent(StructParent)</code> or <code>fn:IsPresent(@SMaskInData>0)</code></li>
-     <li>For two parameters: asserts that when <i>key</i>is present in a PDF, that <i>cond</i> should be true.</li>
+     <li>For two parameters: asserts that when <i>key</i>is present in a PDF, that <i>condition</i> should also be true.</li>
      <li>e.g. <code>fn:Eval(fn:IsPresent(Matte,(@Width==parent::@Width)))</code></li>
     </ul>
    </td>
@@ -963,11 +965,11 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    </td>
   </tr>
   <tr>
-   <td><code>fn:RequiredValue(<i>expr</i>,<i>value</i>)<code></td>
+   <td><code>fn:RequiredValue(<i>condition</i>,<i>value</i>)<code></td>
    <td>
     <ul>
      <li>Only used in the "PossibleValue" field to indicate if a specific value is required under a specific condition.</li>
-     <li>Asserts that the current row must by <i>value</i> when <i>expr</i> evaluates to true.</li>
+     <li>Asserts that the current row must by <i>value</i> when <i>condition</i> evaluates to true.</li>
     </ul>
    </td>
   </tr>
