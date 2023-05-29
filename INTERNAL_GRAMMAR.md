@@ -391,37 +391,40 @@ Its verbalization should relatively closely match wording found in the PDF speci
 Predicate simplifcation is **avoided** so that wording (when read aloud) is kept as close as possible to wording in the PDF specification.
 
 
-*   the internal Arlington grammar is loosely typed (so things need to match or be interpreted as matching the "Type" field (column 2)).
-    *  integers may be used in place of numbers (_but not vice-versa!_)
-*   `_parent::_` (all lowercase) is a special Arlington grammar keyword that forms the basis of a conceptual "relative" path in the PDF DOM. There can be multiple `parent::`s.
-*   `_trailer::_` (all lowercase) is a special Arlington grammar keyword that forms the basis of a conceptual "absolute" path in the PDF DOM. Arlington always starts with the trailer, so that trailer keys and values can also be used in predicates.
-*   `null` (all lowercase) is the PDF null object (_Note: it is also valid predefined Arlington type_). `null` might also be used in "DefaultValue" or "PossibleValue" fields.
-*   `Key` means `key is present` (`Key` is case-sensitive match)
-*   `@Key` means `the value of key` (`Key` is case-sensitive match).
-*   Paths in the PDF DOM are separated by `::` (double COLONs)
-    *   e.g. `parent::@Key`. `KeyA::KeyB`, `trailer::Catalog::Size`, `Object::&lt;0-based integer&gt;`
-    *   the `@` operator only applies to the right-most portion
-    *  The `@` sign is always required for math and comparison operations.
-    *  The predefined Arlington types used with `@` are the primitive types such as boolean, integer, number, string-*, name, etc.
-    *  It is also possible to use the key name of an array for certain predicates such as `fn:Contains(...)`
-    *  For complex types, if the "DefaultValue" for KeyA is `@KeyB` then it means that the "default value for Key A is the value of Key B" and so long as Keys A and B both have the same type then this is acceptable.
-*   `true` and `false` (all lowercase) are the PDF keywords (required for explicit comparison with `@key`) - uppercase `TRUE` and `FALSE` **never** get used in predicates as they represent Arlington model values such as for "Required", "IndirectReference" or "Inheritable" fields.
-*   All predicates start with `fn:` (case-sensitive, single COLON) followed by an uppercase character (`A`-'Z')
-*   All predicate names are CamelCase case sensitive with BRACKETS `(` and `)` and do NOT use DASH or UNDERSCOREs (i.e. must match a simple alphanumeric regex)
-*   Predicates can have 0, 1 or 2 arguments that are always COMMA separated
-    *   Predicates need to end with `()` for zero arguments
-    *   Arguments always within `(...)`
-    *   Predicates can nest (as arguments of other Predicates)
-*   Support two C/C++ style boolean operators: `&&` (logical and), `||` (logical or). There is also a special `fn:Not(...)` predicate.
-*   Support six C/C++ style comparison operators: &lt;. &lt;=, &gt;, &gt;=, ==, !=
-*   NO bit-wise operators - _use predicates instead_
-*   NO unary NOT (`!`) operator (_use predicate `fn:Not(...)`_)
-*   All expressions MUST be fully bracketed between Boolean operators (_to avoid defining precedence rules_)
-*   NO conditional if/then, switch or loop style statements - _its purely declarative!_
-*   NO local variables - _its purely declarative!_
-*   Using comparison operators requires that the full expression is wrapped in `fn:Eval(...)`
-
-*   FUTURE: change to use PDFPath ([https://github.com/pdf-association/PDFPath](https://github.com/pdf-association/PDFPath))
+* the internal Arlington grammar is loosely typed (so things need to match or be interpreted as matching the "Type" field (column 2)).
+    * integers may be used in place of numbers (_but not vice-versa!_)
+* `_parent::_` (all lowercase) is a special Arlington grammar keyword that forms the basis of a conceptual "relative" path in the PDF DOM. There can be multiple `parent::`s.
+* `_trailer::_` (all lowercase) is a special Arlington grammar keyword that forms the basis of a conceptual "absolute" path in the PDF DOM. Arlington always starts with the trailer, so that trailer keys and values can also be used in predicates.
+    * `trailer::Catalog` is a special Arlington alias for `trailer::Root`, as the **Root** key in the trailer is the reference to the Document Catalog, however normal PDF terminology refers to the "Document Catalog" and so that commonly understood term is preferred over the ambiguous word "root" (as that could ambiguously mean either the trailer as the root or the Document Catalog as the root) - and reading aloud "Catalog" sounds more natural. 
+       - Either `trailer::Catalog` or `trailer::Root` can be used, but the preference is `trailer::Catalog` because it verbalises better
+* `null` (all lowercase) is the PDF **null** object (_Note: it is also valid predefined Arlington type_).
+    * `null` gets used in "DefaultValue" or "PossibleValue" fields only when it is explicitly mentioned in the PDF specification.
+* `Key` means `key is present` (`Key` is case-sensitive match and may include an Arlington path)
+* `@Key` means `the value of key` (`Key` is case-sensitive match and may include an Arlington path).
+    * this also applies after a `path` - e.g. `keyA::keyB::@keyC` is valid and is the value of `keyC` when the path `KeyA::keyB` is traversed
+*   Arlington paths are separated by `::` (double COLONs)
+    * e.g. `parent::@Key`. `KeyA::KeyB`, `trailer::Catalog::Size`, `Object::&lt;0-based integer&gt;`
+    * the `@` operator only applies to the right-most portion
+    * The `@` sign is always required for math and comparison operations, since those operate on values.
+       - if an array or stream length is needed then use the specific predicate
+    * The predefined Arlington types used with `@` are the primitive types such as boolean, integer, number, string-*, name, etc.
+    * It is also possible to use the key name of an array for certain predicates such as `fn:Contains(...)`
+    * For complex types, if the "DefaultValue" for KeyA is `@KeyB` then it means that the "default value for Key A is the value of Key B" and so long as Keys A and B both have the same type then this is logical.
+* `true` and `false` (all lowercase) are the PDF keywords (required for explicit comparison with `@key`) - uppercase `TRUE` and `FALSE` **never** get used in predicates as they represent Arlington model values such as for "Required", "IndirectReference" or "Inheritable" fields.
+* All predicates start with `fn:` (case-sensitive, single COLON) followed by an uppercase character (`A`-'Z')
+* All predicate names are CamelCase case sensitive with BRACKETS `(` and `)` and do NOT use DASH or UNDERSCOREs (i.e. must match a simple alphanumeric regex)
+* Predicates can have 0, 1 or 2 arguments that are always COMMA separated
+    * Predicates need to end with `()` for zero arguments
+    * Arguments always within `(...)`
+    * Predicates can nest (as arguments of other Predicates)
+* Support two C/C++ style boolean operators: `&&` (logical and), `||` (logical or). There is also a special `fn:Not(...)` predicate.
+* Support six C/C++ style comparison operators: &lt;. &lt;=, &gt;, &gt;=, ==, !=
+* NO bit-wise operators - _use predicates instead_
+* NO unary NOT (`!`) operator (_use predicate `fn:Not(...)`_)
+* All expressions MUST be fully bracketed between Boolean operators (_to avoid defining precedence rules_)
+* NO conditional if/then, switch or loop style statements - _its purely declarative!_
+* NO local variables - _its purely declarative!_
+* Using comparison operators requires that the full expression is wrapped in `fn:Eval(...)`
 
 # Linux CLI voodoo
 
@@ -483,14 +486,14 @@ then this predicate would always be determinable. Further note that if a key is 
 the same as not present!
 
 
-<table>
+<table style="border: 0.25px solid; border-collapse: collapse;">
   <tr>
    <td><code><i>bit-posn</i></code>
    </td>
    <td>
     <ul>
-     <li>bits are numbered 1-32 inclusive</li>
-     <li>bit 1 is the low-order bit
+     <li>bits are numbered 1-32 inclusive.</li>
+     <li>bit 1 is the low-order bit.</li>
     </ul>
    </td>
   </tr>
@@ -499,8 +502,8 @@ the same as not present!
    </td>
    <td>
     <ul>
-     <li>One of "1.0, "1.1", ... "2.0"</li>
-     <li>Same set as used in "SinceVersion" (column 3) and "Deprecated" (column 4)</li>
+     <li>One of "1.0, "1.1", ..., "1.7", and "2.0" currently.</li>
+     <li>Same set as used in "SinceVersion" (column 3) and "Deprecated" (column 4).</li>
     </ul>
    </td>
   </tr>
@@ -510,15 +513,18 @@ the same as not present!
 # Predicates (declarative functions)
 
 **Do not use additional whitespace!**
-Single SPACE characters are only required around logical operators (` &&` and ` || `), MINUS (` - `) and the ` mod ` mathematical operator.
 
-<table>
+Single SPACE characters are only required around logical operators ("&nbsp;`&&`&nbsp;" and "&nbsp;`||`&nbsp;"), MINUS ("&nbsp;`-`&nbsp;", to disambiguate from a negative number) and the "&nbsp;`mod`&nbsp;" mathematical operator.
+
+
+<table style="border: 0.25px solid; border-collapse: collapse;">
   <tr>
    <td><code>fn:AlwaysUnencrypted()</code></td>
    <td>
     <ul>
      <li>Asserts that the current key or array element is a PDF string object and is always unencrypted when the PDF file itself is encrypted.</li>
-     <li>There are no parameters.</li>    
+     <li>There are no parameters.</li>
+     <li>Read aloud as: "&lt;<i>current key</i>&gt; shall always be unencrypted."</li>
     </ul>
    </td>
   </tr>
@@ -527,7 +533,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li>Asserts that <i>key</i> exists and is an array, and returns the array length as an integer value >= 0.</li>
-     <li>There is only one parameter and it should be an array.</li>
+     <li>There is only one parameter and it must be an <code>array</code>.</li>
+     <li>Read aloud as: "... the length of array &lt;<i>key</i>&gt; shall ..."</li>
     </ul>
    </td>
   </tr>  
@@ -539,7 +546,9 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>Asserts that the <i>integer</i>-th array elements are sorted in ascending order.</li>
      <li>Requires that all <i>integer</i>-th array elements are numeric. Other array elements however can be anything.</li>
      <li>An empty array will be considered sorted.</li>
+     <li><i>integer</i> is 1 or greater. 1 means all array elements, 2 means every second element, 3 means every 3rd element, etc. It does not imply anything about the array lenegth, as an empty array is considered logically sorted.</li>
      <li>e.g. <code>fn:ArraySortAscending(Index,2)</code> tests that the array elements at indices 0, 2, 4, ... are all sorted.</li>
+     <li>Read aloud as (approx.): "... the &lt;<i>integer</i>&gt;-th elements in array &lt;<i>key</i>&gt; shall all be sorted in ascending order ..."</li>
     </ul>
    </td>
   </tr>
@@ -551,6 +560,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li><i>version</i> must be 1.1, ..., 2.0 (1.0 makes no sense!).</li>
      <li>Asserts that the optional <i>statement</i> only applies before (i.e. strictly less than) PDF <i>version</i>.</li>
      <li><i>version</i> must also make sense in light of the "SinceVersion" and "DeprecatedIn" fields for the current row (i.e. is between them).</li>      
+     <li>Read aloud as: "... prior to PDF version &lt;<i>version</i>&gt;, &lt;<i>statement</i>&gt; ..."</li>
     </ul>
    </td>
   </tr>
@@ -562,6 +572,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>asserts that <i>bit-posn</i> (1-32 inclusive) is zero (clear).</li>
      <li>asserts <i>key</i> is something of type <code>bitmask</code> and the value fits in 32-bits.</li>
      <li>note that there is NO reference to a key or key-value. It is always assumed to apply to the current key.</li>
+     <li>Read aloud as: "... bit position &lt;<i>bit-posn</i>&gt; of <i>current key</i> shall be clear (zero) ..."</li>
     </ul>
    </td>
   </tr>
@@ -573,6 +584,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>Asserts that <i>bit-posn</i> is one (set).</li>
      <li>Asserts <i>key</i> is something of type <code>bitmask</code> and the value fits in 32-bits.</li>
      <li>Note that there is NO reference to a key or key-value. It is always assumed to apply to the current key.</li>
+     <li>Read aloud as: "... bit position &lt;<i>bit-posn</i>&gt; of <i>current key</i> shall be set (one) ..."</li>
     </ul>
    </td>
   </tr>
@@ -583,7 +595,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li><i>low-bit</i> and <i>high-bit</i> must be 1-32 inclusive.</li>
      <li>Asserts that all bits between <i>low-bit</i> and <i>high-bit</i> inclusive are all zero (clear) and the value fits in 32-bits.</li>
      <li><i>low-bit</i> and <i>high-bit</i> must be different. Use <code>fn:BitClear()</code> for single bit assertions.</li>
-     <li>Note that there is NO reference to a key or key-value. It is always assumed to apply to the current key. This keeps all Arlington predicates to having 2 parameters.</li>
+     <li>Note that there is NO reference to a key or key-value. It always applies to the current key which must be of type <code>bitmask</code>. This keeps all Arlington predicates to having 2 parameters.</li>
+     <li>Read aloud as: "... bit positions from &lt;<i>low-bit</i>&gt; to &lt;<i>high-bit</i>&gt; inclusive of <i>current key</i> shall be clear (zero) ..."</li>
     </ul>
    </td>
   </tr>
@@ -594,17 +607,19 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
     <li><i>low-bit</i> and <i>high-bit</i> must be 1-32 inclusive</li>
     <li>Asserts that all bits between <i>low-bit</i> and <i>high-bit</i> inclusive are all one (set) and the value fits in 32-bits.</li>
     <li><i>low-bit</i> and <i>high-bit</i> must be different. Use <code>fn:BitSet()</code> for single bit assertions.</li>
-     <li>Note that there is NO reference to a key or key-value. It is always assumed to apply to the current key. This keeps all Arlington predicates to having 2 parameters.</li>
+     <li>Note that there is NO reference to a key or key-value. It is always assumed to apply to the current key which must be of type <code>bitmask</code>. This keeps all Arlington predicates to having 2 parameters.</li>
+     <li>Read aloud as: "... bit positions from &lt;<i>low-bit</i>&gt; to &lt;<i>high-bit</i>&gt; inclusive of <i>current key</i> shall be set (one) ..."</li>
     </ul>
    </td>
   </tr>
   <tr>
-   <td><code>fn:Contains(<i>key</i>,<i>value</i>)</code></td>
+   <td><code>fn:Contains(<i>@key</i>,<i>value</i>)</code></td>
    <td>
     <ul>
-     <li>Asserts that <i>key</i> is an array object (and thus can hold multiple values) containing <i>value</i>, or a PDF name object having the value <i>value</i>.</li>
-     <li>Specific use-case are stream <code>Filter</code> keys which can be an array or a name, so testing this cannot just use <code>@Filter==XXX</code> as this will only work if Filter is a name as the <code>@</code> logic returns <code>true</code> for an array to indicate existence.</li>
+     <li>Asserts that <i>key</i> can be an <code>array</code> object (and thus can hold multiple values) containing <i>value</i>, or a PDF basic object (such as a <code>name</code>) that can have the value <i>value</i>.</li>
+     <li>Specific use-case are stream <code>Filter</code> keys which can be an array or a name, so testing this cannot just use <code>@Filter==XXX</code> as this will only work if Filter is a <code>name</code> as the <code>@</code> logic returns <code>true</code> for an array to indicate existence.</li>
      <li>Always use <code>@array-key</code> for </i>array-key</i></li>
+     <li>Read aloud as: "... the value of &lt;<i>key</i>&gt; shall be &lt;<i>value</i>&gt;, or if &lt;<i>key</i>&gt; is an array it shall contain an array element equal to &lt;<i>value</i>&gt;, ..."</li>
     </ul>
    </td>
   </tr>  
@@ -615,6 +630,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>States a conditionally-based default value.</li>
      <li>When <i>condition</i> is true, then the Default Value is specified by <i>value</i>.</li>
      <li>Only used in "DefaultValue" field (column 8).</li>
+     <li>Read aloud as: "The default value of <i>current-key</i> shall be &lt;<i>value</i>&gt;when &lt;<i>condition</i>&gt;."</li>
     </ul>
    </td>
   </tr>  
@@ -622,10 +638,11 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td><code>fn:Deprecated(<i>version</i>,<i>statement</i>)</code></td>
    <td>
     <ul>
-     <li>indicates that <i>statement</i> was deprecated, such as a type (in "Type" field), a value (e.g. in "PossibleValues" field ) or a link</li>
+     <li>indicates that <i>statement</i> was deprecated, such as a type (in "Type" field), a value (e.g. in "PossibleValues" or "SpecialCases" field ) or as a link in the "Links" field.</li>
      <li>The <i>version</i> is inclusive of the deprecation (i.e. when the feature was first stated it was deprecated).</li>
-     <li>Obsolescence is different to deprecation in ISO 32000: deprecation is allowed/permitted but is strongly recommended against ("should not"). Obsolescence is a "shall not" appear in a PDF.</li>
+     <li>Obsolescence is different to deprecation in ISO 32000: deprecation is allowed/permitted but is strongly recommended against ("should not"). Obsolescence is a "shall not" appear in a PDF and documentation has been removed.</li>
      <li><i>version</i> must also make logical sense in light of the "SinceVersion" and "DeprecatedIn" fields for the current row (i.e. is between them).</li>
+     <li>Read aloud as: "&lt;<i>statement</i>&gt; was deprecated in PDF version &lt;<i>version</i>&gt;."</li>
      </ul>
    </td>
   </tr>
@@ -666,7 +683,8 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>Will always be an integer > 0.</li>
      <li>There are no parameters.</li>
      <li>This may not be the same as the physical file size!</li>
-     <li>This is mostly used as an upper integer bound for key values that represent byte offsets.</li>
+     <li>This is mostly used as an upper integer bound for values that represent byte offsets.</li>
+     <li>Read aloud as: "... length of the PDF file in bytes."</li>
     </ul>
    </td>
   </tr>
@@ -677,6 +695,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>Asserts that the current font descriptor object (the PDF object that contains the row with this predicate) has Latin characters.</li>
      <li>Checks that the PDF object has the entry <code>/Type /FontDescriptor</code>.</li>
      <li>There are no parameters.</li>
+     <li>Read aloud as: "... the font shall contain Latin characters."</li>
     </ul>
    </td>
   </tr>
@@ -685,6 +704,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li>Asserts that the given array object of PDF names contains at least one process colorant name (Cyan, Magenta, Yellow or Black).</li>
+     <li>Read aloud as: "... array &lt;<i>array</i>&gt; of names shall contain at least one process colorant name."</li>
     </ul>
    </td>
   </tr>
@@ -693,6 +713,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li>Asserts that the given array object of PDF names contains at least one spot colorant name. A spot colorant is any name besides the CMYK colorant names.</li>
+     <li>Read aloud as: "... array &lt;<i>array</i>&gt; of names shall contain at least one spot colorant name."</li>
     </ul>
    </td>
   </tr>
@@ -705,6 +726,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>Zero or one parameters.</li>
      <li>Asserts that the current row (key or array element) is to be ignored when <code><i>condition</i></code> evaluates to true, or ignored all the time (no parameter).</li>
      <li>Only used in "SpecialCase" field (column 10).</li>
+     <li>Read aloud as: "<i>current-key</i> shall be ignored when &lt;<i>condition</i>&gt;."</li>
     </ul>
    </td>
   </tr>
@@ -715,6 +737,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>Asserts that a PDF image object is a Tagged PDF structure content item.</li>
      <li>Asserts that the PDF object has the entry <code>/Subtype /Image</code>.</li>
      <li>There are no parameters.</li>
+     <li>Read aloud as: "<i>current-key</i> shall be in the structural parent tree." (exact quote from ISO 32000-2:2020 Table 359)</li>
     </ul>
    </td>
   </tr>
@@ -724,6 +747,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
     <ul>
      <li>Asserts that the current row (key or array element) is formally defined to be implementation dependent in the PDF specifications.</li>
      <li>There are no parameters.</li>
+     <li>Read aloud as: "<i>current-key</i> is implementation dependent."</li>
     </ul>
    </td>
   </tr>
@@ -734,6 +758,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li><i>key</i> is a reference to a PDF dictionary which can have arbitrary key names.</li>
      <li>Asserts that the current row (key or array element) and which must be a PDF name exists as a key in the specified map dictionary.</li>
      <li><i>Note that this predicate is <b>not</b> for use with name-trees or number-trees!</i></li>
+     <li>Read aloud as: "The name <i>current-key</i> shall be a key in &lt;<i>key</i>&gt;."</li>
     </ul>
    </td>
   </tr>
@@ -744,6 +769,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li><i>key</i> is a reference to a PDF name-tree which use PDF strings as indices. Names trees are complex PDF data structures that use strings as indices.</li>
      <li>Asserts that the current row (key or array element) and which must be a PDF string exists in the specified name-tree.</li>
      <li><i>Note that this predicate is <b>not</b> for use with dictionaries that support arbitrary key names or number-trees!</i></li>
+     <li><B>TO BE REPLACED - SEE BELOW!<B></li>
     </ul>
    </td>
   </tr>
@@ -780,6 +806,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
     <ul>
      <li>Asserts that the current object is a PDF string object and that was in the PDF as a hex string (`<...>`).</li>
      <li>There are no parameters.</li>    
+     <li>Read aloud as: "<i>current-key</i> shall be a hexadecimal string."</li>
     </ul>
    </td>
   </tr>
@@ -788,6 +815,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
    <td>
     <ul>
      <li>Asserts that the current row is the last array element in a number format array (normally the containing object).</li>
+     <li>Read aloud as: "<i>current-key</i> shall be the last array element in the number format array defined by &lt;<i>key</i>&gt;."</li>
     </ul>
    </td>
   </tr>
@@ -798,6 +826,7 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
      <li>Asserts that the current row is only "meaningful" (<b>precise quote from ISO 32000-2:2020!</b>) when <i>condition</i> is true.</li>
      <li>Possibly the inverse of <code>fn:Ignore(...)</code>!</li>
      <li>See also [Errata #6](https://github.com/pdf-association/pdf-issues/issues/6)</li>
+     <li>Read aloud as: "<i>current-key</i> shall only be meaningful when &lt;<i>condition</i>&gt;."</li>
     </ul>
    </td>
   </tr>
@@ -1007,6 +1036,62 @@ Single SPACE characters are only required around logical operators (` &&` and ` 
   </tr>
 </table>
 
+# Proposals for future predicates
+
+Please review and add any feedback or comments to the appropriate issue!
+
+* Should <code>fn:Eval(...)</code> be scrapped (i.e. removed) as it is kind of redundant?
+
+<table style="border: 0.25px solid; border-collapse: collapse;">
+  <tr>
+   <td><code>fn:ValueOnlyWhen(<i>value</i>,<i>condition</i>)</code></td>
+   <td>
+    <ul>
+     <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/74">Issue #74</a></li>
+     <li>Only used in PossibleValues field</lI>
+     <li>Asserts that a specific possible value (single value) of the current key or array element is conditionally valid (<i>condition</i> evaluates to true).</li>
+     <li>Read aloud as "<i>value can be X but only when Y</i>"</li>
+     <li>this is a <i>logically weaker</i> predicate than <code>fn:RequiredValue(...)</code> as there may be other allowable PossibleValues (either conditionally or not)</li>
+     <li>Example for <b>Di</b> key in Transition dictionary:<br/>
+     <code>[0,fn:ValueOnlyWhen(90,(@S==Wipe)),fn:ValueOnlyWhen(180,(@S==Wipe)),270,fn:ValueOnlyWhen(315,(@S==Glitter)))];[fn:RequiredValue(((@S==Fly) && (@SS!=1.0)),None)]</code>
+     </li>    
+    </ul>
+   </td>
+  </tr>
+   <tr>
+   <td><code>fn:IsArray(<i>key</i>)<br/>fn:IsDictionary(<i>key</i>)<br/>fn:IsStream(<i>key</i>)</code></td>
+   <td>
+    <ul>
+     <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/61">Issue #61</a></li>
+     <li>Asserts that the specified key or array element is the specified kind of PDF object (dictionary, array, stream).</li>
+     <li><i>key</i> may be just a key name, array element (integer), or a longer relative or absolute Arlington path (using <code>::</code>).</li>
+     <li>Read aloud as "<i>when X is a Y then ...</i>"</li>
+     <li>Example is for <b>AS</b> in  annotations:<br/>
+         <code>fn:IsRequired(fn:IsDictionary(AP::N) || fn:IsDictionary(AP::R) || fn:IsDictionary(AP::D))</code>
+     </li>
+     </li>    
+    </ul>
+   </td>
+  </tr>
+  </tr>
+   <tr>
+   <td><code>fn:IsNameTreeValue(<i>tree-reference</i>,<i>key</i>)<br/>fn:IsNameTreeIndex(<i>tree-reference</i>,<i>@key</i>)</br></br>
+             fn:IsNumberTreeValue(<i>tree-reference</i>,<i>key</i>)<br/>fn:IsNumberTreeIndex(<i>tree-reference</i>,<i>@key</i>)
+   </code></td>
+   <td>
+    <ul>
+      <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/49">Issue #49</a>. This proposal will replace <code>fn:InNameTree(...)</code> with these predicates.</li>
+      <li>PDF name-/number-trees have complex internal data structures that vary per PDF file (see subclauses 7.9.6 and 7.9.7 in ISO 32000-2:2020). Arlington hides this complexity by defining both these as Arlington data types.</li>
+      <li>The indexing of nodes in a name-tree are always by a string. Thus the type of <i>key</i> in <code>fn:IsNameTreeIndex(...)</code> must be a string (any type).</li>
+      <li>The value of leaf nodes in a name-tree can be any type of PDF object, including strings. Thus the type of <i>key</i> in <code>fn:IsNameTreeValue(...)</code> can be anything.</li>
+      <li>The indexing of nodes in a number-tree are always by an integer. Thus the type of <i>key</i> in <code>fn:IsNumberTreeIndex(...)</code> must be an integer.</li>
+      <li>The value of leaf nodes in a number-tree can be any type of PDF object, including integers. Thus the type of <i>key</i> in <code>fn:IsNumberTreeValue(...)</code> can be anything.</li>
+      <li><i>tree-reference</i> is a name- or number-tree as appropriate for the predicate. It will commonly be a reference to <code>trailer::Catalog::Names::<i>key</i></code>.</li> 
+     </li>    
+    </ul>
+   </td>
+  </tr>
+</table>
 
 
 # Checks still needing to be completed in ISO 32000-2:2020
