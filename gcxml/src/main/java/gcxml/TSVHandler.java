@@ -604,22 +604,23 @@ public class TSVHandler {
         
         if (r.startsWith("fn:BeforeVersion(")) {
             tsv_ver = r.substring(17, 17+3);
-            // Don't process complex expressions (e.g. with " && " or " || ")
-            if ((version < Double.parseDouble(tsv_ver)) && (reqd.indexOf(' ') == -1)) {
+            // Don't process complex expressions (e.g. with " && " or " || ") or fn:BeforeVersion with 2 parameters
+            if ((version < Double.parseDouble(tsv_ver)) && (reqd.indexOf(' ') == -1) && (reqd.indexOf(',') == -1)) {
                 return "TRUE";
             }
         }                         
         else if (r.startsWith("fn:IsPDFVersion(")) {
             tsv_ver = r.substring(16, 16+3);
-            // Don't process complex expressions (e.g. with " && " or " || ")
-            if ((Double.parseDouble(tsv_ver) == version) && (reqd.indexOf(' ') == -1)) {
+            // Don't process complex expressions (e.g. with " && " or " || ") or fn:IsPDFVersion with 2 parameters
+            if ((Double.parseDouble(tsv_ver) == version) && (reqd.indexOf(' ') == -1) && (reqd.indexOf(',') == -1)) {
                 return "TRUE";
             }
         }
         else if (r.startsWith("fn:SinceVersion(")) {
             tsv_ver = r.substring(16, 16+3);
             if (version >= Double.parseDouble(tsv_ver)) {
-                if ((reqd.indexOf(' ') == -1) || (reqd.contains(" || "))) {
+                // Don't process fn:SinceVersion with 2 parameters
+                if (((reqd.indexOf(' ') == -1) || (reqd.startsWith("fn:SinceVersion("+tsv_ver+") || "))) && (reqd.indexOf(',') == -1)) {
                     return "TRUE";
                 }
             }
