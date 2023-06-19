@@ -1093,6 +1093,43 @@ Please review and add any feedback or comments to the appropriate issue!
   </tr>
 </table>
 
+# Negative predicate grammar validation checks
+
+The following are predicate grammar validation checks that should FAIL(!!) for each set of Arlington TSV files that represent a PDF version. 
+Some of these negative test cases can be done on a row-by-row basis, while others refer to a single TSV file, and a few may require checking other TSV files (such as when using `path::key`). 
+Implicit (semantic) knowledge of valid predicates and their arguments is also required:
+
+* TSV with less than 2 rows (i.e. minimum TSV is header row + at least one key)
+* missing or incorrect header row
+* duplicate key names (or array indices) in same TSV
+* wrong number of fields in TSV (it's fixed!)
+* incorrect field ordering (it's fixed!)
+* if TSV filename contains "Array" or "ColorSpace" then all rows except header must be integers 0-9 or integer 0-9 + ASTERISK
+* excess use of SPACES in predicate expressions (e.g. around `!=` or `==`)
+* invalid PDF version (only 1.0, 1.1, ..., 1.7 and 2.0)
+* unknown predicates
+* number of `;` in Type field does not match number of `;` in non-blank DefaultValue, PossibleValues, SpecialCase or Link fields
+* unmatched/unbalanced `(` / `)` or `[` / `]` and `'`
+* key = ASTERISK is not last row in TSV
+* if 2nd row in a TSV is an integer or integer + ASTERISK and key integer of 2nd row is not 0 (i.e. all array indices start at 0) 
+* reference to a `key`, `@key`, `path::key` or `path::@key` that is not valid in a PDF version
+* mixture of keys that are alphanumeric with integers (0-9) or integers (0-9) followed by ASTERISK
+* the list of types in a complex Type field are not alphabetically sorted or separated by SEMI-COLON
+* Link field has entries for simple types (incl. for complex types) 
+* Link field has entries for linked types (incl. for complex types) but Link field is empty or just `[]` 
+* Link field not enclosed in `[` / `]`
+* an unscoped key reference (`key` or `@key`) does not precisely match any key in current TSV 
+* a scoped key reference to `trailer::` does not match any key in FileTrailer.tsv (all PDF versions) or XRefStream.tsv (for appropriate PDF versions)
+* a scoped key reference to `trailer::Catalog` does not  match any key in Catalog.tsv
+* type of data in DefaultValue and PossibleValues fields does not match appropriate Type field
+* incorrect number of arguments for predicate
+* wrong kind of argument for predicate
+* for predicates that only work with specific types of PDF objects, the use of key or self-reference that cannot be that type (e.g. `fn:ArrayLength` is not referencing something that can be an array;  `fn:StringLength` is not referencing something that can be an string;`fn:BitSet`, `fn:BitClear`, etc. only work with `bitmask`)
+* mathematical operation on non-numeric data or predicate
+* logical operation on non-boolean data or predicate
+* reference to a key or key value that has a SinceVersion field that is later than the current key SinceVersion and is not protected with a version-based predicate
+* a predicate with a condition argument that is always constant 
+
 
 # Checks still needing to be completed in ISO 32000-2:2020
 
