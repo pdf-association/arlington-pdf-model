@@ -449,6 +449,8 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * "[_DARPA SafeDocs: an approach to secure parsing and information interchange formats_](https://www.microsoft.com/en-us/research/video/research-talk-darpa-safedocs-an-approach-to-secure-parsing-and-information-interchange-formats/)", \[30 minute presentation Video] Sergey Bratus, Microsoft Research Summit 2021, 20 October 2021.
 
+* "[_Development Preview: PDF file checker based on the Arlington PDF Model_](https://openpreservation.org/news/development-preview-pdf-file-checker-based-on-the-arlington-pdf-model/)", 21 June 2023, Open Preserve Foundation. See [https://software.verapdf.org/develop/arlington/](https://software.verapdf.org/develop/arlington/)
+
 ---
 
 Copyright 2021-22 PDF Association, Inc. https://www.pdfa.org
