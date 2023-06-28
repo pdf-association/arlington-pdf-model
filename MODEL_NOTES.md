@@ -10,9 +10,11 @@ Currently the Arlington PDF Model defines all PDF objects defined by, or mention
 
 * ISO 32000-2:2020 subclause 14.3.2 _Metadata streams_ permits the `Metadata` key to be any dictionary or stream. This is **not** explicitly modelled across every dictionary in the current Arlington PDF model. Arlington only defines a `Metadata` entry when ISO 32000-2:2020 explicitly declares it. 
     - In the future, a `Metadata` entry might be added to every dictionary or stream object. Please add comments to [Issue #65](https://github.com/pdf-association/arlington-pdf-model/issues/65) if you feel strongly one way or the other.
+    - Note also that the Document Part Metadata **DPM** dictionary (_new in PDF 2.0_) also explicitly prohibits streams which means **Metadata** cannot occur below **DPM** objects. 
 
 * ISO 32000-2:2020 subclause 14.13 _Associated files_ permits the `AF` key to be any dictionary or stream. This is **not** explicitly modelled across every dictionary in the current Arlington PDF model. Arlington only defines an `AF` entry when ISO 32000-2:2020 explicitly declares it. 
     - In the future, a `AF` entry might be added to every dictionary or stream object. Please add comments to [Issue #65](https://github.com/pdf-association/arlington-pdf-model/issues/65) if you feel strongly one way or the other.
+    - Note also that the Document Part Metadata **DPM** dictionary (_new in PDF 2.0_) also explicitly prohibits streams which means Associated Files cannot occur below **DPM** objects. 
 
 * assumptions about duplicate keys, keys with `null` values, and keys that are indirect references are currently **not** encoded in the Arlington PDF Model:
     - e.g. consider `<< /Type /Bar /Type Boo >>`, `<< /Type null /Type /Bar >>` and `<< 10 0 R /Bar >>` when `10 0 obj /Type endobj`
