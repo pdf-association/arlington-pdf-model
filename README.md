@@ -451,6 +451,8 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * "[_Development Preview: PDF file checker based on the Arlington PDF Model_](https://openpreservation.org/news/development-preview-pdf-file-checker-based-on-the-arlington-pdf-model/)", 21 June 2023, Open Preserve Foundation. See [https://software.verapdf.org/develop/arlington/](https://software.verapdf.org/develop/arlington/)
 
+* Online [Arlington PDF Model checker](https://pdfix.io/arlington-pdf-model/) by PDFix.
+
 ---
 
 Copyright 2021-22 PDF Association, Inc. https://www.pdfa.org
