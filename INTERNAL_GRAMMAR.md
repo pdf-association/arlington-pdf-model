@@ -2,6 +2,8 @@
 
 This document describes some strict rules for the Arlington PDF model, for both the data and the predicates (custom declarative predicates that start `fn:`). Only some of these rules are currently implemented by various PoCs, but everything is precisely documented here.
 
+Note that the Arlington PDF Model accurately reflects the latest agreed ISO 32000-2:2020 PDF 2.0 specification ([available for no-cost](https://pdfa.org/sponsored-standards/)) and as amended by industry-agreed errata from https://pdf-issues.pdfa.org. If this state of affairs is unsuitable for adopters of the Arlington PDF Model (e.g. unresolved errata are causing issues for implementations) then the recommended practice is for those specific implementations to create private `diff` patches against the model as it is entirely text-based.  
+
 
 # TSV file rules
 
@@ -119,11 +121,18 @@ This document describes some strict rules for the Arlington PDF model, for both 
 *   When a predicate is used, the internal simple type is still kept in its alphabetic sort order
 * The following predefined Arlington types ALWAYS REQUIRE a link:
     - `array`, `dictionary`, `stream`
-* The following predefined Arlington types MAY have a link (this is because name and number trees can have nodes which are the primitive Arlington types below or a complex type above):
+* The following predefined Arlington types MAY have a link (this is because name and number trees can 
+have nodes which are the primitive Arlington types below or a complex type above):
     - `name-tree`, `number-tree`
     - e.g. `Navigator\Strings` is a name-tree of string objects
 * The following predefined Arlington types NEVER have a link (they are the primitive Arlington types):
     - `bitmask`, `boolean`, `date`, `integer`, `matrix`, `name`, `null`, `number`, `rectangle`, `string`, `string-ascii`, `string-byte`, `string-text`
+* Note that `null` is only an explicit type when mentioned in ISO 32000-2:2020.
+    - Dictionary handling is covered by subclause 7.3.7 "_A dictionary entry whose value is null (see 7.3.9, "Null object") shall be treated the same as if the 
+    entry does not exist._" so dictionaries will never have a `null` type unless ISO 32000-2 explicitly mentions it or there is a glitch in the matrix 
+    (e.g. Table 207 for **Mac** and **Unix** entries).
+    - Array objects and name-tree and number-trees are more complex as ISO 32000-2:2020 makes no statements about `null`. See also 
+    [Arlington Issue #90](https://github.com/pdf-association/arlington-pdf-model/issues/90) and [PDF 2.0 Errata #157](https://github.com/pdf-association/pdf-issues/issues/157).
 *   **Python pretty-print/JSON:**
     *   Always a list
     *   List elements are either:
