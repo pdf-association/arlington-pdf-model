@@ -1147,6 +1147,6 @@ Implicit (semantic) knowledge of valid predicates and their arguments is also re
 - Check ranges of all `integer` search hits - *done up to Table 170*.
 See also: [Errata #15](https://github.com/pdf-association/pdf-issues/issues/15)
 
-- Read every Table for dictionary keys and update declarative rules - *done up to Table 186 Popup Annots*
+- Check explicit ranges of all `number` search hits - *not started yet*
 
-- Check ranges of all `number` search hits - *not started yet*
+- Check all arrays for handling of `null` elements - *not started yet*. See [PDF 2.0 Errata #157](https://github.com/pdf-association/pdf-issues/issues/157)
