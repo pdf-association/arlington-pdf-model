@@ -385,19 +385,45 @@ void CParsePDF::check_everything(ArlPDFObject* container, ArlPDFObject* object, 
     ofs << ": ";
 #endif
 
-    // Ignore null as this is the same as nonexistent
-    if ((!versioner.object_matched_arlington_type() || (obj_type == PDFObjectType::ArlPDFObjTypeNull))) {
-        if (obj_type != PDFObjectType::ArlPDFObjTypeNull) {
+    if (!versioner.object_matched_arlington_type()) {
+        if (obj_type == PDFObjectType::ArlPDFObjTypeNull) {
+            // Special handling for null:
+            // - for dictionaries/streams: null entry is the same as the key not being present (but report as INFO if in debug mode)
+            // - for arrays: expect clear definition --> error if unexpected!
+            std::string f = grammar_file;
+            std::transform(f.begin(), f.end(), f.begin(), [](unsigned char c) { return (unsigned char)std::tolower(c); });
+            bool is_array_container = (f.find("array") != std::string::npos) || (f.find("colorspace") != std::string::npos);
+            if (is_array_container) {
+                show_context(fake_e);
+                ofs << COLOR_ERROR << "null object: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
+                ofs << " null not listed (only " << tsv_data[key_idx][TSV_TYPE] << ") in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0);
+                if (debug_mode)
+                    ofs << " (" << *object << ")";
+                ofs << COLOR_RESET;
+#ifdef CHECKS_DEBUG
+                ofs << std::endl;
+#endif
+            }
+            else if (debug_mode) {
+                show_context(fake_e);
+                ofs << COLOR_INFO << "key " << tsv_data[key_idx][TSV_KEYNAME] << " in dictionary/stream " << grammar_file << " had a null object as value - same as not present";
+                ofs << " (" << *object << ")" << COLOR_RESET;
+#ifdef CHECKS_DEBUG
+                ofs << std::endl;
+#endif
+            }
+        }
+        else {
             show_context(fake_e);
             ofs << COLOR_ERROR << "wrong type: " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")";
             ofs << " should be " << tsv_data[key_idx][TSV_TYPE] << " in PDF " << std::fixed << std::setprecision(1) << (pdf_version / 10.0) << " and is " << versioner.get_object_arlington_type();
             if (debug_mode)
                 ofs << " (" << *object << ")";
             ofs << COLOR_RESET;
-        }
 #ifdef CHECKS_DEBUG
-        ofs << std::endl;
+            ofs << std::endl;
 #endif
+        }
         return;
     }
 
