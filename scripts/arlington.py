@@ -1202,7 +1202,11 @@ class Arlington:
                     idx = self.__find_pdf_type(['string', 'date'], row['Type'])
                     if (idx != -1):
                         status = "="
-                print(status + p + ("=(%s)" % o))
+                try:
+                    # Handling UnicodeEncodeError: 'charmap' codec can't encode character '\u2044'
+                    print(status + p + ("=(%s)" % o))
+                except UnicodeEncodeError as e:
+                    pass
             elif isinstance(o, bool):
                 if (row is not None):
                     idx = self.__find_pdf_type(['boolean'], row['Type'])
@@ -1415,8 +1419,16 @@ class Arlington:
                 row = arlobj[r'*']
                 status = '='
             elif (arlobj is not None) and (i < len(arlobj)):
-                row = arlobj[str(i)]
-                status = '?'
+                #In some dict keys are [0*, 1*] not [0, 1] which is causing keyError
+                if str(i) in arlobj:
+                    row = arlobj[str(i)]
+                    status = '?'
+                elif str(i) + '*' in arlobj:
+                    row = arlobj[str(i) + '*']
+                    status = '?'
+                else:
+                    row = None
+                    status = '?'
             else:
                 status = '+'
 
@@ -1496,7 +1508,12 @@ class Arlington:
                     idx = self.__find_pdf_type(['string', 'date'], row['Type'])
                     if (idx != -1):
                         status = "="
-                print(status + p + ("=(%s)" % o))
+                try:
+                    # Handling UnicodeEncodeError: 'charmap' codec can't encode character '\u2044'
+                    print(status + p + ("=(%s)" % o))
+                except UnicodeEncodeError as e:
+                    pass
+
             elif isinstance(o, bool):
                 if (row is not None):
                     idx = self.__find_pdf_type(['boolean'], row['Type'])
