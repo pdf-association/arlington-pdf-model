@@ -16,10 +16,10 @@ Note that the Arlington PDF Model accurately reflects the latest agreed ISO 3200
     - [GNU datamash](https://www.gnu.org/software/datamash/) can also be used.
 * Every TSV file needs to have the full set of TABS (for all columns).
 * Last row in TSV needs EOL after last TAB.
-* TSV file names are case sensitive.
+* TSV file names are case-sensitive.
 * TSV file extensions are always `.tsv` (lowercase) but are not present in the TSV data itself.
 * all TSV files will have matching numbers of `[`, `]` and `(`, `)`
-* for a single row in any TSV, spliting each field on ';' will either result in 1 or _N_.
+* for a single row in any TSV, splitting each field on ';' will either result in 1 or _N_.
 * files that represent PDF arrays match either `ArrayOf*.tsv`, `*Array.tsv` or `*ColorSpace.tsv`
     - many are also identifiable by having a Key name of `0` (or `0*` or `*`)
     ```shell
@@ -65,7 +65,7 @@ Note that the Arlington PDF Model accurately reflects the latest agreed ISO 3200
 ## Column 1 - "Key"
 
 *   Must not be blank
-*   Case sensitive (as per PDF spec)
+*   Case-sensitive (as per PDF spec)
 *   No duplicates keys in any single TSV file
 *   Only alphanumeric, `.`, `-`, `_` or ASTERISK characters (no whitespace or other special characters)
     * The proprietary Apple APPL extensions also use `:` (COLON) as in `AAPL:ST`
@@ -285,8 +285,8 @@ have nodes which are the primitive Arlington types below or a complex type above
 *   SQUARE-BRACKETS are also used for PDF arrays, in which case they must use double SQUARE-BRACKETS if part of a complex type. If the array is the only valid type, then single SQUARE-BRACKETS are used. PDF array elements are NOT separated with COMMAs - they are only used _between_ arrays.
     *  e.g. `[[0 1],[1 0]];[Value1,Value2,Value3]` is a choice of 2 arrays `[0 1]` and `[1 0]` if the type is an array or a choice of `Value1` or `Value2` or `Value3` if the type was something else (e.g. name)
     * thus a complex expression can first be split by SEMI-COLON, then each portion has the SQUARE-BRACKETS stripped off, then multiple options can be split by COMMA as any remaining SQUARE-BRACKETS indicate an array.
-*   If there is a "DefaultValue" AND there are multiple types, then require a complex `[];[];[]` expression
-    *  If the "DefaultValue" is a PDF array _as part of a complex type_, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
+*   If there is a "PossibleValues" AND there are multiple types, then require a complex `[];[];[]` expression
+    *  If the "PossibleValues" is a PDF array _as part of a complex type_, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
 *   For keys or arrays that are PDF names, a wildcard `*` indicates that any arbitrary name is _explicitly_ permitted according to the PDF specification along with formally defined values (e.g. OptContentCreatorInfo, Subtype key: `[Artwork,Technical,*]`).
     *  Do not use `*` as the _only_ value - since an empty cell has the same meaning as "anything is OK" although there is some subtle nuances regarding whether custom keys have to be 2nd class names or can be really anything. See [Errata #229](https://github.com/pdf-association/pdf-issues/issues/229)
     * The TestGrammar PoC will no longer report an error about unexpected values in this case, but produce an informational (`Info:`) message instead (so it is visible that a non-standard value is being used).
@@ -370,7 +370,7 @@ have nodes which are the primitive Arlington types below or a complex type above
 
 *   Can be blank
 *   Free text - no validation possible
-*   Often contains a reference to Table(s) (search for case sensitive "Table ") or clause number(s) (search for case sensitive "Clause ") from ISO 32000-2:2020 (PDF 2.0) or a PDF Association Errata issue link (as GitHub URL) where the Arlington machine-readable definition is defined.
+*   Often contains a reference to Table(s) (search for case-sensitive "Table ") or clause number(s) (search for case-sensitive "Clause ") from ISO 32000-2:2020 (PDF 2.0) or a PDF Association Errata issue link (as GitHub URL) where the Arlington machine-readable definition is defined.
     * For dictionaries, this is normally on the first key on the `Type` or `Subtype` row depending on what is the primary differentiating definition
     * Note that this is **not** where an object is referenced from, but where its key and values are **defined**. Sometimes this is within body text prose of ISO 32000-2:2020 (so outside a Table and a Clause reference is used) or as prose within the "Description" cell of some other key in another Table. _Where_ an object is referenced is encoded by the Arlington PDF Model "Link" field - just grep for the case-sensitive TSV file (no extension)!
 *   The spreadsheet [Arlington-vs-ISO32K-Tables.xlsx](Arlington-vs-ISO32K-Tables.xlsx) provides a cross reference from all mentions of "Table" within the Arlington PDF Model against the an index of every Table in ISO 32000-2:2020 as published by ISO. Tables that are not mentioned anywhere in Arlington TSV files _may_ indicate poor coverage in the Arlington PDF Model - or that the table is inappropriate for incorporating into the Arlington PDF Model.
@@ -397,7 +397,7 @@ First and foremost, the predicate system is not based on **functional programmin
 
 The best way to understand an expression with a predicate is to read it out aloud, from left to right.
 Its verbalization should relatively closely match wording found in the PDF specification.
-Predicate simplifcation is **avoided** so that wording (when read aloud) is kept as close as possible to wording in the PDF specification.
+Predicate simplification is **avoided** so that wording (when read aloud) is kept as close as possible to wording in the PDF specification.
 
 
 * the internal Arlington grammar is loosely typed (so things need to match or be interpreted as matching the "Type" field (column 2)).
@@ -421,7 +421,7 @@ Predicate simplifcation is **avoided** so that wording (when read aloud) is kept
     * For complex types, if the "DefaultValue" for KeyA is `@KeyB` then it means that the "default value for Key A is the value of Key B" and so long as Keys A and B both have the same type then this is logical.
 * `true` and `false` (all lowercase) are the PDF keywords (required for explicit comparison with `@key`) - uppercase `TRUE` and `FALSE` **never** get used in predicates as they represent Arlington model values such as for "Required", "IndirectReference" or "Inheritable" fields.
 * All predicates start with `fn:` (case-sensitive, single COLON) followed by an uppercase character (`A`-'Z')
-* All predicate names are CamelCase case sensitive with BRACKETS `(` and `)` and do NOT use DASH or UNDERSCOREs (i.e. must match a simple alphanumeric regex)
+* All predicate names are CamelCase case-sensitive with BRACKETS `(` and `)` and do NOT use DASH or UNDERSCOREs (i.e. must match a simple alphanumeric regex)
 * Predicates can have 0, 1 or 2 arguments that are always COMMA separated
     * Predicates need to end with `()` for zero arguments
     * Arguments always within `(...)`
@@ -555,7 +555,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
      <li>Asserts that the <i>integer</i>-th array elements are sorted in ascending order.</li>
      <li>Requires that all <i>integer</i>-th array elements are numeric. Other array elements however can be anything.</li>
      <li>An empty array will be considered sorted.</li>
-     <li><i>integer</i> is 1 or greater. 1 means all array elements, 2 means every second element, 3 means every 3rd element, etc. It does not imply anything about the array lenegth, as an empty array is considered logically sorted.</li>
+     <li><i>integer</i> is 1 or greater. 1 means all array elements, 2 means every second element, 3 means every 3rd element, etc. It does not imply anything about the array length, as an empty array is considered logically sorted.</li>
      <li>e.g. <code>fn:ArraySortAscending(Index,2)</code> tests that the array elements at indices 0, 2, 4, ... are all sorted.</li>
      <li>Read aloud as (approx.): "... the &lt;<i>integer</i>&gt;-th elements in array &lt;<i>key</i>&gt; shall all be sorted in ascending order ..."</li>
     </ul>
@@ -627,7 +627,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
     <ul>
      <li>Asserts that <i>key</i> can be an <code>array</code> object (and thus can hold multiple values) containing <i>value</i>, or a PDF basic object (such as a <code>name</code>) that can have the value <i>value</i>.</li>
      <li>Specific use-case are stream <code>Filter</code> keys which can be an array or a name, so testing this cannot just use <code>@Filter==XXX</code> as this will only work if Filter is a <code>name</code> as the <code>@</code> logic returns <code>true</code> for an array to indicate existence.</li>
-     <li>Always use <code>@array-key</code> for </i>array-key</i></li>
+     <li>Always use <code>@array-key</code> for <i>array-key</i></li>
      <li>Read aloud as: "... the value of &lt;<i>key</i>&gt; shall be &lt;<i>value</i>&gt;, or if &lt;<i>key</i>&gt; is an array it shall contain an array element equal to &lt;<i>value</i>&gt;, ..."</li>
     </ul>
    </td>
@@ -639,7 +639,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
      <li>States a conditionally-based default value.</li>
      <li>When <i>condition</i> is true, then the Default Value is specified by <i>value</i>.</li>
      <li>Only used in "DefaultValue" field (column 8).</li>
-     <li>Read aloud as: "The default value of <i>current-key</i> shall be &lt;<i>value</i>&gt;when &lt;<i>condition</i>&gt;."</li>
+     <li>Read aloud as: "The default value of <i>current-key</i> shall be &lt;<i>value</i>&gt; when &lt;<i>condition</i>&gt;."</li>
     </ul>
    </td>
   </tr>  
@@ -671,7 +671,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
        <code>fn:Extension(<i>name</i>,<i>value</i>)</code></td>
    <td>
     <ul>
-     <li>Used in the "SinceVersion", "PossibleValues" or "SpecicalCase" fields.</li>
+     <li>Used in the "SinceVersion", "PossibleValues" or "SpecialCase" fields.</li>
      <li><i>name</i> is an arbitrary identifier for the extension or subset and uses the same lexical conventions as for the "Key" field (e.g. no SPACEs).</li>
      <li>In the "SinceVersion" field must reduce down to a valid PDF version for when the key or array element or which extension <i>name</i> introduced the key/array element. This may be combined with <i>value</i> to express a version-based introduction such as ISO subsets:</li>
      <ul>
@@ -778,7 +778,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
      <li><i>key</i> is a reference to a PDF name-tree which use PDF strings as indices. Names trees are complex PDF data structures that use strings as indices.</li>
      <li>Asserts that the current row (key or array element) and which must be a PDF string exists in the specified name-tree.</li>
      <li><i>Note that this predicate is <b>not</b> for use with dictionaries that support arbitrary key names or number-trees!</i></li>
-     <li><B>TO BE REPLACED - SEE BELOW!<B></li>
+     <li><B>TO BE REPLACED - SEE BELOW!</B></li>
     </ul>
    </td>
   </tr>
@@ -829,7 +829,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    </td>
   </tr>
   <tr>
-   <td><code>fn:IsMeaningful(<i>condition</i>)<code></td>
+   <td><code>fn:IsMeaningful(<i>condition</i>)</code></td>
    <td>
     <ul>
      <li>Asserts that the current row is only "meaningful" (<b>precise quote from ISO 32000-2:2020!</b>) when <i>condition</i> is true.</li>
@@ -870,7 +870,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    <td>
     <ul>
      <li>Can have one or two parameters.</li>
-     <li>For a single parameter: asserts that the current row (key or array element) must be present in a PDF if <i>key</i> is present, or when the expression </i>expr</i> is true.</li>
+     <li>For a single parameter: asserts that the current row (key or array element) must be present in a PDF if <i>key</i> is present, or when the expression <i>expr</i> is true.</li>
      <li>e.g. <code>fn:IsPresent(StructParent)</code> or <code>fn:IsPresent(@SMaskInData>0)</code></li>
      <li>For two parameters: asserts that when <i>key</i>is present in a PDF, that <i>condition</i> should also be true.</li>
      <li>e.g. <code>fn:Eval(fn:IsPresent(Matte,(@Width==parent::@Width)))</code></li>
@@ -923,7 +923,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
  </td>
   </tr>
   <tr>
-   <td><code>fn:NoCycle()<code></td>
+   <td><code>fn:NoCycle()</code></td>
    <td>
     <ul>
      <li>Asserts that the PDF file shall not contain any cycles (loops) when using the current key or array index to key into the linked list of objects.</li>
@@ -932,7 +932,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    </td>
   </tr>
   <tr>
-   <td><code>fn:Not(<i>expr</i>)<code></td>
+   <td><code>fn:Not(<i>expr</i>)</code></td>
    <td>
     <ul>
      <li>Logical inverse of the Boolean expression argument.</li>
@@ -950,7 +950,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    </td>
   </tr>
   <tr>
-   <td><code>fn:NumberOfPages()<code></td>
+   <td><code>fn:NumberOfPages()</code></td>
    <td>
     <ul>
      <li>Number of pages in the PDF document (integer value).</li>
@@ -1003,7 +1003,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    </td>
   </tr>
   <tr>
-   <td><code>fn:RequiredValue(<i>condition</i>,<i>value</i>)<code></td>
+   <td><code>fn:RequiredValue(<i>condition</i>,<i>value</i>)</code></td>
    <td>
     <ul>
      <li>Only used in the "PossibleValue" field to indicate if a specific value is required under a specific condition.</li>
@@ -1078,10 +1078,8 @@ Please review and add any feedback or comments to the appropriate issue!
      <li>Example is for <b>AS</b> in  annotations:<br/>
          <code>fn:IsRequired(fn:IsDictionary(AP::N) || fn:IsDictionary(AP::R) || fn:IsDictionary(AP::D))</code>
      </li>
-     </li>    
     </ul>
    </td>
-  </tr>
   </tr>
    <tr>
    <td><code>fn:IsNameTreeValue(<i>tree-reference</i>,<i>key</i>)<br/>fn:IsNameTreeIndex(<i>tree-reference</i>,<i>@key</i>)</br></br>
@@ -1096,7 +1094,6 @@ Please review and add any feedback or comments to the appropriate issue!
       <li>The indexing of nodes in a number-tree are always by an integer. Thus the type of <i>key</i> in <code>fn:IsNumberTreeIndex(...)</code> must be an integer.</li>
       <li>The value of leaf nodes in a number-tree can be any type of PDF object, including integers. Thus the type of <i>key</i> in <code>fn:IsNumberTreeValue(...)</code> can be anything.</li>
       <li><i>tree-reference</i> is a name- or number-tree as appropriate for the predicate. It will commonly be a reference to <code>trailer::Catalog::Names::<i>key</i></code>.</li> 
-     </li>    
     </ul>
    </td>
   </tr>
@@ -1133,7 +1130,7 @@ Implicit (semantic) knowledge of valid predicates and their arguments is also re
 * type of data in DefaultValue and PossibleValues fields does not match appropriate Type field
 * incorrect number of arguments for predicate
 * wrong kind of argument for predicate
-* for predicates that only work with specific types of PDF objects, the use of key or self-reference that cannot be that type (e.g. `fn:ArrayLength` is not referencing something that can be an array;  `fn:StringLength` is not referencing something that can be an string;`fn:BitSet`, `fn:BitClear`, etc. only work with `bitmask`)
+* for predicates that only work with specific types of PDF objects, the use of key or self-reference that cannot be that type (e.g. `fn:ArrayLength` is not referencing something that can be an array;  `fn:StringLength` is not referencing something that can be a string;`fn:BitSet`, `fn:BitClear`, etc. only work with `bitmask`)
 * mathematical operation on non-numeric data or predicate
 * logical operation on non-boolean data or predicate
 * reference to a key or key value that has a SinceVersion field that is later than the current key SinceVersion and is not protected with a version-based predicate
