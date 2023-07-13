@@ -34,7 +34,7 @@ The TestGrammar (C++17) proof of concept application is a multi-platform command
     - for ease of post-processing large quantities of log files from corpora, there are also `--batchmode` and `--no-color` options that can be specified
     - using `--brief` will also keep output log size under control
     - using `--dryrun` will list the PDFs that will get processed
-    - using `--allfiles` will attenpt to parse every file (regardless of extension) as a PDF
+    - using `--allfiles` will attempt to parse every file (regardless of extension) as a PDF
 4. compares the Arlington PDF model grammar with the Adobe DVA Formal Representation
     - the understanding of the Adobe DVA model is hard-coded with a mix of asserts and error messages. For this reason it is best to always use a debug build at least once to confirm the Adobe FormalRep is understood by this PoC!
     - a manually curated list of multiple DVA objects that combine to be equivalent to an Arlington TSV file is hard-coded.
@@ -169,7 +169,7 @@ Note that the `--exclude` option can be used to override explicit PDFs when usin
 | | `--out` option is a file | `--out` option is a folder | no `--out` specified |
 | --- | --- | --- | --- |
 | `--pdf` option is a file: | output of single PDF is written to the specified file. _**Always clobbers!**_ | output written to file named after the PDF file with extension changed to `.txt` or `.ansi` depending on `--no-color` option. `--clobber` option will be obeyed | output of single PDF to stdout. |
-| `--pdf` option is folder: | all outout written to the single specified file. `--clobber` option will be obeyed. | output written to individual files, each named after the PDF file with the extension is changed to `.txt` or `.ansi` depending on `--no-color` option. `--clobber` option will be obeyed. | output from all PDFs to stdout. |
+| `--pdf` option is folder: | all output written to the single specified file. `--clobber` option will be obeyed. | output written to individual files, each named after the PDF file with the extension is changed to `.txt` or `.ansi` depending on `--no-color` option. `--clobber` option will be obeyed. | output from all PDFs to stdout. |
 
 Note that the `--out` option will **not** create any folders!
 
@@ -583,11 +583,11 @@ Checking PDF files requires a PDF SDK with certain key features (_we shouldn't n
 * allow processing of the PDF DOM even if an unsupported encryption algorithm is present (since only strings and streams are encrypted, PDF dictionaries and arrays can still be processed!) - **this is a limiting factor for some PDF SDKs!**  
 * for encrypted PDFs, don't reject too early - at least be able to parse the unencrypted keys and most values in dictionaries, etc.
     - obviously PDF files that use cross-reference streams or object streams will not be processable
-    - predicates that check the attributes or value of a PDF string object will also generated error messages since the unencrytped string length and value are not known
+    - predicates that check the attributes or value of a PDF string object will also generated error messages since the unencrypted string length and value are not known
 * ability to detect and report duplicate keys in dictionaries - **this is a limiting factor for some PDF SDKs!** 
     - the pdfium in GitHub has been modified (hacked!) to support this configuration
     - e.g. https://assets.devoted.com/plan-documents/2022/DH-DisenrollmentForm-2022-ENG.pdf
-* PDF SDKs suport trailers in very different ways, especially for rebuilt PDFs and hybrid PDFs. This results in different keys in trailer dictionaries!
+* PDF SDKs support trailers in very different ways, especially for rebuilt PDFs and hybrid PDFs. This results in different keys in trailer dictionaries!
     - e.g. https://www.ema.europa.eu/en/documents/product-information/cerdelga-epar-product-information_fr.pdf
 
 
@@ -609,7 +609,7 @@ TestGrammar has the following module dependencies:
 
 * PDFix: a free but closed source PDF SDK (`ARL_PDFSDK_PDFIX`)
   - see `src/ArlingtonPDFShimPDFix.cpp`
-  - single .h dependency [src/Pdfix.h](src/Pdfix.h)
+  - single .h dependency [pdfix/Pdfix.h](pdfix/Pdfix.h)
   - see https://pdfix.net/ with SDK documentation at https://pdfix.github.io/pdfix_sdk_builds/
   - cannot report whether trailer keys are direct or indirect
   - necessary runtime shared libraries/DLLs are in `TestGrammar/bin/...`
@@ -652,7 +652,7 @@ cd TestGrammar\platform\msvc20xx
 msbuild -m TestGrammar.sln -t:Rebuild -p:Configuration=Debug -p:Platform=x64
 ```
 
-Compiled binaries will be in [TestGrammar/bin/x86](./bin/x86) or [TestGrammar/bin/x64](./bin/x64). Debug binaries end with `..._d.exe`. In order to select the PDF SDK, either open and change in the Visual Studio IDE (_as above_) or hand edit [platform/msvc/2022/TestGrammar.vcxproj](platform/msvc/2022/TestGrammar.vcxproj) in an XML aware text editor:
+Compiled binaries will be in [TestGrammar/bin/x86](./bin/x86) or [TestGrammar/bin/x64](./bin/x64). Debug binaries end with `..._d.exe`. In order to select the PDF SDK, either open and change in the Visual Studio IDE (_as above_) or hand edit [platform/msvc/2022/TestGrammar.vcxproj](platform/msvc2022/TestGrammar.vcxproj) in an XML aware text editor:
 
 ```
 <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;...

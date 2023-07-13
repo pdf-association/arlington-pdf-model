@@ -44,7 +44,7 @@ Currently the Arlington PDF Model defines all PDF objects defined by, or mention
     - In the future an ANTLR definition such as [iText pdfcop](https://github.com/itext/pdfcop) may be added.
 
 * the full details of PDF Linearization are currently **not** defined in the Arlington PDF Model.
-    - the Linearization dictionary is defined by [LinearizationParameterDict.tsv](./tsv/latest/LinearizationParameterDict.tsv) but this is **not** linked into the rest of the Arlingon PDF Model (since Linearization stands separately from the `trailer`)
+    - the Linearization dictionary is defined by [LinearizationParameterDict.tsv](./tsv/latest/LinearizationParameterDict.tsv) but this is **not** linked into the rest of the Arlington PDF Model (since Linearization stands separately from the `trailer`)
 
 * the semantics of PDF file structure including cross-references tables, incremental updates, etc. is currently **not** defined in the Arlington PDF Model.
 
@@ -62,7 +62,7 @@ This section makes suggestions to users who are implementing technology based on
 * consider reporting unexpected (i.e. not officially documented) keys in dictionaries and streams unless there is a `*` wildcard entry as the last row in the TSV data file. Ideally analyze each custom key name to see if it is an official second-class or third-class PDF name as per Annex E.2 of ISO 32000-2:2020. 
     - This is what the [TestGrammar C++ PoC](TestGrammar) does.
 
-* consider reporting the occurance of `Metadata` and `AF` keys in all non-document objects. The Arlington PDF Model explicitly defines these keys when ISO 32000-2:2020 does. This is perfectly valid but useful information.
+* consider reporting the occurrence of `Metadata` and `AF` keys in all non-document objects. The Arlington PDF Model explicitly defines these keys when ISO 32000-2:2020 does. This is perfectly valid but useful information.
     - This is what the [TestGrammar C++ PoC](TestGrammar) does, except for Document Part Metadata constraints described above.
 
 * consider reporting when arrays contain more entries than needed (including for `matrix` and `rectangle`). This includes fixed length arrays, as well as variable length arrays that have repeating sets.

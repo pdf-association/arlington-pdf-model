@@ -1,4 +1,4 @@
-# GXCML - Java PoC utlity
+# GCXML - Java PoC utility
 
 Java-based proof of concept CLI utility that can:
 
