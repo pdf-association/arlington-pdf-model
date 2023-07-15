@@ -86,12 +86,12 @@ TSV fields are always in the following order and TABs must exist between all fie
 
 1. "[**Key**](#Key)" - key in dictionary, or a zero-based integer index into an array. ASTERISK (`*`) represents a wildcard and means any key/index. An integer followed by an ASTERISK (`*`) represents the requirements to have repeating sets of array elements.
 1. "[**Type**](#Type)" - one or more of the pre-defined Arlington types alphabetically sorted and separated by SEMI-COLONs `;`, possibly with version-based predicates.
-1. "[**SinceVersion**](#SinceVersion-and-DeprecatedIn)" - version of PDF this key/array element was introduced in.
-1. "[**DeprecatedIn**](#SinceVersion-and-DeprecatedIn)" - version of PDF this key/array element was deprecated in. Empty if not deprecated.
+1. "[**SinceVersion**](#SinceVersion)" - version of PDF this key/array element was introduced in.
+1. "[**DeprecatedIn**](#DeprecatedIn)" - version of PDF this key/array element was deprecated in. Empty if not deprecated.
 1. "[**Required**](#Required)" - whether the key or array element is required. Might be expressed as a predicate.
-1. **IndirectReference**" - whether the key is required to be an indirect reference (`TRUE`/`FALSE`) or if it must be a direct or indirect object (e.g. `fn:MustBeDirect(...)`).
-1. **Inheritable**" - whether the key is inheritable (`TRUE`/`FALSE`). Might be expressed as a predicate.
-1. **DefaultValue**" - optional default value of key/array element.
+1. "**IndirectReference**" - whether the key is required to be an indirect reference (`TRUE`/`FALSE`) or if it must be a direct or indirect object (e.g. `fn:MustBeDirect(...)`).
+1. "**Inheritable**" - whether the key is inheritable (`TRUE`/`FALSE`). Might be expressed as a predicate.
+1. "**DefaultValue**" - optional default value of key/array element.
 1. "[**PossibleValues**](#PossibleValues)" - list of possible values. For dictionary `/Type` keys that must have a specific value, this will be a choice of just a single value.
 1. "[**SpecialCase**](#SpecialCase)" - predicates defining additional data integrity relationships.
 1. "[**Link**](#Link)" - name(s) of other TSV files for validating the values of this key/array element for dictionaries, arrays, streams, maps, name-trees or number-trees.
@@ -106,7 +106,7 @@ A very precise definition of all syntax rules for the Arlington PDF model as wel
 
 ### Key
 
-Field 1 is "Key" and represents a single key in a dictionary, an index into an array, multiple wildcard entries (`*`), or an array with required sets of entries (DIGIT+`*`). Dictionary keys are obviously case sensitive and array indices are always integers. To locate a key easily using Linux begin a regex with the start-of-line (`^`). For a precise match end the regex with a TAB (`\t`). Conveniently, ISO 32000 only uses ASCII characters for 1st class key names so there are no #-escapes used in Arlington. ISO 32000 also does not define any dictionary keys that are purely just an integer - Arlington leverages this fact so that array "keys" are always 0-based integers. Note that ISO 32000 does define some keys that start with integers (e.g. `/3DD`) but these are clearly distinguishable from array indices.  
+Field 1 is "Key" and represents a single key in a dictionary, an index into an array, multiple wildcard entries (`*`), or an array with required sets of entries (DIGIT+`*`). Dictionary keys are obviously case-sensitive and array indices are always integers. To locate a key easily using Linux begin a regex with the start-of-line (`^`). For a precise match end the regex with a TAB (`\t`). Conveniently, ISO 32000 only uses ASCII characters for 1st class key names so there are no #-escapes used in Arlington. ISO 32000 also does not define any dictionary keys that are purely just an integer - Arlington leverages this fact so that array "keys" are always 0-based integers. Note that ISO 32000 does define some keys that start with integers (e.g. `/3DD`) but these are clearly distinguishable from array indices.  
 
 [Example](tsv/latest/3DBackground.tsv) of a single entry in a dictionary with a `/Type` key:
 
@@ -146,13 +146,13 @@ Dictionaries or arrays can also serve as maps, where an arbitrary name is associ
 
 Key |  Type | ... | Link
 --- | --- | --- | ---
-\* | dictionary;stream | ... | \[[ShadingType1](tsv/latest/ShadingType1.tsv),[ShadingType2](tsv/latest/ShadingType2),[ShadingType3](tsv/latest/ShadingType3.tsv)];\[[ShadingType4](tsv/latest/ShadingType4.tsv),[ShadingType5](tsv/latest/ShadingType5.tsv),[ShadingType6](tsv/latest/ShadingType6.tsv),[ShadingType7](tsv/latest/ShadingType7.tsv)]
+\* | dictionary;stream | ... | \[[ShadingType1](tsv/latest/ShadingType1.tsv),[ShadingType2](tsv/latest/ShadingType2.tsv),[ShadingType3](tsv/latest/ShadingType3.tsv)];\[[ShadingType4](tsv/latest/ShadingType4.tsv),[ShadingType5](tsv/latest/ShadingType5.tsv),[ShadingType6](tsv/latest/ShadingType6.tsv),[ShadingType7](tsv/latest/ShadingType7.tsv)]
 
 </div>
 
 ### Type
 
-PDF 2.0 formally defines 9 basic types of object, but within the specification other types are commonly referred to. Therefore the Arlington PDF Model uses the following extended set of pre-defined types (case sensitive, alphabetically sorted, SEMI-COLON (`;`) separated):
+PDF 2.0 formally defines 9 basic types of object, but within the specification other types are commonly referred to. Therefore the Arlington PDF Model uses the following extended set of pre-defined types (case-sensitive, alphabetically sorted, SEMI-COLON (`;`) separated):
 
 - `array`
 - `bitmask`
@@ -303,7 +303,7 @@ A CLI utility that can validate an Arlington grammar (set of TSV files), compare
 
 ## GCXML (Java)
 
-A CLI Java-based proof of concept application that can convert the main Arlington TSV file set (in `./tsv/latest`) into PDF version specific file sets in both TSV and XML formats. The XML format is defined by [this schema](xml/schema/objects.xsd). In addition, some research oriented queries can be performed using the XML as input. Detailed documentation is now located in [gcxml/README.md](gcxml/README.md).
+A CLI Java-based proof of concept application that can convert the main Arlington TSV file set (in `./tsv/latest`) into PDF version specific file sets in both TSV and XML formats. The XML format is defined by [this schema](xml/schema/arlington-pdf.xsd). In addition, some research oriented queries can be performed using the XML as input. Detailed documentation is now located in [gcxml/README.md](gcxml/README.md).
 
 The Java gcxml.jar file must be run in this top-level folder (such that `./tsv/` and `./xml/` are both sub-folders):
 
@@ -441,7 +441,7 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * "[_Demystifying PDF through a machine-readable definition_](https://langsec.org/spw21/papers.html#pdfReadable)"; Peter Wyatt, LangSec Workshop at IEEE Security & Privacy, May 27th and 28th, 2021 \[[Paper](https://github.com/gangtan/LangSec-papers-and-slides/raw/main/langsec21/papers/Wyatt_LangSec21.pdf)] \[[Talk Video](https://www.youtube.com/watch?v=c1Lxf-JMcH4)]
 
-* "[_The Arlington PDF Model_](PDF-Days-2021-Arlington-PDF-model.pdf)" \[presentation], Peter Wyatt, PDF Asssociation's "PDF Days 2021" online event, Tuesday 28 Sept 2021.
+* "[_The Arlington PDF Model_](PDF-Days-2021-Arlington-PDF-model.pdf)" \[presentation], Peter Wyatt, PDF Association's "PDF Days 2021" online event, Tuesday 28 Sept 2021.
 
 * "[_Strategies for Testing PDF Files_](https://www.pdfa.org/presentation/strategies-for-testing-pdf-files/)", PDF Days Europe 2022, Michael Demey, iText Group NV.
 

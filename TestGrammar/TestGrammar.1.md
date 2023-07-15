@@ -21,7 +21,7 @@ TestGrammar - a multi-platform portable proof-of-concept Arlington PDF Model app
 
 # OPTIONS
 
-Options may be specified in any order and single letter and long-form options may be mixed. Many options have single letter abbreviations which always use a single _`-`_ (DASH). Long-form options aways require two DASHES _`--`_. Some options also have mandatory additional arguments:
+Options may be specified in any order and single letter and long-form options may be mixed. Many options have single letter abbreviations which always use a single _`-`_ (DASH). Long-form options always require two DASHES _`--`_. Some options also have mandatory additional arguments:
 
 **-h, --help**
 : Display a brief usage message.

@@ -174,7 +174,7 @@ public class Gcxml {
      * Command line help
      */
     private static void showHelp() {
-        // general info about the gxcml
+        // general info about the gcxml
         System.out.println("GENERAL:");
         System.out.println("\t-version\t\tprint version information (current: " + Gcxml_version + ")");
         System.out.println("\t-help\t\t\tshow list of available commands");

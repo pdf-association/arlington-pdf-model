@@ -4,9 +4,9 @@ All scripts require Python3 and are cross-platform (tested on both Windows and L
 
 ### [arlington-to-pandas.py](arlington-to-pandas.py)
 
-This script concatenates an entire Arlington TSV file set specified with the `-t`/`--tsvdir` command line option into a single monolithic TSV file (default file is called `pandas.tsv`, otherwise specify with `-s`/`--save` command line option. An additional first column (i.e. added to the **left** of the standard Arlington fields) represents the Arlington TSV filename (a.k.a. PDF object). This combined TSV is then suitable for processing directly in Jupyter Notebooks using [pandas](https://pandas.pydata.org/).
+This script concatenates an entire Arlington TSV file set specified with the `-t`/`--tsvdir` command line option into a single monolithic TSV file (default file is called `pandas.tsv`), otherwise specify with `-s`/`--save` command line option. An additional first column (i.e. added to the **left** of the standard Arlington fields) represents the Arlington TSV filename (a.k.a. PDF object). This combined TSV is then suitable for processing directly in Jupyter Notebooks using [pandas](https://pandas.pydata.org/).
 
-An example Jupyter Notebook is provided at [./Jupyter/Arlington.ipynb](./Jupyter/Arlington.ipynb).
+An example Jupyter Notebook is provided at [./Jupyter/Arlington.ipynb](../Jupyter/Arlington.ipynb).
 
 ###  [arlington-fn-lex.py](arlington-fn-lex.py)
 
@@ -32,7 +32,7 @@ This is the main PoC mega-script and can:
 1. save the Python representation as a 'pretty-print' which is more friendly for simple Linux commands such as `grep`, etc. but is technically invalid JSON and **not** suitable for `jq`. See `-s`/`--save`.
 1. validates a PDF file, or folder of PDFs, against the Arlington model using `pikepdf`. See `-p`/`--pdf` and `-o`/`--out`
 
-It relies on the [Python Sly parser](https://sly.readthedocs.io/en/latest/) and `pikepdf` [doco](pikepdf.readthedocs.io/) which is Python wrapper on top of [QPDF](https://github.com/qpdf/qpdf).
+It relies on the [Python Sly parser](https://sly.readthedocs.io/en/latest/) and `pikepdf` [doco](https://pikepdf.readthedocs.io/) which is Python wrapper on top of [QPDF](https://github.com/qpdf/qpdf).
 
 ```bash
 pip3 install sly pikepdf
