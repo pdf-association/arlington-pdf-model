@@ -14,6 +14,6 @@ PrintClip	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,Trim
 PrintScaling	name	1.6		FALSE	FALSE	FALSE	AppDefault	[None,AppDefault,*]			
 Duplex	name	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[Simplex,DuplexFlipShortEdge,DuplexFlipLongEdge]			
 PickTrayByPDFSize	boolean	1.7		FALSE	FALSE	FALSE	false				
-PrintPageRange	array	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()			[ArrayOfIntegersGeneral]	
+PrintPageRange	array	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()			[ArrayOfIntegersGreaterThanZero]	
 NumCopies	integer	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[fn:Eval(@NumCopies>0)]			
 Enforce	array	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfNamesForEnforce]	
