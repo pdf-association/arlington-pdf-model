@@ -280,7 +280,7 @@ have nodes which are the primitive Arlington types below or a complex type above
 
 *   Can be blank
 *   SQUARE-BRACKETS are only required for complex types. A single type does not use them.
-    - e.g. `12.34` is a valid default for a key which can only be a number
+    - e.g. `12.34` is a valid default for a key which can only be a `number`
 *   SEMI-COLON separated, SQUARE-BRACKETS expressions that exactly match the number of items in "Type" column
 *   SQUARE-BRACKETS are also used for PDF arrays, in which case they must use double SQUARE-BRACKETS if part of a complex type. If the array is the only valid type, then single SQUARE-BRACKETS are used. PDF array elements are NOT separated with COMMAs - they are only used _between_ arrays.
     *  e.g. `[[0 1],[1 0]];[Value1,Value2,Value3]` is a choice of 2 arrays `[0 1]` and `[1 0]` if the type is an array or a choice of `Value1` or `Value2` or `Value3` if the type was something else (e.g. name)
@@ -290,6 +290,7 @@ have nodes which are the primitive Arlington types below or a complex type above
 *   For keys or arrays that are PDF names, a wildcard `*` indicates that any arbitrary name is _explicitly_ permitted according to the PDF specification along with formally defined values (e.g. OptContentCreatorInfo, Subtype key: `[Artwork,Technical,*]`).
     *  Do not use `*` as the _only_ value - since an empty cell has the same meaning as "anything is OK" although there is some subtle nuances regarding whether custom keys have to be 2nd class names or can be really anything. See [Errata #229](https://github.com/pdf-association/pdf-issues/issues/229)
     * The TestGrammar PoC will no longer report an error about unexpected values in this case, but produce an informational (`Info:`) message instead (so it is visible that a non-standard value is being used).
+* `fn:Eval` predicate wrapper is only needed for predicates which need to perform calculations. `fn:Eval` is _not_ required around the version-based predicates (which includes `fn:Extension`) or expressions using `fn:RequiredValue`
 *   **Python pretty-print/JSON:**
     *   A list or `None`
     *   If list, then length always matches length of "Type"
@@ -299,8 +300,7 @@ have nodes which are the primitive Arlington types below or a complex type above
     ```
 *   **Linux CLI tests:**    
     ```shell
-    # Lists those PDF objects which explicitly support any name
-    grep -P ",\*" *
+    cut -f 9 * | sort -u
     ```
 
 
