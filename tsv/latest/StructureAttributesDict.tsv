@@ -37,17 +37,17 @@ ColumnWidths	array;number	1.6		FALSE	FALSE	FALSE			[fn:Eval((@O==Layout) || ((@O
 ListNumbering	name	1.4		FALSE	FALSE	TRUE	None	[None,fn:SinceVersion(2.0,Unordered),fn:SinceVersion(2.0,Description),Disc,Circle,Square,Ordered,Decimal,UpperRoman,LowerRoman,UpperAlpha,LowerAlpha]	[fn:Eval((@O==List) || ((@O!=Layout) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 382
 ContinuedList	boolean	2.0		FALSE	FALSE	FALSE	false		[fn:Eval((@O==List) || ((@O!=Layout) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 382
 ContinuedForm	string-byte	2.0		FALSE	FALSE	FALSE			[fn:Eval((@O==List) || ((@O!=Layout) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 382
-Role	name	1.4		FALSE	FALSE	FALSE		[rb,cb,pb,tv,lb]	[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]		Table 383
+Role	name	1.7		FALSE	FALSE	FALSE		[rb,cb,pb,tv,lb]	[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]		Table 383
 Checked	name	1.7		FALSE	FALSE	FALSE	off	[on,off,neutral]	[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]		Table 383
 checked	name	1.7	2.0	FALSE	FALSE	FALSE	off	[on,off,neutral]	[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]		Table 383
 Desc	string-text	1.7		FALSE	FALSE	FALSE			[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]		Table 383
 RowSpan	integer	1.4		FALSE	FALSE	FALSE	1		[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]		Table 384
 ColSpan	integer	1.4		FALSE	FALSE	FALSE	1		[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]		Table 384
 Headers	array	1.4		FALSE	FALSE	FALSE			[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]	[ArrayOfStringsByte]	Table 384
-Scope	name	1.4		FALSE	FALSE	FALSE		[Row,Column,Both]	[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]		Table 384
+Scope	name	1.5		FALSE	FALSE	FALSE		[Row,Column,Both]	[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]		Table 384
 Summary	string-text	1.7		FALSE	FALSE	FALSE			[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]		Table 384
 Short	string-text	2.0		FALSE	FALSE	FALSE			[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]		Table 384
 P	array	1.6		fn:IsRequired(@O==UserProperties)	FALSE	FALSE				[ArrayOfUserProperty]	Table 361
-Type	name	1.4		FALSE	FALSE	FALSE		[Pagination,Layout,Page,fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,BatesN)),fn:SinceVersion(2.0,Inline)]	[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))]		Table 385
-Subtype	name	1.7		FALSE	FALSE	FALSE		[Header,Footer,Watermark,fn:SinceVersion(2.0,PageNum),fn:SinceVersion(2.0,Bates),fn:SinceVersion(2.0,LineNum),fn:SinceVersion(2.0,Redaction)]	[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))]		Table 385
+Type	name	2.0		FALSE	FALSE	FALSE		[Pagination,Layout,Page,fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,BatesN)),fn:SinceVersion(2.0,Inline)]	[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))]		Table 385
+Subtype	name	2.0		FALSE	FALSE	FALSE		[Header,Footer,Watermark,fn:SinceVersion(2.0,PageNum),fn:SinceVersion(2.0,Bates),fn:SinceVersion(2.0,LineNum),fn:SinceVersion(2.0,Redaction)]	[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))]		Table 385
 Contents	array;string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	FALSE	FALSE			[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))]	[ArrayOfStringsText];[]	
