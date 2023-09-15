@@ -6,7 +6,7 @@ T	string-text	1.2		FALSE	FALSE	FALSE
 TU	string-text	1.3		FALSE	FALSE	FALSE					
 TM	string-text	1.3		FALSE	FALSE	FALSE					
 Ff	bitmask	1.2		FALSE	FALSE	TRUE			[fn:Eval(fn:BitsClear(15,20) && fn:BeforeVersion(1.4,fn:BitClear(21)) && fn:BitClear(22) && fn:BeforeVersion(1.4,fn:BitsClear(23,24)) && fn:BeforeVersion(1.5,fn:BitsClear(25,26)) && fn:BitsClear(27,32))]		Table 231
-V	stream;string-text	1.2		FALSE	[TRUE];[FALSE]	TRUE				[Stream];[]	
+V	fn:SinceVersion(1.5,stream);string-text	1.2		FALSE	[TRUE];[FALSE]	TRUE				[Stream];[]	
 DV	stream;string-text	1.2		FALSE	[TRUE];[FALSE]	TRUE				[Stream];[]	
 AA	dictionary	1.3		FALSE	FALSE	FALSE				[AddActionFormField]	
 DA	string	1.2		TRUE	FALSE	TRUE					
