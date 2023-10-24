@@ -22,7 +22,7 @@ T	string-text	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE
 Popup	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	TRUE	FALSE				[AnnotPopup]	
 RC	stream;string-text	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 CreationDate	date	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE					
-IRT	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	
+IRT	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,AnnotRedact,AnnotProjection,AnnotRichMedia]	https://github.com/pdf-association/pdf-issues/issues/297
 Subj	string-text	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE					
 RT	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 IT	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE					
