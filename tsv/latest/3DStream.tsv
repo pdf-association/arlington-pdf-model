@@ -3,7 +3,7 @@ Type	name	1.6		FALSE	FALSE	FALSE		[3D]			Table 5 and Table 311
 Subtype	name	1.6		TRUE	FALSE	FALSE		[U3D,PRC,fn:SinceVersion(2.0,fn:Extension(ISO_TS_24064,STEP))]			
 VA	array	1.6		FALSE	FALSE	FALSE				[ArrayOf3DView]	
 DV	dictionary;integer;name;string	1.6		FALSE	FALSE	FALSE		[];[fn:Eval((@DV>=0) && (@DV<fn:ArrayLength(VA)))];[F,L];[]		[3DView];[];[];[]	
-Resources	name-tree	1.6		FALSE	FALSE	FALSE				[_UniversalDictionary]	
+Resources	name-tree	1.6	2.0	FALSE	FALSE	FALSE				[_UniversalDictionary]	https://github.com/pdf-association/pdf-issues/issues/362
 OnInstantiate	stream	1.6		FALSE	TRUE	FALSE				[Stream]	
 AN	dictionary	1.7		FALSE	FALSE	FALSE				[3DAnimationStyle]	
 ColorSpace	array;name	2.0		FALSE	FALSE	FALSE		[];[DeviceRGB]		[CalRGBColorSpace,ICCBasedColorSpace];[]	
