@@ -918,8 +918,8 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
         grammar_file /= elem.link + ".tsv";
         const ArlTSVmatrix &tsv = get_grammar(elem.link);
         if (tsv.size() == 0) {
-            output << COLOR_ERROR << "could not open " << grammar_file << COLOR_RESET;
-            delete elem.object;
+            output << COLOR_ERROR << "could not open Arlington model file " << grammar_file << COLOR_RESET;
+            // delete elem.object;
             return false;
         }
 
