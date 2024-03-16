@@ -185,6 +185,10 @@ std::string LRParseExpression(std::string s, ASTNode* root) {
             assert(m_type != ASTNodeType::ASTNT_Unknown);
             p->node = m[0];
             p->type = m_type;
+            if ((m_type == ASTNodeType::ASTNT_ConstString) && (p->node.at(0) == '\'') && (p->node.back() == '\'')) {
+                // If it is a string should have surrounding SINGLE-QUOTES which both need to be removed
+                p->node = p->node.substr(1, p->node.length() - 2);
+            }
             s = m.suffix().str();
         }
 

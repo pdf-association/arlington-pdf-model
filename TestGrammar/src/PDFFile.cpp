@@ -837,7 +837,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* container, ArlPDFObject* obj, 
                     break;
                 }
                 else if (in_ast->node == "==") {
-                    // equality - could be numeric, logical, etc.
+                    // equality - could be numeric, logical, string (WITHOUT single-quotes), etc.
                     if (out_left->type == out_right->type) {
                         out->node = (out_left->node == out_right->node) ? "true" : "false";
                         break;
