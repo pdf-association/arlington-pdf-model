@@ -756,7 +756,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;POINTERHOLDER_TRANSITION=4;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\pdfix;$(ProjectDir)..\..\qpdf\include;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -766,7 +766,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\crypto.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\jpeg.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\ssl.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\z.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -774,7 +774,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;POINTERHOLDER_TRANSITION=4;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\pdfix;$(ProjectDir)..\..\qpdf\include;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -784,7 +784,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\crypto.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\jpeg.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\ssl.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\z.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -794,7 +794,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;POINTERHOLDER_TRANSITION=4;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;NDEBUG;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\pdfix;$(ProjectDir)..\..\qpdf\include;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -806,7 +806,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\crypto.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\jpeg.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\ssl.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\z.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -816,7 +816,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ARL_PDFSDK_PDFIUM;POINTERHOLDER_TRANSITION=4;PNG_PREFIX;PNG_USE_READ_MACROS;OPJ_STATIC;PNG_INTEL_SSE_OPT=1;NOMINMAX;_CRT_NONSTDC_NO_DEPRECATE;XXX_FT2_BUILD_LIBRARY;BUILD_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\pdfium;$(ProjectDir)..\..\sarge;$(ProjectDir)..\..\pdfix;$(ProjectDir)..\..\qpdf\include;$(ProjectDir)..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -828,7 +828,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)..\..\qpdf\lib\qpdf.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\crypto.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\jpeg.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\ssl.lib;$(ProjectDir)..\..\qpdf\external-libs\lib-msvc64\z.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
