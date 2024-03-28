@@ -534,16 +534,17 @@ Info: detected a dictionary wildcard version-based feature after obsolescence in
 Info: detected a dictionary wildcard version-based feature before official introduction in PDF x.y (using PDF a.b) for ...
 Info: detected a dictionary wildcard version-based feature that was deprecated in PDF x.y (using PDF a.b) for ...
 Info: detected a dictionary wildcard version-based feature that was only in PDF x.y (using PDF a.b) for ...
+Info: detected an empty PDF name ("/" is a valid PDF name, but unusual) for ...
 ```
 
 # Development
 
 ## Coding Conventions
 
-* platform independent C++17 with STL and no other dependencies except for a PDF SDK (_no Boost please!_)
+* platform-independent C++17 with STL and no other dependencies except for a PDF SDK (_no Boost please!_)
 * no tabs. 4 space indents
 * `std::wstring` needs to be used for many things (such as PDF names and strings from PDF files) - _don't assume PDF content is always ASCII or UTF-8_!
-* can safely assume all Arlington TSV data is all ASCII/UTF-8 so can used `std::string`
+* can safely assume all Arlington TSV data is all ASCII/UTF-8 so can use `std::string`
 * liberal comments with code readability ahead of efficiency and performance
 * classes and methods use Doxygen-style `/// @` comments (as supported by Visual Studio IDE)
 * `/// @todo` are to-do comments
@@ -551,7 +552,7 @@ Info: detected a dictionary wildcard version-based feature that was only in PDF 
 * do not create unnecessary dependencies on specific PDF SDKs - isolate through the shim layer
 * liberal use of asserts with the Arlington PDF model, which can be assumed to be correct (but never for data from PDF files!)
 * performance and memory is **not** critical (this is just a PoC!) - so long as a full Arlington model can be processed and reasonably-sized PDFs can be checked
-* some PDF SDKs do absorb far too much memory, are excessively slow, cause stack overflows or have other issues. This is not the PoC's issue!
+* some PDF SDKs absorb far too much memory, are excessively slow, cause stack overflows or have other issues. This is not the PoC's issue!
 * try to keep behavior across different PDF SDKs the same as much as possible
 
 ## Debugging tips (mostly for `--pdf`)
@@ -567,7 +568,7 @@ Info: detected a dictionary wildcard version-based feature that was only in PDF 
 
 ## PDF SDK Requirements
 
-Checking PDF files requires a PDF SDK with certain key features (_we shouldn't need to write yet-another PDF parser!_). Key features required of a PDF SDK are:
+Checking PDF files requires a PDF SDK with certain key features (_we shouldn't need to write yet another PDF parser!_). Key features required of a PDF SDK are:
 * able to iterate over all keys in PDF dictionaries and arrays, including any additional keys not defined in the PDF spec. Keys are sorted alphabetically by the PoC so output from different PDF SDKs is hopefully in the same order.
 * able to test if a specific key name exists in a PDF dictionary
 * able to report the true number of array elements (not renumbered if there is a **null** object)
@@ -577,7 +578,7 @@ Checking PDF files requires a PDF SDK with certain key features (_we shouldn't n
 * able to report PDF object number for objects that are not direct - **this is a limiting factor for some PDF SDKs!**  
 * not confuse values, such as integer and real numbers, so that they are expressed exactly as they appear in a PDF file - **this is a limiting factor for some PDF SDKs!**
 * return the **raw** bytes from the PDF file for PDF name and string objects, including empty names ("`/`") - **this is a limiting factor for some PDF SDKs!**
-* not do any PDF version based processing while parsing
+* not do any PDF version-based processing while parsing
 * report if a string object was expressed as a hex string - **this is a limiting factor for some PDF SDKs!**  
     - PDFix added support in v6.19.0
 * allow processing of the PDF DOM even if an unsupported encryption algorithm is present (since only strings and streams are encrypted, PDF dictionaries and arrays can still be processed!) - **this is a limiting factor for some PDF SDKs!**  
@@ -593,7 +594,7 @@ Checking PDF files requires a PDF SDK with certain key features (_we shouldn't n
 
 Another recent discovery of behavior differences between PDF SDKs is when a dictionary key is an indirect reference to an object that is well beyond the trailer `Size` key or maximum cross-reference table object number. In some cases, the PDF SDK "sees" the key, allowing it to be detected and the error that it is invalid is deferred until the TestGrammar app attempts to resolve the indirect reference (e.g. PDFix). Then an error message such as `Error: could not get value for key XXX` will be generated. Other PDF SDKs completely reject the key and the key is not at all visible so no error about can be reported - the key is completely invisible when using such PDF SDKs (e.g. pdfium).
 
-All code for a specific PDF SDK should be kept isolated in a single shim layer CPP file so that all Arlington specific logic and validation checks can be performed against the minimally simple API defined in `ArlingtonPDFShim.h`. There are `#defines` to select which PDF SDK to build with.
+All code for a specific PDF SDK should be kept isolated in a single shim layer CPP file so that all Arlington-specific logic and validation checks can be performed against the minimally simple API defined in `ArlingtonPDFShim.h`. There are `#defines` to select which PDF SDK to build with.
 
 ## Source code dependencies
 
@@ -607,7 +608,7 @@ TestGrammar has the following module dependencies:
   - can support unknown encryption algorithms
   - see `src/ArlingtonPDFShimPDFium.cpp`
 
-* PDFix: a free but closed source PDF SDK (`ARL_PDFSDK_PDFIX`)
+* PDFix: a free but closed-source PDF SDK (`ARL_PDFSDK_PDFIX`)
   - see `src/ArlingtonPDFShimPDFix.cpp`
   - single .h dependency [pdfix/Pdfix.h](pdfix/Pdfix.h)
   - see https://pdfix.net/ with SDK documentation at https://pdfix.github.io/pdfix_sdk_builds/
