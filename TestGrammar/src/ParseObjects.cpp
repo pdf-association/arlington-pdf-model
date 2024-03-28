@@ -482,6 +482,10 @@ void CParsePDF::check_everything(ArlPDFObject* container, ArlPDFObject* object, 
                 show_context(fake_e);
                 ofs << COLOR_WARNING << "PDF 1.x names were limited to 127 bytes (was " << str_value.size() << ") for " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")" << COLOR_RESET;
             }
+            if (str_value.size() == 0) {
+                show_context(fake_e);
+                ofs << COLOR_INFO << "detected an empty PDF name (\"/\" is a valid PDF name, but unusual) for " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")" << COLOR_RESET;
+            }
             break;
 
         case PDFObjectType::ArlPDFObjTypeString:
