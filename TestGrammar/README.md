@@ -206,17 +206,18 @@ Prototyped extensions (mainly to experiment with expressing the necessary versio
 - "ISO_TS_32003": adds 256-bit AES-GCM support to PDF 2.0 by specifying additional values for some keys in Encryption dictionaries
     - note that because encryption results in all streams and strings being encrypted, PDF SDK support will vary
 - "ISO_TS_32004": adds `KDFSalt` to Encryption*.tsv, `AuthCode` to FileTrailer and XRefStream, and a new dictionary object in `AuthCode.tsv`
-- "Malforms": adds misspelled `SubType` key to OptContentCreatorInfo as an alternate spelling of `Subtype` and misspelled `Blackls1` for `BlackIs1` (lowercase L instead of uppercase i) in `FilterCCITTFaxDecode.tsv`
+- "OpenOffice": adds support for additional entries in the file trailer / XRefStream. See [Issue #111](https://github.com/pdf-association/arlington-pdf-model/issues/111).
+- "Malforms": adds misspelled `SubType` key to `OptContentCreatorInfo` as an alternate spelling of `Subtype` and misspelled `Blackls1` for `BlackIs1` (lowercase L instead of uppercase i) in `FilterCCITTFaxDecode.tsv`
     - the existing row is simply duplicated with the key spelling then changed and the official "SinceVersion" PDF version replaced with the extension predicate: `fn:Extension(Malforms)`.
     - because Optional Content was only introduced in PDF 1.5, the `SubType` malform predicate also uses the `fn:Extension(Malforms,1.5)` predicate to further express this requirement for this misspelled key
 
-    ```bash
-    # See all the details for all extensions in an Arlington data set
-    grep -P "\t[^\t]*fn:Extension\([^\t]+" *
+```bash
+# See all the details for all extensions in an Arlington data set
+grep -P "\t[^\t]*fn:Extension\([^\t]+" *
 
-    # A list of all the unique extension names in an Arlington data set
-    grep -Pho "fn:Extension\([^\t)]+\)\)?" * | sort | uniq
-    ```
+# A list of all the unique extension names in an Arlington data set
+grep -Pho "fn:Extension\([^\t)]+\)\)?" * | sort | uniq
+```
 
 ### Understanding errors and warnings
 
