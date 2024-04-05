@@ -142,9 +142,9 @@
         },
         {
             "id": "AnnotFreeText",
-            "val": 225,
+            "val": 256,
             "group": "dict",
-            "desc": "15 keys",
+            "desc": "16 keys",
             "name": "AnnotFreeText dict"
         },
         {
@@ -170,9 +170,9 @@
         },
         {
             "id": "AnnotLink",
-            "val": 256,
+            "val": 289,
             "group": "dict",
-            "desc": "16 keys",
+            "desc": "17 keys",
             "name": "AnnotLink dict"
         },
         {
@@ -414,6 +414,13 @@
             "name": "ArrayOfDuration array"
         },
         {
+            "id": "ArrayOfFieldChoiceOpt",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfFieldChoiceOpt map"
+        },
+        {
             "id": "ArrayOfFieldID",
             "val": 1,
             "group": "map",
@@ -575,6 +582,13 @@
             "name": "ArrayOfStructElemKids map"
         },
         {
+            "id": "ArrayOfStructElemParentTree",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfStructElemParentTree map"
+        },
+        {
             "id": "ArrayOfTags",
             "val": 4,
             "group": "array",
@@ -666,11 +680,11 @@
             "name": "ArrayOf_2StringsByte array"
         },
         {
-            "id": "ArrayOf_2UnencryptedStringsByte",
+            "id": "ArrayOf_2StringsText",
             "val": 4,
             "group": "array",
             "desc": "2 elements",
-            "name": "ArrayOf_2UnencryptedStringsByte array"
+            "name": "ArrayOf_2StringsText array"
         },
         {
             "id": "ArrayOf_3Integers",
@@ -912,6 +926,13 @@
             "name": "DeviceNDict dict"
         },
         {
+            "id": "DictionaryOfDictionaries",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "DictionaryOfDictionaries map"
+        },
+        {
             "id": "DocInfo",
             "val": 100,
             "group": "map",
@@ -997,9 +1018,9 @@
         },
         {
             "id": "FieldChoice",
-            "val": 169,
+            "val": 196,
             "group": "dict",
-            "desc": "13 keys",
+            "desc": "14 keys",
             "name": "FieldChoice dict"
         },
         {
@@ -1039,9 +1060,9 @@
         },
         {
             "id": "FileTrailer",
-            "val": 36,
+            "val": 64,
             "group": "dict",
-            "desc": "6 keys",
+            "desc": "8 keys",
             "color": "red",
             "name": "FileTrailer dict"
         },
@@ -1292,9 +1313,9 @@
         },
         {
             "id": "ICCProfileStream",
-            "val": 100,
+            "val": 81,
             "group": "dict",
-            "desc": "10 keys",
+            "desc": "9 keys",
             "name": "ICCProfileStream dict"
         },
         {
@@ -1387,6 +1408,13 @@
             "group": "dict",
             "desc": "7 keys",
             "name": "Name dict"
+        },
+        {
+            "id": "OOAdditionalStmsArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "OOAdditionalStmsArray array"
         },
         {
             "id": "OPIVersion13",
@@ -1660,6 +1688,13 @@
             "group": "dict",
             "desc": "13 keys",
             "name": "Thumbnail dict"
+        },
+        {
+            "id": "TrailerIDArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "TrailerIDArray array"
         },
         {
             "id": "Transition",
@@ -3523,6 +3558,11 @@
         },
         {
             "source": "AnnotFreeText",
+            "target": "BorderStyle",
+            "name": "AnnotFreeText::BS"
+        },
+        {
+            "source": "AnnotFreeText",
             "target": "ArrayOf_4AnnotBorderCharacteristics",
             "name": "AnnotFreeText::Border"
         },
@@ -3716,6 +3756,11 @@
             "source": "AnnotLink",
             "target": "Appearance",
             "name": "AnnotLink::AP"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "BorderStyle",
+            "name": "AnnotLink::BS"
         },
         {
             "source": "AnnotLink",
@@ -4779,6 +4824,11 @@
             "color": "red"
         },
         {
+            "source": "ArrayOfFieldChoiceOpt",
+            "target": "ArrayOf_2StringsText",
+            "name": "ArrayOfFieldChoiceOpt::*"
+        },
+        {
             "source": "ArrayOfFieldID",
             "target": "FieldTx",
             "name": "ArrayOfFieldID::*"
@@ -5005,6 +5055,11 @@
             "source": "ArrayOfStructElemKids",
             "target": "ObjectReference",
             "name": "ArrayOfStructElemKids::*"
+        },
+        {
+            "source": "ArrayOfStructElemParentTree",
+            "target": "StructElem",
+            "name": "ArrayOfStructElemParentTree::*"
         },
         {
             "source": "ArrayOfThreads",
@@ -5723,6 +5778,16 @@
         },
         {
             "source": "DestsMap",
+            "target": "ActionGoTo",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
+            "target": "ActionGoToR",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
             "target": "DestDict",
             "name": "DestsMap::*"
         },
@@ -5789,6 +5854,11 @@
             "source": "DeviceNDict",
             "target": "ColorantsDict",
             "name": "DeviceNDict::Colorants"
+        },
+        {
+            "source": "DictionaryOfDictionaries",
+            "target": "_UniversalDictionary",
+            "name": "DictionaryOfDictionaries::*"
         },
         {
             "source": "DocTimeStamp",
@@ -6094,6 +6164,11 @@
         },
         {
             "source": "FieldChoice",
+            "target": "ArrayOfFieldChoiceOpt",
+            "name": "FieldChoice::Opt"
+        },
+        {
+            "source": "FieldChoice",
             "target": "FieldTx",
             "name": "FieldChoice::Parent"
         },
@@ -6248,11 +6323,6 @@
             "name": "FieldTx::Parent"
         },
         {
-            "source": "FieldTx",
-            "target": "Stream",
-            "name": "FieldTx::V"
-        },
-        {
             "source": "FileSpecEF",
             "target": "EmbeddedFileStream",
             "name": "FileSpecEF::F"
@@ -6280,6 +6350,11 @@
         },
         {
             "source": "FileTrailer",
+            "target": "OOAdditionalStmsArray",
+            "name": "FileTrailer::AdditionalStreams"
+        },
+        {
+            "source": "FileTrailer",
             "target": "EncryptionStandard",
             "name": "FileTrailer::Encrypt"
         },
@@ -6290,14 +6365,15 @@
         },
         {
             "source": "FileTrailer",
-            "target": "ArrayOf_2UnencryptedStringsByte",
+            "target": "TrailerIDArray",
             "name": "FileTrailer::ID",
             "color": "red"
         },
         {
             "source": "FileTrailer",
             "target": "DocInfo",
-            "name": "FileTrailer::Info"
+            "name": "FileTrailer::Info",
+            "color": "red"
         },
         {
             "source": "FileTrailer",
@@ -7541,21 +7617,6 @@
         },
         {
             "source": "ICCProfileStream",
-            "target": "ArrayOfDecodeParams",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterLZWDecode",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterFlateDecode",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
             "target": "FileSpecification",
             "name": "ICCProfileStream::F"
         },
@@ -7769,6 +7830,16 @@
         },
         {
             "source": "Name",
+            "target": "ActionGoTo",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
+            "target": "ActionGoToR",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
             "target": "DestDict",
             "name": "Name::Dests"
         },
@@ -7826,6 +7897,12 @@
             "source": "Name",
             "target": "WebCapturePageSet",
             "name": "Name::URLS"
+        },
+        {
+            "source": "OOAdditionalStmsArray",
+            "target": "Stream",
+            "name": "OOAdditionalStmsArray::1*",
+            "color": "red"
         },
         {
             "source": "OPIVersion13",
@@ -7925,6 +8002,12 @@
         {
             "source": "ObjectReference",
             "target": "XObjectFormType1",
+            "name": "ObjectReference::Obj",
+            "color": "red"
+        },
+        {
+            "source": "ObjectReference",
+            "target": "XObjectImage",
             "name": "ObjectReference::Obj",
             "color": "red"
         },
@@ -8355,7 +8438,7 @@
         },
         {
             "source": "Resource",
-            "target": "_UniversalDictionary",
+            "target": "DictionaryOfDictionaries",
             "name": "Resource::Properties"
         },
         {
@@ -9464,7 +9547,7 @@
         },
         {
             "source": "StructTreeRoot",
-            "target": "ArrayOfStructElem",
+            "target": "ArrayOfStructElemParentTree",
             "name": "StructTreeRoot::ParentTree"
         },
         {

@@ -575,6 +575,13 @@
             "name": "ArrayOf3DView map"
         },
         {
+            "id": "ArrayOf3DViewAddEntries",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOf3DViewAddEntries map"
+        },
+        {
             "id": "ArrayOf3PDUNames",
             "val": 9,
             "group": "array",
@@ -839,6 +846,13 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfIntegersGeneral map"
+        },
+        {
+            "id": "ArrayOfIntegersGreaterThanZero",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfIntegersGreaterThanZero map"
         },
         {
             "id": "ArrayOfMediaPlayerInfo",
@@ -1121,6 +1135,13 @@
             "name": "ArrayOfStructElemKids map"
         },
         {
+            "id": "ArrayOfStructElemParentTree",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfStructElemParentTree map"
+        },
+        {
             "id": "ArrayOfSubjectDN",
             "val": 1,
             "group": "map",
@@ -1280,13 +1301,6 @@
             "group": "array",
             "desc": "2 elements",
             "name": "ArrayOf_2StringsText array"
-        },
-        {
-            "id": "ArrayOf_2UnencryptedStringsByte",
-            "val": 4,
-            "group": "array",
-            "desc": "2 elements",
-            "name": "ArrayOf_2UnencryptedStringsByte array"
         },
         {
             "id": "ArrayOf_3CenterOfRotationNumbers",
@@ -1752,6 +1766,13 @@
             "name": "DeviceNProcess dict"
         },
         {
+            "id": "DictionaryOfDictionaries",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "DictionaryOfDictionaries map"
+        },
+        {
             "id": "DictionaryOfFunctions",
             "val": 4,
             "group": "map",
@@ -1837,7 +1858,7 @@
         },
         {
             "id": "Extensions",
-            "val": 4,
+            "val": 9,
             "group": "map",
             "desc": "(unspecified)",
             "name": "Extensions map"
@@ -1928,9 +1949,9 @@
         },
         {
             "id": "FileTrailer",
-            "val": 49,
+            "val": 81,
             "group": "dict",
-            "desc": "7 keys",
+            "desc": "9 keys",
             "color": "red",
             "name": "FileTrailer dict"
         },
@@ -2145,6 +2166,13 @@
             "name": "FunctionType4 dict"
         },
         {
+            "id": "GTS_ProcStepsGroup",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "GTS_ProcStepsGroup dict"
+        },
+        {
             "id": "GammaArray",
             "val": 9,
             "group": "array",
@@ -2223,10 +2251,17 @@
         },
         {
             "id": "ICCProfileStream",
-            "val": 144,
+            "val": 121,
             "group": "dict",
-            "desc": "12 keys",
+            "desc": "11 keys",
             "name": "ICCProfileStream dict"
+        },
+        {
+            "id": "ISO_DevExtensions",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "ISO_DevExtensions dict"
         },
         {
             "id": "IconFit",
@@ -2516,6 +2551,13 @@
             "name": "NumberFormat dict"
         },
         {
+            "id": "OOAdditionalStmsArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "OOAdditionalStmsArray array"
+        },
+        {
             "id": "OPIVersion13",
             "val": 1,
             "group": "dict",
@@ -2580,9 +2622,9 @@
         },
         {
             "id": "OptContentGroup",
-            "val": 16,
+            "val": 25,
             "group": "dict",
-            "desc": "4 keys",
+            "desc": "5 keys",
             "name": "OptContentGroup dict"
         },
         {
@@ -3175,9 +3217,9 @@
         },
         {
             "id": "StructureAttributesDict",
-            "val": 2209,
+            "val": 2025,
             "group": "dict",
-            "desc": "47 keys",
+            "desc": "45 keys",
             "name": "StructureAttributesDict dict"
         },
         {
@@ -3200,6 +3242,13 @@
             "group": "dict",
             "desc": "5 keys",
             "name": "Target dict"
+        },
+        {
+            "id": "TargetEmbedded",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "TargetEmbedded dict"
         },
         {
             "id": "Thread",
@@ -3228,6 +3277,13 @@
             "group": "dict",
             "desc": "3 keys",
             "name": "Timespan dict"
+        },
+        {
+            "id": "TrailerIDArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "TrailerIDArray array"
         },
         {
             "id": "Transition",
@@ -3441,9 +3497,9 @@
         },
         {
             "id": "XRefStream",
-            "val": 256,
+            "val": 324,
             "group": "dict",
-            "desc": "16 keys",
+            "desc": "18 keys",
             "color": "red",
             "name": "XRefStream dict"
         },
@@ -12645,6 +12701,11 @@
             "name": "ArrayOf3DView::*"
         },
         {
+            "source": "ArrayOf3DViewAddEntries",
+            "target": "3DViewAddEntries",
+            "name": "ArrayOf3DViewAddEntries::*"
+        },
+        {
             "source": "ArrayOf4Functions",
             "target": "FunctionType2",
             "name": "ArrayOf4Functions::0",
@@ -13577,6 +13638,11 @@
             "source": "ArrayOfStructElemKids",
             "target": "ObjectReference",
             "name": "ArrayOfStructElemKids::*"
+        },
+        {
+            "source": "ArrayOfStructElemParentTree",
+            "target": "StructElem",
+            "name": "ArrayOfStructElemParentTree::*"
         },
         {
             "source": "ArrayOfSubjectDN",
@@ -14709,6 +14775,21 @@
         },
         {
             "source": "DestsMap",
+            "target": "ActionGoTo",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
+            "target": "ActionGoToE",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
+            "target": "ActionGoToR",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
             "target": "DestDict",
             "name": "DestsMap::*"
         },
@@ -14827,6 +14908,11 @@
             "target": "ArrayOfNamesGeneral",
             "name": "DeviceNProcess::Components",
             "color": "red"
+        },
+        {
+            "source": "DictionaryOfDictionaries",
+            "target": "_UniversalDictionary",
+            "name": "DictionaryOfDictionaries::*"
         },
         {
             "source": "DictionaryOfFunctions",
@@ -15061,6 +15147,11 @@
             "source": "Extensions",
             "target": "DevExtensions",
             "name": "Extensions::*"
+        },
+        {
+            "source": "Extensions",
+            "target": "ISO_DevExtensions",
+            "name": "Extensions::ISO_"
         },
         {
             "source": "FDDict",
@@ -15536,6 +15627,11 @@
         },
         {
             "source": "FileTrailer",
+            "target": "OOAdditionalStmsArray",
+            "name": "FileTrailer::AdditionalStreams"
+        },
+        {
+            "source": "FileTrailer",
             "target": "EncryptionStandard",
             "name": "FileTrailer::Encrypt"
         },
@@ -15546,14 +15642,15 @@
         },
         {
             "source": "FileTrailer",
-            "target": "ArrayOf_2UnencryptedStringsByte",
+            "target": "TrailerIDArray",
             "name": "FileTrailer::ID",
             "color": "red"
         },
         {
             "source": "FileTrailer",
             "target": "DocInfo",
-            "name": "FileTrailer::Info"
+            "name": "FileTrailer::Info",
+            "color": "red"
         },
         {
             "source": "FileTrailer",
@@ -16948,26 +17045,6 @@
         },
         {
             "source": "ICCProfileStream",
-            "target": "ArrayOfDecodeParams",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterLZWDecode",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterFlateDecode",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterCrypt",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
             "target": "FileSpecification",
             "name": "ICCProfileStream::F"
         },
@@ -17554,6 +17631,21 @@
         },
         {
             "source": "Name",
+            "target": "ActionGoTo",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
+            "target": "ActionGoToE",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
+            "target": "ActionGoToR",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
             "target": "DestDict",
             "name": "Name::Dests"
         },
@@ -17834,6 +17926,12 @@
             "color": "red"
         },
         {
+            "source": "OOAdditionalStmsArray",
+            "target": "Stream",
+            "name": "OOAdditionalStmsArray::1*",
+            "color": "red"
+        },
+        {
             "source": "OPIVersion13",
             "target": "OPIVersion13Dict",
             "name": "OPIVersion13::1.3"
@@ -17936,6 +18034,12 @@
         },
         {
             "source": "ObjectReference",
+            "target": "XObjectImage",
+            "name": "ObjectReference::Obj",
+            "color": "red"
+        },
+        {
+            "source": "ObjectReference",
             "target": "PageObject",
             "name": "ObjectReference::Pg"
         },
@@ -18033,6 +18137,11 @@
             "source": "OptContentConfig",
             "target": "ArrayOfArraysRBGroups",
             "name": "OptContentConfig::RBGroups"
+        },
+        {
+            "source": "OptContentGroup",
+            "target": "GTS_ProcStepsGroup",
+            "name": "OptContentGroup::GTS_Metadata"
         },
         {
             "source": "OptContentGroup",
@@ -18729,7 +18838,7 @@
         },
         {
             "source": "Resource",
-            "target": "_UniversalDictionary",
+            "target": "DictionaryOfDictionaries",
             "name": "Resource::Properties"
         },
         {
@@ -18764,11 +18873,6 @@
         },
         {
             "source": "RichMediaActivation",
-            "target": "3DView",
-            "name": "RichMediaActivation::View"
-        },
-        {
-            "source": "RichMediaActivation",
             "target": "3DViewAddEntries",
             "name": "RichMediaActivation::View"
         },
@@ -18795,7 +18899,7 @@
         },
         {
             "source": "RichMediaContent",
-            "target": "ArrayOf3DView",
+            "target": "ArrayOf3DViewAddEntries",
             "name": "RichMediaContent::Views"
         },
         {
@@ -18936,7 +19040,7 @@
         {
             "source": "RichMediaParams",
             "target": "Stream",
-            "name": "RichMediaParams::Seetings"
+            "name": "RichMediaParams::Settings"
         },
         {
             "source": "RichMediaPresentation",
@@ -20390,7 +20494,7 @@
         },
         {
             "source": "StructTreeRoot",
-            "target": "ArrayOfStructElem",
+            "target": "ArrayOfStructElemParentTree",
             "name": "StructTreeRoot::ParentTree"
         },
         {
@@ -20491,8 +20595,13 @@
         },
         {
             "source": "Target",
-            "target": "Target",
+            "target": "TargetEmbedded",
             "name": "Target::T"
+        },
+        {
+            "source": "TargetEmbedded",
+            "target": "Target",
+            "name": "TargetEmbedded::T"
         },
         {
             "source": "Thread",
@@ -20673,7 +20782,7 @@
         },
         {
             "source": "ViewerPreferences",
-            "target": "ArrayOfIntegersGeneral",
+            "target": "ArrayOfIntegersGreaterThanZero",
             "name": "ViewerPreferences::PrintPageRange"
         },
         {
@@ -21712,6 +21821,11 @@
         },
         {
             "source": "XRefStream",
+            "target": "OOAdditionalStmsArray",
+            "name": "XRefStream::AdditionalStreams"
+        },
+        {
+            "source": "XRefStream",
             "target": "ArrayOfDecodeParams",
             "name": "XRefStream::DecodeParms"
         },
@@ -21767,7 +21881,7 @@
         },
         {
             "source": "XRefStream",
-            "target": "ArrayOf_2StringsByte",
+            "target": "TrailerIDArray",
             "name": "XRefStream::ID",
             "color": "red"
         },
@@ -21779,7 +21893,8 @@
         {
             "source": "XRefStream",
             "target": "DocInfo",
-            "name": "XRefStream::Info"
+            "name": "XRefStream::Info",
+            "color": "red"
         },
         {
             "source": "XRefStream",

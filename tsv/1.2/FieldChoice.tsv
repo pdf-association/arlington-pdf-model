@@ -6,6 +6,7 @@ T	string-text	1.2		FALSE	FALSE	FALSE
 Ff	bitmask	1.2		FALSE	FALSE	TRUE			[fn:Eval(fn:BitsClear(4,14) && fn:BitClear(21) && fn:BeforeVersion(1.4,fn:BitsClear(22,23)) && fn:BitsClear(24,26) && fn:BeforeVersion(1.5,fn:BitClear(27)) && fn:BitsClear(28,32))]		Table 233
 V	array;string-text	1.2		FALSE	FALSE	TRUE				[ArrayOfStringsText];[]	
 DV	array;string-text	1.2		FALSE	FALSE	TRUE				[ArrayOfStringsText];[]	
-DA	string	1.2		TRUE	FALSE	TRUE					
+DA	string-byte	1.2		TRUE	FALSE	TRUE					https://github.com/pdf-association/pdf-issues/issues/318
 Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]			
+Opt	array	1.2		FALSE	FALSE	TRUE				[ArrayOfFieldChoiceOpt]	Table 234
 TI	integer	1.2		FALSE	FALSE	TRUE	0	[fn:Eval((@TI>=0) && (@TI<fn:ArrayLength(Opt)))]			

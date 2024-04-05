@@ -24,7 +24,7 @@ public class Gcxml {
     /**
      * GCXML version string
      */
-    public static final String Gcxml_version = "0.5.0";
+    public static final String Gcxml_version = "0.6.0";
 
     /**
      * @param args the command line arguments
@@ -145,8 +145,24 @@ public class Gcxml {
                         break;
 
                     case "-tsv":
+                        if ((args.length > 1) && (!args[1].isEmpty())) {
+                            String version = args[1];
+                            if (version.equals("1.0") || version.equals("1.1") || version.equals("1.2")
+                                || version.equals("1.3") || version.equals("1.4") || version.equals("1.5")
+                                || version.equals("1.6") || version.equals("1.7") || version.equals("2.0")) {
+                                double ver = Double.parseDouble(version);
                         TSVHandler tsv2 = new TSVHandler();
+                                tsv2.deleteTSVset(ver);
+                                tsv2.createTSVset(ver);
+                            }
+                            else {
+                                System.out.println("There is no such PDF version. Correct values are: 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0");
+                            }
+                        }
+                        else {
+                            TSVHandler tsv2 = new TSVHandler();
                         tsv2.createAllVersionsTSV();
+                        }
                         break;
 
                     case "-sc":
@@ -180,9 +196,9 @@ public class Gcxml {
         System.out.println("\t-help\t\t\tshow list of available commands");
         // converting to other formats
         System.out.println("CONVERSIONS:");
-        System.out.println("\t-all\t\t\tconvert latest TSV to XML and TSV sub-versions for each specific PDF version");
-        System.out.println("\t-xml <version>\t\tconvert TSV to XML for specified PDF version (or all if no version is specified)");
-        System.out.println("\t-tsv\t\t\tcreate TSV files for each PDF version");
+        System.out.println("\t-all\t\t\tconvert latest TSV to both XML and TSV for all PDF versions");
+        System.out.println("\t-xml [ <version> ]\tconvert latest TSV to XML for specified PDF version, or all if no version is specified");
+        System.out.println("\t-tsv [ <version> ]\tconvert latest TSV to TSV for specified PDF version, or all if no version specified");
         // grammar queries using the xml files
         System.out.println("QUERIES:");
         System.out.println("\t-sin <version | -all>\treturn all keys introduced in (\"since\") a specified PDF version (or all)");

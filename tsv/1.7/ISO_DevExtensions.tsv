@@ -1,0 +1,4 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	1.7		TRUE	fn:MustBeDirect()	FALSE		[DeveloperExtensions]			see various ISO/TS documents
+BaseVersion	name	1.7		TRUE	fn:MustBeDirect()	FALSE		[2.0]			always 2.0
+ExtensionLevel	integer	1.7		TRUE	fn:MustBeDirect()	FALSE		[32001,32002,32003,24064,32007]			the ISO/TS document number

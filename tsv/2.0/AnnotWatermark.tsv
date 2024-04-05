@@ -7,13 +7,13 @@ P	dictionary	1.6		FALSE	TRUE	FALSE				[PageObject]
 NM	string-text	1.6		FALSE	FALSE	FALSE					
 M	date;string-text	1.6		FALSE	FALSE	FALSE		[];[]			
 F	bitmask	1.6		FALSE	FALSE	FALSE	0		[fn:Eval(fn:BeforeVersion(1.7,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]		Table 167
-AP	dictionary	1.6		TRUE	FALSE	FALSE				[Appearance]	
+AP	dictionary	1.6		fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0)))	FALSE	FALSE				[Appearance]	
 AS	name	1.6		fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))	FALSE	FALSE					
 Border	array	1.6		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteristics]	
 C	array	1.6		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
 StructParent	integer	1.6		FALSE	FALSE	FALSE					Table 359
 OC	dictionary	1.6		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
-AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications];[FileSpecification]	
+AF	array	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	
 ca	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval((@ca>=0.0) && (@ca<=1.0))]			
 CA	number	2.0		FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && (@CA<=1.0))]			
 BM	name	2.0		FALSE	FALSE	FALSE	Normal	[fn:Deprecated(1.4,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]			Table 134 and Table 135

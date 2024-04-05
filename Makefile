@@ -25,7 +25,7 @@
 #  $ make validate
 #  $ make 3d
 #  $ make xml
-#  $ make pandas  <-- Optional, this is not GitHub!
+#  $ make pandas  <-- Optional, this file is not GitHub!
 #
 
 XMLLINT ::= xmllint
@@ -37,6 +37,7 @@ clean:
 	rm -rf ./3dvisualize/*.json ./xml/*.xml ./scripts/*.tsv
 	rm -rf ./tsv/1.?/*.tsv ./tsv/2.0/*.tsv
 	rm -rf ./gcxml/dist/gcxml.jar
+	rm -rf /TestGrammar/doc
 
 
 # Make the monolithic TSV file by combining all TSVs - suitable for Jupyter
@@ -85,7 +86,7 @@ TestGrammar-pdfium:
 	rm -rf ./TestGrammar/cmake-linux
 
 
-# Build the TestGrammar C++ PoC app using QPDF (because build times are much faster)
+# Build the TestGrammar C++ PoC app using QPDF (not functional yet!)
 .PHONY: TestGrammar-qpdf
 TestGrammar-qpdf:
 	rm -rf ./TestGrammar/bin/linux/TestGrammar ./TestGrammar/bin/linux/TestGrammar_d
@@ -101,7 +102,7 @@ TestGrammar-qpdf:
 # Does NOT create the TSVs!
 # Ensure to do a "make tsv" beforehand to refresh the PDF version specific file sets!
 validate:
-	# Clean-up where gcxml is missing some capabilities...
+# Clean-up where gcxml is missing some capabilities...
 	rm -f ./tsv/1.3/ActionNOP.tsv ./tsv/1.3/ActionSetState.tsv
 	rm -f ./tsv/1.4/ActionNOP.tsv ./tsv/1.4/ActionSetState.tsv
 	rm -f ./tsv/1.5/ActionNOP.tsv ./tsv/1.5/ActionSetState.tsv
@@ -145,6 +146,46 @@ validate:
 	sed -E 's/fn:IsRequired\(fn:SinceVersion\(1.6,\(@Subtype==NChannel\)\) && fn:HasSpotColorants\(parent::1\)\)/FALSE/g' ./tsv/1.5/DeviceNDict-BEFORE.tsv > ./tsv/1.5/DeviceNDict.tsv
 	rm ./tsv/1.5/DeviceNDict-BEFORE.tsv
 
+	mv ./tsv/1.1/Transition.tsv ./tsv/1.1/Transition-BEFORE.tsv
+	sed -E 's/ && fn:SinceVersion\(1.5,\(@SS!=1.0\)\)//g' ./tsv/1.1/Transition-BEFORE.tsv > ./tsv/1.1/Transition.tsv
+	rm ./tsv/1.1/Transition-BEFORE.tsv
+
+	mv ./tsv/1.2/Transition.tsv ./tsv/1.2/Transition-BEFORE.tsv
+	sed -E 's/ && fn:SinceVersion\(1.5,\(@SS!=1.0\)\)//g' ./tsv/1.2/Transition-BEFORE.tsv > ./tsv/1.2/Transition.tsv
+	rm ./tsv/1.2/Transition-BEFORE.tsv
+
+	mv ./tsv/1.3/Transition.tsv ./tsv/1.3/Transition-BEFORE.tsv
+	sed -E 's/ && fn:SinceVersion\(1.5,\(@SS!=1.0\)\)//g' ./tsv/1.3/Transition-BEFORE.tsv > ./tsv/1.3/Transition.tsv
+	rm ./tsv/1.3/Transition-BEFORE.tsv
+
+	mv ./tsv/1.4/Transition.tsv ./tsv/1.4/Transition-BEFORE.tsv
+	sed -E 's/ && fn:SinceVersion\(1.5,\(@SS!=1.0\)\)//g' ./tsv/1.4/Transition-BEFORE.tsv > ./tsv/1.4/Transition.tsv
+	rm ./tsv/1.4/Transition-BEFORE.tsv
+
+	mv ./tsv/1.3/AnnotStamp.tsv ./tsv/1.3/AnnotStamp-BEFORE.tsv
+	sed -E 's/ && \(@IT!=Stamp\)//g' ./tsv/1.3/AnnotStamp-BEFORE.tsv > ./tsv/1.3/AnnotStamp.tsv
+	rm ./tsv/1.3/AnnotStamp-BEFORE.tsv
+
+	mv ./tsv/1.4/AnnotStamp.tsv ./tsv/1.4/AnnotStamp-BEFORE.tsv
+	sed -E 's/ && \(@IT!=Stamp\)//g' ./tsv/1.4/AnnotStamp-BEFORE.tsv > ./tsv/1.4/AnnotStamp.tsv
+	rm ./tsv/1.4/AnnotStamp-BEFORE.tsv
+
+	mv ./tsv/1.5/AnnotStamp.tsv ./tsv/1.5/AnnotStamp-BEFORE.tsv
+	sed -E 's/ && \(@IT!=Stamp\)//g' ./tsv/1.5/AnnotStamp-BEFORE.tsv > ./tsv/1.5/AnnotStamp.tsv
+	rm ./tsv/1.5/AnnotStamp-BEFORE.tsv
+
+	mv ./tsv/1.6/AnnotStamp.tsv ./tsv/1.6/AnnotStamp-BEFORE.tsv
+	sed -E 's/ && \(@IT!=Stamp\)//g' ./tsv/1.6/AnnotStamp-BEFORE.tsv > ./tsv/1.6/AnnotStamp.tsv
+	rm ./tsv/1.6/AnnotStamp-BEFORE.tsv
+
+	mv ./tsv/1.7/AnnotStamp.tsv ./tsv/1.7/AnnotStamp-BEFORE.tsv
+	sed -E 's/ && \(@IT!=Stamp\)//g' ./tsv/1.7/AnnotStamp-BEFORE.tsv > ./tsv/1.7/AnnotStamp.tsv
+	rm ./tsv/1.7/AnnotStamp-BEFORE.tsv
+
+	mv ./tsv/1.4/XObjectImage.tsv ./tsv/1.4/XObjectImage-BEFORE.tsv
+	sed -E 's/\[fn:SinceVersion\(1.5,fn:Not\(fn:IsPresent\(@SMaskInData>0\)\)\)\]//g' ./tsv/1.4/XObjectImage-BEFORE.tsv > ./tsv/1.4/XObjectImage.tsv
+	rm ./tsv/1.4/XObjectImage-BEFORE.tsv
+
 	TestGrammar --tsvdir ./tsv/1.0/ --validate
 	python3 ./scripts/arlington.py --tsvdir ./tsv/1.0/ --validate
 	TestGrammar --tsvdir ./tsv/1.1/ --validate
@@ -170,7 +211,7 @@ validate:
 # Create all TSV file sets for each PDF version based on tsv/latest using Java PoC app. SLOW!
 .PHONY: tsv
 tsv: ./gcxml/dist/Gcxml.jar
-	java -jar ./gcxml/dist/gcxml.jar -tsv
+	java -jar ./gcxml/dist/Gcxml.jar -tsv
 
 
 # Make the Java PoC app, run it and then validate the generated XML
@@ -182,7 +223,7 @@ xml: ./xml/pdf_grammar1.0.xml ./xml/pdf_grammar1.1.xml ./xml/pdf_grammar1.2.xml 
 # Create and validate XML files for each PDF version based on tsv/latest using the Java PoC app. SLOW!
 xml/%.xml: ./gcxml/dist/Gcxml.jar
 	echo "Creating XML: $(strip $(subst xml/pdf_grammar,,$(subst .xml,,$@)))"
-	java -jar ./gcxml/dist/gcxml.jar -xml $(strip $(subst xml/pdf_grammar,,$(subst .xml,,$@)))
+	java -jar ./gcxml/dist/Gcxml.jar -xml $(strip $(subst xml/pdf_grammar,,$(subst .xml,,$@)))
 
 
 # Build the Java proof-of-concept application using "ant"

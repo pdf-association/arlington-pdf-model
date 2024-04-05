@@ -5,7 +5,6 @@ Range	array	1.3		FALSE	FALSE	FALSE	[0.0 1.0 0.0 1.0 ...]		[fn:Eval(fn:ArrayLengt
 Length	integer	1.3		TRUE	FALSE	FALSE					
 Filter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	
 DecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
-DestOutputProfile	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
 F	dictionary;string	1.3		FALSE	FALSE	FALSE				[FileSpecification];[]	
 FFilter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	
 FDecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	

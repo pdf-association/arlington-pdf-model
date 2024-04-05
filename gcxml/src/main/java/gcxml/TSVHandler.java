@@ -180,7 +180,7 @@ public class TSVHandler {
      * 
      * @param version  the PDF version between 1.0 to 2.0 inclusive
      */
-    private void createTSVset(double version) {
+    public void createTSVset(double version) {
         final String delimiter = "\t";
         
         File folder = new File(path_to_tsv_files);
@@ -305,6 +305,7 @@ public class TSVHandler {
                     else {
                         System.out.println("\tNot writing file " + file_name + " for version " + version);                        
                     }
+                    tsv_reader.close();
                 } 
                 catch (FileNotFoundException ex) {
                     Logger.getLogger(TSVHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -353,7 +354,7 @@ public class TSVHandler {
      * 
      * @param ver  the PDF version (1.0, 1.1, ..., 2.0)
      */
-    private void deleteTSVset(double ver) {        
+    public void deleteTSVset(double ver) {        
         String path = "";
         path +=  System.getProperty("user.dir") + "/tsv/";
         path += ver + "/";

@@ -394,7 +394,7 @@ AnnotCaret	T	string-text	1.5		FALSE	FALSE	FALSE
 AnnotCaret	Popup	dictionary	1.5		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotCaret	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotCaret	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotCaret	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotCaret	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotCaret	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotCaret	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotCaret	IT	name	1.6		FALSE	FALSE	FALSE					
@@ -424,7 +424,7 @@ AnnotCircle	T	string-text	1.3		FALSE	FALSE	FALSE
 AnnotCircle	Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotCircle	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotCircle	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotCircle	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotCircle	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotCircle	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotCircle	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotCircle	IT	name	1.6		FALSE	FALSE	FALSE					
@@ -456,7 +456,7 @@ AnnotFileAttachment	T	string-text	1.3		FALSE	FALSE	FALSE
 AnnotFileAttachment	Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotFileAttachment	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotFileAttachment	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotFileAttachment	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotFileAttachment	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotFileAttachment	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotFileAttachment	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotFileAttachment	IT	name	1.6		FALSE	FALSE	FALSE					
@@ -486,7 +486,7 @@ AnnotFreeText	T	string-text	1.3		FALSE	FALSE	FALSE
 AnnotFreeText	Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotFreeText	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotFreeText	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotFreeText	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotFreeText	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotFreeText	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotFreeText	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotFreeText	DA	string	1.3		TRUE	FALSE	FALSE					
@@ -496,7 +496,7 @@ AnnotFreeText	CL	array	1.6		FALSE	FALSE	FALSE			[fn:IsMeaningful(@IT==FreeTextCa
 AnnotFreeText	IT	name	1.6		FALSE	FALSE	FALSE	FreeText	[FreeText,FreeTextCallout,FreeTextTypeWriter]			
 AnnotFreeText	BE	dictionary	1.6		FALSE	FALSE	FALSE				[BorderEffect]	
 AnnotFreeText	RD	rectangle	1.6		FALSE	FALSE	FALSE			[fn:Eval((RD::@0>=0) && (RD::@1>=0) && (RD::@2>=0) && (RD::@3>=0) && ((RD::@1+RD::@3)<fn:RectHeight(Rect)) && ((RD::@0+RD::@2)<fn:RectWidth(Rect)))]		
-AnnotFreeText	BS	dictionary	1.6		FALSE	FALSE	FALSE				[BorderStyle]	
+AnnotFreeText	BS	dictionary	1.3		FALSE	FALSE	FALSE				[BorderStyle]	
 AnnotFreeText	LE	name	1.6		FALSE	FALSE	FALSE	None	[Square,Circle,Diamond,OpenArrow,ClosedArrow,None,Butt,ROpenArrow,RClosedArrow,Slash]	[fn:IsMeaningful(fn:IsPresent(CL))]		
 AnnotFreeText	ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,ExDataMarkupGeo)),fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	2D markup annots only 
 AnnotHighlight	Type	name	1.3		FALSE	FALSE	FALSE		[Annot]			Table 166 and Table 172 and Table 182 (markup annot)
@@ -522,7 +522,7 @@ AnnotHighlight	T	string-text	1.3		FALSE	FALSE	FALSE
 AnnotHighlight	Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotHighlight	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotHighlight	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotHighlight	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotHighlight	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotHighlight	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotHighlight	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotHighlight	IT	name	1.6		FALSE	FALSE	FALSE					
@@ -551,7 +551,7 @@ AnnotInk	T	string-text	1.3		FALSE	FALSE	FALSE
 AnnotInk	Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotInk	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotInk	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotInk	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotInk	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotInk	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotInk	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotInk	IT	name	1.6		FALSE	FALSE	FALSE					
@@ -582,7 +582,7 @@ AnnotLine	T	string-text	1.3		FALSE	FALSE	FALSE
 AnnotLine	Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotLine	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotLine	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotLine	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotLine	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotLine	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotLine	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotLine	L	array	1.3		TRUE	FALSE	FALSE				[ArrayOf_4Numbers]	
@@ -608,7 +608,7 @@ AnnotLink	M	date;string-text	1.1		FALSE	FALSE	FALSE
 AnnotLink	F	bitmask	1.1		FALSE	FALSE	FALSE	0		[fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) && fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(2.0,fn:BitsClear(11,32)))]		Table 167
 AnnotLink	AP	dictionary	1.2		FALSE	FALSE	FALSE				[Appearance]	
 AnnotLink	AS	name	1.2		fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))	FALSE	FALSE					
-AnnotLink	Border	array	1.0		FALSE	FALSE	FALSE	[0 0 1]		[fn:Ignore(fn:IsPresent(BS))]	[ArrayOf_4AnnotBorderCharacteristics]	
+AnnotLink	Border	array	1.0		FALSE	FALSE	FALSE	[0 0 1]		[fn:SinceVersion(1.2,fn:Ignore(fn:IsPresent(BS)))]	[ArrayOf_4AnnotBorderCharacteristics]	
 AnnotLink	C	array	1.1		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
 AnnotLink	StructParent	integer	1.3		FALSE	FALSE	FALSE					Table 359
 AnnotLink	OC	dictionary	1.5		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
@@ -622,7 +622,7 @@ AnnotLink	Dest	array;name;string-byte	1.0		FALSE	FALSE	FALSE				[DestXYZArray,De
 AnnotLink	H	name	1.2		FALSE	FALSE	FALSE	I	[N,I,O,P]			
 AnnotLink	PA	dictionary	1.3		FALSE	FALSE	FALSE				[ActionURI]	
 AnnotLink	QuadPoints	array	1.6		FALSE	FALSE	FALSE				[ArrayOfQuadPoints]	
-AnnotLink	BS	dictionary	1.6		FALSE	FALSE	FALSE				[BorderStyle]	
+AnnotLink	BS	dictionary	1.2		FALSE	FALSE	FALSE				[BorderStyle]	
 AnnotLink	Path	array	fn:Extension(ISO_TS_24654,2.0)		FALSE	FALSE	FALSE				[ArrayOfArraysPaths]	ISO/TS 24654 non-rectangular links
 AnnotMovie	Type	name	1.2	2.0	FALSE	FALSE	FALSE		[Annot]			Table 166 and Table 189 (NOT markup annot)
 AnnotMovie	Subtype	name	1.2	2.0	TRUE	FALSE	FALSE		[Movie]			
@@ -669,10 +669,10 @@ AnnotPolygon	T	string-text	1.5		FALSE	FALSE	FALSE
 AnnotPolygon	Popup	dictionary	1.5		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotPolygon	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotPolygon	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotPolygon	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotPolygon	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotPolygon	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotPolygon	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
-AnnotPolygon	Vertices	array	1.5		fn:IsRequired(fn:Not(fn:IsPresent(Path)))	FALSE	FALSE			[fn:Ignore(fn:IsPresent(Path))]	[ArrayOfNumbersGeneral]	
+AnnotPolygon	Vertices	array	1.5		fn:IsRequired(fn:BeforeVersion(2.0) || fn:SinceVersion(2.0,fn:Not(fn:IsPresent(Path))))	FALSE	FALSE			[fn:SinceVersion(2.0,fn:Ignore(fn:IsPresent(Path)))]	[ArrayOfNumbersGeneral]	
 AnnotPolygon	LE	array	1.5		FALSE	FALSE	FALSE	[None None]		[fn:IsMeaningful(@Subtype==Polyline)]	[ArrayOf_2LineEndingsNames]	
 AnnotPolygon	BS	dictionary	1.5		FALSE	FALSE	FALSE				[BorderStyle]	
 AnnotPolygon	IC	array	1.5		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
@@ -704,10 +704,10 @@ AnnotPolyLine	T	string-text	1.5		FALSE	FALSE	FALSE
 AnnotPolyLine	Popup	dictionary	1.5		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotPolyLine	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotPolyLine	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotPolyLine	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotPolyLine	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotPolyLine	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotPolyLine	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
-AnnotPolyLine	Vertices	array	1.5		fn:IsRequired(fn:Not(fn:IsPresent(Path)))	FALSE	FALSE			[fn:Ignore(fn:IsPresent(Path))]	[ArrayOfNumbersGeneral]	
+AnnotPolyLine	Vertices	array	1.5		fn:IsRequired(fn:BeforeVersion(2.0) || fn:SinceVersion(2.0,fn:Not(fn:IsPresent(Path))))	FALSE	FALSE			[fn:SinceVersion(2.0,fn:Ignore(fn:IsPresent(Path)))]	[ArrayOfNumbersGeneral]	
 AnnotPolyLine	LE	array	1.5		FALSE	FALSE	FALSE	[None None]		[fn:IsMeaningful(@Subtype==Polyline)]	[ArrayOf_2LineEndingsNames]	
 AnnotPolyLine	BS	dictionary	1.5		FALSE	FALSE	FALSE				[BorderStyle]	
 AnnotPolyLine	IC	array	1.5		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
@@ -887,7 +887,7 @@ AnnotSound	T	string-text	1.2	2.0	FALSE	FALSE	FALSE
 AnnotSound	Popup	dictionary	1.3	2.0	FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotSound	RC	stream;string-text	1.5	2.0	FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotSound	CreationDate	date	1.5	2.0	FALSE	FALSE	FALSE					
-AnnotSound	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotSound	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotSound	Subj	string-text	1.5	2.0	FALSE	FALSE	FALSE					
 AnnotSound	RT	name	1.6	2.0	FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotSound	IT	name	1.6	2.0	FALSE	FALSE	FALSE					
@@ -917,7 +917,7 @@ AnnotSquare	T	string-text	1.3		FALSE	FALSE	FALSE
 AnnotSquare	Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotSquare	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotSquare	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotSquare	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotSquare	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotSquare	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotSquare	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotSquare	IT	name	1.6		FALSE	FALSE	FALSE					
@@ -949,7 +949,7 @@ AnnotSquiggly	T	string-text	1.4		FALSE	FALSE	FALSE
 AnnotSquiggly	Popup	dictionary	1.4		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotSquiggly	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotSquiggly	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotSquiggly	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotSquiggly	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotSquiggly	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotSquiggly	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotSquiggly	IT	name	1.6		FALSE	FALSE	FALSE					
@@ -978,11 +978,11 @@ AnnotStamp	T	string-text	1.3		FALSE	FALSE	FALSE
 AnnotStamp	Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotStamp	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotStamp	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotStamp	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotStamp	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotStamp	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotStamp	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
-AnnotStamp	Name	name	1.3		FALSE	FALSE	FALSE	Draft	[Approved,Experimental,NotApproved,AsIs,Expired,NotForPublicRelease,Confidential,Final,Sold,Departmental,ForComment,TopSecret,Draft,ForPublicRelease,*]	[fn:Not(fn:IsRequired(fn:IsPresent(IT) && (@IT!=Stamp)))]		
-AnnotStamp	IT	name	2.0		FALSE	FALSE	FALSE	Stamp	[StampSnapshot,StampImage,Stamp]			
+AnnotStamp	Name	name	1.3		FALSE	FALSE	FALSE	Draft	[Approved,Experimental,NotApproved,AsIs,Expired,NotForPublicRelease,Confidential,Final,Sold,Departmental,ForComment,TopSecret,Draft,ForPublicRelease,*]	[fn:SinceVersion(2.0,fn:Not(fn:IsPresent(fn:IsPresent(IT) && (@IT!=Stamp))))]		
+AnnotStamp	IT	name	2.0		FALSE	FALSE	FALSE	Stamp	[StampSnapshot,StampImage,Stamp]			intent
 AnnotStamp	ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,ExDataMarkupGeo)),fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	2D markup annots only 
 AnnotStrikeOut	Type	name	1.3		FALSE	FALSE	FALSE		[Annot]			Table 166 and Table 172 and Table 182 (markup annot)
 AnnotStrikeOut	Subtype	name	1.3		TRUE	FALSE	FALSE		[StrikeOut]			
@@ -1007,7 +1007,7 @@ AnnotStrikeOut	T	string-text	1.3		FALSE	FALSE	FALSE
 AnnotStrikeOut	Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotStrikeOut	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotStrikeOut	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotStrikeOut	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotStrikeOut	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotStrikeOut	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotStrikeOut	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotStrikeOut	IT	name	1.6		FALSE	FALSE	FALSE					
@@ -1036,7 +1036,7 @@ AnnotText	T	string-text	1.1		FALSE	FALSE	FALSE
 AnnotText	Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotText	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotText	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotText	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotText	IRT	dictionary	1.5		fn:IsRequired(fn:IsPDFVersion(1.5,fn:IsPresent(State)) || fn:SinceVersion(1.6,fn:IsPresent(RT)))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotText	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotText	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotText	IT	name	1.6		FALSE	FALSE	FALSE					
@@ -1065,8 +1065,8 @@ AnnotTrapNetwork	CA	number	2.0	2.0	FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && 
 AnnotTrapNetwork	BM	name	2.0	2.0	FALSE	FALSE	FALSE	Normal	[fn:Deprecated(1.4,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]			Table 134 and Table 135
 AnnotTrapNetwork	Lang	string	2.0	2.0	FALSE	FALSE	FALSE					
 AnnotTrapNetwork	LastModified	date	1.4	2.0	fn:IsRequired(fn:Not(fn:IsPresent(Version)) && fn:Not(fn:IsPresent(AnnotStates)))	FALSE	FALSE					
-AnnotTrapNetwork	Version	array	1.3	2.0	fn:IsRequired(fn:IsPresent(AnnotStates) && fn:Not(fn:IsPresent(LastModified)))	FALSE	FALSE				[ArrayOfTrapNetVersionObjects]	
-AnnotTrapNetwork	AnnotStates	array	1.3	2.0	fn:IsRequired(fn:IsPresent(Version) && fn:Not(fn:IsPresent(LastModified)))	FALSE	FALSE				[ArrayOfAnnotStates]	
+AnnotTrapNetwork	Version	array	1.3	2.0	fn:IsRequired(fn:IsPDFVersion(1.3) || fn:SinceVersion(1.4,(fn:IsPresent(AnnotStates) && fn:Not(fn:IsPresent(LastModified)))))	FALSE	FALSE				[ArrayOfTrapNetVersionObjects]	
+AnnotTrapNetwork	AnnotStates	array	1.3	2.0	fn:IsRequired(fn:IsPDFVersion(1.3) || fn:SinceVersion(1.4,(fn:IsPresent(Version) && fn:Not(fn:IsPresent(LastModified)))))	FALSE	FALSE				[ArrayOfAnnotStates]	
 AnnotTrapNetwork	FontFauxing	array	1.3	2.0	FALSE	FALSE	FALSE				[ArrayOfFonts]	
 AnnotUnderline	Type	name	1.3		FALSE	FALSE	FALSE		[Annot]			Table 166 and Table 172 and Table 182 (markup annot)
 AnnotUnderline	Subtype	name	1.3		TRUE	FALSE	FALSE		[Underline]			
@@ -1091,7 +1091,7 @@ AnnotUnderline	T	string-text	1.3		FALSE	FALSE	FALSE
 AnnotUnderline	Popup	dictionary	1.3		FALSE	TRUE	FALSE				[AnnotPopup]	
 AnnotUnderline	RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 AnnotUnderline	CreationDate	date	1.5		FALSE	FALSE	FALSE					
-AnnotUnderline	IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,fn:SinceVersion(1.6,AnnotWatermark),fn:SinceVersion(1.6,Annot3D),fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
+AnnotUnderline	IRT	dictionary	1.6		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D,fn:SinceVersion(1.7,AnnotRedact),fn:SinceVersion(2.0,AnnotProjection),fn:SinceVersion(2.0,AnnotRichMedia)]	
 AnnotUnderline	Subj	string-text	1.5		FALSE	FALSE	FALSE					
 AnnotUnderline	RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 AnnotUnderline	IT	name	1.6		FALSE	FALSE	FALSE					
@@ -1187,6 +1187,7 @@ ArrayOf3DTransMatrix	9	number	1.6		TRUE	FALSE	FALSE
 ArrayOf3DTransMatrix	10	number	1.6		TRUE	FALSE	FALSE					
 ArrayOf3DTransMatrix	11	number	1.6		TRUE	FALSE	FALSE					
 ArrayOf3DView	*	dictionary	1.6		FALSE	TRUE	FALSE				[3DView]	Table 311 and Table 341
+ArrayOf3DViewAddEntries	*	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	TRUE	FALSE				[3DViewAddEntries]	Only for 3D views referenced from RichMedia
 ArrayOf3PDUNames	0	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		TRUE	FALSE	FALSE		[M,KM,FT,USFT,MI,NM,SQM,HA,SQKM,SQFT,A,SQMI,DEG,GRD]			Table 269, PDU cel
 ArrayOf3PDUNames	1	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		TRUE	FALSE	FALSE		[M,KM,FT,USFT,MI,NM,SQM,HA,SQKM,SQFT,A,SQMI,DEG,GRD]			
 ArrayOf3PDUNames	2	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		TRUE	FALSE	FALSE		[M,KM,FT,USFT,MI,NM,SQM,HA,SQKM,SQFT,A,SQMI,DEG,GRD]			
@@ -1211,7 +1212,7 @@ ArrayOfBeads	*	dictionary	1.1		FALSE	TRUE	FALSE				[BeadFirst,Bead]	Table 31
 ArrayOfBlendModes	*	name	1.4	2.0	FALSE	FALSE	FALSE		[fn:Deprecated(1.4,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]			Table 134 and Table 135
 ArrayOfBooleansGeneral	*	boolean	1.7		FALSE	FALSE	FALSE					
 ArrayOfCIDGlyphMetricsW	*	array;integer;number	1.2		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral];[];[]	Clause 9.7.4.3
-ArrayOfCIDGlyphMetricsW2	*	array;integer;number	1.2		FALSE	FALSE	FALSE			[fn:Eval((fn:ArrayLength(1) mod 3)==0)];[];[]	[ArrayOfNumbersGeneral];[];[]	Clause 9.7.4.3 - C-last
+ArrayOfCIDGlyphMetricsW2	*	array;integer;number	1.2		FALSE	FALSE	FALSE			[fn:Eval((fn:ArrayLength(*) mod 3)==0)];[];[]	[ArrayOfNumbersGeneral];[];[]	Clause 9.7.4.3 - C-last
 ArrayOfClassNamesRevisions	0*	name	1.3		TRUE	FALSE	FALSE					Table 355
 ArrayOfClassNamesRevisions	1*	integer	1.3		FALSE	FALSE	FALSE		[fn:Eval(@1*>=0)]			revision number is optional
 ArrayOfCompressionFilterNames	*	name	1.0		FALSE	FALSE	FALSE		[ASCIIHexDecode,ASCII85Decode,LZWDecode,fn:SinceVersion(1.2,FlateDecode),RunLengthDecode,fn:SinceVersion(1.5,Crypt)]			Table 5, Filter cell and Table 6
@@ -1225,7 +1226,7 @@ ArrayOfDPartArrays	*	array	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		FALSE	FALS
 ArrayOfDParts	*	dictionary	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		FALSE	TRUE	FALSE				[DPart]	Table 409
 ArrayOfDuration	0	integer;string-byte	1.2	2.0	TRUE	FALSE	FALSE		[fn:Eval(@0>0)];[fn:Eval(fn:StringLength(0)==8)]			Table 307 - starting time
 ArrayOfDuration	1	integer	1.2	2.0	TRUE	FALSE	FALSE		[fn:Eval(@1>0)]			scale in units per second
-ArrayOfFieldChoiceOpt	*	array;string-text	1.4		FALSE	FALSE	FALSE				[ArrayOf_2StringsText];[]	Table 234
+ArrayOfFieldChoiceOpt	*	array;string-text	1.2		FALSE	FALSE	FALSE				[ArrayOf_2StringsText];[]	Table 234
 ArrayOfFieldID	*	dictionary;string-text	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,fn:SinceVersion(1.3,FieldSig),Field];[]	
 ArrayOfFields	*	dictionary	1.2		FALSE	FALSE	FALSE				[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,fn:SinceVersion(1.3,FieldSig),Field,AnnotWidget]	
 ArrayOfFileSpecifications	*	dictionary	2.0		FALSE	FALSE	FALSE				[FileSpecification]	Table 29
@@ -1239,6 +1240,7 @@ ArrayOfGSPDashPatterns	1	number	1.3		TRUE	FALSE	FALSE
 ArrayOfImageAlternates	*	dictionary	1.3		FALSE	FALSE	FALSE				[AlternateImage]	Table 87
 ArrayOfIndirectFileSpecifications	*	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	TRUE	FALSE			[fn:InNameTree(parent::RichMediaContent::Assets)]	[FileSpecification]	https://github.com/pdf-association/pdf-issues/issues/59
 ArrayOfIntegersGeneral	*	integer	1.0		FALSE	FALSE	FALSE					
+ArrayOfIntegersGreaterThanZero	*	integer	1.0		FALSE	FALSE	FALSE		[fn:Eval(@*>0)]			
 ArrayOfMediaPlayerInfo	*	dictionary	1.5		FALSE	FALSE	FALSE				[MediaPlayerInfo]	Table 301, MU, A and NU cells
 ArrayOfNamesForEnforce	*	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE		[PrintScaling]	[fn:Eval(parent::@PrintScaling!=AppDefault)]		Table 148
 ArrayOfNamesForPrintingOrder	*	name	1.6		FALSE	FALSE	FALSE					Table 72, PrintingOrder call
@@ -1301,6 +1303,7 @@ ArrayOfStringsByte	*	string-byte	1.3		FALSE	FALSE	FALSE
 ArrayOfStringsText	*	string-text	1.2		FALSE	FALSE	FALSE					
 ArrayOfStructElem	*	dictionary	1.3		FALSE	TRUE	FALSE				[StructElem]	Table 354 and Table 355
 ArrayOfStructElemKids	*	dictionary;integer	1.3		FALSE	FALSE	FALSE				[StructElem,MarkedContentReference,ObjectReference];[]	Table 355
+ArrayOfStructElemParentTree	*	dictionary;null	1.3		FALSE	TRUE	FALSE				[StructElem];[]	Table 354 ParentTree only allows null in array
 ArrayOfSubjectDN	*	dictionary	1.7		FALSE	FALSE	FALSE				[SubjectDN]	Table 238
 ArrayOfTags	0*	integer	1.2	2.0	TRUE	FALSE	FALSE					Table 406
 ArrayOfTags	1*	string-ascii	1.2	2.0	TRUE	FALSE	FALSE					
@@ -1337,8 +1340,6 @@ ArrayOf_2StringsByte	0	string-byte	1.1		TRUE	FALSE	FALSE
 ArrayOf_2StringsByte	1	string-byte	1.1		TRUE	FALSE	FALSE					
 ArrayOf_2StringsText	0	string-text	1.4		TRUE	FALSE	FALSE					
 ArrayOf_2StringsText	1	string-text	1.4		TRUE	FALSE	FALSE					
-ArrayOf_2UnencryptedStringsByte	0	string-byte	1.1		TRUE	FALSE	FALSE			[fn:Eval(fn:AlwaysUnencrypted())]		Clause 7.6.2
-ArrayOf_2UnencryptedStringsByte	1	string-byte	1.1		TRUE	FALSE	FALSE			[fn:Eval(fn:AlwaysUnencrypted())]		
 ArrayOf_3CenterOfRotationNumbers	0	number	1.7		TRUE	FALSE	FALSE					
 ArrayOf_3CenterOfRotationNumbers	1	number	1.7		TRUE	FALSE	FALSE					
 ArrayOf_3CenterOfRotationNumbers	2	number	1.7		TRUE	FALSE	FALSE					
@@ -1641,7 +1642,7 @@ DestOutputProfileRef	ICCVersion	string	2.0		FALSE	FALSE	FALSE
 DestOutputProfileRef	ProfileCS	string	2.0		FALSE	FALSE	FALSE					
 DestOutputProfileRef	ProfileName	string-text	2.0		FALSE	FALSE	FALSE					
 DestOutputProfileRef	URLs	array	2.0		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(URLs)>0)]	[ArrayOfURLs]	
-DestsMap	*	array;dictionary	1.1		FALSE	FALSE	FALSE				[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[DestDict]	Table 29, Dests cell
+DestsMap	*	array;dictionary	1.1		FALSE	FALSE	FALSE				[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[ActionGoTo,fn:SinceVersion(1.6,ActionGoToE),ActionGoToR,DestDict]	Table 29, Dests cell
 DestXYZArray	0	dictionary;number	1.0		TRUE	FALSE	FALSE		[];[fn:Eval(@0>=0)]		[PageObject];[]	Table 149 - page
 DestXYZArray	1	name	1.0		TRUE	FALSE	FALSE		[XYZ]			
 DestXYZArray	2	null;number	1.0		TRUE	FALSE	FALSE				[];[]	left
@@ -1755,9 +1756,9 @@ EncryptionPublicKey	SubFilter	name	1.3		FALSE	FALSE	FALSE		[adbe.pkcs7.s3,fn:Sin
 EncryptionPublicKey	V	integer	1.1		TRUE	FALSE	FALSE		[fn:Deprecated(1.1,0),fn:Deprecated(2.0,1),fn:Deprecated(2.0,fn:SinceVersion(1.4,2)),fn:Deprecated(2.0,fn:SinceVersion(1.4,3)),fn:Deprecated(2.0,fn:SinceVersion(1.5,4)),fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,5)),fn:SinceVersion(2.0,5),fn:SinceVersion(2.0,fn:Extension(ISO_TS_32003,6))]			
 EncryptionPublicKey	Length	integer	1.4	2.0	FALSE	FALSE	FALSE	40	[fn:Eval((@Length>=40) && (@Length<=128) && ((@Length mod 8)==0))]			
 EncryptionPublicKey	CF	dictionary	1.5		FALSE	FALSE	FALSE			[fn:IsMeaningful((@V==4) || ((@V==5) && fn:SinceVersion(2.0)))]	[CryptFilterMap,CryptFilterPublicKeyMap]	
-EncryptionPublicKey	StmF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]		
-EncryptionPublicKey	StrF	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]		
-EncryptionPublicKey	EFF	name	1.6		FALSE	FALSE	FALSE			[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]		
+EncryptionPublicKey	StmF	name	1.5		FALSE	FALSE	FALSE	Identity	[Identity,DefaultCryptFilter,DefEmbeddedFile]	[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]		
+EncryptionPublicKey	StrF	name	1.5		FALSE	FALSE	FALSE	Identity	[Identity,DefaultCryptFilter]	[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]		
+EncryptionPublicKey	EFF	name	1.6		FALSE	FALSE	FALSE		[Identity,DefaultCryptFilter,DefEmbeddedFile]	[fn:IsMeaningful((@V==4) || ((@V==5) && (fn:Extension(ADBE_Extn3) || fn:SinceVersion(2.0))))]		
 EncryptionPublicKey	EncryptMetadata	boolean	1.5		FALSE	FALSE	FALSE	true				
 EncryptionPublicKey	KDFSalt	string-byte	fn:Extension(ISO_TS_32004,2.0)		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(fn:AlwaysUnencrypted())]		ISO/TS 32004 integrity protection
 EncryptionStandard	Filter	name	1.1		TRUE	FALSE	FALSE	Standard	[Standard]			Table 20 and Table 21
@@ -1855,14 +1856,14 @@ FieldChoice	DA	string	1.2		TRUE	FALSE	TRUE
 FieldChoice	Q	integer	1.2		FALSE	FALSE	FALSE	0	[0,1,2]			
 FieldChoice	DS	string-text	1.5		FALSE	FALSE	FALSE					
 FieldChoice	RV	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
-FieldChoice	Opt	array	1.4		FALSE	FALSE	TRUE				[ArrayOfFieldChoiceOpt]	Table 234
+FieldChoice	Opt	array	1.2		FALSE	FALSE	TRUE				[ArrayOfFieldChoiceOpt]	Table 234
 FieldChoice	TI	integer	1.2		FALSE	FALSE	TRUE	0	[fn:Eval((@TI>=0) && (@TI<fn:ArrayLength(Opt)))]			
 FieldChoice	I	array	1.4		FALSE	FALSE	TRUE			[fn:Eval(fn:ArraySortAscending(I,1))]	[ArrayOfNonNegativeIntegersGeneral]	This entry shall be used when two or more elements in the Opt array have different names but the same export value or when the value of the choice field is an array. If the items identified by this entry differ from those in the V entry of the field dictionary (see discussion following this Table), the V entry shall be used
 FieldMDPTransformParameters	Type	name	1.5		FALSE	FALSE	FALSE		[TransformParams]			Table 259
 FieldMDPTransformParameters	Action	name	1.5		FALSE	FALSE	FALSE		[All,Include,Exclude]			
 FieldMDPTransformParameters	Fields	array	1.5		fn:IsRequired((@Action==Include) || (@Action==Exclude))	FALSE	FALSE				[ArrayOfStringsText]	
 FieldMDPTransformParameters	V	name	1.5		TRUE	FALSE	FALSE	1.2	[1.2]			
-FieldSig	FT	name	1.3		TRUE	FALSE	TRUE		[Sig]			Table 226 and Table 235
+FieldSig	FT	name	1.3		TRUE	FALSE	TRUE		[Sig]			Table 226, Table 228 and Table 235
 FieldSig	Parent	dictionary	1.3		FALSE	FALSE	FALSE				[FieldTx,FieldBtnPush,FieldBtnCheckbox,FieldBtnRadio,FieldChoice,FieldSig,Field]	
 FieldSig	Kids	array	1.3		FALSE	FALSE	FALSE				[ArrayOfFields]	
 FieldSig	T	string-text	1.3		FALSE	FALSE	FALSE					
@@ -1872,7 +1873,7 @@ FieldSig	Ff	bitmask	1.3		FALSE	FALSE	TRUE			[fn:Eval(fn:BitsClear(4,32))]
 FieldSig	V	dictionary	1.3		FALSE	FALSE	TRUE				[Signature,DocTimeStamp]	
 FieldSig	DV	dictionary	1.3		FALSE	FALSE	TRUE				[Signature,DocTimeStamp]	
 FieldSig	AA	dictionary	1.3		FALSE	FALSE	FALSE				[AddActionFormField]	
-FieldSig	DA	string	1.3		TRUE	FALSE	TRUE					
+FieldSig	DA	string	1.3		FALSE	FALSE	TRUE					required if field contains variable text
 FieldSig	Q	integer	1.3		FALSE	FALSE	FALSE	0	[0,1,2]			
 FieldSig	DS	string-text	1.5		FALSE	FALSE	FALSE					
 FieldSig	RV	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
@@ -1895,7 +1896,7 @@ FieldTx	RV	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]
 FieldTx	MaxLen	integer	1.2		FALSE	FALSE	TRUE			[fn:Eval(@MaxLen>=0)]		Table 232 and https://github.com/pdf-association/pdf-issues/issues/191
 FileSpecEF	F	stream	1.3		FALSE	TRUE	FALSE				[EmbeddedFileStream]	Table 43, EF cell
 FileSpecEF	UF	stream	1.7		FALSE	TRUE	FALSE				[EmbeddedFileStream]	
-FileSpecification	Type	name	1.1		fn:IsRequired(fn:IsPresent(EF) || fn:IsPresent(EP) || fn:IsPresent(RF))	FALSE	FALSE		[Filespec]			Table 43
+FileSpecification	Type	name	1.3		fn:IsRequired(fn:IsPresent(EF) || fn:SinceVersion(2.0,fn:IsPresent(EP)) || fn:IsPresent(RF))	FALSE	FALSE		[Filespec]			Table 43
 FileSpecification	FS	name	1.1		FALSE	FALSE	FALSE		[URL,*]			
 FileSpecification	F	string	1.1		fn:IsRequired(fn:Not(fn:IsPresent(DOS)) && fn:Not(fn:IsPresent(Mac)) && fn:Not(fn:IsPresent(Unix)))	FALSE	FALSE					
 FileSpecification	UF	string-text	1.7		FALSE	FALSE	FALSE					
@@ -1917,8 +1918,8 @@ FileTrailer	Size	integer	1.0		TRUE	fn:MustBeDirect()	FALSE		[fn:Eval(@Size>0)]		
 FileTrailer	Prev	integer	1.0		FALSE	fn:MustBeDirect()	FALSE		[fn:Eval((@Prev>=0) && (@Prev<=fn:FileSize()))]			
 FileTrailer	Root	dictionary	1.0		TRUE	TRUE	FALSE				[Catalog]	
 FileTrailer	Encrypt	dictionary	1.1		FALSE	FALSE	FALSE				[EncryptionStandard,EncryptionPublicKey]	
-FileTrailer	Info	dictionary	1.0		FALSE	fn:MustBeIndirect(fn:BeforeVersion(2.0))	FALSE				[DocInfo]	https://github.com/pdf-association/pdf-issues/issues/106
-FileTrailer	ID	array	1.1		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE			[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]	[ArrayOf_2UnencryptedStringsByte]	
+FileTrailer	Info	dictionary	1.0		fn:IsRequired(fn:SinceVersion(1.4,fn:IsPresent(trailer::Catalog::PieceInfo)))	fn:MustBeIndirect(fn:BeforeVersion(2.0))	FALSE			[fn:Eval(fn:SinceVersion(1.4,fn:IsPresent(trailer::Catalog::PieceInfo,fn:IsPresent(trailer::Info::ModDate))))]	[DocInfo]	https://github.com/pdf-association/pdf-issues/issues/106
+FileTrailer	ID	array	1.1		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE				[TrailerIDArray]	
 FileTrailer	XRefStm	integer	1.5		FALSE	FALSE	FALSE		[fn:Eval((@XRefStm>=0) && (@XRefStm<=fn:FileSize()))]			
 FileTrailer	AuthCode	dictionary	fn:Extension(ISO_TS_32004,2.0)		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(Encrypt::@V>=5)]	[AuthCode]	ISO/TS 32004 integrity protection
 FilterCCITTFaxDecode	K	integer	1.0		FALSE	FALSE	FALSE	0				Table 11
@@ -1931,7 +1932,7 @@ FilterCCITTFaxDecode	BlackIs1	boolean	1.0		FALSE	FALSE	FALSE	false
 FilterCCITTFaxDecode	DamagedRowsBeforeError	integer	1.0		FALSE	FALSE	FALSE	0	[fn:Eval(@DamagedRowsBeforeError>=0)]	[fn:Ignore((@EndOfLine==false) || (@K<0))]		
 FilterCCITTFaxDecode	Blackls1	boolean	fn:Extension(Malforms)		FALSE	FALSE	FALSE	false				
 FilterCrypt	Type	name	1.5		FALSE	FALSE	FALSE		[CryptFilterDecodeParms]			Table 14
-FilterCrypt	Name	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:InKeyMap(trailer::Encrypt::CF)]		
+FilterCrypt	Name	name	1.5		FALSE	FALSE	FALSE	Identity		[fn:Eval(fn:InKeyMap(trailer::Encrypt::CF) || (@Name==Identity))]		
 FilterDCTDecode	ColorTransform	integer	1.0		FALSE	FALSE	FALSE		[0,1]			Table 13
 FilterFlateDecode	Predictor	integer	1.2		FALSE	FALSE	FALSE		[1,2,10,11,12,13,14,15]			Table 8 and Table 10
 FilterFlateDecode	Colors	integer	1.2		FALSE	FALSE	FALSE	1	[fn:Eval((@Colors>=1) && fn:BeforeVersion(1.3,fn:Eval(@Colors<=4)))]	[fn:Ignore(@Predictor<=1)]		
@@ -1996,8 +1997,8 @@ FontDescriptorCIDType0	StemH	number	1.2		FALSE	FALSE	FALSE	0
 FontDescriptorCIDType0	AvgWidth	number	1.2		FALSE	FALSE	FALSE	0				
 FontDescriptorCIDType0	MaxWidth	number	1.2		FALSE	FALSE	FALSE	0				
 FontDescriptorCIDType0	MissingWidth	number	1.2		FALSE	FALSE	FALSE	0				
-FontDescriptorCIDType0	FontFile	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile2)) && fn:Not(fn:IsPresent(FontFile3)))]	[FontFile]	Table 124
-FontDescriptorCIDType0	FontFile3	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile)) && fn:Not(fn:IsPresent(FontFile2)))]	[FontFile3CIDType0]	Table 124
+FontDescriptorCIDType0	FontFile	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile3)))]	[FontFile]	Table 124
+FontDescriptorCIDType0	FontFile3	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile)))]	[FontFile3CIDType0]	Table 124
 FontDescriptorCIDType0	Style	dictionary	1.2		FALSE	FALSE	FALSE				[StyleDict]	
 FontDescriptorCIDType0	Lang	name	1.5		FALSE	FALSE	FALSE					
 FontDescriptorCIDType0	FD	dictionary	1.2		FALSE	FALSE	FALSE				[FDDict]	
@@ -2020,8 +2021,8 @@ FontDescriptorCIDType2	StemH	number	1.2		FALSE	FALSE	FALSE	0
 FontDescriptorCIDType2	AvgWidth	number	1.2		FALSE	FALSE	FALSE	0				
 FontDescriptorCIDType2	MaxWidth	number	1.2		FALSE	FALSE	FALSE	0				
 FontDescriptorCIDType2	MissingWidth	number	1.2		FALSE	FALSE	FALSE	0				
-FontDescriptorCIDType2	FontFile	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile2)) && fn:Not(fn:IsPresent(FontFile3)))]	[FontFile]	Table 124
-FontDescriptorCIDType2	FontFile2	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile)) && fn:Not(fn:IsPresent(FontFile3)))]	[FontFile2]	Table 124
+FontDescriptorCIDType2	FontFile	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile2)))]	[FontFile]	Table 124
+FontDescriptorCIDType2	FontFile2	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile)))]	[FontFile2]	Table 124
 FontDescriptorCIDType2	Style	dictionary	1.2		FALSE	FALSE	FALSE				[StyleDict]	
 FontDescriptorCIDType2	Lang	name	1.5		FALSE	FALSE	FALSE					
 FontDescriptorCIDType2	FD	dictionary	1.2		FALSE	FALSE	FALSE				[FDDict]	
@@ -2044,8 +2045,8 @@ FontDescriptorTrueType	StemH	number	1.0		FALSE	FALSE	FALSE	0
 FontDescriptorTrueType	AvgWidth	number	1.0		FALSE	FALSE	FALSE	0				
 FontDescriptorTrueType	MaxWidth	number	1.0		FALSE	FALSE	FALSE	0				
 FontDescriptorTrueType	MissingWidth	number	1.0		FALSE	FALSE	FALSE	0				
-FontDescriptorTrueType	FontFile	stream	1.1		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile2)) && fn:Not(fn:IsPresent(FontFile3)))]	[FontFileType1]	Table 124
-FontDescriptorTrueType	FontFile2	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile)) && fn:Not(fn:IsPresent(FontFile3)))]	[FontFile2]	Table 124
+FontDescriptorTrueType	FontFile	stream	1.1		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile2)))]	[FontFileType1]	Table 124
+FontDescriptorTrueType	FontFile2	stream	1.1		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile)))]	[FontFile2]	Table 124
 FontDescriptorType1	Type	name	1.0		TRUE	FALSE	FALSE		[FontDescriptor]			Table 120
 FontDescriptorType1	FontName	name	1.0		TRUE	FALSE	FALSE			[fn:Eval(@FontName==parent::@BaseFont)]		
 FontDescriptorType1	FontFamily	string-byte	1.5		FALSE	FALSE	FALSE					
@@ -2291,7 +2292,7 @@ HalftoneType10	DecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE			[fn:Eval(fn
 HalftoneType10	F	dictionary;string	1.3		FALSE	FALSE	FALSE				[FileSpecification];[]	
 HalftoneType10	FFilter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	
 HalftoneType10	FDecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,fn:SinceVersion(1.5,FilterCrypt)]	
-HalftoneType10	DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(fn:StreamLength(DL)==((@Xsquare * @Xsquare)+(@Ysquare * @Ysquare)))]		
+HalftoneType10	DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(@DL==((@Xsquare * @Xsquare)+(@Ysquare * @Ysquare)))]		
 HalftoneType16	Type	name	1.3		FALSE	FALSE	FALSE		[Halftone]			Table 5 and Table 131
 HalftoneType16	HalftoneType	integer	1.3		TRUE	FALSE	FALSE		[16]			
 HalftoneType16	HalftoneName	string-byte	1.3		FALSE	FALSE	FALSE					
@@ -2306,7 +2307,7 @@ HalftoneType16	DecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE			[fn:Eval(fn
 HalftoneType16	F	dictionary;string	1.3		FALSE	FALSE	FALSE				[FileSpecification];[]	
 HalftoneType16	FFilter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	
 HalftoneType16	FDecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,fn:SinceVersion(1.5,FilterCrypt)]	
-HalftoneType16	DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(fn:StreamLength(DL)==(2 * (@Width * @Height)+(@Width2 * @Height2)))]		
+HalftoneType16	DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(@DL==(2 * (@Width * @Height)+(@Width2 * @Height2)))]		
 HalftoneType5	Type	name	1.2		FALSE	FALSE	FALSE		[Halftone]			Table 132
 HalftoneType5	HalftoneType	integer	1.2		TRUE	FALSE	FALSE		[5]			
 HalftoneType5	HalftoneName	string-byte	1.2		FALSE	FALSE	FALSE					
@@ -2324,7 +2325,7 @@ HalftoneType6	DecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE			[fn:Eval(fn:
 HalftoneType6	F	dictionary;string	1.3		FALSE	FALSE	FALSE				[FileSpecification];[]	
 HalftoneType6	FFilter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	
 HalftoneType6	FDecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,fn:SinceVersion(1.5,FilterCrypt)]	
-HalftoneType6	DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(fn:StreamLength(DL)==(@Width * @Height))]		
+HalftoneType6	DL	integer	1.5		FALSE	FALSE	FALSE			[fn:Eval(@DL==(@Width * @Height))]		
 ICCBasedColorSpace	0	name	1.3		TRUE	FALSE	FALSE		[ICCBased]			Clause 8.6.5.5
 ICCBasedColorSpace	1	stream	1.3		TRUE	TRUE	FALSE				[ICCProfileStream]	
 ICCProfileStream	N	integer	1.3		TRUE	FALSE	FALSE		[1,3,4]			Table 5 and Table 65
@@ -2334,7 +2335,6 @@ ICCProfileStream	Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]
 ICCProfileStream	Length	integer	1.3		TRUE	FALSE	FALSE					
 ICCProfileStream	Filter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfCompressionFilterNames];[]	
 ICCProfileStream	DecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,fn:SinceVersion(1.5,FilterCrypt)]	
-ICCProfileStream	DestOutputProfile	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,fn:SinceVersion(1.5,FilterCrypt)]	
 ICCProfileStream	F	dictionary;string	1.3		FALSE	FALSE	FALSE				[FileSpecification];[]	
 ICCProfileStream	FFilter	array;name	1.3		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85Decode,LZWDecode,FlateDecode,RunLengthDecode,fn:SinceVersion(1.5,Crypt)]	[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfCompressionFilterNames];[]	
 ICCProfileStream	FDecodeParms	array;dictionary	1.3		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode,fn:SinceVersion(1.5,FilterCrypt)]	
@@ -2351,14 +2351,14 @@ InteractiveForm	Fields	array	1.2		TRUE	FALSE	FALSE				[ArrayOfFields]	Table 224
 InteractiveForm	NeedAppearances	boolean	1.2	2.0	FALSE	FALSE	FALSE	false				
 InteractiveForm	SigFlags	bitmask	1.3		FALSE	FALSE	FALSE	0		[fn:Eval(fn:BitsClear(3,32))]		Table 225
 InteractiveForm	CO	array	1.3		FALSE	FALSE	FALSE				[ArrayOfFields]	
-InteractiveForm	DR	dictionary	1.2		FALSE	FALSE	FALSE				[Resource]	
+InteractiveForm	DR	dictionary	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:IsPresent(DR::Font::*))]	[Resource]	At a minimum, this dictionary shall contain a Font entry specifying the resource name and font dictionary of the default font for displaying text.
 InteractiveForm	DA	string	1.2		FALSE	FALSE	FALSE					
 InteractiveForm	Q	integer	1.2		FALSE	FALSE	FALSE		[0,1,2]			
 InteractiveForm	XFA	fn:SinceVersion(1.6,array);stream	1.5	2.0	FALSE	[FALSE];[TRUE]	FALSE				[fn:SinceVersion(1.6,ArrayOfXFA)];[Stream]	
 LabColorSpace	0	name	1.1		TRUE	FALSE	FALSE		[Lab]			Clause 8.6.5.4
 LabColorSpace	1	dictionary	1.1		TRUE	FALSE	FALSE				[LabDict]	
 LabDict	WhitePoint	array	1.1		TRUE	FALSE	FALSE				[WhitepointArray]	Table 64
-LabDict	BlackPoint	array	1.1		FALSE	FALSE	FALSE				[BlackpointArray]	
+LabDict	BlackPoint	array	1.1		FALSE	FALSE	FALSE	[0.0 0.0 0.0]			[BlackpointArray]	
 LabDict	Range	array	1.1		FALSE	FALSE	FALSE				[LabRangeArray]	
 LabRangeArray	0	number	1.1		TRUE	FALSE	FALSE	-100	[fn:Eval(@0<=@1)]			Table 64, Range cell
 LabRangeArray	1	number	1.1		TRUE	FALSE	FALSE	100	[fn:Eval(@1>=@0)]			
@@ -2526,7 +2526,7 @@ Movie	F	dictionary;string	1.2	2.0	TRUE	FALSE	FALSE				[FileSpecification];[]	Tab
 Movie	Aspect	array	1.2	2.0	FALSE	FALSE	FALSE				[ArrayOf_2Numbers]	
 Movie	Rotate	integer	1.2	2.0	FALSE	FALSE	FALSE	0	[fn:Eval((@Rotate mod 90)==0)]			
 Movie	Poster	boolean;stream	1.2	2.0	FALSE	[FALSE];[TRUE]	FALSE	[false];[]			[];[XObjectImage]	
-MovieActivation	Start	array;integer;string-byte	1.2	2.0	FALSE	FALSE	FALSE	[];[0];[]		[];[fn:Eval(@Start>0)];[fn:Eval(fn:StringLength(Start)==8)]	[ArrayOfDuration];[];[]	Table 307
+MovieActivation	Start	array;integer;string-byte	1.2	2.0	FALSE	FALSE	FALSE	[];[0];[]		[];[fn:Eval(@Start>=0)];[fn:Eval(fn:StringLength(Start)==8)]	[ArrayOfDuration];[];[]	Table 307
 MovieActivation	Duration	array;integer;string-byte	1.2	2.0	FALSE	FALSE	FALSE			[];[fn:Eval(@Duration>0)];[fn:Eval(fn:StringLength(Duration)==8)]	[ArrayOfDuration];[];[]	
 MovieActivation	Rate	number	1.2	2.0	FALSE	FALSE	FALSE	1.0				negative means play backwards
 MovieActivation	Volume	number	1.2	2.0	FALSE	FALSE	FALSE	1.0	[fn:Eval((@Volume>=-1) && (@Volume<=1))]			
@@ -2535,7 +2535,7 @@ MovieActivation	Mode	name	1.2	2.0	FALSE	FALSE	FALSE	Once	[Once,Open,Repeat,Palin
 MovieActivation	Synchronous	boolean	1.2	2.0	FALSE	FALSE	FALSE	false				
 MovieActivation	FWScale	array	1.2	2.0	FALSE	FALSE	FALSE			[fn:Eval((FWScale::@0>0) && (FWScale::@1>0))]	[ArrayOf_2Integers]	
 MovieActivation	FWPosition	array	1.2	2.0	FALSE	FALSE	FALSE	[0.5 0.5]		[fn:Eval((FWPosition::@0>=0.0) && (FWPosition::@0<=1.0) && (FWPosition::@1>=0.0) && (FWPosition::@1<=1.0))]	[ArrayOf_2Numbers]	
-Name	Dests	name-tree	1.2		FALSE	FALSE	FALSE				[DestDict,DestXYZArray,Dest0Array,Dest1Array,Dest4Array]	Table 32
+Name	Dests	name-tree	1.2		FALSE	FALSE	FALSE				[ActionGoTo,fn:SinceVersion(1.6,ActionGoToE),ActionGoToR,DestDict,DestXYZArray,Dest0Array,Dest1Array,Dest4Array]	Table 32
 Name	AP	name-tree	1.3		FALSE	FALSE	FALSE				[XObjectFormType1,XObjectFormPS,XObjectFormPSpassthrough]	
 Name	JavaScript	name-tree	1.3		FALSE	FALSE	FALSE				[ActionECMAScript]	
 Name	Pages	name-tree	1.3		FALSE	FALSE	FALSE				[PageObject]	
@@ -2584,7 +2584,7 @@ NumberFormat	SS	string-text	1.6		FALSE	FALSE	FALSE	' '
 NumberFormat	O	name	1.6		FALSE	FALSE	FALSE	S	[S,P]			
 ObjectReference	Type	name	1.3		TRUE	FALSE	FALSE		[OBJR]			Table 358
 ObjectReference	Pg	dictionary	1.3		FALSE	TRUE	FALSE				[PageObject]	
-ObjectReference	Obj	array;dictionary;stream	1.3		TRUE	TRUE	FALSE				[_UniversalArray];[_UniversalDictionary];[XObjectFormType1]	
+ObjectReference	Obj	array;dictionary;stream	1.3		TRUE	TRUE	FALSE				[_UniversalArray];[_UniversalDictionary];[XObjectFormType1,XObjectImage]	
 ObjectStream	Type	name	1.5		TRUE	FALSE	FALSE		[ObjStm]			Table 5 and Table 16
 ObjectStream	N	integer	1.5		TRUE	FALSE	FALSE		[fn:Eval(@N>=0)]			
 ObjectStream	First	integer	1.5		TRUE	FALSE	FALSE		[fn:Eval(@First>=0)]			
@@ -2685,7 +2685,7 @@ OutlineItem	Next	dictionary	1.0		FALSE	TRUE	FALSE				[OutlineItem]
 OutlineItem	First	dictionary	1.0		FALSE	TRUE	FALSE				[OutlineItem]	
 OutlineItem	Last	dictionary	1.0		FALSE	TRUE	FALSE				[OutlineItem]	
 OutlineItem	Count	integer	1.0		FALSE	FALSE	FALSE					
-OutlineItem	Dest	array;name;string-byte	1.0		FALSE	FALSE	FALSE			[fn:Not(fn:IsPresent(A))];[fn:Not(fn:IsPresent(A))];[fn:Not(fn:IsPresent(A))]	[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]	
+OutlineItem	Dest	array;name;string-byte	1.0		FALSE	FALSE	FALSE			[fn:SinceVersion(1.1,fn:Not(fn:IsPresent(A)))];[fn:SinceVersion(1.1,fn:Not(fn:IsPresent(A)))];[fn:SinceVersion(1.1,fn:Not(fn:IsPresent(A)))]	[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]	
 OutlineItem	A	dictionary	1.1		FALSE	FALSE	FALSE			[fn:Not(fn:IsPresent(Dest))]	[ActionGoTo,ActionGoToR,fn:SinceVersion(1.6,ActionGoToE),fn:SinceVersion(2.0,ActionGoToDp),ActionLaunch,fn:IsPDFVersion(1.2,ActionNOP),fn:IsPDFVersion(1.2,ActionSetState),ActionThread,ActionURI,fn:SinceVersion(1.2,ActionSound),fn:SinceVersion(1.2,ActionMovie),fn:SinceVersion(1.2,ActionHide),fn:SinceVersion(1.2,ActionNamed),fn:SinceVersion(1.2,ActionSubmitForm),fn:SinceVersion(1.2,ActionResetForm),fn:SinceVersion(1.2,ActionImportData),fn:SinceVersion(1.5,ActionSetOCGState),fn:SinceVersion(1.5,ActionRendition),fn:SinceVersion(1.5,ActionTransition),fn:SinceVersion(1.6,ActionGoTo3DView),fn:SinceVersion(1.3,ActionECMAScript),fn:SinceVersion(2.0,ActionRichMediaExecute)]	
 OutlineItem	SE	dictionary	1.3		FALSE	TRUE	FALSE				[StructElem]	
 OutlineItem	C	array	1.4		FALSE	FALSE	FALSE	[0.0 0.0 0.0]			[ArrayOf_3RGBNumbers]	
@@ -2982,7 +2982,7 @@ Resource	Properties	dictionary	1.2		FALSE	FALSE	FALSE				[_UniversalDictionary]
 RichMediaActivation	Type	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE		[RichMediaActivation]			Table 335
 RichMediaActivation	Condition	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE	XA	[XA,PO,PV]			
 RichMediaActivation	Animation	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[RichMediaAnimation]	
-RichMediaActivation	View	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	TRUE	FALSE				[3DView,3DViewAddEntries]	
+RichMediaActivation	View	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	TRUE	FALSE				[3DViewAddEntries]	
 RichMediaActivation	Configuration	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	TRUE	FALSE				[RichMediaConfiguration]	https://github.com/pdf-association/pdf-issues/issues/166
 RichMediaActivation	Presentation	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[RichMediaPresentation]	
 RichMediaActivation	Scripts	array	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfIndirectFileSpecifications]	https://github.com/pdf-association/pdf-issues/issues/59
@@ -3002,7 +3002,7 @@ RichMediaConfiguration	Instances	array	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2
 RichMediaContent	Type	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE		[RichMediaContent]			Table 341
 RichMediaContent	Assets	name-tree	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[FileSpecification]	
 RichMediaContent	Configurations	array	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		TRUE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(Configurations)>0)]	[ArrayOfRichMediaConfiguration]	https://github.com/pdf-association/pdf-issues/issues/166
-RichMediaContent	Views	array	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOf3DView]	
+RichMediaContent	Views	array	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOf3DViewAddEntries]	
 RichMediaCuePoint	Type	name	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	FALSE	FALSE		[CuePoint]			Adobe Extension Level 3, Table 9.51e
 RichMediaCuePoint	Subtype	name	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	FALSE	FALSE		[Navigation,Event]			
 RichMediaCuePoint	Name	string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	TRUE	FALSE	FALSE					
@@ -3023,7 +3023,7 @@ RichMediaParams	FlashVars	stream;string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	FA
 RichMediaParams	Binding	name	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	FALSE	FALSE	None	[None,Foreground,Background,Material]			
 RichMediaParams	BindingMaterial	string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	fn:IsRequired(@Binding==Material)	FALSE	FALSE					
 RichMediaParams	CuePoints	array	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	FALSE	FALSE				[ArrayOfRichMediaCuePoints]	
-RichMediaParams	Seetings	stream;string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
+RichMediaParams	Settings	stream;string-text	fn:Extension(ADBE_Extn3,1.7)	2.0	FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 RichMediaPosition	Type	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE		[RichMediaPosition]			Table 340
 RichMediaPosition	HAlign	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE	Far	[Near,Center,Far]			
 RichMediaPosition	VAlign	name	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE	Near	[Near,Center,Far]			
@@ -3307,7 +3307,7 @@ StructElem	Phoneme	string-text	2.0		FALSE	FALSE	FALSE
 StructTreeRoot	Type	name	1.3		TRUE	FALSE	FALSE		[StructTreeRoot]			Table 354
 StructTreeRoot	K	array;dictionary	1.3		FALSE	FALSE	FALSE				[ArrayOfStructElem];[StructElem]	
 StructTreeRoot	IDTree	name-tree	1.3		FALSE	FALSE	FALSE				[StructElem,MarkedContentReference,ObjectReference]	
-StructTreeRoot	ParentTree	number-tree	1.3		FALSE	FALSE	FALSE				[ArrayOfStructElem,StructElem,MarkedContentReference,ObjectReference]	
+StructTreeRoot	ParentTree	number-tree	1.3		FALSE	FALSE	FALSE				[ArrayOfStructElemParentTree,StructElem,MarkedContentReference,ObjectReference]	
 StructTreeRoot	ParentTreeNextKey	integer	1.3		FALSE	FALSE	FALSE					
 StructTreeRoot	RoleMap	dictionary	1.3		FALSE	FALSE	FALSE				[RoleMap]	
 StructTreeRoot	ClassMap	dictionary	1.3		FALSE	FALSE	FALSE				[ClassMap]	
@@ -3316,7 +3316,7 @@ StructTreeRoot	PronunciationLexicon	array;dictionary;string	2.0		FALSE	TRUE	FALS
 StructTreeRoot	AF	array;dictionary	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications];[FileSpecification]	
 StructureAttributesDict	O	name	1.3		TRUE	FALSE	FALSE		[fn:SinceVersion(2.0,NSO),fn:SinceVersion(1.6,UserProperties),fn:SinceVersion(1.4,Layout),fn:SinceVersion(1.4,List),fn:SinceVersion(1.7,PrintField),fn:SinceVersion(1.4,Table),fn:SinceVersion(2.0,Artifact),fn:SinceVersion(1.4,XML-1.00),fn:SinceVersion(1.4,HTML-3.20),fn:SinceVersion(1.4,HTML-4.01),fn:SinceVersion(2.0,HTML-5.00),fn:SinceVersion(1.4,OEB-1.00),fn:SinceVersion(1.4,RTF-1.05),fn:SinceVersion(1.4,CSS-1),fn:SinceVersion(1.4,CSS-2),fn:SinceVersion(2.0,CSS-3),fn:SinceVersion(2.0,RDFa-1.10),fn:SinceVersion(2.0,ARIA-1.1),*]			Table 360 and Table 376
 StructureAttributesDict	NS	dictionary	2.0		fn:IsRequired(@O==NSO)	TRUE	FALSE				[Namespace]	Table 360
-StructureAttributesDict	Placement	name	1.4		FALSE	FALSE	FALSE		[Block,Before,Start,End,fn:BeforeVersion(2.0,Inline)]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 378
+StructureAttributesDict	Placement	name	1.4		FALSE	FALSE	FALSE		[Block,Before,Start,End,Inline]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 378
 StructureAttributesDict	WritingMode	name	1.4		FALSE	FALSE	TRUE	LrTb	[LrTb,RlTb,TbRl,fn:SinceVersion(2.0,TbLr),fn:SinceVersion(2.0,LrBt),fn:SinceVersion(2.0,RlBt),fn:SinceVersion(2.0,BtRl),fn:SinceVersion(2.0,BtLr)]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 378
 StructureAttributesDict	BackgroundColor	array	1.5		FALSE	FALSE	FALSE			[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]	[ArrayOf_3RGBNumbers]	Table 378
 StructureAttributesDict	BorderColor	array	1.5		FALSE	FALSE	TRUE			[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]	[ArrayOf_4BorderColorArrays,ArrayOf_3RGBNumbers]	Table 378
@@ -3370,7 +3370,7 @@ StyleDict	Panose	string-byte	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:StringLength(P
 SubjectDN	*	string-text	1.7		FALSE	FALSE	FALSE					Table 238, SubjectDN cell
 Target	R	name	1.6		TRUE	FALSE	FALSE		[P,C]			Table 205
 Target	N	string-byte	1.6		fn:IsRequired((@R==C) && fn:InNameTree(trailer::Catalog::Names::EmbeddedFiles))	FALSE	FALSE			[fn:Eval(fn:Not(fn:IsPresent((@R==C) && fn:InNameTree(trailer::Catalog::Names::EmbeddedFiles))))]		
-Target	P	integer;string-byte	1.6		FALSE	FALSE	FALSE		[fn:Eval((@P>=0) && (@P<fn:NumberOfPages()))];[fn:InNameTree(trailer::Catalog::Names::Dests)]			
+Target	P	integer;string-byte	1.6		FALSE	FALSE	FALSE		[fn:Eval((@P>=0) && (@P<fn:NumberOfPages()))];[fn:Eval(fn:InNameTree(trailer::Catalog::Names::Dests))]			
 Target	A	integer;string-text	1.6		FALSE	FALSE	FALSE		[fn:Eval((@A>=0) && (@A<fn:ArrayLength(fn:PageProperty(@P,Annots))))];[fn:Eval(@A==fn:PageProperty(@P,Annots::@NM))]			
 Target	T	dictionary	1.6		FALSE	FALSE	FALSE				[Target]	
 Thread	Type	name	1.1		FALSE	FALSE	FALSE		[Thread]			Table 162
@@ -3396,12 +3396,14 @@ Timespan	S	name	1.5		TRUE	FALSE	FALSE		[S]
 Timespan	V	number	1.5		TRUE	FALSE	FALSE					
 TimeStampDict	URL	string-ascii	1.6		TRUE	FALSE	FALSE					Table 237, TimeStamp cell
 TimeStampDict	Ff	integer	1.6		TRUE	FALSE	FALSE	0	[0,1]			
+TrailerIDArray	0	string-byte	1.1		TRUE	fn:MustBeDirect(fn:IsPresent(trailer::Encrypt))	FALSE			[fn:Eval(fn:AlwaysUnencrypted())]		
+TrailerIDArray	1	string-byte	1.1		TRUE	fn:MustBeDirect(fn:IsPresent(trailer::Encrypt))	FALSE			[fn:Eval(fn:AlwaysUnencrypted())]		
 Transition	Type	name	1.1		FALSE	FALSE	FALSE		[Trans]			Table 164
 Transition	S	name	1.1		FALSE	FALSE	FALSE	R	[Split,Blinds,Box,Wipe,Dissolve,Glitter,R,Fly,Push,Cover,Uncover,Fade]			
 Transition	D	number	1.1		FALSE	FALSE	FALSE	1	[fn:Eval(@D>=0)]			
 Transition	Dm	name	1.1		FALSE	FALSE	FALSE	H	[H,V]	[fn:IsMeaningful((@S==Split) || (@S==Blinds))]		
 Transition	M	name	1.1		FALSE	FALSE	FALSE	I	[I,O]	[fn:IsMeaningful((@S==Split) || (@S==Box) || (@S==Fly))]		
-Transition	Di	integer;name	1.1		FALSE	FALSE	FALSE	[0];[]	[0,90,180,270,315];[None]	[fn:Eval((((@Di==90) || (@Di==180)) && (@S==Wipe)) || ((@Di==315) && (@S==Glitter)))];[fn:Eval(((@Di==None) && (@S==Fly) && (@SS!=1.0)))]		
+Transition	Di	integer;name	1.1		FALSE	FALSE	FALSE	[0];[]	[0,90,180,270,315];[None]	[fn:Eval((((@Di==90) || (@Di==180)) && (@S==Wipe)) || ((@Di==315) && (@S==Glitter)))];[fn:Eval(((@Di==None) && (@S==Fly) && fn:SinceVersion(1.5,(@SS!=1.0))))]		
 Transition	SS	number	1.5		FALSE	FALSE	FALSE	1.0		[fn:IsMeaningful(@S==Fly)]		
 Transition	B	boolean	1.5		FALSE	FALSE	FALSE	false		[fn:IsMeaningful(@S==Fly)]		
 TrapRegion	TP	name	1.3	2.0	TRUE	FALSE	FALSE					Adobe TechNote 5620 Clause 5.34 - trapping parameters
@@ -3433,7 +3435,7 @@ ViewerPreferences	HideWindowUI	boolean	1.2		FALSE	FALSE	FALSE	false
 ViewerPreferences	FitWindow	boolean	1.2		FALSE	FALSE	FALSE	false				
 ViewerPreferences	CenterWindow	boolean	1.2		FALSE	FALSE	FALSE	false				
 ViewerPreferences	DisplayDocTitle	boolean	1.4		FALSE	FALSE	FALSE	false				
-ViewerPreferences	NonFullScreenPageMode	name	1.2		FALSE	FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,UseOC]	[fn:IsMeaningful(trailer::Catalog::@PageMode==FullScreen)]		
+ViewerPreferences	NonFullScreenPageMode	name	1.2		FALSE	FALSE	FALSE	UseNone	[UseNone,UseOutlines,UseThumbs,UseOC,fn:SinceVersion(2.0,UseAttachments)]	[fn:IsMeaningful(trailer::Catalog::@PageMode==FullScreen)]		https://github.com/pdf-association/pdf-issues/issues/275
 ViewerPreferences	Direction	name	1.3		FALSE	FALSE	FALSE	L2R	[L2R,R2L]			
 ViewerPreferences	ViewArea	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			
 ViewerPreferences	ViewClip	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,CropBox,BleedBox,TrimBox,ArtBox]			
@@ -3442,7 +3444,7 @@ ViewerPreferences	PrintClip	name	1.4	2.0	FALSE	FALSE	FALSE	CropBox	[MediaBox,Cro
 ViewerPreferences	PrintScaling	name	1.6		FALSE	FALSE	FALSE	AppDefault	[None,AppDefault,*]			
 ViewerPreferences	Duplex	name	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[Simplex,DuplexFlipShortEdge,DuplexFlipLongEdge]			
 ViewerPreferences	PickTrayByPDFSize	boolean	1.7		FALSE	FALSE	FALSE	false				
-ViewerPreferences	PrintPageRange	array	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()			[ArrayOfIntegersGeneral]	
+ViewerPreferences	PrintPageRange	array	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()			[ArrayOfIntegersGreaterThanZero]	
 ViewerPreferences	NumCopies	integer	1.7		FALSE	FALSE	FALSE	fn:ImplementationDependent()	[fn:Eval(@NumCopies>0)]			
 ViewerPreferences	Enforce	array	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfNamesForEnforce]	
 ViewParams	Instance	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		TRUE	FALSE	FALSE				[RichMediaInstance]	Table 345
@@ -3617,7 +3619,7 @@ XObjectImage	Mask	array;stream	1.3		FALSE	[FALSE];[TRUE]	FALSE			[fn:Not(fn:IsPr
 XObjectImage	Decode	array	1.0		FALSE	FALSE	FALSE			[fn:Ignore(fn:Contains(@Filter,JPXDecode) && fn:Not(fn:IsPresent(ColorSpace)) && (@ImageMask==false))]	[ArrayOfNumbersGeneral]	
 XObjectImage	Interpolate	boolean	1.0		FALSE	FALSE	FALSE	false				
 XObjectImage	Alternates	array	1.3		FALSE	FALSE	FALSE				[ArrayOfImageAlternates]	
-XObjectImage	SMask	stream	1.4		FALSE	TRUE	FALSE			[fn:Not(fn:IsPresent(@SMaskInData>0))]	[XObjectImageSoftMask]	
+XObjectImage	SMask	stream	1.4		FALSE	TRUE	FALSE			[fn:SinceVersion(1.5,fn:Not(fn:IsPresent(@SMaskInData>0)))]	[XObjectImageSoftMask]	
 XObjectImage	SMaskInData	integer	1.5		FALSE	FALSE	FALSE		[0,1,2]			
 XObjectImage	Name	name	1.0	2.0	fn:IsRequired(fn:IsPDFVersion(1.0))	FALSE	FALSE					
 XObjectImage	StructParent	integer	1.3		fn:IsRequired(fn:ImageIsStructContentItem())	FALSE	FALSE					Table 359
@@ -3701,8 +3703,8 @@ XRefStream	FFilter	array;name	1.5		FALSE	FALSE	FALSE		[];[ASCIIHexDecode,ASCII85
 XRefStream	FDecodeParms	array;dictionary	1.5		FALSE	FALSE	FALSE			[fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[]	[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]	
 XRefStream	DL	integer	1.5		FALSE	FALSE	FALSE		[fn:Eval(@DL>=0)]	[fn:Eval(@DL>=0)]		
 XRefStream	Root	dictionary	1.5		TRUE	TRUE	FALSE				[Catalog]	
-XRefStream	Info	dictionary	1.5		FALSE	fn:MustBeIndirect(fn:BeforeVersion(2.0))	FALSE				[DocInfo]	https://github.com/pdf-association/pdf-issues/issues/106
-XRefStream	ID	array	1.5		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE			[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]	[ArrayOf_2StringsByte]	
+XRefStream	Info	dictionary	1.5		fn:IsRequired(fn:IsPresent(trailer::Catalog::PieceInfo))	fn:MustBeIndirect(fn:BeforeVersion(2.0))	FALSE			[fn:Eval(fn:IsPresent(trailer::Catalog::PieceInfo,fn:IsPresent(trailer::Info::ModDate)))]	[DocInfo]	https://github.com/pdf-association/pdf-issues/issues/106
+XRefStream	ID	array	1.5		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE				[TrailerIDArray]	
 XRefStream	Encrypt	dictionary	1.5		FALSE	FALSE	FALSE				[EncryptionStandard,EncryptionPublicKey]	
 XRefStream	AuthCode	dictionary	fn:Extension(ISO_TS_32004,2.0)		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(Encrypt::@V>=5)]	[AuthCode]	ISO/TS 32004 integrity protection
 _UniversalArray	*	array;boolean;dictionary;name;null;number;stream;string	1.2		FALSE	[FALSE];[FALSE];[FALSE];[FALSE];[FALSE];[FALSE];[TRUE];[FALSE]	FALSE				[_UniversalArray];[];[_UniversalDictionary];[];[];[];[Stream];[]	

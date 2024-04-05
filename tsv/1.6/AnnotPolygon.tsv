@@ -18,10 +18,10 @@ T	string-text	1.5		FALSE	FALSE	FALSE
 Popup	dictionary	1.5		FALSE	TRUE	FALSE				[AnnotPopup]	
 RC	stream;string-text	1.5		FALSE	[TRUE];[FALSE]	FALSE				[Stream];[]	
 CreationDate	date	1.5		FALSE	FALSE	FALSE					
-IRT	dictionary	1.5		fn:IsRequired(fn:IsPresent(RT))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D]	
+IRT	dictionary	1.5		fn:IsRequired(fn:SinceVersion(1.6,fn:IsPresent(RT)))	FALSE	FALSE				[AnnotText,AnnotLink,AnnotFreeText,AnnotLine,AnnotSquare,AnnotCircle,AnnotPolygon,AnnotHighlight,AnnotUnderline,AnnotSquiggly,AnnotStrikeOut,AnnotCaret,AnnotStamp,AnnotInk,AnnotPopup,AnnotFileAttachment,AnnotSound,AnnotMovie,AnnotScreen,AnnotWidget,AnnotPrinterMark,AnnotWatermark,Annot3D]	https://github.com/pdf-association/pdf-issues/issues/297
 Subj	string-text	1.5		FALSE	FALSE	FALSE					
 RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
-Vertices	array	1.5		fn:IsRequired(fn:Not(fn:IsPresent(Path)))	FALSE	FALSE			[fn:Ignore(fn:IsPresent(Path))]	[ArrayOfNumbersGeneral]	
+Vertices	array	1.5		fn:IsRequired(fn:BeforeVersion(2.0) || fn:SinceVersion(2.0,fn:Not(fn:IsPresent(Path))))	FALSE	FALSE			[fn:SinceVersion(2.0,fn:Ignore(fn:IsPresent(Path)))]	[ArrayOfNumbersGeneral]	
 LE	array	1.5		FALSE	FALSE	FALSE	[None None]		[fn:IsMeaningful(@Subtype==Polyline)]	[ArrayOf_2LineEndingsNames]	
 BS	dictionary	1.5		FALSE	FALSE	FALSE				[BorderStyle]	
 IC	array	1.5		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	

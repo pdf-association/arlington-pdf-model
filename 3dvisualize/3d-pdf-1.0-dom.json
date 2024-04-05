@@ -157,9 +157,9 @@
         },
         {
             "id": "FileTrailer",
-            "val": 16,
+            "val": 36,
             "group": "dict",
-            "desc": "4 keys",
+            "desc": "6 keys",
             "color": "red",
             "name": "FileTrailer dict"
         },
@@ -253,6 +253,13 @@
             "group": "array",
             "desc": "4 elements",
             "name": "IndexedColorSpace array"
+        },
+        {
+            "id": "OOAdditionalStmsArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "OOAdditionalStmsArray array"
         },
         {
             "id": "Outline",
@@ -455,8 +462,14 @@
         },
         {
             "source": "FileTrailer",
+            "target": "OOAdditionalStmsArray",
+            "name": "FileTrailer::AdditionalStreams"
+        },
+        {
+            "source": "FileTrailer",
             "target": "DocInfo",
-            "name": "FileTrailer::Info"
+            "name": "FileTrailer::Info",
+            "color": "red"
         },
         {
             "source": "FileTrailer",
@@ -568,6 +581,12 @@
             "source": "IndexedColorSpace",
             "target": "Stream",
             "name": "IndexedColorSpace::3",
+            "color": "red"
+        },
+        {
+            "source": "OOAdditionalStmsArray",
+            "target": "Stream",
+            "name": "OOAdditionalStmsArray::1*",
             "color": "red"
         },
         {

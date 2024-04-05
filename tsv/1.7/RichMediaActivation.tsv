@@ -2,7 +2,7 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE		[RichMediaActivation]			Table 335
 Condition	name	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	XA	[XA,PO,PV]			
 Animation	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[RichMediaAnimation]	
-View	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[3DView,3DViewAddEntries]	
+View	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[3DViewAddEntries]	
 Configuration	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[RichMediaConfiguration]	https://github.com/pdf-association/pdf-issues/issues/166
 Presentation	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[RichMediaPresentation]	
 Scripts	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[ArrayOfIndirectFileSpecifications]	https://github.com/pdf-association/pdf-issues/issues/59

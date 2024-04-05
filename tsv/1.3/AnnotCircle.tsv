@@ -5,7 +5,7 @@ Rect	rectangle	1.3		TRUE	FALSE	FALSE
 Contents	string-text	1.3		FALSE	FALSE	FALSE					
 P	dictionary	1.3		FALSE	TRUE	FALSE				[PageObject]	
 M	date;string-text	1.3		FALSE	FALSE	FALSE					
-F	bitmask	1.3		FALSE	FALSE	FALSE	0		[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]		Table 167
+F	bitmask	1.3		FALSE	FALSE	FALSE	0		[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]		Table 167
 AP	dictionary	1.3		fn:IsRequired(fn:SinceVersion(2.0,(fn:RectWidth(Rect)>0) || (fn:RectHeight(Rect)>0)))	FALSE	FALSE				[Appearance]	
 AS	name	1.3		fn:IsRequired(fn:IsPresent(AP::N::*) || fn:IsPresent(AP::R::*) || fn:IsPresent(AP::D::*))	FALSE	FALSE					
 Border	array	1.3		FALSE	FALSE	FALSE	[0 0 1]		[fn:Ignore(fn:IsPresent(BS))]	[ArrayOf_4AnnotBorderCharacteristics]	

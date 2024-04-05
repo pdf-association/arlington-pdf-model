@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 O	name	1.3		TRUE	FALSE	FALSE		[UserProperties,Layout,List,Table,XML-1.00,HTML-3.20,HTML-4.01,OEB-1.00,RTF-1.05,CSS-1,CSS-2,*]			Table 360 and Table 376
-Placement	name	1.4		FALSE	FALSE	FALSE		[Block,Before,Start,End,fn:BeforeVersion(2.0,Inline)]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 378
+Placement	name	1.4		FALSE	FALSE	FALSE		[Block,Before,Start,End,Inline]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 378
 WritingMode	name	1.4		FALSE	FALSE	TRUE	LrTb	[LrTb,RlTb,TbRl]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 378
 BackgroundColor	array	1.5		FALSE	FALSE	FALSE			[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]	[ArrayOf_3RGBNumbers]	Table 378
 BorderColor	array	1.5		FALSE	FALSE	TRUE			[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]	[ArrayOf_4BorderColorArrays,ArrayOf_3RGBNumbers]	Table 378
@@ -33,10 +33,8 @@ ColumnCount	integer	1.6		FALSE	FALSE	FALSE	1		[fn:Eval((@O==Layout) || ((@O!=Lis
 ColumnGap	array;number	1.6		FALSE	FALSE	FALSE			[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]	[ArrayOfNumbersGeneral];[]	Table 381
 ColumnWidths	array;number	1.6		FALSE	FALSE	FALSE			[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]	[ArrayOfNumbersGeneral];[]	Table 381
 ListNumbering	name	1.4		FALSE	FALSE	TRUE	None	[None,Disc,Circle,Square,Ordered,Decimal,UpperRoman,LowerRoman,UpperAlpha,LowerAlpha]	[fn:Eval((@O==List) || ((@O!=Layout) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 382
-Role	name	1.4		FALSE	FALSE	FALSE		[rb,cb,pb,tv,lb]	[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]		Table 383
 RowSpan	integer	1.4		FALSE	FALSE	FALSE	1		[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]		Table 384
 ColSpan	integer	1.4		FALSE	FALSE	FALSE	1		[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]		Table 384
 Headers	array	1.4		FALSE	FALSE	FALSE			[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]	[ArrayOfStringsByte]	Table 384
-Scope	name	1.4		FALSE	FALSE	FALSE		[Row,Column,Both]	[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]		Table 384
+Scope	name	1.5		FALSE	FALSE	FALSE		[Row,Column,Both]	[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]		Table 384
 P	array	1.6		fn:IsRequired(@O==UserProperties)	FALSE	FALSE				[ArrayOfUserProperty]	Table 361
-Type	name	1.4		FALSE	FALSE	FALSE		[Pagination,Layout,Page]	[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))]		Table 385

@@ -44,7 +44,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
+        "SpecialCase": "[fn:SinceVersion(1.2,fn:Ignore(fn:IsPresent(BS)))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "Dest": {
@@ -215,7 +215,7 @@
         "Key": "*",
         "Type": "name",
         "SinceVersion": 1.0,
-        "DeprecatedIn": 1.4,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -244,7 +244,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageTreeNode,PageObject]"
       }
@@ -661,10 +661,29 @@
         "Key": "Info",
         "Type": "dictionary",
         "SinceVersion": 1.0,
-        "Required": false,
+        "Required": "fn:IsRequired(fn:SinceVersion(1.4,fn:IsPresent(trailer::Catalog::PieceInfo)))",
         "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:SinceVersion(1.4,fn:IsPresent(trailer::Catalog::PieceInfo,fn:IsPresent(trailer::Info::ModDate))))]",
         "Link": "[DocInfo]"
+      },
+      "AdditionalStreams": {
+        "Key": "AdditionalStreams",
+        "Type": "array",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((fn:ArrayLength(AdditionalStreams) mod 2)==0)]",
+        "Link": "[OOAdditionalStmsArray]"
+      },
+      "DocChecksum": {
+        "Key": "DocChecksum",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false
       }
     }
   },
@@ -1691,6 +1710,28 @@
     }
   },
   {
+    "id": "OOAdditionalStmsArray",
+    "keys": {
+      "0*": {
+        "Key": "0*",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "Required": true,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false
+      },
+      "1*": {
+        "Key": "1*",
+        "Type": "stream",
+        "SinceVersion": 1.0,
+        "Required": true,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[Stream]"
+      }
+    }
+  },
+  {
     "id": "Outline",
     "keys": {
       "Type": {
@@ -1802,7 +1843,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Not(fn:IsPresent(A))];[fn:Not(fn:IsPresent(A))];[fn:Not(fn:IsPresent(A))]",
+        "SpecialCase": "[fn:SinceVersion(1.1,fn:Not(fn:IsPresent(A)))];[fn:SinceVersion(1.1,fn:Not(fn:IsPresent(A)))];[fn:SinceVersion(1.1,fn:Not(fn:IsPresent(A)))]",
         "Link": "[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]"
       }
     }
@@ -1922,6 +1963,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Kids)>0)]",
         "Link": "[ArrayOfPageTreeNodeKids]"
       },
       "Count": {
@@ -1931,7 +1973,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@Count>=0)]"
+        "PossibleValues": "[fn:Eval(@Count>0)]"
       },
       "Resources": {
         "Key": "Resources",

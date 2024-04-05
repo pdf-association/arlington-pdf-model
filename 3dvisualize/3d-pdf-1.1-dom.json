@@ -148,13 +148,6 @@
             "name": "ArrayOf_2StringsByte array"
         },
         {
-            "id": "ArrayOf_2UnencryptedStringsByte",
-            "val": 4,
-            "group": "array",
-            "desc": "2 elements",
-            "name": "ArrayOf_2UnencryptedStringsByte array"
-        },
-        {
             "id": "ArrayOf_4AnnotBorderCharacteristics",
             "val": 16,
             "group": "array",
@@ -318,16 +311,16 @@
         },
         {
             "id": "FileSpecification",
-            "val": 49,
+            "val": 36,
             "group": "dict",
-            "desc": "7 keys",
+            "desc": "6 keys",
             "name": "FileSpecification dict"
         },
         {
             "id": "FileTrailer",
-            "val": 36,
+            "val": 64,
             "group": "dict",
-            "desc": "6 keys",
+            "desc": "8 keys",
             "color": "red",
             "name": "FileTrailer dict"
         },
@@ -354,9 +347,9 @@
         },
         {
             "id": "FontDescriptorTrueType",
-            "val": 256,
+            "val": 289,
             "group": "dict",
-            "desc": "16 keys",
+            "desc": "17 keys",
             "name": "FontDescriptorTrueType dict"
         },
         {
@@ -372,6 +365,13 @@
             "group": "dict",
             "desc": "15 keys",
             "name": "FontDescriptorType3 dict"
+        },
+        {
+            "id": "FontFile2",
+            "val": 100,
+            "group": "dict",
+            "desc": "10 keys",
+            "name": "FontFile2 dict"
         },
         {
             "id": "FontFileType1",
@@ -458,6 +458,13 @@
             "name": "MicrosoftWindowsLaunchParam dict"
         },
         {
+            "id": "OOAdditionalStmsArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "OOAdditionalStmsArray array"
+        },
+        {
             "id": "Outline",
             "val": 16,
             "group": "dict",
@@ -519,6 +526,13 @@
             "group": "dict",
             "desc": "7 keys",
             "name": "Thumbnail dict"
+        },
+        {
+            "id": "TrailerIDArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "TrailerIDArray array"
         },
         {
             "id": "Transition",
@@ -1075,6 +1089,16 @@
         },
         {
             "source": "DestsMap",
+            "target": "ActionGoTo",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
+            "target": "ActionGoToR",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
             "target": "DestDict",
             "name": "DestsMap::*"
         },
@@ -1090,6 +1114,11 @@
         },
         {
             "source": "FileTrailer",
+            "target": "OOAdditionalStmsArray",
+            "name": "FileTrailer::AdditionalStreams"
+        },
+        {
+            "source": "FileTrailer",
             "target": "EncryptionStandard",
             "name": "FileTrailer::Encrypt"
         },
@@ -1100,14 +1129,15 @@
         },
         {
             "source": "FileTrailer",
-            "target": "ArrayOf_2UnencryptedStringsByte",
+            "target": "TrailerIDArray",
             "name": "FileTrailer::ID",
             "color": "red"
         },
         {
             "source": "FileTrailer",
             "target": "DocInfo",
-            "name": "FileTrailer::Info"
+            "name": "FileTrailer::Info",
+            "color": "red"
         },
         {
             "source": "FileTrailer",
@@ -1121,9 +1151,49 @@
             "name": "FontDescriptorTrueType::FontFile"
         },
         {
+            "source": "FontDescriptorTrueType",
+            "target": "FontFile2",
+            "name": "FontDescriptorTrueType::FontFile2"
+        },
+        {
             "source": "FontDescriptorType1",
             "target": "FontFileType1",
             "name": "FontDescriptorType1::FontFile"
+        },
+        {
+            "source": "FontFile2",
+            "target": "ArrayOfDecodeParams",
+            "name": "FontFile2::DecodeParms"
+        },
+        {
+            "source": "FontFile2",
+            "target": "FilterLZWDecode",
+            "name": "FontFile2::DecodeParms"
+        },
+        {
+            "source": "FontFile2",
+            "target": "FileSpecification",
+            "name": "FontFile2::F"
+        },
+        {
+            "source": "FontFile2",
+            "target": "ArrayOfDecodeParams",
+            "name": "FontFile2::FDecodeParms"
+        },
+        {
+            "source": "FontFile2",
+            "target": "FilterLZWDecode",
+            "name": "FontFile2::FDecodeParms"
+        },
+        {
+            "source": "FontFile2",
+            "target": "ArrayOfCompressionFilterNames",
+            "name": "FontFile2::FFilter"
+        },
+        {
+            "source": "FontFile2",
+            "target": "ArrayOfCompressionFilterNames",
+            "name": "FontFile2::Filter"
         },
         {
             "source": "FontMap",
@@ -1264,6 +1334,12 @@
             "source": "LabDict",
             "target": "WhitepointArray",
             "name": "LabDict::WhitePoint",
+            "color": "red"
+        },
+        {
+            "source": "OOAdditionalStmsArray",
+            "target": "Stream",
+            "name": "OOAdditionalStmsArray::1*",
             "color": "red"
         },
         {

@@ -1039,7 +1039,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1203,7 +1203,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1368,7 +1368,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1444,7 +1444,7 @@
       },
       "DA": {
         "Key": "DA",
-        "Type": "string",
+        "Type": "string-byte",
         "SinceVersion": 1.3,
         "Required": true,
         "IndirectReference": false,
@@ -1459,6 +1459,15 @@
         "Inheritable": false,
         "DefaultValue": "0",
         "PossibleValues": "[0,1,2]"
+      },
+      "BS": {
+        "Key": "BS",
+        "Type": "dictionary",
+        "SinceVersion": 1.3,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[BorderStyle]"
       }
     }
   },
@@ -1532,7 +1541,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1686,7 +1695,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -1850,7 +1859,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2033,7 +2042,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) && fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(2.0,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.1,fn:BitsClear(2,32)) && fn:IsPDFVersion(1.2,fn:BitsClear(4,32)) && fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2060,7 +2069,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
+        "SpecialCase": "[fn:SinceVersion(1.2,fn:Ignore(fn:IsPresent(BS)))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -2116,6 +2125,15 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ActionURI]"
+      },
+      "BS": {
+        "Key": "BS",
+        "Type": "dictionary",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[BorderStyle]"
       }
     }
   },
@@ -2197,7 +2215,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) && fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.2,fn:BitsClear(4,32)) && fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2349,7 +2367,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2485,7 +2503,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2620,7 +2638,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) && fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.2,fn:BitsClear(4,32)) && fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2793,7 +2811,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -2947,7 +2965,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -3101,7 +3119,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -3182,7 +3200,8 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "Draft",
-        "PossibleValues": "[Approved,Experimental,NotApproved,AsIs,Expired,NotForPublicRelease,Confidential,Final,Sold,Departmental,ForComment,TopSecret,Draft,ForPublicRelease,*]"
+        "PossibleValues": "[Approved,Experimental,NotApproved,AsIs,Expired,NotForPublicRelease,Confidential,Final,Sold,Departmental,ForComment,TopSecret,Draft,ForPublicRelease,*]",
+        "SpecialCase": "[fn:SinceVersion(2.0,fn:Not(fn:IsPresent(fn:IsPresent(IT))))]"
       }
     }
   },
@@ -3256,7 +3275,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -3410,7 +3429,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) && fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.1,fn:BitsClear(2,32)) && fn:IsPDFVersion(1.2,fn:BitsClear(4,32)) && fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -3646,7 +3665,7 @@
         "Type": "array",
         "SinceVersion": 1.3,
         "DeprecatedIn": 2.0,
-        "Required": "fn:IsRequired(fn:IsPresent(AnnotStates) && fn:Not(fn:IsPresent(LastModified)))",
+        "Required": "fn:IsRequired(fn:IsPDFVersion(1.3) || fn:SinceVersion(1.4,(fn:IsPresent(AnnotStates) && fn:Not(fn:IsPresent(LastModified)))))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfTrapNetVersionObjects]"
@@ -3656,7 +3675,7 @@
         "Type": "array",
         "SinceVersion": 1.3,
         "DeprecatedIn": 2.0,
-        "Required": "fn:IsRequired(fn:IsPresent(Version) && fn:Not(fn:IsPresent(LastModified)))",
+        "Required": "fn:IsRequired(fn:IsPDFVersion(1.3) || fn:SinceVersion(1.4,(fn:IsPresent(Version) && fn:Not(fn:IsPresent(LastModified)))))",
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfAnnotStates]"
@@ -3743,7 +3762,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -3897,7 +3916,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "0",
-        "SpecialCase": "[fn:Eval(fn:BeforeVersion(1.3,fn:BitsClear(4,32)) && fn:BeforeVersion(1.4,fn:BitsClear(8,32)) && fn:BeforeVersion(1.5,fn:BitsClear(9,32)) && fn:BeforeVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
+        "SpecialCase": "[fn:Eval(fn:IsPDFVersion(1.2,fn:BitsClear(4,32)) && fn:IsPDFVersion(1.3,fn:BitsClear(8,32)) && fn:IsPDFVersion(1.4,fn:BitsClear(9,32)) && fn:IsPDFVersion(1.5,fn:BitsClear(10,32)) && fn:IsPDFVersion(1.6,fn:BitsClear(10,32)) && fn:SinceVersion(1.7,fn:BitsClear(11,32)))]"
       },
       "AP": {
         "Key": "AP",
@@ -4508,7 +4527,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval((fn:ArrayLength(1) mod 3)==0)];[];[]",
+        "SpecialCase": "[fn:Eval((fn:ArrayLength(*) mod 3)==0)];[];[]",
         "Link": "[ArrayOfNumbersGeneral];[];[]"
       }
     }
@@ -4528,6 +4547,7 @@
         "Key": "1*",
         "Type": "integer",
         "SinceVersion": 1.3,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -4634,7 +4654,7 @@
       "*": {
         "Key": "*",
         "Type": "array;string-text",
-        "SinceVersion": 1.4,
+        "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -4791,7 +4811,7 @@
         "Key": "*",
         "Type": "name",
         "SinceVersion": 1.0,
-        "DeprecatedIn": 1.4,
+        "DeprecatedIn": 2.0,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -4945,7 +4965,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageTreeNode,PageObject]"
       }
@@ -5114,6 +5134,20 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[StructElem,MarkedContentReference,ObjectReference];[]"
+      }
+    }
+  },
+  {
+    "id": "ArrayOfStructElemParentTree",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary;null",
+        "SinceVersion": 1.3,
+        "Required": false,
+        "IndirectReference": "[true];[false]",
+        "Inheritable": false,
+        "Link": "[StructElem];[]"
       }
     }
   },
@@ -5374,7 +5408,7 @@
       "0": {
         "Key": "0",
         "Type": "string-text",
-        "SinceVersion": 1.4,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -5382,33 +5416,10 @@
       "1": {
         "Key": "1",
         "Type": "string-text",
-        "SinceVersion": 1.4,
+        "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
-      }
-    }
-  },
-  {
-    "id": "ArrayOf_2UnencryptedStringsByte",
-    "keys": {
-      "0": {
-        "Key": "0",
-        "Type": "string-byte",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
-      },
-      "1": {
-        "Key": "1",
-        "Type": "string-byte",
-        "SinceVersion": 1.1,
-        "Required": true,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
       }
     }
   },
@@ -6685,7 +6696,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.3,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": true,
         "Inheritable": false,
         "Link": "[StructTreeRoot]"
       },
@@ -7052,7 +7063,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[DestDict]"
+        "Link": "[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[ActionGoTo,ActionGoToR,DestDict]"
       }
     }
   },
@@ -7118,6 +7129,20 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ColorantsDict]"
+      }
+    }
+  },
+  {
+    "id": "DictionaryOfDictionaries",
+    "keys": {
+      "*": {
+        "Key": "*",
+        "Type": "dictionary",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[_UniversalDictionary]"
       }
     }
   },
@@ -7842,7 +7867,7 @@
       },
       "DA": {
         "Key": "DA",
-        "Type": "string",
+        "Type": "string-byte",
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
@@ -7959,7 +7984,7 @@
       },
       "DA": {
         "Key": "DA",
-        "Type": "string",
+        "Type": "string-byte",
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
@@ -8069,7 +8094,7 @@
       },
       "DA": {
         "Key": "DA",
-        "Type": "string",
+        "Type": "string-byte",
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
@@ -8205,7 +8230,7 @@
       },
       "DA": {
         "Key": "DA",
-        "Type": "string",
+        "Type": "string-byte",
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
@@ -8224,7 +8249,7 @@
       "Opt": {
         "Key": "Opt",
         "Type": "array",
-        "SinceVersion": 1.4,
+        "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": true,
@@ -8344,9 +8369,9 @@
       },
       "DA": {
         "Key": "DA",
-        "Type": "string",
+        "Type": "string-byte",
         "SinceVersion": 1.3,
-        "Required": true,
+        "Required": false,
         "IndirectReference": false,
         "Inheritable": true
       },
@@ -8427,12 +8452,11 @@
       },
       "V": {
         "Key": "V",
-        "Type": "stream;string-text",
+        "Type": "string-text",
         "SinceVersion": 1.2,
         "Required": false,
-        "IndirectReference": "[true];[false]",
-        "Inheritable": true,
-        "Link": "[Stream];[]"
+        "IndirectReference": false,
+        "Inheritable": true
       },
       "DV": {
         "Key": "DV",
@@ -8454,7 +8478,7 @@
       },
       "DA": {
         "Key": "DA",
-        "Type": "string",
+        "Type": "string-byte",
         "SinceVersion": 1.2,
         "Required": true,
         "IndirectReference": false,
@@ -8516,8 +8540,8 @@
       "Type": {
         "Key": "Type",
         "Type": "name",
-        "SinceVersion": 1.1,
-        "Required": "fn:IsRequired(fn:IsPresent(EF) || fn:IsPresent(EP) || fn:IsPresent(RF))",
+        "SinceVersion": 1.3,
+        "Required": "fn:IsRequired(fn:IsPresent(EF) || fn:SinceVersion(2.0,fn:IsPresent(EP)) || fn:IsPresent(RF))",
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[Filespec]"
@@ -8647,9 +8671,10 @@
         "Key": "Info",
         "Type": "dictionary",
         "SinceVersion": 1.0,
-        "Required": false,
+        "Required": "fn:IsRequired(fn:SinceVersion(1.4,fn:IsPresent(trailer::Catalog::PieceInfo)))",
         "IndirectReference": "fn:MustBeIndirect(fn:BeforeVersion(2.0))",
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:SinceVersion(1.4,fn:IsPresent(trailer::Catalog::PieceInfo,fn:IsPresent(trailer::Info::ModDate))))]",
         "Link": "[DocInfo]"
       },
       "ID": {
@@ -8659,8 +8684,25 @@
         "Required": "fn:IsRequired(fn:IsPresent(Encrypt))",
         "IndirectReference": "fn:MustBeDirect(fn:IsPresent(Encrypt))",
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:MustBeDirect(ID::0) && fn:MustBeDirect(ID::1))]",
-        "Link": "[ArrayOf_2UnencryptedStringsByte]"
+        "Link": "[TrailerIDArray]"
+      },
+      "AdditionalStreams": {
+        "Key": "AdditionalStreams",
+        "Type": "array",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval((fn:ArrayLength(AdditionalStreams) mod 2)==0)]",
+        "Link": "[OOAdditionalStmsArray]"
+      },
+      "DocChecksum": {
+        "Key": "DocChecksum",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "Required": false,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false
       }
     }
   },
@@ -9234,7 +9276,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile2)) && fn:Not(fn:IsPresent(FontFile3)))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile3)))]",
         "Link": "[FontFile]"
       },
       "FontFile3": {
@@ -9244,7 +9286,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile)) && fn:Not(fn:IsPresent(FontFile2)))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile)))]",
         "Link": "[FontFile3CIDType0]"
       },
       "Style": {
@@ -9417,7 +9459,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile2)) && fn:Not(fn:IsPresent(FontFile3)))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile2)))]",
         "Link": "[FontFile]"
       },
       "FontFile2": {
@@ -9427,7 +9469,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile)) && fn:Not(fn:IsPresent(FontFile3)))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile)))]",
         "Link": "[FontFile2]"
       },
       "Style": {
@@ -9600,17 +9642,17 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile2)) && fn:Not(fn:IsPresent(FontFile3)))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile2)))]",
         "Link": "[FontFileType1]"
       },
       "FontFile2": {
         "Key": "FontFile2",
         "Type": "stream",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
-        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile)) && fn:Not(fn:IsPresent(FontFile3)))]",
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile)))]",
         "Link": "[FontFile2]"
       }
     }
@@ -10018,7 +10060,7 @@
       "Length1": {
         "Key": "Length1",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": "fn:IsRequired(parent::parent::@Subtype==TrueType)",
         "IndirectReference": false,
         "Inheritable": false,
@@ -10027,7 +10069,7 @@
       "Length2": {
         "Key": "Length2",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -10036,7 +10078,7 @@
       "Length3": {
         "Key": "Length3",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -10045,7 +10087,7 @@
       "Subtype": {
         "Key": "Subtype",
         "Type": "name",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
@@ -10053,7 +10095,7 @@
       "Length": {
         "Key": "Length",
         "Type": "integer",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false
@@ -10061,7 +10103,7 @@
       "Filter": {
         "Key": "Filter",
         "Type": "array;name",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -10072,7 +10114,7 @@
       "DecodeParms": {
         "Key": "DecodeParms",
         "Type": "array;dictionary",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -10082,7 +10124,7 @@
       "F": {
         "Key": "F",
         "Type": "dictionary;string",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -10091,7 +10133,7 @@
       "FFilter": {
         "Key": "FFilter",
         "Type": "array;name",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -10102,7 +10144,7 @@
       "FDecodeParms": {
         "Key": "FDecodeParms",
         "Type": "array;dictionary",
-        "SinceVersion": 1.2,
+        "SinceVersion": 1.1,
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
@@ -12217,15 +12259,6 @@
         "SpecialCase": "[fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[]",
         "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
       },
-      "DestOutputProfile": {
-        "Key": "DestOutputProfile",
-        "Type": "array;dictionary",
-        "SinceVersion": 1.3,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "Link": "[ArrayOfDecodeParams];[FilterLZWDecode,FilterFlateDecode]"
-      },
       "F": {
         "Key": "F",
         "Type": "dictionary;string",
@@ -12384,11 +12417,12 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:IsPresent(DR::Font::*))]",
         "Link": "[Resource]"
       },
       "DA": {
         "Key": "DA",
-        "Type": "string",
+        "Type": "string-byte",
         "SinceVersion": 1.2,
         "Required": false,
         "IndirectReference": false,
@@ -12447,6 +12481,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
+        "DefaultValue": "[0.0 0.0 0.0]",
         "Link": "[BlackpointArray]"
       },
       "Range": {
@@ -12863,7 +12898,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[];[0];[]",
-        "SpecialCase": "[];[fn:Eval(@Start>0)];[fn:Eval(fn:StringLength(Start)==8)]",
+        "SpecialCase": "[];[fn:Eval(@Start>=0)];[fn:Eval(fn:StringLength(Start)==8)]",
         "Link": "[ArrayOfDuration];[];[]"
       },
       "Duration": {
@@ -12964,7 +12999,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[DestDict,DestXYZArray,Dest0Array,Dest1Array,Dest4Array]"
+        "Link": "[ActionGoTo,ActionGoToR,DestDict,DestXYZArray,Dest0Array,Dest1Array,Dest4Array]"
       },
       "AP": {
         "Key": "AP",
@@ -13038,6 +13073,28 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[SlideShow]"
+      }
+    }
+  },
+  {
+    "id": "OOAdditionalStmsArray",
+    "keys": {
+      "0*": {
+        "Key": "0*",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "Required": true,
+        "IndirectReference": "fn:MustBeDirect()",
+        "Inheritable": false
+      },
+      "1*": {
+        "Key": "1*",
+        "Type": "stream",
+        "SinceVersion": 1.0,
+        "Required": true,
+        "IndirectReference": true,
+        "Inheritable": false,
+        "Link": "[Stream]"
       }
     }
   },
@@ -13393,7 +13450,7 @@
         "Required": true,
         "IndirectReference": true,
         "Inheritable": false,
-        "Link": "[_UniversalArray];[_UniversalDictionary];[XObjectFormType1]"
+        "Link": "[_UniversalArray];[_UniversalDictionary];[XObjectFormType1,XObjectImage]"
       }
     }
   },
@@ -13509,7 +13566,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "SpecialCase": "[fn:Not(fn:IsPresent(A))];[fn:Not(fn:IsPresent(A))];[fn:Not(fn:IsPresent(A))]",
+        "SpecialCase": "[fn:SinceVersion(1.1,fn:Not(fn:IsPresent(A)))];[fn:SinceVersion(1.1,fn:Not(fn:IsPresent(A)))];[fn:SinceVersion(1.1,fn:Not(fn:IsPresent(A)))]",
         "Link": "[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]"
       },
       "A": {
@@ -13937,6 +13994,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:ArrayLength(Kids)>0)]",
         "Link": "[ArrayOfPageTreeNodeKids]"
       },
       "Count": {
@@ -13946,7 +14004,7 @@
         "Required": true,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[fn:Eval(@Count>=0)]"
+        "PossibleValues": "[fn:Eval(@Count>0)]"
       },
       "Resources": {
         "Key": "Resources",
@@ -14421,7 +14479,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[_UniversalDictionary]"
+        "Link": "[DictionaryOfDictionaries]"
       }
     }
   },
@@ -16071,7 +16129,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "Link": "[ArrayOfStructElem,StructElem,MarkedContentReference,ObjectReference]"
+        "Link": "[ArrayOfStructElemParentTree,StructElem,MarkedContentReference,ObjectReference]"
       },
       "ParentTreeNextKey": {
         "Key": "ParentTreeNextKey",
@@ -16120,7 +16178,7 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false,
-        "PossibleValues": "[Block,Before,Start,End,fn:BeforeVersion(2.0,Inline)]",
+        "PossibleValues": "[Block,Before,Start,End,Inline]",
         "SpecialCase": "[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
       },
       "WritingMode": {
@@ -16289,16 +16347,6 @@
         "PossibleValues": "[None,Disc,Circle,Square,Ordered,Decimal,UpperRoman,LowerRoman,UpperAlpha,LowerAlpha]",
         "SpecialCase": "[fn:Eval((@O==List) || ((@O!=Layout) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]"
       },
-      "Role": {
-        "Key": "Role",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[rb,cb,pb,tv,lb]",
-        "SpecialCase": "[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]"
-      },
       "RowSpan": {
         "Key": "RowSpan",
         "Type": "integer",
@@ -16328,26 +16376,6 @@
         "Inheritable": false,
         "SpecialCase": "[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]",
         "Link": "[ArrayOfStringsByte]"
-      },
-      "Scope": {
-        "Key": "Scope",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Row,Column,Both]",
-        "SpecialCase": "[fn:Eval((@O==Table) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Artifact)))]"
-      },
-      "Type": {
-        "Key": "Type",
-        "Type": "name",
-        "SinceVersion": 1.4,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Pagination,Layout,Page]",
-        "SpecialCase": "[fn:Eval((@O==Artifact) || ((@O!=Layout) && (@O!=List) && (@O!=PrintField) && (@O!=Table)))]"
       }
     }
   },
@@ -16524,6 +16552,29 @@
     }
   },
   {
+    "id": "TrailerIDArray",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "string-byte",
+        "SinceVersion": 1.1,
+        "Required": true,
+        "IndirectReference": "fn:MustBeDirect(fn:IsPresent(trailer::Encrypt))",
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
+      },
+      "1": {
+        "Key": "1",
+        "Type": "string-byte",
+        "SinceVersion": 1.1,
+        "Required": true,
+        "IndirectReference": "fn:MustBeDirect(fn:IsPresent(trailer::Encrypt))",
+        "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:AlwaysUnencrypted())]"
+      }
+    }
+  },
+  {
     "id": "Transition",
     "keys": {
       "Type": {
@@ -16586,7 +16637,7 @@
         "Inheritable": false,
         "DefaultValue": "[0];[]",
         "PossibleValues": "[0,90,180,270,315];[None]",
-        "SpecialCase": "[fn:Eval((((@Di==90) || (@Di==180)) && (@S==Wipe)) || ((@Di==315) && (@S==Glitter)))];[fn:Eval(((@Di==None) && (@S==Fly) && (@SS!=1.0)))]"
+        "SpecialCase": "[fn:Eval((((@Di==90) || (@Di==180)) && (@S==Wipe)) || ((@Di==315) && (@S==Glitter)))];[fn:Eval(((@Di==None) && (@S==Fly)))]"
       }
     }
   },

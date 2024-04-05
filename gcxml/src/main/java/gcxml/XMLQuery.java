@@ -57,12 +57,6 @@ public class XMLQuery {
     private DocumentBuilder domBuilder = null;
 
     /**
-     *
-     */
-    private Document newDoc = null;
-
-
-    /**
      * List of all files in "inputFolder" - file extension is NOT checked.
      */
     private File[] files = null;
@@ -91,7 +85,7 @@ public class XMLQuery {
         try {
             DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
             domBuilder = domFactory.newDocumentBuilder();
-            newDoc = domBuilder.newDocument();
+            domBuilder.newDocument();
         }
         catch (FactoryConfigurationError | Exception ex) {
             System.err.println(ex.toString());
@@ -444,11 +438,11 @@ public class XMLQuery {
      * @param file_name the XML file
      * @param mp   the map of key names and counts
      */
-    private void printMap(String file_name, Map mp) {
+    private void printMap(String file_name, Map<String, Integer> mp) {
         System.out.println("XML file: " + file_name);
-        Iterator it = mp.entrySet().iterator();
+        final Iterator<Entry<String,Integer>> it = mp.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
+            final Map.Entry<String,Integer> pair = (Map.Entry<String,Integer>)it.next();
             System.out.println("\tKey /" +pair.getKey() + " = " + pair.getValue());
             String key = pair.getKey().toString();
             String dicts = getDictByKey(key, file_name);

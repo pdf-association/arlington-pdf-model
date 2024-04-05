@@ -149,9 +149,9 @@
         },
         {
             "id": "AnnotFreeText",
-            "val": 324,
+            "val": 361,
             "group": "dict",
-            "desc": "18 keys",
+            "desc": "19 keys",
             "name": "AnnotFreeText dict"
         },
         {
@@ -177,9 +177,9 @@
         },
         {
             "id": "AnnotLink",
-            "val": 289,
+            "val": 324,
             "group": "dict",
-            "desc": "17 keys",
+            "desc": "18 keys",
             "name": "AnnotLink dict"
         },
         {
@@ -638,6 +638,13 @@
             "name": "ArrayOfStructElemKids map"
         },
         {
+            "id": "ArrayOfStructElemParentTree",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfStructElemParentTree map"
+        },
+        {
             "id": "ArrayOfTags",
             "val": 4,
             "group": "array",
@@ -741,13 +748,6 @@
             "group": "array",
             "desc": "2 elements",
             "name": "ArrayOf_2StringsText array"
-        },
-        {
-            "id": "ArrayOf_2UnencryptedStringsByte",
-            "val": 4,
-            "group": "array",
-            "desc": "2 elements",
-            "name": "ArrayOf_2UnencryptedStringsByte array"
         },
         {
             "id": "ArrayOf_3Integers",
@@ -1010,6 +1010,13 @@
             "name": "DeviceNDict dict"
         },
         {
+            "id": "DictionaryOfDictionaries",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "DictionaryOfDictionaries map"
+        },
+        {
             "id": "DocInfo",
             "val": 100,
             "group": "map",
@@ -1137,9 +1144,9 @@
         },
         {
             "id": "FileTrailer",
-            "val": 36,
+            "val": 64,
             "group": "dict",
-            "desc": "6 keys",
+            "desc": "8 keys",
             "color": "red",
             "name": "FileTrailer dict"
         },
@@ -1404,9 +1411,9 @@
         },
         {
             "id": "ICCProfileStream",
-            "val": 121,
+            "val": 100,
             "group": "dict",
-            "desc": "11 keys",
+            "desc": "10 keys",
             "name": "ICCProfileStream dict"
         },
         {
@@ -1513,6 +1520,13 @@
             "group": "dict",
             "desc": "9 keys",
             "name": "Name dict"
+        },
+        {
+            "id": "OOAdditionalStmsArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "OOAdditionalStmsArray array"
         },
         {
             "id": "OPIVersion13",
@@ -1796,9 +1810,9 @@
         },
         {
             "id": "StructureAttributesDict",
-            "val": 576,
+            "val": 441,
             "group": "dict",
-            "desc": "24 keys",
+            "desc": "21 keys",
             "name": "StructureAttributesDict dict"
         },
         {
@@ -1821,6 +1835,13 @@
             "group": "dict",
             "desc": "13 keys",
             "name": "Thumbnail dict"
+        },
+        {
+            "id": "TrailerIDArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "TrailerIDArray array"
         },
         {
             "id": "Transition",
@@ -3740,6 +3761,11 @@
         },
         {
             "source": "AnnotFreeText",
+            "target": "BorderStyle",
+            "name": "AnnotFreeText::BS"
+        },
+        {
+            "source": "AnnotFreeText",
             "target": "ArrayOf_4AnnotBorderCharacteristics",
             "name": "AnnotFreeText::Border"
         },
@@ -3943,6 +3969,11 @@
             "source": "AnnotLink",
             "target": "Appearance",
             "name": "AnnotLink::AP"
+        },
+        {
+            "source": "AnnotLink",
+            "target": "BorderStyle",
+            "name": "AnnotLink::BS"
         },
         {
             "source": "AnnotLink",
@@ -5374,6 +5405,11 @@
             "name": "ArrayOfStructElemKids::*"
         },
         {
+            "source": "ArrayOfStructElemParentTree",
+            "target": "StructElem",
+            "name": "ArrayOfStructElemParentTree::*"
+        },
+        {
             "source": "ArrayOfThreads",
             "target": "Thread",
             "name": "ArrayOfThreads::*"
@@ -6145,6 +6181,16 @@
         },
         {
             "source": "DestsMap",
+            "target": "ActionGoTo",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
+            "target": "ActionGoToR",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
             "target": "DestDict",
             "name": "DestsMap::*"
         },
@@ -6211,6 +6257,11 @@
             "source": "DeviceNDict",
             "target": "ColorantsDict",
             "name": "DeviceNDict::Colorants"
+        },
+        {
+            "source": "DictionaryOfDictionaries",
+            "target": "_UniversalDictionary",
+            "name": "DictionaryOfDictionaries::*"
         },
         {
             "source": "DocTimeStamp",
@@ -6700,11 +6751,6 @@
             "name": "FieldTx::Parent"
         },
         {
-            "source": "FieldTx",
-            "target": "Stream",
-            "name": "FieldTx::V"
-        },
-        {
             "source": "FileSpecEF",
             "target": "EmbeddedFileStream",
             "name": "FileSpecEF::F"
@@ -6732,6 +6778,11 @@
         },
         {
             "source": "FileTrailer",
+            "target": "OOAdditionalStmsArray",
+            "name": "FileTrailer::AdditionalStreams"
+        },
+        {
+            "source": "FileTrailer",
             "target": "EncryptionStandard",
             "name": "FileTrailer::Encrypt"
         },
@@ -6742,14 +6793,15 @@
         },
         {
             "source": "FileTrailer",
-            "target": "ArrayOf_2UnencryptedStringsByte",
+            "target": "TrailerIDArray",
             "name": "FileTrailer::ID",
             "color": "red"
         },
         {
             "source": "FileTrailer",
             "target": "DocInfo",
-            "name": "FileTrailer::Info"
+            "name": "FileTrailer::Info",
+            "color": "red"
         },
         {
             "source": "FileTrailer",
@@ -8028,21 +8080,6 @@
         },
         {
             "source": "ICCProfileStream",
-            "target": "ArrayOfDecodeParams",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterLZWDecode",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterFlateDecode",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
             "target": "FileSpecification",
             "name": "ICCProfileStream::F"
         },
@@ -8311,6 +8348,16 @@
         },
         {
             "source": "Name",
+            "target": "ActionGoTo",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
+            "target": "ActionGoToR",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
             "target": "DestDict",
             "name": "Name::Dests"
         },
@@ -8373,6 +8420,12 @@
             "source": "Name",
             "target": "WebCapturePageSet",
             "name": "Name::URLS"
+        },
+        {
+            "source": "OOAdditionalStmsArray",
+            "target": "Stream",
+            "name": "OOAdditionalStmsArray::1*",
+            "color": "red"
         },
         {
             "source": "OPIVersion13",
@@ -8472,6 +8525,12 @@
         {
             "source": "ObjectReference",
             "target": "XObjectFormType1",
+            "name": "ObjectReference::Obj",
+            "color": "red"
+        },
+        {
+            "source": "ObjectReference",
+            "target": "XObjectImage",
             "name": "ObjectReference::Obj",
             "color": "red"
         },
@@ -8938,7 +8997,7 @@
         },
         {
             "source": "Resource",
-            "target": "_UniversalDictionary",
+            "target": "DictionaryOfDictionaries",
             "name": "Resource::Properties"
         },
         {
@@ -10131,7 +10190,7 @@
         },
         {
             "source": "StructTreeRoot",
-            "target": "ArrayOfStructElem",
+            "target": "ArrayOfStructElemParentTree",
             "name": "StructTreeRoot::ParentTree"
         },
         {

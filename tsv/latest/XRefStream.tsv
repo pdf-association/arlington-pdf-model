@@ -16,5 +16,5 @@ Info	dictionary	1.5		fn:IsRequired(fn:IsPresent(trailer::Catalog::PieceInfo))	fn
 ID	array	1.5		fn:IsRequired(fn:SinceVersion(2.0) || fn:IsPresent(Encrypt))	fn:MustBeDirect(fn:IsPresent(Encrypt))	FALSE				[TrailerIDArray]	
 Encrypt	dictionary	1.5		FALSE	fn:MustBeDirect(fn:SinceVersion(2.0))	FALSE				[EncryptionStandard,EncryptionPublicKey]	https://github.com/pdf-association/pdf-issues/issues/246
 AuthCode	dictionary	fn:Extension(ISO_TS_32004,2.0)		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval(Encrypt::@V>=5)]	[AuthCode]	ISO/TS 32004 integrity protection
-AdditionalStreams	array	fn:Extension(OpenOffice)		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval((fn:ArrayLength(AdditionalStreams) mod 2)==0)]	[OOAdditionalStmsArray]	OpenOffice/LibreOffice extension - array of MIME types and streams
-DocChecksum	name	fn:Extension(OpenOffice)		FALSE	fn:MustBeDirect()	FALSE					OpenOffice/LibreOffice extension - hex MD5 as a name object
+AdditionalStreams	array	fn:Extension(OpenOffice,1.5)		FALSE	fn:MustBeDirect()	FALSE			[fn:Eval((fn:ArrayLength(AdditionalStreams) mod 2)==0)]	[OOAdditionalStmsArray]	OpenOffice/LibreOffice extension - array of MIME types and streams
+DocChecksum	name	fn:Extension(OpenOffice,1.5)		FALSE	fn:MustBeDirect()	FALSE					OpenOffice/LibreOffice extension - hex MD5 as a name object

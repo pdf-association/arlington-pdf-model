@@ -121,9 +121,9 @@
         },
         {
             "id": "AnnotLink",
-            "val": 169,
+            "val": 196,
             "group": "dict",
-            "desc": "13 keys",
+            "desc": "14 keys",
             "name": "AnnotLink dict"
         },
         {
@@ -260,6 +260,13 @@
             "name": "ArrayOfDuration array"
         },
         {
+            "id": "ArrayOfFieldChoiceOpt",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfFieldChoiceOpt map"
+        },
+        {
             "id": "ArrayOfFieldID",
             "val": 1,
             "group": "map",
@@ -386,11 +393,11 @@
             "name": "ArrayOf_2StringsByte array"
         },
         {
-            "id": "ArrayOf_2UnencryptedStringsByte",
+            "id": "ArrayOf_2StringsText",
             "val": 4,
             "group": "array",
             "desc": "2 elements",
-            "name": "ArrayOf_2UnencryptedStringsByte array"
+            "name": "ArrayOf_2StringsText array"
         },
         {
             "id": "ArrayOf_4AnnotBorderCharacteristics",
@@ -576,6 +583,13 @@
             "name": "DestsMap map"
         },
         {
+            "id": "DictionaryOfDictionaries",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "DictionaryOfDictionaries map"
+        },
+        {
             "id": "DocInfo",
             "val": 81,
             "group": "map",
@@ -640,9 +654,9 @@
         },
         {
             "id": "FieldChoice",
-            "val": 100,
+            "val": 121,
             "group": "dict",
-            "desc": "10 keys",
+            "desc": "11 keys",
             "name": "FieldChoice dict"
         },
         {
@@ -654,16 +668,16 @@
         },
         {
             "id": "FileSpecification",
-            "val": 64,
+            "val": 49,
             "group": "dict",
-            "desc": "8 keys",
+            "desc": "7 keys",
             "name": "FileSpecification dict"
         },
         {
             "id": "FileTrailer",
-            "val": 36,
+            "val": 64,
             "group": "dict",
-            "desc": "6 keys",
+            "desc": "8 keys",
             "color": "red",
             "name": "FileTrailer dict"
         },
@@ -948,6 +962,13 @@
             "name": "Name dict"
         },
         {
+            "id": "OOAdditionalStmsArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "OOAdditionalStmsArray array"
+        },
+        {
             "id": "OPIVersion13",
             "val": 1,
             "group": "dict",
@@ -1079,6 +1100,13 @@
             "group": "dict",
             "desc": "7 keys",
             "name": "Thumbnail dict"
+        },
+        {
+            "id": "TrailerIDArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "TrailerIDArray array"
         },
         {
             "id": "Transition",
@@ -2837,6 +2865,11 @@
         },
         {
             "source": "AnnotLink",
+            "target": "BorderStyle",
+            "name": "AnnotLink::BS"
+        },
+        {
+            "source": "AnnotLink",
             "target": "ArrayOf_4AnnotBorderCharacteristics",
             "name": "AnnotLink::Border"
         },
@@ -3324,6 +3357,11 @@
             "target": "FontCIDType2",
             "name": "ArrayOfDescendantFonts::0",
             "color": "red"
+        },
+        {
+            "source": "ArrayOfFieldChoiceOpt",
+            "target": "ArrayOf_2StringsText",
+            "name": "ArrayOfFieldChoiceOpt::*"
         },
         {
             "source": "ArrayOfFieldID",
@@ -3847,8 +3885,23 @@
         },
         {
             "source": "DestsMap",
+            "target": "ActionGoTo",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
+            "target": "ActionGoToR",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
             "target": "DestDict",
             "name": "DestsMap::*"
+        },
+        {
+            "source": "DictionaryOfDictionaries",
+            "target": "_UniversalDictionary",
+            "name": "DictionaryOfDictionaries::*"
         },
         {
             "source": "Encoding",
@@ -4012,6 +4065,11 @@
         },
         {
             "source": "FieldChoice",
+            "target": "ArrayOfFieldChoiceOpt",
+            "name": "FieldChoice::Opt"
+        },
+        {
+            "source": "FieldChoice",
             "target": "FieldTx",
             "name": "FieldChoice::Parent"
         },
@@ -4086,14 +4144,14 @@
             "name": "FieldTx::Parent"
         },
         {
-            "source": "FieldTx",
-            "target": "Stream",
-            "name": "FieldTx::V"
-        },
-        {
             "source": "FileSpecification",
             "target": "ArrayOf_2StringsByte",
             "name": "FileSpecification::ID"
+        },
+        {
+            "source": "FileTrailer",
+            "target": "OOAdditionalStmsArray",
+            "name": "FileTrailer::AdditionalStreams"
         },
         {
             "source": "FileTrailer",
@@ -4107,14 +4165,15 @@
         },
         {
             "source": "FileTrailer",
-            "target": "ArrayOf_2UnencryptedStringsByte",
+            "target": "TrailerIDArray",
             "name": "FileTrailer::ID",
             "color": "red"
         },
         {
             "source": "FileTrailer",
             "target": "DocInfo",
-            "name": "FileTrailer::Info"
+            "name": "FileTrailer::Info",
+            "color": "red"
         },
         {
             "source": "FileTrailer",
@@ -4767,6 +4826,16 @@
         },
         {
             "source": "Name",
+            "target": "ActionGoTo",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
+            "target": "ActionGoToR",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
             "target": "DestDict",
             "name": "Name::Dests"
         },
@@ -4789,6 +4858,12 @@
             "source": "Name",
             "target": "Dest4Array",
             "name": "Name::Dests"
+        },
+        {
+            "source": "OOAdditionalStmsArray",
+            "target": "Stream",
+            "name": "OOAdditionalStmsArray::1*",
+            "color": "red"
         },
         {
             "source": "OPIVersion13",
@@ -5210,7 +5285,7 @@
         },
         {
             "source": "Resource",
-            "target": "_UniversalDictionary",
+            "target": "DictionaryOfDictionaries",
             "name": "Resource::Properties"
         },
         {

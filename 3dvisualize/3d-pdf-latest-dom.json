@@ -603,6 +603,13 @@
             "name": "ArrayOf3DView map"
         },
         {
+            "id": "ArrayOf3DViewAddEntries",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOf3DViewAddEntries map"
+        },
+        {
             "id": "ArrayOf3PDUNames",
             "val": 9,
             "group": "array",
@@ -828,7 +835,7 @@
         },
         {
             "id": "ArrayOfFileSpecifications",
-            "val": 1,
+            "val": 4,
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfFileSpecifications map"
@@ -888,6 +895,13 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "ArrayOfIntegersGeneral map"
+        },
+        {
+            "id": "ArrayOfIntegersGreaterThanZero",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfIntegersGreaterThanZero map"
         },
         {
             "id": "ArrayOfMediaPlayerInfo",
@@ -1191,6 +1205,13 @@
             "name": "ArrayOfStructElemKids map"
         },
         {
+            "id": "ArrayOfStructElemParentTree",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfStructElemParentTree map"
+        },
+        {
             "id": "ArrayOfSubjectDN",
             "val": 1,
             "group": "map",
@@ -1357,13 +1378,6 @@
             "group": "array",
             "desc": "2 elements",
             "name": "ArrayOf_2StringsText array"
-        },
-        {
-            "id": "ArrayOf_2UnencryptedStringsByte",
-            "val": 4,
-            "group": "array",
-            "desc": "2 elements",
-            "name": "ArrayOf_2UnencryptedStringsByte array"
         },
         {
             "id": "ArrayOf_3CenterOfRotationNumbers",
@@ -1746,9 +1760,9 @@
         },
         {
             "id": "DPart",
-            "val": 64,
+            "val": 49,
             "group": "dict",
-            "desc": "8 keys",
+            "desc": "7 keys",
             "name": "DPart dict"
         },
         {
@@ -1885,6 +1899,13 @@
             "name": "DeviceNProcess dict"
         },
         {
+            "id": "DictionaryOfDictionaries",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "DictionaryOfDictionaries map"
+        },
+        {
             "id": "DictionaryOfFunctions",
             "val": 4,
             "group": "map",
@@ -1977,7 +1998,7 @@
         },
         {
             "id": "Extensions",
-            "val": 4,
+            "val": 9,
             "group": "map",
             "desc": "(unspecified)",
             "name": "Extensions map"
@@ -2068,9 +2089,9 @@
         },
         {
             "id": "FileTrailer",
-            "val": 64,
+            "val": 100,
             "group": "dict",
-            "desc": "8 keys",
+            "desc": "10 keys",
             "color": "red",
             "name": "FileTrailer dict"
         },
@@ -2285,6 +2306,13 @@
             "name": "FunctionType4 dict"
         },
         {
+            "id": "GTS_ProcStepsGroup",
+            "val": 9,
+            "group": "dict",
+            "desc": "3 keys",
+            "name": "GTS_ProcStepsGroup dict"
+        },
+        {
             "id": "GammaArray",
             "val": 9,
             "group": "array",
@@ -2363,10 +2391,17 @@
         },
         {
             "id": "ICCProfileStream",
-            "val": 144,
+            "val": 121,
             "group": "dict",
-            "desc": "12 keys",
+            "desc": "11 keys",
             "name": "ICCProfileStream dict"
+        },
+        {
+            "id": "ISO_DevExtensions",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "ISO_DevExtensions dict"
         },
         {
             "id": "IconFit",
@@ -2663,6 +2698,13 @@
             "name": "NumberFormat dict"
         },
         {
+            "id": "OOAdditionalStmsArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "OOAdditionalStmsArray array"
+        },
+        {
             "id": "OPIVersion13",
             "val": 1,
             "group": "dict",
@@ -2727,9 +2769,9 @@
         },
         {
             "id": "OptContentGroup",
-            "val": 16,
+            "val": 25,
             "group": "dict",
-            "desc": "4 keys",
+            "desc": "5 keys",
             "name": "OptContentGroup dict"
         },
         {
@@ -3545,6 +3587,13 @@
             "name": "Target dict"
         },
         {
+            "id": "TargetEmbedded",
+            "val": 25,
+            "group": "dict",
+            "desc": "5 keys",
+            "name": "TargetEmbedded dict"
+        },
+        {
             "id": "Thread",
             "val": 16,
             "group": "dict",
@@ -3571,6 +3620,13 @@
             "group": "dict",
             "desc": "3 keys",
             "name": "Timespan dict"
+        },
+        {
+            "id": "TrailerIDArray",
+            "val": 4,
+            "group": "array",
+            "desc": "2 elements",
+            "name": "TrailerIDArray array"
         },
         {
             "id": "Transition",
@@ -3784,9 +3840,9 @@
         },
         {
             "id": "XObjectImageSoftMask",
-            "val": 400,
+            "val": 441,
             "group": "dict",
-            "desc": "20 keys",
+            "desc": "21 keys",
             "name": "XObjectImageSoftMask dict"
         },
         {
@@ -3798,9 +3854,9 @@
         },
         {
             "id": "XRefStream",
-            "val": 289,
+            "val": 361,
             "group": "dict",
-            "desc": "17 keys",
+            "desc": "19 keys",
             "color": "red",
             "name": "XRefStream dict"
         },
@@ -9114,11 +9170,6 @@
         },
         {
             "source": "Annot3D",
-            "target": "FileSpecification",
-            "name": "Annot3D::AF"
-        },
-        {
-            "source": "Annot3D",
             "target": "Appearance",
             "name": "Annot3D::AP",
             "color": "red"
@@ -9156,11 +9207,6 @@
         {
             "source": "AnnotCaret",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotCaret::AF"
-        },
-        {
-            "source": "AnnotCaret",
-            "target": "FileSpecification",
             "name": "AnnotCaret::AF"
         },
         {
@@ -9383,11 +9429,6 @@
         {
             "source": "AnnotCircle",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotCircle::AF"
-        },
-        {
-            "source": "AnnotCircle",
-            "target": "FileSpecification",
             "name": "AnnotCircle::AF"
         },
         {
@@ -9629,11 +9670,6 @@
         },
         {
             "source": "AnnotFileAttachment",
-            "target": "FileSpecification",
-            "name": "AnnotFileAttachment::AF"
-        },
-        {
-            "source": "AnnotFileAttachment",
             "target": "Appearance",
             "name": "AnnotFileAttachment::AP",
             "color": "red"
@@ -9858,11 +9894,6 @@
         {
             "source": "AnnotFreeText",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotFreeText::AF"
-        },
-        {
-            "source": "AnnotFreeText",
-            "target": "FileSpecification",
             "name": "AnnotFreeText::AF"
         },
         {
@@ -10104,11 +10135,6 @@
         },
         {
             "source": "AnnotHighlight",
-            "target": "FileSpecification",
-            "name": "AnnotHighlight::AF"
-        },
-        {
-            "source": "AnnotHighlight",
             "target": "Appearance",
             "name": "AnnotHighlight::AP",
             "color": "red"
@@ -10333,11 +10359,6 @@
         {
             "source": "AnnotInk",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotInk::AF"
-        },
-        {
-            "source": "AnnotInk",
-            "target": "FileSpecification",
             "name": "AnnotInk::AF"
         },
         {
@@ -10576,11 +10597,6 @@
         {
             "source": "AnnotLine",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotLine::AF"
-        },
-        {
-            "source": "AnnotLine",
-            "target": "FileSpecification",
             "name": "AnnotLine::AF"
         },
         {
@@ -10953,11 +10969,6 @@
         },
         {
             "source": "AnnotLink",
-            "target": "FileSpecification",
-            "name": "AnnotLink::AF"
-        },
-        {
-            "source": "AnnotLink",
             "target": "Appearance",
             "name": "AnnotLink::AP"
         },
@@ -11038,11 +11049,6 @@
         },
         {
             "source": "AnnotMovie",
-            "target": "FileSpecification",
-            "name": "AnnotMovie::AF"
-        },
-        {
-            "source": "AnnotMovie",
             "target": "Appearance",
             "name": "AnnotMovie::AP",
             "color": "red"
@@ -11081,11 +11087,6 @@
         {
             "source": "AnnotPolyLine",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotPolyLine::AF"
-        },
-        {
-            "source": "AnnotPolyLine",
-            "target": "FileSpecification",
             "name": "AnnotPolyLine::AF"
         },
         {
@@ -11353,11 +11354,6 @@
         },
         {
             "source": "AnnotPolygon",
-            "target": "FileSpecification",
-            "name": "AnnotPolygon::AF"
-        },
-        {
-            "source": "AnnotPolygon",
             "target": "Appearance",
             "name": "AnnotPolygon::AP",
             "color": "red"
@@ -11621,11 +11617,6 @@
         },
         {
             "source": "AnnotPopup",
-            "target": "FileSpecification",
-            "name": "AnnotPopup::AF"
-        },
-        {
-            "source": "AnnotPopup",
             "target": "Appearance",
             "name": "AnnotPopup::AP"
         },
@@ -11791,11 +11782,6 @@
         },
         {
             "source": "AnnotPrinterMark",
-            "target": "FileSpecification",
-            "name": "AnnotPrinterMark::AF"
-        },
-        {
-            "source": "AnnotPrinterMark",
             "target": "AppearancePrinterMark",
             "name": "AnnotPrinterMark::AP",
             "color": "red"
@@ -11828,11 +11814,6 @@
         {
             "source": "AnnotProjection",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotProjection::AF"
-        },
-        {
-            "source": "AnnotProjection",
-            "target": "FileSpecification",
             "name": "AnnotProjection::AF"
         },
         {
@@ -12049,11 +12030,6 @@
         {
             "source": "AnnotRedact",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotRedact::AF"
-        },
-        {
-            "source": "AnnotRedact",
-            "target": "FileSpecification",
             "name": "AnnotRedact::AF"
         },
         {
@@ -12295,11 +12271,6 @@
         },
         {
             "source": "AnnotRichMedia",
-            "target": "FileSpecification",
-            "name": "AnnotRichMedia::AF"
-        },
-        {
-            "source": "AnnotRichMedia",
             "target": "Appearance",
             "name": "AnnotRichMedia::AP",
             "color": "red"
@@ -12452,11 +12423,6 @@
         },
         {
             "source": "AnnotScreen",
-            "target": "FileSpecification",
-            "name": "AnnotScreen::AF"
-        },
-        {
-            "source": "AnnotScreen",
             "target": "Appearance",
             "name": "AnnotScreen::AP",
             "color": "red"
@@ -12494,11 +12460,6 @@
         {
             "source": "AnnotSound",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotSound::AF"
-        },
-        {
-            "source": "AnnotSound",
-            "target": "FileSpecification",
             "name": "AnnotSound::AF"
         },
         {
@@ -12727,11 +12688,6 @@
         {
             "source": "AnnotSquare",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotSquare::AF"
-        },
-        {
-            "source": "AnnotSquare",
-            "target": "FileSpecification",
             "name": "AnnotSquare::AF"
         },
         {
@@ -12973,11 +12929,6 @@
         },
         {
             "source": "AnnotSquiggly",
-            "target": "FileSpecification",
-            "name": "AnnotSquiggly::AF"
-        },
-        {
-            "source": "AnnotSquiggly",
             "target": "Appearance",
             "name": "AnnotSquiggly::AP",
             "color": "red"
@@ -13206,11 +13157,6 @@
         },
         {
             "source": "AnnotStamp",
-            "target": "FileSpecification",
-            "name": "AnnotStamp::AF"
-        },
-        {
-            "source": "AnnotStamp",
             "target": "Appearance",
             "name": "AnnotStamp::AP",
             "color": "red"
@@ -13429,11 +13375,6 @@
         {
             "source": "AnnotStrikeOut",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotStrikeOut::AF"
-        },
-        {
-            "source": "AnnotStrikeOut",
-            "target": "FileSpecification",
             "name": "AnnotStrikeOut::AF"
         },
         {
@@ -13666,11 +13607,6 @@
         },
         {
             "source": "AnnotText",
-            "target": "FileSpecification",
-            "name": "AnnotText::AF"
-        },
-        {
-            "source": "AnnotText",
             "target": "Appearance",
             "name": "AnnotText::AP",
             "color": "red"
@@ -13893,11 +13829,6 @@
         },
         {
             "source": "AnnotTrapNetwork",
-            "target": "FileSpecification",
-            "name": "AnnotTrapNetwork::AF"
-        },
-        {
-            "source": "AnnotTrapNetwork",
             "target": "AppearanceTrapNet",
             "name": "AnnotTrapNetwork::AP",
             "color": "red"
@@ -13947,11 +13878,6 @@
         {
             "source": "AnnotUnderline",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotUnderline::AF"
-        },
-        {
-            "source": "AnnotUnderline",
-            "target": "FileSpecification",
             "name": "AnnotUnderline::AF"
         },
         {
@@ -14184,11 +14110,6 @@
         },
         {
             "source": "AnnotWatermark",
-            "target": "FileSpecification",
-            "name": "AnnotWatermark::AF"
-        },
-        {
-            "source": "AnnotWatermark",
             "target": "Appearance",
             "name": "AnnotWatermark::AP",
             "color": "red"
@@ -14341,11 +14262,6 @@
         {
             "source": "AnnotWidget",
             "target": "ArrayOfFileSpecifications",
-            "name": "AnnotWidget::AF"
-        },
-        {
-            "source": "AnnotWidget",
-            "target": "FileSpecification",
             "name": "AnnotWidget::AF"
         },
         {
@@ -14631,6 +14547,11 @@
             "source": "ArrayOf3DView",
             "target": "3DView",
             "name": "ArrayOf3DView::*"
+        },
+        {
+            "source": "ArrayOf3DViewAddEntries",
+            "target": "3DViewAddEntries",
+            "name": "ArrayOf3DViewAddEntries::*"
         },
         {
             "source": "ArrayOf4Functions",
@@ -15250,6 +15171,11 @@
         },
         {
             "source": "ArrayOfDevExtensions",
+            "target": "ISO_DevExtensions",
+            "name": "ArrayOfDevExtensions::*"
+        },
+        {
+            "source": "ArrayOfDevExtensions",
             "target": "DevExtensions",
             "name": "ArrayOfDevExtensions::*"
         },
@@ -15337,6 +15263,12 @@
             "source": "ArrayOfFileSpecifications",
             "target": "FileSpecification",
             "name": "ArrayOfFileSpecifications::*"
+        },
+        {
+            "source": "ArrayOfFileSpecifications",
+            "target": "FileSpecification",
+            "name": "ArrayOfFileSpecifications::0",
+            "color": "red"
         },
         {
             "source": "ArrayOfFontAndSize",
@@ -15761,6 +15693,11 @@
             "source": "ArrayOfStructElemKids",
             "target": "ObjectReference",
             "name": "ArrayOfStructElemKids::*"
+        },
+        {
+            "source": "ArrayOfStructElemParentTree",
+            "target": "StructElem",
+            "name": "ArrayOfStructElemParentTree::*"
         },
         {
             "source": "ArrayOfSubjectDN",
@@ -16839,11 +16776,6 @@
         },
         {
             "source": "DPart",
-            "target": "Metadata",
-            "name": "DPart::Metadata"
-        },
-        {
-            "source": "DPart",
             "target": "DPart",
             "name": "DPart::Parent",
             "color": "red"
@@ -17046,6 +16978,21 @@
         },
         {
             "source": "DestsMap",
+            "target": "ActionGoTo",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
+            "target": "ActionGoToE",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
+            "target": "ActionGoToR",
+            "name": "DestsMap::*"
+        },
+        {
+            "source": "DestsMap",
             "target": "DestDict",
             "name": "DestsMap::*"
         },
@@ -17164,6 +17111,11 @@
             "target": "ArrayOfNamesGeneral",
             "name": "DeviceNProcess::Components",
             "color": "red"
+        },
+        {
+            "source": "DictionaryOfDictionaries",
+            "target": "_UniversalDictionary",
+            "name": "DictionaryOfDictionaries::*"
         },
         {
             "source": "DictionaryOfFunctions",
@@ -17408,6 +17360,16 @@
             "source": "Extensions",
             "target": "DevExtensions",
             "name": "Extensions::*"
+        },
+        {
+            "source": "Extensions",
+            "target": "ArrayOfDevExtensions",
+            "name": "Extensions::ISO_"
+        },
+        {
+            "source": "Extensions",
+            "target": "ISO_DevExtensions",
+            "name": "Extensions::ISO_"
         },
         {
             "source": "FDDict",
@@ -17888,6 +17850,11 @@
         },
         {
             "source": "FileTrailer",
+            "target": "OOAdditionalStmsArray",
+            "name": "FileTrailer::AdditionalStreams"
+        },
+        {
+            "source": "FileTrailer",
             "target": "AuthCode",
             "name": "FileTrailer::AuthCode"
         },
@@ -17903,14 +17870,15 @@
         },
         {
             "source": "FileTrailer",
-            "target": "ArrayOf_2UnencryptedStringsByte",
+            "target": "TrailerIDArray",
             "name": "FileTrailer::ID",
             "color": "red"
         },
         {
             "source": "FileTrailer",
             "target": "DocInfo",
-            "name": "FileTrailer::Info"
+            "name": "FileTrailer::Info",
+            "color": "red"
         },
         {
             "source": "FileTrailer",
@@ -19310,26 +19278,6 @@
         },
         {
             "source": "ICCProfileStream",
-            "target": "ArrayOfDecodeParams",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterLZWDecode",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterFlateDecode",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
-            "target": "FilterCrypt",
-            "name": "ICCProfileStream::DestOutputProfile"
-        },
-        {
-            "source": "ICCProfileStream",
             "target": "FileSpecification",
             "name": "ICCProfileStream::F"
         },
@@ -19921,6 +19869,21 @@
         },
         {
             "source": "Name",
+            "target": "ActionGoTo",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
+            "target": "ActionGoToE",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
+            "target": "ActionGoToR",
+            "name": "Name::Dests"
+        },
+        {
+            "source": "Name",
             "target": "DestDict",
             "name": "Name::Dests"
         },
@@ -20237,6 +20200,12 @@
             "color": "red"
         },
         {
+            "source": "OOAdditionalStmsArray",
+            "target": "Stream",
+            "name": "OOAdditionalStmsArray::1*",
+            "color": "red"
+        },
+        {
             "source": "OPIVersion13",
             "target": "OPIVersion13Dict",
             "name": "OPIVersion13::1.3"
@@ -20339,6 +20308,12 @@
         },
         {
             "source": "ObjectReference",
+            "target": "XObjectImage",
+            "name": "ObjectReference::Obj",
+            "color": "red"
+        },
+        {
+            "source": "ObjectReference",
             "target": "PageObject",
             "name": "ObjectReference::Pg"
         },
@@ -20436,6 +20411,11 @@
             "source": "OptContentConfig",
             "target": "ArrayOfArraysRBGroups",
             "name": "OptContentConfig::RBGroups"
+        },
+        {
+            "source": "OptContentGroup",
+            "target": "GTS_ProcStepsGroup",
+            "name": "OptContentGroup::GTS_Metadata"
         },
         {
             "source": "OptContentGroup",
@@ -20745,11 +20725,6 @@
         {
             "source": "PageObject",
             "target": "ArrayOfFileSpecifications",
-            "name": "PageObject::AF"
-        },
-        {
-            "source": "PageObject",
-            "target": "FileSpecification",
             "name": "PageObject::AF"
         },
         {
@@ -21612,7 +21587,7 @@
         },
         {
             "source": "Resource",
-            "target": "_UniversalDictionary",
+            "target": "DictionaryOfDictionaries",
             "name": "Resource::Properties"
         },
         {
@@ -21647,11 +21622,6 @@
         },
         {
             "source": "RichMediaActivation",
-            "target": "3DView",
-            "name": "RichMediaActivation::View"
-        },
-        {
-            "source": "RichMediaActivation",
             "target": "3DViewAddEntries",
             "name": "RichMediaActivation::View"
         },
@@ -21678,7 +21648,7 @@
         },
         {
             "source": "RichMediaContent",
-            "target": "ArrayOf3DView",
+            "target": "ArrayOf3DViewAddEntries",
             "name": "RichMediaContent::Views"
         },
         {
@@ -21819,7 +21789,7 @@
         {
             "source": "RichMediaParams",
             "target": "Stream",
-            "name": "RichMediaParams::Seetings"
+            "name": "RichMediaParams::Settings"
         },
         {
             "source": "RichMediaPresentation",
@@ -23216,11 +23186,6 @@
         },
         {
             "source": "StructElem",
-            "target": "FileSpecification",
-            "name": "StructElem::AF"
-        },
-        {
-            "source": "StructElem",
             "target": "ArrayOfClassNamesRevisions",
             "name": "StructElem::C"
         },
@@ -23278,11 +23243,6 @@
         },
         {
             "source": "StructTreeRoot",
-            "target": "FileSpecification",
-            "name": "StructTreeRoot::AF"
-        },
-        {
-            "source": "StructTreeRoot",
             "target": "ClassMap",
             "name": "StructTreeRoot::ClassMap"
         },
@@ -23318,7 +23278,7 @@
         },
         {
             "source": "StructTreeRoot",
-            "target": "ArrayOfStructElem",
+            "target": "ArrayOfStructElemParentTree",
             "name": "StructTreeRoot::ParentTree"
         },
         {
@@ -23339,11 +23299,6 @@
         {
             "source": "StructTreeRoot",
             "target": "ArrayOfFileSpecifications",
-            "name": "StructTreeRoot::PronunciationLexicon"
-        },
-        {
-            "source": "StructTreeRoot",
-            "target": "FileSpecification",
             "name": "StructTreeRoot::PronunciationLexicon"
         },
         {
@@ -23435,8 +23390,13 @@
         },
         {
             "source": "Target",
-            "target": "Target",
+            "target": "TargetEmbedded",
             "name": "Target::T"
+        },
+        {
+            "source": "TargetEmbedded",
+            "target": "Target",
+            "name": "TargetEmbedded::T"
         },
         {
             "source": "Thread",
@@ -23649,7 +23609,7 @@
         },
         {
             "source": "ViewerPreferences",
-            "target": "ArrayOfIntegersGeneral",
+            "target": "ArrayOfIntegersGreaterThanZero",
             "name": "ViewerPreferences::PrintPageRange"
         },
         {
@@ -23884,11 +23844,6 @@
         },
         {
             "source": "XObjectFormPrinterMark",
-            "target": "FileSpecification",
-            "name": "XObjectFormPrinterMark::AF"
-        },
-        {
-            "source": "XObjectFormPrinterMark",
             "target": "ColorantsDict",
             "name": "XObjectFormPrinterMark::Colorants"
         },
@@ -24010,11 +23965,6 @@
         {
             "source": "XObjectFormTrapNet",
             "target": "ArrayOfFileSpecifications",
-            "name": "XObjectFormTrapNet::AF"
-        },
-        {
-            "source": "XObjectFormTrapNet",
-            "target": "FileSpecification",
             "name": "XObjectFormTrapNet::AF"
         },
         {
@@ -24144,11 +24094,6 @@
         },
         {
             "source": "XObjectFormType1",
-            "target": "FileSpecification",
-            "name": "XObjectFormType1::AF"
-        },
-        {
-            "source": "XObjectFormType1",
             "target": "ArrayOfDecodeParams",
             "name": "XObjectFormType1::DecodeParms"
         },
@@ -24271,11 +24216,6 @@
         {
             "source": "XObjectImage",
             "target": "ArrayOfFileSpecifications",
-            "name": "XObjectImage::AF"
-        },
-        {
-            "source": "XObjectImage",
-            "target": "FileSpecification",
             "name": "XObjectImage::AF"
         },
         {
@@ -24483,11 +24423,6 @@
         },
         {
             "source": "XObjectImageMask",
-            "target": "FileSpecification",
-            "name": "XObjectImageMask::AF"
-        },
-        {
-            "source": "XObjectImageMask",
             "target": "ArrayOfImageAlternates",
             "name": "XObjectImageMask::Alternates"
         },
@@ -24628,6 +24563,11 @@
         },
         {
             "source": "XObjectImageSoftMask",
+            "target": "ArrayOfFileSpecifications",
+            "name": "XObjectImageSoftMask::AF"
+        },
+        {
+            "source": "XObjectImageSoftMask",
             "target": "ArrayOfNumbersGeneral",
             "name": "XObjectImageSoftMask::Decode"
         },
@@ -24748,6 +24688,11 @@
         },
         {
             "source": "XRefStream",
+            "target": "OOAdditionalStmsArray",
+            "name": "XRefStream::AdditionalStreams"
+        },
+        {
+            "source": "XRefStream",
             "target": "AuthCode",
             "name": "XRefStream::AuthCode"
         },
@@ -24808,7 +24753,7 @@
         },
         {
             "source": "XRefStream",
-            "target": "ArrayOf_2StringsByte",
+            "target": "TrailerIDArray",
             "name": "XRefStream::ID",
             "color": "red"
         },
@@ -24820,7 +24765,8 @@
         {
             "source": "XRefStream",
             "target": "DocInfo",
-            "name": "XRefStream::Info"
+            "name": "XRefStream::Info",
+            "color": "red"
         },
         {
             "source": "XRefStream",
