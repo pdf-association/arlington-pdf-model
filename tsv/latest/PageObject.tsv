@@ -29,7 +29,7 @@ TemplateInstantiated	name	1.5		fn:IsRequired(fn:InNameTree(trailer::Catalog::Nam
 PresSteps	dictionary	1.5		FALSE	FALSE	FALSE				[NavNode]	
 UserUnit	number	1.6		FALSE	FALSE	FALSE	1.0				
 VP	array	1.6		FALSE	FALSE	FALSE				[ArrayOfViewports]	
-AF	array	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	
+AF	array	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	
 OutputIntents	array	2.0		FALSE	FALSE	FALSE				[ArrayOfOutputIntents]	
 DPart	dictionary	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		FALSE	FALSE	FALSE				[DPart]	
 Hid	boolean	1.1	1.3	FALSE	FALSE	TRUE	false				
