@@ -289,7 +289,9 @@ have nodes which are the primitive Arlington types below or a complex type above
     *  If the "PossibleValues" is a PDF array _as part of a complex type_, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
 *   For keys or arrays that are PDF names, a wildcard `*` indicates that any arbitrary name is _explicitly_ permitted according to the PDF specification along with formally defined values (e.g. OptContentCreatorInfo, Subtype key: `[Artwork,Technical,*]`).
     *  Do not use `*` as the _only_ value - since an empty cell has the same meaning as "anything is OK" although there is some subtle nuances regarding whether custom keys have to be 2nd class names or can be really anything. See [Errata #229](https://github.com/pdf-association/pdf-issues/issues/229)
-    * The TestGrammar PoC will no longer report an error about unexpected values in this case, but produce an informational (`Info:`) message instead (so it is visible that a non-standard value is being used).
+    *  The wildcard must be the LAST entry in the list of names and, because it cannot be alone, it will always be preceded by a COMMA. This may occur in complex forms too such as `[...];[...,*];[...]`. 
+    * The TestGrammar PoC will not report an error about unexpected values in this case unless the `--explicit-values-only` CLI option.
+    * To locate all such uses in the Arlington model, search for `,*]`: `grep ",\*]" *.tsv`  
 * `fn:Eval` predicate wrapper is only needed for predicates which need to perform calculations. `fn:Eval` is _not_ required around the version-based predicates (which includes `fn:Extension`) or expressions using `fn:RequiredValue`
 *   **Python pretty-print/JSON:**
     *   A list or `None`
