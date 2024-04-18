@@ -60,6 +60,10 @@ std::wostream wcnull(0);
 /// @brief Global control over colorized output
 bool no_color = false;
 
+/// @brief Global flag to ignore wildcards `*` when processing PossibleValues field.
+bool explicit_values_only = false;
+
+
 /// @brief Validates a single PDF file against the Arlington PDF model
 ///
 /// @param[in] pdf_file_name  PDF filename for processing
@@ -210,6 +214,7 @@ int main(int argc, char* argv[]) {
     sarge.setArgument("",  "exclude", "PDF exclusion string or filelist (# is a comment). Only applicable to --pdf.", true);
     sarge.setArgument("",  "dryrun", "Dry run - don't do any actual processing.", false);
     sarge.setArgument("a", "allfiles", "Process all files regardless of file extension.", false);
+    sarge.setArgument("",  "explicit-values-only", "Ignore wildcards in PossibleValues.", false);
 
 #if defined(_WIN32) || defined(WIN32)
     if (!sarge.parseArguments(argc, mbcsargv)) {
@@ -268,7 +273,9 @@ int main(int argc, char* argv[]) {
     unsigned int    count = 0;                      // number of files processed
 
 
+    // Set globals (yuck, but very convenient)
     no_color = sarge.exists("no-color");
+    explicit_values_only = sarge.exists("explicit-values-only");
 
 #if defined(_WIN32) || defined(WIN32)
     // Delete the temp stuff for command line processing
@@ -426,7 +433,8 @@ int main(int argc, char* argv[]) {
         }
         else 
             std::cout << "PDF file list:        " << input_filename << " (" << input_list.size() << " lines)" << std::endl;
-        std::cout << "Colorized output      " << (no_color ? "off" : "on") << std::endl;
+        std::cout << "Colorized output:     " << (no_color ? "off" : "on") << std::endl;
+        std::cout << "Explicit values only: " << (explicit_values_only ? "yes" : "no") << std::endl;
         std::cout << "Clobber mode:         " << (clobber ? "on" : "off") << std::endl;
         std::cout << "Dry run:              " << (dryrun ? "on" : "off") << std::endl;
         std::cout << "All files:            " << (all_files ? "on (*.* wildcard)" : "off  (*.pdf only)") << std::endl;

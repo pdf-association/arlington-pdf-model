@@ -1001,7 +1001,8 @@ bool PredicateProcessor::ValidateLinksSyntax(const int key_idx) {
 
 
 /// @brief Reduces an Arlington "PossibleValues" row (column 9)
-/// Can be pretty much anything.
+/// Can be pretty much anything. A wildcard `*` is also allowed for names meaning that ISO 32000 specifically
+/// states any value is allowed.
 ///
 /// @param[in] container    PDF container object (that contains object) so dict, array or stream
 /// @param[in] object       PDF object (in container)
@@ -1019,6 +1020,18 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* container, ArlPDFObject* obje
 
     if ((tsv_field == "") || (tsv_field == "[]"))
         return true;
+
+    if (explicit_values_only) {
+        // Want to ignore wildcards in PossibleValue field so they get reported and users can see them in messages.
+        // Wildcard will always be last in a list of names so COMMA will always preceed it: ",*]"
+        // Note that due to complex types this might be in the MIDDLE - do not assume at the end! [...];[...,*];[...]
+        auto pos = tsv_field.find(",*]");
+        if (pos != std::string::npos)
+        {
+            // If found then erase just ",*" from the PossibleValue string, leaving the closing "]"
+            tsv_field.erase(pos, 2);
+        }
+    }
 
     /// Split on SEMI-COLON
     std::vector<std::string> pv_list = split(tsv_field, ';');
@@ -1134,7 +1147,7 @@ bool PredicateProcessor::ReducePVRow(ArlPDFObject* container, ArlPDFObject* obje
 
 
 
-/// @brief Reduces an Arlington "PossibleValues" row (column 9)
+/// @brief Reduces an Arlington "SpecialCase" row (column 10)
 /// Can be pretty much anything.
 ///
 /// @param[in] container    PDF container object (that contains object) so dict, array or stream

@@ -46,6 +46,9 @@ constexpr auto COLOR_INFO_ANSI = "\033[1;36m"; // Cyan foreground;
 /// @brief Global flag from main, representing --no-color CLI option
 extern bool no_color;
 
+/// @brief Global flag to ignore wildcards `*` when processing PossibleValues field.
+extern bool explicit_values_only;
+
 /// @brief Inline function to reset terminal colors for text outout if not disabled. No EOL.
 inline std::ostream& COLOR_RESET_NO_EOL(std::ostream& os) { if (!no_color) { os << COLOR_RESET_ANSI; } return os; }
 
