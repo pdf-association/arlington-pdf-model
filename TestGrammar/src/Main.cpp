@@ -96,7 +96,7 @@ bool process_single_pdf(
         ofs << "PDF: " << fs::absolute(pdf_file_name).lexically_normal() << std::endl;
 
         if (pdfsdk.open_pdf(pdf_file_name, pwd)) {
-            CParsePDF parser(tsv_folder, ofs, terse, debug_mode);
+            CParsePDF parser(tsv_folder, ofs, terse, debug_mode, forced_ver);
             CPDFFile  pdf(pdf_file_name, pdfsdk, forced_ver, extns);
             std::string s;
             ArlPDFTrailer* t = pdfsdk.get_trailer();
@@ -162,7 +162,7 @@ bool process_single_pdf(
 /// @brief enables C RTL memory leak checking (slow!) under Microsoft Windows
 #define CRT_MEMORY_LEAK_CHECK
 #else
-#undef CRT_MEMORY_LEAK_CHECK
+#define CRT_MEMORY_LEAK_CHECK
 #endif
 
 int wmain(int argc, wchar_t* argv[]) {

@@ -2115,9 +2115,61 @@ bool CPDFFile::fn_InNameTree(ArlPDFObject* container, ArlPDFObject* obj, const A
 }
 
 
+/// @brief Recursively look in a name-tree node using brute force.
+/// First check Names array (every 2nd entry), then try by recursively looking into each Kids node.
+/// 
+/// @param[in] nameTreeNode   a node in name-tree. Doesn't matter if root, intermediate or leaf.
+/// @param[in] obj_hash       the object hash to match
+/// 
+/// @returns  true iff an object hash is matched
+bool CPDFFile::find_in_name_tree(ArlPDFDictionary* nameTreeNode, const std::string obj_hash)
+{
+    ArlPDFObject* names = nameTreeNode->get_value(L"Names");
+    if ((names != nullptr) && (names->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
+        for (int i = 1; i < ((ArlPDFArray*)names)->get_num_elements(); i += 2) {
+            auto anObj = ((ArlPDFArray*)names)->get_value(i);
+            if ((anObj != nullptr) && (anObj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                if (obj_hash == anObj->get_hash_id()) {
+                    // Found it!
+                    delete anObj;
+                    delete names;
+                    return true;
+                }
+            }
+            delete anObj;
+        }
+    }
+    delete names;
+
+    ArlPDFObject* kids = nameTreeNode->get_value(L"Kids");
+    if ((kids != nullptr) && (kids->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
+        for (int i = 0; i < ((ArlPDFArray*)names)->get_num_elements(); i++) {
+            auto akid = ((ArlPDFArray*)names)->get_value(i);
+            if ((akid != nullptr) && (akid->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+                bool retval = find_in_name_tree((ArlPDFDictionary*)akid, obj_hash);
+                if (retval) {
+                    delete akid;
+                    delete kids;
+                    return retval;
+                }
+            }
+            delete akid;
+        }
+    }
+    delete kids;
+
+    return false;
+}
+
 
 /// @brief Check if obj (which should be a File Specification dicionary) is in 
-///  DocCat::AF array (of File Specification dicionaries)
+///  the Catalog::Names::EmbeddedFiles name-tree. The internals of obj are NOT checked!
+/// 
+/// NOTE: a false positive occurs for an AF that is NOT listed in Catalog::Names::EmbeddedFiles 
+/// since the "IsRequired" field with predicate fn:IsRequired(fn:SinceVersion(2.0,fn:IsAssociatedFile())) 
+/// returns FALSE which is then asserting that it is NOT Required to be an Associated File!
+/// The solutions would appear to be to keep track of the parent objects and somehow know if the
+/// file specification dictionary and its descendent objects were referenced by an AF array key!
 /// 
 /// @param[in]  obj   a PDF object
 /// 
@@ -2125,6 +2177,7 @@ bool CPDFFile::fn_InNameTree(ArlPDFObject* container, ArlPDFObject* obj, const A
 bool CPDFFile::fn_IsAssociatedFile(ArlPDFObject* obj)
 {
     assert(obj != nullptr);
+
 
     // Check to make sure obj is likely a File Specification dictionary
     if (obj->get_object_type() != PDFObjectType::ArlPDFObjTypeDictionary) {
@@ -2135,28 +2188,22 @@ bool CPDFFile::fn_IsAssociatedFile(ArlPDFObject* obj)
     }
     auto obj_hash = obj->get_hash_id();
 
-    // Locate 'obj' in the AF array based on matching hashes...
+    // Locate 'obj' in the Catalog::Names::EmbeddedFiles name-tree based on matching hashes...
+    bool retval = false;
     auto doccat = pdfsdk.get_document_catalog();
-    ArlPDFObject* af = doccat->get_value(L"AF");
-    if ((af != nullptr) && (af->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
-        /// walk AF array of File Specification dictionaries looking for 'obj'
-        ArlPDFArray* af_arr = (ArlPDFArray*)af;
-        for (int i = 0; i < af_arr->get_num_elements(); i++) {
-            ArlPDFObject* afile = af_arr->get_value(i);
-            if ((afile != nullptr) && (afile->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
-                if (obj_hash == afile->get_hash_id()) {
-                    // Found it!
-                    delete afile;
-                    delete af;
-                    return true;
-                }
-            }
-            delete afile;
-        }
-        delete af;
-    }
+    ArlPDFObject* namesDict = doccat->get_value(L"Names");
+    if ((namesDict != nullptr) && (namesDict->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+        ArlPDFObject* embeddedFiles = ((ArlPDFDictionary*)namesDict)->get_value(L"EmbeddedFiles");
 
-    return false;
+        if ((embeddedFiles != nullptr) && (embeddedFiles->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
+            // Very inefficient brute-force recursive traversal of name-tree looking for an object hash match
+            retval = find_in_name_tree((ArlPDFDictionary*)embeddedFiles, obj_hash);
+        }
+        delete embeddedFiles;
+    }
+    delete namesDict;
+
+    return retval;
 }
 
 
