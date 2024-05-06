@@ -283,18 +283,30 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
 
 
 /// @returns true if the current key is an unsupported extension and not part of an official PDF specification.
-/// This effectively means that a key will be reported as an undocument key if this method returns true.
+/// This effectively means that a key will be reported as an undocumented key if this method returns true.
 bool  ArlVersion::is_unsupported_extension() {
     if (FindInVector(v_ArlPDFVersions, tsv[TSV_SINCEVERSION])) {
         // Simple PDF version
         return false;
     }
     else {
-        // Predicate-based "SinceVersion" field with fn:SinceVersion(x.y,fn:Extension(...)) or fn:Extension(...)
+        // Predicate-based "SinceVersion" field in the forms of:
+        // - fn:Eval((fn:Extension(ADBE_Extn3,1.7) && fn:Extension(ISO_19005_3,1.7)) || 2.0)
+        // - fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)
+        // - fn:Extension(AAPL,1.2)
+        // - fn:Extension(AAPL)
         assert(tsv[TSV_SINCEVERSION].find("fn:") != std::string::npos);
 
         std::smatch       m;
-        if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_ExtensionVersion) && m.ready() && (m.size() >= 3)) {
+        if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_EvalExtensionVersion) && m.ready() && (m.size() == 4)) {
+            /// - m[1] = name of extension
+            /// - m[2] = PDF version for extension
+            /// - m[3] = PDF version without extension
+            int tsv_ver1 = string_to_pdf_version(m[2].str());
+            int tsv_ver2 = string_to_pdf_version(m[3].str());
+            return !(((FindInVector(supported_extensions, m[1].str()) || wildcard_extn) && (pdf_version >= tsv_ver1)) || (pdf_version >= tsv_ver2));
+        }
+        else if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_ExtensionVersion) && m.ready() && (m.size() >= 3)) {
             // m[1] = extension name
             // m[2] = PDF version "x.y"
             int tsv_ver = string_to_pdf_version(m[2].str());
@@ -303,14 +315,6 @@ bool  ArlVersion::is_unsupported_extension() {
         else if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_ExtensionOnly) && m.ready() && (m.size() == 2)) {
             // m[1] = extension name
             return !(FindInVector(supported_extensions, m[1].str()) || wildcard_extn);
-        }
-        else if (std::regex_search(tsv[TSV_SINCEVERSION], m, r_EvalExtensionVersion) && m.ready() && (m.size() == 4)) {
-            /// - m[1] = name of extension
-            /// - m[2] = PDF version for extension
-            /// - m[3] = PDF version without extension
-            int tsv_ver1 = string_to_pdf_version(m[2].str());
-            int tsv_ver2 = string_to_pdf_version(m[3].str());
-            return !(((FindInVector(supported_extensions, m[1].str()) || wildcard_extn) && (pdf_version >= tsv_ver1)) || (pdf_version >= tsv_ver2));
         }
         else {
             assert(false && "unexpected SinceVersion predicate!");

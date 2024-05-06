@@ -975,6 +975,7 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                         output << COLOR_ERROR << "object number " << inner_obj->get_object_number() << " of key " << key_utf8 << " is illegal. trailer Size is " << pdfc->get_trailer_size() << COLOR_RESET;
                     }
 
+                    bool explicit_metadata_or_af = false;
                     bool is_found = false;
                     int key_idx = -1;
                     for (auto& vec : tsv) {
@@ -1051,14 +1052,16 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                                     output << ") for " << elem.link << "/" << key_utf8 << COLOR_RESET;
                                 }
                             }
-                            if (versioner.is_unsupported_extension())
+                            if (versioner.is_unsupported_extension()) {
+                                explicit_metadata_or_af = ((key == L"Metadata") || (key == L"AF"));
                                 is_found = false;
+                            }
                             break;
                         }
                     } // for-each Arlington row
 
-                    // Metadata streams are allowed anywhere since PDF 1.4
-                    if ((!is_found) && (key == L"Metadata")) {
+                    // Metadata streams are allowed anywhere since PDF 1.4  (but there are some in the Arlington model!)
+                    if ((!is_found) && (key == L"Metadata") && !explicit_metadata_or_af) {
                         add_parse_object(dictObj, inner_obj, "Metadata", elem.context + "->Metadata");
                         kept_inner_obj = true;
                         show_context(elem);
@@ -1067,13 +1070,13 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                         is_found = true;
                     }
 
-                    // AF (Associated File) objects are allowed anywhere in PDF 2.0
-                    if ((!is_found) && (key == L"AF")) {
-                        add_parse_object(dictObj, inner_obj, "FileSpecification", elem.context + "->AF (as FileSpecification)");
+                    // AF (Associated File) objects are allowed anywhere in PDF 2.0 (but there are some in the Arlington model!)
+                    if ((!is_found) && (key == L"AF") && !explicit_metadata_or_af) {
+                        add_parse_object(dictObj, inner_obj, "ArrayOfFileSpecifications", elem.context + "->AF (as ArrayOfFileSpecifications)");
                         kept_inner_obj = true;
                         show_context(elem);
                         output << COLOR_INFO << "found a PDF 2.0 Associated File AF key" << COLOR_RESET;
-                        pdf.set_feature_version("2.0", "Associated File", "");
+                        pdf.set_feature_version("2.0", "Associated File", ""); // technically PDF/A-3...
                         is_found = true;
                     }
 
