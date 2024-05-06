@@ -88,7 +88,7 @@ private:
     /// @brief PDF class object for calculating predicates, versioning, etc.
     CPDFFile*               pdfc;
 
-    /// @brief PDF version of file (multiplied by 10)
+    /// @brief PDF version of file (multiplied by 10), possibly forced
     int                     pdf_version;
 
     /// @brief Line counter of the PDF DOM for easier analysis and debugging
@@ -112,9 +112,12 @@ private:
     void add_parse_object(ArlPDFObject* container, ArlPDFObject* object, const std::string& link, const std::string& context);
 
 public:
-    CParsePDF(const fs::path& tsv_folder, std::ostream &ofs, const bool terser_output, const bool debug_output)
+    CParsePDF(const fs::path& tsv_folder, std::ostream &ofs, const bool terser_output, const bool debug_output, const std::string forced_ver)
         : grammar_folder(tsv_folder), output(ofs), terse(terser_output), pdfc(nullptr), counter(0), context_shown(false), debug_mode(debug_output), pdf_version(0)
-        { /* constructor */ }
+        { /* constructor */ 
+            if (forced_ver.size() == 3)
+                pdf_version = string_to_pdf_version(forced_ver);
+        }
 
     /// @brief add an object to be checked
     void add_root_parse_object(ArlPDFObject* object, const std::string& link, const std::string& context);

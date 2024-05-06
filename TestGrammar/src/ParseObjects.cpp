@@ -873,7 +873,11 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
             output << extns[i] << ((i < (extns.size() - 1)) ? ", " : "");
     }
     output << COLOR_RESET;
-    pdf_version = string_to_pdf_version(ver);
+    
+    // If PDF version wasn't forced, use the PDF file
+    if (pdf_version == 0) {
+        pdf_version = string_to_pdf_version(ver);
+    }
 
     counter = 0;
 
