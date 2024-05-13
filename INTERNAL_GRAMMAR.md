@@ -788,8 +788,9 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    <td><code>fn:IsAssociatedFile()</code></td>
    <td>
     <ul>
-     <li>Asserts that the containing object of the current row (key or array element) needs to be a PDF 2.0 Associated File object.</li>
+     <li>Asserts that the containing object of the current row (key or array element) needs to be a PDF 2.0 Associated File object, meaning that it is referenced from an <b>AF</b> key or marked content sequence with tag <b>AF</b>.</li>
      <li>There are no parameters.</li>
+     <li>Note that this cannot be codified  via the <b>EmbeddedFiles</b> name-tree or it will cause false-negatives, since a PDF is in error if the Associated File is <i>not</i> in the <b>EmbeddedFiles</b> name-tree which means an outer nested predicate such as <code>fn:IsRequired(fn:IsAssociatedFile())</code> will return FALSE when it should return TRUE! Note also that <b>AFRelationship</b> is optional.
     </ul>
    </td>
   </tr>
@@ -1051,7 +1052,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
 
 Please review and add any feedback or comments to the appropriate issue!
 
-* Should <code>fn:Eval(...)</code> be scrapped (i.e. removed) as it is kind of redundant?
+* Should <code>fn:Eval(...)</code> be scrapped (i.e. removed) as it is sometimes redundant?
 
 <table style="border: 0.25px solid; border-collapse: collapse;">
   <tr>
@@ -1070,7 +1071,10 @@ Please review and add any feedback or comments to the appropriate issue!
    </td>
   </tr>
    <tr>
-   <td><code>fn:IsArray(<i>key</i>)<br/>fn:IsDictionary(<i>key</i>)<br/>fn:IsStream(<i>key</i>)</code></td>
+   <td>
+     <code>fn:IsArray(<i>key</i>)</code><br/>
+     <code>fn:IsDictionary(<i>key</i>)<br/>fn:IsStream(<i>key</i>)</code>
+   </td>
    <td>
     <ul>
      <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/61">Issue #61</a></li>
@@ -1083,10 +1087,13 @@ Please review and add any feedback or comments to the appropriate issue!
     </ul>
    </td>
   </tr>
-   <tr>
-   <td><code>fn:IsNameTreeValue(<i>tree-reference</i>,<i>key</i>)<br/>fn:IsNameTreeIndex(<i>tree-reference</i>,<i>@key</i>)</br></br>
-             fn:IsNumberTreeValue(<i>tree-reference</i>,<i>key</i>)<br/>fn:IsNumberTreeIndex(<i>tree-reference</i>,<i>@key</i>)
-   </code></td>
+  <tr>
+   <td>
+     <code>fn:IsNameTreeValue(<i>tree-reference</i>,<i>key</i>)</code><br/>
+     <code>fn:IsNameTreeIndex(<i>tree-reference</i>,<i>@key</i>)</code><br/>
+     <code>fn:IsNumberTreeValue(<i>tree-reference</i>,<i>key</i>)</code><br/>
+     <code>fn:IsNumberTreeIndex(<i>tree-reference</i>,<i>@key</i>)</code>
+   </td>
    <td>
     <ul>
       <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/49">Issue #49</a>. This proposal will replace <code>fn:InNameTree(...)</code> with these predicates.</li>
@@ -1098,6 +1105,18 @@ Please review and add any feedback or comments to the appropriate issue!
       <li><i>tree-reference</i> is a name- or number-tree as appropriate for the predicate. It will commonly be a reference to <code>trailer::Catalog::Names::<i>key</i></code>.</li> 
     </ul>
    </td>
+  </tr>
+  <tr>
+    <td>
+      <code>fn:IsInArray(<i>array</i>)</code>
+    </td>
+    <td>
+      <ul>
+        <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/396">Issue #396</a>.</li>
+        <li>Need to assert that <b>NS</b> objects in structure elements are always in <code>trailer::Catalog::StructTreeRoot::Namespace</code> array:
+        <code>fn:IsInArray(trailer::Catalog::StructTreeRoot::Namespace)</code></li>
+      </ul>
+    </td>
   </tr>
 </table>
 
