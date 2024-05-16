@@ -112,7 +112,7 @@ private:
     ASTNode* fn_Extension(const ASTNode* extn);
     ASTNode* fn_Extension(const ASTNode* extn, const ASTNode* value);
 
-    bool CPDFFile::find_in_name_tree(ArlPDFDictionary* nameTreeNode, const std::string obj_hash);
+    bool find_in_name_tree(ArlPDFDictionary* nameTreeNode, const std::string obj_hash);
 
     bool fn_AlwaysUnencrypted(ArlPDFObject* obj);
     bool fn_ArraySortAscending(ArlPDFObject* container, const ASTNode *arr_key, const ASTNode* step);
