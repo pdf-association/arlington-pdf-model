@@ -1052,15 +1052,13 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
 
 Please review and add any feedback or comments to the appropriate issue!
 
-* Should <code>fn:Eval(...)</code> be scrapped (i.e. removed) as it is sometimes redundant?
-
 <table style="border: 0.25px solid; border-collapse: collapse;">
   <tr>
    <td><code>fn:ValueOnlyWhen(<i>value</i>,<i>condition</i>)</code></td>
    <td>
     <ul>
      <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/74">Issue #74</a></li>
-     <li>Only used in PossibleValues field</lI>
+     <li>Only used in "PossibleValues" field</lI>
      <li>Asserts that a specific possible value (single value) of the current key or array element is conditionally valid (<i>condition</i> evaluates to true).</li>
      <li>Read aloud as "<i>value can be X but only when Y</i>"</li>
      <li>this is a <i>logically weaker</i> predicate than <code>fn:RequiredValue(...)</code> as there may be other allowable PossibleValues (either conditionally or not)</li>
@@ -1108,13 +1106,29 @@ Please review and add any feedback or comments to the appropriate issue!
   </tr>
   <tr>
     <td>
-      <code>fn:IsInArray(<i>array</i>)</code>
+      <code>fn:IsInArray(<i>@key,array</i>)</code>
     </td>
     <td>
       <ul>
-        <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/396">Issue #396</a>.</li>
-        <li>Need to assert that <b>NS</b> objects in structure elements are always in <code>trailer::Catalog::StructTreeRoot::Namespace</code> array:
-        <code>fn:IsInArray(trailer::Catalog::StructTreeRoot::Namespace)</code></li>
+        <li>See <a href="https://github.com/pdf-association/pdf-issues/issues/396">PDF Errata #396</a>.</li>
+        <li>Only used in "SpecialCases" field</lI>
+        <li>Need to assert that <b>NS</b> objects in structure elements are always in <code>trailer::Catalog::StructTreeRoot::Namespace</code> array: so add to <code>StructElem.tsv</code> <b>NS</b> row, "SpecialCases" field: 
+        <code>[fn:Eval(fn:IsInArray(@NS,trailer::Catalog::StructTreeRoot::Namespace))]</code></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <code>fn:AllowNull(<i>key</i>)</code>
+    </td>
+    <td>
+      <ul>
+        <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/90">Issue #90</a>.</li>
+        <li>Only used in "SpecialCases" field</lI>
+        <li>Within Arlington, <code>name-tree</code> and <code>number-tree</code> are treated as pre-defined types where the "Link" field is the list of permitted type(s) of objects that are to be expected as the allowable node values in the tree. However current internal grammar rules do NOT permit <code>null</code> so in order to codify whether <code>null</code> is also a permitted node value we need a new predicate that might occur in the "SpecialCases" field.</li>
+        <li>Validator mplementations can then process <code>name-tree</code> and <code>number-tree</code> while also accounting for specific rules related to <code>null</code>. Normally a <code>null</code> in a name- or number-tree would likely trigger a warning, but this can be overriden with this new predicate.</li>
+        <li>Argument <code><i>key</i></code> must be either a <code>name-tree</code> or <code>number-tree</code></li>
+        <li>Add to <code>StructTreeRoot.tsv</code> <b>ParentTree</b> row, "SpecialCases" field: <code>[fn:Eval(fn:AllowNull(ParentTree))]</code></li>
       </ul>
     </td>
   </tr>
