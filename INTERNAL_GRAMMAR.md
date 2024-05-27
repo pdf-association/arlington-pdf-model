@@ -649,7 +649,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    <td><code>fn:Deprecated(<i>version</i>,<i>statement</i>)</code></td>
    <td>
     <ul>
-     <li>indicates that <i>statement</i> was deprecated, such as a type (in "Type" field), a value (e.g. in "PossibleValues" or "SpecialCases" field ) or as a link in the "Links" field.</li>
+     <li>indicates that <i>statement</i> was deprecated, such as a type (in "Type" field), a value (e.g. in "PossibleValues" or "SpecialCase" field ) or as a link in the "Links" field.</li>
      <li>The <i>version</i> is inclusive of the deprecation (i.e. when the feature was first stated it was deprecated).</li>
      <li>Obsolescence is different to deprecation in ISO 32000: deprecation is allowed/permitted but is strongly recommended against ("should not"). Obsolescence is a "shall not" appear in a PDF and documentation has been removed.</li>
      <li><i>version</i> must also make logical sense in light of the "SinceVersion" and "DeprecatedIn" fields for the current row (i.e. is between them).</li>
@@ -673,7 +673,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
        <code>fn:Extension(<i>name</i>,<i>value</i>)</code></td>
    <td>
     <ul>
-     <li>Used in the "SinceVersion", "PossibleValues" or "SpecialCase" fields.</li>
+     <li>Used in the "SinceVersion", "Required", "PossibleValues", "SpecialCase" or "Link" fields.</li>
      <li><i>name</i> is an arbitrary identifier for the extension or subset and uses the same lexical conventions as for the "Key" field (e.g. no SPACEs).</li>
      <li>In the "SinceVersion" field must reduce down to a valid PDF version for when the key or array element or which extension <i>name</i> introduced the key/array element. This may be combined with <i>value</i> to express a version-based introduction such as ISO subsets:</li>
      <ul>
@@ -875,7 +875,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
      <li>Can have one or two parameters.</li>
      <li>For a single parameter: asserts that the current row (key or array element) must be present in a PDF if <i>key</i> is present, or when the expression <i>expr</i> is true.</li>
      <li>e.g. <code>fn:IsPresent(StructParent)</code> or <code>fn:IsPresent(@SMaskInData>0)</code></li>
-     <li>For two parameters: asserts that when <i>key</i>is present in a PDF, that <i>condition</i> should also be true.</li>
+     <li>For two parameters: asserts that when <i>key</i> is present in a PDF, that <i>condition</i> should also be true.</li>
      <li>e.g. <code>fn:Eval(fn:IsPresent(Matte,(@Width==parent::@Width)))</code></li>
     </ul>
    </td>
@@ -1071,7 +1071,8 @@ Please review and add any feedback or comments to the appropriate issue!
    <tr>
    <td>
      <code>fn:IsArray(<i>key</i>)</code><br/>
-     <code>fn:IsDictionary(<i>key</i>)<br/>fn:IsStream(<i>key</i>)</code>
+     <code>fn:IsDictionary(<i>key</i>)</code><br/>
+     <code>fn:IsStream(<i>key</i>)</code>
    </td>
    <td>
     <ul>
@@ -1111,9 +1112,9 @@ Please review and add any feedback or comments to the appropriate issue!
     <td>
       <ul>
         <li>See <a href="https://github.com/pdf-association/pdf-issues/issues/396">PDF Errata #396</a>.</li>
-        <li>Only used in "SpecialCases" field</lI>
-        <li>Need to assert that <b>NS</b> objects in structure elements are always in <code>trailer::Catalog::StructTreeRoot::Namespace</code> array: so add to <code>StructElem.tsv</code> <b>NS</b> row, "SpecialCases" field: 
-        <code>[fn:Eval(fn:IsInArray(@NS,trailer::Catalog::StructTreeRoot::Namespace))]</code></li>
+        <li>Only used in "SpecialCase" field</lI>
+        <li>Need to assert that <b>NS</b> objects in structure elements are always in <code>trailer::Catalog::StructTreeRoot::Namespaces</code> array: so add to <code>StructElem.tsv</code> <b>NS</b> row, "SpecialCase" field: 
+        <code>[fn:Eval(fn:IsInArray(@NS,trailer::Catalog::StructTreeRoot::Namespaces))]</code></li>
       </ul>
     </td>
   </tr>
@@ -1124,11 +1125,11 @@ Please review and add any feedback or comments to the appropriate issue!
     <td>
       <ul>
         <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/90">Issue #90</a>.</li>
-        <li>Only used in "SpecialCases" field</lI>
-        <li>Within Arlington, <code>name-tree</code> and <code>number-tree</code> are treated as pre-defined types where the "Link" field is the list of permitted type(s) of objects that are to be expected as the allowable node values in the tree. However current internal grammar rules do NOT permit <code>null</code> so in order to codify whether <code>null</code> is also a permitted node value we need a new predicate that might occur in the "SpecialCases" field.</li>
-        <li>Validator mplementations can then process <code>name-tree</code> and <code>number-tree</code> while also accounting for specific rules related to <code>null</code>. Normally a <code>null</code> in a name- or number-tree would likely trigger a warning, but this can be overriden with this new predicate.</li>
+        <li>Only used in "SpecialCase" field</lI>
+        <li>Within Arlington, <code>name-tree</code> and <code>number-tree</code> are treated as pre-defined types where the "Link" field is the list of permitted type(s) of objects that are to be expected as the allowable node values in the tree. However current internal grammar rules do NOT permit <code>null</code> so in order to codify whether <code>null</code> is also a permitted node value we need a new predicate that might occur in the "SpecialCase" field.</li>
+        <li>Validator implementations can then process <code>name-tree</code> and <code>number-tree</code> while also accounting for specific rules related to <code>null</code>. Normally a <code>null</code> in a name- or number-tree would likely trigger a warning, but this can be overriden with this new predicate.</li>
         <li>Argument <code><i>key</i></code> must be either a <code>name-tree</code> or <code>number-tree</code></li>
-        <li>Add to <code>StructTreeRoot.tsv</code> <b>ParentTree</b> row, "SpecialCases" field: <code>[fn:Eval(fn:AllowNull(ParentTree))]</code></li>
+        <li>Add to <code>StructTreeRoot.tsv</code> <b>ParentTree</b> row, "SpecialCase" field: <code>[fn:Eval(fn:AllowNull(ParentTree))]</code></li>
       </ul>
     </td>
   </tr>
