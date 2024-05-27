@@ -34,7 +34,7 @@ Currently the Arlington PDF Model defines all PDF objects defined by, or mention
 
 * objects, keys or array entries that were removed in legacy Adobe PDF specifications (i.e. prior to adoption of PDF 1.7 as ISO 32000-1:2008) are **not** currently defined in the Arlington PDF Model.
     - very few from PDF 1.0 or PDF 1.1 have been defined as proof-of-concept of the PDF versioning predicates
-    - Arlington does not distinguish between removal (obseleting) and deprecation. Removed features are considered deprecated in the model.
+    - Arlington does not distinguish between removal (obsoleting) and deprecation. Removed features are considered deprecated in the model.
 
 * PDF lexical rules are currently **not** defined in the Arlington PDF Model - they are assumed.
     - In the future an EBNF or ANTLR definition may be added.
@@ -78,6 +78,6 @@ This section makes suggestions to users who are implementing technology based on
 
 * remember that PDF dictionaries with duplicate keys **do** exist in the wild however many PDF libraries and APIs will hide this fact from users. Thus results from Arlington implementations may vary!
 
-* the Arlington PDF model does not define how implementations should read a PDF file - they are free to always use the cross-reference table information in the PDF, awlays rebuild the PDF cross-reference, or use some other custom algorithm to detect PDF objects. Such decisions can and will lead to different results! 
+* the Arlington PDF model does not define how implementations should read a PDF file - they are free to always use the cross-reference table information in the PDF, always rebuild the PDF cross-reference, or use some other custom algorithm to detect PDF objects. Such decisions can and will lead to different results! 
 
 The Arlington PDF Model accurately reflects the latest agreed ISO 32000-2:2020 PDF 2.0 specification ([available for no-cost](https://pdfa.org/sponsored-standards/)) and as amended by industry-agreed errata from https://pdf-issues.pdfa.org. If this state of affairs is unsuitable for adopters of the Arlington PDF Model (e.g. unresolved errata are causing issues for implementations) then the recommended practice is for those specific implementations to create private `diff` patches against the official model in GitHub, as it is entirely text-based (TSV files).

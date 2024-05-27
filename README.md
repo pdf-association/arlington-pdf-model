@@ -381,7 +381,7 @@ cut -f 8 * | sort -u
 cut -f 9 * | sort -u
 # Responses should all be inside '[' .. ']', separated by semi-colons if more than one. Empty sets '[]' OK.
 
-# Field 10: List all "SpecialCases"
+# Field 10: List all "SpecialCase"
 cut -f 10 * | sort -u
 
 # Field 11: Sets of "Link" to other TSV objects
