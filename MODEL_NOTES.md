@@ -53,6 +53,7 @@ Currently the Arlington PDF Model defines all PDF objects defined by, or mention
 
 * the semantics of PDF file structure and revisions including cross-reference tables, incremental updates, etc. is currently **not** defined in the Arlington PDF Model.
 
+* "Annex L (normative) Parent-child relationships between the standard structure elements in the standard structure namespace for PDF 2.0" lists the permitted child and parent relationships for all PDF 2.0 standard structure elements. The Arlington PDF Model currently **does not** implement Annex L (there is an embedded XLSX in ISO 32000-2:2020 so it should be possible to enforce these requirements in the future using this existing machine-readable asset).
 
 ## Adoption Notes
 
