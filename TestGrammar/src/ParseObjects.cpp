@@ -1368,9 +1368,10 @@ bool CParsePDF::parse_object(CPDFFile &pdf)
                         // For array repeat sets when only SOME rows are required (i.e. first_optional_idx != -1), need to decide if PDF object 'item' 
                         // best matches the optional array element at/near the end of the repeat set, or if should cycle back around to match the first 
                         // repeating set row in the TSV. 
-                        // Decide based on precise PDF object type of 'item'.
-                        auto itm_type = item->get_object_type();
-                        if (tsv[first_optional_idx][TSV_TYPE].find(ArlingtonPDFShim::PDFObjectType_strings[(int)itm_type]) != std::string::npos) {
+                        // Decide based on PDF object type of 'item' but noting that the PDF file and Arlington types are not perfectly aligned.
+                        // e.g. an integer in the PDF is a "number" which won't match Arlington "integer"; an "array" in PDF might be an Arlington 
+                        // "rect", "matrix", etc.
+                        if (object_matches_Arlington(item, tsv[first_optional_idx][TSV_TYPE])) {
                             // types matched for next optional index so keep going in this repeat set
                             idx = last_idx + 1;
                         }

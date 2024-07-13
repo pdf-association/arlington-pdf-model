@@ -26,6 +26,8 @@
 #include <vector>
 #include <regex>
 
+#include "ArlingtonPDFShim.h"
+
 /// @brief Arlington PDF version regex (1.0, 1.1, ... 1.7, 2.0).
 const std::string  ArlPDFVersion = "(1\\.[0-7]|2\\.0)";
 
@@ -91,6 +93,8 @@ const std::vector<std::string>  v_ArlNonComplexTypes = {
     "string-text"
 };
 
+// Work out if a PDF object matches an Arlington type 
+bool object_matches_Arlington(ArlingtonPDFShim::ArlPDFObject* pdfObj, const std::string arlType);
 
 /// @brief Arlington Integer - only optional leading negative sign.
 /// Avoid matching the front part of keys that start with digits "3DRenderMode" and array indexed wildcards "1*"

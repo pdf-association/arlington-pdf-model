@@ -50,6 +50,37 @@ const std::regex  r_ExtensionVersion("^fn:Extension\\((" + ArlKeyBase + ")\\,(" 
 const std::regex  r_EvalExtensionVersion("^fn:Eval\\(fn:Extension\\((" + ArlKeyBase + ")\\," + ArlPDFVersion + "\\) \\|\\| " + ArlPDFVersion + "\\)");
 
 
+bool object_matches_Arlington(ArlingtonPDFShim::ArlPDFObject* pdfObj, const std::string arlType) {
+    // Determine the Arlington equivalent for the PDF Object
+    assert(pdfObj != nullptr);
+    switch (pdfObj->get_object_type())
+    {
+    case PDFObjectType::ArlPDFObjTypeNumber:
+    {
+        ArlPDFNumber* numobj = (ArlPDFNumber*)pdfObj;
+        if (numobj->is_integer_value())
+            return (arlType == "integer") || (arlType == "bitmask");
+        else
+            return (arlType == "number");
+    }
+    break;
+    case PDFObjectType::ArlPDFObjTypeBoolean:    return (arlType == "boolean"); break;
+    case PDFObjectType::ArlPDFObjTypeName:       return (arlType == "name"); break;
+    case PDFObjectType::ArlPDFObjTypeNull:       return (arlType == "null"); break;
+    case PDFObjectType::ArlPDFObjTypeStream:     return (arlType == "stream"); break;
+    case PDFObjectType::ArlPDFObjTypeString:     return (arlType == "date") || (arlType == "string") || (arlType == "string-ascii") || (arlType == "string-byte") || (arlType == "string-text");; break;
+    case PDFObjectType::ArlPDFObjTypeArray:      return (arlType == "array") || (arlType == "rectangle") || (arlType == "matrix"); break;
+    case PDFObjectType::ArlPDFObjTypeDictionary: return (arlType == "dictionary") || (arlType == "name-tree") || (arlType == "number-tree"); break; 
+    case PDFObjectType::ArlPDFObjTypeReference:
+        assert(false && "ArlPDFObjTypeReference for object_matches_Arlington()");
+        break;
+    default:
+        assert(false && "unexpected type for object_matches_Arlington()");
+        break;
+    }
+    return false;
+}
+
 /// @brief Constructor to handle version complexities
 ///
 /// @param[in] obj          PDF object
