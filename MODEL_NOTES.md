@@ -66,6 +66,8 @@ This section makes suggestions to users who are implementing technology based on
     - This is why the [TestGrammar C++ PoC](TestGrammar) "rounds up" PDF versions... see also the `--force` command line option.
     - Also see [this PDF Association article](https://pdfa.org/pdf-versions/)
 
+* any pre-amble bytes before the first `%PDF-x.y.` header line as well as any post-amble non-whitespace bytes after the last `%%EOF` should also be reported. Checking for a binary file marker comment as the 2nd line might is also useful.  
+
 * consider reporting unexpected (i.e. not officially documented) keys in dictionaries and streams unless there is a `*` wildcard entry as the last row in the TSV data file. Ideally, analyze each custom key name to see if it is an official second-class or third-class PDF name as per Annex E.2 of ISO 32000-2:2020. 
     - This is what the [TestGrammar C++ PoC](TestGrammar) does.
 
@@ -88,6 +90,8 @@ This section makes suggestions to users who are implementing technology based on
 * depending on the PDF SDK being used, objects with object numbers larger than the trailer **Size** entry may or may not be reported. Some SDKs already implement the necessary code to nullify objects with invalid object numbers and thus the Arlington TestGrammar PoC will never be able to report such errors. Other SDKs do not implement this check and thus expose objects with invalid object numbers to TestGrammar. 
 
 * the Arlington PDF model does not define how implementations should read a PDF file - they are free to always use the cross-reference table information in the PDF, always rebuild the PDF cross-reference, or use some other custom algorithm to detect PDF objects. Such decisions can and will lead to different results!
-    - support for hybrid-reference PDFs will also result in differences between PDF SDKs that "PDF 1.5 processors" and those that are pre-PDF 1.5. As far as is known, no PDF SDK allows configuration of such behavior.
+    - support for hybrid-reference PDFs will also result in differences between PDF SDKs that are "PDF 1.5 processors" and those that are pre-PDF 1.5. As far as is known, no PDF SDK allows configuration of such behavior.
+
+* most PDF SDKs do not report details on Linearization data (since it is not linked into the PDF DOM from the trailer) or details on file revisions such as cross-reference sections in incremental updates (includes errors in trailers, `startxref` or **Prev** entries in incremental updates). Thus the majority of tools do not report file structural errors when incremental updates are present. Such errors with incremental update data and file structure can result in a _very_ different understanding of which objects are valid or not!  
 
 The Arlington PDF Model accurately reflects the latest agreed ISO 32000-2:2020 PDF 2.0 specification ([available for no-cost](https://pdfa.org/sponsored-standards/)) and as amended by industry-agreed errata from https://pdf-issues.pdfa.org. If this state of affairs is unsuitable for adopters of the Arlington PDF Model (e.g. unresolved errata are causing issues for implementations) then the recommended practice is for those specific implementations to create private `diff` patches against the official model in GitHub, as it is entirely text-based (TSV files).
