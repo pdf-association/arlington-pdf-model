@@ -2143,8 +2143,8 @@ bool CPDFFile::find_in_name_tree(ArlPDFDictionary* nameTreeNode, const std::stri
 
     ArlPDFObject* kids = nameTreeNode->get_value(L"Kids");
     if ((kids != nullptr) && (kids->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
-        for (int i = 0; i < ((ArlPDFArray*)names)->get_num_elements(); i++) {
-            auto akid = ((ArlPDFArray*)names)->get_value(i);
+        for (int i = 0; i < ((ArlPDFArray*)kids)->get_num_elements(); i++) {
+            auto akid = ((ArlPDFArray*)kids)->get_value(i);
             if ((akid != nullptr) && (akid->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary)) {
                 bool retval = find_in_name_tree((ArlPDFDictionary*)akid, obj_hash);
                 if (retval) {
