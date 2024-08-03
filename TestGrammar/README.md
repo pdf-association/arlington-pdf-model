@@ -357,6 +357,7 @@ This is a list of all messages that can occur from the PoC so that post-processi
 
 ## <span style="color:red">Error messages (red)</span>
 
+Locate in output with `grep` for "Error:".
 From `grep COLOR_ERORR src/*.cpp`:
 
 ```
@@ -371,6 +372,8 @@ Error: Bounds is not a dictionary in DVA for ...
 Error: DVA Bounds/Equals[i] was an unexpected type for ...
 Error: DVA Bounds/Equals[i] was a null object for ...
 Error: DVA Bounds/Equals was not an array for ...
+Error: error detecting '%PDF-x.y' header - not present?
+Error: error detecting '%%EOF' - not present?
 Error: failed to acquire Trailer/Root/FormalRepTree
 Error: failed to acquire Trailer/Root
 Error: failed to acquire Trailer
@@ -470,6 +473,7 @@ Error: array length was too short (needed x, was y) for ... in PDF x.y
 
 ## <span style="color:yellow">Warning messages (yellow)<span>
 
+Locate in output with `grep` for "Warning:".
 From `grep COLOR_WARN src/*.cpp`:
 
 ```
@@ -481,6 +485,8 @@ Warning: in path, object filename contains 'Array' but is linked as ...
 Warning: in path, object filename contains 'Dict' but is linked as ...
 Warning: in path, object filename contains 'Stream' but is linked as ...
 Warning: single element array with '0*' should use '*' ...
+Warning: X preamble junk bytes detected before '%PDF-x.y' header
+Warning: X postamble junk bytes (non-whitespace) detected after '%%EOF'
 Warning: XRefStream is present in file with header %PDF-x.y and Document Catalog Version of PDF a.b
 Warning: bitmask was not a 32-bit value for key ...
 Warning: bitmask was not an integer value for key ...
@@ -504,6 +510,7 @@ Warning: Arlington key-value (@key) with path '::' in ...  not fully validated
 
 ## <span style="color:cyan">Informational messages (cyan)<span>
 
+Locate in output with `grep` for "Info:".
 From `grep COLOR_INFO src/*.cpp`:
 
 ```
