@@ -28,6 +28,8 @@
 #include <filesystem>
 #include <vector>
 
+namespace fs = std::filesystem;
+
 /// @brief Macro to silence unreferenced formal parameter warnings
 #define UNREFERENCED_FORMAL_PARAM(x)		((void)(x))
 
@@ -129,5 +131,11 @@ std::string rightTrim(const std::string & s);
 
 /// @brief Generic whitespace trimming of strings (NOT for use with TSV data!)
 std::string trim(const std::string & s);
+
+/// @brief: number of junk bytes before header "%PDF-x.y"
+int preamble_offset_to_start_pdf(const fs::path& pdf_file_name);
+
+/// @brief: number of junk non-whitespace bytes after last "%%EOF"
+int postamble_offset_to_end_pdf(const fs::path& pdf_file_name);
 
 #endif // Utils_h

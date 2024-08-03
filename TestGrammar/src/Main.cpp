@@ -96,6 +96,22 @@ bool process_single_pdf(
         ofs << "PDF: " << fs::absolute(pdf_file_name).lexically_normal() << std::endl;
 
         if (pdfsdk.open_pdf(pdf_file_name, pwd)) {
+            int pre = preamble_offset_to_start_pdf(pdf_file_name);
+            if (pre > 0) {
+                ofs << COLOR_WARNING << pre << " preamble junk bytes detected before '%PDF-x.y' header" << COLOR_RESET;
+            }
+            else if (pre < 0) {
+                ofs << COLOR_ERROR << "error detecting '%PDF-x.y' header - not present?" << COLOR_RESET;
+            }
+
+            int post = postamble_offset_to_end_pdf(pdf_file_name);
+            if (post > 0) {
+                ofs << COLOR_WARNING << post << " postamble junk bytes (non-whitespace) detected after '%%EOF'" << COLOR_RESET;
+            }
+            else if (post < 0) {
+                ofs << COLOR_ERROR << "error detecting '%%EOF' - not present?" << COLOR_RESET;
+            }
+
             CParsePDF parser(tsv_folder, ofs, terse, debug_mode, forced_ver);
             CPDFFile  pdf(pdf_file_name, pdfsdk, forced_ver, extns);
             std::string s;

@@ -37,6 +37,7 @@
 #include <regex>
 #include <cassert>
 #include <cstdint>
+#include <fstream>
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -631,4 +632,103 @@ std::string rightTrim(const std::string& s) {
 /// @returns trimmed string
 std::string trim(const std::string& s) {
     return rightTrim(leftTrim(s));
+}
+
+
+/// @brief Returns the number of preamble junk bytes to the first "%PDF-x.y" in the file.
+/// Operates on the raw file, does not use a PDF SDK. Limited to 1st 8KB (far more than PDF
+/// spec suggests!). Inefficient.
+/// 
+/// @returns -1 on error or if no "%PDF-x.y" header within 8KB, or the number of preamble junk bytes. 
+/// 0 means file physically starts with "%PDF-x.y" at the very first byte. 
+/// 
+int preamble_offset_to_start_pdf(const fs::path& pdf_file_name) {
+#define MAX_PREAMBLE (8192)
+
+    std::ifstream pdffile(pdf_file_name, std::ios::in | std::ios::binary | std::ios::ate);
+    if (pdffile.is_open())
+    {
+        int             size;    // PDF file size assumed <2GB!
+        char*           memblock;
+        int             i;
+
+        size = (int)pdffile.tellg();
+        if (size > MAX_PREAMBLE)
+            size = MAX_PREAMBLE;
+        memblock = new char[size];
+        pdffile.seekg(0, std::ios::beg);
+        pdffile.read(memblock, size);
+        pdffile.close();
+        
+        i = 0;
+        while (i < (MAX_PREAMBLE - 8)) {  // simple hack so don't walk off buffer if "%" is near end
+            if ((memblock[i + 0] == '%') &&
+                (memblock[i + 1] == 'P') &&
+                (memblock[i + 2] == 'D') &&
+                (memblock[i + 3] == 'F') &&
+                (memblock[i + 4] == '-') &&
+                isdigit(memblock[i + 5]) &&
+                (memblock[i + 6] == '.') &&
+                isdigit(memblock[i + 7])) {
+                    delete[] memblock;
+                    return i;
+            }
+            i++;
+        }
+
+        delete[] memblock;
+    }
+    return -1;
+}
+
+
+/// @brief Returns the number of non-whitespace (postamble) junk bytes after the last "%%EOF" in the file to 
+/// the physical end of file. Operates on the raw file, does not use a PDF SDK. Limited to 1st 8KB. Inefficient.
+/// 
+/// @returns -1 on error or if no "%%EOF" end-of-file marker is found, or the number of postamble junk bytes. 
+/// 0 means file ends with "%%EOF" + optional whitespace/EOLs 
+int postamble_offset_to_end_pdf(const fs::path& pdf_file_name) {
+#define MAX_POSTAMBLE (8192)
+
+    std::ifstream pdffile(pdf_file_name, std::ios::in | std::ios::binary | std::ios::ate);
+    if (pdffile.is_open())
+    {
+        int             pdfsize;   // PDF file size assumed <2GB!
+        int             size = 0;
+        char*           memblock;
+        int             i;
+        int             first_junk_byte_offset = 0; // byte offset in PDF file to first junk byte after "%%EOF"
+
+        pdfsize = (int)pdffile.tellg();
+        if (pdfsize > MAX_POSTAMBLE)
+            size = MAX_POSTAMBLE;
+        else
+            size = (int)pdfsize;
+        memblock = new char[size];
+        pdffile.seekg(-size, std::ios::end);
+        pdffile.read(memblock, size);
+        pdffile.close();
+
+        i = size - 1;
+        while (i >= 4) {  // simple hack to avoid underrunning the buffer
+            if ((memblock[i - 4] == '%') &&
+                (memblock[i - 3] == '%') &&
+                (memblock[i - 2] == 'E') &&
+                (memblock[i - 1] == 'O') &&
+                (memblock[i - 0] == 'F')) {
+                delete[] memblock;
+                if (first_junk_byte_offset == 0)
+                    return 0;
+                else
+                    return (size - first_junk_byte_offset);
+            }
+            else if (!iswspace(memblock[i]) && (memblock[i] != 0)) {
+                first_junk_byte_offset = i;
+            }
+            i--;
+        }
+
+        delete[] memblock;
+    }
+    return -1;
 }
