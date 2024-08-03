@@ -13,11 +13,11 @@ TestGrammar - a multi-platform portable proof-of-concept Arlington PDF Model app
 
 **TestGrammar** [ OPTIONS ] `--pdf` _`<fname|dir|@file.txt>`_
 
-**TestGrammar_d** is the debug version of **TestGrammar**.
+**TestGrammar_d** is the slower debug version of **TestGrammar**.
 
 # DESCRIPTION
 
-**TestGrammar** is a proof-of-concept Arlington PDF Model command line application written in C++17 that can be used to validate an Arlington PDF model TSV data set, compare an Arlington PDF model TSV data set against an Adobe DVA definition, or check a PDF file against an Arlington PDF model TSV data set and report all differences. Running **TestGrammar** without any command line parameters will display a brief usage message.
+**TestGrammar** is a proof-of-concept Arlington PDF Model command line application written in C++17 that can be used to validate an Arlington PDF model TSV data set, compare an Arlington PDF model TSV data set against an Adobe DVA definition, or check a PDF file against an Arlington PDF model TSV data set and report differences. Running **TestGrammar** without any command line parameters will display a brief usage message.
 
 # OPTIONS
 
