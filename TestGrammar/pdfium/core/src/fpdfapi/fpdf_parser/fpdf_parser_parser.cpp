@@ -515,8 +515,8 @@ FX_BOOL CPDF_Parser::LoadCrossRefV4(FX_FILESIZE pos, FX_FILESIZE streampos, FX_B
         if (start_objnum >= (1 << 20)) {
             return FALSE;
         }
-        FX_DWORD count = m_Syntax.GetDirectNum();
-        if (count < 1) { // Avoid deadlock e.g. GhostScript Bug 695040
+        FX_INT32 count = m_Syntax.GetDirectNum();  // Correct type to avoid deadlock e.g. GhostScript Bug 695040
+        if ((count < 1) || (count >= 0x7FFFFFF)) { // Avoid deadlock e.g. GhostScript Bug 695040
             return FALSE;
         }
         m_Syntax.ToNextWord();
