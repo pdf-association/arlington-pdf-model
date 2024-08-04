@@ -516,6 +516,9 @@ FX_BOOL CPDF_Parser::LoadCrossRefV4(FX_FILESIZE pos, FX_FILESIZE streampos, FX_B
             return FALSE;
         }
         FX_DWORD count = m_Syntax.GetDirectNum();
+        if (count < 1) { // Avoid deadlock e.g. GhostScript Bug 695040
+            return FALSE;
+        }
         m_Syntax.ToNextWord();
         SavedPos = m_Syntax.SavePos();
         FX_BOOL bFirstItem = FALSE;
