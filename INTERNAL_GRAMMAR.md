@@ -1124,12 +1124,12 @@ Please review and add any feedback or comments to the appropriate issue!
     </td>
     <td>
       <ul>
-        <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/90">Issue #90</a>.</li>
+        <li>See <a href="https://github.com/pdf-association/arlington-pdf-model/issues/90">Issue #90</a> and <a href="https://github.com/pdf-association/arlington-pdf-model/issues/118">Issue #118</a> .</li>
         <li>Only used in "SpecialCase" field</lI>
-        <li>Within Arlington, <code>name-tree</code> and <code>number-tree</code> are treated as pre-defined types where the "Link" field is the list of permitted type(s) of objects that are to be expected as the allowable node values in the tree. However current internal grammar rules do NOT permit <code>null</code> so in order to codify whether <code>null</code> is also a permitted node value we need a new predicate that might occur in the "SpecialCase" field.</li>
+        <li>Within Arlington, <code>name-tree</code> and <code>number-tree</code> are treated as pre-defined types where the "Link" field is the list of permitted type(s) of objects that are to be expected as the allowable node values in the tree. However current internal grammar rules do NOT permit <code>null</code> as a the node in a tree so in order to codify whether <code>null</code> is also a permitted node value we need a new predicate that might occur in the "SpecialCase" field.</li>
         <li>Validator implementations can then process <code>name-tree</code> and <code>number-tree</code> while also accounting for specific rules related to <code>null</code>. Normally a <code>null</code> in a name- or number-tree would likely trigger a warning, but this can be overriden with this new predicate.</li>
         <li>Argument <code><i>key</i></code> must be either a <code>name-tree</code> or <code>number-tree</code></li>
-        <li>Add to <code>StructTreeRoot.tsv</code> <b>ParentTree</b> row, "SpecialCase" field: <code>[fn:Eval(fn:AllowNull(ParentTree))]</code></li>
+        <li>e.g. Add to <code>StructTreeRoot.tsv</code> <b>ParentTree</b> row, "SpecialCase" field: <code>[fn:Eval(fn:AllowNull(ParentTree))]</code></li>
       </ul>
     </td>
   </tr>
