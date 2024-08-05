@@ -128,7 +128,7 @@ bool process_single_pdf(
                     parser.add_root_parse_object(t, "FileTrailer", s);
                 }
 
-                parser.add_root_parse_object(pdfsdk.get_document_catalog(), "Catalog", s + "->Root (as Catalog)");
+                /// @todo - add Linearization via add_root_parse_object() as another root object to parse from
 
                 if (t->is_encrypted()) {
                     if (t->is_unsupported_encryption()) {
