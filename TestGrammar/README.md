@@ -208,6 +208,7 @@ Prototyped extensions (mainly to experiment with expressing the necessary versio
 - "ISO_TS_32004": adds `KDFSalt` to Encryption*.tsv, `AuthCode` to FileTrailer and XRefStream, and a new dictionary object in `AuthCode.tsv`
 - "ISO_19005_3": adds support for PDF/A-3 when Associated Files (keys `AF` and `AFRelationship`) were first added to PDF 1.7 - see [Issue #113](https://github.com/pdf-association/arlington-pdf-model/issues/113)
 - "ISO_21812": adds support for ISO 21812-1:2019 Print product metadata (PPM) with many `CIP4` related objects - see [Issue #123](https://github.com/pdf-association/arlington-pdf-model/issues/123)
+- "ETSI_PAdES": adds support for ETSI EN 319 142-1 (PAdES) which pre-dates the incorporation of DSS, VSS and TSS features into PDF 2.0 (see `DocTimeStamp.tsv`). ETSI uses different wording to ISO 32000-2:2020. See [Issue #121](https://github.com/pdf-association/arlington-pdf-model/issues/121)
 - "OpenOffice": adds support for additional entries in the file trailer / XRefStream. See [Issue #111](https://github.com/pdf-association/arlington-pdf-model/issues/111).
 - "WTPDF": adds support for "[Well-Tagged PDF (WTPDF) Using Tagged PDF for Accessibility and Reuse in PDF 2.0](https://pdfa.org/wtpdf/)" when a new attribute owner `FENote` was added along with attribute `NoteType` - see [Issue #106](https://github.com/pdf-association/arlington-pdf-model/issues/106)
 - "C2PA": adds support for a new key value for `AFRelationship` - see [Issue #112](https://github.com/pdf-association/arlington-pdf-model/issues/112)
