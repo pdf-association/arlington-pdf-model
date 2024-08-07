@@ -1,20 +1,19 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.3		TRUE	FALSE	FALSE		[DocTimeStamp]			Table 255
-Filter	name	1.3		TRUE	FALSE	FALSE					Inheritable from Parent
-SubFilter	name	1.3		FALSE	FALSE	FALSE		[ETSI.RFC3161]			
-Contents	string-byte	1.3		TRUE	FALSE	FALSE					
-Cert	array;string-byte	1.3		FALSE	FALSE	FALSE				[ArrayOfStringsByte];[]	
-ByteRange	array	1.3		FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral]	
-Reference	array	1.5		FALSE	FALSE	FALSE				[ArrayOfSignatureReferences]	
-Changes	array	1.3		FALSE	FALSE	FALSE				[ArrayOf_3Integers]	
-Name	string	1.3		FALSE	FALSE	FALSE					
-M	date	1.3		FALSE	FALSE	FALSE					
-Location	string	1.3		FALSE	FALSE	FALSE					
-Reason	string	1.3		FALSE	FALSE	FALSE					
-ContactInfo	string	1.3		FALSE	FALSE	FALSE					
-R	integer	1.3		FALSE	FALSE	FALSE					
-V	integer	1.5		FALSE	FALSE	FALSE	0				
-Prop_Build	dictionary	1.5		FALSE	FALSE	FALSE				[SignatureBuildPropDict]	
-Prop_AuthTime	integer	1.5		FALSE	FALSE	FALSE					
-Prop_AuthType	name	1.5		FALSE	FALSE	FALSE					
-ADBE_Build	string	1.3	1.5	FALSE	FALSE	FALSE					Adobe "Digital Signature Build Dictionary Specification"
+Type	name	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		TRUE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE		[DocTimeStamp]			Table 255 and ETSI EN 319 142-1 (PAdES) https://github.com/pdf-association/arlington-pdf-model/issues/121
+Filter	name	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		TRUE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE					https://github.com/pdf-association/pdf-issues/issues/121
+SubFilter	name	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE		[ETSI.RFC3161,*]			
+Contents	string-byte	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		TRUE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Eval((fn:IsPresent(ByteRange) && fn:IsHexString()) && fn:AlwaysUnencrypted())]		
+Cert	array;string-byte	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Eval(fn:Extension(ETSI_PAdES,fn:Not(fn:IsPresent(Cert))) || fn:Ignore((@SubFilter==ETSI.CAdES.detached) || (@SubFilter==ETSI.RFC3161)))];[fn:Eval(fn:Ignore((@SubFilter==ETSI.CAdES.detached) || (@SubFilter==ETSI.RFC3161)))]	[ArrayOfStringsByte];[]	
+ByteRange	array	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Eval((fn:ArrayLength(ByteRange) mod 2)==0)]	[ArrayOfNonNegativeIntegersGeneral]	
+Reference	array	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Eval(fn:Extension(ETSI_PAdES,fn:Not(fn:IsPresent(Reference))) || fn:Ignore(@SubFilter==ETSI.RFC3161))]	[ArrayOfSignatureReferences]	
+Changes	array	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Eval(fn:Extension(ETSI_PAdES,fn:Not(fn:IsPresent(Changes))) || fn:Ignore(@SubFilter==ETSI.RFC3161))]	[ArrayOf_3NonNegativeIntegers]	
+Name	string-text	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Ignore(@SubFilter==ETSI.RFC3161)]		
+M	date	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Ignore(@SubFilter==ETSI.RFC3161)]		
+Location	string-text	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Ignore(@SubFilter==ETSI.RFC3161)]		
+Reason	string-text	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Ignore(@SubFilter==ETSI.RFC3161)]		
+ContactInfo	string-text	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Ignore(@SubFilter==ETSI.RFC3161)]		
+R	integer	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)	2.0	FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Eval(fn:Extension(ETSI_PAdES,fn:Not(fn:IsPresent(R))) || fn:Ignore())]		also see "Adobe PDF Signature Build Dictionary Specification": "shall not be used" since PDF 1.5 
+V	integer	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE	0		[fn:Eval((@SubFilter==ETSI.RFC3161) && (@V==0))]		
+Prop_Build	dictionary	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE				[SignatureBuildPropDict]	see "Adobe PDF Signature Build Dictionary Specification"
+Prop_AuthTime	integer	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE		[fn:Eval(@Prop_AuthTime>=0)]	[fn:Eval(fn:Extension(ETSI_PAdES,fn:Not(fn:IsPresent(Prop_AuthTime))) || fn:Ignore(@SubFilter==ETSI.RFC3161))]		see "Adobe PDF Signature Build Dictionary Specification"
+Prop_AuthType	name	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE		[PIN,Password,Fingerprint]	[fn:Eval(fn:Extension(ETSI_PAdES,fn:Not(fn:IsPresent(Prop_AuthType))) || fn:Ignore(@SubFilter==ETSI.RFC3161))]		see "Adobe PDF Signature Build Dictionary Specification"

@@ -28,6 +28,6 @@ Legal	dictionary	1.5		FALSE	FALSE	FALSE				[LegalAttestation]
 Requirements	array	1.7		FALSE	FALSE	FALSE				[ArrayOfRequirements]	
 Collection	dictionary	1.7		FALSE	FALSE	FALSE				[Collection]	
 NeedsRendering	boolean	1.0	2.0	FALSE	FALSE	FALSE	false				
-DSS	dictionary	2.0		FALSE	FALSE	FALSE				[DSS]	
+DSS	dictionary	fn:Eval(fn:Extension(ETSI_PAdES,1.7) || 2.0)		FALSE	FALSE	FALSE				[DSS]	see ETSI EN 319 142-1 (PAdES) https://github.com/pdf-association/arlington-pdf-model/issues/121
 AF	array	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	
 DPartRoot	dictionary	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		FALSE	FALSE	FALSE				[DPartRoot]	
