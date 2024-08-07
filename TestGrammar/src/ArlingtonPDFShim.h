@@ -188,8 +188,10 @@ namespace ArlingtonPDFShim {
         ArlPDFString(ArlPDFObject* container, void* obj) : ArlPDFObject(container, obj)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeString; };
 
-        std::wstring get_value();
+        std::wstring get_raw_value(); // might be encrypted, if encryption present. Before decryption.
+        std::wstring get_value();     // always decrypted (as necessary)
         bool is_hex_string();
+        bool is_unencrypted() { return (get_value() == get_raw_value()); };
 
         friend std::ostream& operator << (std::ostream& ofs, const ArlPDFString& obj) {
             ofs << "string " << (ArlPDFObject&)obj;

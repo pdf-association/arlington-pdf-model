@@ -359,7 +359,15 @@ double ArlPDFNumber::get_value()
 }
 
 
-/// @brief  Returns the bytes of a PDF string object
+/// @brief  Returns the RAW bytes of a PDF string object. May be ENCRYPTED if encryption present.
+/// @returns The raw bytes of a PDF string object (can be zero length)
+std::wstring ArlPDFString::get_raw_value()
+{
+    return get_value(); /// @todo - get the raw (potentially encrypted) bytes from QPDF 
+}
+
+
+/// @brief  Returns the bytes of a PDF string object. Always DECRYPTED.
 /// @return The bytes of a PDF string object (can be zero length)
 std::wstring ArlPDFString::get_value()
 {
