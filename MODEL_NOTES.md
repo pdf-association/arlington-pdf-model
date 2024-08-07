@@ -84,6 +84,7 @@ This section makes suggestions to users who are implementing technology based on
 * be careful about making assumptions of `stream` vs `dictionary`. As far as the Arlington PDF Model is concerned there is no real difference as the **stream** and **endstream** keywords are not analyzed. 
 
 * remember that an encrypted PDF file (_even with unknown encryption!_) can still be checked - only the _content_ of `string-*`s and `stream`s can't. This is highly dependent on the PDF library and API in use as to whether this actually works. Results from Arlington implementations may thus vary!
+    - in order to check the predicate `fn:AlwaysUnencrypted()` used with PDF string objects, the PDF SDK must be able to provide the string before attempting decryption (a "raw" string) and after decryption. If these strings are the same, then it is assumed that the PDF string object was unencrypted in the PDF file.  
 
 * remember that PDF dictionaries with duplicate keys **do** exist in the wild however many PDF libraries and APIs will hide this fact from users - and can be further confused when normalized key names are duplicates (but not when non-normalized with escape sequences!). Thus results from Arlington implementations may vary!
 
