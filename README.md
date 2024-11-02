@@ -21,9 +21,11 @@ The Arlington PDF Model is all about a machine-readable model data for PDF objec
 
 The starting assumption is that you are a software developer and already know about the PDF document object model, PDF syntax, and how PDF files generally 'work'. You also have experience in debugging valid and invalid PDFs.
 
+If you're an end user and want to try the Arlington PDF Model integrated into software, see the online [PDFix Arlington PDF Model checker](https://pdfix.io/arlington-pdf-model/); the [veraPDF Arlington Model Checker](https://arlington.verapdf.org/); or the [veraPDF Arlington DockerHub image](https://hub.docker.com/r/verapdf/arlington). 
+
 ## Background
 
-The Arlington PDF Model is a specification-derived, machine-readable definition of the full PDF document object model (DOM) as defined by the official PDF 2.0 specification [ISO 32000-2:2020](https://www.iso.org/standard/75839.html) and its [related resolved errata](https://www.pdfa.org/pdf-issues/). It provides an easy-to-process structured definition of all formally defined PDF objects (dictionaries, arrays and map objects) and their relationships beginning with the file trailer using a simple text-based syntax and a small set of declarative functions. The Arlington PDF Model is applicable to both parsers (PDF readers) and unparsers (PDF writers).
+The Arlington PDF Model is a specification-derived, machine-readable definition of the full PDF document object model (DOM) as defined by the official PDF 2.0 specification [ISO 32000-2:2020](https://www.iso.org/standard/75839.html) and its [related resolved errata](https://www.pdfa.org/pdf-issues/) as well as other ISO PDF standards and commonly encountered _and documented_ extensions. It provides an easy-to-process structured definition of all formally defined PDF objects (dictionaries, arrays and map objects) and their relationships beginning with the file trailer using a simple text-based syntax and a small set of declarative functions. The Arlington PDF Model is applicable to both parsers (PDF readers) and unparsers (PDF writers).
 
 The Arlington definition does **not** replace the official ISO PDF specification and must always be used in conjunction with the PDF 2.0 document in order to fully understand the PDF DOM.
 
@@ -452,6 +454,11 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 * "[_Development Preview: PDF file checker based on the Arlington PDF Model_](https://openpreservation.org/news/development-preview-pdf-file-checker-based-on-the-arlington-pdf-model/)", 21 June 2023, Open Preserve Foundation. See [https://software.verapdf.org/develop/arlington/](https://software.verapdf.org/develop/arlington/)
 
 * Online [Arlington PDF Model checker](https://pdfix.io/arlington-pdf-model/) by PDFix.
+
+* Online [veraPDF Arlington Model Checker](https://arlington.verapdf.org/)
+
+* DockerHub container [veraPDF Arlington image](https://hub.docker.com/r/verapdf/arlington)
+
 
 ---
 
