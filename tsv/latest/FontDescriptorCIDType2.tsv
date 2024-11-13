@@ -3,7 +3,7 @@ Type	name	1.2		TRUE	FALSE	FALSE		[FontDescriptor]			Table 120 and Table 122
 FontName	name	1.2		TRUE	FALSE	FALSE			[fn:Eval(@FontName==parent::@BaseFont)]		
 FontFamily	string	1.5		FALSE	FALSE	FALSE					
 FontStretch	name	1.5		FALSE	FALSE	FALSE		[UltraCondensed,ExtraCondensed,Condensed,SemiCondensed,Normal,SemiExpanded,Expanded,ExtraExpanded,UltraExpanded]			
-FontWeight	integer	1.5		FALSE	FALSE	FALSE		[100,200,300,400,500,600,700,800,900]			
+FontWeight	integer	1.5		FALSE	FALSE	FALSE		[fn:Eval((@FontWeight>=1) && (@FontWeight<=1000))]			https://github.com/pdf-association/pdf-issues/issues/474
 Flags	bitmask	1.2		TRUE	FALSE	FALSE			[fn:Eval(fn:BitClear(5) && fn:BitsClear(8,16) && fn:BitsClear(20,32))]		Table 121
 FontBBox	rectangle	1.2		TRUE	FALSE	FALSE					
 ItalicAngle	number	1.2		TRUE	FALSE	FALSE					
