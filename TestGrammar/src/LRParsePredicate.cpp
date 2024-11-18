@@ -74,7 +74,8 @@ const std::regex  r_LinkExtension("fn:Extension\\(([A-Za-z0-9_\\-]+)\\,([A-Za-z0
 /// @brief Regex to process "Types" fields. Arlington types are all lowercase or have DASH
 /// - $1 = predicate name
 /// - $2 = single Arlington predefined Type
-const std::regex  r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\\(" + ArlPDFVersion + "\\,([a-z\\-]+)\\)");
+/// fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion)\((1\.[0-7]|2\.0)\,([a-z\\-]+)\)|Extension\(([a-zA-Z0-9_]+)\,([a-z\\-]+)\)
+const std::regex  r_Types("fn:(SinceVersion|Deprecated|BeforeVersion|IsPDFVersion|Deprecated)\\(" + ArlPDFVersion + "\\,([a-z\\-]+)\\)|(Extension)\\(([a-zA-Z0-9_]+)\\,([a-z\\-]+)\\)");
 
 
 /// @brief Regex to process "Key" fields. Very carefully ordered in this regex!!

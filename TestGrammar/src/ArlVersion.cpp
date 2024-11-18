@@ -22,6 +22,7 @@
 #include "ArlingtonTSVGrammarFile.h"
 #include "ArlPredicates.h"
 #include "LRParsePredicate.h"
+#include "PredicateProcessor.h"
 #include "utils.h"
 #include "PDFFile.h"
 
@@ -177,42 +178,60 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
             std::string t = arl_t[i];
             if (t.find("fn:") != std::string::npos) {
                 // Predicate - remove...
-                if (std::regex_search(t, m, r_Types) && m.ready() && (m.size() == 4)) {
+                if (std::regex_search(t, m, r_Types) && m.ready() && (m.size() == 7)) {
+                    // Needs to be synchronised with PredicateProcessor::ReduceTypeElement() / ValidateTypeSyntax()
+                    // 
                     // m[1] = predicate function name (no "fn:" or '(')
-                    // m[2] = PDF version "x.y"
-                    // m[3] = Arlington pre-defined type
-                    std::string s = m[1].str();
-                    if (s == "SinceVersion") {
+                    // 
+                    // If a version-based predicate:
+                    //    m[2] = PDF version "x.y"
+                    //    m[3] = Arlington pre-defined type
+                    // Else if extension predicate:
+                    //    m[5] = extension name 
+                    //    m[6] = Arlington pre-defined type
+                    if (m[1].str() == "SinceVersion") {
+                        arl_version = string_to_pdf_version(m[2].str());
                         if (pdf_version >= arl_version)
                             version_reason = ArlVersionReason::OK;
                         else
                             version_reason = ArlVersionReason::Before_fnSinceVersion;
+                        assert(FindInVector(v_ArlAllTypes, m[3].str()));
+                        t = m[3];
                     }
-                    else if (s == "Deprecated") {
+                    else if (m[1].str() == "Deprecated") {
+                        arl_version = string_to_pdf_version(m[2].str());
                         if (pdf_version >= arl_version)
                             version_reason = ArlVersionReason::Is_fnDeprecated;
                         else
                             version_reason = ArlVersionReason::OK;
+                        assert(FindInVector(v_ArlAllTypes, m[3].str()));
+                        t = m[3];
                     }
-                    else if (s == "IsPDFVersion") {
+                    else if (m[1].str() == "IsPDFVersion") {
+                        arl_version = string_to_pdf_version(m[2].str());
                         if (pdf_version == arl_version)
                             version_reason = ArlVersionReason::OK;
                         else
                             version_reason = ArlVersionReason::Not_fnIsPDFVersion;
+                        assert(FindInVector(v_ArlAllTypes, m[3].str()));
+                        t = m[3];
                     }
-                    else {
-                        assert(s == "BeforeVersion");
+                    else if (m[1].str() == "BeforeVersion") {
+                        arl_version = string_to_pdf_version(m[2].str());
                         if (pdf_version < arl_version)
                             version_reason = ArlVersionReason::OK;
                         else
                             version_reason = ArlVersionReason::After_fnBeforeVersion;
+                        assert(FindInVector(v_ArlAllTypes, m[3].str()));
+                        t = m[3];
                     }
-
-                    s = m[2].str();
-                    arl_version = string_to_pdf_version(s);
-
-                    assert(FindInVector(v_ArlAllTypes, m[3]));
-                    t = m[3];
+                    else if (m[4].str() == "Extension") {
+                        assert(FindInVector(v_ArlAllTypes, m[6].str()));
+                        if (wildcard_extn || FindInVector(extns, m[5].str()))
+                            t = m[6];
+                        // Extensions don't specify a version so fake to match PDF
+                        arl_version = pdf_version;
+                    }
                 }
                 else {
                     assert(false && "unexpected predicate in Type field!");
@@ -221,17 +240,17 @@ ArlVersion::ArlVersion(ArlPDFObject* obj, std::vector<std::string> vec, const in
 
             // 't' should now be cleaned of predicates
             if ((arl_type_of_pdf_object == t) ||
-                ((arl_type_of_pdf_object == "integer") && (t == "bitmask")) ||
-                ((arl_type_of_pdf_object == "array") && (t =="rectangle")) ||
-                ((arl_type_of_pdf_object == "array") && (t == "matrix")) ||
+                ((arl_type_of_pdf_object == "integer")    && (t == "bitmask")) ||
+                ((arl_type_of_pdf_object == "array")      && (t =="rectangle")) ||
+                ((arl_type_of_pdf_object == "array")      && (t == "matrix")) ||
                 ((arl_type_of_pdf_object == "dictionary") && (t == "name-tree")) ||
-                ((arl_type_of_pdf_object == "stream") && (t == "name-tree")) ||
-                ((arl_type_of_pdf_object == "array") && (t == "name-tree")) ||
+                ((arl_type_of_pdf_object == "stream")     && (t == "name-tree")) ||
+                ((arl_type_of_pdf_object == "array")      && (t == "name-tree")) ||
                 ((arl_type_of_pdf_object == "dictionary") && (t == "number-tree")) ||
-                ((arl_type_of_pdf_object == "stream") && (t == "number-tree")) ||
-                ((arl_type_of_pdf_object == "array") && (t == "number-tree")) ||
-                ((arl_type_of_pdf_object == "string") && (t == "date")) ||
-                ((arl_type_of_pdf_object == "string") && (t.find("string-") != std::string::npos))) {
+                ((arl_type_of_pdf_object == "stream")     && (t == "number-tree")) ||
+                ((arl_type_of_pdf_object == "array")      && (t == "number-tree")) ||
+                ((arl_type_of_pdf_object == "string")     && (t == "date")) ||
+                ((arl_type_of_pdf_object == "string")     && (t.find("string-") != std::string::npos))) {
                 arl_type_index = i;
                 arl_type = t;
                 found = true;

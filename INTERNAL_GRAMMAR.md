@@ -116,8 +116,8 @@ Note that the Arlington PDF Model accurately reflects the latest agreed ISO 3200
     * `string-ascii`
     * `string-byte`
     * `string-text`
-*   Each type may also be wrapped in a version-based predicate (e.g. `fn:SinceVersion(version,type)` or
-    `fn:Deprecated(version,type)`).
+*   Each type may also be wrapped in a version-based predicate (e.g. `fn:SinceVersion(version,type)`, 
+    `fn:Deprecated(version,type)`, `fn:Extension(name,type)`, etc.).
 *   When a predicate is used, the internal simple type is still kept in its alphabetic sort order
 * The following predefined Arlington types ALWAYS REQUIRE a link:
     - `array`, `dictionary`, `stream`

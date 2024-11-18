@@ -73,6 +73,7 @@ public:
     bool ValidateKeySyntax(const int key_idx);
     
     bool ValidateTypeSyntax(const int key_idx);
+    static std::string ReduceTypeElement(const std::string &t);
     
     bool ValidateSinceVersionSyntax(const int key_idx);
     bool IsValidForPDFVersion(ArlPDFObject* container, ArlPDFObject* obj, const int key_idx);

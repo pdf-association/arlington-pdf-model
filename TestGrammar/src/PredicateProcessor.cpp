@@ -39,9 +39,9 @@
 void PredicateProcessor::EmptyPredicateAST() {
     // A vector of ASTNodeStack = a vector of vectors of ASTNodes
     if (!predicate_ast.empty()) {
-        for (int i = (int)predicate_ast.size()-1; i >= 0; i--)
+        for (int i = (int)predicate_ast.size() - 1; i >= 0; i--)
             if (predicate_ast[i].size() > 0) {
-                for (int j = (int)predicate_ast[i].size()-1; j >= 0; j--)
+                for (int j = (int)predicate_ast[i].size() - 1; j >= 0; j--)
                     delete predicate_ast[i][j];
                 predicate_ast[i].clear(); // inner vector
             }
@@ -84,6 +84,7 @@ bool PredicateProcessor::ValidateKeySyntax(const int key_idx) {
 ///  - fn:Deprecated(x.y,type)
 ///  - fn:BeforeVersion(x.y,type)
 ///  - fn:IsPDFVersion(x.y,type)
+///  - fn:Extension(xxx,type)
 /// 
 /// @param[in]   key_idx     the key index into the TSV data
 /// 
@@ -103,25 +104,78 @@ bool PredicateProcessor::ValidateTypeSyntax(const int key_idx) {
             if (!valid)
                 return false;
         }
-        else if (std::regex_search(t, m, r_Types) && m.ready() && (m.size() == 4)) {
+        else if (std::regex_search(t, m, r_Types) && m.ready() && m.size() == 7) {
             // m[1] = predicate function name (no "fn:")
-            // m[2] = PDF version "x.y"
             // fn:BeforeVersion(1.0,xxx) makes no sense and fn:SinceVersion(1.0,xxx) is pointless overhead!!
-            valid = !(((m[1] == "BeforeVersion") || (m[1] == "SinceVersion")) && (m[2] == "1.0"));
-            if (!valid)
+            if ((m[1] == "BeforeVersion") || (m[1] == "SinceVersion") || (m[1] == "IsPDFVersion") || (m[1] == "Deprecated")) {
+                valid = !(((m[1] == "BeforeVersion") || (m[1] == "SinceVersion")) && (m[2] == "1.0"));
+                if (!valid)
+                    return false;
+                // m[2] = PDF version "x.y"
+                valid = FindInVector(v_ArlPDFVersions, m[2]);
+                if (!valid)
+                    return false;
+                // m[3] = Arlington pre-defined type
+                valid = FindInVector(v_ArlAllTypes, m[3]);
+                if (!valid)
+                    return false;
+            }
+            else if (m[4] == "Extension") {
+                // m[5] = extension name 
+                // m[6] = Arlington pre-defined type
+                valid = FindInVector(v_ArlAllTypes, m[6]);
+                if (!valid)
+                    return false;
+            }
+            else {
                 return false;
-            valid = FindInVector(v_ArlPDFVersions, m[2]);
-            if (!valid)
-                return false;
-            // m[3] = Arlington pre-defined type
-            valid = FindInVector(v_ArlAllTypes, m[3]);
-            if (!valid)
-                return false;
+            }
         }
         else
             return false;
     } // for
     return true;
+}
+
+
+/// @brief Strips an Arlington type (column 2) of all predicates
+/// Arlington types are all lowercase.
+///  - fn:SinceVersion(x.y,type)
+///  - fn:Deprecated(x.y,type)
+///  - fn:BeforeVersion(x.y,type)
+///  - fn:IsPDFVersion(x.y,type)
+///  - fn:Extension(xxx,type)
+/// 
+/// @param[in]   t     the element of an Arlington type including predicates (excluding SEMI-COLON separator)
+/// 
+/// @returns the Arlington type or an empty string (should never happen for valid TSV data!).
+std::string  PredicateProcessor::ReduceTypeElement(const std::string &t) {
+    bool            valid;
+    std::smatch     m;
+
+    if (t.find("fn:") == std::string::npos) {
+        valid = FindInVector(v_ArlAllTypes, t);
+        if (valid)
+            return t;
+    }
+    else if (std::regex_search(t, m, r_Types) && m.ready() && m.size() == 7) {
+        // m[1] = predicate function name (no "fn:")
+        if ((m[1] == "BeforeVersion") || (m[1] == "SinceVersion") || (m[1] == "IsPDFVersion") || (m[1] == "Deprecated")) {
+            // m[2] = PDF version "x.y"
+            // m[3] = Arlington pre-defined type
+            valid = FindInVector(v_ArlAllTypes, m[3]);
+            if (valid)
+                return m[3];
+        }
+        else if (m[4] == "Extension") {
+            // m[5] = extension name 
+            // m[6] = Arlington pre-defined type
+            valid = FindInVector(v_ArlAllTypes, m[6]);
+            if (valid)
+                return m[6];
+        }
+    }
+    return "";
 }
 
 

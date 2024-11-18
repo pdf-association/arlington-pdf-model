@@ -183,7 +183,7 @@ An exit code of 0 indicates successful processing. An exit code of -1 indicates 
 
 ### Understanding extensions
 
-As the Arlington PDF model is defined using text-based TSV files, it is very easy to extend the model to match a specific implementation or additional sets of requirements by patching an Arlington TSV model set of files. For example, you can suppress messages regarding specific malformations or proprietary extensions by simply adding definitions to the appropriate TSV file. Because these are not part of the official ISO PDF specification, these are referred to generically as "extensions" and the "SinceVersion" field which normally contains a PDF version is replaced by a predicate: `fn:Extension(name,x.y)` or `fn:Extension(name)` depending on whether the extension is version based or not.
+As the Arlington PDF model is defined using text-based TSV files, it is very easy to extend the model to match a specific implementation or additional sets of requirements by patching an Arlington TSV model set of files. For example, you can suppress messages regarding specific malformations or proprietary extensions by simply adding definitions to the appropriate TSV file. Because these are not part of the official ISO PDF specification, these are referred to generically as "extensions" and the "SinceVersion" field which normally contains a PDF version is replaced by a predicate: `fn:Extension(name,x.y)` or `fn:Extension(name)` depending on whether the extension is version-based or not.
 
 The names of extensions are arbitrary but must following the conventions used in Arlington for keys: alphanumerics with UNDERSCORE. No SPACES, COMMAs or MINUS (dash). By default, no extensions are supported so a "pure specification" report is generated.
 

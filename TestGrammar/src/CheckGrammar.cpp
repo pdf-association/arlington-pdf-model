@@ -405,7 +405,14 @@ bool check_grammar(CArlingtonTSVGrammarFile& reader, std::string& arl_type, bool
 
         // Check alphabetical sorting of Types
         for (size_t i = 1; i < types.size(); i++) {
-            if (types[i] < types[i - 1]) {
+            // Strip off all version or extension predicates to extract only the Arlington data type
+            std::string t0 = validator.ReduceTypeElement(types[i]);
+            std::string t1 = validator.ReduceTypeElement(types[i - 1]);
+            if ((t0.size() == 0) || (t1.size() == 0)) {
+                report_stream << COLOR_ERROR << "Types " << vc[TSV_TYPE] << " had a processing error for " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET;
+                retval = false;
+            }
+            else if (t0 < t1) {
                 report_stream << COLOR_ERROR << "Types " << vc[TSV_TYPE] << " are not alphabetically sorted for " << reader.get_tsv_name() << "/" << vc[TSV_KEYNAME] << COLOR_RESET;
                 retval = false;
             }

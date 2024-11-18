@@ -81,7 +81,7 @@ In the context of the Arlington PDF Model the following terminology is often use
 
 - "complex type" - a complex type is a key or array element which is allowed to be more than a single PDF type (e.g. `array;dictionary`). This often written as `[];[];[]` since this is how the Arlington model encodes this.
 - "simple type" - a simple type is a predefined Arlington type that does not link to another Arlington TSV definition. This include `bitmask`, `boolean`, `integer`, `number`, `matrix`, etc.
-- "version-based predicates" - a lot of details in the Arlington PDF model are dependent on the PDF version. These rules are encoded using several predicates including `fn:SinceVersion(...)`, `fn:IsPDFVersion(...)`, `fn:BeforeVersion(...)`, and `fn:Deprecated(...)`   
+- "version-based predicates" - a lot of details in the Arlington PDF model are dependent on the PDF version. These rules are encoded using several predicates including `fn:SinceVersion(...)`, `fn:IsPDFVersion(...)`, `fn:BeforeVersion(...)`, `fn:Deprecated(...)` and `fn:Extension(...)`.  
 
 
 TSV fields are always in the following order and TABs must exist between all fields:
