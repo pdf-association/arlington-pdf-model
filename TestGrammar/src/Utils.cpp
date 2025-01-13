@@ -493,17 +493,25 @@ static const std::regex r_DateStart("^D:(\\d{4})(\\d{2})?(\\d{2})?(\\d{2})?(\\d{
 
 
 /// @brief Tests if a string is a valid PDF date string according to clause 7.9.4 in ISO 32000-2:2020
+/// Note that PDF date strings can be _any_ type of PDF string (incl. literal, hex, UTF-16BE, UTF-8!)
+/// Conversion from hex or literal-with-escapes occurs BEFORE this function is called. This function
+/// handles UTF-16BE and UTF-8.
 ///
 /// @param[in] wdate   the date string in question
 ///
 /// @returns true iff the date string is valid
 bool is_valid_pdf_date_string(const std::wstring& wdate) {
     std::smatch  m;
+    std::string  date;
 
-    // Convert from possible UTF-16 and strip off BOM
-    std::string date = ToUtf8(wdate);
-    if ((date.size() >= 2) && ((uint8_t)date[0] == (uint8_t)254) && ((uint8_t)date[1] == (uint8_t)255)) {
-        date = date.substr(2);
+    // Convert from possible UTF-16BE or UTF-8 and strip off BOM
+    if ((wdate.size() >= 2) && ((uint8_t)wdate[0] == (uint8_t)254) && ((uint8_t)wdate[1] == (uint8_t)255)) {
+		// printf("UTF-16BE BOM detected\n");
+        date = ToUtf8(wdate.substr(2));
+    }
+    else if ((wdate.size() >= 3) && ((uint8_t)wdate[0] == (uint8_t)239) && ((uint8_t)wdate[1] == (uint8_t)187) && ((uint8_t)wdate[2] == (uint8_t)191)) {
+        // printf("UTF-8 BOM detected\n");
+        date = ToUtf8(wdate.substr(3));
     }
 
     if (std::regex_search(date, m, r_DateStart)) {
