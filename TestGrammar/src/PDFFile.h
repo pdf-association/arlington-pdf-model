@@ -134,6 +134,7 @@ private:
     bool fn_IsPDFTagged();
     bool fn_IsPresent(ArlPDFObject* container, std::string& key);
     bool fn_MustBeDirect(ArlPDFObject* container, ArlPDFObject* obj, const ASTNode* arg);
+    bool fn_MustBeIndirect(ArlPDFObject* container, ArlPDFObject* obj, const ASTNode* arg);
     bool fn_NoCycle(ArlPDFObject* obj, const std::string& key);
     bool fn_NotStandard14Font(ArlPDFObject* container);
     bool fn_PageContainsStructContentItems(ArlPDFObject* obj);

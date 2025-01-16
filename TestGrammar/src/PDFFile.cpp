@@ -695,7 +695,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* container, ArlPDFObject* obj, 
             else {
                 // there was an argument but may have been reduced to nullptr due to missing key, etc.
                 if (out_left != nullptr)
-                    out->node = fn_MustBeDirect(container, obj, out_left) ? "false" : "true";
+                    out->node = fn_MustBeIndirect(container, obj, out_left) ? "true" : "false";
                 else {
                     // indeterminate... (was an argument that got reduced to nullptr)
                     delete out;
@@ -1380,11 +1380,9 @@ bool CPDFFile::fn_AlwaysUnencrypted(ArlPDFObject* obj) {
     if (!t->is_encrypted())
         return true;
 
+    // Have Encrypt dictionary in trailer...
     ArlPDFString *str = (ArlPDFString*)obj;
-    std::wstring  val = str->get_value();
-
-    fully_implemented = false; /// @todo - how to determine if a string in an encrypted PDF is encrypted or unencrypted???
-    return true;
+    return str->is_unencrypted();
 }
 
 
@@ -2387,6 +2385,41 @@ bool CPDFFile::fn_MustBeDirect(ArlPDFObject* container, ArlPDFObject* obj, const
         }
         else {
             assert(false && "unexpected argument to fn:MustBeDirect");
+        }
+    }
+    return retval;
+}
+
+
+/// @brief Checks if obj is an indirect reference (i.e. NOT direct)
+/// e.g. fn:MustBeIndirect(fn:SinceVersion(1.7))
+///
+/// @param[in]  container  PDF container object which might be referenced for other objects direct
+/// @param[in]  obj        PDF object which must be indirect
+/// @param[in]  arg        optional conditional AST
+bool CPDFFile::fn_MustBeIndirect(ArlPDFObject* container, ArlPDFObject* obj, const ASTNode* arg)
+{
+    assert(obj != nullptr);
+    bool retval = false;
+    if (arg == nullptr) {
+        retval = obj->is_indirect_ref();
+    }
+    else {
+        if (arg->type == ASTNodeType::ASTNT_ConstPDFBoolean) {
+            // A reduced predicate expression that was true...
+            if (arg->node == "true")
+                retval = obj->is_indirect_ref();
+        }
+        else if ((arg->type == ASTNodeType::ASTNT_Key) || (arg->type == ASTNodeType::ASTNT_ConstInt)) {
+            // Look up key and reduce to true (present) or false (not present). NOT value-of-a-key (@keyname)!
+            auto key_parts = split_key_path(arg->node);
+            ArlPDFObject* val = get_object_for_path(container, key_parts);
+            if (val != nullptr)
+                retval = val->is_indirect_ref();
+            delete val;
+        }
+        else {
+            assert(false && "unexpected argument to fn:MustBeIndirect");
         }
     }
     return retval;

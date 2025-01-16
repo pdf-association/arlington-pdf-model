@@ -515,6 +515,36 @@ ReferenceType PredicateProcessor::ReduceIndirectRefRow(ArlPDFObject* container, 
         // No argument so avoid overheads
         if (stack[0]->arg[0] == nullptr)
             return  (stack[0]->node == "fn:MustBeDirect(") ? ReferenceType::MustBeDirect : ReferenceType::MustBeIndirect;
+        else {
+            // Optimise for specific version predicates
+            /// @todo - do this properly with all version predicates!
+            int pdf_v = string_to_pdf_version(pdfc->pdf_version); // version to use for processing...
+
+            if (stack[0]->arg[0]->node == "fn:SinceVersion(") {
+                assert((stack[0]->arg[0]->arg[0]->type == ASTNodeType::ASTNT_ConstNum) && (stack[0]->arg[0]->arg[0]->node.length() == 3));
+                int tsv_v = string_to_pdf_version(stack[0]->arg[0]->arg[0]->node);
+                if (pdf_v >= tsv_v) {
+                    if (stack[0]->node == "fn:MustBeDirect(")
+                        return ReferenceType::MustBeDirect;
+                    else if (stack[0]->node == "fn:MustBeIndirect(")
+                        return ReferenceType::MustBeIndirect;
+                    else
+                        return ReferenceType::DontCare;
+                }
+            }
+            else if (stack[0]->arg[0]->node == "fn:BeforeVersion(") {
+                assert((stack[0]->arg[0]->arg[0]->type == ASTNodeType::ASTNT_ConstNum) && (stack[0]->arg[0]->arg[0]->node.length() == 3));
+                int tsv_v = string_to_pdf_version(stack[0]->arg[0]->arg[0]->node);
+                if (pdf_v <= tsv_v) {
+                    if (stack[0]->node == "fn:MustBeDirect(")
+                        return ReferenceType::MustBeDirect;
+                    else if (stack[0]->node == "fn:MustBeIndirect(")
+                        return ReferenceType::MustBeIndirect;
+                    else
+                        return ReferenceType::DontCare;
+                }
+            }
+        }
 
         // Was an argument - can still reduce to nullptr if keys not present, etc.
         ASTNode* pp = pdfc->ProcessPredicate(container, object, stack[0], key_idx, tsv, type_index, 0, false);
