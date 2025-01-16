@@ -494,13 +494,12 @@ std::wstring ArlPDFString::get_value()
     assert(object != nullptr);
     assert(((CPDF_Object*)object)->GetType() == PDFOBJ_STRING);
     
-    std::wstring retval;
     CPDF_String* obj = ((CPDF_String*)object);
     CFX_ByteString bs = obj->GetString();
-    for (auto i = 0; i < bs.GetLength(); i++) {
-        wchar_t b = bs.GetAt(i);
-        retval = retval + b;
-    }
+    // Old method was element-by-element copy using bs.GetAt(), ensuring all bytes got across.
+	// That was VERY slow for very large strings. Now try using std::wstring iterator constructor. 
+    const char* c = bs;
+    std::wstring retval(&c[0], &c[strlen(c)]);
 
 #ifdef MARK_STRINGS_WHEN_ENCRYPTED
     // Make error messages slightly more understandable in the case of unsupported encryption
