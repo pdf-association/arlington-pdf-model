@@ -90,6 +90,8 @@ This section makes suggestions to users who are implementing technology based on
 
 * depending on the PDF SDK being used, objects with object numbers larger than the trailer **Size** entry may or may not be reported. Some SDKs already implement the necessary code to nullify objects with invalid object numbers and thus the Arlington TestGrammar PoC will never be able to report such errors. Other SDKs do not implement this check and thus expose objects with invalid object numbers to TestGrammar. 
 
+* how PDF SDKs handle invalid object references (i.e. indirect references to objects that are not present in the PDF file) will vary. For example, some PDF SDKs may internally check if an indirect reference (`10 0 R`) actually refers to an object and thus report this as **null**, while others may defer this processing and report this as an indirect reference to object 10, others may error, etc.
+
 * the Arlington PDF model does not define how implementations should read a PDF file - they are free to always use the cross-reference table information in the PDF, always rebuild the PDF cross-reference, or use some other custom algorithm to detect PDF objects. Such decisions can and will lead to different results!
     - support for hybrid-reference PDFs will also result in differences between PDF SDKs that are "PDF 1.5 processors" and those that are pre-PDF 1.5. As far as is known, no PDF SDK allows configuration of such behavior.
 
