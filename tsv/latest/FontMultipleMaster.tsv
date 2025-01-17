@@ -8,4 +8,4 @@ LastChar	integer	1.0		fn:IsRequired(fn:SinceVersion(2.0) || fn:NotStandard14Font
 Widths	array	1.0		fn:IsRequired(fn:SinceVersion(2.0) || fn:NotStandard14Font())	FALSE	FALSE				[ArrayOfNumbersGeneral]	
 FontDescriptor	dictionary	1.0		fn:IsRequired(fn:SinceVersion(2.0) || fn:NotStandard14Font())	TRUE	FALSE				[FontDescriptorType1]	
 Encoding	dictionary;name	1.0		FALSE	FALSE	FALSE		[];[MacRomanEncoding,MacExpertEncoding,WinAnsiEncoding]		[Encoding];[]	
-ToUnicode	stream	1.2		FALSE	TRUE	FALSE				[Stream]	
+ToUnicode	stream	1.2		FALSE	TRUE	FALSE				[ToUnicodeCMapStream]	
