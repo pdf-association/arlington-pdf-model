@@ -496,10 +496,14 @@ std::wstring ArlPDFString::get_value()
     
     CPDF_String* obj = ((CPDF_String*)object);
     CFX_ByteString bs = obj->GetString();
+
+	// Note that cannot rely on strlen() as PDF hex strings can end <...00> and this NUL will be detected as end of string
+	int len = bs.GetLength();
+
     // Old method was element-by-element copy using bs.GetAt(), ensuring all bytes got across.
 	// That was VERY slow for very large strings. Now try using std::wstring iterator constructor. 
     const char* c = bs;
-    std::wstring retval(&c[0], &c[strlen(c)]);
+    std::wstring retval(&c[0], &c[len]);
 
 #ifdef MARK_STRINGS_WHEN_ENCRYPTED
     // Make error messages slightly more understandable in the case of unsupported encryption
