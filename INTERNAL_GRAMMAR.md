@@ -1133,6 +1133,21 @@ Please review and add any feedback or comments to the appropriate issue!
       </ul>
     </td>
   </tr>
+  <tr>
+    <td>
+      <code>fn:MatchesRegex(pattern)</code>
+    </td>
+    <td>
+      <ul>
+        <li>tests a regular expression pattern against a <code>string</code> (any kind) or <code>name</code>;</li>
+        <li><code>pattern</code> is a VERY simple regex. Keep as <i>simple as possible</i> since not all programming languages use the exact same regular expressions (so avoid look ahead, look behind, repeat counts, character classes, assertions, back expressions, etc.);</li>
+        <li>only applies to current row (key or array element);</li>
+        <li>only valid in the "SpecialCase" field;</li>
+        <li><code>pattern</code> is expressed within SINGLE-QUOTES (like an Arlington PDF string);</li>
+        <li><b>NOTE: this breaks the trivial parsing of Arlington expressions such as relying on square brackets, semi-colons, etc.!!!!</b></li>
+      </ul>
+    </td>
+  </tr>
 </table>
 
 # Negative predicate grammar validation checks
