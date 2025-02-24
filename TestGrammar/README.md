@@ -181,49 +181,6 @@ All output should have a final line "END" (`grep --files-without-match "END"`) -
 
 An exit code of 0 indicates successful processing. An exit code of -1 indicates an error: typically an encrypted PDF file requiring a password or with  unsupported crypto, or a corrupted PDF where the trailer cannot be located (this will also depend on the PDF SDK in use). If processing a folder of PDFs under Microsoft Windows, then use `--batchmode` so that if things do crash or assert then the error dialog box doesn't block unattended execution from continuing.
 
-### Understanding extensions
-
-As the Arlington PDF model is defined using text-based TSV files, it is very easy to extend the model to match a specific implementation or additional sets of requirements by patching an Arlington TSV model set of files. For example, you can suppress messages regarding specific malformations or proprietary extensions by simply adding definitions to the appropriate TSV file. Because these are not part of the official ISO PDF specification, these are referred to generically as "extensions" and the "SinceVersion" field which normally contains a PDF version is replaced by a predicate: `fn:Extension(name,x.y)` or `fn:Extension(name)` depending on whether the extension is version-based or not.
-
-The names of extensions are arbitrary but must following the conventions used in Arlington for keys: alphanumerics with UNDERSCORE. No SPACES, COMMAs or MINUS (dash). By default, no extensions are supported so a "pure specification" report is generated.
-
-The TestGrammar CLI option `-e` or `--extensions` is used to specify a COMMA-separated list of case-sensitive extension names to support. Enabling support means that keys matching these extension names will **not** get reported as unknown keys and that these keys will also be further checked against their Arlington definitions. The default is not to enable any extensions - i.e. it is a "pure" check against ISO 32000-2:202. Use `--extensions *` (or `--extensions \*` on Linux to stop globbing by bash) to include all extensions when checking the PDF file.
-
-Note also that the Extensions Dictionary in the PDF file is **not** consulted!
-
-```bash
-TestGrammar --brief --tsvdir ./tsv/latest --extensions AAPL,Malforms --pdf /tmp/folder_of_pdfs/ --out /tmp/out
-TestGrammar --brief --tsvdir ./tsv/latest --extensions \* --force 2.0 --pdf /tmp/folder_of_pdfs/ --out /tmp/out
-TestGrammar --brief --tsvdir ./tsv/latest --extensions \* --force exact --pdf /tmp/folder_of_pdfs/ --out /tmp/out
-```
-
-Prototyped extensions (mainly to experiment with expressing the necessary version and data dependency information):
-- "ADBE_Extn3" and "ADBE_Extn5": the [Adobe Extension Levels 3 and 5](https://www.pdfa.org/resource/pdf-specification-index/) on top of ISO 32000-1:2008 (PDF 1.7). In many cases, these are features that were later adopted into PDF 2.0 by ISO.
-- "AAPL": adds `AAPL:Keywords` to DocInfo ([see doco](https://developer.apple.com/documentation/coregraphics/kcgpdfcontextkeywords)), `AAPL:AA` boolean and the `AAPL:ST` Style dictionary to GraphicsStateParameter and adds a new dictionary object in `AAPL_ST.tsv`
-- "PDF_VT2": adds PDF/VT-2 support as a demo of how some aspects of a feature can occur in an extension before being later adopted and standardized by ISO 32000-2 (e.g. DParts, DPM, etc.), while other parts are not adopted (e.g. all the `GTS_xxx` keys). In this case, the "SinceVersion" field will have `fn:Extension(PDF_VT2,1.6) || 2.0)` for those keys that were adopted, or just `fn:Extension(PDF_VT2,1.6)` for those keys specific to PDF/VT-2. PDF/VT-2 is based on PDF/X-4 which is based on PDF 1.6.
-- "ISO_TS_24064": adds STEP AP 242 support as another 3D format for 3DStreams, and a new requirements dictionary in `RequirementsSTEP.tsv`
-- "ISO_TS_24654": adds `Path` to AnnotLink for non-rectangular links
-- "ISO_TS_32003": adds 256-bit AES-GCM support to PDF 2.0 by specifying additional values for some keys in Encryption dictionaries
-    - note that because encryption results in all streams and strings being encrypted, PDF SDK support will vary
-- "ISO_TS_32004": adds `KDFSalt` to Encryption*.tsv, `AuthCode` to FileTrailer and XRefStream, and a new dictionary object in `AuthCode.tsv`
-- "ISO_19005_3": adds support for PDF/A-3 when Associated Files (keys `AF` and `AFRelationship`) were first added to PDF 1.7 - see [Issue #113](https://github.com/pdf-association/arlington-pdf-model/issues/113)
-- "ISO_21812": adds support for ISO 21812-1:2019 Print product metadata (PPM) with many `CIP4` related objects - see [Issue #123](https://github.com/pdf-association/arlington-pdf-model/issues/123)
-- "ETSI_PAdES": adds support for ETSI EN 319 142-1 (PAdES) which pre-dates the incorporation of DSS, VSS and TSS features into PDF 2.0 (see `DocTimeStamp.tsv`). ETSI uses different wording to ISO 32000-2:2020. See [Issue #121](https://github.com/pdf-association/arlington-pdf-model/issues/121)
-- "OpenOffice": adds support for additional entries in the file trailer / XRefStream. See [Issue #111](https://github.com/pdf-association/arlington-pdf-model/issues/111).
-- "WTPDF": adds support for "[Well-Tagged PDF (WTPDF) Using Tagged PDF for Accessibility and Reuse in PDF 2.0](https://pdfa.org/wtpdf/)" when a new attribute owner `FENote` was added along with attribute `NoteType` - see [Issue #106](https://github.com/pdf-association/arlington-pdf-model/issues/106)
-- "C2PA": adds support for a new key value for `AFRelationship` - see [Issue #112](https://github.com/pdf-association/arlington-pdf-model/issues/112)
-- "Malforms": adds misspelled `SubType` key to `OptContentCreatorInfo` as an alternate spelling of `Subtype` and misspelled `Blackls1` for `BlackIs1` (lowercase L instead of uppercase i) in `FilterCCITTFaxDecode.tsv`
-    - the existing row is simply duplicated with the key spelling then changed and the official "SinceVersion" PDF version replaced with the extension predicate: `fn:Extension(Malforms)`.
-    - because Optional Content was only introduced in PDF 1.5, the `SubType` malform predicate also uses the `fn:Extension(Malforms,1.5)` predicate to further express this requirement for this misspelled key
-
-```bash
-# See all the details for all extensions in an Arlington data set
-grep -P "\t[^\t]*fn:Extension\([^\t]+" *
-
-# A list of all the unique extension names in an Arlington data set
-grep -Pho "fn:Extension\([^\t)]+\)\)?" * | sort | uniq
-```
-
 ### Understanding errors and warnings
 
 Most error and warning messages are obvious from the message text. If `--debug` **is** specified, then PDF object numbers will also be in the output which can help rapidly identify the cause of error and warning messages. Messages always occur **after** the PDF DOM path so adding a `-B 1` to `grep` can provide such context. Multiple messages can occur for any context line.
