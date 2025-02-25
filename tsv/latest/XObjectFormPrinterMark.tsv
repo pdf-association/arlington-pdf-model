@@ -15,7 +15,7 @@ StructParents	integer	1.4		FALSE	FALSE	FALSE					Table 359
 OPI	dictionary	1.4	2.0	FALSE	FALSE	FALSE				[OPIVersion13,OPIVersion20]	
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
 Name	name	1.4	2.0	FALSE	FALSE	FALSE					
-AF	array	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	
+AF	array	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfAFFileSpecifications]	
 Measure	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[MeasureRL,MeasureGEO]	
 PtData	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[PointData]	
 Length	integer	1.4		TRUE	FALSE	FALSE					

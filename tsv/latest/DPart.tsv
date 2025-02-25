@@ -5,4 +5,4 @@ DParts	array	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		fn:IsRequired(fn:Not(fn:
 Start	dictionary	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		fn:IsRequired(fn:Not(fn:IsPresent(DParts)))	TRUE	FALSE				[PageObject]	
 End	dictionary	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		FALSE	TRUE	FALSE				[PageObject]	
 DPM	dictionary	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		FALSE	FALSE	FALSE				[DPM]	
-AF	array	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	
+AF	array	2.0		FALSE	FALSE	FALSE				[ArrayOfAFFileSpecifications]	
