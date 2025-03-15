@@ -8,6 +8,10 @@ Currently the Arlington PDF Model defines all PDF objects defined by, or mention
 
 * PDF is an extensible language. As such, any dictionary or stream can have undocumented or private keys whether these are officially second-class or third-class names or not. The current Arlington PDF Model does **not** define this, as it uses the wildcard `*` for those objects that are **explicitly** defined in ISO 32000-2 to contain keys with arbitrary names.
 
+
+* Arlington defines `name-tree` and `number-tree` as pre-defined types. This means that rules and predicates relating to **Kids**, **Names**, and **Limits** are _not_ defined by the model (e.g. validity with `null` values or empty arrays).
+    - the [veraPDF Arlington repo](https://github.com/veraPDF/veraPDF-arlington-tools) also has additional useful information such as how it validates `name-tree` and `number-tree` data structures to account for issues such as [this bug report](https://github.com/pdfcpu/pdfcpu/issues/1111#issuecomment-2724308872).
+    
 * ISO 32000-2:2020 subclause 14.3.2 _Metadata streams_ permits the `Metadata` key to be any dictionary or stream. This is **not** explicitly modelled across every dictionary in the current Arlington PDF model. Arlington only defines a `Metadata` entry when ISO 32000-2:2020 explicitly declares it. 
     - In the future, a `Metadata` entry might be added to every dictionary or stream object. Please add comments to [Issue #65](https://github.com/pdf-association/arlington-pdf-model/issues/65) if you feel strongly one way or the other.
     - Note also that the Document Part Metadata **DPM** dictionary (_new in PDF 2.0_) also explicitly prohibits streams which means **Metadata** cannot occur below **DPM** objects. The TestGrammar PoC does **not** check for this!
@@ -26,10 +30,9 @@ Currently the Arlington PDF Model defines all PDF objects defined by, or mention
     - Dictionary handling is covered by subclause 7.3.7 "_A dictionary entry whose value is null (see 7.3.9, "Null object") shall be treated the same as if the 
     entry does not exist._" so dictionaries will never have a `null` type unless ISO 32000-2 explicitly mentions it or there is a glitch in the matrix 
     (e.g. Table 207 for **Mac** and **Unix** entries).
-    - Array objects and name-tree / number-trees are more complex as ISO 32000-2:2020 makes no statements about `null`. See also 
+    - Array objects and `name-tree` / `number-tree`s are more complex as ISO 32000-2:2020 makes no statements about `null`. See also 
     [Arlington Issue #90](https://github.com/pdf-association/arlington-pdf-model/issues/90) and [PDF 2.0 Errata #157](https://github.com/pdf-association/pdf-issues/issues/157).
 
-* the [veraPDF Arlington repo](https://github.com/veraPDF/veraPDF-arlington-tools) also has additional useful information such as how to validate name-tree and number-tree data structures.
 
 ## Limitations
 
