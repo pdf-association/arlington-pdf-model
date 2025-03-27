@@ -26,6 +26,6 @@ IRT	dictionary	1.5		fn:IsRequired(fn:SinceVersion(1.6,fn:IsPresent(RT)))	FALSE	F
 Subj	string-text	1.5		FALSE	FALSE	FALSE					
 RT	name	1.6		FALSE	FALSE	FALSE	R	[R,Group]	[fn:IsMeaningful(fn:IsPresent(IRT))]		
 IT	name	1.6		FALSE	FALSE	FALSE					
-RD	rectangle	1.5		FALSE	FALSE	FALSE			[fn:Eval((RD::@0>=0) && (RD::@1>=0) && (RD::@2>=0) && (RD::@3>=0) && ((RD::@1+RD::@3)<fn:RectHeight(Rect)) && ((RD::@0+RD::@2)<fn:RectWidth(Rect)))]		
+RD	array	1.5		FALSE	FALSE	FALSE			[fn:Eval((fn:ArrayLength(RD)==4) && (RD::@0>=0) && (RD::@1>=0) && (RD::@2>=0) && (RD::@3>=0) && ((RD::@1+RD::@3)<fn:RectHeight(Rect)) && ((RD::@0+RD::@2)<fn:RectWidth(Rect)))]	[ArrayOf_4Numbers]	https://github.com/pdf-association/pdf-issues/issues/524
 Sy	name	1.5		FALSE	FALSE	FALSE	None	[P,None]			
 ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,ExDataMarkupGeo)),fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	2D markup annots only 

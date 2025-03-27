@@ -31,7 +31,7 @@ DS	string-text	1.5		FALSE	FALSE	FALSE
 CL	array	1.6		FALSE	FALSE	FALSE			[fn:IsMeaningful(@IT==FreeTextCallout)]	[ArrayOf_3or4CalloutLineNumbers]	
 IT	name	1.6		FALSE	FALSE	FALSE	FreeText	[FreeText,FreeTextCallout,FreeTextTypeWriter]			
 BE	dictionary	1.6		FALSE	FALSE	FALSE				[BorderEffect]	
-RD	rectangle	1.6		FALSE	FALSE	FALSE			[fn:Eval((RD::@0>=0) && (RD::@1>=0) && (RD::@2>=0) && (RD::@3>=0) && ((RD::@1+RD::@3)<fn:RectHeight(Rect)) && ((RD::@0+RD::@2)<fn:RectWidth(Rect)))]		
+RD	array	1.6		FALSE	FALSE	FALSE			[fn:Eval((fn:ArrayLength(RD)==4) && (RD::@0>=0) && (RD::@1>=0) && (RD::@2>=0) && (RD::@3>=0) && ((RD::@1+RD::@3)<fn:RectHeight(Rect)) && ((RD::@0+RD::@2)<fn:RectWidth(Rect)))]	[ArrayOf_4Numbers]	https://github.com/pdf-association/pdf-issues/issues/524
 BS	dictionary	1.3		FALSE	FALSE	FALSE				[BorderStyle]	
 LE	name	1.6		FALSE	FALSE	FALSE	None	[Square,Circle,Diamond,OpenArrow,ClosedArrow,None,Butt,ROpenArrow,RClosedArrow,Slash]	[fn:IsMeaningful(fn:IsPresent(CL))]		
 ExData	dictionary	1.7		FALSE	FALSE	FALSE				[ExData3DMarkup,fn:IsPDFVersion(1.7,fn:Extension(ADBE_Extn3,ExDataMarkupGeo)),fn:SinceVersion(2.0,ExDataMarkupGeo),fn:SinceVersion(2.0,ExDataProjection)]	2D markup annots only 
