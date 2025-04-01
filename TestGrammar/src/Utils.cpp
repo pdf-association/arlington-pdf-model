@@ -108,7 +108,7 @@ std::string ToUtf8(const std::wstring& wstr) {
     std::wstring ws = wstr;
 
     // Check for UTF-16BE or UTF-8 BOM strings
-    if ((ws.size() >= 2) && (ws[0] == (wchar_t)254) && (ws[1] == (wchar_t)255)) {
+    if ((ws.size() >= 2) && ((uint8_t)ws[0] == (uint8_t)254) && ((uint8_t)ws[1] == (uint8_t)255)) {
         // Handle UTF-16BE
         ws = ws.substr(2);
 
@@ -121,7 +121,7 @@ std::string ToUtf8(const std::wstring& wstr) {
         }
         return utf8;
     }
-    else if ((ws.size() >= 3) && (ws[0] == (wchar_t)239) && (ws[1] == (wchar_t)187) && (ws[1] == (wchar_t)191)) {
+    else if ((ws.size() >= 3) && ((uint8_t)ws[0] == (uint8_t)239) && ((uint8_t)ws[1] == (uint8_t)187) && ((uint8_t)ws[1] == (uint8_t)191)) {
         // Strip UTF-8 BOM for PDF 2.0
         ws = ws.substr(3);
     }
@@ -507,11 +507,11 @@ bool is_valid_pdf_date_string(const std::wstring& wdate) {
     // Convert from possible UTF-16BE or UTF-8 and strip off BOM
     if ((wdate.size() >= 2) && ((uint8_t)wdate[0] == (uint8_t)254) && ((uint8_t)wdate[1] == (uint8_t)255)) {
         // printf("UTF-16BE BOM detected\n");
-        date = ToUtf8(wdate.substr(2));
+        date = ToUtf8(wdate);
     }
     else if ((wdate.size() >= 3) && ((uint8_t)wdate[0] == (uint8_t)239) && ((uint8_t)wdate[1] == (uint8_t)187) && ((uint8_t)wdate[2] == (uint8_t)191)) {
         // printf("UTF-8 BOM detected\n");
-        date = ToUtf8(wdate.substr(3));
+        date = ToUtf8(wdate);
     }
     else
         date = ToUtf8(wdate);
