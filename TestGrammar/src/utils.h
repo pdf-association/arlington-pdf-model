@@ -37,13 +37,16 @@ namespace fs = std::filesystem;
 constexpr auto COLOR_RESET_ANSI = "\033[0m";
 
 /// @brief ANSI code for red foreground text. Portable across *nix and Windows 10/11.
-constexpr auto COLOR_ERROR_ANSI = "\033[1;31m"; // Red foreground;
+constexpr auto COLOR_ERROR_ANSI = "\033[31m"; // Red foreground
 
 /// @brief ANSI code for yellow foreground text. Portable across *nix and Windows 10/11.
-constexpr auto COLOR_WARNING_ANSI = "\033[1;33m"; // Yellow foreground;
+constexpr auto COLOR_WARNING_ANSI = "\033[33m"; // Yellow foreground
 
 /// @brief ANSI code for cyan foreground text. Portable across *nix and Windows 10/11.
-constexpr auto COLOR_INFO_ANSI = "\033[1;36m"; // Cyan foreground;
+constexpr auto COLOR_INFO_ANSI = "\033[36m"; // Cyan foreground
+
+/// @brief ANSI code for white text on bright red background. Portable across *nix and Windows 10/11.
+constexpr auto COLOR_DEBUG_ANSI = "\033[101m"; // Bright Red background with white text
 
 /// @brief Global flag from main, representing --no-color CLI option
 extern bool no_color;
@@ -65,6 +68,9 @@ inline std::ostream& COLOR_WARNING(std::ostream & os) { if (!no_color) { os << C
 
 /// @brief Inline function to set informative color for text outout if not disabled
 inline std::ostream& COLOR_INFO(std::ostream& os) { if (!no_color) { os << COLOR_INFO_ANSI; } os << "Info: "; return os; }
+
+/// @brief Inline function to set informative color for text outout if not disabled
+inline std::ostream& COLOR_DEBUG(std::ostream& os) { if (!no_color) { os << COLOR_DEBUG_ANSI; } os << "Info: "; return os; }
 
 /// @brief /dev/null equivalent for chars
 extern std::ostream  cnull;
