@@ -70,7 +70,7 @@ inline std::ostream& COLOR_WARNING(std::ostream & os) { if (!no_color) { os << C
 inline std::ostream& COLOR_INFO(std::ostream& os) { if (!no_color) { os << COLOR_INFO_ANSI; } os << "Info: "; return os; }
 
 /// @brief Inline function to set informative color for text outout if not disabled
-inline std::ostream& COLOR_DEBUG(std::ostream& os) { if (!no_color) { os << COLOR_DEBUG_ANSI; } os << "Info: "; return os; }
+inline std::ostream& COLOR_DEBUG(std::ostream& os) { if (!no_color) { os << COLOR_DEBUG_ANSI; } os << "DEBUG: "; return os; }
 
 /// @brief /dev/null equivalent for chars
 extern std::ostream  cnull;
