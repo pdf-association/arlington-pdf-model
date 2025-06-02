@@ -36,7 +36,7 @@ ColumnGap	array;number	1.6		FALSE	FALSE	FALSE			[fn:Eval((@O==Layout) || ((@O!=L
 ColumnWidths	array;number	1.6		FALSE	FALSE	FALSE			[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]	[ArrayOfNumbersGeneral];[]	Table 381
 ListNumbering	name	1.4		FALSE	FALSE	TRUE	None	[None,fn:SinceVersion(2.0,Unordered),fn:SinceVersion(2.0,Description),Disc,Circle,Square,Ordered,Decimal,UpperRoman,LowerRoman,UpperAlpha,LowerAlpha]	[fn:Eval((@O==List) || ((@O!=Layout) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 382
 ContinuedList	boolean	2.0		FALSE	FALSE	FALSE	false		[fn:Eval((@O==List) || ((@O!=Layout) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 382
-ContinuedForm	string-byte	2.0		FALSE	FALSE	FALSE			[fn:Eval((@O==List) || ((@O!=Layout) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 382
+ContinuedFrom	string-byte	2.0		FALSE	FALSE	FALSE			[fn:Eval((@O==List) || ((@O!=Layout) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 382
 Role	name	1.7		FALSE	FALSE	FALSE		[rb,cb,pb,tv,lb]	[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]		Table 383
 Checked	name	1.7		FALSE	FALSE	FALSE	off	[on,off,neutral]	[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]		Table 383
 checked	name	1.7	2.0	FALSE	FALSE	FALSE	off	[on,off,neutral]	[fn:Eval((@O==PrintField) || ((@O!=Layout) && (@O!=List) && (@O!=Table) && (@O!=Artifact)))]		Table 383
