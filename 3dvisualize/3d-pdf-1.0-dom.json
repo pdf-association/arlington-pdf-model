@@ -142,6 +142,27 @@
             "name": "DestXYZArray array"
         },
         {
+            "id": "DeviceCMYKColorSpace",
+            "val": 1,
+            "group": "array",
+            "desc": "1 elements",
+            "name": "DeviceCMYKColorSpace array"
+        },
+        {
+            "id": "DeviceGrayColorSpace",
+            "val": 1,
+            "group": "array",
+            "desc": "1 elements",
+            "name": "DeviceGrayColorSpace array"
+        },
+        {
+            "id": "DeviceRGBColorSpace",
+            "val": 1,
+            "group": "array",
+            "desc": "1 elements",
+            "name": "DeviceRGBColorSpace array"
+        },
+        {
             "id": "DocInfo",
             "val": 16,
             "group": "dict",
@@ -150,9 +171,9 @@
         },
         {
             "id": "Encoding",
-            "val": 9,
+            "val": 4,
             "group": "dict",
-            "desc": "3 keys",
+            "desc": "2 keys",
             "name": "Encoding dict"
         },
         {
@@ -207,9 +228,9 @@
         },
         {
             "id": "FontFileType1",
-            "val": 16,
+            "val": 9,
             "group": "dict",
-            "desc": "4 keys",
+            "desc": "3 keys",
             "name": "FontFileType1 dict"
         },
         {
@@ -298,9 +319,9 @@
         },
         {
             "id": "Resource",
-            "val": 16,
+            "val": 25,
             "group": "dict",
-            "desc": "4 keys",
+            "desc": "5 keys",
             "name": "Resource dict"
         },
         {
@@ -730,6 +751,11 @@
         },
         {
             "source": "Resource",
+            "target": "Encoding",
+            "name": "Resource::Encoding"
+        },
+        {
+            "source": "Resource",
             "target": "FontMap",
             "name": "Resource::Font"
         },
@@ -770,6 +796,18 @@
         },
         {
             "source": "Thumbnail",
+            "target": "DeviceGrayColorSpace",
+            "name": "Thumbnail::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "Thumbnail",
+            "target": "DeviceRGBColorSpace",
+            "name": "Thumbnail::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "Thumbnail",
             "target": "IndexedColorSpace",
             "name": "Thumbnail::ColorSpace",
             "color": "red"
@@ -798,6 +836,24 @@
             "source": "XObjectFormType1",
             "target": "ArrayOfIntegersGeneral",
             "name": "XObjectFormType1::XUID"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "DeviceGrayColorSpace",
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "DeviceRGBColorSpace",
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "DeviceCMYKColorSpace",
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
         },
         {
             "source": "XObjectImage",

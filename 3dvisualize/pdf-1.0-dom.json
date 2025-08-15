@@ -134,7 +134,7 @@
         "Type": "dictionary",
         "SinceVersion": 1.0,
         "Required": false,
-        "IndirectReference": false,
+        "IndirectReference": "fn:MustBeIndirect(fn:SinceVersion(1.7))",
         "Inheritable": false,
         "Link": "[AnnotText,AnnotLink]"
       }
@@ -556,6 +556,48 @@
     }
   },
   {
+    "id": "DeviceCMYKColorSpace",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[DeviceCMYK]"
+      }
+    }
+  },
+  {
+    "id": "DeviceGrayColorSpace",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[DeviceGray]"
+      }
+    }
+  },
+  {
+    "id": "DeviceRGBColorSpace",
+    "keys": {
+      "0": {
+        "Key": "0",
+        "Type": "name",
+        "SinceVersion": 1.0,
+        "Required": true,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[DeviceRGB]"
+      }
+    }
+  },
+  {
     "id": "DocInfo",
     "keys": {
       "Author": {
@@ -598,15 +640,6 @@
   {
     "id": "Encoding",
     "keys": {
-      "Type": {
-        "Key": "Type",
-        "Type": "name",
-        "SinceVersion": 1.0,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false,
-        "PossibleValues": "[Encoding]"
-      },
       "BaseEncoding": {
         "Key": "BaseEncoding",
         "Type": "name",
@@ -1122,6 +1155,7 @@
         "Required": false,
         "IndirectReference": true,
         "Inheritable": false,
+        "SpecialCase": "[fn:Eval(fn:Not(fn:IsPresent(FontFile3)))]",
         "Link": "[FontFileType1]"
       }
     }
@@ -1290,14 +1324,6 @@
         "IndirectReference": false,
         "Inheritable": false,
         "SpecialCase": "[fn:Eval(@Length3>=0)]"
-      },
-      "Subtype": {
-        "Key": "Subtype",
-        "Type": "name",
-        "SinceVersion": 1.0,
-        "Required": false,
-        "IndirectReference": false,
-        "Inheritable": false
       }
     }
   },
@@ -2120,6 +2146,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "Link": "[ArrayOfNamesForProcSet]"
+      },
+      "Encoding": {
+        "Key": "Encoding",
+        "Type": "dictionary",
+        "SinceVersion": 1.0,
+        "DeprecatedIn": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[Encoding]"
       }
     }
   },
@@ -2202,7 +2238,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[];[DeviceRGB,DeviceGray]",
-        "Link": "[IndexedColorSpace];[]"
+        "Link": "[DeviceGrayColorSpace,DeviceRGBColorSpace,IndexedColorSpace];[]"
       },
       "BitsPerComponent": {
         "Key": "BitsPerComponent",
@@ -2367,7 +2403,7 @@
         "Inheritable": false,
         "PossibleValues": "[];[DeviceCMYK,DeviceRGB,DeviceGray]",
         "SpecialCase": "[fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))]",
-        "Link": "[IndexedColorSpace];[]"
+        "Link": "[DeviceGrayColorSpace,DeviceRGBColorSpace,DeviceCMYKColorSpace,IndexedColorSpace];[]"
       },
       "BitsPerComponent": {
         "Key": "BitsPerComponent",

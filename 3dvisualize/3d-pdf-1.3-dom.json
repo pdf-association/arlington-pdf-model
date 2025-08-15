@@ -142,9 +142,9 @@
         },
         {
             "id": "AnnotFreeText",
-            "val": 256,
+            "val": 225,
             "group": "dict",
-            "desc": "16 keys",
+            "desc": "15 keys",
             "name": "AnnotFreeText dict"
         },
         {
@@ -498,6 +498,13 @@
             "name": "ArrayOfNamesGeneral map"
         },
         {
+            "id": "ArrayOfNonNegativeIntegersGeneral",
+            "val": 1,
+            "group": "map",
+            "desc": "(unspecified)",
+            "name": "ArrayOfNonNegativeIntegersGeneral map"
+        },
+        {
             "id": "ArrayOfNumbersGeneral",
             "val": 1,
             "group": "map",
@@ -687,11 +694,11 @@
             "name": "ArrayOf_2StringsText array"
         },
         {
-            "id": "ArrayOf_3Integers",
+            "id": "ArrayOf_3NonNegativeIntegers",
             "val": 9,
             "group": "array",
             "desc": "3 elements",
-            "name": "ArrayOf_3Integers array"
+            "name": "ArrayOf_3NonNegativeIntegers array"
         },
         {
             "id": "ArrayOf_4AnnotBorderCharacteristics",
@@ -912,6 +919,20 @@
             "name": "DestsMap map"
         },
         {
+            "id": "DeviceCMYKColorSpace",
+            "val": 1,
+            "group": "array",
+            "desc": "1 elements",
+            "name": "DeviceCMYKColorSpace array"
+        },
+        {
+            "id": "DeviceGrayColorSpace",
+            "val": 1,
+            "group": "array",
+            "desc": "1 elements",
+            "name": "DeviceGrayColorSpace array"
+        },
+        {
             "id": "DeviceNColorSpace",
             "val": 25,
             "group": "array",
@@ -926,6 +947,13 @@
             "name": "DeviceNDict dict"
         },
         {
+            "id": "DeviceRGBColorSpace",
+            "val": 1,
+            "group": "array",
+            "desc": "1 elements",
+            "name": "DeviceRGBColorSpace array"
+        },
+        {
             "id": "DictionaryOfDictionaries",
             "val": 1,
             "group": "map",
@@ -938,13 +966,6 @@
             "group": "map",
             "desc": "(unspecified)",
             "name": "DocInfo map"
-        },
-        {
-            "id": "DocTimeStamp",
-            "val": 196,
-            "group": "dict",
-            "desc": "14 keys",
-            "name": "DocTimeStamp dict"
         },
         {
             "id": "EmbeddedFileParameter",
@@ -1537,9 +1558,9 @@
         },
         {
             "id": "Resource",
-            "val": 64,
+            "val": 81,
             "group": "dict",
-            "desc": "8 keys",
+            "desc": "9 keys",
             "name": "Resource dict"
         },
         {
@@ -1621,9 +1642,9 @@
         },
         {
             "id": "Signature",
-            "val": 169,
+            "val": 196,
             "group": "dict",
-            "desc": "13 keys",
+            "desc": "14 keys",
             "name": "Signature dict"
         },
         {
@@ -1688,6 +1709,13 @@
             "group": "dict",
             "desc": "13 keys",
             "name": "Thumbnail dict"
+        },
+        {
+            "id": "ToUnicodeCMapStream",
+            "val": 121,
+            "group": "dict",
+            "desc": "11 keys",
+            "name": "ToUnicodeCMapStream dict"
         },
         {
             "id": "TrailerIDArray",
@@ -3558,11 +3586,6 @@
         },
         {
             "source": "AnnotFreeText",
-            "target": "BorderStyle",
-            "name": "AnnotFreeText::BS"
-        },
-        {
-            "source": "AnnotFreeText",
             "target": "ArrayOf_4AnnotBorderCharacteristics",
             "name": "AnnotFreeText::Border"
         },
@@ -4256,6 +4279,36 @@
             "source": "AnnotWidget",
             "target": "PageObject",
             "name": "AnnotWidget::P"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "FieldTx",
+            "name": "AnnotWidget::Parent"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "FieldBtnPush",
+            "name": "AnnotWidget::Parent"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "FieldBtnCheckbox",
+            "name": "AnnotWidget::Parent"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "FieldBtnRadio",
+            "name": "AnnotWidget::Parent"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "FieldChoice",
+            "name": "AnnotWidget::Parent"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "FieldSig",
+            "name": "AnnotWidget::Parent"
         },
         {
             "source": "AnnotWidget",
@@ -5799,6 +5852,24 @@
         },
         {
             "source": "DeviceNColorSpace",
+            "target": "DeviceGrayColorSpace",
+            "name": "DeviceNColorSpace::2",
+            "color": "red"
+        },
+        {
+            "source": "DeviceNColorSpace",
+            "target": "DeviceRGBColorSpace",
+            "name": "DeviceNColorSpace::2",
+            "color": "red"
+        },
+        {
+            "source": "DeviceNColorSpace",
+            "target": "DeviceCMYKColorSpace",
+            "name": "DeviceNColorSpace::2",
+            "color": "red"
+        },
+        {
+            "source": "DeviceNColorSpace",
             "target": "CalGrayColorSpace",
             "name": "DeviceNColorSpace::2",
             "color": "red"
@@ -5859,21 +5930,6 @@
             "source": "DictionaryOfDictionaries",
             "target": "_UniversalDictionary",
             "name": "DictionaryOfDictionaries::*"
-        },
-        {
-            "source": "DocTimeStamp",
-            "target": "ArrayOfIntegersGeneral",
-            "name": "DocTimeStamp::ByteRange"
-        },
-        {
-            "source": "DocTimeStamp",
-            "target": "ArrayOfStringsByte",
-            "name": "DocTimeStamp::Cert"
-        },
-        {
-            "source": "DocTimeStamp",
-            "target": "ArrayOf_3Integers",
-            "name": "DocTimeStamp::Changes"
         },
         {
             "source": "EmbeddedFileParameter",
@@ -5948,8 +6004,7 @@
         {
             "source": "EmbeddedFileStream",
             "target": "EmbeddedFileParameter",
-            "name": "EmbeddedFileStream::Params",
-            "color": "red"
+            "name": "EmbeddedFileStream::Params"
         },
         {
             "source": "Encoding",
@@ -6219,11 +6274,6 @@
         },
         {
             "source": "FieldSig",
-            "target": "DocTimeStamp",
-            "name": "FieldSig::DV"
-        },
-        {
-            "source": "FieldSig",
             "target": "ArrayOfFields",
             "name": "FieldSig::Kids"
         },
@@ -6265,11 +6315,6 @@
         {
             "source": "FieldSig",
             "target": "Signature",
-            "name": "FieldSig::V"
-        },
-        {
-            "source": "FieldSig",
-            "target": "DocTimeStamp",
             "name": "FieldSig::V"
         },
         {
@@ -6405,7 +6450,7 @@
         },
         {
             "source": "FontCIDType0",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontCIDType0::ToUnicode"
         },
         {
@@ -6443,7 +6488,7 @@
         },
         {
             "source": "FontCIDType2",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontCIDType2::ToUnicode"
         },
         {
@@ -6799,7 +6844,7 @@
         },
         {
             "source": "FontMultipleMaster",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontMultipleMaster::ToUnicode"
         },
         {
@@ -6821,7 +6866,7 @@
         },
         {
             "source": "FontTrueType",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontTrueType::ToUnicode"
         },
         {
@@ -6844,7 +6889,7 @@
         },
         {
             "source": "FontType0",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontType0::ToUnicode"
         },
         {
@@ -6860,7 +6905,7 @@
         },
         {
             "source": "FontType1",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontType1::ToUnicode"
         },
         {
@@ -6894,7 +6939,7 @@
         },
         {
             "source": "FontType3",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontType3::ToUnicode"
         },
         {
@@ -7572,6 +7617,21 @@
         },
         {
             "source": "ICCProfileStream",
+            "target": "DeviceGrayColorSpace",
+            "name": "ICCProfileStream::Alternate"
+        },
+        {
+            "source": "ICCProfileStream",
+            "target": "DeviceRGBColorSpace",
+            "name": "ICCProfileStream::Alternate"
+        },
+        {
+            "source": "ICCProfileStream",
+            "target": "DeviceCMYKColorSpace",
+            "name": "ICCProfileStream::Alternate"
+        },
+        {
+            "source": "ICCProfileStream",
             "target": "CalGrayColorSpace",
             "name": "ICCProfileStream::Alternate"
         },
@@ -7654,6 +7714,24 @@
             "source": "IconFit",
             "target": "ArrayOf_2Numbers",
             "name": "IconFit::A"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "DeviceGrayColorSpace",
+            "name": "IndexedColorSpace::1",
+            "color": "red"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "DeviceRGBColorSpace",
+            "name": "IndexedColorSpace::1",
+            "color": "red"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "DeviceCMYKColorSpace",
+            "name": "IndexedColorSpace::1",
+            "color": "red"
         },
         {
             "source": "IndexedColorSpace",
@@ -8252,45 +8330,53 @@
         },
         {
             "source": "PatternColorSpace",
+            "target": "DeviceGrayColorSpace",
+            "name": "PatternColorSpace::1"
+        },
+        {
+            "source": "PatternColorSpace",
+            "target": "DeviceRGBColorSpace",
+            "name": "PatternColorSpace::1"
+        },
+        {
+            "source": "PatternColorSpace",
+            "target": "DeviceCMYKColorSpace",
+            "name": "PatternColorSpace::1"
+        },
+        {
+            "source": "PatternColorSpace",
             "target": "CalGrayColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternColorSpace",
             "target": "CalRGBColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternColorSpace",
             "target": "LabColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternColorSpace",
             "target": "ICCBasedColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternColorSpace",
             "target": "IndexedColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternColorSpace",
             "target": "SeparationColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternColorSpace",
             "target": "DeviceNColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternMap",
@@ -8418,6 +8504,11 @@
         },
         {
             "source": "Resource",
+            "target": "Encoding",
+            "name": "Resource::Encoding"
+        },
+        {
+            "source": "Resource",
             "target": "GraphicsStateParameterMap",
             "name": "Resource::ExtGState"
         },
@@ -8465,6 +8556,24 @@
             "source": "Separation",
             "target": "ArrayOfPages",
             "name": "Separation::Pages",
+            "color": "red"
+        },
+        {
+            "source": "SeparationColorSpace",
+            "target": "DeviceGrayColorSpace",
+            "name": "SeparationColorSpace::2",
+            "color": "red"
+        },
+        {
+            "source": "SeparationColorSpace",
+            "target": "DeviceRGBColorSpace",
+            "name": "SeparationColorSpace::2",
+            "color": "red"
+        },
+        {
+            "source": "SeparationColorSpace",
+            "target": "DeviceCMYKColorSpace",
+            "name": "SeparationColorSpace::2",
             "color": "red"
         },
         {
@@ -8557,6 +8666,24 @@
         },
         {
             "source": "ShadingType1",
+            "target": "DeviceGrayColorSpace",
+            "name": "ShadingType1::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType1",
+            "target": "DeviceRGBColorSpace",
+            "name": "ShadingType1::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType1",
+            "target": "DeviceCMYKColorSpace",
+            "name": "ShadingType1::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType1",
             "target": "CalGrayColorSpace",
             "name": "ShadingType1::ColorSpace",
             "color": "red"
@@ -8636,6 +8763,24 @@
             "source": "ShadingType2",
             "target": "ArrayOfNumbersGeneral",
             "name": "ShadingType2::Background"
+        },
+        {
+            "source": "ShadingType2",
+            "target": "DeviceGrayColorSpace",
+            "name": "ShadingType2::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType2",
+            "target": "DeviceRGBColorSpace",
+            "name": "ShadingType2::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType2",
+            "target": "DeviceCMYKColorSpace",
+            "name": "ShadingType2::ColorSpace",
+            "color": "red"
         },
         {
             "source": "ShadingType2",
@@ -8732,6 +8877,24 @@
         },
         {
             "source": "ShadingType3",
+            "target": "DeviceGrayColorSpace",
+            "name": "ShadingType3::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType3",
+            "target": "DeviceRGBColorSpace",
+            "name": "ShadingType3::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType3",
+            "target": "DeviceCMYKColorSpace",
+            "name": "ShadingType3::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType3",
             "target": "CalGrayColorSpace",
             "name": "ShadingType3::ColorSpace",
             "color": "red"
@@ -8822,6 +8985,24 @@
             "source": "ShadingType4",
             "target": "ArrayOfNumbersGeneral",
             "name": "ShadingType4::Background"
+        },
+        {
+            "source": "ShadingType4",
+            "target": "DeviceGrayColorSpace",
+            "name": "ShadingType4::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType4",
+            "target": "DeviceRGBColorSpace",
+            "name": "ShadingType4::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType4",
+            "target": "DeviceCMYKColorSpace",
+            "name": "ShadingType4::ColorSpace",
+            "color": "red"
         },
         {
             "source": "ShadingType4",
@@ -8947,6 +9128,24 @@
         },
         {
             "source": "ShadingType5",
+            "target": "DeviceGrayColorSpace",
+            "name": "ShadingType5::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType5",
+            "target": "DeviceRGBColorSpace",
+            "name": "ShadingType5::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType5",
+            "target": "DeviceCMYKColorSpace",
+            "name": "ShadingType5::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType5",
             "target": "CalGrayColorSpace",
             "name": "ShadingType5::ColorSpace",
             "color": "red"
@@ -9066,6 +9265,24 @@
             "source": "ShadingType6",
             "target": "ArrayOfNumbersGeneral",
             "name": "ShadingType6::Background"
+        },
+        {
+            "source": "ShadingType6",
+            "target": "DeviceGrayColorSpace",
+            "name": "ShadingType6::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType6",
+            "target": "DeviceRGBColorSpace",
+            "name": "ShadingType6::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType6",
+            "target": "DeviceCMYKColorSpace",
+            "name": "ShadingType6::ColorSpace",
+            "color": "red"
         },
         {
             "source": "ShadingType6",
@@ -9191,6 +9408,24 @@
         },
         {
             "source": "ShadingType7",
+            "target": "DeviceGrayColorSpace",
+            "name": "ShadingType7::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType7",
+            "target": "DeviceRGBColorSpace",
+            "name": "ShadingType7::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType7",
+            "target": "DeviceCMYKColorSpace",
+            "name": "ShadingType7::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "ShadingType7",
             "target": "CalGrayColorSpace",
             "name": "ShadingType7::ColorSpace",
             "color": "red"
@@ -9308,7 +9543,7 @@
         },
         {
             "source": "Signature",
-            "target": "ArrayOfIntegersGeneral",
+            "target": "ArrayOfNonNegativeIntegersGeneral",
             "name": "Signature::ByteRange"
         },
         {
@@ -9319,7 +9554,7 @@
         },
         {
             "source": "Signature",
-            "target": "ArrayOf_3Integers",
+            "target": "ArrayOf_3NonNegativeIntegers",
             "name": "Signature::Changes"
         },
         {
@@ -9583,6 +9818,18 @@
         },
         {
             "source": "Thumbnail",
+            "target": "DeviceGrayColorSpace",
+            "name": "Thumbnail::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "Thumbnail",
+            "target": "DeviceRGBColorSpace",
+            "name": "Thumbnail::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "Thumbnail",
             "target": "IndexedColorSpace",
             "name": "Thumbnail::ColorSpace",
             "color": "red"
@@ -9656,6 +9903,61 @@
             "source": "Thumbnail",
             "target": "ArrayOfFilterNames",
             "name": "Thumbnail::Filter"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "CIDSystemInfo",
+            "name": "ToUnicodeCMapStream::CIDSystemInfo"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "ArrayOfDecodeParams",
+            "name": "ToUnicodeCMapStream::DecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "FilterLZWDecode",
+            "name": "ToUnicodeCMapStream::DecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "FilterFlateDecode",
+            "name": "ToUnicodeCMapStream::DecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "FileSpecification",
+            "name": "ToUnicodeCMapStream::F"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "ArrayOfDecodeParams",
+            "name": "ToUnicodeCMapStream::FDecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "FilterLZWDecode",
+            "name": "ToUnicodeCMapStream::FDecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "FilterFlateDecode",
+            "name": "ToUnicodeCMapStream::FDecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "ArrayOfCompressionFilterNames",
+            "name": "ToUnicodeCMapStream::FFilter"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "ArrayOfCompressionFilterNames",
+            "name": "ToUnicodeCMapStream::Filter"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "Stream",
+            "name": "ToUnicodeCMapStream::UseCMap"
         },
         {
             "source": "TrapRegion",
@@ -9990,6 +10292,24 @@
             "source": "XObjectImage",
             "target": "ArrayOfImageAlternates",
             "name": "XObjectImage::Alternates"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "DeviceGrayColorSpace",
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "DeviceRGBColorSpace",
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "DeviceCMYKColorSpace",
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
         },
         {
             "source": "XObjectImage",

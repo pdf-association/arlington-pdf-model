@@ -583,6 +583,27 @@
             "name": "DestsMap map"
         },
         {
+            "id": "DeviceCMYKColorSpace",
+            "val": 1,
+            "group": "array",
+            "desc": "1 elements",
+            "name": "DeviceCMYKColorSpace array"
+        },
+        {
+            "id": "DeviceGrayColorSpace",
+            "val": 1,
+            "group": "array",
+            "desc": "1 elements",
+            "name": "DeviceGrayColorSpace array"
+        },
+        {
+            "id": "DeviceRGBColorSpace",
+            "val": 1,
+            "group": "array",
+            "desc": "1 elements",
+            "name": "DeviceRGBColorSpace array"
+        },
+        {
             "id": "DictionaryOfDictionaries",
             "val": 1,
             "group": "map",
@@ -725,9 +746,9 @@
         },
         {
             "id": "FontDescriptorCIDType0",
-            "val": 400,
+            "val": 361,
             "group": "dict",
-            "desc": "20 keys",
+            "desc": "19 keys",
             "name": "FontDescriptorCIDType0 dict"
         },
         {
@@ -771,13 +792,6 @@
             "group": "dict",
             "desc": "10 keys",
             "name": "FontFile2 dict"
-        },
-        {
-            "id": "FontFile3CIDType0",
-            "val": 100,
-            "group": "dict",
-            "desc": "10 keys",
-            "name": "FontFile3CIDType0 dict"
         },
         {
             "id": "FontFile3Type1",
@@ -1054,9 +1068,9 @@
         },
         {
             "id": "Resource",
-            "val": 49,
+            "val": 64,
             "group": "dict",
-            "desc": "7 keys",
+            "desc": "8 keys",
             "name": "Resource dict"
         },
         {
@@ -1100,6 +1114,13 @@
             "group": "dict",
             "desc": "7 keys",
             "name": "Thumbnail dict"
+        },
+        {
+            "id": "ToUnicodeCMapStream",
+            "val": 121,
+            "group": "dict",
+            "desc": "11 keys",
+            "name": "ToUnicodeCMapStream dict"
         },
         {
             "id": "TrailerIDArray",
@@ -3071,6 +3092,31 @@
         },
         {
             "source": "AnnotWidget",
+            "target": "FieldTx",
+            "name": "AnnotWidget::Parent"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "FieldBtnPush",
+            "name": "AnnotWidget::Parent"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "FieldBtnCheckbox",
+            "name": "AnnotWidget::Parent"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "FieldBtnRadio",
+            "name": "AnnotWidget::Parent"
+        },
+        {
+            "source": "AnnotWidget",
+            "target": "FieldChoice",
+            "name": "AnnotWidget::Parent"
+        },
+        {
+            "source": "AnnotWidget",
             "target": "Field",
             "name": "AnnotWidget::Parent"
         },
@@ -4205,7 +4251,7 @@
         },
         {
             "source": "FontCIDType0",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontCIDType0::ToUnicode"
         },
         {
@@ -4243,7 +4289,7 @@
         },
         {
             "source": "FontCIDType2",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontCIDType2::ToUnicode"
         },
         {
@@ -4270,11 +4316,6 @@
             "source": "FontDescriptorCIDType0",
             "target": "FontFile",
             "name": "FontDescriptorCIDType0::FontFile"
-        },
-        {
-            "source": "FontDescriptorCIDType0",
-            "target": "FontFile3CIDType0",
-            "name": "FontDescriptorCIDType0::FontFile3"
         },
         {
             "source": "FontDescriptorCIDType0",
@@ -4372,51 +4413,6 @@
             "name": "FontFile2::Filter"
         },
         {
-            "source": "FontFile3CIDType0",
-            "target": "ArrayOfDecodeParams",
-            "name": "FontFile3CIDType0::DecodeParms"
-        },
-        {
-            "source": "FontFile3CIDType0",
-            "target": "FilterLZWDecode",
-            "name": "FontFile3CIDType0::DecodeParms"
-        },
-        {
-            "source": "FontFile3CIDType0",
-            "target": "FilterFlateDecode",
-            "name": "FontFile3CIDType0::DecodeParms"
-        },
-        {
-            "source": "FontFile3CIDType0",
-            "target": "FileSpecification",
-            "name": "FontFile3CIDType0::F"
-        },
-        {
-            "source": "FontFile3CIDType0",
-            "target": "ArrayOfDecodeParams",
-            "name": "FontFile3CIDType0::FDecodeParms"
-        },
-        {
-            "source": "FontFile3CIDType0",
-            "target": "FilterLZWDecode",
-            "name": "FontFile3CIDType0::FDecodeParms"
-        },
-        {
-            "source": "FontFile3CIDType0",
-            "target": "FilterFlateDecode",
-            "name": "FontFile3CIDType0::FDecodeParms"
-        },
-        {
-            "source": "FontFile3CIDType0",
-            "target": "ArrayOfCompressionFilterNames",
-            "name": "FontFile3CIDType0::FFilter"
-        },
-        {
-            "source": "FontFile3CIDType0",
-            "target": "ArrayOfCompressionFilterNames",
-            "name": "FontFile3CIDType0::Filter"
-        },
-        {
             "source": "FontMap",
             "target": "FontType1",
             "name": "FontMap::*"
@@ -4464,7 +4460,7 @@
         },
         {
             "source": "FontMultipleMaster",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontMultipleMaster::ToUnicode"
         },
         {
@@ -4486,7 +4482,7 @@
         },
         {
             "source": "FontTrueType",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontTrueType::ToUnicode"
         },
         {
@@ -4509,7 +4505,7 @@
         },
         {
             "source": "FontType0",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontType0::ToUnicode"
         },
         {
@@ -4525,7 +4521,7 @@
         },
         {
             "source": "FontType1",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontType1::ToUnicode"
         },
         {
@@ -4559,7 +4555,7 @@
         },
         {
             "source": "FontType3",
-            "target": "Stream",
+            "target": "ToUnicodeCMapStream",
             "name": "FontType3::ToUnicode"
         },
         {
@@ -4712,6 +4708,24 @@
             "source": "HalftoneType6",
             "target": "FunctionType0",
             "name": "HalftoneType6::TransferFunction"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "DeviceGrayColorSpace",
+            "name": "IndexedColorSpace::1",
+            "color": "red"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "DeviceRGBColorSpace",
+            "name": "IndexedColorSpace::1",
+            "color": "red"
+        },
+        {
+            "source": "IndexedColorSpace",
+            "target": "DeviceCMYKColorSpace",
+            "name": "IndexedColorSpace::1",
+            "color": "red"
         },
         {
             "source": "IndexedColorSpace",
@@ -5169,33 +5183,43 @@
         },
         {
             "source": "PatternColorSpace",
+            "target": "DeviceGrayColorSpace",
+            "name": "PatternColorSpace::1"
+        },
+        {
+            "source": "PatternColorSpace",
+            "target": "DeviceRGBColorSpace",
+            "name": "PatternColorSpace::1"
+        },
+        {
+            "source": "PatternColorSpace",
+            "target": "DeviceCMYKColorSpace",
+            "name": "PatternColorSpace::1"
+        },
+        {
+            "source": "PatternColorSpace",
             "target": "CalGrayColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternColorSpace",
             "target": "CalRGBColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternColorSpace",
             "target": "LabColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternColorSpace",
             "target": "IndexedColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternColorSpace",
             "target": "SeparationColorSpace",
-            "name": "PatternColorSpace::1",
-            "color": "red"
+            "name": "PatternColorSpace::1"
         },
         {
             "source": "PatternMap",
@@ -5265,6 +5289,11 @@
         },
         {
             "source": "Resource",
+            "target": "Encoding",
+            "name": "Resource::Encoding"
+        },
+        {
+            "source": "Resource",
             "target": "GraphicsStateParameterMap",
             "name": "Resource::ExtGState"
         },
@@ -5292,6 +5321,24 @@
             "source": "Resource",
             "target": "XObjectMap",
             "name": "Resource::XObject"
+        },
+        {
+            "source": "SeparationColorSpace",
+            "target": "DeviceGrayColorSpace",
+            "name": "SeparationColorSpace::2",
+            "color": "red"
+        },
+        {
+            "source": "SeparationColorSpace",
+            "target": "DeviceRGBColorSpace",
+            "name": "SeparationColorSpace::2",
+            "color": "red"
+        },
+        {
+            "source": "SeparationColorSpace",
+            "target": "DeviceCMYKColorSpace",
+            "name": "SeparationColorSpace::2",
+            "color": "red"
         },
         {
             "source": "SeparationColorSpace",
@@ -5455,6 +5502,18 @@
         },
         {
             "source": "Thumbnail",
+            "target": "DeviceGrayColorSpace",
+            "name": "Thumbnail::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "Thumbnail",
+            "target": "DeviceRGBColorSpace",
+            "name": "Thumbnail::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "Thumbnail",
             "target": "IndexedColorSpace",
             "name": "Thumbnail::ColorSpace",
             "color": "red"
@@ -5463,6 +5522,61 @@
             "source": "Thumbnail",
             "target": "ArrayOfNumbersGeneral",
             "name": "Thumbnail::Decode"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "CIDSystemInfo",
+            "name": "ToUnicodeCMapStream::CIDSystemInfo"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "ArrayOfDecodeParams",
+            "name": "ToUnicodeCMapStream::DecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "FilterLZWDecode",
+            "name": "ToUnicodeCMapStream::DecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "FilterFlateDecode",
+            "name": "ToUnicodeCMapStream::DecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "FileSpecification",
+            "name": "ToUnicodeCMapStream::F"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "ArrayOfDecodeParams",
+            "name": "ToUnicodeCMapStream::FDecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "FilterLZWDecode",
+            "name": "ToUnicodeCMapStream::FDecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "FilterFlateDecode",
+            "name": "ToUnicodeCMapStream::FDecodeParms"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "ArrayOfCompressionFilterNames",
+            "name": "ToUnicodeCMapStream::FFilter"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "ArrayOfCompressionFilterNames",
+            "name": "ToUnicodeCMapStream::Filter"
+        },
+        {
+            "source": "ToUnicodeCMapStream",
+            "target": "Stream",
+            "name": "ToUnicodeCMapStream::UseCMap"
         },
         {
             "source": "XObjectFormPS",
@@ -5635,6 +5749,24 @@
             "source": "XObjectFormType1",
             "target": "ArrayOfIntegersGeneral",
             "name": "XObjectFormType1::XUID"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "DeviceGrayColorSpace",
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "DeviceRGBColorSpace",
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
+        },
+        {
+            "source": "XObjectImage",
+            "target": "DeviceCMYKColorSpace",
+            "name": "XObjectImage::ColorSpace",
+            "color": "red"
         },
         {
             "source": "XObjectImage",
