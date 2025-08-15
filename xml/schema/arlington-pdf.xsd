@@ -64,7 +64,7 @@
   <xs:attribute name="type">
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:pattern value="(array|bitmask|boolean|date|dictionary|integer|matrix|name|name-tree|null|number|number-tree|rectangle|stream|string|string-ascii|string-byte|string-text|fn:Deprecated\([12]\.[0-7],.*\))"/>
+        <xs:pattern value="(array|bitmask|boolean|date|dictionary|integer|matrix|name|name-tree|null|number|number-tree|rectangle|stream|string|string-ascii|string-byte|string-text|fn:Extension\(.*,.*\)|fn:Deprecated\([12]\.[0-7],.*\))"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:attribute>
