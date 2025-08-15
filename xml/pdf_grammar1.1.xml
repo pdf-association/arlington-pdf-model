@@ -32,6 +32,7 @@
             <VALUE type="array">Dest0Array</VALUE>
             <VALUE type="array">Dest1Array</VALUE>
             <VALUE type="array">Dest4Array</VALUE>
+            <VALUE type="string-byte">fn:Eval(fn:InNameTree(trailer::Catalog::Names::Dests))</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -553,7 +554,7 @@
          </VALUES>
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">false</VALUE>
+            <VALUE type="dictionary">fn:MustBeIndirect(fn:SinceVersion(1.7))</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
@@ -1713,7 +1714,49 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="DocInfo" object_number="040">
+   <OBJECT id="DeviceCMYKColorSpace" isArray="true" object_number="040">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="name">DeviceCMYK</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.0</INTRODUCED>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="DeviceGrayColorSpace" isArray="true" object_number="041">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="name">DeviceGray</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.0</INTRODUCED>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="DeviceRGBColorSpace" isArray="true" object_number="042">
+      <ENTRY>
+         <NAME>0</NAME>
+         <VALUES>
+            <VALUE type="name">DeviceRGB</VALUE>
+         </VALUES>
+         <REQUIRED>true</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.0</INTRODUCED>
+      </ENTRY>
+   </OBJECT>
+   <OBJECT id="DocInfo" object_number="043">
       <ENTRY>
          <NAME>Title</NAME>
          <REQUIRED>false</REQUIRED>
@@ -1824,19 +1867,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Encoding" object_number="041">
-      <ENTRY>
-         <NAME>Type</NAME>
-         <VALUES>
-            <VALUE type="name">Encoding</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
-      </ENTRY>
+   <OBJECT id="Encoding" object_number="044">
       <ENTRY>
          <NAME>BaseEncoding</NAME>
          <VALUES>
@@ -1864,7 +1895,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="EncryptionPublicKey" object_number="042">
+   <OBJECT id="EncryptionPublicKey" object_number="045">
       <ENTRY>
          <NAME>Filter</NAME>
          <VALUES>
@@ -1895,7 +1926,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="EncryptionStandard" object_number="043">
+   <OBJECT id="EncryptionStandard" object_number="046">
       <ENTRY>
          <NAME>Filter</NAME>
          <VALUES>
@@ -2012,7 +2043,7 @@
          <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted())</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FileSpecification" object_number="044">
+   <OBJECT id="FileSpecification" object_number="047">
       <ENTRY>
          <NAME>FS</NAME>
          <VALUES>
@@ -2078,7 +2109,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FileTrailer" object_number="045">
+   <OBJECT id="FileTrailer" object_number="048">
       <ENTRY>
          <NAME>Size</NAME>
          <VALUES>
@@ -2176,7 +2207,7 @@
          <INTRODUCED>fn:Extension(OpenOffice)</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FilterCCITTFaxDecode" object_number="046">
+   <OBJECT id="FilterCCITTFaxDecode" object_number="049">
       <ENTRY>
          <NAME>K</NAME>
          <VALUES>
@@ -2290,7 +2321,7 @@
          <INTRODUCED>fn:Extension(Malforms)</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FilterDCTDecode" object_number="047">
+   <OBJECT id="FilterDCTDecode" object_number="050">
       <ENTRY>
          <NAME>ColorTransform</NAME>
          <VALUES>
@@ -2305,7 +2336,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FilterLZWDecode" object_number="048">
+   <OBJECT id="FilterLZWDecode" object_number="051">
       <ENTRY>
          <NAME>Predictor</NAME>
          <VALUES>
@@ -2384,7 +2415,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontDescriptorTrueType" object_number="049">
+   <OBJECT id="FontDescriptorTrueType" object_number="052">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -2557,23 +2588,10 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:Not(fn:IsPresent(FontFile2)))</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>FontFile2</NAME>
-         <VALUES>
-            <VALUE type="stream">FontFile2</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="stream">true</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:Not(fn:IsPresent(FontFile)))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(fn:Not(fn:IsPresent(FontFile2) || fn:IsPresent(FontFile3)))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontDescriptorType1" object_number="050">
+   <OBJECT id="FontDescriptorType1" object_number="053">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -2746,6 +2764,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.0</INTRODUCED>
+         <SPECIAL_CASE>fn:Eval(fn:Not(fn:IsPresent(FontFile3)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>CharSet</NAME>
@@ -2759,7 +2778,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontDescriptorType3" object_number="051">
+   <OBJECT id="FontDescriptorType3" object_number="054">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -2922,136 +2941,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontFile2" object_number="052">
-      <ENTRY>
-         <NAME>Length1</NAME>
-         <REQUIRED>fn:IsRequired(parent::parent::@Subtype==TrueType)</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="integer">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(@Length1&gt;=0)</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Length2</NAME>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="integer">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(@Length2&gt;=0)</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Length3</NAME>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="integer">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(@Length3&gt;=0)</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Subtype</NAME>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Length</NAME>
-         <REQUIRED>true</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="integer">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>Filter</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOfCompressionFilterNames</VALUE>
-            <VALUE type="name">ASCIIHexDecode</VALUE>
-            <VALUE type="name">ASCII85Decode</VALUE>
-            <VALUE type="name">LZWDecode</VALUE>
-            <VALUE type="name">RunLengthDecode</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>DecodeParms</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOfDecodeParams</VALUE>
-            <VALUE type="dictionary">FilterLZWDecode</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="dictionary">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>F</NAME>
-         <VALUES>
-            <VALUE type="dictionary">FileSpecification</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="dictionary">false</VALUE>
-            <VALUE type="string">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-      </ENTRY>
-      <ENTRY>
-         <NAME>FFilter</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOfCompressionFilterNames</VALUE>
-            <VALUE type="name">ASCIIHexDecode</VALUE>
-            <VALUE type="name">ASCII85Decode</VALUE>
-            <VALUE type="name">LZWDecode</VALUE>
-            <VALUE type="name">RunLengthDecode</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
-      </ENTRY>
-      <ENTRY>
-         <NAME>FDecodeParms</NAME>
-         <VALUES>
-            <VALUE type="array">ArrayOfDecodeParams</VALUE>
-            <VALUE type="dictionary">FilterLZWDecode</VALUE>
-         </VALUES>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="array">false</VALUE>
-            <VALUE type="dictionary">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:ArrayLength(FDecodeParms)==fn:ArrayLength(FFilter))];[</SPECIAL_CASE>
-      </ENTRY>
-   </OBJECT>
-   <OBJECT id="FontFileType1" object_number="053">
+   <OBJECT id="FontFileType1" object_number="055">
       <ENTRY>
          <NAME>Length1</NAME>
          <REQUIRED>true</REQUIRED>
@@ -3082,17 +2972,8 @@
          <INTRODUCED>1.0</INTRODUCED>
          <SPECIAL_CASE>fn:Eval(@Length3&gt;=0)</SPECIAL_CASE>
       </ENTRY>
-      <ENTRY>
-         <NAME>Subtype</NAME>
-         <REQUIRED>false</REQUIRED>
-         <INDIRECT_REFERENCE>
-            <VALUE type="name">false</VALUE>
-         </INDIRECT_REFERENCE>
-         <INHERITABLE>false</INHERITABLE>
-         <INTRODUCED>1.0</INTRODUCED>
-      </ENTRY>
    </OBJECT>
-   <OBJECT id="FontMap" object_number="054">
+   <OBJECT id="FontMap" object_number="056">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>
@@ -3109,7 +2990,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontMultipleMaster" object_number="055">
+   <OBJECT id="FontMultipleMaster" object_number="057">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3212,7 +3093,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontTrueType" object_number="056">
+   <OBJECT id="FontTrueType" object_number="058">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3315,7 +3196,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontType1" object_number="057">
+   <OBJECT id="FontType1" object_number="059">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3419,7 +3300,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="FontType3" object_number="058">
+   <OBJECT id="FontType3" object_number="060">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3539,7 +3420,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="GammaArray" isArray="true" object_number="059">
+   <OBJECT id="GammaArray" isArray="true" object_number="061">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3580,7 +3461,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="IndexedColorSpace" isArray="true" object_number="060">
+   <OBJECT id="IndexedColorSpace" isArray="true" object_number="062">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3596,6 +3477,9 @@
       <ENTRY>
          <NAME>1</NAME>
          <VALUES>
+            <VALUE type="array">DeviceGrayColorSpace</VALUE>
+            <VALUE type="array">DeviceRGBColorSpace</VALUE>
+            <VALUE type="array">DeviceCMYKColorSpace</VALUE>
             <VALUE type="array">CalGrayColorSpace</VALUE>
             <VALUE type="array">CalRGBColorSpace</VALUE>
             <VALUE type="array">LabColorSpace</VALUE>
@@ -3637,7 +3521,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabColorSpace" isArray="true" object_number="061">
+   <OBJECT id="LabColorSpace" isArray="true" object_number="063">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3663,7 +3547,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabDict" object_number="062">
+   <OBJECT id="LabDict" object_number="064">
       <ENTRY>
          <NAME>WhitePoint</NAME>
          <VALUES>
@@ -3702,7 +3586,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="LabRangeArray" isArray="true" object_number="063">
+   <OBJECT id="LabRangeArray" isArray="true" object_number="065">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -3756,7 +3640,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="MicrosoftWindowsLaunchParam" object_number="064">
+   <OBJECT id="MicrosoftWindowsLaunchParam" object_number="066">
       <ENTRY>
          <NAME>F</NAME>
          <REQUIRED>true</REQUIRED>
@@ -3803,7 +3687,7 @@
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OOAdditionalStmsArray" isArray="true" object_number="065">
+   <OBJECT id="OOAdditionalStmsArray" isArray="true" object_number="067">
       <ENTRY>
          <NAME isWildcard="true">0*</NAME>
          <REQUIRED>true</REQUIRED>
@@ -3826,7 +3710,7 @@
          <INTRODUCED>fn:Extension(OpenOffice)</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Outline" object_number="066">
+   <OBJECT id="Outline" object_number="068">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -3876,7 +3760,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="OutlineItem" object_number="067">
+   <OBJECT id="OutlineItem" object_number="069">
       <ENTRY>
          <NAME>Title</NAME>
          <REQUIRED>true</REQUIRED>
@@ -3992,7 +3876,7 @@
          <SPECIAL_CASE>fn:Not(fn:IsPresent(Dest))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageObject" object_number="068">
+   <OBJECT id="PageObject" object_number="070">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4152,7 +4036,7 @@
          <DEPRECATED>1.3</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageTreeNode" object_number="069">
+   <OBJECT id="PageTreeNode" object_number="071">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4250,7 +4134,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="PageTreeNodeRoot" object_number="070">
+   <OBJECT id="PageTreeNodeRoot" object_number="072">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4334,7 +4218,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Resource" object_number="071">
+   <OBJECT id="Resource" object_number="073">
       <ENTRY>
          <NAME>ColorSpace</NAME>
          <VALUES>
@@ -4384,8 +4268,21 @@
          <INTRODUCED>1.0</INTRODUCED>
          <DEPRECATED>2.0</DEPRECATED>
       </ENTRY>
+      <ENTRY>
+         <NAME>Encoding</NAME>
+         <VALUES>
+            <VALUE type="dictionary">Encoding</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="dictionary">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.0</INTRODUCED>
+         <DEPRECATED>1.2</DEPRECATED>
+      </ENTRY>
    </OBJECT>
-   <OBJECT id="Stream" object_number="072">
+   <OBJECT id="Stream" object_number="074">
       <ENTRY>
          <NAME>Length</NAME>
          <REQUIRED>true</REQUIRED>
@@ -4433,7 +4330,7 @@
          <SPECIAL_CASE>fn:Eval(fn:ArrayLength(DecodeParms)==fn:ArrayLength(Filter))];[</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thread" object_number="073">
+   <OBJECT id="Thread" object_number="075">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4471,7 +4368,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Thumbnail" object_number="074">
+   <OBJECT id="Thumbnail" object_number="076">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4517,6 +4414,8 @@
       <ENTRY>
          <NAME>ColorSpace</NAME>
          <VALUES>
+            <VALUE type="array">DeviceGrayColorSpace</VALUE>
+            <VALUE type="array">DeviceRGBColorSpace</VALUE>
             <VALUE type="array">IndexedColorSpace</VALUE>
             <VALUE type="name">DeviceRGB</VALUE>
             <VALUE type="name">DeviceGray</VALUE>
@@ -4558,7 +4457,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="TrailerIDArray" isArray="true" object_number="075">
+   <OBJECT id="TrailerIDArray" isArray="true" object_number="077">
       <ENTRY>
          <NAME>0</NAME>
          <REQUIRED>true</REQUIRED>
@@ -4567,7 +4466,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted())</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval((fn:StringLength(0)&gt;=16) &amp;&amp; fn:AlwaysUnencrypted())</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>1</NAME>
@@ -4577,10 +4476,10 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.1</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(fn:AlwaysUnencrypted())</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval((fn:StringLength(1)&gt;=16) &amp;&amp; fn:AlwaysUnencrypted())</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="Transition" object_number="076">
+   <OBJECT id="Transition" object_number="078">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4682,7 +4581,7 @@
          <SPECIAL_CASE>fn:Eval((((@Di==90) || (@Di==180)) &amp;&amp; (@S==Wipe)) || ((@Di==315) &amp;&amp; (@S==Glitter)))];[fn:Eval(((@Di==None) &amp;&amp; (@S==Fly) &amp;&amp; fn:SinceVersion(1.5,(@SS!=1.0))))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="URI" object_number="077">
+   <OBJECT id="URI" object_number="079">
       <ENTRY>
          <NAME>Base</NAME>
          <REQUIRED>false</REQUIRED>
@@ -4693,7 +4592,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="WhitepointArray" isArray="true" object_number="078">
+   <OBJECT id="WhitepointArray" isArray="true" object_number="080">
       <ENTRY>
          <NAME>0</NAME>
          <VALUES>
@@ -4731,7 +4630,7 @@
          <INTRODUCED>1.1</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPS" object_number="079">
+   <OBJECT id="XObjectFormPS" object_number="081">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4831,7 +4730,7 @@
          <DEPRECATED>1.3</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormPSpassthrough" object_number="080">
+   <OBJECT id="XObjectFormPSpassthrough" object_number="082">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -4996,7 +4895,7 @@
          <DEPRECATED>1.3</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectFormType1" object_number="081">
+   <OBJECT id="XObjectFormType1" object_number="083">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -5120,7 +5019,7 @@
          <DEPRECATED>1.3</DEPRECATED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectImage" object_number="082">
+   <OBJECT id="XObjectImage" object_number="084">
       <ENTRY>
          <NAME>Type</NAME>
          <VALUES>
@@ -5166,6 +5065,9 @@
       <ENTRY>
          <NAME>ColorSpace</NAME>
          <VALUES>
+            <VALUE type="array">DeviceGrayColorSpace</VALUE>
+            <VALUE type="array">DeviceRGBColorSpace</VALUE>
+            <VALUE type="array">DeviceCMYKColorSpace</VALUE>
             <VALUE type="array">CalGrayColorSpace</VALUE>
             <VALUE type="array">CalRGBColorSpace</VALUE>
             <VALUE type="array">LabColorSpace</VALUE>
@@ -5316,7 +5218,7 @@
          <INTRODUCED>1.0</INTRODUCED>
       </ENTRY>
    </OBJECT>
-   <OBJECT id="XObjectMap" object_number="083">
+   <OBJECT id="XObjectMap" object_number="085">
       <ENTRY>
          <NAME isWildcard="true">*</NAME>
          <VALUES>

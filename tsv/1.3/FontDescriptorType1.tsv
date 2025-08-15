@@ -14,6 +14,6 @@ StemH	number	1.0		FALSE	FALSE	FALSE	0
 AvgWidth	number	1.0		FALSE	FALSE	FALSE	0				
 MaxWidth	number	1.0		FALSE	FALSE	FALSE	0				
 MissingWidth	number	1.0		FALSE	FALSE	FALSE	0				
-FontFile	stream	1.0		FALSE	TRUE	FALSE				[FontFileType1]	Table 124
-FontFile3	stream	1.2		FALSE	TRUE	FALSE				[FontFile3Type1]	Table 124
+FontFile	stream	1.0		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile3)))]	[FontFileType1]	Table 124
+FontFile3	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile)))]	[FontFile3Type1]	Table 124, https://github.com/pdf-association/arlington-pdf-model/issues/98
 CharSet	string-ascii;string-byte	1.1	2.0	FALSE	FALSE	FALSE					

@@ -1,4 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.7		FALSE	fn:MustBeDirect()	FALSE		[Extensions]			Table 48
 ISO_	dictionary	1.7		FALSE	fn:MustBeDirect()	FALSE				[ISO_DevExtensions]	
+GTSm	dictionary	fn:Extension(ISO_21812)		FALSE	fn:MustBeDirect()	FALSE				[GTSm_DevExtensions]	see ISO 21812-1:2019
 *	dictionary	1.7		FALSE	fn:MustBeDirect()	FALSE				[DevExtensions]	

@@ -1,4 +1,4 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 DefaultRGB	array	1.1		FALSE	FALSE	FALSE				[CalRGBColorSpace]	Table 34
 DefaultGray	array	1.1		FALSE	FALSE	FALSE				[CalGrayColorSpace,SeparationColorSpace]	
-*	array;name	1.0		FALSE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,IndexedColorSpace,SeparationColorSpace,PatternColorSpace];[]	
+*	array;name	1.0		FALSE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray,Pattern]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,IndexedColorSpace,SeparationColorSpace,PatternColorSpace];[]	https://github.com/pdf-association/pdf-issues/issues/280

@@ -1,0 +1,16 @@
+Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
+Type	name	fn:Extension(ISO_19005_3,1.7)		TRUE	FALSE	FALSE		[Filespec]			Table 43 and https://github.com/pdf-association/pdf-issues/issues/298
+FS	name	fn:Extension(ISO_19005_3,1.7)		FALSE	FALSE	FALSE		[URL,*]			
+F	string	fn:Extension(ISO_19005_3,1.7)		fn:IsRequired(fn:Not(fn:IsPresent(DOS)) && fn:Not(fn:IsPresent(Mac)) && fn:Not(fn:IsPresent(Unix)))	FALSE	FALSE					
+UF	string-text	fn:Extension(ISO_19005_3,1.7)		FALSE	FALSE	FALSE					
+DOS	string-byte	fn:Extension(ISO_19005_3,1.7)	2.0	FALSE	FALSE	FALSE					
+Mac	string-byte	fn:Extension(ISO_19005_3,1.7)	2.0	FALSE	FALSE	FALSE					
+Unix	string-byte	fn:Extension(ISO_19005_3,1.7)	2.0	FALSE	FALSE	FALSE					
+ID	array	fn:Extension(ISO_19005_3,1.7)		FALSE	FALSE	FALSE				[ArrayOf_2StringsByte]	
+V	boolean	fn:Extension(ISO_19005_3,1.7)		FALSE	FALSE	FALSE	false				
+EF	dictionary	fn:Extension(ISO_19005_3,1.7)		TRUE	FALSE	FALSE				[AFFileSpecEF]	
+RF	dictionary	fn:Extension(ISO_19005_3,1.7)		FALSE	FALSE	FALSE				[FileSpecRF]	
+Desc	string	fn:Extension(ISO_19005_3,1.7)		FALSE	FALSE	FALSE					
+CI	dictionary	fn:Extension(ISO_19005_3,1.7)		FALSE	TRUE	FALSE				[CollectionItem]	
+Thumb	stream	fn:Extension(ISO_19005_3,1.7)		FALSE	TRUE	FALSE				[Thumbnail]	
+AFRelationship	name	fn:Extension(ISO_19005_3,1.7)		TRUE	FALSE	FALSE	Unspecified	[Source,Data,Alternative,Supplement,Unspecified,fn:Extension(C2PA,C2PA_Manifest)]			

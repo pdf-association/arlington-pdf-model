@@ -1,2 +1,2 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-*	dictionary;stream	2.0		FALSE	[FALSE];[TRUE]	FALSE				[FileSpecification];[EmbeddedFileStream]	Table 402
+*	dictionary	2.0		FALSE	FALSE	FALSE			[fn:Eval(fn:IsPresent(*::FS) && (*::@FS==URL))]	[FileSpecification]	Table 402 and https://github.com/pdf-association/pdf-issues/issues/482

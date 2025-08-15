@@ -17,7 +17,7 @@ ID	string	1.3		FALSE	FALSE	FALSE
 OPI	dictionary	1.3	2.0	FALSE	FALSE	FALSE			[fn:Ignore()]	[OPIVersion13,OPIVersion20]	
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]	
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
-AF	array	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	
+AF	array	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfAFFileSpecifications]	
 Measure	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[MeasureRL,MeasureGEO]	
 PtData	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[PointData]	
 Length	integer	1.3		TRUE	FALSE	FALSE					

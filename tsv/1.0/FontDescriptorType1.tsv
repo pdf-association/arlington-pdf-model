@@ -14,4 +14,4 @@ StemH	number	1.0		FALSE	FALSE	FALSE	0
 AvgWidth	number	1.0		FALSE	FALSE	FALSE	0				
 MaxWidth	number	1.0		FALSE	FALSE	FALSE	0				
 MissingWidth	number	1.0		FALSE	FALSE	FALSE	0				
-FontFile	stream	1.0		FALSE	TRUE	FALSE				[FontFileType1]	Table 124
+FontFile	stream	1.0		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile3)))]	[FontFileType1]	Table 124

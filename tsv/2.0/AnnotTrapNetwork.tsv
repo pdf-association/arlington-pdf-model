@@ -13,8 +13,8 @@ Border	array	1.3	2.0	FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_4AnnotBorderCharacteri
 C	array	1.3	2.0	FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
 StructParent	integer	1.3	2.0	FALSE	FALSE	FALSE					Table 359
 OC	dictionary	1.5	2.0	FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
-AF	array	2.0	2.0	FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	
-ca	number	2.0	2.0	FALSE	FALSE	FALSE	1.0	[fn:Eval((@ca>=0.0) && (@ca<=1.0))]			
+AF	array	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)	2.0	FALSE	FALSE	FALSE				[ArrayOfAFFileSpecifications]	
+ca	number	2.0	2.0	FALSE	FALSE	FALSE	@CA	[fn:Eval((@ca>=0.0) && (@ca<=1.0))]			https://github.com/pdf-association/pdf-issues/issues/577
 CA	number	2.0	2.0	FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && (@CA<=1.0))]			
 BM	name	2.0	2.0	FALSE	FALSE	FALSE	Normal	[fn:Deprecated(1.4,Compatible),Normal,Multiply,Screen,Difference,Darken,Lighten,ColorDodge,ColorBurn,Exclusion,HardLight,Overlay,SoftLight,Luminosity,Hue,Saturation,Color]			Table 134 and Table 135
 Lang	string	2.0	2.0	FALSE	FALSE	FALSE					

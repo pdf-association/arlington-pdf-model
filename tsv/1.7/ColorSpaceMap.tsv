@@ -2,4 +2,4 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 DefaultRGB	array	1.1		FALSE	FALSE	FALSE				[CalRGBColorSpace,ICCBasedColorSpace,DeviceNColorSpace]	Table 34
 DefaultCMYK	array	1.3		FALSE	FALSE	FALSE				[ICCBasedColorSpace,DeviceNColorSpace]	
 DefaultGray	array	1.1		FALSE	FALSE	FALSE				[CalGrayColorSpace,ICCBasedColorSpace,SeparationColorSpace,DeviceNColorSpace]	
-*	array;name	1.0		FALSE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]	
+*	array;name	1.0		FALSE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray,Pattern]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]	https://github.com/pdf-association/pdf-issues/issues/280

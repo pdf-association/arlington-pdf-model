@@ -1,5 +1,5 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 0	name	1.0		TRUE	FALSE	FALSE		[Indexed]			Clause 8.6.6.3
-1	array;name	1.0		TRUE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace];[]	cannot be pattern or indexed
+1	array;name	1.0		TRUE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[DeviceGrayColorSpace,DeviceRGBColorSpace,DeviceCMYKColorSpace,CalGrayColorSpace,CalRGBColorSpace,LabColorSpace];[]	cannot be pattern or indexed
 2	integer	1.0		TRUE	FALSE	FALSE		[fn:Eval((@2>=0) && (@2<=255))]			
 3	stream;string	1.0		TRUE	[TRUE];[FALSE]	FALSE				[Stream];[]	

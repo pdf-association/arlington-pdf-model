@@ -2,5 +2,5 @@ Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	Defaul
 Type	name	1.1		FALSE	FALSE	FALSE		[Action]			Table 196 and Table 202
 S	name	1.1		TRUE	FALSE	FALSE		[GoTo]			
 Next	array;dictionary	1.2		FALSE	FALSE	FALSE				[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionGoToE,ActionGoToDp,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionSetOCGState,ActionRendition,ActionTransition,ActionGoTo3DView,ActionECMAScript,ActionRichMediaExecute]	
-D	array;name;string-byte	1.1		TRUE	FALSE	FALSE				[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]	
+D	array;name;string-byte	1.1		TRUE	FALSE	FALSE		[];[];[fn:Eval(fn:InNameTree(trailer::Catalog::Names::Dests))]		[DestXYZArray,Dest0Array,Dest1Array,Dest4Array];[];[]	
 SD	array	2.0		FALSE	FALSE	FALSE				[DestXYZStructArray,Dest0StructArray,Dest1StructArray,Dest4StructArray]	

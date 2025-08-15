@@ -1,14 +1,15 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
-Type	name	1.3		FALSE	FALSE	FALSE		[Sig]			Table 255
-Filter	name	1.3		TRUE	FALSE	FALSE		[Adobe.PPKLite,Entrust.PPKEF,CICI.SignIt,VeriSign.PPKVS]			
-SubFilter	name	1.3		FALSE	FALSE	FALSE		[adbe.pkcs7.detached,fn:SinceVersion(1.4,adbe.pkcs7.sha1),adbe.x509.rsa_sha1]			Table 260 and https://github.com/pdf-association/pdf-issues/issues/219
-Contents	string-byte	1.3		TRUE	FALSE	FALSE			[fn:Eval(fn:AlwaysUnencrypted() && fn:IsHexString())]		
-Cert	array;string-byte	1.3		fn:IsRequired(@SubFilter==adbe.x509.rsa_sha1)	FALSE	FALSE			[fn:Ignore((@SubFilter==adbe.pkcs7.detached) || (@SubFilter==adbe.pkcs7.sha1) || (@SubFilter==ETSI.CAdES.detached) || (@SubFilter==ETSI.RFC3161))];[fn:Ignore((@SubFilter==adbe.pkcs7.detached) || (@SubFilter==adbe.pkcs7.sha1) || (@SubFilter==ETSI.CAdES.detached) || (@SubFilter==ETSI.RFC3161))]	[ArrayOfStringsByte];[]	Table 260
-ByteRange	array	1.3		FALSE	FALSE	FALSE				[ArrayOfIntegersGeneral]	
-Changes	array	1.3		FALSE	FALSE	FALSE			[fn:Ignore(@SubFilter==ETSI.RFC3161)]	[ArrayOf_3Integers]	
-Name	string-text	1.3		FALSE	FALSE	FALSE			[fn:Ignore(@SubFilter==ETSI.RFC3161)]		
-M	date	1.3		FALSE	FALSE	FALSE					
-Location	string-text	1.3		FALSE	FALSE	FALSE					
-Reason	string-text	1.3		FALSE	FALSE	FALSE					
-ContactInfo	string-text	1.3		FALSE	FALSE	FALSE					
-R	integer	1.3	2.0	FALSE	FALSE	FALSE			[fn:Ignore()]		
+Type	name	1.3		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE		[Sig]			Table 255
+Filter	name	1.3		TRUE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE		[Adobe.PPKLite,Entrust.PPKEF,CICI.SignIt,VeriSign.PPKVS,*]			
+SubFilter	name	1.3		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE		[adbe.pkcs7.detached,fn:SinceVersion(1.4,adbe.pkcs7.sha1),adbe.x509.rsa_sha1,fn:Extension(ETSI_PAdES,ETSI.CAdES.detached)]			Table 260 and https://github.com/pdf-association/pdf-issues/issues/219
+Contents	string-byte	1.3		TRUE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Eval((fn:IsPresent(ByteRange) && fn:IsHexString()) && fn:AlwaysUnencrypted())]		
+Cert	array;string-byte	1.3		fn:IsRequired(@SubFilter==adbe.x509.rsa_sha1)	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Ignore((@SubFilter==adbe.pkcs7.detached) || (@SubFilter==adbe.pkcs7.sha1) || (@SubFilter==ETSI.CAdES.detached) || (@SubFilter==ETSI.RFC3161))];[fn:Ignore((@SubFilter==adbe.pkcs7.detached) || (@SubFilter==adbe.pkcs7.sha1) || (@SubFilter==ETSI.CAdES.detached) || (@SubFilter==ETSI.RFC3161))]	[ArrayOfStringsByte];[]	Table 260
+ByteRange	array	1.3		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Eval((fn:ArrayLength(ByteRange) mod 2)==0)]	[ArrayOfNonNegativeIntegersGeneral]	
+Changes	array	1.3		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Ignore(@SubFilter==ETSI.RFC3161)]	[ArrayOf_3NonNegativeIntegers]	
+Name	string-text	1.3		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Ignore(@SubFilter==ETSI.RFC3161)]		
+M	date	1.3		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE					
+Location	string-text	1.3		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE					
+Reason	string-text	1.3		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE					
+ContactInfo	string-text	1.3		FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE					
+R	integer	1.3	1.5	FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE			[fn:Ignore()]		see "Adobe PDF Signature Build Dictionary Specification": "shall not be used" since PDF 1.5 
+ADBE_Build	string	1.3	1.5	FALSE	fn:MustBeDirect(fn:IsPresent(ByteRange))	FALSE					see "Adobe PDF Signature Build Dictionary Specification"

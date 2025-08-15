@@ -15,7 +15,7 @@ AvgWidth	number	1.2		FALSE	FALSE	FALSE	0
 MaxWidth	number	1.2		FALSE	FALSE	FALSE	0				
 MissingWidth	number	1.2		FALSE	FALSE	FALSE	0				
 FontFile	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile3)))]	[FontFile]	Table 124
-FontFile3	stream	1.2		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile)))]	[FontFile3CIDType0]	Table 124
+FontFile3	stream	1.3		FALSE	TRUE	FALSE			[fn:Eval(fn:Not(fn:IsPresent(FontFile)))]	[FontFile3CIDType0]	Table 124, https://github.com/pdf-association/arlington-pdf-model/issues/98
 Style	dictionary	1.2		FALSE	FALSE	FALSE				[StyleDict]	
 FD	dictionary	1.2		FALSE	FALSE	FALSE				[FDDict]	
 CIDSet	stream	1.2	2.0	FALSE	TRUE	FALSE				[Stream]	

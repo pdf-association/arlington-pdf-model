@@ -13,6 +13,7 @@ Border	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	[0 0 1]			[ArrayOf_
 C	array	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[ArrayOf_4NumbersColorAnnotation]	
 StructParent	integer	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					Table 359
 OC	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
+AF	array	fn:Extension(ISO_19005_3,1.7)		FALSE	FALSE	FALSE				[ArrayOfAFFileSpecifications]	
 CA	number	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE	1.0	[fn:Eval((@CA>=0.0) && (@CA<=1.0))]			
 T	string-text	fn:Extension(ADBE_Extn3,1.7)		FALSE	FALSE	FALSE					
 Popup	dictionary	fn:Extension(ADBE_Extn3,1.7)		FALSE	TRUE	FALSE				[AnnotPopup]	

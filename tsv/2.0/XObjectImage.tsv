@@ -3,7 +3,7 @@ Type	name	1.0		FALSE	FALSE	FALSE		[XObject]			Table 5 and Table 87
 Subtype	name	1.0		TRUE	FALSE	FALSE		[Image]			
 Width	integer	1.0		TRUE	FALSE	FALSE					
 Height	integer	1.0		TRUE	FALSE	FALSE					
-ColorSpace	array;name	1.0		fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]	[fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))]	[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]	
+ColorSpace	array;name	1.0		fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]	[fn:Not(fn:IsPresent(@ImageMask==true))];[fn:Not(fn:IsPresent(@ImageMask==true))]	[DeviceGrayColorSpace,DeviceRGBColorSpace,DeviceCMYKColorSpace,CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,ICCBasedColorSpace,IndexedColorSpace,SeparationColorSpace,DeviceNColorSpace,PatternColorSpace];[]	
 BitsPerComponent	integer	1.0		fn:IsRequired(fn:Not(fn:Contains(@Filter,JPXDecode) || (@ImageMask==true)))	FALSE	FALSE		[fn:RequiredValue((@Filter==CCITTFaxDecode) || (@Filter==JBIG2Decode) || (@ImageMask==true),1),2,4,fn:RequiredValue((@Filter==RunLengthDecode) || (@Filter==DCTDecode),8),16]			
 Intent	name	1.1		FALSE	FALSE	FALSE			[fn:Ignore(@ImageMask==true)]		
 ImageMask	boolean	1.0		FALSE	FALSE	FALSE	false		[fn:Eval(((@ImageMask==true) && (@BitsPerComponent==1) && fn:Not(fn:IsPresent(ColorSpace)) && fn:Not(fn:IsPresent(Mask))) || (@ImageMask==false))]		
@@ -19,7 +19,7 @@ ID	string-byte	1.3		FALSE	FALSE	FALSE
 OPI	dictionary	1.2	2.0	FALSE	FALSE	FALSE			[fn:Ignore(@ImageMask==true)]	[OPIVersion13,OPIVersion20]	
 Metadata	stream	1.4		FALSE	TRUE	FALSE				[Metadata]	
 OC	dictionary	1.5		FALSE	FALSE	FALSE				[OptContentGroup,OptContentMembership]	
-AF	array	2.0		FALSE	FALSE	FALSE				[ArrayOfFileSpecifications]	
+AF	array	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	FALSE	FALSE				[ArrayOfAFFileSpecifications]	
 Measure	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[MeasureRL,MeasureGEO]	
 PtData	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[PointData]	
 Length	integer	1.0		TRUE	FALSE	FALSE					

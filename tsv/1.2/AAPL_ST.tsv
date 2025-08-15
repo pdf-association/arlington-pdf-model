@@ -3,5 +3,5 @@ Type	name	fn:Extension(AAPL)		FALSE	FALSE	FALSE		[Style]			AAPL:ST in Graphics S
 Subtype	name	fn:Extension(AAPL)		FALSE	FALSE	FALSE		[Shadow]			
 Offset	array	fn:Extension(AAPL)		FALSE	FALSE	FALSE				[ArrayOf_2Numbers]	X,Y offset for drop shadow
 Radius	number	fn:Extension(AAPL)		FALSE	FALSE	FALSE			[fn:Eval(@Radius>0)]		
-ColorSpace	array;name	fn:Extension(AAPL)		FALSE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,IndexedColorSpace];[]	
+ColorSpace	array;name	fn:Extension(AAPL)		FALSE	FALSE	FALSE		[];[DeviceCMYK,DeviceRGB,DeviceGray]		[CalGrayColorSpace,CalRGBColorSpace,LabColorSpace,IndexedColorSpace];[]	unknown if supports array form for Device color spaces but never seen so not indicated as supported
 Color	array	fn:Extension(AAPL)		FALSE	FALSE	FALSE				[ArrayOfNumbersGeneral]	
