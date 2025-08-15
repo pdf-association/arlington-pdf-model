@@ -27,6 +27,10 @@
 #  $ make xml
 #  $ make pandas  <-- Optional, this file is not GitHub!
 #
+# # Since various tasks require Python3 scripts, be sure do the following first:
+#   python3 -m venv .venv
+#   source .venv/bin/activate
+#   pip install pikepdf sly
 
 XMLLINT ::= xmllint
 XMLLINT_FLAGS ::= --noout
@@ -48,6 +52,7 @@ pandas:
 
 # Make the 3D/VR visualization JSON files (all versions)
 # Ensure to do a "make tsv" beforehand to refresh the PDF version specific file sets!
+
 .PHONY: 3d
 3d:
 	python3 ./3dvisualize/TSVto3D.py --tsvdir ./tsv/latest --outdir ./3dvisualize/
