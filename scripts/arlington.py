@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 # Copyright 2021 PDF Association, Inc. https://www.pdfa.org
 #
 # This material is based upon work supported by the Defense Advanced
@@ -22,7 +21,7 @@
 # $ python3 arlington.py --tsvdir ../tsv/latest --validate
 #
 # Requires:
-# - Python 3
+# - Python 3.10+
 # - pip3 install sly pikepdf
 # - See https://sly.readthedocs.io/en/latest/sly.html
 # - PikePDF is a wrapper around qpdf. See https://pikepdf.readthedocs.io/en/latest/api/main.html
@@ -34,20 +33,21 @@
 # - mypy arlington.py
 #
 
-import sys
-import csv
-import os
-import glob
-import re
 import argparse
-import pprint
-import logging
-import json
+import csv
 import decimal
-import pikepdf
+import glob
+import json
+import logging
+import os
+import pprint
+import re
+import sys
 import traceback
-from typing import Any, Dict, List, Optional, Tuple, Union
-import sly     # type: ignore
+from typing import Any
+
+import pikepdf
+import sly  # type: ignore
 
 
 class ArlingtonFnLexer(sly.Lexer):
@@ -130,11 +130,11 @@ class ArlingtonFnLexer(sly.Lexer):
 
 # Terse version of sly.lex.Token.__str__/__repr__ dunder methods
 def MyTokenStr(self) -> str:
-    return "TOKEN(type='%s', value='%s')" % (self.type, self.value)
+    return f"TOKEN(type='{self.type}', value='{self.value}')"
 
 
 # Function to JSON-ify sly.lex.Token objects
-def sly_lex_Token_to_json(self) -> Dict[str, Union[str, sly.lex.Token]]:
+def sly_lex_Token_to_json(self) -> dict[str, str | sly.lex.Token]:
     if isinstance(self, sly.lex.Token):
         return {'object': 'sly.lex.Token', 'type': self.type, 'value': self.value}
     return {'error': '!not a sly.lex.Token!'}
@@ -163,7 +163,7 @@ class Arlington:
     __comparison_ops = frozenset(['EQ', 'NE', 'GE', 'LE', 'GT', 'LT'])
 
     # Type definition
-    AST = List[sly.lex.Token]
+    AST = list[sly.lex.Token]
 
     def validate_fn_void(self, ast: AST) -> bool:
         """
@@ -386,7 +386,7 @@ class Arlington:
                 if ((((ast[0][0].type == 'KEY_VALUE') and (ast[0][1].type in self.__comparison_ops)) and
                     (ast[1].type in ('LOGICAL_OR', 'LOGICAL_AND')) and
                     ((ast[2][0].type == 'KEY_VALUE') and (ast[2][1].type in self.__comparison_ops))) or
-                    ((ast[0][0].type == 'FUNC_NAME'))):
+                    (ast[0][0].type == 'FUNC_NAME')):
                     return True
         return False
 
@@ -495,7 +495,7 @@ class Arlington:
     }
 
     @staticmethod
-    def __strip_square_brackets(li: Optional[Union[str, List[str]]]) -> Union[str, Optional[List[Optional[str]]]]:
+    def __strip_square_brackets(li: str | list[str] | None) -> str | list[str | None] | None:
         """
         Only strip off outer "[...]" as inner square brackets may exist for PDF arrays
         @param li: a string or nested list of strings/lists
@@ -510,7 +510,7 @@ class Arlington:
                 return li
         elif isinstance(li, list):
             # Was SEMI-COLON separated, now a Python list
-            lst: List[Optional[str]] = []
+            lst: list[str | None] = []
             for i in li:
                 if (i == r'[]'):
                     lst.append(None)
@@ -520,7 +520,7 @@ class Arlington:
                     lst.append(i)
             return lst
         else:
-            raise TypeError("Unexpected type (%s) when removing square brackets" % type(li))
+            raise TypeError(f"Unexpected type ({type(li)}) when removing square brackets")
 
     @staticmethod
     def __convert_booleans(obj: Any) -> Any:
@@ -549,9 +549,9 @@ class Arlington:
                     li.append(o)
             return li
         else:
-            raise TypeError("Unexpected type '%s' for converting booleans!" % obj)
+            raise TypeError(f"Unexpected type '{obj}' for converting booleans!")
 
-    def __reduce_linkslist(self, linkslist: List[str], reduced_list: List[str] = []) -> List[str]:
+    def __reduce_linkslist(self, linkslist: list[str], reduced_list: list[str] = []) -> list[str]:
         """
         Reduces a 'Link' list of strings (potentially including declarative functions) to a
         simple list of Arlington TSV links in the same order as the original list.
@@ -571,7 +571,7 @@ class Arlington:
                 reduced_list = self.__reduce_linkslist(lk, reduced_list)
         return reduced_list
 
-    def __reduce_typelist(self, typelist: List[str], reduced_list: List[str] = []) -> List:
+    def __reduce_typelist(self, typelist: list[str], reduced_list: list[str] = []) -> list:
         """
         Reduces a 'Types' list of strings (potentially including declarative functions) to a simple
         alphabetically sorted list of Arlington type strings in the same order as TSV.
@@ -589,7 +589,7 @@ class Arlington:
                 reduced_list = self.__reduce_typelist(t, reduced_list)
         return reduced_list
 
-    def __find_pdf_type(self, types: Union[str, List[str]], typelist: List[str]) -> int:
+    def __find_pdf_type(self, types: str | list[str], typelist: list[str]) -> int:
         """
         Recurse through a 'Types' list of strings seeing if one of a string in 'types' list
         is present (including anywhere in a declarative functions). This is NOT smart and
@@ -617,7 +617,7 @@ class Arlington:
                     return i
         return -1
 
-    def to_nested_AST(self, stk: AST, idx: int = 0) -> Tuple[int, AST]:
+    def to_nested_AST(self, stk: AST, idx: int = 0) -> tuple[int, AST]:
         """
         Assumes a fully valid parse tree with fully bracketed "( .. )" expressions
         Also nests PDF array objects "[ ... ]". Recursive.
@@ -625,7 +625,7 @@ class Arlington:
         @param idx:  index into AST stack
         @returns:  index to next item in AST stack, AST stack
         """
-        ast: List[sly.lex.Token] = []
+        ast: list[sly.lex.Token] = []
         i: int = idx
 
         while (i < len(stk)):
@@ -706,7 +706,7 @@ class Arlington:
         self.__directory: str = dir
         self.__filecount: int = 0
         self.__pdfver: str = pdfver
-        self.__pdfdom: Dict[str, Any] = {}
+        self.__pdfdom: dict[str, Any] = {}
         self.__validating: bool = validating
 
         # "Monkey patch" sly.lex.Token __str__ and __repr__ dunder methods to make JSON nicer
@@ -1023,7 +1023,7 @@ class Arlington:
                                 else:
                                     if isinstance(row['Link'][i], str):
                                         lnk: str = row['Link'][i]
-                                        lnkobj: Dict = self.__pdfdom[lnk]
+                                        lnkobj: dict = self.__pdfdom[lnk]
                                         if (lnkobj is None):
                                             logging.error("Bad link '%s' in %s::%s", row['Link'][i], obj_name, keyname)
                                     else:   # list
@@ -1081,7 +1081,7 @@ class Arlington:
         @param mtx: the pikepdf.Array matrix object
         @param pth: the text string of the path to the matrix
         """
-        print("=" + pth + ("=[ %.5f %.5f %.5f %.5f %.5f %.5f ] <as matrix>" % (mtx[0], mtx[1], mtx[2], mtx[3], mtx[4], mtx[5])))
+        print("=" + pth + f"=[ {mtx[0]:.5f} {mtx[1]:.5f} {mtx[2]:.5f} {mtx[3]:.5f} {mtx[4]:.5f} {mtx[5]:.5f} ] <as matrix>")
 
     def process_rect(self, rct: pikepdf.Array, pth: str) -> None:
         """
@@ -1089,17 +1089,17 @@ class Arlington:
         @param rct: the pikepdf.Array rectangle object
         @param pth: the text string of the path to the rectangle
         """
-        print("=" + pth + ("=[ %.5f %.5f %.5f %.5f ] <as rectangle>" % (rct[0], rct[1], rct[2], rct[3])))
+        print("=" + pth + f"=[ {rct[0]:.5f} {rct[1]:.5f} {rct[2]:.5f} {rct[3]:.5f} ] <as rectangle>")
 
-    def process_dict(self, dct: pikepdf.Object, arlnames: Optional[List[str]], pth: str) -> None:
+    def process_dict(self, dct: pikepdf.Object, arlnames: list[str] | None, pth: str) -> None:
         """
         Recursively process keys in a pikepdf.Dictionary object
         @param dct: a pikepdf.Dictionary object
         @param arlnames: list of possible Arlington TSV objects that might match the PDF dictionary
         @param pth: the text string of the path to the dict
         """
-        rlinks: Optional[List[str]]
-        arlobj: Optional[Any]
+        rlinks: list[str] | None
+        arlobj: Any | None
         if (arlnames is not None):
             rlinks = self.__reduce_linkslist(arlnames, [])
             arlobj = self.__pdfdom[rlinks[0]]
@@ -1125,7 +1125,7 @@ class Arlington:
                 status = '+'
 
             idx: int
-            p: str = pth + "%s" % k
+            p: str = pth + f"{k}"
             p1: str = ''
             o = dct.get(k)
             if isinstance(o, pikepdf.Dictionary):
@@ -1138,13 +1138,13 @@ class Arlington:
                         is_tree = (row['Type'][idx] in ['name-tree', 'number-tree'])
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
-                        print(status + p + (" ** already visited dict %s!" % str(o.objgen)))
+                        print(status + p + f" ** already visited dict {o.objgen!s}!")
                         continue
                     else:
                         self.__visited.append(o.objgen)
-                        p1 = " %s" % str(o.objgen)
+                        p1 = f" {o.objgen!s}"
                 if (not is_tree):
-                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    print(status + p + p1 + f" <as {childlinks}>")
                     self.process_dict(o, childlinks, p)
                 else:
                     print(status + p + p1 + " <as name/number-tree>")
@@ -1156,12 +1156,12 @@ class Arlington:
                         childlinks = self.__reduce_linkslist(row['Link'][idx], [])
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
-                        print(status + p + (" ** already visited stm %s!" % str(o.objgen)))
+                        print(status + p + f" ** already visited stm {o.objgen!s}!")
                         continue
                     else:
                         self.__visited.append(o.objgen)
-                        p1 = " %s" % str(o.objgen)
-                print(status + p + p1 + (" <as %s>" % childlinks))
+                        p1 = f" {o.objgen!s}"
+                print(status + p + p1 + f" <as {childlinks}>")
                 self.process_stream(o, childlinks, p)
             elif isinstance(o, pikepdf.Array):
                 is_matrix = False
@@ -1179,24 +1179,24 @@ class Arlington:
                             is_rect = True
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
-                        print(status + p + (" ** already visited array %s!" % str(o.objgen)))
+                        print(status + p + f" ** already visited array {o.objgen!s}!")
                         continue
                     else:
                         self.__visited.append(o.objgen)
-                        p1 = " %s" % str(o.objgen)
+                        p1 = f" {o.objgen!s}"
                 if (is_matrix):
                     self.process_matrix(o, status + p + p1)
                 elif (is_rect):
                     self.process_rect(o, status + p + p1)
                 else:
-                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    print(status + p + p1 + f" <as {childlinks}>")
                     self.process_array(o, childlinks, p)
             elif isinstance(o, pikepdf.Name):
                 if (row is not None):
                     idx = self.__find_pdf_type('name', row['Type'])
                     if (idx != -1):
                         status = "="
-                print(status + p + ("=%s" % o))
+                print(status + p + f"={o}")
             elif isinstance(o, (pikepdf.String, str)):
                 if (row is not None):
                     idx = self.__find_pdf_type(['string', 'date'], row['Type'])
@@ -1204,7 +1204,7 @@ class Arlington:
                         status = "="
                 try:
                     # Handling UnicodeEncodeError: 'charmap' codec can't encode character '\u2044'
-                    print(status + p + ("=(%s)" % o))
+                    print(status + p + f"=({o})")
                 except UnicodeEncodeError as e:
                     pass
             elif isinstance(o, bool):
@@ -1223,16 +1223,16 @@ class Arlington:
                     if (idx != -1):
                         status = "="
                         if ('number' == row['Type'][idx]):
-                            s = "%.5f" % float(o)
+                            s = f"{float(o):.5f}"
                         elif ('bitmask' == row['Type'][idx]):
                             s = "%d <bitmask>" % o
-                print(status + p + "=%s" % s)
+                print(status + p + f"={s}")
             elif isinstance(o, (float, decimal.Decimal)):
                 if (row is not None):
                     idx = self.__find_pdf_type('number', row['Type'])
                     if (idx != -1):
                         status = "="
-                print(status + p + ("=%.5f" % o))
+                print(status + p + f"={o:.5f}")
             elif (o is None):
                 if (row is not None):
                     idx = self.__find_pdf_type('null', row['Type'])
@@ -1243,15 +1243,15 @@ class Arlington:
                 logging.critical("Unexpected type '%s' processing dictionary! ", o.__class__)
                 sys.exit()
 
-    def process_stream(self, dct: pikepdf.Stream, arlnames: Optional[List[str]], pth: str) -> None:
+    def process_stream(self, dct: pikepdf.Stream, arlnames: list[str] | None, pth: str) -> None:
         """
         Recursively process keys in a pikepdf.Stream object
         @param dct: a pikepdf.Stream object
         @param arlnames: list of possible Arlington TSV objects that might match the PDF stream
         @param pth: the text string of the path to the stream
         """
-        rlinks: Optional[List[str]]
-        arlobj: Optional[Any]
+        rlinks: list[str] | None
+        arlobj: Any | None
         if (arlnames is not None):
             rlinks = self.__reduce_linkslist(arlnames, [])
             arlobj = self.__pdfdom[rlinks[0]]
@@ -1276,7 +1276,7 @@ class Arlington:
                 # Key 'k' is ONLY in the PDF and not Arlington
                 status = '+'
 
-            p = pth + "%s" % k
+            p = pth + f"{k}"
             p1 = ''
             o = dct.get(k)
             if isinstance(o, pikepdf.Dictionary):
@@ -1289,13 +1289,13 @@ class Arlington:
                         is_tree = (row['Type'][idx] in ['name-tree', 'number-tree'])
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
-                        print(status + p + (" ** already visited dict %s!" % str(o.objgen)))
+                        print(status + p + f" ** already visited dict {o.objgen!s}!")
                         continue
                     else:
                         self.__visited.append(o.objgen)
-                        p1 = " %s" % str(o.objgen)
+                        p1 = f" {o.objgen!s}"
                 if (not is_tree):
-                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    print(status + p + p1 + f" <as {childlinks}>")
                     self.process_dict(o, childlinks, p)
                 else:
                     print(status + p + p1 + " <as name/number-tree>")
@@ -1307,12 +1307,12 @@ class Arlington:
                         childlinks = self.__reduce_linkslist(row['Link'][idx], [])
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
-                        print(status + p + (" ** already visited stm %s!" % str(o.objgen)))
+                        print(status + p + f" ** already visited stm {o.objgen!s}!")
                         continue
                     else:
                         self.__visited.append(o.objgen)
-                        p1 = " %s" % str(o.objgen)
-                print(status + p + p1 + (" <as %s>" % childlinks))
+                        p1 = f" {o.objgen!s}"
+                print(status + p + p1 + f" <as {childlinks}>")
                 self.process_stream(o, childlinks, p)
             elif isinstance(o, pikepdf.Array):
                 is_matrix = False
@@ -1330,30 +1330,30 @@ class Arlington:
                             is_rect = True
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
-                        print(status + p + (" ** already visited array %s!" % str(o.objgen)))
+                        print(status + p + f" ** already visited array {o.objgen!s}!")
                         continue
                     else:
                         self.__visited.append(o.objgen)
-                        p1 = " %s" % str(o.objgen)
+                        p1 = f" {o.objgen!s}"
                 if (is_matrix):
                     self.process_matrix(o, status + p + p1)
                 elif (is_rect):
                     self.process_rect(o, status + p + p1)
                 else:
-                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    print(status + p + p1 + f" <as {childlinks}>")
                     self.process_array(o, childlinks, p)
             elif isinstance(o, pikepdf.Name):
                 if (row is not None):
                     idx = self.__find_pdf_type('name', row['Type'])
                     if (idx != -1):
                         status = "="
-                print(status + p + ("=%s" % o))
+                print(status + p + f"={o}")
             elif isinstance(o, (pikepdf.String, str)):
                 if (row is not None):
                     idx = self.__find_pdf_type(['string', 'date'], row['Type'])
                     if (idx != -1):
                         status = "="
-                print(status + p + ("=(%s)" % o))
+                print(status + p + f"=({o})")
             elif isinstance(o, bool):
                 if (row is not None):
                     idx = self.__find_pdf_type(['boolean'], row['Type'])
@@ -1370,16 +1370,16 @@ class Arlington:
                     if (idx != -1):
                         status = "="
                         if ('number' == row['Type'][idx]):
-                            s = "%.5f" % float(o)
+                            s = f"{float(o):.5f}"
                         elif ('bitmask' == row['Type'][idx]):
                             s = "%d <bitmask>" % o
-                print(status + p + "=%s" % s)
+                print(status + p + f"={s}")
             elif isinstance(o, (float, decimal.Decimal)):
                 if (row is not None):
                     idx = self.__find_pdf_type('number', row['Type'])
                     if (idx != -1):
                         status = "="
-                print(status + p + ("=%.5f" % o))
+                print(status + p + f"={o:.5f}")
             elif (o is None):
                 if (row is not None):
                     idx = self.__find_pdf_type('null', row['Type'])
@@ -1390,7 +1390,7 @@ class Arlington:
                 logging.critical("Unexpected type '%s' processing stream! ", o.__class__)
                 sys.exit()
 
-    def process_array(self, ary: pikepdf.Array, arlnames: Optional[List[str]], pth: str) -> None:
+    def process_array(self, ary: pikepdf.Array, arlnames: list[str] | None, pth: str) -> None:
         """
         Recursively process array elements (by numeric index) in a pikepdf.Array object
         @param ary: a pikepdf.Array object
@@ -1398,8 +1398,8 @@ class Arlington:
         @param pth: the text string of the path to ary
         """
         wildcard: bool
-        rlinks: Optional[List[str]]
-        arlobj: Optional[Any]
+        rlinks: list[str] | None
+        arlobj: Any | None
         if (arlnames is not None):
             rlinks = self.__reduce_linkslist(arlnames, [])
             arlobj = self.__pdfdom[rlinks[0]]
@@ -1444,13 +1444,13 @@ class Arlington:
                         is_tree = (row['Type'][idx] in ['name-tree', 'number-tree'])
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
-                        print(status + p + (" ** already visited dict %s!" % str(o.objgen)))
+                        print(status + p + f" ** already visited dict {o.objgen!s}!")
                         continue
                     else:
                         self.__visited.append(o.objgen)
-                        p1 = " %s" % str(o.objgen)
+                        p1 = f" {o.objgen!s}"
                 if (not is_tree):
-                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    print(status + p + p1 + f" <as {childlinks}>")
                     self.process_dict(o, childlinks, p)
                 else:
                     print(status + p + p1 + " <as name/number-tree>")
@@ -1462,12 +1462,12 @@ class Arlington:
                         childlinks = self.__reduce_linkslist(row['Link'][idx], [])
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
-                        print(status + p + (" ** already visited stm %s!" % str(o.objgen)))
+                        print(status + p + f" ** already visited stm {o.objgen!s}!")
                         continue
                     else:
                         self.__visited.append(o.objgen)
-                        p1 = " %s" % str(o.objgen)
-                print(status + p + p1 + (" <as %s>" % childlinks))
+                        p1 = f" {o.objgen!s}"
+                print(status + p + p1 + f" <as {childlinks}>")
                 self.process_stream(o, childlinks, p)
             elif isinstance(o, pikepdf.Array):
                 is_matrix = False
@@ -1485,24 +1485,24 @@ class Arlington:
                             is_rect = True
                 if (o.objgen != (0, 0)):
                     if (o.objgen in self.__visited):
-                        print(status + p + (" ** already visited array %s!" % str(o.objgen)))
+                        print(status + p + f" ** already visited array {o.objgen!s}!")
                         continue
                     else:
                         self.__visited.append(o.objgen)
-                        p1 = " %s" % str(o.objgen)
+                        p1 = f" {o.objgen!s}"
                 if (is_matrix):
                     self.process_matrix(o, status + p + p1)
                 elif (is_rect):
                     self.process_rect(o, status + p + p1)
                 else:
-                    print(status + p + p1 + (" <as %s>" % childlinks))
+                    print(status + p + p1 + f" <as {childlinks}>")
                     self.process_array(o, childlinks, p)
             elif isinstance(o, pikepdf.Name):
                 if (row is not None):
                     idx = self.__find_pdf_type('name', row['Type'])
                     if (idx != -1):
                         status = "="
-                print(status + p + ("=%s" % o))
+                print(status + p + f"={o}")
             elif isinstance(o, (pikepdf.String, str)):
                 if (row is not None):
                     idx = self.__find_pdf_type(['string', 'date'], row['Type'])
@@ -1510,7 +1510,7 @@ class Arlington:
                         status = "="
                 try:
                     # Handling UnicodeEncodeError: 'charmap' codec can't encode character '\u2044'
-                    print(status + p + ("=(%s)" % o))
+                    print(status + p + f"=({o})")
                 except UnicodeEncodeError as e:
                     pass
 
@@ -1530,16 +1530,16 @@ class Arlington:
                     if (idx != -1):
                         status = "="
                         if ('number' == row['Type'][idx]):
-                            s = "%.5f" % float(o)
+                            s = f"{float(o):.5f}"
                         elif ('bitmask' == row['Type'][idx]):
                             s = "%d <bitmask>" % o
-                print(status + p + "=%s" % s)
+                print(status + p + f"={s}")
             elif isinstance(o, (float, decimal.Decimal)):
                 if (row is not None):
                     idx = self.__find_pdf_type('number', row['Type'])
                     if (idx != -1):
                         status = "="
-                print(status + p + "=%.5f" % o)
+                print(status + p + f"={o:.5f}")
             elif (o is None):
                 if (row is not None):
                     idx = self.__find_pdf_type('null', row['Type'])
@@ -1559,7 +1559,7 @@ class Arlington:
         wrns = pdf.get_warnings()
         if (len(wrns) > 0):
             logging.debug(wrns)
-        self.__visited: List[Any] = []
+        self.__visited: list[Any] = []
 
         # Simplistic method to determine of modern or legacy xref
         pdfobj = pdf.trailer.as_dict().get('/Type')
@@ -1607,7 +1607,7 @@ if __name__ == '__main__':
     logging.basicConfig(level=cli.loglevel)
 
     if (cli.tsvdir is None) or not os.path.isdir(cli.tsvdir):
-        print("'%s' is not a valid directory" % cli.tsvdir)
+        print(f"'{cli.tsvdir}' is not a valid directory")
         cli_parser.print_help()
         sys.exit()
 
@@ -1618,25 +1618,25 @@ if __name__ == '__main__':
     arl = Arlington(cli.tsvdir, validating=cli.validate)
 
     if (cli.save is not None):
-        print("Saving pretty Python data to '%s'..." % cli.save)
+        print(f"Saving pretty Python data to '{cli.save}'...")
         arl.save_dom_to_pretty_file(cli.save)
 
     if (cli.json is not None):
-        print("Saving JSON to '%s'..." % cli.json)
+        print(f"Saving JSON to '{cli.json}'...")
         arl.save_dom_to_json(cli.json)
 
     if (cli.pdffile is not None):
         if os.path.isfile(cli.pdffile):
-            print("Processing '%s'..." % cli.pdffile)
+            print(f"Processing '{cli.pdffile}'...")
             arl.validate_pdf_file(cli.pdffile)
         elif os.path.isdir(cli.pdffile):
-            print("Processing directory '%s'..." % cli.pdffile)
+            print(f"Processing directory '{cli.pdffile}'...")
             for pdf in glob.iglob(os.path.join(cli.pdffile, r"*.pdf")):
                 outf = os.path.join(os.path.normpath(cli.outdir), os.path.splitext(os.path.basename(pdf))[0])
                 while (os.path.isfile(outf + ".txt")):
                     outf = outf + "_"
                 outf = outf + ".txt"
-                print("Processing '%s' to '%s'..." % (pdf, outf))
+                print(f"Processing '{pdf}' to '{outf}'...")
                 try:
                     oldstdout = sys.stdout
                     oldstderr = sys.stderr
@@ -1650,7 +1650,7 @@ if __name__ == '__main__':
                     sys.stdout = oldstdout
                     sys.stderr = oldstderr
         else:
-            print("'%s' is not a valid file or directory!" % cli.pdffile)
+            print(f"'{cli.pdffile}' is not a valid file or directory!")
             sys.exit()
 
     print("Done.")
