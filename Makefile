@@ -27,10 +27,12 @@
 #  $ make xml
 #  $ make pandas  <-- Optional, this file is not GitHub!
 #
-# # Since various tasks require Python3 scripts, be sure do the following first:
+# Since various tasks require Python3 scripts, be sure do the following:
 #   python3 -m venv .venv
 #   source .venv/bin/activate
 #   pip install pikepdf sly
+#   python3 ./scripts/... ...
+#   deactivate
 
 XMLLINT ::= xmllint
 XMLLINT_FLAGS ::= --noout
