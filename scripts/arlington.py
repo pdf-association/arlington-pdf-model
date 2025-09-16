@@ -1243,10 +1243,10 @@ class Arlington:
                 logging.critical("Unexpected type '%s' processing dictionary! ", o.__class__)
                 sys.exit()
 
-    def process_stream(self, dct: pikepdf.Stream, arlnames: Optional[List[str]], pth: str) -> None:
+    def process_stream(self, stm: pikepdf.Stream, arlnames: Optional[List[str]], pth: str) -> None:
         """
         Recursively process keys in a pikepdf.Stream object
-        @param dct: a pikepdf.Stream object
+        @param stm: a pikepdf.Stream object
         @param arlnames: list of possible Arlington TSV objects that might match the PDF stream
         @param pth: the text string of the path to the stream
         """
@@ -1261,7 +1261,7 @@ class Arlington:
             arlobj = None
             wildcard = False
 
-        for k in sorted(dct.stream_dict.as_dict()):
+        for k in sorted(stm.stream_dict.as_dict()):
             row = None
             childlinks = None
             if (wildcard):
@@ -1278,7 +1278,7 @@ class Arlington:
 
             p = pth + "%s" % k
             p1 = ''
-            o = dct.get(k)
+            o = stm.get(k)
             if isinstance(o, pikepdf.Dictionary):
                 is_tree = False
                 if (row is not None):
