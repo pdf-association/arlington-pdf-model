@@ -79,9 +79,9 @@
         },
         {
             "id": "ActionSubmitForm",
-            "val": 25,
+            "val": 49,
             "group": "dict",
-            "desc": "5 keys",
+            "desc": "7 keys",
             "name": "ActionSubmitForm dict"
         },
         {
@@ -2812,6 +2812,76 @@
             "source": "ActionSubmitForm",
             "target": "ArrayOfFieldID",
             "name": "ActionSubmitForm::Fields"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ArrayOfActions",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionGoTo",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionGoToR",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionLaunch",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionThread",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionURI",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionSound",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionMovie",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionHide",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionNamed",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionSubmitForm",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionResetForm",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionImportData",
+            "name": "ActionSubmitForm::Next"
+        },
+        {
+            "source": "ActionSubmitForm",
+            "target": "ActionECMAScript",
+            "name": "ActionSubmitForm::Next"
         },
         {
             "source": "ActionThread",
@@ -7833,7 +7903,8 @@
         {
             "source": "MarkedContentReference",
             "target": "PageObject",
-            "name": "MarkedContentReference::Pg"
+            "name": "MarkedContentReference::Pg",
+            "color": "red"
         },
         {
             "source": "MarkedContentReference",
@@ -8092,7 +8163,8 @@
         {
             "source": "ObjectReference",
             "target": "PageObject",
-            "name": "ObjectReference::Pg"
+            "name": "ObjectReference::Pg",
+            "color": "red"
         },
         {
             "source": "Outline",

@@ -415,6 +415,16 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "[NOP]"
+      },
+      "Next": {
+        "Key": "Next",
+        "Type": "array;dictionary",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       }
     }
   },
@@ -552,6 +562,16 @@
         "Required": false,
         "IndirectReference": false,
         "Inheritable": false
+      },
+      "Next": {
+        "Key": "Next",
+        "Type": "array;dictionary",
+        "SinceVersion": 1.2,
+        "DeprecatedIn": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       }
     }
   },
@@ -644,6 +664,15 @@
   {
     "id": "ActionSubmitForm",
     "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Action]"
+      },
       "S": {
         "Key": "S",
         "Type": "name",
@@ -689,6 +718,15 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "['utf-8','utf-16','Shift-JIS','BigFive','GBK','UHC']"
+      },
+      "Next": {
+        "Key": "Next",
+        "Type": "array;dictionary",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionNOP,ActionSetState,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData]"
       }
     }
   },
