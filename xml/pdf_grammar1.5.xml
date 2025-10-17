@@ -723,6 +723,34 @@
          <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED>1.2</DEPRECATED>
       </ENTRY>
+      <ENTRY>
+         <NAME>Next</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfActions</VALUE>
+            <VALUE type="dictionary">ActionGoTo</VALUE>
+            <VALUE type="dictionary">ActionGoToR</VALUE>
+            <VALUE type="dictionary">ActionLaunch</VALUE>
+            <VALUE type="dictionary">ActionNOP</VALUE>
+            <VALUE type="dictionary">ActionSetState</VALUE>
+            <VALUE type="dictionary">ActionThread</VALUE>
+            <VALUE type="dictionary">ActionURI</VALUE>
+            <VALUE type="dictionary">ActionSound</VALUE>
+            <VALUE type="dictionary">ActionMovie</VALUE>
+            <VALUE type="dictionary">ActionHide</VALUE>
+            <VALUE type="dictionary">ActionNamed</VALUE>
+            <VALUE type="dictionary">ActionSubmitForm</VALUE>
+            <VALUE type="dictionary">ActionResetForm</VALUE>
+            <VALUE type="dictionary">ActionImportData</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="dictionary">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <DEPRECATED>1.2</DEPRECATED>
+      </ENTRY>
    </OBJECT>
    <OBJECT id="ActionNamed" object_number="009">
       <ENTRY>
@@ -1117,6 +1145,34 @@
          <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED>1.2</DEPRECATED>
       </ENTRY>
+      <ENTRY>
+         <NAME>Next</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfActions</VALUE>
+            <VALUE type="dictionary">ActionGoTo</VALUE>
+            <VALUE type="dictionary">ActionGoToR</VALUE>
+            <VALUE type="dictionary">ActionLaunch</VALUE>
+            <VALUE type="dictionary">ActionNOP</VALUE>
+            <VALUE type="dictionary">ActionSetState</VALUE>
+            <VALUE type="dictionary">ActionThread</VALUE>
+            <VALUE type="dictionary">ActionURI</VALUE>
+            <VALUE type="dictionary">ActionSound</VALUE>
+            <VALUE type="dictionary">ActionMovie</VALUE>
+            <VALUE type="dictionary">ActionHide</VALUE>
+            <VALUE type="dictionary">ActionNamed</VALUE>
+            <VALUE type="dictionary">ActionSubmitForm</VALUE>
+            <VALUE type="dictionary">ActionResetForm</VALUE>
+            <VALUE type="dictionary">ActionImportData</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="dictionary">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <DEPRECATED>1.2</DEPRECATED>
+      </ENTRY>
    </OBJECT>
    <OBJECT id="ActionSound" object_number="014">
       <ENTRY>
@@ -1244,6 +1300,18 @@
    </OBJECT>
    <OBJECT id="ActionSubmitForm" object_number="015">
       <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Action</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
          <NAME>S</NAME>
          <VALUES>
             <VALUE type="name">SubmitForm</VALUE>
@@ -1306,6 +1374,35 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Next</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfActions</VALUE>
+            <VALUE type="dictionary">ActionGoTo</VALUE>
+            <VALUE type="dictionary">ActionGoToR</VALUE>
+            <VALUE type="dictionary">ActionLaunch</VALUE>
+            <VALUE type="dictionary">ActionThread</VALUE>
+            <VALUE type="dictionary">ActionURI</VALUE>
+            <VALUE type="dictionary">ActionSound</VALUE>
+            <VALUE type="dictionary">ActionMovie</VALUE>
+            <VALUE type="dictionary">ActionHide</VALUE>
+            <VALUE type="dictionary">ActionNamed</VALUE>
+            <VALUE type="dictionary">ActionSubmitForm</VALUE>
+            <VALUE type="dictionary">ActionResetForm</VALUE>
+            <VALUE type="dictionary">ActionImportData</VALUE>
+            <VALUE type="dictionary">ActionSetOCGState</VALUE>
+            <VALUE type="dictionary">ActionRendition</VALUE>
+            <VALUE type="dictionary">ActionTransition</VALUE>
+            <VALUE type="dictionary">ActionECMAScript</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
@@ -3234,7 +3331,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:Ignore(fn:IsPresent(BS))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:SinceVersion(1.7,fn:Ignore(fn:IsPresent(BS)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
@@ -21617,7 +21714,7 @@
          <VALUES>
             <VALUE type="dictionary">PageObject</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:IsPresent(parent::Pg)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
          </INDIRECT_REFERENCE>
@@ -23763,7 +23860,7 @@
          <VALUES>
             <VALUE type="dictionary">PageObject</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:IsPresent(parent::Pg)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
          </INDIRECT_REFERENCE>

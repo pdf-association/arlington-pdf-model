@@ -3827,6 +3827,34 @@
          <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED>1.2</DEPRECATED>
       </ENTRY>
+      <ENTRY>
+         <NAME>Next</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfActions</VALUE>
+            <VALUE type="dictionary">ActionGoTo</VALUE>
+            <VALUE type="dictionary">ActionGoToR</VALUE>
+            <VALUE type="dictionary">ActionLaunch</VALUE>
+            <VALUE type="dictionary">ActionNOP</VALUE>
+            <VALUE type="dictionary">ActionSetState</VALUE>
+            <VALUE type="dictionary">ActionThread</VALUE>
+            <VALUE type="dictionary">ActionURI</VALUE>
+            <VALUE type="dictionary">ActionSound</VALUE>
+            <VALUE type="dictionary">ActionMovie</VALUE>
+            <VALUE type="dictionary">ActionHide</VALUE>
+            <VALUE type="dictionary">ActionNamed</VALUE>
+            <VALUE type="dictionary">ActionSubmitForm</VALUE>
+            <VALUE type="dictionary">ActionResetForm</VALUE>
+            <VALUE type="dictionary">ActionImportData</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="dictionary">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <DEPRECATED>1.2</DEPRECATED>
+      </ENTRY>
    </OBJECT>
    <OBJECT id="ActionNamed" object_number="033">
       <ENTRY>
@@ -4332,6 +4360,34 @@
          <INTRODUCED>1.2</INTRODUCED>
          <DEPRECATED>1.2</DEPRECATED>
       </ENTRY>
+      <ENTRY>
+         <NAME>Next</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfActions</VALUE>
+            <VALUE type="dictionary">ActionGoTo</VALUE>
+            <VALUE type="dictionary">ActionGoToR</VALUE>
+            <VALUE type="dictionary">ActionLaunch</VALUE>
+            <VALUE type="dictionary">ActionNOP</VALUE>
+            <VALUE type="dictionary">ActionSetState</VALUE>
+            <VALUE type="dictionary">ActionThread</VALUE>
+            <VALUE type="dictionary">ActionURI</VALUE>
+            <VALUE type="dictionary">ActionSound</VALUE>
+            <VALUE type="dictionary">ActionMovie</VALUE>
+            <VALUE type="dictionary">ActionHide</VALUE>
+            <VALUE type="dictionary">ActionNamed</VALUE>
+            <VALUE type="dictionary">ActionSubmitForm</VALUE>
+            <VALUE type="dictionary">ActionResetForm</VALUE>
+            <VALUE type="dictionary">ActionImportData</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="dictionary">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+         <DEPRECATED>1.2</DEPRECATED>
+      </ENTRY>
    </OBJECT>
    <OBJECT id="ActionSound" object_number="039">
       <ENTRY>
@@ -4463,6 +4519,18 @@
    </OBJECT>
    <OBJECT id="ActionSubmitForm" object_number="040">
       <ENTRY>
+         <NAME>Type</NAME>
+         <VALUES>
+            <VALUE type="name">Action</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="name">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
          <NAME>S</NAME>
          <VALUES>
             <VALUE type="name">SubmitForm</VALUE>
@@ -4525,6 +4593,39 @@
          <REQUIRED>false</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="string">false</VALUE>
+         </INDIRECT_REFERENCE>
+         <INHERITABLE>false</INHERITABLE>
+         <INTRODUCED>1.2</INTRODUCED>
+      </ENTRY>
+      <ENTRY>
+         <NAME>Next</NAME>
+         <VALUES>
+            <VALUE type="array">ArrayOfActions</VALUE>
+            <VALUE type="dictionary">ActionGoTo</VALUE>
+            <VALUE type="dictionary">ActionGoToR</VALUE>
+            <VALUE type="dictionary">ActionGoToE</VALUE>
+            <VALUE type="dictionary">ActionGoToDp</VALUE>
+            <VALUE type="dictionary">ActionLaunch</VALUE>
+            <VALUE type="dictionary">ActionThread</VALUE>
+            <VALUE type="dictionary">ActionURI</VALUE>
+            <VALUE type="dictionary">ActionSound</VALUE>
+            <VALUE type="dictionary">ActionMovie</VALUE>
+            <VALUE type="dictionary">ActionHide</VALUE>
+            <VALUE type="dictionary">ActionNamed</VALUE>
+            <VALUE type="dictionary">ActionSubmitForm</VALUE>
+            <VALUE type="dictionary">ActionResetForm</VALUE>
+            <VALUE type="dictionary">ActionImportData</VALUE>
+            <VALUE type="dictionary">ActionSetOCGState</VALUE>
+            <VALUE type="dictionary">ActionRendition</VALUE>
+            <VALUE type="dictionary">ActionTransition</VALUE>
+            <VALUE type="dictionary">ActionGoTo3DView</VALUE>
+            <VALUE type="dictionary">ActionECMAScript</VALUE>
+            <VALUE type="dictionary">ActionRichMediaExecute</VALUE>
+         </VALUES>
+         <REQUIRED>false</REQUIRED>
+         <INDIRECT_REFERENCE>
+            <VALUE type="array">false</VALUE>
+            <VALUE type="dictionary">false</VALUE>
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.2</INTRODUCED>
@@ -7184,7 +7285,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>1.3</INTRODUCED>
-         <SPECIAL_CASE>fn:Ignore(fn:IsPresent(BS))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:SinceVersion(1.7,fn:Ignore(fn:IsPresent(BS)))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>C</NAME>
@@ -17742,7 +17843,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)</INTRODUCED>
-         <SPECIAL_CASE>fn:InNameTree(parent::RichMediaContent::Assets)</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:InNameTree(parent::parent::parent::RichMediaContent::Assets)</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="ArrayOfIntegersGeneral" isArray="true" object_number="153">
@@ -34028,6 +34129,7 @@
             <VALUE type="integer">32001</VALUE>
             <VALUE type="integer">32002</VALUE>
             <VALUE type="integer">32003</VALUE>
+            <VALUE type="integer">32004</VALUE>
             <VALUE type="integer">24064</VALUE>
             <VALUE type="integer">32007</VALUE>
          </VALUES>
@@ -34046,7 +34148,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>2.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval(((@ExtensionLevel==32001) &amp;&amp; (@URL=='https://www.iso.org/standard/45874.html')) || ((@ExtensionLevel==32002) &amp;&amp; (@URL=='https://www.iso.org/standard/45875.html')) || ((@ExtensionLevel==32003) &amp;&amp; (@URL=='https://www.iso.org/standard/45876.html')) || ((@ExtensionLevel==24064) &amp;&amp; (@URL=='https://www.iso.org/standard/77686.html')) || ((@ExtensionLevel==32007) &amp;&amp; (@URL=='https://www.iso.org/standard/45880.html')))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval(((@ExtensionLevel==32001) &amp;&amp; (@URL=='https://www.iso.org/standard/45874.html')) || ((@ExtensionLevel==32002) &amp;&amp; (@URL=='https://www.iso.org/standard/45875.html')) || ((@ExtensionLevel==32003) &amp;&amp; (@URL=='https://www.iso.org/standard/45876.html')) || ((@ExtensionLevel==32004) &amp;&amp; (@URL=='https://www.iso.org/standard/45877.html')) || ((@ExtensionLevel==24064) &amp;&amp; (@URL=='https://www.iso.org/standard/77686.html')) || ((@ExtensionLevel==32007) &amp;&amp; (@URL=='https://www.iso.org/standard/45880.html')))</SPECIAL_CASE>
       </ENTRY>
       <ENTRY>
          <NAME>ExtensionRevision</NAME>
@@ -34054,6 +34156,7 @@
             <VALUE type="string-text">':2022'</VALUE>
             <VALUE type="string-text">':2023'</VALUE>
             <VALUE type="string-text">'1:2023'</VALUE>
+            <VALUE type="string-text">':2024'</VALUE>
          </VALUES>
          <REQUIRED>true</REQUIRED>
          <INDIRECT_REFERENCE>
@@ -34061,7 +34164,7 @@
          </INDIRECT_REFERENCE>
          <INHERITABLE>false</INHERITABLE>
          <INTRODUCED>2.0</INTRODUCED>
-         <SPECIAL_CASE>fn:Eval((((@ExtensionLevel==32001) || (@ExtensionLevel==32002)) &amp;&amp; (@ExtensionRevision==':2022')) || ((@ExtensionLevel==32003) &amp;&amp; (@ExtensionRevision==':2023')) || ((@ExtensionLevel==24064) &amp;&amp; (@ExtensionRevision=='1:2023')))</SPECIAL_CASE>
+         <SPECIAL_CASE>fn:Eval((((@ExtensionLevel==32001) || (@ExtensionLevel==32002)) &amp;&amp; (@ExtensionRevision==':2022')) || ((@ExtensionLevel==32003) &amp;&amp; (@ExtensionRevision==':2023')) || ((@ExtensionLevel==24064) &amp;&amp; (@ExtensionRevision=='1:2023')) || ((@ExtensionLevel==32004) &amp;&amp; (@ExtensionRevision==':2024')))</SPECIAL_CASE>
       </ENTRY>
    </OBJECT>
    <OBJECT id="IconFit" object_number="402">
@@ -34836,7 +34939,7 @@
          <VALUES>
             <VALUE type="dictionary">PageObject</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:IsPresent(parent::Pg)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
          </INDIRECT_REFERENCE>
@@ -37607,7 +37710,7 @@
          <VALUES>
             <VALUE type="dictionary">PageObject</VALUE>
          </VALUES>
-         <REQUIRED>false</REQUIRED>
+         <REQUIRED>fn:IsRequired(fn:Not(fn:IsPresent(parent::Pg)))</REQUIRED>
          <INDIRECT_REFERENCE>
             <VALUE type="dictionary">true</VALUE>
          </INDIRECT_REFERENCE>
