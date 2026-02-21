@@ -228,7 +228,7 @@ class Arlington:
         @param ast: AST to be validated.
         @returns: True if a valid 'fn:BitSet/Clear(' function. False otherwise
         """
-        if (len(ast) == 1) and (ast[0].type == 'INTEGER') and (ast[0].value >= 1) and (ast[0].value <= 32):
+        if (len(ast) == 1) and (ast[0].type == 'INTEGER') and (1 <= ast[0].value <= 32):
             return True
         return False
 
@@ -240,8 +240,8 @@ class Arlington:
         @returns: True if a valid 'fn:BitsSet/Clear(' function. False otherwise
         """
         if ((len(ast) == 2) and
-            (ast[0].type == 'INTEGER') and (ast[0].value >= 1) and (ast[0].value <= 32) and
-            (ast[1].type == 'INTEGER') and (ast[1].value >= 1) and (ast[1].value <= 32) and
+            (ast[0].type == 'INTEGER') and (1 <= ast[0].value <= 32) and
+            (ast[1].type == 'INTEGER') and (1 <= ast[1].value <= 32) and
             (ast[0].value < ast[1].value)):
             return True
         return False
@@ -700,7 +700,7 @@ class Arlington:
     def __init__(self, dir: str = ".", pdfver: str = "2.0", validating: bool = False):
         """
         Constructor. Reads TSV set file-by-file and converts to Pythonese
-        @param  dir:  directory folder contain TSV files
+        @param  dir:  directory folder containing TSV files
         @param  pdfver: the PDF version used for determination (default is '2.0')
         """
         self.__directory: str = dir
@@ -872,7 +872,7 @@ class Arlington:
             logging.debug("Validating '%s'", obj_name)
             obj = self.__pdfdom[obj_name]
 
-            # Check if object contain any duplicate keys or has no keys
+            # Check if object contains any duplicate keys or has no keys
             if (len(obj) != len(set(obj))):
                 logging.critical("Duplicate keys in '%s'!", obj_name)
             if (len(obj) == 0):
@@ -1561,7 +1561,7 @@ class Arlington:
             logging.debug(wrns)
         self.__visited: list[Any] = []
 
-        # Simplistic method to determine of modern or legacy xref
+        # Simplistic method to determine if modern or legacy xref
         pdfobj = pdf.trailer.as_dict().get('/Type')
         if (pdfobj is not None):
             if (str(pdfobj) == '/XRef'):
