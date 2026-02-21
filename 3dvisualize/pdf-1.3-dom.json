@@ -616,6 +616,15 @@
   {
     "id": "ActionSubmitForm",
     "keys": {
+      "Type": {
+        "Key": "Type",
+        "Type": "name",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "PossibleValues": "[Action]"
+      },
       "S": {
         "Key": "S",
         "Type": "name",
@@ -661,6 +670,15 @@
         "IndirectReference": false,
         "Inheritable": false,
         "PossibleValues": "['utf-8','utf-16','Shift-JIS','BigFive','GBK','UHC']"
+      },
+      "Next": {
+        "Key": "Next",
+        "Type": "array;dictionary",
+        "SinceVersion": 1.2,
+        "Required": false,
+        "IndirectReference": false,
+        "Inheritable": false,
+        "Link": "[ArrayOfActions];[ActionGoTo,ActionGoToR,ActionLaunch,ActionThread,ActionURI,ActionSound,ActionMovie,ActionHide,ActionNamed,ActionSubmitForm,ActionResetForm,ActionImportData,ActionECMAScript]"
       }
     }
   },
@@ -1293,7 +1311,7 @@
         "IndirectReference": false,
         "Inheritable": false,
         "DefaultValue": "[0 0 1]",
-        "SpecialCase": "[fn:Ignore(fn:IsPresent(BS))]",
+        "SpecialCase": "[fn:SinceVersion(1.7,fn:Ignore(fn:IsPresent(BS)))]",
         "Link": "[ArrayOf_4AnnotBorderCharacteristics]"
       },
       "C": {
@@ -11486,7 +11504,7 @@
         "Key": "Pg",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": false,
+        "Required": "fn:IsRequired(fn:Not(fn:IsPresent(parent::Pg)))",
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"
@@ -12142,7 +12160,7 @@
         "Key": "Pg",
         "Type": "dictionary",
         "SinceVersion": 1.3,
-        "Required": false,
+        "Required": "fn:IsRequired(fn:Not(fn:IsPresent(parent::Pg)))",
         "IndirectReference": true,
         "Inheritable": false,
         "Link": "[PageObject]"

@@ -1707,7 +1707,7 @@ DocTimeStamp	V	integer	1.5		FALSE	FALSE	FALSE	0
 DocTimeStamp	Prop_Build	dictionary	1.5		FALSE	FALSE	FALSE				[SignatureBuildPropDict]	
 DocTimeStamp	Prop_AuthTime	integer	1.5		FALSE	FALSE	FALSE					
 DocTimeStamp	Prop_AuthType	name	1.5		FALSE	FALSE	FALSE					
-DocTimeStamp	ADBE_Build	string	1.3	1.5	FALSE	FALSE	FALSE					"Adobe ""Digital Signature Build Dictionary Specification"""
+DocTimeStamp	ADBE_Build	string	1.3	1.5	FALSE	FALSE	FALSE					Adobe _Digital Signature Build Dictionary Specification_
 DPart	Type	name	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		FALSE	FALSE	FALSE		[DPart]			Table 409
 DPart	Parent	dictionary	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		TRUE	TRUE	FALSE				[DPart,DPartRoot]	
 DPart	DParts	array	fn:Eval(fn:Extension(PDF_VT2,1.6) || 2.0)		fn:IsRequired(fn:Not(fn:IsPresent(Start)))	FALSE	FALSE			[fn:Eval(fn:ArrayLength(DParts)>0)]	[ArrayOfDPartArrays]	
@@ -3186,7 +3186,7 @@ Signature	V	integer	1.5		FALSE	FALSE	FALSE	0
 Signature	Prop_Build	dictionary	1.5		FALSE	FALSE	FALSE				[_UniversalDictionary]	
 Signature	Prop_AuthTime	integer	1.5		FALSE	FALSE	FALSE		[fn:Eval(@Prop_AuthTime>=0)]	[fn:Ignore(@SubFilter==ETSI.RFC3161)]		
 Signature	Prop_AuthType	name	1.5		FALSE	FALSE	FALSE					
-SignatureBuildDataAppDict	Name	name	1.5		FALSE	FALSE	FALSE					"Adobe ""Digital Signature Build Dictionary Specification"" Table 2 and Table 3"
+SignatureBuildDataAppDict	Name	name	1.5		FALSE	FALSE	FALSE					Adobe _Digital Signature Build Dictionary Specification_ Table 2 and Table 3
 SignatureBuildDataAppDict	Date	string-text	1.5		FALSE	FALSE	FALSE					
 SignatureBuildDataAppDict	R	number	1.5		FALSE	FALSE	FALSE					
 SignatureBuildDataAppDict	PreRelease	boolean	1.5		FALSE	FALSE	FALSE	false				
@@ -3195,7 +3195,7 @@ SignatureBuildDataAppDict	NonEFontNoWarn	boolean	1.5		FALSE	FALSE	FALSE
 SignatureBuildDataAppDict	TrustedMode	boolean	1.5		FALSE	FALSE	FALSE	false				
 SignatureBuildDataAppDict	V	number	1.5	1.7	FALSE	FALSE	FALSE					
 SignatureBuildDataAppDict	REx	string-text	1.6		FALSE	FALSE	FALSE					
-SignatureBuildDataDict	Name	name	1.5		FALSE	FALSE	FALSE					"Adobe ""Digital Signature Build Dictionary Specification"" Table 2"
+SignatureBuildDataDict	Name	name	1.5		FALSE	FALSE	FALSE					Adobe _Digital Signature Build Dictionary Specification_ Table 2
 SignatureBuildDataDict	Date	string-text	1.5		FALSE	FALSE	FALSE					
 SignatureBuildDataDict	R	number	1.5		FALSE	FALSE	FALSE					
 SignatureBuildDataDict	PreRelease	boolean	1.5		FALSE	FALSE	FALSE	false				
@@ -3203,7 +3203,7 @@ SignatureBuildDataDict	OS	array	1.5		FALSE	FALSE	FALSE				[ArrayOfStringsText]
 SignatureBuildDataDict	NonEFontNoWarn	boolean	1.5		FALSE	FALSE	FALSE					
 SignatureBuildDataDict	TrustedMode	boolean	1.5		FALSE	FALSE	FALSE	false				
 SignatureBuildDataDict	V	number	1.5	1.7	FALSE	FALSE	FALSE					
-SignatureBuildDataSigQDict	Name	name	1.5		FALSE	FALSE	FALSE					"Adobe ""Digital Signature Build Dictionary Specification"" Table 2 and Table 4"
+SignatureBuildDataSigQDict	Name	name	1.5		FALSE	FALSE	FALSE					Adobe _Digital Signature Build Dictionary Specification_ Table 2 and Table 4
 SignatureBuildDataSigQDict	Date	string-text	1.5		FALSE	FALSE	FALSE					
 SignatureBuildDataSigQDict	R	number	1.5		FALSE	FALSE	FALSE					
 SignatureBuildDataSigQDict	PreRelease	boolean	1.5		FALSE	FALSE	FALSE	false				
@@ -3212,7 +3212,7 @@ SignatureBuildDataSigQDict	NonEFontNoWarn	boolean	1.5		FALSE	FALSE	FALSE
 SignatureBuildDataSigQDict	TrustedMode	boolean	1.5		FALSE	FALSE	FALSE	false				
 SignatureBuildDataSigQDict	V	number	1.5	1.7	FALSE	FALSE	FALSE					
 SignatureBuildDataSigQDict	Preview	boolean	1.7		FALSE	FALSE	FALSE	false				
-SignatureBuildPropDict	Filter	dictionary	1.5		FALSE	fn:MustBeDirect()	FALSE				[SignatureBuildDataDict]	"Adobe ""Digital Signature Build Dictionary Specification"" Table 1"
+SignatureBuildPropDict	Filter	dictionary	1.5		FALSE	fn:MustBeDirect()	FALSE				[SignatureBuildDataDict]	Adobe _Digital Signature Build Dictionary Specification_ Table 1
 SignatureBuildPropDict	PubSec	dictionary	1.5		FALSE	fn:MustBeDirect()	FALSE				[SignatureBuildDataDict]	
 SignatureBuildPropDict	App	dictionary	1.5		FALSE	fn:MustBeDirect()	FALSE				[SignatureBuildDataAppDict]	
 SignatureBuildPropDict	SigQ	dictionary	1.5		FALSE	fn:MustBeDirect()	FALSE				[SignatureBuildDataSigQDict]	

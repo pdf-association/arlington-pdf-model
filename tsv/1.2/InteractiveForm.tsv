@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Fields	array	1.2		TRUE	FALSE	FALSE				[ArrayOfFields]	Table 224
 NeedAppearances	boolean	1.2	2.0	FALSE	FALSE	FALSE	false				
-DR	dictionary	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:IsPresent(DR::Font::*))]	[Resource]	"At a minimum, this dictionary shall contain a Font entry specifying the resource name and font dictionary of the default font for displaying text."
+DR	dictionary	1.2		FALSE	FALSE	FALSE			[fn:Eval(fn:IsPresent(DR::Font::*))]	[Resource]	At a minimum, this dictionary shall contain a Font entry specifying the resource name and font dictionary of the default font for displaying text.
 DA	string-byte	1.2		FALSE	FALSE	FALSE					https://github.com/pdf-association/pdf-issues/issues/318
 Q	integer	1.2		FALSE	FALSE	FALSE		[0,1,2]			

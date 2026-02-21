@@ -453,11 +453,21 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * "[_Development Preview: PDF file checker based on the Arlington PDF Model_](https://openpreservation.org/news/development-preview-pdf-file-checker-based-on-the-arlington-pdf-model/)", 21 June 2023, Open Preserve Foundation. See [https://software.verapdf.org/develop/arlington/](https://software.verapdf.org/develop/arlington/)
 
+## Implementations
+
 * Online [Arlington PDF Model checker](https://pdfix.io/arlington-pdf-model/) by PDFix.
+
+* PDFix [Desktop Lite](https://pdfix.net/products/pdfix-desktop-lite/) (free) and [Desktop Pro](https://pdfix.net/products/pdfix-desktop-pro/)
+
+* PDFix [Arlington PDF Model Checker Docker image](https://hub.docker.com/r/pdfix/arlington-pdf-model) 
 
 * Online [veraPDF Arlington Model Checker](https://arlington.verapdf.org/)
 
 * DockerHub container [veraPDF Arlington image](https://hub.docker.com/r/verapdf/arlington)
+
+* [BFO PDF Library 2.27.2 and later](https://bfo.com/blog/articles/announce-bfopdf-2.27.2/)
+
+* Online [OctoPDF](https://octopdf.com/)
 
 
 ---

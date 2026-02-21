@@ -2,18 +2,17 @@
 
 This document describes some strict rules for the Arlington PDF model, for both the data and the predicates (custom declarative predicates that start `fn:`). Only some of these rules are currently implemented by various PoCs, but everything is precisely documented here.
 
-Note that the Arlington PDF Model accurately reflects the latest agreed ISO 32000-2:2020 PDF 2.0 specification ([available for no-cost](https://pdfa.org/sponsored-standards/)) and as amended by industry-agreed errata from https://pdf-issues.pdfa.org. If this state of affairs is unsuitable for adopters of the Arlington PDF Model (e.g. unresolved errata are causing issues for implementations) then the recommended practice is for those specific implementations to create private `diff` patches against the model as it is entirely text-based.  
+Note that the Arlington PDF Model accurately reflects the latest agreed ISO 32000-2:2020 PDF 2.0 specification ([available for no-cost](https://pdfa.org/sponsored-standards/)) and as amended by industry-agreed errata from <https://pdf-issues.pdfa.org>. If this state of affairs is unsuitable for adopters of the Arlington PDF Model (e.g. unresolved errata are causing issues for implementations) then the recommended practice is for those specific implementations to create private `diff` patches against the model as it is entirely text-based.
 
-
-# TSV file rules
+## TSV file rules
 
 * They are TSV, not CSV. Use tabs (`\t`).
 * No double quotes are used.
 * Every TSV file needs to have the same identical header row as first line in file
 * EOL rules for TSV are now set by `.gitattributes` to be LF -
-    - standard Linux CLI works including under Windows WSL2: `cut`, `grep`, `sed`, etc.
-    - this means you can also use all the [Ebay TSV utilities](https://github.com/eBay/tsv-utils) even under Windows
-    - [GNU datamash](https://www.gnu.org/software/datamash/) can also be used.
+  * standard Linux CLI works including under Windows WSL2: `cut`, `grep`, `sed`, etc.
+  * this means you can also use all the [Ebay TSV utilities](https://github.com/eBay/tsv-utils) even under Windows
+  * [GNU datamash](https://www.gnu.org/software/datamash/) can also be used.
 * Every TSV file needs to have the full set of TABS (for all columns).
 * Last row in TSV needs EOL after last TAB.
 * TSV file names are case-sensitive.
@@ -21,19 +20,22 @@ Note that the Arlington PDF Model accurately reflects the latest agreed ISO 3200
 * all TSV files will have matching numbers of `[`, `]` and `(`, `)`
 * for a single row in any TSV, splitting each field on ';' will either result in 1 or _N_.
 * files that represent PDF arrays match either `ArrayOf*.tsv`, `*Array.tsv` or `*ColorSpace.tsv`
-    - many are also identifiable by having a Key name of `0` (or `0*` or `*`)
-    ```shell
-    grep "^0" *
-    ```
-* files that represent PDF 'map' objects (meaning that the dictionary key name can be anything) match `*Map.tsv`
-    - note that CMaps are in `CMapStream.tsv`
-* **NOT** all files that are PDF stream objects match `*Stream.tsv`
-    - since each Arlington object is fully self-contained, many objects can be streams. The best method is to search for `DecodeParms` key instead:
-    ```shell
-    grep "^DecodeParms" * | tsv-pretty
-    ```
+  * many are also identifiable by having a Key name of `0` (or `0*` or `*`)
 
-# PDF Object conventions
+  ```shell
+  grep "^0" *
+  ```
+
+* files that represent PDF 'map' objects (meaning that the dictionary key name can be anything) match `*Map.tsv`
+  * note that CMaps are in `CMapStream.tsv`
+* **NOT** all files that are PDF stream objects match `*Stream.tsv`
+  * since each Arlington object is fully self-contained, many objects can be streams. The best method is to search for `DecodeParms` key instead:
+
+  ```shell
+  grep "^DecodeParms" * | tsv-pretty
+  ```
+
+## PDF Object conventions
 
 * There are NO leading SLASHES for PDF names (_ever_!)
 * PDF names don't use `#`-escaping (currently unsupported)
@@ -42,327 +44,333 @@ Note that the Arlington PDF Model accurately reflects the latest agreed ISO 3200
 * `*` represents a wildcard (i.e. anything). Other regex are not supported. Wildcards can be used in the Key field and in the PossibleValues field for names (when the PDF standard specifically states that other arbitrary names can be used)
 * Leading `@` indicates "_value of_" a key or array element
 * PDF Booleans are `true` and `false` lowercase.
-    - Uppercase `TRUE`/`FALSE` are reserved for logical Boolean TSV data fields such as the "Required" field.
+  * Uppercase `TRUE`/`FALSE` are reserved for logical Boolean TSV data fields such as the "Required" field.
 * expressions using `&&` or `||` logical operators need to be either fully bracketed or be just a predicate and have a single SPACE either side of the logical operator. precedence rules are NOT implemented.
 * the predefined Arlington paths `parent::` and `trailer::` represent the parent of the current object and file trailer (either traditional or a cross-reference stream) respectively. All other paths are relative from the containing PDF object
 * PDF arrays always use `[` and `]` (which may require some additional processing so as not to be confused with our [];[];[] syntax for complex fields)
-    - elements in a PDF array do **not** use COMMA-separators and are specified just like in PDF e.g. `[0 1 0]`
-    - if a PDF array needs to be specified as part of a complex typed key (`[];[];[]`) then 2 sets of `[` and `]` need to be used for the array values
-        - e.g. `[[0 1]];[123];[SomeThing]` might be a Default Value for a PDF key that can be an array, an integer or a name (alphabetically sorted in the "Type" field!) each with a default value.
-        - this extra pair of `[` and `]` is only needed for complex types.
+  * elements in a PDF array do **not** use COMMA-separators and are specified just like in PDF e.g. `[0 1 0]`
+  * if a PDF array needs to be specified as part of a complex typed key (`[];[];[]`) then 2 sets of `[` and `]` need to be used for the array values
+  * e.g. `[[0 1]];[123];[SomeThing]` might be a Default Value for a PDF key that can be an array, an integer or a name (alphabetically sorted in the "Type" field!) each with a default value.
+  * this extra pair of `[` and `]` is only needed for complex types.
 
+## TSV Data Fields
 
-# TSV Data Fields
+* A key or array element is so-called "complex" if it can be multiple values. This is represented by `[];[];[]`-type expressions.
+* Something is so called a "wildcard" if the "Key" field contains an ASTERISK.
+* An array is so-called a "repeating array" if it requires _N_ x a set of elements. This is represented by DIGIT+ASTERISK in the "Key" field.
+  * Repeating array elements with DIGIT+ASTERISK must be the _last_ rows in a TSV
+  * e.g. `0*` `1*` `2*` would be an array of 3 * _N_ triplets of elements
+  * e.g. `0` `1*` `2*` would be an array of 2 * _N_ + 1 elements, where the first element has a fixed definition, followed by repeating pairs of elements
 
-*  A key or array element is so-called "complex" if it can be multiple values. This is represented by `[];[];[]`-type expressions.
-*  Something is so called a "wildcard" if the "Key" field contains an ASTERISK.
-*  An array is so-called a "repeating array" if it requires _N_ x a set of elements. This is represented by DIGIT+ASTERISK in the "Key" field.
-    - Repeating array elements with DIGIT+ASTERISK must be the _last_ rows in a TSV
-    - e.g. `0*` `1*` `2*` would be an array of 3 * _N_ triplets of elements
-    - e.g. `0` `1*` `2*` would be an array of 2 * _N_ + 1 elements, where the first element has a fixed definition, followed by repeating pairs of elements
+### Column 1 - "Key"
 
+* Must not be blank
+* Case-sensitive (as per PDF spec)
+* No duplicates keys in any single TSV file
+* Only alphanumeric, `.`, `-`, `_` or ASTERISK characters (no whitespace or other special characters)
+  * The proprietary Apple APPL extensions also use `:` (COLON) as in `AAPL:ST`
+* If a dictionary, then "Key" may also be an ASTERISK `*` meaning wildcard, so anything is allowed
+* If ASTERISK `*` by itself then must be last row in TSV file
+* If ASTERISK `*` by itself then "Required" column must be FALSE
+* If representing a PDF array, then "Key" name is really an integer array index.
+  * Zero-based increasing (always by 1) integers always starting at ZERO (0), with an optional ASTERISK appended after the digit (indicating repeat)
+  * Or just an ASTERISK `*` meaning that any number of array elements may exist
+* If representing a PDF array with a repeating set of array elements (such as alternating pairs of elements) then use `digit+ASTERISK` where the last set of rows must all be `digit+ASTERISK` (indicating a repeating group of _N_ elements starting at array element _M_ (so array starts with a fixed set (non-repeating) array elements 0 to _M_-1, followed by the repeating set of element _M_ to (_M_ + _N_-1)) array elements).
+* If representing a PDF array with `digit+ASTERISK`  then the "Required" column should be TRUE if all _N_ entries must always be repeated as a full set (e.g. in pairs or quads).
+* **Python pretty-print/JSON**
+  * String (as JSON dictionary key)
+* **Linux CLI tests:**
 
-## Column 1 - "Key"
-
-*   Must not be blank
-*   Case-sensitive (as per PDF spec)
-*   No duplicates keys in any single TSV file
-*   Only alphanumeric, `.`, `-`, `_` or ASTERISK characters (no whitespace or other special characters)
-    * The proprietary Apple APPL extensions also use `:` (COLON) as in `AAPL:ST`
-*   If a dictionary, then "Key" may also be an ASTERISK `*` meaning wildcard, so anything is allowed
-*   If ASTERISK `*` by itself then must be last row in TSV file
-*   If ASTERISK `*` by itself then "Required" column must be FALSE
-*   If representing a PDF array, then "Key" name is really an integer array index.
-    - Zero-based increasing (always by 1) integers always starting at ZERO (0), with an optional ASTERISK appended after the digit (indicating repeat)
-    - Or just an ASTERISK `*` meaning that any number of array elements may exist
-*   If representing a PDF array with a repeating set of array elements (such as alternating pairs of elements) then use `digit+ASTERISK` where the last set of rows must all be `digit+ASTERISK` (indicating a repeating group of _N_ elements starting at array element _M_ (so array starts with a fixed set (non-repeating) array elements 0 to _M_-1, followed by the repeating set of element _M_ to (_M_ + _N_-1)) array elements).
-*   If representing a PDF array with `digit+ASTERISK`  then the "Required" column should be TRUE if all _N_ entries must always be repeated as a full set (e.g. in pairs or quads).
-*   **Python pretty-print/JSON**
-    *   String (as JSON dictionary key)
-*   **Linux CLI tests:**
     ```shell
     # List of all key names and array indices
     cut -f 1 * | sort -u
     ```
+
 * files that define objects with an arbitrary number of keys or array elements use the wildcard `*`. If the line number of the wildcard is line 2 then it is a map-like object. If the line number is after 2, then are additional fixed keys/elements.
+
     ```shell
     grep --line-number "^\*" * | sed -e 's/\:/\t/g' | tsv-pretty
     ```
+
 * files that define arrays with repeating sequences of _N_ elements use the `digit+ASTERISK` syntax. Digit is currently restricted to a SINGLE digit 0-9.
+
    ```shell
    grep "^[0-9]\*" * | tsv-pretty
    ```
 
+### Column 2 - "Type"
 
-## Column 2 - "Type"
-
-*   Must not be blank
-*   Alphabetically sorted, SEMI-COLON separated list from the following predefined set of Arlington types (always lowercase):
-    * `array`
-    * `bitmask`
-    * `boolean`
-    * `date`
-    * `dictionary`
-    * `integer`
-    * `matrix`
-    * `name`
-    * `name-tree`
-    * `null`
-    * `number`
-    * `number-tree`
-    * `rectangle`
-    * `stream`
-    * `string`
-    * `string-ascii`
-    * `string-byte`
-    * `string-text`
-*   Each type may also be wrapped in a version-based predicate (e.g. `fn:SinceVersion(version,type)`, 
+* Must not be blank
+* Alphabetically sorted, SEMI-COLON separated list from the following predefined set of Arlington types (always lowercase):
+  * `array`
+  * `bitmask`
+  * `boolean`
+  * `date`
+  * `dictionary`
+  * `integer`
+  * `matrix`
+  * `name`
+  * `name-tree`
+  * `null`
+  * `number`
+  * `number-tree`
+  * `rectangle`
+  * `stream`
+  * `string`
+  * `string-ascii`
+  * `string-byte`
+  * `string-text`
+* Each type may also be wrapped in a version-based predicate (e.g. `fn:SinceVersion(version,type)`,
     `fn:Deprecated(version,type)`, `fn:Extension(name,type)`, etc.).
-*   When a predicate is used, the internal simple type is still kept in its alphabetic sort order
+* When a predicate is used, the internal simple type is still kept in its alphabetic sort order
 * The following predefined Arlington types ALWAYS REQUIRE a link:
-    - `array`, `dictionary`, `stream`
-* The following predefined Arlington types MAY have a link (this is because name and number trees can 
+  * `array`, `dictionary`, `stream`
+* The following predefined Arlington types MAY have a link (this is because name and number trees can
 have nodes which are the primitive Arlington types below or a complex type above):
-    - `name-tree`, `number-tree`
-    - e.g. `Navigator\Strings` is a name-tree of string objects
+  * `name-tree`, `number-tree`
+  * e.g. `Navigator\Strings` is a name-tree of string objects
 * The following predefined Arlington types NEVER have a link (they are the primitive Arlington types):
-    - `bitmask`, `boolean`, `date`, `integer`, `matrix`, `name`, `null`, `number`, `rectangle`, `string`, `string-ascii`, `string-byte`, `string-text`
+  * `bitmask`, `boolean`, `date`, `integer`, `matrix`, `name`, `null`, `number`, `rectangle`, `string`, `string-ascii`, `string-byte`, `string-text`
 * Note that `null` is only an explicit type when mentioned in ISO 32000-2:2020.
-    - Dictionary handling is covered by subclause 7.3.7 "_A dictionary entry whose value is null (see 7.3.9, "Null object") shall be treated the same as if the 
-    entry does not exist._" so dictionaries will never have a `null` type unless ISO 32000-2 explicitly mentions it or there is a glitch in the matrix 
+  * Dictionary handling is covered by subclause 7.3.7 "_A dictionary entry whose value is null (see 7.3.9, "Null object") shall be treated the same as if the
+    entry does not exist._" so dictionaries will never have a `null` type unless ISO 32000-2 explicitly mentions it or there is a glitch in the matrix
     (e.g. Table 207 for **Mac** and **Unix** entries).
-    - Array objects and name-tree and number-trees are more complex as ISO 32000-2:2020 makes no statements about `null`. See also 
+  * Array objects and name-tree and number-trees are more complex as ISO 32000-2:2020 makes no statements about `null`. See also
     [Arlington Issue #90](https://github.com/pdf-association/arlington-pdf-model/issues/90) and [PDF 2.0 Errata #157](https://github.com/pdf-association/pdf-issues/issues/157).
-*   **Python pretty-print/JSON:**
-    *   Always a list
-    *   List elements are either:
-        *   Strings for the basic types listed above
-        *   Python lists for predicates - a simple search through the list for a match to the types above is
-            sufficient (if understanding the predicate is not required)
-    *   _Not to be confused with "/Type" keys which is why the `[` is included in this grep!_
-    *   `grep "'Type': \[" dom.json | sed -e 's/^ *//' | sort -u`
-*   **Linux CLI tests:**
+* **Python pretty-print/JSON:**
+  * Always a list
+  * List elements are either:
+    * Strings for the basic types listed above
+    * Python lists for predicates - a simple search through the list for a match to the types above is
+      sufficient (if understanding the predicate is not required)
+  * _Not to be confused with "/Type" keys which is why the `[` is included in this grep!_
+  * `grep "'Type': \[" dom.json | sed -e 's/^ *//' | sort -u`
+* **Linux CLI tests:**
+
     ```shell
     cut -f 2 * | sort -u
     cut -f 2 * | sed -e "s/;/\n/g" | sort -u
     ```
 
+### Column 3 - "SinceVersion"
 
-## Column 3 - "SinceVersion"
-
-*   Must not be blank
-*   Must resolve to one of `1.0`, `1.1`, ... `1.7` or `2.0`
-*   Can be a predicate such as `fn:Extension(...)` or `fn:Eval(...)`
-    - e.g. `fn:Extension(XYZ,2.0)` or `fn:Eval(fn:Extension(XYZ,1.3) || 1.6)`
-*   In the future the set of versions may be increased - e.g. `2.1`
+* Must not be blank
+* Must resolve to one of `1.0`, `1.1`, ... `1.7` or `2.0`
+* Can be a predicate such as `fn:Extension(...)` or `fn:Eval(...)`
+  * e.g. `fn:Extension(XYZ,2.0)` or `fn:Eval(fn:Extension(XYZ,1.3) || 1.6)`
+* In the future the set of versions may be increased - e.g. `2.1`
 * Version-based predicates in other fields should all be based on versions explicitly AFTER the version in this column
-*   **Python pretty-print/JSON**
-    *   Always a string (never blank!)
-    *   Value is one of the values listed above
-    *   `grep "'SinceVersion'" dom.json | sed -e 's/^ *//' | sort -u`
-*   **Linux CLI tests:**
+* **Python pretty-print/JSON**
+  * Always a string (never blank!)
+  * Value is one of the values listed above
+  * `grep "'SinceVersion'" dom.json | sed -e 's/^ *//' | sort -u`
+* **Linux CLI tests:**
+
     ```shell
     cut -f 3 * | sort -u
     ```
 
+### Column 4 - "DeprecatedIn"
 
-## Column 4 - "DeprecatedIn"
+* Can be blank
+* Must be one of `1.0`, `1.1`, ... `1.7` or `2.0`
+* Version-based predicates in other fields should all be based on versions explicitly BEFORE the version in this column
+* In the future:
+  * Set of versions may be increased - e.g. `2.1`
+* **Python pretty-print/JSON**
+  * A string or `None`
+  * Value is one of the values listed above
+  * `grep "'Deprecated': " dom.json | sed -e 's/^ *//' | sort -u`
+* **Linux CLI tests:**
 
-*   Can be blank
-*   Must be one of `1.0`, `1.1`, ... `1.7` or `2.0`
-*   Version-based predicates in other fields should all be based on versions explicitly BEFORE the version in this column
-*   In the future:
-    *   Set of versions may be increased - e.g. `2.1`
-*   **Python pretty-print/JSON**
-    *   A string or `None`
-    *   Value is one of the values listed above
-    *   `grep "'Deprecated': " dom.json | sed -e 's/^ *//' | sort -u`
-*   **Linux CLI tests:**
     ```shell
     cut -f 4 * | sort -u
     ```
 
-## Column 5 - "Required"
+### Column 5 - "Required"
 
-*   Must not be blank
-*   Either:
-    *   Single word: `FALSE` or `TRUE` (uppercase only)
-    *   The predicate `fn:IsRequired(...)` - no SQUARE BRACKETS!
-        *   This may then have further nested predicates (e.g. `fn:SinceVersion`, `fn:IsPresent`, `fn:Not`)
-*   If "Key" column contains ASTERISK (as a wildcard), then "Required" field must be FALSE
-    *   Cannot require an infinite number of keys! If need at least one element, then have explicit first rows
+* Must not be blank
+* Either:
+  * Single word: `FALSE` or `TRUE` (uppercase only)
+  * The predicate `fn:IsRequired(...)` - no SQUARE BRACKETS!
+    * This may then have further nested predicates (e.g. `fn:SinceVersion`, `fn:IsPresent`, `fn:Not`)
+* If "Key" column contains ASTERISK (as a wildcard), then "Required" field must be FALSE
+  * Cannot require an infinite number of keys! If need at least one element, then have explicit first rows
         with "Required"==`TRUE` followed by ASTERISK with "Required"==`FALSE`)
-*   **Python pretty-print/JSON:**
-    *   Always a list
-    *   List length is always 1
-    *   List element is either:
-        *   Boolean
-        *   Python list for predicates which must be `fn:IsRequired(`
-    *   `grep "'Required': " dom.json | sed -e 's/^ *//' | sort -u`
-*   **Linux CLI tests:**
+* **Python pretty-print/JSON:**
+  * Always a list
+  * List length is always 1
+  * List element is either:
+    * Boolean
+    * Python list for predicates which must be `fn:IsRequired(`
+  * `grep "'Required': " dom.json | sed -e 's/^ *//' | sort -u`
+* **Linux CLI tests:**
+
     ```shell
     cut -f 5 * | sort -u
     ```
 
+### Column 6 - IndirectReference
 
-## Column 6 - IndirectReference
-
-*   Must not be blank
-*   Streams must always have "IndirectReference" as `TRUE`
-*   For name- and number-trees, the value represents what the direct/indirect requirements of the values of tree (e.g. if it is a stream, it would be `TRUE`) 
-*   Either:
-    *   Single word: `FALSE` or `TRUE` (uppercase only, as it is not a PDF keyword!); or
-    *   Single predicate `fn:MustBeDirect()` or `fn:MustBeIndirect()` indicating that the corresponding key/array element must
+* Must not be blank
+* Streams must always have "IndirectReference" as `TRUE`
+* For name- and number-trees, the value represents what the direct/indirect requirements of the values of tree (e.g. if it is a stream, it would be `TRUE`)
+* Either:
+  * Single word: `FALSE` or `TRUE` (uppercase only, as it is not a PDF keyword!); or
+  * Single predicate `fn:MustBeDirect()` or `fn:MustBeIndirect()` indicating that the corresponding key/array element must
         be a direct object or not
-    *   `[];[];[]` style expression - SEMI-COLON separated, SQUARE-BRACKETS expressions that exactly match the
+  * `[];[];[]` style expression - SEMI-COLON separated, SQUARE-BRACKETS expressions that exactly match the
         number of items in the "Type" column. Only the values `TRUE` or `FALSE` can be used inside each `[...]`.
-    *   A more complex set of requirements using the predicate `fn:MustBeDirect(optional-key-path>)` or `fn:MustBeIndirect(...)`
-        **NOT** enclosed in SQUARE-BRACKETS
-*   **Python pretty-print/JSON:**
-    *   Always a list
-    *   List length always matches length of "Type" column
-    *   List elements are either:
-        *   Python Boolean (`True`/`False`)
-        *   Python list for predicates where the outer-most predicate must be `fn:IsRequired(`, with
-            an optional argument for a condition
-    *   `grep "'IndirectReference':" dom.json | sed -e 's/^ *//' | sort -u`
-*   **Linux CLI tests:**
+  * A more complex set of requirements using the predicate `fn:MustBeDirect(optional-key-path>)` or `fn:MustBeIndirect(...)`
+      **NOT** enclosed in SQUARE-BRACKETS
+* **Python pretty-print/JSON:**
+  * Always a list
+  * List length always matches length of "Type" column
+  * List elements are either:
+    * Python Boolean (`True`/`False`)
+    * Python list for predicates where the outer-most predicate must be `fn:IsRequired(`, with
+      an optional argument for a condition
+  * `grep "'IndirectReference':" dom.json | sed -e 's/^ *//' | sort -u`
+* **Linux CLI tests:**
+
     ```shell
     cut -f 6 * | sort -u
     ```
 
+### Column 7 - Inheritable
 
-## Column 7 - Inheritable
+* Must not be blank
+* Single word: `FALSE` or `TRUE` (uppercase only, as it is not a PDF keyword!)
+* **Python pretty-print/JSON:**
+  * Always a boolean
+  * `grep "'Inheritable'" dom.json | sed -e 's/^ *//' | sort -u`
+* **Linux CLI tests:**
 
-*   Must not be blank
-*   Single word: `FALSE` or `TRUE` (uppercase only, as it is not a PDF keyword!)
-*   **Python pretty-print/JSON:**
-    *   Always a boolean
-    *   `grep "'Inheritable'" dom.json | sed -e 's/^ *//' | sort -u`
-*   **Linux CLI tests:**
     ```shell
     cut -f 7 * | sort -u
     ```
 
+### Column 8 - DefaultValue
 
-## Column 8 - DefaultValue
+* Represents a default value for the PDF key/array element. As such it is always a _single value_ for each Type.
+  * see "PossibleValues" field below for when multiple values need to be specified.
+* Can be blank
+* SQUARE-BRACKETS are also used for PDF arrays, in which case they must use double SQUARE-BRACKETS if part of a complex type (not that lowercase `true`/`false` are the PDF keywords). If the array is the only valid type, then single SQUARE-BRACKETS are used.  PDF array elements are NOT separated with COMMAs.
+  * e.g. `[[false false]];[123]` vs `[false false]`
+  * thus a complex expression can first be split by SEMI-COLON, then each portion has the SQUARE-BRACKETS stripped off - any remaining SQUARE-BRACKETS indicate an array.
+* If there is a "DefaultValue" AND there are multiple types, then require a complex `[];[];[]` expression
+  * If the "DefaultValue" is a PDF array _as part of a complex type_, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
+* The only valid predicates are:
+  * `fn:ImplementationDependent()`, or
+  * `fn:DefaultValue(condition, value)` where _value_ must match the appropriate type (e.g. an integer for an integer key, a string for a string-\* key, etc), or
+  * `fn:Eval(expression)`
+  * Predicates only need [];[];[] expression if a multi-typed key
+* **Python pretty-print/JSON:**
+  * A list or `None`
+  * If list, then length always matches length of "Type"
+  * If list element is also a list then it is either:
+    * Predicate with 1st element being a FUNC_NAME token
+    * "Key" value (`@key`) with 1st element being a KEY_VALUE token
+    * A PDF array (1st token is anything else) - including an empty PDF array
+  * `grep -o "'DefaultValue': .*" dom.json | sed -e 's/^ *//' | sort -u`
+* **Linux CLI tests:**
 
-*   Represents a default value for the PDF key/array element. As such it is always a _single value_ for each Type.
-    * see "PossibleValues" field below for when multiple values need to be specified.
-*   Can be blank
-*   SQUARE-BRACKETS are also used for PDF arrays, in which case they must use double SQUARE-BRACKETS if part of a complex type (not that lowercase `true`/`false` are the PDF keywords). If the array is the only valid type, then single SQUARE-BRACKETS are used.  PDF array elements are NOT separated with COMMAs.
-    *  e.g. `[[false false]];[123]` vs `[false false]`
-    * thus a complex expression can first be split by SEMI-COLON, then each portion has the SQUARE-BRACKETS stripped off - any remaining SQUARE-BRACKETS indicate an array.
-*   If there is a "DefaultValue" AND there are multiple types, then require a complex `[];[];[]` expression
-    *  If the "DefaultValue" is a PDF array _as part of a complex type_, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
-*   The only valid predicates are:
-    *  `fn:ImplementationDependent()`, or
-    *  `fn:DefaultValue(condition, value)` where _value_ must match the appropriate type (e.g. an integer for an integer key, a string for a string-\* key, etc), or
-    *  `fn:Eval(expression)`
-    *  Predicates only need [];[];[] expression if a multi-typed key
-*   **Python pretty-print/JSON:**
-    *   A list or `None`
-    *   If list, then length always matches length of "Type"
-    *   If list element is also a list then it is either:
-        *   Predicate with 1st element being a FUNC_NAME token
-        *   "Key" value (`@key`) with 1st element being a KEY_VALUE token
-        *   A PDF array (1st token is anything else) - including an empty PDF array
-    *   `grep -o "'DefaultValue': .*" dom.json | sed -e 's/^ *//' | sort -u`
-*   **Linux CLI tests:**
     ```shell
     cut -f 8 * | sort -u
     cut -f 2,8 * | sort -u | grep -P "\t[[:graph:]]+.*" | tsv-pretty
     cut -f 1,2,8 * | sort -u | grep -P "\t[[:graph:]]*\t[[:graph:]]+.*$" | tsv-pretty
     ```
 
+### Column 9 - "PossibleValues"
 
-## Column 9 - "PossibleValues"
-
-*   Can be blank
-*   SQUARE-BRACKETS are only required for complex types. A single type does not use them.
-    - e.g. `12.34` is a valid default for a key which can only be a `number`
-*   SEMI-COLON separated, SQUARE-BRACKETS expressions that exactly match the number of items in "Type" column
-*   SQUARE-BRACKETS are also used for PDF arrays, in which case they must use double SQUARE-BRACKETS if part of a complex type. If the array is the only valid type, then single SQUARE-BRACKETS are used. PDF array elements are NOT separated with COMMAs - they are only used _between_ arrays.
-    *  e.g. `[[0 1],[1 0]];[Value1,Value2,Value3]` is a choice of 2 arrays `[0 1]` and `[1 0]` if the type is an array or a choice of `Value1` or `Value2` or `Value3` if the type was something else (e.g. name)
-    * thus a complex expression can first be split by SEMI-COLON, then each portion has the SQUARE-BRACKETS stripped off, then multiple options can be split by COMMA as any remaining SQUARE-BRACKETS indicate an array.
-*   If there is a "PossibleValues" AND there are multiple types, then require a complex `[];[];[]` expression
-    *  If the "PossibleValues" is a PDF array _as part of a complex type_, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
-*   For keys or arrays that are PDF names, a wildcard `*` indicates that any arbitrary name is _explicitly_ permitted according to the PDF specification along with formally defined values (e.g. OptContentCreatorInfo, Subtype key: `[Artwork,Technical,*]`).
-    *  Do not use `*` as the _only_ value - since an empty cell has the same meaning as "anything is OK" although there is some subtle nuances regarding whether custom keys have to be 2nd class names or can be really anything. See [Errata #229](https://github.com/pdf-association/pdf-issues/issues/229)
-    *  The wildcard must be the LAST entry in the list of names and, because it cannot be alone, it will always be preceded by a COMMA. This may occur in complex forms too such as `[...];[...,*];[...]`. 
-    * The TestGrammar PoC will not report an error about unexpected values in this case unless the `--explicit-values-only` CLI option.
-    * To locate all such uses in the Arlington model, search for `,*]`: `grep ",\*]" *.tsv`  
+* Can be blank
+* SQUARE-BRACKETS are only required for complex types. A single type does not use them.
+  * e.g. `12.34` is a valid default for a key which can only be a `number`
+* SEMI-COLON separated, SQUARE-BRACKETS expressions that exactly match the number of items in "Type" column
+* SQUARE-BRACKETS are also used for PDF arrays, in which case they must use double SQUARE-BRACKETS if part of a complex type. If the array is the only valid type, then single SQUARE-BRACKETS are used. PDF array elements are NOT separated with COMMAs - they are only used _between_ arrays.
+  * e.g. `[[0 1],[1 0]];[Value1,Value2,Value3]` is a choice of 2 arrays `[0 1]` and `[1 0]` if the type is an array or a choice of `Value1` or `Value2` or `Value3` if the type was something else (e.g. name)
+  * thus a complex expression can first be split by SEMI-COLON, then each portion has the SQUARE-BRACKETS stripped off, then multiple options can be split by COMMA as any remaining SQUARE-BRACKETS indicate an array.
+* If there is a "PossibleValues" AND there are multiple types, then require a complex `[];[];[]` expression
+  * If the "PossibleValues" is a PDF array _as part of a complex type_, then this will result in nested SQUARE-BRACKETS as in `[];[[0 0 1]];[]`
+* For keys or arrays that are PDF names, a wildcard `*` indicates that any arbitrary name is _explicitly_ permitted according to the PDF specification along with formally defined values (e.g. OptContentCreatorInfo, Subtype key: `[Artwork,Technical,*]`).
+  * Do not use `*` as the _only_ value - since an empty cell has the same meaning as "anything is OK" although there is some subtle nuances regarding whether custom keys have to be 2nd class names or can be really anything. See [Errata #229](https://github.com/pdf-association/pdf-issues/issues/229)
+  * The wildcard must be the LAST entry in the list of names and, because it cannot be alone, it will always be preceded by a COMMA. This may occur in complex forms too such as `[...];[...,*];[...]`.
+  * The TestGrammar PoC will not report an error about unexpected values in this case unless the `--explicit-values-only` CLI option.
+  * To locate all such uses in the Arlington model, search for `,*]`: `grep ",\*]" *.tsv`
 * `fn:Eval` predicate wrapper is only needed for predicates which need to perform calculations. `fn:Eval` is _not_ required around the version-based predicates (which includes `fn:Extension`) or expressions using `fn:RequiredValue`
-*   **Python pretty-print/JSON:**
-    *   A list or `None`
-    *   If list, then length always matches length of "Type"
-        *   Elements can be anything, including `None`
+* **Python pretty-print/JSON:**
+  * A list or `None`
+  * If list, then length always matches length of "Type"
+    * Elements can be anything, including `None`
+
     ```shell
     grep -o "'PossibleValues': .*" dom.json | sed -e 's/^ *//' | sort -u
     ```
-*   **Linux CLI tests:**    
+
+* **Linux CLI tests:**
+
     ```shell
     cut -f 9 * | sort -u
     ```
 
+### Column 10 - "SpecialCase"
 
-## Column 10 - "SpecialCase"
+* Can be blank
+* SEMI-COLON separated, SQUARE-BRACKETED complex expressions that exactly match the number of items in "Type" column
+* Each expression inside a SQUARE-BRACKET is a predicate that reduces to TRUE/FALSE or is indeterminable.
+  * TRUE means that it is a valid, FALSE means it would be invalid.
+* A SpecialCase predicate is not meant to reflect all rules from the PDF specification (_things are declarative, not programmatic!_)
+  * It should not test for required/optional-ness, whether an object is indirect or not, etc. as those rules should live in the other fields
+* **Python pretty-print/JSON:**
+  * A list or `None`
+  * If list, then length always matches length of "Type"
+    * Elements can be anything, including `None`
 
-*   Can be blank
-*   SEMI-COLON separated, SQUARE-BRACKETED complex expressions that exactly match the number of items in "Type" column
-*   Each expression inside a SQUARE-BRACKET is a predicate that reduces to TRUE/FALSE or is indeterminable.
-    * TRUE means that it is a valid, FALSE means it would be invalid.
-*   A SpecialCase predicate is not meant to reflect all rules from the PDF specification (_things are declarative, not programmatic!_)
-    * It should not test for required/optional-ness, whether an object is indirect or not, etc. as those rules should live in the other fields
-*   **Python pretty-print/JSON:**
-    *   A list or `None`
-    *   If list, then length always matches length of "Type"
-        *   Elements can be anything, including `None`
     ```shell
     grep -o "'SpecialCase': .*" dom.json | sed -e 's/^ *//' | sort -u
     ```
 
+### Column 11 - "Link"
 
-## Column 11 - "Link"
+* Can be blank (but only when "Type" is a single basic type)
+* If non-blank, always uses SQUARE-BRACKETS
+* SEMI-COLON separated, SQUARE-BRACKETED complex expressions that exactly match the number of items in "Type" column
+* Valid "Links" must exist for these selected object types only:
+  * `array`
+  * `dictionary`
+  * `stream`
+  * `name-tree` - the value represents the node in the tree, not how trees are specified
+  * `number-tree` - the value represents the node in the tree, not how trees are specified
+* "Links" must NOT exist for selected fundamental "Types" (i.e. must be empty `[]` in the SEMI-COLON separated list):
+  * `array`
+  * `bitmask`
+  * `boolean`
+  * `date`
+  * `integer`
+  * `matrix`
+  * `name`
+  * `null`
+  * `number`
+  * `rectangle`
+  * `string`
+  * `string-ascii`
+  * `string-byte`
+  * `string-text`
+* Each sub-expression inside a SQUARE-BRACKET is a COMMA separate list of case-sensitive filenames of other TSV files (without `.tsv` extension)
+* These sub-expressions MUST BE one of these version-based predicates:
+  * `fn:SinceVersion(pdf-version,link)`
+  * `fn:SinceVersion(pdf-version,fn:Extension(name,link))`
+  * `fn:IsPDFVersion(pdf-version,fn:Extension(name,link))`
+  * `fn:Deprecated(pdf-version,link)`
+  * `fn:BeforeVersion(pdf-version,link)`
+  * `fn:IsPDFVersion(version,link)`
+* **Python pretty-print/JSON:**
+  * A list or `None`
+  * If list, then length always matches length of "Type"
+    * List elements can be `None`
+    * Validity of list elements aligns with indexed "Type" data
+* **Linux CLI test:**
 
-*   Can be blank (but only when "Type" is a single basic type)
-*   If non-blank, always uses SQUARE-BRACKETS
-*   SEMI-COLON separated, SQUARE-BRACKETED complex expressions that exactly match the number of items in "Type" column
-*   Valid "Links" must exist for these selected object types only:
-    * `array`
-    * `dictionary`
-    * `stream`
-    * `name-tree` - the value represents the node in the tree, not how trees are specified
-    * `number-tree` - the value represents the node in the tree, not how trees are specified
-*   "Links" must NOT exist for selected fundamental "Types" (i.e. must be empty `[]` in the SEMI-COLON separated list):
-    * `array`
-    * `bitmask`
-    * `boolean`
-    * `date`
-    * `integer`
-    * `matrix`
-    * `name`
-    * `null`
-    * `number`
-    * `rectangle`
-    * `string`
-    * `string-ascii`
-    * `string-byte`
-    * `string-text`
-*   Each sub-expression inside a SQUARE-BRACKET is a COMMA separate list of case-sensitive filenames of other TSV files (without `.tsv` extension)
-*   These sub-expressions MUST BE one of these version-based predicates:
-    *   `fn:SinceVersion(pdf-version,link)`
-    *   `fn:SinceVersion(pdf-version,fn:Extension(name,link))`
-    *   `fn:IsPDFVersion(pdf-version,fn:Extension(name,link))`
-    *   `fn:Deprecated(pdf-version,link)`
-    *   `fn:BeforeVersion(pdf-version,link)`
-    *   `fn:IsPDFVersion(version,link)`
-*   **Python pretty-print/JSON:**
-    *   A list or `None`
-    *   If list, then length always matches length of "Type"
-        *   List elements can be `None`
-        *   Validity of list elements aligns with indexed "Type" data
-*   **Linux CLI test:**
     ```shell
     # A list of all predicates used in the Link field (column 11)
     cut -f 11 * | sort -u | grep -o "fn:[a-zA-Z0-4]*" | sort -u
@@ -370,17 +378,19 @@ have nodes which are the primitive Arlington types below or a complex type above
 
 ## Column 12- "Notes"
 
-*   Can be blank
-*   Free text - no validation possible
-*   Often contains a reference to Table(s) (search for case-sensitive "Table ") or clause number(s) (search for case-sensitive "Clause ") from ISO 32000-2:2020 (PDF 2.0) or a PDF Association Errata issue link (as GitHub URL) where the Arlington machine-readable definition is defined.
-    * For dictionaries, this is normally on the first key on the `Type` or `Subtype` row depending on what is the primary differentiating definition
-    * Note that this is **not** where an object is referenced from, but where its key and values are **defined**. Sometimes this is within body text prose of ISO 32000-2:2020 (so outside a Table and a Clause reference is used) or as prose within the "Description" cell of some other key in another Table. _Where_ an object is referenced is encoded by the Arlington PDF Model "Link" field - just grep for the case-sensitive TSV file (no extension)!
-*   The spreadsheet [Arlington-vs-ISO32K-Tables.xlsx](Arlington-vs-ISO32K-Tables.xlsx) provides a cross reference from all mentions of "Table" within the Arlington PDF Model against the an index of every Table in ISO 32000-2:2020 as published by ISO. Tables that are not mentioned anywhere in Arlington TSV files _may_ indicate poor coverage in the Arlington PDF Model - or that the table is inappropriate for incorporating into the Arlington PDF Model.
-    * Current known limitations include no support for FDF; less-than-perfect definition for Linearization objects; and no definition of content streams.
-    * Note also that Arlington does additionally reference other ISO and Adobe publications, sometimes also with specific clause and Table references (such as for Adobe Extension Level 3).
-*   **Python pretty-print/JSON:**
-    *   A string or `None`
-*   **Linux CLI voodoo:**
+* Can be blank
+* Free text - no validation possible
+* Don't use double quotes (`"`) as it can cause display issues in GitHub - use underscores (`_`) instead, a-la MD italics
+* Often contains a reference to Table(s) (search for case-sensitive "Table ") or clause number(s) (search for case-sensitive "Clause ") from ISO 32000-2:2020 (PDF 2.0) or a PDF Association Errata issue link (as GitHub URL) where the Arlington machine-readable definition is defined.
+  * For dictionaries, this is normally on the first key on the `Type` or `Subtype` row depending on what is the primary differentiating definition
+  * Note that this is **not** where an object is referenced from, but where its key and values are **defined**. Sometimes this is within body text prose of ISO 32000-2:2020 (so outside a Table and a Clause reference is used) or as prose within the "Description" cell of some other key in another Table. _Where_ an object is referenced is encoded by the Arlington PDF Model "Link" field - just grep for the case-sensitive TSV file (no extension)!
+* The spreadsheet [Arlington-vs-ISO32K-Tables.xlsx](Arlington-vs-ISO32K-Tables.xlsx) provides a cross reference from all mentions of "Table" within the Arlington PDF Model against the an index of every Table in ISO 32000-2:2020 as published by ISO. Tables that are not mentioned anywhere in Arlington TSV files _may_ indicate poor coverage in the Arlington PDF Model - or that the table is inappropriate for incorporating into the Arlington PDF Model.
+  * Current known limitations include no support for FDF; less-than-perfect definition for Linearization objects; and no definition of content streams.
+  * Note also that Arlington does additionally reference other ISO and Adobe publications, sometimes also with specific clause and Table references (such as for Adobe Extension Level 3).
+* **Python pretty-print/JSON:**
+  * A string or `None`
+* **Linux CLI voodoo:**
+
     ```shell
     # Find all TSV files in a data set that do not have either a Table number or Clause reference
     grep -PL "(Table )|(Clause )" *
@@ -392,8 +402,7 @@ have nodes which are the primitive Arlington types below or a complex type above
     grep -Pho "ISO[^_]*$" * | sort -u
     ```
 
-
-# Validation of predicates (declarative functions)
+## Validation of predicates (declarative functions)
 
 First and foremost, the predicate system is not based on **functional programming**!
 
@@ -401,33 +410,32 @@ The best way to understand an expression with a predicate is to read it out alou
 Its verbalization should relatively closely match wording found in the PDF specification.
 Predicate simplification is **avoided** so that wording (when read aloud) is kept as close as possible to wording in the PDF specification.
 
-
 * the internal Arlington grammar is loosely typed (so things need to match or be interpreted as matching the "Type" field (column 2)).
-    * integers may be used in place of numbers (_but not vice-versa!_)
+  * integers may be used in place of numbers (_but not vice-versa!_)
 * `_parent::_` (all lowercase) is a special Arlington grammar keyword that forms the basis of a conceptual "relative" path in the PDF DOM. There can be multiple `parent::`s.
 * `_trailer::_` (all lowercase) is a special Arlington grammar keyword that forms the basis of a conceptual "absolute" path in the PDF DOM. Arlington always starts with the trailer, so that trailer keys and values can also be used in predicates.
-    * `trailer::Catalog` is a special Arlington alias for `trailer::Root`, as the **Root** key in the trailer is the reference to the Document Catalog, however normal PDF terminology refers to the "Document Catalog" and so that commonly understood term is preferred over the ambiguous word "root" (as that could ambiguously mean either the trailer as the root or the Document Catalog as the root) - and reading aloud "Catalog" sounds more natural. 
-       - Either `trailer::Catalog` or `trailer::Root` can be used, but the preference is `trailer::Catalog` because it verbalises better
+  * `trailer::Catalog` is a special Arlington alias for `trailer::Root`, as the **Root** key in the trailer is the reference to the Document Catalog, however normal PDF terminology refers to the "Document Catalog" and so that commonly understood term is preferred over the ambiguous word "root" (as that could ambiguously mean either the trailer as the root or the Document Catalog as the root) - and reading aloud "Catalog" sounds more natural.
+    * Either `trailer::Catalog` or `trailer::Root` can be used, but the preference is `trailer::Catalog` because it verbalises better
 * `null` (all lowercase) is the PDF **null** object (_Note: it is also valid predefined Arlington type_).
-    * `null` gets used in "DefaultValue" or "PossibleValue" fields only when it is explicitly mentioned in the PDF specification.
+  * `null` gets used in "DefaultValue" or "PossibleValue" fields only when it is explicitly mentioned in the PDF specification.
 * `Key` means `key is present` (`Key` is case-sensitive match and may include an Arlington path)
 * `@Key` means `the value of key` (`Key` is case-sensitive match and may include an Arlington path).
-    * this also applies after a `path` - e.g. `keyA::keyB::@keyC` is valid and is the value of `keyC` when the path `KeyA::keyB` is traversed
-*   Arlington paths are separated by `::` (double COLONs)
-    * e.g. `parent::@Key`. `KeyA::KeyB`, `trailer::Catalog::Size`, `Object::&lt;0-based integer&gt;`
-    * the `@` operator only applies to the right-most portion
-    * The `@` sign is always required for math and comparison operations, since those operate on values.
-       - if an array or stream length is needed then use the specific predicate
-    * The predefined Arlington types used with `@` are the primitive types such as boolean, integer, number, string-*, name, etc.
-    * It is also possible to use the key name of an array for certain predicates such as `fn:Contains(...)`
-    * For complex types, if the "DefaultValue" for KeyA is `@KeyB` then it means that the "default value for Key A is the value of Key B" and so long as Keys A and B both have the same type then this is logical.
+  * this also applies after a `path` - e.g. `keyA::keyB::@keyC` is valid and is the value of `keyC` when the path `KeyA::keyB` is traversed
+* Arlington paths are separated by `::` (double COLONs)
+  * e.g. `parent::@Key`. `KeyA::KeyB`, `trailer::Catalog::Size`, `Object::&lt;0-based integer&gt;`
+  * the `@` operator only applies to the right-most portion
+  * The `@` sign is always required for math and comparison operations, since those operate on values.
+    * if an array or stream length is needed then use the specific predicate
+  * The predefined Arlington types used with `@` are the primitive types such as boolean, integer, number, string-*, name, etc.
+  * It is also possible to use the key name of an array for certain predicates such as `fn:Contains(...)`
+  * For complex types, if the "DefaultValue" for KeyA is `@KeyB` then it means that the "default value for Key A is the value of Key B" and so long as Keys A and B both have the same type then this is logical.
 * `true` and `false` (all lowercase) are the PDF keywords (required for explicit comparison with `@key`) - uppercase `TRUE` and `FALSE` **never** get used in predicates as they represent Arlington model values such as for "Required", "IndirectReference" or "Inheritable" fields.
 * All predicates start with `fn:` (case-sensitive, single COLON) followed by an uppercase character (`A`-'Z')
 * All predicate names are CamelCase case-sensitive with BRACKETS `(` and `)` and do NOT use DASH or UNDERSCOREs (i.e. must match a simple alphanumeric regex)
 * Predicates can have 0, 1 or 2 arguments that are always COMMA separated
-    * Predicates need to end with `()` for zero arguments
-    * Arguments always within `(...)`
-    * Predicates can nest (as arguments of other Predicates)
+  * Predicates need to end with `()` for zero arguments
+  * Arguments always within `(...)`
+  * Predicates can nest (as arguments of other Predicates)
 * Support two C/C++ style boolean operators: `&&` (logical and), `||` (logical or). There is also a special `fn:Not(...)` predicate.
 * Support six C/C++ style comparison operators: &lt;. &lt;=, &gt;, &gt;=, ==, !=
 * NO bit-wise operators - _use predicates instead_
@@ -437,7 +445,7 @@ Predicate simplification is **avoided** so that wording (when read aloud) is kep
 * NO local variables - _its purely declarative!_
 * Using comparison operators requires that the full expression is wrapped in `fn:Eval(...)`
 
-# Linux CLI voodoo
+## Linux CLI voodoo
 
 ```bash
 # List all predicates by names:
@@ -456,8 +464,7 @@ grep --color=always -Pho "\((?>[^()]|(?R))*\)" * | sort -u
 grep --color=always -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" * | sort -u
 ```
 
-
-# EBay TSV Utilities
+## EBay TSV Utilities
 
 Any Linux command that outputs a row from an Arlington TSV data file can be piped through `tsv-pretty` to improve readability.
 
@@ -481,7 +488,7 @@ tsv-filter -H --regex Type:.\*string-byte\* --ge SinceVersion:1.5 *.tsv
 grep ^ExData Annot* | tsv-pretty
 ```
 
-# Parameters to predicates
+## Parameters to predicates
 
 The term "reduction" is used to describe how predicates and their parameters get recursively processed from left-to-right.
 At any point a predicate or argument can be indeterminable, such as when a PDF does not have a key, or if the key is the wrong type, etc.
@@ -496,7 +503,7 @@ Note also that if both `/A` and `/B` are optional and both had a "DefaultValue" 
 then this predicate would always be determinable. Further note that if a key is present but `null` then it is
 the same as not present!
 
-
+<!-- markdownlint-disable MD033 -->
 <table style="border: 0.25px solid; border-collapse: collapse;">
   <tr>
    <td><code><i>bit-posn</i></code>
@@ -520,13 +527,11 @@ the same as not present!
   </tr>
 </table>
 
-
-# Predicates (declarative functions)
+## Predicates (declarative functions)
 
 **Do not use additional whitespace!**
 
 Single SPACE characters are only required around logical operators ("&nbsp;`&&`&nbsp;" and "&nbsp;`||`&nbsp;"), MINUS ("&nbsp;`-`&nbsp;", to disambiguate from a negative number) and the "&nbsp;`mod`&nbsp;" mathematical operator.
-
 
 <table style="border: 0.25px solid; border-collapse: collapse;">
   <tr>
@@ -548,7 +553,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
      <li>Read aloud as: "... the length of array &lt;<i>key</i>&gt; shall ..."</li>
     </ul>
    </td>
-  </tr>  
+  </tr>
   <tr>
    <td><code>fn:ArraySortAscending(<i>key</i>,<i>integer</i>)</code></td>
    <td>
@@ -570,7 +575,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
     <ul>
      <li><i>version</i> must be 1.1, ..., 2.0 (1.0 makes no sense!).</li>
      <li>Asserts that the optional <i>statement</i> only applies before (i.e. strictly less than) PDF <i>version</i>.</li>
-     <li><i>version</i> must also make sense in light of the "SinceVersion" and "DeprecatedIn" fields for the current row (i.e. is between them).</li>      
+     <li><i>version</i> must also make sense in light of the "SinceVersion" and "DeprecatedIn" fields for the current row (i.e. is between them).</li>
      <li>Read aloud as: "... prior to PDF version &lt;<i>version</i>&gt;, &lt;<i>statement</i>&gt; ..."</li>
     </ul>
    </td>
@@ -633,7 +638,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
      <li>Read aloud as: "... the value of &lt;<i>key</i>&gt; shall be &lt;<i>value</i>&gt;, or if &lt;<i>key</i>&gt; is an array it shall contain an array element equal to &lt;<i>value</i>&gt;, ..."</li>
     </ul>
    </td>
-  </tr>  
+  </tr>
   <tr>
    <td><code>fn:DefaultValue(<i>condition</i>,<i>value</i>)</code></td>
    <td>
@@ -644,7 +649,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
      <li>Read aloud as: "The default value of <i>current-key</i> shall be &lt;<i>value</i>&gt; when &lt;<i>condition</i>&gt;."</li>
     </ul>
    </td>
-  </tr>  
+  </tr>
   <tr>
    <td><code>fn:Deprecated(<i>version</i>,<i>statement</i>)</code></td>
    <td>
@@ -799,7 +804,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    <td>
     <ul>
      <li>Asserts that the current PDF file needs to be a PDF 2.0 Encrypted Wrapper.</li>
-     <li>There are no parameters.</li>    
+     <li>There are no parameters.</li>
     </ul>
    </td>
   </tr>
@@ -808,7 +813,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    <td>
     <ul>
      <li>Asserts that the value is a PDF string object and that is a valid partial Field Name according to clause 12.7.4.2 of ISO 32000-2:2020.</li>
-     <li>There is one key-value (<code>@key</code>) parameter.</li>    
+     <li>There is one key-value (<code>@key</code>) parameter.</li>
     </ul>
    </td>
   </tr>
@@ -817,7 +822,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    <td>
     <ul>
      <li>Asserts that the current object is a PDF string object and that was in the PDF as a hex string (`<...>`).</li>
-     <li>There are no parameters.</li>    
+     <li>There are no parameters.</li>
      <li>Read aloud as: "<i>current-key</i> shall be a hexadecimal string."</li>
     </ul>
    </td>
@@ -848,7 +853,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
     <ul>
      <li>Asserts that the PDF file is a Tagged PDF.</li>
      <li>This means <code>trailer::Root::MarkInfo::Marked</code> exists and is true.</li>
-     <li>There are no parameters.</li>    
+     <li>There are no parameters.</li>
     </ul>
    </td>
   </tr>
@@ -897,7 +902,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    <td>
     <ul>
      <li>Asserts that the current (arbitrary) key or array element is also a colorant name.</li>
-     <li>There are no parameters.</li>   
+     <li>There are no parameters.</li>  
     </ul>
    </td>
   </tr>
@@ -932,7 +937,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
    <td>
     <ul>
      <li>Asserts that the PDF file shall not contain any cycles (loops) when using the current key or array index to key into the linked list of objects.</li>
-     <li>There are no parameters.</li>       
+     <li>There are no parameters.</li>
     </ul>
    </td>
   </tr>
@@ -971,7 +976,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
     <ul>
      <li>Asserts that the current PDF page contains the structure content item represented by the integer value of the current row.</li>
      <li>Only used in the "Required" field, as in <code>fn:IsRequired(fn:PageContainsStructContentItems())</code>.</li>
-     <li>There are no parameters.</li>   
+     <li>There are no parameters.</li>  
     </ul>
    </td>
   </tr>
@@ -1050,7 +1055,7 @@ Single SPACE characters are only required around logical operators ("&nbsp;`&&`&
   </tr>
 </table>
 
-# Proposals for future predicates
+## Proposals for future predicates
 
 Please review and add any feedback or comments to the appropriate issue!
 
@@ -1066,7 +1071,7 @@ Please review and add any feedback or comments to the appropriate issue!
      <li>this is a <i>logically weaker</i> predicate than <code>fn:RequiredValue(...)</code> as there may be other allowable PossibleValues (either conditionally or not)</li>
      <li>Example for <b>Di</b> key in Transition dictionary:<br/>
      <code>[0,fn:ValueOnlyWhen(90,(@S==Wipe)),fn:ValueOnlyWhen(180,(@S==Wipe)),270,fn:ValueOnlyWhen(315,(@S==Glitter)))];[fn:RequiredValue(((@S==Fly) && (@SS!=1.0)),None)]</code>
-     </li>    
+     </li>
     </ul>
    </td>
   </tr>
@@ -1103,7 +1108,7 @@ Please review and add any feedback or comments to the appropriate issue!
       <li>The value of leaf nodes in a name-tree can be any type of PDF object, including strings. Thus the type of <i>key</i> in <code>fn:IsNameTreeValue(...)</code> can be anything.</li>
       <li>The indexing of nodes in a number-tree are always by an integer. Thus the type of <i>key</i> in <code>fn:IsNumberTreeIndex(...)</code> must be an integer.</li>
       <li>The value of leaf nodes in a number-tree can be any type of PDF object, including integers. Thus the type of <i>key</i> in <code>fn:IsNumberTreeValue(...)</code> can be anything.</li>
-      <li><i>tree-reference</i> is a name- or number-tree as appropriate for the predicate. It will commonly be a reference to <code>trailer::Catalog::Names::<i>key</i></code>.</li> 
+      <li><i>tree-reference</i> is a name- or number-tree as appropriate for the predicate. It will commonly be a reference to <code>trailer::Catalog::Names::<i>key</i></code>.</li>
     </ul>
    </td>
   </tr>
@@ -1115,7 +1120,7 @@ Please review and add any feedback or comments to the appropriate issue!
       <ul>
         <li>See <a href="https://github.com/pdf-association/pdf-issues/issues/396">PDF Errata #396</a>.</li>
         <li>Only used in "SpecialCase" field</lI>
-        <li>Need to assert that <b>NS</b> objects in structure elements are always in <code>trailer::Catalog::StructTreeRoot::Namespaces</code> array: so add to <code>StructElem.tsv</code> <b>NS</b> row, "SpecialCase" field: 
+        <li>Need to assert that <b>NS</b> objects in structure elements are always in <code>trailer::Catalog::StructTreeRoot::Namespaces</code> array: so add to <code>StructElem.tsv</code> <b>NS</b> row, "SpecialCase" field:
         <code>[fn:Eval(fn:IsInArray(@NS,trailer::Catalog::StructTreeRoot::Namespaces))]</code></li>
       </ul>
     </td>
@@ -1152,10 +1157,10 @@ Please review and add any feedback or comments to the appropriate issue!
   </tr>
 </table>
 
-# Negative predicate grammar validation checks
+## Negative predicate grammar validation checks
 
-The following are predicate grammar validation checks that should FAIL(!!) for each set of Arlington TSV files that represent a PDF version. 
-Some of these negative test cases can be done on a row-by-row basis, while others refer to a single TSV file, and a few may require checking other TSV files (such as when using `path::key`). 
+The following are predicate grammar validation checks that should FAIL(!!) for each set of Arlington TSV files that represent a PDF version.
+Some of these negative test cases can be done on a row-by-row basis, while others refer to a single TSV file, and a few may require checking other TSV files (such as when using `path::key`).
 Implicit (semantic) knowledge of valid predicates and their arguments is also required:
 
 * TSV with less than 2 rows (i.e. minimum TSV is header row + at least one key)
@@ -1170,14 +1175,14 @@ Implicit (semantic) knowledge of valid predicates and their arguments is also re
 * number of `;` in Type field does not match number of `;` in non-blank DefaultValue, PossibleValues, SpecialCase or Link fields
 * unmatched/unbalanced `(` / `)` or `[` / `]` and `'`
 * key = ASTERISK is not last row in TSV
-* if 2nd row in a TSV is an integer or integer + ASTERISK and key integer of 2nd row is not 0 (i.e. all array indices start at 0) 
+* if 2nd row in a TSV is an integer or integer + ASTERISK and key integer of 2nd row is not 0 (i.e. all array indices start at 0)
 * reference to a `key`, `@key`, `path::key` or `path::@key` that is not valid in a PDF version
 * mixture of keys that are alphanumeric with integers (0-9) or integers (0-9) followed by ASTERISK
 * the list of types in a complex Type field are not alphabetically sorted or separated by SEMI-COLON
-* Link field has entries for simple types (incl. for complex types) 
-* Link field has entries for linked types (incl. for complex types) but Link field is empty or just `[]` 
+* Link field has entries for simple types (incl. for complex types)
+* Link field has entries for linked types (incl. for complex types) but Link field is empty or just `[]`
 * Link field not enclosed in `[` / `]`
-* an unscoped key reference (`key` or `@key`) does not precisely match any key in current TSV 
+* an unscoped key reference (`key` or `@key`) does not precisely match any key in current TSV
 * a scoped key reference to `trailer::` does not match any key in FileTrailer.tsv (all PDF versions) or XRefStream.tsv (for appropriate PDF versions)
 * a scoped key reference to `trailer::Catalog` does not  match any key in Catalog.tsv
 * type of data in DefaultValue and PossibleValues fields does not match appropriate Type field
@@ -1187,16 +1192,15 @@ Implicit (semantic) knowledge of valid predicates and their arguments is also re
 * mathematical operation on non-numeric data or predicate
 * logical operation on non-boolean data or predicate
 * reference to a key or key value that has a SinceVersion field that is later than the current key SinceVersion and is not protected with a version-based predicate
-* a predicate with a condition argument that is always constant 
+* a predicate with a condition argument that is always constant
 
+## Checks still needing to be completed in ISO 32000-2:2020
 
-# Checks still needing to be completed in ISO 32000-2:2020
+* Check array length requirements of all `array` search hits - _done up to Table 95_
 
-- Check array length requirements of all `array` search hits - *done up to Table 95*
-
-- Check ranges of all `integer` search hits - *done up to Table 170*.
+* Check ranges of all `integer` search hits - _done up to Table 170_.
 See also: [Errata #15](https://github.com/pdf-association/pdf-issues/issues/15)
 
-- Check explicit ranges of all `number` search hits - *not started yet*
+* Check explicit ranges of all `number` search hits - _not started yet_
 
-- Check all arrays for handling of `null` elements - *not started yet*. See [PDF 2.0 Errata #157](https://github.com/pdf-association/pdf-issues/issues/157)
+* Check all arrays for handling of `null` elements - _not started yet_. See [PDF 2.0 Errata #157](https://github.com/pdf-association/pdf-issues/issues/157)

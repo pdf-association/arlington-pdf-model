@@ -1,0 +1,33 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Arlington PDF Model
+message: 'If you use this software, please cite it as below.'
+type: software
+authors:
+  - orcid: 'https://orcid.org/0009-0007-1282-9675'
+    affiliation: PDF Association Inc.
+    email: peter.wyatt@pdfa.org
+    given-names: Peter
+    family-names: Wyatt
+repository-code: 'https://github.com/pdf-association/arlington-pdf-model'
+abstract: >-
+  The Arlington PDF Model is a specification-derived,
+  machine-readable definition of the full PDF document
+  object model (DOM) as defined by the official PDF 2.0
+  specification ISO 32000-2:2020 and its related resolved
+  errata as well as other ISO PDF standards and commonly
+  encountered and documented extensions. It provides an
+  easy-to-process structured definition of all formally
+  defined PDF objects (dictionaries, arrays and map objects)
+  and their relationships beginning with the file trailer
+  using a simple text-based syntax and a small set of
+  declarative functions. The Arlington PDF Model is
+  applicable to both parsers (PDF readers) and unparsers
+  (PDF writers).
+keywords:
+  - PDF
+  - ISO 32000
+  - Portable Document Format
+license: Apache-2.0

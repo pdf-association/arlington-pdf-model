@@ -35,6 +35,8 @@ This is the main PoC mega-script and can:
 It relies on the [Python Sly parser](https://sly.readthedocs.io/en/latest/) and `pikepdf` [doco](https://pikepdf.readthedocs.io/) which is Python wrapper on top of [QPDF](https://github.com/qpdf/qpdf).
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
 pip3 install sly pikepdf
 qpdf --version
 # Colorized JSON output (long!)
@@ -47,6 +49,7 @@ jq '.PageObject.CropBox' json.json
 jq 'add | keys[]' json.json
 # List the keys in a specific PDF object as an array
 jq '.PageObject | keys' json.json
+deactivate
 ```
 
 A useful JQ cookbook is [here](https://github.com/stedolan/jq/wiki/Cookbook).
