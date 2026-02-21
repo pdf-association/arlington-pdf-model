@@ -1243,7 +1243,7 @@ class Arlington:
                 logging.critical("Unexpected type '%s' processing dictionary! ", o.__class__)
                 sys.exit()
 
-    def process_stream(self, dct: pikepdf.Stream, arlnames: list[str] | None, pth: str) -> None:
+    def process_stream(self, stm: pikepdf.Stream, arlnames: list[str] | None, pth: str) -> None:
         """
         Recursively process keys in a pikepdf.Stream object
         @param stm: a pikepdf.Stream object
