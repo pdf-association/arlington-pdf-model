@@ -18,20 +18,25 @@ Note that the Arlington PDF Model accurately reflects the latest agreed ISO 3200
 * TSV file names are case-sensitive.
 * TSV file extensions are always `.tsv` (lowercase) but are not present in the TSV data itself.
 * all TSV files will have matching numbers of `[`, `]` and `(`, `)`
-* for a single row in any TSV, splitting each field on ';' will either result in 1 or _N_.
-* files that represent PDF arrays match either `ArrayOf*.tsv`, `*Array.tsv` or `*ColorSpace.tsv`
-  * many are also identifiable by having a Key name of `0` (or `0*` or `*`)
+* for a single row in any TSV, splitting each field on '`;`' will either result in 1 or _N_.
 
-  ```shell
-  grep "^0" *
+* files that represent PDF arrays match either `ArrayOf*.tsv`, `*Array.tsv` or `*ColorSpace.tsv`
+  * many are also identifiable by having a Key name of `0` or `0*`
+  * note that `*` as the only row is ambiguous with maps!
+
+  ```sh
+  grep -Po "^0\*?" *
   ```
 
 * files that represent PDF 'map' objects (meaning that the dictionary key name can be anything) match `*Map.tsv`
   * note that CMaps are in `CMapStream.tsv`
-* **NOT** all files that are PDF stream objects match `*Stream.tsv`
-  * since each Arlington object is fully self-contained, many objects can be streams. The best method is to search for `DecodeParms` key instead:
+  * these files include a row with Key `*` which is a wildcard matching anything
 
-  ```shell
+* most (but **NOT ALL**!) files that represent streams match `XObject*.tsv`, `*Stream.tsv`, and `FontFile*.tsv`
+  * see [Issue #164](https://github.com/pdf-association/arlington-pdf-model/issues/164)
+  * since each Arlington object is fully self-contained, many objects can be streams. Another method is to search for `DecodeParms` or `FFilter` keys instead which are unique to streams:
+
+  ```sh
   grep "^DecodeParms" * | tsv-pretty
   ```
 
@@ -415,7 +420,7 @@ Predicate simplification is **avoided** so that wording (when read aloud) is kep
 * `_parent::_` (all lowercase) is a special Arlington grammar keyword that forms the basis of a conceptual "relative" path in the PDF DOM. There can be multiple `parent::`s.
 * `_trailer::_` (all lowercase) is a special Arlington grammar keyword that forms the basis of a conceptual "absolute" path in the PDF DOM. Arlington always starts with the trailer, so that trailer keys and values can also be used in predicates.
   * `trailer::Catalog` is a special Arlington alias for `trailer::Root`, as the **Root** key in the trailer is the reference to the Document Catalog, however normal PDF terminology refers to the "Document Catalog" and so that commonly understood term is preferred over the ambiguous word "root" (as that could ambiguously mean either the trailer as the root or the Document Catalog as the root) - and reading aloud "Catalog" sounds more natural.
-    * Either `trailer::Catalog` or `trailer::Root` can be used, but the preference is `trailer::Catalog` because it verbalises better
+    * Either `trailer::Catalog` or `trailer::Root` can be used, but the preference is `trailer::Catalog` because it verbalizes better
 * `null` (all lowercase) is the PDF **null** object (_Note: it is also valid predefined Arlington type_).
   * `null` gets used in "DefaultValue" or "PossibleValue" fields only when it is explicitly mentioned in the PDF specification.
 * `Key` means `key is present` (`Key` is case-sensitive match and may include an Arlington path)
@@ -469,7 +474,7 @@ grep --color=always -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" * | sort -u
 Any Linux command that outputs a row from an Arlington TSV data file can be piped through `tsv-pretty` to improve readability.
 
 ```bash
-# Pretty columnized output:
+# Pretty column-based output:
 tsv-pretty Catalog.tsv
 
 # Find all keys that are of "Type" 'string-byte':
