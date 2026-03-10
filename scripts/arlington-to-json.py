@@ -25,11 +25,27 @@ import yaml
 
 def ArlingtonObjectType(obj_name: str):
     # Explicitly determine object type from filename only
+
+    ## TODO: remove once https://github.com/pdf-association/arlington-pdf-model/issues/164 is resolved
+    issue164 = ['FunctionType0'
+                'FunctionType4'
+                'HalftoneType10'
+                'HalftoneType16',
+                'HalftoneType6',
+                'Metadata',
+                'PatternType1',
+                'ShadingType4',
+                'ShadingType5',
+                'ShadingType6',
+                'ShadingType7',
+                'SoundObject',
+                'Thumbnail' ]
+
     if obj_name.startswith('ArrayOf') or obj_name.endswith('Array') or obj_name.endswith('ColorSpace'):
         obj_type = 'array'
     elif obj_name.endswith('Map'):
         obj_type = 'map'
-    elif obj_name.endswith('Stream') or obj_name.startswith('XObject') or obj_name.startswith('FontFile'):
+    elif obj_name.endswith('Stream') or obj_name.startswith('XObject') or obj_name.startswith('FontFile') or obj_name in issue164:
         obj_type = 'stream'
     else:
         obj_type = 'dictionary'
@@ -42,7 +58,7 @@ def ArlingtonToCombined(dir: str, combined_file: str, as_yaml: bool):
     mega = []
     fmt = "YAML" if as_yaml else "JSON"
 
-    print(f"Combining Arlington file set from '{cli.tsvdir}' to single {fmt} file '{combined_file}'")
+    print(f"Combining Arlington file set from '{dir}' to single {fmt} file '{combined_file}'")
     
     for filepath in glob.iglob(os.path.join(dir, r"*.tsv")):
         obj_name = os.path.splitext(os.path.basename(filepath))[0]
