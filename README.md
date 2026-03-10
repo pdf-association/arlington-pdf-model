@@ -1,6 +1,8 @@
 # The Arlington PDF Model
 
-<img src="resources/ArlingtonPDFSymbol300x300.png" width="150">
+<!-- markdownlint-disable descriptive-link-text no-inline-html -->
+
+<img src="resources/ArlingtonPDFSymbol300x300.png" width="150" alt="Arlington PDF Model logo">
 
 ![GitHub](https://img.shields.io/github/license/pdf-association/arlington-pdf-model)
 &nbsp;&nbsp;&nbsp;
@@ -14,14 +16,13 @@
 
 Get your [zero-cost copy of ISO 32000-2 now](https://www.pdfa.org/announcing-no-cost-access-to-iso-32000-2-pdf-2-0/)! Includes ISO-approved errata and new PDF 2.0 crypto extensions. This is what the Arlington PDF Model is based on...
 
-
 ## TL;DR
 
 The Arlington PDF Model is all about a machine-readable model data for PDF objects, **_not_** about code, runtimes, or tooling. If you want to start somewhere, start by exploring the TSV data model files at a Linux prompt, or in a Jupyter Notebook with the JSON equivalent (see [./scripts/README.md](./scripts/README.md#arlington-to-pandaspy)).
 
 The starting assumption is that you are a software developer and already know about the PDF document object model, PDF syntax, and how PDF files generally 'work'. You also have experience in debugging valid and invalid PDFs.
 
-If you're an end user and want to try the Arlington PDF Model integrated into software, see the online [PDFix Arlington PDF Model checker](https://pdfix.io/arlington-pdf-model/); the [veraPDF Arlington Model Checker](https://arlington.verapdf.org/); or the [veraPDF Arlington DockerHub image](https://hub.docker.com/r/verapdf/arlington). 
+If you're an end user and want to try the Arlington PDF Model integrated into software, see the online [PDFix Arlington PDF Model checker](https://pdfix.io/arlington-pdf-model/); the [veraPDF Arlington Model Checker](https://arlington.verapdf.org/); or the [veraPDF Arlington DockerHub image](https://hub.docker.com/r/verapdf/arlington).
 
 ## Background
 
@@ -31,7 +32,7 @@ The Arlington definition does **not** replace the official ISO PDF specification
 
 Each object from the latest PDF 2.0 dated revision (ISO 32000-2:2020) specification is represented by a single tabbed separated values (TSV) text file. Each TSV represents a single PDF object (either a dictionary, array, stream, or map) and contains all necessary data in the form of predicates (declarative functions or assertions) to validate real-world PDF files against the formal PDF specification. Sets of TSV files are also provided for each earlier PDF version - these are "down-derived" from the "latest" TSV file set using the version-based predicates.
 
-The Arlington PDF Model predicates define various data integrity and other requirements expressed in the ISO PDF specification. All predicates start with `fn:` followed by a descriptive name. Predicates can be nested to form logical or mathematical expressions.   
+The Arlington PDF Model predicates define various data integrity and other requirements expressed in the ISO PDF specification. All predicates start with `fn:` followed by a descriptive name. Predicates can be nested to form logical or mathematical expressions.
 
 Text-based TSV files are platform independent, and easy to view/edit either in a spreadsheet application, in a text editor, in something like a [Jupyter notebook](https://jupyter.org/), or directly here in Github. They are trivial to process using simple Linux commands (`cut`, `grep`, `sed`, etc.) or with more specialized "big data" utilities such as the [EBay TSV-Utilities](https://github.com/eBay/tsv-utils) or [GNU datamash](https://www.gnu.org/software/datamash/). Scripting languages like Python also natively support TSV via:
 
@@ -65,48 +66,45 @@ The Arlington PDF Model currently does not define:
 * PDF content streams (operators and operands),
 * rules for the PDF file structure and layout including incremental updates, cross reference table data or linearization.
 
-# TSV Data Overview
+## TSV Data Overview
 
 Each row in a TSV files is the definition for a specific key in a dictionary or element in an array. All the characteristics captured in the TSV for that key/array element are defined in the PDF 2.0 specification, as corrected by PDF 2.0 errata.
 
-- All PDF names are always expressed **without** the leading FORWARD-SLASH (`/`).
-- PDF strings are required to have `'` and `'` (single quotes).
-- PDF array objects must also have `[` and `]` and, of course, do **not** use commas between array elements.
-- PDF Boolean (keywords) are always lowercase `true` and `false`.
-- Logical Boolean values related to the description of PDF objects in the Arlington PDF Data Model are always uppercase `TRUE`/`FALSE`.
-- TSV field names (a.k.a. column titles) are shown double-quoted (`"`) in documentation to hopefully avoid confusion.
-
+* All PDF names are always expressed **without** the leading FORWARD-SLASH (`/`).
+* PDF strings are required to have `'` and `'` (single quotes).
+* PDF array objects must also have `[` and `]` and, of course, do **not** use commas between array elements.
+* PDF Boolean (keywords) are always lowercase `true` and `false`.
+* Logical Boolean values related to the description of PDF objects in the Arlington PDF Data Model are always uppercase `TRUE`/`FALSE`.
+* TSV field names (a.k.a. column titles) are shown double-quoted (`"`) in documentation to hopefully avoid confusion.
 
 In the context of the Arlington PDF Model the following terminology is often used:
 
-- "complex type" - a complex type is a key or array element which is allowed to be more than a single PDF type (e.g. `array;dictionary`). This often written as `[];[];[]` since this is how the Arlington model encodes this.
-- "simple type" - a simple type is a predefined Arlington type that does not link to another Arlington TSV definition. This include `bitmask`, `boolean`, `integer`, `number`, `matrix`, etc.
-- "version-based predicates" - a lot of details in the Arlington PDF model are dependent on the PDF version. These rules are encoded using several predicates including `fn:SinceVersion(...)`, `fn:IsPDFVersion(...)`, `fn:BeforeVersion(...)`, `fn:Deprecated(...)` and `fn:Extension(...)`.  
-
+* "complex type" - a complex type is a key or array element which is allowed to be more than a single PDF type (e.g. `array;dictionary`). This often written as `[];[];[]` since this is how the Arlington model encodes this.
+* "simple type" - a simple type is a predefined Arlington type that does not link to another Arlington TSV definition. This include `bitmask`, `boolean`, `integer`, `number`, `matrix`, etc.
+* "version-based predicates" - a lot of details in the Arlington PDF model are dependent on the PDF version. These rules are encoded using several predicates including `fn:SinceVersion(...)`, `fn:IsPDFVersion(...)`, `fn:BeforeVersion(...)`, `fn:Deprecated(...)` and `fn:Extension(...)`.  
 
 TSV fields are always in the following order and TABs must exist between all fields:
 
-1. "[**Key**](#Key)" - key in dictionary, or a zero-based integer index into an array. ASTERISK (`*`) represents a wildcard and means any key/index. An integer followed by an ASTERISK (`*`) represents the requirements to have repeating sets of array elements.
-1. "[**Type**](#Type)" - one or more of the pre-defined Arlington types alphabetically sorted and separated by SEMI-COLONs `;`, possibly with version-based predicates.
-1. "[**SinceVersion**](#SinceVersion)" - version of PDF this key/array element was introduced in.
-1. "[**DeprecatedIn**](#DeprecatedIn)" - version of PDF this key/array element was deprecated in. Empty if not deprecated.
-1. "[**Required**](#Required)" - whether the key or array element is required. Might be expressed as a predicate.
+1. "[**Key**](#key)" - key in dictionary, or a zero-based integer index into an array. ASTERISK (`*`) represents a wildcard and means any key/index. An integer followed by an ASTERISK (`*`) represents the requirements to have repeating sets of array elements.
+1. "[**Type**](#type)" - one or more of the pre-defined Arlington types alphabetically sorted and separated by SEMI-COLONs `;`, possibly with version-based predicates.
+1. "[**SinceVersion**](#sinceversion)" - version of PDF this key/array element was introduced in.
+1. "[**DeprecatedIn**](#deprecatedin)" - version of PDF this key/array element was deprecated in. Empty if not deprecated.
+1. "[**Required**](#required)" - whether the key or array element is required. Might be expressed as a predicate.
 1. "**IndirectReference**" - whether the key is required to be an indirect reference (`TRUE`/`FALSE`) or if it must be a direct or indirect object (e.g. `fn:MustBeDirect(...)`).
 1. "**Inheritable**" - whether the key is inheritable (`TRUE`/`FALSE`). Might be expressed as a predicate.
 1. "**DefaultValue**" - optional default value of key/array element.
-1. "[**PossibleValues**](#PossibleValues)" - list of possible values. For dictionary `/Type` keys that must have a specific value, this will be a choice of just a single value.
-1. "[**SpecialCase**](#SpecialCase)" - predicates defining additional data integrity relationships.
-1. "[**Link**](#Link)" - name(s) of other TSV files for validating the values of this key/array element for dictionaries, arrays, streams, maps, name-trees or number-trees.
+1. "[**PossibleValues**](#possiblevalues)" - list of possible values. For dictionary `/Type` keys that must have a specific value, this will be a choice of just a single value.
+1. "[**SpecialCase**](#specialcase)" - predicates defining additional data integrity relationships.
+1. "[**Link**](#link)" - name(s) of other TSV files for validating the values of this key/array element for dictionaries, arrays, streams, maps, name-trees or number-trees.
 1. "**Notes**" - free text for arbitrary notes. Often this will be a reference to a Table or subclause in ISO 32000-2:2020.
 
 The two special objects [\_UniversalArray](tsv/latest/_UniversalArray.tsv) and [\_UniversalDictionary](tsv/latest/_UniversalDictionary.tsv) are not formally defined in the PDF 2.0 specification and represent generic an arbitrarily-sized PDF array and PDF dictionary respectively. They are used to resolve "Links" to generic objects for a few PDF objects.
 
-## TSV Field Summary
+### TSV Field Summary
 
 A very precise definition of all syntax rules for the Arlington PDF model as well as Python equivalent data structure descriptions and useful Linux commands is in [INTERNAL_GRAMMAR.md](INTERNAL_GRAMMAR.md). Only a _simplified summary_ is provided below to get started. Note that not all TSV fields are shown in the examples below. And normally "Links" are not conveniently hyperlinked to actual TSV files either!
 
-
-### Key
+#### Key
 
 Field 1 is "Key" and represents a single key in a dictionary, an index into an array, multiple wildcard entries (`*`), or an array with required sets of entries (DIGIT+`*`). Dictionary keys are obviously case-sensitive and array indices are always integers. To locate a key easily using Linux begin a regex with the start-of-line (`^`). For a precise match end the regex with a TAB (`\t`). Conveniently, ISO 32000 only uses ASCII characters for 1st class key names so there are no #-escapes used in Arlington. ISO 32000 also does not define any dictionary keys that are purely just an integer - Arlington leverages this fact so that array "keys" are always 0-based integers. Note that ISO 32000 does define some keys that start with integers (e.g. `/3DD`) but these are clearly distinguishable from array indices.  
 
@@ -136,7 +134,7 @@ Example of an array with unlimited number of elements of the same type [ArrayOfT
 
 <div style="font-family: monospace">
 
-Key | Type | ... |Link
+Key | Type | ... | Link
 --- | --- | --- | ---
 \* | dictionary | ... | \[[Thread](tsv/latest/Thread.tsv)]
 
@@ -146,34 +144,34 @@ Dictionaries or arrays can also serve as maps, where an arbitrary name is associ
 
 <div style="font-family: monospace">
 
-Key |  Type | ... | Link
+Key | Type | ... | Link
 --- | --- | --- | ---
 \* | dictionary;stream | ... | \[[ShadingType1](tsv/latest/ShadingType1.tsv),[ShadingType2](tsv/latest/ShadingType2.tsv),[ShadingType3](tsv/latest/ShadingType3.tsv)];\[[ShadingType4](tsv/latest/ShadingType4.tsv),[ShadingType5](tsv/latest/ShadingType5.tsv),[ShadingType6](tsv/latest/ShadingType6.tsv),[ShadingType7](tsv/latest/ShadingType7.tsv)]
 
 </div>
 
-### Type
+#### Type
 
 PDF 2.0 formally defines 9 basic types of object, but within the specification other types are commonly referred to. Therefore the Arlington PDF Model uses the following extended set of pre-defined types (case-sensitive, alphabetically sorted, SEMI-COLON (`;`) separated):
 
-- `array`
-- `bitmask`
-- `boolean`
-- `date`
-- `dictionary`
-- `integer`
-- `matrix`
-- `name`
-- `name-tree`
-- `null`
-- `number`
-- `number-tree`
-- `rectangle`
-- `stream`
-- `string`
-- `string-ascii`
-- `string-byte`
-- `string-text`
+* `array`
+* `bitmask`
+* `boolean`
+* `date`
+* `dictionary`
+* `integer`
+* `matrix`
+* `name`
+* `name-tree`
+* `null`
+* `number`
+* `number-tree`
+* `rectangle`
+* `stream`
+* `string`
+* `string-ascii`
+* `string-byte`
+* `string-text`
 
 A single key in a dictionary can often be of different types. A common example is when a key is either a dictionary or an array of dictionaries. In this case "**Type**" would be defined as `array;dictionary`. Types are always stored in alphabetical order in the 2nd field using SEMI-COLON (`;`) separators. In addition, version-based predicates can occur indicating when new data types were added or removed.
 
@@ -200,12 +198,11 @@ Field 4 defines the PDF version when the relevant key or array element was depre
 
 Field 5 is effectively a Boolean field (`TRUE`/`FALSE`) but may also contain a `fn:IsRequired(...)` predicate. Examples include:
 
-- when a key changes from optional to required in a particular PDF version then the expression `fn:IsRequired(fn:SinceVersion(x.y))` is used.
+* when a key changes from optional to required in a particular PDF version then the expression `fn:IsRequired(fn:SinceVersion(x.y))` is used.
 
-- if a key/array entry is conditional based on the value of another key then an expression such as `fn:IsRequired(@Filter!=JPXDecode)` can be used. The `@` syntax means "value of a key/array index".
+* if a key/array entry is conditional based on the value of another key then an expression such as `fn:IsRequired(@Filter!=JPXDecode)` can be used. The `@` syntax means "value of a key/array index".
 
-- if a key/array entry is conditional based on the presence or absence of another key then the nested expressions `fn:IsRequired(fn:IsPresent(OtherKeyName))` or `fn:IsRequired(fn:NotPresent(OtherKeyName))` can be used.
-
+* if a key/array entry is conditional based on the presence or absence of another key then the nested expressions `fn:IsRequired(fn:IsPresent(OtherKeyName))` or `fn:IsRequired(fn:NotPresent(OtherKeyName))` can be used.
 
 ### PossibleValues
 
@@ -221,12 +218,11 @@ integer;string | ... | \[1,3,99];\[(Hello),(World)] | ...
 
 Often times it is necessary to use a predicate (`fn:Xxxx`) for situations when values are valid.
 
-
 ### SpecialCase
 
 A set of predicates is used to define more advanced kinds of relationships. Every predicate is always prefixed with `fn:`. Current predicates include:
 
-```
+```text
 fn:ArrayLength
 fn:BeforeVersion
 fn:BitSet
@@ -263,7 +259,7 @@ Example in [PageObject](tsv/latest/PageObject.tsv):
 
 Key | Type | ... | Link
 --- | --- | --- | ---
-Resources  | dictionary | ... | \[[Resource](tsv/latest/Resource.tsv)]
+Resources | dictionary | ... | \[[Resource](tsv/latest/Resource.tsv)]
 
 </div>
 
@@ -291,19 +287,19 @@ Links may also be wrapped in the `fn:Deprecated` or `fn:SinceVersion` predicates
 
 ---
 
-# Proof of Concept Implementations
+## Proof of Concept Implementations
 
 All PoCs are command line based with built-in help if no command line arguments are provided. Command line options for all Python scripts and TestGrammar C++ PoC are aligned to keep things simple.
 
-## Python scripts
+### Python scripts
 
 The scripts folder contains several Python3 scripts and an example Jupyter Notebook which are all cross-platform (tested on both Windows and Linux). See [scripts/README.md](scripts/README.md).
 
-## TestGrammar (C++17)
+### TestGrammar (C++17)
 
 A CLI utility that can validate an Arlington grammar (set of TSV files), compare the Arlington PDF Model to the Adobe DVA definition, or perform a detailed validation check of PDF files against the Arlington PDF Model. All documentation is now located in [TestGrammar/README.md](TestGrammar/README.md).
 
-## GCXML (Java)
+### GCXML (Java)
 
 A CLI Java-based proof of concept application that can convert the main Arlington TSV file set (in `./tsv/latest`) into PDF version specific file sets in both TSV and XML formats. The XML format is defined by [this schema](xml/schema/arlington-pdf.xsd). In addition, some research oriented queries can be performed using the XML as input. Detailed documentation is now located in [gcxml/README.md](gcxml/README.md).
 
@@ -315,7 +311,7 @@ java -jar ./gcxml/dist/gcxml.jar -xml
 
 NOTE: some functionality of `gcxml` may no longer work as the TSV model has been improved. It is currently only used to convert the TSV data to XML, but the XML processing may be rotted.
 
-## 3D and VR visualizations
+### 3D and VR visualizations
 
 The latest Arlington PDF Models for each PDF version can be visualized in 3D or using VR goggles at [https://safedocs.pdfa.org](https://safedocs.pdfa.org).
 
@@ -323,7 +319,7 @@ The latest Arlington PDF Models for each PDF version can be visualized in 3D or 
 
 When `--no-color` is **not** specified, the output files from the TestGrammar proof-of-concept application will use a file extension of `.ansi`. When `--no-color` **is** specified, the output files from TestGrammar have a normal `.txt` extension. Associating `.ansi` files with Atom then provides a good experience. Linux, Mac and Windows CLI prompts all support colorized output.
 
-Microsoft's free [Visual Studio Code](https://code.visualstudio.com/) has several extensions which support ANSI color codes such as [ANSI Colors](https://marketplace.visualstudio.com/items?itemName=iliazeus.vscode-ansi), as well as extensions to support automatic column widths in TSV ([VSCode TSV](https://marketplace.visualstudio.com/items?itemName=ctenbrinke.vscode-tsv)) and colorized columns in TSV files ([Rainbow CSV](https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv)). 
+Microsoft's free [Visual Studio Code](https://code.visualstudio.com/) has several extensions which support ANSI color codes such as [ANSI Colors](https://marketplace.visualstudio.com/items?itemName=iliazeus.vscode-ansi), as well as extensions to support automatic column widths in TSV ([VSCode TSV](https://marketplace.visualstudio.com/items?itemName=ctenbrinke.vscode-tsv)) and colorized columns in TSV files ([Rainbow CSV](https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv)).
 
 ## Linux CLI commands
 
@@ -459,7 +455,7 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * PDFix [Desktop Lite](https://pdfix.net/products/pdfix-desktop-lite/) (free) and [Desktop Pro](https://pdfix.net/products/pdfix-desktop-pro/)
 
-* PDFix [Arlington PDF Model Checker Docker image](https://hub.docker.com/r/pdfix/arlington-pdf-model) 
+* PDFix [Arlington PDF Model Checker Docker image](https://hub.docker.com/r/pdfix/arlington-pdf-model)
 
 * Online [veraPDF Arlington Model Checker](https://arlington.verapdf.org/)
 
@@ -469,9 +465,8 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * Online [OctoPDF](https://octopdf.com/)
 
-
 ---
 
-Copyright 2021-22 PDF Association, Inc. https://www.pdfa.org
+Copyright 2021-22 PDF Association, Inc. <https://www.pdfa.org>
 
 This material is based upon work supported by the Defense Advanced Research Projects Agency (DARPA) under Contract No. HR001119C0079. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the Defense Advanced Research Projects Agency (DARPA). Approved for public release.

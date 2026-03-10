@@ -1,6 +1,6 @@
 # Extending and customizing the Arlington PDF Model
 
-As the Arlington PDF model is defined using simple text-based TSV files, it is very easy to extend or caustomize the data model to match a specific implementation or additional sets of requirements by patching an Arlington TSV model set of files.
+As the Arlington PDF model is defined using simple text-based TSV files, it is very easy to extend or customize the data model to match a specific implementation or additional sets of requirements by patching an Arlington TSV model set of files.
 
 For example, extensions can suppress messages regarding specific malformations or proprietary extensions by simply adding definitions to the appropriate TSV file. Because these are not part of the official ISO PDF specification, these are referred to generically as "_extensions_" and the "SinceVersion" field (column 3) which normally contains a PDF version is replaced by a predicate: `fn:Extension(name,x.y)` or `fn:Extension(name)` depending on whether the extension is version-based or not.
 
@@ -8,7 +8,7 @@ Each implementation that uses the Arlington PDF data model must decide which, if
 
 ## Extensions
 
-The names of extensions are somewhat arbitrary but must following the conventions used in Arlington for keys: alphanumerics with UNDERSCORE. No SPACES, COMMAs or MINUS (dash). This file documents those extensions which have been implemented. A simple `grep` for the extension name will find all occurences.
+The names of extensions are somewhat arbitrary but must following the conventions used in Arlington for keys: alphanumerics with UNDERSCORE. No SPACES, COMMAs or MINUS (dash). This file documents those extensions which have been implemented. A simple `grep` for the extension name will find all occurrences.
 
 ### Adobe Extensions to ISO 32000-1:2008 ("ADBE_Extn3" and "ADBE_Extn5")
 
@@ -18,9 +18,9 @@ Extends Arlington to include both the [Adobe Extension Levels 3 and 5](https://w
 
 Additional entries commonly seen from Apple software:
 
-- Adds `AAPL:Keywords` to [`DocInfo.tsv`](./tsv/latest/DocInfo.tsv) ([see doco](https://developer.apple.com/documentation/coregraphics/kcgpdfcontextkeywords))
-- Adds `AAPL:AA` boolean to [`GraphicsStateParameter.tsv`](./tsv/latest/GraphicsStateParameter.tsv) 
-- Adds a `AAPL:ST` Style dictionary to [`GraphicsStateParameter.tsv`](./tsv/latest/GraphicsStateParameter.tsv) for the Gausian blur drop shadow and adds a new dictionary object in [`AAPL_ST.tsv`](./tsv/latest/AAPL_ST.tsv)
+- Adds `AAPL:Keywords` to [`DocInfo.tsv`](./tsv/latest/DocInfo.tsv) ([see documentation](https://developer.apple.com/documentation/coregraphics/kcgpdfcontextkeywords))
+- Adds `AAPL:AA` boolean to [`GraphicsStateParameter.tsv`](./tsv/latest/GraphicsStateParameter.tsv)
+- Adds a `AAPL:ST` Style dictionary to [`GraphicsStateParameter.tsv`](./tsv/latest/GraphicsStateParameter.tsv) for the Gaussian blur drop shadow and adds a new dictionary object in [`AAPL_ST.tsv`](./tsv/latest/AAPL_ST.tsv)
 
 ### EA-PDF PDF/mail-1 ("EAPDF_1")
 
@@ -43,7 +43,7 @@ This proposed ISO extension to PDF 2.0 was never finalized and published, but th
 
 ### ISO TS 32001 ("ISO_TS_32001")
 
-Adds the new hash and digest algorithms for this PDF 2.0 ISO technical specification extension. 
+Adds the new hash and digest algorithms for this PDF 2.0 ISO technical specification extension.
 
 ### ISO TS 32003 ("ISO_TS_32003")
 

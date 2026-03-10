@@ -2,17 +2,17 @@
 
 All scripts require Python3 and are cross-platform (tested on both Windows and Linux). Command line options for all Python scripts and TestGrammar C++ PoC are the same to keep things simple.
 
-### [arlington-to-pandas.py](arlington-to-pandas.py)
+## [arlington-to-pandas.py](arlington-to-pandas.py)
 
 This script concatenates an entire Arlington TSV file set specified with the `-t`/`--tsvdir` command line option into a single monolithic TSV file (default file is called `pandas.tsv`), otherwise specify with `-s`/`--save` command line option. An additional first column (i.e. added to the **left** of the standard Arlington fields) represents the Arlington TSV filename (a.k.a. PDF object). This combined TSV is then suitable for processing directly in Jupyter Notebooks using [pandas](https://pandas.pydata.org/).
 
 An example Jupyter Notebook is provided at [./Jupyter/Arlington.ipynb](../Jupyter/Arlington.ipynb).
 
-###  [arlington-fn-lex.py](arlington-fn-lex.py)
+## [arlington-fn-lex.py](arlington-fn-lex.py)
 
 This script syntactically validates (i.e. tries to parse) all predicates in the Arlington PDF model. Output is the AST produced by the [Python Sly parser](https://sly.readthedocs.io/en/latest/). Predicate parsing errors (such as typos) will result in a Python exception and premature failure. This should be one of the first tests done when adding or changing predicates, or working out how to construct a valid predicate.
 
-```
+```sh
 Usage: arlington-fn-lex.py [- | files ]
 ```
 
@@ -23,7 +23,7 @@ echo "fn:Eval(@key,-27,1.23,'string',path::key1,((expr1==expr2) && (a!=b) || (4>
 grep --color=never -Pho "fn:[a-zA-Z0-9]+\([^\t\]\;]*\)" ../tsv/latest/*.tsv | sort | uniq | python3 arlington-fn-lex.py
 ```
 
-### [arlington.py](arlington.py)
+## [arlington.py](arlington.py)
 
 This is the main PoC mega-script and can:
 
@@ -52,10 +52,10 @@ jq '.PageObject | keys' json.json
 deactivate
 ```
 
-A useful JQ cookbook is [here](https://github.com/stedolan/jq/wiki/Cookbook).
+A useful [JQ cookbook is here](https://github.com/stedolan/jq/wiki/Cookbook).
 
 ---
 
-Copyright 2021 PDF Association, Inc. https://www.pdfa.org
+Copyright 2021 PDF Association, Inc. <https://www.pdfa.org>
 
 This material is based upon work supported by the Defense Advanced Research Projects Agency (DARPA) under Contract No. HR001119C0079. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the Defense Advanced Research Projects Agency (DARPA). Approved for public release.

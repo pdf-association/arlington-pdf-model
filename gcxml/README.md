@@ -3,7 +3,7 @@
 Java-based proof of concept CLI utility that can:
 
 1. convert an Arlington TSV file set into PDF version specific subsets (also as TSV)
-    - these new Arlington TSV file sets will be in `./tsv/X.Y` subfolders
+    - these new Arlington TSV file sets will be in `./tsv/X.Y` sub-folders
     - PDF version predicates such as `fn:SinceVersion`, `fn:Deprecated`, `fn:BeforeVersion` and `fn:IsPDFVersion` are processed for the Key and Type fields, with data structures from the future stripped out.
 
 1. convert an Arlington TSV file set into XML files based on the [Arlington XSD schema](/xml/schema/arlington-pdf.xsd).
@@ -19,12 +19,14 @@ To compile, run `ant` from this directory or use [Apache NetBeans](https://netbe
 - The [Arlington XSD schema](/xml/schema/arlington-pdf.xsd) has been updated (and renamed) as a result of predicates and a more complex Arlington internal grammar. See [INTERNAL_GRAMMAR.md](../INTERNAL_GRAMMAR.md) for details.
 
 - The following `xmllint` command can validate an Arlington XML file against [the Arlington XSD schema](/xml/schema/arlington-pdf.xsd):
-    ```bash
+
+    ```sh
     xmllint --noout --schema xml/schema/arlington-pdf.xsd xml/pdf_grammarX.Y.xml
     ```
 
 - `xmllint` can also be used directly to query the XML:
-    ```bash
+
+    ```sh
     # Return all the elements that are values for PDF /Type keys
     xmllint --xpath "/PDF/OBJECT/ENTRY[NAME='Type']/VALUES/VALUE" xml/pdf_grammarX.Y.xml
     # What objects have a Type key?
@@ -35,9 +37,9 @@ To compile, run `ant` from this directory or use [Apache NetBeans](https://netbe
 
 ## Usage
 
-To use gcxml tool run the following command from terminal/command line in the top-level folder (such that `./tsv/` and `./xml/` are sub-folders):
+To use GCXML tool run the following command from terminal/command line in the top-level folder (such that `./tsv/` and `./xml/` are sub-folders):
 
-```
+```sh
 java -jar ./gcxml/dist/gcxml.jar
 
 GENERAL:
