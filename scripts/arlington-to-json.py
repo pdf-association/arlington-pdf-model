@@ -23,13 +23,13 @@ import json
 import yaml
 
 
-def ArlingtonObjectType(obj_name: str):
+def ArlingtonObjectType(obj_name: str) -> str:
     # Explicitly determine object type from filename only
 
     ## TODO: remove once https://github.com/pdf-association/arlington-pdf-model/issues/164 is resolved
-    issue164 = ['FunctionType0'
-                'FunctionType4'
-                'HalftoneType10'
+    issue164 = ['FunctionType0',
+                'FunctionType4',
+                'HalftoneType10',
                 'HalftoneType16',
                 'HalftoneType6',
                 'Metadata',
@@ -40,15 +40,13 @@ def ArlingtonObjectType(obj_name: str):
                 'ShadingType7',
                 'SoundObject',
                 'Thumbnail' ]
-
+    obj_type = 'dictionary'
     if obj_name.startswith('ArrayOf') or obj_name.endswith('Array') or obj_name.endswith('ColorSpace'):
         obj_type = 'array'
     elif obj_name.endswith('Map'):
         obj_type = 'map'
     elif obj_name.endswith('Stream') or obj_name.startswith('XObject') or obj_name.startswith('FontFile') or obj_name in issue164:
         obj_type = 'stream'
-    else:
-        obj_type = 'dictionary'
     return obj_type
 
 
