@@ -72,7 +72,7 @@ def ArlingtonToCombined(dir: str, combined_file: str, as_yaml: bool):
             for row in tsvreader:
                 keyname = row['Key']
                 keys.append(keyname)
-                keyname = row.pop('Key', None)
+                row.pop('Key', None)
                 arl[keyname] = row
         csvfile.close()
         arl['object_keys'] = keys
@@ -112,9 +112,10 @@ def ArlingtonToFileSet(dir: str, json_folder: str, as_yaml: bool):
             for row in tsvreader:
                 keyname = row['Key']
                 keys.append(keyname)
-                keyname = row.pop('Key', None)
+                row.pop('Key', None)
                 arl[keyname] = row
         csvfile.close()
+        arl['object_keys'] = keys
         with open(os.path.join(cli.json_out, obj_name + ".json"), 'w') as f:
             if not as_yaml:
                 json.dump(arl, f, indent=2)
