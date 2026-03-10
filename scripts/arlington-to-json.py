@@ -95,6 +95,7 @@ def ArlingtonToFileSet(dir: str, json_folder: str, as_yaml: bool):
     # Output a single JSON/YAML file for each TSV file in an Arlington file set
     fcount = 0
     fmt = "YAML" if yaml else "JSON"
+    fmt_extn = ".yaml" if yaml else ".json"
 
     print(f"Mirroring Alrington TSV file set from '{cli.tsvdir}' to folder '{json_folder}' as {fmt}")
 
@@ -116,7 +117,7 @@ def ArlingtonToFileSet(dir: str, json_folder: str, as_yaml: bool):
                 arl[keyname] = row
         csvfile.close()
         arl['object_keys'] = keys
-        with open(os.path.join(cli.json_out, obj_name + ".json"), 'w') as f:
+        with open(os.path.join(cli.json_out, obj_name + fmt_extn), 'w') as f:
             if not as_yaml:
                 json.dump(arl, f, indent=2)
             else:
