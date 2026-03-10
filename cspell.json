@@ -1,0 +1,19 @@
+{
+    "version": "0.2",
+    "dictionaries": [
+        "custom-dictionary"
+    ],
+    "languageId": "*",
+    "language": "en-US",
+    "ignorePaths": [ 
+        "*.xml", "*.pdf", "*.svg", "*.py", "*.json"
+    ],    
+    "dictionaryDefinitions": [
+        {
+            "name": "custom-dictionary",
+            "path": "./.cspell/custom-dictionary.txt",
+            "description": "Words used by Arlington",
+            "addWords": true
+        }
+    ]
+}
