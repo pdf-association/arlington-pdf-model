@@ -86,7 +86,7 @@ def ArlingtonToCombined(dir: str, combined_file: str, as_yaml: bool):
         if not as_yaml:
             json.dump(mega, f, indent=2)
         else:
-            yaml.dump(mega, f)
+            yaml.dump(mega, f, default_style='"')
 
     print(f"TSV files processed: {fcount}")
 
@@ -121,7 +121,7 @@ def ArlingtonToFileSet(dir: str, json_folder: str, as_yaml: bool):
             if not as_yaml:
                 json.dump(arl, f, indent=2)
             else:
-                yaml.dump(arl, f)
+                yaml.dump(arl, f, default_style='"')
 
     if (fcount == 0):
         print(f"There were no TSV files in directory '{dir}'")
