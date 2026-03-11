@@ -66,14 +66,14 @@ def ArlingtonToCombined(dir: str, combined_file: str, as_yaml: bool):
         arl['object_name'] = str(obj_name)
         arl['object_type'] = ArlingtonObjectType(obj_name)
         arl['object_keys'] = []
+        arl['object_rows'] = []
         print(f"{obj_name} is {arl['object_type']}")
         with open(filepath, newline='') as csvfile:
             tsvreader = csv.DictReader(csvfile, delimiter='\t')
             for row in tsvreader:
                 keyname = row['Key']
                 keys.append(keyname)
-                row.pop('Key', None)
-                arl[keyname] = row
+                arl['object_rows'].append(row)
         csvfile.close()
         arl['object_keys'] = keys
         mega.append(arl)
@@ -94,10 +94,10 @@ def ArlingtonToCombined(dir: str, combined_file: str, as_yaml: bool):
 def ArlingtonToFileSet(dir: str, json_folder: str, as_yaml: bool):
     # Output a single JSON/YAML file for each TSV file in an Arlington file set
     fcount = 0
-    fmt = "YAML" if yaml else "JSON"
-    fmt_extn = ".yaml" if yaml else ".json"
+    fmt = "YAML" if as_yaml else "JSON"
+    fmt_extn = ".yaml" if as_yaml else ".json"
 
-    print(f"Mirroring Alrington TSV file set from '{cli.tsvdir}' to folder '{json_folder}' as {fmt}")
+    print(f"Mirroring Arlington TSV file set from '{cli.tsvdir}' to folder '{json_folder}' as {fmt}")
 
     for filepath in glob.iglob(os.path.join(dir, r"*.tsv")):
         obj_name = os.path.splitext(os.path.basename(filepath))[0]
@@ -107,14 +107,14 @@ def ArlingtonToFileSet(dir: str, json_folder: str, as_yaml: bool):
         arl['object_name'] = str(obj_name)
         arl['object_type'] = ArlingtonObjectType(obj_name)
         arl['object_keys'] = []
+        arl['object_rows'] = []
         print(f"{obj_name} is {arl['object_type']}")
         with open(filepath, newline='') as csvfile:
             tsvreader = csv.DictReader(csvfile, delimiter='\t')
             for row in tsvreader:
                 keyname = row['Key']
                 keys.append(keyname)
-                row.pop('Key', None)
-                arl[keyname] = row
+                arl['object_rows'].append(row)
         csvfile.close()
         arl['object_keys'] = keys
         with open(os.path.join(cli.json_out, obj_name + fmt_extn), 'w') as f:
