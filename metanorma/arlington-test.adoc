@@ -1,0 +1,177 @@
+= Arlington test
+// CSpell:disable
+// https://www.metanorma.org/author/ref/document-attributes/
+:data-uri-attachment: true
+:data-uri-image: true
+:edition: 1.0
+:xrefstyle: full
+:plantuml-image-format: svg
+:no-isobib-cache:
+:local-cache-only:
+:flush-caches: true
+:svg-conform-profile: base
+:copyright-year: 2026
+:language: en
+:mn-document-class: pdfa
+:doctype: specification
+:keywords: PDF, arlington
+:imagesdir: images
+:docidentifier: TEST
+:committee: PDF Technical Working Group
+:status: working-draft
+:mn-output-extensions: xml,presentation,rxl,html,pdf
+:block-unnumbered: sourcecode
+:fonts: D050000L;TeXGyreTermes;STIX Two Math;FreeSerif;FreeSans;Source Sans 3;Source Sans 3 SemiBold;Source Sans 3 ExtraBold;Wingdings;Satisfy
+:presentation-metadata-custom-charset-font: dingbats:"D050000L",agl:"TeXGyreTermes",math:"STIX Two Math",serif:"FreeSerif",sans:"FreeSans",sans-serif:"FreeSans"
+:presentation-metadata-pdf-debug: false
+:icons: font
+:toc: left
+:stem:
+:sectnums:
+:sectnumlevels: 6
+:toclevels: 4
+
+
+// Example custom CSS that alters ONLY the HTML appearance. Does NOT change PDF appearance!
+[.preface]
+== Metanorma-Extension
+
+=== user-css
+
+// PDFa use the terms "chapter" and "sub-section", not ISO "clause" and "subclause".
+// Need to support singular and plural terms. Take care with hypenation.
+// Should match 'docinfo-head.css'
+
+[source]
+----
+.pdfversion     { font-style: italic; font-weight: lighter; color: Blue; }
+.pdfversion::before { content: "("; }
+.pdfversion::after  { content: ")"; }
+.Note, .note    { font-size: small; background-color: LightYellow; }
+.Admonition     { font-size: small; background-color: Lavender; }
+details, summary, .example { font-size: small; background-color: PowderBlue; }
+.sourcecode     { font-size: xx-small; background-color: LightCyan; border: 2px solid Black; border-radius: 5px; }
+----
+
+== Test Section
+
+=== General
+
+Refer to https://www.metanorma.org/author/topics/automation/data_to_text/ and https://www.metanorma.org/blog/2025-04-22-data2text/. Data formats are limited to YAML or JSON.
+Design options: 
+
+. convert TSV data a SINGLE mega-JSON file (same as PANDAS.tsv but in JSON format). Conceptually this should allow for fetching data on any object but may be a performance killer...
+
+. convert each Arlington TSV to a corresponding equivalent JSON file (just a syntax change). Should be much faster to process as each JSON is far smaller.
+
+=== JSON dictionary, stream and map tests
+
+// cSpell:disable 
+[data2text,pdfobj=../json/Catalog.json]
+----
+The {{ pdfobj.object_type }} object name is **{{ pdfobj.object_name }}** which contains 
+{% case pdfobj.object_type %}
+{% when "dictionary" or "stream" %} the following {{ pdfobj.object_keys.size }} keys in alphabetical order:
+{% assign sorted_keys = pdfobj.object_keys | sort %}
+* {% for key in sorted_keys %}`{{- key -}}`, {% endfor %}
+{% when "map" %}a map.
+{% when "array" %}{% if pdfobj.object_keys.size > 1 %}{% assign maxidx = pdfobj.object_keys.size | minus: 1 %}{% decrement maxidx %}{{ pdfobj.object_keys.size }} array elements (indexed from 0 to {{ maxidx }}){% else %} 1 array element (index 0){% endif %}.
+{% endcase %}
+----
+// cSpell:enable
+
+
+// cSpell:disable 
+[data2text,pdfobj=../json/CharProcMap.json]
+----
+The {{ pdfobj.object_type }} object name is **{{ pdfobj.object_name }}** which contains 
+{% case pdfobj.object_type %}
+{% when "dictionary" or "stream" %} the following {{ pdfobj.object_keys.size }} keys in alphabetical order:
+{% assign sorted_keys = pdfobj.object_keys | sort %}
+* {% for key in sorted_keys %}`{{- key -}}`, {% endfor %}
+{% when "map" %}a map.
+{% when "array" %}{% if pdfobj.object_keys.size > 1 %}{% assign maxidx = pdfobj.object_keys.size | minus: 1 %}{% decrement maxidx %}{{ pdfobj.object_keys.size }} array elements (indexed from 0 to {{ maxidx }}){% else %} 1 array element (index 0){% endif %}.
+{% endcase %}
+----
+// cSpell:enable 
+
+
+// cSpell:disable 
+[data2text,pdfobj=../json/ICCProfileStream.json]
+----
+The {{ pdfobj.object_type }} object name is **{{ pdfobj.object_name }}** which contains 
+{% case pdfobj.object_type %}
+{% when "dictionary" or "stream" %} the following {{ pdfobj.object_keys.size }} keys in alphabetical order:
+{% assign sorted_keys = pdfobj.object_keys | sort %}
+* {% for key in sorted_keys %}`{{- key -}}`, {% endfor %}
+{% when "map" %}a map.
+{% when "array" %}{% if pdfobj.object_keys.size > 1 %}{% assign maxidx = pdfobj.object_keys.size | minus: 1 %}{% decrement maxidx %}{{ pdfobj.object_keys.size }} array elements (indexed from 0 to {{ maxidx }}){% else %} 1 array element (index 0){% endif %}.
+{% endcase %}
+----
+// cSpell:enable 
+
+
+=== YAML array tests
+
+// cSpell:disable 
+[data2text,pdfobj=../yaml/ArrayOfNavigatorLayoutNames.yaml]
+----
+The {{ pdfobj.object_type }} object name is **{{ pdfobj.object_name }}** which contains 
+{% case pdfobj.object_type %}
+{% when "dictionary" or "stream" %} the following {{ pdfobj.object_keys.size }} keys in alphabetical order:
+{% assign sorted_keys = pdfobj.object_keys | sort %}
+* {% for key in sorted_keys %}`{{- key -}}`, {% endfor %}
+{% when "map" %}a map.
+{% when "array" %}{% if pdfobj.object_keys.size > 1 %}{% assign maxidx = pdfobj.object_keys.size | minus: 1 %}{% decrement maxidx %}{{ pdfobj.object_keys.size }} array elements (indexed from 0 to {{ maxidx }}){% else %} 1 array element (index 0){% endif %}.
+{% endcase %}
+----
+// cSpell:enable 
+
+
+// cSpell:disable 
+[data2text,pdfobj=../yaml/ArrayOfQuadPoints.yaml]
+----
+The {{ pdfobj.object_type }} object name is **{{ pdfobj.object_name }}** which contains 
+{% case pdfobj.object_type %}
+{% when "dictionary" or "stream" %} the following {{ pdfobj.object_keys.size }} keys in alphabetical order:
+{% assign sorted_keys = pdfobj.object_keys | sort %}
+* {% for key in sorted_keys %}`{{- key -}}`, {% endfor %}
+{% when "map" %}a map.
+{% when "array" %}{% if pdfobj.object_keys.size > 1 %}{% assign maxidx = pdfobj.object_keys.size | minus: 1 %}{{ pdfobj.object_keys.size }} array elements (indexed from 0 to {{ maxidx }}){% else %} 1 array element (index 0){% endif %}.
+{% endcase %}
+----
+// cSpell:enable 
+
+
+=== JSON entire Arlington model tests
+
+// cSpell:disable 
+[data2text,arlington=../json/arlington.json]
+----
+==== Selected Arlington objects
+
+{% assign obj = arlington | where: "object_name", "PageObject" | first %}
+**{{ obj.object_name }}** is a {{ obj.object_type }} with {{ obj.object_rows.size }} rows.
+
+{% assign sorted_keys = obj.object_keys | sort %}
+{% for keyname in sorted_keys %}
+{% assign keydata = obj.object_rows | where: "Key", keyname | first %}
+
+// Logic below is overly simple and doesn't account for Arlington complexity (predicates, multi-type keys, arrays vs dicts, etc)!
+** `{{ keydata.Key }}`: {% assign type_list = keydata.Type | replace: ";", " or " %} {{ type_list }}. _({% if keydata.Required == "TRUE" %} Required {% elsif keydata.Required == "FALSE" %} Optional {% else %} Conditional {% endif %}; PDF {{ keydata.SinceVersion }}; {% if keydata.DeprecatedIn != "" %} deprecated in PDF {{ keydata.DeprecatedIn }};{% endif %}{% if keydata.IndirectReference == "TRUE" %} shall be an indirect reference{% endif %})_ {% if keydata.DefaultValue != "" %} Default value: {% assign dv = keydata.DefaultValue | replace: "@", "value of " %} {{ dv }}.{% endif %}
+
+*** `{{ keydata | json }}`
+
+{% endfor %}
+
+==== All Arlington objects
+
+The Arlington PDF Model contains definitions for {{ arlington.size }} different objects.
+
+{% for arlobj in arlington %}
+* **{{ arlobj.object_name }}** is a {{ arlobj.object_type }} with {{ arlobj.object_keys.size }} entries.
+{% endfor %}
+----
+// cSpell:enable
+
+
