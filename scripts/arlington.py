@@ -1091,7 +1091,7 @@ class Arlington:
         """
         print("=" + pth + f"=[ {rct[0]:.5f} {rct[1]:.5f} {rct[2]:.5f} {rct[3]:.5f} ] <as rectangle>")
 
-    def process_dict(self, dct: pikepdf.Object, arlnames: list[str] | None, pth: str) -> None:
+    def process_dict(self, dct: pikepdf.Dictionary, arlnames: list[str] | None, pth: str) -> None:
         """
         Recursively process keys in a pikepdf.Dictionary object
         @param dct: a pikepdf.Dictionary object
