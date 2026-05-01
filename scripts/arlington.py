@@ -82,7 +82,7 @@ class ArlingtonFnLexer(sly.Lexer):
     KEY_VALUE    = r'@(\*|[0-9]+|[0-9]+\*|[a-zA-Z0-9_\.\-]+)'
     # Key name is both a PDF name or a TSV filename
     # Key name of just '*' is potentially ambiguous with TIMES (multiply) operator.
-    # Key name which is numeric array index ([0-9+) and is potentially ambiguous with integers.
+    # Key name which is numeric array index ([0-9]+) and is potentially ambiguous with integers.
     # Array indices are integers, or integer followed by ASTERISK (wildcard) - need to use SPACEs to disambiguate with TIMES
     KEY_PATH     = r'(parent::)?(([a-zA-Z]|[a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[a-zA-Z])[a-zA-Z0-9_\.\-]*::)+'
     KEY_NAME     = r'([_a-zA-Z]|[_a-zA-Z][0-9]*|[0-9]*\*|[0-9]*[_a-zA-Z])[a-zA-Z0-9_:\.\-]*'
@@ -141,9 +141,7 @@ def sly_lex_Token_to_json(self) -> dict[str, str | sly.lex.Token]:
 
 
 class Arlington:
-    """
-    Wrapper class around a set of Arlington TSV PDF definition files
-    """
+    """Wrapper class around a set of Arlington TSV PDF definition files."""
 
     # All the Arlington pre-defined types (pre-sorted alphabetically)
     __known_types = frozenset(['array', 'bitmask', 'boolean', 'date', 'dictionary', 'integer',
@@ -673,7 +671,7 @@ class Arlington:
 
     def _parse_functions(self, func: str, col: str, obj: str, key: str) -> AST:
         """
-        Use Sly to parse any string with TSV names, PDF names or declaractive functions.
+        Use Sly to parse any string with TSV names, PDF names or declarative functions.
         Sly will raise exceptions if there are errors.
         @param func: string from a TSV column that contains a 'fn:' declarative function
         @param col: column name from TSV file (just for error messages)
