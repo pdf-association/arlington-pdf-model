@@ -626,9 +626,35 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::vector<std::st
     assert(obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary);
     ArlPDFObject *kids_obj   = obj->get_value(L"Kids");
     ArlPDFObject *names_obj  = obj->get_value(L"Names");
-    //ArlPDFObject *limits_obj = obj->get_value(L"Limits");
-
+    ArlPDFObject *limits_obj = obj->get_value(L"Limits");
     queue_elem fake_e(nullptr, obj, "name-tree", context);
+
+    // Validate integrity of name tree node (root vs intermediate/leaf)
+    if (root) {
+        if ((kids_obj == nullptr) && (names_obj == nullptr)) {
+            show_context(fake_e);
+            output << COLOR_ERROR << "name tree both Names and Kids were missing in root node for " << strip_leading_whitespace(context) << COLOR_RESET;
+        }
+        if ((kids_obj != nullptr) && (names_obj != nullptr)) {
+            show_context(fake_e);
+            output << COLOR_ERROR << "name tree both Names and Kids are present in root node for " << strip_leading_whitespace(context) << COLOR_RESET;
+        }
+        if (limits_obj != nullptr) {
+            // "Limits: Required for intermediate and leaf nodes; not permitted in root nodes""
+			show_context(fake_e);
+			output << COLOR_ERROR << "name tree Limits was present in root node for " << strip_leading_whitespace(context) << COLOR_RESET;
+        }
+    }
+    else {
+		if (limits_obj == nullptr) {
+			show_context(fake_e);
+			output << COLOR_ERROR << "name tree Limits was missing in non-root node for " << strip_leading_whitespace(context) << COLOR_RESET;
+		}
+        if ((names_obj != nullptr) && (kids_obj != nullptr)) {
+            show_context(fake_e);
+            output << COLOR_ERROR << "name tree both Names and Kids were present in non-root node for " << strip_leading_whitespace(context) << COLOR_RESET;
+        }
+    }
 
     if ((names_obj != nullptr) && (names_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray)) {
         ArlPDFArray *array_obj = (ArlPDFArray*)names_obj;
@@ -668,18 +694,6 @@ void CParsePDF::parse_name_tree(ArlPDFDictionary* obj, const std::vector<std::st
                 }
             }
             delete obj1;
-        }
-    }
-    else {
-        // Table 36 Names: "Root and leaf nodes only; required in leaf nodes; present in the root node
-        //                  if and only if Kids is not present"
-        if (root && (kids_obj == nullptr)) {
-            show_context(fake_e);
-            if (names_obj == nullptr)
-                output << COLOR_ERROR << "name tree Names object was missing when Kids was also missing for " << strip_leading_whitespace(context);
-            else
-                output << COLOR_ERROR << "name tree Names object was not an array when Kids was also missing for " << strip_leading_whitespace(context);
-            output << COLOR_RESET;
         }
     }
     delete names_obj;
@@ -723,9 +737,35 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::vector<std::
     assert(obj->get_object_type() == PDFObjectType::ArlPDFObjTypeDictionary);
     ArlPDFObject *kids_obj   = obj->get_value(L"Kids");
     ArlPDFObject *nums_obj   = obj->get_value(L"Nums");
-    // ArlPDFObject *limits_obj = obj->get_value(L"Limits");
-
+    ArlPDFObject *limits_obj = obj->get_value(L"Limits");
     queue_elem fake_e(nullptr, obj, "number-tree", context);
+
+	// Validate integrity of number tree node (root vs intermediate/leaf)
+    if (root) {
+        if ((kids_obj == nullptr) && (nums_obj == nullptr)) {
+            show_context(fake_e);
+            output << COLOR_ERROR << "number tree both Nums and Kids were missing in root node for " << strip_leading_whitespace(context) << COLOR_RESET;
+        }
+        if ((kids_obj != nullptr) && (nums_obj != nullptr)) {
+            show_context(fake_e);
+            output << COLOR_ERROR << "number tree both Nums and Kids are present in root node for " << strip_leading_whitespace(context) << COLOR_RESET;
+        }
+        if (limits_obj != nullptr) {
+            // "Limits: Required for intermediate and leaf nodes; not permitted in root nodes""
+            show_context(fake_e);
+            output << COLOR_ERROR << "number tree Limits was present in root node for " << strip_leading_whitespace(context) << COLOR_RESET;
+        }
+    }
+    else {
+        if (limits_obj == nullptr) {
+            show_context(fake_e);
+            output << COLOR_ERROR << "number tree Limits was missing in non-root node for " << strip_leading_whitespace(context) << COLOR_RESET;
+        }
+        if ((nums_obj != nullptr) && (kids_obj != nullptr)) {
+            show_context(fake_e);
+            output << COLOR_ERROR << "number tree both Nums and Kids were present in non-root node for " << strip_leading_whitespace(context) << COLOR_RESET;
+        }
+    }
 
     if (nums_obj != nullptr) {
         if (nums_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeArray) {
@@ -776,15 +816,6 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::vector<std::
             output << COLOR_ERROR << "number tree Nums object was not an array for " << strip_leading_whitespace(context) << COLOR_RESET;
         }
         delete nums_obj;
-    }
-    else {
-        // Table 37 Nums: "Root and leaf nodes only; shall be required in leaf nodes;
-        //                 present in the root node if and only if Kids is not present
-        if (root && (kids_obj == nullptr)) {
-            show_context(fake_e);
-            output << COLOR_ERROR << "number tree Nums object was missing when Kids was also missing for " << strip_leading_whitespace(context);
-            output << COLOR_RESET;
-        }
     }
 
     if (kids_obj != nullptr) {
