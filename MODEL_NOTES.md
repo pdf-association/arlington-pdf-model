@@ -10,6 +10,7 @@ Currently the Arlington PDF Model defines all PDF objects defined by, or mention
 
 * Arlington defines `name-tree` and `number-tree` as pre-defined types. This means that rules and predicates relating to **Kids**, **Names**, and **Limits** are _not_ defined by the model (e.g. validity with `null` values or empty arrays).
   * the [veraPDF Arlington repo](https://github.com/veraPDF/veraPDF-arlington-tools) also has additional useful information such as how it validates `name-tree` and `number-tree` data structures to account for issues such as [this bug report](https://github.com/pdfcpu/pdfcpu/issues/1111#issuecomment-2724308872).
+  * the TestGrammar PoC C++ app in this repo now also performs [additional name-/number-tree validation checks](https://github.com/pdf-association/arlington-pdf-model/blob/e0cc64eb82d56ec738b2d8d886677b357570509a/TestGrammar/src/ParseObjects.cpp#L632)
 
 * ISO 32000-2:2020 subclause 14.3.2 _Metadata streams_ permits the `Metadata` key to be any dictionary or stream. This is **not** explicitly modelled across every dictionary in the current Arlington PDF model. Arlington only defines a `Metadata` entry when ISO 32000-2:2020 explicitly declares it.
   * In the future, a `Metadata` entry might be added to every dictionary or stream object. Please add comments to [Issue #65](https://github.com/pdf-association/arlington-pdf-model/issues/65) if you feel strongly one way or the other.
