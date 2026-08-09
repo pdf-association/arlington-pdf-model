@@ -10,7 +10,7 @@ ID	array	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	FALSE	FALSE				[Ar
 V	boolean	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	FALSE	FALSE	false				
 EF	dictionary	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		TRUE	FALSE	FALSE				[AFFileSpecEF]	
 RF	dictionary	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	FALSE	FALSE				[FileSpecRF]	
-Desc	string	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	FALSE	FALSE					
+Desc	string-text	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	FALSE	FALSE					
 CI	dictionary	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	TRUE	FALSE				[CollectionItem]	
 Thumb	stream	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		FALSE	TRUE	FALSE				[Thumbnail]	
 AFRelationship	name	fn:Eval(fn:Extension(ISO_19005_3,1.7) || 2.0)		TRUE	FALSE	FALSE	Unspecified	[Source,Data,Alternative,Supplement,fn:SinceVersion(2.0,EncryptedPayload),fn:SinceVersion(2.0,FormData),fn:SinceVersion(2.0,Schema),Unspecified,fn:Extension(C2PA,C2PA_Manifest)]			
