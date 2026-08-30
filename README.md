@@ -9,10 +9,6 @@
 ![PDF support](https://img.shields.io/badge/PDF-2.0-blue)
 &nbsp;&nbsp;&nbsp;
 ![LinkedIn](https://img.shields.io/static/v1?style=social&label=LinkedIn&logo=linkedin&message=PDF-Association)
-&nbsp;&nbsp;&nbsp;
-![Twitter Follow](https://img.shields.io/twitter/follow/PDFAssociation?style=social)
-&nbsp;&nbsp;&nbsp;
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCJL_M0VH2lm65gvGVarUTKQ?style=social)
 
 Get your [zero-cost copy of ISO 32000-2 now](https://www.pdfa.org/announcing-no-cost-access-to-iso-32000-2-pdf-2-0/)! Includes ISO-approved errata and new PDF 2.0 crypto extensions. This is what the Arlington PDF Model is based on...
 

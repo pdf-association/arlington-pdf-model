@@ -8,9 +8,6 @@
 &nbsp;&nbsp;&nbsp;
 ![LinkedIn](https://img.shields.io/static/v1?style=social&label=LinkedIn&logo=linkedin&message=PDF-Association)
 &nbsp;&nbsp;&nbsp;
-![Twitter Follow](https://img.shields.io/twitter/follow/PDFAssociation?style=social)
-&nbsp;&nbsp;&nbsp;
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCJL_M0VH2lm65gvGVarUTKQ?style=social)
 
 # TestGrammar (C++17) proof of concept application
 
