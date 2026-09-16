@@ -21,6 +21,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <iterator>
+#include <algorithm>
+#include <string>
 
 #include "ArlingtonTSVGrammarFile.h"
 
@@ -43,6 +45,15 @@ bool CArlingtonTSVGrammarFile::load()
         ArlTSVRow                   vec;
         std::string::size_type      prev_pos = 0;
         std::string::size_type      pos = 0;
+
+		// Ensure that there are 11 TABs in each line (12 columns) - if not, TSV is malformed
+        // No nice error message - just outright failure!
+        // See https://github.com/pdf-association/arlington-pdf-model/pull/177
+        auto count = std::count(line.begin(), line.end(), '\t');
+		if (count != 11) {
+			file.close();
+			return false;
+		}
 
         while ((pos = line.find('\t', pos)) != std::string::npos) {
             std::string substring(line.substr(prev_pos, pos - prev_pos));

@@ -723,6 +723,7 @@ class Arlington:
                 self.__filecount += 1
                 logging.debug("Reading '%s'", obj_name)
                 with open(filepath, newline='') as csvfile:
+                    # CSV won't detect missing trailing TABs! See https://github.com/pdf-association/arlington-pdf-model/pull/177
                     tsvreader = csv.DictReader(csvfile, delimiter='\t')
                     tsvobj = {}
                     row: Any

@@ -7,6 +7,7 @@ Note that the Arlington PDF Model accurately reflects the latest agreed ISO 3200
 ## TSV file rules
 
 * They are TSV, not CSV. Use tabs (`\t`).
+  * Be careful of text editors that either substitute TABs for multiple SPACES or that strip off whitespace at the end of lines
 * No double quotes are used.
 * Every TSV file needs to have the same identical header row as first line in file
 * EOL rules for TSV are now set by `.gitattributes` to be LF -
@@ -26,6 +27,9 @@ Note that the Arlington PDF Model accurately reflects the latest agreed ISO 3200
 
   ```sh
   grep -Po "^0\*?" *
+
+  # Check that every line of every TSV file has exactly 11 TABs
+  awk '{n=gsub(/\t/,"\t"); print FILENAME":"FNR": "n}' *.tsv | awk '$NF != 11'
   ```
 
 * files that represent PDF 'map' objects (meaning that the dictionary key name can be anything) match `*Map.tsv`
