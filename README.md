@@ -10,15 +10,32 @@
 &nbsp;&nbsp;&nbsp;
 ![LinkedIn](https://img.shields.io/static/v1?style=social&label=LinkedIn&logo=linkedin&message=PDF-Association)
 
-Get your [zero-cost copy of ISO 32000-2 now](https://www.pdfa.org/announcing-no-cost-access-to-iso-32000-2-pdf-2-0/)! Includes ISO-approved errata and new PDF 2.0 crypto extensions. This is what the Arlington PDF Model is based on...
+Get your [no-cost copy of ISO 32000-2 now](https://www.pdfa.org/announcing-no-cost-access-to-iso-32000-2-pdf-2-0/)! Includes ISO-approved errata and new PDF 2.0 extensions (defined by ISO Technical Specifications). This is what the Arlington PDF Model is based on...
 
 ## TL;DR
+
+<table style="border: none; border-collapse: collapse;">
+<tr>
+<td style="border: none;">
+<blockquote  cite="https://trevorowens.org/writings/theory-and-craft-of-digital-preservation/">
+<p>"<i>Formats are specifications. They are not essential truths about files. You can think of formats as something akin to what a priest reads from the text in a ceremony and the files are like all the various ways that people live their beliefs in their everyday life once they leave a place of worship. …</i></p>
+
+<p><i>Many files are authentically invalid, and their invalidity is something that may itself be significant. All conversations about formats need to start from the understanding that they conventions for how files are supposed be structured, not essential truths about how files are structured.</i>"</p>
+
+<p style="text-align: right;">Trevor Owens, "<a href="https://trevorowens.org/writings/theory-and-craft-of-digital-preservation/"><i>The Theory and Craft of Digital Preservation</i></a>", 2018</p>
+</blockquote>
+</td>
+<td>
+<img src="resources/TrevorOwensCover.png" alt="Book cover of The Theory and Craft of Digital Preservation">
+</td>
+</tr>
+</table>
 
 The Arlington PDF Model is all about a machine-readable model data for PDF objects, **_not_** about code, runtimes, or tooling. If you want to start somewhere, start by exploring the TSV data model files at a Linux prompt, or in a Jupyter Notebook with the JSON equivalent (see [./scripts/README.md](./scripts/README.md#arlington-to-pandaspy)).
 
 The starting assumption is that you are a software developer and already know about the PDF document object model, PDF syntax, and how PDF files generally 'work'. You also have experience in debugging valid and invalid PDFs.
 
-If you're an end user and want to try the Arlington PDF Model integrated into software, see the online [PDFix Arlington PDF Model checker](https://pdfix.io/arlington-pdf-model/); the [veraPDF Arlington Model Checker](https://arlington.verapdf.org/); or the [veraPDF Arlington DockerHub image](https://hub.docker.com/r/verapdf/arlington).
+If you're an end user and want to try the Arlington PDF Model integrated into software, see the online [PDFix Arlington PDF Model checker](https://pdfix.io/arlington-pdf-model/); the [veraPDF Arlington Model Checker](https://arlington.verapdf.org/); the [veraPDF Arlington DockerHub image](https://hub.docker.com/r/verapdf/arlington); or BFO's [online OctoPDF](https://octopdf.com/).
 
 ## Background
 
@@ -56,11 +73,13 @@ The latest release of Arlington includes:
 
 ### Limitations
 
-The Arlington PDF Model currently does not define:
+The Arlington PDF Model currently does NOT define:
 
-* PDF lexical rules and dialects (such as might be expressed with [EBNF](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form)),
+* PDF lexical rules and dialects (such as might be expressed with [EBNF](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form))
+  * This means that different implementations that use Arlington can generate different results for malformed PDF files!
 * PDF content streams (operators and operands),
 * rules for the PDF file structure and layout including incremental updates, cross reference table data or linearization.
+  * This means that different implementations that use Arlington can generate different results for different or malformed PDF files!
 
 ## TSV Data Overview
 
@@ -445,6 +464,8 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * "[_Development Preview: PDF file checker based on the Arlington PDF Model_](https://openpreservation.org/news/development-preview-pdf-file-checker-based-on-the-arlington-pdf-model/)", 21 June 2023, Open Preserve Foundation. See [https://software.verapdf.org/develop/arlington/](https://software.verapdf.org/develop/arlington/)
 
+* "[_All about (veraPDF) Arlington_](https://openpreservation.org/events/all-about-verapdf-arlington/?q=33918)", September 16, 2026, Boris Doubrov. Open Preserve Foundation webinar.
+
 ## Implementations
 
 * Online [Arlington PDF Model checker](https://pdfix.io/arlington-pdf-model/) by PDFix.
@@ -459,10 +480,10 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * [BFO PDF Library 2.27.2 and later](https://bfo.com/blog/articles/announce-bfopdf-2.27.2/)
 
-* Online [OctoPDF](https://octopdf.com/)
+* BFO's [online OctoPDF](https://octopdf.com/)
 
 ---
 
-Copyright 2021-22 PDF Association, Inc. <https://www.pdfa.org>
+Copyright 2021-2026 PDF Association, Inc. <https://www.pdfa.org>
 
 This material is based upon work supported by the Defense Advanced Research Projects Agency (DARPA) under Contract No. HR001119C0079. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the Defense Advanced Research Projects Agency (DARPA). Approved for public release.
