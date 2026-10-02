@@ -3,11 +3,11 @@
 First generate the JSON or YAML equivalent outputs from inside this folder. There are both file sets and single (combined) file variants:
 
 ```sh
-python3 ..\scripts\arlington-to-json.py -t ..\tsv\latest\ -s ..\json > arl-set-json.log
-python3 ..\scripts\arlington-to-json.py -t ..\tsv\latest\ -s ..\json\arlington.json -c > arl-combined-json.log
-mkdir ..\yaml
-python3 ..\scripts\arlington-to-json.py -t ..\tsv\latest\ -s ..\yaml --yaml > arl-set-yaml.log
-python3 ..\scripts\arlington-to-json.py -t ..\tsv\latest\ -s ..\yaml\arlington.yaml --yaml -c > arl-combined-yaml.log
+python3 ../scripts/arlington-to-json.py -t ../tsv/latest/ -s ../json > arl-set-json.log
+python3 ../scripts/arlington-to-json.py -t ../tsv/latest/ -s ../json/arlington.json -c > arl-combined-json.log
+mkdir ../yaml
+python3 ../scripts/arlington-to-json.py -t ../tsv/latest/ -s ../yaml --yaml > arl-set-yaml.log
+python3 ../scripts/arlington-to-json.py -t ../tsv/latest/ -s ../yaml/arlington.yaml --yaml -c > arl-combined-yaml.log
 ```
 
 Note that due to Arlington wildcards (`*`) and repeating indices (e.g. `1*`), YAML needs explicit quoting.
@@ -72,4 +72,5 @@ To compile with Metanorma:
 
 ```sh
 metanorma site generate metanorma.yml > mn.log 2>&1
+docker run --name mn-arlington --rm --volume .:/metanorma/ --workdir /metanorma metanorma/metanorma metanorma site generate metanorma.yml --agree-to-terms
 ```
