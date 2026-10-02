@@ -1,12 +1,13 @@
 # Using Arlington with Metanorma
 
-First generate the JSON or YAML equivalent outputs. There are both file sets and single (combined) file variants:
+First generate the JSON or YAML equivalent outputs from inside this folder. There are both file sets and single (combined) file variants:
 
 ```sh
-python3 .\arlington-to-json.py -t ..\tsv\latest\ -s ..\json > arl-set-json.log   
-python3 .\arlington-to-json.py -t ..\tsv\latest\ -s ..\json\arlington.json -c > arl-combined-json.log
-python3 .\arlington-to-json.py -t ..\tsv\latest\ -s ..\yaml --yaml > arl-set-yaml.log
-python3 .\arlington-to-json.py -t ..\tsv\latest\ -s ..\yaml\arlington.yaml --yaml -c > arl-combined-yaml.log
+python3 ..\scripts\arlington-to-json.py -t ..\tsv\latest\ -s ..\json > arl-set-json.log
+python3 ..\scripts\arlington-to-json.py -t ..\tsv\latest\ -s ..\json\arlington.json -c > arl-combined-json.log
+mkdir ..\yaml
+python3 ..\scripts\arlington-to-json.py -t ..\tsv\latest\ -s ..\yaml --yaml > arl-set-yaml.log
+python3 ..\scripts\arlington-to-json.py -t ..\tsv\latest\ -s ..\yaml\arlington.yaml --yaml -c > arl-combined-yaml.log
 ```
 
 Note that due to Arlington wildcards (`*`) and repeating indices (e.g. `1*`), YAML needs explicit quoting.
@@ -43,6 +44,8 @@ For efficiency in using [Liquid expressions](https://shopify.github.io/liquid/),
 
 Refer to <https://www.metanorma.org/author/topics/automation/data_to_text/> and <https://www.metanorma.org/blog/2025-04-22-data2text>/.
 
+// CSpell:disable
+
 ```asciidoc
 [data2text,pdfobj=../yaml/ArrayOfQuadPoints.yaml]
 ----
@@ -56,6 +59,8 @@ The {{ pdfobj.object_type }} object name is **{{ pdfobj.object_name }}** which c
 {% endcase %}
 ----
 ```
+
+// CSpell:enable
 
 To inspect a variable in Liquid, do the following which will render a JSON string:
 

@@ -21,37 +21,23 @@
 :status: working-draft
 :mn-output-extensions: xml,presentation,rxl,html,pdf
 :block-unnumbered: sourcecode
-:fonts: D050000L;TeXGyreTermes;STIX Two Math;FreeSerif;FreeSans;Source Sans 3;Source Sans 3 SemiBold;Source Sans 3 ExtraBold;Wingdings;Satisfy
-:presentation-metadata-custom-charset-font: dingbats:"D050000L",agl:"TeXGyreTermes",math:"STIX Two Math",serif:"FreeSerif",sans:"FreeSans",sans-serif:"FreeSans"
+:fonts: Source Sans 3 ExtraLight;Source Sans 3 Light;Source Sans 3;Source Sans 3 Medium;Source Sans 3 SemiBold;Source Sans 3 ExtraBold;Source Sans 3 Black;Source Code Pro ExtraLight;Source Code Pro Light;Source Code Pro;Source Code Pro Medium;Source Code Pro SemiBold;Source Code Pro ExtraBold;Source Code Pro Black;D050000L;TeXGyreTermes;STIX Two Math;Wingdings;Satisfy;Arial;Courier New;Times New Roman;Satisfy;Wingdings
+:presentation-metadata-custom-charset-font: dingbats:"D050000L",agl:"TeXGyreTermes",math:"STIX Two Math",serif:"FreeSerif",sans:"Source Sans 3",sans-serif:"Source Sans 3"
+:index-terms: true
+:toc-figures: true
+:toc-tables: true
+:toc-requirements: true
 :presentation-metadata-pdf-debug: false
 :icons: font
 :toc: left
-:stem:
-:sectnums:
+:stem: asciimath
+:sectanchors: true
+:sectlinks: true
+:sectnums: true
 :sectnumlevels: 6
-:toclevels: 4
-
-
-// Example custom CSS that alters ONLY the HTML appearance. Does NOT change PDF appearance!
-[.preface]
-== Metanorma-Extension
-
-=== user-css
-
-// PDFa use the terms "chapter" and "sub-section", not ISO "clause" and "subclause".
-// Need to support singular and plural terms. Take care with hypenation.
-// Should match 'docinfo-head.css'
-
-[source]
-----
-.pdfversion     { font-style: italic; font-weight: lighter; color: Blue; }
-.pdfversion::before { content: "("; }
-.pdfversion::after  { content: ")"; }
-.Note, .note    { font-size: small; background-color: LightYellow; }
-.Admonition     { font-size: small; background-color: Lavender; }
-details, summary, .example { font-size: small; background-color: PowderBlue; }
-.sourcecode     { font-size: xx-small; background-color: LightCyan; border: 2px solid Black; border-radius: 5px; }
-----
+:toclevels: 6
+:docinfo: shared
+:source-highlighter: rouge
 
 == Test Section
 
