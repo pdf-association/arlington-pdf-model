@@ -1,6 +1,6 @@
 # Using Arlington with Metanorma
 
-First generate the JSON or YAML equivalent outputs from inside this folder. There are both file sets and single (combined) file variants:
+First generate the JSON or YAML equivalent outputs from inside this folder. Install `pyyaml` first if required. There are both file sets and single (combined) file variants:
 
 ```sh
 python3 ../scripts/arlington-to-json.py -t ../tsv/latest/ -s ../json > arl-set-json.log
