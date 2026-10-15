@@ -482,6 +482,8 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * BFO's [online OctoPDF](https://octopdf.com/)
 
+* JPedal's [Arlington PDF Model Validator](https://www.idrsolutions.com/docs/jpedal/tutorials/validation/validate-pdfs-with-the-arlington-model) by IDRsolutions
+
 ---
 
 Copyright 2021-2026 PDF Association, Inc. <https://www.pdfa.org>
