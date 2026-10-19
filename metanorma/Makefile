@@ -42,6 +42,15 @@ else
     endif
 endif
 
+
+POSTMN_PY := ../../publication-info/postMN.py
+ifeq ($(wildcard $(POSTMN_PY)),)
+RUN_POSTMN = @echo "Submodule publication-info unavailable - skipping postMN.py for"
+else
+RUN_POSTMN = python3 ./$(POSTMN_PY)
+endif
+
+
 # Clean up all outputs that can be re-created. Does NOT delete Gemfile.lock!
 # Windows doesn't support wildcards for folder names.
 .PHONY: clean
@@ -68,7 +77,7 @@ update-bundle:
 .PHONY: build-bundle
 build-bundle:
 	bundle exec metanorma site generate --agree-to-terms metanorma.yml > bundle.log 2>&1
-	python3 ../../publication-info/postMN.py ./_site/documents/arlington-test.html
+	$(RUN_POSTMN) ./_site/documents/arlington-test.html
 
 
 # Build using Docker. SLOW using last stable MN.
@@ -77,5 +86,5 @@ build-bundle:
 build-docker:
 	docker pull metanorma/metanorma
 	docker run --name $(DOCKER_NAME) --rm --volume .:/metanorma/ -w /metanorma metanorma/metanorma metanorma site generate metanorma.yml --agree-to-terms > docker.log 2>&1
-	python3 ../../publication-info/postMN.py ./_site/documents/arlington-test.html
+	$(RUN_POSTMN) ./_site/documents/arlington-test.html
 
