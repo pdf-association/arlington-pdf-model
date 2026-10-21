@@ -20,3 +20,5 @@ BM	name	2.0		FALSE	FALSE	FALSE	Normal	[fn:Deprecated(1.4,Compatible),Normal,Mult
 Lang	string-text	2.0		FALSE	FALSE	FALSE					
 RichMediaContent	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		TRUE	FALSE	FALSE				[RichMediaContent]	
 RichMediaSettings	dictionary	fn:Eval(fn:Extension(ADBE_Extn3,1.7) || 2.0)		FALSE	FALSE	FALSE				[RichMediaSettings]	
+3DU	dictionary	2.0		FALSE	FALSE	FALSE				[3DUnits]	https://github.com/pdf-association/pdf-issues/issues/284
+GEO	dictionary	2.0		FALSE	FALSE	FALSE				[MeasureGEO]	https://github.com/pdf-association/pdf-issues/issues/284
