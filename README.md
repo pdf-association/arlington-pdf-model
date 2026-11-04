@@ -460,11 +460,11 @@ tsv-filter -H --regex Type:string\* --ge SinceVersion:1.5 *.tsv
 
 * "[_BFO PDF Library 2.27.2 - introducing the Arlington Model_](https://bfo.com/blog/2022/12/05/bfo_pdf_library_2_27_2_introducing_the_arlington_model/)", blog post, 5 Dec 2022Mike Bremford, BFO.
 
-* "[_DARPA SafeDocs: an approach to secure parsing and information interchange formats_](https://www.microsoft.com/en-us/research/video/research-talk-darpa-safedocs-an-approach-to-secure-parsing-and-information-interchange-formats/)", \[30 minute presentation Video] Sergey Bratus, Microsoft Research Summit 2021, 20 October 2021.
+* "[_DARPA SafeDocs: an approach to secure parsing and information interchange formats_](https://www.microsoft.com/en-us/research/video/research-talk-darpa-safedocs-an-approach-to-secure-parsing-and-information-interchange-formats/)", \[30-minute presentation Video] Sergey Bratus, Microsoft Research Summit 2021, 20 October 2021.
 
 * "[_Development Preview: PDF file checker based on the Arlington PDF Model_](https://openpreservation.org/news/development-preview-pdf-file-checker-based-on-the-arlington-pdf-model/)", 21 June 2023, Open Preserve Foundation. See [https://software.verapdf.org/develop/arlington/](https://software.verapdf.org/develop/arlington/)
 
-* "[_All about (veraPDF) Arlington_](https://openpreservation.org/events/all-about-verapdf-arlington/?q=33918)", September 16, 2026, Boris Doubrov. Open Preserve Foundation webinar.
+* "[_All about (veraPDF) Arlington_ (YouTube video, 41:26)](https://www.youtube.com/watch?v=Zk1MImGX9BQ)", September 16, 2026, Boris Doubrov. Open Preserve Foundation webinar.
 
 ## Implementations
 
