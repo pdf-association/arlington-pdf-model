@@ -38,6 +38,7 @@
 #include <math.h>
 #include <cassert>
 #include <regex>
+#include <limits>    // std::numeric_limits
 
 using namespace ArlingtonPDFShim;
 namespace fs = std::filesystem;
@@ -342,6 +343,13 @@ return key_obj;
 }
 
 
+// Pre-C++20: explicit comparison against the int32_t bounds.
+constexpr bool exceeds_int32(long long v) noexcept {
+    return v < std::numeric_limits<std::int32_t>::min()
+        || v > std::numeric_limits<std::int32_t>::max();
+}
+
+
 /// @brief Validate information of a PDF object (stream, arrray, dictionary) including:
 ///   - type
 ///   - indirect-ness
@@ -454,15 +462,16 @@ void CParsePDF::check_everything(ArlPDFObject* container, ArlPDFObject* object, 
             {
                 ArlPDFNumber* numobj = (ArlPDFNumber*)object;
                 if (numobj->is_integer_value()) {
-                    long long ivalue = numobj->get_integer_value();
+                    PDF_INT ivalue = numobj->get_integer_value();
                     str_value = std::to_wstring(ivalue);
                     if ((arl_type == "bitmask") && (ivalue > 0xFFFFFFFF)) {
                         show_context(fake_e);
                         ofs << COLOR_WARNING << "bitmask was not a 32-bit value for key " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")" << COLOR_RESET;
                     }
-                    if (((ivalue > 2147483647LL) || (ivalue < -2147483648LL)) && (pdf_version <= 17)) {
+					// This will only work for PDF SDKs that internally support 64-bit integers otherwise ivalue has already been truncated and won't trigger.
+                    if (exceeds_int32(ivalue) && (pdf_version <= 17)) {
                         show_context(fake_e);
-                        ofs << COLOR_WARNING << "integer value exceeds PDF 1.x integer range for " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")" << COLOR_RESET;
+                        ofs << COLOR_WARNING << "integer value exceeds PDF 1.x 32-bit integer range for " << tsv_data[key_idx][TSV_KEYNAME] << " (" << grammar_file << ")" << COLOR_RESET;
                     }
                 }
                 else {
@@ -779,7 +788,7 @@ void CParsePDF::parse_number_tree(ArlPDFDictionary* obj, const std::vector<std::
                         ArlPDFObject* obj2 = array_obj->get_value(i + 1);
 
                         if (obj2 != nullptr) {
-                            int val = ((ArlPDFNumber*)obj1)->get_integer_value();
+                            PDF_INT val = ((ArlPDFNumber*)obj1)->get_integer_value();
                             std::string  as = std::to_string(val);
                             std::string  best_link = recommended_link_for_object(obj2, links, as);
                             if (best_link.size() > 0)

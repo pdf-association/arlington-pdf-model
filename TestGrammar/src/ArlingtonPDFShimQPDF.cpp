@@ -335,13 +335,13 @@ bool ArlPDFNumber::is_integer_value()
 
 
 /// @brief  Returns the integer value of a PDF integer object
-/// @return The integer value bounded by compiler
-int ArlPDFNumber::get_integer_value()
+/// @return The integer value using PDF_INT type (could be more than 32 bits!)
+PDF_INT ArlPDFNumber::get_integer_value()
 {
     assert(object != nullptr);
     QPDFObjectHandle *obj = (QPDFObjectHandle *)object;
     assert(obj->isInteger());
-    int retval = obj->getIntValueAsInt();
+    PDF_INT retval = obj->getIntValueAsInt();
     return retval;
 }
 

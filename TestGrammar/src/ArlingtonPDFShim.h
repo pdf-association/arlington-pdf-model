@@ -49,6 +49,9 @@ const std::wstring UNSUPPORTED_ENCRYPTED_STRING_MARKER = L"<!unsupported encrypt
 /// any PDF SDK library should be easily integrateable without propogating changes
 /// throughout the PoC code base. Performance issues are considered irrelevant.
 namespace ArlingtonPDFShim {
+	// Can vary if want to detect beyond 32-bit values. 
+    typedef signed long long PDF_INT;
+
     /// @enum PDFObjectType 
     /// All the various types of PDF Object
     enum class PDFObjectType {
@@ -172,10 +175,10 @@ namespace ArlingtonPDFShim {
         ArlPDFNumber(ArlPDFObject* container, void* obj) : ArlPDFObject(container, obj)
             { /* constructor */ type = PDFObjectType::ArlPDFObjTypeNumber; };
 
-        bool   is_integer_value();
-        int    get_integer_value();
-        double get_value();
-        friend std::ostream& operator << (std::ostream& ofs, const ArlPDFNumber& obj) {
+        bool    is_integer_value();
+        PDF_INT get_integer_value();
+        double  get_value();
+        friend  std::ostream& operator << (std::ostream& ofs, const ArlPDFNumber& obj) {
             ofs << "number " << (ArlPDFObject&)obj;
             return ofs;
         };

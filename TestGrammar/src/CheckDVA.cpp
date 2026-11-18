@@ -744,8 +744,8 @@ void process_dva_formal_rep_tree(const fs::path &tsv_dir, std::ostream& ofs, Arl
                 if ((major != nullptr) && (minor != nullptr) &&
                     (major->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber) &&
                     (minor->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber)) {
-                    int   pdf_major = ((ArlPDFNumber*)major)->get_integer_value();
-                    int   pdf_minor = ((ArlPDFNumber*)minor)->get_integer_value();
+                    auto  pdf_major = ((ArlPDFNumber*)major)->get_integer_value();
+                    auto  pdf_minor = ((ArlPDFNumber*)minor)->get_integer_value();
                     std::string dva_ver = std::to_string(pdf_major) + "." + std::to_string(pdf_minor);
                     if (dva_ver != vec[TSV_SINCEVERSION]) {
                         ofs << "SinceVersion different for key " << vec[TSV_KEYNAME] << ": DVA (" << dva_ver << ") vs Arlington (" << vec[TSV_SINCEVERSION] << ")" << std::endl;

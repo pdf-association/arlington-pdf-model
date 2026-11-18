@@ -408,14 +408,14 @@ bool ArlPDFNumber::is_integer_value()
 
 
 /// @brief  Returns the integer value of a PDF integer object
-/// @return The integer value bounded by compiler
-int ArlPDFNumber::get_integer_value()
+/// @return The integer value using PDF_INT type (could be more than 32 bits!)
+PDF_INT ArlPDFNumber::get_integer_value()
 {
     assert(object != nullptr);
     assert(((PdsObject*)object)->GetObjectType() == kPdsNumber);
     PdsNumber* obj = (PdsNumber*)object;
     assert(obj->IsIntegerValue());
-    int retval = obj->GetIntegerValue();
+    PDF_INT retval = obj->GetIntegerValue();
     return retval;
 }
 

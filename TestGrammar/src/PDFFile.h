@@ -79,7 +79,7 @@ private:
     bool                    fully_implemented;
 
     /// @brief the value of the trailer /Size key (i.e. maximum object number + 1)
-    int                     trailer_size;
+    PDF_INT                 trailer_size;
 
     /// @brief List of names of extensions being supported. Default = empty list
     std::vector<std::string>    extensions;
@@ -144,11 +144,11 @@ private:
     ASTNode* fn_DefaultValue(const ASTNode* condition, const ASTNode* value);
     double fn_RectHeight(ArlPDFObject* container, const ASTNode* key);
     double fn_RectWidth(ArlPDFObject* container, const ASTNode* key);
-    int  fn_ArrayLength(ArlPDFObject* container, const ASTNode* key);
-    int  fn_NumberOfPages();
-    int  fn_StreamLength(ArlPDFObject* container, const ASTNode* key);
-    int  fn_StringLength(ArlPDFObject* container, const ASTNode* key);
-    int  fn_FileSize() { return filesize_bytes; }
+    PDF_INT  fn_ArrayLength(ArlPDFObject* container, const ASTNode* key);
+    PDF_INT  fn_NumberOfPages();
+    PDF_INT  fn_StreamLength(ArlPDFObject* container, const ASTNode* key);
+    PDF_INT  fn_StringLength(ArlPDFObject* container, const ASTNode* key);
+    PDF_INT  fn_FileSize() { return filesize_bytes; }
 
 public:
     /// @brief PDF version being used (always a valid version, default is "2.0"). PUBLIC
@@ -162,7 +162,7 @@ public:
     ArlPDFTrailer* get_ptr_to_trailer() { return pdfsdk.get_trailer(); };
 
     /// @returns the trailer /Size key or -1
-    int get_trailer_size() { return trailer_size; };
+    PDF_INT get_trailer_size() { return trailer_size; };
 
     /// @brief PDF version to use when processing a PDF file (always a valid version)
     std::string  check_and_get_pdf_version(std::ostream& ofs);

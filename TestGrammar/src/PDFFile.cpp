@@ -384,7 +384,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* container, ArlPDFObject* obj, 
         else if (in_ast->node == "fn:ArrayLength(") {
             // 1 argument: name of key (or an integer array index) which is an array, could be indeterminate
             assert(out_right == nullptr);
-            int len = fn_ArrayLength(container, out_left);
+            auto len = fn_ArrayLength(container, out_left);
             if (len >= 0) {
                 // Valid length
                 out->type = ASTNodeType::ASTNT_ConstInt;
@@ -778,7 +778,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* container, ArlPDFObject* obj, 
             assert(out_left != nullptr);
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstInt;
-            int len = fn_StreamLength(container, out_left);
+            auto len = fn_StreamLength(container, out_left);
             if (len >= 0) {
                 // Valid length
                 out->type = ASTNodeType::ASTNT_ConstInt;
@@ -794,7 +794,7 @@ ASTNode* CPDFFile::ProcessPredicate(ArlPDFObject* container, ArlPDFObject* obj, 
             // 1 argument: key name or integer array index of the string
             assert(out_right == nullptr);
             out->type = ASTNodeType::ASTNT_ConstInt;
-            int len = fn_StringLength(container, out_left);
+            auto len = fn_StringLength(container, out_left);
             if (len >= 0) {
                 // Valid length
                 out->type = ASTNodeType::ASTNT_ConstInt;
@@ -1217,7 +1217,7 @@ bool CPDFFile::check_key_value(ArlPDFDictionary* dict, const std::wstring& key, 
 
         case PDFObjectType::ArlPDFObjTypeNumber:
             if (((ArlPDFNumber*)val_obj)->is_integer_value()) {
-                int i = ((ArlPDFNumber*)val_obj)->get_integer_value();
+                auto i = ((ArlPDFNumber*)val_obj)->get_integer_value();
                 delete val_obj;
                 val = ToWString(std::to_string(i));
                 for (auto& v : values)
@@ -1434,9 +1434,9 @@ bool CPDFFile::fn_IsHexString(ArlPDFObject* obj) {
 /// @param[in]  key       a relative or absolute key
 /// 
 /// @returns -1 on error or the array length (>= 0)
-int CPDFFile::fn_ArrayLength(ArlPDFObject* container, const ASTNode* key) {
+PDF_INT CPDFFile::fn_ArrayLength(ArlPDFObject* container, const ASTNode* key) {
     assert(container != nullptr);
-    int retval = -1;
+    PDF_INT retval = -1;
 
     if (key != nullptr) {
         auto key_parts = split_key_path(key->node);
@@ -1544,7 +1544,7 @@ bool CPDFFile::fn_BitClear(ArlPDFObject* obj, const ASTNode* bit_node)
         if (num_obj->is_integer_value()) {
             std::bitset<32> bitmask = 0;
             bitmask.set(bit, true);
-            std::bitset<32> val = num_obj->get_integer_value();
+            std::bitset<32> val = (int)num_obj->get_integer_value();
             // std::cout << "BitClear(" << bit + 1 << ")\tVal = " << val << ", bitmask = " << bitmask << std::endl;
             return ((val & bitmask) == 0);
         }
@@ -1584,7 +1584,7 @@ bool CPDFFile::fn_BitSet(ArlPDFObject* obj, const ASTNode* bit_node)
         if (num_obj->is_integer_value()) {
             std::bitset<32> bitmask = 0;
             bitmask.set(bit, true);
-            std::bitset<32> val = num_obj->get_integer_value();
+            std::bitset<32> val = (int)num_obj->get_integer_value();
             // std::cout << "BitSet(" << bit+1 << ")\tVal = " << val << ", bitmask = " << bitmask << std::endl;
             return ((val & bitmask) == bitmask);
         }
@@ -1631,7 +1631,7 @@ bool CPDFFile::fn_BitsClear(ArlPDFObject* obj, const ASTNode* low_bit_node, cons
     if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
         ArlPDFNumber* num_obj = (ArlPDFNumber*)obj;
         if (num_obj->is_integer_value()) {
-            std::bitset<32> val = num_obj->get_integer_value();
+            std::bitset<32> val = (int)num_obj->get_integer_value();
             std::bitset<32> bitmask = 0;
             for (int bit = low_bit; bit <= high_bit; bit++)
                 bitmask.set(bit, true);
@@ -1681,7 +1681,7 @@ bool CPDFFile::fn_BitsSet(ArlPDFObject* obj, const ASTNode* low_bit_node, const 
     if (obj_type == PDFObjectType::ArlPDFObjTypeNumber) {
         ArlPDFNumber* num_obj = (ArlPDFNumber*)obj;
         if (num_obj->is_integer_value()) {
-            std::bitset<32> val = num_obj->get_integer_value();
+            std::bitset<32> val = (int)num_obj->get_integer_value();
             std::bitset<32> bitmask = 0;
             for (int bit = low_bit; bit <= high_bit; bit++)
                 bitmask.set(bit, true);
@@ -2509,7 +2509,7 @@ bool CPDFFile::fn_PageContainsStructContentItems(ArlPDFObject* obj) {
 
     if (obj->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber) {
         if (((ArlPDFNumber*)obj)->is_integer_value()) {
-            int val = ((ArlPDFNumber*)obj)->get_integer_value();
+            PDF_INT val = ((ArlPDFNumber*)obj)->get_integer_value();
             if (val >= 0) {
                 /// @todo - check if integer value in trailer::DocCat::StructTreeRoot::ParentTree number tree
                 fully_implemented = false;
@@ -2791,7 +2791,7 @@ ASTNode* CPDFFile::fn_DefaultValue(const ASTNode* condition, const ASTNode* valu
 /// @param[in] key          key name or integer array index of a stream
 /// 
 /// @returns Length of the PDF stream object or -1 on error.
-int CPDFFile::fn_StreamLength(ArlPDFObject* container, const ASTNode* key) {
+PDF_INT CPDFFile::fn_StreamLength(ArlPDFObject* container, const ASTNode* key) {
     assert(container != nullptr);
     if (key == nullptr)
         return -1;
@@ -2806,7 +2806,7 @@ int CPDFFile::fn_StreamLength(ArlPDFObject* container, const ASTNode* key) {
         delete o;
         if ((len_obj != nullptr) && (len_obj->get_object_type() == PDFObjectType::ArlPDFObjTypeNumber)) {
             ArlPDFNumber* len_num_obj = (ArlPDFNumber*)len_obj;
-            int   retval = -1;
+            PDF_INT  retval = -1;
             if (len_num_obj->is_integer_value()) 
                 retval = len_num_obj->get_integer_value();
             else {
@@ -2836,7 +2836,7 @@ int CPDFFile::fn_StreamLength(ArlPDFObject* container, const ASTNode* key) {
 /// @param[in] key        key name or integer array index of a PDF string
 /// 
 /// @returns Length of the PDF string object or -1 if an error.
-int CPDFFile::fn_StringLength(ArlPDFObject* container, const ASTNode* key) {
+PDF_INT CPDFFile::fn_StringLength(ArlPDFObject* container, const ASTNode* key) {
     assert(container != nullptr);
     if (key == nullptr)
         return - 1;
@@ -2847,7 +2847,7 @@ int CPDFFile::fn_StringLength(ArlPDFObject* container, const ASTNode* key) {
     ArlPDFObject* o = get_object_for_path(container, key_parts);
     if ((o != nullptr) && (o->get_object_type() == PDFObjectType::ArlPDFObjTypeString)) {
         ArlPDFString* str_obj = (ArlPDFString*)o;
-        int len = (int)str_obj->get_value().size();
+        auto len = str_obj->get_value().size();
         delete o;
         return len;
     }
@@ -3081,7 +3081,7 @@ ASTNode* CPDFFile::fn_Deprecated(const ASTNode* dep_ver, const ASTNode* thing) {
 
 /// @brief Returns the number of pages in the PDF file or -1 on error
 /// @returns Number of pages in the PDF file or -1 on error
-int CPDFFile::fn_NumberOfPages() {
+PDF_INT CPDFFile::fn_NumberOfPages() {
     return pdfsdk.get_pdf_page_count();
 }
 
