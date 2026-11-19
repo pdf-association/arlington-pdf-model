@@ -92,12 +92,15 @@ void CFX_PrivateData::ClearAll()
 }
 void FX_atonum(FX_BSTR strc, FX_BOOL& bInteger, void* pData)
 {
+    /* Code below has been modified to handle large integer overflow detection */
     if (FXSYS_memchr(strc.GetPtr(), '.', strc.GetLength()) == NULL) {
         bInteger = TRUE;
-        int cc = 0, integer = 0;
+        int cc = 0;
+        long long integer = 0;
         FX_LPCSTR str = strc.GetCStr();
         int len = strc.GetLength();
         FX_BOOL bNegative = FALSE;
+		FX_BOOL bOverflow = FALSE;
         if (str[0] == '+') {
             cc++;
         } else if (str[0] == '-') {
@@ -110,6 +113,7 @@ void FX_atonum(FX_BSTR strc, FX_BOOL& bInteger, void* pData)
             }
             integer = integer * 10 + str[cc] - '0';
             if (integer < 0) {
+                bOverflow = TRUE;
                 break;
             }
             cc ++;
@@ -117,7 +121,11 @@ void FX_atonum(FX_BSTR strc, FX_BOOL& bInteger, void* pData)
         if (bNegative) {
             integer = -integer;
         }
-        *(int*)pData = integer;
+        int i = (int)integer;
+        if ((integer != i) || bOverflow){
+			fprintf(stderr, "\033[31;103m OVERFLOW: large integer value \"%s\" is out of range for 32-bit integer type!\033[0m\n", strc.GetCStr());
+		}
+        *(int*)pData = i;
     } else {
         bInteger = FALSE;
         *(FX_FLOAT*)pData = FX_atof(strc);
