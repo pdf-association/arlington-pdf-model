@@ -1,6 +1,6 @@
 Key	Type	SinceVersion	DeprecatedIn	Required	IndirectReference	Inheritable	DefaultValue	PossibleValues	SpecialCase	Link	Note
 Type	name	1.2	2.0	FALSE	FALSE	FALSE		[Sound]			Table 5 and Table 305
-R	number	1.2	2.0	TRUE	FALSE	FALSE		[fn:Eval(@R>0)]			sampling per second
+R	number	1.2	2.0	fn:IsRequired(fn:Not(fn:IsPresent(F)))	FALSE	FALSE		[fn:Eval(@R>0)]			sampling per second
 C	integer	1.2	2.0	FALSE	FALSE	FALSE	1	[fn:Eval(@C>0)]			number of sound channels
 B	integer	1.2	2.0	FALSE	FALSE	FALSE	8	[fn:Eval(@B>0)]			bits per sample value per channel
 E	name	1.2	2.0	FALSE	FALSE	FALSE	Raw	[Raw,Signed,muLaw,ALaw]			
