@@ -13,7 +13,7 @@ Width	name;number	1.4		FALSE	FALSE	FALSE	[Auto];[]		[fn:Eval((@O==Layout) || ((@
 Height	name;number	1.4		FALSE	FALSE	FALSE	[Auto];[]		[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 379
 BlockAlign	name	1.4		FALSE	FALSE	TRUE	Before	[Before,Middle,After,Justify]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 379
 InlineAlign	name	1.4		FALSE	FALSE	TRUE	Start	[Start,Center,End]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 379
-BaselineShift	number	1.4		FALSE	FALSE	TRUE	0		[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 380
+BaselineShift	number	1.4		FALSE	FALSE	FALSE	0		[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 380
 LineHeight	name;number	1.4		FALSE	FALSE	TRUE	[Normal];[]	[Normal,Auto];[]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 380
 TextDecorationType	name	1.4		FALSE	FALSE	TRUE	None	[None,Underline,Overline,LineThrough]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 380
 ListNumbering	name	1.4		FALSE	FALSE	TRUE	None	[None,Disc,Circle,Square,Ordered,Decimal,UpperRoman,LowerRoman,UpperAlpha,LowerAlpha]	[fn:Eval((@O==List) || ((@O!=Layout) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 382

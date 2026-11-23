@@ -22,7 +22,7 @@ BlockAlign	name	1.4		FALSE	FALSE	TRUE	Before	[Before,Middle,After,Justify]	[fn:E
 InlineAlign	name	1.4		FALSE	FALSE	TRUE	Start	[Start,Center,End]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 379
 TBorderStyle	array;name	1.5		FALSE	FALSE	TRUE	[];[None]	[];[None,Hidden,Dotted,Dashed,Solid,Double,Groove,Ridge,Inset,Outset]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]	[ArrayOf_4BorderStyleNames];[]	Table 379
 TPadding	array;integer	1.5		FALSE	FALSE	TRUE	[];[0]		[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]	[ArrayOf_4Integers];[]	Table 379
-BaselineShift	number	1.4		FALSE	FALSE	TRUE	0		[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 380
+BaselineShift	number	1.4		FALSE	FALSE	FALSE	0		[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 380
 LineHeight	name;number	1.4		FALSE	FALSE	TRUE	[Normal];[]	[Normal,Auto];[]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))];[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 380
 TextPosition	name	2.0		FALSE	FALSE	TRUE	Normal	[Sup,Sub,Normal]	[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]		Table 380
 TextDecorationColor	array	1.5		FALSE	FALSE	TRUE			[fn:Eval((@O==Layout) || ((@O!=List) && (@O!=Table) && (@O!=PrintField) && (@O!=Table)))]	[ArrayOf_3RGBNumbers]	Table 380
